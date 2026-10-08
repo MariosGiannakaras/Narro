@@ -2,13 +2,13 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 1/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 2/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
 | VE-001 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-002 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-003 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-003 | REVIEWED (30 time-local video-to-code claims) | B15/B26/B49/B50/B63–B65 + P3-M6/M7 native gates; exact source motion NOT accepted |
 | VE-004 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-005 | REVIEWED (24 video-to-code claims) | B61–B65 + prior B IDs; current code checked; native/source parity NOT RUN |
 | VE-006 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -59,6 +59,44 @@
 
 **VE-005 completion gate for code audit:** every original chronological source segment including tutorial cuts and outro has an explicit direct component/function/intentional-scope/evidence-limit route above. It does **not** certify source current-version visual pixel match, repeated Ctrl/keyboard edge behavior, Windows native motion, release EXE or CI. Raw video not replayed; previously fully inspected source Pass-3 record consumed. Independent user physical/Codex session remains authoritative for all native FAIL/OPEN.
 
+## VE-003 — Blitz Mode — REVIEWED 2026-10-08
+
+**Source:** full 03:15.651 MP4 original Pass-3 Queue1 source reviewed earlier with 60fps motion, dense hover/success samples; this pass uses canonical source notes rather than replaying unneeded raw media. **Compared code head:** `324986cb8f0aac532afdfce419a93e5f588fabbf`. Original tutorial chronology may predate v2.6.69 Help/current screenshots; per claim explicit source-version/interaction limits apply.
+
+| Video time | Source transient/action | Current Narro source+validated-scope comparison | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:30 | Four-lane Board; Today 0/5 Done/3h15 EST from 2h+30m+45m | ListBoard LANES/aggregateRemainingEstSeconds and Today progress; This Week B44 | PRESENT_CODE_ONLY / GAP_B44 |
+| 00:30.08–00:30.30 | Board window shrink+translation into Panel ~0.22s, no full fade | Main→Focus bounded native morph PR243/CI1009; current physical source comparison still open | IMPLEMENTED_CODE / PHYSICAL_PARITY_OPEN_P3_M6_01 |
+| 00:30.30–00:42 | Initial PAUSED transient before countdown runs | Focus Home/entry one-shot paused projection, timer model; exact first start-frame source relation unproven | PRESENT_CODE_ONLY / TRANSIENT_LIMIT |
+| 00:30–00:42 | Panel Today header/list selector/EST/progress/live card+queue | FocusPanel header/summary/live task/queue; selector plain native instead of badge menu | GAP_B15 / PRESENT_OTHER_CODE |
+| 00:30–00:42 | Bottom Focus mode and Done for the day controls in older tutorial | FocusPanel offers top compact button/Home, no identical bottom pair; current SS-C19 shows top compact controls | HISTORICAL_VERSION_PRECEDENCE_LIMIT |
+| 00:42.7–00:43.23 | Ordinary queue hover circle/rocket/subtasks/Notes/overflow | FocusTaskRow FocusPanel action rail, scoped CI1046 queue action pass | PRESENT_CODE_ONLY / PHYSICAL_SCOPE_ONLY |
+| 00:42.7–00:43.23 | Focus reorder Call with Sarah below Analyze within ~one 60fps frame | FocusPanel beginFocusTaskPointerDrag and reorderListBoardTask; not same as animated Board drag | PRESENT_FUNCTION / EXACT_MOTION_NOT_RUN |
+| 00:48.7–00:50.58 | Focus ordinary menu Schedule Change list Duplicate red Delete | FocusTaskRow more menu order and delete callback | PRESENT_CODE_ONLY |
+| 00:48.7–00:50.58 | Old source immediate Delete+30min EST/one-count removal in one frame | FocusPanel requests TaskDeleteConfirmDialog for safe explicit confirmation; local persistence/aggregate refresh | LOCAL_DESTRUCTIVE_SAFETY_DEVIATION / OLD_VERSION_LIMIT |
+| 00:51–00:54 | Live task hover swaps title/time for compact Break Notes Pause Skip Done rail | FocusPanel keeps title/time and six always-shown text actions | GAP_B49_B50 |
+| 00:51–00:54 | Notes expands inline and pushes later queue rows, closes with bottom-right Close | FocusLiveActions TaskNotes rich inline body, but RichNoteEditor lacks source Close control | PRESENT_INLINE / GAP_B26 |
+| 00:59.9–01:02.7 | Done success settles inside live card; Focus header and queue stay | FocusCompletionSuccess absolute opaque whole Focus overlay, coordinator inerts old panel | GAP_B63 |
+| 00:59.9–01:02.7 | Success shows completed title+Well done+GIF+early copy+metrics | FocusCompletionSuccess title/Well done/metrics, no GIF or calculated early feedback | GAP_B64_B65 |
+| 00:59.9–01:02.7 | Explicit Next Task starts Analyze, not automatic; Take Break not clicked | FocusCompletionSuccess Next Task callback and no implicit next; Take a Break disabled as source-unobserved | PRESENT_CORE / BREAK_INTERACTION_LIMIT |
+| 00:59.9–01:02.7 | While success open header shows 1/5 then Next normalizes 1/4 | Source repeatable +1 denominator transient; Narro suppresses header under overlay; preserve as source artifact, not required math | SOURCE_ARTIFACT / NO_BLIND_BUGFIX |
+| 01:04.5–01:07.5 | Make Live Slogan options replaces Analyze as active without marking Done | FocusPanel onMakeLive switchTimerTask authoritative + queued prior task snapshot | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 01:19–01:33 | All Lists stacked badges/+2/named colored lists and mixed task rows | FocusPanel native All/list-text select, no anchored badge stack | GAP_B15 |
+| 01:19–01:33 | List selection and changed visible active card in staged tutorial | Focus target switch exists, but source does not prove auto-start or multi-timer | CAUSALITY_LIMIT |
+| 01:33–02:00 | Gear opens narrow scrollable Focus-side Preferences screen | FocusQuickPreferences implements modern SS-H05 Quick Preferences; old VE003 larger family is superseded by modern source | SOURCE_VERSION_RECONCILIATION / PRESENT_FOCUS_QUICK |
+| 02:00.5–02:01.1 | Home first shows PAUSED then Panel expands to Board ~0.25–0.30s | FocusPanel pauseTimerForFocusHome and coordinator handoff; PR244/CI1013 and scoped physical CI1046 accepted, canonical motion open | SCOPED_PHYSICAL_PASS / SOURCE_MOTION_OPEN |
+| 02:04.6–02:06 | Re-enter Blitz briefly PAUSED then resumes same task | FocusPanel resumed guarded lease via resumeTimerFromFocusHome; scoped CI1046 physical pass | SCOPED_PHYSICAL_PASS / SOURCE_PARITY_OPEN |
+| 02:11–02:11.30 | Bottom Focus mode causes ~0.28–0.30s Panel→Floating shrink/morph | Current top compact requestMode('timer') and 270ms native morph, but current CI1046 M7 C4 remains FAIL | HISTORICAL_TRIGGER_LIMIT / M7_C4_PHYSICAL_FAIL |
+| 02:12–02:18 | Floating Timer dragged on desktop without ghost/snap | FloatingTimerFoundation drag region + native window drag path; physical CI953 scoped drag pass | SCOPED_PHYSICAL_PASS / ALWAYSONTOP_NARRATION_LIMIT |
+| 02:24.5–02:42 | Rest title/time crossfade to icon actions ~130ms | FloatingTimerFoundation CSS heading/actions opacity 130ms, hover/focus state | PRESENT_CODE_ONLY / NATIVE_NOT_RUN |
+| 02:24.5–02:42 | Target action grows only one icon into label pill within fixed outer width | FloatingActionButton and .floating...action:is(:hover,:focus-visible) label CSS; physical CI936 partial source pass | SCOPED_SOURCE_PASS / FULL_FOCUS_PENDING |
+| 02:42.45–02:42.8 | Restore expands Floating into Panel over ~0.28–0.35s | FocusSurfaceCoordinator requestMode('panel'), motion CSS/native 270ms; CI1046 C4 FAIL | M7_C4_PHYSICAL_FAIL / SOURCE_MOTION_OPEN |
+| 02:46.5–03:00 | Success repeated four times with different GIFs and explicit Next | FocusCompletionSuccess no media, opaque overlay; completed/next API present | GAP_B63_B64 / PRESENT_NEXT |
+| 02:46.5–03:00 | Transient 2/5→2/4 etc +1 denominator repeats during success | Source old counting artifact, not product computation mandate; no Narro denominator change | SOURCE_ARTIFACT / NO_AUTOMATIC_FIX |
+| 03:00.2–03:13.6 | Last Next yields 4/4, Est0, brief skeleton then No Tasks added on this list/+ CREATE TASK | FocusPanel final empty All Clear/No Today tasks left to focus on and + ADD TASK; existing idle semantics, old copy variant | HISTORICAL_COPY_DIFFERENCE / SOURCE_CURRENT_LIMIT |
+| 03:13.6–03:15.65 | Brand/outro | Not a Narro app product surface | EXCLUDED_SCOPE |
+
+**Closure rule:** every original VE-003 timestamp window and unmeasured transition has a specific code/source-artifact/physical-gate or version-limit route. No code source changes, runtime/canonical visual acceptance, or updated native timer C4/35 PASS. Existing B63/B64/B65 cross-video success omissions remain open independently of physical CI1046 success observations. The original +1 completion denominator behavior is explicitly a source artifact and **not** a requirement to corrupt authoritative Narro task counts.
 ## Exact next review
 
-Continue VE-003 (Focus/Panel→Floating/Done/Quick Preferences) because its micro-state/motion claims are the greatest currently risky surface; then VE-001, VE-002 and all remaining VE-004 through VE-019 that are still marked pending, avoiding re-review of VE-005. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-001, VE-002 and all remaining VE-004/006–VE-019 still pending in the 19-video index; VE-003 and VE-005 are already DONE at this depth, so do not recreate their review. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
