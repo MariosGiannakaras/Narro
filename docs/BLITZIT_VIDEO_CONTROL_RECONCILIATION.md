@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 12/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 13/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -14,7 +14,7 @@
 | VE-006 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-007 | REVIEWED (21 time-local video-to-code claims) | Existing B19/B33/B40/B42/B48; new B70 post-unschedule Backlog vs original manual-lane return (older video limit) |
 | VE-008 | REVIEWED (24 time-local video-to-code claims) | Existing B19/B33/B39–B42/B45; new B71 active recurring parent incorrectly contributes to pending counts |
-| VE-009 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-009 | REVIEWED (18 time-local video-to-code claims) | Existing B19/B20/B33/B39–B41/B71; examples not committed, no new ticket |
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
 | VE-012 | REVIEWED (17 time-local video-to-code claims) | Existing B27/B28/B30; Rust avg/day/time-by-list/punctuality semantics align with documented source |
@@ -365,6 +365,32 @@ Source VE-008 full MP4 02:46.905/60fps already covered by Pass-3; video-to-code 
 | 02:38–02:46.9 | Tutorial recap/outro, no further product state | Excluded | EXCLUDED |
 
 **V12 closure:** 24 time-local claims. B19/B33/B39/B40/B41/B42/B45 pre-existing and retained, historical M4 persistence/recurrence safety preserved. **New B71**: source current-workweek arithmetic proves active recurrence parent excluded from pending counts (9−1+5=13), then detached parent counts again; `active_tasks_in_bucket` still returns parent with `recurrence_rule_id`, `LaneAccumulator.finish` counts it in `tasks.len`, resulting an extra pending entry during active recurrence. This is a code-confirmed domain/presentation projection gap; correcting must retain parent visibility in a separate Recurring group, avoid adding/removing domain identities, and reconcile Home/list totals/Focus eligibility without changing historical recurrence materialization. Source does not time-lapse next-week regeneration; VE017 stronger for parent action menu, do not infer early-version exact parent menu parity. Tests/CI/native parity/source visual checks NOT RUN.
+## VE-009 — Custom Recurring Schedules — REVIEWED 2026-10-08
+
+Canonical VE-009 entire 02:39.893/60fps source Pass-3 has been reviewed previously; this implementation reconciliation maps its chronological evidence against TaskScheduleDialog/TaskCard/ListBoard and Rust recurrence. No original raw MP4 replay.
+
+| Time | Source state/action | Narro route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:28 | PLATA board, Team meeting ordinary Today task; Schedule menu | ListBoard/TaskCard ordinary rail/schedule | PRESENT_CODE_ONLY |
+| 00:31–00:35 | September 12 today marker, selected Sunday14 in first-step calendar | TaskScheduleDialog native date input not full dual-marked calendar | GAP_B19 |
+| 00:35–00:40 | Second scheduler step + Custom nested disclosure under recurrence | TaskScheduleDialog separate Repeat section with pattern select and custom subform | GAP_B19_B33 |
+| 00:40–00:59 | Count/unit day→3 days and live every 3 days summary | customInterval/customUnit supported; no live natural-language Custom summary | PRESENT_DOMAIN_GAP_B33 |
+| 00:40–00:59 | Day/week/month/year dropdown, singular/plural grammar | customUnit supports day/week/month/year; fixed unit option labels with (s) | PRESENT_MODEL_COPY_GAP_B33 |
+| 01:11–01:30 | Week unit exposes seven Sunday→Saturday circular weekday chips | TaskScheduleDialog customUnit week shows Monday-first checkbox fieldset | GAP_B33_CONTROL_GRAMMAR |
+| 01:11–01:30 | 3 weeks Monday then 4 weeks Monday+Friday in-place summary | weekdayMask and interval support, no corresponding plain-language text | PRESENT_DOMAIN_GAP_B33 |
+| 01:31–01:54 | Month unit replaces weekdays with date vs 2nd Sunday alternatives | customMonthPattern date or selected weekdays; no ordinal nth-weekday model | GAP_B20 |
+| 01:31–01:54 | 4 months on 14th and 4 months 2nd Sunday summaries dynamically change | monthDay supported; nth-weekday missing; Custom human summary missing | GAP_B20_B33 |
+| 01:54–02:08 | Year mode suppresses repeat-on, 4 years shown with live summary | customUnit year hides month/week controls, no live summary | PRESENT_MODEL_GAP_B33 |
+| 02:08–02:13 | Demo 4 years→4 days→1 day, final committed Custom every day | Custom day interval1 available; do not treat prior examples as committed | PRESENT_MODEL_SOURCE_SCOPE |
+| 02:11–02:15 | Rapid edited Schedule/Board alternate frames around commit | No trustworthy source animation duration; code async save/refresh | SOURCE_CUT_UNMEASURABLE |
+| 02:15–02:18 | Recurring parent Team meeting in Backlog Recurring tasks group, Custom label | Rust normalize_parent_as_backlog; BoardLane flat, TaskCard label Repeats | GAP_B39_B41 |
+| 02:15–02:18 | One visible Sun child in This Week scheduled section | recurrence materialization/effective date projection; no subgroup count | PRESENT_DOMAIN_GAP_B40 |
+| 02:15–02:18 | Today 0/4→0/3; source 8 pending excluding parent | Board Today parent normalized Backlog; linked parent still included in Backlog.count | GAP_B71 |
+| 02:15–02:18 | Created recurring tasks successfully toast | ListBoard onCommitted Task recurrence created, different source copy | LOW_COPY_DIFFERENCE_EXISTING_B19 |
+| 02:18–02:27 | Parent plus child persist; future horizon not demonstrated | recurrence service creates in current window, but full future lifetime not proven by video | PRESENT_DOMAIN_SOURCE_LIMIT |
+| 02:27–02:39.89 | Outro | Non-product | EXCLUDED |
+
+**V13 closure:** 18 time-local claims. Existing B19 full two-step calendar, B20 missing nth-weekday ordinal monthly model, B33 live Custom summaries/date-specific labels, B39 recurring-parent group, B40 scheduled subsection, B41 cadence badge, and B71 parent pending-count bug cover the evidenced discrepancies; **no new B ticket**. The video demos 3-day/4-week/4-month/4-year variants, but only commits **Custom 1 day**. The Schedule/board alternation is tutorial editing, not application motion. Historic scoped recurrence engine PASS remains separate; no tests/CI/Windows/source visual acceptance performed.
 ## Exact next review
 
-Continue VE-004/006, VE-009/010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006/010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/009/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
