@@ -352,6 +352,7 @@ Visible older capture confirms:
 Top create inserts at highest priority; bottom create appends.
 
 ## 5.3 Task-card states
+- SS-H12 Board expanded Subtasks progress uses a compact circular ring, not the current horizontal Board bar (B60). Keep completed/total and row actions unchanged.
 - VE-005 Board inline task creation has upper `× CANCEL`, Title and `Est time` HH:MM-style controls, help copy `Add a new task`, gradient `Confirm` action (B52); current `InlineCreateEditor` has bottom Cancel/Add task, different labels and no helper.
 - VE-005/VE-016 demonstrate compact `HH:MM` entries for task EST and manual Taken editing, e.g. `00:30` means 30 minutes in the paused source task (B53). Narro Board's `parseMetricDuration` currently requires H:MM:SS and rejects that source grammar. Supporting both should preserve exact seconds-domain persistence, unambiguous format display and validation; do not loosen input to arbitrary strings.
 - SS-H13 Board task overflow isolates `Delete` after an actual non-focusable divider; the current shared task menu uses consecutive items with red text but no separator (B48).
@@ -701,6 +702,7 @@ Screenshot establishes:
 - Windows locale date labels.
 
 ## 10.4 Sessions
+- SS-H17 Add Session Recent Tasks rows have a right-side colored list badge; current Narro task picker uses plain list name with no list-color projection (B59). Preserve Finding30 picker overflow containment.
 - **B56 source metric conflict, not a settled formula:** current SS-C14 has `0min Time / 2 Tasks / 0 Sessions`, and historical VE-015 has `39 Tasks / 22 Sessions`. Narro's Rust `Total Tasks` is currently distinct task IDs having work sessions in range, which **cannot** yield either visible relation. The source's exact population (all list tasks, completed tasks, dated tasks, filter scope) remains unproven; reconcile before implementing or claiming metric parity. The visual fixture hardcodes 2/0 but is not runtime evidence. Preserve independent Total Time and Total Sessions contract and archived/deletion invariants.
 - VE-015 ~00:51–00:55 visually differentiates `Hide Break sessions` with a gamepad/break icon; Narro currently shows a generic circle `◉` instead (B51). Preserve current accessible pressed state and data filter; this is iconography parity, not a new filtering feature.
 - SS-C22/VE-015 provides a task session-detail modal with inline end-time editor and an Add Session control but **does not directly establish Escape/Tab/focus-return behavior**. Narro must nevertheless provide one accessible active modal owner: its current task-detail dialog does not own initial focus, Escape, Tab trap or opener restoration, unlike its Add Session dialog. Opening Add Session from detail currently leaves **both** `aria-modal=true` overlays rendered. Correct the local keyboard/modal lifecycle without inventing Blitzit source keyboard behavior; validate nested invocation and pending edit safety separately.

@@ -41,12 +41,12 @@ Authoritative evidence: `BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` (46/46) and `BLI
 | SS-H09 | M7 | SCOPED_ACCEPTANCE | compact hover pill grammar passed scoped physical/source |
 | SS-H10 | M5/M6 | B26 | inline Notes Close |
 | SS-H11 | M5 | B12 | inline subtask X/plus/placeholder |
-| SS-H12 | M5/M6/M7 | FURTHER_CONTROL_REVIEW | management actions implemented, surface-detail parity OPEN |
+| SS-H12 | M5/M6/M7 | B60 | Board uses horizontal progress where source shows circular ring; management actions implemented |
 | SS-H13 | M5 | B48 | task overflow red Delete exists but source divider immediately before it is missing |
 | SS-H14 | M5 | B10 | archived list preview |
 | SS-H15 | M5 | B11 | archived Done Info/Action table |
 | SS-H16 | M9 | HISTORICAL_SOURCE_CONFLICT | Sessions PDF older than current CSV SS-C14 |
-| SS-H17 | M9 | SCOPED_SOURCE_PASS | Add Session task picker Finding30 only |
+| SS-H17 | M9 | B59/SCOPED_SOURCE_PASS | Recent Tasks horizontal containment scoped; colored list badge absent |
 
 ## Historical screenshot context
 SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no independent current-version requirement unless corroborated by stronger current/direct/help evidence. Their seven IDs remain in the 46/46 source-inspected denominator.
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B58 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B60 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.
