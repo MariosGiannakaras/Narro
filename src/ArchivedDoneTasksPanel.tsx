@@ -234,7 +234,7 @@ export function ArchivedDoneTasksPanel({
                     <time
                       className="archived-done-row__date type-metadata"
                       dateTime={task.completedAt}
-                      title={\`Completed \${formatCompletedDate(task.completedAt)} · Time taken \${formatTimeTaken(task.timeTakenSeconds)}\`}
+                      title={`Completed ${formatCompletedDate(task.completedAt)} · Time taken ${formatTimeTaken(task.timeTakenSeconds)}`}
                     >
                       {formatArchivedAge(task.completedAt)}
                     </time>
@@ -243,7 +243,7 @@ export function ArchivedDoneTasksPanel({
                     <button
                       type="button"
                       className="archived-done-row__delete"
-                      aria-label={\`Permanent deletion of \${task.title} is not available\`}
+                      aria-label={`Permanent deletion of ${task.title} is not available`}
                       title="Permanent deletion is unavailable until the archived-task deletion policy is confirmed."
                       disabled
                       data-archived-done-delete="unavailable"

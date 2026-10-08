@@ -314,7 +314,16 @@ fn load_archived_done_tasks(
 
     let mut tasks = Vec::new();
     for row in rows {
-        let (raw_id, raw_list_id, title, completed_at, archived_at, list_title, list_color, has_note) = row?;
+        let (
+            raw_id,
+            raw_list_id,
+            title,
+            completed_at,
+            archived_at,
+            list_title,
+            list_color,
+            has_note,
+        ) = row?;
         let task_id = TaskId::parse_str(&raw_id)
             .map_err(|_| ListSettingsError::InvalidStoredTaskId(raw_id.clone()))?;
         let list_id = ListId::parse_str(&raw_list_id)
