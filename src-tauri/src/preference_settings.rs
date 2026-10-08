@@ -506,7 +506,10 @@ mod tests {
         .expect("prepare independent re-enable");
         apply_patch(&mut payload, &on);
         assert!(payload.celebration.success_sound_enabled);
-        assert_eq!(payload.celebration.success_sound.as_deref(), Some("victory-bell"));
+        assert_eq!(
+            payload.celebration.success_sound.as_deref(),
+            Some("victory-bell")
+        );
     }
 
     #[test]
