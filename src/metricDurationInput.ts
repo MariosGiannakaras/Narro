@@ -2,7 +2,7 @@ export type MetricInputKind = "estimate" | "time_taken";
 export const MAX_EDITABLE_SECONDS = 4_294_967_295n;
 
 /** Accept HH:MM (source) and H:MM:SS (existing), never infer MM:SS from two fields. */
-const DURATION_INPUT = /^(\\d+):([0-5]\\d)(?::([0-5]\\d))?$/;
+const DURATION_INPUT = /^(\d+):([0-5]\d)(?::([0-5]\d))?$/;
 
 export function parseMetricDuration(
   raw: string,
