@@ -25,7 +25,6 @@ pub struct ArchivedListTaskPreview {
     pub title: String,
 }
 
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ArchivedListSummary {
@@ -572,12 +571,7 @@ mod tests {
             T1,
         )
         .expect("create second preview task");
-        let finished = create_done_task(
-            &mut connection,
-            created.id,
-            "Already completed",
-            T1,
-        );
+        let finished = create_done_task(&mut connection, created.id, "Already completed", T1);
         drop(connection);
 
         archive(&app_dir, created.id, T2).expect("archive list");
@@ -611,11 +605,15 @@ mod tests {
         assert!(restored.archived_at.is_none());
         assert_eq!(active_lists(&connection).expect("active lists").len(), 1);
         assert_eq!(
-            get_task(&connection, first.id).expect("retained first task").id,
+            get_task(&connection, first.id)
+                .expect("retained first task")
+                .id,
             first.id
         );
         assert_eq!(
-            get_task(&connection, second.id).expect("retained second task").id,
+            get_task(&connection, second.id)
+                .expect("retained second task")
+                .id,
             second.id
         );
 
