@@ -317,7 +317,8 @@ export function TaskScheduleDialog({
       return { intervalCount: 1, unit: "month", weekdayMask: 0, monthDay, startsLocalDate: startDate, replaceExisting: existingRule ? replaceExisting : false, ...timeFields };
     }
 
-    const intervalCount = Math.max(1, Math.floor(customInterval));
+    if (!Number.isInteger(customInterval) || customInterval < 1 || customInterval > 365) return null;
+    const intervalCount = customInterval;
     if (customUnit === "week") {
       if (customWeekdayMask < 1 || customWeekdayMask > 127) return null;
       return { intervalCount, unit: "week", weekdayMask: customWeekdayMask, monthDay: null, startsLocalDate: startDate, replaceExisting: existingRule ? replaceExisting : false, ...timeFields };
