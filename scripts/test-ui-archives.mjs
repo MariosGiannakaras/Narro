@@ -15,6 +15,7 @@ const archivePanel = read("src/ArchivePanel.tsx");
 const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
 const fixture = read("src/archiveVisualFixture.tsx");
+const listSettingsFixture = read("src/listSettingsVisualFixture.tsx");
 const vite = read("vite.config.ts");
 const capture = read("scripts/capture-archive-fixtures.ps1");
 const validator = read("scripts/validate-archive-captures.mjs");
@@ -28,6 +29,11 @@ for (const [haystack, needle, label] of [
   [rust, "InvalidStoredCompletedTimestamp", "fail-closed stored completion timestamp validation"],
   [rust, "pub struct ArchiveSnapshot", "archive snapshot boundary"],
   [rust, "pub struct ArchivedDoneTaskSummary", "archived done-task projection"],
+  [rust, "pub struct ArchivedListTaskPreview", "bounded archived-list task previews"],
+  [rust, "load_archived_list_task_previews", "archived list preview read model"],
+  [rust, "completed_at IS NULL", "preview excludes already-completed tasks"],
+  [rust, "ARCHIVED_LIST_PREVIEW_LIMIT: i64 = 4", "bounded archive preview"],
+  [rust, "get_task(&connection, first.id)", "archived-task identity survives restore"],
   [rust, "task_time_taken_seconds(connection, task_id)?", "historical Time Taken projection"],
   [api, "export function getArchiveSnapshot()", "frontend archive snapshot API"],
   [api, 'invoke<ArchiveSnapshot>("get_archived_lists_for_settings")', "existing registered IPC reuse"],
@@ -46,6 +52,11 @@ for (const [haystack, needle, label] of [
   [donePanel, "Completed tasks older than 60 days", "archive age explanation"],
   [donePanel, "toLocaleLowerCase().includes", "renderer-local task/list search"],
   [listPanel, "await restoreListFromSettings(list.id);", "existing list restore behavior retained"],
+  [listPanel, 'data-archived-list-previews="true"', "archived list preview region"],
+  [listSettingsFixture, "Review first release", "populated archive preview visual fixture"],
+  [listSettingsFixture, "Document the feature", "second preserved archived task fixture"],
+  [listPanel, "list.previewTasks.map(", "saved-preview identity projection"],
+  [api, "previewTasks: ArchivedListTaskPreview[]", "typed archived-list preview model"],
   [listPanel, "await permanentlyDeleteListFromSettings(deleteTarget.id);", "existing archive-only list delete retained"],
   [fixture, 'mode === "done-results"', "populated archived task fixture"],
   [fixture, 'mode === "done-filter"', "filter-open archived task fixture"],

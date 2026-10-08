@@ -16,6 +16,14 @@ use tauri::Manager;
 
 const ICON_DIRECTORY: &str = "list-icons";
 const DONE_ARCHIVE_DAYS: i64 = 60;
+const ARCHIVED_LIST_PREVIEW_LIMIT: i64 = 4;
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ArchivedListTaskPreview {
+    pub id: String,
+    pub title: String,
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -25,6 +33,7 @@ pub struct ArchivedListSummary {
     pub color: Option<String>,
     pub icon_asset: Option<String>,
     pub archived_at: String,
+    pub preview_tasks: Vec<ArchivedListTaskPreview>,
 }
 
 impl TryFrom<ListRecord> for ArchivedListSummary {
@@ -40,6 +49,7 @@ impl TryFrom<ListRecord> for ArchivedListSummary {
             color: value.color,
             icon_asset: value.icon_asset,
             archived_at,
+            preview_tasks: Vec::new(),
         })
     }
 }
@@ -335,12 +345,62 @@ fn load_filter_lists(
         .collect()
 }
 
+fn load_archived_list_task_previews(
+    connection: &rusqlite::Connection,
+    list_id: ListId,
+) -> Result<Vec<ArchivedListTaskPreview>, ListSettingsError> {
+    // List Archive retains underlying task rows. Show a bounded read-only
+    // preview of unfinished tasks without moving/restoring them or rewriting IDs.
+    let mut statement = connection.prepare(
+        "SELECT id, title
+         FROM tasks
+         WHERE list_id = ?1
+           AND completed_at IS NULL
+           AND archived_at IS NULL
+         ORDER BY
+           CASE manual_lane
+             WHEN 'today' THEN 0
+             WHEN 'this_week' THEN 1
+             ELSE 2
+           END,
+           sort_rank, id
+         LIMIT ?2",
+    )?;
+    let rows = statement.query_map(
+        params![list_id.to_string(), ARCHIVED_LIST_PREVIEW_LIMIT],
+        |row| Ok((row.get::<_, String>(0)?, row.get::<_, String>(1)?)),
+    )?;
+    let mut previews = Vec::new();
+    for row in rows {
+        let (raw_id, title) = row?;
+        let id = TaskId::parse_str(&raw_id)
+            .map_err(|_| ListSettingsError::InvalidStoredTaskId(raw_id))?;
+        previews.push(ArchivedListTaskPreview {
+            id: id.to_string(),
+            title,
+        });
+    }
+    Ok(previews)
+}
+
+fn load_archived_list_summaries(
+    connection: &rusqlite::Connection,
+) -> Result<Vec<ArchivedListSummary>, ListSettingsError> {
+    archived_lists(connection)?
+        .into_iter()
+        .map(|list| {
+            let mut summary = ArchivedListSummary::try_from(list)?;
+            let list_id = ListId::parse_str(&summary.id)
+                .map_err(|_| ListSettingsError::InvalidStoredListId(summary.id.clone()))?;
+            summary.preview_tasks = load_archived_list_task_previews(connection, list_id)?;
+            Ok(summary)
+        })
+        .collect()
+}
+
 pub fn load_archived(app_dir: &Path) -> Result<Vec<ArchivedListSummary>, ListSettingsError> {
     let connection = open_database(app_dir)?;
-    archived_lists(&connection)?
-        .into_iter()
-        .map(ArchivedListSummary::try_from)
-        .collect()
+    load_archived_list_summaries(&connection)
 }
 
 pub fn load_archive_snapshot_at(
@@ -349,10 +409,7 @@ pub fn load_archive_snapshot_at(
 ) -> Result<ArchiveSnapshot, ListSettingsError> {
     let mut connection = open_database(app_dir)?;
     archive_stale_done_tasks_at(&mut connection, now)?;
-    let lists = archived_lists(&connection)?
-        .into_iter()
-        .map(ArchivedListSummary::try_from)
-        .collect::<Result<Vec<_>, _>>()?;
+    let lists = load_archived_list_summaries(&connection)?;
     Ok(ArchiveSnapshot {
         lists,
         done_tasks: load_archived_done_tasks(&connection)?,
@@ -489,11 +546,55 @@ mod tests {
         let app_dir = test_app_dir();
         setup(&app_dir);
         let created = create_fixture(&app_dir, None);
+        let mut connection =
+            rusqlite::Connection::open(app_dir.join("narro.db")).expect("open database");
+        persistence::configure_connection(&connection).expect("configure database");
+        let first = create_task(
+            &mut connection,
+            NewTaskInput {
+                list_id: created.id,
+                title: "Review notes".into(),
+                manual_lane: PlanningLane::Today,
+                est_seconds: None,
+            },
+            T1,
+        )
+        .expect("create task for archive preview");
+        let second = create_task(
+            &mut connection,
+            NewTaskInput {
+                list_id: created.id,
+                title: "Prepare slides".into(),
+                manual_lane: PlanningLane::ThisWeek,
+                est_seconds: Some(600),
+            },
+            T1,
+        )
+        .expect("create second preview task");
+        let finished = create_done_task(&mut connection, created.id, "Already completed", T1);
+        drop(connection);
 
         archive(&app_dir, created.id, T2).expect("archive list");
         let archived = load_archived(&app_dir).expect("load archived lists");
         assert_eq!(archived.len(), 1);
         assert_eq!(archived[0].id, created.id.to_string());
+        assert_eq!(
+            archived[0].preview_tasks,
+            vec![
+                ArchivedListTaskPreview {
+                    id: first.id.to_string(),
+                    title: "Review notes".into(),
+                },
+                ArchivedListTaskPreview {
+                    id: second.id.to_string(),
+                    title: "Prepare slides".into(),
+                },
+            ]
+        );
+        assert!(!archived[0]
+            .preview_tasks
+            .iter()
+            .any(|task| task.id == finished.to_string()));
 
         restore(&app_dir, created.id, "2026-09-12T00:02:00Z").expect("restore list");
         let connection =
@@ -503,6 +604,18 @@ mod tests {
         assert_eq!(restored.id, created.id);
         assert!(restored.archived_at.is_none());
         assert_eq!(active_lists(&connection).expect("active lists").len(), 1);
+        assert_eq!(
+            get_task(&connection, first.id)
+                .expect("retained first task")
+                .id,
+            first.id
+        );
+        assert_eq!(
+            get_task(&connection, second.id)
+                .expect("retained second task")
+                .id,
+            second.id
+        );
 
         drop(connection);
         std::fs::remove_dir_all(app_dir).expect("remove app dir");

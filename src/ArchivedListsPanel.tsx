@@ -144,6 +144,16 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                 <div className="archived-list-row__copy">
                   <h2 className="archived-list-row__title type-section-title">{list.title}</h2>
                   <span className="type-metadata">Archived · history preserved</span>
+                  {list.previewTasks.length > 0 ? (
+                    <div className="archived-list-row__previews" aria-label={`Task previews for ${list.title}`} data-archived-list-previews="true">
+                      {list.previewTasks.map((task, index) => (
+                        <div key={task.id} className="archived-list-row__preview" data-archived-preview-task-id={task.id}>
+                          <span className="archived-list-row__preview-ordinal" aria-hidden="true">{index + 1}</span>
+                          <span className="archived-list-row__preview-title" title={task.title}>{task.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <div className="archived-list-row__actions">
                   <button
