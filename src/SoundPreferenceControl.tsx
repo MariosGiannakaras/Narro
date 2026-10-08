@@ -139,7 +139,7 @@ export function SoundPreferenceControl({
                 min="0"
                 max="100"
                 step="5"
-                orient="vertical"
+                aria-orientation="vertical"
                 aria-label={volumeLabel}
                 value={draftVolume}
                 disabled={disabled}
