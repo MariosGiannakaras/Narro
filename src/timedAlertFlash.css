@@ -11,8 +11,30 @@
   }
 }
 
-.timed-alert-flash--active {
+.focus-panel__live-timer.timed-alert-flash--active,
+.floating-timer-foundation__timer.timed-alert-flash--active {
   animation: narro-timed-alert-flash 560ms var(--motion-ease-enter) 1 both;
+}
+
+/* VE-014: the finite alert colors the entire active Focus task card,
+   not just the timer glyphs. Keep the card accent border and contrast. */
+@keyframes narro-timed-alert-card-wash {
+  0%,
+  100% {
+    background-color: var(--color-surface-raised);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent-solid) 18%, transparent);
+  }
+
+  45% {
+    background-color: color-mix(in srgb, var(--color-flash-violet) 28%, var(--color-surface-raised));
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--color-flash-violet) 58%, transparent),
+      inset 0 0 1.5rem color-mix(in srgb, var(--color-destructive) 22%, transparent);
+  }
+}
+
+.focus-panel__live-card.timed-alert-flash--active {
+  animation: narro-timed-alert-card-wash 560ms var(--motion-ease-enter) 1 both;
 }
 
 @media (prefers-reduced-motion: reduce) {
