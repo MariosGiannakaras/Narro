@@ -2,11 +2,11 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 3/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 4/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
-| VE-001 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-001 | REVIEWED (15 montage-segment video-to-code claims) | Corroborates existing B35/B63/B64; source editorial limits explicit; no new B |
 | VE-002 | REVIEWED (11 time-local video-to-code claims) | New B66 reactive draft EST preview; VE-F001 committed normalization scoped validated |
 | VE-003 | REVIEWED (30 time-local video-to-code claims) | B15/B26/B49/B50/B63–B65 + P3-M6/M7 native gates; exact source motion NOT accepted |
 | VE-004 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -116,6 +116,29 @@
 | 01:18–01:21.63 | Branded outro | Not a product UI scope | EXCLUDED_SCOPE |
 
 **Review closure:** 11 timeline claims incl source-annotation/outro mapped. Original raw video not replayed. No manual/candidate Windows visual parity, tests or CI performed. Parser `hours` narration lacks a directly executed original example, though Narro supports and tests it.
+## VE-001 — product explainer montage — REVIEWED 2026-10-08
+
+**Source:** 02:19.033 MP4 (1920×1080 30fps) already full-video Pass-3 scanned. This is **edited montage**, not continuous interaction evidence; do not compare cut intervals to transition duration. **Narro code source:** `090c674f92539f3ebd175aa150a4a8036a227746`. Exact current screenshot and continuous dedicated tutorials supersede visual/interaction ambiguities here.
+
+| Source segment | Product pixels vs montage/nonproduct | Narro source/fidelity reference | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:15 | Presenter/desk context without continuous app interaction | Not source UX/action evidence | EXCLUDED_NONPRODUCT |
+| 00:15–00:20 | Search overlay with input, quick actions, dimmed Home | SearchPalette.tsx + searchPalette.css; stronger current SS-C06 | PRESENT_CODE_ONLY / STRONGER_CURRENT_SOURCE |
+| 00:20–00:31 | Narrow Focus next to external work, success reaction+Next+Break | FocusPanel separate surface; success JSX opaque dialog/no reaction media | GAP_B63_B64 / PRESENT_CORE |
+| 00:32–00:41 | Four-lane Board, planned task metadata, Today CTA | ListBoard four BoardLane, TaskCard, BlitzEntryButton | PRESENT_CODE_ONLY / B39_B40_B43_B44_CONTEXT |
+| 00:41–00:50 | Board then Focus shown by editorial hard cut | AppShell→Focus coordinator exists; motion only from full VE-003, not montage | SOURCE_CUT_LIMIT / P3_M6_01 |
+| 00:50–01:03 | Floating Timer remains above external app; task/Notes shown | FloatingTimerFoundation actions/subtasks/Notes, native focusSurface; VE-003/010 stronger | PRESENT_CODE_ONLY / STRONGER_VIDEOS |
+| 01:03–01:08 | Brief alert/flash visual amid rapid cuts | LowerPreferenceSections animatedTimerFlash and backend integration; no timing invariant from montage | PRESENT_SETTING / SOURCE_TIMING_LIMIT |
+| 01:08–01:18 | Multiple reaction/Next/Take a Break cards shown via montage | FocusCompletionSuccess has Next & visible disabled Break, no GIF/inline card | GAP_B63_B64 / BREAK_SOURCE_LIMIT |
+| 01:18–01:22 | Break named as a standalone active Focus card, queue still below | FocusPanel live task remains original task ID/title with Break only as status | GAP_B35 / OLD_VIDEO_LIMIT |
+| 01:22–01:31 | External productivity tools/integration mentions | Narro excludes cloud integrations by explicit local-only scope; no isolated source sync proof | EXCLUDED_CLOUD_SCOPE |
+| 01:31–01:39 | Preferences theme/Pomodoro/alerts across dark/light montage | ThemeSettingsPanel/PreferenceSettingsSections controls, current shell B34 and toggles B17 | PRESENT_CONTROLS / GAP_B34_B17 |
+| 01:39–01:47 | Reports metrics, daily chart, Time By List, Done Tasks | ReportsOverviewView/Rust DTOs; existing sparse chart B30/row pills B27 | PRESENT_CODE_ONLY / B27_B30 |
+| 01:47–02:03 | Community, roadmap, mobile, AI, list sharing | Narro local-only scope; no feature implementation claim | EXCLUDED_ROADMAP |
+| 02:03–02:16 | Website, trial, pricing/lifetime deal | Explicit Narro excluded commerce/accounts/website scope | EXCLUDED_COMMERCE |
+| 02:16–02:19.03 | Branded product outro | Not app behavior or a UI state | EXCLUDED_NONPRODUCT |
+
+**Closure:** all VE-001 montage segments have a current-code or intentional scope/evidence limit. No unique implementation gap warranted beyond B35 (old Break card current-version limit) and cross-video B63/B64 Focus success. No timing derived from editorial cuts and no GIF rotation algorithm inferred from montage; no candidate Windows source visual PASS. This qualifies as one *video-to-code review* but not raw video reinspection.
 ## Exact next review
 
-Continue VE-001 and all remaining VE-004/006–VE-019 pending in the 19-video index. VE-002, VE-003 and VE-005 are already reviewed at this depth; do not recreate them. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue remaining VE-004/006–VE-019 pending in the 19-video index; VE-001/VE-002/VE-003/VE-005 are now code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.

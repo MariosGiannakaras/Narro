@@ -1,0 +1,7 @@
+# Video-to-code review 04 — VE-001 edited product explainer
+
+Date 2026-10-08 Europe/Athens. Base main `090c674f92539f3ebd175aa150a4a8036a227746`. One entire 02:19.033 30fps original Pass-3 source-verified product explainer was reconciled against current code at 15 time-segment claims, with explicit video-edit/montage causality limitations. Source Queue16 `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
+
+**Review result:** no new unique actionable B finding. Search overlay/quick actions, four-lane Board/Today CTA, Focus/Floating companion, Notes controls, alert setting, Preferences and Reports exist in current code at scoped contracts, but code alone is not visual acceptance. Repeated animated success examples corroborate previously logged B63/B64; old Break as own live card corroborates B35 with explicit current-version evidence limit. Reports chart/Done view known B27/B30. Cloud integration, AI, marketing/trial, Discord/mobile roadmap/website excluded local-only scope. Source montage cannot establish actual window morph duration, automatic GIF cadence, No-Click success Break behavior or foreground-app always-on-top assertions.
+
+No source/config/tests changed. Documentation-only mapping and immutable log guarded on main. **No Rust/TS tests, CI, Windows native physical run, direct original MP4 replay, or source pixel acceptance (NOT RUN).** Control/static screenshots **39/39** (250 claim rows), new video-to-code **4/19** (80 review rows). Separate earlier raw MP4 source-only Pass-3 remains 19/19.
