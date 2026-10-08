@@ -21,7 +21,7 @@ Authoritative evidence: `BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` (46/46) and `BLI
 | SS-C11 | M5 | B11/B14 | archive filter/empty copy and populated counterpart |
 | SS-C12 | M9 | B16/B28/B30 | chart options, hover band and date timeline completeness |
 | SS-C13 | M9 | B27 | populated Done row status/list badges; empty/panel semantics |
-| SS-C14 | M9 | B25 | filter trigger badge; CSV implemented |
+| SS-C14 | M9 | B25/B51 | list trigger badge and Break filter control icon; CSV implemented |
 | SS-C15 | M9 | B25 | list trigger colored/stacked identity |
 | SS-C16 | M5 | B23 | Home preview; light hover exists |
 | SS-C17 | M8 | B29 | source Global + App two-group shortcuts modal; app-only bindings missing from embedded Settings list |
@@ -63,7 +63,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-007 | B19 | two-step schedule/editor |
 | VE-009 | B20/B33 | nth-weekday rule missing; custom natural-language feedback/date-derived preset labels absent |
 | VE-010 | B26/B49 | Focus live action strip rest↔hover/pill grammar missing; Notes Close also missing; toolbar/URL scoped PASS |
-| VE-015 | B25/B32 | Sessions filter badges; local detail/modal keyboard lifecycle independent from source evidence |
+| VE-015 | B25/B32/B51 | Sessions list filter badge, independent detail modal accessibility lifecycle, and Break filter icon treatment |
 | VE-011 | B25/B27/B28/B30 | Reports populated Done/hover and calendar axis |
 | VE-012 | B30/SCOPED_VALIDATED | 30-day calendar zeros missing; prior reporting semantics remain scoped-validated |
 | VE-006 | B10/B11 | archive populated UI, source trash click unknown |
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B50 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B51 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.

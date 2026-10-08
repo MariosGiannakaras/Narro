@@ -695,6 +695,7 @@ Screenshot establishes:
 - Windows locale date labels.
 
 ## 10.4 Sessions
+- VE-015 ~00:51–00:55 visually differentiates `Hide Break sessions` with a gamepad/break icon; Narro currently shows a generic circle `◉` instead (B51). Preserve current accessible pressed state and data filter; this is iconography parity, not a new filtering feature.
 - SS-C22/VE-015 provides a task session-detail modal with inline end-time editor and an Add Session control but **does not directly establish Escape/Tab/focus-return behavior**. Narro must nevertheless provide one accessible active modal owner: its current task-detail dialog does not own initial focus, Escape, Tab trap or opener restoration, unlike its Add Session dialog. Opening Add Session from detail currently leaves **both** `aria-modal=true` overlays rendered. Correct the local keyboard/modal lifecycle without inventing Blitzit source keyboard behavior; validate nested invocation and pending edit safety separately.
 
 Dashboard:
