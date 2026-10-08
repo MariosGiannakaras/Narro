@@ -113,7 +113,8 @@ pub fn load(conn: &Connection) -> Result<HomeSnapshot, HomeSnapshotError> {
             // Rule templates are displayed on Board but are not actionable Home
             // pending tasks or EST; their materialized children are counted normally.
             let tasks = active_tasks_in_bucket(conn, list.id, lane)?;
-            let actionable = tasks.into_iter()
+            let actionable = tasks
+                .into_iter()
                 .filter(|task| task.recurrence_rule_id.is_none())
                 .collect::<Vec<_>>();
             pending_count = pending_count

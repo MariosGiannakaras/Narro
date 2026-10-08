@@ -207,7 +207,8 @@ impl LaneAccumulator {
 
         // Linked recurrence parents remain visible/manageable in Backlog, but they are
         // rule templates rather than actionable pending tasks (B71).
-        let inventory_count = u64::try_from(self.tasks.len()).map_err(|_| ListBoardError::CountOverflow)?;
+        let inventory_count =
+            u64::try_from(self.tasks.len()).map_err(|_| ListBoardError::CountOverflow)?;
         let mut excluded_parent_count = 0_u64;
         let mut aggregate_est_seconds = 0_u64;
         let mut aggregate_remaining_est_seconds = 0_u64;
@@ -576,10 +577,10 @@ mod tests {
     use crate::persistence::recurrence::{create_recurrence_rule, get_recurrence_rule};
     use crate::persistence::recurrence_replace::remove_recurrence_if_expected;
     use crate::persistence::run_migrations;
-    use crate::recurrence::materialize_recurrence_week;
     use crate::persistence::subtasks::{complete_subtask, create_subtask};
     use crate::persistence::task_metadata::set_task_time_taken;
     use crate::persistence::tasks::{complete_task, create_task};
+    use crate::recurrence::materialize_recurrence_week;
 
     const T0: &str = "2026-09-08T08:00:00Z";
     const T1: &str = "2026-09-08T09:00:00Z";
@@ -631,7 +632,6 @@ mod tests {
             .expect("parse deterministic timestamp")
     }
 
-
     #[test]
     fn recurring_parent_is_visible_but_excluded_from_pending_and_rejoins_after_detach() {
         let mut conn = setup();
@@ -654,7 +654,10 @@ mod tests {
         }
         let before = load_at(&conn, Some(list_id), now(), "Europe/Athens")
             .expect("load pre-recurrence board");
-        assert_eq!(before.backlog.count + before.this_week.count + before.today.count, 9);
+        assert_eq!(
+            before.backlog.count + before.this_week.count + before.today.count,
+            9
+        );
 
         let rule = create_recurrence_rule(
             &mut conn,
@@ -672,18 +675,21 @@ mod tests {
             T0,
         )
         .expect("create weekday recurring rule");
-        let materialized = materialize_recurrence_week(
-            &mut conn,
-            rule.id,
-            "2026-09-08",
-            T0,
-        )
-        .expect("materialize five weekday occurrences");
+        let materialized = materialize_recurrence_week(&mut conn, rule.id, "2026-09-08", T0)
+            .expect("materialize five weekday occurrences");
         assert_eq!(materialized.created_child_ids.len(), 5);
 
         let active = load_at(&conn, Some(list_id), now(), "Europe/Athens")
             .expect("load active recurring board");
-        assert_eq!(active.backlog.tasks.iter().filter(|task| task.id == parent).count(), 1);
+        assert_eq!(
+            active
+                .backlog
+                .tasks
+                .iter()
+                .filter(|task| task.id == parent)
+                .count(),
+            1
+        );
         assert_eq!(
             active.backlog.count + active.this_week.count + active.today.count,
             13,
@@ -696,31 +702,38 @@ mod tests {
         );
         let home = crate::home_snapshot::load(&conn).expect("load home with recurring parent");
         assert_eq!(home.pending_count, 13);
-        assert!(!home.lists[0].preview_tasks.iter().any(|preview| preview.id == parent));
+        assert!(!home.lists[0]
+            .preview_tasks
+            .iter()
+            .any(|preview| preview.id == parent));
 
         let latest_rule = get_recurrence_rule(&conn, rule.id).expect("read rule version");
-        let detached = remove_recurrence_if_expected(
-            &mut conn,
-            rule.id,
-            &latest_rule.updated_at,
-            false,
-            T1,
-        )
-        .expect("detach recurrence without deleting child tasks");
+        let detached =
+            remove_recurrence_if_expected(&mut conn, rule.id, &latest_rule.updated_at, false, T1)
+                .expect("detach recurrence without deleting child tasks");
         assert_eq!(detached.detached_child_ids.len(), 5);
-        let after = load_at(&conn, Some(list_id), now(), "Europe/Athens")
-            .expect("load detached board");
-        assert_eq!(after.backlog.count + after.this_week.count + after.today.count, 14);
+        let after =
+            load_at(&conn, Some(list_id), now(), "Europe/Athens").expect("load detached board");
+        assert_eq!(
+            after.backlog.count + after.this_week.count + after.today.count,
+            14
+        );
         assert!(after.backlog.tasks.iter().any(|task| task.id == parent));
         let final_home = crate::home_snapshot::load(&conn).expect("load home after detachment");
         assert_eq!(final_home.pending_count, 14);
-        let all_ids: HashSet<TaskId> = after.backlog.tasks.iter()
+        let all_ids: HashSet<TaskId> = after
+            .backlog
+            .tasks
+            .iter()
             .chain(after.this_week.tasks.iter())
             .chain(after.today.tasks.iter())
             .map(|task| task.id)
             .collect();
         for child_id in materialized.created_child_ids {
-            assert!(all_ids.contains(&child_id), "detached child identity must survive");
+            assert!(
+                all_ids.contains(&child_id),
+                "detached child identity must survive"
+            );
         }
     }
 
