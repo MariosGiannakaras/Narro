@@ -15,6 +15,7 @@ const archivePanel = read("src/ArchivePanel.tsx");
 const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
 const fixture = read("src/archiveVisualFixture.tsx");
+const listSettingsFixture = read("src/listSettingsVisualFixture.tsx");
 const vite = read("vite.config.ts");
 const capture = read("scripts/capture-archive-fixtures.ps1");
 const validator = read("scripts/validate-archive-captures.mjs");
@@ -52,6 +53,8 @@ for (const [haystack, needle, label] of [
   [donePanel, "toLocaleLowerCase().includes", "renderer-local task/list search"],
   [listPanel, "await restoreListFromSettings(list.id);", "existing list restore behavior retained"],
   [listPanel, 'data-archived-list-previews="true"', "archived list preview region"],
+  [listSettingsFixture, "Review first release", "populated archive preview visual fixture"],
+  [listSettingsFixture, "Document the feature", "second preserved archived task fixture"],
   [listPanel, "list.previewTasks.map(", "saved-preview identity projection"],
   [api, "previewTasks: ArchivedListTaskPreview[]", "typed archived-list preview model"],
   [listPanel, "await permanentlyDeleteListFromSettings(deleteTarget.id);", "existing archive-only list delete retained"],
