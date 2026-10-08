@@ -1,6 +1,20 @@
 # TODO.md
 
-## Current physical checkpoint — CI1046, 2026-10-08
+## Current physical batch closure — CI1046, 2026-10-08
+
+[Complete evidence, exact chronology, scope limits and restored-state proof](work-log/evidence/ci1046-physical-20261008/README.md#final-batch-closure--user-requested-stop-2026-10-08). No Narro source changes or new build. Exact CI1046 candidate remains unchanged; newer main documentation findings are preserved.
+
+- **Physical subset:** M5 **6/6 PASS**; M6 **5/6 PASS**, A motion/timing OPEN; M7 **3/3 exercised: Finding07 PASS, C4 FAIL, Finding35 FAIL visible-state requirement**; M9 **2/3 PASS**, Finding29 PARTIAL/OPEN; M1 Finding27 PARTIAL/OPEN, M8 notification/sound NOT RUN. These counts are the bounded residual physical checklist, not whole milestone completion.
+- **Finding07 closed physical scope:** real EXCLUSIVE4s with Home loading; actual Escape/Tab/ShiftTab and visible focus changes finish before unlock, correct lists afterward, nine captured domain tables identical. `residual-locks-07.mkv`, `f07-valid-lock-events.json`, `key-dispatch.jsonl`, `lock-domain-results.json`.
+- **Finding29:** correct pending Escape/Tab/ShiftTab retains Add Session while the IMMEDIATE lock is held; exactly one60s session commits after release and opener focus visibly restores. Pending dismissal scoped PASS; independent native pending focus-owner proof incomplete, whole gate stays OPEN. `pending-guard-08.mkv` supersedes only the earlier invalid timing trial.
+- **Finding35:** authoritative phase time_up reached; fixed six-slot Extend/Pause substitution, overtime and fresh pause status PASS. Compact and expanded show00:00 without visible Time's Up label: FAIL against the current physical checklist. Investigate/reconcile that narrow state-visibility requirement with canonical evidence before fixing; do not invent unavailable direct Floating source pixels. `time-up-09.mkv` and `time-up-expired-state.json`.
+- **C4 remains FAIL:** incoming Panel clipped/staged before full region on clean Timer→Panel. Same host/task/time; preserved before/after domain arrays. Follow repository repeated-failure escalation, no blind next incremental patch.
+- **M9 top-level12/12 retained:** real PDF creation/default-viewer render/non-overwrite PASS; broader Reports source parity OPEN. Other M5/M6 parity and newly documented Color Picker/Preferences/source gaps remain OPEN; this session does not certify them.
+- **Batch closed and original environment restored:** all recordings finalized, Narro stopped; full final test DB preserved, original production DB restored exactly to SHA256 `3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4`,31 tasks/61 sessions/original paused checkpoint and preferences. Windows animations0/false restored; scale never changed. Settings activation failed, so Finding27 DPI/stale-state sequence was not exercised. Elevated untouched Performance Options could not close (AccessDenied); own PDF/error helpers closed. See `final-restoration.json`.
+- **Continuation after requirements reconciliation:** M6 A footage/timing, C4 presentation failure, Finding35 visibility disposition, Finding29 pending focus proof, real M1 DPI/stale-state and M8 notifications. Roadmap remains **3/10M**, M7 controller **4/5**, M10 blocked, M11 dormant.
+
+
+## Physical checkpoint — CI1046, 2026-10-08 (intermediate; final closure above)
 
 This newer checkpoint supersedes older physical-OPEN text only for its explicitly exercised scopes. Exact CI1046 EXE SHA256 `59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275`; no Narro source changes. [Full recordings, screenshots, chronological actions, domain snapshots and gate matrix](work-log/evidence/ci1046-physical-20261008/README.md).
 

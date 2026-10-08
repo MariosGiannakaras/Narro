@@ -131,14 +131,33 @@
   {
     "milestone": "M7",
     "check": "Finding07 exclusive blocked-read keyboard",
-    "result": "OPEN - not exercised yet",
-    "evidence": []
+    "result": "PASS - EXCLUSIVE lock4s, Home loading with real Escape/Tab visible before release; all nine captured domain tables identical",
+    "evidence": [
+      "f07-valid-lock-events.json",
+      "key-dispatch.jsonl",
+      "f07-home-read-pending.png",
+      "f07-pending-search.png",
+      "f07-pending-escape.png",
+      "f07-pending-tab.png",
+      "f07-settled-after-unlock.png",
+      "f07-before.json",
+      "f07-after.json",
+      "residual-locks-07.mkv"
+    ]
   },
   {
     "milestone": "M7",
     "check": "Finding35 Time Up substitution",
-    "result": "OPEN - not exercised yet",
-    "evidence": []
+    "result": "FAIL - visible Time Up label missing in compact/expanded; role substitution/Extend to overtime/Pause and fresh status copy PASS",
+    "evidence": [
+      "time-up-authoritative-expired.png",
+      "time-up-slot-substitution.png",
+      "time-up-expanded-state.png",
+      "time-up-expand-extend-control.png",
+      "time-up-overtime-pause.png",
+      "time-up-expired-state.json",
+      "time-up-09.mkv"
+    ]
   },
   {
     "milestone": "M7",
@@ -173,19 +192,33 @@
   {
     "milestone": "M9",
     "check": "Finding29 keyboard modal/pending",
-    "result": "PARTIAL / OPEN - initial focus, traversal, Escape/opener pass; pending trial inconclusive because operator activation delayed key dispatch until unlock",
+    "result": "PARTIAL / OPEN - pending Escape/Tab/ShiftTab retain modal and commit once PASS; independent native pending focus-owner proof incomplete",
     "evidence": [
       "f29-tab-cycle.png",
       "f29-shift-tab-cycle.png",
       "f29-escape-opener-restore.png",
-      "f29-lock-events.json"
+      "f29-lock-events.json",
+      "f29-valid-lock-events.json",
+      "key-dispatch.jsonl",
+      "f29-valid-pending-escape.png",
+      "f29-valid-pending-tab.png",
+      "f29-valid-pending-shift-tab.png",
+      "f29-valid-after-release.png",
+      "f29-valid-before.json",
+      "f29-valid-after.json",
+      "pending-guard-08.mkv"
     ]
   },
   {
     "milestone": "M1",
     "check": "Finding27 selected DPI identity and stale selection",
-    "result": "OPEN - not exercised yet",
-    "evidence": []
+    "result": "PARTIAL / OPEN - named LG selected at125%; Windows Settings launch failed (cloaked old instances, explorer activation errors, direct process no visible UI), no DPI change/stale-selection exercise; preference restored",
+    "evidence": [
+      "f27-quick-open.png",
+      "f27-named-lg-select.png",
+      "final-restoration.json",
+      "operator-app-cleanup.json"
+    ]
   },
   {
     "milestone": "M8",

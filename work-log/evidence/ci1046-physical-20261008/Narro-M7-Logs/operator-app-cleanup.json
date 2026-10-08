@@ -1,0 +1,21 @@
+[
+  {
+    "pid": 14044,
+    "name": "NitroPDF",
+    "result": "closed"
+  },
+  {
+    "pid": 65708,
+    "name": "explorer",
+    "result": "closed"
+  },
+  {
+    "pid": 716,
+    "name": "explorer",
+    "result": "closed"
+  },
+  {
+    "pid": 18080,
+    "result": "Cannot stop process \"SystemPropertiesPerformance (18080)\" because of the following error: Access is denied."
+  }
+]

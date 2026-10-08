@@ -1,0 +1,76 @@
+import pathlib,subprocess,json,datetime,hashlib
+r=pathlib.Path(__file__).parent;m=pathlib.Path(r'C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload');p=m/'work-log/evidence/ci1046-physical-20261008'
+subprocess.run([__import__('sys').executable,str(r/'publish_checkpoint.py')],check=True)
+for f in ['final-test-state.db','final-pre-restore.json','final-restoration.json','owned-data-restoration-diff.json']:(p/'Narro-M7-Logs'/f).write_bytes((r/f).read_bytes())
+g=json.loads((p/'gate-matrix.json').read_text())
+for a in g:
+ if a['check'].startswith('Finding07'):
+  a.update(result='PASS - EXCLUSIVE lock4s, Home loading with real Escape/Tab visible before release; all nine captured domain tables identical',evidence=['f07-valid-lock-events.json','key-dispatch.jsonl','f07-home-read-pending.png','f07-pending-search.png','f07-pending-escape.png','f07-pending-tab.png','f07-settled-after-unlock.png','f07-before.json','f07-after.json','residual-locks-07.mkv'])
+ if a['check'].startswith('Finding35'):
+  a.update(result='FAIL - visible Time Up label missing in compact/expanded; role substitution/Extend to overtime/Pause and fresh status copy PASS',evidence=['time-up-authoritative-expired.png','time-up-slot-substitution.png','time-up-expanded-state.png','time-up-expand-extend-control.png','time-up-overtime-pause.png','time-up-expired-state.json','time-up-09.mkv'])
+ if a['check'].startswith('Finding29'):
+  a.update(result='PARTIAL / OPEN - pending Escape/Tab/ShiftTab retain modal and commit once PASS; independent native pending focus-owner proof incomplete',evidence=a['evidence']+['f29-valid-lock-events.json','key-dispatch.jsonl','f29-valid-pending-escape.png','f29-valid-pending-tab.png','f29-valid-pending-shift-tab.png','f29-valid-after-release.png','f29-valid-before.json','f29-valid-after.json','pending-guard-08.mkv'])
+ if a['check'].startswith('Finding27'):
+  a.update(result='PARTIAL / OPEN - named LG selected at125%; Windows Settings launch failed (cloaked old instances, explorer activation errors, direct process no visible UI), no DPI change/stale-selection exercise; preference restored',evidence=['f27-quick-open.png','f27-named-lg-select.png','final-restoration.json','operator-app-cleanup.json'])
+(p/'gate-matrix.json').write_text(json.dumps(g,indent=2)+'\n')
+b=json.loads((r/'f07-before.json').read_text())['tables'];a=json.loads((r/'f07-after.json').read_text())['tables'];assert a==b
+before=json.loads((r/'f29-valid-before.json').read_text())['tables'];after=json.loads((r/'f29-valid-after.json').read_text())['tables'];old={v['id'] for v in before['sessions']};new=[v for v in after['sessions'] if v['id'] not in old];assert len(new)==1 and new[0]['duration_seconds']==60
+(p/'lock-domain-results.json').write_text(json.dumps({'finding07':{'captured_tables_equal':True,'tables':list(a)},'finding29':{'new_sessions':new,'tasks_count':[len(before['tasks']),len(after['tasks'])]}},indent=2)+'\n')
+s=(p/'README.md').read_text(encoding='utf8')
+s=s.replace('M7 1/3 exercised with C4 FAIL, 07/35 OPEN','M7 3/3 exercised: Finding07 PASS, C4 and Finding35 FAIL')
+s=s.replace('M9 2/3 PASS with Finding29 PARTIAL/OPEN','M9 2/3 PASS with Finding29 PARTIAL/OPEN (pending dismissal now exercised, focus-owner proof incomplete)')
+s=s.replace('conditional M1 and M8 OPEN','conditional M1 partial/OPEN and M8 OPEN')
+s=s.replace('## Checkpoint continuation state','## Intermediate checkpoint state (superseded by final batch closure below)')
+s+='''
+
+## Final batch closure — user-requested stop, 2026-10-08
+
+No new check or implementation starts after this batch. **Narro and all recordings are stopped.** Original production database restored byte-for-byte to SHA256 `3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4` after preserving full `Narro-M7-Logs/final-test-state.db` and structured final snapshot. All changed task/session rows belonged to the two owned PR233 validation tasks; no other task identities were modified. Test mutations, accidental completion, temporary Show Success/named monitor and session time changes are undone in production. Native Floating placement and disabled alert-run bookkeeping changed during valid interactions; their before/after rows are preserved in `owned-data-restoration-diff.json`. Original animations0/false restored; Windows scale was never changed. Final restore proof: `final-restoration.json`.
+
+### Additional acquired physical checks
+
+- **Finding07 PASS:** `residual-locks-07.mkv`, recorded10:09:02.510–10:10:39.555 UTC. EXCLUSIVE acquired10:09:40.767, released10:09:44.777. Main Home shows loading while lock held; CtrlF brings WebView native Find (not a new application-search ownership claim), actual Escape dispatch10:09:42.326 closes it, Tab10:09:42.956 visibly focuses Home, ShiftTab10:09:43.588 focuses Settings. All dispatches and resulting captures finish before unlock. Lists resolve correctly afterward. All nine captured domain arrays unchanged (`lock-domain-results.json`). This closes the bounded pending-read keyboard regression only; whole M7 C4 still FAIL.
+- **Finding29 pending-dismissal scoped PASS / whole gate PARTIAL OPEN:** `pending-guard-08.mkv`, recorded10:12:20.592–10:12:43.077. IMMEDIATE acquired10:12:37.892, released10:12:41.900. Actual Escape10:12:38.641, Tab10:12:39.282, ShiftTab10:12:39.903 all occur during the real pending Add. Each resulting screenshot still shows Add Session / Adding…; no dismissal or background control activation. After release, exactly one owned manual60s session commits and opener visibly regains focus. The independent native focus-owner predicate during pending was not recorded sufficiently; preserve OPEN rather than infer it solely from disabled controls. Earlier flawed trial stays excluded.
+- **Finding35 FAIL visibility, core roles PASS:** `time-up-09.mkv`, recorded10:15:56.483–10:20:06.168. Owned task EST changed through ordinary paused editor to0:01:00 (invalid00:01 attempt correctly rejected); real Floating Resume10:18:12.298 reaches authoritative checkpoint phase `time_up` at10:18:37.121. Compact/expanded surfaces show00:00 and no visible Time's Up label. UIA document text agrees (task,00:00,Extend timer,Skip task,Complete task). This does not meet this session plan's explicit visible-Time's-Up requirement. Extend occupies the existing middle Pause/Resume slot with stable six actions. Real Extend10:19:37.569 enters overtime; Pause10:20:00.375 restores Resume and replaces old extension status with `Task paused.`. Task/session tracked time preserved. Route only the missing physical state label for investigation; no missing canonical Floating-Time's-Up screenshot is fabricated, and broader product requirements must be reconciled before a correction.
+- **Finding27 PARTIAL/OPEN:** named LG/DISPLAY2 selected through Quick Preferences at125% (selection saved, not immediate relocation). Windows Settings could not be opened reliably: old Settings windows had DWM cloaked=2; clean URI activation produced explorer error dialogs, direct SystemSettings.exe launch produced no visible settings surface. No real125→100 transition or genuine stale-selection exercise occurred. Scale untouched; named preference restored with original DB. Do not treat this as Narro FAIL or substitute mere monitor selection for full acceptance.
+- **M8 actual notification/sound:** NOT RUN before requested stop; remains OPEN. No new M10 work.
+
+### Final continuation and housekeeping
+
+Bounded physical counts remain **M5 6/6 PASS; M6 5/6 PASS plus A OPEN; M7 3/3 exercised (1 PASS,2 FAIL); M9 2/3 PASS plus Finding29 PARTIAL OPEN; M1 partial/OPEN; M8 NOT RUN.** Whole source parity remains separately open. Next work after requirements updates: reconcile M6 A native morph/timing footage, investigate C4 clipped/staged incoming region using repeated-failure history, reconcile Finding35 visible-state intent, finish Finding29 pending focus proof, acquire Finding27 real DPI/stale-state and M8 actual notification/sound when environment permits. Use current repo findings added concurrently; this physical subset is not a claim that new Color Picker/Preferences/source audit gaps passed.
+
+Own Nitro PDF viewer and explorer error helpers closed. Elevated Performance Options PID18080 could not be closed by this process (AccessDenied); its input attempts changed no settings, and it remains an environment housekeeping item. Production restored original paused checkpoint with31 tasks/61 sessions; do not resume from the intermediate companion/95s test state. Root feature WIP left untouched. No application source correction, build or CI was triggered.
+
+Text copies are normalized to LF for stable published Git hashes. `raw-acquisition-manifest.json` preserves pre-normalization byte counts/hashes; videos, images, PDFs and SQLite backups are byte-preserved. The first checkpoint's JSON/text manifest had Git CRLF->LF differences, captured in `published-integrity.json`; this final manifest corrects the publication hashes. This was text normalization, not loss or media corruption.
+'''
+(p/'README.md').write_text(s,encoding='utf8')
+raw=[]
+for f in sorted(p.rglob('*')):
+ if f.is_file() and f.name!='file-manifest.json':
+  data=f.read_bytes();raw.append({'path':f.relative_to(p).as_posix(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
+  if f.suffix in ['.json','.jsonl','.log','.md','.txt']:f.write_bytes(data.replace(b'\r\n',b'\n'))
+(p/'raw-acquisition-manifest.json').write_bytes((json.dumps(raw,indent=2)+'\n').encode())
+items=[]
+for f in sorted(p.rglob('*')):
+ if f.is_file() and f.name!='file-manifest.json':items.append({'path':f.relative_to(p).as_posix(),'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()})
+(p/'file-manifest.json').write_bytes((json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'files':items},indent=2)+'\n').encode())
+# Update final current section without editing concurrently added findings or dated source evidence.
+for name in ['STATUS.md','TODO.md','HANDOFF.md','docs/AUDIT_IMPLEMENTATION_CROSSWALK.md']:
+ f=m/name;s=f.read_text(encoding='utf8');s=s.replace('## Current physical checkpoint — CI1046, 2026-10-08','## Physical checkpoint — CI1046, 2026-10-08 (intermediate; final closure above)')
+ prefix='../' if name.startswith('docs/') else ''
+ final=f'''## Current physical batch closure — CI1046, 2026-10-08
+
+[Complete evidence, exact chronology, scope limits and restored-state proof]({prefix}work-log/evidence/ci1046-physical-20261008/README.md#final-batch-closure--user-requested-stop-2026-10-08). No Narro source changes or new build. Exact CI1046 candidate remains unchanged; newer main documentation findings are preserved.
+
+- **Physical subset:** M5 **6/6 PASS**; M6 **5/6 PASS**, A motion/timing OPEN; M7 **3/3 exercised: Finding07 PASS, C4 FAIL, Finding35 FAIL visible-state requirement**; M9 **2/3 PASS**, Finding29 PARTIAL/OPEN; M1 Finding27 PARTIAL/OPEN, M8 notification/sound NOT RUN. These counts are the bounded residual physical checklist, not whole milestone completion.
+- **Finding07 closed physical scope:** real EXCLUSIVE4s with Home loading; actual Escape/Tab/ShiftTab and visible focus changes finish before unlock, correct lists afterward, nine captured domain tables identical. `residual-locks-07.mkv`, `f07-valid-lock-events.json`, `key-dispatch.jsonl`, `lock-domain-results.json`.
+- **Finding29:** correct pending Escape/Tab/ShiftTab retains Add Session while the IMMEDIATE lock is held; exactly one60s session commits after release and opener focus visibly restores. Pending dismissal scoped PASS; independent native pending focus-owner proof incomplete, whole gate stays OPEN. `pending-guard-08.mkv` supersedes only the earlier invalid timing trial.
+- **Finding35:** authoritative phase time_up reached; fixed six-slot Extend/Pause substitution, overtime and fresh pause status PASS. Compact and expanded show00:00 without visible Time's Up label: FAIL against the current physical checklist. Investigate/reconcile that narrow state-visibility requirement with canonical evidence before fixing; do not invent unavailable direct Floating source pixels. `time-up-09.mkv` and `time-up-expired-state.json`.
+- **C4 remains FAIL:** incoming Panel clipped/staged before full region on clean Timer→Panel. Same host/task/time; preserved before/after domain arrays. Follow repository repeated-failure escalation, no blind next incremental patch.
+- **M9 top-level12/12 retained:** real PDF creation/default-viewer render/non-overwrite PASS; broader Reports source parity OPEN. Other M5/M6 parity and newly documented Color Picker/Preferences/source gaps remain OPEN; this session does not certify them.
+- **Batch closed and original environment restored:** all recordings finalized, Narro stopped; full final test DB preserved, original production DB restored exactly to SHA256 `3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4`,31 tasks/61 sessions/original paused checkpoint and preferences. Windows animations0/false restored; scale never changed. Settings activation failed, so Finding27 DPI/stale-state sequence was not exercised. Elevated untouched Performance Options could not close (AccessDenied); own PDF/error helpers closed. See `final-restoration.json`.
+- **Continuation after requirements reconciliation:** M6 A footage/timing, C4 presentation failure, Finding35 visibility disposition, Finding29 pending focus proof, real M1 DPI/stale-state and M8 notifications. Roadmap remains **3/10M**, M7 controller **4/5**, M10 blocked, M11 dormant.
+
+'''
+ i=s.index('\n')+1;s=s[:i]+'\n'+final+s[i:];f.write_text(s,encoding='utf8')
+print(json.dumps({'files':len(items),'bytes':sum(v['bytes'] for v in items),'packet':str(p)}))

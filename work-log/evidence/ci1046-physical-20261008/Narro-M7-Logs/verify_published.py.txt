@@ -1,0 +1,10 @@
+import pathlib,subprocess,json,hashlib,datetime
+m=pathlib.Path(r'C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload');p=m/'work-log/evidence/ci1046-physical-20261008';items=json.loads(subprocess.check_output(['git','show','HEAD:work-log/evidence/ci1046-physical-20261008/file-manifest.json'],cwd=m))['files'];bad=[]
+q=subprocess.Popen(['git','cat-file','--batch'],cwd=m,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for item in items:
+ q.stdin.write(('HEAD:'+str((p/item['path']).relative_to(m)).replace('\\','/')+'\n').encode());q.stdin.flush()
+ h=q.stdout.readline().decode().strip().split();size=int(h[-1]);data=q.stdout.read(size);q.stdout.read(1);got=hashlib.sha256(data).hexdigest()
+ if got!=item['sha256'] or size!=item['bytes']:bad.append({'path':item['path'],'local_sha256':item['sha256'],'git_sha256':got,'local_bytes':item['bytes'],'git_bytes':size})
+q.stdin.close();q.wait()
+res={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=m,text=True).strip(),'files':len(items),'mismatches':bad}
+(pathlib.Path(__file__).parent/'published-integrity.json').write_text(json.dumps(res,indent=2)+'\n');print(json.dumps(res))

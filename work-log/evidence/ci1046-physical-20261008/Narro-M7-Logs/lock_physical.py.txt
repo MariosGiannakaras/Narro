@@ -1,0 +1,20 @@
+import sqlite3,threading,pathlib,datetime,json,time,subprocess,sys,ctypes
+r=pathlib.Path(__file__).parent;ready=threading.Event();events=[];mode=sys.argv[1]
+u=ctypes.windll.user32;u.GetForegroundWindow.restype=ctypes.c_void_p
+assert u.GetForegroundWindow()==526972,'Main must already be foreground before lock; abort'
+def event(v):events.append({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'event':v})
+def lock():
+ db=sqlite3.connect(str(pathlib.Path.home()/'AppData/Roaming/com.mariosg.Narro/narro.db'),timeout=2)
+ try:
+  assert db.execute('pragma journal_mode').fetchone()[0]=='delete'
+  db.execute('BEGIN EXCLUSIVE' if mode=='07' else 'BEGIN IMMEDIATE');event('lock acquired - no data statements');ready.set();time.sleep(4)
+ finally:db.rollback();db.close();event('rollback and close')
+steps=([('click','Narro','f07-home-read-pending','283','131'),('key','Narro','f07-pending-search','0x11+0x46'),('key','Narro','f07-pending-escape','0x1b'),('key','Narro','f07-pending-tab','0x09'),('key','Narro','f07-pending-shift-tab','0x10+0x09')]
+ if mode=='07' else [('click','Narro','f29-valid-pending-add','661','608'),('key','Narro','f29-valid-pending-escape','0x1b'),('key','Narro','f29-valid-pending-tab','0x09'),('key','Narro','f29-valid-pending-shift-tab','0x10+0x09')])
+t=threading.Thread(target=lock);t.start();assert ready.wait(3)
+try:
+ for args in steps:
+  event('input start '+args[2]);subprocess.run([sys.executable,str(r/'native.py'),*args],check=True);event('input complete '+args[2])
+finally:
+ t.join();(r/('f'+mode+'-valid-lock-events.json')).write_text(json.dumps(events,indent=2)+'\n')
+print(json.dumps(events))

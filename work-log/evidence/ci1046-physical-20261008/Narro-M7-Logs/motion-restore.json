@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-08T10:24:57.767302+00:00",
+  "before": {
+    "minimize_animations": 1,
+    "client_area_animations": true
+  },
+  "after": {
+    "minimize_animations": 0,
+    "client_area_animations": false
+  }
+}

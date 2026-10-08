@@ -50,7 +50,10 @@ if cmd=='click':
  activate(h);p=w.POINT(int(args[3]),int(args[4]));u.ClientToScreen(w.HWND(h),c.byref(p));u.SetCursorPos(p.x,p.y);u.mouse_event(2,0,0,0,0);u.mouse_event(4,0,0,0,0)
 elif cmd=='move':
  p=w.POINT(int(args[3]),int(args[4]));u.ClientToScreen(w.HWND(h),c.byref(p));u.SetCursorPos(p.x,p.y)
-elif cmd=='key':activate(h);combo([int(v,0) for v in args[3].split('+')])
+elif cmd=='key':
+ activate(h)
+ with open(r/'key-dispatch.jsonl','a',encoding='utf8') as f:f.write(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'label':label,'foreground':int(u.GetForegroundWindow()),'keys':args[3]})+'\n')
+ combo([int(v,0) for v in args[3].split('+')])
 elif cmd=='keys':
  activate(h)
  for _ in range(int(args[4])):combo([int(v,0) for v in args[3].split('+')]);time.sleep(.15)

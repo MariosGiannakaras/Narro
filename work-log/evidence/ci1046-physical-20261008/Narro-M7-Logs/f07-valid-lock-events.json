@@ -1,0 +1,50 @@
+[
+  {
+    "utc": "2026-10-08T10:09:40.767144+00:00",
+    "event": "lock acquired - no data statements"
+  },
+  {
+    "utc": "2026-10-08T10:09:40.767144+00:00",
+    "event": "input start f07-home-read-pending"
+  },
+  {
+    "utc": "2026-10-08T10:09:41.416871+00:00",
+    "event": "input complete f07-home-read-pending"
+  },
+  {
+    "utc": "2026-10-08T10:09:41.416871+00:00",
+    "event": "input start f07-pending-search"
+  },
+  {
+    "utc": "2026-10-08T10:09:42.048127+00:00",
+    "event": "input complete f07-pending-search"
+  },
+  {
+    "utc": "2026-10-08T10:09:42.048127+00:00",
+    "event": "input start f07-pending-escape"
+  },
+  {
+    "utc": "2026-10-08T10:09:42.871830+00:00",
+    "event": "input complete f07-pending-escape"
+  },
+  {
+    "utc": "2026-10-08T10:09:42.871830+00:00",
+    "event": "input start f07-pending-tab"
+  },
+  {
+    "utc": "2026-10-08T10:09:43.502983+00:00",
+    "event": "input complete f07-pending-tab"
+  },
+  {
+    "utc": "2026-10-08T10:09:43.502983+00:00",
+    "event": "input start f07-pending-shift-tab"
+  },
+  {
+    "utc": "2026-10-08T10:09:44.125399+00:00",
+    "event": "input complete f07-pending-shift-tab"
+  },
+  {
+    "utc": "2026-10-08T10:09:44.777864+00:00",
+    "event": "rollback and close"
+  }
+]

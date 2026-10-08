@@ -1,0 +1,238 @@
+{
+  "utc": "2026-10-08T10:17:50.639416+00:00",
+  "commit": "ca422989e953104e61d0aa83d88c0896ae48df72",
+  "files": 216,
+  "mismatches": [
+    {
+      "path": "chronological-actions.json",
+      "local_sha256": "7a2b86c935cd351e6665a0e245bb259453bae73b04031a7156110df5302cfa14",
+      "git_sha256": "d1d0763613cbe05ec137f02ceda2b99e9dd061fed22eda3765709a9dc28080d2",
+      "local_bytes": 37117,
+      "git_bytes": 35409
+    },
+    {
+      "path": "gate-matrix.json",
+      "local_sha256": "5a2678cac3177da376c26baf244d8683b6fd81e7cc9101b9c97ed234432c6012",
+      "git_sha256": "fc542a1f43a533b9056a87bd82fc4481c8b598781fb0122eea7bbfd80b24a4b1",
+      "local_bytes": 5267,
+      "git_bytes": 5071
+    },
+    {
+      "path": "Narro-M7-Logs/acceptance-03-capture.log",
+      "local_sha256": "5f13c974ab62475075249447a77f962e86657bf1684c00c9e85fec59d8d416cb",
+      "git_sha256": "8a5b01c12d05b5c1e7433e04fa8e3a3a5a6f0040793440ef76ec817a8175e3c8",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/acceptance-03-start.json",
+      "local_sha256": "07e1a2c1e45d1417b0e993b0a8f3b7c8c92ec843cc22fb4a9807866400818229",
+      "git_sha256": "7b3363618713623d1c92a21ab564ad00f3ede4e7c5582e44a5d6e47c6c0caa82",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/after-add-pending.json",
+      "local_sha256": "cc5c77626a7240449a88c15d379567b296e1de0f5dff61b5c5798180d06343db",
+      "git_sha256": "a4b61811b6e2d6bfaec62f981a7382cfb72358bf04ea722806dad6df3f31311a",
+      "local_bytes": 66750,
+      "git_bytes": 65198
+    },
+    {
+      "path": "Narro-M7-Logs/after-fast-toggle-attempt.json",
+      "local_sha256": "84f2fee919d1f5a19e68a4880f6e1e11b242bb0931dd5f404095e24b9888c1aa",
+      "git_sha256": "cb1cab919e6d090b5b6d233f601fe0b5a71e0225d4fa354c7101bbd6990046a7",
+      "local_bytes": 66282,
+      "git_bytes": 64737
+    },
+    {
+      "path": "Narro-M7-Logs/after-owned-delete.json",
+      "local_sha256": "455ae92f3dd664439294258ae17f2aa45add8a6fff0f7101579f210838626770",
+      "git_sha256": "721d94cdb38a99f79cf418b6d54c6b11abf8866c2b2185c913275dd2b576d9f1",
+      "local_bytes": 66259,
+      "git_bytes": 64719
+    },
+    {
+      "path": "Narro-M7-Logs/before-add-pending.json",
+      "local_sha256": "e05043a305e7cd20e340884eb020af7f640143af720442795d101f4572ca8f31",
+      "git_sha256": "16de4c9c61951553c4c4d2da5a6a6aad0998318843ef2bfbaf803d1397e87d6b",
+      "local_bytes": 66259,
+      "git_bytes": 64719
+    },
+    {
+      "path": "Narro-M7-Logs/before-owned-delete.json",
+      "local_sha256": "f39098bc6a37260c6cbc0ef2fc4f151d248d38bafa32342819080f3c4d0673d1",
+      "git_sha256": "011cbdc1816c6af644920aa3fd5de25d0c667f3b5425f540d9d6ff74a11d8863",
+      "local_bytes": 67025,
+      "git_bytes": 65466
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-01-capture.log",
+      "local_sha256": "7404fc3bd31d472b6ba3e637d13d9caf082a682d9241c1374950914681df0286",
+      "git_sha256": "b1f99af979d756f6de26a554e51eba6fc693cceda016210ca718b07b17aff341",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-01-start.json",
+      "local_sha256": "69aa84fcd5624518aec2394c36d487f250df131394771f24fb6479d2e0941fda",
+      "git_sha256": "2b86a4339e27317a8c7c490418a56df446049617cf0202eacad9546d31dcffa6",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-02-capture.log",
+      "local_sha256": "22879daf6f3448a1c58da5d20ccc6d36f5fa2349667fa4274361beaf25f9626a",
+      "git_sha256": "03318458388c17f1f0837ba79b3be7bccf796f8abf448cb32e849d8711667f18",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-02-start.json",
+      "local_sha256": "a1b2227c7e58d788e0cbac34384ba2e11f8a2e21107bc0b19271258f1e7a7e94",
+      "git_sha256": "c5b8990c92e7700e4732fcb03406a2ce653083262458eb5909f27bb12510bd41",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/c4-clean-sequence-after.json",
+      "local_sha256": "3adacc2a5d4f7f7cce9147187970b60d31feaa9348fc4280f515e43f42e95230",
+      "git_sha256": "f391ad6731ba215a8d8926548e80c85f0f89b4b8dd8975787f88b89661fef425",
+      "local_bytes": 67200,
+      "git_bytes": 65636
+    },
+    {
+      "path": "Narro-M7-Logs/c4-clean-sequence-before.json",
+      "local_sha256": "9d73fbf14fdc334c627581c05d46a7aac25def18eaf69d2a63ccf081218a5edb",
+      "git_sha256": "f5b29f62cfba8517b4aa879a3ac3165c0df4fc449be42d4ba90ebd1e4d0e5b9c",
+      "local_bytes": 67200,
+      "git_bytes": 65636
+    },
+    {
+      "path": "Narro-M7-Logs/c4-domain-diff.json",
+      "local_sha256": "cc5f7626301b8b190efff10ade542fd035c1ac29d349f3455c876e7acf8f24b6",
+      "git_sha256": "7ddceafccbaa72ad2f3c6ddbf1ee193074675981d0034f92dcc13bf1cdb3919b",
+      "local_bytes": 795,
+      "git_bytes": 748
+    },
+    {
+      "path": "Narro-M7-Logs/continuity-paused-baseline.json",
+      "local_sha256": "4307ba5b9c44dfcd020201db121a4ab796f0b9b908b1549a85b854801267e5ec",
+      "git_sha256": "f44edc90140f78e4d7be007c064e03b14eaa1dde2bafafae975616adfc09decd",
+      "local_bytes": 66752,
+      "git_bytes": 65200
+    },
+    {
+      "path": "Narro-M7-Logs/continuous-review-index.json",
+      "local_sha256": "0fb8a71f39adae3204539171076404976ebd313440bee38cb597350a21f5f374",
+      "git_sha256": "830a3118061f0edee359b84a97a9dd7ec270a6dba16a27ad03ab850fc5c5234c",
+      "local_bytes": 3166,
+      "git_bytes": 3068
+    },
+    {
+      "path": "Narro-M7-Logs/f29-lock-events.json",
+      "local_sha256": "ad948d95405bc6ee7b7d9f8c79fdea201f4d5f8143c284ac2a5fb56a7fe4f74e",
+      "git_sha256": "df46cccaad5d906eac764499d437602d420f91964834457ce269dd4a68bd91ff",
+      "local_bytes": 1124,
+      "git_bytes": 1082
+    },
+    {
+      "path": "Narro-M7-Logs/focus-05-capture.log",
+      "local_sha256": "41fde098b5097017b3b247875fd1a832e58861e7925baff68cb90d0b7154d8e5",
+      "git_sha256": "fb16d6975679fbb007f618a8b9e6159fd16882719312c57bc88dc6d9a386fd79",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/focus-05-start.json",
+      "local_sha256": "aa8ddb8f51dc7ec711b07dd456c61034ad8bd7a669daa708d66bbbf3600bd5f4",
+      "git_sha256": "16507e61b2d6f69a929d5012bf5b9a1e7f3816423e71f4624af9a4ff16a60a72",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/focus-recovery-06-capture.log",
+      "local_sha256": "0d45b90f6441e7f045c105ca346f754039f8b0862418bc64d04836ca78325f7d",
+      "git_sha256": "1edcda2328a988cb7eb72d0a797530b4d874c6cbd805394417a8b307fc105a8e",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/focus-recovery-06-start.json",
+      "local_sha256": "fc9391c804f2b83304e48ae673f62bf6579dbc2abd39de54715db376b29bc7a0",
+      "git_sha256": "46656fdcf0af8968cf1df3035e49ce8fa54cc011d259f06b50ae8e2e54bdc5fa",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/home-reentry-state.json",
+      "local_sha256": "395f821ec10daea7d2fd2bce663c799de795432bced1559795ad06e0c5c88ee7",
+      "git_sha256": "2f1071e68e9bdb097d2931e33ec796c28a0ba62fde8b55317bc184579ed028a5",
+      "local_bytes": 67200,
+      "git_bytes": 65636
+    },
+    {
+      "path": "Narro-M7-Logs/identity.json",
+      "local_sha256": "357d08e3dc66e2fbe108a901c9d2bb9a6e2459cd529fde75c51f944977d553c0",
+      "git_sha256": "bf3a1df8ec559b6dce56ffceb6d4d9d65814fad9b3e6b772bd50ad388f86da81",
+      "local_bytes": 430,
+      "git_bytes": 421
+    },
+    {
+      "path": "Narro-M7-Logs/motion-normal.json",
+      "local_sha256": "1bf72cb2fc4b601512cec0403b89f17e748219908afce190b772e0804a00b45e",
+      "git_sha256": "67ec27b11d0fb287768a77f76aa900327315d3e5c85ee851e179bdc3b528571c",
+      "local_bytes": 227,
+      "git_bytes": 216
+    },
+    {
+      "path": "Narro-M7-Logs/motion-original.json",
+      "local_sha256": "71594aecb47838d79835047e3f0efbaefd4f705aa2dbec125bd1ecca830cf32c",
+      "git_sha256": "a5d498b04c6a47868691e5338bd744f59044e6f905c53dda8a72ae8534f4850d",
+      "local_bytes": 61,
+      "git_bytes": 60
+    },
+    {
+      "path": "Narro-M7-Logs/native-acceptance-04-capture.log",
+      "local_sha256": "ed4ec5259ab4e4859a8c9308f60633bd9c4f829a634373f4337816fe35a14af8",
+      "git_sha256": "3c92210d1bf03b5d39ff0e6109f611615e030164df6e1568ebc2e8991ebf20d3",
+      "local_bytes": 112,
+      "git_bytes": 111
+    },
+    {
+      "path": "Narro-M7-Logs/native-acceptance-04-start.json",
+      "local_sha256": "37d347dac4d0e427a514a3f8ff7b28b2c1567a279168657639fafae30ef94bc9",
+      "git_sha256": "16c9ce423dfec9be15075aeb64172bb6cf204836e31513174e501fd43a000e3c",
+      "local_bytes": 120,
+      "git_bytes": 119
+    },
+    {
+      "path": "Narro-M7-Logs/native-actions.jsonl",
+      "local_sha256": "d706635231072727ec67930c40a32c8ae761ebbfe85641e7055ff8927925146d",
+      "git_sha256": "5b9c2c8f8d3ce550c5ab3d9d3bbd631556c36c94a838fc09ace5f5ad89816bd7",
+      "local_bytes": 37537,
+      "git_bytes": 37397
+    },
+    {
+      "path": "Narro-M7-Logs/prelaunch/checklist.md",
+      "local_sha256": "c030d92bd39cdbba7645723b2224512965434e8614844705584e46255a676ace",
+      "git_sha256": "9d9e501e6965492943f7223637655827af2cdf15064384900b0c1ba702a73a88",
+      "local_bytes": 1587,
+      "git_bytes": 1558
+    },
+    {
+      "path": "Narro-M7-Logs/prelaunch/environment.json",
+      "local_sha256": "41f3eab0dd39b02924586a3bc35404bcec308a9a7bce6cfa36a71d412475133c",
+      "git_sha256": "1f7199c21bef1997e1acb867379f20793379c5063b4313d113a5e7f3596339eb",
+      "local_bytes": 1827,
+      "git_bytes": 1767
+    },
+    {
+      "path": "README.md",
+      "local_sha256": "790311463bc80e77abcf7853400cc94e11eda3b793e0f80a986ee47d88aed8f6",
+      "git_sha256": "455aded4148a2b5161ca2bb7d6b4a505aded950622a90c06966183a02568c79e",
+      "local_bytes": 8793,
+      "git_bytes": 8749
+    }
+  ]
+}

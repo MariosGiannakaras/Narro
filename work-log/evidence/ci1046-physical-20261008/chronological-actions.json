@@ -1704,5 +1704,725 @@
       "389",
       "131"
     ]
+  },
+  {
+    "utc": "2026-10-08T10:05:25.768344+00:00",
+    "label": "residual-timer-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "residual-timer-hover",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:05:26.366630+00:00",
+    "label": "residual-panel-return",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "residual-panel-return",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:05:46.606062+00:00",
+    "label": "residual-home-paused",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "residual-home-paused",
+      "269",
+      "17"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:05:52.152646+00:00",
+    "label": "residual-main-home",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "residual-main-home"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:06:47.785022+00:00",
+    "label": "residual-reports-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "residual-reports-open",
+      "665",
+      "685"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:09:40.852349+00:00",
+    "label": "f07-home-read-pending",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f07-home-read-pending",
+      "283",
+      "131"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:09:41.487000+00:00",
+    "label": "f07-pending-search",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f07-pending-search",
+      "0x11+0x46"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:09:42.129056+00:00",
+    "label": "f07-pending-escape",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f07-pending-escape",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:09:42.954002+00:00",
+    "label": "f07-pending-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f07-pending-tab",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:09:43.578856+00:00",
+    "label": "f07-pending-shift-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f07-pending-shift-tab",
+      "0x10+0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:10:25.795242+00:00",
+    "label": "f07-settled-after-unlock",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "f07-settled-after-unlock"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:10:40.500814+00:00",
+    "label": "residual-reports-for-pending",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "residual-reports-for-pending",
+      "665",
+      "674"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:10:41.102988+00:00",
+    "label": "residual-sessions-for-pending",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "residual-sessions-for-pending",
+      "410",
+      "190"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:10:48.855206+00:00",
+    "label": "residual-home-footer",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "residual-home-footer",
+      "946",
+      "589",
+      "-1440"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:05.935955+00:00",
+    "label": "pending-reports-navigation",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-reports-navigation",
+      "665",
+      "674"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:06.532111+00:00",
+    "label": "pending-sessions-navigation",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-sessions-navigation",
+      "410",
+      "190"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:17.814964+00:00",
+    "label": "pending-modal-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-modal-open",
+      "739",
+      "130"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:25.897907+00:00",
+    "label": "pending-owned-search",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "text",
+      "Narro",
+      "pending-owned-search",
+      "M7 PR233 CI948 queue"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:26.524678+00:00",
+    "label": "pending-owned-select",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-owned-select",
+      "395",
+      "292"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:11:37.217421+00:00",
+    "label": "pending-owned-confirm-select",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-owned-confirm-select",
+      "391",
+      "399"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:06.717947+00:00",
+    "label": "pending-start-hour",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-start-hour",
+      "280",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:07.319063+00:00",
+    "label": "pending-start-earlier",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "pending-start-earlier",
+      "0x28"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:07.914503+00:00",
+    "label": "pending-end-hour",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-end-hour",
+      "463",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:08.517756+00:00",
+    "label": "pending-end-earlier",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "keys",
+      "Narro",
+      "pending-end-earlier",
+      "0x28",
+      "2"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:09.406880+00:00",
+    "label": "pending-end-minute",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "pending-end-minute",
+      "486",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:10.004255+00:00",
+    "label": "pending-valid-one-minute",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "pending-valid-one-minute",
+      "0x26"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:37.982177+00:00",
+    "label": "f29-valid-pending-add",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-valid-pending-add",
+      "661",
+      "608"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:38.641391+00:00",
+    "label": "f29-valid-pending-escape",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-valid-pending-escape",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:39.282134+00:00",
+    "label": "f29-valid-pending-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-valid-pending-tab",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:39.903068+00:00",
+    "label": "f29-valid-pending-shift-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-valid-pending-shift-tab",
+      "0x10+0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:12:41.995143+00:00",
+    "label": "f29-valid-after-release",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "f29-valid-after-release"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:14:51.209493+00:00",
+    "label": "time-up-return-home",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "time-up-return-home",
+      "283",
+      "131"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:14:51.796404+00:00",
+    "label": "time-up-owned-list",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "time-up-owned-list",
+      "721",
+      "556"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:15:04.440684+00:00",
+    "label": "time-up-open-owned-board",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "time-up-open-owned-board",
+      "781",
+      "650"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:15:05.037818+00:00",
+    "label": "time-up-blitz-paused",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "time-up-blitz-paused",
+      "686",
+      "560"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:15:19.960244+00:00",
+    "label": "time-up-real-blitz-paused",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "time-up-real-blitz-paused",
+      "686",
+      "654"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:15:20.594902+00:00",
+    "label": "time-up-panel-paused",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "time-up-panel-paused"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:15:32.925184+00:00",
+    "label": "time-up-est-edit",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-est-edit",
+      "128",
+      "198"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:13.877394+00:00",
+    "label": "time-up-est-owned-one-minute",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "text",
+      "Narro - Focus",
+      "time-up-est-owned-one-minute",
+      "00:01"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:14.517746+00:00",
+    "label": "time-up-est-commit",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-est-commit",
+      "296",
+      "198"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:15.151130+00:00",
+    "label": "time-up-enter-timer",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-enter-timer",
+      "312",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:36.034189+00:00",
+    "label": "time-up-return-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "time-up-return-hover",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:36.683113+00:00",
+    "label": "time-up-return-edit-panel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-return-edit-panel",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:37.348099+00:00",
+    "label": "time-up-est-field",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-est-field",
+      "160",
+      "198"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:37.992094+00:00",
+    "label": "time-up-est-select",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "time-up-est-select",
+      "0x11+0x41"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:38.612172+00:00",
+    "label": "time-up-est-valid",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "text",
+      "Narro - Focus",
+      "time-up-est-valid",
+      "0:01:00"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:16:39.272801+00:00",
+    "label": "time-up-est-valid-commit",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-est-valid-commit",
+      "296",
+      "198"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:17:09.087036+00:00",
+    "label": "time-up-resume-owned",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-resume-owned",
+      "146",
+      "334"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:17:09.737664+00:00",
+    "label": "time-up-floating-countdown",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-floating-countdown",
+      "312",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:17:10.414808+00:00",
+    "label": "time-up-floating-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "time-up-floating-hover",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:17:46.425171+00:00",
+    "label": "time-up-expired-compact",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "time-up-expired-compact"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:18:03.527453+00:00",
+    "label": "time-up-expired-actions",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "time-up-expired-actions",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:18:12.298168+00:00",
+    "label": "time-up-real-resume",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-real-resume",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:18:12.934619+00:00",
+    "label": "time-up-countdown-pointer-away",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "time-up-countdown-pointer-away",
+      "420",
+      "135"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:18:45.023878+00:00",
+    "label": "time-up-authoritative-expired",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "time-up-authoritative-expired"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:18:51.319420+00:00",
+    "label": "time-up-slot-substitution",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "time-up-slot-substitution",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:19:12.664184+00:00",
+    "label": "time-up-expanded-state",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-expanded-state",
+      "388",
+      "102"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:19:37.569870+00:00",
+    "label": "time-up-expand-extend-control",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-expand-extend-control",
+      "177",
+      "73"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:20:00.375780+00:00",
+    "label": "time-up-overtime-pause",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-overtime-pause",
+      "177",
+      "73"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:20:01.013017+00:00",
+    "label": "time-up-overtime-return-panel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "time-up-overtime-return-panel",
+      "390",
+      "73"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:21:11.844668+00:00",
+    "label": "f27-quick-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f27-quick-open",
+      "220",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T10:22:30.889226+00:00",
+    "label": "f27-named-lg-select",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f27-named-lg-select",
+      "80",
+      "357"
+    ]
   }
 ]

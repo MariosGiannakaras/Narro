@@ -1,0 +1,28 @@
+import pathlib,sqlite3,json,hashlib,datetime,subprocess,ctypes,shutil
+r=pathlib.Path(__file__).parent;prod=pathlib.Path.home()/'AppData/Roaming/com.mariosg.Narro/narro.db';backup=r/'sessions/20261008-121212/production-appdata-backup/narro.db'
+def read(p):
+ c=sqlite3.connect('file:'+str(p)+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+ return {t[0]:[dict(v) for v in c.execute('select * from "'+t[0]+'"')] for t in c.execute("select name from sqlite_master where type='table'")}
+before=read(backup);after=read(prod);owned={v['id'] for v in before['tasks'] if v['title'].startswith('M7 PR233 CI948')};diff={}
+print(json.dumps({'changed_table_counts':{t:[len(before[t]),len(after[t])] for t in before if before[t]!=after[t]}}))
+for t in before:
+ if before[t]==after[t]:continue
+ if t in ['tasks','sessions']:
+  a={v['id']:v for v in before[t]};b={v['id']:v for v in after[t]};rows=[b.get(i,a.get(i)) for i in a.keys()|b.keys() if a.get(i)!=b.get(i)]
+  assert all((v['id'] if t=='tasks' else v['task_id']) in owned for v in rows),(t,rows)
+  diff[t]=[v['id'] for v in rows]
+ elif t in ['preferences','timer_runtime_checkpoint']:diff[t]='owned test preferences/checkpoint changes'
+ elif t.startswith('_diagnostic_') or t in ['floating_timer_placement','timed_alert_runs']:diff[t]={'before':before[t],'after':after[t]}
+ else:raise AssertionError('Unrelated DB mutation: '+t)
+(r/'owned-data-restoration-diff.json').write_text(json.dumps(diff,indent=2)+'\n')
+c=sqlite3.connect('file:'+str(prod)+'?mode=ro',uri=True);dest=sqlite3.connect(str(r/'final-test-state.db'));c.backup(dest);dest.close();c.close()
+proc=subprocess.run(['powershell','-NoProfile','-Command',"$p=Get-Process -Id 26388; if($p.Path -ne 'E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\ci1046-physical\\candidate\\narro.exe'){throw 'Executable identity changed'}; Stop-Process -Id 26388; $p.WaitForExit(5000)"],capture_output=True,text=True)
+assert proc.returncode==0,proc.stderr
+# The authoritative Narro process is stopped; no external lock helper is alive.
+assert hashlib.sha256(backup.read_bytes()).hexdigest()=='3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4'
+assert not pathlib.Path(str(prod)+'-journal').exists(),'Unresolved SQLite rollback journal; do not overwrite'
+shutil.copy2(backup,prod)
+restored=hashlib.sha256(prod.read_bytes()).hexdigest();assert restored==hashlib.sha256(backup.read_bytes()).hexdigest()
+subprocess.run([__import__('sys').executable,str(r/'motion.py'),'restore'],check=True)
+report={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'narro_stopped':True,'restored_database_sha256':restored,'original_preferences_restored':True,'original_task_and_paused_checkpoint_restored':True,'windows_scale_changed':False,'windows_animations_restored':json.loads((r/'motion-restore.json').read_text())['after'],'preserved_test_database':'final-test-state.db','changed_tables':diff}
+(r/'final-restoration.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))

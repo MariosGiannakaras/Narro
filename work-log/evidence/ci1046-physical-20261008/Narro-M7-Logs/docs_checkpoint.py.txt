@@ -1,0 +1,31 @@
+import pathlib,re
+m=pathlib.Path(r'C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload')
+for name in ['STATUS.md','TODO.md','HANDOFF.md','docs/AUDIT_IMPLEMENTATION_CROSSWALK.md']:
+ p=m/name;s=p.read_text(encoding='utf8');prefix='../' if name.startswith('docs/') else ''
+ link=prefix+'work-log/evidence/ci1046-physical-20261008/README.md'
+ block=f'''## Current physical checkpoint — CI1046, 2026-10-08
+
+This newer checkpoint supersedes older physical-OPEN text only for its explicitly exercised scopes. Exact CI1046 EXE SHA256 `59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275`; no Narro source changes. [Full recordings, screenshots, chronological actions, domain snapshots and gate matrix]({link}).
+
+- **Physical residual counts:** M5 **6/6 PASS**; M6 **5/6 PASS**, A motion/timing reconciliation OPEN; M7 **1/3 exercised: C4 FAIL**, Finding07/35 OPEN; M9 **2/3 PASS**, Finding29 partial/pending OPEN; conditional M1 Finding27 and M8 OS notification/sound OPEN. These are this bounded physical checklist's counts, not whole-milestone completion.
+- **Closed physical scopes:** M5 narrow title/Today/rail/drag/retained Delete and native Finding28 keyboard; M6 B Quick Preferences, C queue rail, D visibly paused Home/re-entry/guarded resume, Finding33 Focus contenteditable Escape, Finding36 explicit Success NextTask selected-list scope; M9 Overview PDF and Finding30 bounded picker. Direct canonical visual/source comparisons remain separate; Finding33 Main path not claimed.
+- **M7 C4 FAIL:** clean Timer→Panel at `09:47:28.644 UTC` (~133.06s in `focus-recovery-06.mkv`) exposes incoming Panel header/live-title clipped in the old compact region before full Panel. Repeated in the next settled cycle. All nine before/after domain tables match, same Focus HWND, paused task/time preserved. Do not claim continuity fixed from CI or static frames. Record the recurrent acceptance failure and follow the repeated-failure escalation rule before another incremental correction; symptom identity with historical failures still requires comparison.
+- **Finding29 PARTIAL/OPEN:** ordinary modal initial focus, Tab/Shift+Tab containment, Escape and opener restoration PASS. Pending trial is inconclusive because helper foreground activation delayed actual Escape until DB unlock; this is neither product PASS nor FAIL. Retry with already-verified foreground/nonblocking dispatch.
+- **M9 top-level items: 12/12.** Actual Windows Overview PDF creation/default-viewer rendering and unique non-overwriting second export PASS. The mandatory milestone's broader Reports/Sessions source-parity acceptance remains OPEN; no M9 whole-milestone completion or M10 entry announcement yet.
+- **Recovery/continuation:** initial fast continuity batch accidentally completed an owned validation task (operator error, excluded from C4). Clean repeat used paused owned companion and preserved all domain arrays. Prelaunch DB backup retained. At checkpoint: compact Timer on LG, paused35s/taken95s,31 tasks/63 sessions; Show Success temporarily ON and normal OS animations ON. Preserve final test-state evidence, then stop Narro and restore original DB/settings. Next physical checks: valid pending guard, exclusive blocked-read keyboard, real Time's Up, conditional DPI identity/stale selection and actual notifications. Root feature/source WIP remains untouched; documentation/evidence is published directly on main.
+- **Roadmap unchanged: 3/10 mandatory milestones** (M2–M4). M1/M5/M6/M7/M8/M9 required gates remain; M10 blocked, M11 dormant.
+
+'''
+ i=s.index('\n',s.index('# '))+1;s=s[:i]+'\n'+block+s[i:]
+ # Change only current authority's terse PDF summary; preserve dated history.
+ s=s.replace('Physical Windows PDF creation/open/rendering remains OPEN, so M9 stays 11/12.','CI1046 physical Windows PDF creation/open/rendering now PASS; M9 top-level items are12/12, broader source-parity acceptance OPEN.')
+ s=s.replace('Physical Windows PDF creation/rendering remains OPEN; M9 stays 11/12.','CI1046 physical Windows PDF creation/rendering PASS; M9 top-level items12/12, broader source-parity acceptance OPEN.')
+ s=s.replace('actual Windows PDF creation/open/rendering remains OPEN, M9 stays 11/12.','CI1046 actual Windows PDF creation/open/rendering PASS, M9 top-level items12/12; broader source parity OPEN.')
+ if name=='TODO.md':
+  s=re.sub(r'  - \[ \] Overview -> PDF —.*', '  - [x] Overview -> PDF — PR238/CI971 source integrated; CI1046 real Windows creation, normal Nitro PDF handler rendering, range/summary/chart content and unique non-overwriting second export PASS. See `work-log/evidence/ci1046-physical-20261008/README.md`. Direct Reports source parity remains separately OPEN.',s)
+  s=s.replace('The 12th top-level item remains open only for required physical Windows PDF creation/open/rendering acceptance; direct Reports/Sessions source comparison remains separately open.','The 12th top-level item is closed by CI1046 physical PDF acceptance; all12 top-level items complete, direct Reports/Sessions source comparison remains separately OPEN.')
+  s=s.replace('M9 is therefore **11/12** top-level items complete; Overview PDF implementation is integrated from PR #238/CI971 and its top-level checkbox remains open only for required physical Windows PDF creation/open/rendering acceptance.','M9 is now **12/12** top-level items complete: PR238/CI971 PDF implementation plus CI1046 physical Windows PDF creation/open/rendering acceptance.')
+  for token,detail in [('P3-M6-04','CI1046 physical Quick Preferences composition/reversible persistence PASS.'),('P3-M6-05','CI1046 physical queue rail/overflow/keyboard/stable geometry PASS.'),('P3-M6-06','CI1046 continuous physical Home PAUSED before exit, initial paused re-entry/guarded resume and intentional pause retention PASS.')]:
+   lines=s.splitlines();s='\n'.join(line+' '+detail+' Direct canonical source comparison remains OPEN.' if line.startswith('- **'+token+' —') else line for line in lines)+'\n'
+ p.write_text(s,encoding='utf8')
+print('Four authoritative documents updated; PDF checkbox12/12; separate open gates preserved.')
