@@ -586,6 +586,7 @@ Nested controls clearly disable/collapse with parent state.
 ---
 
 # 9. Windows shortcuts UI
+- SS-C17 current source has a dedicated closeable shortcuts dialog with two explicit groups: three **Global** chords with toggles, then seven non-toggle **App** chords (Ctrl+Alt+T/B/P/S/F/N; Ctrl+F). Narro currently embeds only the three Global rows in full Preferences. The app-only chord logic is already implemented in `inAppShortcuts.ts`; expose a source-consistent read-only command reference without inventing app-only enable toggles or disturbing existing keyboard handling.
 
 [CONFIRMED screenshot + official docs]
 

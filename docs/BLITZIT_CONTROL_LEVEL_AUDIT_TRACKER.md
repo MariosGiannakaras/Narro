@@ -24,7 +24,7 @@ Authoritative evidence: `BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` (46/46) and `BLI
 | SS-C14 | M9 | B25 | filter trigger badge; CSV implemented |
 | SS-C15 | M9 | B25 | list trigger colored/stacked identity |
 | SS-C16 | M5 | B23 | Home preview; light hover exists |
-| SS-C17 | M8 | FURTHER_CONTROL_REVIEW | shortcuts implemented; exact current-screenshot comparison still OPEN |
+| SS-C17 | M8 | B29 | source Global + App two-group shortcuts modal; app-only bindings missing from embedded Settings list |
 | SS-C18 | M7 | SCOPED_ACCEPTANCE | compact subtask/controls; whole visual OPEN |
 | SS-C19 | M6 | B15 | Focus list selector; other states separately validated |
 | SS-C20 | M7 | SCOPED_ACCEPTANCE | compact rest/hover verified in limited scope |
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B28 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B29 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.
