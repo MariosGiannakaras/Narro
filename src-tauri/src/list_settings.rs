@@ -73,6 +73,7 @@ pub struct ArchivedDoneTaskSummary {
     pub completed_at: String,
     pub archived_at: String,
     pub time_taken_seconds: String,
+    pub has_note: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -289,7 +290,8 @@ fn load_archived_done_tasks(
                 tasks.completed_at,
                 tasks.archived_at,
                 lists.title,
-                lists.color
+                lists.color,
+                EXISTS(SELECT 1 FROM task_notes WHERE task_notes.task_id = tasks.id)
          FROM tasks
          INNER JOIN lists ON lists.id = tasks.list_id
          WHERE tasks.completed_at IS NOT NULL
@@ -306,12 +308,13 @@ fn load_archived_done_tasks(
             row.get::<_, String>(4)?,
             row.get::<_, String>(5)?,
             row.get::<_, Option<String>>(6)?,
+            row.get::<_, bool>(7)?,
         ))
     })?;
 
     let mut tasks = Vec::new();
     for row in rows {
-        let (raw_id, raw_list_id, title, completed_at, archived_at, list_title, list_color) = row?;
+        let (raw_id, raw_list_id, title, completed_at, archived_at, list_title, list_color, has_note) = row?;
         let task_id = TaskId::parse_str(&raw_id)
             .map_err(|_| ListSettingsError::InvalidStoredTaskId(raw_id.clone()))?;
         let list_id = ListId::parse_str(&raw_list_id)
@@ -325,6 +328,7 @@ fn load_archived_done_tasks(
             completed_at,
             archived_at,
             time_taken_seconds: task_time_taken_seconds(connection, task_id)?.to_string(),
+            has_note,
         });
     }
     Ok(tasks)
@@ -747,6 +751,13 @@ mod tests {
                 [task_id.to_string()],
             )
             .expect("seed Time Taken");
+        connection
+            .execute(
+                "INSERT INTO task_notes (task_id, editor_format_version, content, updated_at)
+                 VALUES (?1, 1, '{}', ?2)",
+                params![task_id.to_string(), "2026-07-01T00:05:00Z"],
+            )
+            .expect("seed saved note for archived Info column");
         drop(connection);
 
         let now = DateTime::parse_from_rfc3339("2026-09-12T00:00:00Z")
@@ -759,6 +770,7 @@ mod tests {
         assert_eq!(archived.list_id, list.id.to_string());
         assert_eq!(archived.completed_at, "2026-07-01T00:00:00Z");
         assert_eq!(archived.time_taken_seconds, "1800");
+        assert!(archived.has_note, "saved note must project to archived Info column");
         assert_eq!(snapshot.filter_lists.len(), 1);
         assert_eq!(snapshot.filter_lists[0].id, list.id.to_string());
 

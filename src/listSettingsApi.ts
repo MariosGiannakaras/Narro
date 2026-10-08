@@ -30,6 +30,7 @@ export type ArchivedDoneTaskSummary = {
   completedAt: string;
   archivedAt: string;
   timeTakenSeconds: string;
+  hasNote: boolean;
 };
 
 export type ArchiveSnapshot = {
