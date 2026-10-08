@@ -1,8 +1,8 @@
 # STATUS.md
 
-## Current ChatGPT implementation campaign — 2026-10-08
+## Current ChatGPT implementation campaign — 2026-10-09
 
-**14 code batches with exact-PR-head Windows CI SUCCESS and guarded merge**, latest #260 B24 head d5dac1d0 merged 906b35678c608e678231f5e554a68dba13dabc76. **9 PRs open** (#262,#264,#265,#266,#267,#268,#269,#270,#271). Exact SHA/CI/failure/overlap/next steps in HANDOFF. #262 SQLite writer contention 381/382 tests PASS but run FAILED, exact job retry requested, not coding PASS. #267 previous fast-gate test ReferenceError fixed on new head, CI pending. #264 old head CI green but shared tests need reconciliation after #262. #269 shared time parser branch already reconciled with merged #260 Board selector but its combined head needs fresh CI. #267/#269 share frontend contracts and scripts; #264/#271 share shortcut tests. Physical/current-source rendered parity OPEN. These are implementation progress counters, NOT roadmap milestone completion.
+**22/24 scoped implementation PR batches guarded-merged after exact-head Windows CI SUCCESS** (#249–#272 inclusive, excluding the still-open #262 and #269). This X/Y counts this chat's integration batches, **not milestone completion or the entire remaining backlog**. Last source merge: #264 B9 `504753a2bde67f5a72d954aecca85feeff68aef9` after #266/#267/#268/#270/#271/#272. The other two are in CI on exact heads: #262 `21e2dd9e` run `37838808626` attempt 3, #269 `fc96cc24` run `37856294726`, both IN PROGRESS at last check. Resulting-main run `37856045000` at `504753a2bde67f5a72d954aecca85feeff68aef9` is NOT YET PASS. Prior #262 visual readiness and #269 validator errors are logged and strictly scoped in HANDOFF. Independent B20 ordinal month editor/B19 wizard and other evidence-backed TODO coding still OPEN; all physical/native/source-rendered parity OPEN until consolidated Codex validation. Exact next action: inspect these CI results, address only actual failures, guarded merge validated heads; begin next safe B20 user-visible editor as dependencies now satisfied.
 
 ## Current physical batch closure — CI1046, 2026-10-08
 
