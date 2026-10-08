@@ -205,9 +205,9 @@ fn is_occurrence_date(
             match rule.month_day {
                 Some(day) => Ok(candidate.day() == u32::from(day)),
                 None => Ok(weekday_selected(rule.weekday_mask, candidate)
-                    && rule.month_weekday_ordinal.is_none_or(|ordinal| {
-                        (candidate.day() - 1) / 7 + 1 == u32::from(ordinal)
-                    })),
+                    && rule
+                        .month_weekday_ordinal
+                        .is_none_or(|ordinal| (candidate.day() - 1) / 7 + 1 == u32::from(ordinal))),
             }
         }
         RecurrenceUnit::Year => {
@@ -607,8 +607,11 @@ mod tests {
             dates(&occurrences_for_materialization_week(&second_sunday, "2026-03-02").unwrap()),
             vec!["2026-03-08"]
         );
-        assert!(occurrences_for_materialization_week(&second_sunday, "2026-04-06")
-            .unwrap().is_empty());
+        assert!(
+            occurrences_for_materialization_week(&second_sunday, "2026-04-06")
+                .unwrap()
+                .is_empty()
+        );
         assert_eq!(
             dates(&occurrences_for_materialization_week(&second_sunday, "2026-07-06").unwrap()),
             vec!["2026-07-12"]
@@ -616,8 +619,11 @@ mod tests {
 
         let mut fifth_monday = rule(RecurrenceUnit::Month, 1, 0b0000001, None, "2026-02-01");
         fifth_monday.month_weekday_ordinal = Some(5);
-        assert!(occurrences_for_materialization_week(&fifth_monday, "2026-02-23")
-            .unwrap().is_empty());
+        assert!(
+            occurrences_for_materialization_week(&fifth_monday, "2026-02-23")
+                .unwrap()
+                .is_empty()
+        );
         assert_eq!(
             dates(&occurrences_for_materialization_week(&fifth_monday, "2026-03-30").unwrap()),
             vec!["2026-03-30"]

@@ -146,7 +146,9 @@ fn normalize_replacement(
     }
     if input.weekday_mask > 127
         || input.month_day.is_some_and(|day| !(1..=31).contains(&day))
-        || input.month_weekday_ordinal.is_some_and(|value| !(1..=5).contains(&value))
+        || input
+            .month_weekday_ordinal
+            .is_some_and(|value| !(1..=5).contains(&value))
     {
         return Err(ReplaceExistingError::InvalidPattern);
     }
@@ -167,7 +169,7 @@ fn normalize_replacement(
                 && input.month_weekday_ordinal.is_none_or(|_| {
                     input.month_day.is_none() && input.weekday_mask.count_ones() == 1
                 })
-        },
+        }
     };
     if !valid_pattern {
         return Err(ReplaceExistingError::InvalidPattern);

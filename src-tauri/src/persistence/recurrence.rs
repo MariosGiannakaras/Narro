@@ -255,9 +255,8 @@ fn validate_pattern(
         }
         RecurrenceUnit::Month => {
             ((weekday_mask != 0) ^ month_day.is_some())
-                && month_weekday_ordinal.is_none_or(|_| {
-                    month_day.is_none() && weekday_mask.count_ones() == 1
-                })
+                && month_weekday_ordinal
+                    .is_none_or(|_| month_day.is_none() && weekday_mask.count_ones() == 1)
         }
     };
     if !valid {
@@ -298,7 +297,12 @@ fn normalize_rule_input(
     if input.interval_count == 0 {
         return Err(RecurrenceStoreError::InvalidInterval);
     }
-    validate_pattern(input.unit, input.weekday_mask, input.month_day, input.month_weekday_ordinal)?;
+    validate_pattern(
+        input.unit,
+        input.weekday_mask,
+        input.month_day,
+        input.month_weekday_ordinal,
+    )?;
     let starts_local_date = normalize_local_date(&input.starts_local_date)?;
     let (local_time, timezone) = normalize_time_and_timezone(input.local_time, input.timezone)?;
 
@@ -895,7 +899,12 @@ mod tests {
         input.month_weekday_ordinal = Some(2);
         let new_rule = create_recurrence_rule(&mut conn, input, T2).expect("second Sunday");
         assert_eq!(new_rule.month_weekday_ordinal, Some(2));
-        assert_eq!(get_recurrence_rule(&conn, new_rule.id).unwrap().month_weekday_ordinal, Some(2));
+        assert_eq!(
+            get_recurrence_rule(&conn, new_rule.id)
+                .unwrap()
+                .month_weekday_ordinal,
+            Some(2)
+        );
         let mut old = weekly(second.id);
         old.unit = RecurrenceUnit::Month;
         let legacy = create_recurrence_rule(&mut conn, old, T2).expect("legacy all weekdays");
