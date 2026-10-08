@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 8/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 9/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
 | VE-012 | REVIEWED (17 time-local video-to-code claims) | Existing B27/B28/B30; Rust avg/day/time-by-list/punctuality semantics align with documented source |
-| VE-013 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-013 | REVIEWED (14 time-local video-code claims) | B12/B60 Board gaps; Focus/Floating subtask behaviors code-present, native M7 motion OPEN; Notion excluded |
 | VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-015 | REVIEWED (20 time-local video-to-code claims) | B56 high-priority metric meaning + NEW B68 selector disclosure; B59/B25/B32/B51 separate |
 | VE-016 | REVIEWED (23 time-local video-to-code claims) | New B67 negative amber overtime; existing B35–38/B50/B53 + native Finding35 |
@@ -250,6 +250,28 @@
 | 06:47–06:56.30 | Recap/outro | No Narro product interaction requirement | EXCLUDED_SCOPE |
 
 **V08 closure:** This video does not require a new B finding. Important numerator differences are intentional: `Most Productive day` in `docs/PRODUCT_SPEC.md`/UI_UX_SPEC is highest **focus-session count**, and Rust uses count primary, duration tie-break—do not misclassify transcript phrase 'greatest accumulated activity' as an independently proved highest-duration contract. Source one-decimal tooltip components may not add after rounding (5.6 + 0.2 vs5.7); no defect from arithmetic on rounded labels. Time By List allocates only work sessions and headline includes work+break, providing explanation for VE012 1.6hr difference but NOT erasing VE011 older contradictory state. B30/B28/B27 retained; no candidate tests/native acceptance performed.
+## VE-013 — Subtasks — REVIEWED 2026-10-08
+
+Canonical full VE013 Pass-3 source was already reviewed frame-by-frame. This pass checks its chronological control/interaction claims against production code; no new raw video or native app run.
+
+| Time | Source action | Narro code route | Status |
+| --- | --- | --- | --- |
+| 00:00–00:16 | Board three parent tasks, Today 0/3 Done, independent subtask counts | ListBoard/TaskCard count models | PRESENT_CODE |
+| 00:16–00:18 | Hover expands subtasks inline, plus, title input/X, circular progress | TaskSubtasks inline, B12 controls and B60 ring open | GAP_B12_B60 |
+| 00:18–00:31 | Enter two subtasks successively, keep editor; 0/1→0/2, parent 0/3 | ListBoard.submitSubtaskCreate clears draft, retains panel and parent count | PRESENT_FUNCTION |
+| 00:32–00:45 | Arrow reorder/Delete ordinary row, 0/2→0/1 without confirmation | TaskSubtasks arrows/delete, Rust mutations | PRESENT_CODE |
+| 00:48–00:58 | Complete one subtask 0/1→1/1, parent stays pending | TaskSubtasks completion/progress, B60 Board shape | PRESENT_MODEL_GAP_B60 |
+| 01:00–01:10 | Focus same live task; expanded done Coffee and plus | FocusLiveSubtasks circular header/TaskSubtasks nested row | PRESENT_CODE |
+| 01:10–01:12 | Panel→Floating continuous geometry morph ~0.25–0.35sec | Tauri mode transition; opposite-direction C4 physical FAIL separate | M7_MOTION_OPEN |
+| 01:12–01:18 | Floating subtask ring, plus, expanded panel; add Another call 1/1→1/2 | FocusLiveSubtasks floating create+refresh and sizing | PRESENT_CODE_PHYSICAL_OPEN |
+| 01:18–01:32 | Floating row up/down/delete icons visible; no committed move/delete shown | FocusLiveSubtasks floating action buttons | PRESENT_SOURCE_LIMIT |
+| 01:32–01:34 | Floating back towards Board via nearby cut | Focus return routing, exact time unknown | SOURCE_EDIT_LIMIT |
+| 01:34–01:47 | Revisited Board retains Coffee done, Another call pending | Subtask store/Board refresh persistence path | PRESENT_CODE |
+| 01:34–01:47 | Notion-linked row source icon replaces trash | Remote-linked Notion integration excluded | LOCAL_ONLY_DEVIATION |
+| 01:47–02:04 | External Notion checkbox sync mirrored on Floating | Cloud sync excluded, latency not measurable | EXCLUDED |
+| 02:04–02:20 | Integration roadmap narration and outro | Not product parity controls | EXCLUDED |
+
+**V09 result:** No new B ID. B12 input/add composition and B60 circular ring already capture Board gaps. Focus and Floating have ring headers and subtask controls; Focus expanded panel reuses horizontal TaskSubtasks progress, requiring later rendered comparison, not a new unverified B. Task Done and subtask Done remain independent. Cloud sync is excluded. M7 C4 still fails on opposite Timer→Panel native presentation, not validated by source Panel→Floating. Tests/CI/Windows/source pixel PASS NOT RUN.
 ## Exact next review
 
-Continue VE-004/006–VE-010, VE-013–VE-014 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006–VE-010, VE-014 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
