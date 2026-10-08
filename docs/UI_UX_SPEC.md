@@ -758,6 +758,8 @@ Export conflict resolution remains:
 Progress changes animate once, not continuously.
 
 ## 11.3 Active live card
+- VE-010 00:21–00:25 and VE-003 ordinary Focus live card has mutually exclusive resting title+countdown vs compact hover action-strip presentation: icon actions replace visible title/time within the card; targeting one action expands a rounded labeled pill (`Notes`, `Done`) without expanding the Focus width (B49). Narro currently stacks a permanent title/time above an always-visible six-label text toolbar, which is not source grammar. Preserve stable keyboard/focus targets and accessible names while reconstructing.
+- VE-016 Time's Up makes `Extend` available as a contextual replacement/additional live-card action; ordinary running/paused state does not show a permanently disabled Extend button (B50). Narro currently includes Extend among six toolbar cells in every state. Keep authoritative extension control and M7 Finding35 visibility gate independent.
 - VE-016 (~01:32–01:44) source Pomodoro work/Break has a small green `POMO` badge on the timer/card (B37). Source Focus `Break` replaces the active top task card with the task returning to the queue (VE-016/VE-018, B35). Narro currently retains task identity/title as live card during break. These are **historical directly witnessed source states**; current v2.6.69 exact Break-state presentation requires corroboration before accepting or rejecting parity. Do not change Rust timer authority for an inferred visual reconstruction.
 
 - strong accent border;
