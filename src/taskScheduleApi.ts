@@ -26,6 +26,7 @@ export type BoardRecurrenceRule = {
   unit: RecurrenceUnit;
   weekdayMask: number;
   monthDay: number | null;
+  monthWeekdayOrdinal?: number | null;
   startsLocalDate: string;
   localTime: string | null;
   timezone: string | null;
@@ -49,6 +50,7 @@ export type RecurrenceDraft = {
   unit: RecurrenceUnit;
   weekdayMask: number;
   monthDay: number | null;
+  monthWeekdayOrdinal?: number | null;
   startsLocalDate: string;
   localTime: string | null;
   timezone: string | null;
