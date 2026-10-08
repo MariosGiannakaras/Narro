@@ -24,6 +24,7 @@ import {
   resolveInAppShortcut,
 } from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
+import { PreferencesDialog } from "./PreferencesDialog";
 import { snapshotTimerSession } from "./timerSessionApi";
 import "./appShell.css";
 
@@ -125,6 +126,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [searchMode, setSearchMode] = useState<SearchPaletteMode>("search");
   const [shortcutFeedback, setShortcutFeedback] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
@@ -254,6 +256,12 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   }
 
   function handleNavigate(destination: AppDestination) {
+    if (destination === "settings") {
+      setSearchOpen(false);
+      setPreferencesOpen(true);
+      return;
+    }
+    setPreferencesOpen(false);
     if (destination === "search") {
       setSearchMode("search");
       setSearchOpen(true);
@@ -355,7 +363,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
               />
               <NavButton
                 destination="settings"
-                activeDestination={activeDestination}
+                activeDestination={preferencesOpen ? "settings" : activeDestination}
                 label="Settings"
                 onNavigate={handleNavigate}
                 className="app-shell__utility-button"
@@ -372,8 +380,6 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
               <ReportsWorkspace onBack={() => setActiveDestination("home")} />
             ) : activeDestination === "archived-lists" ? (
               <ArchivePanel />
-            ) : activeDestination === "settings" ? (
-              <ThemeSettingsPanel />
             ) : (
               <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
                 <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
@@ -405,6 +411,12 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           </nav>
         </section>
       </div>
+
+      {preferencesOpen ? (
+        <PreferencesDialog onRequestClose={() => setPreferencesOpen(false)}>
+          <ThemeSettingsPanel />
+        </PreferencesDialog>
+      ) : null}
 
       {editorState ? (
         <ListEditorModal
