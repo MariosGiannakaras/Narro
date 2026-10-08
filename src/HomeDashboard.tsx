@@ -135,9 +135,9 @@ function ListCard({
 
       <div className="home-list-card__preview" aria-label={`${card.title} task preview`}>
         {card.previewTasks.length > 0 ? (
-          card.previewTasks.map((task) => (
+          card.previewTasks.map((task, index) => (
             <div className="home-list-card__task" key={task.id}>
-              <span className="home-list-card__task-dot" aria-hidden="true" />
+              <span className="home-list-card__task-ordinal type-metadata" aria-hidden="true">{index + 1}</span>
               <span className="home-list-card__task-title">{task.title}</span>
               {task.estSeconds ? (
                 <span className="home-list-card__task-est type-metadata">

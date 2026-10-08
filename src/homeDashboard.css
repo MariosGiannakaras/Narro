@@ -169,7 +169,7 @@
 
 .home-list-card__task {
   display: grid;
-  grid-template-columns: 0.5rem minmax(0, 1fr) auto;
+  grid-template-columns: 1.25rem minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-2);
   min-height: 2rem;
@@ -179,11 +179,9 @@
   transition-timing-function: var(--motion-ease-enter);
 }
 
-.home-list-card__task-dot {
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 999px;
-  background: var(--home-list-accent);
+.home-list-card__task-ordinal {
+  color: var(--home-list-accent);
+  font-variant-numeric: tabular-nums;
 }
 
 .home-list-card__task-title {
@@ -258,10 +256,11 @@
   place-items: center;
   align-content: center;
   gap: var(--space-2);
+  position: relative;
   min-width: 0;
   min-height: 14.5rem;
   padding: var(--space-5);
-  border: 1px dashed var(--color-accent-solid);
+  border: 1px dashed transparent;
   border-radius: var(--radius-panel);
   color: var(--color-accent-solid);
   background: transparent;
@@ -276,6 +275,20 @@
   border-color: var(--color-accent-start);
   color: var(--color-text-primary);
   background: var(--color-surface-interactive);
+}
+
+.home-create-list-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+  pointer-events: none;
+  mask:
+    repeating-linear-gradient(to right, #000 0 6px, transparent 6px 11px) top / 100% 1px no-repeat,
+    repeating-linear-gradient(to right, #000 0 6px, transparent 6px 11px) bottom / 100% 1px no-repeat,
+    repeating-linear-gradient(to bottom, #000 0 6px, transparent 6px 11px) left / 1px 100% no-repeat,
+    repeating-linear-gradient(to bottom, #000 0 6px, transparent 6px 11px) right / 1px 100% no-repeat;
 }
 
 .home-create-list-tile__plus {
