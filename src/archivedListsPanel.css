@@ -145,6 +145,35 @@
   white-space: nowrap;
 }
 
+.archived-list-row__previews {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  min-width: 0;
+}
+
+.archived-list-row__preview {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-metadata);
+}
+
+.archived-list-row__preview-ordinal {
+  color: var(--archived-list-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.archived-list-row__preview-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .archived-list-row__actions {
   display: flex;
   align-items: center;

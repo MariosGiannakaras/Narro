@@ -1,12 +1,18 @@
 import { invoke } from "@tauri-apps/api/core";
 import { emitBoardInvalidated } from "./boardInvalidation";
 
+export type ArchivedListTaskPreview = {
+  id: string;
+  title: string;
+};
+
 export type ArchivedListSummary = {
   id: string;
   title: string;
   color: string | null;
   iconAsset: string | null;
   archivedAt: string;
+  previewTasks: ArchivedListTaskPreview[];
 };
 
 export type ArchiveListFilterSummary = {
