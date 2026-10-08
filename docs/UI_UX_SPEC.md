@@ -241,6 +241,7 @@ Completion celebration:
 # 4. Main window — Home
 
 ## 4.1 Shell
+- A22/SS-C03/SS-C16 Home `Your Lists` header uses **two ends of one row**: left title, right contextual helper `Lists with your upcoming tasks`. Current Narro nests them vertically inside one flex item (B55). Reconcile with calibrated spacing/responsive rules; no extra unrelated shell chrome.
 
 [CONFIRMED current screenshots]
 - large central content region;
@@ -288,6 +289,7 @@ Overflow:
 - keyboard focus mirrors hover.
 
 ## 4.4 Create List tile
+- SS-C04 signature create tile is an actual **dashed cyan→lime gradient perimeter**, separate from its inner gradient plus. Current Narro flat `--color-accent-solid` dashed border lacks this calibrated visual treatment (B54); preserve keyboard/full-tile hit target and static/focus geometry.
 
 - dashed rounded outline;
 - centered plus;
@@ -697,6 +699,7 @@ Screenshot establishes:
 - Windows locale date labels.
 
 ## 10.4 Sessions
+- **B56 source metric conflict, not a settled formula:** current SS-C14 has `0min Time / 2 Tasks / 0 Sessions`, and historical VE-015 has `39 Tasks / 22 Sessions`. Narro's Rust `Total Tasks` is currently distinct task IDs having work sessions in range, which **cannot** yield either visible relation. The source's exact population (all list tasks, completed tasks, dated tasks, filter scope) remains unproven; reconcile before implementing or claiming metric parity. The visual fixture hardcodes 2/0 but is not runtime evidence. Preserve independent Total Time and Total Sessions contract and archived/deletion invariants.
 - VE-015 ~00:51–00:55 visually differentiates `Hide Break sessions` with a gamepad/break icon; Narro currently shows a generic circle `◉` instead (B51). Preserve current accessible pressed state and data filter; this is iconography parity, not a new filtering feature.
 - SS-C22/VE-015 provides a task session-detail modal with inline end-time editor and an Add Session control but **does not directly establish Escape/Tab/focus-return behavior**. Narro must nevertheless provide one accessible active modal owner: its current task-detail dialog does not own initial focus, Escape, Tab trap or opener restoration, unlike its Add Session dialog. Opening Add Session from detail currently leaves **both** `aria-modal=true` overlays rendered. Correct the local keyboard/modal lifecycle without inventing Blitzit source keyboard behavior; validate nested invocation and pending edit safety separately.
 
