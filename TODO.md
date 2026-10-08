@@ -533,6 +533,7 @@ Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe
 
 - [x] Start Blitz from eligible Today tasks.
 - [x] Auto-select top eligible Today task.
+  - [ ] **A3 / SS-H04 + VE-003 Focus list selector parity:** current `FocusPanel.tsx` uses a plain native `<select>` with only `All`/list-title options; source shows an anchored popup with `All Lists` stacked color badges/overflow count and per-list colored square badges. Preserve validated selected-list/task/timer scope, but reconcile the visible picker/keyboard/overlay grammar. **M6 SOURCE_PARITY_OPEN; functional scoped selection already implemented.**
 - [x] Reproduce Focus Panel hierarchy: list selector, Today, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group, done group.
 - [x] Render current task and authoritative timer with fixed/tabular timer geometry.
 - [x] Show remaining/scheduled/done sections matching documented focus workflow.
@@ -790,6 +791,7 @@ Acceptance criteria:
 - [x] Implement local productivity overview from task/session history. Production `ReportsOverview` consumes the validated Rust-owned `get_report_overview` boundary; PR #224 exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed CI #906 and merged source `ee5448d5534b44449df1ddff02c3b83d88111c7f` PASSed resulting-main CI #907.
 - [x] Implement four summary metrics and productive-hour/day/month cards according to official definitions. Production presentation is sourced from validated Overview DTOs; CI #907 PASS.
 - [x] Implement productivity chart with Tasks/Breaks/Total series and accessible hover/focus tooltip values. Production chart/legend/focus contracts and visual fixtures PASSed CI #906/#907.
+  - [ ] **A3 / SS-C12 Reports Chart options dead control:** `ReportsOverviewView.tsx` renders a focusable `Chart options` button (`•••`) without `onClick`/other action; source shows a chart-options icon, but its opened menu/function is not directly evidenced. **M9 FIX_NOW for inert production control / SOURCE_INTERACTION_EVIDENCE_LIMIT**. Do not invent unsupported menu commands; either reconcile actual source action from available raw evidence or choose a documented accessible non-dead fallback without impairing chart/legend behavior.
 - [x] Implement Time By List and completion/punctuality insights according to official early/late semantics. Production view consumes validated Rust aggregation; CI #907 PASS.
 - [x] Implement done-task rows with completion date, early/late when EST exists, and Time Taken. Production grouping/presentation over validated DTOs PASSed CI #907.
 - [x] Implement two-month date-range picker plus evidenced presets. Production range state, timezone-aware bounds, presets, custom calendar and Apply flow PASSed CI #906/#907.

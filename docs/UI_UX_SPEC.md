@@ -603,6 +603,7 @@ Unavailable global shortcut registration must be visible locally rather than sil
 # 10. Reports
 
 ## 10.1 Overview
+- SS-C12 chart options affordance is visible. Exact option-menu contents/actions are not source-recorded; production must not leave a focusable apparent button with no activation behavior. Existing series-legend controls are separate from chart options.
 
 [CONFIRMED screenshots + official docs]
 
@@ -709,6 +710,7 @@ Export conflict resolution remains:
 # 11. Focus Panel
 
 ## 11.1 Top bar
+- SS-H04 / VE-003 Focus list selector opens an anchored overlay listing All Lists with stacked badge/count and per-list colored badges. Current native `<select>` is a functionally valid but source-incomplete composition; do not sacrifice selection/timer safety while correcting it.
 
 [CONFIRMED]
 - list selector (`All` in current capture);
