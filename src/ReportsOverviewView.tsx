@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from "react";
+import { ReportListBadges } from "./ReportListBadges";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import "./reportsOverview.css";
 
@@ -414,7 +415,7 @@ export function ReportsOverviewView({
             onClick={onToggleListFilter}
             data-report-list-filter="true"
           >
-            <span className="reports-overview__list-glyph" aria-hidden="true">N</span>
+            <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
             <span aria-hidden="true">⌄</span>
           </button>
