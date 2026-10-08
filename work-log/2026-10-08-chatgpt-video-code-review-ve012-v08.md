@@ -1,0 +1,9 @@
+# Video-to-code review 08 — VE-012 improved Reports
+
+Date 2026-10-08 Europe/Athens; baseline main `b7bb348ab37054f85f7ab56bc040528319368bf5`. Reconciled 17 time-segmented source claims from already complete full 06:56.300 @30fps Pass-3 source record with current Rust `reporting.rs`, TSX `ReportsOverview`/`ReportsOverviewView`, CSS and product-spec metric definitions. No repeat raw video playback or Narro candidate/source visual comparison.
+
+**No new B finding.** Work days derive from actual session dates, completed count from completed_tasks, averages from active days and *all worked tasks including unfinished*, headline time includes breaks and work while Time By List includes work only; direct Rust and `PRODUCT_SPEC.md §13.1` support these scoped semantics. Most productive weekday is explicitly session count in product spec and Rust uses session-count primary; source tutorial ambiguous 'activity' narration does NOT prove an alternate weekday-duration rule. No spurious ticket. Early/late ratio uses total early/late variance time and OnTime zero; actual source dataset not available to reproduce 32.48/67.52. Rounded 5.6+0.2 versus displayed 5.7 is normal independent one-decimal rounding, not a bug. VE-011 source 9.2hr vs18h56 Time By List remains unresolved despite VE-012 reasonable break-based model.
+
+Known source/code gaps remain B30 absent empty date categories/fixed 8 tracks for 30-day chart, B28 full-day hover band, B27 color/list/status Done pills. Functional navigation/calendar/legend/punctuality records are PRESENT_CODE_ONLY, not physical PASS.
+
+Audit counters: **39/39 current+Help stills; 8/19 detailed video-to-code reviews; 159 time-local video claims mapped.** Docs-only expected-head main commit with this immutable log; executable/config/tests unchanged. NO tests, CI, running Windows native inspection, original MP4 replay or per-pixel source comparison in this slice (**NOT RUN**).

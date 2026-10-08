@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 7/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 8/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -17,7 +17,7 @@
 | VE-009 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
-| VE-012 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-012 | REVIEWED (17 time-local video-to-code claims) | Existing B27/B28/B30; Rust avg/day/time-by-list/punctuality semantics align with documented source |
 | VE-013 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-015 | REVIEWED (20 time-local video-to-code claims) | B56 high-priority metric meaning + NEW B68 selector disclosure; B59/B25/B32/B51 separate |
@@ -225,6 +225,31 @@
 | 02:54–03:10.40 | Recap/outro | Not app functionality | EXCLUDED_SCOPE |
 
 **VE011 close:** 19 chronological/source-anatomy claims mapped, no novel untracked production gap. Important source anomaly preserved: 9.2hr headline and 18h56 Time By List are too different for normal rounding, so no artificial reconciled formula. Current scoped Rust aggregates remain historically tested; code-matched controls not accepted without direct Windows/source capture. Existing B30 missing no-session calendar days and fixed-8 geometry remain critical; no new native test run.
+## VE-012 — Reports improved Sessions and Stats — REVIEWED 2026-10-08
+
+**Source:** complete 06:56.300 30fps source clip previously reviewed end-to-end at Pass-3 with 0.5s legend and 2s Done scroll sampling. This is a new time-segment code reconciliation against `b7bb348ab37054f85f7ab56bc040528319368bf5` `src-tauri/src/reporting.rs`, `ReportsOverview`, `ReportsOverviewView` and CSS, not another raw MP4 playback. The older source produces populated metric examples; current v2.6.69 stills set shell/copy precedence.
+
+| Source time | Original behavior/data | Current Narro code/spec comparison | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:18 | Focus context then Reports navigation | AppShell / ReportsWorkspace routing; no unique Reports metric source | PRESENT_CODE / SOURCE_SCOPE |
+| 00:18–00:25 | Last 30 days preset, Jan27–Feb26 2024 anchored two-month calendar | ReportsOverview reportPresetRange and ReportsOverviewView DateRangePicker | PRESENT_CODE_ONLY / DATE_STAGING |
+| 00:25–03:00 | 17 active days, 44 Done; 2.6 tasks/active day | reporting.rs total_work_days session-active local dates; total_tasks_done from completed_tasks; ratio by active days | PRESENT_SEMANTICS / SOURCE_DATA_LIMIT |
+| 00:25–03:00 | 81.7hr total time incl work+break, 4.8hr/day | reporting.rs total_time_seconds sums all sessions; average_time_per_work_day_seconds | PRESENT_SEMANTICS / SOURCE_DATA_LIMIT |
+| 00:25–03:00 | 86min avg/task includes unfinished session-bearing tasks, not Done 44 denominator | reporting.rs total_work_seconds / work_by_task.len() | PRESENT_SEMANTICS / SOURCE_DATA_LIMIT |
+| 03:00–03:37 | 30-day chart includes empty calendar days between active dates | reporting.rs daily_series BTreeMap only session-bearing dates; Reports chart fixed8 CSS tracks | GAP_B30 |
+| 03:00–03:37 | Tall tooltip hover band over current date | ReportsOverviewView tooltip exists but category-band style absent | GAP_B28 |
+| 03:00–03:37 | Tasks5.6+Breaks0.2 displayed Total5.7 (independent rounding) | ReportChart formats each source series independently from seconds; do not enforce sum of rounded labels | ROUNDING_SOURCE_LIMIT / PRESENT_MODEL |
+| 03:32–03:37 | Legend can hide Tasks and Breaks leaving Total, recenter bars | ReportChart visibleSeries toggles and data-driven columns | PRESENT_CODE_ONLY |
+| 03:37–03:55 | Reports body scrolls while top/bottom shell stays | AppShell workspace header/main/primary nav layout | PRESENT_CODE_ONLY |
+| 03:55–04:52 | Productive hour 3pm-4pm, day Thursday, month Feb24 | reporting.rs hour=most work seconds, day=highest focus-session count, month=most work seconds; PRODUCT_SPEC 13.1 agrees | PRESENT_SPEC_SEMANTICS / SOURCE_DATA_LIMIT |
+| 04:52–05:08 | Time By List 80h06 distinct from headline 81.7hr; list allocation excludes breaks | reporting.rs work_by_list only work, total_time_seconds includes Break and Work | PRESENT_SEMANTICS / SOURCE_ROUNDING_LIMIT |
+| 05:08–06:08 | Done rows date groups/counts and Early/Late/On Time colored pills | ReportsOverviewView date groups and status values; badge/pill composition missing | GAP_B27 |
+| 05:08–06:08 | Done task can be Early with 0min Taken, On Time separate status | reporting.rs completion_timing from task EST minus Taken, zero tracked time allowed | PRESENT_DOMAIN / SOURCE_DATA_LIMIT |
+| 05:08–06:08 | Done list internal scroll, separate Reports page outer scroll | reportsOverview.css done-list height/overflow | PRESENT_CODE_ONLY |
+| 06:08–06:47 | Punctuality 32.48% Early/67.52% Late weighted by variance time not task count | reporting.rs sum early_seconds/late_seconds and ratio, OnTime contributes zero variance | PRESENT_SEMANTICS / SOURCE_DATA_LIMIT |
+| 06:47–06:56.30 | Recap/outro | No Narro product interaction requirement | EXCLUDED_SCOPE |
+
+**V08 closure:** This video does not require a new B finding. Important numerator differences are intentional: `Most Productive day` in `docs/PRODUCT_SPEC.md`/UI_UX_SPEC is highest **focus-session count**, and Rust uses count primary, duration tie-break—do not misclassify transcript phrase 'greatest accumulated activity' as an independently proved highest-duration contract. Source one-decimal tooltip components may not add after rounding (5.6 + 0.2 vs5.7); no defect from arithmetic on rounded labels. Time By List allocates only work sessions and headline includes work+break, providing explanation for VE012 1.6hr difference but NOT erasing VE011 older contradictory state. B30/B28/B27 retained; no candidate tests/native acceptance performed.
 ## Exact next review
 
-Continue remaining VE-004/006–VE-010, VE-012–VE-014 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/011/015/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006–VE-010, VE-013–VE-014 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
