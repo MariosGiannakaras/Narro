@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 9/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 10/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
 | VE-012 | REVIEWED (17 time-local video-to-code claims) | Existing B27/B28/B30; Rust avg/day/time-by-list/punctuality semantics align with documented source |
 | VE-013 | REVIEWED (14 time-local video-code claims) | B12/B60 Board gaps; Focus/Floating subtask behaviors code-present, native M7 motion OPEN; Notion excluded |
-| VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-014 | REVIEWED (24 time-local video-to-code claims) | Existing B9/B17/B18/B21/B34/B63/B64; new B69 alert-flash live-card wash vs timer text |
 | VE-015 | REVIEWED (20 time-local video-to-code claims) | B56 high-priority metric meaning + NEW B68 selector disclosure; B59/B25/B32/B51 separate |
 | VE-016 | REVIEWED (23 time-local video-to-code claims) | New B67 negative amber overtime; existing B35–38/B50/B53 + native Finding35 |
 | VE-017 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -272,6 +272,38 @@ Canonical full VE013 Pass-3 source was already reviewed frame-by-frame. This pas
 | 02:04–02:20 | Integration roadmap narration and outro | Not product parity controls | EXCLUDED |
 
 **V09 result:** No new B ID. B12 input/add composition and B60 circular ring already capture Board gaps. Focus and Floating have ring headers and subtask controls; Focus expanded panel reuses horizontal TaskSubtasks progress, requiring later rendered comparison, not a new unverified B. Task Done and subtask Done remain independent. Cloud sync is excluded. M7 C4 still fails on opposite Timer→Panel native presentation, not validated by source Panel→Floating. Tests/CI/Windows/source pixel PASS NOT RUN.
+## VE-014 — Preferences — REVIEWED 2026-10-08
+
+Canonical VE-014 full 02:48.484/60fps Pass-3 previously inspected. This review maps its chronological source-record controls against current production code without replaying source MP4. Older macOS-era option inventory and Focus cog view are superseded by current SS-C07/C08/C09 and SS-H05; direct video interaction/motion evidence remains useful where not contradicted.
+
+| Time | Source action/state | Narro code route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:10.7 | Board settings cog entry | AppShell utility navigation to Settings destination | GAP_B34 |
+| 00:10.8–00:12 | Fast board dim and overlaid Preferences | AppShell replaces body with ThemeSettingsPanel, no backdrop/dialog/close | GAP_B34 |
+| 00:14.8–00:18 | Narrow Focus cog Preferences in older tutorial | Modern FocusQuickPreferences distinct from full Preferences | VERSION_SUPERSEDED_SS_H05 |
+| 00:20–00:29 | Screen 1 thumbnail/bright border/1470×956 | Full Preferences uses monitor text select; Focus Quick Preferences has thumbnails | GAP_B21 |
+| 00:29–00:35 | Left/Right side segment; right-docked Panel later shown | BlitzPanelPreferenceSection focusPanelSide save/pressed state | PRESENT_CODE_NATIVE_GATE_SEPARATE |
+| 00:36–00:44 | System/Dark/Light changes in-place | ThemeSettingsPanel/ThemeRuntime saves and applies root theme | PRESENT_CODE_ONLY |
+| 00:48–01:00 | Hide EST/done times contextual Focus disclosure | GeneralPreferenceRows/FocusPanel hideTaskTimes projection | PRESENT_CODE_EDIT_LIMIT |
+| 01:00–01:03 | Pomodoros ON reveals two nested controls rapidly | LowerPreferenceSections always renders disabled children | GAP_B17 |
+| 01:03–01:10 | Independent Work Sprint 30 and Break Time 10 presets | Separate pomodoroWorkSeconds/pomodoroBreakSeconds and DurationSelect | PRESENT_CODE_ONLY |
+| 01:10–01:19 | Default break length separate; scrolling title ON | Independent defaultBreakSeconds and FocusLiveTitle scroll switch | PRESENT_CODE_ONLY |
+| 01:24–01:33 | Timed alerts parent reveals nested choices | Alert detail Rows always visible when parent OFF | GAP_B17 |
+| 01:24–01:33 | Alert interval changed to 30 and retained | Task alert duration select supports 30 minutes | PRESENT_CODE_ONLY |
+| 01:33–01:52 | Task sound selector plus dedicated preview triangle | SoundPreferenceControl select and preview owner | PRESENT_CODE_ONLY |
+| 01:33–01:52 | Speaker opens vertical anchored volume slider | SoundPreferenceControl permanent horizontal range without speaker popover | GAP_B18 |
+| 01:32–01:56 | Finite violet/pink wash of active Focus card (~0.5–0.7s) | 560ms TimedAlertFlashRuntime targets timer text; CSS only color/text-shadow | NEW_GAP_B69 |
+| 01:56–02:06 | Notification Alerts separate parent and sound control | Distinct notificationSound/volume, child visible disabled while parent OFF | GAP_B17_WITH_PRESENT_MODEL |
+| 01:56–02:06 | Older notification hierarchy lacks newer Schedule reminders | Current SS-C08 governs; Narro has schedule-reminder parent and lead | VERSION_SUPERSEDED_SS_C08 |
+| 02:06–02:13 | Show success screen parent and nested Fun GIF | Persistent showSuccessScreen/funGif; full Preferences GIF child always shown disabled | GAP_B17 |
+| 02:06–02:13 | Success sound effect independently enabled | Celebration sound selector/volume lacks enable flag/toggle | GAP_B9 |
+| 02:13–02:21 | Success screen with and without reaction GIF | FocusCompletionSuccess opaque dialog, no funGif media use | GAP_B63_B64 |
+| 02:13–02:21 | Well done, task title, Next Task and break option | FocusCompletionSuccess UI has Next Task; Take a Break disabled pending product decision | PRESENT_CODE_B37_LIMIT |
+| 02:21–02:28 | Victory Bell select and independent play preview | Local catalog Victory Bell and preview code present; enable gap remains | PRESENT_SOUND_GAP_B9 |
+| 02:28–02:44 | Internal Preferences scrolling with retained choices | Preference snapshot persists; exact modal scroll container missing | PRESENT_MODEL_GAP_B34 |
+| 02:44–02:48.48 | Tutorial end card | Out of product UI scope | EXCLUDED |
+
+**V10 closure:** 24 time-local code claims. Previously known B9/B17/B18/B21/B34/B63/B64 and B37 decision preserved. **New B69** is narrowly code-confirmed: Blitzit video shows finite violet/pink live-card wash while Narro changes only timer text accent/shadow. The source and production effects are similar duration, not equivalent visual targets. Keep PREF-R02 effect timing and reduced-motion evidence. Preference→Focus tutorial crossfades are edited and do not measure application transitions. No raw MP4 rerun, tests, CI, physical or source-visual acceptance performed.
 ## Exact next review
 
-Continue VE-004/006–VE-010, VE-014 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006–VE-010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
