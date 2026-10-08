@@ -474,6 +474,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] EST and Time Taken display/edit states.
 - [x] Scheduling UI and recurrence editor.
 - [x] Subtasks UI.
+  - [ ] **Evidence-to-code audit A2 / SS-H11 + VE-013 board-subtask UI:** source `Subtasks +` add affordance, `Enter subtask task title*` placeholder, inline X/cancel, and Enter repeat-add; current `TaskSubtasks.tsx` uses `Add subtask` placeholder and external Add without the same header plus/X. **M5 FIX_NOW, source-control parity OPEN**; preserve existing domain/Enter/repeat behavior and separate Focus/Floating ownership.
 - [x] Rich task notes editor/viewer with clickable URLs.
 - [x] Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.
 - [x] Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.
@@ -481,6 +482,8 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] List settings: name, icon, archive/delete flows.
 - [x] Search / quick-actions palette with keyboard-first behavior.
 - [x] Archived lists/tasks surfaces.
+  - [ ] **Evidence-to-code audit A2 / SS-H14 + VE-006 archived list preview:** the source's muted archived-list card retains recognizable task previews; current `ArchivedListSummary` and `ArchivedListsPanel` do not project or render previews and use compact rows. **M5 FIX_NOW / SOURCE_PARITY_OPEN**; retain safe archive/restore/permanent-delete handling.
+  - [ ] **Evidence-to-code audit A2 / SS-H15 + VE-006 archived Done table/action:** source has `Task Name/List/Info/Date/Action` table, relative dates and trash icon; current `ArchivedDoneTasksPanel` renders plain read-only rows, without info/action, with existing capture test explicitly enforcing read-only presentation. **M5 FIX_NOW for source-visible control/layout; EVIDENCE_LIMIT for unobserved trash post-click behavior**. Preserve destructive confirmation and report integrity.
 - [x] Light/dark/system theme.
 - [x] Remove all account/trial/upgrade/cloud/integration controls.
 
@@ -754,6 +757,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 - [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. Historical PR #168 / CI #574 + resulting-main #575 remains the original implementation evidence; current single-`focusSurface` toggle/find routing, persisted enable intent, retry/rollback and Settings contracts were revalidated on resulting-main CI #882.
 - [x] Add conflict/error feedback for unavailable global shortcuts. Persisted enabled intent remains distinct from native registration; conflict/unavailable/retry and persistence/native rollback paths are explicit and validated in PR #168 / CI #574.
 - [x] Implement Preferences sections evidenced in screenshots/docs: monitor/side, hide times, EST parsing, theme, timezone, Pomodoro, break/work durations, scrolling title, timed alerts, sounds/previews, timer flash, notification alerts, schedule reminders, completion celebration. Final runtime closure completed with PREF-R05 on PR #220 and resulting-main CI #882.
+  - [ ] **Evidence-to-code audit A2 / SS-C09 + VE-014 success-sound toggle:** source has its own independent `Success sound effect` ON/OFF, plus selected sound/preview/volume; current `PreferenceSettingsSections.tsx` / celebration model only expose sound selection and volume. **M8 FIX_NOW**: independent persisted enable gate and runtime effect, with backwards compatibility, retaining scoped PREF-R05 PASS and keeping exact parent-disabled interaction EVIDENCE_LIMIT.
   - [x] VE-F001: when `auto_parse_est_from_title` is enabled and a supported terminal duration parses successfully, persist it as EST and remove that parsed suffix from the saved visible title; failed/non-matching parses leave the title untouched.
   - [x] VE-F002: when `show_success_screen` is enabled, Done must commit completion and enter the success state before any next task starts; explicit `Next Task` may then start the next eligible task. The success-screen-disabled path keeps current Narro behavior pending stronger evidence/decision.
   - [x] Do not invent the post-click timer/session semantics for the directly visible success-screen `Take a Break` control; keep that exact transition unresolved until evidence or an explicit Narro product decision exists.
@@ -789,6 +793,7 @@ Acceptance criteria:
 - [x] Implement Time By List and completion/punctuality insights according to official early/late semantics. Production view consumes validated Rust aggregation; CI #907 PASS.
 - [x] Implement done-task rows with completion date, early/late when EST exists, and Time Taken. Production grouping/presentation over validated DTOs PASSed CI #907.
 - [x] Implement two-month date-range picker plus evidenced presets. Production range state, timezone-aware bounds, presets, custom calendar and Apply flow PASSed CI #906/#907.
+  - [ ] **Evidence-to-code audit A2 / SS-C02 date navigation:** source screenshot shows single and double chevrons; both current Overview/Sessions implementations expose only previous/next month. **M9 SOURCE_CONTROL_PARITY_OPEN**; double-chevron effect is unobserved, so do not infer year jump without supporting evidence.
 - [x] Implement Sessions report with detailed work/break rows. Production Sessions is on current `main`; PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915, every file changed by the PR has an identical blob SHA on merged main `f53a850f51375f15a0b2b4efe106da95e30b6e73`, and resulting-main Windows CI #917 / run `37157907335` PASSed all gates.
 - [x] Implement manual Add Session and inline session editing/task-session detail modal. Production Add/Edit/Delete/detail flows are on current `main` with the same PR #226 / CI #915 changed-blob identity and resulting-main CI #917 PASS.
 - [x] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented. Authoritative reporting persistence regression remains green in resulting-main CI #907.

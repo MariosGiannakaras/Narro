@@ -433,6 +433,7 @@ This directly addresses public reports of reordered tasks moving unexpectedly or
 Search is unavailable in Blitz Mode.
 
 ## 6.2 Archived Lists
+- SS-H14/VE-006 populated archived-list view retains recognizable task previews in muted cards with `Unarchive` and destructive `Delete Forever`; current preview-less rows are an open visual/data-projection parity gap. Continue requiring explicit local confirmation for permanent delete.
 
 - tabs/segments for Archived lists / Archived done tasks;
 - restore list;
@@ -440,6 +441,7 @@ Search is unavailable in Blitz Mode.
 - empty state.
 
 ## 6.3 Archived Done Tasks
+- SS-H15/VE-006 populated view is a table with `Task Name`, `List`, `Info`, `Date`, `Action`, relative dates, document/`No Info`, and per-row trash. The source does not execute trash; preserve that evidence limit and safe local delete semantics.
 
 - search field;
 - All Lists/list filter;
@@ -488,6 +490,7 @@ The current Help Center says note URLs automatically open when a task goes live.
 This directly addresses current public requests for a larger/adjustable Notes area and spellcheck usability. citeturn580012search14turn580012search8
 
 ## 7.2 Subtasks
+- SS-H11/VE-013 board inline subtask create shows section plus, `Enter subtask task title*` placeholder and contextual X/cancel; Enter commits and leaves input available for another addition. Do not change separately evidenced Focus/Floating flows without their own cause.
 
 [CONFIRMED]
 - add;
@@ -557,6 +560,7 @@ Screenshots/docs establish:
 Sound previews must stop/replace previous preview rather than overlap indefinitely.
 
 ## 8.5 Completion celebration
+- SS-C09/VE-014 include an independently enabled `Success sound effect` capability with chooser/preview/volume, distinct from `Show success screen` and `Fun gif`. Exact disabled-parent behavior remains uncertain.
 
 - success screen toggle;
 - nested Fun GIF toggle;
@@ -646,6 +650,7 @@ Official behavior:
 - no EST => no early/late but Time Taken remains. citeturn580012search15
 
 ## 10.3 Date range picker
+- SS-C02 shows both single and double calendar chevrons. The source screenshot does not prove distinct click effects; keep double navigation unaccepted until clarified, rather than assuming a year jump.
 
 Screenshot establishes:
 - preset column: Today, Yesterday, This week, Last 30/60/90 days;
