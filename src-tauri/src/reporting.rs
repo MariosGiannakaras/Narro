@@ -194,7 +194,7 @@ impl Display for ReportingError {
             Self::AggregationOverflow => formatter.write_str("report aggregation overflowed"),
             Self::DailySeriesRangeTooLong => {
                 formatter.write_str("report calendar range exceeds 3660 days")
-            },
+            }
             Self::InvalidDisplayTimezone(value) => {
                 write!(formatter, "report display timezone is invalid: {value}")
             }
@@ -618,8 +618,10 @@ fn fill_daily_calendar_dates(
         .end
         .checked_sub_signed(chrono::Duration::nanoseconds(1))
         .ok_or(ReportingError::EmptyOrReversedRange)?;
-    let start_instant =
-        range.start_at.parse::<Timestamp>().map_err(|_| ReportingError::InvalidRangeTimestamp("start_at"))?;
+    let start_instant = range
+        .start_at
+        .parse::<Timestamp>()
+        .map_err(|_| ReportingError::InvalidRangeTimestamp("start_at"))?;
     let end_instant = inclusive_end
         .to_rfc3339()
         .parse::<Timestamp>()
@@ -638,7 +640,9 @@ fn fill_daily_calendar_dates(
         if day == last {
             return Ok(());
         }
-        day = day.succ_opt().ok_or(ReportingError::DailySeriesRangeTooLong)?;
+        day = day
+            .succ_opt()
+            .ok_or(ReportingError::DailySeriesRangeTooLong)?;
     }
     Err(ReportingError::DailySeriesRangeTooLong)
 }
@@ -1094,7 +1098,6 @@ mod tests {
         assert_eq!(overview.daily_series[2].break_seconds, 300);
     }
 
-
     #[test]
     fn daily_series_rejects_unbounded_multi_decade_calendar_without_allocating_dates() {
         let history = ReportHistorySnapshot {
@@ -1136,7 +1139,10 @@ mod tests {
         let overview = overview_from_history(&history, "UTC").expect("zero-session overview");
         assert_eq!(overview.summary.total_work_days, 0);
         assert!(!overview.daily_series.is_empty());
-        assert!(overview.daily_series.iter().all(|day| day.total_seconds == 0));
+        assert!(overview
+            .daily_series
+            .iter()
+            .all(|day| day.total_seconds == 0));
         assert_eq!(overview.summary.total_tasks_done, 1);
         assert_eq!(overview.summary.average_tasks_per_work_day, None);
         assert_eq!(overview.summary.average_time_per_work_day_seconds, None);
