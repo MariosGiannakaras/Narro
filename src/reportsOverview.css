@@ -309,7 +309,26 @@
   height: 100%;
 }
 
+.reports-overview__chart-day::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--color-accent-solid) 12%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
+}
+
+.reports-overview__chart-day[data-report-chart-active="true"]::before,
+.reports-overview__chart-day:focus-within::before {
+  opacity: 1;
+}
+
 .reports-overview__chart-hit {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-rows: minmax(0, 1fr) 24px;
   width: 100%;
@@ -348,6 +367,12 @@
 .reports-overview__chart-bar--total {
   height: var(--report-total-height);
   background: var(--report-total);
+  transition: height 300ms var(--motion-ease-enter), filter var(--motion-duration-hover-focus) var(--motion-ease-enter);
+}
+
+.reports-overview__chart-day[data-report-chart-active="true"] .reports-overview__chart-bar--total,
+.reports-overview__chart-day:focus-within .reports-overview__chart-bar--total {
+  filter: brightness(1.28);
 }
 
 .reports-overview__chart-label {
@@ -758,12 +783,17 @@ html[data-report-pdf-export="true"] .reports-overview__chart-scroll {
   overflow-x: visible;
 }
 
+html[data-report-pdf-export="true"] .reports-overview__chart-day::before {
+  display: none;
+}
+
 html[data-report-pdf-export="true"] .reports-overview__chart {
   width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reports-overview__chart-bar {
+  .reports-overview__chart-bar,
+  .reports-overview__chart-day::before {
     transition-duration: 1ms;
   }
 }

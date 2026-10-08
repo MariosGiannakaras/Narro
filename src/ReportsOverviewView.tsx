@@ -172,6 +172,7 @@ function ReportChart({
               className="reports-overview__chart-day"
               style={chartStyle(day, maximum)}
               data-report-chart-day={day.id}
+              data-report-chart-active={tooltipOpen ? "true" : "false"}
             >
               <button
                 type="button"
