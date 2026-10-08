@@ -1,4 +1,5 @@
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from "react";
+import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
@@ -630,7 +631,7 @@ export function ReportsSessionsView({
             onClick={onToggleListFilter}
             data-report-session-list-filter="true"
           >
-            <span className="reports-overview__list-glyph" aria-hidden="true">N</span>
+            <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
             <span aria-hidden="true">⌄</span>
           </button>
@@ -669,7 +670,10 @@ export function ReportsSessionsView({
           aria-pressed={!showBreakSessions}
           onClick={onToggleBreakSessions}
         >
-          <span aria-hidden="true">◉</span>
+          <svg aria-hidden="true" className="reports-sessions__break-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6.3 9h11.4c2.1 0 3.6 1.7 4 3.7l.8 4.4c.3 1.8-1.4 3.1-3 2.2L16.3 17H7.7l-3.2 2.3c-1.6.9-3.3-.4-3-2.2l.8-4.4C2.7 10.7 4.2 9 6.3 9Z"/>
+            <path d="M7.5 12.3v3.6m-1.8-1.8h3.6m6.3-1h.01m2.3 2h.01"/>
+          </svg>
           {showBreakSessions ? "Hide Break sessions" : "Show Break sessions"}
         </button>
 

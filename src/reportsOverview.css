@@ -161,18 +161,9 @@
   border-color: var(--color-accent-solid);
 }
 
-.reports-overview__list-glyph {
-  display: inline-grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  margin-right: auto;
-  border-radius: 5px;
-  color: var(--color-accent-contrast);
-  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
-  font-size: 11px;
-  font-weight: 700;
-}
+.reports-overview__list-badges { display: inline-flex; align-items: center; min-width: 1.5rem; margin-right: auto; }
+.reports-overview__list-badge { --report-list-badge-color: var(--color-accent-solid); flex: 0 0 .85rem; display: inline-block; width: .85rem; height: .85rem; border: 1px solid var(--color-surface-raised); border-radius: var(--radius-control); background: var(--report-list-badge-color); }
+.reports-overview__list-badge + .reports-overview__list-badge { margin-left: -.3rem; }
 
 .reports-overview__list-menu {
   position: absolute;
