@@ -143,6 +143,7 @@ pub enum ReportingError {
     CorruptTimeTaken(i64),
     TimeTakenOverflow,
     AggregationOverflow,
+    DailySeriesRangeTooLong,
     InvalidDisplayTimezone(String),
     TimezoneConversionFailed(String),
     MissingJoinedTask(SessionId),
@@ -191,6 +192,9 @@ impl Display for ReportingError {
             }
             Self::TimeTakenOverflow => formatter.write_str("report task time taken overflowed"),
             Self::AggregationOverflow => formatter.write_str("report aggregation overflowed"),
+            Self::DailySeriesRangeTooLong => {
+                formatter.write_str("report calendar range exceeds 3660 days")
+            },
             Self::InvalidDisplayTimezone(value) => {
                 write!(formatter, "report display timezone is invalid: {value}")
             }
@@ -600,6 +604,45 @@ fn completion_timing(task: &ReportCompletedTaskRow) -> Option<ReportCompletionTi
     })
 }
 
+const MAX_DAILY_SERIES_DAYS: usize = 3_660;
+
+/// Produce one stable local-date category per day in the selected [start,end)
+/// range. No synthetic sessions or productive days are created for zero dates.
+fn fill_daily_calendar_dates(
+    daily: &mut BTreeMap<String, (u64, u64)>,
+    range: &ReportRange,
+    timezone: &TimeZone,
+) -> Result<(), ReportingError> {
+    let validated = validate_range(range)?;
+    let inclusive_end = validated
+        .end
+        .checked_sub_signed(chrono::Duration::nanoseconds(1))
+        .ok_or(ReportingError::EmptyOrReversedRange)?;
+    let start_instant =
+        range.start_at.parse::<Timestamp>().map_err(|_| ReportingError::InvalidRangeTimestamp("start_at"))?;
+    let end_instant = inclusive_end
+        .to_rfc3339()
+        .parse::<Timestamp>()
+        .map_err(|_| ReportingError::InvalidRangeTimestamp("end_at"))?;
+    let first_key = timezone.to_datetime(start_instant).date().to_string();
+    let last_key = timezone.to_datetime(end_instant).date().to_string();
+    let mut day = NaiveDate::parse_from_str(&first_key, "%Y-%m-%d")
+        .map_err(|_| ReportingError::TimezoneConversionFailed(first_key))?;
+    let last = NaiveDate::parse_from_str(&last_key, "%Y-%m-%d")
+        .map_err(|_| ReportingError::TimezoneConversionFailed(last_key))?;
+    for _ in 0..MAX_DAILY_SERIES_DAYS {
+        if day > last {
+            return Ok(());
+        }
+        daily.entry(day.to_string()).or_insert((0, 0));
+        if day == last {
+            return Ok(());
+        }
+        day = day.succ_opt().ok_or(ReportingError::DailySeriesRangeTooLong)?;
+    }
+    Err(ReportingError::DailySeriesRangeTooLong)
+}
+
 /// Aggregates authoritative closed-session durations into local report buckets.
 ///
 /// Session duration remains the accounting authority. Calendar buckets use the
@@ -683,6 +726,7 @@ pub fn overview_from_history(
             .ok_or(ReportingError::AggregationOverflow)
     })?;
 
+    fill_daily_calendar_dates(&mut daily, &history.range, &timezone)?;
     let daily_series = daily
         .into_iter()
         .map(|(local_date, (task_seconds, break_seconds))| {
@@ -926,10 +970,15 @@ mod tests {
             overview.summary.average_time_per_task_seconds,
             Some(2_000.0)
         );
-        assert_eq!(overview.daily_series.len(), 2);
-        assert_eq!(overview.daily_series[0].task_seconds, 3_600);
-        assert_eq!(overview.daily_series[0].break_seconds, 900);
-        assert_eq!(overview.daily_series[0].total_seconds, 4_500);
+        assert_eq!(overview.daily_series.len(), 30);
+        assert_eq!(overview.daily_series[0].local_date, "2026-09-01");
+        assert_eq!(overview.daily_series[0].total_seconds, 0);
+        assert_eq!(overview.daily_series[6].local_date, "2026-09-07");
+        assert_eq!(overview.daily_series[6].task_seconds, 3_600);
+        assert_eq!(overview.daily_series[6].break_seconds, 900);
+        assert_eq!(overview.daily_series[6].total_seconds, 4_500);
+        assert_eq!(overview.daily_series[29].local_date, "2026-09-30");
+        assert_eq!(overview.daily_series[29].total_seconds, 0);
         assert_eq!(overview.productive.local_hour_start, Some(9));
         assert_eq!(overview.productive.weekday_from_monday, Some(1));
         assert_eq!(overview.productive.month_key.as_deref(), Some("2026-09"));
@@ -1036,10 +1085,31 @@ mod tests {
             overview_from_history(&history, "America/New_York").expect("timezone aggregation");
         assert_eq!(overview.summary.total_work_days, 2);
         assert_eq!(overview.productive.local_hour_start, Some(1));
-        assert_eq!(overview.daily_series[0].local_date, "2026-11-01");
-        assert_eq!(overview.daily_series[0].task_seconds, 3_000);
-        assert_eq!(overview.daily_series[1].local_date, "2026-11-02");
-        assert_eq!(overview.daily_series[1].break_seconds, 300);
+        assert_eq!(overview.daily_series.len(), 3);
+        assert_eq!(overview.daily_series[0].local_date, "2026-10-31");
+        assert_eq!(overview.daily_series[0].total_seconds, 0);
+        assert_eq!(overview.daily_series[1].local_date, "2026-11-01");
+        assert_eq!(overview.daily_series[1].task_seconds, 3_000);
+        assert_eq!(overview.daily_series[2].local_date, "2026-11-02");
+        assert_eq!(overview.daily_series[2].break_seconds, 300);
+    }
+
+
+    #[test]
+    fn daily_series_rejects_unbounded_multi_decade_calendar_without_allocating_dates() {
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: "1990-01-01T00:00:00Z".into(),
+                end_at: "2026-01-01T00:00:00Z".into(),
+                list_ids: Vec::new(),
+            },
+            sessions: Vec::new(),
+            completed_tasks: Vec::new(),
+        };
+        assert!(matches!(
+            overview_from_history(&history, "UTC"),
+            Err(ReportingError::DailySeriesRangeTooLong)
+        ));
     }
 
     #[test]
@@ -1065,6 +1135,8 @@ mod tests {
 
         let overview = overview_from_history(&history, "UTC").expect("zero-session overview");
         assert_eq!(overview.summary.total_work_days, 0);
+        assert!(!overview.daily_series.is_empty());
+        assert!(overview.daily_series.iter().all(|day| day.total_seconds == 0));
         assert_eq!(overview.summary.total_tasks_done, 1);
         assert_eq!(overview.summary.average_tasks_per_work_day, None);
         assert_eq!(overview.summary.average_time_per_work_day_seconds, None);

@@ -291,9 +291,16 @@
   background: transparent;
 }
 
+.reports-overview__chart-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
 .reports-overview__chart {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--report-chart-day-count, 8), minmax(0, 1fr));
+  width: max(100%, calc(var(--report-chart-day-count, 8) * 24px));
   align-items: end;
   height: 194px;
   margin-top: 8px;
@@ -327,7 +334,7 @@
 
 .reports-overview__chart-bar {
   width: min(10px, 22%);
-  min-height: 2px;
+  min-height: 0;
   border-radius: 3px 3px 0 0;
   transition: height 300ms var(--motion-ease-enter);
 }
@@ -749,6 +756,14 @@
 html[data-reports-fixture-mode="lower"] .reports-overview__metrics,
 html[data-reports-fixture-mode="lower"] .reports-overview__chart-card {
   display: none;
+}
+
+html[data-report-pdf-export="true"] .reports-overview__chart-scroll {
+  overflow-x: visible;
+}
+
+html[data-report-pdf-export="true"] .reports-overview__chart {
+  width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
