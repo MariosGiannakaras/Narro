@@ -24,6 +24,8 @@
   --color-warning-surface: #fff0d9;
   --color-destructive: #b54340;
   --color-destructive-surface: #fde5e3;
+  /* Existing calibrated Reports Tasks purple, reused for the source violet alert wash. */
+  --color-flash-violet: #8768ff;
 }
 
 :root[data-theme="dark"] {

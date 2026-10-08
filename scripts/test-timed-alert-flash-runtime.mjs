@@ -11,6 +11,7 @@ const panel = fs.readFileSync("src/FocusPanel.tsx", "utf8");
 const floating = fs.readFileSync("src/FloatingTimerFoundation.tsx", "utf8");
 const timedAlertApi = fs.readFileSync("src/timedAlertApi.ts", "utf8");
 const packageJson = fs.readFileSync("package.json", "utf8");
+const tokens = fs.readFileSync("src/theme.css", "utf8");
 
 for (const required of [
   "connectTimedAlertEffects",
@@ -37,6 +38,10 @@ invariant(
   "Focus Panel live timer must bind the flash target to the authoritative live task id",
 );
 invariant(
+  /data-focus-live-card="true"\s+data-timed-alert-flash-task-id=\{liveTask.id\}/.test(panel),
+  "the active Focus card itself must receive the same authoritative flash task id",
+);
+invariant(
   floating.includes("data-timed-alert-flash-task-id={liveTaskId ?? undefined}"),
   "Floating Timer must bind the flash target to its authoritative live task id projection",
 );
@@ -48,11 +53,18 @@ invariant(
 for (const required of [
   "@keyframes narro-timed-alert-flash",
   "animation: narro-timed-alert-flash 560ms var(--motion-ease-enter) 1 both",
+  "@keyframes narro-timed-alert-card-wash",
+  ".focus-panel__live-card.timed-alert-flash--active",
+  "animation: narro-timed-alert-card-wash 560ms var(--motion-ease-enter) 1 both",
+  "var(--color-flash-violet)",
+  "var(--color-destructive)",
   "@media (prefers-reduced-motion: reduce)",
   "animation: none !important",
 ]) {
   invariant(css.includes(required), `flash CSS is missing ${required}`);
 }
+invariant(tokens.includes("--color-flash-violet: #8768ff;"),
+  "source violet wash must reuse the existing calibrated purple hue");
 invariant(
   packageJson.includes('"test:timed-alert-flash-runtime"')
     && packageJson.includes("npm run test:timed-alert-flash-runtime"),

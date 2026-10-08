@@ -1141,6 +1141,7 @@ export function FocusPanel({
           <article
             className="focus-panel__live-card"
             data-focus-live-card="true"
+            data-timed-alert-flash-task-id={liveTask.id}
             data-task-id={liveTask.id}
             data-focus-live-state={timer?.runtime.timer.state ?? "idle"}
           >
