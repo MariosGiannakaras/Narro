@@ -81,6 +81,16 @@ invariant(
   "Preferences event must be emitted only after persistence commits",
 );
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
+const modalSource = await read("src/PreferencesDialog.tsx");
+const modalCss = await read("src/preferencesDialog.css");
+const shellSource = await read("src/AppShell.tsx");
+invariant(shellSource.includes("setPreferencesOpen(true)"), "full Preferences opens as overlay, not a route replacement");
+invariant(modalSource.includes('role="dialog"'), "full Preferences has native dialog semantics");
+invariant(modalSource.includes('aria-modal="true"'), "full Preferences traps focus and owns input");
+invariant(modalSource.includes('aria-labelledby="theme-settings-title"'), "dialog labels current Preferences heading");
+invariant(modalCss.includes("overflow-y: auto"), "full Preferences has bounded internal scroll");
+invariant(modalSource.includes("openerRef.current?.focus()"), "full Preferences returns focus to utility opener");
+
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
 invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 4"), "Preferences sound-volume fields must use the versioned v4 payload");
