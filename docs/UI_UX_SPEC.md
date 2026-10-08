@@ -518,6 +518,7 @@ Expanded Floating state shows per-row checkbox, reorder arrows, delete and compl
 Preferences are a vertically scrollable tall right-side drawer/panel with a close control and clear section dividers. The 2026-09-27 Help Center image pass independently confirms compact dark selects, mint active toggles, nested vertical-guide indentation for Pomodoro/Alerts/Celebration children, and destructive warm/red recurrence consequence rows. Current VE-014 video directly confirms the drawer hierarchy, segmented controls, mint active toggles and in-place nested setting families; exact drawer/nested-control animation duration is not established because the tutorial contains edits.
 
 ## 8.1 Blitz Panel
+- SS-C07/VE-014 selected-screen control in full Preferences is a monitor thumbnail with visible dimensions/label and accent outline, not just a plain HTML `<select>`. Reuse source-calibrated presentation while preserving persisted monitor identity, current-display enumeration and stale-monitor fallback.
 
 - monitor preview/resolution;
 - selected screen;
@@ -528,6 +529,7 @@ Preferences are a vertically scrollable tall right-side drawer/panel with a clos
 - unavailable saved monitor falls back predictably.
 
 ## 8.2 General
+- SS-C07 Timezone is displayed as an offset-qualified zone selector (e.g. `(GMT+03:00) Europe/Athens`); the current freeform zone input does not establish visual parity. Source menu selection/search details are not observed; do not replace safe timezone validation with guessed behavior.
 
 [CONFIRMED]
 - Open on wake/login;
