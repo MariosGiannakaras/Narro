@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 10/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 11/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -12,7 +12,7 @@
 | VE-004 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-005 | REVIEWED (24 video-to-code claims) | B61–B65 + prior B IDs; current code checked; native/source parity NOT RUN |
 | VE-006 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-007 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-007 | REVIEWED (21 time-local video-to-code claims) | Existing B19/B33/B40/B42/B48; new B70 post-unschedule Backlog vs original manual-lane return (older video limit) |
 | VE-008 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-009 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -304,6 +304,35 @@ Canonical VE-014 full 02:48.484/60fps Pass-3 previously inspected. This review m
 | 02:44–02:48.48 | Tutorial end card | Out of product UI scope | EXCLUDED |
 
 **V10 closure:** 24 time-local code claims. Previously known B9/B17/B18/B21/B34/B63/B64 and B37 decision preserved. **New B69** is narrowly code-confirmed: Blitzit video shows finite violet/pink live-card wash while Narro changes only timer text accent/shadow. The source and production effects are similar duration, not equivalent visual targets. Keep PREF-R02 effect timing and reduced-motion evidence. Preference→Focus tutorial crossfades are edited and do not measure application transitions. No raw MP4 rerun, tests, CI, physical or source-visual acceptance performed.
+## VE-007 — Schedule Task Reminders — REVIEWED 2026-10-08
+
+Canonical VE-007 02:52.803, 60fps full-video Pass-3 analysis already source-complete. This pass maps each time-local source interaction to current production TSX + Rust scheduling/domain/persistence. Older June 2025 tutorial precedes current screenshots; labels and observed state carry older-video source-precedence caveat. No raw MP4 repeat.
+
+| Time | Source action/state | Narro route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:12 | TYAMA board, original Call with Pete unscheduled This Week | ListBoard manual lane + task aggregate model | PRESENT_MODEL_ONLY |
+| 00:12–00:19 | Hover action rail, menu Schedule/Change list/Duplicate/Delete | TaskCard TaskActionRail/TaskOverflowMenu + TaskScheduleDialog trigger | PRESENT_CODE_MENU_SEPARATOR_GAP_B48 |
+| 00:12–00:19 | Schedule opens over dimmed board, fast local modal | TaskScheduleDialog backdrop/role dialog but source inner wizard missing | PRESENT_SHELL_GAP_B19 |
+| 00:19–00:52 | Initial compact calendar, Monday-first month grid and today/selected markers | TaskScheduleDialog native date input in single combined form | GAP_B19 |
+| 00:19–00:52 | Today/Later Today/Tomorrow/Next Week quick labels | ScheduleShortcut buttons + Rust resolve_schedule_shortcut | PRESENT_CODE_TRANSCRIPT_CALC_LIMIT |
+| 00:19–00:52 | Cancel + Next to details in same modal | TaskScheduleDialog no Next step, immediate Schedule/Repeat panels | GAP_B19 |
+| 00:52–01:05 | Pick Date back link and selected-date summary | TaskScheduleDialog date summary but no return-to-calendar step | GAP_B19 |
+| 00:52–01:05 | Date-derived No Repeat/Every day/Every weekday/Every Saturday/Every month on 14th presets | TaskScheduleDialog fixed recurrence select labels, No Repeat only on existing rule | GAP_B19_B33 |
+| 00:56–01:04 | Add Time +ADD expands hour/minute/AM-PM and ×REMOVE | TaskScheduleDialog native time input behind Add a specific time checkbox | GAP_B19 |
+| 01:05–02:00 | No Repeat remains selected, descriptions of recurrence generation | Existing scheduling/recurrence service handles recurrence, but no selected or committed source occurrence | PRESENT_DOMAIN_TRANSCRIPT_LIMIT |
+| 02:00–02:01 | No Repeat date-only Schedule closes editor and commits without confirmation | updateTaskSchedule + CAS Rust update_task_schedule_if_expected, ListBoard refresh | PRESENT_CODE_ONLY |
+| 02:01–02:13 | This Week 0/6→0/5; scheduled next-week task in Backlog | scheduling.effective_planning_lane_at classifies date beyond this week to Backlog | PRESENT_DOMAIN_ONLY |
+| 02:01–02:13 | Backlog gets 1 Scheduled tasks backlog subheading and 14th task badge | BoardLane flat task rows with date metadata but no subgroup/short badge | GAP_B40 |
+| 02:01–02:13 | Total pending tasks remains seven; task identity retained | Schedule mutation updates schedule fields only, preserves ID/other task fields | PRESENT_MODEL_ONLY |
+| 02:13–02:22 | Update Schedule plus 14th June detail X and dividers in overflow | TaskOverflowMenu Update Schedule exists, no schedule detail/X; editor Unscheduled alternative | GAP_B42 |
+| 02:22–02:25 | Update Schedule reopens populated *second step*, Pick Date returns calendar | TaskScheduleDialog loads existing schedule, single page, no wizard step | GAP_B19 |
+| 02:25–02:28 | Cancel editor without mutation, prior date label remains | TaskScheduleDialog onClose discards draft; no mutation until save | PRESENT_CODE_ONLY |
+| 02:28–02:29 | Schedule-detail X removes schedule immediately without confirmation | TaskOverflowMenu lacks X, only editor Unscheduled then Save | GAP_B42 |
+| 02:29–02:33 | Unschedule preserves task but places ordinary task into Backlog, not original This Week | Rust update_task_schedule_if_expected preserves manual_lane=ThisWeek; unscheduled effective_planning_lane returns that manual lane | NEW_B70_OLDER_VIDEO_SEMANTIC_LIMIT |
+| 02:33–02:42 | Unscheduled task has no date or subgroup; title/list/metrics intact | Rust schedule None clears scheduling fields; TaskCard hides date badge | PRESENT_MODEL_B70_LANE_DIFF |
+| 02:42–02:52.80 | Narration/outro, no further product state | Out of UI parity scope | EXCLUDED |
+
+**V11 closure:** 21 time-local comparisons. B19 two-step calendar/details/modal and Add Time fields, B33 date-derived recurrence presets, B40 scheduled section, B42 schedule-detail X, B48 destructive separator all pre-existing; not double-counted as new. **New B70** is a source-observed post-unschedule lane discrepancy: video takes task initially in This Week into scheduled next-week Backlog, then removing schedule leaves the ordinary task in Backlog. Narro Rust scheduling mutation changes schedule fields only, preserves manual_lane, and effective_planning_lane_at for no schedule returns that original This Week. This is CODE_CONFIRMED against an older tutorial, not yet a directive to mutate validated manual-lane/identity invariants; reconcile source-version and physical expectations before remediation. The four shortcut calculations and recurring occurrence generation in this video are narration-only and were not elevated to direct observation. Automated tests, source-visual/native Windows validation and raw video replay NOT RUN.
 ## Exact next review
 
-Continue VE-004/006–VE-010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006, VE-008–VE-010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
