@@ -42,7 +42,7 @@ Authoritative evidence: `BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` (46/46) and `BLI
 | SS-H10 | M5/M6 | B26 | inline Notes Close |
 | SS-H11 | M5 | B12 | inline subtask X/plus/placeholder |
 | SS-H12 | M5/M6/M7 | FURTHER_CONTROL_REVIEW | management actions implemented, surface-detail parity OPEN |
-| SS-H13 | M5 | SCOPED_ACCEPTANCE | retained destructive menu implemented, direct parity OPEN |
+| SS-H13 | M5 | B48 | task overflow red Delete exists but source divider immediately before it is missing |
 | SS-H14 | M5 | B10 | archived list preview |
 | SS-H15 | M5 | B11 | archived Done Info/Action table |
 | SS-H16 | M9 | HISTORICAL_SOURCE_CONFLICT | Sessions PDF older than current CSV SS-C14 |
@@ -55,7 +55,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | Video | Current implementation audit route | Evidence/use limit |
 | --- | --- | --- |
 | VE-003 | B15/P3-M6 | Focus list selector and motion physical gate |
-| VE-005 | B3/B7/B8/B23/B24 | list color/Home/board controls |
+| VE-005 | B3/B7/B8/B23/B24/B46/B47 | list color/Home/board plus repeat-ready inline add and observed second-task-first priority |
 | VE-013 | B12 | board subtask input grammar |
 | VE-014 | B9/B17/B18/B21/B22/B34 | full Preferences root page-vs-modal and nested controls |
 | VE-016 | B35/B36/B37/P3-M7 | historical Break live-card replacement, Done Break row and POMO badge; current-version corroboration open, native timer checks independent |
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B45 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B48 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.
