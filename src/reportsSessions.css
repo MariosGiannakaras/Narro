@@ -381,6 +381,9 @@
 }
 
 .reports-sessions__task-picker small {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   flex: 0 1 auto;
   min-width: 0;
   max-width: 40%;
@@ -388,6 +391,14 @@
   color: var(--color-text-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.reports-sessions__task-picker-list i {
+  display: inline-block;
+  flex: 0 0 0.6rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: var(--radius-control);
 }
 
 .reports-sessions__add-fields {
