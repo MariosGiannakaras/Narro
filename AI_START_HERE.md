@@ -89,28 +89,13 @@ A capable agent should normally:
 
 Do not make the user act as a messenger between agents. If the next agent needs information, commit it to the repository.
 
-## User-facing implementation progress
+## User-facing progress — ChatGPT implementation track (2026-10-08 latest user direction)
 
-The user-facing progress line is intentionally compact and must use this exact shape:
+The user explicitly superseded the prior user-facing compact roadmap/milestone fraction format because milestone completion includes separate Windows physical and source acceptance, and thus misrepresents **this chat's actual coding progress**.
 
-`{completed roadmap milestones}/{total roadmap milestones}M || {completed current-slice checkpoints}/{total current-slice checkpoints} | {completed active-milestone items}/{total active-milestone items}`
+For substantive implementation updates, report specific **owned code batch/ticket implementations**: how many are actually integrated/merged with exact-head automated CI PASS, how many are in progress or PR/CI pending, and what scoped code items remain. Do not invent a total denominator until the code-correction campaign is inventoried with stable boundaries. Record code implementation, targeted tests, exact-head Windows CI, guarded merge and later native/source acceptance as separate statuses. Milestone counters remain exact, authoritative and preserved internally in TODO/STATUS/HANDOFF; they are no longer the default user-facing output format.
 
-Example shape only: `4/10M || 1/5 | 25/28`.
-
-Rules:
-
-- The first field is **completed roadmap milestones / total roadmap milestones**, followed by `M`. It is not the active milestone number.
-- The second field is the existing current implementation-slice checkpoint counter.
-- The third field is the active milestone's validated top-level TODO-item counter.
-- Derive all values from current repository state; never copy example numbers or conversation memory.
-- Do not increment any field before its existing validation requirements are satisfied.
-- Do not silently change denominators.
-- The mandatory roadmap denominator is 10 while optional M11 is dormant/skipped. Only an explicit user activation of M11 changes the denominator to 11; record that activation durably before reporting `/11M`. M11 checkboxes do not count as open work while dormant.
-- Show the compact line when one of its counters changes, when a genuinely new slice resets the small counter, or in a final implementation status where the current counters are useful.
-- Do **not** repeat an unchanged compact line in every routine progress update. In particular, do not repeatedly print `0/5`, `1/5`, etc. while no checkpoint has advanced.
-- Do not add parallel verbose `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` lines unless the user explicitly asks for them.
-
-This section records the user's latest explicit reporting preference and supersedes older/conflicting presentation-only wording elsewhere in the repository. It changes only presentation cadence/format, not validation or completion semantics. Reconcile older wording when those files are next edited.
+**Programming first, physical later:** The user paused Codex intentionally. ChatGPT implementation chats will implement and automatically validate/merge as many dependency-safe code, config and UI corrections as feasible. **Only when the coding campaign is complete will the user restart Codex to physically validate the latest integrated build**, rather than intermediate/superseded executables. Continue independent source fixes without waiting for native-only acceptance, keeping those gates OPEN. Ownership and source evidence rules otherwise unchanged.
 
 ## Deep analysis campaign policy
 

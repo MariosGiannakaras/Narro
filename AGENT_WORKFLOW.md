@@ -7,9 +7,10 @@ Narro is maintained so different coding AIs can alternate without prior chat con
 ## Programming vs physical Windows ownership (2026-10-08 user direction)
 
 - The ChatGPT implementation track owns source/config/tests, source-backed UI/behavior remediation and automated validation through GitHub PR/CI. It may work on dependency-safe `FIX_NOW` items while manual gates remain OPEN; it must never mark those gates PASS from CI.
-- The separate paused physical-Windows track owns actual Windows desktop interactions, recordings, native/visual analysis and fixes that require those physical findings. Do not presume it is running, request repeated captures, or overwrite its physical proof/state.
+- The separate paused physical-Windows track owns actual Windows desktop interactions, recordings, native/visual analysis and fixes that require those physical findings. The user will restart it **only once the ChatGPT coding campaign is complete**, for consolidated tests of the latest merged code (not interim/superseded builds). Do not presume it is running or request repeated captures.
 - Share only via current `HANDOFF.md`, `TODO.md`, `STATUS.md`, crosswalk and immutable work logs. Before source PR edits/rebases/merge, check the current branch/PR/CI and the other track's ownership; code fixes grounded in physical failures need coordinated handoff. The latest user's explicit ownership direction and current HEAD supersede any historical instruction making a physical session the sole next action.
 - Completing a programmatic implementation and passing exact-head Windows CI makes it eligible for guarded integration with native gates still OPEN; the resumed physical track later accepts/rejects just the affected candidate and returns exact evidence-backed correction requirements.
+- Report user-facing progress for the ChatGPT track as **actual source implementation batches** at their proven state (in progress, CI pending, green, merged); never use accepted roadmap milestone counts as a substitute. Do not invent a stable coding-work denominator.
 
 ## Repository state overrides conversational memory
 
