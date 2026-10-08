@@ -70,20 +70,28 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 **User-directed ownership, 2026-10-08:** The physical Windows agent has completed and sealed its latest CI1046 session and is deliberately paused by the user. **Only after ChatGPT completes all safely actionable programming batches and CI merges** will the user restart Codex for a consolidated physical Windows validation against the newest exact built source, plus physically evidenced analysis/fixes. No intermediate/superseded artifact physical cycles. The implementation chats own **repository code, configuration, tests, source-backed parity corrections, PRs, and automated Windows CI**, stopping at explicitly recorded physical acceptance gates. Do not require the physical agent to do ordinary independent programming, and do not retake its active physical/evidence ownership.
 
-**Actual ChatGPT coding progress (2026-10-08): 3 integrated source PRs with exact-head Windows CI PASS** — #249 B71/B39/B40 recurring-parent pending counts and Board subgroups, PR head `ca4e3671d00cc22ec7bf744b30d414293a5ac50a`, merge `13bc1ea1ffc04ea6b2044c87818ac54f05ac9af4`, resulting-main run `37824235331` SUCCESS; #250 custom list color picker/content B7/B8, head `a0bbc9038dc39c8dbdb8b6e11f8be483750b371b`, merge `0b32b35c9f68b59cb955f74f9fc81cb2ff74871a`; #251 Home heading/menu separator B55/B48, head `000a5b7bf3d36fc2076f2d7558350515adc32a72`, merge `7c829f9064536f5c56c86e56af84b3139ecb52c8`. PR250/251 candidate CI PASS on exact heads, but **latest resulting main CI run 37824539260 is still in progress as of this handoff**; earlier main run for #250 was cancelled by the superseding main push, not a source FAIL. No fresh physical/source visual PASS is claimed.
+**ChatGPT-owned coding campaign checkpoint (2026-10-08): 8 PR implementation batches exact-head Windows CI PASS and squash-merged**:
+- #249 B71/B39/B40 recurring-parent actionable counts/Board grouping: head `ca4e3671d00cc22ec7bf744b30d414293a5ac50a`, merge `13bc1ea1ffc04ea6b2044c87818ac54f05ac9af4`, resulting-main CI `37824235331` PASS.
+- #250 B7/B8 custom list color picker/source copy: head `a0bbc9038dc39c8dbdb8b6e11f8be483750b371b`, merge `0b32b35c9f68b59cb955f74f9fc81cb2ff74871a`.
+- #251 B55/B48 Home heading/destructive task-menu separator: head `000a5b7bf3d36fc2076f2d7558350515adc32a72`, merge `7c829f9064536f5c56c86e56af84b3139ecb52c8`.
+- #253 B26 inline Notes Close: head `8275712fb3299f1916c258ba14654ad60bd0389c`, merge `6ef5fab330b993ff5d2ef7582d01f02a12c6ec5e`, CI `37819478794` PASS.
+- #252 B10 archived-list task previews: head `798e2e922f79448011fb72f9aac865b5d9af3244`, merge `595f7b92e289cbb754cc35b7255f9aa577ba7619`, CI `37824332716` PASS.
+- #254 B33 recurrence date-based wording/live summary: head `2bea7f1efba754bf7109261021361d718a238caa`, merge `e68d9c4b8179e19951c35a0c9803ebd3bdccdfc6`, CI `37824925862` PASS. Missing B20 ordinal recurrence engine/wizard remains open.
+- #255 B45 parent guarded Remove Recurring: head `7c067faed206e759df1a739ff63f8821c9022fe5`, merge `0d2a49ec7e98a56df6077659d11f593fd4f672c3`, CI `37825730304` PASS.
+- #257 B69 bounded active Focus card timed-alert wash: head `c2a937537121fac1773b69d3ca93ff08fcf00c85`, merge `b36bce94ab1be12ee385825a51f3f68a2d091a0a`, CI `37826987126` PASS.
 
-**In-progress independent PRs, not merged:**
-#252 B10 archived-list previews, exact head `798e2e922f79448011fb72f9aac865b5d9af3244`, CI `37824332716` Windows in progress.
-#253 B26 inline Notes Close, exact head `8275712fb3299f1916c258ba14654ad60bd0389c`, CI `37819478794` attempt2 Windows in progress (attempt1 Finding28 fixture cleanup EPERM, not a product fault).
-#254 B33 partial recurrence labels/live summary, exact head `2bea7f1efba754bf7109261021361d718a238caa`, CI `37824925862` Windows in progress; B19 wizard/B20 monthly nth-weekday model still OPEN.
-#255 B45 parent Update/Remove Recurring (non-destructive child-preserving CAS), exact head `7c067faed206e759df1a739ff63f8821c9022fe5`, CI `37825730304` Windows in progress.
-#256 M9 B30 contiguous local report days/adaptive chart, exact head `c8399ceea248aae253dac812ff8cb10647d8d20e`, CI `37827413688` pending (earlier PR head a11515... failed rustfmt only; exact formatting corrected).
-#257 M8 B69 Focus active-card finite alert flash, exact head `c2a937537121fac1773b69d3ca93ff08fcf00c85`, CI `37826987126` pending.
-#258 M8 B17 Preferences conditional parent-child disclosure, exact head `2ea3f31226c61a54cdf670b4dcd29c2324571225`, CI `37827228218` pending.
+**Six independent source PRs OPEN / not validated-merged** (current exact-head CI status must always be reread before merge):
+- #256 B30 M9 contiguous report dates/adaptive zero-activity chart: head `c8399ceea248aae253dac812ff8cb10647d8d20e`, CI `37827413688` in progress at this checkpoint.
+- #258 B17 conditional Preferences children: head `2ea3f31226c61a54cdf670b4dcd29c2324571225`, CI `37827228218` in progress.
+- #259 B11 Archived Done five-column table plus persisted saved-note Info, visibly disabled trash (destructive outcome source EVIDENCE_LIMIT): head `2dd7d0b13fb7fc55df73090b619884dad1ba5196`, CI `37830087139` in progress after evidence-backed rustfmt correction.
+- #260 B24 Board scoped list picker with colored badges: head `9c4c50934573f0d1575205896fb9dd26a2528fbd`, CI `37829774014` in progress.
+- #261 B23 ordinal Home list preview + B54 dashed gradient tile: head `05ac44cc7aa3d7fa679af274f796f5dbcdc921e8`, CI `37830600012` pending after old flat dashed-border test was reconciled with fallback; trailing time semantics B23 OPEN.
+- #262 B18 speaker vertical volume popover: head `9eba98eb1b3ee5b6d50ffbb8876d52b82c25202a`, CI `37830490281` pending.
 
-**Latest merged source:** #251 source commit `7c829f9064536f5c56c86e56af84b3139ecb52c8`, resulting-main CI `37824539260` attempt1 FAILED at unrelated historical SQLite writer-contention regression line200 Timeout (380/381 Rust tests passed); reran the failed Windows job, attempt2 pending. Do not rewrite SQLite based on this single timeout or claim all main CI PASS.
+**Latest merged source:** #257 merge `b36bce94ab1be12ee385825a51f3f68a2d091a0a`. Resulting-main run `37830106898` active at checkpoint, not yet PASS; earlier intermediate main runs were cancelled by workflow concurrency, which is not a code FAIL. Exact-head candidate SUCCESS is distinct from accepted resulting-main tree and native Windows evidence.
 
-**Next agent action:** check exact CI logs/results for all seven PRs and latest main retry, fix only grounded failures, guarded-squash-merge green exact PR heads, and verify resulting main CI. Source/native manual acceptance remains OPEN until user restarts Codex on the newest integrated code; no intermediate physical tests. User-visible counts describe only merged implementation batches, not milestone completion.
+**NEXT AGENT ACTION:** poll CI only at meaningful checkpoints, inspect exact failures, fix evidence-backed causes, guarded-squash-merge individually verified exact heads, reconcile later dependent branch source with latest `main`, validate resulting-main CI when stable and advance independent source-backed work. Record further batches and maintain tracking. Do **not** start Codex physical testing of an intermediate build; user will restart it after programmatic work is exhausted. Never show milestone fractions as the coding-progress proxy. Physical and direct Blitzit rendered/source parity OPEN.
+
 **Ownership isolation:** C4 repeated native Timer→Panel clipping, Finding35 Time's Up native visibility, Finding27 physical monitor/DPI recovery, Finding29 pending focus ownership, M6 A motion, M8 real OS notification/sound and all actual Windows topology/performance remain with paused physical track. Do not rerun its CI1046 session, overwrite evidence, or mark physical PASS from CI.
 
 ## PHYSICAL-ONLY HANDOFF — latest CI1046 batch closed; resume only when that agent is restarted

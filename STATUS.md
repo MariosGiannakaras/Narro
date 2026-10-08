@@ -2,7 +2,7 @@
 
 ## Current ChatGPT implementation campaign — 2026-10-08
 
-Three owned source PRs #249 (recurring counts/groups), #250 (custom color), #251 (Home/menu) were exact-head CI PASS and guarded merged. Seven independent implementation PRs #252–#258 remain CI-pending; latest merged main CI `37824539260` attempt1 FAILED one historic SQLite contention timeout (380/381 Rust tests passed), attempt2 Windows rerun pending. Exact heads/runs in HANDOFF. **Coding progress: 3 merged, 7 PR/CI pending; physical and Blitzit rendered/source acceptance OPEN.**
+**ChatGPT coding progress: 8 exact-head Windows CI PASS PRs merged (#249–#251, #252–#255 excluding #256, and #257), 6 independent PR/CI pending (#256, #258–#262).** Latest merged source #257 `b36bce94ab1be12ee385825a51f3f68a2d091a0a`; resulting-main run `37830106898` in progress at checkpoint, not yet green. Exact merge commits, PR heads and run IDs are in HANDOFF and immutable work-log. B20 nth-weekday recurrence engine, B19 wizard, archived Done destructive semantics and all native/source visual acceptance remain OPEN. Do not promote source CI to physical PASS.
 
 ## Current physical batch closure — CI1046, 2026-10-08
 
