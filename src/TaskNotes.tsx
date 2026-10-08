@@ -897,6 +897,20 @@ export function TaskNotes({
                 <span className="task-notes__empty type-metadata">No notes yet.</span>
               )}
 
+              <div className="task-notes__inline-close">
+                <button
+                  type="button"
+                  className="task-notes__close motion-interactive"
+                  data-task-note-control="close"
+                  aria-label={`Close notes for ${taskTitle}`}
+                  disabled={pending}
+                  onClick={onToggleExpanded}
+                >
+                  <span aria-hidden="true">×</span>
+                  Close
+                </button>
+              </div>
+
               {editable && note ? (
                 <div className="task-notes__saved-preview">
                   <div className="task-notes__saved-preview-heading type-metadata">
