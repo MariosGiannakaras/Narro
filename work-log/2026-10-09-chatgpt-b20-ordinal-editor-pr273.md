@@ -1,0 +1,8 @@
+# B20 ordinal monthly recurrence editor — PR273 (OPEN)
+
+Date 2026-10-09; main source baseline `47a6aa82df5b938a11b497ebedbbed2c8b46c02e`; code branch `implementation/m5-ordinal-month-recurrence-ui-20261009`, head `24a38624dc9f2d6903d4baf28eba88254bfbd8fa`; PR #273. Tracking only in this work log; source changes are on the branch, not main.
+
+- Affected B20 source: VE-009 01:31–01:54 source demonstrates "every 4 months on the 2nd Sunday". PR266 already merged separate Rust monthly ordinal schema, validation, persistence, materialization.
+- New editor Custom → Month(s) → Nth weekday of month, ordinal 1..5 (5th skips months lacking occurrence), exactly one weekday dropdown, typed `monthWeekdayOrdinal` mutation, restored existing ordinal metadata when reopening. Legacy month day-number and every-matching-weekday-month mask remain separate and must not be silently reinterpreted. Summary now supports "Every 4 months on the 2nd Sunday" and invalid shape messages. Added summary pure tests for 2nd Sunday/5th Monday/invalid masks/ordinals, and production dialog contract guards.
+- Local full preflight / native physical / direct source rendered comparison: NOT RUN. Exact-head GitHub Windows run `37857212033` IN PROGRESS at checkpoint; do not mark PASS or merge until verified. Future test failures must be inspected exactly. Existing #262/#269 still pending, resulting-main CI `37856045000` in progress at prior checkpoint.
+- User-facing coding progress `22/25` (22 exact-head CI PASS guarded-merged; open #262/#269/#273). Denominator names current code PR batch scope only; other source TODO corrections B19/B41/B43/etc remain outside Y until started. All native Codex physical gates deferred intentionally until consolidated latest build, per user's direction.
