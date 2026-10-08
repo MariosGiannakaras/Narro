@@ -155,7 +155,8 @@ for (const field of [
   "successSoundEnabled",
   "successSoundVolumePercent",
 ]) {
-  invariant(api.includes(field) && rust.includes(field), `typed sound preference field ${field} must cross Rust/renderer boundaries`);
+  const rustField = field === "successSoundEnabled" ? "success_sound_enabled" : field;
+  invariant(api.includes(field) && rust.includes(rustField), `typed sound preference field ${field} must cross Rust/renderer boundaries`);
 }
 for (const label of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory Bell"]) {
   invariant(soundCatalog.includes(label), `local sound catalog is missing ${label}`);
