@@ -40,6 +40,7 @@ import {
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { boardTaskSubgroup, groupedBoardTasks, scheduledGroupHeading } from "./boardTaskGroups";
+import { parseMetricDuration } from "./metricDurationInput";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -173,10 +174,8 @@ const LANE_TOKEN: Record<PendingLaneKey, PlanningLaneToken> = {
 };
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const WHOLE_SECONDS = /^\d+$/;
-const DURATION_INPUT = /^(\d+):([0-5]\d):([0-5]\d)$/;
 const ALL_LISTS_VALUE = "__all_lists__";
 const SETTLE_DURATION_MS = 220;
-const MAX_EDITABLE_SECONDS = 4_294_967_295n;
 
 function formatEstimate(totalSeconds: number): string {
   if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
@@ -201,35 +200,6 @@ function estimateDraft(seconds: number | null): string {
 
 function timeTakenDraft(rawSeconds: string): string {
   return WHOLE_SECONDS.test(rawSeconds) ? formatDurationSeconds(BigInt(rawSeconds)) : "0:00:00";
-}
-
-function parseMetricDuration(
-  raw: string,
-  metric: TaskCardMetricKind,
-): { ok: true; seconds: number | null } | { ok: false; message: string } {
-  const value = raw.trim();
-  if (metric === "estimate" && value === "") return { ok: true, seconds: null };
-  const match = DURATION_INPUT.exec(value);
-  if (!match) {
-    return {
-      ok: false,
-      message: metric === "estimate"
-        ? "EST must use H:MM:SS, or be left blank to clear it."
-        : "Time Taken must use H:MM:SS.",
-    };
-  }
-
-  const hours = BigInt(match[1]);
-  const minutes = BigInt(match[2]);
-  const seconds = BigInt(match[3]);
-  const total = hours * 3_600n + minutes * 60n + seconds;
-  if (total > MAX_EDITABLE_SECONDS) {
-    return { ok: false, message: "Duration exceeds Narro's editable range." };
-  }
-  if (metric === "estimate" && total === 0n) {
-    return { ok: false, message: "EST must be greater than zero, or blank to clear it." };
-  }
-  return { ok: true, seconds: Number(total) };
 }
 
 function safeListAccent(color: string | null): CSSProperties | undefined {

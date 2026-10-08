@@ -525,7 +525,7 @@ function MetricValue({
         <span>{label}:</span>
         <input
           className="list-board-task__metric-input timer-numerals"
-          aria-label={`${label} duration in H:MM:SS`}
+          aria-label={`${label} duration in H:MM or H:MM:SS`}
           data-task-metric-control="input"
           data-task-metric-input={metric}
           value={editor.value}
@@ -533,7 +533,7 @@ function MetricValue({
           onKeyDown={handleKeyDown}
           onPointerDown={(event) => event.stopPropagation()}
           disabled={editor.pending}
-          placeholder={metric === "estimate" ? "H:MM:SS or blank" : "H:MM:SS"}
+          placeholder={metric === "estimate" ? "H:MM or H:MM:SS, or blank" : "H:MM or H:MM:SS"}
           autoFocus
         />
       </span>

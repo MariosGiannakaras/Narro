@@ -1,0 +1,26 @@
+import assert from "node:assert/strict";
+import { parseMetricDuration, MAX_EDITABLE_SECONDS } from "../src/metricDurationInput.ts";
+
+assert.deepEqual(parseMetricDuration("00:30", "estimate"), { ok: true, seconds: 1800 });
+assert.deepEqual(parseMetricDuration("00:30", "time_taken"), { ok: true, seconds: 1800 });
+assert.deepEqual(parseMetricDuration("0:30:00", "estimate"), { ok: true, seconds: 1800 });
+assert.deepEqual(parseMetricDuration("2:15", "estimate"), { ok: true, seconds: 8100 });
+assert.deepEqual(parseMetricDuration("0:00:30", "time_taken"), { ok: true, seconds: 30 });
+assert.deepEqual(parseMetricDuration("1:02:03", "time_taken"), { ok: true, seconds: 3723 });
+assert.deepEqual(parseMetricDuration(" 1:02 ", "estimate"), { ok: true, seconds: 3720 });
+assert.deepEqual(parseMetricDuration("", "estimate"), { ok: true, seconds: null });
+assert.equal(parseMetricDuration("", "time_taken").ok, false);
+assert.equal(parseMetricDuration("0:00", "estimate").ok, false);
+assert.deepEqual(parseMetricDuration("0:00", "time_taken"), { ok: true, seconds: 0 });
+assert.equal(parseMetricDuration("0:60", "estimate").ok, false);
+assert.equal(parseMetricDuration("0:01:60", "estimate").ok, false);
+assert.equal(parseMetricDuration("-1:05", "estimate").ok, false);
+assert.equal(parseMetricDuration("1:02:03:04", "time_taken").ok, false);
+assert.equal(parseMetricDuration("1.5:02", "time_taken").ok, false);
+assert.equal(parseMetricDuration("00:3", "estimate").ok, false);
+assert.equal(parseMetricDuration("foo", "estimate").ok, false);
+assert.equal(MAX_EDITABLE_SECONDS, 4294967295n);
+assert.deepEqual(parseMetricDuration("1193046:28:15", "time_taken"), { ok: true, seconds: 4294967295 });
+assert.equal(parseMetricDuration("1193046:28:16", "time_taken").ok, false);
+assert.equal(parseMetricDuration("999999999999999999999999:01", "estimate").ok, false);
+console.log("Board and paused Focus metric HH:MM/H:MM:SS parsing: PASS");
