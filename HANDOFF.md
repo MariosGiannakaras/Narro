@@ -66,22 +66,24 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — run the repinned bounded Windows physical session
+## NEXT AGENT ACTION — programming track (ChatGPT implementation; physical agent paused)
 
-Current progress is `3/10M || 0/3 | 17/18`.
+**User-directed ownership, 2026-10-08:** The physical Windows agent has completed and sealed its latest CI1046 session, is currently stopped, and owns **physical Windows observations, capture/analysis of those observations, and corrections whose cause must be established physically** when resumed. The implementation chats own **repository code, configuration, tests, source-backed parity corrections, PRs, and automated Windows CI**, stopping at explicitly recorded physical acceptance gates. Do not require the physical agent to do ordinary independent programming, and do not retake its active physical/evidence ownership.
 
-Repository-side PR248 review, validation, integration and repin are complete. The current exact physical candidate is CI1046/run `37677630228`, source head `515b0f9a9df5cdf1a67e2b879047ee6551ae6dec`, merged runtime/test source `c389148b9edc56dd616e6c95a32b31d52cf79639`, artifact `narro-m7-physical-windows-x64` id `11508639865`.
+**Repository progress:** 3/10 mandatory milestones (M2–M4) complete; M5 33/34 validated top-level TODO items but multiple nested source-code parity gaps; active M6 17/18; M7 controller 4/5; M8 8/8 top-level yet nested source parity OPEN; M9 11/12 top-level despite scoped physical PDF PASS, broader source parity OPEN; M10 blocked, optional M11 dormant. The prior `3/10M || 0/3 | 17/18` checkpoint belongs to the previous active slice; a new programming-slice checkpoint must be defined when implementation actually starts, without a premature counter change.
 
-1. Run only the bounded current observations in `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`; use `docs/M6_CURRENT_RESIDUAL_PHYSICAL_CHECKLIST.md` for the M6/M1 subset.
-2. Preserve historical accepted evidence and rerun only claims invalidated by PR248 or still explicitly OPEN.
-3. Record exact executable hash/topology/preferences and update only gates actually observed.
-4. If any observation fails, reopen only its owning authority and fix only the evidenced cause.
+1. **First independent code slice:** begin with high-priority M5 `B71` recurring-parent pending-count semantics together with its shared `B39/B40` Board grouping/projection dependency, after inspecting current source, tests, crosswalk and exact authorities. Linked parent must remain visible/manageable but not inflate pending actionable counts; preserve recurrence materialization/child identity and historical M4 PASS. Design a narrow deterministic Rust + rendered UI regression. Do not implement from summary alone or change unrelated timer/native focus code.
+2. Continue the next source-code `FIX_NOW` / code-confirmed M5 items by repository dependency order (including independently solvable SS-C01 picker/content B3/B7/B8 and scheduling B19/B20/B33), then M6 Focus presentation, M8 Preferences/shortcuts, M9 Reports. The completed 39/39 screenshot + 19/19 video-to-code ledger and B69/B70/B71 findings provide evidence routes, not acceptance PASS. `B70` has an older-video semantic conflict: reconcile before changing persisted manual-lane behavior.
+3. For each compatible implementation batch, write tests, perform available targeted preflight, use coherent feature PR(s), inspect exact-head Windows CI and guarded-merge when green, and retain source/native physical requirements as OPEN. Publish precise handoff and immutable work logs. Do not force new CI1046 physical retests or invalidate unaffected physical evidence by default.
+4. **Ownership isolation:** leave C4 repeated native Timer→Panel clipping, Finding35 native Time's Up visibility, Finding27 physical monitor/DPI recovery, Finding29 residual focus ownership, M6 A motion, M8 live OS notification/sound and the remaining real Windows topology/performance gates to the paused physical track unless it records a concrete code-cause handoff. It may fix evidence-backed physical failures on a coordinated branch without overwriting newer source/tracking work on `main`.
+
+## PHYSICAL-ONLY HANDOFF — latest CI1046 batch closed; resume only when that agent is restarted
+
+The current accepted/failed/partial CI1046 outcomes are recorded at the top of this HANDOFF and `work-log/evidence/ci1046-physical-20261008/README.md`. The previous NEXT action to run this same bounded session was superseded by its completed capture/analysis; **do not replay that batch as though it were not performed**. CI1046/run `37677630228`, source `515b0f9a9df5cdf1a67e2b879047ee6551ae6dec`, merged source `c389148b9edc56dd616e6c95a32b31d52cf79639`, artifact id `11508639865` are historical exact-build evidence, not a new source-code baseline after documentation commits. The physical agent should resume its exact still-open subset and evidence-backed failures, not repeat PASS observations or take over unrelated programmatic work.
 
 ## USER ACTION REQUIRED
 
-**YES — repository-side actionable work is complete; the next blocker is actual Windows observation.**
-
-Use the repinned CI1046 physical artifact. Do not use the superseded CI1025 executable for PR248-affected gates.
+**NO user action is required for independent programming/CI continuation.** Physical Windows gates and genuine product decisions remain OPEN and require the appropriate physical agent or explicit decision when reached. In particular, Success `Take a Break` remains `PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT`; do not silently enable it. No user is required to relay findings between chats: commit executable results and tracking to the repository.
 
 ## History and validation
 

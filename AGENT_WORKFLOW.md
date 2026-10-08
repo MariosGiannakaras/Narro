@@ -4,6 +4,13 @@ Narro is maintained so different coding AIs can alternate without prior chat con
 
 `AGENTS.md` remains authoritative for durable product/scope/correctness rules. `ENGINEERING_QUALITY.md` is authoritative for implementation quality, error handling, robustness, validation and pre-CI discipline.
 
+## Programming vs physical Windows ownership (2026-10-08 user direction)
+
+- The ChatGPT implementation track owns source/config/tests, source-backed UI/behavior remediation and automated validation through GitHub PR/CI. It may work on dependency-safe `FIX_NOW` items while manual gates remain OPEN; it must never mark those gates PASS from CI.
+- The separate paused physical-Windows track owns actual Windows desktop interactions, recordings, native/visual analysis and fixes that require those physical findings. Do not presume it is running, request repeated captures, or overwrite its physical proof/state.
+- Share only via current `HANDOFF.md`, `TODO.md`, `STATUS.md`, crosswalk and immutable work logs. Before source PR edits/rebases/merge, check the current branch/PR/CI and the other track's ownership; code fixes grounded in physical failures need coordinated handoff. The latest user's explicit ownership direction and current HEAD supersede any historical instruction making a physical session the sole next action.
+- Completing a programmatic implementation and passing exact-head Windows CI makes it eligible for guarded integration with native gates still OPEN; the resumed physical track later accepts/rejects just the affected candidate and returns exact evidence-backed correction requirements.
+
 ## Repository state overrides conversational memory
 
 The latest authoritative repository state on `main` always outranks chat history, cached summaries, or a previous agent's remembered checkpoint. Keep **validated application source baseline** distinct from newer documentation/process truth: documentation-only commits may advance `main` without changing the validated source SHA.
