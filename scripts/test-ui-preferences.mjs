@@ -165,12 +165,21 @@ invariant(soundCatalog.includes("stopLocalSoundPlayback();"), "new local sound p
 invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");
 invariant(!/fetch\s*\(/.test(soundCatalog), "local sound catalog must not fetch media");
 invariant(!/https?:\/\//.test(sections), "Preferences must not introduce remote sound/media dependencies");
+for (const parent of [
+  "snapshot.focus.pomodoroEnabled ? (",
+  "snapshot.alerts.timedAlertsEnabled ? (",
+  "snapshot.alerts.notificationAlertsEnabled ? (",
+  "snapshot.alerts.scheduleRemindersEnabled ? (",
+  "snapshot.celebration.showSuccessScreen ? (",
+]) {
+  invariant(sections.includes(parent), `parent-off Preferences children must be conditionally hidden: ${parent}`);
+}
 invariant(
   sections.includes("disabled={busy || !snapshot.focus.pomodoroEnabled}")
     && sections.includes("disabled={busy || !snapshot.alerts.timedAlertsEnabled}")
     && sections.includes("disabled={busy || !snapshot.alerts.scheduleRemindersEnabled}")
     && sections.includes("disabled={busy || !snapshot.celebration.showSuccessScreen}"),
-  "nested Preferences must remain mounted and disable from their parent without scroll-jump remounting",
+  "visible child controls must remain mutation-gated during saves and parent state changes",
 );
 invariant(themePanel.includes("beforeGeneral") && themePanel.includes("generalChildren"), "Preferences composition slots are missing");
 
