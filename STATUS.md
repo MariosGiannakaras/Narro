@@ -1,5 +1,10 @@
 # STATUS.md
 
+## Current ChatGPT implementation campaign — 2026-10-08
+
+Three source batches **merged after exact-head Windows CI SUCCESS**: #249 B71/B39/B40 -> `13bc1ea1ffc04ea6b2044c87818ac54f05ac9af4` (resulting-main CI `37824235331` SUCCESS), #250 B7/B8 -> `0b32b35c9f68b59cb955f74f9fc81cb2ff74871a`, #251 B55/B48 -> `7c829f9064536f5c56c86e56af84b3139ecb52c8`. Exact latest merged source is #251; resulting-main CI `37824539260` pending. Separate PRs #252 B10, #253 B26 and #254 partial B33 are in CI/pending integration; see HANDOFF for exact heads, runs and earlier failures. This section reports **coding progress only**, not completed roadmap milestones. All affected Windows manual and Blitzit rendered/source parity gates remain OPEN; historical CI1046 physical batch is not revalidated by new source CI.
+
+
 ## Current physical batch closure — CI1046, 2026-10-08
 
 [Complete evidence, exact chronology, scope limits and restored-state proof](work-log/evidence/ci1046-physical-20261008/README.md#final-batch-closure--user-requested-stop-2026-10-08). No Narro source changes or new build. Exact CI1046 candidate remains unchanged; newer main documentation findings are preserved.
