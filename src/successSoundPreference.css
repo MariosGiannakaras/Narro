@@ -1,0 +1,22 @@
+.preference-settings__success-sound-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.preference-settings__success-sound-actions > .preference-settings__sound-control {
+  width: min(300px, 38vw);
+  min-width: 0;
+}
+
+@media (max-width: 48rem) {
+  .preference-settings__success-sound-actions {
+    flex-wrap: wrap;
+  }
+
+  .preference-settings__success-sound-actions > .preference-settings__sound-control {
+    width: min(100%, 300px);
+  }
+}

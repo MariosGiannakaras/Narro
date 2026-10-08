@@ -53,6 +53,7 @@ pub struct AlertSettingsSnapshot {
 pub struct CelebrationSettingsSnapshot {
     pub show_success_screen: bool,
     pub fun_gif: bool,
+    pub success_sound_enabled: bool,
     pub success_sound: Option<String>,
     pub success_sound_volume_percent: u8,
 }
@@ -94,6 +95,7 @@ pub struct PreferenceSettingsPatch {
     pub reminder_lead_seconds: Option<u32>,
     pub show_success_screen: Option<bool>,
     pub fun_gif: Option<bool>,
+    pub success_sound_enabled: Option<bool>,
     pub success_sound: Option<String>,
     pub success_sound_volume_percent: Option<u8>,
 }
@@ -266,6 +268,9 @@ fn apply_patch(payload: &mut PreferencesPayload, prepared: &PreparedPatch) {
     if let Some(value) = patch.fun_gif {
         payload.celebration.fun_gif = value;
     }
+    if let Some(value) = patch.success_sound_enabled {
+        payload.celebration.success_sound_enabled = value;
+    }
     if let Some(value) = &patch.success_sound {
         payload.celebration.success_sound = Some(value.clone());
     }
@@ -315,6 +320,7 @@ fn snapshot(
         celebration: CelebrationSettingsSnapshot {
             show_success_screen: payload.celebration.show_success_screen,
             fun_gif: payload.celebration.fun_gif,
+            success_sound_enabled: payload.celebration.success_sound_enabled,
             success_sound: payload.celebration.success_sound,
             success_sound_volume_percent: payload.celebration.success_sound_volume_percent,
         },
@@ -478,6 +484,29 @@ mod tests {
         apply_patch(&mut payload, &prepared);
         assert!(!payload.celebration.show_success_screen);
         assert!(!payload.celebration.fun_gif);
+    }
+
+    #[test]
+    fn success_sound_toggle_is_independent_of_success_screen_and_preserves_other_preferences() {
+        let mut payload = PreferencesPayload::default();
+        assert!(payload.celebration.success_sound_enabled);
+        let off = prepare_patch(PreferenceSettingsPatch {
+            success_sound_enabled: Some(false),
+            ..PreferenceSettingsPatch::default()
+        })
+        .expect("prepare independent success sound disable");
+        apply_patch(&mut payload, &off);
+        assert!(!payload.celebration.success_sound_enabled);
+        assert!(!payload.celebration.show_success_screen);
+        let on = prepare_patch(PreferenceSettingsPatch {
+            success_sound_enabled: Some(true),
+            success_sound: Some("victory-bell".into()),
+            ..PreferenceSettingsPatch::default()
+        })
+        .expect("prepare independent re-enable");
+        apply_patch(&mut payload, &on);
+        assert!(payload.celebration.success_sound_enabled);
+        assert_eq!(payload.celebration.success_sound.as_deref(), Some("victory-bell"));
     }
 
     #[test]

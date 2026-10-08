@@ -34,6 +34,7 @@ export type PreferencePendingKey =
   | "reminderLead"
   | "successScreen"
   | "funGif"
+  | "successSoundEnabled"
   | "successSound"
   | "successSoundVolume";
 

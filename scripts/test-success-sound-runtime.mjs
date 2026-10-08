@@ -12,6 +12,7 @@ for (const required of [
   "const celebration = preferences.snapshot?.celebration",
   "celebration.successSound ?? DEFAULT_SUCCESS_SOUND",
   "celebration.successSoundVolumePercent",
+  "celebration?.successSoundEnabled",
   "playLocalSound(",
   "onCompletionSuccess?.({",
 ]) {
@@ -24,9 +25,9 @@ invariant(
   "success sound must only run after authoritative completion commits",
 );
 invariant(
-  liveActions.indexOf("if (showSuccessScreen)")
-    < liveActions.indexOf("const celebration = preferences.snapshot?.celebration"),
-  "success sound must stay inside the success-screen celebration path",
+  liveActions.indexOf("const celebration = preferences.snapshot?.celebration")
+    < liveActions.indexOf("if (showSuccessScreen)"),
+  "sound toggle may play after committed completion independently of success-screen visuals",
 );
 invariant(
   catalog.includes('DEFAULT_SUCCESS_SOUND: LocalSoundId = "victory-bell"'),

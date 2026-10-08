@@ -23,7 +23,7 @@ const shortcutConflict = params.get("shortcutConflict") === "1";
 const section = params.get("section") ?? "upper";
 
 const preferenceSnapshot: PreferenceSettingsSnapshot = {
-  schemaVersion: 3,
+  schemaVersion: 5,
   general: {
     selectedMonitorKey: "fixture-monitor-secondary",
     focusPanelSide: "right",
@@ -55,6 +55,7 @@ const preferenceSnapshot: PreferenceSettingsSnapshot = {
   celebration: {
     showSuccessScreen: true,
     funGif: true,
+    successSoundEnabled: true,
     successSound: "victory-bell",
     successSoundVolumePercent: 75,
   },
