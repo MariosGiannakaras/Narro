@@ -1,0 +1,22 @@
+import assert from "node:assert/strict";
+import { successTimingCopy } from "../src/focusSuccessTiming.ts";
+
+assert.equal(successTimingCopy(8 * 60 * 60 + 45 * 60, "0"), "525 minutes early");
+assert.equal(successTimingCopy(600, "0"), "10 minutes early");
+assert.equal(successTimingCopy(600, "540"), "1 minute early");
+assert.equal(successTimingCopy(600, "601"), "Less than a minute late");
+assert.equal(successTimingCopy(600, "660"), "1 minute late");
+assert.equal(successTimingCopy(600, "600"), "Right on time");
+assert.equal(successTimingCopy(600, "599"), "Less than a minute early");
+assert.equal(successTimingCopy(600, "630"), "Less than a minute late");
+assert.equal(successTimingCopy(600, "999999999999999999"), "16666666666666657 minutes late");
+assert.equal(successTimingCopy(null, "300"), null, "unknown EST suppresses projection");
+assert.equal(successTimingCopy(300, null), null, "unknown Taken suppresses projection");
+assert.equal(successTimingCopy(300, "Infinity"), null);
+assert.equal(successTimingCopy(300, "-1"), null);
+assert.equal(successTimingCopy(300, "1.5"), null);
+assert.equal(successTimingCopy(300, " 50"), null);
+assert.equal(successTimingCopy(300, "00"), null);
+assert.equal(successTimingCopy(-1, "0"), null);
+assert.equal(successTimingCopy(Number.MAX_SAFE_INTEGER + 1, "0"), null);
+console.log("Focus success authoritative timing copy: PASS");

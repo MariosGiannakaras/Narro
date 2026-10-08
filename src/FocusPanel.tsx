@@ -1162,6 +1162,9 @@ export function FocusPanel({
               ) : null}
             </div>
             <div className="focus-panel__live-meta type-metadata">
+              {timer?.runtime.timer.mode?.kind === "pomodoro" ? (
+                <span className="focus-panel__pomodoro-badge" data-focus-pomodoro-badge="true" aria-label="Pomodoro mode">POMO</span>
+              ) : null}
               {aggregateView ? <span className="focus-panel__list-chip">{liveTask.listTitle}</span> : null}
               {subtaskLabel(liveTask) ? <span>{subtaskLabel(liveTask)}</span> : null}
               {timer ? <span className="focus-panel__live-state">{focusTimerStateLabel(timer.runtime.timer)}</span> : null}
