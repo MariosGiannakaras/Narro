@@ -618,6 +618,7 @@ Unavailable global shortcut registration must be visible locally rather than sil
 # 10. Reports
 
 ## 10.1 Overview
+- VE-011 and VE-012 selected-range chart date axis must show consecutive timezone-local calendar categories including days without sessions. Current Rust daily-series projection omits no-session days, even though work-day summary must still count only genuinely active days. Verify 8/30/60/90-day responsive chart geometry; fixed eight-column CSS is not evidence of correct 30/60/90-day presentation. Preserve empty-range, zero tooltip, legend, DST and PDF semantics.
 - SS-C15/VE-015 report filter uses list-color badges in the All Lists trigger; a generic `N` glyph is not the source identity. Overview and Sessions should share a badge-calibrated, accessible trigger without altering current multi-selection data rules.
 - SS-C12 chart options affordance is visible. Exact option-menu contents/actions are not source-recorded; production must not leave a focusable apparent button with no activation behavior. Existing series-legend controls are separate from chart options.
 
@@ -726,6 +727,7 @@ Export conflict resolution remains:
 ---
 
 # 11. Focus Panel
+- SS-C19 ordinary Focus overdue queue rows display warm/orange relative age (e.g., `2d ago`), not just a generic `Overdue` marker. The current `isOverdue` and selected local schedule remain domain authorities; format relative calendar age as distinct display metadata.
 
 ## 11.1 Top bar
 - SS-H04 / VE-003 Focus list selector opens an anchored overlay listing All Lists with stacked badge/count and per-list colored badges. Current native `<select>` is a functionally valid but source-incomplete composition; do not sacrifice selection/timer safety while correcting it.
