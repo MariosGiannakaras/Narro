@@ -411,6 +411,7 @@ This directly addresses public reports of reordered tasks moving unexpectedly or
 ---
 
 ## 5.5 Scheduling and recurrence control parity
+- VE-009/VE-017 selected-date derived recurrence preset labels must speak the actual chosen day (e.g., `Every Monday`, `Every month on 22nd`) instead of fixed internal phrases. Custom choices update a visible plain-language summary as the interval/unit/weekday controls change, including `every week on Friday, Saturday, Sunday`. The existing normal date/time `scheduleDescription` is not a recurrence summary. B20 nth-weekday monthly semantics must exist before presenting its example as selectable.
 
 - SS-H07 / VE-007 scheduling source modal uses Step 1 (full selectable calendar + Today/Later Today/Tomorrow/Next Week + Cancel/Next) and Step 2 (Pick Date return, selected-date summary, inline Add Time +ADD/×REMOVE with hour/minute/AM-PM, recurrence preset/custom selection, Cancel/Schedule). Date/current markers coexist when they are different. The current single-view native date input does not reproduce the evidenced steps; functional scheduling correctness is separately validated.
 - VE-009 custom monthly recurrence supports a calendar-date option **or ordinal weekday** such as `Monthly on the 2nd Sunday`; ordinal weekday is not a plain weekday-mask rule generating every Sunday. Extend the persistence/domain model only with explicit migration/back-compat and recurrence materialization safety tests.
