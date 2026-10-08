@@ -2,7 +2,7 @@
 
 ## Current ChatGPT implementation campaign — 2026-10-08
 
-**ChatGPT coding progress: 8 exact-head Windows CI PASS PRs merged (#249–#251, #252–#255 excluding #256, and #257), 6 independent PR/CI pending (#256, #258–#262).** Latest merged source #257 `b36bce94ab1be12ee385825a51f3f68a2d091a0a`; resulting-main run `37830106898` in progress at checkpoint, not yet green. Exact merge commits, PR heads and run IDs are in HANDOFF and immutable work-log. B20 nth-weekday recurrence engine, B19 wizard, archived Done destructive semantics and all native/source visual acceptance remain OPEN. Do not promote source CI to physical PASS.
+**12 exact-PR-head Windows CI SUCCESS source PR batches merged (#249–#259 excluding #260 and #256 in correct order, plus #261; precise numbered list in HANDOFF).** Latest source merge #261 `e3f510d11ccce1febc79fd8d4ff8b327429aa792`; latest resulting-main `37834977043` pending at handoff. Four source PRs open (#260, #262, #263, #264). #260's legacy native-select fixture assertion corrected and new CI pending. #262/#263 failed in historically flaky SQLite contention / Finding28 temp cleanup, retry requested, no product-fix evidence yet. #264 camelCase↔snake_case static test corrected, fresh exact-head CI pending. #262/#263/#264 **share Preferences contract test file**, require sequential reconciliation and new CI when merged source changes. All Windows physical and direct Blitzit rendered/source parity remain OPEN. Source batch completion is not milestone closure.
 
 ## Current physical batch closure — CI1046, 2026-10-08
 
