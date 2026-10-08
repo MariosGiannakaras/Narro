@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 11/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 12/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 | VE-005 | REVIEWED (24 video-to-code claims) | B61–B65 + prior B IDs; current code checked; native/source parity NOT RUN |
 | VE-006 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-007 | REVIEWED (21 time-local video-to-code claims) | Existing B19/B33/B40/B42/B48; new B70 post-unschedule Backlog vs original manual-lane return (older video limit) |
-| VE-008 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-008 | REVIEWED (24 time-local video-to-code claims) | Existing B19/B33/B39–B42/B45; new B71 active recurring parent incorrectly contributes to pending counts |
 | VE-009 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
@@ -333,6 +333,38 @@ Canonical VE-007 02:52.803, 60fps full-video Pass-3 analysis already source-comp
 | 02:42–02:52.80 | Narration/outro, no further product state | Out of UI parity scope | EXCLUDED |
 
 **V11 closure:** 21 time-local comparisons. B19 two-step calendar/details/modal and Add Time fields, B33 date-derived recurrence presets, B40 scheduled section, B42 schedule-detail X, B48 destructive separator all pre-existing; not double-counted as new. **New B70** is a source-observed post-unschedule lane discrepancy: video takes task initially in This Week into scheduled next-week Backlog, then removing schedule leaves the ordinary task in Backlog. Narro Rust scheduling mutation changes schedule fields only, preserves manual_lane, and effective_planning_lane_at for no schedule returns that original This Week. This is CODE_CONFIRMED against an older tutorial, not yet a directive to mutate validated manual-lane/identity invariants; reconcile source-version and physical expectations before remediation. The four shortcut calculations and recurring occurrence generation in this video are narration-only and were not elevated to direct observation. Automated tests, source-visual/native Windows validation and raw video replay NOT RUN.
+## VE-008 — Recurring Task Setup — REVIEWED 2026-10-08
+
+Source VE-008 full MP4 02:46.905/60fps already covered by Pass-3; video-to-code analyzes canonical chronological record, current TSX, Rust recurrence persistence/materialization, scheduling, and board projection. No raw-video replay, build, or native validation.
+
+| Time | Direct source state or action | Production code route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:26 | TYAMA 9 pending, This Week 0/6, Today 0/1; Check emails ordinary This Week | ListBoard standard lane snapshot/TaskCard | PRESENT_MODEL_ONLY |
+| 00:26–00:33 | Ordinary task overflow Schedule opens date picker | TaskCard Schedule action and TaskScheduleDialog | PRESENT_CODE_GAP_B19_WIZARD |
+| 00:33–00:37 | June 16 selected cyan/lime on full calendar | Native input type=date and one-page schedule UI | GAP_B19 |
+| 00:37–01:11 | Date→details Pick Date/Add Time/Recurring same modal | Schedule and Repeat always visible together, separate save buttons | GAP_B19 |
+| 00:37–01:11 | No Repeat / Every day / Every weekday / Every Monday / Every month on16th | TaskScheduleDialog fixed Weekly on start weekday and Monthly on start date labels | GAP_B33 |
+| 01:11–01:16 | Every weekday selected, Schedule commit | saveTaskRecurrence + recurrence draft weekday mask + materialize after commit | PRESENT_FUNCTION_ONLY |
+| 01:16–01:33 | Check emails becomes Backlog Recurring tasks parent | recurrence::normalize_parent_as_backlog; BoardLane flat, no dedicated parent subsection | GAP_B39_PRESENT_DOMAIN_PLACEMENT |
+| 01:16–01:33 | Parent displays Weekdays rule, recurring icon | TaskCard::recurrenceLabel returns generic Repeats | GAP_B41 |
+| 01:16–01:33 | Today gets one generated child; This Week gets four scheduled children | recurrence materialization and scheduling date-based effective lane | PRESENT_DOMAIN_NOT_NATIVE_VALIDATED |
+| 01:16–01:33 | This Week heading 4 Scheduled tasks this week | BoardLane has no subgroup and only flat lane count | GAP_B40 |
+| 01:16–01:33 | Pending total 9→13: recurring parent excluded, 5 generated children count | active_tasks_in_bucket includes linked parent; LaneAccumulator.finish counts all active rows, so 9→14 if five children | NEW_B71_PARENT_PENDING_COUNT |
+| 01:33–01:54 | Child tasks have normal rail/title/EST/Time Taken and own schedule | TaskCard same ordinary controls for recurrence occurrence IDs | PRESENT_CODE_ONLY |
+| 01:54–02:00 | Complete one child; total pending 13→12 and scheduled heading 4→3 | completeListBoardTask persisted; flat BoardLane lacks scheduled subgroup count, parent still counted | PRESENT_COMPLETION_GAP_B40_B71 |
+| 01:54–02:00 | Completed child in Done, parent stays linked and other children intact | complete task storage and recurrence parent linkage separate | PRESENT_DOMAIN_ONLY |
+| 02:00–02:08 | Child Update Schedule and date row with circle X | TaskOverflowMenu Update Schedule only, no date/X shortcut | GAP_B42 |
+| 02:08–02:13 | Child prepopulated schedule edited to another already-occupied Thursday | TaskScheduleDialog reads child schedule; updateTaskSchedule saves independent child | PRESENT_FUNCTION_GAP_B19 |
+| 02:08–02:13 | Two same-title children coexist on Thursday; 3 scheduled this week remain | Independent child identities and date scheduling; no uniqueness-by-date invariant | PRESENT_DOMAIN_ONLY |
+| 02:13–02:22 | Child schedule X removal, toast Removed schedule from task; 3→2 subsection count | Editor Unscheduled via CAS exists; no quick-X or source subgroup | GAP_B42_B40 |
+| 02:13–02:22 | Unscheduling child preserves its identity and overall pending count | Rust schedule update fields only, no task deletion | PRESENT_DOMAIN_ONLY |
+| 02:22–02:25 | Parent menu Remove Recurring/Change list/Duplicate/Delete | TaskCard parent overflow generic Update Schedule, no recurrence-specific action | GAP_B45 |
+| 02:22–02:25 | VE017 newer parent menu adds Update Recurring, unlike this tutorial | Version precedence recorded; do not falsely demand missing older-only exact list | VERSION_LIMIT_VE017 |
+| 02:25–02:27 | Remove Recurring detaches parent to ordinary Backlog and leaves children | Rust remove_recurrence_if_expected preserves/detaches children by default; parent normalized Backlog | PRESENT_DOMAIN_GAP_B45_CONTROL |
+| 02:25–02:38 | Parent becomes countable again; pending rises one; children persist | Narro already counts parent while linked, so expected +1 accounting change absent | NEW_B71_DETACH_TRANSITION |
+| 02:38–02:46.9 | Tutorial recap/outro, no further product state | Excluded | EXCLUDED |
+
+**V12 closure:** 24 time-local claims. B19/B33/B39/B40/B41/B42/B45 pre-existing and retained, historical M4 persistence/recurrence safety preserved. **New B71**: source current-workweek arithmetic proves active recurrence parent excluded from pending counts (9−1+5=13), then detached parent counts again; `active_tasks_in_bucket` still returns parent with `recurrence_rule_id`, `LaneAccumulator.finish` counts it in `tasks.len`, resulting an extra pending entry during active recurrence. This is a code-confirmed domain/presentation projection gap; correcting must retain parent visibility in a separate Recurring group, avoid adding/removing domain identities, and reconcile Home/list totals/Focus eligibility without changing historical recurrence materialization. Source does not time-lapse next-week regeneration; VE017 stronger for parent action menu, do not infer early-version exact parent menu parity. Tests/CI/native parity/source visual checks NOT RUN.
 ## Exact next review
 
-Continue VE-004/006, VE-008–VE-010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006, VE-009/010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
