@@ -642,6 +642,7 @@ Official definitions:
 - Avg Time per Task includes partially completed tasks. citeturn580012search11
 
 Productivity chart:
+- VE-011 01:24–01:32 pointer hover shows a tall category background band and highlighted Total bar with tooltip. Current tooltip-only date hit area needs a corresponding selection/hover visual state; keyboard focus must remain equivalent.
 - Tasks/work time;
 - Breaks;
 - Total session time;
@@ -658,6 +659,7 @@ Lower:
 - early/late legend.
 
 ## 10.2 Time By List / punctuality
+- VE-011 populated Done Tasks rows retain colored list badges and Early/Late/No Est status pill shapes, with Taken duration to the right. Current raw list-title/status spans need source-oriented presentation; group dates and the existing internal scroll remain correct.
 
 Official behavior:
 - work time aggregated by list;
