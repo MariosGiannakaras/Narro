@@ -350,6 +350,7 @@ Visible older capture confirms:
 Top create inserts at highest priority; bottom create appends.
 
 ## 5.3 Task-card states
+- VE-017 linked recurring parent overflow differs from scheduled-occurrence overflow: `Update Recurring`, `Remove Recurring`, Duplicate and destructive Delete. VE-008 older version also directly shows Remove Recurring but different exact surrounding menu inventory. Current `TaskOverflowMenu` exposes generic `Update Schedule` for all; the direct parent removal affordance is absent (B45). `Remove Recurring` must detach without deleting generated children; `No Repeat + Delete existing` is a separate destructive cleanup path.
 - VE-008/VE-017 recurring-parent task badges display the actual recurrence cadence (`Weekdays`, `Custom`, `Daily`) rather than a generic `Repeats` string (B41). A scheduled occurrence's overflow includes a current-date row with contextual X/remove alongside `Update Schedule` (B42); current scheduler `Unscheduled` action provides the underlying function but not that source menu control. Validate safe shortcut removal with correct pending/error/focus semantics.
 
 Required states:
