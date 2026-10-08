@@ -39,6 +39,7 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { boardTaskSubgroup, groupedBoardTasks, scheduledGroupHeading } from "./boardTaskGroups";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -236,7 +237,7 @@ function safeListAccent(color: string | null): CSSProperties | undefined {
 }
 
 function isManualReorderTask(task: ListBoardTask): boolean {
-  return task.completedAt === null && task.scheduledLocalDate === null;
+  return task.completedAt === null && task.scheduledLocalDate === null && !task.recurrenceRuleId;
 }
 
 function taskIndex(tasks: ListBoardTask[], taskId: string): number {
@@ -462,6 +463,10 @@ function BoardLane({
   const createEditor = editorState?.kind === "create" && editorState.lane === pendingLane
     ? editorState
     : null;
+  const visibleTasks = pendingLane === null ? lane.tasks : groupedBoardTasks(lane.tasks);
+  const scheduledGroupCount = visibleTasks.filter(
+    (task) => boardTaskSubgroup(task) === "scheduled",
+  ).length;
 
   return (
     <section
@@ -553,7 +558,17 @@ function BoardLane({
         ) : null}
         {showLeadingPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {lane.tasks.length > 0 ? (
-          lane.tasks.map((task, taskOrdinalIndex) => {
+          visibleTasks.map((task, taskOrdinalIndex) => {
+            const group = boardTaskSubgroup(task);
+            const precedingGroup = taskOrdinalIndex > 0
+              ? boardTaskSubgroup(visibleTasks[taskOrdinalIndex - 1])
+              : null;
+            const subgroupHeading = pendingLane !== null && group !== "ordinary"
+              && group !== precedingGroup
+              ? group === "recurring"
+                ? "Recurring tasks"
+                : scheduledGroupHeading(scheduledGroupCount, pendingLane)
+              : null;
             const reorderable = pendingLane !== null
               && presentationReorderEnabled
               && isManualReorderTask(task);
@@ -650,6 +665,11 @@ function BoardLane({
 
             return (
               <div key={task.id} className="list-board-task-slot">
+                {subgroupHeading ? (
+                  <h3 className="list-board-lane__subgroup-heading type-metadata" data-board-task-subgroup={group}>
+                    {subgroupHeading}
+                  </h3>
+                ) : null}
                 {placeholderBefore ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
                 <div
                   role="listitem"
@@ -683,7 +703,7 @@ function BoardLane({
                       onCancel: onCancelDelete,
                       onConfirm: onConfirmDelete,
                     } : undefined}
-                    onComplete={canStartTaskEditor && task.completedAt === null
+                    onComplete={canStartTaskEditor && task.completedAt === null && !task.recurrenceRuleId
                       ? () => onCompleteTask(task)
                       : undefined}
                     onTitleEdit={canStartTaskEditor && !isLiveTask
