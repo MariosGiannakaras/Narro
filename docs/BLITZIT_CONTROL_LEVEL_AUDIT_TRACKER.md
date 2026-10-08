@@ -58,7 +58,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-005 | B3/B7/B8/B23/B24 | list color/Home/board controls |
 | VE-013 | B12 | board subtask input grammar |
 | VE-014 | B9/B17/B18/B21/B22/B34 | full Preferences root page-vs-modal and nested controls |
-| VE-016 | P3-M7 | timer/Floating physical and source states |
+| VE-016 | B35/B36/B37/P3-M7 | historical Break live-card replacement, Done Break row and POMO badge; current-version corroboration open, native timer checks independent |
 | VE-017 | B33/SCOPED_VALIDATED | replacement/No Repeat scoped PASS; date-derived preset/live Custom summary missing |
 | VE-007 | B19 | two-step schedule/editor |
 | VE-009 | B20/B33 | nth-weekday rule missing; custom natural-language feedback/date-derived preset labels absent |
@@ -71,11 +71,11 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-002 | SCOPED_VALIDATED | EST suffix title normalization |
 | VE-001 | CONTEXT | account/cloud/pricing excluded |
 | VE-004 | SCOPED_VALIDATED | first-use task/list loop; auth excluded |
-| VE-018 | CONTEXT/AMBIGUOUS | historical lane-count semantics |
+| VE-018 | B35/B36/B38/CONTEXT | direct historical Break card/Done/temporary EST; current 2.6.69 Break-state unproven; separate lane-count semantics historical |
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B34 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B38 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.

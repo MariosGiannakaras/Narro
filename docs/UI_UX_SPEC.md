@@ -743,6 +743,7 @@ Export conflict resolution remains:
 - compact/floating control.
 
 ## 11.2 Day summary
+- Historical VE-018 ~02:24–02:40 shows a 10min manual Break temporarily contributes +10min to Focus `Est:` (1hr54→2hr4), then returns to original value, while 0/7 task-completion fraction remains constant (B38). This has no demonstrated current-2.6.69 same-state corroboration; never persist a new task EST simply to mirror the historical visual total.
 
 - aggregate EST label;
 - horizontal teal/lime progress;
@@ -751,6 +752,7 @@ Export conflict resolution remains:
 Progress changes animate once, not continuously.
 
 ## 11.3 Active live card
+- VE-016 (~01:32–01:44) source Pomodoro work/Break has a small green `POMO` badge on the timer/card (B37). Source Focus `Break` replaces the active top task card with the task returning to the queue (VE-016/VE-018, B35). Narro currently retains task identity/title as live card during break. These are **historical directly witnessed source states**; current v2.6.69 exact Break-state presentation requires corroboration before accepting or rejecting parity. Do not change Rust timer authority for an inferred visual reconstruction.
 
 - strong accent border;
 - task title;
@@ -786,6 +788,7 @@ Public feedback reports “jumpy” Blitz buttons that users feel they chase wit
 - icon labels use tooltips instead of expanding text under pointer.
 
 ## 11.5 Add Task / Scheduled / Done groups
+- Historical VE-016/VE-018 show completed Break sessions in Focus Done history as Break rows (B36), but distinct from actual Done tasks for the task-completion fraction. Narro currently renders only `board.done.tasks`; any parity restoration must use real break-session projection and preserve break/work history semantics. Current 2.6.69 Break-completed snapshot is not available; classify as source-version-limited until confirmed.
 
 - `+ ADD TASK` between main queue and scheduled section;
 - scheduled section count;
