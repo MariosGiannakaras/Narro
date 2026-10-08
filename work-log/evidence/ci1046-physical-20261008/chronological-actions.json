@@ -1,0 +1,1708 @@
+[
+  {
+    "utc": "2026-10-08T09:13:44.847Z",
+    "label": "fresh-home",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:14:01.530Z",
+    "label": "keyboard-search-probe",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:14:27.888Z",
+    "label": "dismiss-native-find",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:14:35.699Z",
+    "label": "long-list-card-pointer",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:15:03.378Z",
+    "label": "activate-main-recovery",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:15:13.766Z",
+    "label": "settings-uia-recovery",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:15:31.751Z",
+    "label": "preferences-loaded",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:16:34.827Z",
+    "label": "main-activation-before-list-nav",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:16:38.913Z",
+    "label": "all-lists-navigation",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:16:43.931Z",
+    "label": "board-ready",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:17:52.779Z",
+    "label": "board-input-ready",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:18:17.077Z",
+    "label": "refresh-board-before-title",
+    "origin": "actions.jsonl",
+    "command": null
+  },
+  {
+    "utc": "2026-10-08T09:22:09.556832+00:00",
+    "label": "board-live-baseline",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "board-live-baseline"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:22:28.678400+00:00",
+    "label": "planning-list-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "planning-list-open",
+      "500",
+      "129"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:22:35.649229+00:00",
+    "label": "owned-long-list",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "owned-long-list",
+      "560",
+      "256"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:02.769879+00:00",
+    "label": "m5-title-editor",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-title-editor",
+      "687",
+      "343"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:13.141229+00:00",
+    "label": "m5-title-cancel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "m5-title-cancel",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:14.858368+00:00",
+    "label": "m5-keyboard-focus-pointer-away",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro",
+      "m5-keyboard-focus-pointer-away",
+      "560",
+      "290"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:26.622240+00:00",
+    "label": "m5-keyboard-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "m5-keyboard-tab",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:36.228089+00:00",
+    "label": "m5-title-keyboard-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "m5-title-keyboard-focus",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:37.902132+00:00",
+    "label": "m5-cross-lane-drag",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "drag",
+      "Narro",
+      "m5-cross-lane-drag",
+      "646",
+      "369",
+      "495",
+      "326"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:23:55.207922+00:00",
+    "label": "m5-drag-settled",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "m5-drag-settled"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:07.899180+00:00",
+    "label": "m5-padding-drag",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "drag",
+      "Narro",
+      "m5-padding-drag",
+      "620",
+      "410",
+      "492",
+      "329"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:28.991547+00:00",
+    "label": "f28-edit-after-drag",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f28-edit-after-drag",
+      "510",
+      "283"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:29.815452+00:00",
+    "label": "f28-cancel-editor",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-cancel-editor",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:30.607047+00:00",
+    "label": "f28-pointer-away",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro",
+      "f28-pointer-away",
+      "308",
+      "140"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:31.242677+00:00",
+    "label": "f28-complete-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-complete-focus",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:32.031268+00:00",
+    "label": "f28-title-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-title-focus",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:48.267325+00:00",
+    "label": "f28-real-title-editor",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f28-real-title-editor",
+      "510",
+      "314"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:49.074310+00:00",
+    "label": "f28-real-editor-cancel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-real-editor-cancel",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:49.854059+00:00",
+    "label": "f28-real-pointer-away",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro",
+      "f28-real-pointer-away",
+      "300",
+      "140"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:50.475121+00:00",
+    "label": "f28-real-complete-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-real-complete-focus",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:24:51.258541+00:00",
+    "label": "f28-real-title-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-real-title-focus",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:04.302340+00:00",
+    "label": "f28-tab-first-rail",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-tab-first-rail",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:05.086159+00:00",
+    "label": "f28-shift-tab-title",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f28-shift-tab-title",
+      "0x10+0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:06.845434+00:00",
+    "label": "m5-return-before-live",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "drag",
+      "Narro",
+      "m5-return-before-live",
+      "436",
+      "385",
+      "650",
+      "318"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:34.421942+00:00",
+    "label": "m5-restore-today",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "m5-restore-today",
+      "0x12+0x27"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:37.586749+00:00",
+    "label": "m5-overflow-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-overflow-open",
+      "742",
+      "371"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:25:55.747022+00:00",
+    "label": "m5-ordinary-card-visible",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "m5-ordinary-card-visible",
+      "777",
+      "605",
+      "-360"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:07.593075+00:00",
+    "label": "m5-ordinary-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro",
+      "m5-ordinary-hover",
+      "685",
+      "302"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:08.223149+00:00",
+    "label": "m5-ordinary-menu",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-ordinary-menu",
+      "742",
+      "332"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:16.345341+00:00",
+    "label": "m5-retained-delete-confirm",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-retained-delete-confirm",
+      "643",
+      "495"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:30.015571+00:00",
+    "label": "m5-delete-cancel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-delete-cancel",
+      "736",
+      "495"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:30.795398+00:00",
+    "label": "m5-create-disposable-duplicate",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-create-disposable-duplicate",
+      "646",
+      "456"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:26:55.300754+00:00",
+    "label": "m5-disposable-visible",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "m5-disposable-visible",
+      "777",
+      "601",
+      "-240"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:06.074575+00:00",
+    "label": "m5-disposable-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro",
+      "m5-disposable-hover",
+      "690",
+      "362"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:06.689934+00:00",
+    "label": "m5-disposable-menu",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-disposable-menu",
+      "742",
+      "391"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:19.511471+00:00",
+    "label": "m5-disposable-confirm-row",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-disposable-confirm-row",
+      "635",
+      "555"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:20.305004+00:00",
+    "label": "m5-disposable-confirm-delete",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m5-disposable-confirm-delete",
+      "647",
+      "555"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:22.087067+00:00",
+    "label": "focus-entry-user-paused",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "focus-entry-user-paused",
+      "692",
+      "674"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:32.902356+00:00",
+    "label": "current-before-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "current-before-focus"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:27:44.303253+00:00",
+    "label": "m9-pdf-export-one",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m9-pdf-export-one",
+      "878",
+      "129"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:28:06.991958+00:00",
+    "label": "m9-pdf-export-result",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "m9-pdf-export-result"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:28:39.517115+00:00",
+    "label": "m9-pdf-export-two",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m9-pdf-export-two",
+      "878",
+      "183"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:29:26.619404+00:00",
+    "label": "m9-default-viewer-fit",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Nitro PDF Pro",
+      "m9-default-viewer-fit",
+      "0x11+0x30"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:29:28.436658+00:00",
+    "label": "m9-export-two-real",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m9-export-two-real",
+      "878",
+      "183"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:29:45.767940+00:00",
+    "label": "m9-export-two-result",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "m9-export-two-result"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:29:46.490196+00:00",
+    "label": "reports-sessions",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "reports-sessions",
+      "404",
+      "245"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:30:09.759682+00:00",
+    "label": "f29-add-session-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-add-session-open",
+      "737",
+      "129"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:13.012101+00:00",
+    "label": "f29-tab-cycle",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "keys",
+      "Narro",
+      "f29-tab-cycle",
+      "0x09",
+      "40"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:20.050199+00:00",
+    "label": "f29-shift-tab-cycle",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "keys",
+      "Narro",
+      "f29-shift-tab-cycle",
+      "0x10+0x09",
+      "40"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:27.157400+00:00",
+    "label": "f30-long-picker-scroll",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "f30-long-picker-scroll",
+      "643",
+      "419",
+      "-480"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:33.627686+00:00",
+    "label": "f29-escape-opener-restore",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-escape-opener-restore",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:48.382350+00:00",
+    "label": "f29-pending-setup",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-pending-setup",
+      "737",
+      "129"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:49.173467+00:00",
+    "label": "f29-owned-task-search",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "text",
+      "Narro",
+      "f29-owned-task-search",
+      "queue reorder companion"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:31:56.991451+00:00",
+    "label": "f29-owned-task-selected",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-owned-task-selected",
+      "456",
+      "398"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:24.101126+00:00",
+    "label": "f29-end-hour",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-end-hour",
+      "463",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:24.905858+00:00",
+    "label": "f29-end-hour-twelve",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "keys",
+      "Narro",
+      "f29-end-hour-twelve",
+      "0x26",
+      "11"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:27.436508+00:00",
+    "label": "f29-end-minute",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-end-minute",
+      "504",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:28.247257+00:00",
+    "label": "f29-one-minute-owned-session",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-one-minute-owned-session",
+      "0x26"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:45.204953+00:00",
+    "label": "f29-minute-part",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-minute-part",
+      "486",
+      "516"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:32:46.012371+00:00",
+    "label": "f29-valid-one-minute",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-valid-one-minute",
+      "0x26"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:33:18.731758+00:00",
+    "label": "f29-actual-pending-add",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "f29-actual-pending-add",
+      "661",
+      "608"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:33:19.531404+00:00",
+    "label": "f29-actual-pending-escape",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-actual-pending-escape",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:33:23.497154+00:00",
+    "label": "f29-actual-pending-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-actual-pending-tab",
+      "0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:33:24.289279+00:00",
+    "label": "f29-actual-pending-shift-tab",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "f29-actual-pending-shift-tab",
+      "0x10+0x09"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:35:11.702969+00:00",
+    "label": "board-return",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "board-return",
+      "74",
+      "154"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:35:12.331780+00:00",
+    "label": "board-bottom-blitz",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "board-bottom-blitz",
+      "775",
+      "588",
+      "-1200"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:35:26.611701+00:00",
+    "label": "board-top",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro",
+      "board-top",
+      "0x11+0x24"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:35:27.256340+00:00",
+    "label": "board-list-picker-again",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "board-list-picker-again",
+      "500",
+      "129"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:36:08.341708+00:00",
+    "label": "board-long-list-again",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "board-long-list-again",
+      "560",
+      "256"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:36:08.995951+00:00",
+    "label": "board-long-list-bottom",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro",
+      "board-long-list-bottom",
+      "774",
+      "601",
+      "-720"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:36:41.700093+00:00",
+    "label": "m6-blitz-paused-entry",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m6-blitz-paused-entry",
+      "686",
+      "577"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:05.184987+00:00",
+    "label": "m6-paused-entry",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "m6-paused-entry"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:22.262770+00:00",
+    "label": "m6-focus-menu",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-focus-menu",
+      "220",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:44.294438+00:00",
+    "label": "m6-quick-hide-toggle-on",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-quick-hide-toggle-on",
+      "306",
+      "89"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:44.920677+00:00",
+    "label": "m6-quick-return-panel",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-quick-return-panel",
+      "26",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:45.541135+00:00",
+    "label": "m6-quick-persisted-reopen",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-quick-persisted-reopen",
+      "220",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:46.192484+00:00",
+    "label": "m6-quick-hide-restore-off",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-quick-hide-restore-off",
+      "306",
+      "89"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:37:46.813174+00:00",
+    "label": "m6-quick-lower-composition",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro - Focus",
+      "m6-quick-lower-composition",
+      "274",
+      "622",
+      "-480"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:01.304332+00:00",
+    "label": "m6-success-enable-for-owned-check",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-success-enable-for-owned-check",
+      "305",
+      "662"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:01.938350+00:00",
+    "label": "m6-conditional-fun-composition",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "scroll",
+      "Narro - Focus",
+      "m6-conditional-fun-composition",
+      "275",
+      "622",
+      "-360"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:02.565104+00:00",
+    "label": "m6-quick-back",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-quick-back",
+      "26",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:03.195028+00:00",
+    "label": "m6-list-scope-picker",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-list-scope-picker",
+      "82",
+      "32"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:15.270011+00:00",
+    "label": "f36-select-explicit-list",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f36-select-explicit-list",
+      "121",
+      "137"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:15.930564+00:00",
+    "label": "m6-queue-hover",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "m6-queue-hover",
+      "160",
+      "412"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:39.399221+00:00",
+    "label": "m6-queue-overflow",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-queue-overflow",
+      "301",
+      "442"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:40.965124+00:00",
+    "label": "m6-queue-menu-escape",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "m6-queue-menu-escape",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:41.589537+00:00",
+    "label": "m6-queue-pointer-away",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "m6-queue-pointer-away",
+      "174",
+      "590"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:42.206274+00:00",
+    "label": "m6-queue-keyboard-family",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "keys",
+      "Narro - Focus",
+      "m6-queue-keyboard-family",
+      "0x10+0x09",
+      "3"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:38:52.366415+00:00",
+    "label": "f33-inline-notes-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f33-inline-notes-open",
+      "94",
+      "334"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:02.089510+00:00",
+    "label": "f33-large-notes-open",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f33-large-notes-open",
+      "272",
+      "445"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:13.976891+00:00",
+    "label": "f33-contenteditable-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f33-contenteditable-focus",
+      "168",
+      "300"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:14.642287+00:00",
+    "label": "f33-real-escape",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "f33-real-escape",
+      "0x1b"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:32.860499+00:00",
+    "label": "notes-close-before-continuity",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "notes-close-before-continuity",
+      "94",
+      "334"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:33.483316+00:00",
+    "label": "c4-panel-to-timer-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "c4-panel-to-timer-1",
+      "0x11+0x10+0x54"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:39:47.649197+00:00",
+    "label": "c4-timer-1-settled",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "c4-timer-1-settled"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:40:13.782596+00:00",
+    "label": "c4-panel-timer-via-button",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-panel-timer-via-button",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:40:32.517636+00:00",
+    "label": "c4-real-timer-position",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "c4-real-timer-position"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:40:47.868877+00:00",
+    "label": "c4-timer-hover-controls",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "c4-timer-hover-controls",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:32.299499+00:00",
+    "label": "c4-timer-to-panel-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-timer-to-panel-1",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:52.351644+00:00",
+    "label": "c4-panel-to-timer-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-panel-to-timer-2",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:52.985807+00:00",
+    "label": "c4-timer-to-panel-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-timer-to-panel-2",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:53.628395+00:00",
+    "label": "c4-panel-to-timer-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-panel-to-timer-3",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:54.288379+00:00",
+    "label": "c4-timer-to-panel-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-timer-to-panel-3",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:41:54.921482+00:00",
+    "label": "c4-compact-for-expansion",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-compact-for-expansion",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:42:25.463432+00:00",
+    "label": "after-fast-toggle-actual-state",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "after-fast-toggle-actual-state"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:45:26.085452+00:00",
+    "label": "f36-explicit-next-task",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "f36-explicit-next-task",
+      "80",
+      "406"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:45:40.853574+00:00",
+    "label": "m6-home-running-exit",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-home-running-exit",
+      "266",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:45:41.595492+00:00",
+    "label": "m6-home-main-restored",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "m6-home-main-restored"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:45:53.831181+00:00",
+    "label": "m6-home-reentry-blitz",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m6-home-reentry-blitz",
+      "686",
+      "553"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:14.403776+00:00",
+    "label": "m6-home-reentry-settled",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "m6-home-reentry-settled"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:15.078203+00:00",
+    "label": "m6-intentional-pause",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-intentional-pause",
+      "146",
+      "334"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:34.619841+00:00",
+    "label": "m6-intentional-pause-home",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m6-intentional-pause-home",
+      "266",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:35.378831+00:00",
+    "label": "m6-intentional-pause-main",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro",
+      "m6-intentional-pause-main"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:45.877363+00:00",
+    "label": "m6-intentional-pause-reentry",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro",
+      "m6-intentional-pause-reentry",
+      "686",
+      "564"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:46:46.539709+00:00",
+    "label": "m6-intentional-pause-retained",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "m6-intentional-pause-retained"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:26.090963+00:00",
+    "label": "c4-settled-panel-timer-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-panel-timer-1",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:28.017441+00:00",
+    "label": "c4-settled-timer-hover-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "c4-settled-timer-hover-1",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:28.644458+00:00",
+    "label": "c4-settled-timer-panel-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-timer-panel-1",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:30.569391+00:00",
+    "label": "c4-settled-panel-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "c4-settled-panel-1"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:31.290630+00:00",
+    "label": "c4-settled-panel-timer-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-panel-timer-2",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:33.249579+00:00",
+    "label": "c4-settled-timer-hover-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "c4-settled-timer-hover-2",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:33.885785+00:00",
+    "label": "c4-settled-timer-panel-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-timer-panel-2",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:35.819455+00:00",
+    "label": "c4-settled-panel-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "c4-settled-panel-2"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:36.530610+00:00",
+    "label": "c4-settled-panel-timer-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-panel-timer-3",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:38.458883+00:00",
+    "label": "c4-settled-timer-hover-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "c4-settled-timer-hover-3",
+      "174",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:39.095130+00:00",
+    "label": "c4-settled-timer-panel-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-settled-timer-panel-3",
+      "373",
+      "45"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:41.027618+00:00",
+    "label": "c4-settled-panel-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "c4-settled-panel-3"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:41.656244+00:00",
+    "label": "c4-expanded-sequence-entry",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-expanded-sequence-entry",
+      "311",
+      "33"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:47:49.620592+00:00",
+    "label": "c4-compact-expand-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-compact-expand-1",
+      "389",
+      "101"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:05.931343+00:00",
+    "label": "m7-expanded-notes-reachable",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m7-expanded-notes-reachable",
+      "107",
+      "74"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:44.857371+00:00",
+    "label": "m7-notes-body-focus",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m7-notes-body-focus",
+      "158",
+      "210"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:45.514250+00:00",
+    "label": "m7-notes-long-token-unsaved",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "text",
+      "Narro - Focus",
+      "m7-notes-long-token-unsaved",
+      "CI1046LongUnbrokenTokenForHorizontalOverflowVerification1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:46.358363+00:00",
+    "label": "m7-notes-select-unsaved",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "m7-notes-select-unsaved",
+      "0x11+0x41"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:46.982246+00:00",
+    "label": "m7-notes-clear-unsaved",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "m7-notes-clear-unsaved",
+      "0x08"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:47.630562+00:00",
+    "label": "m7-expanded-notes-close",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "m7-expanded-notes-close",
+      "107",
+      "74"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:48:48.250915+00:00",
+    "label": "c4-expanded-collapse-1",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-expanded-collapse-1",
+      "389",
+      "131"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:49:15.675732+00:00",
+    "label": "c4-compact-expand-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-compact-expand-2",
+      "389",
+      "101"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:49:18.499647+00:00",
+    "label": "c4-expanded-collapse-2",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-expanded-collapse-2",
+      "389",
+      "131"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:49:21.560513+00:00",
+    "label": "c4-compact-expand-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-compact-expand-3",
+      "389",
+      "101"
+    ]
+  },
+  {
+    "utc": "2026-10-08T09:49:22.975190+00:00",
+    "label": "c4-expanded-collapse-3",
+    "origin": "native-actions.jsonl",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "c4-expanded-collapse-3",
+      "389",
+      "131"
+    ]
+  }
+]

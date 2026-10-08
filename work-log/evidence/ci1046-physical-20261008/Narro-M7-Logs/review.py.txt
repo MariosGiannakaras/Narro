@@ -1,0 +1,16 @@
+import pathlib,json,datetime,subprocess
+r=pathlib.Path(__file__).parent
+ff=r.parent/'ui-validation-tools/ffmpeg-portable/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe'
+start=datetime.datetime.fromisoformat(json.loads((r/'focus-recovery-06-start.json').read_text())['utc'])
+events=[json.loads(x) for x in (r/'native-actions.jsonl').read_text().splitlines()]
+labels=['c4-settled-panel-timer-1','c4-settled-timer-panel-1','c4-settled-panel-timer-2','c4-settled-timer-panel-2','c4-settled-panel-timer-3','c4-settled-timer-panel-3','c4-compact-expand-1','c4-expanded-collapse-1','c4-compact-expand-2','c4-expanded-collapse-2','c4-compact-expand-3','c4-expanded-collapse-3']
+out=[]
+for label in labels:
+ e=next(e for e in events if e['label']==label);sec=(datetime.datetime.fromisoformat(e['utc'])-start).total_seconds()-.15
+ filt='[0:v]split[a][b];[a]crop=340:700:4140:0,scale=170:350[p];[b]crop=425:375:5:91,scale=212:187,pad=212:350:0:0:black[t];[p][t]hstack,tile=7x5[out]'
+ subprocess.run([str(ff),'-y','-hide_banner','-loglevel','error','-ss',str(sec),'-i',str(r/'focus-recovery-06.mkv'),'-filter_complex',filt,'-map','[out]','-frames:v','1','-update','1',str(r/(label+'-frames.png'))],check=True)
+ out.append({'label':label,'start_seconds':sec,'frames':35,'fps':20,'order':'left-to-right then next row; paired primary Panel + secondary Timer crops','image':label+'-frames.png'})
+(r/'continuous-review-index.json').write_text(json.dumps(out,indent=2)+'\n')
+b=json.loads((r/'c4-clean-sequence-before.json').read_text())['tables'];a=json.loads((r/'c4-clean-sequence-after.json').read_text())['tables']
+delta={t:{'before':len(b[t]),'after':len(a[t]),'identical':b[t]==a[t]} for t in b}
+(r/'c4-domain-diff.json').write_text(json.dumps(delta,indent=2)+'\n');print(json.dumps(delta))

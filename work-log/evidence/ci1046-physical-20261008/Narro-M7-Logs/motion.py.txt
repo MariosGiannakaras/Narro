@@ -1,0 +1,19 @@
+import ctypes as c,ctypes.wintypes as w,pathlib,json,sys,datetime
+r=pathlib.Path(__file__).parent;u=c.windll.user32
+class A(c.Structure):_fields_=[('size',w.UINT),('enabled',w.INT)]
+def read():
+ a=A(c.sizeof(A),0);b=w.BOOL()
+ assert u.SystemParametersInfoW(0x48,c.sizeof(A),c.byref(a),0)
+ assert u.SystemParametersInfoW(0x1042,0,c.byref(b),0)
+ return {'minimize_animations':a.enabled,'client_area_animations':bool(b.value)}
+mode=sys.argv[1];before=read()
+if mode=='normal':
+ assert not (r/'motion-original.json').exists()
+ (r/'motion-original.json').write_text(json.dumps(before)+'\n');target={'minimize_animations':1,'client_area_animations':True}
+elif mode=='restore':target=json.loads((r/'motion-original.json').read_text())
+else:print(json.dumps(before));sys.exit()
+a=A(c.sizeof(A),target['minimize_animations'])
+assert u.SystemParametersInfoW(0x49,c.sizeof(A),c.byref(a),3)
+assert u.SystemParametersInfoW(0x1043,0,c.c_void_p(int(target['client_area_animations'])),3)
+after=read();assert after==target
+(r/('motion-'+mode+'.json')).write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'before':before,'after':after},indent=2)+'\n');print(json.dumps(after))

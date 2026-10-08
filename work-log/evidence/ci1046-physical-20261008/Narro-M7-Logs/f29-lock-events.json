@@ -1,0 +1,42 @@
+[
+  {
+    "utc": "2026-10-08T09:33:18.646697+00:00",
+    "event": "IMMEDIATE acquired - no data statements"
+  },
+  {
+    "utc": "2026-10-08T09:33:18.646697+00:00",
+    "event": "input start f29-actual-pending-add"
+  },
+  {
+    "utc": "2026-10-08T09:33:19.454358+00:00",
+    "event": "input complete f29-actual-pending-add"
+  },
+  {
+    "utc": "2026-10-08T09:33:19.455357+00:00",
+    "event": "input start f29-actual-pending-escape"
+  },
+  {
+    "utc": "2026-10-08T09:33:22.654716+00:00",
+    "event": "rollback and close"
+  },
+  {
+    "utc": "2026-10-08T09:33:23.406734+00:00",
+    "event": "input complete f29-actual-pending-escape"
+  },
+  {
+    "utc": "2026-10-08T09:33:23.406734+00:00",
+    "event": "input start f29-actual-pending-tab"
+  },
+  {
+    "utc": "2026-10-08T09:33:24.206105+00:00",
+    "event": "input complete f29-actual-pending-tab"
+  },
+  {
+    "utc": "2026-10-08T09:33:24.206105+00:00",
+    "event": "input start f29-actual-pending-shift-tab"
+  },
+  {
+    "utc": "2026-10-08T09:33:24.997429+00:00",
+    "event": "input complete f29-actual-pending-shift-tab"
+  }
+]

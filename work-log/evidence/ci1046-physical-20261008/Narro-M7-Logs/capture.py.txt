@@ -1,0 +1,11 @@
+import subprocess,pathlib,json,datetime,sys
+r=pathlib.Path(__file__).parent
+ff=r.parent/'ui-validation-tools/ffmpeg-portable/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe'
+name=sys.argv[1]
+start=datetime.datetime.now(datetime.timezone.utc).isoformat()
+(r/(name+'-start.json')).write_text(json.dumps({'utc':start,'method':'gdigrab desktop,20fps,libx264 CPU CRF18; full virtual desktop'})+'\n')
+p=subprocess.Popen([str(ff),'-y','-hide_banner','-loglevel','warning','-f','gdigrab','-framerate','20','-i','desktop','-c:v','libx264','-preset','ultrafast','-crf','18','-pix_fmt','yuv420p',str(r/(name+'.mkv'))],stdin=subprocess.PIPE,stdout=subprocess.DEVNULL,stderr=open(r/(name+'-capture.log'),'w'),creationflags=0x08000000)
+print('RECORDING '+start,flush=True)
+input()
+p.communicate(b'q\n',timeout=20)
+print('STOPPED '+datetime.datetime.now(datetime.timezone.utc).isoformat(),flush=True)

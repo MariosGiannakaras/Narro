@@ -1,0 +1,98 @@
+[
+  {
+    "label": "c4-settled-panel-timer-1",
+    "start_seconds": 130.35498099999998,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-panel-timer-1-frames.png"
+  },
+  {
+    "label": "c4-settled-timer-panel-1",
+    "start_seconds": 132.908476,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-timer-panel-1-frames.png"
+  },
+  {
+    "label": "c4-settled-panel-timer-2",
+    "start_seconds": 135.554648,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-panel-timer-2-frames.png"
+  },
+  {
+    "label": "c4-settled-timer-panel-2",
+    "start_seconds": 138.149803,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-timer-panel-2-frames.png"
+  },
+  {
+    "label": "c4-settled-panel-timer-3",
+    "start_seconds": 140.794628,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-panel-timer-3-frames.png"
+  },
+  {
+    "label": "c4-settled-timer-panel-3",
+    "start_seconds": 143.359148,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-settled-timer-panel-3-frames.png"
+  },
+  {
+    "label": "c4-compact-expand-1",
+    "start_seconds": 153.88460999999998,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-compact-expand-1-frames.png"
+  },
+  {
+    "label": "c4-expanded-collapse-1",
+    "start_seconds": 212.51493299999998,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-expanded-collapse-1-frames.png"
+  },
+  {
+    "label": "c4-compact-expand-2",
+    "start_seconds": 239.93975,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-compact-expand-2-frames.png"
+  },
+  {
+    "label": "c4-expanded-collapse-2",
+    "start_seconds": 242.763665,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-expanded-collapse-2-frames.png"
+  },
+  {
+    "label": "c4-compact-expand-3",
+    "start_seconds": 245.824531,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-compact-expand-3-frames.png"
+  },
+  {
+    "label": "c4-expanded-collapse-3",
+    "start_seconds": 247.239208,
+    "frames": 35,
+    "fps": 20,
+    "order": "left-to-right then next row; paired primary Panel + secondary Timer crops",
+    "image": "c4-expanded-collapse-3-frames.png"
+  }
+]

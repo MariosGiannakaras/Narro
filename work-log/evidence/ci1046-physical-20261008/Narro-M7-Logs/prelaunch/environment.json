@@ -1,0 +1,60 @@
+{
+  "createdUtc": "2026-10-08T09:12:13.1062991Z",
+  "executable": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\ci1046-physical\\candidate\\narro.exe",
+  "sha256": "59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275",
+  "expectedSha256": "59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275",
+  "windows": {
+    "caption": "Microsoft Windows 10 Pro",
+    "version": "10.0.19045",
+    "buildNumber": "19045"
+  },
+  "monitors": [
+    {
+      "deviceName": "\\\\.\\DISPLAY1",
+      "primary": true,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1080
+      },
+      "workingArea": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1080
+      }
+    },
+    {
+      "deviceName": "\\\\.\\DISPLAY2",
+      "primary": false,
+      "bounds": {
+        "x": -1920,
+        "y": 0,
+        "width": 1536,
+        "height": 864
+      },
+      "workingArea": {
+        "x": -1920,
+        "y": 0,
+        "width": 1536,
+        "height": 864
+      }
+    }
+  ],
+  "productionData": {
+    "identifier": "com.mariosg.Narro",
+    "appDataDir": "C:\\Users\\MariosG\\AppData\\Roaming\\com.mariosg.Narro",
+    "existedBeforeSession": true,
+    "backupDirectory": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\ci1046-physical\\sessions\\20261008-121212\\production-appdata-backup",
+    "fileCount": 1,
+    "files": [
+      {
+        "relativePath": "narro.db",
+        "length": 258048,
+        "sha256": "3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4"
+      }
+    ]
+  },
+  "note": "Production Roaming AppData was snapshotted while Narro was not running. Keep this backup until the physical session is accepted. Do not restore it over a running Narro process."
+}

@@ -1,0 +1,196 @@
+[
+  {
+    "milestone": "M5",
+    "check": "narrow title",
+    "result": "PASS",
+    "evidence": [
+      "m5-title-editor.png",
+      "m5-ordinary-hover.png"
+    ]
+  },
+  {
+    "milestone": "M5",
+    "check": "Today progress",
+    "result": "PASS",
+    "evidence": [
+      "m5-disposable-visible.png",
+      "board-bottom-blitz.png"
+    ]
+  },
+  {
+    "milestone": "M5",
+    "check": "ordinary rail",
+    "result": "PASS",
+    "evidence": [
+      "m5-ordinary-hover.png",
+      "m5-ordinary-menu.png"
+    ]
+  },
+  {
+    "milestone": "M5",
+    "check": "drag",
+    "result": "PASS - exercised cross-lane empty destination; nonempty positional target not claimed",
+    "evidence": [
+      "m5-drag-contact.png",
+      "m5-drag-settled.png"
+    ]
+  },
+  {
+    "milestone": "M5",
+    "check": "retained Delete/Confirm/X",
+    "result": "PASS",
+    "evidence": [
+      "m5-retained-delete-confirm.png",
+      "m5-delete-cancel.png",
+      "before-owned-delete.json",
+      "after-owned-delete.json"
+    ]
+  },
+  {
+    "milestone": "M5",
+    "check": "Finding28 native post-drag keyboard",
+    "result": "PASS",
+    "evidence": [
+      "f28-real-title-focus.png",
+      "f28-real-pointer-away.png",
+      "f28-tab-first-rail.png",
+      "f28-shift-tab-title.png"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "A Board to Focus morph",
+    "result": "OPEN - acquired; native morph is visible, direct timing/canonical reconciliation unfinished",
+    "evidence": [
+      "m6-a-initial-morph-frames.png",
+      "focus-05.mkv"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "B Quick Preferences",
+    "result": "PASS - physical composition and reversible Hide times persistence",
+    "evidence": [
+      "m6-quick-persisted-reopen.png",
+      "m6-quick-hide-restore-off.png",
+      "m6-conditional-fun-composition.png"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "C ordinary queue rail",
+    "result": "PASS",
+    "evidence": [
+      "m6-queue-hover.png",
+      "m6-queue-overflow.png",
+      "m6-queue-keyboard-family.png"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "D Home pause and guarded re-entry",
+    "result": "PASS - paused pre-exit, initial paused frame then running; explicit user pause remains paused",
+    "evidence": [
+      "home-paused-before-exit-frames.png",
+      "home-reentry-initial-frames.png",
+      "m6-intentional-pause-retained.png",
+      "home-reentry-state.json"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "Finding33 Focus large Notes Escape",
+    "result": "PASS - Focus contenteditable path; Main path not separately claimed",
+    "evidence": [
+      "f33-contenteditable-focus.png",
+      "f33-real-escape.png"
+    ]
+  },
+  {
+    "milestone": "M6",
+    "check": "Finding36 explicit Success Next Task list scope",
+    "result": "PASS",
+    "evidence": [
+      "f36-explicit-next-task.png",
+      "m6-home-reentry-settled.png",
+      "home-reentry-state.json"
+    ]
+  },
+  {
+    "milestone": "M7",
+    "check": "C4 continuous continuity",
+    "result": "FAIL - clipped/staged incoming Panel during Timer to Panel before full region; identity and paused time preserved",
+    "evidence": [
+      "c4-settled-timer-panel-1-frames.png",
+      "c4-settled-timer-panel-2-frames.png",
+      "c4-domain-diff.json",
+      "continuous-review-index.json",
+      "focus-recovery-06.mkv"
+    ]
+  },
+  {
+    "milestone": "M7",
+    "check": "Finding07 exclusive blocked-read keyboard",
+    "result": "OPEN - not exercised yet",
+    "evidence": []
+  },
+  {
+    "milestone": "M7",
+    "check": "Finding35 Time Up substitution",
+    "result": "OPEN - not exercised yet",
+    "evidence": []
+  },
+  {
+    "milestone": "M7",
+    "check": "expanded Notes long unbroken token",
+    "result": "SCOPED PASS - 125% normal motion only, unsaved token cleared",
+    "evidence": [
+      "m7-notes-long-token-unsaved.png",
+      "m7-notes-clear-unsaved.png",
+      "c4-domain-diff.json"
+    ]
+  },
+  {
+    "milestone": "M9",
+    "check": "Overview PDF physical",
+    "result": "PASS",
+    "evidence": [
+      "overview-first.pdf",
+      "overview-second.pdf",
+      "m9-default-viewer-fit.png",
+      "m9-export-two-result.png"
+    ]
+  },
+  {
+    "milestone": "M9",
+    "check": "Finding30 bounded picker",
+    "result": "PASS",
+    "evidence": [
+      "f30-long-picker-scroll.png",
+      "f29-owned-task-search.png"
+    ]
+  },
+  {
+    "milestone": "M9",
+    "check": "Finding29 keyboard modal/pending",
+    "result": "PARTIAL / OPEN - initial focus, traversal, Escape/opener pass; pending trial inconclusive because operator activation delayed key dispatch until unlock",
+    "evidence": [
+      "f29-tab-cycle.png",
+      "f29-shift-tab-cycle.png",
+      "f29-escape-opener-restore.png",
+      "f29-lock-events.json"
+    ]
+  },
+  {
+    "milestone": "M1",
+    "check": "Finding27 selected DPI identity and stale selection",
+    "result": "OPEN - not exercised yet",
+    "evidence": []
+  },
+  {
+    "milestone": "M8",
+    "check": "actual Windows notification and sound/suppression",
+    "result": "OPEN - not exercised yet",
+    "evidence": []
+  }
+]

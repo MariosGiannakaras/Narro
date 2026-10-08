@@ -1,0 +1,11 @@
+import sqlite3,pathlib,json,sys,datetime
+r=pathlib.Path(__file__).parent
+db=pathlib.Path.home()/'AppData/Roaming/com.mariosg.Narro/narro.db'
+c=sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+tables=[v[0] for v in c.execute("select name from sqlite_master where type='table'")]
+if len(sys.argv)==1: print(tables);sys.exit()
+out={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'tables':{}}
+for t in tables:
+ if any(k in t for k in ['task','session','preference','checkpoint','list']):out['tables'][t]=[dict(v) for v in c.execute('select * from "'+t+'"')]
+(r/(sys.argv[1]+'.json')).write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+print({t:len(rows) for t,rows in out['tables'].items()})

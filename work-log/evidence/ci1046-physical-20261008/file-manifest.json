@@ -1,0 +1,1085 @@
+{
+  "utc": "2026-10-08T10:03:16.877829+00:00",
+  "files": [
+    {
+      "path": "chronological-actions.json",
+      "bytes": 37117,
+      "sha256": "7a2b86c935cd351e6665a0e245bb259453bae73b04031a7156110df5302cfa14"
+    },
+    {
+      "path": "gate-matrix.json",
+      "bytes": 5267,
+      "sha256": "5a2678cac3177da376c26baf244d8683b6fd81e7cc9101b9c97ed234432c6012"
+    },
+    {
+      "path": "Narro-M7-Logs/acceptance-03-capture.log",
+      "bytes": 112,
+      "sha256": "5f13c974ab62475075249447a77f962e86657bf1684c00c9e85fec59d8d416cb"
+    },
+    {
+      "path": "Narro-M7-Logs/acceptance-03-start.json",
+      "bytes": 120,
+      "sha256": "07e1a2c1e45d1417b0e993b0a8f3b7c8c92ec843cc22fb4a9807866400818229"
+    },
+    {
+      "path": "Narro-M7-Logs/acceptance-03.mkv",
+      "bytes": 27754322,
+      "sha256": "a46ea4f3201e4617a586da4fd368ca356818bdd8da9140d74b46d22b7e303940"
+    },
+    {
+      "path": "Narro-M7-Logs/actions.jsonl",
+      "bytes": 203304,
+      "sha256": "adb7aed8f4f0945ab9375eb6143316304f331a93b2bf18402ad3578b11047750"
+    },
+    {
+      "path": "Narro-M7-Logs/after-add-pending.json",
+      "bytes": 66750,
+      "sha256": "cc5c77626a7240449a88c15d379567b296e1de0f5dff61b5c5798180d06343db"
+    },
+    {
+      "path": "Narro-M7-Logs/after-fast-toggle-actual-state.png",
+      "bytes": 27150,
+      "sha256": "7285bf706d8aaa35abf9c69e85e03b28fea3de2da21342b687e9e8f7535ee862"
+    },
+    {
+      "path": "Narro-M7-Logs/after-fast-toggle-attempt.json",
+      "bytes": 66282,
+      "sha256": "84f2fee919d1f5a19e68a4880f6e1e11b242bb0931dd5f404095e24b9888c1aa"
+    },
+    {
+      "path": "Narro-M7-Logs/after-owned-delete.json",
+      "bytes": 66259,
+      "sha256": "455ae92f3dd664439294258ae17f2aa45add8a6fff0f7101579f210838626770"
+    },
+    {
+      "path": "Narro-M7-Logs/baseline.png",
+      "bytes": 3105372,
+      "sha256": "8c48828e73b46d5fca9d07819a9d9a99ea2ff63cd418b40afdcd7b89b3e35d05"
+    },
+    {
+      "path": "Narro-M7-Logs/before-add-pending.json",
+      "bytes": 66259,
+      "sha256": "e05043a305e7cd20e340884eb020af7f640143af720442795d101f4572ca8f31"
+    },
+    {
+      "path": "Narro-M7-Logs/before-owned-delete.json",
+      "bytes": 67025,
+      "sha256": "f39098bc6a37260c6cbc0ef2fc4f151d248d38bafa32342819080f3c4d0673d1"
+    },
+    {
+      "path": "Narro-M7-Logs/board-bottom-blitz.png",
+      "bytes": 51934,
+      "sha256": "cfa1806f0202eec00b4e82838d64e6d8b52756f7ce696c9e8152f19ff7a66c4f"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-01-capture.log",
+      "bytes": 112,
+      "sha256": "7404fc3bd31d472b6ba3e637d13d9caf082a682d9241c1374950914681df0286"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-01-start.json",
+      "bytes": 120,
+      "sha256": "69aa84fcd5624518aec2394c36d487f250df131394771f24fb6479d2e0941fda"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-01.mkv",
+      "bytes": 20185088,
+      "sha256": "85e52f9692cc85a087affa3e149a6eb5bf4965babc7b812c18475f463aa97fa3"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-02-capture.log",
+      "bytes": 112,
+      "sha256": "22879daf6f3448a1c58da5d20ccc6d36f5fa2349667fa4274361beaf25f9626a"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-02-start.json",
+      "bytes": 120,
+      "sha256": "a1b2227c7e58d788e0cbac34384ba2e11f8a2e21107bc0b19271258f1e7a7e94"
+    },
+    {
+      "path": "Narro-M7-Logs/board-focus-02.mkv",
+      "bytes": 13844560,
+      "sha256": "0c3e1574c612e23e3d42418849a6be7d2f0959b96b843469eb59a1e673874409"
+    },
+    {
+      "path": "Narro-M7-Logs/board-list-picker-again.png",
+      "bytes": 76114,
+      "sha256": "f400f073f8786b30289add1ed3e915dbcee0dd840247cb6ac33e7af81337595b"
+    },
+    {
+      "path": "Narro-M7-Logs/board-live-baseline.png",
+      "bytes": 81047,
+      "sha256": "db5be825ba4021325b4a5b22c63d1482a88c23fae50c1368e48ae21f5de5eea3"
+    },
+    {
+      "path": "Narro-M7-Logs/board-long-list-again.png",
+      "bytes": 72893,
+      "sha256": "cf30e7ada7350cbbc13b44c7fac7277b68759f190d721b3f219476be5410b95f"
+    },
+    {
+      "path": "Narro-M7-Logs/board-long-list-bottom.png",
+      "bytes": 45632,
+      "sha256": "c903dfe84d9083122f3b61c367cb961df29f5e07140bf18e1c3a363ecea96d6a"
+    },
+    {
+      "path": "Narro-M7-Logs/board-return.png",
+      "bytes": 72225,
+      "sha256": "9e299cf014de9ec428e638cda8c3c09ed153314470848852eeccbed8197ee52a"
+    },
+    {
+      "path": "Narro-M7-Logs/board-title-edit.png",
+      "bytes": 73718,
+      "sha256": "a09f38f928b05f2c443645955ec7ca44ffb8d00f425f98da07d408d31bc243aa"
+    },
+    {
+      "path": "Narro-M7-Logs/board-top.png",
+      "bytes": 71868,
+      "sha256": "786b8d2e0612d2bce111a49ab12306704c6a1d943daff1043e8bb441bcba42f3"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-clean-sequence-after.json",
+      "bytes": 67200,
+      "sha256": "3adacc2a5d4f7f7cce9147187970b60d31feaa9348fc4280f515e43f42e95230"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-clean-sequence-before.json",
+      "bytes": 67200,
+      "sha256": "9d73fbf14fdc334c627581c05d46a7aac25def18eaf69d2a63ccf081218a5edb"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-1-frames.png",
+      "bytes": 164694,
+      "sha256": "10ba9c1bb123bbb7fc12c9ddc7695d2c9943b514f557c43e140b7114dac4ce66"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-1.png",
+      "bytes": 109149,
+      "sha256": "6f30eb4e385309778eb5415dbcf177d125c4328baac0ff8a1f251b18bd20b9f4"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-2-frames.png",
+      "bytes": 175651,
+      "sha256": "da7e480aa1d990724ca5b9c8175f8b54a83529fddceb35dad89eaa2d56456320"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-2.png",
+      "bytes": 109084,
+      "sha256": "7765a332d11b1a43b8d93f7e5a7279b6740fd42ba4ee442dc45f32d5ac9da586"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-3-frames.png",
+      "bytes": 198221,
+      "sha256": "d25d8191148a4f577b94b6681528bc3f1db15f4ed52806a38c5ca2100fbbb0d2"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-expand-3.png",
+      "bytes": 109084,
+      "sha256": "7765a332d11b1a43b8d93f7e5a7279b6740fd42ba4ee442dc45f32d5ac9da586"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-compact-for-expansion.png",
+      "bytes": 324067,
+      "sha256": "f2969b04b7a0404b7143241d570c8042d07fc50cd5e244de2fbd04cc6ab04950"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-domain-diff.json",
+      "bytes": 795,
+      "sha256": "cc5f7626301b8b190efff10ade542fd035c1ac29d349f3455c876e7acf8f24b6"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-1-frames.png",
+      "bytes": 213821,
+      "sha256": "dd42a8f48bd9bb8023c521c8049b737a5db0c20b7531ea9666ca2691467f5d5f"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-1.png",
+      "bytes": 124109,
+      "sha256": "d8a28e44afa089dedc7511b772770a792e79bc2550702696e35a874e8d4433f0"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-2-frames.png",
+      "bytes": 198287,
+      "sha256": "f9f841c6d998d9bbcc94e16fe231ba141046964efbc4f7d0f9bbfbcf21d5e00e"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-2.png",
+      "bytes": 120021,
+      "sha256": "8c45bb5948984173a07f087c9b573559bd4cf326fd4c66b24e49178d492414a9"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-3-frames.png",
+      "bytes": 195910,
+      "sha256": "768394af24ea9e9662c9d5cce40c404eb23e8dbab308caa9bba266b94e1344d5"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-collapse-3.png",
+      "bytes": 124113,
+      "sha256": "b154a7551b397e827ad78b6d5fff7616c778997673ab1322f1cf99b780e5a031"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-expanded-sequence-entry.png",
+      "bytes": 123933,
+      "sha256": "c4292b3a4bc5ea14698eba0505ab8953c6d6a837da99a3cb4515c33bef1b43a8"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-panel-timer-via-button.png",
+      "bytes": 15744,
+      "sha256": "f59d77e4f264b9f2a7c96ebfded716cabd52225f5a82ac52b501a2c362981842"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-panel-to-timer-1.png",
+      "bytes": 32327,
+      "sha256": "9192e7a2556a522ce3a6c7cf6fccfa131b2ebd0915157f68ff1648a23297a2cb"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-panel-to-timer-2.png",
+      "bytes": 124245,
+      "sha256": "7a72789dc4652a630d59e2f91299407bd405c62f36101fad3ba523becb6ffe40"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-panel-to-timer-3.png",
+      "bytes": 124241,
+      "sha256": "310a36053d15056e1806959bc1b32b728a79ba518999b9bc09703ca41daec1fe"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-real-timer-position.png",
+      "bytes": 123999,
+      "sha256": "619b02abcabd470eae899e3c8724459d2b007c63f9ed40e48f9fc8596bdb5bc2"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-1.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-2.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-3.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-1-frames.png",
+      "bytes": 237432,
+      "sha256": "5f00a522d4dd8c1465c67f0df2bdfc77909945137921409ea48cf0616faa21a7"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-1.png",
+      "bytes": 124175,
+      "sha256": "7f614bf98b9fc00caa92dcfcd9574f5a774f59ef5a38a758ee703f0d5f0a9579"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-2-frames.png",
+      "bytes": 234348,
+      "sha256": "1f23344835775210f0796c3d843aa67d4c6d44bbc35a008984438a2d03de45bb"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-2.png",
+      "bytes": 124169,
+      "sha256": "c3faee3920ffe8e4a181f9e4df1ed40fb96a1df84431c56e36bd09f735cf984d"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-3-frames.png",
+      "bytes": 244398,
+      "sha256": "127571bf1b46c56918f44500f0c822f0fb2fc108c6c9dd0b575ca2ed5db9c384"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-panel-timer-3.png",
+      "bytes": 124540,
+      "sha256": "8fc976079c73fc211ed024114f7804c2da166f9c4ec85018cf3add6e243285d6"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-hover-1.png",
+      "bytes": 122110,
+      "sha256": "2b561c85f9514696a9b1d26255c6bad80ce0549110c77a5643348edd2ecf1b62"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-hover-2.png",
+      "bytes": 122110,
+      "sha256": "2b561c85f9514696a9b1d26255c6bad80ce0549110c77a5643348edd2ecf1b62"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-hover-3.png",
+      "bytes": 123730,
+      "sha256": "f11c662a819d48a528bb3c99ca90e9e169a27ded5851d0a5b7421ccec835c65f"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-1-frames.png",
+      "bytes": 340774,
+      "sha256": "96a2c79af60208e6906e05423f6d455b6825fa3cd9315f97fa9a2b07a4698019"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-1.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-2-frames.png",
+      "bytes": 362861,
+      "sha256": "dbc736ea3d1b8b0521ca2b12a45f0e5295e7614bd84946100c70cc199c3c6ea9"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-2.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-3-frames.png",
+      "bytes": 339222,
+      "sha256": "77455080cf73bebff7e69497e5062347bb521a08f530280458204c2c7e3724f4"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-settled-timer-panel-3.png",
+      "bytes": 31484,
+      "sha256": "f4af240a2810c76bddd347d937557f31ec6daa924d48bfeeec2eac13fdfc801b"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-timer-1-settled.png",
+      "bytes": 32327,
+      "sha256": "9192e7a2556a522ce3a6c7cf6fccfa131b2ebd0915157f68ff1648a23297a2cb"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-timer-hover-controls.png",
+      "bytes": 122286,
+      "sha256": "43a500cf9bfddf897deb5beaf4ac658b90a2cddb5b38ce1fc6ef1b78b65e1b56"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-timer-to-panel-1.png",
+      "bytes": 31269,
+      "sha256": "9c649370b481c11c7d879c0d34f9132b9db12f7f37b31deecdbfa1aec07b3586"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-timer-to-panel-2.png",
+      "bytes": 31290,
+      "sha256": "93c0f519a7b3ca0dce58378b9d9c73546452b12db0a63a7bd93d7a945608153f"
+    },
+    {
+      "path": "Narro-M7-Logs/c4-timer-to-panel-3.png",
+      "bytes": 122150,
+      "sha256": "2accccec71570f61588d56dba168f6981c4ab6ec21f4b75c21da8b9efa239df2"
+    },
+    {
+      "path": "Narro-M7-Logs/capture.py.txt",
+      "bytes": 883,
+      "sha256": "c3f3492a1bf51437ceb682c32c4c53da0164c4937225c64561bcc456abf4313b"
+    },
+    {
+      "path": "Narro-M7-Logs/continuity-paused-baseline.json",
+      "bytes": 66752,
+      "sha256": "4307ba5b9c44dfcd020201db121a4ab796f0b9b908b1549a85b854801267e5ec"
+    },
+    {
+      "path": "Narro-M7-Logs/continuity.py.txt",
+      "bytes": 985,
+      "sha256": "9fd693ed5484ae19252a458eb2624fc1a0b73a7da5068c4e94c625a340c5dcf7"
+    },
+    {
+      "path": "Narro-M7-Logs/continuous-review-index.json",
+      "bytes": 3166,
+      "sha256": "0fb8a71f39adae3204539171076404976ebd313440bee38cb597350a21f5f374"
+    },
+    {
+      "path": "Narro-M7-Logs/current-before-focus.png",
+      "bytes": 53209,
+      "sha256": "c73b993f517861e879508fcf910ed3dd6d2bec15e0deeb444bed9732f5c74dfb"
+    },
+    {
+      "path": "Narro-M7-Logs/current-desktop.png",
+      "bytes": 3089417,
+      "sha256": "e4ec0df2006ea1222529f98fcfc9035ef01838977f237f1619502e9db61630d3"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-cancel-editor.png",
+      "bytes": 90505,
+      "sha256": "076f311c419c1fdfa9327bcb25c179424fc052eb9b3cad18d6d452f44c730a40"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-complete-focus.png",
+      "bytes": 90987,
+      "sha256": "c29072372f90245c3ecaec1cedbcf332c0c94d66d8244a36f0d874d26aec9eaf"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-edit-after-drag.png",
+      "bytes": 90505,
+      "sha256": "076f311c419c1fdfa9327bcb25c179424fc052eb9b3cad18d6d452f44c730a40"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-pointer-away.png",
+      "bytes": 90306,
+      "sha256": "7534fbc5faa6aaf73cf759f86af5a29ec1a3bfbbddce86464bfaad96867d01e5"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-real-complete-focus.png",
+      "bytes": 92421,
+      "sha256": "4d8880422de23bc8f4f51b8be1dbc3ef854d9c7ab1f6233ca45426fbcc6a6eda"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-real-editor-cancel.png",
+      "bytes": 92064,
+      "sha256": "17022a3b3d5bf3be026c9ae161ac998ec3b69a8c539e78da78524cce931893d4"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-real-pointer-away.png",
+      "bytes": 90291,
+      "sha256": "a56568a60b2d89ab941a2fc895580ede458194329c2e893b0d9ca26b26b21447"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-real-title-editor.png",
+      "bytes": 91670,
+      "sha256": "95b41426fd97d00108d3922762bdca0a40b9db1da3656ad8ba14ba56f841c52d"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-real-title-focus.png",
+      "bytes": 92644,
+      "sha256": "3b035dfc40b511ccab27678004cbcef5d39469139086c110845c13696f1f449a"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-shift-tab-title.png",
+      "bytes": 92644,
+      "sha256": "3b035dfc40b511ccab27678004cbcef5d39469139086c110845c13696f1f449a"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-tab-first-rail.png",
+      "bytes": 94812,
+      "sha256": "59eacabb7a7c5f557be2225935b4b47ebc13673742eb929c962322c3e560ac00"
+    },
+    {
+      "path": "Narro-M7-Logs/f28-title-focus.png",
+      "bytes": 90994,
+      "sha256": "74c05db50800dce8f2e942299806b69fe92ef618c6d5c391c4732b502a216b22"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-actual-pending-add.png",
+      "bytes": 72318,
+      "sha256": "aa65a7709773d95e38ab686ef470a5e267e2a98f386019c14ad9a7782c36fc48"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-actual-pending-escape.png",
+      "bytes": 67144,
+      "sha256": "5851594559310413a2145d1da85c1470b6563e288c9f151ab2708b7280571125"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-actual-pending-shift-tab.png",
+      "bytes": 67144,
+      "sha256": "5851594559310413a2145d1da85c1470b6563e288c9f151ab2708b7280571125"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-actual-pending-tab.png",
+      "bytes": 67217,
+      "sha256": "38137bdec5561b9bc7f24a6dc31ce362affe29362265de865506164a84be9641"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-add-session-open.png",
+      "bytes": 73997,
+      "sha256": "7497e6cf39f7bda14b5ea5125d46c481c2e0447ec71a7be67e8f4ecd528ccaf2"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-end-hour-twelve.png",
+      "bytes": 76603,
+      "sha256": "4633d11ceaf787807eec934e946a405f72bb1aa46983a8e239bca56ff3144a4f"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-end-hour.png",
+      "bytes": 75803,
+      "sha256": "1e08f6163be1cfc2dfa2624d693c5904de30020b45c6a23fde8ab5d51a9a2d3f"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-end-minute.png",
+      "bytes": 76561,
+      "sha256": "778a0a04e594f9f2c97aa294438760422a960f91ca0ac76c3cf92330ade745cd"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-escape-opener-restore.png",
+      "bytes": 67731,
+      "sha256": "80e15aaa10ce4627128abff05aa3a6243e2b3c96b32f16d75da3f920f7672457"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-lock-events.json",
+      "bytes": 1124,
+      "sha256": "ad948d95405bc6ee7b7d9f8c79fdea201f4d5f8143c284ac2a5fb56a7fe4f74e"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-minute-part.png",
+      "bytes": 76398,
+      "sha256": "3adf737c27eb3a6388257394896e7129ac266c45a48d83a8ced548bdc91ed31f"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-one-minute-owned-session.png",
+      "bytes": 76476,
+      "sha256": "b8f07a2caba134b5e2593a7194b76c665d8726d6dd6738c759e2fced26a850c1"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-owned-task-search.png",
+      "bytes": 75956,
+      "sha256": "a30b1353ed63bf1840cea2f34173b902cf51724c61e002fe6f145c4869c2907d"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-owned-task-selected.png",
+      "bytes": 74963,
+      "sha256": "b5dea1f5392cc64e06698d63834265a3ef22660fca61153ff8bea7723f538fb0"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-pending-setup.png",
+      "bytes": 73997,
+      "sha256": "7497e6cf39f7bda14b5ea5125d46c481c2e0447ec71a7be67e8f4ecd528ccaf2"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-shift-tab-cycle.png",
+      "bytes": 73821,
+      "sha256": "712b2661e2a8506a14a84a897a2724a8d6a7731da117f4cf93c43970dc0590cd"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-tab-cycle.png",
+      "bytes": 84825,
+      "sha256": "95c34a25569dffac73e05dffa561d52e6228f18696f05a08f7a48ccaa03d7bdf"
+    },
+    {
+      "path": "Narro-M7-Logs/f29-valid-one-minute.png",
+      "bytes": 76129,
+      "sha256": "e809313522a45e151fec53d5f79792df9c1fab18c6da4e546d2aa0cda0a2cb32"
+    },
+    {
+      "path": "Narro-M7-Logs/f30-long-picker-scroll.png",
+      "bytes": 87322,
+      "sha256": "602b87701a5aed19cf5e894a3272ce1553ee1e4887cdb88a0ba88cf11686c210"
+    },
+    {
+      "path": "Narro-M7-Logs/f33-contenteditable-focus.png",
+      "bytes": 48628,
+      "sha256": "0a5bef06139e6e1156897bf462e9d4ca2e06e77353a41374013f93c4daffc8a4"
+    },
+    {
+      "path": "Narro-M7-Logs/f33-inline-notes-open.png",
+      "bytes": 42723,
+      "sha256": "7c7ec87b770517d1823fc0f574dec583bc8c72850aa2a2835a7ae48a76d0c447"
+    },
+    {
+      "path": "Narro-M7-Logs/f33-large-notes-open.png",
+      "bytes": 47885,
+      "sha256": "c3c665ffe32dcf9bb6f2420500e1ad7ce47d781149306c1501c75b753b529965"
+    },
+    {
+      "path": "Narro-M7-Logs/f33-real-escape.png",
+      "bytes": 42676,
+      "sha256": "8e5b9a3e91243dfcc10db50c2fb9a73cf569b36e2d75d3a864f5ea638bae599c"
+    },
+    {
+      "path": "Narro-M7-Logs/f36-explicit-next-task.png",
+      "bytes": 33053,
+      "sha256": "e7127c561a8fd9ba0473bc6907407e82f39d1c358bac3d10742248dab530b427"
+    },
+    {
+      "path": "Narro-M7-Logs/f36-select-explicit-list.png",
+      "bytes": 31336,
+      "sha256": "fde317f2064bda11de2a1e8e45818b39970164300b9463ca7a1fea920c7a9764"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-05-capture.log",
+      "bytes": 112,
+      "sha256": "41fde098b5097017b3b247875fd1a832e58861e7925baff68cb90d0b7154d8e5"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-05-start.json",
+      "bytes": 120,
+      "sha256": "aa8ddb8f51dc7ec711b07dd456c61034ad8bd7a669daa708d66bbbf3600bd5f4"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-05.mkv",
+      "bytes": 34197636,
+      "sha256": "04604f16c24560025f497b83c5cba90b4ad1ab6cbf9241b687c6079c18683a8f"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-entry-user-paused.png",
+      "bytes": 53209,
+      "sha256": "c73b993f517861e879508fcf910ed3dd6d2bec15e0deeb444bed9732f5c74dfb"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-recovery-06-capture.log",
+      "bytes": 112,
+      "sha256": "0d45b90f6441e7f045c105ca346f754039f8b0862418bc64d04836ca78325f7d"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-recovery-06-start.json",
+      "bytes": 120,
+      "sha256": "fc9391c804f2b83304e48ae673f62bf6579dbc2abd39de54715db376b29bc7a0"
+    },
+    {
+      "path": "Narro-M7-Logs/focus-recovery-06.mkv",
+      "bytes": 27467440,
+      "sha256": "9d8da7c35e70920f6febbc692ce10f55635f6d3e05da6d8a39f320b46c2f60f6"
+    },
+    {
+      "path": "Narro-M7-Logs/home-paused-before-exit-frames.png",
+      "bytes": 160788,
+      "sha256": "48a970f7906186a1c63797efd550b0c5363c11a67ab97b32b24d229fafa75c61"
+    },
+    {
+      "path": "Narro-M7-Logs/home-reentry-initial-frames.png",
+      "bytes": 329445,
+      "sha256": "07d017024c6bc6c110665691585e3e5a410766580197b248d8857b9a7f7a14cd"
+    },
+    {
+      "path": "Narro-M7-Logs/home-reentry-motion-frames.png",
+      "bytes": 116842,
+      "sha256": "c3e895ea120dfdcab4041b170727e99b65dd088aaaa9e88e11a8b2f80048fac3"
+    },
+    {
+      "path": "Narro-M7-Logs/home-reentry-state.json",
+      "bytes": 67200,
+      "sha256": "395f821ec10daea7d2fd2bce663c799de795432bced1559795ad06e0c5c88ee7"
+    },
+    {
+      "path": "Narro-M7-Logs/identity.json",
+      "bytes": 430,
+      "sha256": "357d08e3dc66e2fbe108a901c9d2bb9a6e2459cd529fde75c51f944977d553c0"
+    },
+    {
+      "path": "Narro-M7-Logs/initial-uia.json",
+      "bytes": 12378,
+      "sha256": "af53c309004ca5f5faaa1e6f25dfa8319829c1e04174a94693ef91d32abbaae7"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-create-disposable-duplicate.png",
+      "bytes": 49891,
+      "sha256": "573e3cbe4224934b02c432823ffbc387227ed8f6977caed65cf9a09192d177ab"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-cross-lane-drag.png",
+      "bytes": 82706,
+      "sha256": "58347268ee779fccd8d90505e1cdfaec0337c99edb958e5e1d817165e6fef954"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-delete-cancel.png",
+      "bytes": 59987,
+      "sha256": "dcc28d010be322388d54a6f9893f3b6f7f827cd1244cf94c4240254d5d14ba90"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-disposable-confirm-delete.png",
+      "bytes": 49222,
+      "sha256": "8a75cae46b483d982014bed1d46d661a2b03416a93adff4b6176a961fc3256cc"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-disposable-confirm-row.png",
+      "bytes": 55112,
+      "sha256": "c81cc173eacf887b60ddcb226b94e65f67acf89233fa8b03fc7cab07b11d159c"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-disposable-hover.png",
+      "bytes": 49062,
+      "sha256": "8a5bc66b15d04d5d155938ae9cb6c13fc67700934cca4c1fc6dad1ffb279a699"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-disposable-menu.png",
+      "bytes": 54385,
+      "sha256": "b1da34f16ee71d1f6bd7efd46c262edbeac98c99b4c8e1d77b2eabc6ea613edd"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-disposable-visible.png",
+      "bytes": 47927,
+      "sha256": "0ddb739b6e2d62650b2dd7bdbcc8a848858fc1d2db02c56509e836964a3ee0f9"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-drag-contact.png",
+      "bytes": 429808,
+      "sha256": "a6ac204df95aef05345b6fa227caa0836d6b41685716b57eb4d84482c29535a6"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-drag-settled.png",
+      "bytes": 82706,
+      "sha256": "58347268ee779fccd8d90505e1cdfaec0337c99edb958e5e1d817165e6fef954"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-keyboard-focus-pointer-away.png",
+      "bytes": 79480,
+      "sha256": "33eb4cf087ff48f7e6fe1f75a7fe97e5589e7acf55543b1ce61a6f2b21267b11"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-keyboard-tab.png",
+      "bytes": 81056,
+      "sha256": "632026eca2b1c8b25b260c9ea1f9d9f4dbce5b1376090cf898f1f0766e2c3c23"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-ordinary-card-visible.png",
+      "bytes": 53113,
+      "sha256": "3df4abe8cdaeda5843c2b8ef6145efddc1c0ff32800248d3a930bae2e343ec2b"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-ordinary-hover.png",
+      "bytes": 54471,
+      "sha256": "90cb49e39f70bcc260e48032d22322425b2f85b586ba67140d1d1f682b93522b"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-ordinary-menu.png",
+      "bytes": 59768,
+      "sha256": "16465a38fd79e5fcf0bbd32bcbfc2c4017b17920b74d3f450d1b0929a58d6e00"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-overflow-open.png",
+      "bytes": 80796,
+      "sha256": "d0655a80e0695d150c983886ba3bcaebd8289b2cb294460aa1eeb2574709da56"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-padding-drag.png",
+      "bytes": 92667,
+      "sha256": "e4ef4049ffd75d02b98d2ce2753078ea5698be4cdc6c1eb8daf33a077b0e490c"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-restore-today.png",
+      "bytes": 79695,
+      "sha256": "6483cca3ee0f2e2a9e4db360586e35e63f41034ad6b1831cadaae904f006ca1c"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-retained-delete-confirm.png",
+      "bytes": 60531,
+      "sha256": "b1e6c260c3923ded16e763e5536f06a927f864e1d955d954f31878140ec40464"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-return-before-live.png",
+      "bytes": 92910,
+      "sha256": "74ca38bd5328b6582f7d7866d9b5256825f2dfaf3ecfff6b9216ba445ebe6429"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-title-cancel.png",
+      "bytes": 80549,
+      "sha256": "73d1ef5e696df2aadc4613c916b557a9ee3c83e16324d11465321010f087a02a"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-title-editor.png",
+      "bytes": 79995,
+      "sha256": "09292bad882d942c3afc5278b944972c35da1d590829e2c267a54b192fdb9d2c"
+    },
+    {
+      "path": "Narro-M7-Logs/m5-title-keyboard-focus.png",
+      "bytes": 81254,
+      "sha256": "2829fb851b3048314bdc1750d2c80c3f4bf59291e2ff235f5dc196bb9d080754"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-a-initial-morph-frames.png",
+      "bytes": 286241,
+      "sha256": "fbc932970460f32068adb203d11c678cdc5acc8446fec0b94e0cf43bbc0e31c6"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-blitz-paused-entry.png",
+      "bytes": 40073,
+      "sha256": "0dd7bb608fe88c23fd27f52c5e08a837a552ccfce1b11ef82567707f64276be0"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-conditional-fun-composition.png",
+      "bytes": 26229,
+      "sha256": "5b636a766786f2c4d26f7b2afbbf69a3a9b3e6dd07a46fc059f5e519c8fa9855"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-focus-menu.png",
+      "bytes": 25421,
+      "sha256": "8300c7df25bb1acd1f0cac92ed69d58e866042350c5281140b50230039a35517"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-home-main-restored.png",
+      "bytes": 78134,
+      "sha256": "18da0ecb05db3ca290b8c4ff7fee4b8deb589b06637d01e3ea830655d386ab70"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-home-reentry-blitz.png",
+      "bytes": 32373,
+      "sha256": "caaba44f07742192ad8b0ea9b45cdbf690402b10c236fbe7154eae087962b25a"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-home-reentry-settled.png",
+      "bytes": 32328,
+      "sha256": "49e73c923ad1652134f8a2bcf0f64aae917e18bb749bddc3753550ed2e6ce9e2"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-home-running-exit.png",
+      "bytes": 2133730,
+      "sha256": "c2cdeed777033d12a52bc532b610ccb6dae6d10a6b6352e6a474976d4242d0cc"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-intentional-pause-home.png",
+      "bytes": 2136569,
+      "sha256": "ea7298044feccfe0e7ec356aaf7a9aaecf5110d143bf89969a623886f0778206"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-intentional-pause-main.png",
+      "bytes": 80372,
+      "sha256": "fcd38f5f9050a96f106a8fbe09319813f0cc6afa483c364eb1b1a66bcebc00ea"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-intentional-pause-reentry.png",
+      "bytes": 34286,
+      "sha256": "66d223fd167bc3907efc98ba2346d31cf307393e5a35ebd81c621672c108b2f0"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-intentional-pause-retained.png",
+      "bytes": 32201,
+      "sha256": "a5694f2aecee25d77021059da7ed4c4f0de41bf725cfefaf79c5622914d073ef"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-intentional-pause.png",
+      "bytes": 33147,
+      "sha256": "67075075f29beb9d8af2e5f126a3ee66830069a22f1d54edc9f0b0a20e4c7726"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-list-scope-picker.png",
+      "bytes": 39281,
+      "sha256": "77318ac47199ba2c2c87e2281d9770aa2feb13bfe827b662284a82ca74617232"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-paused-entry.png",
+      "bytes": 35980,
+      "sha256": "2f88e615a989c4cf606ba651789e267d3ec17e326a31b50cfba004afded6394e"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-queue-hover.png",
+      "bytes": 41092,
+      "sha256": "14fd44d9cfc529c54742663f703ec8cf3c44d97efb9741871ab94fd555b069ef"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-queue-keyboard-family.png",
+      "bytes": 36396,
+      "sha256": "0ba1acc5429a37884316735f4c958434630392286fbca3b63c87e097ebc9357e"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-queue-menu-escape.png",
+      "bytes": 34012,
+      "sha256": "99bb362bd737bb0460e022fad3b3dbe9a8be9854b90e3cd0307e78542a1ccd40"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-queue-overflow.png",
+      "bytes": 36684,
+      "sha256": "9b00f416a56cbd7bdd813bafc1730bf4c4dc78a509fb09500aec1e7381a8c96b"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-queue-pointer-away.png",
+      "bytes": 33543,
+      "sha256": "ce9bb5e11c4742f9759bd4f26c1a79b396b098a0a9e3187e431d127c76d91616"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-back.png",
+      "bytes": 36239,
+      "sha256": "1c258e82d6a2a656aef432102000cbc50a6ce5cee5f827465ceb122a55c41f3a"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-hide-restore-off.png",
+      "bytes": 26024,
+      "sha256": "8a2a713cb054789da22895ad427dccc824dad16e0ec851fd5d39163527f16cf0"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-hide-toggle-on.png",
+      "bytes": 25954,
+      "sha256": "8a7f1d5a16d80306c554a006c6ed81314533d943a3ba54435de2061015873c56"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-lower-composition.png",
+      "bytes": 25762,
+      "sha256": "70f48114b569905b5122a6222587cec6e9b527279eff3f440d0c34e33d11d956"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-persisted-reopen.png",
+      "bytes": 25848,
+      "sha256": "fac13a1b139d20cf401bc5aff56e8e5c60f602222a931c1067efe7cc5de779cb"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-quick-return-panel.png",
+      "bytes": 34425,
+      "sha256": "e996aadb501c19312f0b3cf0453778992f8b39041ca798b542d826a3586edf5c"
+    },
+    {
+      "path": "Narro-M7-Logs/m6-success-enable-for-owned-check.png",
+      "bytes": 26105,
+      "sha256": "4064c59e9a97f32173325daf67c8c484fd5b89d8d46e051e3e7a9bc7ec697976"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-expanded-notes-close.png",
+      "bytes": 109719,
+      "sha256": "619121234331cf6b9430b86320f985bd5cb821f4670e64bd6528b7fddbb81784"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-expanded-notes-reachable.png",
+      "bytes": 111786,
+      "sha256": "8a181c9b54eb3398f722a42dcf45bcae3446861922c1f4a7314a7878f33ba8bd"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-notes-body-focus.png",
+      "bytes": 111130,
+      "sha256": "12cf507d5ed71ae9f1cf6c1d9f53185f8851563ddcfcf036c6af989c9c6fd0c9"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-notes-clear-unsaved.png",
+      "bytes": 112113,
+      "sha256": "38ba79057359037dc6da533d0170f463185a565027e82d0e7e6a134c8888ee85"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-notes-long-token-unsaved.png",
+      "bytes": 137209,
+      "sha256": "16a6b3f161c29e609f2b6c54b5fec2bf0f25b8614e88938e2114bf69fa47504c"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-notes-select-unsaved.png",
+      "bytes": 136850,
+      "sha256": "4ea98d6e1a18342ef7781f9e8237da384c0fab0132a2d25efd3a435dcb4f76fd"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-default-viewer-fit.png",
+      "bytes": 153576,
+      "sha256": "3bce2c8a62ff06b315c2c2f263a01e48bc920f9a050451efd9b433f015a54458"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-export-two-real.png",
+      "bytes": 46077,
+      "sha256": "b4c5d7b364e4c67b5e7a1d2760f3555d10f7fe140f25b1324b59659e59926d89"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-export-two-result.png",
+      "bytes": 49741,
+      "sha256": "05887c72ba6d6c01e0b1590976bc51cdf69f3a11e979db8f6494fcc42adf6588"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-pdf-export-one.png",
+      "bytes": 53109,
+      "sha256": "3164e7d7193bbb131642c4b6a30a2ee011f482bddad56325978b1c43af0145dd"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-pdf-export-result.png",
+      "bytes": 55854,
+      "sha256": "d1d72749af4ce8738dbf37326645583acc81d688620ad93e8864fb3988c9f4c0"
+    },
+    {
+      "path": "Narro-M7-Logs/m9-pdf-export-two.png",
+      "bytes": 37132,
+      "sha256": "05c7a533ce67136f44c2acac4f3fa6d22950891f981369ed6f4d082c72e91dfa"
+    },
+    {
+      "path": "Narro-M7-Logs/motion-normal.json",
+      "bytes": 227,
+      "sha256": "1bf72cb2fc4b601512cec0403b89f17e748219908afce190b772e0804a00b45e"
+    },
+    {
+      "path": "Narro-M7-Logs/motion-original.json",
+      "bytes": 61,
+      "sha256": "71594aecb47838d79835047e3f0efbaefd4f705aa2dbec125bd1ecca830cf32c"
+    },
+    {
+      "path": "Narro-M7-Logs/motion.py.txt",
+      "bytes": 1193,
+      "sha256": "b1f2865f6507d6eab92189a691f7a065311b65e6878716e49ff4a4c6dd42e08e"
+    },
+    {
+      "path": "Narro-M7-Logs/native-acceptance-04-capture.log",
+      "bytes": 112,
+      "sha256": "ed4ec5259ab4e4859a8c9308f60633bd9c4f829a634373f4337816fe35a14af8"
+    },
+    {
+      "path": "Narro-M7-Logs/native-acceptance-04-start.json",
+      "bytes": 120,
+      "sha256": "37d347dac4d0e427a514a3f8ff7b28b2c1567a279168657639fafae30ef94bc9"
+    },
+    {
+      "path": "Narro-M7-Logs/native-acceptance-04.mkv",
+      "bytes": 98983828,
+      "sha256": "322b70ed512d5bec8fa137bdb925ca944378784eb7721da624ec07b3e59de042"
+    },
+    {
+      "path": "Narro-M7-Logs/native-actions.jsonl",
+      "bytes": 37537,
+      "sha256": "d706635231072727ec67930c40a32c8ae761ebbfe85641e7055ff8927925146d"
+    },
+    {
+      "path": "Narro-M7-Logs/native.py.txt",
+      "bytes": 4273,
+      "sha256": "537da60b372e66842b46e0d20d91824945f07f4a8c3b12a16aedf08054ea21f6"
+    },
+    {
+      "path": "Narro-M7-Logs/notes-close-before-continuity.png",
+      "bytes": 32327,
+      "sha256": "9192e7a2556a522ce3a6c7cf6fccfa131b2ebd0915157f68ff1648a23297a2cb"
+    },
+    {
+      "path": "Narro-M7-Logs/overview-first.pdf",
+      "bytes": 87795,
+      "sha256": "171f06b8f5ca491d94453e71807983e6cf1dc09ea14040d9062211a7ce92218d"
+    },
+    {
+      "path": "Narro-M7-Logs/overview-second.pdf",
+      "bytes": 87795,
+      "sha256": "e58cb3d8ff7cebd36821d2788b825bb16d02f09015e1b172e5772e5131a0f8c9"
+    },
+    {
+      "path": "Narro-M7-Logs/owned-long-list.png",
+      "bytes": 79475,
+      "sha256": "f62862f80201cec3759a12357736939c8721596bb390a1a72c56c10f31fd6001"
+    },
+    {
+      "path": "Narro-M7-Logs/pending.py.txt",
+      "bytes": 1122,
+      "sha256": "c4de8d9e3b4c455f72ced2a7055b57afb3ef10ae2b8eca0c9f8867216aa54541"
+    },
+    {
+      "path": "Narro-M7-Logs/performance-custom.png",
+      "bytes": 24045,
+      "sha256": "37f1718aa8f68bd4c5ff43be71dad86075fcf12cb091273943245cdef1f3f42b"
+    },
+    {
+      "path": "Narro-M7-Logs/performance-options.png",
+      "bytes": 24045,
+      "sha256": "37f1718aa8f68bd4c5ff43be71dad86075fcf12cb091273943245cdef1f3f42b"
+    },
+    {
+      "path": "Narro-M7-Logs/planning-list-open.png",
+      "bytes": 82789,
+      "sha256": "e46f961b4a939d06c32b049f316eb6c314eca04a55fc49242fff6230046fa7f4"
+    },
+    {
+      "path": "Narro-M7-Logs/prelaunch/checklist.md",
+      "bytes": 1587,
+      "sha256": "c030d92bd39cdbba7645723b2224512965434e8614844705584e46255a676ace"
+    },
+    {
+      "path": "Narro-M7-Logs/prelaunch/environment.json",
+      "bytes": 1827,
+      "sha256": "41f3eab0dd39b02924586a3bc35404bcec308a9a7bce6cfa36a71d412475133c"
+    },
+    {
+      "path": "Narro-M7-Logs/prelaunch/production-appdata-backup/narro.db",
+      "bytes": 258048,
+      "sha256": "3b98e19d94ebcc75bd5d10f8fda0d17038a2aac6086782b44d76509f0e0636c4"
+    },
+    {
+      "path": "Narro-M7-Logs/prep.py.txt",
+      "bytes": 1558,
+      "sha256": "e16b931d3f2dd3db7ee875ea6148768a1164f425850a19a2b45841e38804d3f6"
+    },
+    {
+      "path": "Narro-M7-Logs/reports-sessions.png",
+      "bytes": 67280,
+      "sha256": "a8bbdb9fb6affe445eb1d3708a823c83fdbb5f411e4643fc71a0bc98ab1a5538"
+    },
+    {
+      "path": "Narro-M7-Logs/review.py.txt",
+      "bytes": 1776,
+      "sha256": "dc84d87d2f84c399740eb172efface65708706b8a36f214fa729832d6ce773f3"
+    },
+    {
+      "path": "Narro-M7-Logs/state.py.txt",
+      "bytes": 760,
+      "sha256": "69a01123191b479c128a82bf2e9321d7dd59e16a7a84cd294901846a1f56828f"
+    },
+    {
+      "path": "Narro-M7-Logs/window-after-click.png",
+      "bytes": 73544,
+      "sha256": "38e2da99cabb84cb7bf9041974818066e6888751fbf66e7da3f84113479f35c5"
+    },
+    {
+      "path": "Narro-M7-Logs/window-home.png",
+      "bytes": 73531,
+      "sha256": "14c57f5fd50af82e8025c24b71034b3a37e849f1ca4c24404abf6b422e8bb4d2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8793,
+      "sha256": "790311463bc80e77abcf7853400cc94e11eda3b793e0f80a986ee47d88aed8f6"
+    }
+  ]
+}

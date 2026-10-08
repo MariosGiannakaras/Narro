@@ -1,0 +1,75 @@
+import ctypes as c,ctypes.wintypes as w,sys,json,time,pathlib,subprocess,datetime
+r=pathlib.Path(__file__).parent
+u=c.windll.user32
+u.SetProcessDpiAwarenessContext(c.c_void_p(-4))
+u.GetForegroundWindow.restype=w.HWND
+u.GetWindowLongPtrW.restype=c.c_ssize_t
+def windows():
+ out=[]
+ @c.WINFUNCTYPE(w.BOOL,w.HWND,w.LPARAM)
+ def enum(h,p):
+  if u.IsWindowVisible(h):
+   b=c.create_unicode_buffer(1024);u.GetWindowTextW(h,b,1024)
+   pid=w.DWORD();u.GetWindowThreadProcessId(h,c.byref(pid));rect=w.RECT();u.GetWindowRect(h,c.byref(rect))
+   out.append({'hwnd':int(h),'title':b.value,'pid':pid.value,'rect':[rect.left,rect.top,rect.right,rect.bottom]})
+  return True
+ u.EnumWindows(enum,0);return out
+def snap(name,win=None):
+ ff=r.parent/'ui-validation-tools/ffmpeg-portable/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe'
+ cmd=[str(ff),'-y','-hide_banner','-loglevel','error','-f','gdigrab','-i','desktop','-frames:v','1']
+ if win and u.IsWindowVisible(w.HWND(win['hwnd'])):
+  rect=w.RECT();u.GetWindowRect(w.HWND(win['hwnd']),c.byref(rect));win=dict(win,rect=[rect.left,rect.top,rect.right,rect.bottom])
+  x,y,x2,y2=win['rect'];vx=u.GetSystemMetrics(76);vy=u.GetSystemMetrics(77)
+  cmd+=['-vf',f'crop={x2-x}:{y2-y}:{x-vx}:{y-vy}']
+ cmd+=['-update','1',str(r/(name+'.png'))];subprocess.run(cmd,check=True)
+def activate(h):
+ h=w.HWND(h)
+ if int(u.GetForegroundWindow())==h.value:return
+ if u.IsIconic(h):u.ShowWindow(h,9)
+ fg=u.GetForegroundWindow();ft=u.GetWindowThreadProcessId(fg,None);ct=c.windll.kernel32.GetCurrentThreadId()
+ attached=bool(ft and ft!=ct and u.AttachThreadInput(ct,ft,True))
+ try:u.BringWindowToTop(h);u.SetForegroundWindow(h)
+ finally:
+  if attached:u.AttachThreadInput(ct,ft,False)
+ time.sleep(.15)
+ assert int(u.GetForegroundWindow())==h.value,'Target did not become foreground; input aborted'
+def key(vk,down=True):u.keybd_event(vk,0,0 if down else 2,0)
+def combo(vks):
+ for v in vks:key(v)
+ for v in vks[::-1]:key(v,False)
+args=sys.argv[1:];cmd=args[0]
+utc=datetime.datetime.now(datetime.timezone.utc).isoformat()
+if cmd=='windows':print(json.dumps(windows()));sys.exit()
+title=args[1];matches=[v for v in windows() if v['title']==title]
+for _ in range(20):
+ if matches:break
+ time.sleep(.1);matches=[v for v in windows() if v['title']==title]
+assert len(matches)==1,matches
+win=matches[0];h=win['hwnd'];label=args[2]
+if cmd=='click':
+ activate(h);p=w.POINT(int(args[3]),int(args[4]));u.ClientToScreen(w.HWND(h),c.byref(p));u.SetCursorPos(p.x,p.y);u.mouse_event(2,0,0,0,0);u.mouse_event(4,0,0,0,0)
+elif cmd=='move':
+ p=w.POINT(int(args[3]),int(args[4]));u.ClientToScreen(w.HWND(h),c.byref(p));u.SetCursorPos(p.x,p.y)
+elif cmd=='key':activate(h);combo([int(v,0) for v in args[3].split('+')])
+elif cmd=='keys':
+ activate(h)
+ for _ in range(int(args[4])):combo([int(v,0) for v in args[3].split('+')]);time.sleep(.15)
+elif cmd=='scroll':
+ activate(h);p=w.POINT(int(args[3]),int(args[4]));u.ClientToScreen(w.HWND(h),c.byref(p));u.SetCursorPos(p.x,p.y);u.mouse_event(0x0800,0,0,int(args[5])&0xffffffff,0)
+elif cmd=='drag':
+ activate(h);p=w.POINT(int(args[3]),int(args[4]));q=w.POINT(int(args[5]),int(args[6]));u.ClientToScreen(w.HWND(h),c.byref(p));u.ClientToScreen(w.HWND(h),c.byref(q));u.SetCursorPos(p.x,p.y);u.mouse_event(2,0,0,0,0);time.sleep(.25)
+ for n in range(1,26):u.SetCursorPos(p.x+(q.x-p.x)*n//25,p.y+(q.y-p.y)*n//25);time.sleep(.02)
+ u.mouse_event(4,0,0,0,0)
+elif cmd=='text':
+ activate(h)
+ class KI(c.Structure):_fields_=[('vk',w.WORD),('scan',w.WORD),('flags',w.DWORD),('time',w.DWORD),('extra',c.c_size_t)]
+ class MI(c.Structure):_fields_=[('x',w.LONG),('y',w.LONG),('data',w.DWORD),('flags',w.DWORD),('time',w.DWORD),('extra',c.c_size_t)]
+ class UN(c.Union):_fields_=[('ki',KI),('mi',MI)]
+ class INPUT(c.Structure):_fields_=[('type',w.DWORD),('data',UN)]
+ for char in args[3]:
+  for flags in (4,6):
+   inp=INPUT(1,UN(ki=KI(0,ord(char),flags,0,0)));assert u.SendInput(1,c.byref(inp),c.sizeof(inp))==1
+elif cmd!='snap':raise ValueError(cmd)
+time.sleep(.35)
+with open(r/'native-actions.jsonl','a',encoding='utf8') as f:f.write(json.dumps({'utc':utc,'label':label,'command':args,'window':win,'foreground':int(u.GetForegroundWindow())})+'\n')
+snap(label,win);print(json.dumps({'utc':utc,'label':label,'window':win,'image':str(r/(label+'.png'))}))

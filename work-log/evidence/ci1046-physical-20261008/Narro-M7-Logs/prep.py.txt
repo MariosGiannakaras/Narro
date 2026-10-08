@@ -1,0 +1,20 @@
+import pathlib, subprocess, urllib.request, hashlib, zipfile, json, datetime, sqlite3, shutil
+root=pathlib.Path(__file__).parent
+root.mkdir(parents=True,exist_ok=True)
+token=subprocess.check_output(['gh','auth','token'],text=True).strip()
+class CleanRedirect(urllib.request.HTTPRedirectHandler):
+ def redirect_request(self,req,fp,code,msg,headers,newurl):
+  return urllib.request.Request(newurl)
+req=urllib.request.Request('https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11508639865/zip?fresh='+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d%H%M%S'),headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Cache-Control':'no-cache'})
+with urllib.request.build_opener(CleanRedirect()).open(req,timeout=45) as r: data=r.read()
+h=hashlib.sha256(data).hexdigest()
+assert h=='57f19035ee842e3479bde946a4a82348b1dfc9ea3045d600f18707c4d38b0411',h
+(root/'candidate.zip').write_bytes(data)
+with zipfile.ZipFile(root/'candidate.zip') as z: z.extractall(root/'candidate')
+exe=list((root/'candidate').rglob('narro.exe'))
+assert len(exe)==1,exe
+eh=hashlib.sha256(exe[0].read_bytes()).hexdigest()
+assert eh=='59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275',eh
+identity={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'run':37677630228,'artifact':11508639865,'source':'515b0f9a9df5cdf1a67e2b879047ee6551ae6dec','zip_sha256':h,'exe':str(exe[0]),'exe_sha256':eh}
+(root/'identity.json').write_text(json.dumps(identity,indent=2)+'\n',encoding='utf-8')
+print(json.dumps(identity))

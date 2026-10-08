@@ -1,5 +1,18 @@
 # HANDOFF — M6 whole-Focus source/state reconciliation
 
+## Current physical checkpoint — CI1046, 2026-10-08
+
+This newer checkpoint supersedes older physical-OPEN text only for its explicitly exercised scopes. Exact CI1046 EXE SHA256 `59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275`; no Narro source changes. [Full recordings, screenshots, chronological actions, domain snapshots and gate matrix](work-log/evidence/ci1046-physical-20261008/README.md).
+
+- **Physical residual counts:** M5 **6/6 PASS**; M6 **5/6 PASS**, A motion/timing reconciliation OPEN; M7 **1/3 exercised: C4 FAIL**, Finding07/35 OPEN; M9 **2/3 PASS**, Finding29 partial/pending OPEN; conditional M1 Finding27 and M8 OS notification/sound OPEN. These are this bounded physical checklist's counts, not whole-milestone completion.
+- **Closed physical scopes:** M5 narrow title/Today/rail/drag/retained Delete and native Finding28 keyboard; M6 B Quick Preferences, C queue rail, D visibly paused Home/re-entry/guarded resume, Finding33 Focus contenteditable Escape, Finding36 explicit Success NextTask selected-list scope; M9 Overview PDF and Finding30 bounded picker. Direct canonical visual/source comparisons remain separate; Finding33 Main path not claimed.
+- **M7 C4 FAIL:** clean Timer→Panel at `09:47:28.644 UTC` (~133.06s in `focus-recovery-06.mkv`) exposes incoming Panel header/live-title clipped in the old compact region before full Panel. Repeated in the next settled cycle. All nine before/after domain tables match, same Focus HWND, paused task/time preserved. Do not claim continuity fixed from CI or static frames. Record the recurrent acceptance failure and follow the repeated-failure escalation rule before another incremental correction; symptom identity with historical failures still requires comparison.
+- **Finding29 PARTIAL/OPEN:** ordinary modal initial focus, Tab/Shift+Tab containment, Escape and opener restoration PASS. Pending trial is inconclusive because helper foreground activation delayed actual Escape until DB unlock; this is neither product PASS nor FAIL. Retry with already-verified foreground/nonblocking dispatch.
+- **M9 top-level items: 12/12.** Actual Windows Overview PDF creation/default-viewer rendering and unique non-overwriting second export PASS. The mandatory milestone's broader Reports/Sessions source-parity acceptance remains OPEN; no M9 whole-milestone completion or M10 entry announcement yet.
+- **Recovery/continuation:** initial fast continuity batch accidentally completed an owned validation task (operator error, excluded from C4). Clean repeat used paused owned companion and preserved all domain arrays. Prelaunch DB backup retained. At checkpoint: compact Timer on LG, paused35s/taken95s,31 tasks/63 sessions; Show Success temporarily ON and normal OS animations ON. Preserve final test-state evidence, then stop Narro and restore original DB/settings. Next physical checks: valid pending guard, exclusive blocked-read keyboard, real Time's Up, conditional DPI identity/stale selection and actual notifications. Root feature/source WIP remains untouched; documentation/evidence is published directly on main.
+- **Roadmap unchanged: 3/10 mandatory milestones** (M2–M4). M1/M5/M6/M7/M8/M9 required gates remain; M10 blocked, M11 dormant.
+
+
 ## Current authoritative state — project continuation reconciled 2026-10-06
 
 This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.

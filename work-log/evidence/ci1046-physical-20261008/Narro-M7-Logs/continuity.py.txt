@@ -1,0 +1,14 @@
+import pathlib,sys,subprocess,time,json,datetime
+r=pathlib.Path(__file__).parent
+def run(*args):subprocess.run([sys.executable,str(r/'native.py'),*args],check=True,stdout=subprocess.DEVNULL)
+def width(expected):
+ ws=json.loads(subprocess.check_output([sys.executable,str(r/'native.py'),'windows']))
+ fs=[w for w in ws if w['title']=='Narro - Focus'];assert len(fs)==1
+ rect=fs[0]['rect'];assert rect[2]-rect[0]==expected,rect
+for n in range(1,4):
+ width(340);run('click','Narro - Focus',f'c4-settled-panel-timer-{n}','311','33');time.sleep(1.2)
+ width(425);run('move','Narro - Focus',f'c4-settled-timer-hover-{n}','174','45')
+ run('click','Narro - Focus',f'c4-settled-timer-panel-{n}','373','45');time.sleep(1.2)
+ width(340);run('snap','Narro - Focus',f'c4-settled-panel-{n}')
+run('click','Narro - Focus','c4-expanded-sequence-entry','311','33');time.sleep(1.2);width(425)
+print('3 settled Panel/Timer cycles acquired; same HWND bounds checked. Review continuous frames before PASS.')

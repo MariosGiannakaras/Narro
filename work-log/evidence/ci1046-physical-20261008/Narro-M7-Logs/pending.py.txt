@@ -1,0 +1,13 @@
+import sqlite3,threading,pathlib,datetime,json,time,subprocess,sys
+r=pathlib.Path(__file__).parent;ready=threading.Event();events=[]
+def event(v):events.append({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'event':v})
+def lock():
+ db=sqlite3.connect(str(pathlib.Path.home()/'AppData/Roaming/com.mariosg.Narro/narro.db'),timeout=2)
+ try:
+  assert db.execute('pragma journal_mode').fetchone()[0]=='delete'
+  db.execute('BEGIN IMMEDIATE');event('IMMEDIATE acquired - no data statements');ready.set();time.sleep(4)
+ finally:db.rollback();db.close();event('rollback and close')
+t=threading.Thread(target=lock);t.start();assert ready.wait(3)
+for args in [('click','Narro','f29-actual-pending-add','661','608'),('key','Narro','f29-actual-pending-escape','0x1b'),('key','Narro','f29-actual-pending-tab','0x09'),('key','Narro','f29-actual-pending-shift-tab','0x10+0x09')]:
+ event('input start '+args[2]);subprocess.run([sys.executable,str(r/'native.py'),*args],check=True);event('input complete '+args[2])
+t.join();(r/'f29-lock-events.json').write_text(json.dumps(events,indent=2)+'\n');print(json.dumps(events))
