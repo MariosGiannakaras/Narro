@@ -2,9 +2,9 @@
 
 **Mode:** source snapshot claim → exact Narro component/style/domain → evidence-limited disposition. This is distinct from full-video Pass-3 and from runtime/physical/source-parity acceptance.
 
-**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. **Review 04:** `SS-C01, SS-C18, SS-C19, SS-C20, SS-C21, SS-C22`. **Review 05:** `SS-H01–SS-H09`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
+**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. **Review 04:** `SS-C01, SS-C18, SS-C19, SS-C20, SS-C21, SS-C22`. **Review 05:** `SS-H01–SS-H09`. **Review 06:** `SS-H10–SS-H17`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
 
-**Count:** 215 source-visible/control-state claims mapped across 31/39 direct+Help screenshots (22/22 current v2.6.69; 9/17 Help states); {"PRESENT_CODE_ONLY":126,"GAP_B13":1,"EVIDENCE_LIMIT":27,"INTENTIONAL_DEVIATION":6,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":7,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1,"GAP_B7":2,"GAP_B3":1,"GAP_B8":1,"GAP_B15":5,"GAP_B31":1,"GAP_B26":1,"GAP_B32":1,"GAP_B24":1,"GAP_B44":1,"GAP_B39":1,"GAP_B40":1,"GAP_B43":1,"GAP_B19":3}.
+**Count:** 250 per-control/state claims mapped across **39/39 direct+Help screenshots** (22 current + 17 Help). **STATIC CODE AUDIT ONLY; NOT SOURCE-PARITY PASS.** {"PRESENT_CODE_ONLY":143,"GAP_B13":1,"EVIDENCE_LIMIT":31,"INTENTIONAL_DEVIATION":7,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":2,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":7,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1,"GAP_B7":2,"GAP_B3":1,"GAP_B8":1,"GAP_B15":5,"GAP_B31":1,"GAP_B26":2,"GAP_B32":1,"GAP_B24":1,"GAP_B44":1,"GAP_B39":1,"GAP_B40":1,"GAP_B43":1,"GAP_B19":3,"GAP_B12":3,"GAP_B60":1,"GAP_B48":1,"GAP_B10":2,"GAP_B11":3,"GAP_B59":1}.
 
 **Status definitions:** `PRESENT_CODE_ONLY` = current production source expresses the structure/interaction but neither native rendering nor source visual PASS is claimed; `GAP_Bn` = exact source-to-code discrepancy already routed in crosswalk/TODO; `INTENTIONAL_DEVIATION` = local-only scope exclusion; `EVIDENCE_LIMIT` = screenshot cannot prove detailed behavior, regardless of what Narro happens to implement; `NOT_REVIEWED` = remaining screenshot/state not audited at this granularity.
 
@@ -252,10 +252,51 @@
 | SS-H09-04 | SS-H09 | Precise hover-pill expansion/motion and native window contour | CI936 partial direct source comparison exists; exact other states remain physical M7 gates | EVIDENCE_LIMIT |
 
 **Help source precedence:** H01–H09 are Help v2.x structural states; current v2.6.69 stills override them where in conflict. H03 macOS dock context does not certify native Windows edge geometry, and H07 purple date-dot meaning is unknown. A code-present state is not a direct visual parity PASS.
+## Review 06 — Help H10–H17 Notes, Subtasks, Archive, Sessions
+
+| Source claim ID | Original | Visible control/state/interaction claim | Production comparison or source limit | Disposition |
+| --- | --- | --- | --- | --- |
+| SS-H10-01 | SS-H10 | Inline Board Notes editor and formatting toolbar | TaskNotes / RichNoteEditor exist | PRESENT_CODE_ONLY |
+| SS-H10-02 | SS-H10 | Internal scrollable note body | taskNotes.css overflow:auto | PRESENT_CODE_ONLY |
+| SS-H10-03 | SS-H10 | Editor-local Close bottom right | Shared RichNoteEditor only Save note | GAP_B26 |
+| SS-H10-04 | SS-H10 | Dirty Close save/cancel behavior | Help still shows control only | EVIDENCE_LIMIT |
+| SS-H11-01 | SS-H11 | Inline expanded subtask create state | TaskSubtasks inline form exists | PRESENT_CODE_ONLY |
+| SS-H11-02 | SS-H11 | Header Subtasks plus and exact placeholder | TaskSubtasks header and placeholder differ | GAP_B12 |
+| SS-H11-03 | SS-H11 | New-subtask input X/cancel | TaskSubtasks lacks in-field X | GAP_B12 |
+| SS-H11-04 | SS-H11 | Accent focus styling | listBoard.css focus styling exists | PRESENT_CODE_ONLY |
+| SS-H12-01 | SS-H12 | 4/5 circular subtask progress ring | Board TaskSubtasks shows horizontal bar | GAP_B60 |
+| SS-H12-02 | SS-H12 | Header plus and collapse | Board toggle has chevron; plus differs | GAP_B12 |
+| SS-H12-03 | SS-H12 | Completed row strikethrough | TaskSubtasks uses <s> for done | PRESENT_CODE_ONLY |
+| SS-H12-04 | SS-H12 | Up/down/delete right row controls | TaskSubtasks row management actions | PRESENT_CODE_ONLY |
+| SS-H13-01 | SS-H13 | Task completion circle and hover action rail | TaskCard reserved slots and TaskActionRail | PRESENT_CODE_ONLY |
+| SS-H13-02 | SS-H13 | Schedule/Change List/Duplicate/Delete menu | TaskOverflowMenu has all actions | PRESENT_CODE_ONLY |
+| SS-H13-03 | SS-H13 | Separator before destructive Delete | TaskOverflowMenu no separator element | GAP_B48 |
+| SS-H13-04 | SS-H13 | Lane arrows on rail not overflow | TaskActionRail direct move callbacks | PRESENT_CODE_ONLY |
+| SS-H14-01 | SS-H14 | Archived list identification/icon/title | ArchivedListsPanel list rows have icon/title | PRESENT_CODE_ONLY |
+| SS-H14-02 | SS-H14 | Archived list retains task previews | ArchivedListSummary lacks task previews | GAP_B10 |
+| SS-H14-03 | SS-H14 | Unarchive/Delete Forever buttons | Restore/Permanently delete exist with different labels/layout | GAP_B10 |
+| SS-H14-04 | SS-H14 | Exact committed restore/delete outcome | Older Help/VE-006 does not commit actions | EVIDENCE_LIMIT |
+| SS-H15-01 | SS-H15 | Search and list filter on Archived Done | ArchivedDoneTasksPanel controls exist | PRESENT_CODE_ONLY |
+| SS-H15-02 | SS-H15 | Five-column Task/List/Info/Date/Action table | ArchivedDoneTasksPanel flat card rows | GAP_B11 |
+| SS-H15-03 | SS-H15 | Row list badges, Info or No Info | DTO lacks Info, row list is plain text | GAP_B11 |
+| SS-H15-04 | SS-H15 | Relative dates and action trash | Absolute dates and no row trash in Narro | GAP_B11 |
+| SS-H15-05 | SS-H15 | Trash delete outcome/confirmation | Old screenshot does not show click | EVIDENCE_LIMIT |
+| SS-H16-01 | SS-H16 | Sessions tab Beta and filters | ReportsSessionsView tabs and filters | PRESENT_CODE_ONLY |
+| SS-H16-02 | SS-H16 | Add Session and chronological session rows | ReportsSessionsView groups and row actions | PRESENT_CODE_ONLY |
+| SS-H16-03 | SS-H16 | Older Export PDF vs current CSV | SS-C14 current CSV wins over old PDF | INTENTIONAL_DEVIATION |
+| SS-H16-04 | SS-H16 | 38 Total Tasks with 20 Sessions | Rust task-with-work-session metric impossible | GAP_B56 |
+| SS-H16-05 | SS-H16 | Individual session list color/ordinal/time | ReportsSessionsView SessionRow provides | PRESENT_CODE_ONLY |
+| SS-H17-01 | SS-H17 | Add Session dialog above Sessions context | ReportAddSessionDialog modal and backdrop | PRESENT_CODE_ONLY |
+| SS-H17-02 | SS-H17 | Select tasks... search and Recent Tasks heading | ReportAddSessionDialog search + heading | PRESENT_CODE_ONLY |
+| SS-H17-03 | SS-H17 | Task title and colored list badge in picker | Picker has plain listTitle and DTO no listColor | GAP_B59 |
+| SS-H17-04 | SS-H17 | Bounded vertically scrollable picker | reportsSessions.css overflow-x:hidden and y:auto | PRESENT_CODE_ONLY |
+| SS-H17-05 | SS-H17 | Actual recency order semantics | Help still cannot prove chronology | EVIDENCE_LIMIT |
+
+**Help vintage:** H14/H15 are older v2.4.89 populated states; H16 PDF export is superseded by current SS-C14 CSV. H17 task badge B59 does not establish recent-sort ordering. Trash click behavior remains EVIDENCE_LIMIT.
 ## Caveats and exact continuation
 
 - **No automatic promotion of `PRESENT_CODE_ONLY`:** check actual Windows candidate and canonical Blitzit source side-by-side before `SOURCE_PARITY_PASS`. Static code can be wrong in geometry, data, keyboard, timing or runtime composition.
 - **B56 backend/fixture divergence is a priority causal finding:** the existing `reportsVisualFixture.tsx` hardcodes `2 Total Tasks / 0 Sessions` while real `session_reporting.rs` derives tasks solely from work-session IDs and cannot produce `2/0`; the source itself shows `2/0` in current v2.6.69 and `39/22` in older VE-015. This proves a definition mismatch but not the source's exact task inclusion/counting rule. Require a product-semantic reconciliation before implementing; do not blindly switch to count of all tasks.
 - **EVIDENCE_LIMIT rows are not missing feature tickets.** Especially search results matching, search keyboard navigation and date-picker double-chevron effect: source static images do not prove them. A current Narro implementation does not establish source parity. Review canonical video context or original media only where it actually resolves the disputed observation.
-- **Next static claim-audit candidates:** Help states `SS-H10–SS-H17` (8/39 remaining). All 22 current-direct stills have claim routes, not direct source-parity PASS. Continue claim-level Help reviews with source-version priority. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
+- **Next static claim-audit candidates:** the original 19 full Pass-3 videos' interaction/transient source→code coverage and direct candidate/runtime physical comparison. All 22 current-direct stills have claim routes, not direct source-parity PASS. Continue claim-level Help reviews with source-version priority. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
 - **Validation:** documentation-only evidence audit. App/frontend/Rust tests, Windows CI, native physical comparison, and raw media reinspection **NOT RUN**. No progress/counters advanced: `3/10M || 0/3 | 17/18`. Codex retains app/native ownership and physical CI1046 C4/35/29 gates.
