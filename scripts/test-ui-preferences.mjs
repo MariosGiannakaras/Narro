@@ -160,6 +160,14 @@ for (const label of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory 
   invariant(soundCatalog.includes(label), `local sound catalog is missing ${label}`);
 }
 invariant(soundControl.includes('type="range"'), "sound control must expose the evidenced volume affordance");
+invariant(soundControl.includes('data-sound-volume-trigger="true"'), "anchored speaker volume trigger");
+invariant(soundControl.includes('data-sound-volume-popover="true"'), "conditional rather than persistent volume popover");
+invariant(soundControl.includes('aria-expanded={volumeOpen}'), "accessible volume disclosure state");
+invariant(soundControl.includes('event.key === "Escape"'), "popover Escape dismissal");
+invariant(soundControl.includes('onPointerUp={() => void commitVolume()}'), "pointer release persists volume");
+invariant(soundControl.includes('onBlur={() => void commitVolume()}'), "volume blur persists adjusted value");
+invariant(css.includes("writing-mode: vertical-lr"), "vertical volume adjustment source layout");
+
 invariant(soundControl.includes("playLocalSoundPreview"), "sound control must expose local preview playback");
 invariant(soundCatalog.includes("stopLocalSoundPlayback();"), "new local sound playback must stop the previous playback before starting");
 invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");
