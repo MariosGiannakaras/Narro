@@ -2,9 +2,9 @@
 
 **Mode:** source snapshot claim → exact Narro component/style/domain → evidence-limited disposition. This is distinct from full-video Pass-3 and from runtime/physical/source-parity acceptance.
 
-**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. **Review 04:** `SS-C01, SS-C18, SS-C19, SS-C20, SS-C21, SS-C22`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
+**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. **Review 04:** `SS-C01, SS-C18, SS-C19, SS-C20, SS-C21, SS-C22`. **Review 05:** `SS-H01–SS-H09`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
 
-**Count:** 162 source-visible/control-state claims mapped across 22/39 direct+Help screenshots (Reviews 01–04: 8 + 4 + 4 + 6 current screenshots); {"PRESENT_CODE_ONLY":96,"GAP_B13":1,"EVIDENCE_LIMIT":20,"INTENTIONAL_DEVIATION":4,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1,"GAP_B7":2,"GAP_B3":1,"GAP_B8":1,"GAP_B15":1,"GAP_B31":1,"GAP_B26":1,"GAP_B32":1}.
+**Count:** 215 source-visible/control-state claims mapped across 31/39 direct+Help screenshots (22/22 current v2.6.69; 9/17 Help states); {"PRESENT_CODE_ONLY":126,"GAP_B13":1,"EVIDENCE_LIMIT":27,"INTENTIONAL_DEVIATION":6,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":7,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1,"GAP_B7":2,"GAP_B3":1,"GAP_B8":1,"GAP_B15":5,"GAP_B31":1,"GAP_B26":1,"GAP_B32":1,"GAP_B24":1,"GAP_B44":1,"GAP_B39":1,"GAP_B40":1,"GAP_B43":1,"GAP_B19":3}.
 
 **Status definitions:** `PRESENT_CODE_ONLY` = current production source expresses the structure/interaction but neither native rendering nor source visual PASS is claimed; `GAP_Bn` = exact source-to-code discrepancy already routed in crosswalk/TODO; `INTENTIONAL_DEVIATION` = local-only scope exclusion; `EVIDENCE_LIMIT` = screenshot cannot prove detailed behavior, regardless of what Narro happens to implement; `NOT_REVIEWED` = remaining screenshot/state not audited at this granularity.
 
@@ -193,10 +193,69 @@
 | SS-C22-07 | SS-C22 | Exact source keyboard behavior/save-cancel of inline edit | Current SS-C22 static state shows checked edit but does not prove keyboard commit/cancel | EVIDENCE_LIMIT |
 
 **Review 04 source limits:** The visible Notes Close is B26 but the still does not prove dirty-close persistence. The independent success/Timer physical gates C4 and Finding35 remain current FAIL despite structural TSX matches. Current source screenshot SS-C22 does not prove exact keyboard modality; B32 is a Narro accessibility obligation, not invented Blitzit shortcut semantics. Cloud integration badges and microphone/voice controls are scope-excluded, not missing local-only Narro functionality.
+## Review 05 — Help source board, Focus placement/preferences, recurrence and Floating Timer states H01–H09
+
+| Source claim ID | Original | Visible control/state/interaction claim | Production comparison or source limit | Disposition |
+| --- | --- | --- | --- | --- |
+| SS-H01-01 | SS-H01 | Four Backlog/This Week/Today/Done columns | ListBoard.tsx LANES definitions and four BoardLane rendering | PRESENT_CODE_ONLY |
+| SS-H01-02 | SS-H01 | Top Back action/list-scope picker/list summary | ListBoard header selection exists, list-scope native select is not source anchored badge menu | GAP_B24 |
+| SS-H01-03 | SS-H01 | Each pending lane estimate/time label and add affordance | BoardLane header Est plus top/bottom inline create actions | PRESENT_CODE_ONLY |
+| SS-H01-04 | SS-H01 | This Week and Today Done fraction/progress | BoardLane only supplies/render Today progress, not This Week | GAP_B44 |
+| SS-H01-05 | SS-H01 | Today persistent cyan-to-lime outline | listBoard.css Today lane gradient border background | PRESENT_CODE_ONLY |
+| SS-H01-06 | SS-H01 | Bottom-anchored gradient BLITZIT NOW CTA with rocket | BoardLane today renders BlitzEntryButton at lane bottom | PRESENT_CODE_ONLY |
+| SS-H01-07 | SS-H01 | Task left ordinal/title/EST bottom-left/Taken bottom-right | TaskCard ordinal completion slot, title and separate estimate/timeTaken presentation | PRESENT_CODE_ONLY |
+| SS-H01-08 | SS-H01 | Recurring parents separated in Backlog Recurring tasks group | BoardLane maps flat lane.tasks no recurring parent subsection | GAP_B39 |
+| SS-H01-09 | SS-H01 | Scheduled task subsections per due time group | BoardLane task list flat with per-card scheduled metadata only | GAP_B40 |
+| SS-H01-10 | SS-H01 | Done grouped by completion date and count | BoardLane flat Done tasks and overall completed-this-month number | GAP_B43 |
+| SS-H01-11 | SS-H01 | Completed titles struck through | TaskCard data-task-card-state done and CSS strike state | PRESENT_CODE_ONLY |
+| SS-H01-12 | SS-H01 | Bottom global Add task and Help Center source extras | Local-only Home/Reports navigation retained; cloud assistant/help center controls excluded; quick task via Search | INTENTIONAL_DEVIATION |
+| SS-H02-01 | SS-H02 | Today title, 1hr30 estimate and plus | BoardLane title/Est and add actions | PRESENT_CODE_ONLY |
+| SS-H02-02 | SS-H02 | 4/5 Done gradient fraction and progress bar | BoardLane todayProgress and list-board-lane__progress CSS | PRESENT_CODE_ONLY |
+| SS-H02-03 | SS-H02 | Ordinal 1 reserved at far-left on ordinary task | TaskCard ordinal/completion swap in reserved leading slot | PRESENT_CODE_ONLY |
+| SS-H02-04 | SS-H02 | EST lower-left and Taken lower-right task metrics | TaskCard distinct metric slots with formatting/edit paths | PRESENT_CODE_ONLY |
+| SS-H02-05 | SS-H02 | Persistent Today cyan→green outline and bottom + ADD TASK | listBoard.css Today gradient edge and BoardLane bottom add action | PRESENT_CODE_ONLY |
+| SS-H02-06 | SS-H02 | External integration badges by title | Excluded cloud/integration product controls by Narro local-only scope | INTENTIONAL_DEVIATION |
+| SS-H02-07 | SS-H02 | Actual click behavior/hover animation implied by still | Single Help still does not prove timing/easing or mutation; videos separate | EVIDENCE_LIMIT |
+| SS-H03-01 | SS-H03 | Companion Focus surface at screen edge beside another application | FocusPanel separate focusSurface Tauri companion and monitor/side preference logic | PRESENT_CODE_ONLY |
+| SS-H03-02 | SS-H03 | Header/live card/queue/overdue scheduled/Add Task within narrow vertical region | FocusPanel.tsx combined grouped vertical layout | PRESENT_CODE_ONLY |
+| SS-H03-03 | SS-H03 | Actual Windows dock bounds/stale-state/DPI correctness | Source screenshot shows macOS context; CI1046 C4 and M1 DPI observations remain open | EVIDENCE_LIMIT |
+| SS-H04-01 | SS-H04 | Focus list trigger badge and chevron | FocusPanel uses native text-only select, no colored badge | GAP_B15 |
+| SS-H04-02 | SS-H04 | All Lists popup with stacked badges and +5 count | FocusPanel native select plain All option, no custom popup | GAP_B15 |
+| SS-H04-03 | SS-H04 | Work/Home/Content Plan per-list color badge entries | FocusPanel select uses option.title only | GAP_B15 |
+| SS-H04-04 | SS-H04 | List popup overlays panel and retains current Focus screen | Source anchored menu, Narro OS native chooser instead | GAP_B15 |
+| SS-H04-05 | SS-H04 | List selection filtering/persistence behavior from static menu | SS-H04 static open state cannot prove the postselection task count; Narro target-switch code exists | EVIDENCE_LIMIT |
+| SS-H05-01 | SS-H05 | Focus Menu/Back/Quick Preferences separate from full Preferences | FocusQuickPreferencesView header/back and separate panel view | PRESENT_CODE_ONLY |
+| SS-H05-02 | SS-H05 | Hide EST/Done times quick toggle | FocusQuickPreferencesView QuickToggle bound to hideTaskTimes | PRESENT_CODE_ONLY |
+| SS-H05-03 | SS-H05 | Screen thumbnails/dimensions/selected border | FocusQuickPreferences screens role=radiogroup, selected CSS and monitor widths | PRESENT_CODE_ONLY |
+| SS-H05-04 | SS-H05 | Blitz Panel Side left/right segmented control | FocusQuickPreferences .segments and aria-pressed side | PRESENT_CODE_ONLY |
+| SS-H05-05 | SS-H05 | Pomodoros/Timed alerts/Notification alerts/Success screen toggles | FocusQuickPreferences respective QuickRows/snapshot toggles | PRESENT_CODE_ONLY |
+| SS-H05-06 | SS-H05 | Conditional nested Fun gif when success screen ON | FocusQuickPreferences conditionally maps child row only when showSuccessScreen | PRESENT_CODE_ONLY |
+| SS-H05-07 | SS-H05 | Selecting monitor under live Windows multi-DPI geometry | Help screenshot cannot prove Windows capture, separate M1/M7 native gate | EVIDENCE_LIMIT |
+| SS-H06-01 | SS-H06 | Pomodoros ON and nested Work Sprint 30 / Break Time 10 | LowerPreferenceSections child duration values and parent state, but child rows always mounted | GAP_B17 |
+| SS-H06-02 | SS-H06 | Indented vertical-guide Pomodoro settings | preferenceSettingsSections.css nested border-left indentation | PRESENT_CODE_ONLY |
+| SS-H06-03 | SS-H06 | Default break length separate from Pomodoro nested pair | LowerPreferenceSections top-level manual break DurationSelect | PRESENT_CODE_ONLY |
+| SS-H06-04 | SS-H06 | Scrolling title on live timer ON switch | LowerPreferenceSections bound to scrollingTitle | PRESENT_CODE_ONLY |
+| SS-H06-05 | SS-H06 | ON→OFF collapse semantics and child-value persistence | VE-014 reveals ON; current full Preferences always renders disabled children, B17 | GAP_B17 |
+| SS-H07-01 | SS-H07 | Scheduler modal over dimmed Board and quick-date choices | TaskScheduleDialog modal and Today/LaterToday/Tomorrow/NextWeek buttons | PRESENT_CODE_ONLY |
+| SS-H07-02 | SS-H07 | Custom full calendar first-step and Next footer | TaskScheduleDialog uses native date input/single view, no source two-step calendar | GAP_B19 |
+| SS-H07-03 | SS-H07 | Selected date 7 gradient circular endpoint | TaskScheduleDialog lacks source selectable calendar date grid | GAP_B19 |
+| SS-H07-04 | SS-H07 | Small purple date dots inside calendar grid | No internal custom calendar exists; source dots semantic meaning unknown | EVIDENCE_LIMIT |
+| SS-H07-05 | SS-H07 | Cancel/Next wizard step navigation | TaskScheduleDialog Cancel/Save schedule in one view, not Next/Pick Date | GAP_B19 |
+| SS-H08-01 | SS-H08 | Recurring schedule presets No Repeat selected | TaskScheduleDialog recurrencePreset state and source choices, scoped domain tested | PRESENT_CODE_ONLY |
+| SS-H08-02 | SS-H08 | Conditional red Delete existing tasks(6) with checkbox | TaskScheduleDialog shows child-count consequence controls when linked parent rule removed | PRESENT_CODE_ONLY |
+| SS-H08-03 | SS-H08 | Cancel + gradient Schedule button footer | TaskScheduleDialog dialog submit/Cancel controls; exact styling/source layout separately open B19 | PRESENT_CODE_ONLY |
+| SS-H08-04 | SS-H08 | Replacing existing children vs detaching/deleting safely | Authoritative Rust recurrence replacement/No Repeat scoped tested, separate from pixels | PRESENT_CODE_ONLY |
+| SS-H08-05 | SS-H08 | No Repeat unchecked outcome from this one still | Screenshot doesn't show a committed unchecked path; VE-017 has distinct direct sequence | EVIDENCE_LIMIT |
+| SS-H09-01 | SS-H09 | Compact Floating Timer actions inside same rounded surface | FloatingTimerFoundation collapsed hover/focus states, FocusLiveActions floating branch | PRESENT_CODE_ONLY |
+| SS-H09-02 | SS-H09 | Only targeted Notes expands into labeled pill | FloatingActionButton hover/focus icon→label CSS and selected compact state | PRESENT_CODE_ONLY |
+| SS-H09-03 | SS-H09 | Adjacent Pause/Skip/Done and restore icons stay compact | FocusLiveActions floating icon actions and responsive action CSS | PRESENT_CODE_ONLY |
+| SS-H09-04 | SS-H09 | Precise hover-pill expansion/motion and native window contour | CI936 partial direct source comparison exists; exact other states remain physical M7 gates | EVIDENCE_LIMIT |
+
+**Help source precedence:** H01–H09 are Help v2.x structural states; current v2.6.69 stills override them where in conflict. H03 macOS dock context does not certify native Windows edge geometry, and H07 purple date-dot meaning is unknown. A code-present state is not a direct visual parity PASS.
 ## Caveats and exact continuation
 
 - **No automatic promotion of `PRESENT_CODE_ONLY`:** check actual Windows candidate and canonical Blitzit source side-by-side before `SOURCE_PARITY_PASS`. Static code can be wrong in geometry, data, keyboard, timing or runtime composition.
 - **B56 backend/fixture divergence is a priority causal finding:** the existing `reportsVisualFixture.tsx` hardcodes `2 Total Tasks / 0 Sessions` while real `session_reporting.rs` derives tasks solely from work-session IDs and cannot produce `2/0`; the source itself shows `2/0` in current v2.6.69 and `39/22` in older VE-015. This proves a definition mismatch but not the source's exact task inclusion/counting rule. Require a product-semantic reconciliation before implementing; do not blindly switch to count of all tasks.
 - **EVIDENCE_LIMIT rows are not missing feature tickets.** Especially search results matching, search keyboard navigation and date-picker double-chevron effect: source static images do not prove them. A current Narro implementation does not establish source parity. Review canonical video context or original media only where it actually resolves the disputed observation.
-- **Next static claim-audit candidates:** Help states `SS-H01–SS-H17` (17/39 remaining). All 22 current-direct stills have claim routes, not direct source-parity PASS. Continue claim-level Help reviews with source-version priority. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
+- **Next static claim-audit candidates:** Help states `SS-H10–SS-H17` (8/39 remaining). All 22 current-direct stills have claim routes, not direct source-parity PASS. Continue claim-level Help reviews with source-version priority. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
 - **Validation:** documentation-only evidence audit. App/frontend/Rust tests, Windows CI, native physical comparison, and raw media reinspection **NOT RUN**. No progress/counters advanced: `3/10M || 0/3 | 17/18`. Codex retains app/native ownership and physical CI1046 C4/35/29 gates.
