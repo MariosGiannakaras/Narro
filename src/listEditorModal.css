@@ -144,9 +144,11 @@
   color: var(--color-text-secondary);
 }
 
+.list-editor-modal__color-options,
 .list-editor-modal__swatches {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-3);
 }
 
@@ -162,6 +164,28 @@
   background: var(--list-editor-swatch);
   box-shadow: 0 0 0 1px var(--color-border-subtle);
   cursor: pointer;
+}
+
+.list-editor-modal__swatch--custom {
+  flex: 0 0 2rem;
+  padding: 0;
+  color: var(--color-text-primary);
+  background: conic-gradient(
+    var(--color-accent-start),
+    var(--color-warning),
+    var(--color-accent-end),
+    var(--color-accent-start)
+  );
+}
+
+.list-editor-modal__swatch--custom span {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
 }
 
 .list-editor-modal__swatch[data-selected="true"] {
@@ -186,6 +210,53 @@
 .list-editor-modal__swatch:focus-within {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 3px;
+}
+
+.list-editor-modal__custom-color-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-3);
+  min-width: 0;
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-deep);
+}
+
+.list-editor-modal__custom-color-field {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.list-editor-modal__custom-color-field input[type="color"] {
+  width: 3rem;
+  min-height: 2.5rem;
+  padding: var(--space-1);
+  cursor: pointer;
+}
+
+.list-editor-modal__custom-color-field--hex input {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.5rem;
+}
+
+.list-editor-modal__custom-color-error,
+.list-editor-modal__custom-color-actions {
+  grid-column: 1 / -1;
+}
+
+.list-editor-modal__custom-color-error {
+  color: var(--color-destructive);
+}
+
+.list-editor-modal__custom-color-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
 }
 
 .list-editor-modal__field {

@@ -14,6 +14,7 @@ import type { ListEditorRequest } from "./listEditorApi";
 import "./listEditorModal.css";
 
 const MAX_ICON_BYTES = 1_048_576;
+const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const COLOR_SWATCHES = [
   "#48d6c5",
   "#b7d96d",
@@ -88,11 +89,15 @@ export function ListEditorModal({
 }: ListEditorModalProps) {
   const titleId = useId();
   const descriptionId = useId();
+  const customColorId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const customColorButtonRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
   const [title, setTitle] = useState(initialList?.title ?? "");
   const [color, setColor] = useState(initialList?.color ?? COLOR_SWATCHES[0]);
+  const [customColorOpen, setCustomColorOpen] = useState(false);
+  const [customColorDraft, setCustomColorDraft] = useState(initialList?.color ?? COLOR_SWATCHES[0]);
   const [selectedIcon, setSelectedIcon] = useState<SelectedIcon | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -114,6 +119,24 @@ export function ListEditorModal({
   }, [selectedIcon]);
 
   const normalizedTitle = title.trim();
+  const isPresetColor = COLOR_SWATCHES.some((swatch) => swatch === color.toLowerCase());
+  const customColorIsValid = HEX_COLOR.test(customColorDraft.trim());
+  const pickerColor = customColorIsValid ? customColorDraft.trim().toLowerCase()
+    : HEX_COLOR.test(color) ? color.toLowerCase() : COLOR_SWATCHES[0];
+
+  function applyCustomColor() {
+    const normalized = customColorDraft.trim().toLowerCase();
+    if (!HEX_COLOR.test(normalized) || saving) return;
+    setColor(normalized);
+    setCustomColorOpen(false);
+    customColorButtonRef.current?.focus();
+  }
+
+  function closeCustomColor() {
+    setCustomColorOpen(false);
+    setCustomColorDraft(color);
+    customColorButtonRef.current?.focus();
+  }
   const canSubmit = normalizedTitle.length > 0 && !saving;
   const iconLabel = useMemo(() => {
     if (selectedIcon) return selectedIcon.file.name;
@@ -128,7 +151,8 @@ export function ListEditorModal({
   function handleDialogKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
     if (event.key === "Escape") {
       event.preventDefault();
-      requestClose();
+      if (customColorOpen && !saving) closeCustomColor();
+      else requestClose();
       return;
     }
     if (event.key !== "Tab" || !dialogRef.current) return;
@@ -236,8 +260,26 @@ export function ListEditorModal({
           </label>
 
           <fieldset className="list-editor-modal__colors">
-            <legend className="type-metadata">List color</legend>
-            <div className="list-editor-modal__swatches" role="radiogroup" aria-label="List color">
+            <legend className="type-metadata">Pick a list color</legend>
+            <div className="list-editor-modal__color-options">
+              <button
+                ref={customColorButtonRef}
+                type="button"
+                className="list-editor-modal__swatch list-editor-modal__swatch--custom motion-interactive"
+                aria-label="Pick a custom list color"
+                aria-controls={customColorId}
+                aria-expanded={customColorOpen}
+                data-custom-color-trigger="true"
+                data-selected={!isPresetColor ? "true" : "false"}
+                onClick={() => {
+                  setCustomColorDraft(color);
+                  setCustomColorOpen((value) => !value);
+                }}
+                disabled={saving}
+              >
+                <span aria-hidden="true">{!isPresetColor ? "✓" : "+"}</span>
+              </button>
+              <div className="list-editor-modal__swatches" role="radiogroup" aria-label="Preset list colors">
               {COLOR_SWATCHES.map((swatch) => {
                 const selected = color.toLowerCase() === swatch;
                 return (
@@ -253,14 +295,62 @@ export function ListEditorModal({
                       name="list-color"
                       value={swatch}
                       checked={selected}
-                      onChange={() => setColor(swatch)}
+                      onChange={() => {
+                        setColor(swatch);
+                        setCustomColorOpen(false);
+                      }}
                       disabled={saving}
                     />
                     <span aria-hidden="true">{selected ? "✓" : ""}</span>
                   </label>
                 );
               })}
+              </div>
             </div>
+            {customColorOpen ? (
+              <div id={customColorId} className="list-editor-modal__custom-color-panel" role="group" aria-label="Custom list color" data-custom-color-panel="true">
+                <label className="list-editor-modal__custom-color-field">
+                  <span className="type-metadata">Choose color</span>
+                  <input
+                    type="color"
+                    aria-label="Custom list color wheel"
+                    value={pickerColor}
+                    onChange={(event) => setCustomColorDraft(event.target.value)}
+                    disabled={saving}
+                  />
+                </label>
+                <label className="list-editor-modal__custom-color-field list-editor-modal__custom-color-field--hex">
+                  <span className="type-metadata">Hex color</span>
+                  <input
+                    type="text"
+                    inputMode="text"
+                    value={customColorDraft}
+                    placeholder="#RRGGBB"
+                    maxLength={7}
+                    spellCheck={false}
+                    autoComplete="off"
+                    aria-invalid={!customColorIsValid}
+                    onChange={(event) => setCustomColorDraft(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        applyCustomColor();
+                      }
+                    }}
+                    disabled={saving}
+                  />
+                </label>
+                {!customColorIsValid ? (
+                  <span className="list-editor-modal__custom-color-error type-metadata" role="status">
+                    Enter a six-digit hex color, for example #48d6c5.
+                  </span>
+                ) : null}
+                <div className="list-editor-modal__custom-color-actions">
+                  <button type="button" onClick={closeCustomColor} disabled={saving}>Cancel color</button>
+                  <button type="button" onClick={applyCustomColor} disabled={saving || !customColorIsValid}>Apply color</button>
+                </div>
+              </div>
+            ) : null}
           </fieldset>
 
           <label className="list-editor-modal__field">
@@ -271,6 +361,7 @@ export function ListEditorModal({
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               autoComplete="off"
+              placeholder="Enter your list title"
               spellCheck
               required
               disabled={saving}
