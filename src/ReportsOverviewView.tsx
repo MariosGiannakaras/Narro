@@ -109,9 +109,10 @@ function formatDuration(seconds: number): string {
 }
 
 function chartStyle(day: ReportsChartDay, maximum: number): CSSProperties {
-  const taskPercent = maximum <= 0 ? 0 : Math.max(1.5, (day.taskSeconds / maximum) * 100);
-  const breakPercent = maximum <= 0 ? 0 : Math.max(1.5, (day.breakSeconds / maximum) * 100);
-  const totalPercent = maximum <= 0 ? 0 : Math.max(1.5, ((day.taskSeconds + day.breakSeconds) / maximum) * 100);
+  const taskPercent = day.taskSeconds <= 0 ? 0 : Math.max(1.5, (day.taskSeconds / maximum) * 100);
+  const breakPercent = day.breakSeconds <= 0 ? 0 : Math.max(1.5, (day.breakSeconds / maximum) * 100);
+  const totalPercent = day.taskSeconds + day.breakSeconds <= 0
+    ? 0 : Math.max(1.5, ((day.taskSeconds + day.breakSeconds) / maximum) * 100);
   return {
     "--report-task-height": `${taskPercent}%`,
     "--report-break-height": `${breakPercent}%`,
@@ -144,8 +145,17 @@ function ReportChart({
         <button type="button" className="reports-overview__chart-menu" aria-label="Chart options">•••</button>
       </div>
 
-      <div className="reports-overview__chart" aria-label="Daily Tasks, Breaks and Total session time">
-        {days.map((day) => {
+      <div
+        className="reports-overview__chart-scroll"
+        role="region"
+        aria-label="Daily Tasks, Breaks and Total session time"
+        tabIndex={days.length > 14 ? 0 : undefined}
+      >
+      <div
+        className="reports-overview__chart"
+        style={{ "--report-chart-day-count": Math.max(1, days.length) } as CSSProperties}
+      >
+        {days.map((day, index) => {
           const total = day.taskSeconds + day.breakSeconds;
           const tooltipOpen = activeTooltipDayId === day.id;
           return (
@@ -170,11 +180,13 @@ function ReportChart({
                   aria-hidden="true"
                   data-visible-series-count={Object.values(visibleSeries).filter(Boolean).length}
                 >
-                  {visibleSeries.tasks ? <span className="reports-overview__chart-bar reports-overview__chart-bar--tasks" /> : null}
-                  {visibleSeries.breaks ? <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" /> : null}
-                  {visibleSeries.total ? <span className="reports-overview__chart-bar reports-overview__chart-bar--total" /> : null}
+                  {visibleSeries.tasks && day.taskSeconds > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--tasks" /> : null}
+                  {visibleSeries.breaks && day.breakSeconds > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" /> : null}
+                  {visibleSeries.total && total > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--total" /> : null}
                 </span>
-                <span className="reports-overview__chart-label">{day.label}</span>
+                <span className="reports-overview__chart-label">
+                  {days.length <= 14 || index % 7 === 0 || index === days.length - 1 ? day.label : ""}
+                </span>
               </button>
 
               {tooltipOpen ? (
@@ -193,6 +205,7 @@ function ReportChart({
             </div>
           );
         })}
+      </div>
       </div>
 
       <div className="reports-overview__legend" aria-label="Chart legend">
