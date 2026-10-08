@@ -416,9 +416,19 @@ async function validateAddSessionKeyboardFixture() {
   requireFixture(dialog, "Add Session keyboard fixture did not open.");
   await wait(30);
 
-  const search = dialog!.querySelector<HTMLInputElement>('input[type="search"]');
-  requireFixture(document.activeElement === search, "Add Session did not move initial focus to task search.");
+  const pickerTrigger = dialog!.querySelector<HTMLButtonElement>('[data-report-task-selector-trigger="true"]');
+  requireFixture(document.activeElement === pickerTrigger, "Add Session did not move initial focus to the collapsed task selector.");
   document.documentElement.dataset.reportsAddInitialFocus = "true";
+  pickerTrigger!.click();
+  await wait(30);
+  const search = dialog!.querySelector<HTMLInputElement>('input[type="search"]');
+  requireFixture(document.activeElement === search, "Opening the Add Session task picker did not focus its search.");
+  requireFixture(pickerTrigger!.getAttribute("aria-expanded") === "true", "Add Session task picker did not disclose.");
+  dispatchFixtureKey(search!, "Escape");
+  await wait(30);
+  requireFixture(document.querySelector(".reports-sessions__add-dialog"), "Picker Escape dismissed the whole Add Session modal.");
+  requireFixture(document.activeElement === pickerTrigger, "Picker Escape did not restore trigger focus.");
+  requireFixture(pickerTrigger!.getAttribute("aria-expanded") === "false", "Picker Escape did not close the list.");
 
   const focusable = Array.from(dialog!.querySelectorAll<HTMLElement>(
     'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
@@ -496,13 +506,18 @@ if (mode === "sessions-add-keyboard") {
     });
 } else if (mode === "sessions-add") {
   window.requestAnimationFrame(() => {
-    const picker = document.querySelector<HTMLElement>(".reports-sessions__task-picker");
-    if (!picker) throw new Error("Reports Add Session task picker is missing.");
-    if (picker.scrollWidth > picker.clientWidth + 1) {
-      throw new Error(`Reports Recent Tasks picker has horizontal overflow: ${picker.scrollWidth} > ${picker.clientWidth}`);
-    }
-    document.documentElement.dataset.reportsTaskPickerBounded = "true";
-    markReady();
+    const trigger = document.querySelector<HTMLButtonElement>('[data-report-task-selector-trigger="true"]');
+    if (!trigger) throw new Error("Reports Add Session task selector trigger is missing.");
+    trigger.click();
+    window.setTimeout(() => {
+      const picker = document.querySelector<HTMLElement>(".reports-sessions__task-picker");
+      if (!picker) throw new Error("Reports Add Session task picker did not disclose.");
+      if (picker.scrollWidth > picker.clientWidth + 1) {
+        throw new Error(`Reports Recent Tasks picker has horizontal overflow: ${picker.scrollWidth} > ${picker.clientWidth}`);
+      }
+      document.documentElement.dataset.reportsTaskPickerBounded = "true";
+      markReady();
+    }, 50);
   });
 } else if (mode === "lower") {
   window.requestAnimationFrame(() => {
