@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 6/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 7/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -16,7 +16,7 @@
 | VE-008 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-009 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-011 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
 | VE-012 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-013 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -198,6 +198,33 @@
 | 02:40–02:56.17 | Recap/outro | Non-product closing footage | EXCLUDED_SCOPE |
 
 **Important semantic limit:** Source 39 Tasks with 22 Sessions and current 2 Tasks with 0 Sessions contradict Narro's session-only distinct-task total; even though Tasks stays at39 when an existing task gets another session, that does **not** establish a complete alternative count formula. Do not replace backend definition speculatively. The 1h edit and 2h addition *do* prove independent Total Time and Total Sessions arithmetic. Exact task picker source postselection closure and recency order remain evidence-limited, but its first-open disclosure is directly shown (B68).
+## VE-011 — Reports populated Overview — REVIEWED 2026-10-08
+
+**Source:** complete 03:10.400 original MP4 @60fps previously source-reviewed in Pass3, including live filters, hover and legend interactions. This is implementation comparison of canonical time-local notes vs `ReportsOverviewView`, `ReportsOverview`, `reporting.rs` and CSS at `00c3168977ee85b2ec9ff1abb73cdaed3e4c8e49`; original MP4 was not replayed. Newer SS-C12/C13/C15 source sets current report header/empty state precedence.
+
+| Source time | Video-direct behavior | Current code source | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:19 | Home→Reports navigation, modern source Overview/Sessions tabs | AppShell primary nav and ReportsWorkspace routing, current SS-C12 shell wins | PRESENT_CODE / SOURCE_VERSION |
+| 00:19–00:25 | Four Overview summary metrics and date/list filters | ReportsOverviewView summary, ReportsOverview Rust DTO, date/list state | PRESENT_CODE_ONLY |
+| 00:19–00:25 | 7 active work days, 18 Done/2.6 per day, 9.2h/1.3h per day | Rust overview total_work_days from active dates and per-day ratios; no exact source dataset available | PRESENT_AGGREGATE / SOURCE_DATA_LIMIT |
+| 00:19–00:25 | Tasks purple, Breaks mint, Total tan; chart options | ReportChart series and options button missing click action | PRESENT_SERIES / GAP_B16 |
+| 00:25–00:34 | Live multiselect Freelance → Freelance+Music → All lists while menu stays open | ReportsOverview selectedListIds/toggleListSelection; menu stays mounted | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 00:25–00:34 | Trigger color stack/checkmarks/named list badges | ReportsOverviewView menu colors/checkmarks exist; trigger uses N glyph | GAP_B25 |
+| 00:34–00:42 | Two-month date range, six presets, Cancel/Apply | ReportsOverviewView DateRangePicker; current SS-C02 double navigation B13 | PRESENT_FUNCTION / GAP_B13 |
+| 00:42–01:23 | Consecutive eight calendar categories inclusive of days without sessions | Rust reporting.rs daily_series only emitted on session dates; chart fixed 8 tracks | GAP_B30 |
+| 01:24–01:32 | Full-day hover translucent band + brightened total bar, black tooltip | ReportChart has tooltip, no categorical hover band/Total state CSS | PRESENT_TOOLTIP / GAP_B28 |
+| 01:24–01:32 | Day Tasks1.2h+Breaks0.1h=Total1.3h | Rust reporting aggregates time types; no same source dataset, math consistent | PRESENT_AGGREGATION / SOURCE_DATA_LIMIT |
+| 01:32–01:40 | Independent Tasks/Breaks/Total legend toggles hide/restored bars and recenter | ReportChart visibleSeries filter and series map; CSS grid stable | PRESENT_CODE_ONLY |
+| 01:40–01:46 | Reports body scrolls between fixed app header and bottom nav | AppShell workspace grid fixed header and nav with scrollable content | PRESENT_CODE_ONLY |
+| 01:46–02:07 | Most productive hour/day/month panels | ReportsOverviewView productive-grid and Rust summary fields | PRESENT_CODE_ONLY |
+| 02:07–02:18 | Time By List donut/legend/color/time/percent populated panel | ReportsOverviewView donut/time_by_list from Rust work_by_list | PRESENT_CODE_ONLY |
+| 02:07–02:18 | Headline 9.2hr vs same-range Time By List18h56 discrepancy | Source directly inconsistent; current data cannot establish alternate formula | SOURCE_METRIC_RECONCILIATION_LIMIT |
+| 02:18–02:54 | Done grouped dates/counts with list-colored badges, Early/Late/No Est pills, Taken | ReportsOverviewView grouped Done with no source list accents/pill styling | GAP_B27 |
+| 02:18–02:54 | Done list internal scroll independently of main Reports page | reportsOverview.css done-list overflow and max height | PRESENT_CODE_ONLY |
+| 02:37–02:54 | Early76.22%/Late23.78% weighted by time variance, not task count | Rust punctuality early_seconds/late_seconds ratio, tests for weighted shares | PRESENT_SEMANTIC / SOURCE_DATA_LIMIT |
+| 02:54–03:10.40 | Recap/outro | Not app functionality | EXCLUDED_SCOPE |
+
+**VE011 close:** 19 chronological/source-anatomy claims mapped, no novel untracked production gap. Important source anomaly preserved: 9.2hr headline and 18h56 Time By List are too different for normal rounding, so no artificial reconciled formula. Current scoped Rust aggregates remain historically tested; code-matched controls not accepted without direct Windows/source capture. Existing B30 missing no-session calendar days and fixed-8 geometry remain critical; no new native test run.
 ## Exact next review
 
-Continue remaining VE-004/006–VE-014 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/015/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue remaining VE-004/006–VE-010, VE-012–VE-014 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/011/015/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
