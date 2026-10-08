@@ -96,6 +96,7 @@ type TaskEditorState =
       title: string;
       est: string;
       insertAtTop: boolean;
+      resetOrdinal: number;
     }
   | { kind: "edit"; taskId: string; listId: string; expectedTitle: string; title: string }
   | {
@@ -254,6 +255,7 @@ function InlineCreateEditor({
   title,
   est,
   pending,
+  resetOrdinal,
   laneTitle,
   onChange,
   onEstChange,
@@ -263,12 +265,18 @@ function InlineCreateEditor({
   title: string;
   est: string;
   pending: boolean;
+  resetOrdinal: number;
   laneTitle: string;
   onChange: (value: string) => void;
   onEstChange: (value: string) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }) {
+  const titleRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!pending && resetOrdinal > 0) titleRef.current?.focus();
+  }, [pending, resetOrdinal]);
+
   const handleSubmit = (event: ReactFormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!pending) onSubmit();
@@ -283,6 +291,7 @@ function InlineCreateEditor({
       <label className="list-board-task-create__field">
         <span className="type-metadata">Add task to {laneTitle}</span>
         <input
+          ref={titleRef}
           value={title}
           onChange={(event) => onChange(event.target.value)}
           onKeyDown={(event) => {
@@ -524,6 +533,7 @@ function BoardLane({
             title={createEditor.title}
             est={createEditor.est}
             pending={editorMutationPending}
+            resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
             onChange={onCreateTitleChange}
             onEstChange={onCreateEstChange}
@@ -734,6 +744,7 @@ function BoardLane({
             title={createEditor.title}
             est={createEditor.est}
             pending={editorMutationPending}
+            resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
             onChange={onCreateTitleChange}
             onEstChange={onCreateEstChange}
@@ -1411,12 +1422,17 @@ export function ListBoard({
     }
 
     const createdAtTop = editorState.insertAtTop;
-    setEditorState(null);
     setMutationStatus(createdAtTop ? `Added ${persistedTitle} to the top.` : `Added ${persistedTitle}.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
+      // Keep the inline create owner for consecutive tasks, but always reset
+      // both draft fields and return focus only after authoritative refresh.
+      setEditorState((current) => current?.kind === "create"
+        ? { ...current, title: "", est: "", resetOrdinal: current.resetOrdinal + 1 }
+        : current);
     } catch (failure: unknown) {
+      setEditorState(null);
       handleCommittedRefreshFailure(failure);
     } finally {
       setEditorMutationPending(false);
@@ -2072,7 +2088,7 @@ export function ListBoard({
               if (!canStartCreate) return;
               setMutationError(null);
               setMutationStatus("");
-              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop });
+              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop, resetOrdinal: 0 });
             }}
             onCreateTitleChange={(value) => {
               setEditorState((current) => current?.kind === "create"
