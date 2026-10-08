@@ -739,6 +739,7 @@ Export conflict resolution remains:
 ---
 
 # 11. Focus Panel
+- VE-016 00:38–00:41 and 02:11–02:16 shows Focus paused live EST and Time Taken entered as HH:MM (e.g. `00:30` = 30min). Current `FocusLiveMetrics.tsx` has the same H:MM:SS-only parser limitation as Board (shared tracked B53). Correct both parsing boundaries without relaxing paused-only authority and pending/stale safety.
 - SS-C19 ordinary Focus overdue queue rows display warm/orange relative age (e.g., `2d ago`), not just a generic `Overdue` marker. The current `isOverdue` and selected local schedule remain domain authorities; format relative calendar age as distinct display metadata.
 
 ## 11.1 Top bar

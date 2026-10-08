@@ -1,0 +1,9 @@
+# A21 — B53 has a second confirmed parser defect in Focus
+
+Date: 2026-10-08 (Europe/Athens). Authoritative baseline main `30df33dfebc8f4ca5d764c2832be3e21a03c7cb2`. Follow-up to immutable A20 B53, which explicitly deferred checking Focus-specific metric editor. Same user-directed analysis-only stream, Codex source/native ownership remains.
+
+Read current `src/FocusLiveMetrics.tsx` (not just `ListBoard.tsx`). Lines around 37–38 contain `const DURATION_INPUT = /^(\\d+):([0-5]\\d):([0-5]\\d)$/;`. Lines around 56–82 implement `parseMetricDuration` only for this three-component form; around 192 save calls that parser for paused live metric edit, with field accessible label and placeholder `H:MM:SS`. Canonical VE-016 directly entered `00:30` for EST and separately Time Taken while paused, with 30min Taken displayed after save. Hence Focus also rejects source-demonstrated two-component HH:MM and is not merely similar UX but a second **code-confirmed instance of B53**.
+
+Routed B53 into M6 nested non-counting TODO and expanded B53 crosswalk disposition from M5 to **M5/M6 FIX_NOW**, preserving source-version caveat and existing M3 timer + expected-session optimistic concurrency authority. Board and Focus currently duplicate parsers but share user-facing metric intent; harmonize safely with the original domain limits, H:MM:SS backwards compatibility, explicit H:MM semantics, clear errors, optional blank EST, full-length durations, pause-only editing and keyboard/pending guards. Independent deterministic regressions for both codepaths, and actual UI/CI source-state comparison, remain **NOT RUN**.
+
+No B54 was minted for the same repeated cause; immutable A20 not edited; no code/config/test/CI/physical action or acceptance counter update. This case shows why the source-control inventory should group shared causal defects rather than count every component copy as a new feature.
