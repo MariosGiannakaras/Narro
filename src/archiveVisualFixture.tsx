@@ -33,6 +33,7 @@ const populatedSnapshot: ArchiveSnapshot = {
       completedAt: "2026-06-20T08:30:00Z",
       archivedAt: "2026-08-20T08:30:01Z",
       timeTakenSeconds: "4500",
+      hasNote: true,
     },
     {
       id: "a2111111-1111-4111-8111-111111111112",
@@ -43,6 +44,7 @@ const populatedSnapshot: ArchiveSnapshot = {
       completedAt: "2026-06-18T18:00:00Z",
       archivedAt: "2026-08-18T18:00:01Z",
       timeTakenSeconds: "2700",
+      hasNote: false,
     },
   ],
 };

@@ -270,6 +270,8 @@ export function LowerPreferenceSections({
             onChange={(pomodoroEnabled) => onSave({ pomodoroEnabled }, "pomodoro")}
           />
         </Row>
+        {snapshot.focus.pomodoroEnabled ? (
+          <>
         <Row title="Work sprint" detail="Length of each Pomodoro work interval." nested>
           <DurationSelect
             valueSeconds={snapshot.focus.pomodoroWorkSeconds}
@@ -286,6 +288,8 @@ export function LowerPreferenceSections({
             onChange={(pomodoroBreakSeconds) => onSave({ pomodoroBreakSeconds }, "pomodoroBreak")}
           />
         </Row>
+                  </>
+        ) : null}
         <Row title="Default break length" detail="Used by Start Break in Focus and the in-app shortcut.">
           <DurationSelect
             valueSeconds={snapshot.focus.defaultBreakSeconds}
@@ -319,6 +323,8 @@ export function LowerPreferenceSections({
             onChange={(timedAlertsEnabled) => onSave({ timedAlertsEnabled }, "timedAlerts")}
           />
         </Row>
+        {snapshot.alerts.timedAlertsEnabled ? (
+          <>
         <Row title="Task alert interval" detail="How often a timed task alert may occur." nested>
           <DurationSelect
             valueSeconds={snapshot.alerts.taskAlertIntervalSeconds}
@@ -361,6 +367,8 @@ export function LowerPreferenceSections({
             onChange={(animatedTimerFlash) => onSave({ animatedTimerFlash }, "timerFlash")}
           />
         </Row>
+                  </>
+        ) : null}
         <Row title="Notification alerts" detail="Allow local Windows notification alerts for relevant timer events.">
           <Switch
             checked={snapshot.alerts.notificationAlertsEnabled}
@@ -369,6 +377,8 @@ export function LowerPreferenceSections({
             onChange={(notificationAlertsEnabled) => onSave({ notificationAlertsEnabled }, "notificationAlerts")}
           />
         </Row>
+        {snapshot.alerts.notificationAlertsEnabled ? (
+          <>
         <Row
           title="Notification sound"
           detail={soundUnavailable
@@ -398,6 +408,8 @@ export function LowerPreferenceSections({
             />
           )}
         </Row>
+                  </>
+        ) : null}
         <Row title="Schedule reminders" detail="Enable local reminders for scheduled tasks.">
           <Switch
             checked={snapshot.alerts.scheduleRemindersEnabled}
@@ -406,6 +418,8 @@ export function LowerPreferenceSections({
             onChange={(scheduleRemindersEnabled) => onSave({ scheduleRemindersEnabled }, "scheduleReminders")}
           />
         </Row>
+        {snapshot.alerts.scheduleRemindersEnabled ? (
+          <>
         <Row title="Reminder timing" detail="Lead time before the scheduled task." nested>
           <DurationSelect
             valueSeconds={snapshot.alerts.reminderLeadSeconds}
@@ -414,7 +428,9 @@ export function LowerPreferenceSections({
             onChange={(reminderLeadSeconds) => onSave({ reminderLeadSeconds }, "reminderLead")}
           />
         </Row>
-      </section>
+                </>
+        ) : null}
+        </section>
 
       <section className="theme-settings__section preference-settings__section" aria-labelledby="preferences-celebration-title">
         <div className="theme-settings__section-heading">
@@ -431,6 +447,8 @@ export function LowerPreferenceSections({
             onChange={(showSuccessScreen) => onSave({ showSuccessScreen }, "successScreen")}
           />
         </Row>
+        {snapshot.celebration.showSuccessScreen ? (
+          <>
         <Row title="Fun GIF" detail="Optional nested success-screen decoration; exact source visuals remain a fidelity follow-up." nested>
           <Switch
             checked={snapshot.celebration.funGif}
@@ -439,6 +457,8 @@ export function LowerPreferenceSections({
             onChange={(funGif) => onSave({ funGif }, "funGif")}
           />
         </Row>
+                  </>
+        ) : null}
         <Row
           title="Success sound"
           detail={soundUnavailable

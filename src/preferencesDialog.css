@@ -1,0 +1,67 @@
+.preferences-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-canvas) 75%, transparent);
+}
+
+.preferences-dialog__surface {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(47rem, 100%);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-deep);
+  box-shadow: var(--elevation-overlay);
+  color: var(--color-text-primary);
+}
+
+.preferences-dialog__closebar {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-2) var(--space-3) 0;
+}
+
+.preferences-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+  cursor: pointer;
+}
+
+.preferences-dialog__close:hover {
+  border-color: var(--color-border-strong);
+}
+
+.preferences-dialog__close:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.preferences-dialog__scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.preferences-dialog__scroll .theme-settings {
+  width: 100%;
+  margin: 0;
+  padding-top: var(--space-3);
+}
+
+@media (max-width: 48rem) {
+  .preferences-dialog__backdrop { padding: var(--space-2); }
+  .preferences-dialog__surface { max-height: calc(100dvh - 2 * var(--space-2)); }
+}

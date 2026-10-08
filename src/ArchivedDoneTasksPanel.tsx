@@ -30,6 +30,15 @@ function formatTimeTaken(rawSeconds: string): string {
   return `${minutes}min`;
 }
 
+function formatArchivedAge(value: string): string {
+  const date = new Date(value);
+  const ageDays = Math.floor((Date.now() - date.getTime()) / 86_400_000);
+  if (!Number.isFinite(ageDays) || ageDays < 0) return formatCompletedDate(value);
+  if (ageDays >= 60) return `${Math.floor(ageDays / 30)}mon ago`;
+  if (ageDays >= 7) return `${Math.floor(ageDays / 7)}w ago`;
+  return `${ageDays}d ago`;
+}
+
 function formatCompletedDate(value: string): string {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
@@ -189,25 +198,65 @@ export function ArchivedDoneTasksPanel({
         </div>
       ) : (
         <div className="archived-done-panel__items" data-archived-done-results="true">
-          {visibleTasks.map((task: ArchivedDoneTaskSummary) => (
-            <article
-              key={task.id}
-              className="archived-done-row"
-              data-archived-task-id={task.id}
-              style={taskAccent(task.listColor)}
-            >
-              <span className="archived-done-row__status" aria-hidden="true">✓</span>
-              <div className="archived-done-row__copy">
-                <h2 className="archived-done-row__title type-section-title">{task.title}</h2>
-                <span className="type-metadata">
-                  {task.listTitle} · Completed {formatCompletedDate(task.completedAt)}
-                </span>
-              </div>
-              <span className="archived-done-row__time type-metadata">
-                {formatTimeTaken(task.timeTakenSeconds)}
-              </span>
-            </article>
-          ))}
+          <table className="archived-done-table">
+            <caption className="sr-only">Archived completed tasks</caption>
+            <thead>
+              <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">List</th>
+                <th scope="col">Info</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleTasks.map((task: ArchivedDoneTaskSummary, index) => (
+                <tr key={task.id} className="archived-done-row" data-archived-task-id={task.id} style={taskAccent(task.listColor)}>
+                  <td>
+                    <div className="archived-done-row__task">
+                      <span className="archived-done-row__ordinal type-metadata" aria-hidden="true">{index + 1}</span>
+                      <span className="archived-done-row__status" aria-label="Completed" role="img">✓</span>
+                      <span className="archived-done-row__title">{task.title}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span className="archived-done-row__list">
+                      <span className="archived-done-panel__filter-dot" aria-hidden="true" />
+                      <span>{task.listTitle}</span>
+                    </span>
+                  </td>
+                  <td>
+                    {task.hasNote ? (
+                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note">▤</span>
+                    ) : <span className="type-metadata">No Info</span>}
+                  </td>
+                  <td>
+                    <time
+                      className="archived-done-row__date type-metadata"
+                      dateTime={task.completedAt}
+                      title={`Completed ${formatCompletedDate(task.completedAt)} · Time taken ${formatTimeTaken(task.timeTakenSeconds)}`}
+                    >
+                      {formatArchivedAge(task.completedAt)}
+                    </time>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="archived-done-row__delete"
+                      aria-label={`Permanent deletion of ${task.title} is not available`}
+                      title="Permanent deletion is unavailable until the archived-task deletion policy is confirmed."
+                      disabled
+                      data-archived-done-delete="unavailable"
+                    >
+                      <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v7m4-7v7" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </section>

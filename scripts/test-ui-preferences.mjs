@@ -81,6 +81,16 @@ invariant(
   "Preferences event must be emitted only after persistence commits",
 );
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
+const modalSource = await read("src/PreferencesDialog.tsx");
+const modalCss = await read("src/preferencesDialog.css");
+const shellSource = await read("src/AppShell.tsx");
+invariant(shellSource.includes("setPreferencesOpen(true)"), "full Preferences opens as overlay, not a route replacement");
+invariant(modalSource.includes('role="dialog"'), "full Preferences has native dialog semantics");
+invariant(modalSource.includes('aria-modal="true"'), "full Preferences traps focus and owns input");
+invariant(modalSource.includes('aria-labelledby="theme-settings-title"'), "dialog labels current Preferences heading");
+invariant(modalCss.includes("overflow-y: auto"), "full Preferences has bounded internal scroll");
+invariant(modalSource.includes("openerRef.current?.focus()"), "full Preferences returns focus to utility opener");
+
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
 invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 4"), "Preferences sound-volume fields must use the versioned v4 payload");
@@ -167,18 +177,26 @@ invariant(soundControl.includes('event.key === "Escape"'), "popover Escape dismi
 invariant(soundControl.includes('onPointerUp={() => void commitVolume()}'), "pointer release persists volume");
 invariant(soundControl.includes('onBlur={() => void commitVolume()}'), "volume blur persists adjusted value");
 invariant(css.includes("writing-mode: vertical-lr"), "vertical volume adjustment source layout");
-
 invariant(soundControl.includes("playLocalSoundPreview"), "sound control must expose local preview playback");
 invariant(soundCatalog.includes("stopLocalSoundPlayback();"), "new local sound playback must stop the previous playback before starting");
 invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");
 invariant(!/fetch\s*\(/.test(soundCatalog), "local sound catalog must not fetch media");
 invariant(!/https?:\/\//.test(sections), "Preferences must not introduce remote sound/media dependencies");
+for (const parent of [
+  "snapshot.focus.pomodoroEnabled ? (",
+  "snapshot.alerts.timedAlertsEnabled ? (",
+  "snapshot.alerts.notificationAlertsEnabled ? (",
+  "snapshot.alerts.scheduleRemindersEnabled ? (",
+  "snapshot.celebration.showSuccessScreen ? (",
+]) {
+  invariant(sections.includes(parent), `parent-off Preferences children must be conditionally hidden: ${parent}`);
+}
 invariant(
   sections.includes("disabled={busy || !snapshot.focus.pomodoroEnabled}")
     && sections.includes("disabled={busy || !snapshot.alerts.timedAlertsEnabled}")
     && sections.includes("disabled={busy || !snapshot.alerts.scheduleRemindersEnabled}")
     && sections.includes("disabled={busy || !snapshot.celebration.showSuccessScreen}"),
-  "nested Preferences must remain mounted and disable from their parent without scroll-jump remounting",
+  "visible child controls must remain mutation-gated during saves and parent state changes",
 );
 invariant(themePanel.includes("beforeGeneral") && themePanel.includes("generalChildren"), "Preferences composition slots are missing");
 

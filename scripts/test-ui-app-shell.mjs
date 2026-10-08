@@ -8,6 +8,8 @@ function requireText(haystack, needle, label) {
 }
 
 const shell = read("src/AppShell.tsx");
+const preferencesDialog = read("src/PreferencesDialog.tsx");
+const preferencesCss = read("src/preferencesDialog.css");
 const reportsWorkspace = read("src/ReportsWorkspace.tsx");
 const css = read("src/appShell.css");
 const app = read("src/App.tsx");
@@ -27,6 +29,19 @@ for (const [haystack, needle, label] of [
   [reportsWorkspace, "<ReportsSessions", "Sessions workspace tab"],
   [shell, 'label="Search"', "Search utility destination"],
   [shell, 'label="Settings"', "Settings utility destination"],
+  [shell, 'setPreferencesOpen(true)', "Settings opens over preserved destination"],
+  [shell, 'setPreferencesOpen(false)', "Preferences may dismiss without changing Board"],
+  [shell, '<PreferencesDialog onRequestClose={() => setPreferencesOpen(false)}>', "Settings uses overlay owner"],
+  [shell, '<ThemeSettingsPanel />', "production Preferences section preserved within overlay"],
+  [preferencesDialog, 'role="dialog"', "modal semantic boundary"],
+  [preferencesDialog, 'aria-modal="true"', "modal focus and shortcut ownership"],
+  [preferencesDialog, 'aria-labelledby="theme-settings-title"', "modal labels visible Preferences heading"],
+  [preferencesDialog, 'data-preferences-dialog="true"', "stable Preferences overlay identity"],
+  [preferencesDialog, 'event.key === "Escape"', "Escape restores originating workspace"],
+  [preferencesDialog, 'onRequestClose()', "close and outside click dismissal"],
+  [preferencesDialog, 'button:not([disabled])', "nested Settings controls in Tab cycle"],
+  [preferencesCss, '.preferences-dialog__backdrop', "dimmed preserved Board/Home backdrop"],
+  [preferencesCss, '.preferences-dialog__scroll', "bounded internal Preferences scroll"],
   [shell, 'aria-current={active ? "page" : undefined}', "active-page semantics"],
   [css, "grid-template-columns: 13rem minmax(0, 1fr);", "stable sidebar geometry"],
   [css, "grid-template-rows: 4rem minmax(0, 1fr) 3.5rem;", "stable workspace geometry"],
