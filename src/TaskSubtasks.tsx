@@ -1,4 +1,4 @@
-import type { CSSProperties, FormEvent, KeyboardEvent, MouseEvent } from "react";
+import { useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 
@@ -50,8 +50,9 @@ function Progress({ completed, total }: { completed: number; total: number }) {
       aria-valuemax={clampedTotal}
       aria-valuenow={clampedCompleted}
       style={{ "--subtask-progress": `${percent}%` } as CSSProperties}
+      data-board-subtask-progress-ring="true"
     >
-      <span />
+      <span aria-hidden="true" />
     </span>
   );
 }
@@ -84,6 +85,7 @@ export function TaskSubtasks({
   onDelete,
 }: TaskSubtasksProps) {
   const expanded = Boolean(model?.expanded);
+  const newSubtaskInputRef = useRef<HTMLInputElement>(null);
   const handleCreate = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (model?.pending || !model?.mutable) return;
@@ -119,6 +121,19 @@ export function TaskSubtasks({
             <span className="list-board-task__subtask-error type-metadata" role="alert">{model.error}</span>
           ) : (
             <>
+              <div className="list-board-task__subtask-header">
+                <strong className="type-metadata">Subtasks</strong>
+                {model.mutable ? (
+                  <button
+                    type="button"
+                    className="list-board-task__subtask-add-trigger motion-interactive"
+                    data-task-subtask-control="add-focus"
+                    aria-label={`Add a subtask to ${taskTitle}`}
+                    disabled={model.pending}
+                    onClick={() => newSubtaskInputRef.current?.focus()}
+                  >+</button>
+                ) : null}
+              </div>
               <div className="list-board-task__subtask-summary">
                 <span className="type-metadata">
                   {model.subtasks.filter((subtask) => subtask.completedAt !== null).length}/{model.subtasks.length} complete
@@ -269,13 +284,27 @@ export function TaskSubtasks({
               {model.mutable ? (
                 <form className="list-board-task__subtask-create" onSubmit={handleCreate}>
                   <input
+                    ref={newSubtaskInputRef}
                     value={model.createValue}
                     data-task-subtask-control="create-input"
                     aria-label={`New subtask for ${taskTitle}`}
-                    placeholder="Add subtask"
+                    placeholder="Enter Subtask task title*"
                     disabled={model.pending}
                     onChange={(event) => onCreateValueChange(event.target.value)}
                   />
+                  {model.createValue.trim() ? (
+                    <button
+                      type="button"
+                      className="list-board-task__subtask-clear motion-interactive"
+                      aria-label="Clear new subtask draft"
+                      data-task-subtask-control="cancel-create"
+                      disabled={model.pending}
+                      onClick={() => {
+                        onCreateValueChange("");
+                        newSubtaskInputRef.current?.focus();
+                      }}
+                    >×</button>
+                  ) : null}
                   <button
                     type="submit"
                     className="motion-interactive"

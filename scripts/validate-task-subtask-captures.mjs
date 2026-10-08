@@ -57,6 +57,9 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-subtask-control="move-down"'), `${label} move-down control is missing`);
   invariant(dom.includes('data-task-subtask-control="delete"'), `${label} delete control is missing`);
   invariant(dom.includes('data-task-subtask-control="create"'), `${label} create control is missing`);
+  invariant(dom.includes('data-task-subtask-control="add-focus"'), `${label} source Subtasks add header is missing`);
+  invariant(dom.includes('data-board-subtask-progress-ring="true"'), `${label} circular progress ring is missing`);
+  invariant(dom.includes("Enter Subtask task title*"), `${label} sourced input guidance is missing`);
   invariant(dom.includes("Completed tasks keep subtasks as read-only history."), `${label} read-only history guidance is missing`);
   invariant(dom.includes('data-task-subtasks-expanded="true"'), `${label} production TaskCard expansion marker is missing`);
 

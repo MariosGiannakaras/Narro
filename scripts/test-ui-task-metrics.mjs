@@ -18,6 +18,7 @@ const boardMetrics = read("src-tauri/src/board_task_metrics.rs");
 const persistenceMod = read("src-tauri/src/persistence/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
 const board = read("src/ListBoard.tsx");
+const durationParser = read("src/metricDurationInput.ts");
 const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
@@ -85,8 +86,10 @@ for (const [haystack, needle, label] of [
   [board, "expectedEstSeconds: editorState.expectedEstSeconds", "renderer expected EST guard"],
   [board, "expectedTotalSeconds: editorState.expectedTimeTakenSeconds", "renderer expected Time Taken guard"],
   [board, "Task change was saved, but the board could not refresh.", "committed-refresh failure distinction"],
-  [board, "MAX_EDITABLE_SECONDS = 4_294_967_295n", "u32 duration boundary"],
-  [board, "H:MM:SS", "explicit duration edit format"],
+  [durationParser, "MAX_EDITABLE_SECONDS = 4_294_967_295n", "u32 duration boundary"],
+  [durationParser, "match[3] ??", "two-field HH:MM preserves minutes rather than mistaking them for seconds"],
+  [board, 'import { parseMetricDuration } from "./metricDurationInput";', "shared canonical board parser"],
+  [taskCard, "H:MM or H:MM:SS", "Board metric input describes accepted hour:minute grammar"],
   [pointer, "[data-task-metric-control]", "metric drag isolation"],
   [board, "Live task titles cannot be edited from the List Board.", "live title restriction"],
   [taskCard, 'data-task-metric-control="open"', "metric open control"],

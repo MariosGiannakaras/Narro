@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-pub const PREFERENCES_SCHEMA_VERSION: u32 = 4;
+pub const PREFERENCES_SCHEMA_VERSION: u32 = 5;
 pub const LOCAL_SOUND_IDS: [&str; 4] = [
     "futuristic-ding",
     "melodic-bell",
@@ -11,6 +11,10 @@ pub const DEFAULT_SOUND_VOLUME_PERCENT: u8 = 100;
 
 fn default_sound_volume_percent() -> u8 {
     DEFAULT_SOUND_VOLUME_PERCENT
+}
+
+fn default_success_sound_enabled() -> bool {
+    true
 }
 
 pub fn is_local_sound_id(value: &str) -> bool {
@@ -123,6 +127,8 @@ pub struct AlertPreferences {
 pub struct CelebrationPreferences {
     pub show_success_screen: bool,
     pub fun_gif: bool,
+    #[serde(default = "default_success_sound_enabled")]
+    pub success_sound_enabled: bool,
     pub success_sound: Option<String>,
     #[serde(default = "default_sound_volume_percent")]
     pub success_sound_volume_percent: u8,
@@ -175,6 +181,7 @@ impl Default for PreferencesPayload {
             celebration: CelebrationPreferences {
                 show_success_screen: false,
                 fun_gif: false,
+                success_sound_enabled: true,
                 success_sound: None,
                 success_sound_volume_percent: DEFAULT_SOUND_VOLUME_PERCENT,
             },
@@ -308,6 +315,22 @@ mod tests {
         assert_eq!(
             decoded.celebration.success_sound_volume_percent,
             DEFAULT_SOUND_VOLUME_PERCENT
+        );
+    }
+
+    #[test]
+    fn legacy_v4_payload_without_success_sound_toggle_preserves_implicit_on() {
+        let mut value = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize v5 default preferences");
+        value["celebration"]
+            .as_object_mut()
+            .expect("celebration object")
+            .remove("success_sound_enabled");
+        let decoded: PreferencesPayload =
+            serde_json::from_value(value).expect("decode legacy v4 celebration");
+        assert!(
+            decoded.celebration.success_sound_enabled,
+            "v4 success-screen sound was implicitly enabled"
         );
     }
 

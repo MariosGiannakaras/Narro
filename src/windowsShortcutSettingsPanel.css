@@ -7,6 +7,25 @@
   color: var(--color-text-secondary);
 }
 
+.windows-shortcuts__group-title {
+  margin: var(--space-4) 0 var(--space-1);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.windows-shortcuts__app-group {
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.windows-shortcuts__row--app {
+  min-height: 3rem;
+}
+
+.windows-shortcuts__controls--app {
+  grid-template-columns: minmax(132px, auto);
+}
+
 .windows-shortcuts__rows {
   display: grid;
   gap: var(--space-2);

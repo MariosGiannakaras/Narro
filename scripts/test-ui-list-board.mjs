@@ -12,6 +12,8 @@ const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
 const blockingRead = read("src-tauri/src/blocking_read.rs");
 const component = read("src/ListBoard.tsx");
+const picker = read("src/BoardListPicker.tsx");
+const pickerCss = read("src/boardListPicker.css");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const api = read("src/listBoardApi.ts");
@@ -69,8 +71,16 @@ for (const [haystack, needle, label] of [
   [component, "<TaskCard", "task-card presentation projection"],
   [component, "actions={taskActions}", "task-card callback action projection"],
   [taskCard, 'data-board-task="task-card"', "task-card identity"],
-  [component, 'data-board-list-selector="true"', "confirmed board list selector"],
-  [component, 'aria-label="Planning list"', "accessible board selector"],
+  [picker, 'data-board-list-selector="true"', "confirmed Board list selector"],
+  [picker, 'aria-label="Planning list"', "accessible Board list selector"],
+  [picker, 'role="listbox"', "anchored Board listbox"],
+  [picker, 'role="option"', "accessible Board options"],
+  [picker, 'aria-selected={selectedTarget === option.id}', "selected list state"],
+  [picker, 'event.key === "ArrowDown"', "list keyboard traversal"],
+  [picker, 'event.key === "Escape"', "list Escape dismissal"],
+  [picker, 'aria-expanded={open}', "trigger disclosure semantics"],
+  [picker, 'disabled={disabled}', "Board mutation lock on list switch"],
+  [pickerCss, '.board-list-picker__menu', "Board list popup style"],
   [component, 'invoke<HomeSnapshot>("get_home_snapshot")', "reuse of validated active-list option projection"],
   [component, "onTargetChange", "selector target-change callback"],
   [component, "getListBoardSnapshot(target)", "authoritative board read"],
@@ -95,7 +105,7 @@ for (const [haystack, needle, label] of [
   [validator, 'data-board-lane-count="4"', "captured four-lane validation"],
   [createEditValidator, "data-board-add-task", "captured production Add Task validation"],
   [css, "grid-template-columns: repeat(4, minmax(9.5rem, 1fr));", "stable four-column geometry"],
-  [css, ".list-board__selector select", "selector geometry contract"],
+  [pickerCss, ".board-list-picker__trigger", "picker trigger geometry contract"],
   [css, '.list-board-lane[data-board-lane="Today"]', "Today accent boundary"],
   [css, "border-radius: var(--radius-task-card);", "shared task-card radius"],
 ]) {

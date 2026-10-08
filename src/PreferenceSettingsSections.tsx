@@ -13,6 +13,7 @@ import type {
 } from "./preferencesApi";
 import type { PreferencePendingKey } from "./PreferenceSettingsRuntime";
 import "./preferenceSettingsSections.css";
+import "./successSoundPreference.css";
 
 type CommonProps = {
   snapshot: PreferenceSettingsSnapshot;
@@ -460,30 +461,41 @@ export function LowerPreferenceSections({
                   </>
         ) : null}
         <Row
-          title="Success sound"
+          title="Success sound effect"
           detail={soundUnavailable
             ? "The local Narro sound catalog is unavailable."
-            : "Choose the bundled local sound for the success-screen completion moment."}
+            : "Control the bundled completion sound independently of the success screen."}
           nested
           unavailable={soundUnavailable}
         >
-          {soundUnavailable ? (
-            <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
-          ) : (
-            <SoundPreferenceControl
-              selectedSound={snapshot.celebration.successSound}
-              defaultSound={DEFAULT_SUCCESS_SOUND}
-              volumePercent={snapshot.celebration.successSoundVolumePercent}
-              disabled={busy || !snapshot.celebration.showSuccessScreen}
-              soundLabel="Success sound"
-              volumeLabel="Success sound volume"
-              onSoundChange={(successSound) => onSave({ successSound }, "successSound")}
-              onVolumeCommit={(successSoundVolumePercent) => onSave(
-                { successSoundVolumePercent },
-                "successSoundVolume",
+          <div className="preference-settings__success-sound-actions">
+            {soundUnavailable ? (
+              <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+            ) : (
+              <SoundPreferenceControl
+                selectedSound={snapshot.celebration.successSound}
+                defaultSound={DEFAULT_SUCCESS_SOUND}
+                volumePercent={snapshot.celebration.successSoundVolumePercent}
+                disabled={busy || !snapshot.celebration.successSoundEnabled}
+                soundLabel="Success sound"
+                volumeLabel="Success sound volume"
+                onSoundChange={(successSound) => onSave({ successSound }, "successSound")}
+                onVolumeCommit={(successSoundVolumePercent) => onSave(
+                  { successSoundVolumePercent },
+                  "successSoundVolume",
+                )}
+              />
+            )}
+            <Switch
+              checked={snapshot.celebration.successSoundEnabled}
+              disabled={busy}
+              label="Success sound effect"
+              onChange={(successSoundEnabled) => onSave(
+                { successSoundEnabled },
+                "successSoundEnabled",
               )}
             />
-          )}
+          </div>
         </Row>
       </section>
     </>

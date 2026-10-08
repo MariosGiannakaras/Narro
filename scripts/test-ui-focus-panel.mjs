@@ -9,7 +9,13 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const success = read("src/FocusCompletionSuccess.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+invariant(success.includes("successTimingCopy(state.estSeconds, state.timeTakenSeconds)"), "success timing must use persisted EST and Taken");
+invariant(success.includes('data-focus-success-timing="true"'), "source timing copy must be visible when valid");
+invariant(panel.includes('data-focus-pomodoro-badge="true"'), "Pomodoro live/Break chip must be projected in active Focus card");
+invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POMO chip must reflect authoritative Pomodoro mode rather than stale UI state");
+invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
@@ -118,8 +124,9 @@ for (const [haystack, needle, label] of [
   [metrics, 'data-focus-metric-control="input"', "paused metric input"],
   [metrics, 'data-focus-metric-control="cancel"', "paused metric cancel control"],
   [metrics, 'data-focus-metric-control="save"', "paused metric save control"],
-  [metrics, 'const DURATION_INPUT = /^(\\d+):([0-5]\\d):([0-5]\\d)$/;', "H:MM:SS duration parser"],
-  [metrics, "MAX_EDITABLE_SECONDS = 4_294_967_295n", "Rust u32 metric range mirror"],
+  [metrics, 'import { parseMetricDuration } from "./metricDurationInput";', "shared Focus parser"],
+  [metrics, "H:MM or H:MM:SS", "Focus HH:MM compatibility for paused edit"],
+  [read("src/metricDurationInput.ts"), "MAX_EDITABLE_SECONDS = 4_294_967_295n", "Rust u32 metric range mirror"],
   [metricsCss, "grid-template-columns: 5rem minmax(0, 1fr) 4.75rem", "stable Focus metric row geometry"],
   [metricsCss, "grid-template-columns: repeat(2, 2.25rem)", "stable metric action geometry"],
   [subtasks, "getListBoardTaskSubtasks(task.id, task.listId)", "authoritative live-task subtask read"],

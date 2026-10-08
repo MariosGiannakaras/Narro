@@ -1,10 +1,13 @@
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from "react";
+import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
+
+const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 
 export type ReportsSessionViewRow = {
   id: string;
@@ -324,22 +327,52 @@ export function ReportAddSessionDialog({
   onCommit: () => void;
 }) {
   const [query, setQuery] = useState("");
+  const [pickerOpen, setPickerOpen] = useState(false);
   const filtered = tasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
 
   const dialogRef = useRef<HTMLElement>(null);
+  const pickerAnchorRef = useRef<HTMLDivElement>(null);
+  const pickerTriggerRef = useRef<HTMLButtonElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    searchInputRef.current?.focus();
+    pickerTriggerRef.current?.focus();
     return () => openerRef.current?.focus();
   }, []);
 
   useEffect(() => {
-    if (pending) dialogRef.current?.focus();
+    if (pending) {
+      setPickerOpen(false);
+      dialogRef.current?.focus();
+    }
   }, [pending]);
+
+  useEffect(() => {
+    if (!pickerOpen || pending) return;
+    searchInputRef.current?.focus();
+    const onOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !pickerAnchorRef.current?.contains(event.target)) {
+        setPickerOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onOutside);
+    return () => document.removeEventListener("pointerdown", onOutside);
+  }, [pickerOpen, pending]);
+
+  function closePicker() {
+    setPickerOpen(false);
+    pickerTriggerRef.current?.focus();
+  }
+
+  function chooseTask(taskId: string) {
+    if (pending) return;
+    onDraftChange({ ...draft, taskId });
+    setQuery("");
+    closePicker();
+  }
 
   function requestClose() {
     if (!pending) onClose();
@@ -348,7 +381,8 @@ export function ReportAddSessionDialog({
   function handleAddSessionKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.key === "Escape") {
       event.preventDefault();
-      requestClose();
+      if (pickerOpen && !pending) closePicker();
+      else requestClose();
       return;
     }
     if (event.key !== "Tab" || !dialogRef.current) return;
@@ -391,33 +425,57 @@ export function ReportAddSessionDialog({
           <button type="button" aria-label="Close Add Session" disabled={pending} onClick={requestClose}>×</button>
         </header>
 
-        <label className="reports-sessions__field">
+        <div className="reports-sessions__field reports-sessions__task-selector" ref={pickerAnchorRef}>
           <span>Task</span>
-          <input
-            ref={searchInputRef}
-            type="search"
-            placeholder="Select tasks..."
-            value={query}
+          <button
+            ref={pickerTriggerRef}
+            type="button"
+            className="reports-sessions__task-selector-trigger motion-interactive"
+            data-report-task-selector-trigger="true"
+            aria-label="Select task for session"
+            aria-haspopup="listbox"
+            aria-expanded={pickerOpen}
             disabled={pending}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        </label>
-
-        <div className="reports-sessions__task-picker" role="listbox" aria-label="Recent Tasks">
-          <strong>Recent Tasks</strong>
-          {filtered.slice(0, 12).map((task) => (
-            <button
-              type="button"
-              role="option"
-              aria-selected={draft.taskId === task.id}
-              key={task.id}
-              disabled={pending}
-              onClick={() => onDraftChange({ ...draft, taskId: task.id })}
-            >
-              <span>{task.title}</span>
-              <small>{task.listTitle}</small>
-            </button>
-          ))}
+            onClick={() => setPickerOpen((current) => !current)}
+          >
+            <span>{selected?.title ?? "Select tasks..."}</span>
+            <span aria-hidden="true">⌄</span>
+          </button>
+          {pickerOpen && !pending ? (
+            <div className="reports-sessions__task-selector-popover" data-report-task-picker-open="true">
+              <input
+                ref={searchInputRef}
+                type="search"
+                placeholder="Select tasks..."
+                aria-label="Search recent tasks"
+                value={query}
+                disabled={pending}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              <div className="reports-sessions__task-picker" role="listbox" aria-label="Recent Tasks">
+                <strong>Recent Tasks</strong>
+                {filtered.slice(0, 12).map((task) => (
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={draft.taskId === task.id}
+                    key={task.id}
+                    disabled={pending}
+                    onClick={() => chooseTask(task.id)}
+                  >
+                    <span>{task.title}</span>
+                    <small className="reports-sessions__task-picker-list" data-session-task-list-badge="true">
+                      <i
+                        aria-hidden="true"
+                        style={{ backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)" }}
+                      />
+                      {task.listTitle}
+                    </small>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
 
         {selected ? (
@@ -573,7 +631,7 @@ export function ReportsSessionsView({
             onClick={onToggleListFilter}
             data-report-session-list-filter="true"
           >
-            <span className="reports-overview__list-glyph" aria-hidden="true">N</span>
+            <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
             <span aria-hidden="true">⌄</span>
           </button>
@@ -612,7 +670,10 @@ export function ReportsSessionsView({
           aria-pressed={!showBreakSessions}
           onClick={onToggleBreakSessions}
         >
-          <span aria-hidden="true">◉</span>
+          <svg aria-hidden="true" className="reports-sessions__break-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6.3 9h11.4c2.1 0 3.6 1.7 4 3.7l.8 4.4c.3 1.8-1.4 3.1-3 2.2L16.3 17H7.7l-3.2 2.3c-1.6.9-3.3-.4-3-2.2l.8-4.4C2.7 10.7 4.2 9 6.3 9Z"/>
+            <path d="M7.5 12.3v3.6m-1.8-1.8h3.6m6.3-1h.01m2.3 2h.01"/>
+          </svg>
           {showBreakSessions ? "Hide Break sessions" : "Show Break sessions"}
         </button>
 

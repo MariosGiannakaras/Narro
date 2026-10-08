@@ -1,5 +1,6 @@
 import { listen } from "@tauri-apps/api/event";
 import { useEffect, useState } from "react";
+import type { InAppShortcut } from "./inAppShortcuts";
 import {
   applyNewerShortcutDiagnostics,
   formatInvokeError,
@@ -28,6 +29,17 @@ type WindowsShortcutSettingsPanelViewProps = {
   error?: string | null;
   onChange: (kind: GlobalShortcutKind, enabled: boolean) => void;
 };
+
+type InAppShortcutRow = { action: InAppShortcut; label: string; chord: string };
+const APP_SHORTCUT_ROWS: InAppShortcutRow[] = [
+  { action: "create-task", label: "Create task", chord: "Ctrl + Alt + T" },
+  { action: "start-break", label: "Start break", chord: "Ctrl + Alt + B" },
+  { action: "pause-resume", label: "Pause / resume", chord: "Ctrl + Alt + P" },
+  { action: "skip-task", label: "Skip task", chord: "Ctrl + Alt + S" },
+  { action: "finish-task", label: "Finish task", chord: "Ctrl + Alt + F" },
+  { action: "notes", label: "Notes", chord: "Ctrl + Alt + N" },
+  { action: "search", label: "Search", chord: "Ctrl + F" },
+];
 
 const SHORTCUT_ROWS: ShortcutRow[] = [
   {
@@ -131,6 +143,7 @@ export function WindowsShortcutSettingsPanelView({
         {pendingKind ? <span className="theme-settings__saving" role="status">Saving…</span> : null}
       </div>
 
+      <h3 className="windows-shortcuts__group-title type-metadata">Global (works outside &amp; inside Narro)</h3>
       <p className="windows-shortcuts__intro type-metadata">
         Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
       </p>
@@ -196,6 +209,25 @@ export function WindowsShortcutSettingsPanelView({
         </div>
       )}
 
+      <div className="windows-shortcuts__app-group" data-app-shortcuts="true">
+        <h3 className="windows-shortcuts__group-title type-metadata">App (works only inside of Narro)</h3>
+        <p className="windows-shortcuts__intro type-metadata">
+          These seven bindings work only when the app has keyboard focus and no text editor or dialog is active.
+          Their shortcuts are fixed and have no on/off controls.
+        </p>
+        <div className="windows-shortcuts__rows">
+          {APP_SHORTCUT_ROWS.map((row) => (
+            <div key={row.action} className="windows-shortcuts__row windows-shortcuts__row--app" data-app-shortcut={row.action}>
+              <div className="windows-shortcuts__copy">
+                <strong>{row.label}</strong>
+              </div>
+              <div className="windows-shortcuts__controls windows-shortcuts__controls--app">
+                <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
     </section>
   );

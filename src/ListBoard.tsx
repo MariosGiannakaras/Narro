@@ -40,6 +40,8 @@ import {
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { boardTaskSubgroup, groupedBoardTasks, scheduledGroupHeading } from "./boardTaskGroups";
+import { parseMetricDuration } from "./metricDurationInput";
+import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -73,6 +75,7 @@ type ListBoardProps = {
 type ListBoardOption = {
   id: string;
   title: string;
+  color: string | null;
 };
 
 type DragState = {
@@ -93,6 +96,7 @@ type TaskEditorState =
       title: string;
       est: string;
       insertAtTop: boolean;
+      resetOrdinal: number;
     }
   | { kind: "edit"; taskId: string; listId: string; expectedTitle: string; title: string }
   | {
@@ -173,10 +177,8 @@ const LANE_TOKEN: Record<PendingLaneKey, PlanningLaneToken> = {
 };
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const WHOLE_SECONDS = /^\d+$/;
-const DURATION_INPUT = /^(\d+):([0-5]\d):([0-5]\d)$/;
 const ALL_LISTS_VALUE = "__all_lists__";
 const SETTLE_DURATION_MS = 220;
-const MAX_EDITABLE_SECONDS = 4_294_967_295n;
 
 function formatEstimate(totalSeconds: number): string {
   if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
@@ -201,35 +203,6 @@ function estimateDraft(seconds: number | null): string {
 
 function timeTakenDraft(rawSeconds: string): string {
   return WHOLE_SECONDS.test(rawSeconds) ? formatDurationSeconds(BigInt(rawSeconds)) : "0:00:00";
-}
-
-function parseMetricDuration(
-  raw: string,
-  metric: TaskCardMetricKind,
-): { ok: true; seconds: number | null } | { ok: false; message: string } {
-  const value = raw.trim();
-  if (metric === "estimate" && value === "") return { ok: true, seconds: null };
-  const match = DURATION_INPUT.exec(value);
-  if (!match) {
-    return {
-      ok: false,
-      message: metric === "estimate"
-        ? "EST must use H:MM:SS, or be left blank to clear it."
-        : "Time Taken must use H:MM:SS.",
-    };
-  }
-
-  const hours = BigInt(match[1]);
-  const minutes = BigInt(match[2]);
-  const seconds = BigInt(match[3]);
-  const total = hours * 3_600n + minutes * 60n + seconds;
-  if (total > MAX_EDITABLE_SECONDS) {
-    return { ok: false, message: "Duration exceeds Narro's editable range." };
-  }
-  if (metric === "estimate" && total === 0n) {
-    return { ok: false, message: "EST must be greater than zero, or blank to clear it." };
-  }
-  return { ok: true, seconds: Number(total) };
 }
 
 function safeListAccent(color: string | null): CSSProperties | undefined {
@@ -282,6 +255,7 @@ function InlineCreateEditor({
   title,
   est,
   pending,
+  resetOrdinal,
   laneTitle,
   onChange,
   onEstChange,
@@ -291,12 +265,18 @@ function InlineCreateEditor({
   title: string;
   est: string;
   pending: boolean;
+  resetOrdinal: number;
   laneTitle: string;
   onChange: (value: string) => void;
   onEstChange: (value: string) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }) {
+  const titleRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!pending && resetOrdinal > 0) titleRef.current?.focus();
+  }, [pending, resetOrdinal]);
+
   const handleSubmit = (event: ReactFormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!pending) onSubmit();
@@ -311,6 +291,7 @@ function InlineCreateEditor({
       <label className="list-board-task-create__field">
         <span className="type-metadata">Add task to {laneTitle}</span>
         <input
+          ref={titleRef}
           value={title}
           onChange={(event) => onChange(event.target.value)}
           onKeyDown={(event) => {
@@ -552,6 +533,7 @@ function BoardLane({
             title={createEditor.title}
             est={createEditor.est}
             pending={editorMutationPending}
+            resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
             onChange={onCreateTitleChange}
             onEstChange={onCreateEstChange}
@@ -762,6 +744,7 @@ function BoardLane({
             title={createEditor.title}
             est={createEditor.est}
             pending={editorMutationPending}
+            resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
             onChange={onCreateTitleChange}
             onEstChange={onCreateEstChange}
@@ -805,7 +788,7 @@ function BoardLane({
 
 function fixtureOptions(snapshot: ListBoardSnapshot | undefined): ListBoardOption[] {
   if (!snapshot || snapshot.target.kind !== "list" || !snapshot.target.id) return [];
-  return [{ id: snapshot.target.id, title: snapshot.target.title }];
+  return [{ id: snapshot.target.id, title: snapshot.target.title, color: snapshot.target.color }];
 }
 
 export function ListBoard({
@@ -995,7 +978,7 @@ export function ListBoard({
     void invoke<HomeSnapshot>("get_home_snapshot")
       .then((home) => {
         if (!disposed) {
-          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title })));
+          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title, color: list.color })));
         }
       })
       .catch(() => {
@@ -1014,7 +997,7 @@ export function ListBoard({
       && snapshot.target.id
       && !options.some((option) => option.id === snapshot.target.id)
     ) {
-      options.push({ id: snapshot.target.id, title: snapshot.target.title });
+      options.push({ id: snapshot.target.id, title: snapshot.target.title, color: snapshot.target.color });
     }
     return options;
   }, [listOptions, snapshot]);
@@ -1439,12 +1422,17 @@ export function ListBoard({
     }
 
     const createdAtTop = editorState.insertAtTop;
-    setEditorState(null);
     setMutationStatus(createdAtTop ? `Added ${persistedTitle} to the top.` : `Added ${persistedTitle}.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
+      // Keep the inline create owner for consecutive tasks, but always reset
+      // both draft fields and return focus only after authoritative refresh.
+      setEditorState((current) => current?.kind === "create"
+        ? { ...current, title: "", est: "", resetOrdinal: current.resetOrdinal + 1 }
+        : current);
     } catch (failure: unknown) {
+      setEditorState(null);
       handleCommittedRefreshFailure(failure);
     } finally {
       setEditorMutationPending(false);
@@ -2047,38 +2035,18 @@ export function ListBoard({
         </div>
 
         <div className="list-board__controls">
-          <label
-            className="list-board__selector"
-            data-board-list-selector="true"
-            data-board-selected-target={selectedTarget}
-          >
-            <span className="type-metadata">List</span>
-            <select
-              value={selectedTarget}
-              onChange={(event) => {
-                if (!onTargetChange) return;
-                const value = event.target.value;
-                onTargetChange(
-                  value === ALL_LISTS_VALUE
-                    ? { kind: "all" }
-                    : { kind: "list", id: value },
-                );
-              }}
-              disabled={!onTargetChange
-                || mutationPendingTaskId !== null
-                || editorMutationPending
-                || scheduleEditorTaskId !== null
-                || notePanelTaskId !== null
-                || subtaskPanel !== null
-                || deleteTarget !== null}
-              aria-label="Planning list"
-            >
-              <option value={ALL_LISTS_VALUE}>All Lists</option>
-              {selectorOptions.map((option) => (
-                <option key={option.id} value={option.id}>{option.title}</option>
-              ))}
-            </select>
-          </label>
+          <BoardListPicker
+            selectedTarget={selectedTarget}
+            options={selectorOptions}
+            onTargetChange={onTargetChange}
+            disabled={!onTargetChange
+              || mutationPendingTaskId !== null
+              || editorMutationPending
+              || scheduleEditorTaskId !== null
+              || notePanelTaskId !== null
+              || subtaskPanel !== null
+              || deleteTarget !== null}
+          />
           <p className="list-board__helper">
             {aggregateView
               ? "Tasks from your active lists, organized into one planning view."
@@ -2120,7 +2088,7 @@ export function ListBoard({
               if (!canStartCreate) return;
               setMutationError(null);
               setMutationStatus("");
-              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop });
+              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop, resetOrdinal: 0 });
             }}
             onCreateTitleChange={(value) => {
               setEditorState((current) => current?.kind === "create"

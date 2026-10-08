@@ -1,4 +1,5 @@
 import type { TimerMode } from "./timerSessionApi";
+import { successTimingCopy } from "./focusSuccessTiming";
 import "./focusCompletionSuccess.css";
 
 export type FocusCompletionSuccessState = {
@@ -30,6 +31,7 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
   const taken = state.timeTakenSeconds && /^\d+$/.test(state.timeTakenSeconds)
     ? Number(state.timeTakenSeconds)
     : null;
+  const timingCopy = successTimingCopy(state.estSeconds, state.timeTakenSeconds);
   return (
     <section
       className="focus-completion-success"
@@ -51,6 +53,9 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
           <span>EST <strong>{formatDuration(state.estSeconds)}</strong></span>
           <span>Taken <strong>{formatDuration(taken)}</strong></span>
         </div>
+        {timingCopy ? (
+          <p className="focus-completion-success__timing" data-focus-success-timing="true">{timingCopy}</p>
+        ) : null}
         <div className="focus-completion-success__actions">
           {state.nextTask ? <button type="button" data-focus-success-action="next-task" disabled={pending} onClick={onNextTask} autoFocus>{pending ? "Starting…" : "Next Task"}</button> : null}
           <button type="button" data-focus-success-action="take-break" disabled title="The source shows this control, but its post-click timer/session behavior is not established.">Take a Break</button>
