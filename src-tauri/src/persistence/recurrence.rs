@@ -19,6 +19,7 @@ pub enum RecurrenceStoreError {
     InvalidInterval,
     InvalidWeekdayMask,
     InvalidMonthDay,
+    InvalidMonthWeekdayOrdinal,
     InvalidPattern,
     InvalidStartDate,
     InvalidLocalTime,
@@ -55,6 +56,9 @@ impl Display for RecurrenceStoreError {
             }
             Self::InvalidMonthDay => {
                 formatter.write_str("recurrence month day must be between 1 and 31")
+            }
+            Self::InvalidMonthWeekdayOrdinal => {
+                formatter.write_str("recurrence month weekday ordinal must be between 1 and 5")
             }
             Self::InvalidPattern => formatter
                 .write_str("recurrence selector shape is invalid for the selected recurrence unit"),
@@ -150,6 +154,7 @@ struct RawRecurrenceRule {
     unit: String,
     weekday_mask: i64,
     month_day: Option<i64>,
+    month_weekday_ordinal: Option<i64>,
     starts_local_date: String,
     local_time: Option<String>,
     timezone: Option<String>,
@@ -166,6 +171,7 @@ struct NormalizedRuleInput {
     unit: RecurrenceUnit,
     weekday_mask: u8,
     month_day: Option<u8>,
+    month_weekday_ordinal: Option<u8>,
     starts_local_date: String,
     local_time: Option<String>,
     timezone: Option<String>,
@@ -174,7 +180,7 @@ struct NormalizedRuleInput {
 
 const RULE_COLUMNS: &str = "id, parent_task_id, interval_count, unit, weekday_mask, month_day, \
 starts_local_date, local_time, timezone, replace_existing, is_active, \
-last_materialized_local_date, created_at, updated_at";
+last_materialized_local_date, created_at, updated_at, month_weekday_ordinal";
 
 fn raw_rule_from_row(row: &Row<'_>) -> rusqlite::Result<RawRecurrenceRule> {
     Ok(RawRecurrenceRule {
@@ -184,6 +190,7 @@ fn raw_rule_from_row(row: &Row<'_>) -> rusqlite::Result<RawRecurrenceRule> {
         unit: row.get(3)?,
         weekday_mask: row.get(4)?,
         month_day: row.get(5)?,
+        month_weekday_ordinal: row.get(14)?,
         starts_local_date: row.get(6)?,
         local_time: row.get(7)?,
         timezone: row.get(8)?,
@@ -227,6 +234,7 @@ fn validate_pattern(
     unit: RecurrenceUnit,
     weekday_mask: u8,
     month_day: Option<u8>,
+    month_weekday_ordinal: Option<u8>,
 ) -> Result<(), RecurrenceStoreError> {
     if weekday_mask > 127 {
         return Err(RecurrenceStoreError::InvalidWeekdayMask);
@@ -235,10 +243,22 @@ fn validate_pattern(
         return Err(RecurrenceStoreError::InvalidMonthDay);
     }
 
+    if month_weekday_ordinal.is_some_and(|value| !(1..=5).contains(&value)) {
+        return Err(RecurrenceStoreError::InvalidMonthWeekdayOrdinal);
+    }
     let valid = match unit {
-        RecurrenceUnit::Day | RecurrenceUnit::Year => weekday_mask == 0 && month_day.is_none(),
-        RecurrenceUnit::Week => weekday_mask != 0 && month_day.is_none(),
-        RecurrenceUnit::Month => (weekday_mask != 0) ^ month_day.is_some(),
+        RecurrenceUnit::Day | RecurrenceUnit::Year => {
+            weekday_mask == 0 && month_day.is_none() && month_weekday_ordinal.is_none()
+        }
+        RecurrenceUnit::Week => {
+            weekday_mask != 0 && month_day.is_none() && month_weekday_ordinal.is_none()
+        }
+        RecurrenceUnit::Month => {
+            ((weekday_mask != 0) ^ month_day.is_some())
+                && month_weekday_ordinal.is_none_or(|_| {
+                    month_day.is_none() && weekday_mask.count_ones() == 1
+                })
+        }
     };
     if !valid {
         return Err(RecurrenceStoreError::InvalidPattern);
@@ -265,6 +285,7 @@ struct RuleMetadataInput {
     unit: RecurrenceUnit,
     weekday_mask: u8,
     month_day: Option<u8>,
+    month_weekday_ordinal: Option<u8>,
     starts_local_date: String,
     local_time: Option<String>,
     timezone: Option<String>,
@@ -277,7 +298,7 @@ fn normalize_rule_input(
     if input.interval_count == 0 {
         return Err(RecurrenceStoreError::InvalidInterval);
     }
-    validate_pattern(input.unit, input.weekday_mask, input.month_day)?;
+    validate_pattern(input.unit, input.weekday_mask, input.month_day, input.month_weekday_ordinal)?;
     let starts_local_date = normalize_local_date(&input.starts_local_date)?;
     let (local_time, timezone) = normalize_time_and_timezone(input.local_time, input.timezone)?;
 
@@ -286,6 +307,7 @@ fn normalize_rule_input(
         unit: input.unit,
         weekday_mask: input.weekday_mask,
         month_day: input.month_day,
+        month_weekday_ordinal: input.month_weekday_ordinal,
         starts_local_date,
         local_time,
         timezone,
@@ -334,7 +356,19 @@ fn decode_rule(raw: RawRecurrenceRule) -> Result<RecurrenceRuleRecord, Recurrenc
                 ))
         })
         .transpose()?;
-    validate_pattern(unit, weekday_mask, month_day)
+    let month_weekday_ordinal = raw
+        .month_weekday_ordinal
+        .map(|value| {
+            u8::try_from(value)
+                .ok()
+                .filter(|ordinal| (1..=5).contains(ordinal))
+                .ok_or(RecurrenceStoreError::InvalidStoredInteger(
+                    "month weekday ordinal",
+                    value,
+                ))
+        })
+        .transpose()?;
+    validate_pattern(unit, weekday_mask, month_day, month_weekday_ordinal)
         .map_err(|_| RecurrenceStoreError::InvalidStoredRuleShape)?;
 
     let starts_local_date = normalize_local_date(&raw.starts_local_date)
@@ -355,6 +389,7 @@ fn decode_rule(raw: RawRecurrenceRule) -> Result<RecurrenceRuleRecord, Recurrenc
         unit,
         weekday_mask,
         month_day,
+        month_weekday_ordinal,
         starts_local_date,
         local_time,
         timezone,
@@ -452,6 +487,7 @@ pub fn create_recurrence_rule(
         unit: input.unit,
         weekday_mask: input.weekday_mask,
         month_day: input.month_day,
+        month_weekday_ordinal: input.month_weekday_ordinal,
         starts_local_date: input.starts_local_date,
         local_time: input.local_time,
         timezone: input.timezone,
@@ -471,8 +507,8 @@ pub fn create_recurrence_rule(
         "INSERT INTO recurrence_rules (
             id, parent_task_id, interval_count, unit, weekday_mask, month_day,
             starts_local_date, local_time, timezone, replace_existing,
-            is_active, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, 1, ?11, ?11)",
+            is_active, created_at, updated_at, month_weekday_ordinal
+         ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, 1, ?11, ?11, ?12)",
         params![
             id.to_string(),
             input.parent_task_id.to_string(),
@@ -484,7 +520,8 @@ pub fn create_recurrence_rule(
             normalized.local_time,
             normalized.timezone,
             if normalized.replace_existing { 1 } else { 0 },
-            now
+            now,
+            normalized.month_weekday_ordinal.map(i64::from)
         ],
     )?;
 
@@ -522,6 +559,7 @@ fn update_recurrence_rule_inner(
         unit: input.unit,
         weekday_mask: input.weekday_mask,
         month_day: input.month_day,
+        month_weekday_ordinal: input.month_weekday_ordinal,
         starts_local_date: input.starts_local_date,
         local_time: input.local_time,
         timezone: input.timezone,
@@ -549,7 +587,8 @@ fn update_recurrence_rule_inner(
              local_time = ?6,
              timezone = ?7,
              replace_existing = ?8,
-             updated_at = ?9
+             updated_at = ?9,
+             month_weekday_ordinal = ?11
          WHERE id = ?10",
         params![
             normalized.interval_count,
@@ -561,7 +600,8 @@ fn update_recurrence_rule_inner(
             normalized.timezone,
             if normalized.replace_existing { 1 } else { 0 },
             now,
-            id.to_string()
+            id.to_string(),
+            normalized.month_weekday_ordinal.map(i64::from)
         ],
     )?;
     if changed != 1 {
@@ -743,6 +783,7 @@ mod tests {
             unit: RecurrenceUnit::Week,
             weekday_mask: 0b0010001,
             month_day: None,
+            month_weekday_ordinal: None,
             starts_local_date: "2026-09-07".into(),
             local_time: Some("09:30".into()),
             timezone: Some("Europe/Athens".into()),
@@ -756,6 +797,7 @@ mod tests {
             unit: RecurrenceUnit::Month,
             weekday_mask: 0,
             month_day: Some(15),
+            month_weekday_ordinal: None,
             starts_local_date: "2026-09-15".into(),
             local_time: None,
             timezone: None,
@@ -839,6 +881,33 @@ mod tests {
             Err(RecurrenceStoreError::ExpectedVersionMismatch(id)) if id == rule.id
         ));
         assert!(get_recurrence_rule(&conn, rule.id).is_ok());
+    }
+
+    #[test]
+    fn ordinal_month_rule_is_durable_and_legacy_weekday_mask_is_unchanged() {
+        let mut conn = migrated();
+        let first = create_parent(&mut conn);
+        let second = create_parent(&mut conn);
+        let mut input = weekly(first.id);
+        input.interval_count = 4;
+        input.unit = RecurrenceUnit::Month;
+        input.weekday_mask = 0b1000000;
+        input.month_weekday_ordinal = Some(2);
+        let new_rule = create_recurrence_rule(&mut conn, input, T2).expect("second Sunday");
+        assert_eq!(new_rule.month_weekday_ordinal, Some(2));
+        assert_eq!(get_recurrence_rule(&conn, new_rule.id).unwrap().month_weekday_ordinal, Some(2));
+        let mut old = weekly(second.id);
+        old.unit = RecurrenceUnit::Month;
+        let legacy = create_recurrence_rule(&mut conn, old, T2).expect("legacy all weekdays");
+        assert_eq!(legacy.month_weekday_ordinal, None);
+        let mut invalid = weekly(TaskId::generate());
+        invalid.unit = RecurrenceUnit::Month;
+        invalid.weekday_mask = 0b0000011;
+        invalid.month_weekday_ordinal = Some(2);
+        assert!(matches!(
+            create_recurrence_rule(&mut conn, invalid, T2),
+            Err(RecurrenceStoreError::InvalidPattern)
+        ));
     }
 
     #[test]
