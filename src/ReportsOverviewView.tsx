@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from "react";
+import { ReportListBadges } from "./ReportListBadges";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import "./reportsOverview.css";
 
@@ -142,7 +143,14 @@ function ReportChart({
           <p className="reports-overview__section-kicker">Productivity</p>
           <h2 id="reports-productivity-title">Time by day</h2>
         </div>
-        <button type="button" className="reports-overview__chart-menu" aria-label="Chart options">•••</button>
+        <button
+          type="button"
+          className="reports-overview__chart-menu"
+          aria-label="Chart options unavailable"
+          title="Chart options are unavailable in this version"
+          data-report-chart-options="unavailable"
+          disabled
+        >•••</button>
       </div>
 
       <div
@@ -164,6 +172,7 @@ function ReportChart({
               className="reports-overview__chart-day"
               style={chartStyle(day, maximum)}
               data-report-chart-day={day.id}
+              data-report-chart-active={tooltipOpen ? "true" : "false"}
             >
               <button
                 type="button"
@@ -407,7 +416,7 @@ export function ReportsOverviewView({
             onClick={onToggleListFilter}
             data-report-list-filter="true"
           >
-            <span className="reports-overview__list-glyph" aria-hidden="true">N</span>
+            <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
             <span aria-hidden="true">⌄</span>
           </button>

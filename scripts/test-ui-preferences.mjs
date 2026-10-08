@@ -93,7 +93,7 @@ invariant(modalSource.includes("openerRef.current?.focus()"), "full Preferences 
 
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
-invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 4"), "Preferences sound-volume fields must use the versioned v4 payload");
+invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 5"), "independent success sound toggle must use versioned v5 payload");
 
 for (const needle of [
   'invoke<PreferenceSettingsSnapshot>("get_preference_settings")',
@@ -162,14 +162,21 @@ for (const field of [
   "notificationSound",
   "notificationVolumePercent",
   "successSound",
+  "successSoundEnabled",
   "successSoundVolumePercent",
 ]) {
-  invariant(api.includes(field) && rust.includes(field), `typed sound preference field ${field} must cross Rust/renderer boundaries`);
+  const rustField = field === "successSoundEnabled" ? "success_sound_enabled" : field;
+  invariant(api.includes(field) && rust.includes(rustField), `typed sound preference field ${field} must cross Rust/renderer boundaries`);
 }
 for (const label of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory Bell"]) {
   invariant(soundCatalog.includes(label), `local sound catalog is missing ${label}`);
 }
 invariant(soundControl.includes('type="range"'), "sound control must expose the evidenced volume affordance");
+invariant(sections.includes('label="Success sound effect"'), "source independent success sound switch");
+invariant(sections.includes('onChange={(successSoundEnabled) => onSave('), "success sound switch must persist separately");
+invariant(sections.includes('!snapshot.celebration.successSoundEnabled'), "sound preview is gated when sound switch off");
+invariant(domain.includes("legacy_v4_payload_without_success_sound_toggle_preserves_implicit_on"), "old stored Preferences preserve former implicit sound");
+invariant(runtime.includes('"successSoundEnabled"'), "independent toggle has its own pending mutation key");
 invariant(soundControl.includes("playLocalSoundPreview"), "sound control must expose local preview playback");
 invariant(soundCatalog.includes("stopLocalSoundPlayback();"), "new local sound playback must stop the previous playback before starting");
 invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");

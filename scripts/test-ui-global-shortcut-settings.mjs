@@ -16,6 +16,7 @@ const shortcutSettings = read("src-tauri/src/shortcut_settings.rs");
 const lib = read("src-tauri/src/lib.rs");
 const api = read("src/globalShortcutSettingsApi.ts");
 const panel = read("src/WindowsShortcutSettingsPanel.tsx");
+const inApp = read("src/inAppShortcuts.ts");
 const settings = read("src/ThemeSettingsPanel.tsx");
 const css = read("src/windowsShortcutSettingsPanel.css");
 const fixture = read("src/themeSettingsVisualFixture.tsx");
@@ -24,7 +25,7 @@ const validator = read("scripts/validate-theme-settings-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 for (const needle of [
-  "pub const PREFERENCES_SCHEMA_VERSION: u32 = 4",
+  "pub const PREFERENCES_SCHEMA_VERSION: u32 = 5",
   "pub struct ShortcutPreferences",
   "go_to_narro_enabled: true",
   "toggle_focus_mode_enabled: true",
@@ -114,6 +115,26 @@ for (const label of ["Go to Narro", "Alternate Focus Mode", "Find focus timer"])
 for (const chord of ["Ctrl + Shift + B", "Ctrl + Shift + T", "Ctrl + Shift + P"]) {
   invariant(panel.includes(chord), "product shortcut chord is missing " + chord);
 }
+const fixedBindings = [
+  ["create-task", "Ctrl + Alt + T", 'case "t":'],
+  ["start-break", "Ctrl + Alt + B", 'case "b":'],
+  ["pause-resume", "Ctrl + Alt + P", 'case "p":'],
+  ["skip-task", "Ctrl + Alt + S", 'case "s":'],
+  ["finish-task", "Ctrl + Alt + F", 'case "f":'],
+  ["notes", "Ctrl + Alt + N", 'case "n":'],
+  ["search", "Ctrl + F", 'key === "f"'],
+];
+invariant(panel.includes('data-app-shortcuts="true"'), "in-app binding group is not discoverable");
+invariant(panel.includes("APP_SHORTCUT_ROWS.map("), "all fixed app bindings must render from a single typed inventory");
+invariant(panel.includes('App (works only inside of Narro)'), "source app-only section heading is missing");
+invariant(panel.includes('Global (works outside &amp; inside Narro)'), "source global section heading is missing");
+for (const [action, chord, router] of fixedBindings) {
+  invariant(panel.includes('action: "' + action + '"'), "in-app binding missing " + action);
+  invariant(panel.includes('chord: "' + chord + '"'), "in-app chord missing " + chord);
+  invariant(inApp.includes(router), "in-app chord must correspond to active handler " + router);
+}
+invariant(!/data-app-shortcut=.*checked=/.test(panel), "app-only bindings must not gain unsupported toggles");
+
 for (const behavior of [
   'type="checkbox"',
   "Loading…",

@@ -12,6 +12,8 @@ pub struct RecurrenceRuleRecord {
     pub unit: RecurrenceUnit,
     pub weekday_mask: u8,
     pub month_day: Option<u8>,
+    #[serde(default)]
+    pub month_weekday_ordinal: Option<u8>,
     pub starts_local_date: String,
     pub local_time: Option<String>,
     pub timezone: Option<String>,
@@ -29,6 +31,8 @@ pub struct NewRecurrenceRuleInput {
     pub unit: RecurrenceUnit,
     pub weekday_mask: u8,
     pub month_day: Option<u8>,
+    #[serde(default)]
+    pub month_weekday_ordinal: Option<u8>,
     pub starts_local_date: String,
     pub local_time: Option<String>,
     pub timezone: Option<String>,
@@ -41,6 +45,8 @@ pub struct UpdateRecurrenceRuleInput {
     pub unit: RecurrenceUnit,
     pub weekday_mask: u8,
     pub month_day: Option<u8>,
+    #[serde(default)]
+    pub month_weekday_ordinal: Option<u8>,
     pub starts_local_date: String,
     pub local_time: Option<String>,
     pub timezone: Option<String>,
@@ -59,6 +65,7 @@ mod tests {
             unit: RecurrenceUnit::Week,
             weekday_mask: 0b0000101,
             month_day: None,
+            month_weekday_ordinal: None,
             starts_local_date: "2026-09-07".into(),
             local_time: Some("09:30".into()),
             timezone: Some("Europe/Athens".into()),
@@ -68,6 +75,7 @@ mod tests {
         let encoded = serde_json::to_value(&input).expect("serialize recurrence input");
         assert_eq!(encoded["unit"], "week");
         assert_eq!(encoded["weekday_mask"], 5);
+        assert_eq!(encoded["month_weekday_ordinal"], serde_json::Value::Null);
 
         let decoded: NewRecurrenceRuleInput =
             serde_json::from_value(encoded).expect("deserialize recurrence input");

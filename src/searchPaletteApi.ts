@@ -13,6 +13,7 @@ export type SearchPaletteTaskResult = {
   id: string;
   listId: string;
   listTitle: string;
+  listColor?: string | null;
   title: string;
   lane: SearchPaletteTaskLane;
 };
@@ -27,6 +28,7 @@ function taskResult(task: ListBoardTask, lane: SearchPaletteTaskLane): SearchPal
     id: task.id,
     listId: task.listId,
     listTitle: task.listTitle,
+    listColor: task.listColor,
     title: task.title,
     lane,
   };

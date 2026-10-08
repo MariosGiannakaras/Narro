@@ -129,6 +129,7 @@ struct NormalizedReplacement {
     unit: RecurrenceUnit,
     weekday_mask: u8,
     month_day: Option<u8>,
+    month_weekday_ordinal: Option<u8>,
     starts_local_date: String,
     local_time: Option<String>,
     timezone: Option<String>,
@@ -143,16 +144,32 @@ fn normalize_replacement(
     if input.interval_count == 0 {
         return Err(ReplaceExistingError::InvalidInterval);
     }
-    if input.weekday_mask > 127 || input.month_day.is_some_and(|day| !(1..=31).contains(&day)) {
+    if input.weekday_mask > 127
+        || input.month_day.is_some_and(|day| !(1..=31).contains(&day))
+        || input
+            .month_weekday_ordinal
+            .is_some_and(|value| !(1..=5).contains(&value))
+    {
         return Err(ReplaceExistingError::InvalidPattern);
     }
 
     let valid_pattern = match input.unit {
         RecurrenceUnit::Day | RecurrenceUnit::Year => {
-            input.weekday_mask == 0 && input.month_day.is_none()
+            input.weekday_mask == 0
+                && input.month_day.is_none()
+                && input.month_weekday_ordinal.is_none()
         }
-        RecurrenceUnit::Week => input.weekday_mask != 0 && input.month_day.is_none(),
-        RecurrenceUnit::Month => (input.weekday_mask != 0) ^ input.month_day.is_some(),
+        RecurrenceUnit::Week => {
+            input.weekday_mask != 0
+                && input.month_day.is_none()
+                && input.month_weekday_ordinal.is_none()
+        }
+        RecurrenceUnit::Month => {
+            ((input.weekday_mask != 0) ^ input.month_day.is_some())
+                && input.month_weekday_ordinal.is_none_or(|_| {
+                    input.month_day.is_none() && input.weekday_mask.count_ones() == 1
+                })
+        }
     };
     if !valid_pattern {
         return Err(ReplaceExistingError::InvalidPattern);
@@ -181,6 +198,7 @@ fn normalize_replacement(
         unit: input.unit,
         weekday_mask: input.weekday_mask,
         month_day: input.month_day,
+        month_weekday_ordinal: input.month_weekday_ordinal,
         starts_local_date,
         local_time,
         timezone,
@@ -552,7 +570,8 @@ fn replace_existing_tasks_inner(
              timezone = ?7,
              replace_existing = 1,
              last_materialized_local_date = NULL,
-             updated_at = ?8
+             updated_at = ?8,
+             month_weekday_ordinal = ?10
          WHERE id = ?9",
         params![
             normalized.interval_count,
@@ -563,7 +582,8 @@ fn replace_existing_tasks_inner(
             normalized.local_time,
             normalized.timezone,
             now,
-            rule_id.to_string()
+            rule_id.to_string(),
+            normalized.month_weekday_ordinal.map(i64::from)
         ],
     )?;
     if changed != 1 {

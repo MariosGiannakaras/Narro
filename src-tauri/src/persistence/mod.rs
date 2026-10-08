@@ -91,6 +91,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!(
             "../../migrations/0009_timed_alert_effects.sql"
         )),
+        M::up(include_str!(
+            "../../migrations/0010_month_weekday_ordinal.sql"
+        )),
     ])
 }
 
@@ -185,6 +188,14 @@ mod tests {
             .expect("query foreign key pragma");
         assert_eq!(foreign_keys, 1, "foreign-key enforcement must be enabled");
 
+        let count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM pragma_table_info('recurrence_rules') WHERE name = 'month_weekday_ordinal'",
+                [],
+                |row| row.get(0),
+            )
+            .expect("ordinal column");
+        assert_eq!(count, 1);
         run_migrations(&mut conn).expect("repeated migration should succeed without errors");
     }
 
