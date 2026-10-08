@@ -45,6 +45,7 @@ import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
+import { getTaskScheduleEditor, removeTaskRecurrence } from "./taskScheduleApi";
 import {
   applyTimerSessionProjection,
   completeTimerTask,
@@ -394,6 +395,7 @@ function BoardLane({
   onMetricValueChange,
   onSubmitMetricEdit,
   onStartScheduleEdit,
+  onRemoveRecurring,
   onCancelEditor,
 }: {
   laneKey: LaneKey;
@@ -441,6 +443,7 @@ function BoardLane({
   onMetricValueChange: (value: string) => void;
   onSubmitMetricEdit: () => void;
   onStartScheduleEdit: (task: ListBoardTask) => void;
+  onRemoveRecurring: (task: ListBoardTask) => void;
   onCancelEditor: () => void;
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
@@ -632,6 +635,8 @@ function BoardLane({
                   onMoveLaneLeft,
                   onMoveLaneRight,
                   onSchedule: canEditSchedule ? () => onStartScheduleEdit(task) : undefined,
+                  onRemoveRecurring: canEditSchedule && Boolean(task.recurrenceRuleId)
+                    ? () => onRemoveRecurring(task) : undefined,
                   onChangeList: canChangeList ? () => onChangeListTask(task) : undefined,
                   onDuplicate: canUseTaskMenu ? () => onDuplicateTask(task) : undefined,
                   onDelete: canUseTaskMenu ? () => onDeleteTask(task) : undefined,
@@ -829,6 +834,7 @@ export function ListBoard({
   const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
   const [deletePending, setDeletePending] = useState(false);
   const deleteInFlightRef = useRef(false);
+  const removeRecurringInFlightRef = useRef(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
@@ -1261,6 +1267,68 @@ export function ListBoard({
     } catch (failure: unknown) {
       handleCommittedRefreshFailure(failure);
     } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const handleRemoveRecurring = async (task: ListBoardTask) => {
+    if (
+      !canStartScheduleEditor
+      || !task.recurrenceRuleId
+      || task.completedAt
+      || liveStateForTask(timerPayload, task.id) !== null
+      || removeRecurringInFlightRef.current
+    ) return;
+    removeRecurringInFlightRef.current = true;
+    setMutationPendingTaskId(task.id);
+    setMutationError(null);
+    setMutationStatus("");
+    setDragState(null);
+    setDropTarget(null);
+
+    // Read the authoritative expected-version token before attempting a
+    // non-destructive parent detach; never infer it from the board card.
+    let recurrence;
+    try {
+      const current = await getTaskScheduleEditor(task.id, task.listId);
+      if (
+        current.taskId !== task.id
+        || current.listId !== task.listId
+        || current.recurrenceParentTaskId !== null
+        || !current.recurrence
+        || current.recurrence.id !== task.recurrenceRuleId
+      ) {
+        throw new Error("This recurring task changed. Refresh the board before trying again.");
+      }
+      recurrence = current.recurrence;
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus("Could not load the current recurring rule.");
+      removeRecurringInFlightRef.current = false;
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    try {
+      const outcome = await removeTaskRecurrence({
+        taskId: task.id,
+        listId: task.listId,
+        expectedRuleId: recurrence.id,
+        expectedRuleUpdatedAt: recurrence.updatedAt,
+        deleteExistingTasks: false,
+      });
+      await handleScheduleCommitted(
+        task.id,
+        `Stopped repeating ${task.title}; ${outcome.preservedExistingCount} existing occurrence${outcome.preservedExistingCount === 1 ? "" : "s"} kept.`,
+      );
+    } catch (failure: unknown) {
+      // An IPC after-commit notification may fail; never encourage an unsafe
+      // duplicate mutation without a fresh authoritative read.
+      setMutationRefreshBlocked(true);
+      setMutationError(`Could not confirm recurrence removal. ${formatInvokeError(failure)} Reopen the board before trying again.`);
+      setMutationStatus("Recurrence status requires refresh.");
+    } finally {
+      removeRecurringInFlightRef.current = false;
       setMutationPendingTaskId(null);
     }
   };
@@ -2121,6 +2189,7 @@ export function ListBoard({
                 : current);
             }}
             onSubmitMetricEdit={() => void submitMetricEdit()}
+            onRemoveRecurring={(task) => void handleRemoveRecurring(task)}
             onStartScheduleEdit={(task) => {
               if (!canStartScheduleEditor || liveStateForTask(timerPayload, task.id) !== null) return;
               setMutationError(null);

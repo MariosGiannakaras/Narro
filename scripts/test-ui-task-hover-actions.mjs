@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const component = read("src/TaskCard.tsx");
+const listBoard = read("src/ListBoard.tsx");
 const menuCss = read("src/overlayPrimitives.css");
 const board = read("src/ListBoard.tsx");
 const pointer = read("src/boardTaskPointerDrag.ts");
@@ -24,6 +25,9 @@ const finding28Driver = read("scripts/test-finding28-post-drag-action-rail.mjs")
 const packageJson = read("package.json");
 
 for (const [haystack, needle, label] of [
+  [component, "Update Recurring", "recurring parent-specific menu action label"],
+  [component, "Remove Recurring", "recurrence parent-only quick-remove menu action"],
+  [listBoard, "onRemoveRecurring: canEditSchedule && Boolean(task.recurrenceRuleId)", "quick remove availability only for editable parents"],
   [component, 'data-task-overflow-separator="true"', "destructive group separator"],
   [component, 'role="separator"', "accessible separator role"],
   [menuCss, ".overlay-menu__separator", "shared separator paint"],
