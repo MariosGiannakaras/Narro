@@ -13,6 +13,12 @@ assert.equal(recurrenceSummary({ ...defaults, interval: 3, unit: "day" }), "Ever
 assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "week", weekdayMask: 16 | 32 | 64 }), "Every 4 weeks on Friday, Saturday, Sunday");
 assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "month" }), "Every 4 months on 14th");
 assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "month", monthPattern: "weekdays", weekdayMask: 64 }), "Every 4 months on each Sunday");
+assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "month", monthPattern: "ordinal", weekdayMask: 64, monthWeekdayOrdinal: 2 }), "Every 4 months on the 2nd Sunday");
+assert.equal(recurrenceSummary({ ...defaults, interval: 1, unit: "month", monthPattern: "ordinal", weekdayMask: 1, monthWeekdayOrdinal: 5 }), "Every month on the 5th Monday");
+assert.equal(recurrenceSummary({ ...defaults, unit: "month", monthPattern: "ordinal", weekdayMask: 65, monthWeekdayOrdinal: 2 }), "Choose exactly one weekday");
+assert.equal(recurrenceSummary({ ...defaults, unit: "month", monthPattern: "ordinal", weekdayMask: 0, monthWeekdayOrdinal: 2 }), "Choose exactly one weekday");
+assert.equal(recurrenceSummary({ ...defaults, unit: "month", monthPattern: "ordinal", weekdayMask: 64, monthWeekdayOrdinal: 0 }), "Choose a valid week of month");
+assert.equal(recurrenceSummary({ ...defaults, unit: "month", monthPattern: "ordinal", weekdayMask: 64, monthWeekdayOrdinal: 6 }), "Choose a valid week of month");
 assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "year" }), "Every 4 years");
 assert.equal(recurrenceSummary({ ...defaults, interval: 0 }), "Choose a valid interval");
 assert.equal(recurrenceSummary({ ...defaults, unit: "week", weekdayMask: 0 }), "Choose at least one weekday");
