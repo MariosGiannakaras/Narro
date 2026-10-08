@@ -111,7 +111,10 @@ export function SoundPreferenceControl({
             }
           }}
         >
-          <span aria-hidden="true">♫</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+          </svg>
         </button>
         {volumeOpen && !disabled ? (
           <div
