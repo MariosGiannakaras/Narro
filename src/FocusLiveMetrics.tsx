@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { parseMetricDuration } from "./metricDurationInput";
 import {
   getListBoardSnapshot,
   type ListBoardRequestTarget,
@@ -35,8 +36,6 @@ type FocusLiveMetricsProps = {
 };
 
 const WHOLE_SECONDS = /^\d+$/;
-const DURATION_INPUT = /^(\d+):([0-5]\d):([0-5]\d)$/;
-const MAX_EDITABLE_SECONDS = 4_294_967_295n;
 
 function formatDurationSeconds(seconds: bigint): string {
   const hours = seconds / 3_600n;
@@ -51,35 +50,6 @@ function estimateDraft(seconds: number | null): string {
 
 function timeTakenDraft(rawSeconds: string): string {
   return WHOLE_SECONDS.test(rawSeconds) ? formatDurationSeconds(BigInt(rawSeconds)) : "0:00:00";
-}
-
-function parseMetricDuration(
-  raw: string,
-  metric: FocusMetricKind,
-): { ok: true; seconds: number | null } | { ok: false; message: string } {
-  const value = raw.trim();
-  if (metric === "estimate" && value === "") return { ok: true, seconds: null };
-  const match = DURATION_INPUT.exec(value);
-  if (!match) {
-    return {
-      ok: false,
-      message: metric === "estimate"
-        ? "EST must use H:MM:SS, or be left blank to clear it."
-        : "Time Taken must use H:MM:SS.",
-    };
-  }
-
-  const hours = BigInt(match[1]);
-  const minutes = BigInt(match[2]);
-  const seconds = BigInt(match[3]);
-  const total = hours * 3_600n + minutes * 60n + seconds;
-  if (total > MAX_EDITABLE_SECONDS) {
-    return { ok: false, message: "Duration exceeds Narro's editable range." };
-  }
-  if (metric === "estimate" && total === 0n) {
-    return { ok: false, message: "EST must be greater than zero, or blank to clear it." };
-  }
-  return { ok: true, seconds: Number(total) };
 }
 
 function timerAllowsMetricEditing(timer: TimerSnapshot, taskId: string): boolean {
@@ -197,7 +167,7 @@ export function FocusLiveMetrics({
     }
     if (editor.metric === "time_taken" && parsed.seconds === null) {
       setStatus(null);
-      setError("Time Taken must use H:MM:SS.");
+      setError("Time Taken must use H:MM or H:MM:SS.");
       return;
     }
 
@@ -261,11 +231,11 @@ export function FocusLiveMetrics({
                 <input
                   className="focus-panel__metric-input timer-numerals"
                   data-focus-metric-control="input"
-                  aria-label={`${metricLabel(metric)} duration in H:MM:SS`}
+                  aria-label={`${metricLabel(metric)} duration in H:MM or H:MM:SS`}
                   value={editor.value}
                   disabled={pending || interactionBlocked}
                   autoFocus={!fixtureMode}
-                  placeholder={metric === "estimate" ? "H:MM:SS or blank" : "H:MM:SS"}
+                  placeholder={metric === "estimate" ? "H:MM or H:MM:SS, or blank" : "H:MM or H:MM:SS"}
                   onChange={(event) => setEditor((current) => current ? { ...current, value: event.target.value } : current)}
                   onKeyDown={(event) => {
                     if (event.key === "Escape") {

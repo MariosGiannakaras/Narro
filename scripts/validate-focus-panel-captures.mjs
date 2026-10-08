@@ -203,7 +203,7 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes(">38:00<"), `${label} paused authoritative EST countdown value is missing`);
   invariant(dom.includes('data-focus-metrics-editable="true"'), `${label} paused metrics must be editable`);
   invariant(dom.includes('data-focus-metric-control="input"'), `${label} paused EST editor input is missing`);
-  invariant(dom.includes('aria-label="EST duration in H:MM:SS"'), `${label} paused EST editor accessible name is missing`);
+  invariant(dom.includes('aria-label="EST duration in H:MM or H:MM:SS"'), `${label} paused EST editor accessible name is missing`);
   invariant(dom.includes('data-focus-metric-control="cancel"'), `${label} paused metric cancel control is missing`);
   invariant(dom.includes('aria-label="Cancel EST edit"'), `${label} paused metric cancel accessible name is missing`);
   invariant(dom.includes('data-focus-metric-control="save"'), `${label} paused metric save control is missing`);
