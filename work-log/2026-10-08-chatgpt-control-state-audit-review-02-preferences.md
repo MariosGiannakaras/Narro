@@ -1,0 +1,15 @@
+# Review 02 — 4 more current Preferences/Shortcuts source stills, B57–B58
+
+Date: 2026-10-08 (Europe/Athens); baseline main `f5ae2fa4d9366aa897f9c2f527f2c2588a83a0ff`. User-directed no-source-change audit; Codex owns implementation/Windows physical. Reviewed canonical current Blitzit screenshots SS-C07/08/09/17, existing Pass-3 VE-014 source semantics, current `PreferenceSettingsSections.tsx`, `SoundPreferenceControl.tsx`, `ThemeSettingsPanel.tsx`, `WindowsShortcutSettingsPanel.tsx`, `preferenceSettingsSections.css`, existing TODO/crosswalk and visual system. No raw MP4 required to establish individual static control presence, and no direct pixel source-versus-running Narro acceptance.
+
+**Coverage:** Review 01 had 52 claim rows in 8/39 direct+Help screenshot states. Review 02 adds exactly 35 claim rows across 4 additional current screenshots. Combined matrix now **87 claims / 12/39 states**. Individual dispositions PRESENT_CODE_ONLY=47, GAP_B13=1, EVIDENCE_LIMIT=10, INTENTIONAL_DEVIATION=2, GAP_B55=2, GAP_B23=2, GAP_B54=2, GAP_B25=2, GAP_B51=1, GAP_B56=1, GAP_B34=2, GAP_B21=1, GAP_B22=1, GAP_B57=1, GAP_B58=2, GAP_B17=5, GAP_B18=2, GAP_B9=1, GAP_B29=2. This is a source-to-code mapping count, NOT implementation-complete, tests-passed or parity-accepted count.
+
+**B57 / M8 lower-priority icon grammar:** current SS-C07 has little information icons before several Preferences labels. Production shared `PreferenceSettingsSections::Row` and ThemeSettingsPanel labels use plain strong text, no info glyph/trigger. The source has not recorded the exact per-label placement/hover tooltip behavior; label inventory and popup semantics remain EVIDENCE_LIMIT. Do not invent tooltip strings.
+
+**B58 / M8 source copy:** SS-C08 says `Blitz mode settings`; Narro heading `Blitz Mode`. SS-C09 says `Celebrate task completion`; Narro `Celebration`. These are code-confirmed small section heading copy differences, not missing settings/runtime.
+
+The other source-visible Preferences control differences were already traced: B34 full modal, B21 selected monitor thumbnail, B22 offset-qualified timezone, B17 parent-child disclosure, B18 speaker-volume popover, B9 separate success-sound toggle, B29 Global+App shortcut grouping. Avoid minting duplicate findings. Individual toggles, timing selects, preview buttons, theme/side segments, sound catalogue and global shortcut enable controls are structurally in the current code; **PRESENT_CODE_ONLY**, not source-visual PASS. Source-only keyboard/tooltip interactions remain EVIDENCE_LIMIT.
+
+Updated M8 nested non-counting TODO, B57/B58 crosswalk, UI_UX_SPEC, original 46/19 route tracker and cumulative claim matrix. Historical sound/runtime and current CI1046 manual C4/35 gates untouched. **No app/source/config/test edits; local tests/CI, Windows native physical comparison, source pixel/motion inspection NOT RUN; milestone counters unchanged `3/10M || 0/3 | 17/18`.**
+
+Next: review current SS-C10–C13 archive/Reports then C18–C22 Focus/Reports detail, and Help snapshots. Matrix statuses distinguish code existence, gaps, explicit source limits and scope deviations.

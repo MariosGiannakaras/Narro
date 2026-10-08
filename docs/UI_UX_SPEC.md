@@ -544,6 +544,7 @@ Preferences are a vertically scrollable tall right-side drawer/panel with a clos
 - unavailable saved monitor falls back predictably.
 
 ## 8.2 General
+- SS-C07 includes small information glyphs before several full-Preferences labels; Narro's shared Row/control label composition currently omits them (B57). Their presence is visually supported, but exact per-row mapping and tooltip/interactive behavior are **not** in canonical static evidence. Do not invent additional help content or tooltips on this basis alone.
 - SS-C07 Timezone is displayed as an offset-qualified zone selector (e.g. `(GMT+03:00) Europe/Athens`); the current freeform zone input does not establish visual parity. Source menu selection/search details are not observed; do not replace safe timezone validation with guessed behavior.
 
 [CONFIRMED]
@@ -559,6 +560,7 @@ Preferences are a vertically scrollable tall right-side drawer/panel with a clos
 - visible date/time formatting follows Windows locale/system 12/24-hour preference by default.
 
 ## 8.3 Blitz Mode settings
+- Source SS-C08 section title is `Blitz mode settings`, not current Narro `Blitz Mode`. Source SS-C09 completion section is `Celebrate task completion`, not current Narro `Celebration` (B58). This is source copy/control hierarchy, not a missing setting or timer runtime gate.
 - VE-014 Pomodoros OFF→ON physically reveals nested `Work Sprint`/`Break Time` within roughly the next 0.1 s; full Preferences should disclose/hide subordinate controls instead of leaving every child always visible but disabled. Persist child values and preserve keyboard/focus/scroll continuity.
 
 - Pomodoro toggle;

@@ -2,9 +2,9 @@
 
 **Mode:** source snapshot claim → exact Narro component/style/domain → evidence-limited disposition. This is distinct from full-video Pass-3 and from runtime/physical/source-parity acceptance.
 
-**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
+**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
 
-**Count:** 52 source-visible/control-state claims mapped across 8/39 direct+Help screenshots; {"PRESENT_CODE_ONLY":32,"GAP_B13":1,"EVIDENCE_LIMIT":7,"INTENTIONAL_DEVIATION":2,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":2,"GAP_B51":1,"GAP_B56":1}.
+**Count:** 87 source-visible/control-state claims mapped across 12/39 direct+Help screenshots (Review 01: 8; Review 02: 4); {"PRESENT_CODE_ONLY":47,"GAP_B13":1,"EVIDENCE_LIMIT":10,"INTENTIONAL_DEVIATION":2,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":2,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2}.
 
 **Status definitions:** `PRESENT_CODE_ONLY` = current production source expresses the structure/interaction but neither native rendering nor source visual PASS is claimed; `GAP_Bn` = exact source-to-code discrepancy already routed in crosswalk/TODO; `INTENTIONAL_DEVIATION` = local-only scope exclusion; `EVIDENCE_LIMIT` = screenshot cannot prove detailed behavior, regardless of what Narro happens to implement; `NOT_REVIEWED` = remaining screenshot/state not audited at this granularity.
 
@@ -65,10 +65,51 @@
 | SS-C16-05 | SS-C16 | Numbered task preview and source trailing time | HomeDashboard.tsx dots and EST-only projection shared with dark theme | GAP_B23 |
 | SS-C16-06 | SS-C16 | Exact light-theme source color values and hover motion | Only code tokens inspected, no candidate/source screenshot comparison or motion measurement | EVIDENCE_LIMIT |
 
+## Review 02 — four current Preferences / Shortcuts screenshots
+
+| Source claim ID | Original | Visible control/state/interaction claim | Production comparison or source limit | Disposition |
+| --- | --- | --- | --- | --- |
+| SS-C07-01 | SS-C07 | Tall dark, scrollable, closeable Preferences overlay over previous context | AppShell navigates to ThemeSettingsPanel bare page; no modal/backdrop/close | GAP_B34 |
+| SS-C07-02 | SS-C07 | Heading Preferences plus personalized workflow subtitle | ThemeSettingsPanel title exists; intro differs; root modal/source wording routed with B34 | GAP_B34 |
+| SS-C07-03 | SS-C07 | Select Screen selected monitor thumbnail/dimensions/accent outline | BlitzPanelPreferenceSection renders native select only; Focus Quick Preferences differs | GAP_B21 |
+| SS-C07-04 | SS-C07 | Blitz Panel Side segmented Left/Right with selected fill | BlitzPanelPreferenceSection maps left/right aria-pressed buttons and CSS selected segment | PRESENT_CODE_ONLY |
+| SS-C07-05 | SS-C07 | General Hide EST/Time Taken toggle ON in photographed state | GeneralPreferenceRows Switch uses snapshot.general.hideTaskTimes | PRESENT_CODE_ONLY |
+| SS-C07-06 | SS-C07 | Auto-parse EST from title toggle ON in photographed state | GeneralPreferenceRows Switch uses snapshot.general.autoParseEstFromTitle | PRESENT_CODE_ONLY |
+| SS-C07-07 | SS-C07 | System/Dark/Light segmented Theme with dark selected | ThemeSettingsPanelView maps THEME_OPTIONS and selected class; runtime value dependent | PRESENT_CODE_ONLY |
+| SS-C07-08 | SS-C07 | Timezone offset-qualified IANA selector | GeneralPreferenceRows has freeform timezone textbox, no source dropdown/offset display | GAP_B22 |
+| SS-C07-09 | SS-C07 | Information icons preceding several labels | Shared Row and ThemeSettingsPanel plain strong labels omit icons | GAP_B57 |
+| SS-C07-10 | SS-C07 | Exact info icon label coverage/hover help behavior | Current screenshot summary shows icons but no interaction or complete label-specific mapping | EVIDENCE_LIMIT |
+| SS-C08-01 | SS-C08 | Blitz mode settings group heading | LowerPreferenceSections labels it Blitz Mode; separate copy from behavior | GAP_B58 |
+| SS-C08-02 | SS-C08 | Pomodoros OFF toggle state and persisted enable flag | LowerPreferenceSections Switch bound to pomodoroEnabled; actual value state-dependent | PRESENT_CODE_ONLY |
+| SS-C08-03 | SS-C08 | Pomodoros OFF hides sprint/break child rows | LowerPreferenceSections always renders disabled Work sprint/Pomodoro break controls | GAP_B17 |
+| SS-C08-04 | SS-C08 | Default break length 10min control separate from Pomodoro children | LowerPreferenceSections separate DurationSelect from nested Pomodoro controls | PRESENT_CODE_ONLY |
+| SS-C08-05 | SS-C08 | Scrolling title on live timer ON toggle | LowerPreferenceSections Switch bound to scrollingTitle | PRESENT_CODE_ONLY |
+| SS-C08-06 | SS-C08 | Timed alerts during task and independently adjustable timing | LowerPreferenceSections parent Switch + nested interval; child persists but remains displayed when OFF | GAP_B17 |
+| SS-C08-07 | SS-C08 | Task sound selector and separate preview triangle | SoundPreferenceControl select and preview button; preview owner in localSoundCatalog | PRESENT_CODE_ONLY |
+| SS-C08-08 | SS-C08 | Speaker opens anchored vertical volume slider | SoundPreferenceControl always exposes horizontal slider; no speaker trigger/popover | GAP_B18 |
+| SS-C08-09 | SS-C08 | Animated flash on timer toggle | LowerPreferenceSections Switch bound to animatedTimerFlash | PRESENT_CODE_ONLY |
+| SS-C08-10 | SS-C08 | Notification Alerts toggle with child sound/preview | LowerPreferenceSections parent toggle and sound chooser; child disclosure wrong when OFF | GAP_B17 |
+| SS-C08-11 | SS-C08 | Schedule reminders parent with nested lead-time | LowerPreferenceSections scheduleRemindersEnabled and reminderLeadSeconds; child disclosure wrong | GAP_B17 |
+| SS-C08-12 | SS-C08 | Nested vertical guide and indented subordinate controls | preferenceSettingsSections.css .preference-settings__row--nested border-left and padding | PRESENT_CODE_ONLY |
+| SS-C09-01 | SS-C09 | Celebrate task completion section exact heading | LowerPreferenceSections header is Celebration rather than source copy | GAP_B58 |
+| SS-C09-02 | SS-C09 | Show success screen independent enable control | LowerPreferenceSections Switch showSuccessScreen persisted via Preferences | PRESENT_CODE_ONLY |
+| SS-C09-03 | SS-C09 | Fun gif on success screen nested ON control | LowerPreferenceSections Fun GIF Switch exists but stays visible disabled when parent OFF | GAP_B17 |
+| SS-C09-04 | SS-C09 | Success sound effect independent ON/OFF toggle | LowerPreferenceSections success sound row has selector/volume only, no enable toggle | GAP_B9 |
+| SS-C09-05 | SS-C09 | Success sound dropdown and triangle preview | SoundPreferenceControl successSound select plus play button | PRESENT_CODE_ONLY |
+| SS-C09-06 | SS-C09 | Success sound speaker-triggered vertical volume popover | SoundPreferenceControl permanent horizontal slider; source speaker popover absent | GAP_B18 |
+| SS-C09-07 | SS-C09 | Exact disabled hierarchy/selector commit/cancel when success screen OFF | Static screenshot only shows enabled state; source menu OFF interaction not established | EVIDENCE_LIMIT |
+| SS-C17-01 | SS-C17 | Dedicated white shortcut dialog with close X | WindowsShortcutSettingsPanel renders embedded dark Preferences section, not independent white modal | GAP_B29 |
+| SS-C17-02 | SS-C17 | Three global shortcut labels/chords and enable toggles | SHORTCUT_ROWS global Go/Alternate/Find chord values and checkbox enable bindings | PRESENT_CODE_ONLY |
+| SS-C17-03 | SS-C17 | Seven App-only shortcut rows without enable toggles | inAppShortcuts.ts implements chords; WindowsShortcutSettingsPanel does not display group | GAP_B29 |
+| SS-C17-04 | SS-C17 | Global shortcut conflict state and retry | WindowsShortcutSettingsPanel diagnostics/Retry are Narro-only safety controls; source status not measured | PRESENT_CODE_ONLY |
+| SS-C17-05 | SS-C17 | Rounded keycap styling on current global rows | WindowsShortcutSettingsPanel kbd and windowsShortcutSettingsPanel.css keycaps | PRESENT_CODE_ONLY |
+| SS-C17-06 | SS-C17 | Modal close keyboard/Escape and per-row shortcut selection behavior | Source still does not establish keyboard modality or whether chords editable | EVIDENCE_LIMIT |
+
+**Review 02 boundaries:** `PRESENT_CODE_ONLY` does not establish selected-value runtime state or pixel parity. Parent OFF transitions are sourced from VE-014 canonical full-video Pass-3 notes (B17), while SS-C08/09 stills show only specific ON/OFF instances. Success-sound OFF interactions, info tooltips and source shortcut-keyboard semantics are not established by static pixels.
 ## Caveats and exact continuation
 
 - **No automatic promotion of `PRESENT_CODE_ONLY`:** check actual Windows candidate and canonical Blitzit source side-by-side before `SOURCE_PARITY_PASS`. Static code can be wrong in geometry, data, keyboard, timing or runtime composition.
 - **B56 backend/fixture divergence is a priority causal finding:** the existing `reportsVisualFixture.tsx` hardcodes `2 Total Tasks / 0 Sessions` while real `session_reporting.rs` derives tasks solely from work-session IDs and cannot produce `2/0`; the source itself shows `2/0` in current v2.6.69 and `39/22` in older VE-015. This proves a definition mismatch but not the source's exact task inclusion/counting rule. Require a product-semantic reconciliation before implementing; do not blindly switch to count of all tasks.
 - **EVIDENCE_LIMIT rows are not missing feature tickets.** Especially search results matching, search keyboard navigation and date-picker double-chevron effect: source static images do not prove them. A current Narro implementation does not establish source parity. Review canonical video context or original media only where it actually resolves the disputed observation.
-- **Next static claim-audit candidates:** current/direct `SS-C07–SS-C09`, `SS-C10–SS-C13`, `SS-C17` and remaining `SS-C18–SS-C22`, followed by Help state equivalents. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
+- **Next static claim-audit candidates:** current/direct `SS-C10–SS-C13` and remaining `SS-C18–SS-C22`, followed by Help state equivalents. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
 - **Validation:** documentation-only evidence audit. App/frontend/Rust tests, Windows CI, native physical comparison, and raw media reinspection **NOT RUN**. No progress/counters advanced: `3/10M || 0/3 | 17/18`. Codex retains app/native ownership and physical CI1046 C4/35/29 gates.
