@@ -2,9 +2,9 @@
 
 **Mode:** source snapshot claim → exact Narro component/style/domain → evidence-limited disposition. This is distinct from full-video Pass-3 and from runtime/physical/source-parity acceptance.
 
-**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
+**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. **Review 04:** `SS-C01, SS-C18, SS-C19, SS-C20, SS-C21, SS-C22`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
 
-**Count:** 116 source-visible/control-state claims mapped across 16/39 direct+Help screenshots (Review 01: 8; Review 02: 4; Review 03: 4); {"PRESENT_CODE_ONLY":66,"GAP_B13":1,"EVIDENCE_LIMIT":14,"INTENTIONAL_DEVIATION":2,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1}.
+**Count:** 162 source-visible/control-state claims mapped across 22/39 direct+Help screenshots (Reviews 01–04: 8 + 4 + 4 + 6 current screenshots); {"PRESENT_CODE_ONLY":96,"GAP_B13":1,"EVIDENCE_LIMIT":20,"INTENTIONAL_DEVIATION":4,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1,"GAP_B7":2,"GAP_B3":1,"GAP_B8":1,"GAP_B15":1,"GAP_B31":1,"GAP_B26":1,"GAP_B32":1}.
 
 **Status definitions:** `PRESENT_CODE_ONLY` = current production source expresses the structure/interaction but neither native rendering nor source visual PASS is claimed; `GAP_Bn` = exact source-to-code discrepancy already routed in crosswalk/TODO; `INTENTIONAL_DEVIATION` = local-only scope exclusion; `EVIDENCE_LIMIT` = screenshot cannot prove detailed behavior, regardless of what Narro happens to implement; `NOT_REVIEWED` = remaining screenshot/state not audited at this granularity.
 
@@ -141,10 +141,62 @@
 | SS-C13-05 | SS-C13 | Empty Done Tasks body exact source copy/absence | Current source screenshot description does not establish whether extra empty-copy exists | EVIDENCE_LIMIT |
 
 **Review 03 boundaries:** SS-C10/C11 are empty-state/one-filter-open screenshots and cannot prove populated archive actions or search/filter post-commit semantics. SS-C12 has zero dashboard totals and an 8-workdays number but not the underlying sessions/tasks; do not force a new numeric bug without the dataset. Visual-coded elements remain `PRESENT_CODE_ONLY`, not direct pixels/motion PASS.
+## Review 04 — remaining current v2.6.69 List Editor, Focus, Floating and Sessions detail states
+
+| Source claim ID | Original | Visible control/state/interaction claim | Production comparison or source limit | Disposition |
+| --- | --- | --- | --- | --- |
+| SS-C01-01 | SS-C01 | Home dimmed behind centered Create List dialog | AppShell mounts ListEditorModal above existing Home; role=dialog aria-modal | PRESENT_CODE_ONLY |
+| SS-C01-02 | SS-C01 | Top-right × and Create a new list heading | ListEditorModal close button and heading based on mode | PRESENT_CODE_ONLY |
+| SS-C01-03 | SS-C01 | Circular image-upload affordance plus JPG/PNG/SVG accept | ListEditorModal input type=file accept and safe local image-validation path | PRESENT_CODE_ONLY |
+| SS-C01-04 | SS-C01 | Source UPLOAD AN ICON and (Optional) (jpg,png,svg) exact copy | ListEditorModal uses local helper/formats with max-1MiB safety copy; source alignment/copy already in M5 SS-C01 gate | GAP_B7 |
+| SS-C01-05 | SS-C01 | Pick a list color including leading multicolor/custom swatch | ListEditorModal renders six fixed radio swatches only, no custom picker | GAP_B3 |
+| SS-C01-06 | SS-C01 | Selected lime/green swatch bright outline and check | ListEditorModal data-selected with ✓, but source preset count/order and pixels differ | GAP_B8 |
+| SS-C01-07 | SS-C01 | Title field Enter your list title placeholder | ListEditorModal has title input without source placeholder; part of existing M5 SS-C01 content gate | GAP_B7 |
+| SS-C01-08 | SS-C01 | Outlined Cancel and cyan-lime Create submit | ListEditorModal footer cancel/submit; styles require direct rendered comparison | PRESENT_CODE_ONLY |
+| SS-C01-09 | SS-C01 | Picker opening details/commit/cancel and upload progress | Source still and VE-005 do not show custom picker or upload intermediate states | EVIDENCE_LIMIT |
+| SS-C18-01 | SS-C18 | Expanded Floating Timer remains compact width with larger height | FloatingTimerFoundation data-floating-expanded and region/resize states and CSS | PRESENT_CODE_ONLY |
+| SS-C18-02 | SS-C18 | Top icon-led Break/Notes/Pause/Skip/Done actions | FocusLiveActions floating presentation uses FloatingActionButton with icons | PRESENT_CODE_ONLY |
+| SS-C18-03 | SS-C18 | Restore/Panel/expand control on Floating Timer surface | FloatingTimerFoundation and floating action subtask toolbar expose restore/expand controls | PRESENT_CODE_ONLY |
+| SS-C18-04 | SS-C18 | 3/4 Subtasks ring with visible fraction | FocusLiveSubtasks progressState and floating progressbar/count | PRESENT_CODE_ONLY |
+| SS-C18-05 | SS-C18 | Subtask plus and disclosure chevron | FocusLiveSubtasks floating toolbar add/expand controls | PRESENT_CODE_ONLY |
+| SS-C18-06 | SS-C18 | Completed subtask struck, incomplete normal | FocusLiveSubtasks completed state, CSS and subtask title | PRESENT_CODE_ONLY |
+| SS-C18-07 | SS-C18 | Subtask row up/down/delete actions | FocusLiveSubtasks floating actions with reorder/delete mutations | PRESENT_CODE_ONLY |
+| SS-C18-08 | SS-C18 | Exact expansion motion/continuous window correctness on real Windows | Current native CI1046 C4/35 status separately open, static image cannot establish motion | EVIDENCE_LIMIT |
+| SS-C19-01 | SS-C19 | All list picker and Today header + settings/Home/compact controls | FocusPanel header has text native select and quick action buttons; control selection exists | GAP_B15 |
+| SS-C19-02 | SS-C19 | Est header and gradient progress 1/4 Done | FocusPanel summary derives aggregateEstSeconds, done/count and gradient fill | PRESENT_CODE_ONLY |
+| SS-C19-03 | SS-C19 | Live BFCM strategy title, running timer and mint highlighted card | FocusPanel FocusLiveTitle, focusTimerPresentation, live-card accent CSS | PRESENT_CODE_ONLY |
+| SS-C19-04 | SS-C19 | Live subtask progress 1/4 with plus and expand | FocusLiveActions composes FocusLiveSubtasks panel | PRESENT_CODE_ONLY |
+| SS-C19-05 | SS-C19 | Ordinary pending queue list-color/name badges | FocusTaskRow aggregateView list-chip borderColor from task.listColor | PRESENT_CODE_ONLY |
+| SS-C19-06 | SS-C19 | Warm relative overdue 2d ago | FocusTaskRow prints Overdue plus absolute taskScheduleLabel instead | GAP_B31 |
+| SS-C19-07 | SS-C19 | Add task button below ordinary queue | FocusPanel + ADD TASK and inline persisted form | PRESENT_CODE_ONLY |
+| SS-C19-08 | SS-C19 | Scheduled subsection count, due rows with time | FocusPanel scheduledTasks filter, scheduled group and FocusTaskRow schedule label | PRESENT_CODE_ONLY |
+| SS-C19-09 | SS-C19 | Done subsection count/struck title/Taken | FocusPanel doneTasks group and FocusTaskRow done/time presentation | PRESENT_CODE_ONLY |
+| SS-C19-10 | SS-C19 | Integration badges in source queue | Cloud/integration features deliberately excluded from local-only Narro scope | INTENTIONAL_DEVIATION |
+| SS-C19-11 | SS-C19 | Exact count-up vs countdown at snapshot and animated hover interaction | SS-C19 is resting still; timer mode and live hover require runtime/video evidence | EVIDENCE_LIMIT |
+| SS-C20-01 | SS-C20 | Compact Floating title left and timer right | FloatingTimerFoundation heading title, timer and collapsed CSS geometry | PRESENT_CODE_ONLY |
+| SS-C20-02 | SS-C20 | 2/4 progress ring/counter and Add plus | FocusLiveSubtasks progress ring/count/add in floating toolbar | PRESENT_CODE_ONLY |
+| SS-C20-03 | SS-C20 | Downward chevron expands compact Timer | FocusLiveSubtasks expand button and requestExpanded path | PRESENT_CODE_ONLY |
+| SS-C20-04 | SS-C20 | No permanent actions in resting collapsed state | FloatingTimerFoundation compactActionsVisible only hover/focus, inert/aria-hidden hidden actions | PRESENT_CODE_ONLY |
+| SS-C20-05 | SS-C20 | Actual cross-window morph/hover timing on Windows | SS-C20 static still; CI1046 M7 C4 remains physical FAIL and cannot be accepted from markup | EVIDENCE_LIMIT |
+| SS-C21-01 | SS-C21 | Live card remains while queued Notes task expands in place | FocusPanel renderTaskRow with notesExpanded TaskNotes embedded below row | PRESENT_CODE_ONLY |
+| SS-C21-02 | SS-C21 | Note toolbar B/I/strikethrough/lists/undo/redo | TaskNotes RichNoteEditor formatting toolbar and keyboard controls | PRESENT_CODE_ONLY |
+| SS-C21-03 | SS-C21 | Editable multiline note body/row pushes rest downward | TaskNotes editor within FocusTaskRow expansion, container flow positioning | PRESENT_CODE_ONLY |
+| SS-C21-04 | SS-C21 | Bottom-right × Close action inside expanded Notes | RichNoteEditor footer has Save note only; Focus outer Notes toggle can close | GAP_B26 |
+| SS-C21-05 | SS-C21 | Microphone-like source Notes affordance | Explicitly excluded cloud/voice speech capture per HC-F010 local-only scope | INTENTIONAL_DEVIATION |
+| SS-C21-06 | SS-C21 | Close-on-dirty autosave/cancel semantics | Source still only shows × Close location, not resulting persistence path | EVIDENCE_LIMIT |
+| SS-C22-01 | SS-C22 | Centered task session-detail overlay with task name and list chip | ReportTaskSessionsDialog titled task, list-color/name chip and backdrop | PRESENT_CODE_ONLY |
+| SS-C22-02 | SS-C22 | Add Session button and session count/aggregate time | ReportTaskSessionsDialog detail actions, totalSessions and totalTime | PRESENT_CODE_ONLY |
+| SS-C22-03 | SS-C22 | Date-grouped session rows, Session ordinals/date/start/end/duration | ReportTaskSessionsDialog maps detail.rows SessionRow with formatted time and ordinal | PRESENT_CODE_ONLY |
+| SS-C22-04 | SS-C22 | End-time inline editor accent + green check submit | ReportsSessionsView SessionRow edit input type=time and ✓ commit button | PRESENT_CODE_ONLY |
+| SS-C22-05 | SS-C22 | Individual session row overflow ellipsis | ReportsSessionsView SessionRow Menu with destructive Delete | PRESENT_CODE_ONLY |
+| SS-C22-06 | SS-C22 | Narro detail modal Escape/Tab/return focus and conflicting Add modal | ReportTaskSessionsDialog aria-modal but no keyboard focus owner; B32 engineering accessibility gap | GAP_B32 |
+| SS-C22-07 | SS-C22 | Exact source keyboard behavior/save-cancel of inline edit | Current SS-C22 static state shows checked edit but does not prove keyboard commit/cancel | EVIDENCE_LIMIT |
+
+**Review 04 source limits:** The visible Notes Close is B26 but the still does not prove dirty-close persistence. The independent success/Timer physical gates C4 and Finding35 remain current FAIL despite structural TSX matches. Current source screenshot SS-C22 does not prove exact keyboard modality; B32 is a Narro accessibility obligation, not invented Blitzit shortcut semantics. Cloud integration badges and microphone/voice controls are scope-excluded, not missing local-only Narro functionality.
 ## Caveats and exact continuation
 
 - **No automatic promotion of `PRESENT_CODE_ONLY`:** check actual Windows candidate and canonical Blitzit source side-by-side before `SOURCE_PARITY_PASS`. Static code can be wrong in geometry, data, keyboard, timing or runtime composition.
 - **B56 backend/fixture divergence is a priority causal finding:** the existing `reportsVisualFixture.tsx` hardcodes `2 Total Tasks / 0 Sessions` while real `session_reporting.rs` derives tasks solely from work-session IDs and cannot produce `2/0`; the source itself shows `2/0` in current v2.6.69 and `39/22` in older VE-015. This proves a definition mismatch but not the source's exact task inclusion/counting rule. Require a product-semantic reconciliation before implementing; do not blindly switch to count of all tasks.
 - **EVIDENCE_LIMIT rows are not missing feature tickets.** Especially search results matching, search keyboard navigation and date-picker double-chevron effect: source static images do not prove them. A current Narro implementation does not establish source parity. Review canonical video context or original media only where it actually resolves the disputed observation.
-- **Next static claim-audit candidates:** remaining current/direct `SS-C18–SS-C22`, followed by Help state equivalents. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
+- **Next static claim-audit candidates:** Help states `SS-H01–SS-H17` (17/39 remaining). All 22 current-direct stills have claim routes, not direct source-parity PASS. Continue claim-level Help reviews with source-version priority. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
 - **Validation:** documentation-only evidence audit. App/frontend/Rust tests, Windows CI, native physical comparison, and raw media reinspection **NOT RUN**. No progress/counters advanced: `3/10M || 0/3 | 17/18`. Codex retains app/native ownership and physical CI1046 C4/35/29 gates.

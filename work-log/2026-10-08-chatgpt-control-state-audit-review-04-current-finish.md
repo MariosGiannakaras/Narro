@@ -1,0 +1,12 @@
+# Review 04 — complete per-control code comparison of 22 current v2.6.69 screenshots
+
+Date: 2026-10-08 Europe/Athens.
+Starting main `49c8ece04da6a05181ac3485ea58763b9f97b9b7`; Codex current executable/native ownership separate. Current v2.6.69 SS-C01 and SS-C18–C22 compared against Pass-3 canonical still records, `src/ListEditorModal.tsx`, `src/FloatingTimerFoundation.tsx`, `src/FocusLiveSubtasks.tsx`, `src/FocusPanel.tsx`, `src/FocusLiveActions.tsx`, `src/TaskNotes.tsx`, `src/ReportsSessionsView.tsx`, related CSS and prior crosswalk.
+
+New independently categorized **46 claims / 6 stills**, cumulative **162 rows across 22/39 current+Help screenshots**. Per-claim status totals: PRESENT_CODE_ONLY=96, GAP_B13=1, EVIDENCE_LIMIT=20, INTENTIONAL_DEVIATION=4, GAP_B55=2, GAP_B23=2, GAP_B54=2, GAP_B25=3, GAP_B51=1, GAP_B56=1, GAP_B34=2, GAP_B21=1, GAP_B22=1, GAP_B57=1, GAP_B58=2, GAP_B17=5, GAP_B18=2, GAP_B9=1, GAP_B29=2, GAP_B14=2, GAP_B28=1, GAP_B16=1, GAP_B30=1, GAP_B7=2, GAP_B3=1, GAP_B8=1, GAP_B15=1, GAP_B31=1, GAP_B26=1, GAP_B32=1. This review completes **current v2.6.69 static-screenshot code comparison, NOT runtime parity/physical validation**. The remaining 17 screenshots are Help references.
+
+No new B findings: existing M5 custom list color and title placeholder B3/B7/B8/SS-C01 gate, M6 Focus picker B15, overdue age B31, Notes Close B26, M9 Sessions detail lifecycle B32, and source-version/scope limitations cover inspected mismatches. Focus scheduled and Done groups, Floating Timer compact/expanded subtask ring and controls, Sessions detail/inline end-time save, List Create modal shell/file-validation are present **only at code-structure level**. Source account/integration/voice controls excluded by explicit local-only scope, and unseen keyboard/save/transition behavior is EVIDENCE_LIMIT.
+
+The current CI1046 native physical closure has C4 and Finding35 FAIL, M6 A timing open and M9 Finding29 partial. A JSX/CSS match is never promoted to native or source visual PASS. B32 is an accessibility defect of Narro's modal focus-owner lifecycle, not a claim that source Blitzit Escape behavior was witnessed.
+
+No executable/config/test file edit, no local code check, CI or Windows physical action; raw original footage not replayed. `NOT RUN` for candidate acceptance and progress unchanged `3/10M || 0/3 | 17/18`. Exact next analysis: detailed claim audit of Help states SS-H01–H17, preserving v2.x source precedence, then separate uncovered interaction/motion claims and targeted current runtime comparisons.
