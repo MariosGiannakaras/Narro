@@ -2,16 +2,16 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 14/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 16/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
 | VE-001 | REVIEWED (15 montage-segment video-to-code claims) | Corroborates existing B35/B63/B64; source editorial limits explicit; no new B |
 | VE-002 | REVIEWED (11 time-local video-to-code claims) | New B66 reactive draft EST preview; VE-F001 committed normalization scoped validated |
 | VE-003 | REVIEWED (30 time-local video-to-code claims) | B15/B26/B49/B50/B63–B65 + P3-M6/M7 native gates; exact source motion NOT accepted |
-| VE-004 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-004 | REVIEWED (19 time-local video-to-code claims) | First-use loop mapped; existing B3/B7/B8/B24/B48/B49/B52/B61–B64; auth/trial excluded |
 | VE-005 | REVIEWED (24 video-to-code claims) | B61–B65 + prior B IDs; current code checked; native/source parity NOT RUN |
-| VE-006 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-006 | REVIEWED (15 time-local video-to-code claims) | Delete confirmation/Archive arithmetic mapped; existing B10/B11 archive controls, limited unclicked trash |
 | VE-007 | REVIEWED (21 time-local video-to-code claims) | Existing B19/B33/B40/B42/B48; new B70 post-unschedule Backlog vs original manual-lane return (older video limit) |
 | VE-008 | REVIEWED (24 time-local video-to-code claims) | Existing B19/B33/B39–B42/B45; new B71 active recurring parent incorrectly contributes to pending counts |
 | VE-009 | REVIEWED (18 time-local video-to-code claims) | Existing B19/B20/B33/B39–B41/B71; examples not committed, no new ticket |
@@ -413,6 +413,56 @@ Canonical VE-010 01:13.561/60fps full-video Pass-3 reviewed previously; mapped s
 | 01:01–01:13.56 | Outro | Not product UI | EXCLUDED |
 
 **V14 closure:** 14 time-local claims, existing B26 (Notes lower-right X control) and B49 (rest→hover icon-to-label live-card action strip) account for code-confirmed discrepancies; no novel ticket. RichNoteEditor toolbar offers source seven commands and automatic safe HTTP(S) link detection and explicit external URL opening. Source **does not demonstrate** narrated automatic URL open-on-task-live: pointer sits over URL immediately prior to Safari opening, so no such behavior is accepted or requested. The ~66.7ms sampled editor expansion is source-video bound, not native Windows timing PASS. Tests/CI/raw video replay/physical and rendered visual validation NOT RUN.
+## VE-004 — Getting Started — REVIEWED 2026-10-08
+
+Full canonical original video already Pass-3 SOURCE_COMPLETE; the following are source-timed implementation comparisons, not raw MP4 reruns. Older v2.4.x version-specific commerce/account and copy never supersede current source screenshots.
+
+| Time | Source state/action | Narro production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:39 | Windows/macOS marketing/download page | External distribution context, not local UI | EXCLUDED_LOCAL_ONLY |
+| 00:39–01:24 | Account signup/email verification/Trial onboarding v2.4.68 | Narro local-only architecture intentionally has no cloud signup | EXCLUDED_INTENTIONAL |
+| 01:24–01:35 | No-list Home first-use CTA | HomeDashboard no-lists Create your first list callback | PRESENT_CODE_COPY_DIFF_VERSION |
+| 01:35–01:43 | Create List modal, icon initial and selected color swatch | ListEditorModal modal/color presets exist; B3/B7/B8 source control gaps | PRESENT_SHELL_GAPS_B3_B7_B8 |
+| 01:43–01:49 | Tutorials card 0 pending, ALL CLEAR, list overflow | HomeDashboard card and Edit/Duplicate/Archive menu; empty copy differs | PRESENT_CODE_ONLY |
+| 01:49–02:03 | Backlog/This Week/Today/Done empty board, All Clear | ListBoard 4 lanes and empty states; source empty-lane copy B61 | GAP_B61 |
+| 01:49–02:03 | No Today eligible task, muted bottom Blitzit Now CTA | BlitzEntryButton vivid except pending; no eligibility-facing muted treatment | GAP_B62 |
+| 02:03–02:11 | Board list-scope selector All Lists/Tutorials compact menu | ListBoard native select targets proper list, visual popup missing | GAP_B24 |
+| 02:11–02:26 | Today inline create title/EST/Confirm and task appears | ListBoard InlineCreateEditor and createListBoardTask, different source composition | PRESENT_DOMAIN_GAP_B52 |
+| 02:11–02:26 | Pending 0→1 Today 0/0→0/1 on create | ListBoard snapshot counts and refresh after create | PRESENT_DOMAIN_ONLY |
+| 02:11–02:26 | Task hover circle, Subtasks, Notes, lane arrows, overflow | TaskCard TaskActionRail present; divider B48 remains | PRESENT_CODE_GAP_B48 |
+| 02:26–02:32 | Tutorial cut Promo video→Script/Recording voice/Editing | No contiguous user task mutation observed | SOURCE_CUT_UNMEASURABLE |
+| 02:32–02:38 | Today Blitz entry auto-starts top task, count-up without EST | BlitzEntryButton/start eligibility, Focus timer count-up branch | PRESENT_DOMAIN_SOURCE_MOTION_OPEN |
+| 02:38–02:55 | Focus queued order/Make live/inline Add Task | FocusPanel queue/Task creation, live-hover source styling mismatches inherited | PRESENT_CODE_GAP_B49 |
+| 02:55–03:04 | Panel→Floating morph persists same Script identity | FocusSurfaceCoordinator/FloatingTimerFoundation native morph, stronger VE013 source timing | PRESENT_CODE_NATIVE_OPEN |
+| 03:04–03:18 | Floating actions hover expands Skip pill | FloatingActionButton label on hover CSS/selected; source-vs-native physical open | PRESENT_CODE_ONLY |
+| 03:18–03:23 | Floating Done→Focus success with GIF, Next Task, Take a Break | FocusCompletionSuccess overlay omits GIF and source in-card arrangement, break disabled | GAP_B63_B64_B37 |
+| 03:18–03:23 | Onboarding coaching bubble for Next Task | Old onboarding-only prompt, not normal success requirement | EXCLUDED_VERSION |
+| 03:23–04:09.87 | Recap, trial/pricing, outro | Commerce/history out of local-only parity | EXCLUDED |
+
+**V15 closure:** 19 claims. Existing B3/B7/B8 list color; B24 list selector; B48 overflow separator; B49 Focus hover; B52 inline task creation; B61/B62 no-eligible empty presentation; B63/B64 success overlay/media and B37 break source limit. Auth/trial/marketing/cloud onboarding intentionally excluded from local-only architecture. Tutorial staging cut 1→3 tasks isn't a hidden operation, and VE003/013 remain stronger for Panel/Floating geometry timing. No new B; native/source visual PASS NOT RUN.
+## VE-006 — Delete & Archive — REVIEWED 2026-10-08
+
+Full canonical original video already Pass-3 SOURCE_COMPLETE; the following are source-timed implementation comparisons, not raw MP4 reruns. Older v2.4.x version-specific commerce/account and copy never supersede current source screenshots.
+
+| Time | Source state/action | Narro production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:10 | Personal list 5 pending, This Week 0/5 | ListBoard lane count + projected pending | PRESENT_DOMAIN_ONLY |
+| 00:10–00:18 | Task Delete starts inline Confirm + X cancellation inside overflow | TaskCard InlineDeleteConfirmation, no separate modal | PRESENT_CODE_ONLY |
+| 00:18–00:21 | Confirm deletes exactly one pending, 5→4 and 0/5→0/4 | permanentlyDeleteListBoardTask + board refresh | PRESENT_DOMAIN_ONLY |
+| 00:18–00:21 | No recovery and Reports exclusion claimed in narration | No visible recovery experiment/Reports check in video | SOURCE_TRANSCRIPT_LIMIT |
+| 00:26–00:35 | Home grid All Lists 25 pending including active ClickUp 3 | HomeDashboard and home_snapshot active lists | PRESENT_DOMAIN_ONLY |
+| 00:35–00:37 | ClickUp card Archive List directly, no second dialog | HomeDashboard menu onArchive, archiveListFromSettings immediate | PRESENT_CODE_ONLY |
+| 00:36.5–00:40 | ClickUp disappears active grid, cards reflow, All Lists 25→22 | Home list archive excludes archived list and its 3 tasks; grid rerender | PRESENT_DOMAIN_ONLY |
+| 00:44–00:48 | Archived lists / Archived done tasks tabs in Home | ArchivePanel two tabs | PRESENT_CODE_ONLY |
+| 00:48–00:59 | Populated Archived Lists ClickUp card previews preserved tasks | ArchivedListsPanel summary cards do not expose source task previews | GAP_B10 |
+| 00:48–00:59 | Unarchive / Delete Forever visible, neither committed in source | ArchivedListsPanel action controls; no execution result proof | PRESENT_CODE_SOURCE_LIMIT |
+| 00:59–01:04 | Archived Done search, All Lists badge filter, Task Name/List/Info/Date/Action | ArchivedDoneTasksPanel uses simplified read-only rows, missing source table grammar | GAP_B11 |
+| 01:04–01:10 | Struck completed title, list badge, Info icon/No Info, date, trash | ArchivedDoneTasksPanel missing source Info/Action controls | GAP_B11 |
+| 01:04–01:10 | Archived Done trash shown but never clicked | No source post-trash mutation contract, do not infer one-click deletion | SOURCE_INTERACTION_LIMIT_B11 |
+| 01:04–01:10 | 60-day auto-archive narrated; visible rows aged 2mon/3mon | Source does not capture threshold crossing, no direct timing gate | SOURCE_TRANSCRIPT_LIMIT |
+| 01:10–01:23.96 | Recap/outro | Non-product | EXCLUDED |
+
+**V16 closure:** 15 claims. Task Delete uses observed inline confirm; list Archive applies directly, excluding archived list's 3 pending from active 25→22. Existing B10 archived-list task previews and B11 Archived Done table controls remain. Neither Unarchive, Delete Forever nor Archived Done trash was clicked in source; 60-day transition is narration with age corroboration, not observed automation. No new B; physical/destructive validation and source parity NOT RUN.
 ## Exact next review
 
-Continue VE-004/006 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/009/010/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-017–VE-019 pending in the 19-video index. VE-001/002/003/004/005/006/007/008/009/010/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
