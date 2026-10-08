@@ -246,10 +246,8 @@ export function HomeDashboard({
 
       <section className="home-dashboard__lists" aria-labelledby="home-lists-title">
         <div className="home-dashboard__section-heading">
-          <div>
-            <h2 id="home-lists-title" className="type-section-title">Your Lists</h2>
-            <p>Lists with your upcoming tasks</p>
-          </div>
+          <h2 id="home-lists-title" className="type-section-title">Your Lists</h2>
+          <p>Lists with your upcoming tasks</p>
         </div>
 
         {actionError ? (

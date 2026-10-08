@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const component = read("src/TaskCard.tsx");
+const menuCss = read("src/overlayPrimitives.css");
 const board = read("src/ListBoard.tsx");
 const pointer = read("src/boardTaskPointerDrag.ts");
 const css = read("src/listBoard.css");
@@ -23,6 +24,9 @@ const finding28Driver = read("scripts/test-finding28-post-drag-action-rail.mjs")
 const packageJson = read("package.json");
 
 for (const [haystack, needle, label] of [
+  [component, 'data-task-overflow-separator="true"', "destructive group separator"],
+  [component, 'role="separator"', "accessible separator role"],
+  [menuCss, ".overlay-menu__separator", "shared separator paint"],
   [component, 'import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";', "shared overlay primitive reuse"],
   [component, 'data-task-action-slot="reserved"', "reserved action slot marker"],
   [component, 'data-task-actions="source-hover-rail"', "production reorder/overflow action rail"],

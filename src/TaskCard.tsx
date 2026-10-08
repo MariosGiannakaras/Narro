@@ -266,6 +266,9 @@ function TaskOverflowMenu({
         {actions.onDuplicate ? (
           <MenuItem disabled={confirming} onSelect={actions.onDuplicate}>Duplicate</MenuItem>
         ) : null}
+        {(actions.onDelete || confirmation) ? (
+          <div role="separator" className="overlay-menu__separator" data-task-overflow-separator="true" />
+        ) : null}
         {confirmation ? <InlineDeleteConfirmation confirmation={confirmation} /> : actions.onDelete ? (
           <MenuItem destructive closeOnSelect={false} onSelect={actions.onDelete}>Delete</MenuItem>
         ) : null}
