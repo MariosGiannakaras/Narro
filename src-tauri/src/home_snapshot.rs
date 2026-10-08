@@ -110,12 +110,18 @@ pub fn load(conn: &Connection) -> Result<HomeSnapshot, HomeSnapshotError> {
         let mut aggregate_est_seconds = 0_u64;
 
         for lane in HOME_LANE_ORDER {
+            // Rule templates are displayed on Board but are not actionable Home
+            // pending tasks or EST; their materialized children are counted normally.
             let tasks = active_tasks_in_bucket(conn, list.id, lane)?;
+            let actionable = tasks
+                .into_iter()
+                .filter(|task| task.recurrence_rule_id.is_none())
+                .collect::<Vec<_>>();
             pending_count = pending_count
-                .checked_add(checked_task_count(tasks.len())?)
+                .checked_add(checked_task_count(actionable.len())?)
                 .ok_or(HomeSnapshotError::PendingCountOverflow)?;
 
-            for task in tasks {
+            for task in actionable {
                 add_estimate(&mut aggregate_est_seconds, task.est_seconds)?;
                 if preview_tasks.len() < PREVIEW_TASK_LIMIT {
                     preview_tasks.push(HomeTaskPreview {

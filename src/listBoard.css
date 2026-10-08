@@ -205,6 +205,15 @@
   min-width: 0;
 }
 
+.list-board-lane__subgroup-heading {
+  margin: var(--space-2) 0 var(--space-1);
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-metadata);
+  font-weight: var(--font-weight-semibold);
+}
+
 .list-board-lane__empty {
   display: grid;
   place-items: center;
