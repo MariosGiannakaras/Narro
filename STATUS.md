@@ -2,8 +2,7 @@
 
 ## Current ChatGPT implementation campaign — 2026-10-08
 
-Three source batches **merged after exact-head Windows CI SUCCESS**: #249 B71/B39/B40 -> `13bc1ea1ffc04ea6b2044c87818ac54f05ac9af4` (resulting-main CI `37824235331` SUCCESS), #250 B7/B8 -> `0b32b35c9f68b59cb955f74f9fc81cb2ff74871a`, #251 B55/B48 -> `7c829f9064536f5c56c86e56af84b3139ecb52c8`. Exact latest merged source is #251; resulting-main CI `37824539260` pending. Separate PRs #252 B10, #253 B26 and #254 partial B33 are in CI/pending integration; see HANDOFF for exact heads, runs and earlier failures. This section reports **coding progress only**, not completed roadmap milestones. All affected Windows manual and Blitzit rendered/source parity gates remain OPEN; historical CI1046 physical batch is not revalidated by new source CI.
-
+Three owned source PRs #249 (recurring counts/groups), #250 (custom color), #251 (Home/menu) were exact-head CI PASS and guarded merged. Seven independent implementation PRs #252–#258 remain CI-pending; latest merged main CI `37824539260` attempt1 FAILED one historic SQLite contention timeout (380/381 Rust tests passed), attempt2 Windows rerun pending. Exact heads/runs in HANDOFF. **Coding progress: 3 merged, 7 PR/CI pending; physical and Blitzit rendered/source acceptance OPEN.**
 
 ## Current physical batch closure — CI1046, 2026-10-08
 
