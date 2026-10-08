@@ -15,7 +15,7 @@ invariant(success.includes("successTimingCopy(state.estSeconds, state.timeTakenS
 invariant(success.includes('data-focus-success-timing="true"'), "source timing copy must be visible when valid");
 invariant(panel.includes('data-focus-pomodoro-badge="true"'), "Pomodoro live/Break chip must be projected in active Focus card");
 invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POMO chip must reflect authoritative Pomodoro mode rather than stale UI state");
-invariant(css.includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
+invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
