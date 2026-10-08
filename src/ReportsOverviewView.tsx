@@ -142,7 +142,14 @@ function ReportChart({
           <p className="reports-overview__section-kicker">Productivity</p>
           <h2 id="reports-productivity-title">Time by day</h2>
         </div>
-        <button type="button" className="reports-overview__chart-menu" aria-label="Chart options">•••</button>
+        <button
+          type="button"
+          className="reports-overview__chart-menu"
+          aria-label="Chart options unavailable"
+          title="Chart options are unavailable in this version"
+          data-report-chart-options="unavailable"
+          disabled
+        >•••</button>
       </div>
 
       <div

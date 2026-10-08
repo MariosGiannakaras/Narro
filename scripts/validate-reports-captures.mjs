@@ -173,6 +173,7 @@ for (const theme of ["light", "dark"]) {
 
     if (mode === "sessions-add") {
       invariant(dom.includes('data-report-add-session="true"'), label + " Add Session dialog is missing");
+      invariant(dom.includes('data-report-task-picker-open="true"'), label + " conditional Recent Tasks popover did not open");
       invariant(dom.includes('placeholder="Select tasks..."'), label + " Add Session task search is missing");
       invariant(dom.includes(">Recent Tasks<"), label + " Recent Tasks group is missing");
       invariant(dom.includes("Project roadmap video"), label + " representative Recent Task is missing");
