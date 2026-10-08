@@ -396,6 +396,8 @@ Required states:
 - deletion remains irreversible and deleted tasks are excluded from user-facing Reports.
 
 ## 5.4 Reorder UX and reliability
+- SS-H07 / VE-007 scheduling source modal uses Step 1 (full selectable calendar + Today/Later Today/Tomorrow/Next Week + Cancel/Next) and Step 2 (Pick Date return, selected-date summary, inline Add Time +ADD/×REMOVE with hour/minute/AM-PM, recurrence preset/custom selection, Cancel/Schedule). Date/current markers coexist when they are different. The current single-view native date input does not reproduce the evidenced steps; functional scheduling correctness is separately validated.
+- VE-009 custom monthly recurrence supports a calendar-date option **or ordinal weekday** such as `Monthly on the 2nd Sunday`; ordinal weekday is not a plain weekday-mask rule generating every Sunday. Extend the persistence/domain model only with explicit migration/back-compat and recurrence materialization safety tests.
 
 [NARRO IMPROVEMENT]
 - drag uses fixed placeholder and stable identity;
@@ -535,6 +537,7 @@ Preferences are a vertically scrollable tall right-side drawer/panel with a clos
 - visible date/time formatting follows Windows locale/system 12/24-hour preference by default.
 
 ## 8.3 Blitz Mode settings
+- VE-014 Pomodoros OFF→ON physically reveals nested `Work Sprint`/`Break Time` within roughly the next 0.1 s; full Preferences should disclose/hide subordinate controls instead of leaving every child always visible but disabled. Persist child values and preserve keyboard/focus/scroll continuity.
 
 - Pomodoro toggle;
 - configurable work sprint when enabled;
@@ -545,6 +548,7 @@ Preferences are a vertically scrollable tall right-side drawer/panel with a clos
 Conditional settings expand/collapse without losing scroll position.
 
 ## 8.4 Alerts
+- VE-014 sound/volume is a **speaker-triggered short vertical anchored slider popover**, separate from adjacent preview play and dropdown; Narro's persistent horizontal slider is a control-composition gap, not an audio-persistence defect. Parent toggles reveal subordinate alert/notification/reminder rows.
 
 Screenshots/docs establish:
 - timed alerts during task;
