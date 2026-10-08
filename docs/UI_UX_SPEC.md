@@ -913,6 +913,7 @@ Subtasks:
 - Switch Task. citeturn580012search12
 
 **Overtime after Extend**
+- **VE-016 source numeric/visual grammar B67:** after Extend the visible timer shows an **amber negative** overtime clock (`-00:01:01` etc.), while Narro `focusTimerPresentation` currently renders `+MM:SS` with default primary-colored timer. This is display sign/color only, not a request to turn the nonnegative authoritative `overtime_ms` elapsed ledger negative. Source jump to already ~one minute overdue is staged; don't use it as an elapsed-time acceptance threshold. `TIME'S UP` source wordmark/floating native failure belongs to existing Finding35 separately.
 - continued work session;
 - extra time clearly distinguished from remaining estimate.
 

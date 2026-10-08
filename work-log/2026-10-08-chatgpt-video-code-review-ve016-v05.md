@@ -1,0 +1,11 @@
+# Video-to-code review 05 — VE-016 Timer Modes
+
+Date 2026-10-08 Europe/Athens, main baseline `f901c2769839ae69cc190597799a32694330980d`. Reconciled all 23 original source time-local claims of full 02:55.333 /60fps VE-016 Timer Modes against `focusTimerPresentation.ts`, `FocusPanel.tsx` and CSS, `FocusLiveMetrics.tsx`, `FocusLiveActions.tsx`, `FloatingTimerFoundation.tsx`, current `TODO`/crosswalk and historically validated Rust engine source contracts. Raw MP4 earlier Pass3 source review remains authoritative and was not redundantly replayed.
+
+**NEW B67/M6 SOURCE_NUMERIC/VISUAL_PARITY_OPEN:** source around 00:53–00:56 shows post-Extend warm/orange **negative** clock `-00:01:01`, `-00:01:02`; Narro `focusTimerPresentation.ts` explicitly returns `+${formatTimerClock(timer.overtime_ms, "floor")}` and `focusPanel.css` applies normal foreground color with no overtime amber rule. Correct presentation sign/color only, keep authoritative overtime_ms and work ledger. Source first -1min magnitude is staged, not actual elapsed time.
+
+**Not a duplicate:** VE-016 ordinary EST zero changes `00:00:01`→`TIME'S UP` but Narro timer projection returns `00:00`; exact current physical CI1046 Finding35 already recorded FAILED, no duplicate B. Existing B50 contextual Extend exposure (button always visible disabled in Panel), B53 strict HH:MM paused and Board edit fields, B37 missing POMO badge, B35 Break active-card identity, B36 completed Break as Done, B38 header break estimate historical variant all retain original dispositions/version caveats. Domain count-up with no EST, pause/Resume, Pomodoro countdown and work/break state remain scoped code present/historically tested; no new PASS certified.
+
+**Progress for user's audit:** **39/39 screenshot static code mappings (250 claim rows)** and **5/19 full-video code mappings (103 claim rows)**. Explicitly not implementation milestone status. All production files untouched, no local tests/Windows CI/physical candidate source comparison or original raw-video replay in this review (**NOT RUN**). Codex's native C4/35 observations remain authoritative. Docs-only tracking crosswalk/spec/route/video index and immutable log committed with expected-head guard.
+
+Next choose VE-015 Sessions (metrics and editor states) or remaining VE-004/006–015/017–019 from video index. Do not double-count old source Pass3 19/19.

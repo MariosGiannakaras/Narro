@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 4/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 5/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -21,7 +21,7 @@
 | VE-013 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-015 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-016 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-016 | REVIEWED (23 time-local video-to-code claims) | New B67 negative amber overtime; existing B35–38/B50/B53 + native Finding35 |
 | VE-017 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-018 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-019 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -139,6 +139,37 @@
 | 02:16–02:19.03 | Branded product outro | Not app behavior or a UI state | EXCLUDED_NONPRODUCT |
 
 **Closure:** all VE-001 montage segments have a current-code or intentional scope/evidence limit. No unique implementation gap warranted beyond B35 (old Break card current-version limit) and cross-video B63/B64 Focus success. No timing derived from editorial cuts and no GIF rotation algorithm inferred from montage; no candidate Windows source visual PASS. This qualifies as one *video-to-code review* but not raw video reinspection.
+## VE-016 — Timer Modes — REVIEWED 2026-10-08
+
+**Source:** full 02:55.333 MP4, 1920×1080 at60fps, already individually source-reviewed Pass3 with 0.1s zero-boundary/Extend segments. This code audit compares full chronology against exact main `f901c2769839ae69cc190597799a32694330980d` and DOES NOT rerun the MP4. Source video precedes current 2.6.69 Help screenshots for some Break/Focus visuals; no tutorial cut or time jump becomes a performance invariant.
+
+| Video time | Source state/action | Narro current code route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:18 | Board Today/list EST arithmetic and opposing EST/Taken metric slots | ListBoard aggregateRemainingEstSeconds, TaskCard metric pair | PRESENT_CODE_ONLY |
+| 00:18–00:25 | Edit EST of Send press-release to 40min; add 30min→70min | TaskCard metric edits and ListBoard aggregate; HH:MM field parser absent | PRESENT_ARITHMETIC / GAP_B53 |
+| 00:25–00:31 | Inline create Title+Est 00:00, Cancel and Confirm | ListBoard InlineCreateEditor exists with different layout and H:MM:SS placeholder | GAP_B52_B53 |
+| 00:32–00:38 | Blitz task 30min EST countdown starts, other task queued | focusModeForTask and FocusPanel timer/task queue projection | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 00:38–00:41.5 | Pause→Resume role, paused live task EST edited as 00:30 | FocusLiveActions pause/resume, FocusLiveMetrics paused gate, HH:MM parser rejects | PRESENT_GATE / GAP_B53 |
+| 00:42 | Edited jump from ~30min to near-zero EST1min and header41min | Hard source tutorial cut, not elapsed performance evidence | SOURCE_STAGING_LIMIT |
+| 00:42–00:44.4 | Regular EST countdown 00:00:01→TIME'S UP without stable 00:00:00 | focusTimerPresentation time_up returns 00:00 with label Time's Up; CI1046 native Finding35 FAIL | KNOWN_FINDING35_PHYSICAL_FAIL |
+| 00:44.4–00:53 | Time's Up persists, no auto skip/Done, contextual Extend appears | Rust timer time_up state persists; FocusLiveActions state.extendEnabled but panel always renders disabled Extend | PRESENT_DOMAIN / GAP_B50 / FINDING35 |
+| 00:53–00:56 | Extend changes text to negative warm overdue -00:01:01/-00:01:02 | focusTimerPresentation returns +overtime_ms clock, no warm timer state CSS | NEW_GAP_B67 |
+| 00:53–00:56 | Immediate source -1min magnitude despite only seconds elapsed | Staged elapsed-time jump cannot establish exact milliseconds or speed | SOURCE_STAGING_LIMIT |
+| 01:18–01:31 | Preferences Pomodoros enabled, 5min work/5min break, manual10min | LowerPreferenceSections durations + snapshot, disclosure B17 and shell B34 | PRESENT_SETTINGS / GAP_B17_B34 |
+| 01:32–01:34.9 | POMO green badge with work countdown and EST header 0 | focusModeForTask pomodoro independent of EST, FocusPanel no POMO badge | PRESENT_MODE / GAP_B37 |
+| 01:34.9–01:35 | POMO work timer displays 00:00:00 then break immediately | Timer service Pomodoro boundary, FocusPanel text projection; exact native frame not reviewed | PRESENT_DOMAIN / EXACT_MOTION_OPEN |
+| 01:35–01:40 | Break replaces live task, original task returns to queue | FocusPanel retains taskId original live-card title and Break label only | GAP_B35 / CURRENT_VERSION_LIMIT |
+| 01:36–01:40 | Staged Break Over, completed Break row 5min in Done | FocusPanel Done only board.done.tasks (no break sessions) | GAP_B36 / TIME_JUMP_LIMIT |
+| 01:42–01:44 | After Break active POMO work returns | Pomodoro timer mode and focus session API exists, exact restart latency unmeasured | PRESENT_DOMAIN / SOURCE_TIME_JUMP |
+| 01:43–01:49 | Floating mode retains Pomodoro task countdown | FloatingTimerFoundation shared timer projection, focusModeForTask and timer formatter | PRESENT_FUNCTION / M7_C4_SEPARATE |
+| 01:50–02:00 | Source jump to new task/time | No automatic selection or elapsed-time requirement inferred | SOURCE_CUT_LIMIT |
+| 02:00–02:10 | No EST and no POMO leads to count-up stopwatch | focusModeForTask count_up, focusTimerPresentation formatTimerClock elapsed | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 02:10–02:11.3 | Pause freezes count-up and exposes Resume | FocusLiveActions pause/resume and Rust timer paused state | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 02:11.3–02:16 | Paused Taken 00:30 commits as 30min, EST remains null | FocusLiveMetrics strict H:MM:SS rejects 00:30; independent persisted Taken/EST model | GAP_B53 / INDEPENDENT_METRICS_DOMAIN_PRESENT |
+| 02:16–02:51 | Paused visual PAUSED, +EST and Taken30min plus prior Done task | FocusPanel status/FocusLiveMetrics and Done group; visual source acceptance outstanding | PRESENT_CODE_ONLY / SOURCE_COMPARISON_OPEN |
+| 02:51–02:55.38 | Branded outro | Not application user-visible workflow | EXCLUDED_SCOPE |
+
+**V05 closure:** 23 source-video segments routed. Distinguish actual source persistent Time's Up wordmark (Finding35 physically FAILED in current candidate), Extend negative amber visual sign (B67 new), and staged initial ~one-minute overtime magnitude (not validated elapsed time). Existing Break/POMO B35–B38 remain historical-version evidence-limited; B50 and B53 remain code-confirmed. No recent native physical/CI/pixel PASS performed by this audit.
 ## Exact next review
 
-Continue remaining VE-004/006–VE-019 pending in the 19-video index; VE-001/VE-002/VE-003/VE-005 are now code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue remaining VE-004/006–VE-015 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
