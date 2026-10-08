@@ -4,9 +4,9 @@ import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import "./reportsOverview.css";
+import "./reportsSessions.css";
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
-import "./reportsSessions.css";
 
 export type ReportsSessionViewRow = {
   id: string;
