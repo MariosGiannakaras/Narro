@@ -1,0 +1,16 @@
+# Review 03 — Archive/Reports current stills; 16/39, 116 per-control claims
+
+Date: 2026-10-08 (Europe/Athens).
+Baseline main `57b2af07210af0be83bb75f997c322c442f5218a` after Review 02, no open PR; user-directed evidence-to-code audit, Codex implementation/physical CI1046 ownership preserved.
+
+Compared canonical current screenshots `SS-C10` empty archived lists, `SS-C11` archived Done with list filter open, `SS-C12` Overview chart tooltip and `SS-C13` Overview lower empty panels to current `ArchivePanel`, `ArchivedListsPanel`, `ArchivedDoneTasksPanel`, `ReportsOverviewView`, their CSS, current Rust report DTO and previous B14/B16/B25/B28/B30 routes.
+
+Added **29 claim rows** across 4 screenshots, bringing the static source-to-current-code matrix to **116 claims / 16/39 current+Help screenshots**. Count is static comparison coverage, **not tested/implemented/parity-approved**. Dispositions: PRESENT_CODE_ONLY=66, GAP_B13=1, EVIDENCE_LIMIT=14, INTENTIONAL_DEVIATION=2, GAP_B55=2, GAP_B23=2, GAP_B54=2, GAP_B25=3, GAP_B51=1, GAP_B56=1, GAP_B34=2, GAP_B21=1, GAP_B22=1, GAP_B57=1, GAP_B58=2, GAP_B17=5, GAP_B18=2, GAP_B9=1, GAP_B29=2, GAP_B14=2, GAP_B28=1, GAP_B16=1, GAP_B30=1.
+
+**No new B finding was warranted** by these four screens beyond earlier B14 archive supporting text, B16 chart-options dead control, B25 list trigger, B28 hover category band and B30 missing zero-day timeline. Archive tabs, right helper, empty titles, search, named-list color badges, report card grouping, chart tooltip/legend and productive/Time By List/Punctuality lower panel structures exist in current code (PRESENT_CODE_ONLY). Source SS-C10/C11 only show empty state, so they cannot prove populated archive delete click outcomes or search/filter post-commit semantics; those remain source EVIDENCE_LIMIT and B10/B11 separately use older populated source.
+
+The unusual SS-C12 current screenshot shows 8 work days, 0 completed tasks and 0hr work but does NOT reveal the backing session dataset. It might reflect zero-duration sessions, other source counting semantics, or other historical state; no extra backend metric defect is claimed from those pixels. B56 is different: the current SS-C14 2 Tasks/0 Sessions and VE-015 39 Tasks/22 Sessions contradict the *known exact* session-only distinct-task definition by basic counting logic. Preserve that as the one evidence-backed source metric incompatibility until original definition reconciled.
+
+Cumulative control-state matrix `docs/BLITZIT_CONTROL_STATE_AUDIT_MATRIX.md` updated directly on main. No TODO/crosswalk/header edits required here, because no new product claim or previously missing tracking identity emerged. Exact next review: five remaining current images SS-C18–22, then Help 17 states with scoped evidence, retain screenshot/version and implementation-path precision. Raw video is for unrecorded motion/interaction, not a replacement for code inspection.
+
+**Narro source/config/tests unchanged; Rust/TS tests, CI, native Windows/side-by-side source comparison, raw MP4 replay NOT RUN.** No PASS/counter advancement. Project compact progress remains `3/10M || 0/3 | 17/18`.

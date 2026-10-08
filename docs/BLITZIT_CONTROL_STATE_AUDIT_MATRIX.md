@@ -2,9 +2,9 @@
 
 **Mode:** source snapshot claim → exact Narro component/style/domain → evidence-limited disposition. This is distinct from full-video Pass-3 and from runtime/physical/source-parity acceptance.
 
-**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
+**Base main:** `a9632393f053481c58e9aacfb0d3d5e458f3967f` (2026-10-08, Europe/Athens). **Review 01:** `SS-C02, SS-C03, SS-C04, SS-C05, SS-C06, SS-C14, SS-C15, SS-C16`. **Review 02:** `SS-C07, SS-C08, SS-C09, SS-C17`. **Review 03:** `SS-C10, SS-C11, SS-C12, SS-C13`. `SS-T01–SS-T07` are historical context and intentionally outside the 39 current/direct+Help denominator.
 
-**Count:** 87 source-visible/control-state claims mapped across 12/39 direct+Help screenshots (Review 01: 8; Review 02: 4); {"PRESENT_CODE_ONLY":47,"GAP_B13":1,"EVIDENCE_LIMIT":10,"INTENTIONAL_DEVIATION":2,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":2,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2}.
+**Count:** 116 source-visible/control-state claims mapped across 16/39 direct+Help screenshots (Review 01: 8; Review 02: 4; Review 03: 4); {"PRESENT_CODE_ONLY":66,"GAP_B13":1,"EVIDENCE_LIMIT":14,"INTENTIONAL_DEVIATION":2,"GAP_B55":2,"GAP_B23":2,"GAP_B54":2,"GAP_B25":3,"GAP_B51":1,"GAP_B56":1,"GAP_B34":2,"GAP_B21":1,"GAP_B22":1,"GAP_B57":1,"GAP_B58":2,"GAP_B17":5,"GAP_B18":2,"GAP_B9":1,"GAP_B29":2,"GAP_B14":2,"GAP_B28":1,"GAP_B16":1,"GAP_B30":1}.
 
 **Status definitions:** `PRESENT_CODE_ONLY` = current production source expresses the structure/interaction but neither native rendering nor source visual PASS is claimed; `GAP_Bn` = exact source-to-code discrepancy already routed in crosswalk/TODO; `INTENTIONAL_DEVIATION` = local-only scope exclusion; `EVIDENCE_LIMIT` = screenshot cannot prove detailed behavior, regardless of what Narro happens to implement; `NOT_REVIEWED` = remaining screenshot/state not audited at this granularity.
 
@@ -106,10 +106,45 @@
 | SS-C17-06 | SS-C17 | Modal close keyboard/Escape and per-row shortcut selection behavior | Source still does not establish keyboard modality or whether chords editable | EVIDENCE_LIMIT |
 
 **Review 02 boundaries:** `PRESENT_CODE_ONLY` does not establish selected-value runtime state or pixel parity. Parent OFF transitions are sourced from VE-014 canonical full-video Pass-3 notes (B17), while SS-C08/09 stills show only specific ON/OFF instances. Success-sound OFF interactions, info tooltips and source shortcut-keyboard semantics are not established by static pixels.
+## Review 03 — current Archive and Overview empty/hover states
+
+| Source claim ID | Original | Visible control/state/interaction claim | Production comparison or source limit | Disposition |
+| --- | --- | --- | --- | --- |
+| SS-C10-01 | SS-C10 | Archived lists is Home-shell destination, sidebar remains | AppShell archived-lists renders ArchivePanel inside workspace with unchanged nav | PRESENT_CODE_ONLY |
+| SS-C10-02 | SS-C10 | Archive segmented tabs with Archived lists selected | ArchivePanel activeTab state, role=tablist and aria-selected | PRESENT_CODE_ONLY |
+| SS-C10-03 | SS-C10 | Right contextual helper Your archived lists | ArchivedListsPanel embedded-helper, archivedListsPanel.css justify-content:flex-end | PRESENT_CODE_ONLY |
+| SS-C10-04 | SS-C10 | Centered empty-state icon | ArchivedListsPanel .empty-icon and centered grid styling | PRESENT_CODE_ONLY |
+| SS-C10-05 | SS-C10 | Exact empty title No archived lists found | ArchivedListsPanel strong literal matches source title | PRESENT_CODE_ONLY |
+| SS-C10-06 | SS-C10 | Exact source supporting sentence | ArchivedListsPanel uses local restore/help text instead of source sentence | GAP_B14 |
+| SS-C10-07 | SS-C10 | Any archive populated actions on this empty current frame | Current SS-C10 is empty; populated task previews/action grammar come from separate SS-H14 | EVIDENCE_LIMIT |
+| SS-C11-01 | SS-C11 | Archived done tasks tab selected while Home shell remains | ArchivePanel done tab + ArchivedDoneTasksPanel embedded state | PRESENT_CODE_ONLY |
+| SS-C11-02 | SS-C11 | Wide archived Done task search input | ArchivedDoneTasksPanel type=search and archivePanel.css flexible wide field | PRESENT_CODE_ONLY |
+| SS-C11-03 | SS-C11 | Right anchored All Lists list filter | ArchivedDoneTasksPanel filter button and positioned menu | PRESENT_CODE_ONLY |
+| SS-C11-04 | SS-C11 | Open filter lists All Lists plus named list-color badges | ArchivedDoneTasksPanel filterLists, option roles and .filter-dot per-list color | PRESENT_CODE_ONLY |
+| SS-C11-05 | SS-C11 | Exact No Archived tasks found empty title | ArchivedDoneTasksPanel strong matches source title | PRESENT_CODE_ONLY |
+| SS-C11-06 | SS-C11 | Source empty-state supporting sentence | ArchivedDoneTasksPanel uses automatic 60-day explanatory copy vs current screenshot copy | GAP_B14 |
+| SS-C11-07 | SS-C11 | Search/list scope actual result and keyboard interactions in source | Static filter-open screenshot has no committed search/filter outcome; Narro has local filters | EVIDENCE_LIMIT |
+| SS-C12-01 | SS-C12 | Reports Back, Overview/Sessions Beta tabs and current Export PDF | ReportsOverviewView header/tabs and Overview PDF export | PRESENT_CODE_ONLY |
+| SS-C12-02 | SS-C12 | All Lists and date-range trigger in report header | ReportsOverviewView filter and calendar popup; list trigger badge still B25 | GAP_B25 |
+| SS-C12-03 | SS-C12 | Four dashboard summary metric card slots | ReportsOverviewView metrics.slice(0,4) from Rust DTO | PRESENT_CODE_ONLY |
+| SS-C12-04 | SS-C12 | Tasks, Breaks, Total bar categories with selectable legend | ReportsOverviewView ReportChart and legend toggle control | PRESENT_CODE_ONLY |
+| SS-C12-05 | SS-C12 | Dark date tooltip showing per-series values | ReportChart current tooltip on hovered/focused date from chartDays | PRESENT_CODE_ONLY |
+| SS-C12-06 | SS-C12 | Whole hovered date band/Total bar brightening | reportsOverview.css no full date-category hovered band or selected Total bar emphasis | GAP_B28 |
+| SS-C12-07 | SS-C12 | Chart options ellipsis actionable affordance | ReportChart button Chart options has no onClick or menu | GAP_B16 |
+| SS-C12-08 | SS-C12 | Daily x-axis consecutive zero-activity dates | Rust overview daily_series only contains session-bearing dates, CSS fixed 8 columns | GAP_B30 |
+| SS-C12-09 | SS-C12 | Most Productive cards and Time By List/Done Tasks below chart | ReportsOverviewView productive-grid and lower-grid | PRESENT_CODE_ONLY |
+| SS-C12-10 | SS-C12 | Meaning of source work-day=8 with task/time=0 in this dataset | SS-C12 still does not expose underlying zero-duration sessions or exact date/task population | EVIDENCE_LIMIT |
+| SS-C13-01 | SS-C13 | Three equal Most Productive time cards | ReportsOverviewView productive-grid map hour/day/month and CSS grid | PRESENT_CODE_ONLY |
+| SS-C13-02 | SS-C13 | Time By List panel empty message exact string | ReportsOverviewView No report on the selected date range literal | PRESENT_CODE_ONLY |
+| SS-C13-03 | SS-C13 | Done Tasks separate panel with green/red Early/Late percentages | ReportsOverviewView punctuality spans & progress bar | PRESENT_CODE_ONLY |
+| SS-C13-04 | SS-C13 | Substantial lower panel height in empty state | ReportsOverviewView lower-grid and reportsOverview.css panel sizing; source pixel compare not run | PRESENT_CODE_ONLY |
+| SS-C13-05 | SS-C13 | Empty Done Tasks body exact source copy/absence | Current source screenshot description does not establish whether extra empty-copy exists | EVIDENCE_LIMIT |
+
+**Review 03 boundaries:** SS-C10/C11 are empty-state/one-filter-open screenshots and cannot prove populated archive actions or search/filter post-commit semantics. SS-C12 has zero dashboard totals and an 8-workdays number but not the underlying sessions/tasks; do not force a new numeric bug without the dataset. Visual-coded elements remain `PRESENT_CODE_ONLY`, not direct pixels/motion PASS.
 ## Caveats and exact continuation
 
 - **No automatic promotion of `PRESENT_CODE_ONLY`:** check actual Windows candidate and canonical Blitzit source side-by-side before `SOURCE_PARITY_PASS`. Static code can be wrong in geometry, data, keyboard, timing or runtime composition.
 - **B56 backend/fixture divergence is a priority causal finding:** the existing `reportsVisualFixture.tsx` hardcodes `2 Total Tasks / 0 Sessions` while real `session_reporting.rs` derives tasks solely from work-session IDs and cannot produce `2/0`; the source itself shows `2/0` in current v2.6.69 and `39/22` in older VE-015. This proves a definition mismatch but not the source's exact task inclusion/counting rule. Require a product-semantic reconciliation before implementing; do not blindly switch to count of all tasks.
 - **EVIDENCE_LIMIT rows are not missing feature tickets.** Especially search results matching, search keyboard navigation and date-picker double-chevron effect: source static images do not prove them. A current Narro implementation does not establish source parity. Review canonical video context or original media only where it actually resolves the disputed observation.
-- **Next static claim-audit candidates:** current/direct `SS-C10–SS-C13` and remaining `SS-C18–SS-C22`, followed by Help state equivalents. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
+- **Next static claim-audit candidates:** remaining current/direct `SS-C18–SS-C22`, followed by Help state equivalents. Use same row statuses; preserve previously routed B IDs and do not duplicate their fixes. Raw MP4 needed for direct motion/sequence parity, not for static existence/copy claims.
 - **Validation:** documentation-only evidence audit. App/frontend/Rust tests, Windows CI, native physical comparison, and raw media reinspection **NOT RUN**. No progress/counters advanced: `3/10M || 0/3 | 17/18`. Codex retains app/native ownership and physical CI1046 C4/35/29 gates.
