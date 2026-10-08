@@ -41,6 +41,7 @@ import {
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { boardTaskSubgroup, groupedBoardTasks, scheduledGroupHeading } from "./boardTaskGroups";
 import { parseMetricDuration } from "./metricDurationInput";
+import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -74,6 +75,7 @@ type ListBoardProps = {
 type ListBoardOption = {
   id: string;
   title: string;
+  color: string | null;
 };
 
 type DragState = {
@@ -775,7 +777,7 @@ function BoardLane({
 
 function fixtureOptions(snapshot: ListBoardSnapshot | undefined): ListBoardOption[] {
   if (!snapshot || snapshot.target.kind !== "list" || !snapshot.target.id) return [];
-  return [{ id: snapshot.target.id, title: snapshot.target.title }];
+  return [{ id: snapshot.target.id, title: snapshot.target.title, color: snapshot.target.color }];
 }
 
 export function ListBoard({
@@ -965,7 +967,7 @@ export function ListBoard({
     void invoke<HomeSnapshot>("get_home_snapshot")
       .then((home) => {
         if (!disposed) {
-          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title })));
+          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title, color: list.color })));
         }
       })
       .catch(() => {
@@ -984,7 +986,7 @@ export function ListBoard({
       && snapshot.target.id
       && !options.some((option) => option.id === snapshot.target.id)
     ) {
-      options.push({ id: snapshot.target.id, title: snapshot.target.title });
+      options.push({ id: snapshot.target.id, title: snapshot.target.title, color: snapshot.target.color });
     }
     return options;
   }, [listOptions, snapshot]);
@@ -2017,38 +2019,18 @@ export function ListBoard({
         </div>
 
         <div className="list-board__controls">
-          <label
-            className="list-board__selector"
-            data-board-list-selector="true"
-            data-board-selected-target={selectedTarget}
-          >
-            <span className="type-metadata">List</span>
-            <select
-              value={selectedTarget}
-              onChange={(event) => {
-                if (!onTargetChange) return;
-                const value = event.target.value;
-                onTargetChange(
-                  value === ALL_LISTS_VALUE
-                    ? { kind: "all" }
-                    : { kind: "list", id: value },
-                );
-              }}
-              disabled={!onTargetChange
-                || mutationPendingTaskId !== null
-                || editorMutationPending
-                || scheduleEditorTaskId !== null
-                || notePanelTaskId !== null
-                || subtaskPanel !== null
-                || deleteTarget !== null}
-              aria-label="Planning list"
-            >
-              <option value={ALL_LISTS_VALUE}>All Lists</option>
-              {selectorOptions.map((option) => (
-                <option key={option.id} value={option.id}>{option.title}</option>
-              ))}
-            </select>
-          </label>
+          <BoardListPicker
+            selectedTarget={selectedTarget}
+            options={selectorOptions}
+            onTargetChange={onTargetChange}
+            disabled={!onTargetChange
+              || mutationPendingTaskId !== null
+              || editorMutationPending
+              || scheduleEditorTaskId !== null
+              || notePanelTaskId !== null
+              || subtaskPanel !== null
+              || deleteTarget !== null}
+          />
           <p className="list-board__helper">
             {aggregateView
               ? "Tasks from your active lists, organized into one planning view."
