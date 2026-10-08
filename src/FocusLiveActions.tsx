@@ -325,6 +325,18 @@ export function FocusLiveActions({
       const next = nextEligibleTask(freshBoard, task.id);
       const nextMode = next ? focusModeForTask(authoritative.runtime.timer.mode, next) : null;
       const completed = await completeTimerTask();
+      // The sound switch is independent from the success-screen presentation.
+      // Never play before the authoritative completion transaction commits.
+      const celebration = preferences.snapshot?.celebration;
+      if (celebration?.successSoundEnabled) {
+        const successSound = celebration.successSound ?? DEFAULT_SUCCESS_SOUND;
+        void playLocalSound(
+          successSound,
+          celebration.successSoundVolumePercent,
+        ).catch((soundFailure: unknown) => {
+          console.warn("Success sound could not play after committed task completion.", soundFailure);
+        });
+      }
 
       if (showSuccessScreen) {
         let postCompletionBoard: ListBoardSnapshot | null = null;
@@ -338,17 +350,6 @@ export function FocusLiveActions({
         const nextAfterCompletionMode = nextAfterCompletion
           ? focusModeForTask(authoritative.runtime.timer.mode, nextAfterCompletion)
           : null;
-        const celebration = preferences.snapshot?.celebration;
-        if (celebration) {
-          const successSound = celebration.successSound ?? DEFAULT_SUCCESS_SOUND;
-          void playLocalSound(
-            successSound,
-            celebration.successSoundVolumePercent,
-          ).catch((soundFailure: unknown) => {
-            console.warn("Success sound could not play after committed task completion.", soundFailure);
-          });
-        }
-
         onCompletionSuccess?.({
           completedTaskId: completedTask.id,
           completedTaskTitle: completedTask.title,

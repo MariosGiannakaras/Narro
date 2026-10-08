@@ -40,6 +40,7 @@ export type AlertSettingsSnapshot = {
 export type CelebrationSettingsSnapshot = {
   showSuccessScreen: boolean;
   funGif: boolean;
+  successSoundEnabled: boolean;
   successSound: LocalSoundId | null;
   successSoundVolumePercent: number;
 };
@@ -77,6 +78,7 @@ export type PreferenceSettingsPatch = Partial<{
   reminderLeadSeconds: number;
   showSuccessScreen: boolean;
   funGif: boolean;
+  successSoundEnabled: boolean;
   successSound: LocalSoundId;
   successSoundVolumePercent: number;
 }>;
