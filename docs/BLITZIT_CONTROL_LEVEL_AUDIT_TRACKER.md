@@ -30,7 +30,7 @@ Authoritative evidence: `BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` (46/46) and `BLI
 | SS-C20 | M7 | SCOPED_ACCEPTANCE | compact rest/hover verified in limited scope |
 | SS-C21 | M6 | B26 | Notes local Close; mic/cloud explicitly excluded |
 | SS-C22 | M9 | B32 / FURTHER_CONTROL_REVIEW | detail inline edit exists; Narro modal keyboard/lifecycle ownership open (source keyboard behavior unobserved) |
-| SS-H01 | M5 | B24 | Board list selector + existing separate P3 board gates |
+| SS-H01 | M5 | B24/B39/B40/B43/B44 | board list picker, recurring/scheduled/Done grouping and This Week progress |
 | SS-H02 | M5 | P3-M5-01/02 | Today progress/ordinals historical implementation; direct source check scoped |
 | SS-H03 | M6/M7 | PHYSICAL_SOURCE_GATE | docking/placement not settled by static image |
 | SS-H04 | M6 | B15 | Focus list selector badges/overlay |
@@ -59,7 +59,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-013 | B12 | board subtask input grammar |
 | VE-014 | B9/B17/B18/B21/B22/B34 | full Preferences root page-vs-modal and nested controls |
 | VE-016 | B35/B36/B37/P3-M7 | historical Break live-card replacement, Done Break row and POMO badge; current-version corroboration open, native timer checks independent |
-| VE-017 | B33/SCOPED_VALIDATED | replacement/No Repeat scoped PASS; date-derived preset/live Custom summary missing |
+| VE-017 | B33/B39/B40/B41/B42/SCOPED_VALIDATED | recurrence update/domain scoped PASS; custom summary and board parent/scheduled/menu grammar still unmatched |
 | VE-007 | B19 | two-step schedule/editor |
 | VE-009 | B20/B33 | nth-weekday rule missing; custom natural-language feedback/date-derived preset labels absent |
 | VE-010 | B26 | Notes local Close; toolbar/URL scoped PASS |
@@ -67,7 +67,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-011 | B25/B27/B28/B30 | Reports populated Done/hover and calendar axis |
 | VE-012 | B30/SCOPED_VALIDATED | 30-day calendar zeros missing; prior reporting semantics remain scoped-validated |
 | VE-006 | B10/B11 | archive populated UI, source trash click unknown |
-| VE-008 | SCOPED_VALIDATED | recurrence parent/child detach |
+| VE-008 | B39/B40/B41/B42/SCOPED_VALIDATED | recurrence domain validated; parent/scheduled grouping, cadence label and overflow quick-clear not matched |
 | VE-002 | SCOPED_VALIDATED | EST suffix title normalization |
 | VE-001 | CONTEXT | account/cloud/pricing excluded |
 | VE-004 | SCOPED_VALIDATED | first-use task/list loop; auth excluded |
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B38 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B44 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.

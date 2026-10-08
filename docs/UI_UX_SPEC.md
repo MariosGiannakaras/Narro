@@ -316,6 +316,8 @@ Local icon assets are copied into app-owned storage and previewed before confirm
 # 5. Main window — List board and tasks
 
 ## 5.1 Board structure
+- SS-H01 Help board and VE-008/VE-017 provide structured lane anatomy beyond flat task lists: Backlog `Recurring tasks` parent subsection (B39), scheduled-task grouped sections/counts inside affected lanes (B40), and Done completed-day groups with per-day counts (B43). Current Narro `BoardLane` maps each lane flat. Preserve real task identities, recurrence grouping exclusions, scheduled child lifecycle, sorting and locale dates.
+- SS-H01 confirms the **This Week and Today** lanes both have source progress/completion fraction treatment; Narro currently only renders it for Today (B44). The historic weekly-superset total definition is not automatically a current rule; verify current data semantics independently of the visual bar.
 - VE-005 Board list scope opens a compact anchored All Lists/named-list menu that retains list badges. The current text-only native select meets scope switching but does not satisfy source menu composition.
 
 [CONFIRMED official behavior + supplied captures]
@@ -348,6 +350,7 @@ Visible older capture confirms:
 Top create inserts at highest priority; bottom create appends.
 
 ## 5.3 Task-card states
+- VE-008/VE-017 recurring-parent task badges display the actual recurrence cadence (`Weekdays`, `Custom`, `Daily`) rather than a generic `Repeats` string (B41). A scheduled occurrence's overflow includes a current-date row with contextual X/remove alongside `Update Schedule` (B42); current scheduler `Unscheduled` action provides the underlying function but not that source menu control. Validate safe shortcut removal with correct pending/error/focus semantics.
 
 Required states:
 
