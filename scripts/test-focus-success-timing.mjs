@@ -8,7 +8,7 @@ assert.equal(successTimingCopy(600, "601"), "Less than a minute late");
 assert.equal(successTimingCopy(600, "660"), "1 minute late");
 assert.equal(successTimingCopy(600, "600"), "Right on time");
 assert.equal(successTimingCopy(600, "599"), "Less than a minute early");
-assert.equal(successTimingCopy(600, "630"), "1 minute early");
+assert.equal(successTimingCopy(600, "630"), "Less than a minute late");
 assert.equal(successTimingCopy(600, "999999999999999999"), "16666666666666657 minutes late");
 assert.equal(successTimingCopy(null, "300"), null, "unknown EST suppresses projection");
 assert.equal(successTimingCopy(300, null), null, "unknown Taken suppresses projection");
