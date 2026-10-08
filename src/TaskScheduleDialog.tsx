@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
+import { recurrencePresetLabels, recurrenceSummary } from "./recurrenceSummary";
 import { formatInvokeError } from "./diagnosticApi";
 import {
   getTaskScheduleEditor,
@@ -207,6 +208,16 @@ export function TaskScheduleDialog({
   const generatedOccurrence = snapshot?.recurrenceParentTaskId !== null && snapshot?.recurrenceParentTaskId !== undefined;
   const existingRule = snapshot?.recurrence ?? null;
   const recurrenceEnabled = !generatedOccurrence;
+  const dateLabels = recurrencePresetLabels(startsLocalDate || scheduleLocalDate);
+  const ruleSummary = recurrenceSummary({
+    preset,
+    startDate: startsLocalDate || scheduleLocalDate,
+    interval: customInterval,
+    unit: customUnit,
+    weekdayMask: customWeekdayMask,
+    monthPattern: customMonthPattern,
+    monthDay: customMonthDay,
+  });
 
   const scheduleDescription = useMemo(() => {
     if (!scheduleLocalDate) return "Unscheduled";
@@ -573,8 +584,8 @@ export function TaskScheduleDialog({
                       {existingRule ? <option value="none">No Repeat</option> : null}
                       <option value="daily">Every day</option>
                       <option value="weekdays">Every weekday</option>
-                      <option value="weekly">Weekly on start weekday</option>
-                      <option value="monthly">Monthly on start date</option>
+                      <option value="weekly">{dateLabels.weekly}</option>
+                      <option value="monthly">{dateLabels.monthly}</option>
                       <option value="custom">Custom</option>
                     </select>
                   </label>
@@ -705,6 +716,18 @@ export function TaskScheduleDialog({
                       </p>
                     </>
                   ) : null}
+
+                  <p
+                    className="task-schedule-dialog__rule-summary type-metadata"
+                    data-task-recurrence-summary="true"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {ruleSummary}
+                    {preset === "custom" && customUnit === "month" && customMonthPattern === "weekdays"
+                      ? " (every selected weekday in each eligible month; ordinal weekdays are not supported)"
+                      : null}
+                  </p>
 
                   {existingRule && preset !== "none" ? (
                     <label className="task-schedule-dialog__check task-schedule-dialog__check--consequence">
