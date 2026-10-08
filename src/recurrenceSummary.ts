@@ -1,6 +1,6 @@
 export type RecurrencePreset = "none" | "daily" | "weekdays" | "weekly" | "monthly" | "custom";
 export type RecurrenceUnit = "day" | "week" | "month" | "year";
-export type MonthPattern = "date" | "weekdays";
+export type MonthPattern = "date" | "weekdays" | "ordinal";
 
 const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const;
 
@@ -42,8 +42,9 @@ export function recurrenceSummary(input: {
   weekdayMask: number;
   monthPattern: MonthPattern;
   monthDay: number;
+  monthWeekdayOrdinal?: number | null;
 }): string {
-  const { preset, startDate, interval, unit, weekdayMask, monthPattern, monthDay } = input;
+  const { preset, startDate, interval, unit, weekdayMask, monthPattern, monthDay, monthWeekdayOrdinal } = input;
   if (preset === "none") return "No repeat";
   if (preset === "daily") return "Every day";
   if (preset === "weekdays") return "Every weekday";
@@ -62,9 +63,20 @@ export function recurrenceSummary(input: {
       return Number.isInteger(monthDay) && monthDay >= 1 && monthDay <= 31
         ? `${every} on ${ordinal(monthDay)}` : "Choose a valid day of month";
     }
+    if (monthPattern === "ordinal") {
+      const selected = weekdayList(weekdayMask);
+      if (weekdayMask < 1 || weekdayMask > 64 || (weekdayMask & (weekdayMask - 1)) !== 0) {
+        return "Choose exactly one weekday";
+      }
+      if (!Number.isInteger(monthWeekdayOrdinal) || monthWeekdayOrdinal == null
+        || monthWeekdayOrdinal < 1 || monthWeekdayOrdinal > 5) {
+        return "Choose a valid week of month";
+      }
+      return `${every} on the ${ordinal(monthWeekdayOrdinal)} ${selected}`;
+    }
     const selected = weekdayList(weekdayMask);
-    // Existing Rust monthly mask means every selected weekday in eligible
-    // months, NOT the nth weekday shown in Blitzit (unimplemented B20).
+    // Legacy monthly weekday-mask means every selected weekday in eligible
+    // months; never relabel it as an ordinal recurrence.
     return selected ? `${every} on each ${selected}` : "Choose at least one weekday";
   }
   return every;

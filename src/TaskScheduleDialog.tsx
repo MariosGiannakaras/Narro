@@ -35,7 +35,7 @@ const WEEKDAYS = [
 const WEEKDAY_MASK = 31;
 
 type RecurrencePreset = "none" | "daily" | "weekdays" | "weekly" | "monthly" | "custom";
-type MonthPattern = "date" | "weekdays";
+type MonthPattern = "date" | "weekdays" | "ordinal";
 
 type Props = {
   taskId: string;
@@ -154,6 +154,8 @@ export function TaskScheduleDialog({
   const [customWeekdayMask, setCustomWeekdayMask] = useState(1);
   const [customMonthPattern, setCustomMonthPattern] = useState<MonthPattern>("date");
   const [customMonthDay, setCustomMonthDay] = useState(1);
+  const [customMonthWeekdayOrdinal, setCustomMonthWeekdayOrdinal] = useState(2);
+  const [customOrdinalWeekdayBit, setCustomOrdinalWeekdayBit] = useState(64);
 
   useEffect(() => {
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -188,8 +190,14 @@ export function TaskScheduleDialog({
           setCustomInterval(rule.intervalCount);
           setCustomUnit(rule.unit);
           setCustomWeekdayMask(rule.weekdayMask || 1);
-          setCustomMonthPattern(rule.monthDay === null ? "weekdays" : "date");
+          setCustomMonthPattern(rule.monthWeekdayOrdinal != null
+            ? "ordinal"
+            : rule.monthDay === null ? "weekdays" : "date");
           setCustomMonthDay(rule.monthDay ?? dateMonthDay(rule.startsLocalDate) ?? 1);
+          setCustomMonthWeekdayOrdinal(rule.monthWeekdayOrdinal ?? 2);
+          setCustomOrdinalWeekdayBit(rule.monthWeekdayOrdinal != null
+            ? rule.weekdayMask
+            : dateWeekdayBit(rule.startsLocalDate) || 64);
         } else {
           setStartsLocalDate(draft.localDate);
           setRecurrenceTimezone(displayTimezone);
@@ -214,9 +222,12 @@ export function TaskScheduleDialog({
     startDate: startsLocalDate || scheduleLocalDate,
     interval: customInterval,
     unit: customUnit,
-    weekdayMask: customWeekdayMask,
+    weekdayMask: customMonthPattern === "ordinal" && customUnit === "month"
+      ? customOrdinalWeekdayBit
+      : customWeekdayMask,
     monthPattern: customMonthPattern,
     monthDay: customMonthDay,
+    monthWeekdayOrdinal: customMonthWeekdayOrdinal,
   });
 
   const scheduleDescription = useMemo(() => {
@@ -324,6 +335,17 @@ export function TaskScheduleDialog({
       return { intervalCount, unit: "week", weekdayMask: customWeekdayMask, monthDay: null, startsLocalDate: startDate, replaceExisting: existingRule ? replaceExisting : false, ...timeFields };
     }
     if (customUnit === "month") {
+      if (customMonthPattern === "ordinal") {
+        if (!Number.isInteger(customMonthWeekdayOrdinal)
+          || customMonthWeekdayOrdinal < 1
+          || customMonthWeekdayOrdinal > 5
+          || customOrdinalWeekdayBit < 1
+          || customOrdinalWeekdayBit > 64
+          || (customOrdinalWeekdayBit & (customOrdinalWeekdayBit - 1)) !== 0) return null;
+        return { intervalCount, unit: "month", weekdayMask: customOrdinalWeekdayBit, monthDay: null,
+          monthWeekdayOrdinal: customMonthWeekdayOrdinal, startsLocalDate: startDate,
+          replaceExisting: existingRule ? replaceExisting : false, ...timeFields };
+      }
       if (customMonthPattern === "weekdays") {
         if (customWeekdayMask < 1 || customWeekdayMask > 127) return null;
         return { intervalCount, unit: "month", weekdayMask: customWeekdayMask, monthDay: null, startsLocalDate: startDate, replaceExisting: existingRule ? replaceExisting : false, ...timeFields };
@@ -643,6 +665,7 @@ export function TaskScheduleDialog({
                           >
                             <option value="date">Calendar date</option>
                             <option value="weekdays">Selected weekdays</option>
+                            <option value="ordinal">Nth weekday of month</option>
                           </select>
                         </label>
                       ) : null}
@@ -660,6 +683,39 @@ export function TaskScheduleDialog({
                             onChange={(event) => setCustomMonthDay(Number(event.target.value))}
                           />
                         </label>
+                      ) : null}
+
+                      {customUnit === "month" && customMonthPattern === "ordinal" ? (
+                        <>
+                          <label>
+                            <span className="type-metadata">Week of month</span>
+                            <select
+                              value={customMonthWeekdayOrdinal}
+                              disabled={pending}
+                              data-task-recurrence-control="month-weekday-ordinal"
+                              onChange={(event) => setCustomMonthWeekdayOrdinal(Number(event.target.value))}
+                            >
+                              <option value={1}>1st</option>
+                              <option value={2}>2nd</option>
+                              <option value={3}>3rd</option>
+                              <option value={4}>4th</option>
+                              <option value={5}>5th (months where present)</option>
+                            </select>
+                          </label>
+                          <label>
+                            <span className="type-metadata">Weekday</span>
+                            <select
+                              value={customOrdinalWeekdayBit}
+                              disabled={pending}
+                              data-task-recurrence-control="month-ordinal-weekday"
+                              onChange={(event) => setCustomOrdinalWeekdayBit(Number(event.target.value))}
+                            >
+                              {WEEKDAYS.map((day) => (
+                                <option key={day.bit} value={day.bit}>{day.name}</option>
+                              ))}
+                            </select>
+                          </label>
+                        </>
                       ) : null}
 
                       {(customUnit === "week" || (customUnit === "month" && customMonthPattern === "weekdays")) ? (
@@ -726,7 +782,7 @@ export function TaskScheduleDialog({
                   >
                     {ruleSummary}
                     {preset === "custom" && customUnit === "month" && customMonthPattern === "weekdays"
-                      ? " (every selected weekday in each eligible month; ordinal weekdays are not supported)"
+                      ? " (every selected weekday in each eligible month)"
                       : null}
                   </p>
 
