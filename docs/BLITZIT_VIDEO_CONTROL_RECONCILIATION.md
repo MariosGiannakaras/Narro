@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 13/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 14/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | VE-007 | REVIEWED (21 time-local video-to-code claims) | Existing B19/B33/B40/B42/B48; new B70 post-unschedule Backlog vs original manual-lane return (older video limit) |
 | VE-008 | REVIEWED (24 time-local video-to-code claims) | Existing B19/B33/B39–B42/B45; new B71 active recurring parent incorrectly contributes to pending counts |
 | VE-009 | REVIEWED (18 time-local video-to-code claims) | Existing B19/B20/B33/B39–B41/B71; examples not committed, no new ticket |
-| VE-010 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-010 | REVIEWED (14 time-local video-to-code claims) | Existing B26 Notes X and B49 live action hover-pills; auto-open-on-live source UNPROVEN |
 | VE-011 | REVIEWED (19 time-local video-to-code claims) | Existing B13/B16/B25/B27/B28/B30; source Time By List vs headline unreconciled; no new B |
 | VE-012 | REVIEWED (17 time-local video-to-code claims) | Existing B27/B28/B30; Rust avg/day/time-by-list/punctuality semantics align with documented source |
 | VE-013 | REVIEWED (14 time-local video-code claims) | B12/B60 Board gaps; Focus/Floating subtask behaviors code-present, native M7 motion OPEN; Notion excluded |
@@ -391,6 +391,28 @@ Canonical VE-009 entire 02:39.893/60fps source Pass-3 has been reviewed previous
 | 02:27–02:39.89 | Outro | Non-product | EXCLUDED |
 
 **V13 closure:** 18 time-local claims. Existing B19 full two-step calendar, B20 missing nth-weekday ordinal monthly model, B33 live Custom summaries/date-specific labels, B39 recurring-parent group, B40 scheduled subsection, B41 cadence badge, and B71 parent pending-count bug cover the evidenced discrepancies; **no new B ticket**. The video demos 3-day/4-week/4-month/4-year variants, but only commits **Custom 1 day**. The Schedule/board alternation is tutorial editing, not application motion. Historic scoped recurrence engine PASS remains separate; no tests/CI/Windows/source visual acceptance performed.
+## VE-010 — Notes — REVIEWED 2026-10-08
+
+Canonical VE-010 01:13.561/60fps full-video Pass-3 reviewed previously; mapped source chronological interaction and motion notes against FocusLiveActions/FocusPanel, TaskNotes and CSS. Not a raw MP4 replay.
+
+| Time | Source action/state | Narro production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:21 | Today Focus live count-up Finish the video + Send press-release queued | FocusPanel live-card and remaining-task queue | PRESENT_CODE_ONLY |
+| 00:21–00:24.5 | Live-card hover shows Break/Notes/Pause/Skip/Done icon strip | FocusLiveActions controls exist; live rest/title/time/action composition differs | GAP_B49 |
+| 00:21–00:24.5 | Hovered Notes icon expands to Notes label pill without overall width change | FocusLiveActions Notes control text and separate action style; source icon-to-label rest/hover grammar differs | GAP_B49 |
+| 00:24.5–00:25.1 | Notes expands live card inline, queued task moves below | FocusLiveActions notesExpanded with div.focus-panel__notes within card | PRESENT_CODE_ONLY_MOTION_UNVALIDATED |
+| 00:25–00:30 | Task title retained, pencil, toolbar divider and lower-right circular Close | TaskNotes toolbar/edit content exists; source lower-right close X differs from Narro edit shell | GAP_B26 |
+| 00:25–00:30 | Toolbar order B/Italic/Strike/Bullets/Numbers/Undo/Redo | TaskNotes RichNoteEditor order matches seven controls | PRESENT_CODE_ONLY |
+| 00:25–00:30 | Multiline editor Feels so good within live card | TaskNotes contenteditable with persistent document state | PRESENT_CODE_ONLY |
+| 00:30–00:45 | Select text then apply Bold; Bold selected styling | TaskNotes formatting command bold/selection and toolbar UI; precise selected appearance unverified | PRESENT_CODE_ONLY |
+| 00:30–00:45 | Italic/Strike/List/Undo/Redo exposed; no equal before-after proof each | TaskNotes implements commands, but tutorial source only exposes others | EVIDENCE_LIMIT |
+| 00:45–00:50 | https://www.blitzit.app auto-linked inline on typing | TaskNotes autoLinkEditorUrls, safeExternalUrl, linked editor runs | PRESENT_CODE_ONLY |
+| 00:50–00:52 | Hand cursor over link; Safari opens as external browser | TaskNotes links and Tauri openUrl on explicit interaction; external-app context preserved | PRESENT_MANUAL_LINK |
+| 00:50–00:52 | Narration claims links auto-open on live, but pointer is on URL immediately prior | No auto-open-on-live source proof; do not add automatic browser launch based on this tutorial | SOURCE_AMBIGUOUS_NO_NEW_GAP |
+| 00:52–01:01 | Browser loads while Focus stays visible, no Notes page replacement | Narro opens URL externally from Notes; native window compositing must be separately tested | PRESENT_CODE_NATIVE_OPEN |
+| 01:01–01:13.56 | Outro | Not product UI | EXCLUDED |
+
+**V14 closure:** 14 time-local claims, existing B26 (Notes lower-right X control) and B49 (rest→hover icon-to-label live-card action strip) account for code-confirmed discrepancies; no novel ticket. RichNoteEditor toolbar offers source seven commands and automatic safe HTTP(S) link detection and explicit external URL opening. Source **does not demonstrate** narrated automatic URL open-on-task-live: pointer sits over URL immediately prior to Safari opening, so no such behavior is accepted or requested. The ~66.7ms sampled editor expansion is source-video bound, not native Windows timing PASS. Tests/CI/raw video replay/physical and rendered visual validation NOT RUN.
 ## Exact next review
 
-Continue VE-004/006/010 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/009/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-004/006 and VE-017–VE-019 pending in the 19-video index. VE-001/002/003/005/007/008/009/010/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
