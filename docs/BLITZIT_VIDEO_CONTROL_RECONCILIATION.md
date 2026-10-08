@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 16/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 19/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -22,9 +22,9 @@
 | VE-014 | REVIEWED (24 time-local video-to-code claims) | Existing B9/B17/B18/B21/B34/B63/B64; new B69 alert-flash live-card wash vs timer text |
 | VE-015 | REVIEWED (20 time-local video-to-code claims) | B56 high-priority metric meaning + NEW B68 selector disclosure; B59/B25/B32/B51 separate |
 | VE-016 | REVIEWED (23 time-local video-to-code claims) | New B67 negative amber overtime; existing B35–38/B50/B53 + native Finding35 |
-| VE-017 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-018 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-019 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-017 | REVIEWED (18 time-local video-to-code claims) | Existing B20/B33/B39–B42/B45/B71; replacement/detach branches reconciled, no new ticket |
+| VE-018 | REVIEWED (20 time-local video-to-code claims) | Older weekly-superset and transient-success caveats retained; existing B35/B36/B38/B43/B44/B63–B65, no new ticket |
+| VE-019 | REVIEWED (16 time-local video-to-code claims) | Older Floating/theme evolution and current source precedence; B21/B34 only, intentional live-first-subtask improvement |
 
 ## VE-005 — Add & Manage Tasks and Lists — REVIEWED 2026-10-08
 
@@ -463,6 +463,84 @@ Full canonical original video already Pass-3 SOURCE_COMPLETE; the following are 
 | 01:10–01:23.96 | Recap/outro | Non-product | EXCLUDED |
 
 **V16 closure:** 15 claims. Task Delete uses observed inline confirm; list Archive applies directly, excluding archived list's 3 pending from active 25→22. Existing B10 archived-list task previews and B11 Archived Done table controls remain. Neither Unarchive, Delete Forever nor Archived Done trash was clicked in source; 60-day transition is narration with age corroboration, not observed automation. No new B; physical/destructive validation and source parity NOT RUN.
+## VE-017 — Update Recurring Schedules — REVIEWED 2026-10-08
+
+Canonical full MP4 was independently Pass-3 SOURCE_COMPLETE previously; this is time-local source-to-production code inspection only, no raw MP4 re-review.
+
+| Time | Source state/action | Production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:23 | Daily linked parent in Backlog Recurring tasks and six This Week children | Rust parent normalization/materialization, BoardLane flat no scheduled/recurring grouping | GAP_B39_B40 |
+| 00:34–00:39.6 | Parent menu Update Recurring / Remove Recurring / Duplicate / Delete | TaskCard generic Update Schedule, no direct Remove Recurring | GAP_B45 |
+| 00:39.8–00:48 | Update existing daily rule; presets No Repeat/Every day/weekday/date/Custom | TaskScheduleDialog existingRule prefill/inferPreset, fixed date-derived labels | PRESENT_MODEL_GAP_B33 |
+| 00:39.8–00:48 | Custom week selects Fri/Sat/Sun and live phrase every week on Fri/Sat/Sun | custom week weekdayMask persisted; no live natural-language preview | PRESENT_DOMAIN_GAP_B33 |
+| 00:48–00:52 | Neutral Replace existing tasks(7) appears only for linked update | TaskScheduleDialog existingRule && preset != none shows Replace checkbox and eligible count | PRESENT_CODE_ONLY |
+| 00:52–00:54 | Replace+Schedule changes six scheduled This Week to three Fri/Sat/Sun and toast | Rust replace_existing_tasks_if_expected and materialize_after_commit; board group missing | PRESENT_DOMAIN_GAP_B40 |
+| 00:54–01:13 | Narration says unchecked replace preserves older children, not directly committed in this branch | Existing replaceExisting false update path, source action not direct | SOURCE_TRANSCRIPT_LIMIT |
+| 01:14–01:29 | Reopen Custom→No Repeat: neutral Replace disappears; warm Delete existing tasks(3) shows | TaskScheduleDialog existingRule && preset none shows distinct destructive deleteExisting row | PRESENT_CODE_ONLY |
+| 01:29–01:34 | Delete existing+No Repeat removes generated three, keeps parent task ordinary | removeTaskRecurrence deleteExistingTasks; safe deletion protects altered/history tasks | PRESENT_DOMAIN_ONLY |
+| 01:34–01:45 | Unselected Delete Existing branch discussed but not committed | Preserve/detach implementation separate, video not direct outcome | SOURCE_TRANSCRIPT_LIMIT |
+| 01:45–01:52.5 | Tutorial cut resets linked parent+3 child setup | Source editing/staging, not in-app undo | SOURCE_CUT |
+| 01:52.5–01:54 | Direct Remove Recurring detaches parent, preserves three child tasks | Rust remove_recurrence_if_expected(false) detaches children; missing menu action B45 | PRESENT_DOMAIN_GAP_B45 |
+| 01:54–02:00 | Detached parent shows ordinary Schedule; new editor starts No Repeat | recurrenceRuleId clears; TaskCard label becomes Schedule; TaskScheduleDialog no old existingRule | PRESENT_CODE_ONLY |
+| 01:57–02:00.5 | Recreate Every day after detachment shows no Replace old-child checkbox | TaskScheduleDialog Replace only when existingRule; new rule has no original child linkage | PRESENT_CODE_ONLY |
+| 02:00.5–02:02 | New daily recurrence adds to old detached 3, This Week 3→9 | Rust detached children retain identity, new materialization additive; BoardLane no subgroup count | PRESENT_DOMAIN_GAP_B40 |
+| 02:02–02:08 | New parent recurrence label Daily on Backlog card | TaskCard label generic Repeats | GAP_B41 |
+| 02:08–02:28 | Previously generated child opens own Notes editor | TaskNotes independent per-child record and Focus/Board Notes edit | PRESENT_CODE_ONLY |
+| 02:28–02:50 | Future policy commentary/outro | No new direct UI state | EXCLUDED |
+
+**V17 closure:** 18 time-local comparisons. Existing B20/B33/B39–B42/B45 cover the source-visible custom rule, modal, grouped parents and lifecycle menu differences. Replace existing (neutral) vs No Repeat/Delete existing (destructive) code branches and detached old child preservation are already implemented in Rust/TSX; source 3→9 on recreated recurrence is corroboration, not a new persistent data bug. B71 linked-parent pending arithmetic remains separately OPEN. Staged restore is tutorial cut, not Undo; unchecked No Repeat preservation in that same path is narration-only. No new B. No new tests/CI/physical or source-visual acceptance run.
+## VE-018 — Daniel's Planning Workflow — REVIEWED 2026-10-08
+
+Canonical full MP4 was independently Pass-3 SOURCE_COMPLETE previously; this is time-local source-to-production code inspection only, no raw MP4 re-review.
+
+| Time | Source state/action | Production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:39 | Older Home Personal/list selection and task previews | HomeDashboard card/list entry, modern SS supersedes shell | PRESENT_CODE_VERSION_LIMIT |
+| 00:39–00:50 | Personal 17 pending, 9h04 weekly, Today 1h30 with 0/6 | ListBoard active snapshot metrics; old This Week aggregate is weekly superset | VERSION_SPECIFIC_WEEKLY_SEMANTICS |
+| 00:50–01:10 | Create Hug my dog in This Week and set 24min EST | ListBoard InlineCreateEditor/task EST edit | PRESENT_DOMAIN_GAP_B52 |
+| 00:50–01:10 | Pending 17→18, weekly EST 9h04→9h28 | Rust task creation/estimate mutation authoritative aggregate | PRESENT_DOMAIN_ONLY |
+| 01:18–01:35 | Move This Week→Today, same task 24min at ordinal4 | TaskCard lane controls and persistence planning-lane mutation | PRESENT_DOMAIN_ONLY |
+| 01:18–01:35 | Today estimate 1h30→1h54, while This Week stays 9h28 | Old weekly-superset vs Narro distinct lane; newer unmapped 9.344s clip differs | OLDER_VERSION_CONFLICT_B44 |
+| 01:35–02:14 | Today drag Hugo to first priority, aggregates unchanged | ListBoard reorderListBoardTask by task rank and lane | PRESENT_CODE_ONLY |
+| 02:14–02:24 | Blitz Now launches top Today Hug countdown at 24min | BlitzEntryButton/start and Focus timer countdown | PRESENT_DOMAIN_ONLY |
+| 02:14–02:24 | Focus queue follows reordered Today tasks, Est 1h54/0/7 | FocusPanel board.today projection, task ordering | PRESENT_CODE_ONLY |
+| 02:24–02:40 | Break action switches live card to Break/countdown ~10min | FocusLiveActions break starts native timer; source Focus break card presentation differs | GAP_B35 |
+| 02:24–02:40 | Focus Est header temporarily 1h54→2h04 during break | FocusPanel currently shows only board.today.aggregateEstSeconds, no active break addition | GAP_B38 |
+| 02:24–02:40 | After break, work resumes and Break row appears Done, fraction stays 0/7 | FocusPanel Done renders completed task records, no equivalent Break Done row | GAP_B36 |
+| 02:40–02:47 | Hug Done success reaction GIF, early-by-24, Next Task, Take Break | FocusCompletionSuccess no GIF, no early/late copy, Take Break disabled | GAP_B63_B64_B65_B37 |
+| 02:40–02:47 | Transient success shows 1/8 despite pre 0/7 and later board 2/7 | Old source anomaly; no rule for new denominator inferred | SOURCE_TRANSIENT_VERSION_LIMIT |
+| 02:47–02:55 | Pay electricity bill success early-by-10; 1h30 staged header | CompletionSuccess lacks early copy; estimate from authoritative remaining Today board | GAP_B65 |
+| 02:55–03:06 | Board two tasks done, pending18→16, EST9h28→8h54 | Rust task completion and aggregate EST subtraction of 34min | PRESENT_DOMAIN_ONLY |
+| 02:55–03:06 | Today completed 2/7, remaining EST1h20, queue tasks reorder kept | ListBoard/Focus board snapshot Today progress and remaining estimate | PRESENT_MODEL_ONLY |
+| 02:55–03:06 | Done has two task rows plus Break row but heading counts only two tasks | Current BoardLane Done tasks flat; no Break-in-history visual, B36/B43 | GAP_B36_B43 |
+| 02:55–03:06 | Old This Week superset finally reads 2/15, modern lane progression differs | Do not overwrite separate newer planning evidence; B44 remains source-version limited | VERSION_CONFLICT_NO_NEW |
+| 03:06–03:33.09 | Recap/outro | No new product UI | EXCLUDED |
+
+**V18 closure:** 20 time-local comparisons. Source 17→18 and 9h04→9h28 then Done 18→16 / −34min is historical. VE018 uses older This Week weekly-superset state and transient success denominator 1/8→2/8 vs board 2/7; a separate 9.344-second planning clip has distinct, unmapped lineage, so neither version is silently used to rewrite modern lane math. Existing B35/B36/B38 break card/history/+10min, B63–B65 success copy/GIF/context, B37 disabled Take Break, B43/B44 Done/week aggregates cover gaps. No new B, no mechanical normalization of transient source anomalies. No new tests/CI/physical or source-visual acceptance run.
+## VE-019 — Oct Update — REVIEWED 2026-10-08
+
+Canonical full MP4 was independently Pass-3 SOURCE_COMPLETE previously; this is time-local source-to-production code inspection only, no raw MP4 re-review.
+
+| Time | Source state/action | Production route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:09 | One-click updater popup narrated, not shown | No sourced updater UI interaction contract | SOURCE_TRANSCRIPT_LIMIT |
+| 00:09–00:17 | Device Mockups Floating subtask 1/4 ring, plus and chevron | FloatingTimerFoundation/FocusLiveSubtasks shared live timer subtask summary | PRESENT_CODE_ONLY |
+| 00:17–00:28 | Disclosure expands Floating vertically, width held; four subtasks | FocusLiveSubtasks controls Floating Timer region resize, preserving top controls | PRESENT_CODE_NATIVE_GEOMETRY_OPEN |
+| 00:17–00:28 | Check previews completed, plus inline Enter subtask title* / cancel X | TaskSubtasks editor/input and snapshot in expanded Floating | PRESENT_CODE_ONLY |
+| 00:17–00:28 | Hover subtask rows up/down/trash | TaskSubtasks reorder/delete commands and row controls | PRESENT_CODE_ONLY |
+| 00:28–00:35 | Collapse restores compact timer; hover Pause labeled pill | Floating action controls/labels plus FocusLiveSubtasks collapse | PRESENT_CODE_ONLY |
+| 00:35–01:01 | Old Focus live zero-subtask no first Add, queued zero-subtask can Add | Current FocusLiveSubtasks allows live-first creation; deliberate local/product improvement | INTENTIONAL_MODERN_DIFFERENCE |
+| 01:01–01:11 | Top utility cog directly opens Preferences (older modal geometry) | AppShell settings destination, missing full modal shell already B34 | GAP_B34 |
+| 01:11–01:28 | Preferences Screen thumbnails, Side and System/Dark/Light segmented | ThemeSettingsPanel/Runtime system/dark/light, full monitor thumbnail B21 | PRESENT_MODEL_GAP_B21 |
+| 01:28–01:47 | Selecting Light repaints open Preferences and later board without navigation | ThemeRuntime saves and applies data-theme, persists; full Preferences overlay absent | PRESENT_CODE_GAP_B34 |
+| 01:28–01:47 | Light board white task cards, accent Today outline, dark text | CSS data-theme light tokens, current SS-C16 supersedes old exact palette | PRESENT_CODE_VISUAL_OPEN |
+| 01:47–01:58 | Light Home lists and hover Open CTA | HomeDashboard list cards themed, later SS-C16 stronger | PRESENT_CODE_VISUAL_OPEN |
+| 01:58–02:08 | System theme offered, OS-follow system change never demonstrated | ThemeRuntime system option; no direct OS repaint measured | SOURCE_INTERACTION_LIMIT |
+| 02:08–02:18 | Help Center Updates browser navigation | External support site, not desktop UI | EXCLUDED_EXTERNAL |
+| 02:18–02:33 | Changelog Nov1 2024 and Windows code-signing narrative | No installer/SmartScreen/certificate interaction observed | EXCLUDED_EVIDENCE_LIMIT |
+| 02:33–02:52.99 | Recap/outro | Non-product | EXCLUDED |
+
+**V19 closure:** 16 time-local comparisons. Old Nov2024 Floating subtask and System/Dark/Light evolution already covered by current SS-C18/C20/C07/C16, shared FocusLiveSubtasks code and B21/B34 modal/monitor discrepancies. Original missing first-subtask creation while live is a superseded historical limitation and intentionally not imposed on current Narro; external updater/changelog/certificate statements are not demonstrated desktop UI controls. No new B; verify modern rendered Windows/source styling separately. No new tests/CI/physical or source-visual acceptance run.
 ## Exact next review
 
-Continue VE-017–VE-019 pending in the 19-video index. VE-001/002/003/004/005/006/007/008/009/010/011/012/013/014/015/016 are reviewed; do not duplicate them. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+**VIDEO-TO-CODE COMPARISON QUEUE COMPLETE — 19/19, 362 time-local mapped source/code comparisons.** Original raw MP4 Pass-3 forensic coverage separately 19/19; current/Help static screenshot mapping separately 39/39 with 250 control comparisons. All novel confirmed B69/B70/B71 from this continuation are routed into AUDIT_IMPLEMENTATION_CROSSWALK and TODO M8/M5, alongside older B tickets. Documentation-only analysis does **not** close M5/M6/M7/M8/M9 implementation, current-source pixel parity, physical Windows acceptance or any unresolved handoff/manual gate. Next owner: Codex reviews new and existing crosswalk items within roadmap dependency order, implements and tests narrow fixes, obtains exact-head Windows CI and physical validation; forensic evidence agent reopens actual raw media only for an unresolved direct observation/claim, not to redo completed Pass-3. Await exact source-version/decision evidence where explicitly limited. Do not mutate historical PASS or silently increment milestone counters.
