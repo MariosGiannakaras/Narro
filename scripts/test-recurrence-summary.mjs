@@ -1,0 +1,20 @@
+import assert from "node:assert/strict";
+import { recurrencePresetLabels, recurrenceSummary } from "../src/recurrenceSummary.ts";
+
+const defaults = { preset: "custom", startDate: "2026-09-14", interval: 1, unit: "day", weekdayMask: 1, monthPattern: "date", monthDay: 14 };
+assert.deepEqual(recurrencePresetLabels("2026-09-14"), { weekly: "Every Monday", monthly: "Every month on 14th" });
+assert.deepEqual(recurrencePresetLabels("2026-11-01"), { weekly: "Every Sunday", monthly: "Every month on 1st" });
+assert.deepEqual(recurrencePresetLabels("2026-02-30"), { weekly: "Every chosen weekday", monthly: "Every month on chosen date" });
+assert.equal(recurrenceSummary({ ...defaults, preset: "none" }), "No repeat");
+assert.equal(recurrenceSummary({ ...defaults, preset: "weekdays" }), "Every weekday");
+assert.equal(recurrenceSummary({ ...defaults, preset: "weekly" }), "Every Monday");
+assert.equal(recurrenceSummary({ ...defaults, preset: "monthly" }), "Every month on 14th");
+assert.equal(recurrenceSummary({ ...defaults, interval: 3, unit: "day" }), "Every 3 days");
+assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "week", weekdayMask: 16 | 32 | 64 }), "Every 4 weeks on Friday, Saturday, Sunday");
+assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "month" }), "Every 4 months on 14th");
+assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "month", monthPattern: "weekdays", weekdayMask: 64 }), "Every 4 months on each Sunday");
+assert.equal(recurrenceSummary({ ...defaults, interval: 4, unit: "year" }), "Every 4 years");
+assert.equal(recurrenceSummary({ ...defaults, interval: 0 }), "Choose a valid interval");
+assert.equal(recurrenceSummary({ ...defaults, unit: "week", weekdayMask: 0 }), "Choose at least one weekday");
+assert.equal(recurrenceSummary({ ...defaults, unit: "month", monthDay: 32 }), "Choose a valid day of month");
+console.log("Recurrence live-summary and dynamic labels: PASS");
