@@ -667,6 +667,7 @@ mod tests {
                 unit: RecurrenceUnit::Week,
                 weekday_mask: 0b0011111,
                 month_day: None,
+                month_weekday_ordinal: None,
                 starts_local_date: "2026-09-07".into(),
                 local_time: None,
                 timezone: None,

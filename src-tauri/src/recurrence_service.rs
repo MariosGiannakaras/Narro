@@ -403,6 +403,7 @@ mod tests {
                 unit: RecurrenceUnit::Week,
                 weekday_mask: 0b0000001,
                 month_day: None,
+                month_weekday_ordinal: None,
                 starts_local_date: starts_local_date.into(),
                 local_time: local_time.map(str::to_owned),
                 timezone: timezone.map(str::to_owned),
