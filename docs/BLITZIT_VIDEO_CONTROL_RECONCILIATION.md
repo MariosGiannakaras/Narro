@@ -2,7 +2,7 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 5/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 6/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
@@ -20,7 +20,7 @@
 | VE-012 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-013 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-014 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-015 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-015 | REVIEWED (20 time-local video-to-code claims) | B56 high-priority metric meaning + NEW B68 selector disclosure; B59/B25/B32/B51 separate |
 | VE-016 | REVIEWED (23 time-local video-to-code claims) | New B67 negative amber overtime; existing B35–38/B50/B53 + native Finding35 |
 | VE-017 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-018 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
@@ -170,6 +170,34 @@
 | 02:51–02:55.38 | Branded outro | Not application user-visible workflow | EXCLUDED_SCOPE |
 
 **V05 closure:** 23 source-video segments routed. Distinguish actual source persistent Time's Up wordmark (Finding35 physically FAILED in current candidate), Extend negative amber visual sign (B67 new), and staged initial ~one-minute overtime magnitude (not validated elapsed time). Existing Break/POMO B35–B38 remain historical-version evidence-limited; B50 and B53 remain code-confirmed. No recent native physical/CI/pixel PASS performed by this audit.
+## VE-015 — Sessions walkthrough — REVIEWED 2026-10-08
+
+**Source:** original complete 02:56.167 /1920×1080 @60fps source-reviewed in Pass3; this review uses time-local canonical source record and current code head `4b55c5a1b0bb9f476747315f5c1b08b0d7e716a8`, not another raw video replay. Older source PDF/coming-soon superseded by current SS-C14 CSV; summary/flows still directly meaningful.
+
+| Source time | Observed source behavior | Current Narro code route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:20 | Reports Overview→Sessions Beta within shared shell | ReportsSessionsView tab list and navigation callbacks | PRESENT_CODE_ONLY |
+| 00:20–00:43 | Add Session, older Export PDF, filters/date row | ReportsSessionsView toolbar, current Export .csv supersedes source PDF | PRESENT_ACTIONS / CURRENT_CSV_PRECEDENCE |
+| 00:20–00:43 | 14h22 Time, 39 Tasks, 22 Sessions | Rust session_reporting.rs distinct worked-task IDs cannot exceed session rows | GAP_B56_METRIC_SEMANTICS |
+| 00:20–00:43 | Date-grouped session rows with task/list/ordinal/time/ellipsis | ReportsSessionsView SessionRow and groupRows, task-relative ordinals | PRESENT_CODE_ONLY |
+| 00:43–00:51 | Anchored checkmarked multi-list filter with badges | ReportsSessionsView listbox options/selection; trigger placeholder N instead of badges | PRESENT_FILTER / GAP_B25 |
+| 00:51–00:55 | Hide Break sessions standalone gamepad filter | ReportsSessionsView break toggle functional but literal ◉ icon | GAP_B51 / PRESENT_FUNCTION |
+| 00:54–01:04 | Presets Today/Yesterday/This week/30/60/90; two months Cancel/Apply | ReportsSessionsView DateRangePicker + report month state; double chevrons B13 | PRESENT_CODE_ONLY / GAP_B13 |
+| 01:04–01:28 | Reverse date groups and task-relative Session 03 ordinal | ReportsSessionsView groupRows and Rust work-session ordinal map | PRESENT_DOMAIN / NATIVE_NOT_RUN |
+| 01:28–01:49 | Inline end time 1:51→2:51, green check, 1h11→2h11 | ReportsSessionsView SessionRow inline editor; ReportsSessions.commitEndTime guarded Rust mutation | PRESENT_FUNCTION / SOURCE_ROUNDING_LIMIT |
+| 01:28–01:49 | Total Time +1hour 14h22→15h22, Tasks39 Sessions22 unchanged | ReportsSessions.afterMutation reloads Sessions; Rust summary from work duration; B56 absolute Tasks definition remains | PRESENT_RECOMPUTE / GAP_B56_DEFINITION |
+| 01:49–01:55 | Main row ellipsis menu Edit / red Delete | ReportsSessionsView Menu/MenuItem Edit and destructive Delete | PRESENT_CODE_ONLY |
+| 01:53–02:04 | Task-detail overlay, title/list badge/Add, 3 sessions / 2h13 | ReportTaskSessionsDialog header+detail.rows and independent task-scoped view | PRESENT_CODE_ONLY / GAP_B32_MODAL |
+| 01:53–02:04 | Each task-detail session row has destructive menu | ReportTaskSessionsDialog SessionRow showDetailAction=false leaves Delete | PRESENT_CODE_ONLY / SOURCE_DELETE_RESULT_LIMIT |
+| 02:05–02:20 | Add Session task selector opens from collapsed state into Search/Recent Tasks menu | ReportAddSessionDialog always mounts search input and Recent Tasks list; no collapsed-open state | NEW_GAP_B68 |
+| 02:05–02:20 | Recent Tasks options include colored list badges | ReportAddSessionDialog renders plain small listTitle; B59 | GAP_B59 |
+| 02:05–02:20 | After task selection date/start/end/duration fields appear | ReportAddSessionDialog selected conditional date/time/duration form | PRESENT_CODE_ONLY / POSTSELECTION_POPUP_LIMIT |
+| 02:20–02:24 | Add 2h session top of date group, Session04, toast successful | ReportsSessions.commitAddSession + afterMutation reload; sort/data ordinals | PRESENT_FUNCTION / NATIVE_NOT_RUN |
+| 02:20–02:24 | Totals 15h22→17h22, Sessions22→23, Tasks39 unchanged | Rust summary duration and session count update; Tasks source denominator still B56 | PRESENT_TIME_AND_SESSION / GAP_B56 |
+| 02:24–02:40 | Old Export PDF hover coming soon, no downloadable output | Current screenshot SS-C14 Export .csv; actual local CSV exported by Narro | VERSION_SUPERSEDED_EXPORT_CSV |
+| 02:40–02:56.17 | Recap/outro | Non-product closing footage | EXCLUDED_SCOPE |
+
+**Important semantic limit:** Source 39 Tasks with 22 Sessions and current 2 Tasks with 0 Sessions contradict Narro's session-only distinct-task total; even though Tasks stays at39 when an existing task gets another session, that does **not** establish a complete alternative count formula. Do not replace backend definition speculatively. The 1h edit and 2h addition *do* prove independent Total Time and Total Sessions arithmetic. Exact task picker source postselection closure and recency order remain evidence-limited, but its first-open disclosure is directly shown (B68).
 ## Exact next review
 
-Continue remaining VE-004/006–VE-015 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue remaining VE-004/006–VE-014 and VE-017–VE-019 pending in the 19-video index; VE-001/002/003/005/015/016 are already code-reviewed. Prioritize VE-016 and VE-015 where possible while preserving source chronological segment completeness. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.

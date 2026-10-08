@@ -63,7 +63,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-007 | B19 | two-step schedule/editor |
 | VE-009 | B20/B33 | nth-weekday rule missing; custom natural-language feedback/date-derived preset labels absent |
 | VE-010 | B26/B49 | Focus live action strip rest↔hover/pill grammar missing; Notes Close also missing; toolbar/URL scoped PASS |
-| VE-015 | B25/B32/B51/B56 | Sessions badges/modal/icon and 39 Tasks/22 Sessions source summary contradictory to current distinct-work-session task metric |
+| VE-015 | B25/B32/B51/B56/B59/B68 | Sessions metrics/list/break/modal, Add Session picker badges and **missing selector disclosure**; old PDF superseded by current CSV |
 | VE-011 | B25/B27/B28/B30 | Reports populated Done/hover and calendar axis |
 | VE-012 | B30/SCOPED_VALIDATED | 30-day calendar zeros missing; prior reporting semantics remain scoped-validated |
 | VE-006 | B10/B11 | archive populated UI, source trash click unknown |
@@ -75,7 +75,7 @@ SS-T01–SS-T07 (7/7): retained as historical/version-context only, with no inde
 | VE-019 | CONTEXT/DEVIATION | old first-subtask-live limitation excluded |
 
 ## Audit gates and continuation
-- **Already documented findings:** B3/B7/B8 and B9–B67 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
+- **Already documented findings:** B3/B7/B8 and B9–B68 (no invented B4/5/6 re-opening). They remain unchecked milestone-nested corrective routes, with source limits preserved.
 - **Not a closure statement:** current 39 direct/help images and 19 videos have a named route here, but this matrix is a **finding-to-surface index**, not a per-state exhaustive implementation inspection. Other omissions can still exist. Do not replace full source/candidate comparison with this file.
 - **Next audit before declaring no-orphan control coverage:** for each source screenshot/video, explicitly enumerate all controls, states, triggers, selected/hover/pending/disabled/empty and post-action outcomes; compare actual production component/DTO/style and tests; classify each `PRESENT_SCOPED`, `GAP_B*`, `INTENTIONAL_DEVIATION`, `EVIDENCE_LIMIT`, or `NOT_YET_COMPARED`. Review raw MP4 only where motion/transient/order is unrecorded or conflicting. Record additional gaps with unique IDs.
 - **Implementation order:** Codex has physical/implementation ownership; this audit agent records findings, not replacement code. M5 source controls first where dependencies permit; M4 domain extension for B20 must precede UI claiming ordinal recurrence; M8 Preferences B9/B17, M9 source controls follow the dependency-safe work queue. CI1046 physical closure/remaining M7 C4 and finding35 are independently tracked.
