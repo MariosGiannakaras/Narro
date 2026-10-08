@@ -58,6 +58,10 @@ for (const theme of ["light", "dark"]) {
   invariant(doneResults.includes("Review distributed systems chapter"), `${theme} second archived task is missing`);
   invariant(!doneResults.includes("Restoring…"), `${theme} archived done task surface must not expose list restore action`);
   invariant(!doneResults.includes("Permanently delete"), `${theme} archived done task surface must remain read-only in item 26`);
+  for (const heading of ["Task Name", "List", "Info", "Date", "Action"]) {
+    invariant(doneResults.includes(`<th scope="col">${heading}</th>`), `${theme} missing archived Done table heading ${heading}`);
+  }
+  invariant(doneResults.includes('data-archived-done-delete="unavailable"'), `${theme} archived-task deletion must remain explicitly blocked`);
 }
 
 console.log("Archive captured DOM contracts: PASS");
