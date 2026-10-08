@@ -779,7 +779,10 @@ mod tests {
         assert_eq!(archived.list_id, list.id.to_string());
         assert_eq!(archived.completed_at, "2026-07-01T00:00:00Z");
         assert_eq!(archived.time_taken_seconds, "1800");
-        assert!(archived.has_note, "saved note must project to archived Info column");
+        assert!(
+            archived.has_note,
+            "saved note must project to archived Info column"
+        );
         assert_eq!(snapshot.filter_lists.len(), 1);
         assert_eq!(snapshot.filter_lists[0].id, list.id.to_string());
 
