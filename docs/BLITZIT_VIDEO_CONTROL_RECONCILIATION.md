@@ -2,12 +2,12 @@
 
 **Purpose:** After 19/19 independent raw MP4 Pass-3 source reviews, map each video's time-local transient/interactive claims to actual current production TSX/CSS/Rust and registered parity gaps. This is an additional implementation comparison, not raw-video reinspection or physical/source-visual acceptance.
 
-**Progress: VIDEO-TO-CODE 2/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
+**Progress: VIDEO-TO-CODE 3/19.** Current+Help screenshot-to-code per-control matrix completed 39/39 separately, 250 mapped claims. Original MP4 Pass-3 source forensic coverage was 19/19 and is *not* the same progress numerator.
 
 | Video | New per-timestamp code review | Implementation disposition |
 | --- | --- | --- |
 | VE-001 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
-| VE-002 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
+| VE-002 | REVIEWED (11 time-local video-to-code claims) | New B66 reactive draft EST preview; VE-F001 committed normalization scoped validated |
 | VE-003 | REVIEWED (30 time-local video-to-code claims) | B15/B26/B49/B50/B63–B65 + P3-M6/M7 native gates; exact source motion NOT accepted |
 | VE-004 | NOT YET REVIEWED AT THIS DEPTH | Source-only full-video Pass-3 complete; implementation reconciliation outstanding |
 | VE-005 | REVIEWED (24 video-to-code claims) | B61–B65 + prior B IDs; current code checked; native/source parity NOT RUN |
@@ -97,6 +97,25 @@
 | 03:13.6–03:15.65 | Brand/outro | Not a Narro app product surface | EXCLUDED_SCOPE |
 
 **Closure rule:** every original VE-003 timestamp window and unmeasured transition has a specific code/source-artifact/physical-gate or version-limit route. No code source changes, runtime/canonical visual acceptance, or updated native timer C4/35 PASS. Existing B63/B64/B65 cross-video success omissions remain open independently of physical CI1046 success observations. The original +1 completion denominator behavior is explicitly a source artifact and **not** a requirement to corrupt authoritative Narro task counts.
+## VE-002 — EST suffix parsing — REVIEWED 2026-10-08
+
+**Source:** 01:21.633 MP4 original 30fps and previously verified enlarged Pass3 review, distinct from this current source→code mapping. Source code head `bf9d9cf74c97b4380577051f0b7334c1d204033c`; `taskEstimateParser.ts`, `ListBoard.tsx`, `TaskCard.tsx`, existing tests. **Do not confuse precommit UI state B66 with validated commit result VE-F001.**
+
+| Video time | Source observed | Narro code route | Disposition |
+| --- | --- | --- | --- |
+| 00:00–00:18 | Today inline creator Title+EST=00:00/Cancel/Confirm | ListBoard InlineCreateEditor fields exist, copy and input H:MM:SS differ | GAP_B52_B53 |
+| 00:18–00:32 | Prepare slides 28 m visibly changes EST to 00:28 before Confirm | ListBoard title onchange independent of EST, parser only at submit | NEW_GAP_B66 |
+| 00:18–00:32 | Commit strips 28 m and retains 28min EST | taskEstimateParser+submitCreate committed DTO | PRESENT_VE_F001 |
+| 00:32–00:40 | Write blog post 1 HR visibly changes EST to 01:00 precommit | Parser case-insensitive but editor does not run it live | NEW_GAP_B66 |
+| 00:32–00:40 | Commit strips 1 HR and retains 1hr EST | taskEstimateParser and guarded backend creation | PRESENT_VE_F001 |
+| 00:40–00:48 | Email campaign 2 HR 15 m shows 02:15 precommit | Parser has combined grammar, inline draft no reactive estimate | NEW_GAP_B66 |
+| 00:40–00:48 | Commit strips combined suffix and retains 2hr15 EST | parseEstimateSuffix and submitCreate atomic write | PRESENT_VE_F001 |
+| 00:48–00:59 | Tutorial narration supports full word hours (not executed on-screen) | Parser regex accepts hours, tests include 2 hours | SOURCE_NARRATION_LIMIT |
+| 00:59–01:04 | Post-parse regular EST slot remains manually editable | TaskCard MetricValue edit exists; duration HH:MM input grammar B53 | PRESENT_EDIT / GAP_B53 |
+| 01:04–01:18 | Create row persists for rapid successive tasks | ListBoard submitCreate always resets editorState to null | GAP_B46 |
+| 01:18–01:21.63 | Branded outro | Not a product UI scope | EXCLUDED_SCOPE |
+
+**Review closure:** 11 timeline claims incl source-annotation/outro mapped. Original raw video not replayed. No manual/candidate Windows visual parity, tests or CI performed. Parser `hours` narration lacks a directly executed original example, though Narro supports and tests it.
 ## Exact next review
 
-Continue VE-001, VE-002 and all remaining VE-004/006–VE-019 still pending in the 19-video index; VE-003 and VE-005 are already DONE at this depth, so do not recreate their review. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.
+Continue VE-001 and all remaining VE-004/006–VE-019 pending in the 19-video index. VE-002, VE-003 and VE-005 are already reviewed at this depth; do not recreate them. Prioritize VE-016 break/Pomodoro and VE-015 Sessions for highest-risk omitted behaviors when choosing among unreviewed items. Do not alter video denominators or count high-level source-only 19/19 coverage as implementation reconciliation. New B tickets only for code-confirmed omissions not already routed; after source-window physical comparison, change statuses separately.

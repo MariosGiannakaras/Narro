@@ -1,0 +1,7 @@
+# Video-to-code review 03 — VE-002 reactive EST suffix feedback
+
+Date 2026-10-08 Europe/Athens. Exact current baseline `bf9d9cf74c97b4380577051f0b7334c1d204033c`. New implementation-claim review of original full 01:21.633 30fps source already inspected in immutable Pass3 records; do not substitute transcript for original evidence or recount the raw-video pass.
+
+**New B66/M5 FIX_NOW:** direct video at ~00:18–00:48 shows *live before Confirm* `Prepare slides 28 m`→EST `00:28`, `Write blog post 1 HR`→`01:00`, `Email campaign 2 HR 15 m`→`02:15`, with unstripped title in draft. `ListBoard::InlineCreateEditor` simply updates title draft on typing and independent EST field, and only `submitCreate` calls `parseEstimateSuffix`. UI feedback absent even though committed title and seconds are already correct. No change to historically accepted VE-F001 saved-title strip/EST. B53 strict HH:MM input and B46 repeat-open source control are separate. Manual EST precedence and auto-parse OFF need deterministic tests. No invalid parsing source behavior was observed.
+
+Mapped **11 time-local claims**, cumulative **65 video-to-code mapped claims / 3 of 19 source videos reviewed at this new depth**. Screenshot-to-code audit remains **39/39 images, 250 per-element claims**. Current TSX/parser unit tests (including full-word `hours`) inspected as text only, **NOT RUN**. No product files changed, no CI or Windows source parity acceptance. Immutable log and tracker/crosswalk/TODO/spec/video matrix updated on docs-only expected-head guarded main.

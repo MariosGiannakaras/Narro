@@ -341,6 +341,7 @@ Each column can contain:
 Today is the focus-launch lane. Scheduled/overdue groups can be visually separated.
 
 ## 5.2 Inline create
+- **VE-002 reactive source parser B66:** typed `Prepare slides 28 m` displays draft EST `00:28` before Confirm, `1 HR` shows `01:00`, combined `2 HR 15 m` shows `02:15`. Draft title keeps suffix until commit; only committed card strips it. Narro currently calls the valid `parseEstimateSuffix` function only inside `ListBoard::submitCreate` and has no precommit EST auto-fill. Reconcile live preview while respecting persisted auto-parse OFF, manual field edits, typing/caret preservation, and existing VE-F001 commit/Persistence validation; B53 HH:MM manual input is a different issue.
 - VE-005 ~00:40–01:08 empty single-list pending lanes show centered `All Clear`, where Narro BoardLane currently displays `No tasks`/`No Tasks` (B61). Empty Today retains the anchored Blitz CTA but visually subdued, unlike the always-vivid current `BlitzEntryButton` (B62). These come from a historical tutorial, not proof of current v2.6.69 empty state or a disabled-click contract; confirm the modern source/version before broad wording/interaction changes.
 
 Visible older capture confirms:
