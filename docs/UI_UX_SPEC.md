@@ -302,7 +302,9 @@ Overflow:
 - large icon-upload target;
 - formats `(jpg, png, svg)`;
 - color swatches and selected ring/check;
-- title input;
+- **SS-C01 source detail:** first swatch is multicolor, followed by a broader source preset family than current Narro's six choices; the visible label is `Pick a list color`. Do not infer exact HEX values from screenshot colors alone;
+- **Custom color evidence boundary:** user confirms Blitzit supports a custom list-color picker, and SS-C01 visibly contains the multicolor affordance, but the canonical screenshot and VE-005 do not directly establish the trigger's open-state structure, input method or commit/cancel behavior. Those remain `SOURCE_INTERACTION_EVIDENCE_LIMIT` until stronger evidence; do not mistake a guessed popup for verified Blitzit parity;
+- title input with visible placeholder `Enter your list title`;
 - outlined Cancel;
 - accent Create.
 
