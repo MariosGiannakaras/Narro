@@ -518,6 +518,7 @@ Expanded Floating state shows per-row checkbox, reorder arrows, delete and compl
 ---
 
 # 8. Preferences
+- **Current full-Preferences root parity (SS-C07–C09, VE-014 main cog):** opens as a tall bounded internally scrollable dialog/overlay over the previous Home/Board surface, which remains visible but dimmed; header includes `Preferences`, source subtitle, and upper-right close X. Do not replace the whole main workspace with an unrelated Settings destination: keep prior board/list selection/context intact and restore interaction on dismissal. Give dialog a single accessible focus owner (initial/return focus, Escape, Tab trap, nested popover safety), stable scroll and reduced-motion-aware opening. VE-014's earlier Focus-local Preferences screen is not the modern SS-H05 Quick Preferences target.
 
 Preferences are a vertically scrollable tall right-side drawer/panel with a close control and clear section dividers. The 2026-09-27 Help Center image pass independently confirms compact dark selects, mint active toggles, nested vertical-guide indentation for Pomodoro/Alerts/Celebration children, and destructive warm/red recurrence consequence rows. Current VE-014 video directly confirms the drawer hierarchy, segmented controls, mint active toggles and in-place nested setting families; exact drawer/nested-control animation duration is not established because the tutorial contains edits.
 
