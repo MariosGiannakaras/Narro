@@ -1,0 +1,16 @@
+# Video-to-code review 01 — VE-005 (24 claims, B61–B65)
+
+Date: 2026-10-08 Europe/Athens. Main authoritative before docs commit `f85ce87d601ad82b73cb5ebf1325ccd9951f3b79`. User requests **audit-specific counters**, not implementation milestone progress. Current screenshot-to-code control audit complete **39/39** images (250 individually routed claims). New dedicated **video-to-code reconciliation starts at 1/19**, distinct from original 19/19 raw MP4 source forensic Pass-3.
+
+Evidence: Queue 2 full 03:38.750 1920×1080 @60fps VE-005 recorded in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` with dense original inspection. This review compared time-local source claims to live GitHub `HomeDashboard.tsx`/CSS, `AppShell.tsx`, `ListEditorModal.tsx`, `ListBoard.tsx`/CSS, `TaskCard.tsx`, `BlitzEntryButton.tsx`/CSS, `FocusLiveActions.tsx`, `FocusCompletionSuccess.tsx`/CSS and `TODO.md`/crosswalk. All **24 VE-005 time-local claims** now have source version/evidence limits and current production code route in `docs/BLITZIT_VIDEO_CONTROL_RECONCILIATION.md`.
+
+New high-confidence source→code deltas not already ticketed:
+- **B61/M5** historical VIDEO-DIRECT 00:40–01:08 empty pending Board uses `All Clear`; current `BoardLane` literal `No tasks`/`No Tasks`. Current 2.6.69 empty Board unobserved; defer broad product-copy change pending version reconciliation.
+- **B62/M5** same historical empty Today CTA visually subdued; current `BlitzEntryButton` stays full gradient and only `disabled={pending}`. Do not infer that Blitzit prevents click: source did not activate the empty CTA; backend safe no-eligible rejection remains.
+- **B63/M6** VE-005 Done ~02:45 and repeated VE-003 show success in live task card, header/queue still visible. Current `FocusCompletionSuccess` absolute opaque `height:var(--focus-visible-height)` overlay hides whole Focus. Distinct from M7 native C4 and from previous success automatic-Next behavior.
+- **B64/M6+M8** source prominently shows animated GIF/reaction media with successive different completions, current success JSX has no media or funGif consumption. Respect persisted `funGif`, local-only Narro media safety and reduced-motion, no unsupported source randomized algorithm assertion.
+- **B65/M6** VE-005 demonstrates exact 8h45 (=525min) EST and ~0min Taken → source `525 minutes early`; current success JSX displays only uncomputed EST/Taken. Need authoritative signed duration delta + null/zero/rounding tests. Source's numbers prove this particular expected case, not all rounding cases.
+
+All other substantive routes are existing B3/B7/B8/B23/B24/B43/B44/B46/B47/B48/B52/B53, previously validated functional boundaries at scoped CI, or video-edit/interaction/intentional local-only limits. No duplicated ticket IDs and no changes to source implementation. Particularly first video ~02:58 cuts must not be interpreted as Focus↔Board transition motion evidence.
+
+Updated nested TODO M5/M6 routes and UI_UX_SPEC/crosswalk, created 19-entry video-review index + 24-row VE-005 review ledger, new immutable log. No HANDOFF/STATUS edit and no tests/CI/running Windows comparison; **candidate physical and source-parity NOT RUN**. Audit counter: `39/39 stills; 1/19 videos`. Next VE-003. Current executable physical M7 C4/35, M6 timing and separate source parity remain open under Codex's ownership.

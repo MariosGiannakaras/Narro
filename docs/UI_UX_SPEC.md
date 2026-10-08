@@ -341,6 +341,7 @@ Each column can contain:
 Today is the focus-launch lane. Scheduled/overdue groups can be visually separated.
 
 ## 5.2 Inline create
+- VE-005 ~00:40–01:08 empty single-list pending lanes show centered `All Clear`, where Narro BoardLane currently displays `No tasks`/`No Tasks` (B61). Empty Today retains the anchored Blitz CTA but visually subdued, unlike the always-vivid current `BlitzEntryButton` (B62). These come from a historical tutorial, not proof of current v2.6.69 empty state or a disabled-click contract; confirm the modern source/version before broad wording/interaction changes.
 
 Visible older capture confirms:
 - Cancel;
@@ -937,6 +938,7 @@ Subtasks:
 - EST/Time Taken editable.
 
 **Completed**
+- VE-003 repeated Done/success and VE-005 ~02:45–03:20 establish an **inline success-card state**, retaining Focus header/progress and pending queue. Current `FocusCompletionSuccess` instead renders a full opaque Focus-height dialog overlay (B63). Source-visible success features also include a prominent animated reaction GIF/media area conditional on the success setting (B64; no source proof of exact rotation algorithm), and a human-readable completion timing verdict (`525 minutes early` for 8h45 EST and effectively 0 Taken; B65). Current JSX only shows fixed EST/Taken summary with no media/delta. Preserve explicit Next Task, separate source-unknown Take a Break transition, safe reduced-motion/local-only media, accessible Focus/modal ownership and correct authoritative arithmetic.
 - Done transition;
 - optional success moment;
 - **[CONFIRMED current video]** with success screen enabled, the completed/struck-through task title remains in context, the celebration/media area dominates the active card, `Next Task` is the primary gradient CTA, `Take a Break` is secondary, EST/Taken metrics remain visible, and the remaining queue stays below;
