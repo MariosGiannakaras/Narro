@@ -262,6 +262,7 @@ Narro removes account/trial/upgrade/profile/AI/integration controls. Search and 
 - active row uses filled/raised state.
 
 ## 4.3 List card
+- SS-C03 current Home preview rows carry leading task ordinals, whereas `HomeDashboard` currently renders dots. Its right-side time field must be reconciled with canonical reference semantics rather than automatically treated as EST/Taken.
 
 Rest:
 - icon/chip;
@@ -315,6 +316,7 @@ Local icon assets are copied into app-owned storage and previewed before confirm
 # 5. Main window — List board and tasks
 
 ## 5.1 Board structure
+- VE-005 Board list scope opens a compact anchored All Lists/named-list menu that retains list badges. The current text-only native select meets scope switching but does not satisfy source menu composition.
 
 [CONFIRMED official behavior + supplied captures]
 
@@ -462,6 +464,7 @@ Normal archival preserves history. Permanent delete removes the entity from user
 # 7. Notes and subtasks
 
 ## 7.1 Notes
+- SS-C21/SS-H10 expanded inline Notes has a visible bottom-right `× Close` action in the editor. Narro's save-only editor footer is a source-control gap, although the outer Notes trigger can close the panel. No source proof of automatic save-on-close is claimed.
 
 [CONFIRMED]
 - accessible from list and Focus Mode;
@@ -614,6 +617,7 @@ Unavailable global shortcut registration must be visible locally rather than sil
 # 10. Reports
 
 ## 10.1 Overview
+- SS-C15/VE-015 report filter uses list-color badges in the All Lists trigger; a generic `N` glyph is not the source identity. Overview and Sessions should share a badge-calibrated, accessible trigger without altering current multi-selection data rules.
 - SS-C12 chart options affordance is visible. Exact option-menu contents/actions are not source-recorded; production must not leave a focusable apparent button with no activation behavior. Existing series-legend controls are separate from chart options.
 
 [CONFIRMED screenshots + official docs]
