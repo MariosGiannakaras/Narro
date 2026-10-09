@@ -44,10 +44,11 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-schedule-fixture-ready="true"'), `${label} fixture did not report ready state`);
   invariant(dom.includes('data-task-schedule-visual-fixture="true"'), `${label} fixture identity is missing`);
   invariant(dom.includes('data-task-schedule-state="ready"'), `${label} production scheduling dialog did not load`);
-  invariant(dom.includes('data-task-schedule-shortcut="today"'), `${label} Today shortcut is missing`);
-  invariant(dom.includes('data-task-schedule-shortcut="later_today"'), `${label} Later today shortcut is missing`);
-  invariant(dom.includes('data-task-schedule-shortcut="tomorrow"'), `${label} Tomorrow shortcut is missing`);
-  invariant(dom.includes('data-task-schedule-shortcut="next_week"'), `${label} Next week shortcut is missing`);
+  invariant(dom.includes('data-task-schedule-control="pick-date"'), `${label} details step is missing its Pick Date return path`);
+  invariant(dom.includes('data-task-schedule-details="true"'), `${label} scheduled details summary is missing`);
+  invariant(dom.includes('aria-label="Schedule hour"'), `${label} hour control is missing`);
+  invariant(dom.includes('aria-label="Schedule minute"'), `${label} minute control is missing`);
+  invariant(dom.includes('aria-label="Schedule AM or PM"'), `${label} AM/PM control is missing`);
   invariant(dom.includes('data-task-schedule-control="time-toggle"'), `${label} optional schedule-time control is missing`);
   invariant(dom.includes('data-task-recurrence-control="preset"'), `${label} recurrence preset selector is missing`);
   invariant(dom.includes('data-task-recurrence-control="replace-existing"'), `${label} Replace Existing Tasks control is missing`);
@@ -68,7 +69,7 @@ for (const theme of ["light", "dark"]) {
     "header",
     "scheduleSection",
     "recurrenceSection",
-    "shortcuts",
+    "pickDate",
     "consequence",
     "footer",
   ]) {
@@ -127,7 +128,7 @@ for (const theme of ["light", "dark"]) {
     "header",
     "scheduleSection",
     "recurrenceSection",
-    "shortcuts",
+    "pickDate",
     "consequence",
     "footer",
   ]) {

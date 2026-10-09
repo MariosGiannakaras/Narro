@@ -134,6 +134,137 @@
   gap: var(--space-2);
 }
 
+.task-schedule-dialog__calendar-step {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+}
+
+.task-schedule-dialog__calendar {
+  display: grid;
+  gap: var(--space-3);
+  width: min(100%, 24rem);
+  margin-inline: auto;
+}
+
+.task-schedule-dialog__calendar-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.task-schedule-dialog__calendar-navigation h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.task-schedule-dialog__calendar-navigation button {
+  width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog__calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.task-schedule-dialog__calendar-weekday {
+  padding-block: var(--space-1);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.task-schedule-dialog__calendar-day {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 2rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--color-text-primary);
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.task-schedule-dialog__calendar-day[data-calendar-outside-month="true"] {
+  color: var(--color-text-secondary);
+  opacity: 0.48;
+}
+
+.task-schedule-dialog__calendar-day:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog__calendar-day[data-calendar-today="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0.08rem;
+  left: calc(50% - 0.16rem);
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 999px;
+  background: var(--color-flash-violet);
+}
+
+.task-schedule-dialog__calendar-day[data-calendar-selected="true"] {
+  border-color: transparent;
+  color: var(--color-accent-contrast);
+  background: linear-gradient(120deg, var(--color-accent-start), var(--color-accent-end));
+  opacity: 1;
+}
+
+.task-schedule-dialog__calendar-day[data-calendar-selected="true"]::after {
+  display: none;
+}
+
+.task-schedule-dialog__pick-date {
+  justify-self: start;
+  min-height: 2.2rem;
+  padding: 0 var(--space-2);
+  color: var(--color-accent-solid);
+  background: transparent;
+  font-weight: var(--font-weight-semibold);
+}
+
+.task-schedule-dialog__date-summary {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog__time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.task-schedule-dialog__inline-time {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog__inline-time label {
+  min-width: 0;
+}
+
 .task-schedule-dialog__form-grid,
 .task-schedule-dialog__recurrence-form,
 .task-schedule-dialog__custom-rule {
@@ -359,6 +490,7 @@
   }
 
   .task-schedule-dialog__shortcuts,
+  .task-schedule-dialog__inline-time,
   .task-schedule-dialog__form-grid,
   .task-schedule-dialog__custom-rule {
     grid-template-columns: 1fr;
