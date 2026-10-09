@@ -18,6 +18,28 @@ export function signalFromLog(log) {
     const ts = /\berror TS(\d{4,6}):/.exec(line);
     if (ts) return { kind: "typescript", value: "TS" + ts[1] };
   }
+  // The Windows Reports/visual harness reports its primary failure as a
+  // PowerShell RuntimeException, not as Error: CODE or a Rust test failure.
+  // Include the stable fixture identity; hash assertion text to avoid
+  // leaking dynamic log contents into public issue titles/bodies.
+  for (const line of lines) {
+    const assertion = /\bReports fixture\s+['"]?([a-z0-9][a-z0-9-]*)['"]?\s+assertion:\s*(.+)/i.exec(line);
+    if (assertion) {
+      const normalized = assertion[2].replace(/\s+/g, " ").trim().slice(0, 300);
+      const digest = createHash("sha256").update(normalized).digest("hex").slice(0, 12);
+      return { kind: "visual-fixture-assertion", value: assertion[1].toLowerCase() + ":" + digest };
+    }
+  }
+  for (const line of lines) {
+    const readiness = /\bReports fixture\s+'([a-z0-9][a-z0-9-]*)'\s+did not report ready after\s+\d+\s+captures/i.exec(line);
+    if (readiness) return { kind: "visual-fixture-readiness", value: readiness[1].toLowerCase() };
+  }
+  for (const line of lines) {
+    // rustfmt emits file + line numbers; only the repository-relative file
+    // (not a transient runner path or line number) is a stable review signal.
+    const fmt = /\bDiff in\s+\S*[\\/]?(src-tauri[\\/]src[\\/][\w./\\-]+\.rs):\d+:/i.exec(line);
+    if (fmt) return { kind: "rustfmt-file", value: fmt[1].replace(/\\/g, "/") };
+  }
   for (const line of lines) {
     const os = /\bError:\s*(EPERM|EACCES|ENOENT|ENOSPC|ETIMEDOUT|ECONNRESET|EADDRINUSE)\b/i.exec(line);
     if (os) return { kind: "os-error", value: os[1].toUpperCase() };
