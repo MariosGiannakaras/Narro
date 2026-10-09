@@ -2,7 +2,7 @@
 
 Status: **BINDING PREVENTION INDEX**
 
-Last updated: 2026-10-06
+Last updated: 2026-10-09
 
 ## Purpose
 
@@ -164,3 +164,15 @@ Prefer **strengthening an existing row** over adding near-duplicate IDs. Split a
 When a prevention rule becomes fully encoded elsewhere (for example in `ENGINEERING_QUALITY.md` or a semantic regression), keep the risk row as the compact discovery pointer instead of duplicating the full rule here.
 
 Do not use this register to keep obsolete active-work state. Current PR/CI/artifact/counter truth belongs in the normal tracking files.
+
+## CI recurrence feedback loop
+
+The operational detector is `.github/workflows/ci-learning.yml` with `scripts/ci-learning.mjs`; its GitHub issues are **triage candidates**, not new failure families, current acceptance status or an automated cause verdict. It inspects completed Windows CI history rather than relying on an agent remembering a prior failure. A repeated signature across independent run IDs is enough for review, not enough to declare identical causes. Generic exit codes and unavailable logs are excluded from automatic grouping and reported as incomplete coverage.
+
+After a validated investigation, strengthen the appropriate existing family:
+- **NER-003** for recurrent deterministic problems that should have failed cheaply before Windows packaging;
+- **NER-004** for real test/harness timing, transient OS or transport limitations only after evidence distinguishes product behavior;
+- **NER-005** when risk/history tracking itself goes stale;
+- **NER-012** when an agent conflates rerun, exact-head CI, physical validation or source parity.
+
+Record a precise immutable incident/correction in `work-log/` with failed run/attempt/SHA, first causal failed step, evidence and outcome. Update this register for a **reusable prevention invariant or improved guard**, not once per failure or rerun. Before closing triage, verify the guard actually addresses the cause and label nonautomatable evidence honestly. Do not claim that this Markdown automatically learns or that the daily scanner edits this file.
