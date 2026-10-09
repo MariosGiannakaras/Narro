@@ -148,7 +148,14 @@ function scheduleLabel(task: ListBoardTask): string | null {
 }
 
 function recurrenceLabel(task: ListBoardTask): string | null {
-  if (task.recurrenceRuleId) return "Repeats";
+  if (task.recurrenceRuleId) {
+    switch (task.recurrenceCadence) {
+      case "daily": return "Daily";
+      case "weekdays": return "Weekdays";
+      case "custom": return "Custom";
+      default: return "Repeats"; // Legacy/fixture payloads without authoritative metadata.
+    }
+  }
   if (task.recurrenceParentTaskId) return "Occurrence";
   return null;
 }
@@ -835,8 +842,8 @@ export function TaskCard({
                 onPointerDown={(event) => event.stopPropagation()}
                 onClick={onScheduleEdit}
               >
-                {repeatStatus === "Repeats"
-                  ? "Repeats · Edit"
+                {task.recurrenceRuleId
+                  ? `${repeatStatus ?? "Repeats"} · Edit`
                   : repeatStatus === "Occurrence"
                     ? "Occurrence · Schedule"
                     : "Schedule / Repeat"}

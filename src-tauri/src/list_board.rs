@@ -1,10 +1,12 @@
 use crate::domain::ids::{ListId, RecurrenceRuleId, TaskId};
-use crate::domain::model::{PlanningLane, ScheduleKind};
+use crate::domain::model::{PlanningLane, RecurrenceUnit, ScheduleKind};
+use crate::domain::recurrence::RecurrenceRuleRecord;
 use crate::domain::tasks::TaskRecord;
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::{active_lists, ListStoreError};
 use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
+use crate::persistence::recurrence::{get_recurrence_rule as read_recurrence_rule, RecurrenceStoreError};
 use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
 use crate::persistence::tasks::{active_tasks_in_bucket, get_task, TaskStoreError};
 use crate::scheduling::{self, FocusEligibility, SchedulingError};
@@ -38,6 +40,37 @@ pub struct ListBoardTarget {
     pub color: Option<String>,
 }
 
+// A read-only status derived from the current durable recurrence rule, never
+// from a task ID or renderer-side guess. Custom includes weekly/monthly/yearly
+// patterns beyond the two source-observed named cadence presets.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum RecurrenceCadence {
+    Daily,
+    Weekdays,
+    Custom,
+}
+
+fn recurrence_cadence(rule: &RecurrenceRuleRecord) -> RecurrenceCadence {
+    if rule.interval_count == 1
+        && rule.unit == RecurrenceUnit::Day
+        && rule.weekday_mask == 0
+        && rule.month_day.is_none()
+        && rule.month_weekday_ordinal.is_none()
+    {
+        RecurrenceCadence::Daily
+    } else if rule.interval_count == 1
+        && rule.unit == RecurrenceUnit::Week
+        && rule.weekday_mask == 0b0011111
+        && rule.month_day.is_none()
+        && rule.month_weekday_ordinal.is_none()
+    {
+        RecurrenceCadence::Weekdays
+    } else {
+        RecurrenceCadence::Custom
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ListBoardTask {
@@ -53,6 +86,7 @@ pub struct ListBoardTask {
     pub scheduled_local_date: Option<String>,
     pub scheduled_local_time: Option<String>,
     pub recurrence_rule_id: Option<RecurrenceRuleId>,
+    pub recurrence_cadence: Option<RecurrenceCadence>,
     pub recurrence_parent_task_id: Option<TaskId>,
     pub is_overdue: bool,
     pub completed_at: Option<String>,
@@ -86,9 +120,11 @@ pub enum ListBoardError {
     Tasks(TaskStoreError),
     TaskMetadata(TaskMetadataError),
     Preferences(PreferenceStoreError),
+    Recurrence(RecurrenceStoreError),
     Scheduling(SchedulingError),
     Sqlite(rusqlite::Error),
     InvalidStoredTaskId,
+    InvalidLinkedRecurrenceParent(TaskId),
     InvalidStoredCompletedTimestamp(TaskId),
     TargetListNotFound(ListId),
     DuplicateTaskProjection(TaskId),
@@ -104,10 +140,14 @@ impl Display for ListBoardError {
             Self::Tasks(error) => Display::fmt(error, formatter),
             Self::TaskMetadata(error) => Display::fmt(error, formatter),
             Self::Preferences(error) => Display::fmt(error, formatter),
+            Self::Recurrence(error) => Display::fmt(error, formatter),
             Self::Scheduling(error) => Display::fmt(error, formatter),
             Self::Sqlite(error) => write!(formatter, "list-board read failed: {error}"),
             Self::InvalidStoredTaskId => {
                 formatter.write_str("stored completed task identity is invalid")
+            }
+            Self::InvalidLinkedRecurrenceParent(id) => {
+                write!(formatter, "task has a recurrence rule linked to a different parent: {id}")
             }
             Self::InvalidStoredCompletedTimestamp(id) => {
                 write!(
@@ -163,6 +203,12 @@ impl From<PreferenceStoreError> for ListBoardError {
     }
 }
 
+impl From<RecurrenceStoreError> for ListBoardError {
+    fn from(value: RecurrenceStoreError) -> Self {
+        Self::Recurrence(value)
+    }
+}
+
 impl From<SchedulingError> for ListBoardError {
     fn from(value: SchedulingError) -> Self {
         Self::Scheduling(value)
@@ -184,6 +230,7 @@ struct ProjectedTask {
     time_taken_seconds: u64,
     subtask_total_count: u64,
     subtask_completed_count: u64,
+    recurrence_cadence: Option<RecurrenceCadence>,
     is_overdue: bool,
 }
 
@@ -243,6 +290,7 @@ impl LaneAccumulator {
                 scheduled_local_date: projected.task.scheduled_local_date,
                 scheduled_local_time: projected.task.scheduled_local_time,
                 recurrence_rule_id: projected.task.recurrence_rule_id,
+                recurrence_cadence: projected.recurrence_cadence,
                 recurrence_parent_task_id: projected.task.recurrence_parent_task_id,
                 is_overdue: projected.is_overdue,
                 completed_at: projected.task.completed_at,
@@ -397,6 +445,15 @@ fn project_task(
     let time_taken_seconds = task_time_taken_seconds(conn, task.id)?;
     let (subtask_total_count, subtask_completed_count) = subtask_counts(conn, task.id)?;
     let is_overdue = task_is_overdue_at(&task, now, display_timezone)?;
+    let recurrence_cadence = if let Some(rule_id) = task.recurrence_rule_id {
+        let rule = read_recurrence_rule(conn, rule_id)?;
+        if rule.parent_task_id != task.id {
+            return Err(ListBoardError::InvalidLinkedRecurrenceParent(task.id));
+        }
+        Some(recurrence_cadence(&rule))
+    } else {
+        None
+    };
     Ok(ProjectedTask {
         list_rank,
         task,
@@ -405,6 +462,7 @@ fn project_task(
         time_taken_seconds,
         subtask_total_count,
         subtask_completed_count,
+        recurrence_cadence,
         is_overdue,
     })
 }
@@ -701,6 +759,14 @@ mod tests {
             active.backlog.count + 1,
             "linked parent stays visible without entering actionable count"
         );
+        assert_eq!(
+            active.backlog.tasks.iter().find(|task| task.id == parent)
+                .and_then(|task| task.recurrence_cadence),
+            Some(RecurrenceCadence::Weekdays)
+        );
+        assert!(active.backlog.tasks.iter()
+            .filter(|task| task.recurrence_parent_task_id == Some(parent))
+            .all(|task| task.recurrence_cadence.is_none()));
         let home = crate::home_snapshot::load(&conn).expect("load home with recurring parent");
         assert_eq!(home.pending_count, 13);
         assert!(!home.lists[0]
@@ -709,6 +775,25 @@ mod tests {
             .any(|preview| preview.id == parent));
 
         let latest_rule = get_recurrence_rule(&conn, rule.id).expect("read rule version");
+        let daily = RecurrenceRuleRecord {
+            unit: RecurrenceUnit::Day,
+            weekday_mask: 0,
+            ..latest_rule.clone()
+        };
+        assert_eq!(recurrence_cadence(&daily), RecurrenceCadence::Daily);
+        let custom_interval = RecurrenceRuleRecord {
+            interval_count: 3,
+            ..daily.clone()
+        };
+        assert_eq!(recurrence_cadence(&custom_interval), RecurrenceCadence::Custom);
+        let custom_ordinal = RecurrenceRuleRecord {
+            unit: RecurrenceUnit::Month,
+            weekday_mask: 0b1000000,
+            month_weekday_ordinal: Some(2),
+            ..daily
+        };
+        assert_eq!(recurrence_cadence(&custom_ordinal), RecurrenceCadence::Custom);
+        assert_eq!(serde_json::to_value(RecurrenceCadence::Weekdays).unwrap(), "weekdays");
         let detached =
             remove_recurrence_if_expected(&mut conn, rule.id, &latest_rule.updated_at, false, T1)
                 .expect("detach recurrence without deleting child tasks");
@@ -719,7 +804,9 @@ mod tests {
             after.backlog.count + after.this_week.count + after.today.count,
             14
         );
-        assert!(after.backlog.tasks.iter().any(|task| task.id == parent));
+        assert!(after.backlog.tasks.iter().any(|task| {
+            task.id == parent && task.recurrence_cadence.is_none()
+        }));
         let final_home = crate::home_snapshot::load(&conn).expect("load home after detachment");
         assert_eq!(final_home.pending_count, 14);
         let all_ids: HashSet<TaskId> = after
