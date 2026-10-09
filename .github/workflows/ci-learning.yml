@@ -52,7 +52,6 @@ jobs:
             scripts/ci-learning.mjs
             scripts/test-ci-learning.mjs
           sparse-checkout-cone-mode: false
-        with:
           ref: main
       - uses: actions/setup-node@v4
         with:
