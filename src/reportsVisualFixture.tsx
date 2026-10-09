@@ -320,6 +320,7 @@ function ReportsDetailKeyboardFixture() {
       {detailOpen && !addOpen ? (
         <ReportTaskSessionsDialog
           detail={taskDetail}
+          returnFocusTarget={triggerRef.current}
           pendingSessionId={pending ? "session-01" : null}
           onClose={() => setDetailOpen(false)}
           onAddSession={() => setAddOpen(true)}
