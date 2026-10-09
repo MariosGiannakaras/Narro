@@ -19,6 +19,9 @@ const lib = read("src-tauri/src/lib.rs");
 const listBoardApi = read("src/listBoardApi.ts");
 const api = read("src/taskScheduleApi.ts");
 const dialog = read("src/TaskScheduleDialog.tsx");
+const calendar = read("src/ScheduleCalendarStep.tsx");
+const calendarRules = read("src/scheduleCalendar.ts");
+const clockRules = read("src/scheduleTime12.ts");
 const board = read("src/ListBoard.tsx");
 const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
@@ -91,6 +94,22 @@ for (const [haystack, needle, label] of [
   [dialog, "if (!scheduleUseTime) return visibleDate;", "date-only preview uses locale formatter"],
   [dialog, "formatVisibleDateTime(scheduleLocalDate, scheduleLocalTime)", "timed preview uses system locale and hour convention"],
   [dialog, 'data-task-schedule-shortcut={shortcut.kind}', "production schedule shortcuts"],
+  [dialog, '<ScheduleCalendarStep', "real first-step calendar mounted in schedule dialog"],
+  [dialog, 'calendarStep === "date"', "explicit date and details states"],
+  [dialog, 'data-task-schedule-control="next"', "Next calendar-to-details action"],
+  [dialog, 'data-task-schedule-control="pick-date"', "Back to date calendar"],
+  [dialog, 'disabled={pending || !validCalendarDate(scheduleLocalDate)}', "invalid or empty date blocks Next"],
+  [calendar, 'data-calendar-selected={selectedDate === cell.date ? "true" : "false"}', "current selected-day marker"],
+  [calendar, 'data-calendar-today={todayDate === cell.date ? "true" : "false"}', "distinct authoritative today-day marker"],
+  [calendar, 'aria-pressed={selectedDate === cell.date}', "calendar day keyboard-AT selection"],
+  [calendarRules, 'mondayOffset = (first.getUTCDay() + 6) % 7', "source Monday-first real month grid"],
+  [dialog, 'scheduleUseTime ? "× REMOVE" : "+ ADD"', "inline Add Time and Remove actions"],
+  [dialog, 'aria-label="Schedule hour"', "explicit hour selection"],
+  [dialog, 'aria-label="Schedule minute"', "explicit minute selection"],
+  [dialog, 'aria-label="Schedule AM or PM"', "AM/PM clock convention"],
+  [clockRules, 'clockTime24(hour: number, minute: number, ampm: string)', "typed inline clock conversion boundary"],
+  [dialogCss, 'data-calendar-selected="true"', "source date-selected accent treatment"],
+  [dialogCss, 'data-calendar-today="true"', "source current-day separate marker"],
   [dialog, 'data-task-schedule-control="time-toggle"', "optional schedule time control"],
   [dialog, "Date-only schedules never round-trip through UTC.", "date-only semantic guidance"],
   [dialog, 'data-task-recurrence-control="preset"', "recurrence preset control"],
