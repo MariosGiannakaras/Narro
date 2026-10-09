@@ -1,5 +1,16 @@
 # HANDOFF — ChatGPT M5 programming fixes; consolidated Windows physical acceptance later
 
+## TOP CURRENT RESUME — fixed 0/8 pre-Codex coding scope (2026-10-09)
+
+**User-required compact counter: 0/8** validated-and-guarded-merged source units, **not** 0/8 whole Narro milestones or physical Codex checks. The eight individually numbered units, completion conditions, exclusions and CI-prevention obligations are frozen in the topmost `TODO.md`: I01 #280 B67; I02 #286 B32; I03 #295 B21; I04 #298 B22; I05 #299 B50; I06 #300 B57; I07 B49; I08 B63. Do not relabel numerator for proposed code or initial green PR-head without merge. If a newly proven code gap changes denominator, explicitly justify. The user wants practical remaining coding work **before** unpausing Codex, not older PR-batch fractions.
+
+**Actual failed CI investigated and fixed in existing branches, no app domain changes:**
+- #299 `37968363127` first failure ordinary Focus fixture still expected Extend in all states; now branch head `dcbae6752eaa446095ba3bc0c9d963ddbe675fc2` demands 5 Break/Notes/Pause/Skip/Done slots and absent Extend in running/paused, with fast-preflight regression. New full run `37972348897` IN PROGRESS / NOT PASS at recorded checkpoint.
+- #286 `37969315839` exact failed artifact ID `11635602936` inspected: screenshot 7,860 bytes 1280×720 showed only opener button, HTML `keyboard-pass=true` and modal intentionally closed before screenshot. This is test harness end-state bug, **not** reason to reduce PNG threshold. Branch head `ce909c4181e6e7524001d7c6f91b130c91621349` reopens modal after successful full Escape/Tab/Add lifecycle, tests focus/one owner, then marks visible/ready. Fast test checks visual contract. New run `37972566849` IN PROGRESS / NOT PASS.
+- #298 branch head `418c6df11dd78a76f0482633f72c4490d45f956b`, run `37968876485` initial fast-gate CANCELLED after validation PASS; targeted rerun of fast job `113950120470` accepted. Result IN PROGRESS / NOT PASS at checkpoint.
+
+**Next:** check these runs at the next meaningful checkpoint/new user message. Merge only exact validated heads with expected-head guards, reconcile main truth. Then forward-reconcile #295 and #300 against resulting Preferences main, #280 against resulting Focus B50; implement B49 and B63 as scoped tested corrections; use actual CI errors to pre-empt stale fixture mismatches. No tight idle polling. Full details in `work-log/2026-10-09-pre-codex-eight-units-and-fixture-corrections.md`. Approved custom Create/Edit List UI is locked; unknown source visuals defer to explicitly activated M11; Codex physical is still paused; M10 blocked.
+
 ## NEWEST EXACT CHECKPOINT — 2026-10-09 after policy and branch reconciliation
 
 - Current user directions for CI cadence, unknown internals, later M11 visuals and fixed approved List Editor are now binding in `AI_START_HERE.md`, `AGENTS.md`, `AGENT_WORKFLOW.md` and crosswalk; previous contrary text below is historical. **No source visual guess or code change to user-approved List Editor.**
