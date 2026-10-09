@@ -76,9 +76,9 @@
 .focus-panel__live-actions-wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
 .focus-panel__live-actions {
   display: grid;
-  /* Fixed slots reserve the longer Resume/Extend labels in every state, so
-     pause/resume and hover never move neighboring action targets. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, 0.85fr) minmax(0, 1.25fr) minmax(0, 1fr);
+  /* Five stable positions: Break, Notes, Pause/Resume or contextual Extend,
+     Skip, Done. The third slot retains its width across timer states. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.55fr) minmax(0, .85fr) minmax(0, 1fr);
   gap: var(--space-1);
   padding-top: var(--space-2);
   border-top: 1px solid var(--color-border-subtle);
