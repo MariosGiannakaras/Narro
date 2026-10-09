@@ -260,7 +260,7 @@ export function LowerPreferenceSections({
         <div className="theme-settings__section-heading">
           <div>
             <p className="theme-settings__section-kicker type-metadata">Focus timing</p>
-            <h2 id="preferences-blitz-mode-title" className="type-section-title">Blitz Mode</h2>
+            <h2 id="preferences-blitz-mode-title" className="type-section-title">Blitz mode settings</h2>
           </div>
         </div>
         <Row title="Pomodoros" detail="Use sprint and break durations instead of task EST for new Focus starts.">
@@ -437,7 +437,7 @@ export function LowerPreferenceSections({
         <div className="theme-settings__section-heading">
           <div>
             <p className="theme-settings__section-kicker type-metadata">Completion</p>
-            <h2 id="preferences-celebration-title" className="type-section-title">Celebration</h2>
+            <h2 id="preferences-celebration-title" className="type-section-title">Celebrate task completion</h2>
           </div>
         </div>
         <Row title="Show success screen" detail="Enable a local completion moment after a successful task transition.">
