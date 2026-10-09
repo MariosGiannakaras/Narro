@@ -53,6 +53,23 @@ assert.ok(css.includes('.focus-completion-success[data-focus-success-placement="
   "inline success may not obscure the Focus header or remaining queue");
 assert.ok(panel.includes('inert={Boolean(completionSuccessContent)}'),
   "the visible queue must not accept a second task mutation during success");
+// U38 Narro inferred, not a sourced break-duration contract: after committed
+// Done, "Take a Break" leaves the timer idle and never creates phantom sessions.
+assert.ok(source.includes('data-focus-success-action="take-break" disabled={pending}')
+  && source.includes('onClick={onTakeBreak}')
+  && !source.includes("Take a Break is unavailable until"),
+  "post-Done Take a Break must be an enabled, guarded local action");
+const restStart = coordinator.indexOf("const takeRestBetweenTasks = () => {");
+const restEnd = coordinator.indexOf("const sharedTimerProjection =", restStart);
+const restHandler = coordinator.slice(restStart, restEnd);
+assert.ok(restStart >= 0 && restEnd > restStart
+  && restHandler.includes("setCompletionSuccess(null)")
+  && restHandler.includes("No task timer is running")
+  && !restHandler.includes("startTimerTask(")
+  && !restHandler.includes("startManualBreakTimer(")
+  && coordinator.includes("onTakeBreak={takeRestBetweenTasks}"),
+  "untimed rest must preserve committed success ledger and never invent a live work/break session");
+
 const successFixture = read("src/focusPanelVisualFixture.tsx");
 const successCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const successValidator = read("scripts/validate-focus-visual-state-captures.mjs");

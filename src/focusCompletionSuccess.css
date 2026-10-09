@@ -7,7 +7,6 @@
 .focus-completion-success__metrics span{display:inline-flex;gap:var(--space-1)}
 .focus-completion-success__timing{color:var(--color-accent-solid);font-size:var(--font-size-section-title);font-weight:var(--font-weight-semibold);font-variant-numeric:tabular-nums}
 .focus-completion-success__actions button{min-height:36px}
-.focus-completion-success__unavailable{color:var(--color-text-secondary)}
 .focus-completion-success__error{color:var(--color-destructive)}
 @media (prefers-reduced-motion:reduce){.focus-completion-success *{animation:none!important;transition:none!important}}
 

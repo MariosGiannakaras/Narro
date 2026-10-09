@@ -234,7 +234,7 @@ flushSync(() => {
             estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
             funGifEnabled: false,
             nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
-          pending={false} error={null} onNextTask={() => undefined} onClose={() => undefined}
+          pending={false} error={null} onNextTask={() => undefined} onTakeBreak={() => undefined} onClose={() => undefined}
         />
       ) : null}
     />,

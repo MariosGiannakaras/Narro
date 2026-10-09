@@ -636,6 +636,15 @@ export function FocusSurfaceCoordinator() {
     setCompletionSuccess(null);
     setCompletionSuccessError(null);
   };
+  // A successful Done has already committed and released its timer session.
+  // An untimed rest is the safest local "Take a Break" behavior: do not
+  // create a phantom work session merely to call manual-break on an idle timer.
+  const takeRestBetweenTasks = () => {
+    if (completionSuccessPending) return;
+    setCompletionSuccess(null);
+    setCompletionSuccessError(null);
+    setShortcutStatus("Break time. No task timer is running; start another task when ready.");
+  };
   const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
     settled: timerProjectionSettled,
@@ -679,6 +688,7 @@ export function FocusSurfaceCoordinator() {
               <FocusCompletionSuccess inline state={completionSuccess}
                 pending={completionSuccessPending} error={completionSuccessError}
                 onNextTask={() => void startNextTaskFromSuccess()}
+                onTakeBreak={takeRestBetweenTasks}
                 onClose={closeCompletionSuccess} />
             ) : null}
           />
@@ -721,6 +731,7 @@ export function FocusSurfaceCoordinator() {
           pending={completionSuccessPending}
           error={completionSuccessError}
           onNextTask={() => void startNextTaskFromSuccess()}
+          onTakeBreak={takeRestBetweenTasks}
           onClose={closeCompletionSuccess}
         />
       ) : null}

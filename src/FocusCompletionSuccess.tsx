@@ -18,6 +18,8 @@ type Props = {
   pending: boolean;
   error: string | null;
   onNextTask: () => void;
+  /** Leave the post-Done timer idle without fabricating a break session. */
+  onTakeBreak: () => void;
   onClose: () => void;
   inline?: boolean;
 };
@@ -31,7 +33,7 @@ function formatDuration(seconds: number | null): string {
   return remainder === 0 ? `${hours}hr` : `${hours}hr ${remainder}min`;
 }
 
-export function FocusCompletionSuccess({ state, pending, error, onNextTask, onClose, inline = false }: Props) {
+export function FocusCompletionSuccess({ state, pending, error, onNextTask, onTakeBreak, onClose, inline = false }: Props) {
   const taken = state.timeTakenSeconds && /^\d+$/.test(state.timeTakenSeconds)
     ? Number(state.timeTakenSeconds)
     : null;
@@ -67,10 +69,11 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
         ) : null}
         <div className="focus-completion-success__actions">
           {state.nextTask ? <button type="button" data-focus-success-action="next-task" disabled={pending} onClick={onNextTask} autoFocus>{pending ? "Starting…" : "Next Task"}</button> : null}
-          <button type="button" data-focus-success-action="take-break" disabled title="The source shows this control, but its post-click timer/session behavior is not established.">Take a Break</button>
+          <button type="button" data-focus-success-action="take-break" disabled={pending}
+            title="Rest between tasks without starting another work timer or recording a break session."
+            onClick={onTakeBreak}>Take a Break</button>
           <button type="button" data-focus-success-action="close" disabled={pending} onClick={onClose} autoFocus={!state.nextTask}>Close</button>
         </div>
-        <p className="focus-completion-success__unavailable type-metadata">Take a Break is unavailable until its timer/session transition is established.</p>
         {error ? <p className="focus-completion-success__error type-metadata" role="alert">{error}</p> : null}
       </div>
     </section>
