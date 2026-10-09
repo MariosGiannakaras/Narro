@@ -249,6 +249,7 @@ function SessionRow({
 export function ReportTaskSessionsDialog({
   detail,
   pendingSessionId,
+  returnFocusTarget,
   onClose,
   onAddSession,
   onCommitEndTime,
@@ -256,6 +257,7 @@ export function ReportTaskSessionsDialog({
 }: {
   detail: ReportsTaskDetailView;
   pendingSessionId: string | null;
+  returnFocusTarget?: HTMLElement | null;
   onClose: () => void;
   onAddSession: (taskId: string) => void;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
@@ -267,7 +269,10 @@ export function ReportTaskSessionsDialog({
   const pending = pendingSessionId !== null;
 
   useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    // The detail is temporarily unmounted while nested Add Session owns focus.
+    // Reuse the original list opener after remount, not document.body.
+    openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
     closeButtonRef.current?.focus();
     return () => {
       if (openerRef.current?.isConnected) openerRef.current.focus();
