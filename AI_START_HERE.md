@@ -89,7 +89,15 @@ A capable agent should normally:
 
 Do not make the user act as a messenger between agents. If the next agent needs information, commit it to the repository.
 
-## User-facing progress — ChatGPT implementation track (2026-10-08 latest user direction)
+## User-facing progress — ChatGPT implementation track (2026-10-09 latest user direction)
+
+**2026-10-09 user supersession:** the user explicitly rejects PR counts as user-facing progress and asks for an X/Y counter of concrete coding implementation units remaining before the consolidated Codex physical run, excluding all Codex physical checks and separate future source-uncertainty/deviation review. Do not present historical X/Y PR batch counts or change denominators opportunistically. If a full fixed unit inventory has not been reconciled, label any smaller X/Y count by its exact bounded scope; do not pretend it is the whole remaining app. Progress requires implemented source **and the required automated validation**; mere code submission is not an accepted X.
+
+**User CI instruction:** do **not** look up whether GitHub Actions jobs have finished or repeatedly poll Actions runs while independent implementation remains. The user will say when Actions complete. New source work may be proposed in coherent branches; record exact heads, but treat CI as NOT CHECKED / NOT PASS pending their message. This supersedes the earlier autonomous CI-completion polling instructions for this active coding session.
+
+## Historical PR batch tracking — retained for audit, not user-facing
+
+
 
 The user explicitly superseded the prior user-facing compact roadmap/milestone fraction format because milestone completion includes separate Windows physical and source acceptance, and thus misrepresents **this chat's actual coding progress**.
 
