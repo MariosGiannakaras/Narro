@@ -131,9 +131,12 @@ fn closed_work_ordinals(
 /// Projects the user-visible Sessions dashboard from an already validated
 /// report-history snapshot.
 ///
-/// Total Time remains focus/work time only. Total Tasks counts distinct tasks
-/// with work sessions in the filtered history. Total Sessions counts visible
+/// Total Time remains focus/work time only. Total Sessions counts visible
 /// rows under the active break filter.
+/// Total Tasks is an explicit Narro-local definition: distinct task identities
+/// with a work session OR completion in the filtered report history. Source
+/// Blitzit semantics remain unverified (B56), but counting work sessions
+/// alone makes a legitimate 2-task/0-session report impossible.
 ///
 /// Work-session ordinals must come from the task's complete closed work history,
 /// not from the selected report range. Break rows deliberately have no ordinal
@@ -174,6 +177,11 @@ pub fn project_sessions_report(
         }
     }
 
+    // Completion without Focus must still count as task activity. Union by
+    // durable TaskId avoids double-counting a task also present in sessions.
+    for task in &history.completed_tasks {
+        worked_tasks.insert(task.task_id);
+    }
     let total_tasks =
         u64::try_from(worked_tasks.len()).map_err(|_| SessionsReportError::CountOverflow)?;
     let total_sessions =
