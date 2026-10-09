@@ -25,6 +25,7 @@ export type TaskCardActions = {
   onMoveLaneLeft?: () => void;
   onMoveLaneRight?: () => void;
   onSchedule?: () => void;
+  onRemoveSchedule?: () => void;
   onRemoveRecurring?: () => void;
   onChangeList?: () => void;
   onDuplicate?: () => void;
@@ -228,10 +229,12 @@ function TaskActionButton({
 function TaskOverflowMenu({
   actions,
   scheduleActionLabel,
+  quickRemoveScheduleLabel,
   confirmation,
 }: {
   actions: TaskCardActions;
   scheduleActionLabel: "Schedule" | "Update Schedule" | "Update Recurring";
+  quickRemoveScheduleLabel: string | null;
   confirmation?: TaskCardDeleteConfirmation;
 }) {
   const rootRef = useRef<HTMLSpanElement>(null);
@@ -247,7 +250,7 @@ function TaskOverflowMenu({
     control?.focus();
   }, [confirming, confirmation?.pending]);
   const hasMenuAction = Boolean(
-    actions.onSchedule || actions.onRemoveRecurring
+    actions.onSchedule || actions.onRemoveSchedule || actions.onRemoveRecurring
     || actions.onChangeList || actions.onDuplicate || actions.onDelete,
   );
   if (!hasMenuAction) return null;
@@ -268,6 +271,26 @@ function TaskOverflowMenu({
       >
         {actions.onSchedule ? (
           <MenuItem disabled={confirming} onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
+        ) : null}
+        {actions.onRemoveSchedule && quickRemoveScheduleLabel ? (
+          <div
+            className="list-board-task__quick-unschedule-row"
+            data-task-schedule-quick-remove="true"
+            role="group"
+            aria-label={`Scheduled for ${quickRemoveScheduleLabel}`}
+          >
+            <span className="list-board-task__quick-unschedule-date">{quickRemoveScheduleLabel}</span>
+            <MenuItem
+              disabled={confirming}
+              ariaLabel={`Remove schedule for ${quickRemoveScheduleLabel}`}
+              onSelect={actions.onRemoveSchedule}
+            >
+              <span className="list-board-task__quick-unschedule-x" aria-hidden="true">×</span>
+            </MenuItem>
+          </div>
+        ) : null}
+        {actions.onRemoveSchedule ? (
+          <div role="separator" className="overlay-menu__separator" data-task-schedule-quick-separator="true" />
         ) : null}
         {actions.onRemoveRecurring ? (
           <MenuItem disabled={confirming} onSelect={actions.onRemoveRecurring}>Remove Recurring</MenuItem>
@@ -292,10 +315,12 @@ function TaskOverflowMenu({
 function TaskActionRail({
   actions,
   scheduleActionLabel,
+  quickRemoveScheduleLabel,
   confirmation,
 }: {
   actions: TaskCardActions;
   scheduleActionLabel: "Schedule" | "Update Schedule" | "Update Recurring";
+  quickRemoveScheduleLabel: string | null;
   confirmation?: TaskCardDeleteConfirmation;
 }) {
   return (
@@ -345,7 +370,12 @@ function TaskActionRail({
         ) : null}
       </span>
       <span className="list-board-task__action-position" data-task-action-position="overflow">
-        <TaskOverflowMenu actions={actions} scheduleActionLabel={scheduleActionLabel} confirmation={confirmation} />
+        <TaskOverflowMenu
+          actions={actions}
+          scheduleActionLabel={scheduleActionLabel}
+          quickRemoveScheduleLabel={quickRemoveScheduleLabel}
+          confirmation={confirmation}
+        />
       </span>
     </span>
   );
@@ -685,6 +715,7 @@ export function TaskCard({
       || effectiveActions?.onMoveLaneLeft
       || effectiveActions?.onMoveLaneRight
       || effectiveActions?.onSchedule
+      || effectiveActions?.onRemoveSchedule
       || effectiveActions?.onRemoveRecurring
       || effectiveActions?.onChangeList
       || effectiveActions?.onDuplicate
@@ -792,6 +823,7 @@ export function TaskCard({
                     scheduleActionLabel={task.recurrenceRuleId
                       ? "Update Recurring"
                       : scheduled || repeatStatus ? "Update Schedule" : "Schedule"}
+                    quickRemoveScheduleLabel={effectiveActions.onRemoveSchedule ? scheduled : null}
                     confirmation={deleteConfirmation}
                   />
                 ) : null}
