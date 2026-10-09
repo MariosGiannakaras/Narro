@@ -294,48 +294,61 @@ function InlineCreateEditor({
       data-board-task-create="editor"
       onSubmit={handleSubmit}
     >
-      <label className="list-board-task-create__field">
-        <span className="type-metadata">Add task to {laneTitle}</span>
-        <input
-          ref={titleRef}
-          value={title}
-          onChange={(event) => onChange(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || pending) return;
-            event.preventDefault();
-            onCancel();
-          }}
+      <div className="list-board-task-create__heading">
+        <button
+          type="button"
+          className="list-board-task-create__cancel motion-interactive"
+          onClick={onCancel}
           disabled={pending}
-          aria-label={`New ${laneTitle} task title`}
-          data-task-create-title="true"
-          autoFocus
-        />
-      </label>
-      <label className="list-board-task-create__field list-board-task-create__field--est">
-        <span className="type-metadata">EST (optional)</span>
-        <input
-          value={liveEstimatePreview ?? est}
-          onChange={(event) => onEstChange(event.target.value)}
-          onFocus={(event) => {
-            // First manual keystroke replaces the suggestion, not the draft.
-            if (liveEstimatePreview !== null) event.currentTarget.select();
-          }}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || pending) return;
-            event.preventDefault();
-            onCancel();
-          }}
-          placeholder="0:25:00"
-          inputMode="numeric"
-          disabled={pending}
-          aria-label={`New ${laneTitle} task EST`}
-          data-task-create-est="true"
-          data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}
-        />
-      </label>
+          aria-label={`Cancel adding task to ${laneTitle}`}
+          data-task-create-cancel="true"
+        ><span aria-hidden="true">×</span> CANCEL</button>
+      </div>
+      <div className="list-board-task-create__inputs">
+        <label className="list-board-task-create__field list-board-task-create__field--title">
+          <span className="type-metadata">Task</span>
+          <input
+            ref={titleRef}
+            value={title}
+            onChange={(event) => onChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key !== "Escape" || pending) return;
+              event.preventDefault();
+              onCancel();
+            }}
+            disabled={pending}
+            aria-label={`New ${laneTitle} task title`}
+            data-task-create-title="true"
+            autoFocus
+          />
+        </label>
+        <label className="list-board-task-create__field list-board-task-create__field--est">
+          <span className="type-metadata">Est time</span>
+          <input
+            value={liveEstimatePreview ?? est}
+            onChange={(event) => onEstChange(event.target.value)}
+            onFocus={(event) => {
+              // First manual keystroke replaces the suggestion, not the draft.
+              if (liveEstimatePreview !== null) event.currentTarget.select();
+            }}
+            onKeyDown={(event) => {
+              if (event.key !== "Escape" || pending) return;
+              event.preventDefault();
+              onCancel();
+            }}
+            placeholder="HH:MM"
+            inputMode="numeric"
+            disabled={pending}
+            aria-label={`New ${laneTitle} task EST`}
+            data-task-create-est="true"
+            data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}
+          />
+        </label>
+      </div>
       <div className="list-board-task-create__actions">
-        <button type="button" onClick={onCancel} disabled={pending}>Cancel</button>
-        <button type="submit" disabled={pending || title.trim().length === 0}>Add task</button>
+        <span className="list-board-task-create__helper type-metadata">Add a new task</span>
+        <button type="submit" className="list-board-task-create__confirm motion-interactive"
+          disabled={pending || title.trim().length === 0}>Confirm</button>
       </div>
     </form>
   );
