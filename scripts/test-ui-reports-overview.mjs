@@ -38,7 +38,7 @@ for (const [haystack, needle, label] of [
   [view, 'data-report-list-donut="true"', "populated Time By List donut"],
   [view, 'data-report-done-group="true"', "Done Tasks date grouping"],
   [view, 'className="reports-overview__done-list-badge"', "per-task list-color dot"],
-  [view, 'className={\`reports-overview__done-status is-\${task.punctuality}\`}', "Done status pill class"],
+  [view, "className={`reports-overview__done-status is-${task.punctuality}`}", "Done status pill class"],
   [css, '.reports-overview__done-status.is-early', "positive done status pill"],
   [css, '.reports-overview__done-status.is-late', "late done status pill"],
   [css, 'var(--reports-done-list-color, var(--color-surface-interactive))', "unknown list accent remains neutral"],
