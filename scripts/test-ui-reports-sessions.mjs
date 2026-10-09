@@ -94,6 +94,8 @@ for (const [haystack, needle, label] of [
   [sessions, "detailView && !addOpen", "only one nested Reports modal is mounted"],
   [fixture, '"sessions-detail-keyboard"', "detail transfer and keyboard fixture entry"],
   [fixture, "document.documentElement.dataset.reportsDetailKeyboardPass", "rendered detail modal keyboard test"],
+  [fixture, "document.documentElement.dataset.reportsDetailKeyboardVisualReady", "reopen dialog after keyboard Escape for screenshot"],
+  [captureValidator, 'data-reports-detail-keyboard-visual-ready="true"', "captured visible keyboard modal after lifecycle acceptance"],
   [captureValidator, 'data-reports-detail-keyboard-pass="true"', "captured modal lifecycle acceptance"],
   [reporting, "pub updated_at: String", "read-model session version token"],
   [reporting, "s.updated_at", "SQLite session version projection"],
