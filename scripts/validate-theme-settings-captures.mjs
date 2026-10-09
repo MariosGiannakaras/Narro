@@ -61,9 +61,9 @@ for (const section of ["upper", "middle", "lower"]) {
   invariant(dom.includes(`data-theme-settings-section="${section}"`), `Preferences ${section} marker is missing`);
   invariant(dom.includes("Blitz Panel"), `Preferences ${section} Blitz Panel section is missing`);
   invariant(dom.includes("General"), `Preferences ${section} General section is missing`);
-  invariant(dom.includes("Blitz Mode"), `Preferences ${section} Blitz Mode section is missing`);
+  invariant(dom.includes("Blitz mode settings"), `Preferences ${section} Blitz Mode section is missing`);
   invariant(dom.includes("Alerts"), `Preferences ${section} Alerts section is missing`);
-  invariant(dom.includes("Celebration"), `Preferences ${section} Celebration section is missing`);
+  invariant(dom.includes("Celebrate task completion"), `Preferences ${section} Celebration section is missing`);
   invariant(dom.includes('data-windows-shortcut-settings="true"'), `Preferences ${section} Windows Shortcuts section is missing`);
   invariant(dom.includes("data-local-sound-control=\"true\""), `Preferences ${section} local sound controls are missing`);
   for (const sound of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory Bell"]) {

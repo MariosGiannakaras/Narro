@@ -66,7 +66,7 @@ for (const [source, needle, label] of [
   [panel, "Dark", "Dark option"],
   [panel, "Light", "Light option"],
   [panel, 'role="group" aria-label="Theme"', "accessible segmented theme group"],
-  [shell, '<ThemeSettingsPanel />', "production Settings destination"],
+  [shell, '<ThemeSettingsPanel onOpenShortcuts=', "production Settings destination"],
   [fixture, 'dataset.themeSettingsFixtureReady = "true"', "fixture readiness marker"],
   [fixtureHtml, "/src/themeSettingsVisualFixture.tsx", "fixture entry module"],
   [vite, 'themeSettingsFixture: "theme-settings-fixture.html"', "Vite fixture input"],

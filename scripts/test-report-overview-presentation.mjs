@@ -7,6 +7,7 @@ import {
   reportRangeRequestBounds,
   zonedReportDateStartIso,
 } from "../src/reportOverviewPresentation.ts";
+import { reportListAccent } from "../src/reportListAccent.ts";
 
 function invariant(condition, message) {
   if (!condition) throw new Error("Report Overview presentation contract failed: " + message);
@@ -58,5 +59,22 @@ invariant(calendars[1].weeks.flat().length === 42, "second calendar must use a s
 const selected = calendars.flatMap((month) => month.weeks.flat()).filter((day) => day.selected);
 invariant(selected.some((day) => day.dateKey === "2026-09-28"), "selected range start must be represented");
 invariant(selected.some((day) => day.dateKey === "2026-10-03"), "selected range end must be represented");
+
+const accents = new Map([
+  ["current-list", "#48d6c5"],
+  ["same-title-different-id", "#120a12"],
+  ["malformed-list", "not-a-color"],
+  ["empty-list", null],
+]);
+invariant(reportListAccent("current-list", accents) === "#48d6c5",
+  "Done list badge uses authoritative identity-indexed current color");
+invariant(reportListAccent("same-title-different-id", accents) === "#120a12",
+  "two same-title lists retain independent identity and color");
+invariant(reportListAccent("missing-archived-list", accents) === null,
+  "archived/missing list cannot be assigned a fabricated historic color");
+invariant(reportListAccent("malformed-list", accents) === null,
+  "invalid CSS/list color must never become an inline style");
+invariant(reportListAccent("empty-list", accents) === null,
+  "lists without color preserve the neutral rendering fallback");
 
 console.log("Report Overview presentation/date contracts: PASS");

@@ -1,5 +1,6 @@
 import type { TimerMode } from "./timerSessionApi";
 import { successTimingCopy } from "./focusSuccessTiming";
+import { FocusCelebrationReaction } from "./FocusCelebrationReaction";
 import "./focusCompletionSuccess.css";
 
 export type FocusCompletionSuccessState = {
@@ -7,6 +8,8 @@ export type FocusCompletionSuccessState = {
   completedTaskTitle: string;
   estSeconds: number | null;
   timeTakenSeconds: string | null;
+  /** Persisted preference sampled at the committed completion boundary. */
+  funGifEnabled?: boolean;
   nextTask: { id: string; title: string; mode: TimerMode } | null;
 };
 
@@ -49,6 +52,9 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
         <p className="type-metadata">Task complete</p>
         <h1 id="focus-completion-success-title">Well done!</h1>
         <p className="focus-completion-success__task">{state.completedTaskTitle}</p>
+        {state.funGifEnabled === true ? (
+          <FocusCelebrationReaction taskId={state.completedTaskId} />
+        ) : null}
         <div className="focus-completion-success__metrics type-metadata">
           <span>EST <strong>{formatDuration(state.estSeconds)}</strong></span>
           <span>Taken <strong>{formatDuration(taken)}</strong></span>

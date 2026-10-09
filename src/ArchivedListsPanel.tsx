@@ -1,6 +1,7 @@
 import { type CSSProperties, useEffect, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListIcon } from "./ListIcon";
+import { listIconContrast } from "./listSpectrumColor";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
   getArchivedListsForSettings,
@@ -19,7 +20,10 @@ type ArchivedListsPanelProps = {
 
 function listAccent(color: string | null): CSSProperties | undefined {
   if (!color || !HEX_COLOR.test(color)) return undefined;
-  return { "--archived-list-accent": color } as CSSProperties;
+  return {
+    "--archived-list-accent": color,
+    "--archived-list-icon-contrast": listIconContrast(color),
+  } as CSSProperties;
 }
 
 export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedListsPanelProps) {
@@ -137,6 +141,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                   <ListIcon
                     listId={list.id}
                     iconAsset={list.iconAsset}
+                    iconId={list.iconId}
                     fallback={initial}
                     imageClassName="archived-list-row__icon-image"
                   />

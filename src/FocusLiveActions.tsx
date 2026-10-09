@@ -563,14 +563,25 @@ export function FocusLiveActions({
             >
               Notes
             </button>
-            <button
-              type="button"
-              data-focus-action="pause-resume"
-              disabled={busy || !state.pauseResumeEnabled}
-              onClick={handlePauseResume}
-            >
-              {state.pauseResumeLabel}
-            </button>
+            {state.extendEnabled ? (
+              <button
+                type="button"
+                data-focus-action="extend"
+                disabled={busy}
+                onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
+              >
+                Extend
+              </button>
+            ) : (
+              <button
+                type="button"
+                data-focus-action="pause-resume"
+                disabled={busy || !state.pauseResumeEnabled}
+                onClick={handlePauseResume}
+              >
+                {state.pauseResumeLabel}
+              </button>
+            )}
             <button
               type="button"
               data-focus-action="skip"
@@ -578,14 +589,6 @@ export function FocusLiveActions({
               onClick={() => void handleSkip()}
             >
               Skip
-            </button>
-            <button
-              type="button"
-              data-focus-action="extend"
-              disabled={busy || !state.extendEnabled}
-              onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
-            >
-              Extend
             </button>
             <button
               type="button"

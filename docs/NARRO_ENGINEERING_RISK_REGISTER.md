@@ -2,7 +2,7 @@
 
 Status: **BINDING PREVENTION INDEX**
 
-Last updated: 2026-10-06
+Last updated: 2026-10-09
 
 ## Purpose
 
@@ -49,7 +49,7 @@ Do not add permanent process for trivial one-off typos that existing preflight a
 | **NER-001** | `visual`, `motion`, `video`, `native` | Static frames, transcripts or sampled screenshots can look acceptable while continuous transition/state sequencing is wrong. | Motion/transient claims require the actual relevant MP4/continuous capture interval; static evidence remains support only. Resolve conflicting evidence at claim level using the parity conflict protocol; no Pass-3/newer/deeper label wins automatically. | **GUARDED** |
 | **NER-002** | `windows`, `composition`, `repeat-failure` | Repeated small patches to the same failed acceptance criterion can optimize symptoms without fixing the mechanism. | After two separately corrected, CI-green builds physically fail the same acceptance criterion, invoke the existing repeated-failure escalation: reassess the whole causal path and compare a materially different scoped mechanism before more micro-fixes. Distinguish “same criterion” from “identical symptom.” | **GUARDED** |
 | **NER-003** | `ci`, `preflight`, `tooling` | Cheap deterministic failures discovered after expensive Windows packaging waste CI and obscure product-signal quality. | Run strongest available local preflight and fast-gate checks first; formatting/parser/static-contract failures must fail before expensive candidate work. | **GUARDED** |
-| **NER-004** | `harness`, `timeout`, `capture`, `ci` | Validation harness timing/transport limits can masquerade as product failures when real operations outlive fixed samplers/readiness budgets. | Prefer semantic/end checkpoints with hard outer bounds over short guessed sleep windows; prove product source is unchanged before classifying a timeout as harness-only; preserve product vs harness failure separately. | **GUARDED** |
+| **NER-004** | `harness`, `timeout`, `capture`, `ci` | Validation harness timing/transport limits can masquerade as product failures when real operations outlive fixed samplers/readiness budgets. | Prefer semantic/end checkpoints with hard outer bounds over short guessed sleep windows; prove product source is unchanged before classifying a timeout as harness-only; preserve product vs harness failure separately. When interpreting Windows CI failures, distinguish the first failing step and its stable diagnostic from downstream artifact upload errors; group in-fixture PowerShell assertions, readiness failures and post-capture screenshot-validation failures as distinct candidate families using fixture identity and stable diagnostics, never a generic exit code; root-cause classification remains evidence-led. | **GUARDED** |
 | **NER-005** | `tracking`, `handoff`, `counters`, `evidence-drift` | Conversation memory, stale denominators or stale current-truth/crosswalk rows can contradict later validated repository evidence and send agents into duplicate work. | Derive counters from current TODO; repository current truth outranks chat; after material validation/merge reconcile HANDOFF/STATUS/TODO/crosswalk/README/architecture pointers that describe current state; run a stale-pattern scan before closing a substantial reconciliation. Keep historical snapshots immutable rather than rewriting them. | **GUARDED** |
 | **NER-006** | `git`, `branch`, `merge`, `concurrency` | A validated feature branch can be older than authoritative process/evidence truth on `main`; merging stale copies can silently restore obsolete tracking/spec state. | Before merge inspect changed filenames and live `main`; reconcile any protected current-truth files; use expected-head guard; after merge compare affected source/test blobs/tree against the exact green head. Documentation-only divergence does not require source revalidation. | **GUARDED** |
 | **NER-007** | `sqlite`, `async`, `responsiveness`, `native-read` | A synchronous SQLite/native read can display loading yet still block renderer command/input progress under a real lock. | Long/blocking reads must not occupy the async/UI command executor; offload blocking storage work, preserve typed results/errors, and use a real-lock regression. Physical keyboard responsiveness remains a separate gate where required. | **PARTIAL** |
@@ -164,3 +164,15 @@ Prefer **strengthening an existing row** over adding near-duplicate IDs. Split a
 When a prevention rule becomes fully encoded elsewhere (for example in `ENGINEERING_QUALITY.md` or a semantic regression), keep the risk row as the compact discovery pointer instead of duplicating the full rule here.
 
 Do not use this register to keep obsolete active-work state. Current PR/CI/artifact/counter truth belongs in the normal tracking files.
+
+## CI recurrence feedback loop
+
+The operational detector is `.github/workflows/ci-learning.yml` with `scripts/ci-learning.mjs`; its GitHub issues are **triage candidates**, not new failure families, current acceptance status or an automated cause verdict. It inspects completed Windows CI history rather than relying on an agent remembering a prior failure. A repeated signature across independent run IDs is enough for review, not enough to declare identical causes. Generic exit codes and unavailable logs are excluded from automatic grouping and reported as incomplete coverage.
+
+After a validated investigation, strengthen the appropriate existing family:
+- **NER-003** for recurrent deterministic problems that should have failed cheaply before Windows packaging;
+- **NER-004** for real test/harness timing, transient OS or transport limitations only after evidence distinguishes product behavior;
+- **NER-005** when risk/history tracking itself goes stale;
+- **NER-012** when an agent conflates rerun, exact-head CI, physical validation or source parity.
+
+Record a precise immutable incident/correction in `work-log/` with failed run/attempt/SHA, first causal failed step, evidence and outcome. Update this register for a **reusable prevention invariant or improved guard**, not once per failure or rerun. Before closing triage, verify the guard actually addresses the cause and label nonautomatable evidence honestly. Do not claim that this Markdown automatically learns or that the daily scanner edits this file.

@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListIcon } from "./ListIcon";
+import { listIconContrast } from "./listSpectrumColor";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import "./homeDashboard.css";
 
@@ -16,6 +17,7 @@ export type HomeListCardSnapshot = {
   title: string;
   color: string | null;
   iconAsset: string | null;
+  iconId?: string | null;
   previewTasks: HomeTaskPreview[];
   pendingCount: number;
   aggregateEstSeconds: number;
@@ -50,6 +52,7 @@ type DisplayCard = {
   title: string;
   color: string | null;
   iconAsset: string | null;
+  iconId?: string | null;
   previewTasks: HomeTaskPreview[];
   pendingCount: number;
   aggregateEstSeconds: number;
@@ -80,7 +83,10 @@ function pendingLabel(count: number): string {
 
 function safeAccent(color: string | null): CSSProperties | undefined {
   if (!color || !HEX_COLOR.test(color)) return undefined;
-  return { "--home-list-accent": color } as CSSProperties;
+  return {
+    "--home-list-accent": color,
+    "--home-list-icon-contrast": listIconContrast(color),
+  } as CSSProperties;
 }
 
 function ListCard({
@@ -108,6 +114,7 @@ function ListCard({
           <ListIcon
             listId={card.id}
             iconAsset={card.iconAsset}
+            iconId={card.iconId}
             fallback={initial}
             imageClassName="home-list-card__icon-image"
           />

@@ -44,6 +44,7 @@ import { groupCompletedBoardTasks } from "./boardDoneGroups";
 import { parseMetricDuration } from "./metricDurationInput";
 import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
+import { hasActionableTodayPreview } from "./blitzEntryPresentation";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
@@ -293,48 +294,61 @@ function InlineCreateEditor({
       data-board-task-create="editor"
       onSubmit={handleSubmit}
     >
-      <label className="list-board-task-create__field">
-        <span className="type-metadata">Add task to {laneTitle}</span>
-        <input
-          ref={titleRef}
-          value={title}
-          onChange={(event) => onChange(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || pending) return;
-            event.preventDefault();
-            onCancel();
-          }}
+      <div className="list-board-task-create__heading">
+        <button
+          type="button"
+          className="list-board-task-create__cancel motion-interactive"
+          onClick={onCancel}
           disabled={pending}
-          aria-label={`New ${laneTitle} task title`}
-          data-task-create-title="true"
-          autoFocus
-        />
-      </label>
-      <label className="list-board-task-create__field list-board-task-create__field--est">
-        <span className="type-metadata">EST (optional)</span>
-        <input
-          value={liveEstimatePreview ?? est}
-          onChange={(event) => onEstChange(event.target.value)}
-          onFocus={(event) => {
-            // First manual keystroke replaces the suggestion, not the draft.
-            if (liveEstimatePreview !== null) event.currentTarget.select();
-          }}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || pending) return;
-            event.preventDefault();
-            onCancel();
-          }}
-          placeholder="0:25:00"
-          inputMode="numeric"
-          disabled={pending}
-          aria-label={`New ${laneTitle} task EST`}
-          data-task-create-est="true"
-          data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}
-        />
-      </label>
+          aria-label={`Cancel adding task to ${laneTitle}`}
+          data-task-create-cancel="true"
+        ><span aria-hidden="true">×</span> CANCEL</button>
+      </div>
+      <div className="list-board-task-create__inputs">
+        <label className="list-board-task-create__field list-board-task-create__field--title">
+          <span className="type-metadata">Task</span>
+          <input
+            ref={titleRef}
+            value={title}
+            onChange={(event) => onChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key !== "Escape" || pending) return;
+              event.preventDefault();
+              onCancel();
+            }}
+            disabled={pending}
+            aria-label={`New ${laneTitle} task title`}
+            data-task-create-title="true"
+            autoFocus
+          />
+        </label>
+        <label className="list-board-task-create__field list-board-task-create__field--est">
+          <span className="type-metadata">Est time</span>
+          <input
+            value={liveEstimatePreview ?? est}
+            onChange={(event) => onEstChange(event.target.value)}
+            onFocus={(event) => {
+              // First manual keystroke replaces the suggestion, not the draft.
+              if (liveEstimatePreview !== null) event.currentTarget.select();
+            }}
+            onKeyDown={(event) => {
+              if (event.key !== "Escape" || pending) return;
+              event.preventDefault();
+              onCancel();
+            }}
+            placeholder="HH:MM"
+            inputMode="numeric"
+            disabled={pending}
+            aria-label={`New ${laneTitle} task EST`}
+            data-task-create-est="true"
+            data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}
+          />
+        </label>
+      </div>
       <div className="list-board-task-create__actions">
-        <button type="button" onClick={onCancel} disabled={pending}>Cancel</button>
-        <button type="submit" disabled={pending || title.trim().length === 0}>Add task</button>
+        <span className="list-board-task-create__helper type-metadata">Add a new task</span>
+        <button type="submit" className="list-board-task-create__confirm motion-interactive"
+          disabled={pending || title.trim().length === 0}>Confirm</button>
       </div>
     </form>
   );
@@ -347,6 +361,7 @@ function BoardLane({
   displayTimezone,
   doneMonthCompletionCount,
   todayProgress,
+  thisWeekProgress,
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
@@ -398,6 +413,7 @@ function BoardLane({
   displayTimezone: string;
   doneMonthCompletionCount?: number;
   todayProgress?: { done: number; total: number };
+  thisWeekProgress?: { done: number; total: number };
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
@@ -473,6 +489,8 @@ function BoardLane({
   const scheduledGroupCount = visibleTasks.filter(
     (task) => boardTaskSubgroup(task) === "scheduled",
   ).length;
+  const laneProgress = laneKey === "today" ? todayProgress
+    : laneKey === "thisWeek" ? thisWeekProgress : undefined;
 
   return (
     <section
@@ -494,24 +512,25 @@ function BoardLane({
               ? `${doneMonthCompletionCount} completed this month`
               : `${lane.count} ${lane.count === 1 ? "task" : "tasks"}`}
           </span>
-          {laneKey === "today" && todayProgress ? (
+          {laneProgress ? (
             <div
               className="list-board-lane__progress"
-              data-today-progress="true"
-              aria-label={`${todayProgress.done} of ${todayProgress.total} tasks done`}
+              data-today-progress={laneKey === "today" ? "true" : undefined}
+              data-week-progress={laneKey === "thisWeek" ? "true" : undefined}
+              aria-label={`${laneProgress.done} of ${laneProgress.total} tasks done`}
             >
               <span className="list-board-lane__progress-track" aria-hidden="true">
                 <span
                   className="list-board-lane__progress-fill"
                   style={{
-                    width: `${todayProgress.total === 0
+                    width: `${laneProgress.total === 0
                       ? 0
-                      : Math.min(100, Math.round((todayProgress.done / todayProgress.total) * 100))}%`,
+                      : Math.min(100, Math.round((laneProgress.done / laneProgress.total) * 100))}%`,
                   }}
                 />
               </span>
               <span className="list-board-lane__progress-label type-metadata">
-                {todayProgress.done}/{todayProgress.total} Done
+                {laneProgress.done}/{laneProgress.total} Done
               </span>
             </div>
           ) : null}
@@ -770,7 +789,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">{laneKey === "today" ? "No Tasks" : "No tasks"}</div>
+          <div className="list-board-lane__empty type-metadata">{pendingLane !== null ? "All Clear" : "No tasks"}</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -816,7 +835,7 @@ function BoardLane({
         />
       )}
 
-      {laneKey === "today" ? <BlitzEntryButton /> : null}
+      {laneKey === "today" ? <BlitzEntryButton visuallyMuted={!hasActionableTodayPreview(lane.tasks)} /> : null}
     </section>
   );
 }
@@ -1134,6 +1153,12 @@ export function ListBoard({
   const todayProgress = {
     done: todayDone,
     total: todayDone + Math.max(0, snapshot.today.count),
+  };
+  // Independent This Week lane: do not infer a historical Today-superset formula.
+  const thisWeekDone = Math.max(0, snapshot.thisWeekCompletionCount);
+  const thisWeekProgress = {
+    done: thisWeekDone,
+    total: thisWeekDone + Math.max(0, snapshot.thisWeek.count),
   };
 
   const markSettling = (taskId: string) => {
@@ -2152,6 +2177,7 @@ export function ListBoard({
             displayTimezone={snapshot.displayTimezone}
             doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
             todayProgress={key === "today" ? todayProgress : undefined}
+            thisWeekProgress={key === "thisWeek" ? thisWeekProgress : undefined}
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}

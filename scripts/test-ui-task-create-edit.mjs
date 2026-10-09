@@ -100,6 +100,31 @@ const createStart = board.indexOf("function InlineCreateEditor");
 const createEnd = board.indexOf("function BoardLane", createStart);
 if (createStart < 0 || createEnd < 0) throw new Error("Could not isolate production inline create editor.");
 const createEditor = board.slice(createStart, createEnd);
+for (const [needle, label] of [
+  ['data-task-create-cancel="true"', "source leading explicit cancel"],
+  ['> CANCEL</button>', "source cancel button copy"],
+  ['data-task-create-title="true"', "saved task title input identity"],
+  ['>Est time</span>', "source estimate label"],
+  ['data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}', "existing live EST preview"],
+  ['>Add a new task</span>', "source inline helper"],
+  ['>Confirm</button>', "source create action text"],
+  ['onSubmit={handleSubmit}', "same atomic submit handler"],
+  ['disabled={pending || title.trim().length === 0}', "preserved pending and empty-title guard"],
+]) requireText(createEditor, needle, label);
+const cancelAt = createEditor.indexOf('data-task-create-cancel="true"');
+const titleAt = createEditor.indexOf('data-task-create-title="true"');
+const estimateAt = createEditor.indexOf('data-task-create-est="true"');
+const confirmAt = createEditor.indexOf('>Confirm</button>');
+if (!(cancelAt < titleAt && titleAt < estimateAt && estimateAt < confirmAt)) {
+  throw new Error("Source-derived Cancel / title / Est time / Confirm order changed.");
+}
+if ((createEditor.match(/data-task-create-cancel="true"/g) ?? []).length !== 1) {
+  throw new Error("Inline editor must not contain competing Cancel controls.");
+}
+requireText(css, "grid-template-columns: minmax(0, 1fr) minmax(5rem, 7rem);", "source title/EST row layout");
+requireText(css, "background: linear-gradient(100deg, var(--color-accent-start), var(--color-accent-end));", "calibrated gradient Confirm");
+requireText(css, ".list-board-task-create__cancel:focus-visible", "Cancel keyboard visibility");
+requireText(css, ".list-board-task-create__confirm:disabled", "Confirm pending/blank visibility");
 for (const forbidden of ["Time Taken", "schedule", "recurrence"]) {
   if (createEditor.includes(forbidden)) {
     throw new Error(`Task create slice must not activate later task metadata UI: ${forbidden}`);

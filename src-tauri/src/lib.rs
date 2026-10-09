@@ -16,6 +16,7 @@ pub mod focus_preferences;
 pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
+pub mod list_builtin_icons;
 pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;

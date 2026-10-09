@@ -1,0 +1,64 @@
+name: CI Failure Learning
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/ci-learning.yml"
+      - "scripts/ci-learning.mjs"
+      - "scripts/test-ci-learning.mjs"
+  schedule:
+    - cron: "19 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            scripts/ci-learning.mjs
+            scripts/test-ci-learning.mjs
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Test CI recurrence classifier
+        run: node --test scripts/test-ci-learning.mjs
+
+  recurrence-scan:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    concurrency:
+      group: narro-ci-learning
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            scripts/ci-learning.mjs
+            scripts/test-ci-learning.mjs
+          sparse-checkout-cone-mode: false
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Test CI recurrence classifier
+        run: node --test scripts/test-ci-learning.mjs
+      - name: Scan completed Windows CI and create deduplicated triage issues
+        run: node scripts/ci-learning.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

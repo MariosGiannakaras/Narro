@@ -1,0 +1,15 @@
+# Byte-accurate approved HTML restoration and PR282 integration reconciliation — 2026-10-09
+
+## Provenance and one-byte finding
+
+The final user-uploaded `narro-spectrum-core-large-icon-library.html` is 188,022 UTF-8 bytes, 964 LF-terminated lines, SHA-256 `fa21cae079fe1647b78e0c0aaada617b9efd54d9d81dbdd841937164cb0907c9`, Git blob SHA-1 `198c716ec52b05bf08afd211f1cbf308b256fdde` measured independently from the original upload bytes. GitHub `reference/narro-approved-designs/2026-10-09-spectrum-core-large-icon-library.html` was present, but blob `c99137937ee4aa75090452adb0a2931a61973b11` contained 188,021 bytes: complete visible content with no final LF. Prior immutable log called it byte-exact; that statement was too strong at the 1-byte boundary. This reconciliation adds *only* the original terminal LF; the replacement blob MUST have exact SHA `198c716ec52b05bf08afd211f1cbf308b256fdde`, verified before Git commit. The approved design and code are not otherwise changed.
+
+## CI and merge verified independently
+
+PR #282 at exact source head `2aaae1ff0ec1abf08255f366b347586245f6e6ce` passed **all validation/fast/Windows candidate** in `37908107934`, then guarded squash merged as `5c7abee5150033f814813cc854c808914b04fcdb`; GitHub PR is closed/merged. This supersedes stale current-truth 'open/in progress' documentation only; prior fast failed `37905929081` and `37906733914`, and cancelled `37907813553` remain immutable historical evidence. Resulting-main push `37915680060` has validation/fast SUCCESS and Windows candidate IN PROGRESS at snapshot; **NOT PASS** as of this update. #283 `37908694743` validation+fast SUCCESS / Windows IN PROGRESS, #280 `37902450730` FAILED Windows; separate ownership preserved.
+
+## Visual, behavior and original-product boundaries
+
+The feature is source-integrated: 184px wheel, 226px Spectrum/310px icon palette popovers, approved deep dual shadow, six original swatches, 218 named local SVGs with search/categories, circle-only upload, live color+HEX, typed keep/clear/builtin/upload persisted icon ID, legacy upload retention, centralized `ListIcon` usage. Static/source checks and PR-head CI do NOT show bitwise rendered visual equality or all real packaged-Windows keyboard/Create/Edit/reopen/duplicate/archive/restore flows against the approved HTML. Those remain physical/source acceptance **OPEN**. HTML is a user-directed Narro design, not actual Blitzit picker-detail evidence; the 218-icon library is not claimed as observed Blitzit behavior. No app source/config/test changes in this archival/tracking-only commit, no new CI triggered.
+
+Campaign progress **33/35** guarded integrated source batches (#249–#283: #280 and #283 open); #284 CI learning is independent infrastructure and not counted. NEXT: inspect exact resulting-main CI, preserve concurrent PR owners, finish current app CI corrections, then run requested separate source-unsupported arbitrary implementation audit; Codex physical stays paused until consolidated build.

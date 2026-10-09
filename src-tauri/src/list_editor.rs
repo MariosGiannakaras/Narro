@@ -1,9 +1,11 @@
 use crate::domain::ids::ListId;
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
 use crate::error::{CommandError, CommandResult};
+use crate::list_builtin_icons::is_builtin_list_icon_id;
 use crate::persistence;
 use crate::persistence::lists::{
-    create_list, duplicate_list, get_list, update_list, ListStoreError,
+    create_list_with_builtin_icon, duplicate_list, get_list, update_list_with_builtin_icon,
+    ListStoreError,
 };
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
@@ -25,7 +27,32 @@ pub struct ListIconUpload {
 pub struct ListEditorRequest {
     pub title: String,
     pub color: Option<String>,
+    /// Legacy compatibility; new UI sends the explicit icon_selection intent.
     pub icon_upload: Option<ListIconUpload>,
+    #[serde(default)]
+    pub icon_selection: Option<ListIconSelection>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(tag = "kind", rename_all = "camelCase")]
+pub enum ListIconSelection {
+    Keep,
+    Letter,
+    Builtin { id: String },
+    Upload { filename: String, bytes: Vec<u8> },
+}
+
+/// All persisted builtins must be whitelist-owned identifiers, not SVG data.
+fn icon_intent(request: &ListEditorRequest) -> Result<Option<&ListIconSelection>, ListEditorError> {
+    if request.icon_selection.is_some() && request.icon_upload.is_some() {
+        return Err(ListEditorError::InvalidIconSelection);
+    }
+    if let Some(ListIconSelection::Builtin { id }) = request.icon_selection.as_ref() {
+        if !is_builtin_list_icon_id(id) {
+            return Err(ListEditorError::InvalidIconSelection);
+        }
+    }
+    Ok(request.icon_selection.as_ref())
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -46,6 +73,7 @@ pub enum ListEditorError {
     IconTooLarge,
     UnsupportedIconType,
     InvalidSvg,
+    InvalidIconSelection,
 }
 
 impl Display for ListEditorError {
@@ -67,6 +95,9 @@ impl Display for ListEditorError {
             }
             Self::InvalidSvg => {
                 formatter.write_str("imported SVG is not a safe standalone SVG image")
+            }
+            Self::InvalidIconSelection => {
+                formatter.write_str("list icon selection is invalid or ambiguous")
             }
         }
     }
@@ -246,20 +277,35 @@ pub fn create(
     now: &str,
 ) -> Result<ListRecord, ListEditorError> {
     validate_color(request.color.as_deref())?;
+    let choice = icon_intent(&request)?;
+    if matches!(choice, Some(ListIconSelection::Keep)) {
+        return Err(ListEditorError::InvalidIconSelection);
+    }
+    let icon_id = match choice {
+        Some(ListIconSelection::Builtin { id }) => Some(id.clone()),
+        _ => None,
+    };
+    let upload = match choice {
+        Some(ListIconSelection::Upload { filename, bytes }) => Some(ListIconUpload {
+            filename: filename.clone(),
+            bytes: bytes.clone(),
+        }),
+        _ if choice.is_none() => request.icon_upload.clone(),
+        _ => None,
+    };
     let mut connection = open_database(app_dir)?;
-    let imported = request
-        .icon_upload
+    let imported = upload
         .as_ref()
         .map(|upload| write_imported_icon(app_dir, upload))
         .transpose()?;
-
-    let result = create_list(
+    let result = create_list_with_builtin_icon(
         &mut connection,
         NewListInput {
             title: request.title,
             color: request.color,
             icon_asset: imported.clone(),
         },
+        icon_id,
         now,
     );
 
@@ -281,29 +327,46 @@ pub fn update(
     now: &str,
 ) -> Result<ListRecord, ListEditorError> {
     validate_color(request.color.as_deref())?;
+    let choice = icon_intent(&request)?;
     let mut connection = open_database(app_dir)?;
     let existing = get_list(&connection, id)?;
-    let imported = request
-        .icon_upload
+    let upload = match choice {
+        Some(ListIconSelection::Upload { filename, bytes }) => Some(ListIconUpload {
+            filename: filename.clone(),
+            bytes: bytes.clone(),
+        }),
+        _ if choice.is_none() => request.icon_upload.clone(),
+        _ => None,
+    };
+    let imported = upload
         .as_ref()
         .map(|upload| write_imported_icon(app_dir, upload))
         .transpose()?;
-    let next_icon = imported.clone().or_else(|| existing.icon_asset.clone());
+    let (next_asset, next_icon_id) = match choice {
+        Some(ListIconSelection::Letter) => (None, None),
+        Some(ListIconSelection::Builtin { id }) => (None, Some(id.clone())),
+        Some(ListIconSelection::Upload { .. }) => (imported.clone(), None),
+        Some(ListIconSelection::Keep) | None if imported.is_none() => {
+            (existing.icon_asset.clone(), existing.icon_id.clone())
+        }
+        _ => (imported.clone(), None),
+    };
 
-    let result = update_list(
+    let result = update_list_with_builtin_icon(
         &mut connection,
         id,
         UpdateListInput {
             title: request.title,
             color: request.color,
-            icon_asset: next_icon,
+            icon_asset: next_asset.clone(),
         },
+        next_icon_id,
         now,
     );
 
     match result {
         Ok(updated) => {
-            if imported.is_some() {
+            if existing.icon_asset != next_asset {
                 if let Some(previous) = existing.icon_asset.as_deref() {
                     cleanup_icon(app_dir, previous);
                 }
@@ -358,7 +421,8 @@ fn command_error(error: ListEditorError) -> CommandError {
         | ListEditorError::EmptyIcon
         | ListEditorError::IconTooLarge
         | ListEditorError::UnsupportedIconType
-        | ListEditorError::InvalidSvg => "LIST_EDITOR_INVALID_INPUT",
+        | ListEditorError::InvalidSvg
+        | ListEditorError::InvalidIconSelection => "LIST_EDITOR_INVALID_INPUT",
         ListEditorError::Store(ListStoreError::NotFound(_)) => "LIST_EDITOR_NOT_FOUND",
         _ => "LIST_EDITOR_FAILED",
     };
@@ -449,6 +513,7 @@ mod tests {
         let created = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: " Work ".into(),
                 color: Some("#48d6c5".into()),
                 icon_upload: Some(ListIconUpload {
@@ -470,6 +535,7 @@ mod tests {
             &app_dir,
             created.id,
             ListEditorRequest {
+                icon_selection: None,
                 title: "Deep Work".into(),
                 color: Some("#b7d96d".into()),
                 icon_upload: None,
@@ -490,6 +556,7 @@ mod tests {
         let created = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: "Work".into(),
                 color: Some("#48d6c5".into()),
                 icon_upload: Some(ListIconUpload {
@@ -541,6 +608,7 @@ mod tests {
         let error = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: "Work".into(),
                 color: Some("#48d6c5".into()),
                 icon_upload: Some(ListIconUpload {
@@ -567,6 +635,7 @@ mod tests {
         let invalid_color = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: "List".into(),
                 color: Some("red".into()),
                 icon_upload: None,
@@ -579,6 +648,7 @@ mod tests {
         let spoofed = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: "List".into(),
                 color: None,
                 icon_upload: Some(ListIconUpload {
@@ -605,6 +675,7 @@ mod tests {
         let error = create(
             &app_dir,
             ListEditorRequest {
+                icon_selection: None,
                 title: "Unsafe".into(),
                 color: None,
                 icon_upload: Some(ListIconUpload {
@@ -617,5 +688,137 @@ mod tests {
         .expect_err("scripted svg must fail");
         assert!(matches!(error, ListEditorError::InvalidSvg));
         std::fs::remove_dir_all(app_dir).expect("remove test app dir");
+    }
+    #[test]
+    fn builtin_identity_roundtrips_duplicate_keep_upload_and_clear() {
+        let app_dir = test_app_dir();
+        setup(&app_dir);
+        let now = "2026-10-09T11:00:00Z";
+        let builtin = create(
+            &app_dir,
+            ListEditorRequest {
+                title: "Work".into(),
+                color: Some("#48d6c5".into()),
+                icon_upload: None,
+                icon_selection: Some(ListIconSelection::Builtin {
+                    id: "briefcase".into(),
+                }),
+            },
+            now,
+        )
+        .expect("create list with whitelisted builtin");
+        assert_eq!(builtin.icon_id.as_deref(), Some("briefcase"));
+        assert!(builtin.icon_asset.is_none());
+
+        let duplicated = duplicate(&app_dir, builtin.id, "2026-10-09T11:01:00Z")
+            .expect("duplicate builtin list");
+        assert_eq!(duplicated.icon_id.as_deref(), Some("briefcase"));
+        assert!(duplicated.icon_asset.is_none());
+
+        let kept = update(
+            &app_dir,
+            builtin.id,
+            ListEditorRequest {
+                title: "Deep Work".into(),
+                color: Some("#b7d96d".into()),
+                icon_upload: None,
+                icon_selection: Some(ListIconSelection::Keep),
+            },
+            "2026-10-09T11:02:00Z",
+        )
+        .expect("retain existing builtin");
+        assert_eq!(kept.icon_id.as_deref(), Some("briefcase"));
+
+        let png = vec![0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4];
+        let uploaded = update(
+            &app_dir,
+            kept.id,
+            ListEditorRequest {
+                title: "Uploaded".into(),
+                color: kept.color.clone(),
+                icon_upload: None,
+                icon_selection: Some(ListIconSelection::Upload {
+                    filename: "work.png".into(),
+                    bytes: png,
+                }),
+            },
+            "2026-10-09T11:03:00Z",
+        )
+        .expect("replace builtin with validated local upload");
+        assert_eq!(uploaded.icon_id, None);
+        let owned = uploaded.icon_asset.as_deref().expect("owned icon path");
+        assert!(resolve_owned_icon(&app_dir, owned)
+            .expect("managed file path")
+            .exists());
+
+        let cleared = update(
+            &app_dir,
+            uploaded.id,
+            ListEditorRequest {
+                title: "No icon".into(),
+                color: uploaded.color.clone(),
+                icon_upload: None,
+                icon_selection: Some(ListIconSelection::Letter),
+            },
+            "2026-10-09T11:04:00Z",
+        )
+        .expect("clear imported icon");
+        assert_eq!(cleared.icon_asset, None);
+        assert_eq!(cleared.icon_id, None);
+        assert!(!resolve_owned_icon(&app_dir, owned)
+            .expect("managed file path")
+            .exists());
+
+        let reopened = rusqlite::Connection::open(app_dir.join("narro.db"))
+            .expect("reopen persisted database");
+        let restored = get_list(&reopened, duplicated.id).expect("reopen duplicated builtin list");
+        assert_eq!(restored.icon_id.as_deref(), Some("briefcase"));
+        drop(reopened);
+        std::fs::remove_dir_all(app_dir).expect("clean test app");
+    }
+
+    #[test]
+    fn invalid_builtin_and_ambiguous_upload_are_rejected_without_mutation() {
+        let app_dir = test_app_dir();
+        setup(&app_dir);
+        let invalid = create(
+            &app_dir,
+            ListEditorRequest {
+                title: "Work".into(),
+                color: None,
+                icon_upload: None,
+                icon_selection: Some(ListIconSelection::Builtin {
+                    id: "../asset.svg".into(),
+                }),
+            },
+            "2026-10-09T11:00:00Z",
+        )
+        .expect_err("untrusted ID");
+        assert!(matches!(invalid, ListEditorError::InvalidIconSelection));
+
+        let png = ListIconUpload {
+            filename: "work.png".into(),
+            bytes: vec![0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0],
+        };
+        let ambiguous = create(
+            &app_dir,
+            ListEditorRequest {
+                title: "Work".into(),
+                color: None,
+                icon_upload: Some(png),
+                icon_selection: Some(ListIconSelection::Letter),
+            },
+            "2026-10-09T11:01:00Z",
+        )
+        .expect_err("conflicting file and letter intents");
+        assert!(matches!(ambiguous, ListEditorError::InvalidIconSelection));
+        let connection =
+            rusqlite::Connection::open(app_dir.join("narro.db")).expect("read preserved database");
+        assert!(crate::persistence::lists::active_lists(&connection)
+            .expect("list remains absent")
+            .is_empty());
+        assert!(!app_dir.join(ICON_DIRECTORY).exists());
+        drop(connection);
+        std::fs::remove_dir_all(app_dir).expect("clean test app");
     }
 }

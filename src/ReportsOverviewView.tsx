@@ -47,6 +47,7 @@ export type ReportsDoneTask = {
   id: string;
   title: string;
   listTitle: string;
+  listColor?: string | null;
   completionLabel: string;
   timeTakenLabel: string;
   punctuality: "early" | "on_time" | "late" | "none";
@@ -560,22 +561,20 @@ export function ReportsOverviewView({
                   </header>
                   {tasks.map((task) => (
                     <article className="reports-overview__done-row" key={task.id}>
-                      <div>
+                      <div className="reports-overview__done-copy">
                         <strong>{task.title}</strong>
-                        <span>{task.listTitle}</span>
+                        <span className="reports-overview__done-list-label">
+                          <i className="reports-overview__done-list-badge" aria-hidden="true"
+                            style={task.listColor ? {
+                              "--reports-done-list-color": task.listColor,
+                            } as CSSProperties : undefined} />
+                          {task.listTitle}
+                        </span>
                       </div>
                       <div className="reports-overview__done-metrics">
-                        {task.punctuality !== "none" ? (
-                          <span className={
-                            task.punctuality === "early"
-                              ? "is-early"
-                              : task.punctuality === "late"
-                                ? "is-late"
-                                : undefined
-                          }>
-                            {task.varianceLabel}
-                          </span>
-                        ) : <span>No Est</span>}
+                        <span className={`reports-overview__done-status is-${task.punctuality}`}>
+                          {task.punctuality === "none" ? "No Est" : task.varianceLabel}
+                        </span>
                         <span>Time Taken {task.timeTakenLabel}</span>
                       </div>
                     </article>
