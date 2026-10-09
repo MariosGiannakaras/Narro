@@ -106,7 +106,7 @@ for (const [haystack, needle, label] of [
   [capture, "png_bytes.len() as u64 > MAX_CAPTURE_PNG_BYTES", "same bounded Main capture limit through decode"],
   [lib, "let transition = match tauri::async_runtime::spawn_blocking", "morph worker failure enters common recovery path"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
-  [board, 'laneKey === "today" ? <BlitzEntryButton /> : null', "production Today-lane entry surface"],
+  [board, 'laneKey === "today" ? <BlitzEntryButton visuallyMuted={!hasActionableTodayPreview(lane.tasks)} /> : null', "production Today-lane entry surface"],
 ]) {
   requireText(haystack, needle, label);
 }
