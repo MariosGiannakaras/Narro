@@ -108,7 +108,7 @@ invariant(css.includes('.floating-timer-foundation__timer[data-floating-timer-ov
   "B67 overtime warning color must apply in ordinary Floating state, not just clipping");
 invariant(css.includes('.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {\n  transition: none;\n}'),
   "M7 native clipping must suppress transient action crossfade without changing ordinary hover");
-invariant(!css.includes('.floating-timer-foundation__actions-wrap {\n  transition: none;\n}'),
+invariant(!/^\.floating-timer-foundation__actions-wrap \{\n  transition: none;\n\}/m.test(css),
   "Global no-transition on Floating actions would erase normal hover crossfade");
 invariant(css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"), "collapsed subtask row geometry differs");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer/progress numerals must remain stable");
