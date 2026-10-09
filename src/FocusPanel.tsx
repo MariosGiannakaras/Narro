@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { type PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
+import { focusOverdueAge } from "./focusOverdueAge";
 import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
@@ -79,6 +80,8 @@ export type FocusPanelProps = {
 type FocusTaskRowProps = {
   task: ListBoardTask;
   aggregateView: boolean;
+  displayTimezone: string;
+  nowForOverdueAge: Date;
   done?: boolean;
   scheduled?: boolean;
   disabled: boolean;
@@ -146,6 +149,8 @@ function subtaskLabel(task: ListBoardTask): string | null {
 function FocusTaskRow({
   task,
   aggregateView,
+  displayTimezone,
+  nowForOverdueAge,
   done = false,
   scheduled = false,
   disabled,
@@ -174,6 +179,9 @@ function FocusTaskRow({
 }: FocusTaskRowProps) {
   const [moreOpen, setMoreOpen] = useState(false);
   const schedule = taskScheduleLabel(task);
+  const overdueAge = task.isOverdue && !fixtureMode && task.scheduledLocalDate
+    ? focusOverdueAge(task.scheduledLocalDate, displayTimezone, nowForOverdueAge)
+    : null;
   const ordinary = !done;
 
   const runMoreAction = (action: () => void) => {
@@ -238,7 +246,11 @@ function FocusTaskRow({
             ) : null}
           </div>
           <div className="focus-panel__task-meta type-metadata">
-            {task.isOverdue ? <span className="focus-panel__overdue">Overdue</span> : null}
+            {task.isOverdue ? (
+              <span className="focus-panel__overdue" data-focus-overdue-age={overdueAge ?? "unknown"}>
+                {overdueAge ?? "Overdue"}
+              </span>
+            ) : null}
             {schedule ? <span>{schedule}</span> : null}
             {subtaskLabel(task) ? <span>{subtaskLabel(task)}</span> : null}
           </div>
@@ -929,6 +941,7 @@ export function FocusPanel({
   }
 
   const aggregateView = board.target.kind === "all_lists";
+  const nowForOverdueAge = new Date();
   const selectedValue = aggregateView ? ALL_LISTS_VALUE : board.target.id ?? ALL_LISTS_VALUE;
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
   const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
@@ -1013,6 +1026,8 @@ export function FocusPanel({
         key={task.id}
         task={task}
         aggregateView={aggregateView}
+        displayTimezone={board.displayTimezone}
+        nowForOverdueAge={nowForOverdueAge}
         scheduled={scheduled}
         disabled={rowInteractionDisabled || mutationPendingTaskId === task.id}
         notesExpanded={notesTaskId === task.id}
@@ -1304,6 +1319,8 @@ export function FocusPanel({
               key={task.id}
               task={task}
               aggregateView={aggregateView}
+              displayTimezone={board.displayTimezone}
+              nowForOverdueAge={nowForOverdueAge}
               done
               disabled
               notesExpanded={false}
