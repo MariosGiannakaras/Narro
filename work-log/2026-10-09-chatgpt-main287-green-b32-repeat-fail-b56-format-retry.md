@@ -1,0 +1,7 @@
+# 2026-10-09 — #287 resulting main Windows green; #286/#290 corrective heads
+
+- #287 B61/B62 guarded source merge `67faf5aa523da019af84de6f4c45266b063adac7`, resulting-main Windows CI **37927503161 SUCCESS** all three jobs, exact SHA only.
+- #286 B32 prior run `37921875076` and one-selector correction `37927679782` independently FAILED the same first causal Reports fixture Shift+Tab assertion. All Rust/fast/validation green; missing upload artifact downstream only. Current head `50d312b395ba52323360d55b02384265a8373959` filters hidden/inert/unfocusable tab endpoints in the shared production helper, test requires actual focus, run `37930178261` IN PROGRESS/NOT PASS. If same failure recurs, capture exact active/last focus rather than assuming mechanism.
+- #290 B56 old run `37929345017` FAILED Check Rust Formatting only; revised head `b21078edd16545627be569681e966b0e800a29af`, run `37930362429` pending; intermediate `37930290282` CANCELLED after branch update. Read-only task-total union, Rust/SQLite tests, inferred Blitzit formula not proven.
+- #289 head `1bbfbf092de90a79393564a93a8127e75da3f670` still full Windows CI pending `37928150288`. #288 full CI green but concurrently owned; #280/#285 owner-protected pending.
+- No additional source code in this tracking commit. No physical/native/source comparison PASS. Coding counter **35/41**, source-review list 41, M11 dormant, Codex physical paused.
