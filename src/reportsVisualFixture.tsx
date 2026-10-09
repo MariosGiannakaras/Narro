@@ -625,6 +625,18 @@ async function validateDetailSessionKeyboardFixture() {
   await wait(30);
   const trigger = document.querySelector<HTMLButtonElement>('[data-report-detail-keyboard-trigger="true"]');
   requireFixture(document.activeElement === trigger, "Task detail dismissal did not restore opener focus.");
+
+  // Keep the modal visible for the screenshot *after* exercising close/focus
+  // restoration. A completed keyboard test alone used to capture a blank page.
+  trigger!.click();
+  const visuallyOpen = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  requireFixture(visuallyOpen, "Detail keyboard screenshot has no reopened dialog.");
+  await wait(30);
+  const visualClose = visuallyOpen!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
+  requireFixture(document.activeElement === visualClose, "Reopened detail did not acquire initial focus.");
+  requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
+    "Reopened detail screenshot has competing modal owners.");
+  document.documentElement.dataset.reportsDetailKeyboardVisualReady = "true";
   document.documentElement.dataset.reportsDetailKeyboardPass = "true";
 }
 
