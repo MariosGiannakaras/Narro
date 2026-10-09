@@ -84,4 +84,25 @@ invariant(panelCss.includes("grid-template-columns: minmax(0, 1fr) minmax(0, 1.0
 invariant(!panelCss.includes("minmax(0, 1.25fr) minmax(0, 1fr);"),
   "sixth always-visible Extend slot must not reappear");
 
+// B49: title/timer and the five real interactive action targets swap in-place.
+// Keyboard action focus must reveal the same row; no sixth inert Extend reappears.
+for (const icon of ['kind="break"', 'kind="notes"', 'kind="skip"', 'kind="done"']) {
+  invariant(panelActions.includes("<FloatingActionIcon " + icon), "B49 accessible icon missing " + icon);
+}
+invariant(panelActions.includes('kind={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}'),
+  "B49 Pause/Resume must use timer state to select the correct icon");
+invariant(panelActions.includes('className="focus-panel__live-action-label"'),
+  "B49 icons require optional targeted text pills");
+invariant(panelCss.includes('.focus-panel__live-card:hover .focus-panel__live-actions')
+  && panelCss.includes('.focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-actions'),
+  "B49 pointer and keyboard must reveal the same action controls");
+invariant(panelCss.includes('position: absolute;') && panelCss.includes('pointer-events: none;')
+  && panelCss.includes('.focus-panel__live-action-label { display: none;'),
+  "B49 action rail must be overlaid, not an always-visible second row");
+invariant(panelCss.includes('width: calc(100% - 2 * var(--space-3))')
+  && panelCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, 0.85fr) minmax(0, 1fr);'),
+  "B49 preserves five stable Focus action hit slots");
+invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
+  "B49 reveal must honor reduced motion");
+
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");

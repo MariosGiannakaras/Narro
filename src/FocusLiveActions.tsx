@@ -549,55 +549,67 @@ export function FocusLiveActions({
             <button
               type="button"
               data-focus-action="break"
+                aria-label="Start break"
               disabled={busy || !state.breakEnabled || defaultBreakMs === null}
               onClick={beginBreak}
             >
-              Break
-            </button>
+                <FloatingActionIcon kind="break" />
+                <span className="focus-panel__live-action-label" aria-hidden="true">Break</span>
+              </button>
             <button
               type="button"
               data-focus-action="notes"
+                aria-label="Notes"
               aria-expanded={notesExpanded}
               disabled={busy}
               onClick={() => setNotesExpanded((expanded) => !expanded)}
             >
-              Notes
-            </button>
+                <FloatingActionIcon kind="notes" />
+                <span className="focus-panel__live-action-label" aria-hidden="true">Notes</span>
+              </button>
             {state.extendEnabled ? (
               <button
                 type="button"
                 data-focus-action="extend"
+                aria-label="Extend timer"
                 disabled={busy}
                 onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
               >
-                Extend
+                <FloatingActionIcon kind="extend" />
+                <span className="focus-panel__live-action-label" aria-hidden="true">Extend</span>
               </button>
             ) : (
               <button
                 type="button"
                 data-focus-action="pause-resume"
+                aria-label={state.pauseResumeLabel}
                 disabled={busy || !state.pauseResumeEnabled}
                 onClick={handlePauseResume}
               >
-                {state.pauseResumeLabel}
+                <FloatingActionIcon kind={state.pauseResumeLabel === "Resume" ? "resume" : "pause"} />
+                <span className="focus-panel__live-action-label" aria-hidden="true">{state.pauseResumeLabel}</span>
               </button>
             )}
             <button
               type="button"
               data-focus-action="skip"
+                aria-label="Skip task"
               disabled={busy || !state.skipEnabled}
               onClick={() => void handleSkip()}
             >
-              Skip
-            </button>
+                <FloatingActionIcon kind="skip" />
+                <span className="focus-panel__live-action-label" aria-hidden="true">Skip</span>
+              </button>
             <button
               type="button"
               data-focus-action="done"
+                aria-label="Complete task"
               disabled={busy || !state.doneEnabled}
               onClick={() => void handleDone()}
             >
-              Done
-            </button>
+                <FloatingActionIcon kind="done" />
+                <span className="focus-panel__live-action-label" aria-hidden="true">Done</span>
+              </button>
           </div>
         </>
       ) : (
