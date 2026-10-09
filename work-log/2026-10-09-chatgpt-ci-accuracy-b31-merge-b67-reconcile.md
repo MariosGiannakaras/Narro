@@ -1,0 +1,13 @@
+# Exact-head CI status reconciliation, B31 merge, B67 branch recovery — 2026-10-09
+
+User explicitly requested an independent CI recheck after a previous report of a PR PASS despite a later resulting-main FAILURE. Rechecked **GitHub run conclusion, individual validation/fast/Windows job conclusions, run attempt and exact head SHA**. This is not a generic "all tests pass" claim.
+
+- #275 PR head `31b9f6e4` run `37864364507`: SUCCESS; resulting-main `62fef2ed` **run `37866706719` FAILURE**, Windows visual capture Finding33 large Notes fixture empty-root readiness timeout after 386/386 Rust tests passed. Failure artifact upload secondary. Original source root cause not proven.
+- Newer executable main `1a153303` push run `37889958312`: SUCCESS all 3; executable main `8fa8a69` push run `37897321689`: SUCCESS all 3. They show no recurring Finding33 at those SHAs; they do **not** retroactively convert the older failing run to PASS.
+- #279 B42 head `024db8c8` run `37892048979` SUCCESS and guarded merge `8fa8a69`; temporary original branch name may be removed after merge, which is not abandoned work.
+- #281 B31 reconciled exact head `6e053f234f07019cb52e82088a96e648b95a0087` run `37897535845` SUCCESS in validation, fast, Windows candidate. GitHub PR clean; expected-head-guarded squash **`0ab774008ab8f4a330edb25df924d7d459156080`**. New `main` push run `37902069957` IN PROGRESS/NOT PASS at reconciliation.
+- #280 B67 old head `94f392b6` run `37891408784` attempt 1 FAILED Rust writer-contention; attempt 2 FAILED outdated overtime visual validator expected `+07:00`, new source renders `-00:07:00`; artifact upload is secondary. Fix head `5a08891f6c1961c9975290c42fbe68a210b82111` had **no exact-head green CI**. Main advanced with #281 and #280 shared Focus files became stale/dirty.
+- Preserved #280 branch `implementation/m6-b67-signed-overtime-20261009`; two-parent reconciliation based on #281 main with B31 Focus local-day age and B42 preflight untouched, B67 Focus/Floating overtime presentation and corrected capture validation included. New exact #280 head `19c95930a9e3da3f92ba54a71a725763066e6d81`, run `37902450730` IN PROGRESS/NOT PASS. **Do not merge** until exact current head full Windows CI success, then check mergeability and guarded SHA, validate resulting main. No local executable tests run (GitHub connector only). Windows physical Codex and Blitzit screenshot/motion parity OPEN.
+- Implementation campaign **32/33** guarded merged; only #280 open. Denominator tracks opened source PRs, not total roadmap or physical completion.
+
+This is a documentation-only reconciliation with immutable evidence log; historical failed runs remain historical FAIL, not converted to PASS.
