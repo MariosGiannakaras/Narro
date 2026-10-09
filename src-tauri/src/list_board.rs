@@ -164,7 +164,10 @@ impl Display for ListBoardError {
                 )
             }
             Self::InvalidDisplayLocalDate(date) => {
-                write!(formatter, "list-board timezone produced an invalid local date: {date}")
+                write!(
+                    formatter,
+                    "list-board timezone produced an invalid local date: {date}"
+                )
             }
             Self::TargetListNotFound(id) => {
                 write!(formatter, "active list-board target not found: {id}")
@@ -1024,31 +1027,53 @@ mod tests {
     fn this_week_completion_uses_local_iso_week_and_week_lane_at_completion() {
         let mut conn = setup();
         let list_id = create_named_list(&mut conn, "Week progress", None);
-        let monday_local = add_task(&mut conn, list_id, "Monday local", PlanningLane::ThisWeek, None);
-        let previous_week = add_task(&mut conn, list_id, "Previous week", PlanningLane::ThisWeek, None);
+        let monday_local = add_task(
+            &mut conn,
+            list_id,
+            "Monday local",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let previous_week = add_task(
+            &mut conn,
+            list_id,
+            "Previous week",
+            PlanningLane::ThisWeek,
+            None,
+        );
         let today_done = add_task(&mut conn, list_id, "Today lane", PlanningLane::Today, None);
-        let backlog_done = add_task(&mut conn, list_id, "Backlog lane", PlanningLane::Backlog, None);
-        add_task(&mut conn, list_id, "Pending week", PlanningLane::ThisWeek, None);
+        let backlog_done = add_task(
+            &mut conn,
+            list_id,
+            "Backlog lane",
+            PlanningLane::Backlog,
+            None,
+        );
+        add_task(
+            &mut conn,
+            list_id,
+            "Pending week",
+            PlanningLane::ThisWeek,
+            None,
+        );
 
         // UTC Sunday is Monday in Athens: must count in the current ISO week.
         complete_task(&mut conn, monday_local, "2026-09-13T21:30:00Z")
             .expect("complete local Monday");
         complete_task(&mut conn, previous_week, "2026-09-11T09:00:00Z")
             .expect("complete previous-week task");
-        complete_task(&mut conn, today_done, "2026-09-14T09:00:00Z")
-            .expect("complete Today lane");
+        complete_task(&mut conn, today_done, "2026-09-14T09:00:00Z").expect("complete Today lane");
         complete_task(&mut conn, backlog_done, "2026-09-14T09:00:00Z")
             .expect("complete Backlog lane");
         let current: Timestamp = "2026-09-15T10:00:00Z".parse().expect("parse Tuesday");
-        let athens = load_at(&conn, Some(list_id), current, "Europe/Athens")
-            .expect("load Athens week");
+        let athens =
+            load_at(&conn, Some(list_id), current, "Europe/Athens").expect("load Athens week");
         assert_eq!(athens.this_week_completion_count, 1);
         assert_eq!(athens.this_week.count, 1);
         assert_eq!(athens.today_completion_count, 0);
         assert_eq!(athens.done.count, 4);
 
-        let utc = load_at(&conn, Some(list_id), current, "UTC")
-            .expect("load UTC week");
+        let utc = load_at(&conn, Some(list_id), current, "UTC").expect("load UTC week");
         assert_eq!(utc.this_week_completion_count, 0);
         assert_eq!(utc.this_week.count, 1);
     }
@@ -1058,16 +1083,36 @@ mod tests {
         let mut conn = setup();
         let work = create_named_list(&mut conn, "Work", None);
         let personal = create_named_list(&mut conn, "Personal", None);
-        let work_done = add_task(&mut conn, work, "December work", PlanningLane::ThisWeek, None);
-        let personal_done = add_task(&mut conn, personal, "January personal", PlanningLane::ThisWeek, None);
-        let old_done = add_task(&mut conn, work, "Prior ISO week", PlanningLane::ThisWeek, None);
+        let work_done = add_task(
+            &mut conn,
+            work,
+            "December work",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let personal_done = add_task(
+            &mut conn,
+            personal,
+            "January personal",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let old_done = add_task(
+            &mut conn,
+            work,
+            "Prior ISO week",
+            PlanningLane::ThisWeek,
+            None,
+        );
         complete_task(&mut conn, work_done, "2026-12-31T12:00:00Z")
             .expect("complete December work");
         complete_task(&mut conn, personal_done, "2027-01-01T12:00:00Z")
             .expect("complete January personal");
         complete_task(&mut conn, old_done, "2026-12-25T12:00:00Z")
             .expect("complete prior ISO week");
-        let current = "2027-01-02T12:00:00Z".parse().expect("parse January Saturday");
+        let current = "2027-01-02T12:00:00Z"
+            .parse()
+            .expect("parse January Saturday");
         let work_view = load_at(&conn, Some(work), current, "UTC").expect("work board");
         let personal_view = load_at(&conn, Some(personal), current, "UTC").expect("personal board");
         let all_view = load_at(&conn, None, current, "UTC").expect("all lists board");
