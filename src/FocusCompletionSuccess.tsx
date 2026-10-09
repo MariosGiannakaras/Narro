@@ -19,6 +19,7 @@ type Props = {
   error: string | null;
   onNextTask: () => void;
   onClose: () => void;
+  inline?: boolean;
 };
 
 function formatDuration(seconds: number | null): string {
@@ -30,7 +31,7 @@ function formatDuration(seconds: number | null): string {
   return remainder === 0 ? `${hours}hr` : `${hours}hr ${remainder}min`;
 }
 
-export function FocusCompletionSuccess({ state, pending, error, onNextTask, onClose }: Props) {
+export function FocusCompletionSuccess({ state, pending, error, onNextTask, onClose, inline = false }: Props) {
   const taken = state.timeTakenSeconds && /^\d+$/.test(state.timeTakenSeconds)
     ? Number(state.timeTakenSeconds)
     : null;
@@ -38,13 +39,15 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
   return (
     <section
       className="focus-completion-success"
-      role="dialog"
-      aria-modal="true"
+      role={inline ? "region" : "dialog"}
+      aria-modal={inline ? undefined : "true"}
+      data-focus-success-placement={inline ? "inline" : "overlay"}
       aria-labelledby="focus-completion-success-title"
       data-focus-completion-success="true"
       onKeyDown={(event) => {
         if (event.key !== "Escape" || pending) return;
         event.preventDefault();
+        event.stopPropagation();
         onClose();
       }}
     >

@@ -630,6 +630,12 @@ export function FocusSurfaceCoordinator() {
   // it. Only publishPresentation() flips side-effect/interaction ownership.
   const panelActive = presentationHydrated && mode === "panel";
   const timerActive = presentationHydrated && mode === "timer";
+  const inlineSuccess = panelActive && completionSuccess !== null;
+  const closeCompletionSuccess = () => {
+    if (completionSuccessPending) return;
+    setCompletionSuccess(null);
+    setCompletionSuccessError(null);
+  };
   const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
     settled: timerProjectionSettled,
@@ -654,8 +660,8 @@ export function FocusSurfaceCoordinator() {
           className="focus-surface-coordinator__presentation"
           data-focus-presentation="panel"
           data-focus-visibility={panelActive ? "active" : "preparing"}
-          aria-hidden={panelActive && completionSuccess === null ? undefined : true}
-          inert={!panelActive || completionSuccess !== null}
+          aria-hidden={panelActive ? undefined : true}
+          inert={!panelActive}
         >
           <FocusPanel
             sharedTimerProjection={sharedTimerProjection}
@@ -669,6 +675,12 @@ export function FocusSurfaceCoordinator() {
             refreshKey={panelRefreshKey}
             onPresentationReady={() => markReady("panel")}
             onCompletionSuccess={recordCompletionSuccess}
+            completionSuccessContent={inlineSuccess && completionSuccess ? (
+              <FocusCompletionSuccess inline state={completionSuccess}
+                pending={completionSuccessPending} error={completionSuccessError}
+                onNextTask={() => void startNextTaskFromSuccess()}
+                onClose={closeCompletionSuccess} />
+            ) : null}
           />
         </section>
       ) : null}
@@ -703,17 +715,13 @@ export function FocusSurfaceCoordinator() {
         </section>
       ) : null}
 
-      {completionSuccess ? (
+      {completionSuccess && !inlineSuccess ? (
         <FocusCompletionSuccess
           state={completionSuccess}
           pending={completionSuccessPending}
           error={completionSuccessError}
           onNextTask={() => void startNextTaskFromSuccess()}
-          onClose={() => {
-            if (completionSuccessPending) return;
-            setCompletionSuccess(null);
-            setCompletionSuccessError(null);
-          }}
+          onClose={closeCompletionSuccess}
         />
       ) : null}
 

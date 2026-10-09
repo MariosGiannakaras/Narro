@@ -37,4 +37,20 @@ assert.ok(reaction.includes('data-focus-success-reaction="true"'), "reaction DOM
 assert.ok(css.includes("@media (prefers-reduced-motion:reduce)"), "reduced-motion behavior must remain effective");
 assert.ok(css.includes("focus-reaction-spark") && css.includes("animation:"), "reaction requires finite local animation");
 assert.ok(!reaction.includes("http://") && !reaction.includes("https://"), "reaction presentation must not request remote content");
+const panel = read("src/FocusPanel.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+assert.ok(panel.includes('data-focus-success-inline-card="true"')
+  && panel.includes('{completionSuccessContent}'),
+  "B63 success must render as the active card while preserving the Focus queue");
+assert.ok(coordinator.includes('completionSuccessContent={inlineSuccess && completionSuccess ? (')
+  && coordinator.includes('completionSuccess && !inlineSuccess ? ('),
+  "B63 Panel success is inline; Floating success keeps the established overlay");
+assert.ok(source.includes('role={inline ? "region" : "dialog"}')
+  && source.includes('aria-modal={inline ? undefined : "true"}'),
+  "inline success must not falsely advertise a modal dialog");
+assert.ok(css.includes('.focus-completion-success[data-focus-success-placement="inline"]')
+  && css.includes('position: static;'),
+  "inline success may not obscure the Focus header or remaining queue");
+assert.ok(panel.includes('inert={Boolean(completionSuccessContent)}'),
+  "the visible queue must not accept a second task mutation during success");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

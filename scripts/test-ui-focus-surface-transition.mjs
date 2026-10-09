@@ -114,8 +114,9 @@ invariant(
   "Panel and Timer readiness waiters must be isolated by presentation mode",
 );
 invariant(
-  coordinator.includes("inert={!panelActive || completionSuccess !== null}")
+  coordinator.includes("inert={!panelActive}")
     && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
+    && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
   "prepainted inactive content and modal backgrounds must be interaction/accessibility-inert",

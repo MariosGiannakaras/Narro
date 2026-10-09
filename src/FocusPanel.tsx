@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { type PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { focusOverdueAge } from "./focusOverdueAge";
 import { listenForBoardInvalidation } from "./boardInvalidation";
@@ -75,6 +75,8 @@ export type FocusPanelProps = {
   refreshKey?: number;
   onPresentationReady?: (payload: TimerSessionPayload | null) => void;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
+  /** Success is embedded in the active card without swallowing the Focus queue. */
+  completionSuccessContent?: ReactNode;
 };
 
 type FocusTaskRowProps = {
@@ -410,6 +412,7 @@ export function FocusPanel({
   refreshKey = 0,
   onPresentationReady,
   onCompletionSuccess,
+  completionSuccessContent = null,
 }: FocusPanelProps) {
   const [localTarget, setLocalTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
@@ -1085,7 +1088,7 @@ export function FocusPanel({
 
   return (
     <main className="focus-panel" data-focus-panel="main" data-focus-target={board.target.kind}>
-      <header className="focus-panel__topbar">
+      <header className="focus-panel__topbar" inert={Boolean(completionSuccessContent)}>
         <label className="focus-panel__selector-wrap">
           <span className="sr-only">Focus list</span>
           <select
@@ -1140,7 +1143,7 @@ export function FocusPanel({
         </div>
       </header>
 
-      <section className="focus-panel__summary" aria-label="Today progress">
+      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)}>
         <div className="focus-panel__summary-row">
           <span className="type-metadata">Est: {formatEstimate(board.today.aggregateEstSeconds)}</span>
           <span className="type-metadata" data-focus-done-count="true">{board.done.count}/{totalCount} Done</span>
@@ -1152,7 +1155,13 @@ export function FocusPanel({
 
       <section className="focus-panel__queue" aria-label="Focus queue" tabIndex={0}>
         {catalogError ? <p className="focus-panel__action-error type-metadata" role="alert">{catalogError}</p> : null}
-        {liveTask ? (
+        {completionSuccessContent ? (
+          <article className="focus-panel__live-card focus-panel__live-card--success"
+            data-focus-live-card="success" data-focus-success-inline-card="true"
+            aria-label="Completed Focus task">
+            {completionSuccessContent}
+          </article>
+        ) : liveTask ? (
           <article
             className="focus-panel__live-card"
             data-focus-live-card="true"
@@ -1226,7 +1235,7 @@ export function FocusPanel({
           </div>
         )}
 
-        <div className="focus-panel__remaining" data-focus-group="remaining" data-focus-reorder-zone="true">
+        <div className="focus-panel__remaining" inert={Boolean(completionSuccessContent)} data-focus-group="remaining" data-focus-reorder-zone="true">
           {remainingTasks.map((task) => renderTaskRow(task))}
         </div>
 
@@ -1235,7 +1244,7 @@ export function FocusPanel({
             className="focus-panel__add-task"
             type="button"
             data-focus-add-task="open"
-            disabled={fixtureMode || !presentationActive || addTaskPending || mutationPendingTaskId !== null}
+            disabled={fixtureMode || !presentationActive || Boolean(completionSuccessContent) || addTaskPending || mutationPendingTaskId !== null}
             aria-label="Add task in Focus Panel"
             onClick={() => {
               setAddTaskOpen(true);
@@ -1250,6 +1259,7 @@ export function FocusPanel({
           <form
             className="focus-panel__add-task-editor"
             data-focus-add-task="editor"
+            inert={Boolean(completionSuccessContent)}
             onSubmit={(event) => {
               event.preventDefault();
               void submitAddTask();
@@ -1304,7 +1314,7 @@ export function FocusPanel({
           </form>
         )}
 
-        <section className="focus-panel__group" data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
+        <section className="focus-panel__group" inert={Boolean(completionSuccessContent)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
           <h2 id="focus-scheduled-title" className="focus-panel__group-title">
             {scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}
           </h2>
