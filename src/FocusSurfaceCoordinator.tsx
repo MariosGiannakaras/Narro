@@ -635,6 +635,14 @@ export function FocusSurfaceCoordinator() {
     if (completionSuccessPending) return;
     setCompletionSuccess(null);
     setCompletionSuccessError(null);
+    // Inline success replaces a mounted active card. After dismissing it,
+    // restore a visible keyboard target rather than leaving focus on a
+    // detached Next Task / Close button. Floating remains independently owned.
+    if (inlineSuccess) {
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({ preventScroll: true });
+      });
+    }
   };
   // A successful Done has already committed and released its timer session.
   // An untimed rest is the safest local "Take a Break" behavior: do not
