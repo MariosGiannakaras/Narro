@@ -275,9 +275,7 @@ export function ReportTaskSessionsDialog({
   }, []);
 
   useEffect(() => {
-    if (pending && dialogRef.current?.contains(document.activeElement)) {
-      dialogRef.current.focus();
-    }
+    if (pending) dialogRef.current?.focus();
   }, [pending]);
 
   function handleDetailKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
