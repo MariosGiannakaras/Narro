@@ -56,6 +56,7 @@ function boardSnapshot(): ListBoardSnapshot {
     today: { tasks: [...orderedTasks], count: orderedTasks.length, aggregateEstSeconds: 0 },
     done: { tasks: [], count: 0, aggregateEstSeconds: 0 },
     todayCompletionCount: 0,
+    thisWeekCompletionCount: 0,
     doneMonthCompletionCount: 0,
   };
 }

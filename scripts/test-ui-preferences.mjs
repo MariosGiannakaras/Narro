@@ -81,6 +81,9 @@ invariant(
   "Preferences event must be emitted only after persistence commits",
 );
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
+const shortcutsDialogSource = await read("src/WindowsShortcutsDialog.tsx");
+const shortcutsDialogCss = await read("src/windowsShortcutsDialog.css");
+const shortcutSettingsSource = await read("src/WindowsShortcutSettingsPanel.tsx");
 const modalSource = await read("src/PreferencesDialog.tsx");
 const modalCss = await read("src/preferencesDialog.css");
 const shellSource = await read("src/AppShell.tsx");
@@ -90,6 +93,31 @@ invariant(modalSource.includes('aria-modal="true"'), "full Preferences traps foc
 invariant(modalSource.includes('aria-labelledby="theme-settings-title"'), "dialog labels current Preferences heading");
 invariant(modalCss.includes("overflow-y: auto"), "full Preferences has bounded internal scroll");
 invariant(modalSource.includes("openerRef.current?.focus()"), "full Preferences returns focus to utility opener");
+invariant(shellSource.includes("<WindowsShortcutsDialog"), "Main can open dedicated shortcuts modal");
+invariant(shellSource.includes("setPreferencesOpen(false);\n            setShortcutsOpen(true);"),
+  "dedicated Shortcuts replaces, rather than nests under, the Preferences modal");
+invariant(shellSource.includes("setShortcutsOpen(false);\n          setPreferencesOpen(true);"),
+  "closing shortcuts restores Preferences without resetting the current destination");
+invariant(themePanel.includes("onOpenShortcuts={onOpenShortcuts}")
+  && themePanel.includes('data-shortcuts-dialog-entry="true"'),
+  "Preferences exposes real access to dedicated Shortcuts dialog");
+invariant(shortcutsDialogSource.includes('role="dialog"')
+  && shortcutsDialogSource.includes('aria-modal="true"'),
+  "Shortcuts has its own accessible modal owner");
+invariant(shortcutsDialogSource.includes('event.key === "Escape"')
+  && shortcutsDialogSource.includes('event.key !== "Tab"')
+  && shortcutsDialogSource.includes("event.stopPropagation()"),
+  "Shortcuts owns Escape and bidirectional Tab containment");
+invariant(shortcutsDialogSource.includes("closeRef.current?.focus({ preventScroll: true })")
+  && shortcutsDialogSource.includes("openerRef.current?.isConnected"),
+  "Shortcuts initial focus and focus-return recovery");
+invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
+  && shortcutSettingsSource.includes("APP_SHORTCUT_ROWS")
+  && shortcutSettingsSource.includes("SHORTCUT_ROWS"),
+  "Shortcuts must reuse existing three global + seven fixed in-app authority");
+invariant(shortcutsDialogCss.includes("color-scheme: light")
+  && shortcutsDialogCss.includes("overflow-y: auto"),
+  "the dedicated source light modal preserves bounded scrolling");
 
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
@@ -139,7 +167,7 @@ for (const label of [
   "Hide EST / Time Taken",
   "Auto-parse EST from title",
   "Timezone",
-  "Blitz Mode",
+  "Blitz mode settings",
   "Pomodoros",
   "Default break length",
   "Scrolling title on live timer",
@@ -148,7 +176,7 @@ for (const label of [
   "Animated flash on timer",
   "Notification alerts",
   "Schedule reminders",
-  "Celebration",
+  "Celebrate task completion",
   "Show success screen",
   "Fun GIF",
   "Success sound",

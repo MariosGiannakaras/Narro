@@ -19,6 +19,9 @@ const css = read("src/listEditorModal.css");
 const api = read("src/listEditorApi.ts");
 const shell = read("src/AppShell.tsx");
 const home = read("src/HomeDashboard.tsx");
+const homeCss = read("src/homeDashboard.css");
+const archive = read("src/ArchivedListsPanel.tsx");
+const archiveCss = read("src/archivedListsPanel.css");
 const fixtures = read("src/visualFixtures.tsx");
 const capture = read("scripts/capture-visual-fixtures.ps1");
 const validator = read("scripts/validate-visual-fixtures.mjs");
@@ -100,6 +103,12 @@ for (const [haystack, needle, label] of [
   [shell, "await updateListFromEditor(editorState.list.id, request);", "persistence-backed edit"],
   [shell, "setHomeRefreshKey((value) => value + 1);", "post-commit Home refresh"],
   [home, "refreshKey = 0", "Home refresh key"],
+  [home, 'import { listIconContrast } from "./listSpectrumColor";', "Home shares modal icon contrast authority"],
+  [archive, 'import { listIconContrast } from "./listSpectrumColor";', "Archive shares modal icon contrast authority"],
+  [home, '"--home-list-icon-contrast": listIconContrast(color)', "Home per-list accessible dark/light icon contrast"],
+  [archive, '"--archived-list-icon-contrast": listIconContrast(color)', "Archive per-list accessible dark/light icon contrast"],
+  [homeCss, 'var(--home-list-icon-contrast, var(--color-accent-contrast))', "Home custom-color icon paint without changing empty/default fallback"],
+  [archiveCss, 'var(--archived-list-icon-contrast, var(--color-accent-contrast))', "Archive custom-color icon paint without changing empty/default fallback"],
   [home, "[fixtureSnapshot, refreshKey]", "Home snapshot reload dependency"],
   [fixtures, 'fixture === "list-editor-create"', "Create modal fixture route"],
   [fixtures, 'fixture === "list-editor-edit"', "Edit modal fixture route"],

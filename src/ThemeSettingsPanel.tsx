@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import {
   BlitzPanelPreferenceSection,
   GeneralPreferenceRows,
@@ -92,7 +92,7 @@ export function ThemeSettingsPanelView({
   );
 }
 
-function ThemeSettingsPanelContent() {
+function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () => void }) {
   const { theme, pending, error: themeError, saveTheme } = useThemeRuntime();
   const preferences = usePreferenceSettingsRuntime();
   const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) => {
@@ -142,15 +142,32 @@ function ThemeSettingsPanelContent() {
           onSave={save}
         />
       ) : null}
-      <WindowsShortcutSettingsPanel />
+      {onOpenShortcuts ? (
+        <section className="theme-settings__section" data-shortcuts-dialog-entry="true"
+          aria-labelledby="theme-shortcuts-title">
+          <div className="theme-settings__section-heading">
+            <div>
+              <p className="theme-settings__section-kicker type-metadata">Windows</p>
+              <h2 id="theme-shortcuts-title" className="type-section-title">Shortcuts</h2>
+            </div>
+            <button type="button" className="theme-settings__shortcut-entry motion-interactive"
+              onClick={onOpenShortcuts}>
+              View shortcuts
+            </button>
+          </div>
+          <p className="type-metadata">
+            Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+          </p>
+        </section>
+      ) : <WindowsShortcutSettingsPanel />}
     </ThemeSettingsPanelView>
   );
 }
 
-export function ThemeSettingsPanel() {
+export function ThemeSettingsPanel({ onOpenShortcuts }: { onOpenShortcuts?: () => void } = {}) {
   return (
     <PreferenceSettingsRuntimeProvider>
-      <ThemeSettingsPanelContent />
+      <ThemeSettingsPanelContent onOpenShortcuts={onOpenShortcuts} />
     </PreferenceSettingsRuntimeProvider>
   );
 }

@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import { focusReactionVariant } from "../src/focusReactionVariant.ts";
 import assert from "node:assert/strict";
 import { successTimingCopy } from "../src/focusSuccessTiming.ts";
 
@@ -19,4 +21,20 @@ assert.equal(successTimingCopy(300, " 50"), null);
 assert.equal(successTimingCopy(300, "00"), null);
 assert.equal(successTimingCopy(-1, "0"), null);
 assert.equal(successTimingCopy(Number.MAX_SAFE_INTEGER + 1, "0"), null);
-console.log("Focus success authoritative timing copy: PASS");
+const reactionChoices = new Set(Array.from({ length: 128 }, (_, index) => focusReactionVariant(`task-${index}`)));
+assert.deepEqual([...reactionChoices].sort(), ["confetti", "ribbon", "spark"], "varied completed tasks receive all three local reactions");
+assert.equal(focusReactionVariant("same-task-id"), focusReactionVariant("same-task-id"), "reaction is stable for a persisted task identity");
+
+const read = (path) => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+const source = read("src/FocusCompletionSuccess.tsx");
+const actions = read("src/FocusLiveActions.tsx");
+const reaction = read("src/FocusCelebrationReaction.tsx");
+const css = read("src/focusCompletionSuccess.css");
+assert.ok(source.includes("state.funGifEnabled === true"), "reaction must not render when Fun GIF is off or unknown");
+assert.ok(actions.includes("funGifEnabled: celebration?.funGif === true"), "successful completion must consume the authoritative persisted preference");
+assert.ok(source.includes("<FocusCelebrationReaction taskId={state.completedTaskId} />"), "reaction must use completed task identity");
+assert.ok(reaction.includes('data-focus-success-reaction="true"'), "reaction DOM contract is missing");
+assert.ok(css.includes("@media (prefers-reduced-motion:reduce)"), "reduced-motion behavior must remain effective");
+assert.ok(css.includes("focus-reaction-spark") && css.includes("animation:"), "reaction requires finite local animation");
+assert.ok(!reaction.includes("http://") && !reaction.includes("https://"), "reaction presentation must not request remote content");
+console.log("Focus success timing and local Fun GIF reaction contracts: PASS");
