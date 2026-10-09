@@ -147,3 +147,13 @@ Validation is **claim-driven and invalidation-driven**. Before running a test, b
 For physical acceptance, prefer the latest relevant integrated candidate when a later source change can affect the observed behavior. If a later change is genuinely unrelated to the claim, preserve the prior evidence rather than silently discarding it; document the reasoning when that distinction matters.
 
 The governing question is: **what concrete claim is missing or stale, and what is the least expensive evidence that can validly prove it without weakening the repository's required candidate gates?**
+
+## 9. Recurrent failure detection and prevention
+
+The independent `CI Failure Learning` GitHub Actions workflow runs daily (and on manual dispatch), outside the Windows release/packaging path. It scans a **bounded rolling 14-day window** of completed `ci.yml` runs; reads failed-job logs where retrievable; identifies candidate failure signatures by failed job + **first failed step** + structured test/compiler/OS diagnostic; and groups only **distinct workflow run IDs**. Multiple attempts of a single run do not establish recurrence. A successful rerun is inspected for earlier failed attempts where available but is never automatically labeled flaky.
+
+When a signature appears in at least two independent runs, a deduplicated GitHub issue is created for agent review; existing issue identity is preserved. This is an operational prompt to examine actual logs, not a verdict on shared cause, severity, app regression or CI acceptability. Reviewers must classify primary versus downstream error, application versus harness versus infrastructure, determine root cause and recurrence risk, and implement a narrow guard backed by tests/evidence. Reuse the matching `NER-*` entry and immutable `work-log/` record, updating the register only for reusable prevention.
+
+**Limitations:** at most 100 recently completed workflow runs, 45 relevant runs, three attempts per run, 50 failed-job logs (6 MB each), five automatic issue creations per execution, and five pages of existing-issue identity checks. Missing logs, generic exit codes, a limit hit or API failure are **not** evidence of no recurrence. The job's step summary reports coverage and unclassified counts. It never reruns CI, edits product source, marks a PR green, silently closes issues, or increments milestone/implementation counters.
+
+Classification is a conservative fingerprint, **not** verified same-root-cause equivalence: distinct defects can share an OS error code or test identity. Agents must review evidence before assigning cause. Do not repeat broad CI merely to feed this process; follow the claim/invalidation protocol above.
