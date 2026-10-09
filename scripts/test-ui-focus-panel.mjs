@@ -258,11 +258,22 @@ invariant(actions.includes('pauseResumeLabel: paused || breakState ? "Resume" : 
 invariant(actions.includes('skipEnabled: working || timer.state === "time_up"'), "Skip must remain unavailable during break but available for work and Time's Up");
 invariant(actions.includes('doneEnabled: working || timer.state === "time_up"'), "Done must remain unavailable during break but available for work and Time's Up");
 invariant(actions.includes('extendEnabled: timer.state === "time_up"'), "Extend must be available only at Time's Up");
-invariant(actions.indexOf('data-focus-action="break"') < actions.indexOf('data-focus-action="notes"'), "Break must precede Notes in action strip");
-invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-focus-action="pause-resume"'), "Notes must precede Pause/Resume in action strip");
-invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
-invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-focus-action="extend"'), "Skip must precede Extend in action strip");
-invariant(actions.indexOf('data-focus-action="extend"') < actions.indexOf('data-focus-action="done"'), "Extend must precede Done in action strip");
+invariant(actions.includes('data-focus-primary-slot={state.extendEnabled ? "extend" : "pause-resume"}'),
+  "Focus third action slot must derive from the authoritative Time's Up state");
+invariant(actions.includes("{state.extendEnabled ? ("), "Extend must replace Pause only at Time's Up");
+invariant(actions.includes('data-focus-action="pause-resume"'), "ordinary Focus must retain Pause/Resume");
+invariant(actions.includes('data-focus-action="extend"'), "Time's Up Focus must expose Extend");
+invariant(!actions.includes("disabled={busy || !state.extendEnabled}"), "Focus must not render a permanently disabled Extend control");
+const liveStrip = actions.slice(actions.indexOf('<div className="focus-panel__live-actions"'), actions.indexOf("</div>", actions.indexOf('<div className="focus-panel__live-actions"')));
+invariant((liveStrip.match(/data-focus-action=/g) ?? []).length === 6,
+  "source must contain Break, Notes, either Pause/Extend, Skip and Done (six labels, five rendered controls)");
+invariant(liveStrip.indexOf('data-focus-action="break"') < liveStrip.indexOf('data-focus-action="notes"'),
+  "Break must precede Notes");
+invariant(liveStrip.indexOf('data-focus-action="notes"') < liveStrip.indexOf('data-focus-action="extend"')
+  && liveStrip.indexOf('data-focus-action="extend"') < liveStrip.indexOf('data-focus-action="pause-resume"')
+  && liveStrip.indexOf('data-focus-action="pause-resume"') < liveStrip.indexOf('data-focus-action="skip"')
+  && liveStrip.indexOf('data-focus-action="skip"') < liveStrip.indexOf('data-focus-action="done"'),
+  "Focus primary replacement slot must remain between Notes and Skip without moving remaining actions");
 invariant(panel.includes('data-focus-add-task="open"'), "Focus Add Task must expose its production open control");
 invariant(panel.includes('data-focus-add-task="editor"'), "Focus Add Task must expose its persisted editor");
 invariant(panel.includes('data-focus-add-task-list="true"'), "All Lists Focus create must require explicit owning-list selection");
