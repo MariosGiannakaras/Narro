@@ -5,6 +5,7 @@ import {
   DEFAULT_TASK_ALERT_SOUND,
 } from "./localSoundCatalog";
 import { SoundPreferenceControl } from "./SoundPreferenceControl";
+import { TimezonePreferenceSelector } from "./TimezonePreferenceSelector";
 import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
 import type {
   FocusPanelSidePreference,
@@ -126,9 +127,7 @@ export function BlitzPanelPreferenceSection({
   const selected = snapshot.general.selectedMonitorKey ?? "";
   const resolvedSelectedMonitor = selected ? findSelectedMonitor(selected, monitors) : null;
   const selectedStillAvailable = !selected || resolvedSelectedMonitor !== null;
-  const selectValue = !selected
-    ? ""
-    : resolvedSelectedMonitor?.key ?? "__saved_monitor_unavailable__";
+  const automaticSelected = !selected;
   return (
     <section className="theme-settings__section preference-settings__section" aria-labelledby="preferences-blitz-panel-title">
       <div className="theme-settings__section-heading">
@@ -147,20 +146,50 @@ export function BlitzPanelPreferenceSection({
           ? "Choose which Windows work area owns the Focus Panel."
           : "The saved display is unavailable. Choose a current display or use the primary display automatically."}
       >
-        <select
-          aria-label="Focus Panel monitor"
-          value={selectValue}
-          disabled={pendingKey !== null}
-          onChange={(event) => onSave({ selectedMonitorKey: event.target.value }, "monitor")}
-        >
-          <option value="">Primary display (automatic)</option>
-          {!selectedStillAvailable && (
-            <option value="__saved_monitor_unavailable__" disabled>Saved display unavailable</option>
-          )}
-          {monitors.map((monitor) => (
-            <option key={monitor.key} value={monitor.key}>{monitorLabel(monitor)}</option>
-          ))}
-        </select>
+        <div className="preference-settings__monitor-options" data-preferences-monitor-selector="true">
+          <div className="preference-settings__monitor-grid" role="group" aria-label="Focus Panel monitor">
+            <button type="button" className="preference-settings__monitor-option motion-interactive"
+              aria-pressed={automaticSelected}
+              data-preference-monitor="automatic" data-selected={automaticSelected ? "true" : "false"}
+              disabled={pendingKey !== null}
+              onClick={() => onSave({ selectedMonitorKey: "" }, "monitor")}>
+              <span className="preference-settings__monitor-preview" aria-hidden="true">
+                <span className="preference-settings__monitor-preview-screen" />
+              </span>
+              <strong>Automatic</strong>
+              <span className="type-metadata">Primary display</span>
+            </button>
+            {monitors.map((monitor) => {
+              const isSelected = resolvedSelectedMonitor?.key === monitor.key;
+              return (
+                <button key={monitor.key} type="button"
+                  className="preference-settings__monitor-option motion-interactive"
+                  aria-label={`Screen ${monitor.index + 1}: ${monitorLabel(monitor)}`}
+                  aria-pressed={isSelected}
+                  data-preference-monitor={monitor.key}
+                  data-selected={isSelected ? "true" : "false"}
+                  disabled={pendingKey !== null}
+                  onClick={() => onSave({ selectedMonitorKey: monitor.key }, "monitor")}>
+                  <span className="preference-settings__monitor-preview" aria-hidden="true">
+                    <span className="preference-settings__monitor-preview-screen">
+                      <span data-preference-monitor-dimensions="true">
+                        {monitor.size.width}×{monitor.size.height}
+                      </span>
+                    </span>
+                  </span>
+                  <strong>Screen {monitor.index + 1}</strong>
+                  <span className="type-metadata">{monitor.name?.trim() || `Display ${monitor.index + 1}`}</span>
+                </button>
+              );
+            })}
+          </div>
+          {!selectedStillAvailable ? (
+            <p className="preference-settings__monitor-unavailable type-metadata" role="status"
+              data-saved-monitor-unavailable="__saved_monitor_unavailable__">
+              Saved display unavailable. Select an available screen or Automatic to recover.
+            </p>
+          ) : null}
+        </div>
       </Row>
       <Row infoGlyph title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
         <div className="theme-settings__segments" role="group" aria-label="Blitz Panel Side">
@@ -191,7 +220,6 @@ export function GeneralPreferenceRows({
   pendingKey,
   onSave,
 }: Pick<CommonProps, "snapshot" | "pendingKey" | "onSave">) {
-  const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const autostartMatches = snapshot.general.openOnLogin === snapshot.general.autostartEnabled;
   return (
     <>
@@ -224,26 +252,11 @@ export function GeneralPreferenceRows({
           onChange={(autoParseEstFromTitle) => onSave({ autoParseEstFromTitle }, "autoParseEst")}
         />
       </Row>
-      <Row title="Timezone" detail={`Blank uses the current Windows/WebView timezone (${localZone}).`}>
-        <input
-          className="preference-settings__text-input"
-          aria-label="Display timezone"
-          placeholder={localZone}
-          defaultValue={snapshot.general.timezone ?? ""}
-          key={snapshot.general.timezone ?? "__system__"}
+      <Row title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
+        <TimezonePreferenceSelector
+          timezone={snapshot.general.timezone}
           disabled={pendingKey !== null}
-          onBlur={(event) => {
-            const timezone = event.currentTarget.value.trim();
-            if (timezone) {
-              try {
-                new Intl.DateTimeFormat(undefined, { timeZone: timezone }).format();
-              } catch {
-                event.currentTarget.value = snapshot.general.timezone ?? "";
-                return;
-              }
-            }
-            if (timezone !== (snapshot.general.timezone ?? "")) onSave({ timezone }, "timezone");
-          }}
+          onChange={(timezone) => onSave({ timezone }, "timezone")}
         />
       </Row>
     </>
@@ -263,7 +276,7 @@ export function LowerPreferenceSections({
         <div className="theme-settings__section-heading">
           <div>
             <p className="theme-settings__section-kicker type-metadata">Focus timing</p>
-            <h2 id="preferences-blitz-mode-title" className="type-section-title">Blitz Mode</h2>
+            <h2 id="preferences-blitz-mode-title" className="type-section-title">Blitz mode settings</h2>
           </div>
         </div>
         <Row title="Pomodoros" detail="Use sprint and break durations instead of task EST for new Focus starts.">
@@ -440,7 +453,7 @@ export function LowerPreferenceSections({
         <div className="theme-settings__section-heading">
           <div>
             <p className="theme-settings__section-kicker type-metadata">Completion</p>
-            <h2 id="preferences-celebration-title" className="type-section-title">Celebration</h2>
+            <h2 id="preferences-celebration-title" className="type-section-title">Celebrate task completion</h2>
           </div>
         </div>
         <Row title="Show success screen" detail="Enable a local completion moment after a successful task transition.">

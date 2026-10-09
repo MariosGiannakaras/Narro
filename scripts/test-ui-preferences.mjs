@@ -143,6 +143,26 @@ invariant(
     && sections.includes("Saved display unavailable"),
   "Preferences must resolve DPI-compatible monitor keys and expose a distinct stale value so Automatic can clear it",
 );
+invariant(
+  sections.includes('data-preferences-monitor-selector="true"')
+    && sections.includes('data-preference-monitor="automatic"')
+    && sections.includes('data-preference-monitor={monitor.key}')
+    && sections.includes('data-preference-monitor-dimensions="true"'),
+  "full Preferences monitor selector must render calibrated selectable screen previews",
+);
+invariant(
+  sections.includes('aria-pressed={automaticSelected}')
+    && sections.includes('aria-pressed={isSelected}')
+    && sections.includes('onSave({ selectedMonitorKey: "" }, "monitor")')
+    && sections.includes('onSave({ selectedMonitorKey: monitor.key }, "monitor")')
+    && sections.includes('data-saved-monitor-unavailable="__saved_monitor_unavailable__"'),
+  "monitor buttons must preserve persisted identity and explicit unavailable/Automatic recovery",
+);
+const monitorCss = await read("src/preferenceSettingsSections.css");
+invariant(monitorCss.includes('.preference-settings__monitor-option[data-selected="true"]')
+  && monitorCss.includes('linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box'),
+  "monitor selected border must use calibrated existing accent gradient",
+);
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
@@ -167,7 +187,7 @@ for (const label of [
   "Hide EST / Time Taken",
   "Auto-parse EST from title",
   "Timezone",
-  "Blitz Mode",
+  "Blitz mode settings",
   "Pomodoros",
   "Default break length",
   "Scrolling title on live timer",
@@ -176,7 +196,7 @@ for (const label of [
   "Animated flash on timer",
   "Notification alerts",
   "Schedule reminders",
-  "Celebration",
+  "Celebrate task completion",
   "Show success screen",
   "Fun GIF",
   "Success sound",
