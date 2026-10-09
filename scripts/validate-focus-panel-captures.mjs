@@ -39,7 +39,7 @@ function readContract(dom, label) {
 
 function validateSharedGeometry(contract, label, theme) {
   if (contract.actionLabels.length) {
-    invariant(contract.actionLabels.length === 6, `${label} must retain six live-action slots`);
+    invariant(contract.actionLabels.length === 5, `${label} must retain five live-action slots`);
     for (const action of contract.actionLabels) {
       invariant(action.labelWidth <= action.availableWidth + 0.01,
         `${label} ${action.label} is clipped: ${action.labelWidth}px text in ${action.availableWidth}px`);
@@ -129,13 +129,16 @@ function validateSharedDom(dom, label) {
   invariant(dom.includes('data-focus-subtask-control="add"'), `${label} live subtask add control is missing`);
   invariant(dom.includes(">1/4 Subtasks<"), `${label} live subtask count is missing`);
   invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group accessible name is missing`);
-  for (const action of ["break", "notes", "pause-resume", "skip", "extend", "done"]) {
+  for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
     invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} Focus action is missing`);
   }
+  invariant(dom.includes('data-focus-primary-slot="pause-resume"'),
+    `${label} normal and paused scenarios must use the Pause/Resume slot`);
+  invariant(!dom.includes('data-focus-action="extend"'),
+    `${label} Extend must not be focusable or visible before Time's Up`);
   invariant(dom.includes(">Break<"), `${label} Break action label is missing`);
   invariant(dom.includes(">Notes<"), `${label} Notes action label is missing`);
   invariant(dom.includes(">Skip<"), `${label} Skip action label is missing`);
-  invariant(dom.includes(">Extend<"), `${label} Extend action label is missing`);
   invariant(dom.includes(">Done<"), `${label} Done action label is missing`);
   for (const action of ["complete", "make-live", "subtasks", "notes", "more"]) {
     invariant(dom.includes(`data-focus-row-action="${action}"`), `${label} ordinary row ${action} action is missing`);
