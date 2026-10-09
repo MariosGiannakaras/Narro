@@ -545,7 +545,8 @@ export function FocusLiveActions({
 
           <FocusLiveSubtasks task={task} target={target} fixtureMode={fixtureMode} />
 
-          <div className="focus-panel__live-actions" role="group" aria-label="Live task actions">
+          <div className="focus-panel__live-actions" role="group" aria-label="Live task actions"
+            data-focus-primary-slot={state.extendEnabled ? "extend" : "pause-resume"}>
             <button
               type="button"
               data-focus-action="break"
@@ -563,14 +564,25 @@ export function FocusLiveActions({
             >
               Notes
             </button>
-            <button
-              type="button"
-              data-focus-action="pause-resume"
-              disabled={busy || !state.pauseResumeEnabled}
-              onClick={handlePauseResume}
-            >
-              {state.pauseResumeLabel}
-            </button>
+            {state.extendEnabled ? (
+              <button
+                type="button"
+                data-focus-action="extend"
+                disabled={busy}
+                onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
+              >
+                Extend
+              </button>
+            ) : (
+              <button
+                type="button"
+                data-focus-action="pause-resume"
+                disabled={busy || !state.pauseResumeEnabled}
+                onClick={handlePauseResume}
+              >
+                {state.pauseResumeLabel}
+              </button>
+            )}
             <button
               type="button"
               data-focus-action="skip"
@@ -579,14 +591,7 @@ export function FocusLiveActions({
             >
               Skip
             </button>
-            <button
-              type="button"
-              data-focus-action="extend"
-              disabled={busy || !state.extendEnabled}
-              onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
-            >
-              Extend
-            </button>
+
             <button
               type="button"
               data-focus-action="done"
