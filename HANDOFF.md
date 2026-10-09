@@ -1,5 +1,9 @@
 # HANDOFF — ChatGPT M5 programming fixes; consolidated Windows physical acceptance later
 
+## Newer 2026-10-09 validated source checkpoint — 2/8
+
+**2/8** pre-Codex implemented+Windows-CI-validated+merged units. I03 B21 monitor selector #295 exact head `3b11e37c88c4e51c1f062391a8ce85fc73e65964`, run `37988686663` all validation+fast+Windows SUCCESS, expected-head guarded merged `ab763cb247b380fb587261ff760988d780a83daf`. I04 B22 #298 previously merged `2f0620295ff4588163e6bbf2e57b9fd1475bfa15`; no standalone native/Blitzit source visual PASS claimed. Six units remain. #300 B57 (branch head `b621f14e26afb3cbec0acbe42a93e6c5b66eb6e5`, run `37989290299` Windows pending) was authored over the now accepted #295 branch and must retain B21/B22 upon merging; its `scripts/test-ui-preferences.mjs` blob matches newest main exactly. #299 B50 `3c4e09893edc915f7510e9f7277c4d9b325e3d25` run `37990651522` Windows pending; #280 B67 `172f39fd609ec660e60c0ff1f30f0345941e50dc` run `37990701378` Windows pending; #286 B32 `bbc6d0ac50678a0e6590801e8169bc7ee4a6c4d7` run `37991324381` fast pending. B49/B63 implementation staged in dependent branches, no CI/merge (see newer immutable log). All current jobs at checkpoint not yet full SUCCESS, so no other numerator advancement. Do not resurrect superseded source/test fixtures or merge a stale head. See `work-log/2026-10-09-chatgpt-ci-finish-reconciliation-dependency-safe-focus.md`.
+
 ## Latest continuation — 2026-10-09 dependency-safe integration heads
 
 **User-facing validated source progress: 1/8** (only I04 #298 B22 exact-head full-CI SUCCESS and guarded merged `2f0620295ff4588163e6bbf2e57b9fd1475bfa15`). X increments only upon exact-current-head full Windows CI success + guarded merge; do not conflate with M10/physical Codex or future dormant M11.
