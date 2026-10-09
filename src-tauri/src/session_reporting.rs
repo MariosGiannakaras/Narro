@@ -329,6 +329,20 @@ mod tests {
         }
     }
 
+    fn completion(task_id: TaskId) -> crate::reporting::ReportCompletedTaskRow {
+        crate::reporting::ReportCompletedTaskRow {
+            task_id,
+            list_id: ListId::generate(),
+            task_title: "Completed without Focus".to_owned(),
+            list_title: "Test List".to_owned(),
+            est_seconds: None,
+            completed_at: "2026-09-04T12:00:00Z".to_owned(),
+            time_taken_seconds: 0,
+            task_archived: false,
+            list_archived: false,
+        }
+    }
+
     fn ordinals(rows: &[ReportSessionRow]) -> HashMap<SessionId, u64> {
         let mut by_task = HashMap::<TaskId, u64>::new();
         let mut result = HashMap::new();
@@ -523,6 +537,104 @@ mod tests {
             }
         );
         assert!(projected.rows.is_empty());
+    }
+
+    #[test]
+    fn completed_tasks_without_any_focus_sessions_remain_visible_in_task_total() {
+        let mut snapshot = history(Vec::new());
+        snapshot.completed_tasks = vec![
+            completion(TaskId::generate()),
+            completion(TaskId::generate()),
+        ];
+        let report = project_sessions_report(&snapshot, true, &HashMap::new())
+            .expect("completion-only history");
+        assert_eq!(report.summary.total_tasks, 2);
+        assert_eq!(report.summary.total_sessions, 0);
+        assert_eq!(report.summary.total_focus_seconds, 0);
+        assert!(report.rows.is_empty(), "never fabricate Focus sessions");
+    }
+
+    #[test]
+    fn combined_completed_and_worked_tasks_are_counted_once_per_identity() {
+        let worked = TaskId::generate();
+        let manual_done = TaskId::generate();
+        let sessions = vec![
+            row(Some(worked), SessionKind::Work, "2026-09-04T09:00:00Z", 60),
+            row(Some(worked), SessionKind::Work, "2026-09-04T09:05:00Z", 90),
+            row(None, SessionKind::Break, "2026-09-04T09:07:00Z", 20),
+        ];
+        let ordinals = ordinals(&sessions);
+        let mut snapshot = history(sessions);
+        snapshot.completed_tasks = vec![completion(worked), completion(manual_done)];
+        let included = project_sessions_report(&snapshot, true, &ordinals).unwrap();
+        let hidden = project_sessions_report(&snapshot, false, &ordinals).unwrap();
+        assert_eq!(included.summary.total_tasks, 2);
+        assert_eq!(hidden.summary.total_tasks, 2);
+        assert_eq!(included.summary.total_sessions, 3);
+        assert_eq!(hidden.summary.total_sessions, 2);
+        assert_eq!(included.summary.total_focus_seconds, 150);
+        assert_eq!(hidden.summary.total_focus_seconds, 150);
+    }
+
+    #[test]
+    fn scoped_completion_only_history_uses_persisted_range_and_list_filters() {
+        let mut conn = Connection::open_in_memory().expect("open db");
+        run_migrations(&mut conn).expect("migrate");
+        let first_list = create_list(
+            &mut conn,
+            NewListInput { title: "First".into(), color: None, icon_asset: None },
+            "2026-08-01T00:00:00Z",
+        ).unwrap();
+        let second_list = create_list(
+            &mut conn,
+            NewListInput { title: "Second".into(), color: None, icon_asset: None },
+            "2026-08-01T00:00:00Z",
+        ).unwrap();
+        let make_task = |conn: &mut Connection, list_id: ListId| {
+            create_task(
+                conn,
+                NewTaskInput {
+                    list_id,
+                    title: "Done without Focus".into(),
+                    manual_lane: PlanningLane::Today,
+                    est_seconds: None,
+                },
+                "2026-08-10T00:00:00Z",
+            ).unwrap()
+        };
+        let first = make_task(&mut conn, first_list.id);
+        let second = make_task(&mut conn, second_list.id);
+        for task in [&first, &second] {
+            conn.execute(
+                "UPDATE tasks SET completed_at = ?1 WHERE id = ?2",
+                rusqlite::params!["2026-09-04T10:00:00Z", task.id.to_string()],
+            ).expect("complete persisted task without creating a session");
+        }
+        let september = ReportRange {
+            start_at: "2026-09-01T00:00:00Z".into(),
+            end_at: "2026-10-01T00:00:00Z".into(),
+            list_ids: Vec::new(),
+        };
+        let all = load_sessions_report(&conn, september.clone(), false).unwrap();
+        assert_eq!(all.summary.total_tasks, 2);
+        assert_eq!(all.summary.total_sessions, 0);
+        let selected = load_sessions_report(
+            &conn,
+            ReportRange { list_ids: vec![first_list.id], ..september.clone() },
+            false,
+        ).unwrap();
+        assert_eq!(selected.summary.total_tasks, 1);
+        let outside = load_sessions_report(
+            &conn,
+            ReportRange {
+                start_at: "2026-10-01T00:00:00Z".into(),
+                end_at: "2026-11-01T00:00:00Z".into(),
+                list_ids: Vec::new(),
+            },
+            false,
+        ).unwrap();
+        assert_eq!(outside.summary.total_tasks, 0);
+        assert_eq!(outside.summary.total_sessions, 0);
     }
 
     #[test]
