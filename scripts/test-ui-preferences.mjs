@@ -115,6 +115,30 @@ invariant(
     && sections.includes("Saved display unavailable"),
   "Preferences must resolve DPI-compatible monitor keys and expose a distinct stale value so Automatic can clear it",
 );
+invariant(
+  sections.includes('data-preferences-monitor-selector="true"')
+    && sections.includes('data-preference-monitor="automatic"')
+    && sections.includes('data-preference-monitor={monitor.key}')
+    && sections.includes('data-preference-monitor-dimensions="true"'),
+  "full Preferences monitor control must display source-style screen thumbnails and real dimensions",
+);
+invariant(
+  sections.includes('aria-pressed={automaticSelected}')
+    && sections.includes('aria-pressed={isSelected}')
+    && sections.includes('onSave({ selectedMonitorKey: "" }, "monitor")')
+    && sections.includes('onSave({ selectedMonitorKey: monitor.key }, "monitor")'),
+  "full Preferences monitor buttons must preserve existing persisted identity and Automatic fallback",
+);
+invariant(
+  sections.includes('data-saved-monitor-unavailable="__saved_monitor_unavailable__"'),
+  "stale persisted monitor selection remains explicit, never silently mapped to the wrong display",
+);
+const monitorCss = await read("src/preferenceSettingsSections.css");
+invariant(
+  monitorCss.includes('.preference-settings__monitor-option[data-selected="true"]')
+    && monitorCss.includes('linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box'),
+  "selected monitor thumbnail uses the already calibrated teal-to-lime accent border",
+);
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
