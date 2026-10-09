@@ -38,7 +38,7 @@ for (const [haystack, needle, label] of [
   [tasks, "pub fn permanently_delete_task_confirmed(", "A5 confirmed permanent delete boundary"],
   [card, 'data-task-completion-control="complete"', "A6 pointer/keyboard completion control"],
   [card, 'data-task-delete-confirm="inline"', "A5 inline explicit destructive confirmation"],
-  [board, 'data-today-progress="true"', "P3-M5-01 Today done/total progress"],
+  [board, 'data-today-progress={laneKey === "today" ? "true" : undefined}', "P3-M5-01 Today done/total progress"],
   [boardProjection, "today_completion_count", "P3-M5-01 authoritative Today completion count"],
   [card, 'data-task-leading-slot="ordinal-completion"', "P3-M5-02 resting ordinal/completion slot"],
   [card, 'data-task-actions="source-hover-rail"', "P3-M5-02 source hover rail"],
