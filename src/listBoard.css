@@ -1321,3 +1321,33 @@
     transition-duration: 0ms;
   }
 }
+
+/* A source-evidenced dated quick-removal row uses the shared menu item for
+   keyboard ownership and a right-side circular X without nested buttons. */
+.list-board-task__quick-unschedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 0;
+  width: 100%;
+}
+
+.list-board-task__quick-unschedule-date {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-board-task__quick-unschedule-x {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+}
