@@ -5,6 +5,7 @@ import {
   DEFAULT_TASK_ALERT_SOUND,
 } from "./localSoundCatalog";
 import { SoundPreferenceControl } from "./SoundPreferenceControl";
+import { TimezonePreferenceSelector } from "./TimezonePreferenceSelector";
 import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
 import type {
   FocusPanelSidePreference,
@@ -188,7 +189,6 @@ export function GeneralPreferenceRows({
   pendingKey,
   onSave,
 }: Pick<CommonProps, "snapshot" | "pendingKey" | "onSave">) {
-  const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const autostartMatches = snapshot.general.openOnLogin === snapshot.general.autostartEnabled;
   return (
     <>
@@ -221,26 +221,11 @@ export function GeneralPreferenceRows({
           onChange={(autoParseEstFromTitle) => onSave({ autoParseEstFromTitle }, "autoParseEst")}
         />
       </Row>
-      <Row title="Timezone" detail={`Blank uses the current Windows/WebView timezone (${localZone}).`}>
-        <input
-          className="preference-settings__text-input"
-          aria-label="Display timezone"
-          placeholder={localZone}
-          defaultValue={snapshot.general.timezone ?? ""}
-          key={snapshot.general.timezone ?? "__system__"}
+      <Row title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
+        <TimezonePreferenceSelector
+          timezone={snapshot.general.timezone}
           disabled={pendingKey !== null}
-          onBlur={(event) => {
-            const timezone = event.currentTarget.value.trim();
-            if (timezone) {
-              try {
-                new Intl.DateTimeFormat(undefined, { timeZone: timezone }).format();
-              } catch {
-                event.currentTarget.value = snapshot.general.timezone ?? "";
-                return;
-              }
-            }
-            if (timezone !== (snapshot.general.timezone ?? "")) onSave({ timezone }, "timezone");
-          }}
+          onChange={(timezone) => onSave({ timezone }, "timezone")}
         />
       </Row>
     </>
