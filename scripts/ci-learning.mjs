@@ -23,10 +23,10 @@ export function signalFromLog(log) {
   // (which may contain unpredictable data). Generic screenshot/exit errors are
   // still unclassified; a matching fingerprint is only a triage candidate.
   for (const line of lines) {
-    const fixture = /^Reports fixture ([\${token}-]+) assertion: (.+)$/i.exec(line);
+    const fixture = /^Reports fixture ([\w-]+) assertion: (.+)$/i.exec(line);
     if (fixture) {
-      const normalized = fixture[2].trim().toLowerCase().replace(/\${token}+/g, " ")
-        .replace(/\${token}+/g, "#");
+      const normalized = fixture[2].trim().toLowerCase().replace(/\s+/g, " ")
+        .replace(/\d+/g, "#");
       return {
         kind: "visual-fixture",
         value: fixture[1].toLowerCase() + ":" +
