@@ -167,6 +167,8 @@ for (const [haystack, needle, label] of [
   [fixture, "<TaskScheduleDialog", "production dialog fixture"],
   [fixture, 'fixture: "task-scheduling"', "scheduling geometry contract"],
   [fixture, 'mode === "no-repeat"', "No Repeat fixture mode"],
+  [fixture, "pickDate: geometry(", "details fixture captures the real back-to-calendar control"],
+  [fixture, 'dataset.taskScheduleFixtureReady = "true"', "fixture readiness set only after geometry capture"],
   [fixture, 'data-task-recurrence-control="delete-existing"', "No Repeat visual consequence geometry"],
   [vite, 'taskScheduleFixture: "task-schedule-fixture.html"', "Vite scheduling fixture registration"],
   [capture, 'task-scheduling-$theme', "Windows scheduling captures"],
