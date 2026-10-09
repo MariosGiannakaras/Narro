@@ -119,7 +119,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         <div className="archived-lists-panel__empty" data-archived-lists-empty="true">
           <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
           <strong>No archived lists found</strong>
-          <span>Lists you archive from Home will appear here and can be restored later.</span>
+          <span>Looks Like you do not have any archived list at this moment</span>
         </div>
       ) : (
         <div className="archived-lists-panel__items">
