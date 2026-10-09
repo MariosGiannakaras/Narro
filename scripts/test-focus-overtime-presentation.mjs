@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { formatOvertimeClock, focusTimerPresentation } from "../src/focusTimerPresentation.ts";
 
 function ok(value, reason) {
@@ -31,4 +32,9 @@ ok(focusTimerPresentation({ ...base, state: "time_up" }).text === "00:00", "Time
 ok(focusTimerPresentation({ ...base, state: "paused", countdown_remaining_ms: 60_000 }).text === "01:00", "paused countdown unaffected");
 ok(focusTimerPresentation({ ...base, state: "break", break_remaining_ms: 60_000 }).text === "01:00", "break clock unaffected");
 ok(focusTimerPresentation({ ...base, state: "running", mode: { kind: "count_up" } }).text === "02:01", "count-up unaffected");
-console.log("B67 signed overtime presentation contracts passed.");
+const overtimeVisualValidator = readFileSync(new URL("./validate-focus-visual-state-captures.mjs", import.meta.url), "utf8");
+ok(overtimeVisualValidator.includes('aria-label="Overtime: -00:07:00"'), "Windows overtime capture expects new accessible HH:MM:SS");
+ok(overtimeVisualValidator.includes(">-00:07:00<"), "Windows overtime capture expects new visible HH:MM:SS");
+ok(!overtimeVisualValidator.includes('aria-label="Overtime: +07:00"'), "legacy positive two-field overtime label is not accepted");
+ok(!overtimeVisualValidator.includes(">+07:00<"), "legacy positive two-field overtime display is not accepted");
+console.log("B67 signed overtime presentation and Windows visual validator contracts passed.");
