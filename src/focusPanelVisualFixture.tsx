@@ -2,6 +2,7 @@ import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import { FocusPanel } from "./FocusPanel";
+import { FocusCompletionSuccess } from "./FocusCompletionSuccess";
 import { TOOLTIP_INTENT_DELAY_MS } from "./overlayPrimitives";
 import type {
   BoardTaskNoteSnapshot,
@@ -32,6 +33,7 @@ const scenarios = [
   "time-up",
   "overtime",
   "notes-expanded",
+  "success",
   "no-eligible",
   "empty",
 ] as const;
@@ -106,7 +108,10 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
 });
 
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
-const todayTasks = scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks;
+const todayTasks = scenario === "no-eligible" ? [scheduledTask]
+  : scenario === "empty" ? []
+  : scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]
+  : normalTodayTasks;
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
   displayTimezone: "Europe/Athens",
@@ -118,11 +123,13 @@ const board: ListBoardSnapshot = {
     tasks: todayTasks,
   },
   done: {
-    count: 1,
-    aggregateEstSeconds: 1200,
-    tasks: [doneTask],
+    count: scenario === "success" ? 2 : 1,
+    aggregateEstSeconds: scenario === "success" ? 4800 : 1200,
+    tasks: scenario === "success"
+      ? [doneTask, { ...liveTask, completedAt: "2026-09-13T09:20:00Z" }]
+      : [doneTask],
   },
-  todayCompletionCount: 0,
+  todayCompletionCount: scenario === "success" ? 1 : 0,
   thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
@@ -143,7 +150,7 @@ function timerState(): TimerStateKind {
 }
 
 const state = timerState();
-const noLiveScenario = scenario === "no-eligible" || scenario === "empty";
+const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";
 const timer: TimerSessionPayload | null = noLiveScenario ? null : {
   revision: scenarios.indexOf(scenario) + 7,
   runtime: {
@@ -220,6 +227,15 @@ flushSync(() => {
         { id: personalId, title: longListTitle },
       ]}
       fixtureTimer={timer}
+      completionSuccessContent={scenario === "success" ? (
+        <FocusCompletionSuccess inline
+          state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,
+            estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
+            funGifEnabled: false,
+            nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
+          pending={false} error={null} onNextTask={() => undefined} onClose={() => undefined}
+        />
+      ) : null}
     />,
   );
 });

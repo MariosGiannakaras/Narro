@@ -114,6 +114,24 @@ for (const theme of ["light", "dark"]) {
     `${notes.label} Notes expansion must grow vertically inside the active card rather than overlaying task content`,
   );
 
+  const success = readCapture(theme, "success");
+  invariant(success.dom.includes('data-focus-success-inline-card="true"'),
+    `${success.label} must place committed success inside the active card`);
+  invariant(success.dom.includes('data-focus-success-placement="inline"'),
+    `${success.label} must use nonmodal inline success semantics`);
+  invariant(!success.dom.includes('aria-modal="true"'),
+    `${success.label} must not mask the visible Focus queue as a modal`);
+  invariant(success.dom.includes('aria-label="Today progress"')
+    && success.dom.includes('data-focus-group="remaining"'),
+    `${success.label} must preserve header and remaining queue`);
+  invariant(success.dom.includes('data-focus-success-action="next-task"')
+    && success.dom.includes('data-focus-success-action="close"'),
+    `${success.label} must retain next/close controls after committed Done`);
+  invariant(success.contract.liveCard?.height > 120
+    && success.contract.liveTimer === null
+    && success.contract.actions === null,
+    `${success.label} must replace the active card without a stale running timer/actions`);
+
   const noEligible = readCapture(theme, "no-eligible");
   invariant(noEligible.dom.includes('data-focus-live-card="false"'), `${noEligible.label} must not fabricate a live card`);
   invariant(noEligible.dom.includes('data-focus-live-state="no-eligible"'), `${noEligible.label} no-eligible visual marker is missing`);

@@ -53,4 +53,15 @@ assert.ok(css.includes('.focus-completion-success[data-focus-success-placement="
   "inline success may not obscure the Focus header or remaining queue");
 assert.ok(panel.includes('inert={Boolean(completionSuccessContent)}'),
   "the visible queue must not accept a second task mutation during success");
+const successFixture = read("src/focusPanelVisualFixture.tsx");
+const successCapture = read("scripts/capture-focus-panel-fixtures.ps1");
+const successValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+assert.ok(successFixture.includes('"success"')
+  && successFixture.includes("<FocusCompletionSuccess inline")
+  && successFixture.includes('completionSuccessContent={scenario === "success"'),
+  "B63 rendered fixture must mount the real committed success inline");
+assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query = "&scenario=success"')
+  && successValidator.includes('readCapture(theme, "success")')
+  && successValidator.includes('data-focus-success-inline-card="true"'),
+  "B63 screenshot must be captured and validated in light and dark themes");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");
