@@ -35,6 +35,23 @@
   font-weight: var(--font-weight-semibold);
 }
 
+/* SS-C07 confirms a small information marker before several labels,
+   but does not establish any tooltip/click contract. This is decorative. */
+.preference-settings__copy .preference-settings__info-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-inline-end: var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  vertical-align: 0.05em;
+}
+
 .preference-settings__copy span {
   color: var(--color-text-secondary);
 }
@@ -127,6 +144,89 @@
 .preference-settings__refresh:hover {
   color: var(--color-text-primary);
   border-color: var(--color-border-strong);
+}
+
+.preference-settings__monitor-options {
+  width: min(24rem, 45vw);
+  min-width: 0;
+}
+
+.preference-settings__monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.preference-settings__monitor-option {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-2);
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.preference-settings__monitor-option[data-selected="true"] {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-surface-raised), var(--color-surface-raised)) padding-box,
+    linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box;
+}
+
+.preference-settings__monitor-option:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.preference-settings__monitor-option:disabled {
+  cursor: default;
+  opacity: .6;
+}
+
+.preference-settings__monitor-preview {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--color-border-strong);
+  border-radius: calc(var(--radius-control) - 2px);
+  background: var(--color-surface-deep);
+}
+
+.preference-settings__monitor-preview-screen {
+  display: grid;
+  place-items: center;
+  width: 75%;
+  height: 70%;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  background: var(--color-surface-interactive);
+}
+
+.preference-settings__monitor-preview-screen > span {
+  font-size: clamp(8px, .75vw, 11px);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.preference-settings__monitor-option strong,
+.preference-settings__monitor-option > span.type-metadata {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-metadata);
+}
+
+.preference-settings__monitor-unavailable {
+  margin: var(--space-2) 0 0;
+  color: var(--color-warning);
 }
 
 .preference-settings__sound-control {
@@ -261,6 +361,14 @@
   .preference-settings__text-input {
     width: 100%;
     max-width: none;
+  }
+
+  .preference-settings__monitor-options {
+    width: 100%;
+  }
+
+  .preference-settings__monitor-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
   }
 
   .preference-settings__sound-control {

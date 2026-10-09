@@ -249,6 +249,7 @@ function SessionRow({
 export function ReportTaskSessionsDialog({
   detail,
   pendingSessionId,
+  returnFocusTarget,
   onClose,
   onAddSession,
   onCommitEndTime,
@@ -256,14 +257,66 @@ export function ReportTaskSessionsDialog({
 }: {
   detail: ReportsTaskDetailView;
   pendingSessionId: string | null;
+  returnFocusTarget?: HTMLElement | null;
   onClose: () => void;
   onAddSession: (taskId: string) => void;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
   onDelete: (row: ReportsSessionViewRow) => void;
 }) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+  const pending = pendingSessionId !== null;
+
+  useEffect(() => {
+    const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    // The detail is temporarily unmounted while nested Add Session owns focus.
+    // Reuse the original list opener after remount, not document.body.
+    openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
+    closeButtonRef.current?.focus();
+    return () => {
+      if (openerRef.current?.isConnected) openerRef.current.focus();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (pending) dialogRef.current?.focus();
+  }, [pending]);
+
+  function handleDetailKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!pending) onClose();
+      return;
+    }
+    if (event.key !== "Tab" || !dialogRef.current) return;
+    const focusable = focusableDialogElements(dialogRef.current);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      dialogRef.current.focus();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (!dialogRef.current.contains(active) || active === dialogRef.current) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   return (
     <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true">
-      <section className="reports-sessions__detail" role="dialog" aria-modal="true" aria-labelledby="report-task-sessions-title">
+      <section ref={dialogRef} className="reports-sessions__detail" role="dialog"
+        aria-modal="true" aria-labelledby="report-task-sessions-title" tabIndex={-1}
+        onKeyDown={handleDetailKeyDown} data-report-session-detail-dialog="true">
         <header className="reports-sessions__detail-header">
           <div>
             <h2 id="report-task-sessions-title">{detail.taskTitle}</h2>
@@ -276,10 +329,12 @@ export function ReportTaskSessionsDialog({
             <strong>{detail.totalSessions} Sessions</strong>
             <span>{detail.totalTime}</span>
           </div>
-          <button type="button" aria-label="Close task session detail" onClick={onClose}>×</button>
+          <button ref={closeButtonRef} type="button" aria-label="Close task session detail"
+            disabled={pending} onClick={() => { if (!pending) onClose(); }}>×</button>
         </header>
         <div className="reports-sessions__detail-actions">
-          <button type="button" className="reports-sessions__primary" onClick={() => onAddSession(detail.taskId)}>
+          <button type="button" className="reports-sessions__primary" disabled={pending}
+            onClick={() => { if (!pending) onAddSession(detail.taskId); }}>
             + Add Session
           </button>
         </div>
@@ -301,12 +356,19 @@ export function ReportTaskSessionsDialog({
   );
 }
 
-function focusableDialogElements(container: HTMLElement): HTMLElement[] {
+export function focusableDialogElements(container: HTMLElement): HTMLElement[] {
   return Array.from(
     container.querySelectorAll<HTMLElement>(
       'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     ),
-  ).filter((element) => !element.hasAttribute("hidden"));
+  ).filter((element) => {
+    // A CSS-hidden or inert menu trigger can match the selector but cannot
+    // receive keyboard focus. Do not use such nodes as Tab wrap endpoints.
+    if (element.tabIndex < 0 || element.closest("[hidden], [inert]")) return false;
+    if (element.getClientRects().length === 0) return false;
+    const style = getComputedStyle(element);
+    return style.visibility !== "hidden" && style.visibility !== "collapse";
+  });
 }
 
 export function ReportAddSessionDialog({

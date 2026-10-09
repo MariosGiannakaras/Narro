@@ -60,12 +60,14 @@ function Row({
   title,
   detail,
   children,
+  infoGlyph = false,
   nested = false,
   unavailable = false,
 }: {
   title: string;
   detail: string;
   children: ReactNode;
+  infoGlyph?: boolean;
   nested?: boolean;
   unavailable?: boolean;
 }) {
@@ -75,7 +77,7 @@ function Row({
       data-preference-unavailable={unavailable ? "true" : "false"}
     >
       <div className="preference-settings__copy">
-        <strong>{title}</strong>
+        <strong>{infoGlyph ? <span className="preference-settings__info-glyph" aria-hidden="true">i</span> : null}{title}</strong>
         <span className="type-metadata">{detail}</span>
       </div>
       <div className="preference-settings__control">{children}</div>
@@ -125,9 +127,7 @@ export function BlitzPanelPreferenceSection({
   const selected = snapshot.general.selectedMonitorKey ?? "";
   const resolvedSelectedMonitor = selected ? findSelectedMonitor(selected, monitors) : null;
   const selectedStillAvailable = !selected || resolvedSelectedMonitor !== null;
-  const selectValue = !selected
-    ? ""
-    : resolvedSelectedMonitor?.key ?? "__saved_monitor_unavailable__";
+  const automaticSelected = !selected;
   return (
     <section className="theme-settings__section preference-settings__section" aria-labelledby="preferences-blitz-panel-title">
       <div className="theme-settings__section-heading">
@@ -140,27 +140,58 @@ export function BlitzPanelPreferenceSection({
         </button>
       </div>
       <Row
+        infoGlyph
         title="Monitor"
         detail={selectedStillAvailable
           ? "Choose which Windows work area owns the Focus Panel."
           : "The saved display is unavailable. Choose a current display or use the primary display automatically."}
       >
-        <select
-          aria-label="Focus Panel monitor"
-          value={selectValue}
-          disabled={pendingKey !== null}
-          onChange={(event) => onSave({ selectedMonitorKey: event.target.value }, "monitor")}
-        >
-          <option value="">Primary display (automatic)</option>
-          {!selectedStillAvailable && (
-            <option value="__saved_monitor_unavailable__" disabled>Saved display unavailable</option>
-          )}
-          {monitors.map((monitor) => (
-            <option key={monitor.key} value={monitor.key}>{monitorLabel(monitor)}</option>
-          ))}
-        </select>
+        <div className="preference-settings__monitor-options" data-preferences-monitor-selector="true">
+          <div className="preference-settings__monitor-grid" role="group" aria-label="Focus Panel monitor">
+            <button type="button" className="preference-settings__monitor-option motion-interactive"
+              aria-pressed={automaticSelected}
+              data-preference-monitor="automatic" data-selected={automaticSelected ? "true" : "false"}
+              disabled={pendingKey !== null}
+              onClick={() => onSave({ selectedMonitorKey: "" }, "monitor")}>
+              <span className="preference-settings__monitor-preview" aria-hidden="true">
+                <span className="preference-settings__monitor-preview-screen" />
+              </span>
+              <strong>Automatic</strong>
+              <span className="type-metadata">Primary display</span>
+            </button>
+            {monitors.map((monitor) => {
+              const isSelected = resolvedSelectedMonitor?.key === monitor.key;
+              return (
+                <button key={monitor.key} type="button"
+                  className="preference-settings__monitor-option motion-interactive"
+                  aria-label={`Screen ${monitor.index + 1}: ${monitorLabel(monitor)}`}
+                  aria-pressed={isSelected}
+                  data-preference-monitor={monitor.key}
+                  data-selected={isSelected ? "true" : "false"}
+                  disabled={pendingKey !== null}
+                  onClick={() => onSave({ selectedMonitorKey: monitor.key }, "monitor")}>
+                  <span className="preference-settings__monitor-preview" aria-hidden="true">
+                    <span className="preference-settings__monitor-preview-screen">
+                      <span data-preference-monitor-dimensions="true">
+                        {monitor.size.width}×{monitor.size.height}
+                      </span>
+                    </span>
+                  </span>
+                  <strong>Screen {monitor.index + 1}</strong>
+                  <span className="type-metadata">{monitor.name?.trim() || `Display ${monitor.index + 1}`}</span>
+                </button>
+              );
+            })}
+          </div>
+          {!selectedStillAvailable ? (
+            <p className="preference-settings__monitor-unavailable type-metadata" role="status"
+              data-saved-monitor-unavailable="__saved_monitor_unavailable__">
+              Saved display unavailable. Select an available screen or Automatic to recover.
+            </p>
+          ) : null}
+        </div>
       </Row>
-      <Row title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
+      <Row infoGlyph title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
         <div className="theme-settings__segments" role="group" aria-label="Blitz Panel Side">
           {(["left", "right"] as FocusPanelSidePreference[]).map((side) => {
             const selectedSide = snapshot.general.focusPanelSide === side;
@@ -205,7 +236,7 @@ export function GeneralPreferenceRows({
           onChange={(openOnLogin) => onSave({ openOnLogin }, "openOnLogin")}
         />
       </Row>
-      <Row title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
+      <Row infoGlyph title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
         <Switch
           checked={snapshot.general.hideTaskTimes}
           disabled={pendingKey !== null}
@@ -213,7 +244,7 @@ export function GeneralPreferenceRows({
           onChange={(hideTaskTimes) => onSave({ hideTaskTimes }, "hideTaskTimes")}
         />
       </Row>
-      <Row title="Auto-parse EST from title" detail="Recognize a supported estimate suffix when creating a task.">
+      <Row infoGlyph title="Auto-parse EST from title" detail="Recognize a supported estimate suffix when creating a task.">
         <Switch
           checked={snapshot.general.autoParseEstFromTitle}
           disabled={pendingKey !== null}

@@ -249,6 +249,15 @@ jobs:
         path: artifacts/visual-regression/*
         if-no-files-found: error
 
+    - name: Retain Visual Regression Diagnostics After Capture Failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-visual-regression-failure-diagnostics
+        path: artifacts/visual-regression/*
+        if-no-files-found: warn
+        retention-days: 1
+
     - name: Build Tauri Release
       run: npm run tauri:ci
 
