@@ -105,7 +105,7 @@
   height: 2rem;
   overflow: hidden;
   border-radius: var(--radius-control);
-  color: var(--color-accent-contrast);
+  color: var(--home-list-icon-contrast, var(--color-accent-contrast));
   background: var(--home-list-accent);
   font-weight: var(--font-weight-semibold);
 }
