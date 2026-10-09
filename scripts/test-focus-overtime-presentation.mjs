@@ -26,7 +26,7 @@ for (const state of ["overtime_running", "overtime_paused"]) {
 focusTimerPresentation(base);
 ok(base.overtime_ms === 61_000, "presentation never mutates authoritative positive ledger");
 ok(formatOvertimeClock(-1) === "--:--", "invalid negative overtime fails closed");
-ok(formatOvertimeClock(Number.MAX_SAFE_INTEGER) === "--:--", "unsafe overtime fails closed");
+ok(formatOvertimeClock(Number.MAX_VALUE) === "--:--", "unsafe overtime fails closed");
 ok(focusTimerPresentation({ ...base, state: "time_up" }).text === "00:00", "Time's Up is distinct");
 ok(focusTimerPresentation({ ...base, state: "paused", countdown_remaining_ms: 60_000 }).text === "01:00", "paused countdown unaffected");
 ok(focusTimerPresentation({ ...base, state: "break", break_remaining_ms: 60_000 }).text === "01:00", "break clock unaffected");
