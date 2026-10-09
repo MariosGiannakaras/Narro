@@ -17,10 +17,12 @@ function readContract(label) {
   const match = dom.match(/<script id="focus-panel-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(match, `${label} geometry contract is missing`);
   invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group is missing`);
-  for (const action of ["break", "notes", "pause-resume", "skip", "extend", "done"]) {
+  for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
     invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} action is missing`);
   }
+  invariant(!dom.includes('data-focus-action="extend"'), `${label} ordinary running/paused state must not expose Extend`);
   const contract = JSON.parse(match[1]);
+  invariant(contract.actionLabels.length === 5, `${label} must retain five live action hit targets`);
   invariant(contract.rowActionSlot?.width === 124, `${label} ordinary row action rail width differs from reserved 124px`);
   invariant(contract.rowActionSlot?.height === 28, `${label} ordinary row action rail height differs from reserved 28px`);
   return contract;

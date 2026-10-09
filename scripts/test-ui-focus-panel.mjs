@@ -20,6 +20,12 @@ invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
+const m7Integration = read("src/m7IntegrationRegression.tsx");
+invariant(m7Integration.includes("panelPause === null")
+  && m7Integration.includes("panelActions.length === 5")
+  && m7Integration.includes("finding35/B50 Time's Up must expose five controls with Extend instead of Pause"),
+  "M7 production integration fixture must accept B50 contextual five-action Time's Up before Windows capture");
+
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
@@ -33,6 +39,10 @@ const fixture = read("src/focusPanelVisualFixture.tsx");
 const vite = read("vite.config.ts");
 const capture = read("scripts/capture-focus-panel-fixtures.ps1");
 const validator = read("scripts/validate-focus-panel-captures.mjs");
+invariant(validator.includes("contract.actionLabels.length === 5"), "B50 running/paused captured layout must require five action slots");
+invariant(validator.includes('!dom.includes(\'data-focus-action="extend"\')'), "B50 running/paused capture must reject unavailable Extend");
+invariant(validator.includes('for (const action of ["break", "notes", "pause-resume", "skip", "done"])'), "B50 validator must require the five real ordinary action controls");
+
 const pkg = JSON.parse(read("package.json"));
 
 for (const [haystack, needle, label] of [
@@ -261,7 +271,7 @@ invariant(actions.includes('extendEnabled: timer.state === "time_up"'), "Extend 
 invariant(actions.indexOf('data-focus-action="break"') < actions.indexOf('data-focus-action="notes"'), "Break must precede Notes in action strip");
 invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-focus-action="pause-resume"'), "Notes must precede Pause/Resume in action strip");
 invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
-invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-focus-action="extend"'), "Skip must precede Extend in action strip");
+invariant(actions.indexOf('data-focus-action="extend"') < actions.indexOf('data-focus-action="skip"'), "Contextual Extend must share the third action slot before Skip");
 invariant(actions.indexOf('data-focus-action="extend"') < actions.indexOf('data-focus-action="done"'), "Extend must precede Done in action strip");
 invariant(panel.includes('data-focus-add-task="open"'), "Focus Add Task must expose its production open control");
 invariant(panel.includes('data-focus-add-task="editor"'), "Focus Add Task must expose its persisted editor");
