@@ -132,11 +132,18 @@ for (const theme of ["light", "dark"]) {
 
 
 for (const theme of ["light", "dark"]) {
-  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard"]) {
+  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
     const dom = readDom(label);
     invariant(dom.includes('data-reports-fixture-mode="' + mode + '"'), label + " fixture mode marker differs");
+    if (mode === "sessions-detail-keyboard") {
+      invariant(dom.includes('data-reports-detail-keyboard-pass="true"'),
+        label + " detail-to-Add, pending, Escape, Tab and focus ownership regression did not pass");
+      invariant(!dom.includes('data-report-session-detail-dialog="true"'),
+        label + " detail Escape did not dismiss its dialog");
+      continue;
+    }
     if (mode === "sessions-add-keyboard") {
       invariant(dom.includes('data-reports-add-keyboard-pass="true"'), label + " keyboard modal regression did not pass");
       invariant(dom.includes('data-reports-add-initial-focus="true"'), label + " initial focus regression did not pass");
