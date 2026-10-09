@@ -355,6 +355,7 @@ export function FocusLiveActions({
           completedTaskTitle: completedTask.title,
           estSeconds: completedTask.estSeconds,
           timeTakenSeconds: completedTask.timeTakenSeconds,
+          funGifEnabled: celebration?.funGif === true,
           nextTask: nextAfterCompletion && nextAfterCompletionMode
             ? { id: nextAfterCompletion.id, title: nextAfterCompletion.title, mode: nextAfterCompletionMode }
             : null,
