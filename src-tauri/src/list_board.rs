@@ -6,7 +6,9 @@ use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::{active_lists, ListStoreError};
 use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
-use crate::persistence::recurrence::{get_recurrence_rule as read_recurrence_rule, RecurrenceStoreError};
+use crate::persistence::recurrence::{
+    get_recurrence_rule as read_recurrence_rule, RecurrenceStoreError,
+};
 use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
 use crate::persistence::tasks::{active_tasks_in_bucket, get_task, TaskStoreError};
 use crate::scheduling::{self, FocusEligibility, SchedulingError};
@@ -147,7 +149,10 @@ impl Display for ListBoardError {
                 formatter.write_str("stored completed task identity is invalid")
             }
             Self::InvalidLinkedRecurrenceParent(id) => {
-                write!(formatter, "task has a recurrence rule linked to a different parent: {id}")
+                write!(
+                    formatter,
+                    "task has a recurrence rule linked to a different parent: {id}"
+                )
             }
             Self::InvalidStoredCompletedTimestamp(id) => {
                 write!(
@@ -760,11 +765,18 @@ mod tests {
             "linked parent stays visible without entering actionable count"
         );
         assert_eq!(
-            active.backlog.tasks.iter().find(|task| task.id == parent)
+            active
+                .backlog
+                .tasks
+                .iter()
+                .find(|task| task.id == parent)
                 .and_then(|task| task.recurrence_cadence),
             Some(RecurrenceCadence::Weekdays)
         );
-        assert!(active.backlog.tasks.iter()
+        assert!(active
+            .backlog
+            .tasks
+            .iter()
             .filter(|task| task.recurrence_parent_task_id == Some(parent))
             .all(|task| task.recurrence_cadence.is_none()));
         let home = crate::home_snapshot::load(&conn).expect("load home with recurring parent");
@@ -785,15 +797,24 @@ mod tests {
             interval_count: 3,
             ..daily.clone()
         };
-        assert_eq!(recurrence_cadence(&custom_interval), RecurrenceCadence::Custom);
+        assert_eq!(
+            recurrence_cadence(&custom_interval),
+            RecurrenceCadence::Custom
+        );
         let custom_ordinal = RecurrenceRuleRecord {
             unit: RecurrenceUnit::Month,
             weekday_mask: 0b1000000,
             month_weekday_ordinal: Some(2),
             ..daily
         };
-        assert_eq!(recurrence_cadence(&custom_ordinal), RecurrenceCadence::Custom);
-        assert_eq!(serde_json::to_value(RecurrenceCadence::Weekdays).unwrap(), "weekdays");
+        assert_eq!(
+            recurrence_cadence(&custom_ordinal),
+            RecurrenceCadence::Custom
+        );
+        assert_eq!(
+            serde_json::to_value(RecurrenceCadence::Weekdays).unwrap(),
+            "weekdays"
+        );
         let detached =
             remove_recurrence_if_expected(&mut conn, rule.id, &latest_rule.updated_at, false, T1)
                 .expect("detach recurrence without deleting child tasks");
@@ -804,9 +825,11 @@ mod tests {
             after.backlog.count + after.this_week.count + after.today.count,
             14
         );
-        assert!(after.backlog.tasks.iter().any(|task| {
-            task.id == parent && task.recurrence_cadence.is_none()
-        }));
+        assert!(after
+            .backlog
+            .tasks
+            .iter()
+            .any(|task| { task.id == parent && task.recurrence_cadence.is_none() }));
         let final_home = crate::home_snapshot::load(&conn).expect("load home after detachment");
         assert_eq!(final_home.pending_count, 14);
         let all_ids: HashSet<TaskId> = after
