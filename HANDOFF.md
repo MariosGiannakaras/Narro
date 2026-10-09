@@ -68,7 +68,7 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 ## NEXT AGENT ACTION — ChatGPT implementation, Codex physical paused (2026-10-09)
 
-**User-facing source implementation: 25/26 validated PR batches** (#249–#274 inclusive): **25 guarded merges after exact-head Windows CI SUCCESS**, only **#262 B18** remains open. X/Y is the finite PR campaign scope, not total roadmap completion. Any new independent source PR increments Y explicitly when opened; never count in-progress or native acceptance as completed.
+**User-facing source implementation: 25/27 validated PR batches** (#249–#275 inclusive): **25 guarded merges after exact-head Windows CI SUCCESS**, **#262 B18 and #275 B19** remain open. X/Y is the finite PR campaign scope, not total roadmap completion. Any new independent source PR increments Y explicitly when opened; never count in-progress or native acceptance as completed.
 
 **Three new exact-head green guarded merges (this 2026-10-09 continuation):**
 - #273 B20 1st–5th weekday recurrence UI: exact head `24a38624dc9f2d6903d4baf28eba88254bfbd8fa`, Windows CI `37857212033` SUCCESS, merge `43e9604f5906aa585ebbe411c7bdc4aadfafc643`. M4 recurrence extension #266 remains validated. B19 wizard and source-rendered parity OPEN.
@@ -79,7 +79,9 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 **Resulting-main CI:** `37861782141` for latest merged runtime `8263bde66ba1b263c54242eb6159b0b68be74c48` was IN PROGRESS at checkpoint. Earlier `37856045000` for source `504753a2bde67f5a72d954aecca85feeff68aef9` concluded SUCCESS; not a substitute for validating the new main. Changes to tracking Markdown are source-neutral `[skip ci]` and must not silently change executable baselines. If new main or #262 CI fails, inspect exact failed test/log; recent earlier Windows runs have had isolated SQLite contention timeout and fixture-readiness/EPERM failures, but do not infer causes without the new run log.
 
-**Next independent code line:** M5 **B19 source two-step date-calendar -> Add Time/Recurring modal** from SS-H07 / VE-007; preserve schedule writes, recurrence domain, date-only/DST/timezone and modal focus. B41 cadence label, B43/61/62 Board/Focus control parity and other scoped M5–M9 TODO remain OPEN; resolve by evidence/dependency order, not speculative rewrite. Do not start M10/M11. If opening B19 as a new PR, report scope **25/27** until that PR actually has successful CI and merge. Do not claim the 26-item snapshot spans the entire remaining coding backlog.
+**#275 B19 NEW code PR**: head `8ad9b7b75807b800560a92fc0a2daa6abd48f482`, run `37862691625` **IN PROGRESS**, exact-head CI NOT PASS. The source-backed two-step scheduler uses Monday-first calendar/Next/Pick Date, selected and configured-timezone Today marker, Add/Remove time with hour/minute/AM-PM controls and tested 12→24-hour conversion. For existing scheduled or recurring tasks the editor reopens on populated details (safe edit continuity). Real date/DST/timezone/snapshot command behavior retained, no Rust mutation. Source metadata purple dots remain evidence-limited; visual/native PASS OPEN. Inspect exact Fast/Windows CI errors, patch only evidenced causes and merge after success.
+  
+**Next independent code line after #275:** M5 B41 cadence label, B43/61/62 Board/Focus control parity and other scoped TODO by evidence/dependency order. The PR denominator **27** is only the explicitly opened coding campaign, not all outstanding roadmap work. Do not start M10/M11.
 
 **Physical-only:** defer C4/Time's Up/monitor DPI/pending native focus/motion and OS sounds to final consolidated Codex physical build, exactly as user requested; preserve their failed/partial/not-run states and immutable evidence.
 

@@ -1,0 +1,9 @@
+# M5 B19 two-step scheduling calendar — code proposed, CI pending
+
+Date: 2026-10-09; source branch `implementation/m5-two-step-scheduling-calendar-20261009`; head `8ad9b7b75807b800560a92fc0a2daa6abd48f482`; PR275; baseline main `d92b7117fc7acec6b7431c4ae53f7565853662b4`. CI run `37862691625` fast gate was IN PROGRESS at documentation checkpoint, no PASS or merge claimed.
+
+Source SS-H07 and full VE-007 Pass-3 00:19–01:04 confirm first compact calendar (Monday-first, current and selected markers, Today/Later Today/Tomorrow/Next Week, Cancel/Next), then content swap in same modal (Pick Date, selected summary, Add Time/Remove, hour/minute/AM-PM, recurrence options). Purple dots in older screenshot have unknown date-metadata meaning; do not fabricate their semantics.
+
+Implementation: new `src/scheduleCalendar.ts` UTC-only calendar grid and strict real-date helpers (no date-only conversion to an instant), `src/ScheduleCalendarStep.tsx` with selected/current markers/next-prev, `src/scheduleTime12.ts` fail-closed AM/PM conversion, staged `TaskScheduleDialog.tsx` + CSS. Existing scheduled/recurrence snapshot enters populated details for safety and keyboard/edit continuity; unscheduled enters date calendar. Existing recurrence save, No Repeat deletion, CAS, strict local datetime, DST/timezone and date-only semantics remain owned by established backend. Added pure JavaScript regression files for calendar/leap/day and midnight/noon/invalid time and updated production scheduling contracts/preflight. This is new implementation stage, not proof of rendered Blitzit/native parity. Local tests NOT RUN (GitHub-only), exact-head CI required, physical Codex acceptance later.
+
+Implementation user-facing counter now 25/27 (25 previously merged green packages, #262 and #275 open). No M-level acceptance advanced.
