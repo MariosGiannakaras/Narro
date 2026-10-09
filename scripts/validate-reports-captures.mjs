@@ -140,8 +140,12 @@ for (const theme of ["light", "dark"]) {
     if (mode === "sessions-detail-keyboard") {
       invariant(dom.includes('data-reports-detail-keyboard-pass="true"'),
         label + " detail-to-Add, pending, Escape, Tab and focus ownership regression did not pass");
-      invariant(!dom.includes('data-report-session-detail-dialog="true"'),
-        label + " detail Escape did not dismiss its dialog");
+      invariant(dom.includes('data-reports-detail-keyboard-visual-ready="true"'),
+        label + " completed keyboard checks but never reopened the visible detail dialog");
+      invariant(dom.includes('data-report-session-detail-dialog="true"'),
+        label + " keyboard screenshot is missing its visible detail dialog");
+      invariant(dom.includes('aria-modal="true"'),
+        label + " reopened detail must retain the sole modal owner");
       continue;
     }
     if (mode === "sessions-add-keyboard") {
