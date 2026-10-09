@@ -261,9 +261,59 @@ export function ReportTaskSessionsDialog({
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
   onDelete: (row: ReportsSessionViewRow) => void;
 }) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+  const pending = pendingSessionId !== null;
+
+  useEffect(() => {
+    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeButtonRef.current?.focus();
+    return () => {
+      if (openerRef.current?.isConnected) openerRef.current.focus();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (pending && dialogRef.current?.contains(document.activeElement)) {
+      dialogRef.current.focus();
+    }
+  }, [pending]);
+
+  function handleDetailKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!pending) onClose();
+      return;
+    }
+    if (event.key !== "Tab" || !dialogRef.current) return;
+    const focusable = focusableDialogElements(dialogRef.current);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      dialogRef.current.focus();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (!dialogRef.current.contains(active) || active === dialogRef.current) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   return (
     <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true">
-      <section className="reports-sessions__detail" role="dialog" aria-modal="true" aria-labelledby="report-task-sessions-title">
+      <section ref={dialogRef} className="reports-sessions__detail" role="dialog"
+        aria-modal="true" aria-labelledby="report-task-sessions-title" tabIndex={-1}
+        onKeyDown={handleDetailKeyDown} data-report-session-detail-dialog="true">
         <header className="reports-sessions__detail-header">
           <div>
             <h2 id="report-task-sessions-title">{detail.taskTitle}</h2>
@@ -276,10 +326,12 @@ export function ReportTaskSessionsDialog({
             <strong>{detail.totalSessions} Sessions</strong>
             <span>{detail.totalTime}</span>
           </div>
-          <button type="button" aria-label="Close task session detail" onClick={onClose}>×</button>
+          <button ref={closeButtonRef} type="button" aria-label="Close task session detail"
+            disabled={pending} onClick={() => { if (!pending) onClose(); }}>×</button>
         </header>
         <div className="reports-sessions__detail-actions">
-          <button type="button" className="reports-sessions__primary" onClick={() => onAddSession(detail.taskId)}>
+          <button type="button" className="reports-sessions__primary" disabled={pending}
+            onClick={() => { if (!pending) onAddSession(detail.taskId); }}>
             + Add Session
           </button>
         </div>
