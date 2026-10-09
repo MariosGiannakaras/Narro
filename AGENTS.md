@@ -85,6 +85,10 @@ This precedence does **not** mean higher-ranked sources are automatically correc
 
 Never silently convert inference into confirmed behavior. When exact source behavior cannot be established, make a reasoned professional decision rather than an arbitrary guess: prefer consistency with adjacent evidenced Blitzit behavior, established desktop UX patterns, accessibility, reliability and Narro's existing design system. Record material implementation choices that are not confirmed Blitzit behavior as Narro design decisions in `STATUS.md`.
 
+### Tracking unobserved Blitzit behavior before implementation
+
+An unobserved source interaction is **not** a validated Blitzit specification. Implement in-scope functionality using the best evidenced local-first behavior, explicit state ownership, accessible/Windows-safe fallback and regression guards; never substitute unverified formulas or destructive/irreversible/timer-domain behavior without a coherent rationale. Record every material inference, source-version conflict and approved Narro-specific exception in the appropriate `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` row and `docs/BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md`, stating separately **implemented/CI-validated** versus **Blitzit behavior/source parity OPEN**. The register is a future physical-comparison index requested by the user, **not** M11 activation or its capture plan. Keep the approved final Spectrum Core HTML/218-icon extension as user-directed Narro behavior unless the user explicitly changes it.
+
 A planned or requested Blitzit feature is not automatically a Narro requirement. Post-parity ideas recorded in `docs/SOURCE_AUDIT.md` stay out of implementation until the ordered parity/reliability milestones pass or the user explicitly changes scope.
 
 ## Platform and scope
