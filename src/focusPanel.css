@@ -77,7 +77,7 @@
 .focus-panel__live-actions-wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
 /* One steady heading footprint: hover/focus swaps time and title for
    accessible compact actions; metrics and subtasks never move. */
-.focus-panel__live-card[data-focus-live-card="true"] { position: relative; }
+.focus-panel__live-card[data-focus-live-card="true"] { position: relative; min-height: 210px; }
 .focus-panel__live-heading { min-height: 2.25rem; transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter); }
 .focus-panel__live-card:hover .focus-panel__live-heading,
 .focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-heading { opacity: 0; }
