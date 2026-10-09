@@ -105,4 +105,26 @@ for (const needle of [
 invariant(!focus.includes('background: "#222"'), "focus surface must not hard-code a dark background");
 invariant(!focus.includes('color: "red"'), "focus error state must consume semantic theme tokens");
 
+// SS-C07: decorative information markers are visible on selected source-backed
+// General/Blitz Panel rows without inventing tooltip, button or persistence actions.
+const preferenceSections = await read("src/PreferenceSettingsSections.tsx");
+const preferenceCss = await read("src/preferenceSettingsSections.css");
+for (const snippet of [
+  'infoGlyph?: boolean;',
+  'className="preference-settings__info-glyph" aria-hidden="true"',
+  'infoGlyph\\n        title="Monitor"',
+  '<Row infoGlyph title="Panel side"',
+  '<Row infoGlyph title="Hide EST / Time Taken"',
+  '<Row infoGlyph title="Auto-parse EST from title"',
+]) {
+  invariant(preferenceSections.includes(snippet.replace("\\\\n", "\\n")), `SS-C07 information-marker contract missing ${snippet}`);
+}
+invariant(preferenceCss.includes(".preference-settings__copy .preference-settings__info-glyph")
+  && preferenceCss.includes("border-radius: 50%")
+  && preferenceCss.includes("margin-inline-end: var(--space-2)"),
+  "information marker must use the calibrated inline visual token treatment");
+invariant(!preferenceSections.includes('aria-label="More information"')
+  && !preferenceSections.includes('data-preference-info-trigger'),
+  "SS-C07 does not establish a tooltip or clickable information action");
+
 console.log("Theme settings/runtime contract: PASS");
