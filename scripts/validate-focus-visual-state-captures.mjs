@@ -114,6 +114,16 @@ for (const theme of ["light", "dark"]) {
     `${notes.label} Notes expansion must grow vertically inside the active card rather than overlaying task content`,
   );
 
+  const focusedActions = readCapture(theme, "live-actions-focus");
+  requireLiveState(focusedActions, "running");
+  invariant(focusedActions.dom.includes('data-focus-action-reveal-pass="true"'),
+    `${focusedActions.label} real keyboard focus reveal did not pass stable geometry contract`);
+  invariant(focusedActions.dom.includes('aria-label="Pause"')
+    && focusedActions.dom.includes('focus-panel__live-action-label'),
+    `${focusedActions.label} focused icon needs its original accessible action name and label`);
+  invariant(focusedActions.contract.liveCard?.height === running.contract.liveCard?.height,
+    `${focusedActions.label} focusing actions must not reflow active card height`);
+
   const success = readCapture(theme, "success");
   invariant(success.dom.includes('data-focus-success-inline-card="true"'),
     `${success.label} must place committed success inside the active card`);

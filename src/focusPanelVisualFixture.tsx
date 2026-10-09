@@ -33,6 +33,7 @@ const scenarios = [
   "time-up",
   "overtime",
   "notes-expanded",
+  "live-actions-focus",
   "success",
   "no-eligible",
   "empty",
@@ -239,6 +240,33 @@ flushSync(() => {
     />,
   );
 });
+
+if (scenario === "live-actions-focus") {
+  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+  const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
+  const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
+  const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
+  if (!action || !rail || !heading || !liveCard || action.disabled) {
+    throw new Error("B49 focus reveal requires a real enabled contextual action and live card.");
+  }
+  const cardBefore = liveCard.getBoundingClientRect();
+  const railBefore = rail.getBoundingClientRect();
+  action.focus({preventScroll: true});
+  await new Promise<void>(resolve => window.setTimeout(resolve, 300));
+  const cardAfter = liveCard.getBoundingClientRect();
+  const railAfter = rail.getBoundingClientRect();
+  const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
+  if (document.activeElement !== action
+    || getComputedStyle(rail).opacity !== "1"
+    || getComputedStyle(heading).opacity !== "0"
+    || !label || label.getClientRects().length === 0
+    || Math.abs(cardAfter.height - cardBefore.height) > 1
+    || Math.abs(railAfter.width - railBefore.width) > 1
+    || Math.abs(railAfter.top - railBefore.top) > 1) {
+    throw new Error("B49 action focus failed to reveal a labeled icon without moving live-card geometry.");
+  }
+  document.documentElement.dataset.focusActionRevealPass = "true";
+}
 
 if (scenario === "notes-expanded") {
   const notesButton = document.querySelector<HTMLButtonElement>('[data-focus-action="notes"]');

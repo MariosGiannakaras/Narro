@@ -105,4 +105,15 @@ invariant(panelCss.includes('width: calc(100% - 2 * var(--space-3))')
 invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
   "B49 reveal must honor reduced motion");
 
+const focusedFixture = read("src/focusPanelVisualFixture.tsx");
+const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
+const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+invariant(focusedFixture.includes('"live-actions-focus"')
+    && focusedFixture.includes("dataset.focusActionRevealPass"),
+  "B49 production keyboard-focus reveal must have a real browser visual fixture");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
+    && focusedValidator.includes('readCapture(theme, "live-actions-focus")')
+    && focusedValidator.includes('data-focus-action-reveal-pass="true"'),
+  "B49 focused icon actions must be captured and checked in both Windows theme screenshots");
+
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");
