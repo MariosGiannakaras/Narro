@@ -20,7 +20,7 @@ function validatePng(label) {
   const file = path.join(output, label + ".png");
   invariant(fs.existsSync(file), label + " screenshot is missing");
   const png = fs.readFileSync(file);
-  invariant(png.length > 10_000, label + " screenshot is unexpectedly small");
+  invariant(png.length > 10_000, label + " screenshot is unexpectedly small (bytes=" + png.length + ", PNG dimensions=" + (png.length >= 24 ? png.readUInt32BE(16) + "x" + png.readUInt32BE(20) : "header-incomplete") + ")");
   invariant(
     png.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])),
     label + " is not a PNG",
