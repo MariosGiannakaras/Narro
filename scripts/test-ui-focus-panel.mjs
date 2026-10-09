@@ -33,6 +33,10 @@ const fixture = read("src/focusPanelVisualFixture.tsx");
 const vite = read("vite.config.ts");
 const capture = read("scripts/capture-focus-panel-fixtures.ps1");
 const validator = read("scripts/validate-focus-panel-captures.mjs");
+invariant(validator.includes("contract.actionLabels.length === 5"), "B50 running/paused captured layout must require five action slots");
+invariant(validator.includes('!dom.includes(\'data-focus-action="extend"\')'), "B50 running/paused capture must reject unavailable Extend");
+invariant(validator.includes('for (const action of ["break", "notes", "pause-resume", "skip", "done"])'), "B50 validator must require the five real ordinary action controls");
+
 const pkg = JSON.parse(read("package.json"));
 
 for (const [haystack, needle, label] of [
