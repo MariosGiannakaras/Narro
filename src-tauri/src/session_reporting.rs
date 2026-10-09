@@ -582,14 +582,24 @@ mod tests {
         run_migrations(&mut conn).expect("migrate");
         let first_list = create_list(
             &mut conn,
-            NewListInput { title: "First".into(), color: None, icon_asset: None },
+            NewListInput {
+                title: "First".into(),
+                color: None,
+                icon_asset: None,
+            },
             "2026-08-01T00:00:00Z",
-        ).unwrap();
+        )
+        .unwrap();
         let second_list = create_list(
             &mut conn,
-            NewListInput { title: "Second".into(), color: None, icon_asset: None },
+            NewListInput {
+                title: "Second".into(),
+                color: None,
+                icon_asset: None,
+            },
             "2026-08-01T00:00:00Z",
-        ).unwrap();
+        )
+        .unwrap();
         let make_task = |conn: &mut Connection, list_id: ListId| {
             create_task(
                 conn,
@@ -600,7 +610,8 @@ mod tests {
                     est_seconds: None,
                 },
                 "2026-08-10T00:00:00Z",
-            ).unwrap()
+            )
+            .unwrap()
         };
         let first = make_task(&mut conn, first_list.id);
         let second = make_task(&mut conn, second_list.id);
@@ -608,21 +619,27 @@ mod tests {
             conn.execute(
                 "UPDATE tasks SET completed_at = ?1 WHERE id = ?2",
                 rusqlite::params!["2026-09-04T10:00:00Z", task.id.to_string()],
-            ).expect("complete persisted task without creating a session");
+            )
+            .expect("complete persisted task without creating a session");
         }
         let september = ReportRange {
             start_at: "2026-09-01T00:00:00Z".into(),
             end_at: "2026-10-01T00:00:00Z".into(),
             list_ids: Vec::new(),
         };
-        let all = load_sessions_report(&conn, september.clone(), false).unwrap();
+        let all = load_sessions_report(&conn, september.clone(), false)
+        .unwrap();
         assert_eq!(all.summary.total_tasks, 2);
         assert_eq!(all.summary.total_sessions, 0);
         let selected = load_sessions_report(
             &conn,
-            ReportRange { list_ids: vec![first_list.id], ..september.clone() },
+            ReportRange {
+                list_ids: vec![first_list.id],
+                ..september.clone()
+            },
             false,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(selected.summary.total_tasks, 1);
         let outside = load_sessions_report(
             &conn,
@@ -632,7 +649,8 @@ mod tests {
                 list_ids: Vec::new(),
             },
             false,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(outside.summary.total_tasks, 0);
         assert_eq!(outside.summary.total_sessions, 0);
     }
