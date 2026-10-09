@@ -66,15 +66,16 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## Independent CI-learning infrastructure track — 2026-10-09
+## Independent CI-learning infrastructure track — CLOSED / integration validated 2026-10-09
 
-This is a **separate, narrowly owned prevention/process task**, not the M5/M6 product implementation line. Do not take over other active application PRs or change the existing `NEXT AGENT ACTION` order for product work.
+This was a **separately owned prevention/process task**, not M5/M6 product implementation. Do not take over active application PRs or change the product's existing `NEXT AGENT ACTION` order.
 
-- Binding risk/CI/engineering-quality procedure updates are already on `main`; evidence: `work-log/2026-10-09-chatgpt-ci-recurrence-learning-infra.md`.
-- Only pending infrastructure PR: [#284](https://github.com/MariosGiannakaras/Narro/pull/284) on `infra/ci-learning-20261009`, current exact head `a9213cd56aa4d31501eddae6d79bd8b8d0bddf8b`. New isolated GitHub Action, bounded 14-day paged/spread CI failure scanner and six deterministic tests; no app source or existing Windows workflow changes.
-- Exact-head standalone [CI learning run 37910629902](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629902): **PASS** (6/6 tests). Exact-head [Windows CI 37910629874](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629874): **IN PROGRESS / NOT PASS at this handoff**.
-- **Infra NEXT:** inspect the exact Windows result; if green, verify PR files/unchanged main process truth, expected-head-guard merge PR284, verify resulting `main` has all three reviewed blobs, and record the closure in a *new* immutable work-log entry. The first scheduled production scan and auto-issue behavior remain **NOT RUN** until actually observed; no speculative PASS. If failure, inspect first causal step rather than rerunning blindly.
-- This PR is a CI/process improvement and **does not increment the application's X/Y source-batch denominator**.
+- Binding prevention/CI/engineering-quality policies are on `main`. Original setup evidence: `work-log/2026-10-09-chatgpt-ci-recurrence-learning-infra.md`. Final guarded-merge evidence: `work-log/2026-10-09-chatgpt-ci-recurrence-learning-merge-closure.md`.
+- Infrastructure-only [PR #284](https://github.com/MariosGiannakaras/Narro/pull/284): **MERGED** (expected head `a9213cd56aa4d31501eddae6d79bd8b8d0bddf8b`), squash SHA `48784f50bb474ea498d9173e8e73a1298ff590ef`; three isolated scanner/workflow/test files on resulting `main` byte-identical to exact validated PR head (3/3).
+- Exact-head Linux CI-learning [37910629902](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629902): **SUCCESS**, 6/6 tests. Exact-head Windows CI [37910629874](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629874): **SUCCESS**, validation/fast/Windows candidate. Resulting-main Windows [37914587750](https://github.com/MariosGiannakaras/Narro/actions/runs/37914587750) was **IN PROGRESS / NOT PASS** when the closure work log was written; inspect actual conclusion before upgrading.
+- **Runtime-only follow-up:** first scheduled 04:19 UTC or manually dispatched production failure scan and creation/deduplication of GitHub triage issues remain **NOT RUN/NOT VERIFIED** until actual run evidence exists; there is no available workflow-dispatch operation in this connector. Do not claim end-to-end production PASS without it.
+- Daily scanner is deliberately *sampled*, bounded and advisory; grouped failures are candidate signatures, not root-cause/flaky determinations. Reusable lessons flow through immutable work logs and existing NER families.
+- **No application code, existing Windows CI workflow, source-parity/physical gates, or X/Y application source-batch denominator changed by this separate process track.**
 
 ## NEXT AGENT ACTION — ChatGPT implementation, Codex physical paused (2026-10-09)
 
