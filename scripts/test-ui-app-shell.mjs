@@ -32,7 +32,7 @@ for (const [haystack, needle, label] of [
   [shell, 'setPreferencesOpen(true)', "Settings opens over preserved destination"],
   [shell, 'setPreferencesOpen(false)', "Preferences may dismiss without changing Board"],
   [shell, '<PreferencesDialog onRequestClose={() => setPreferencesOpen(false)}>', "Settings uses overlay owner"],
-  [shell, '<ThemeSettingsPanel />', "production Preferences section preserved within overlay"],
+  [shell, '<ThemeSettingsPanel onOpenShortcuts=', "production Preferences section preserved within overlay"],
   [preferencesDialog, 'role="dialog"', "modal semantic boundary"],
   [preferencesDialog, 'aria-modal="true"', "modal focus and shortcut ownership"],
   [preferencesDialog, 'aria-labelledby="theme-settings-title"', "modal labels visible Preferences heading"],

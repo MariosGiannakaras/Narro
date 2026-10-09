@@ -56,6 +56,7 @@ const board: ListBoardSnapshot = {
   today: { tasks: [task], count: 1, aggregateEstSeconds: 3600 },
   done: { tasks: [], count: 0, aggregateEstSeconds: 0 },
   todayCompletionCount: 0,
+  thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 0,
 };
 
