@@ -67,3 +67,13 @@ test("rustfmt file difference is independent of runner path and line number", ()
   assert.deepEqual(first, { kind: "rustfmt-file", value: "src-tauri/src/session_reporting.rs" });
   assert.deepEqual(first, second);
 });
+
+test("Reports post-capture screenshot validation is detected separately from fixture assertions", () => {
+  const first = signalFromLog("2026-10-09T12:46:16.4339772Z Error: Reports captured visual validation failed: reports-sessions-detail-keyboard-light screenshot is unexpectedly small");
+  const second = signalFromLog("2026-10-09T14:53:17.555Z Error: Reports captured visual validation failed: reports-sessions-detail-keyboard-light screenshot is unexpectedly small");
+  assert.deepEqual(first, second);
+  assert.equal(first.kind, "reports-captured-contract");
+  assert.ok(first.value.startsWith("reports-sessions-detail-keyboard-light:"));
+  assert.ok(!first.value.includes("unexpectedly small"));
+  assert.notEqual(first.kind, signalFromLog("Reports fixture reports-sessions-detail-keyboard-light assertion: Detail Shift+Tab escaped the active modal.").kind);
+});
