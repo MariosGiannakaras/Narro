@@ -1,0 +1,23 @@
+# 2026-10-10 — 5/8: B50 guarded merge, B67 CSS bug found, B49+B63 staged integration
+
+## Exact implementation counter and accepted baseline
+
+**5/8** before paused Codex physical. Exact-head PR #299 B50 `6ba29b7c86adb2577917b5501b388999c5e02942`, CI `37996271400` validation+fast+Windows ALL SUCCESS; expected-head guarded squash merge `308c7468573d3ea780b517f7a3d4b18fa6af21d0` on current main. I02 #286, I03 #295, I04 #298, I06 #300 also accepted. Remaining I01 #280 B67, I07 B49, I08 B63. Physical/native Codex acceptance OPEN, M11 dormant.
+
+## I01 #280 known CI and source/test cause
+
+Older B67 exact head `795b6f2feb4c453c87be77f7a4a4bb1a20a28e1f`, Windows CI `37999727060` all green after main/B50 forward merge, but detailed CSS audit identified **actual bug** independent of that PASS: accidental string insertion replaced original resize-specific selector:
+`.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap { transition: none; }`
+with a wrong clipping-only overtime selector, and mistakenly emitted a global `.floating-timer-foundation__actions-wrap { transition: none; }` instead of timer overtime rule. This suppresses normal Floating action crossfade and does not color overtime during ordinary state. Both requirements are evidenced and cannot be overlooked merely because past CI was green.
+
+On same original #280 branch `implementation/m6-b67-signed-overtime-20261009`: head `2ce147cd49556fa6aa8058581bb1472587c65736` restored clipping-specific guard, added correct `.floating-timer-foundation__timer[data-floating-timer-overtime="true"] { color: var(--color-warning); }` after normal timer rule, with cheap regression test `scripts/test-ui-floating-collapsed.mjs`. CI `38004427052` validation SUCCESS but fast **FAILED solely in the *new test* at line 111** because the negative CSS check used substring `css.includes('.floating-timer-foundation__actions-wrap {\\n  transition: none;\\n}')`, which also matches the legitimate longer *clipping-prefixed* selector. CSS fix was correct, assertion mistakenly reported global rule. Narrow test-only correction anchored matcher to beginning of selector with `/^\\.floating-timer-foundation__actions-wrap \\{\\n  transition: none;\\n\\}/m.test(css)`, **no product/CSS code change**, current B67 head `b3eff7a39a595a2146ff28127d682661a705a2fb`. Full CI `38004842175` validation PASS and fast/Windows IN PROGRESS/NOT PASS at checkpoint. Do not merge until exact-head full green, source diff reconciled, guarded merge.
+
+## I07/I08 original staged branches
+
+- B49 existing head `99ec1450bc22794a6f711acda9984b143071d855`, B63 existing head `5e4551e7a60eb66f4a094f2ed8a8ca7407abd1f5` at prior checkpoint; source, real two-theme screenshots and safe Narro-inferred untimed rest are staged. No PR or exact-head CI yet.
+- Built a 20-blob tree `23723bcfe64bed97e06d891144e62df18cd4fbe1` atop latest merged-main tree `190a5b399d3915789379ee2ead22327d15b872bc`, selecting corrected B67 branch source (including fixed CSS/preflight as of head `2ce147...`) and 14 specific B49+B63 feature source/test files. Created forward commit `a2d51fe7434ae56dfd7fc594ae221eb8ca011a9c`, parents old B63, B67 `2ce147...`, and then-main `1090cae39fca05f45c81a9a7057ab8ba9e8792ad`. **NOT ON BRANCH**: repeated `mcp__GitHub__update_ref` attempts failed with generic GitHub GraphQL internal errors, and subsequent `fetch_file` by original B63 branch still returned old bad CSS blob `224adbb7...` (not corrected `dd5a50af...`). Do not claim pushed/PR/CI for this commit. Its B67 dependency predates test-only exact-head `b3eff7...`, so re-reconcile before PR after B67 final PASS. Preserve original B49/B63 branches; if ref-update tool remains unavailable consider safely creating a *single continuation* branch anchored on old B63 history/new reconciled commit and document why, not a parallel implementation replacement. No force pushes.
+- Avoid repeating 26,000-file GitHub recursive tree reads in one orchestration; the repo is huge and single JS calls sometimes exceed tool-call limits or GitHub GraphQL errors. Prefer 2 tree reads per call, then create_tree/commit/update_ref separately.
+
+## Exact next action
+
+Check full `38004842175` on B67 head `b3eff7a39a595a2146ff28127d682661a705a2fb`; inspect actual failure if any. If green, guarded merge #280 preserving B50/Fun GIF/current docs; verify main acceptance then progress 6/8. For B49/B63, commit the new corrected combined tree atop resulting main without overwriting newest main docs or source; open one coherent PR with real screenshot/state regression in both themes, run fast and Windows CI then guarded merge for 8/8. Do not idle waiting for CI; no Codex physical claim.
