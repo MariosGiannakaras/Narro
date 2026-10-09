@@ -193,7 +193,7 @@ export function ArchivedDoneTasksPanel({
           <span>
             {normalizedQuery || selectedListId !== ALL_LISTS
               ? "No archived done tasks match the current search and list filter."
-              : "Completed tasks older than 60 days will appear here automatically."}
+              : "Looks Like you do not have any archived done tasks at this moment"}
           </span>
         </div>
       ) : (
