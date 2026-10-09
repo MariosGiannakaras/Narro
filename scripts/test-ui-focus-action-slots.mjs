@@ -61,4 +61,24 @@ invariant(pkg.scripts["test:ui-focus-action-slots"] === "node scripts/test-ui-fo
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-action-slots"), "frontend preflight must run the Focus action-slot contract");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-action-slot-captures.mjs"), "Windows visual validation must compare stable Focus action geometry");
 
+// B50: Time's Up substitutes Extend for Pause/Resume at the same Focus slot,
+// matching the already-conditional Floating slot. Ordinary work must not
+// leave a disabled sixth action that narrows live controls.
+const panelActionStart = liveActions.indexOf('className="focus-panel__live-actions"');
+const panelActionEnd = liveActions.indexOf('className="floating-timer-foundation__actions"', panelActionStart);
+invariant(panelActionStart >= 0 && panelActionEnd > panelActionStart, "Focus live action-strip location");
+const panelActions = liveActions.slice(panelActionStart, panelActionEnd);
+invariant(panelActions.includes("{state.extendEnabled ? (") &&
+  panelActions.includes('data-focus-action="extend"') &&
+  panelActions.includes('data-focus-action="pause-resume"'),
+"Time's Up must substitute Extend for Pause in the same logical Focus action slot");
+invariant(liveActions.includes('extendEnabled: timer.state === "time_up"'),
+  "Extend disclosure must derive only from authoritative Time's Up timer state");
+invariant(panelActions.indexOf('data-focus-action="extend"') < panelActions.indexOf('data-focus-action="skip"'),
+  "contextual Extend must occupy the third action position before Skip");
+invariant(panelCss.includes("grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, 0.85fr) minmax(0, 1fr);"),
+  "Focus must reserve exactly five stable slots with space for Resume/Extend");
+invariant(!panelCss.includes("minmax(0, 1.25fr) minmax(0, 1fr);"),
+  "sixth always-visible Extend slot must not reappear");
+
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");
