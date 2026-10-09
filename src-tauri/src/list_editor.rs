@@ -1,7 +1,7 @@
 use crate::domain::ids::ListId;
-use crate::list_builtin_icons::is_builtin_list_icon_id;
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
 use crate::error::{CommandError, CommandResult};
+use crate::list_builtin_icons::is_builtin_list_icon_id;
 use crate::persistence;
 use crate::persistence::lists::{
     create_list_with_builtin_icon, duplicate_list, get_list, update_list_with_builtin_icon,
@@ -286,14 +286,16 @@ pub fn create(
         _ => None,
     };
     let upload = match choice {
-        Some(ListIconSelection::Upload { filename, bytes }) => {
-            Some(ListIconUpload { filename: filename.clone(), bytes: bytes.clone() })
-        }
+        Some(ListIconSelection::Upload { filename, bytes }) => Some(ListIconUpload {
+            filename: filename.clone(),
+            bytes: bytes.clone(),
+        }),
         _ if choice.is_none() => request.icon_upload.clone(),
         _ => None,
     };
     let mut connection = open_database(app_dir)?;
-    let imported = upload.as_ref()
+    let imported = upload
+        .as_ref()
         .map(|upload| write_imported_icon(app_dir, upload))
         .transpose()?;
     let result = create_list_with_builtin_icon(
@@ -329,13 +331,15 @@ pub fn update(
     let mut connection = open_database(app_dir)?;
     let existing = get_list(&connection, id)?;
     let upload = match choice {
-        Some(ListIconSelection::Upload { filename, bytes }) => {
-            Some(ListIconUpload { filename: filename.clone(), bytes: bytes.clone() })
-        }
+        Some(ListIconSelection::Upload { filename, bytes }) => Some(ListIconUpload {
+            filename: filename.clone(),
+            bytes: bytes.clone(),
+        }),
         _ if choice.is_none() => request.icon_upload.clone(),
         _ => None,
     };
-    let imported = upload.as_ref()
+    let imported = upload
+        .as_ref()
         .map(|upload| write_imported_icon(app_dir, upload))
         .transpose()?;
     let (next_asset, next_icon_id) = match choice {
@@ -696,7 +700,9 @@ mod tests {
                 title: "Work".into(),
                 color: Some("#48d6c5".into()),
                 icon_upload: None,
-                icon_selection: Some(ListIconSelection::Builtin { id: "briefcase".into() }),
+                icon_selection: Some(ListIconSelection::Builtin {
+                    id: "briefcase".into(),
+                }),
             },
             now,
         )
@@ -741,7 +747,9 @@ mod tests {
         .expect("replace builtin with validated local upload");
         assert_eq!(uploaded.icon_id, None);
         let owned = uploaded.icon_asset.as_deref().expect("owned icon path");
-        assert!(resolve_owned_icon(&app_dir, owned).expect("managed file path").exists());
+        assert!(resolve_owned_icon(&app_dir, owned)
+            .expect("managed file path")
+            .exists());
 
         let cleared = update(
             &app_dir,
@@ -757,7 +765,9 @@ mod tests {
         .expect("clear imported icon");
         assert_eq!(cleared.icon_asset, None);
         assert_eq!(cleared.icon_id, None);
-        assert!(!resolve_owned_icon(&app_dir, owned).expect("managed file path").exists());
+        assert!(!resolve_owned_icon(&app_dir, owned)
+            .expect("managed file path")
+            .exists());
 
         let reopened = rusqlite::Connection::open(app_dir.join("narro.db"))
             .expect("reopen persisted database");
@@ -777,10 +787,13 @@ mod tests {
                 title: "Work".into(),
                 color: None,
                 icon_upload: None,
-                icon_selection: Some(ListIconSelection::Builtin { id: "../asset.svg".into() }),
+                icon_selection: Some(ListIconSelection::Builtin {
+                    id: "../asset.svg".into(),
+                }),
             },
             "2026-10-09T11:00:00Z",
-        ).expect_err("untrusted ID");
+        )
+        .expect_err("untrusted ID");
         assert!(matches!(invalid, ListEditorError::InvalidIconSelection));
 
         let png = ListIconUpload {
@@ -796,15 +809,16 @@ mod tests {
                 icon_selection: Some(ListIconSelection::Letter),
             },
             "2026-10-09T11:01:00Z",
-        ).expect_err("conflicting file and letter intents");
+        )
+        .expect_err("conflicting file and letter intents");
         assert!(matches!(ambiguous, ListEditorError::InvalidIconSelection));
-        let connection = rusqlite::Connection::open(app_dir.join("narro.db"))
-            .expect("read preserved database");
+        let connection =
+            rusqlite::Connection::open(app_dir.join("narro.db")).expect("read preserved database");
         assert!(crate::persistence::lists::active_lists(&connection)
-            .expect("list remains absent").is_empty());
+            .expect("list remains absent")
+            .is_empty());
         assert!(!app_dir.join(ICON_DIRECTORY).exists());
         drop(connection);
         std::fs::remove_dir_all(app_dir).expect("clean test app");
     }
-
 }

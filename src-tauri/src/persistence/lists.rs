@@ -380,7 +380,14 @@ pub fn update_list_with_builtin_icon(
         "UPDATE lists
          SET title = ?1, color = ?2, icon_asset = ?3, icon_id = ?4, updated_at = ?5
          WHERE id = ?6",
-        params![title, input.color, input.icon_asset, icon_id, now, id.to_string()],
+        params![
+            title,
+            input.color,
+            input.icon_asset,
+            icon_id,
+            now,
+            id.to_string()
+        ],
     )?;
     if changed != 1 {
         return Err(ListStoreError::NotFound(id));

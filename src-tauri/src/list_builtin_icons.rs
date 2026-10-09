@@ -232,7 +232,9 @@ mod tests {
     #[test]
     fn stable_allowlist_has_no_duplicates_or_untrusted_ids() {
         assert!(BUILTIN_LIST_ICON_IDS.len() >= 200);
-        assert!(BUILTIN_LIST_ICON_IDS.windows(2).all(|pair| pair[0] < pair[1]));
+        assert!(BUILTIN_LIST_ICON_IDS
+            .windows(2)
+            .all(|pair| pair[0] < pair[1]));
         assert!(is_builtin_list_icon_id("briefcase"));
         assert!(is_builtin_list_icon_id("fa-folder"));
         assert!(!is_builtin_list_icon_id("../foo"));
