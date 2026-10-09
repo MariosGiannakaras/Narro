@@ -129,7 +129,9 @@ const contract = {
   header: geometry(".task-schedule-dialog__header"),
   scheduleSection: geometry("#task-schedule-section-title"),
   recurrenceSection: geometry("#task-recurrence-section-title"),
-  shortcuts: geometry(".task-schedule-dialog__shortcuts"),
+  // The two-step flow confines shortcuts to the calendar; this existing-
+  // recurrence fixture begins on the populated details step.
+  pickDate: geometry('[data-task-schedule-control="pick-date"]'),
   consequence: geometry(consequenceSelector),
   footer: geometry(".task-schedule-dialog__footer"),
 };
