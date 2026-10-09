@@ -180,14 +180,16 @@ fn task_mutations_wait_for_competing_writer_and_preserve_latest_state_and_identi
         let worker = std::thread::spawn(move || {
             let mut conn = Connection::open(worker_path).expect("open task mutation connection");
             configure_connection(&conn).unwrap();
-            conn.busy_timeout(Duration::from_secs(2)).unwrap();
+            // The contention contract is that the worker waits until the competing
+            // transaction commits, not that Windows CI schedules every thread in 2s.
+            conn.busy_timeout(Duration::from_secs(10)).unwrap();
             started_tx.send(()).unwrap();
             finished_tx
                 .send(mutate(mutation, &mut conn, list, first, second))
                 .unwrap();
         });
         started_rx
-            .recv_timeout(Duration::from_secs(2))
+            .recv_timeout(Duration::from_secs(10))
             .expect("mutation worker started");
         let early = finished_rx.recv_timeout(Duration::from_millis(100));
         let waited = matches!(early, Err(mpsc::RecvTimeoutError::Timeout));
@@ -196,7 +198,7 @@ fn task_mutations_wait_for_competing_writer_and_preserve_latest_state_and_identi
         let result = match early {
             Ok(result) => result,
             Err(mpsc::RecvTimeoutError::Timeout) => finished_rx
-                .recv_timeout(Duration::from_secs(2))
+                .recv_timeout(Duration::from_secs(10))
                 .expect("mutation completes after writer release"),
             Err(error) => panic!("mutation worker disconnected: {error}"),
         };

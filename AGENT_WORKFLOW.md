@@ -86,6 +86,10 @@ Use the compact progress format, counter semantics, and reporting cadence in `AI
 
 The mandatory roadmap milestone denominator remains **10** while optional Milestone 11 is dormant or skipped. **Milestone 11 exists but is strictly opt-in and is excluded from progress until the user explicitly activates it.** On explicit M11 activation, record that activation durably and change the progress denominator to **11** from that point onward. The required Final Comprehensive Review Stage is separate from the milestone denominator: it runs after Milestone 10 when M11 is dormant/skipped, or after completed M11 when M11 was explicitly activated.
 
+### Evidence-limited source visuals vs required parity closure (2026-10-09)
+
+The user directs **unknown, unobserved Blitzit visuals** to the separate optional live-source M11, if explicitly activated later. A source-visual question classified `EVIDENCE_LIMIT / M11_DEFERRED` with no available canonical evidence is **not** a missing in-scope source code implementation or reason to keep the consolidated Narro Windows physical run blocked. It can remain visibly unresolved for future M11 without a false `SOURCE_PARITY_PASS` claim. **This exemption does not cover any known, evidenced visual/interaction mismatch, real functional defect, or required Narro native/manual acceptance gate**: those retain normal M1–M9 correction and M10 entry requirements. Document each disposition in the crosswalk and register, never silently downgrade a supported `FIX_NOW`. Keep M11 strictly dormant until explicit user activation.
+
 ### Hard Milestone 10 release-candidate entry gate
 
 Milestone 10 is a **hard sequential release-candidate gate**. Do not begin, count, or mark any M10 validation while any required Milestone 1–9 work remains open on authoritative `main`, including:

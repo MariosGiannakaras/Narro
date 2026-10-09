@@ -88,6 +88,7 @@ const snapshot: ListBoardSnapshot = {
     tasks: [],
   },
   todayCompletionCount: 0,
+  thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 0,
 };
 

@@ -12,6 +12,7 @@ use crate::persistence::recurrence::{
 use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
 use crate::persistence::tasks::{active_tasks_in_bucket, get_task, TaskStoreError};
 use crate::scheduling::{self, FocusEligibility, SchedulingError};
+use chrono::{Datelike, NaiveDate};
 use jiff::{tz::TimeZone, Timestamp};
 use rusqlite::{params, Connection};
 use serde::Serialize;
@@ -113,6 +114,7 @@ pub struct ListBoardSnapshot {
     pub today: ListBoardLane,
     pub done: ListBoardLane,
     pub today_completion_count: u64,
+    pub this_week_completion_count: u64,
     pub done_month_completion_count: u64,
 }
 
@@ -128,6 +130,7 @@ pub enum ListBoardError {
     InvalidStoredTaskId,
     InvalidLinkedRecurrenceParent(TaskId),
     InvalidStoredCompletedTimestamp(TaskId),
+    InvalidDisplayLocalDate(String),
     TargetListNotFound(ListId),
     DuplicateTaskProjection(TaskId),
     CountOverflow,
@@ -158,6 +161,12 @@ impl Display for ListBoardError {
                 write!(
                     formatter,
                     "completed task has an invalid RFC 3339 timestamp: {id}"
+                )
+            }
+            Self::InvalidDisplayLocalDate(date) => {
+                write!(
+                    formatter,
+                    "list-board timezone produced an invalid local date: {date}"
                 )
             }
             Self::TargetListNotFound(id) => {
@@ -394,6 +403,35 @@ fn task_completed_in_display_today(
     )
 }
 
+// This Week is an independent planning lane, not an implicit superset of Today.
+// Count only tasks completed in the current display-local ISO (Monday-start)
+// week whose effective lane *at completion* was This Week. The underlying
+// task identity, completion timestamp, and manual lane are never changed.
+fn task_completed_in_display_week(
+    task: &TaskRecord,
+    current_date: &str,
+    display_timezone: &str,
+) -> Result<bool, ListBoardError> {
+    let Some(completed_at) = task.completed_at.as_deref() else {
+        return Ok(false);
+    };
+    let completed_timestamp = completed_at
+        .parse::<Timestamp>()
+        .map_err(|_| ListBoardError::InvalidStoredCompletedTimestamp(task.id))?;
+    let completed_local_date = display_local_date(completed_timestamp, display_timezone)?;
+    let completed_date = NaiveDate::parse_from_str(&completed_local_date, "%Y-%m-%d")
+        .map_err(|_| ListBoardError::InvalidDisplayLocalDate(completed_local_date))?;
+    let today = NaiveDate::parse_from_str(current_date, "%Y-%m-%d")
+        .map_err(|_| ListBoardError::InvalidDisplayLocalDate(current_date.to_owned()))?;
+    if completed_date.iso_week() != today.iso_week() {
+        return Ok(false);
+    }
+    Ok(
+        scheduling::effective_planning_lane_at(task, completed_timestamp, display_timezone)?
+            == PlanningLane::ThisWeek,
+    )
+}
+
 fn task_is_overdue_at(
     task: &TaskRecord,
     now: Timestamp,
@@ -517,6 +555,7 @@ pub fn load_at(
     let mut today = LaneAccumulator::default();
     let mut done = LaneAccumulator::default();
     let mut today_completion_count = 0_u64;
+    let mut this_week_completion_count = 0_u64;
     let mut done_month_completion_count = 0_u64;
 
     for list in selected_lists {
@@ -550,6 +589,11 @@ pub fn load_at(
                     .checked_add(1)
                     .ok_or(ListBoardError::CountOverflow)?;
             }
+            if task_completed_in_display_week(&task, &current_display_date, &display_timezone)? {
+                this_week_completion_count = this_week_completion_count
+                    .checked_add(1)
+                    .ok_or(ListBoardError::CountOverflow)?;
+            }
             if task_completed_in_display_month(&task, &current_display_month, &display_timezone)? {
                 done_month_completion_count = done_month_completion_count
                     .checked_add(1)
@@ -578,6 +622,7 @@ pub fn load_at(
         today: today.finish()?,
         done: done.finish()?,
         today_completion_count,
+        this_week_completion_count,
         done_month_completion_count,
     })
 }
@@ -976,6 +1021,106 @@ mod tests {
         assert_eq!(board.today.count, 0);
         assert_eq!(board.done.count, 3);
         assert_eq!(board.today_completion_count, 2);
+    }
+
+    #[test]
+    fn this_week_completion_uses_local_iso_week_and_week_lane_at_completion() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Week progress", None);
+        let monday_local = add_task(
+            &mut conn,
+            list_id,
+            "Monday local",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let previous_week = add_task(
+            &mut conn,
+            list_id,
+            "Previous week",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let today_done = add_task(&mut conn, list_id, "Today lane", PlanningLane::Today, None);
+        let backlog_done = add_task(
+            &mut conn,
+            list_id,
+            "Backlog lane",
+            PlanningLane::Backlog,
+            None,
+        );
+        add_task(
+            &mut conn,
+            list_id,
+            "Pending week",
+            PlanningLane::ThisWeek,
+            None,
+        );
+
+        // UTC Sunday is Monday in Athens: must count in the current ISO week.
+        complete_task(&mut conn, monday_local, "2026-09-13T21:30:00Z")
+            .expect("complete local Monday");
+        complete_task(&mut conn, previous_week, "2026-09-11T09:00:00Z")
+            .expect("complete previous-week task");
+        complete_task(&mut conn, today_done, "2026-09-14T09:00:00Z").expect("complete Today lane");
+        complete_task(&mut conn, backlog_done, "2026-09-14T09:00:00Z")
+            .expect("complete Backlog lane");
+        let current: Timestamp = "2026-09-15T10:00:00Z".parse().expect("parse Tuesday");
+        let athens =
+            load_at(&conn, Some(list_id), current, "Europe/Athens").expect("load Athens week");
+        assert_eq!(athens.this_week_completion_count, 1);
+        assert_eq!(athens.this_week.count, 1);
+        assert_eq!(athens.today_completion_count, 0);
+        assert_eq!(athens.done.count, 4);
+
+        let utc = load_at(&conn, Some(list_id), current, "UTC").expect("load UTC week");
+        assert_eq!(utc.this_week_completion_count, 0);
+        assert_eq!(utc.this_week.count, 1);
+    }
+
+    #[test]
+    fn this_week_completion_handles_iso_year_rollover_and_target_list_scope() {
+        let mut conn = setup();
+        let work = create_named_list(&mut conn, "Work", None);
+        let personal = create_named_list(&mut conn, "Personal", None);
+        let work_done = add_task(
+            &mut conn,
+            work,
+            "December work",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let personal_done = add_task(
+            &mut conn,
+            personal,
+            "January personal",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let old_done = add_task(
+            &mut conn,
+            work,
+            "Prior ISO week",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        complete_task(&mut conn, work_done, "2026-12-31T12:00:00Z")
+            .expect("complete December work");
+        complete_task(&mut conn, personal_done, "2027-01-01T12:00:00Z")
+            .expect("complete January personal");
+        complete_task(&mut conn, old_done, "2026-12-25T12:00:00Z")
+            .expect("complete prior ISO week");
+        let current = "2027-01-02T12:00:00Z"
+            .parse()
+            .expect("parse January Saturday");
+        let work_view = load_at(&conn, Some(work), current, "UTC").expect("work board");
+        let personal_view = load_at(&conn, Some(personal), current, "UTC").expect("personal board");
+        let all_view = load_at(&conn, None, current, "UTC").expect("all lists board");
+        assert_eq!(work_view.this_week_completion_count, 1);
+        assert_eq!(personal_view.this_week_completion_count, 1);
+        assert_eq!(all_view.this_week_completion_count, 2);
+        assert_eq!(work_view.done.count, 2);
+        assert_eq!(all_view.done.count, 3);
     }
 
     #[test]

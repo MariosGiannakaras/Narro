@@ -18,6 +18,7 @@ const fixture = read("src/taskReorderVisualFixture.tsx");
 const vite = read("vite.config.ts");
 const capture = read("scripts/capture-visual-fixtures.ps1");
 const validator = read("scripts/validate-task-reorder-captures.mjs");
+const finding28 = read("scripts/test-finding28-post-drag-action-rail.mjs");
 
 for (const [haystack, needle, label] of [
   [rust, "reorder_active_bucket", "validated M2 exact-set reorder reuse"],
@@ -73,6 +74,10 @@ for (const [haystack, needle, label] of [
   [vite, 'taskReorderFixture: "task-reorder-fixture.html"', "Vite reorder fixture entry"],
   [capture, 'task-reorder-$theme', "Windows Edge reorder capture"],
   [validator, "scheduled task became manually reorderable", "captured scheduled read-only validation"],
+  [finding28, "killTree(edge);", "Edge process tree is stopped before private temp-profile cleanup"],
+  [finding28, "killTree(preview);", "Vite preview process tree is stopped before cleanup"],
+  [finding28, "maxRetries: 20", "bounded Node recursive rm retry for Windows EPERM/EBUSY after Edge exit"],
+  [finding28, "retryDelay: 500", "finite Windows handle release retry pacing"],
   [validator, "task reorder geometry differs between light and dark themes", "theme-stable reorder geometry validation"],
 ]) {
   requireText(haystack, needle, label);

@@ -123,6 +123,7 @@ const board: ListBoardSnapshot = {
     tasks: [doneTask],
   },
   todayCompletionCount: 0,
+  thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
 

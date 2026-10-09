@@ -1,0 +1,6 @@
+# B4 completion-next automatic behavior evidence boundary — 2026-10-09
+
+- Audited source crosswalk B1-B71 against current source-uncertainty review register: most 29 uncovered B are already completed controls whose outstanding gates concern rendered/native parity rather than undocumented interactions. A material missing *behavioral* uncertainty was B4.
+- Current `FocusLiveActions.tsx::handleDone` commits completion, then when `showSuccessScreen` is enabled it passes the next task to a success gate; when disabled it uses authoritative `startTimerTask(next.id, nextMode)` with postcommit recovery. This local implementation is **not source-confirmed** for disabled-success mode.
+- Added review U41 with a practical future source test comparing enabled/disabled success screen, next eligible/no eligible, pause, retry and break behaviors. The register now has **41** source-uncertain questions, not 41 confirmed bugs or engineering PRs.
+- Updated B4 crosswalk and current handoff/status count, preserving exact previous code/CI and all timer/session data. No runtime/code/test changes, no new validation claimed. M11 remains dormant until explicit user activation, Codex physical validation paused.

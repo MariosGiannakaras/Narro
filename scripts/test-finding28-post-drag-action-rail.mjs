@@ -579,5 +579,14 @@ try {
   client?.close();
   killTree(edge);
   killTree(preview);
-  fs.rmSync(profile, { recursive: true, force: true });
+  // Edge's child processes can release their Windows temp-profile handles
+  // shortly *after* taskkill returns. Keep actual assertions authoritative,
+  // then tolerate only Node's bounded transient filesystem retry errors;
+  // a persistent cleanup failure still fails the CI candidate.
+  fs.rmSync(profile, {
+    recursive: true,
+    force: true,
+    maxRetries: 20,
+    retryDelay: 500,
+  });
 }
