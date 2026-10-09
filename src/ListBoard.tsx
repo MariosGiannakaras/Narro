@@ -40,6 +40,7 @@ import {
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { boardTaskSubgroup, groupedBoardTasks, scheduledGroupHeading } from "./boardTaskGroups";
+import { groupCompletedBoardTasks } from "./boardDoneGroups";
 import { parseMetricDuration } from "./metricDurationInput";
 import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
@@ -334,6 +335,7 @@ function BoardLane({
   laneKey,
   lane,
   title,
+  displayTimezone,
   doneMonthCompletionCount,
   todayProgress,
   aggregateView,
@@ -382,6 +384,7 @@ function BoardLane({
   laneKey: LaneKey;
   lane: ListBoardLane;
   title: string;
+  displayTimezone: string;
   doneMonthCompletionCount?: number;
   todayProgress?: { done: number; total: number };
   aggregateView: boolean;
@@ -447,7 +450,13 @@ function BoardLane({
   const createEditor = editorState?.kind === "create" && editorState.lane === pendingLane
     ? editorState
     : null;
-  const visibleTasks = pendingLane === null ? lane.tasks : groupedBoardTasks(lane.tasks);
+  // A Done section is a date-local presentation of immutable completion instants;
+  // do not rewrite task ownership, archive history or the authoritative count.
+  const doneGroups = pendingLane === null ? groupCompletedBoardTasks(lane.tasks, displayTimezone) : [];
+  const doneFirstRow = new Map(doneGroups.map((group) => [group.tasks[0].id, group]));
+  const visibleTasks = pendingLane === null
+    ? doneGroups.flatMap((group) => group.tasks)
+    : groupedBoardTasks(lane.tasks);
   const scheduledGroupCount = visibleTasks.filter(
     (task) => boardTaskSubgroup(task) === "scheduled",
   ).length;
@@ -554,6 +563,7 @@ function BoardLane({
                 ? "Recurring tasks"
                 : scheduledGroupHeading(scheduledGroupCount, pendingLane)
               : null;
+            const doneHeading = pendingLane === null ? doneFirstRow.get(task.id) : undefined;
             const reorderable = pendingLane !== null
               && presentationReorderEnabled
               && isManualReorderTask(task);
@@ -652,7 +662,15 @@ function BoardLane({
 
             return (
               <div key={task.id} className="list-board-task-slot">
-                {subgroupHeading ? (
+                {doneHeading ? (
+                  <h3
+                    className="list-board-lane__subgroup-heading type-metadata"
+                    data-board-done-date={doneHeading.dayKey}
+                    data-board-done-date-count={doneHeading.tasks.length}
+                  >
+                    {doneHeading.label} · {doneHeading.tasks.length} Done
+                  </h3>
+                ) : subgroupHeading ? (
                   <h3 className="list-board-lane__subgroup-heading type-metadata" data-board-task-subgroup={group}>
                     {subgroupHeading}
                   </h3>
@@ -2062,6 +2080,7 @@ export function ListBoard({
             laneKey={key}
             lane={snapshot[key]}
             title={title}
+            displayTimezone={snapshot.displayTimezone}
             doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
             todayProgress={key === "today" ? todayProgress : undefined}
             aggregateView={aggregateView}
