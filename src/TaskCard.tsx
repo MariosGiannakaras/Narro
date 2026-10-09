@@ -273,16 +273,21 @@ function TaskOverflowMenu({
           <MenuItem disabled={confirming} onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
         ) : null}
         {actions.onRemoveSchedule && quickRemoveScheduleLabel ? (
-          <MenuItem disabled={confirming} onSelect={actions.onRemoveSchedule}>
-            <span
-              className="list-board-task__quick-unschedule-row"
-              data-task-schedule-quick-remove="true"
-              aria-label={`Remove schedule: ${quickRemoveScheduleLabel}`}
+          <div
+            className="list-board-task__quick-unschedule-row"
+            data-task-schedule-quick-remove="true"
+            role="group"
+            aria-label={`Scheduled for ${quickRemoveScheduleLabel}`}
+          >
+            <span className="list-board-task__quick-unschedule-date">{quickRemoveScheduleLabel}</span>
+            <MenuItem
+              disabled={confirming}
+              ariaLabel={`Remove schedule for ${quickRemoveScheduleLabel}`}
+              onSelect={actions.onRemoveSchedule}
             >
-              <span className="list-board-task__quick-unschedule-date">{quickRemoveScheduleLabel}</span>
               <span className="list-board-task__quick-unschedule-x" aria-hidden="true">×</span>
-            </span>
-          </MenuItem>
+            </MenuItem>
+          </div>
         ) : null}
         {actions.onRemoveSchedule ? (
           <div role="separator" className="overlay-menu__separator" data-task-schedule-quick-separator="true" />

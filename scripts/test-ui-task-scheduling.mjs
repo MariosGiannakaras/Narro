@@ -133,6 +133,8 @@ for (const [haystack, needle, label] of [
   [board, "quickRemoveScheduleInFlightRef.current = true", "double invocation guarded"],
   [board, 'setMutationRefreshBlocked(true);', "ambiguous post-commit mutation blocked"],
   [taskCard, 'data-task-schedule-quick-remove="true"', "dated X row in task overflow menu"],
+  [taskCard, 'ariaLabel={`Remove schedule for ${quickRemoveScheduleLabel}`}', "only X owns accessible destructive-like schedule action"],
+  [taskCard, 'role="group"', "schedule date remains informative instead of whole-row action"],
   [taskCard, 'data-task-schedule-quick-separator="true"', "schedule-detail separator"],
   [taskCard, "onRemoveSchedule?: () => void", "typed task-card quick remove action"],
   [board, "onQuickRemoveSchedule={(task) => void handleQuickRemoveSchedule(task)}", "production quick remove wiring"],

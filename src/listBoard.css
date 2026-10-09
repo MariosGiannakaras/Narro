@@ -1322,8 +1322,8 @@
   }
 }
 
-/* A source-evidenced dated quick-removal row uses the shared menu item for
-   keyboard ownership and a right-side circular X without nested buttons. */
+/* The dated schedule row is informative. Only the right-side X is an
+   actionable menuitem, avoiding accidental removal by clicking the date. */
 .list-board-task__quick-unschedule-row {
   display: flex;
   align-items: center;
@@ -1331,6 +1331,20 @@
   gap: var(--space-2);
   min-width: 0;
   width: 100%;
+  min-height: 2rem;
+  padding-inline: var(--space-2);
+}
+
+.list-board-task__quick-unschedule-row .overlay-menu__item {
+  flex: none;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 50%;
+  background: transparent;
+  justify-content: center;
 }
 
 .list-board-task__quick-unschedule-date {
@@ -1346,8 +1360,6 @@
   flex: none;
   width: 1.5rem;
   height: 1.5rem;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 50%;
   color: var(--color-text-secondary);
   font-weight: var(--font-weight-semibold);
 }
