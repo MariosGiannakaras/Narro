@@ -85,6 +85,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         aggregateEstSeconds: 0,
       },
       todayCompletionCount: scopeCompleted ? 1 : 0,
+      thisWeekCompletionCount: 0,
       doneMonthCompletionCount: scopeCompleted ? 1 : 0,
     };
   };
@@ -98,7 +99,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       : { kind: "all_lists", id: null, title: "All Lists", color: null },
     displayTimezone: "Europe/Athens",
     backlog: laneSnapshot("backlog"), thisWeek: laneSnapshot("thisWeek"), today: laneSnapshot("today"),
-    done: { tasks: [], count: 0, aggregateEstSeconds: 0 }, todayCompletionCount: 0, doneMonthCompletionCount: 0,
+    done: { tasks: [], count: 0, aggregateEstSeconds: 0 }, todayCompletionCount: 0, thisWeekCompletionCount: 0, doneMonthCompletionCount: 0,
   });
   const callbacks = new Map<number, (value: unknown) => void>();
   const listeners = new Map<number, { event: string; handler: number }>();
