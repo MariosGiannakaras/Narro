@@ -41,7 +41,7 @@ test("high-volume sample retains freshest failures and spreads through history",
 });
 
 test("recurrent Reports modal keyboard fixture is classified without logging arbitrary assertion text", () => {
-  const message = "2026-10-09T11:30:19.5164327Z Reports fixture reports-sessions-detail-keyboard-light assertion: Detail Shift+Tab escaped the active modal.\\n" +
+  const message = "2026-10-09T11:30:19.5164327Z Reports fixture reports-sessions-detail-keyboard-light assertion: Detail Shift+Tab escaped the active modal.\n" +
     "2026-10-09T11:30:19.5871738Z ##[error]Process completed with exit code 1.";
   const signal = signalFromLog(message);
   assert.equal(signal?.kind, "visual-fixture");
