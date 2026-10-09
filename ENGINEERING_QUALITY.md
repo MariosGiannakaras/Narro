@@ -41,6 +41,20 @@ After a material implementation, validation or process failure/correction:
 
 A risk-register control state describes prevention maturity only. It never converts an open TODO, physical Windows gate or source-parity gate to PASS.
 
+
+### CI failure-learning obligation
+
+The lightweight CI recurrence scanner (see `.github/workflows/ci-learning.yml` and `scripts/ci-learning.mjs`) reports **candidate patterns**, not proven causal equivalence. A repeated job/step or a green rerun alone must not be called the same defect or “flaky”.
+
+After a material failure or a recurrence-triage issue, the responsible agent must:
+1. read the exact failed run, attempt, **first causally failed step** and relevant log, checking whether later failures are only downstream artifact/cancellation effects;
+2. determine whether the root cause is product code, regression/test harness, tooling/infrastructure, or genuinely unknown; do not assume test flakiness solely from same-SHA rerun success;
+3. compare independent run IDs, not multiple attempts of one run; consult matching existing NER families, work logs, and guards before patching;
+4. add a targeted prevention guard where evidence justifies it, validate the narrow affected path before expensive Windows CI, and record the exact run/attempt/SHA and PASS/FAIL/NOT RUN evidence in an immutable work log;
+5. strengthen an **existing** NER entry when a reusable causal lesson is learned; add a family only for a materially different prevention invariant, not for each CI incident.
+
+Unclassified or missing-log failures remain **UNKNOWN** and require investigation; automatic grouping must not silently upgrade them into confirmed root-cause reports. Do not block unrelated application PRs or create an extra Windows gate just to run the scanner. Its Linux-only job has no authority over Windows candidate or physical acceptance.
+
 ## Error model
 
 Use stable typed internal errors rather than ad-hoc strings.
