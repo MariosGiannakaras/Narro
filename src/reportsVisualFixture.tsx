@@ -557,9 +557,11 @@ async function validateDetailSessionKeyboardFixture() {
   requireFixture(close && add, "Detail keyboard controls are missing.");
   requireFixture(document.activeElement === close, "Task detail initial focus did not reach its Close control.");
 
+  // Match the dialog's actual tab-stop selection; previously omitted select
+  // and textarea and could incorrectly expect the last tabbable element.
   const focusable = Array.from(detail!.querySelectorAll<HTMLElement>(
-    'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
-  ));
+    'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  )).filter((element) => !element.hasAttribute("hidden"));
   requireFixture(focusable.length >= 3, "Detail needs multiple focusable controls.");
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
