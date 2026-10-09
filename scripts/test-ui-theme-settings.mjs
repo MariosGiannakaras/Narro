@@ -118,7 +118,9 @@ for (const snippet of [
 ]) {
   invariant(preferenceSections.includes(snippet), `SS-C07 information-marker contract missing ${snippet}`);
 }
-invariant(/<Row\\s+infoGlyph\\s+title="Monitor"/.test(preferenceSections),
+const preferenceLines = preferenceSections.split(String.fromCharCode(10));
+const monitorGlyphLine = preferenceLines.findIndex((line) => line.trim() === "infoGlyph");
+invariant(monitorGlyphLine >= 0 && preferenceLines[monitorGlyphLine + 1]?.trim() === 'title="Monitor"',
   "SS-C07 monitor label must carry a decorative information marker");
 invariant(preferenceCss.includes(".preference-settings__copy .preference-settings__info-glyph")
   && preferenceCss.includes("border-radius: 50%")
