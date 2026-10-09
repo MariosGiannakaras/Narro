@@ -85,6 +85,11 @@ function Capture-ReportsState {
                     Write-Warning "Reports fixture '$Label' was captured before ready; recapturing."
                     continue
                 }
+                $failedMarkup = [regex]::Match($domText, 'data-reports-fixture-error="([^"]*)"')
+                if ($failedMarkup.Success) {
+                    $failureDescription = [System.Net.WebUtility]::HtmlDecode($failedMarkup.Groups[1].Value)
+                    throw "Reports fixture $Label assertion: $failureDescription"
+                }
                 throw "Reports fixture '$Label' did not report ready after 2 captures. $stderrText"
             }
 
@@ -113,7 +118,7 @@ try {
     Wait-ForPreview -Url "$baseUrl/reports-fixture.html?theme=dark&mode=overview"
 
     foreach ($theme in @("light", "dark")) {
-        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard")) {
+        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard")) {
             $label = "reports-$reportsMode-$theme"
             $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=$reportsMode"
             Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")

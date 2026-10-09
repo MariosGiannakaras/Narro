@@ -13,14 +13,20 @@ const overdueAge = read("src/focusOverdueAge.ts");
 const success = read("src/FocusCompletionSuccess.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 invariant(success.includes("successTimingCopy(state.estSeconds, state.timeTakenSeconds)"), "success timing must use persisted EST and Taken");
-invariant(panel.includes('data-focus-success-inline-card="true"'), "B63 Focus success belongs inside the active card");
 invariant(success.includes('data-focus-success-timing="true"'), "source timing copy must be visible when valid");
+invariant(panel.includes('data-focus-success-inline-card="true"'), "B63 Focus success belongs inside the active card");
 invariant(panel.includes('data-focus-pomodoro-badge="true"'), "Pomodoro live/Break chip must be projected in active Focus card");
 invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POMO chip must reflect authoritative Pomodoro mode rather than stale UI state");
 invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
+const m7Integration = read("src/m7IntegrationRegression.tsx");
+invariant(m7Integration.includes("panelPause === null")
+  && m7Integration.includes("panelActions.length === 5")
+  && m7Integration.includes("finding35/B50 Time's Up must expose five controls with Extend instead of Pause"),
+  "M7 rendered regression must accept five contextual B50 actions before expensive Windows capture");
+
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
