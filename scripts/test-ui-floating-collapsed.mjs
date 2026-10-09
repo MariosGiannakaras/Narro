@@ -102,7 +102,8 @@ for (const needle of [
 
 invariant(css.includes("height: 110px"), "collapsed surface must retain 110px product height");
 invariant(css.includes("border-radius: 16px"), "collapsed shell must use the calibrated 15-17px source family");
-invariant(css.includes("grid-template-columns: minmax(0, 1fr) 8ch"), "collapsed title/timer geometry differs");
+invariant(css.includes("grid-template-columns: minmax(0, 1fr) 10ch"), "fixed compact timer accommodates signed HH:MM:SS");
+invariant(css.includes('data-floating-timer-overtime="true"'), "B67 Floating warning-state CSS");
 invariant(css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"), "collapsed subtask row geometry differs");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer/progress numerals must remain stable");
 invariant(

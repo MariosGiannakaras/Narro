@@ -1152,6 +1152,7 @@ export function FocusPanel({
                   className="focus-panel__live-timer timer-numerals"
                   data-focus-live-timer="true"
                   data-focus-live-timer-mode={liveTimer.mode}
+                  data-focus-timer-overtime={timer?.runtime.timer.state === "overtime_running" || timer?.runtime.timer.state === "overtime_paused" ? "true" : "false"}
                   data-timed-alert-flash-task-id={liveTask.id}
                   data-timer-numerals="true"
                   aria-label={liveTimer.label}
