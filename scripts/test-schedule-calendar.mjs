@@ -1,0 +1,21 @@
+import assert from "node:assert/strict";
+import { calendarMonthDays, calendarMonthLabel, shiftCalendarMonth, validCalendarDate } from "../src/scheduleCalendar.ts";
+
+const june = calendarMonthDays("2025-06");
+assert.equal(june.length, 42);
+assert.equal(june[0]?.date, "2025-05-26", "Monday-first source calendar");
+assert.equal(june[13]?.date, "2025-06-08", "Sunday 8 June direct-source current date");
+assert.equal(june[19]?.date, "2025-06-14", "Saturday 14 June direct-source selection");
+assert.equal(june.filter((cell) => cell.isCurrentMonth).length, 30);
+assert.ok(calendarMonthLabel("2025-06").includes("2025"));
+assert.equal(shiftCalendarMonth("2025-12", 1), "2026-01");
+assert.equal(shiftCalendarMonth("2026-01", -1), "2025-12");
+assert.equal(shiftCalendarMonth("0001-01", -1), "0001-01");
+assert.equal(shiftCalendarMonth("9999-12", 1), "9999-12");
+assert.equal(validCalendarDate("2024-02-29"), true);
+assert.equal(validCalendarDate("2025-02-29"), false);
+assert.equal(validCalendarDate("2026-02-30"), false);
+assert.equal(validCalendarDate("2025-06-14"), true);
+assert.equal(validCalendarDate("2025-6-14"), false);
+assert.deepEqual(calendarMonthDays("invalid"), []);
+console.log("Source Monday-first calendar geometry and real-date validation: PASS");

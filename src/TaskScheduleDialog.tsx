@@ -7,6 +7,9 @@ import {
 } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import { recurrencePresetLabels, recurrenceSummary } from "./recurrenceSummary";
+import { ScheduleCalendarStep } from "./ScheduleCalendarStep";
+import { validCalendarDate } from "./scheduleCalendar";
+import { clockTime12, clockTime24 } from "./scheduleTime12";
 import { formatInvokeError } from "./diagnosticApi";
 import {
   getTaskScheduleEditor,
@@ -139,6 +142,8 @@ export function TaskScheduleDialog({
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [scheduleLocalDate, setScheduleLocalDate] = useState("");
+  const [calendarStep, setCalendarStep] = useState<"date" | "details">("date");
+  const [todayLocalDate, setTodayLocalDate] = useState<string | null>(null);
   const [scheduleUseTime, setScheduleUseTime] = useState(false);
   const [scheduleLocalTime, setScheduleLocalTime] = useState("");
   const [scheduleTimezone, setScheduleTimezone] = useState(displayTimezone);
@@ -168,10 +173,17 @@ export function TaskScheduleDialog({
     setSnapshot(null);
     setLoadError(null);
     setMutationError(null);
+    setTodayLocalDate(null);
+    void resolveTaskScheduleShortcut({ kind: "today" }, displayTimezone)
+      .then((resolved) => {
+        if (!disposed && resolved.kind === "date_only") setTodayLocalDate(resolved.local_date);
+      })
+      .catch(() => { /* Today marker is optional; scheduling remains usable. */ });
     void getTaskScheduleEditor(taskId, listId)
       .then((value) => {
         if (disposed) return;
         setSnapshot(value);
+        setCalendarStep(value.schedule.kind === "none" && value.recurrence === null ? "date" : "details");
         const draft = scheduleDraft(value.schedule);
         setScheduleLocalDate(draft.localDate);
         setScheduleUseTime(draft.useTime);
@@ -242,6 +254,12 @@ export function TaskScheduleDialog({
       return `${scheduleLocalDate} at ${scheduleLocalTime || "—"} · ${scheduleTimezone}`;
     }
   }, [scheduleLocalDate, scheduleLocalTime, scheduleTimezone, scheduleUseTime]);
+
+  const { hour: clockHour12, minute: clockMinute, ampm: clockMeridiem } = clockTime12(scheduleLocalTime);
+
+  const updateInlineTime = (hour12: number, minute: number, ampm: string) => {
+    setScheduleLocalTime(clockTime24(hour12, minute, ampm) ?? "");
+  };
 
   const applyShortcut = async (shortcut: ScheduleShortcut) => {
     if (pending) return;
@@ -483,6 +501,47 @@ export function TaskScheduleDialog({
           <div className="task-schedule-dialog__content">
             {mutationError ? <div className="task-schedule-dialog__error type-metadata" role="alert">{mutationError}</div> : null}
 
+            {calendarStep === "date" ? (
+              <section className="task-schedule-dialog__calendar-step" aria-label="Pick a schedule date">
+                <div className="task-schedule-dialog__shortcuts" aria-label="Schedule shortcuts">
+                {([
+                  [{ kind: "today" }, "Today"],
+                  [{ kind: "later_today" }, "Later today"],
+                  [{ kind: "tomorrow" }, "Tomorrow"],
+                  [{ kind: "next_week" }, "Next week"],
+                ] as Array<[ScheduleShortcut, string]>).map(([shortcut, label]) => (
+                  <button
+                    key={shortcut.kind}
+                    type="button"
+                    className="task-schedule-dialog__shortcut motion-interactive"
+                    data-task-schedule-shortcut={shortcut.kind}
+                    disabled={pending}
+                    onClick={() => void applyShortcut(shortcut)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+                <ScheduleCalendarStep
+                  selectedDate={scheduleLocalDate}
+                  todayDate={todayLocalDate}
+                  disabled={pending}
+                  onSelect={(localDate) => {
+                    setScheduleLocalDate(localDate);
+                    if (!existingRule) setStartsLocalDate(localDate);
+                  }}
+                />
+              </section>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="task-schedule-dialog__pick-date motion-interactive"
+                  data-task-schedule-control="pick-date"
+                  disabled={pending}
+                  onClick={() => setCalendarStep("date")}
+                >‹ PICK DATE</button>
             <section className="task-schedule-dialog__section" aria-labelledby="task-schedule-section-title">
               <div className="task-schedule-dialog__section-heading">
                 <div>
@@ -504,64 +563,76 @@ export function TaskScheduleDialog({
                 </button>
               </div>
 
-              <div className="task-schedule-dialog__shortcuts" aria-label="Schedule shortcuts">
-                {([
-                  [{ kind: "today" }, "Today"],
-                  [{ kind: "later_today" }, "Later today"],
-                  [{ kind: "tomorrow" }, "Tomorrow"],
-                  [{ kind: "next_week" }, "Next week"],
-                ] as Array<[ScheduleShortcut, string]>).map(([shortcut, label]) => (
-                  <button
-                    key={shortcut.kind}
-                    type="button"
-                    className="task-schedule-dialog__shortcut motion-interactive"
-                    data-task-schedule-shortcut={shortcut.kind}
-                    disabled={pending}
-                    onClick={() => void applyShortcut(shortcut)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
 
-              <div className="task-schedule-dialog__form-grid">
-                <label>
-                  <span className="type-metadata">Local date</span>
-                  <input
-                    type="date"
-                    value={scheduleLocalDate}
-                    disabled={pending}
-                    data-task-schedule-control="date"
-                    onChange={(event) => setScheduleLocalDate(event.target.value)}
-                    autoFocus
-                  />
-                </label>
-                <label className="task-schedule-dialog__check">
-                  <input
-                    type="checkbox"
-                    checked={scheduleUseTime}
-                    disabled={pending || !scheduleLocalDate}
-                    data-task-schedule-control="time-toggle"
-                    onChange={(event) => setScheduleUseTime(event.target.checked)}
-                  />
-                  <span>Add a specific time</span>
-                </label>
-                {scheduleUseTime ? (
-                  <label>
-                    <span className="type-metadata">Local time</span>
-                    <input
-                      type="time"
-                      value={scheduleLocalTime}
-                      disabled={pending}
-                      data-task-schedule-control="time"
-                      onChange={(event) => setScheduleLocalTime(event.target.value)}
-                    />
-                  </label>
-                ) : null}
-                <p className="task-schedule-dialog__timezone type-metadata">
-                  Timed schedules use {scheduleTimezone || displayTimezone}. Date-only schedules never round-trip through UTC.
-                </p>
+              <div className="task-schedule-dialog__date-summary" data-task-schedule-details="true">
+                <strong>{scheduleDescription}</strong>
               </div>
+              <div className="task-schedule-dialog__time-row">
+                <span className="type-metadata">Add Time</span>
+                <button
+                  type="button"
+                  className="task-schedule-dialog__text-action motion-interactive"
+                  data-task-schedule-control="time-toggle"
+                  disabled={pending || !scheduleLocalDate}
+                  onClick={() => {
+                    if (scheduleUseTime) {
+                      setScheduleUseTime(false);
+                      setScheduleLocalTime("");
+                    } else {
+                      setScheduleLocalTime((value) => value || "09:00");
+                      setScheduleUseTime(true);
+                    }
+                  }}
+                >
+                  {scheduleUseTime ? "× REMOVE" : "+ ADD"}
+                </button>
+              </div>
+              {scheduleUseTime ? (
+                <div className="task-schedule-dialog__inline-time" aria-label="Local time in hours minutes and AM or PM">
+                  <label>
+                    <span className="type-metadata">Hour</span>
+                    <select
+                      data-task-schedule-control="time"
+                      aria-label="Schedule hour"
+                      value={clockHour12}
+                      disabled={pending}
+                      onChange={(event) => updateInlineTime(Number(event.target.value), clockMinute, clockMeridiem)}
+                    >
+                      {Array.from({ length: 12 }, (_, index) => index + 1).map((hour) => (
+                        <option key={hour} value={hour}>{String(hour).padStart(2, "0")}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    <span className="type-metadata">Minute</span>
+                    <select
+                      aria-label="Schedule minute"
+                      value={clockMinute}
+                      disabled={pending}
+                      onChange={(event) => updateInlineTime(clockHour12, Number(event.target.value), clockMeridiem)}
+                    >
+                      {Array.from({ length: 60 }, (_, minute) => minute).map((minute) => (
+                        <option key={minute} value={minute}>{String(minute).padStart(2, "0")}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    <span className="type-metadata">AM / PM</span>
+                    <select
+                      aria-label="Schedule AM or PM"
+                      value={clockMeridiem}
+                      disabled={pending}
+                      onChange={(event) => updateInlineTime(clockHour12, clockMinute, event.target.value)}
+                    >
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                  </label>
+                </div>
+              ) : null}
+              <p className="task-schedule-dialog__timezone type-metadata">
+                Timed schedules use {scheduleTimezone || displayTimezone}. Date-only schedules never round-trip through UTC.
+              </p>
 
               <div className="task-schedule-dialog__section-actions">
                 <button
@@ -834,6 +905,8 @@ export function TaskScheduleDialog({
                 </div>
               ) : null}
             </section>
+              </>
+            )}
           </div>
         ) : null}
 
@@ -846,6 +919,18 @@ export function TaskScheduleDialog({
           >
             Cancel
           </button>
+          {snapshot && calendarStep === "date" ? (
+            <button
+              type="button"
+              className="task-schedule-dialog__primary motion-interactive"
+              data-task-schedule-control="next"
+              disabled={pending || !validCalendarDate(scheduleLocalDate)}
+              onClick={() => {
+                if (!existingRule) setStartsLocalDate(scheduleLocalDate);
+                setCalendarStep("details");
+              }}
+            >Next</button>
+          ) : null}
         </footer>
       </section>
     </div>

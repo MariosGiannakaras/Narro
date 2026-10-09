@@ -131,7 +131,8 @@
 
 .preference-settings__sound-control {
   display: grid;
-  grid-template-columns: minmax(150px, 1fr) 34px;
+  grid-template-columns: 34px 34px minmax(0, 1fr);
+  align-items: center;
   gap: var(--space-2);
   width: min(340px, 42vw);
 }
@@ -141,7 +142,8 @@
   width: 100%;
 }
 
-.preference-settings__sound-preview {
+.preference-settings__sound-preview,
+.preference-settings__sound-volume-trigger {
   display: grid;
   place-items: center;
   width: 34px;
@@ -154,32 +156,49 @@
   cursor: pointer;
 }
 
-.preference-settings__sound-preview:hover:not(:disabled) {
+.preference-settings__sound-preview:hover:not(:disabled),
+.preference-settings__sound-volume-trigger:hover:not(:disabled) {
   border-color: var(--color-border-strong);
   background: var(--color-surface-raised);
 }
 
-.preference-settings__sound-preview:disabled {
+.preference-settings__sound-preview:disabled,
+.preference-settings__sound-volume-trigger:disabled {
   cursor: default;
   opacity: 0.5;
 }
 
-.preference-settings__sound-volume {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 0;
+.preference-settings__sound-volume-owner {
+  position: relative;
 }
 
-.preference-settings__sound-volume > span {
-  flex: 0 0 auto;
+.preference-settings__sound-volume-popover {
+  position: absolute;
+  z-index: 10;
+  bottom: calc(100% + var(--space-2));
+  left: 0;
+  display: grid;
+  justify-items: center;
+  min-width: 3rem;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
+.preference-settings__sound-volume {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
   color: var(--color-text-secondary);
 }
 
 .preference-settings__sound-volume input[type="range"] {
-  width: 100%;
-  min-width: 120px;
+  width: 1.5rem;
+  height: 8rem;
+  writing-mode: vertical-lr;
+  direction: rtl;
   accent-color: var(--color-accent-solid);
 }
 
@@ -190,6 +209,7 @@
 }
 
 .preference-settings__sound-preview:focus-visible,
+.preference-settings__sound-volume-trigger:focus-visible,
 .preference-settings__sound-volume input[type="range"]:focus-visible {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 2px;
