@@ -59,7 +59,7 @@ for (const [haystack, needle, label] of [
   [component, 'data-board-add-slot="bottom"', "production bottom add region"],
   [component, "data-board-add-task={pendingLane}", "pending-lane Add Task target"],
   [component, "aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds", "remaining estimate presentation"],
-  [component, 'laneKey === "today" ? <BlitzEntryButton /> : null', "Today-lane Blitz entry placement"],
+  [component, 'laneKey === "today" ? <BlitzEntryButton visuallyMuted={!hasActionableTodayPreview(lane.tasks)} /> : null', "Today-lane Blitz entry presentation is advisory only"],
   [component, "pendingLane !== null && !aggregateView", "Done and All Lists create exclusion"],
   [component, 'data-board-add-task-top={pendingLane}', "top-priority Add Task target"],
   [component, 'data-done-month-count=', "Done local-month count marker"],

@@ -3,7 +3,7 @@ import { formatInvokeError } from "./diagnosticApi";
 import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
 import "./blitzEntryButton.css";
 
-export function BlitzEntryButton() {
+export function BlitzEntryButton({ visuallyMuted = false }: { visuallyMuted?: boolean }) {
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +42,8 @@ export function BlitzEntryButton() {
   };
 
   return (
-    <section className="blitz-entry" aria-label="Blitz entry" data-blitz-entry="today-lane">
+    <section className="blitz-entry" aria-label="Blitz entry" data-blitz-entry="today-lane"
+      data-blitz-entry-muted={visuallyMuted ? "true" : "false"}>
       <button
         type="button"
         className="blitz-entry__button"

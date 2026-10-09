@@ -44,6 +44,7 @@ import { groupCompletedBoardTasks } from "./boardDoneGroups";
 import { parseMetricDuration } from "./metricDurationInput";
 import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
+import { hasActionableTodayPreview } from "./blitzEntryPresentation";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
@@ -770,7 +771,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">{laneKey === "today" ? "No Tasks" : "No tasks"}</div>
+          <div className="list-board-lane__empty type-metadata">{pendingLane !== null ? "All Clear" : "No tasks"}</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -816,7 +817,7 @@ function BoardLane({
         />
       )}
 
-      {laneKey === "today" ? <BlitzEntryButton /> : null}
+      {laneKey === "today" ? <BlitzEntryButton visuallyMuted={!hasActionableTodayPreview(lane.tasks)} /> : null}
     </section>
   );
 }
