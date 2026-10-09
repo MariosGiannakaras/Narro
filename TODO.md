@@ -1,5 +1,22 @@
 # TODO.md
 
+## Fixed pre-Codex implementation inventory — 2026-10-09 user X/Y request
+
+**Progress: 0/8 validated and merged implementation units.** This is the complete currently evidence-backed **coding/CI integration queue** before handing the latest coherent candidate to the separately paused Codex physical agent. Mark X only after exact-head required CI PASS, guarded merge, and necessary main/source validation. PR opened/code submitted/old CI PASS does not count. No Codex native test, source-visual M11 comparison, or release M10 is counted; do not alter Y without a newly demonstrated code gap or product decision, and explain any change.
+
+- [ ] **I01 — M6 B67 #280:** signed, warm negative overtime clock in Focus/Floating; forward-reconcile older failed CI branch with modern main and #299 action changes, exact-head CI/merge.
+- [ ] **I02 — M9 B32 #286:** Sessions detail focus/modal lifecycle and keyboard state, fix verified Windows fixture capture cause, exact-head CI/merge.
+- [ ] **I03 — M8 B21 #295:** full Preferences monitor thumbnails, modern main dependency reconciliation (#294 shortcut modal and #288 labels), exact-head CI/merge.
+- [ ] **I04 — M8 B22 #298:** accessible IANA/GMT timezone chooser, preserve newer Preferences and tested save behavior, exact-head CI/merge.
+- [ ] **I05 — M6 B50 #299:** replace ordinary Pause with contextual Extend only at Time's Up, five real slots, align all fixtures/validators and Windows CI/merge.
+- [ ] **I06 — M8 B57 #300:** Preferences information markers, reconcile after other Preferences edits, exact-head CI/merge.
+- [ ] **I07 — M6 B49:** evidenced Focus active-card hover/focus action grammar with accessible stable hit targets; coordinate with I05 and I01; automated CI/merge.
+- [ ] **I08 — M6 B63:** in-place Focus success composition preserving queue/header/next-task/committed ledger; depends on active-card composition I07; automated CI/merge.
+
+**Prevention:** inspect exact failure history before code change; adjust stale source-string/fixture acceptance tests in the *same PR* where UI state changes; preflight matching presentation states (ordinary, paused, time_up, overtime, both themes) before costly Windows captures; preserve failed visual artifacts and failure diagnostics; do not weaken acceptance criteria to mask real defects; retain user-approved List Editor unchanged. Record NOT RUN precisely when no local runner exists.
+
+**Explicit nonblocking routes:** B47/B70 keep currently coherent, persisted insertion/manual-lane semantics absent verified contrary modern functional evidence; B35/B36/B38 older-version-only visual differences defer exact source inspection to optional explicit M11, not invented pre-Codex code. B44/B56 Narro-local numeric formulas already merged, not open implementation; source appearance to M11. Known M7 C4/Finding35, DPI, Windows notifications, Sessions pending native focus and motion belong to Codex physical gate, not to this X/Y. The separate M11 has NOT been activated.
+
 ## Active 2026-10-09 reconciliation — CI policy, implemented functional defaults, physical handoff
 
 - **Next exact-source validation checkpoint:** #298 B22 forward-merge head `418c6df11dd78a76f0482633f72c4490d45f956b` run `37968876485` IN PROGRESS; #299 B50 test-only correction head `424cc988644ece1d6ce5bc89fd8e7c2cec10cb56` run `37968363127` IN PROGRESS; #286 B32 diagnostic-only correction head `fa8ff721b85e63b5e0d0202058abdf90381454a4` run `37969315839` IN PROGRESS. #300 original exact head full CI `37965486561` SUCCESS but open/source overlap; #295 CI failed before #294 main source; #280 old Windows CI failure. None of the new heads has proven full PASS/merge. Inspect on subsequent user message or when required, not by idle polling. Immutable diagnostics `work-log/2026-10-09-chatgpt-b22-b50-b32-forward-reconciliation.md`.
