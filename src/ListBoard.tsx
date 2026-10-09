@@ -45,7 +45,7 @@ import { parseMetricDuration } from "./metricDurationInput";
 import { BoardListPicker } from "./BoardListPicker";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
-import { parseEstimateSuffix } from "./taskEstimateParser";
+import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import { getTaskScheduleEditor, removeTaskRecurrence } from "./taskScheduleApi";
@@ -255,6 +255,7 @@ function DropPlaceholder({ height }: { height?: number }) {
 function InlineCreateEditor({
   title,
   est,
+  autoParseEstFromTitle,
   pending,
   resetOrdinal,
   laneTitle,
@@ -265,6 +266,7 @@ function InlineCreateEditor({
 }: {
   title: string;
   est: string;
+  autoParseEstFromTitle: boolean;
   pending: boolean;
   resetOrdinal: number;
   laneTitle: string;
@@ -274,6 +276,7 @@ function InlineCreateEditor({
   onCancel: () => void;
 }) {
   const titleRef = useRef<HTMLInputElement>(null);
+  const liveEstimatePreview = inlineEstimateSuffixPreview(title, est, autoParseEstFromTitle);
   useEffect(() => {
     if (!pending && resetOrdinal > 0) titleRef.current?.focus();
   }, [pending, resetOrdinal]);
@@ -309,8 +312,12 @@ function InlineCreateEditor({
       <label className="list-board-task-create__field list-board-task-create__field--est">
         <span className="type-metadata">EST (optional)</span>
         <input
-          value={est}
+          value={liveEstimatePreview ?? est}
           onChange={(event) => onEstChange(event.target.value)}
+          onFocus={(event) => {
+            // First manual keystroke replaces the suggestion, not the draft.
+            if (liveEstimatePreview !== null) event.currentTarget.select();
+          }}
           onKeyDown={(event) => {
             if (event.key !== "Escape" || pending) return;
             event.preventDefault();
@@ -321,6 +328,7 @@ function InlineCreateEditor({
           disabled={pending}
           aria-label={`New ${laneTitle} task EST`}
           data-task-create-est="true"
+          data-task-create-est-preview={liveEstimatePreview !== null ? "live" : "none"}
         />
       </label>
       <div className="list-board-task-create__actions">
@@ -347,6 +355,7 @@ function BoardLane({
   canChangeListTask,
   timerPayload,
   hideTaskTimes,
+  autoParseEstFromTitle,
   editorState,
   editorMutationPending,
   dragState,
@@ -396,6 +405,7 @@ function BoardLane({
   canChangeListTask: (task: ListBoardTask) => boolean;
   timerPayload: TimerSessionPayload | null;
   hideTaskTimes: boolean;
+  autoParseEstFromTitle: boolean;
   editorState: TaskEditorState | null;
   editorMutationPending: boolean;
   dragState: DragState | null;
@@ -541,6 +551,7 @@ function BoardLane({
           <InlineCreateEditor
             title={createEditor.title}
             est={createEditor.est}
+            autoParseEstFromTitle={autoParseEstFromTitle}
             pending={editorMutationPending}
             resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
@@ -761,6 +772,7 @@ function BoardLane({
           <InlineCreateEditor
             title={createEditor.title}
             est={createEditor.est}
+            autoParseEstFromTitle={autoParseEstFromTitle}
             pending={editorMutationPending}
             resetOrdinal={createEditor.resetOrdinal}
             laneTitle={title}
@@ -2092,6 +2104,7 @@ export function ListBoard({
             canChangeListTask={(task) => selectorOptions.some((option) => option.id !== task.listId)}
             timerPayload={timerPayload}
             hideTaskTimes={hideTaskTimes}
+            autoParseEstFromTitle={autoParseEstFromTitle}
             editorState={editorState}
             editorMutationPending={editorMutationPending}
             dragState={displayedDragState}
