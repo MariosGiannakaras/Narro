@@ -261,7 +261,7 @@ invariant(actions.includes('extendEnabled: timer.state === "time_up"'), "Extend 
 invariant(actions.indexOf('data-focus-action="break"') < actions.indexOf('data-focus-action="notes"'), "Break must precede Notes in action strip");
 invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-focus-action="pause-resume"'), "Notes must precede Pause/Resume in action strip");
 invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
-invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-focus-action="extend"'), "Skip must precede Extend in action strip");
+invariant(actions.indexOf('data-focus-action="extend"') < actions.indexOf('data-focus-action="skip"'), "Contextual Extend must share the third action slot before Skip");
 invariant(actions.indexOf('data-focus-action="extend"') < actions.indexOf('data-focus-action="done"'), "Extend must precede Done in action strip");
 invariant(panel.includes('data-focus-add-task="open"'), "Focus Add Task must expose its production open control");
 invariant(panel.includes('data-focus-add-task="editor"'), "Focus Add Task must expose its persisted editor");
