@@ -1,0 +1,75 @@
+.preference-timezone {
+  display: grid;
+  gap: var(--space-2);
+  width: min(330px, 44vw);
+  min-width: 0;
+}
+
+.preference-timezone > select {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.preference-timezone__custom {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+}
+
+.preference-timezone__custom > label {
+  color: var(--color-text-secondary);
+}
+
+.preference-timezone__custom > input {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.preference-timezone__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.preference-timezone__actions button {
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  cursor: pointer;
+}
+
+.preference-timezone__actions button:last-child {
+  border-color: var(--color-accent-solid);
+}
+
+.preference-timezone__actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.preference-timezone__actions button:focus-visible,
+.preference-timezone__custom input:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.preference-timezone__error {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 720px) {
+  .preference-timezone {
+    width: 100%;
+  }
+}
