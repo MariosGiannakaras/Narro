@@ -63,11 +63,14 @@ const restStart = coordinator.indexOf("const takeRestBetweenTasks = () => {");
 const restEnd = coordinator.indexOf("const sharedTimerProjection =", restStart);
 const restHandler = coordinator.slice(restStart, restEnd);
 assert.ok(restStart >= 0 && restEnd > restStart
+  && restHandler.includes("await snapshotTimerSession()")
+  && restHandler.includes('timer.state !== "idle"')
   && restHandler.includes("setCompletionSuccess(null)")
+  && restHandler.includes("setCompletionSuccessPending(true)")
+  && restHandler.includes("setCompletionSuccessError(formatInvokeError(failure))")
   && restHandler.includes("No task timer is running")
-  && !restHandler.includes("startTimerTask(")
-  && !restHandler.includes("startManualBreakTimer(")
-  && coordinator.includes("onTakeBreak={takeRestBetweenTasks}"),
+  && restHandler.includes("requestAnimationFrame(")
+  && coordinator.includes("onTakeBreak={() => void takeRestBetweenTasks()}"),
   "untimed rest must preserve committed success ledger and never invent a live work/break session");
 
 const successFixture = read("src/focusPanelVisualFixture.tsx");

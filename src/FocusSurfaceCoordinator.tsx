@@ -639,11 +639,27 @@ export function FocusSurfaceCoordinator() {
   // A successful Done has already committed and released its timer session.
   // An untimed rest is the safest local "Take a Break" behavior: do not
   // create a phantom work session merely to call manual-break on an idle timer.
-  const takeRestBetweenTasks = () => {
-    if (completionSuccessPending) return;
-    setCompletionSuccess(null);
+  const takeRestBetweenTasks = async () => {
+    if (!completionSuccess || completionSuccessPending) return;
+    setCompletionSuccessPending(true);
     setCompletionSuccessError(null);
-    setShortcutStatus("Break time. No task timer is running; start another task when ready.");
+    try {
+      const authoritative = await snapshotTimerSession();
+      if (authoritative.runtime.timer.state !== "idle" || authoritative.runtime.timer.task_id !== null) {
+        throw new Error("Another task is already active. Close success to return to that task.");
+      }
+      // Deliberately no startTimerTask/startManualBreakTimer: the completed
+      // task's session is already committed; an untimed rest changes no ledger.
+      setCompletionSuccess(null);
+      setShortcutStatus("Break time. No task timer is running; start another task when ready.");
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({preventScroll: true});
+      });
+    } catch (failure: unknown) {
+      setCompletionSuccessError(formatInvokeError(failure));
+    } finally {
+      setCompletionSuccessPending(false);
+    }
   };
   const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
@@ -688,7 +704,7 @@ export function FocusSurfaceCoordinator() {
               <FocusCompletionSuccess inline state={completionSuccess}
                 pending={completionSuccessPending} error={completionSuccessError}
                 onNextTask={() => void startNextTaskFromSuccess()}
-                onTakeBreak={takeRestBetweenTasks}
+                onTakeBreak={() => void takeRestBetweenTasks()}
                 onClose={closeCompletionSuccess} />
             ) : null}
           />
@@ -731,7 +747,7 @@ export function FocusSurfaceCoordinator() {
           pending={completionSuccessPending}
           error={completionSuccessError}
           onNextTask={() => void startNextTaskFromSuccess()}
-          onTakeBreak={takeRestBetweenTasks}
+          onTakeBreak={() => void takeRestBetweenTasks()}
           onClose={closeCompletionSuccess}
         />
       ) : null}
