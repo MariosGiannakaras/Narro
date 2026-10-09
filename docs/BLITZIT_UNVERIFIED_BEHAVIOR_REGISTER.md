@@ -1,6 +1,14 @@
 # Unverified Blitzit behavior register — implementation decisions and later source checks
 
-**Status:** active pre-M11 implementation uncertainty register; 41 concrete checks, all source-review gates OPEN. First established 2026-10-09. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+**Status:** active pre-M11 implementation uncertainty register; 41 concrete checks, all source-review gates OPEN. First established 2026-10-09; 2026-10-09 product/CI policy clarified. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+
+## Decision reconciliation — 2026-10-09 (binding)
+
+- **Underlying/hidden functionality unknown:** Narro engineers choose the best deterministic, safe, locally implementable behavior, and test its actual contract. Do not defer an ordinary functional choice just because Blitzit internals are unavailable. Mark such behavior `NARRO_INFERRED` or `USER_APPROVED`, not `BLITZIT_CONFIRMED`. Protect proven domain/data/timer invariants; a known contradiction or real product flaw is still actionable.
+- **Unknown appearance/microvisuals:** retain `SOURCE_VISUAL_OPEN` for a future **explicitly activated M11 live Blitzit comparison**. Do not block consolidated Narro Windows physical checks on purely unseen Blitzit pixels. **M11 is dormant**; this decision does not activate or schedule capture and does not supersede required M1–M9 acceptance gates.
+- **Approved Create/Edit List UI is final Narro-owned design:** the archived Spectrum Core color picker, custom image choice and 218-icon chooser are **not candidates for Blitzit-driven change**. U01/U02 are provenance records only, not future UI-remediation tickets; protect the approved look/flow even if M11 later observes a different original picker. Correct only evidence-backed defects without changing this user-approved design.
+- **Status rule:** an automated PASS validates Narro's chosen functional contract but never proves unobserved Blitzit internals. Once an inferred functional contract is implemented/tested and safe, it need not remain an *implementation blocker* merely to learn Blitzit's private mechanics; retain only genuinely open visual, contradictory, unimplemented, native, and source-comparison gates.
+- **CI cadence correction:** check Actions at useful checkpoints, especially after the user sends a new message, but do not idle or continuously poll while useful independent work exists. Earlier 'do not check until user explicitly reports completion' text elsewhere is superseded.
 
 ## Purpose and exact rules
 
