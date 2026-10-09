@@ -42,6 +42,8 @@ const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 assert.ok(panel.includes('data-focus-success-inline-card="true"')
   && panel.includes('{completionSuccessContent}'),
   "B63 success must render as the active card while preserving the Focus queue");
+assert.ok(coordinator.includes("if (inlineSuccess)") && coordinator.includes('[data-focus-list-selector="true"]'),
+  "B63 inline Close must restore keyboard focus to a stable visible Focus selector");
 assert.ok(coordinator.includes('completionSuccessContent={inlineSuccess && completionSuccess ? (')
   && coordinator.includes('completionSuccess && !inlineSuccess ? ('),
   "B63 Panel success is inline; Floating success keeps the established overlay");
