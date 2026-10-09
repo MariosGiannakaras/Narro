@@ -25,6 +25,7 @@ import {
 } from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
 import { PreferencesDialog } from "./PreferencesDialog";
+import { WindowsShortcutsDialog } from "./WindowsShortcutsDialog";
 import { snapshotTimerSession } from "./timerSessionApi";
 import "./appShell.css";
 
@@ -127,6 +128,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [searchMode, setSearchMode] = useState<SearchPaletteMode>("search");
   const [shortcutFeedback, setShortcutFeedback] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
@@ -258,10 +260,12 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   function handleNavigate(destination: AppDestination) {
     if (destination === "settings") {
       setSearchOpen(false);
+      setShortcutsOpen(false);
       setPreferencesOpen(true);
       return;
     }
     setPreferencesOpen(false);
+    setShortcutsOpen(false);
     if (destination === "search") {
       setSearchMode("search");
       setSearchOpen(true);
@@ -414,8 +418,20 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
       {preferencesOpen ? (
         <PreferencesDialog onRequestClose={() => setPreferencesOpen(false)}>
-          <ThemeSettingsPanel />
+          <ThemeSettingsPanel onOpenShortcuts={() => {
+            // Only one modal owns Main at a time; preserve the underlying
+            // board/report destination while switching to the dedicated dialog.
+            setPreferencesOpen(false);
+            setShortcutsOpen(true);
+          }} />
         </PreferencesDialog>
+      ) : null}
+
+      {shortcutsOpen ? (
+        <WindowsShortcutsDialog onRequestClose={() => {
+          setShortcutsOpen(false);
+          setPreferencesOpen(true);
+        }} />
       ) : null}
 
       {editorState ? (

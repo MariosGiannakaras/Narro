@@ -1,5 +1,13 @@
 # Audit → implementation crosswalk
 
+## 2026-10-09 latest user interpretation — binding for open/source-unknown dispositions
+
+- **Functional internals not observable:** implement the best deterministic, reliable local-first Narro contract, with validation and provenance. The fact that Blitzit's private rule is not documented does **not** make an otherwise safe, implemented functional choice permanently `FIX_NOW` or `PRODUCT_DECISION_REQUIRED`. Never claim that an inferred Narro rule is confirmed Blitzit behavior.
+- **Unknown source visual details:** route as `EVIDENCE_LIMIT / M11_DEFERRED`, not a speculative pixel implementation or prerequisite to the consolidated **Narro** physical Windows acceptance run. **Known evidenced UI differences remain ordinary required fixes.** The optional live Blitzit M11 must be explicitly activated later; this is not an activation.
+- **Approved Narro Create/Edit List exception:** final Spectrum Core custom color picker, image selection and 218-icon catalogue remain the user-owned UI contract, not an outstanding Blitzit conformity issue. #282 source integrated; #285 icon contrast fixed and Windows CI green/merged. Preserve approved flow/appearance.
+- **Integration updates verified:** #296 B44 locally inferred This Week progress (exact-head Windows run 37964404603 PASS, merged `c3eff12da7c17a4172cbef7c0d1e42689043cba3`); #288 B58 titles (run 37922790771 PASS, merged `1b8c895bf72638727d703219debe229abc8fbd76`); #285 (run 37917252663 PASS, merged `b68942aa4149941742e646be3e1c028485c9440f`). Exact source parity and current packaged/native acceptance remain independently OPEN where applicable. Future agents must reconcile older historical rows against this section and live GitHub, never rerun completed code merely due a stale row.
+- **CI cadence corrected:** checking Actions is allowed/required at useful checkpoints and on any new user message; only long passive waiting/tight polling is discouraged.
+
 ## Current physical batch closure — CI1046, 2026-10-08
 
 [Complete evidence, exact chronology, scope limits and restored-state proof](../work-log/evidence/ci1046-physical-20261008/README.md#final-batch-closure--user-requested-stop-2026-10-08). No Narro source changes or new build. Exact CI1046 candidate remains unchanged; newer main documentation findings are preserved.
