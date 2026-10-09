@@ -33,6 +33,7 @@ const mode = [
   "sessions-detail",
   "sessions-add",
   "sessions-add-keyboard",
+  "sessions-detail-keyboard",
 ].includes(requestedMode ?? "")
   ? requestedMode!
   : "overview";
@@ -298,13 +299,58 @@ function ReportsAddSessionKeyboardFixture() {
   );
 }
 
+
+function ReportsDetailKeyboardFixture() {
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    triggerRef.current?.focus();
+    setDetailOpen(true);
+  }, []);
+
+  return (
+    <>
+      <button ref={triggerRef} type="button" data-report-detail-keyboard-trigger="true"
+        onClick={() => setDetailOpen(true)}>Open task session detail</button>
+      <button hidden type="button" aria-pressed={pending} data-report-detail-keyboard-pending="true"
+        onClick={() => setPending((previous) => !previous)}>Toggle pending</button>
+      {detailOpen && !addOpen ? (
+        <ReportTaskSessionsDialog
+          detail={taskDetail}
+          pendingSessionId={pending ? "session-01" : null}
+          onClose={() => setDetailOpen(false)}
+          onAddSession={() => setAddOpen(true)}
+          onCommitEndTime={async () => true}
+          onDelete={() => undefined}
+        />
+      ) : null}
+      {addOpen ? (
+        <ReportAddSessionDialog
+          tasks={addTasks}
+          draft={{ ...addDraft, taskId: "task-email" }}
+          pending={false}
+          error={null}
+          onDraftChange={() => undefined}
+          onClose={() => setAddOpen(false)}
+          onCommit={() => setAddOpen(false)}
+        />
+      ) : null}
+    </>
+  );
+}
+
 const root = document.getElementById("root");
 if (!root) throw new Error("Reports fixture root is missing.");
 
 flushSync(() => {
   const sessionMode = mode.startsWith("sessions-");
   createRoot(root).render(
-    mode === "sessions-add-keyboard" ? (
+    mode === "sessions-detail-keyboard" ? (
+      <ReportsDetailKeyboardFixture />
+    ) : mode === "sessions-add-keyboard" ? (
       <ReportsAddSessionKeyboardFixture />
     ) : sessionMode ? (
       <>
