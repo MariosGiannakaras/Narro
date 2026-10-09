@@ -46,6 +46,7 @@ export type ListBoardSnapshot = {
   today: ListBoardLane;
   done: ListBoardLane;
   todayCompletionCount: number;
+  thisWeekCompletionCount: number;
   doneMonthCompletionCount: number;
 };
 
