@@ -1,6 +1,6 @@
 # Unverified Blitzit behavior register — implementation decisions and later source checks
 
-**Status:** active pre-M11 implementation uncertainty register; 40 concrete checks, all source-review gates OPEN. First established 2026-10-09. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+**Status:** active pre-M11 implementation uncertainty register; 41 concrete checks, all source-review gates OPEN. First established 2026-10-09. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
 
 ## Purpose and exact rules
 
@@ -56,10 +56,11 @@ This register is a **review index**, not another roadmap, shadow TODO, or proof 
 | U38 | Finding37 | Take a Break action after success | Visible label/unavailable state, not post-click contract. | Do not wire speculative timer mutation as an unexplained action. | Click current available source affordance and record task/break/session transition. | PRODUCT_DECISION_REQUIRED |
 | U39 | B61 | All Clear empty-lane presentation | Older source shows centered All Clear; contemporary copy or click response unknown. | Existing Narro empty copy differs; low-risk source copy candidate. | Inspect each empty lane with and without scheduled future tasks. | PR287_INTEGRATED__VERSION_OPEN |
 | U40 | B62 | Today Add vs eligibility state | Empty CTA visuals and task-add affordances visible; no direct empty click or moving-task edge protocol. | Use authoritative Rust eligibility for actual start; local visual cues not a second authority. | Move pending/completed/scheduled tasks in/out of Today and test click timing. | PR287_INTEGRATED__RUST_AUTHORITY_RETAINED |
+| U41 | B4 | Done: next-task auto-start when success screen disabled | Existing source evidence establishes some success-screen-enabled path, but actual Blitzit task-advance rule when the success screen is OFF is not demonstrated. | Current `FocusLiveActions.handleDone` commits completion, then starts the next eligible task when success screen is OFF; when ON it passes next-task identity into a success gate. The continuation is a bounded, explicit Narro behavior with authoritative timer writes; no source equality claimed. | In current Blitzit enable/disable success screen, complete tasks with multiple eligible, none eligible, paused/active timers, and break; record whether next begins immediately, after success dismissal, or not at all and how failures recover. | CODE_PRESENT__SOURCE_DISABLED_SUCCESS_AUTO_ADVANCE_UNKNOWN |
 
 ## Maintenance and completion
 
 - If a new implementation decision is made, update its B crosswalk entry and the matching U row together; immutable work logs retain prior evidence. Record PR/head/CI/merge separately from user-facing source verification.
 - New material gaps get a new stable U ID with precise source modality/version, corresponding B/Finding route and reproducible observation question. Do not multiply the same issue under different IDs.
-- The **40 rows are an index of source-uncertain claims**, not 40 claimed implementation defects, 40 separate branches, or a milestone percentage. Some already have working/CI-green Narro code; some source-visible controls remain undone; others are inaccessible product behaviors or exact UI states. Review status is OPEN in every case until actual Blitzit evidence resolves the specific claim.
+- The **41 rows are an index of source-uncertain claims**, not 40 claimed implementation defects, 40 separate branches, or a milestone percentage. Some already have working/CI-green Narro code; some source-visible controls remain undone; others are inaccessible product behaviors or exact UI states. Review status is OPEN in every case until actual Blitzit evidence resolves the specific claim.
 - Do not silently change approved user-directed Narro choices (the final Spectrum Core HTML and offline icon palette) even if later source research shows Blitzit differs; require an explicit user decision for changing that approved Narro design.
