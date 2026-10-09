@@ -1321,3 +1321,45 @@
     transition-duration: 0ms;
   }
 }
+
+/* The dated schedule row is informative. Only the right-side X is an
+   actionable menuitem, avoiding accidental removal by clicking the date. */
+.list-board-task__quick-unschedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 0;
+  width: 100%;
+  min-height: 2rem;
+  padding-inline: var(--space-2);
+}
+
+.list-board-task__quick-unschedule-row .overlay-menu__item {
+  flex: none;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 50%;
+  background: transparent;
+  justify-content: center;
+}
+
+.list-board-task__quick-unschedule-date {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-board-task__quick-unschedule-x {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+}

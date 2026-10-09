@@ -280,13 +280,15 @@ export interface MenuItemProps {
   destructive?: boolean;
   onSelect: () => void;
   closeOnSelect?: boolean;
+  ariaLabel?: string;
 }
 
-export function MenuItem({ children, disabled = false, destructive = false, onSelect, closeOnSelect = true }: MenuItemProps) {
+export function MenuItem({ children, disabled = false, destructive = false, onSelect, closeOnSelect = true, ariaLabel }: MenuItemProps) {
   return (
     <button
       type="button"
       role="menuitem"
+      aria-label={ariaLabel}
       data-menu-close-on-select={closeOnSelect ? "true" : "false"}
       className="overlay-menu__item motion-interactive"
       data-destructive={destructive ? "true" : "false"}
