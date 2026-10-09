@@ -116,7 +116,7 @@
 }
 .focus-panel__live-actions > button svg { flex: none; }
 .focus-panel__live-action-label { display: none; white-space: nowrap; }
-.focus-panel__live-card .focus-panel__live-actions > button:is(:hover, :focus-visible):not(:disabled) {
+.focus-panel__live-card .focus-panel__live-actions > button:is(:hover, :focus, :focus-visible):not(:disabled) {
   z-index: 4;
   width: max-content;
   min-width: 100%;
@@ -124,8 +124,8 @@
   background: var(--color-surface-interactive);
   color: var(--color-text-primary);
 }
-.focus-panel__live-actions > button:is(:hover, :focus-visible) .focus-panel__live-action-label { display: inline; }
-.focus-panel__live-actions > button:last-child:is(:hover, :focus-visible) { justify-self: end; }
+.focus-panel__live-actions > button:is(:hover, :focus, :focus-visible) .focus-panel__live-action-label { display: inline; }
+.focus-panel__live-actions > button:last-child:is(:hover, :focus, :focus-visible) { justify-self: end; }
 .focus-panel__live-actions > button:disabled { opacity: 0.52; }
 @media (prefers-reduced-motion: reduce) {
   .focus-panel__live-heading,
