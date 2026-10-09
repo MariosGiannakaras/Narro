@@ -36,5 +36,5 @@ assert.ok(source.includes("<FocusCelebrationReaction taskId={state.completedTask
 assert.ok(reaction.includes('data-focus-success-reaction="true"'), "reaction DOM contract is missing");
 assert.ok(css.includes("@media (prefers-reduced-motion:reduce)"), "reduced-motion behavior must remain effective");
 assert.ok(css.includes("focus-reaction-spark") && css.includes("animation:"), "reaction requires finite local animation");
-assert.ok(!/https?:\\/\\//i.test(reaction), "reaction presentation must not request remote content");
+assert.ok(!reaction.includes("http://") && !reaction.includes("https://"), "reaction presentation must not request remote content");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");
