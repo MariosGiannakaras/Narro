@@ -1,5 +1,17 @@
 # HANDOFF — ChatGPT M5 programming fixes; consolidated Windows physical acceptance later
 
+## LATEST handoff — 1/8 accepted before Codex; 2026-10-09
+
+**Fixed X/Y implementation counter = 1/8**, not full milestone/native-completion fraction. I04 #298 B22 timezone guarded-merged `2f0620295ff4588163e6bbf2e57b9fd1475bfa15` after **all-three-job SUCCESS** for exact head `418c6df11dd78a76f0482633f72c4490d45f956b`, CI `37968876485`. Older 0/8 notes below are historical and superseded. I01/I02/I03/I05/I06/I07/I08 OPEN.
+
+**Exact live pending heads/run IDs:**
+- I05 #299 B50 `40f32547d45ed41ef4fdd0091fa8b8ba398001b2`, run `37988538379` (validation+fast PASS, Windows candidate IN PROGRESS at last check). The last exact Windows FAIL `37972348897` was stale `validate-focus-action-slot-captures.mjs` still demanding ordinary sixth Extend. Reconciled to five slots + fast regression guard, no React behavior change.
+- I02 #286 B32 `ce909c4181e6e7524001d7c6f91b130c91621349`, canceled Windows candidate `37972566849` re-run of only Windows job `113964653966` accepted; rerun IN PROGRESS. Original complete fixture analysis and corrected reopened visible dialog are preserved. No physical CI PASS.
+- I03 #295 B21 `3b11e37c88c4e51c1f062391a8ce85fc73e65964`, run `37988686663` validation PASS, fast IN PROGRESS. Forward 2-parent main reconciliation preserved I04 timezone + dedicated Shortcuts, only monitor UI, CSS and tests altered.
+- I06 #300 original head Windows all-success but main/Preferences overlaps; **do not merge before #295** and forward reconcile before green claim.
+- I01 #280 old Focus head still old Windows FAIL; forward reconcile **after #299** green integration. I07 B49 then I08 B63 depend on Focus structure and require independent implementation/CI/merge; Codex physical remains paused. M11 Blitzit physical comparison dormant.
+- **Next action:** check above real CI at next useful checkpoint/user message; guarded merge exact green heads preserving newest docs. Continue dependency-safe source; never idle/tight poll a long Actions candidate. Log `work-log/2026-10-09-chatgpt-after-ci-results-one-of-eight.md`.
+
 ## TOP CURRENT RESUME — fixed 0/8 pre-Codex coding scope (2026-10-09)
 
 **User-required compact counter: 0/8** validated-and-guarded-merged source units, **not** 0/8 whole Narro milestones or physical Codex checks. The eight individually numbered units, completion conditions, exclusions and CI-prevention obligations are frozen in the topmost `TODO.md`: I01 #280 B67; I02 #286 B32; I03 #295 B21; I04 #298 B22; I05 #299 B50; I06 #300 B57; I07 B49; I08 B63. Do not relabel numerator for proposed code or initial green PR-head without merge. If a newly proven code gap changes denominator, explicitly justify. The user wants practical remaining coding work **before** unpausing Codex, not older PR-batch fractions.
