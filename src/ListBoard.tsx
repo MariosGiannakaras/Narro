@@ -361,6 +361,7 @@ function BoardLane({
   displayTimezone,
   doneMonthCompletionCount,
   todayProgress,
+  thisWeekProgress,
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
@@ -412,6 +413,7 @@ function BoardLane({
   displayTimezone: string;
   doneMonthCompletionCount?: number;
   todayProgress?: { done: number; total: number };
+  thisWeekProgress?: { done: number; total: number };
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
@@ -487,6 +489,8 @@ function BoardLane({
   const scheduledGroupCount = visibleTasks.filter(
     (task) => boardTaskSubgroup(task) === "scheduled",
   ).length;
+  const laneProgress = laneKey === "today" ? todayProgress
+    : laneKey === "thisWeek" ? thisWeekProgress : undefined;
 
   return (
     <section
@@ -508,24 +512,25 @@ function BoardLane({
               ? `${doneMonthCompletionCount} completed this month`
               : `${lane.count} ${lane.count === 1 ? "task" : "tasks"}`}
           </span>
-          {laneKey === "today" && todayProgress ? (
+          {laneProgress ? (
             <div
               className="list-board-lane__progress"
-              data-today-progress="true"
-              aria-label={`${todayProgress.done} of ${todayProgress.total} tasks done`}
+              data-today-progress={laneKey === "today" ? "true" : undefined}
+              data-week-progress={laneKey === "thisWeek" ? "true" : undefined}
+              aria-label={`${laneProgress.done} of ${laneProgress.total} tasks done`}
             >
               <span className="list-board-lane__progress-track" aria-hidden="true">
                 <span
                   className="list-board-lane__progress-fill"
                   style={{
-                    width: `${todayProgress.total === 0
+                    width: `${laneProgress.total === 0
                       ? 0
-                      : Math.min(100, Math.round((todayProgress.done / todayProgress.total) * 100))}%`,
+                      : Math.min(100, Math.round((laneProgress.done / laneProgress.total) * 100))}%`,
                   }}
                 />
               </span>
               <span className="list-board-lane__progress-label type-metadata">
-                {todayProgress.done}/{todayProgress.total} Done
+                {laneProgress.done}/{laneProgress.total} Done
               </span>
             </div>
           ) : null}
@@ -1148,6 +1153,12 @@ export function ListBoard({
   const todayProgress = {
     done: todayDone,
     total: todayDone + Math.max(0, snapshot.today.count),
+  };
+  // Independent This Week lane: do not infer a historical Today-superset formula.
+  const thisWeekDone = Math.max(0, snapshot.thisWeekCompletionCount);
+  const thisWeekProgress = {
+    done: thisWeekDone,
+    total: thisWeekDone + Math.max(0, snapshot.thisWeek.count),
   };
 
   const markSettling = (taskId: string) => {
@@ -2166,6 +2177,7 @@ export function ListBoard({
             displayTimezone={snapshot.displayTimezone}
             doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
             todayProgress={key === "today" ? todayProgress : undefined}
+            thisWeekProgress={key === "thisWeek" ? thisWeekProgress : undefined}
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
