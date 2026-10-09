@@ -21,6 +21,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            scripts/ci-learning.mjs
+            scripts/test-ci-learning.mjs
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
@@ -40,6 +46,12 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            scripts/ci-learning.mjs
+            scripts/test-ci-learning.mjs
+          sparse-checkout-cone-mode: false
         with:
           ref: main
       - uses: actions/setup-node@v4
