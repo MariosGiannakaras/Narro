@@ -81,6 +81,7 @@ for (const [haystack, needle, label] of [
   [css, '.list-editor-modal__swatch--custom', "signature multicolor entry"],
   [css, '.spectrum-popover', "compact anchored color picker surface"],
   [css, '.icon-popover__grid', "bounded five-column icon palette"],
+  [css, 'box-shadow: 0 14px 35px rgba(0, 0, 0, 0.48), 0 2px 8px rgba(0, 0, 0, 0.18);', "approved final Spectrum and icon palette flyout shadow"],
   [css, 'var(--color-accent-start)', "calibrated shared palette rather than screenshot-assumed hex"],
   [modal, 'type="radio"', "color radio controls"],
   [modal, 'data-selected={selected ? "true" : "false"}', "selected swatch state"],

@@ -326,7 +326,8 @@
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-panel);
   background: var(--color-surface-deep);
-  box-shadow: var(--elevation-overlay);
+  /* User-approved final HTML: standalone flyout elevation is deeper than the modal. */
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.48), 0 2px 8px rgba(0, 0, 0, 0.18);
   color: var(--color-text-primary);
 }
 .spectrum-popover {
