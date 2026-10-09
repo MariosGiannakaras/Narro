@@ -29,3 +29,21 @@ export function parseEstimateSuffix(title: string): ParsedEstimateSuffix | null 
     titleWithoutSuffix,
   };
 }
+
+/**
+ * Display-only EST suffix projection. Never mutate an explicitly edited EST
+ * draft or bypass existing commit-time parsing and title normalization.
+ */
+export function inlineEstimateSuffixPreview(
+  title: string,
+  manualEstimateDraft: string,
+  autoParseEnabled: boolean,
+): string | null {
+  if (!autoParseEnabled || manualEstimateDraft.trim().length > 0) return null;
+  const parsed = parseEstimateSuffix(title);
+  if (!parsed) return null;
+  const totalMinutes = parsed.seconds / 60;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+}
