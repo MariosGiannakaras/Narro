@@ -9,6 +9,7 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const overdueAge = read("src/focusOverdueAge.ts");
 const success = read("src/FocusCompletionSuccess.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 invariant(success.includes("successTimingCopy(state.estSeconds, state.timeTakenSeconds)"), "success timing must use persisted EST and Taken");
@@ -62,6 +63,10 @@ for (const [haystack, needle, label] of [
   [panel, "focus-panel__progress", "aggregate completion progress"],
   [panel, 'data-focus-live-card="true"', "active live card"],
   [panel, 'data-focus-live-timer="true"', "authoritative live timer readout"],
+  [panel, 'focusOverdueAge(task.scheduledLocalDate, displayTimezone, nowForOverdueAge)', "B31 local-calendar overdue age from source date"],
+  [panel, 'data-focus-overdue-age={overdueAge ?? "unknown"}', "B31 visible relative age marker"],
+  [overdueAge, 'timeZone: displayTimezone', "B31 authoritative Board timezone"],
+  [css, '.focus-panel__overdue { color: var(--color-warning)', "B31 calibrated amber overdue metadata"],
   [panel, 'data-timer-numerals="true"', "tabular live timer numeral marker"],
   [timerPresentation, 'timer.mode?.kind === "count_up"', "count-up display projection"],
   [timerPresentation, 'timer.mode?.kind === "pomodoro"', "Pomodoro display projection"],

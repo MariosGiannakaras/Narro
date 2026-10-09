@@ -48,7 +48,8 @@ import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
-import { getTaskScheduleEditor, removeTaskRecurrence } from "./taskScheduleApi";
+import { getTaskScheduleEditor, removeTaskRecurrence, updateTaskSchedule } from "./taskScheduleApi";
+import { canQuickRemoveSchedule, expectedQuickRemoveSchedule } from "./taskScheduleQuickRemove";
 import {
   applyTimerSessionProjection,
   completeTimerTask,
@@ -387,6 +388,7 @@ function BoardLane({
   onMetricValueChange,
   onSubmitMetricEdit,
   onStartScheduleEdit,
+  onQuickRemoveSchedule,
   onRemoveRecurring,
   onCancelEditor,
 }: {
@@ -437,6 +439,7 @@ function BoardLane({
   onMetricValueChange: (value: string) => void;
   onSubmitMetricEdit: () => void;
   onStartScheduleEdit: (task: ListBoardTask) => void;
+  onQuickRemoveSchedule: (task: ListBoardTask) => void;
   onRemoveRecurring: (task: ListBoardTask) => void;
   onCancelEditor: () => void;
 }) {
@@ -638,6 +641,8 @@ function BoardLane({
                   onMoveLaneLeft,
                   onMoveLaneRight,
                   onSchedule: canEditSchedule ? () => onStartScheduleEdit(task) : undefined,
+                  onRemoveSchedule: canEditSchedule && canQuickRemoveSchedule(task)
+                    ? () => onQuickRemoveSchedule(task) : undefined,
                   onRemoveRecurring: canEditSchedule && Boolean(task.recurrenceRuleId)
                     ? () => onRemoveRecurring(task) : undefined,
                   onChangeList: canChangeList ? () => onChangeListTask(task) : undefined,
@@ -848,6 +853,7 @@ export function ListBoard({
   const [deletePending, setDeletePending] = useState(false);
   const deleteInFlightRef = useRef(false);
   const removeRecurringInFlightRef = useRef(false);
+  const quickRemoveScheduleInFlightRef = useRef(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
@@ -1280,6 +1286,57 @@ export function ListBoard({
     } catch (failure: unknown) {
       handleCommittedRefreshFailure(failure);
     } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const handleQuickRemoveSchedule = async (task: ListBoardTask) => {
+    if (
+      !canStartScheduleEditor
+      || !canQuickRemoveSchedule(task)
+      || liveStateForTask(timerPayload, task.id) !== null
+      || quickRemoveScheduleInFlightRef.current
+    ) return;
+    quickRemoveScheduleInFlightRef.current = true;
+    setMutationPendingTaskId(task.id);
+    setMutationError(null);
+    setMutationStatus("");
+    setDragState(null);
+    setDropTarget(null);
+
+    // Verify the identity, linked-child relation and visible date against a
+    // fresh authoritative read. The persisted timezone remains untouched.
+    let expectedSchedule;
+    try {
+      const latest = await getTaskScheduleEditor(task.id, task.listId);
+      expectedSchedule = expectedQuickRemoveSchedule(task, latest);
+      if (!expectedSchedule) {
+        throw new Error("This task schedule changed. Refresh the board before trying again.");
+      }
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus("Could not verify the current schedule.");
+      quickRemoveScheduleInFlightRef.current = false;
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    try {
+      await updateTaskSchedule({
+        taskId: task.id,
+        listId: task.listId,
+        expectedSchedule,
+        schedule: { kind: "none" },
+      });
+      await handleScheduleCommitted(task.id, "Removed schedule from task.");
+    } catch (failure: unknown) {
+      // The commit may already have happened if event delivery failed. Fail
+      // closed rather than instructing the user to blindly repeat the write.
+      setMutationRefreshBlocked(true);
+      setMutationError(`Could not confirm schedule removal. ${formatInvokeError(failure)} Reopen the board before trying again.`);
+      setMutationStatus("Schedule status requires refresh.");
+    } finally {
+      quickRemoveScheduleInFlightRef.current = false;
       setMutationPendingTaskId(null);
     }
   };
@@ -2189,6 +2246,7 @@ export function ListBoard({
                 : current);
             }}
             onSubmitMetricEdit={() => void submitMetricEdit()}
+            onQuickRemoveSchedule={(task) => void handleQuickRemoveSchedule(task)}
             onRemoveRecurring={(task) => void handleRemoveRecurring(task)}
             onStartScheduleEdit={(task) => {
               if (!canStartScheduleEditor || liveStateForTask(timerPayload, task.id) !== null) return;
