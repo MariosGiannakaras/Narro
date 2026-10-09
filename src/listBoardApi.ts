@@ -24,6 +24,8 @@ export type ListBoardTask = {
   scheduledLocalDate: string | null;
   scheduledLocalTime: string | null;
   recurrenceRuleId?: string | null;
+  /** Status projected from the durable parent rule, never inferred from the ID. */
+  recurrenceCadence?: "daily" | "weekdays" | "custom" | null;
   recurrenceParentTaskId?: string | null;
   isOverdue: boolean;
   completedAt: string | null;
