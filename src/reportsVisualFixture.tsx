@@ -544,7 +544,94 @@ async function validateAddSessionKeyboardFixture() {
   document.documentElement.dataset.reportsAddKeyboardPass = "true";
 }
 
-if (mode === "sessions-add-keyboard") {
+async function validateDetailSessionKeyboardFixture() {
+  let detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  requireFixture(detail, "Task detail keyboard fixture did not open.");
+  await wait(30);
+  let close = detail!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
+  let add = detail!.querySelector<HTMLButtonElement>(".reports-sessions__detail-actions button");
+  requireFixture(close && add, "Detail keyboard controls are missing.");
+  requireFixture(document.activeElement === close, "Task detail initial focus did not reach its Close control.");
+
+  const focusable = Array.from(detail!.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  ));
+  requireFixture(focusable.length >= 3, "Detail needs multiple focusable controls.");
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  last.focus();
+  dispatchFixtureKey(last, "Tab");
+  requireFixture(document.activeElement === first, "Detail Tab escaped the active modal.");
+  first.focus();
+  dispatchFixtureKey(first, "Tab", true);
+  requireFixture(document.activeElement === last, "Detail Shift+Tab escaped the active modal.");
+
+  add!.click();
+  const nested = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
+  requireFixture(nested, "Detail to Add Session transfer did not open.");
+  requireFixture(!document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Detail remained mounted as a second aria-modal during Add Session.");
+  requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
+    "Add Session transfer has competing modal owners.");
+  await wait(30);
+  requireFixture(document.activeElement === nested!.querySelector('[data-report-task-selector-trigger="true"]'),
+    "Transferred Add Session did not take focus.");
+
+  const cancel = nested!.querySelector<HTMLButtonElement>("footer button");
+  requireFixture(cancel, "Add Session Cancel control is missing.");
+  cancel!.click();
+  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await wait(30);
+  close = detail!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
+  add = detail!.querySelector<HTMLButtonElement>(".reports-sessions__detail-actions button");
+  requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
+    "Detail was not restored as the sole owner after Add Session Cancel.");
+  requireFixture(document.activeElement === close, "Detail did not reacquire focus after nested Cancel.");
+
+  add!.click();
+  const commitDialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
+  requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
+    "Detail and Add Session overlapped during commit path.");
+  const commit = commitDialog!.querySelector<HTMLButtonElement>("footer .reports-sessions__primary");
+  requireFixture(commit && !commit.disabled, "Preselected Add Session is not commit-ready.");
+  commit!.click();
+  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await wait(30);
+  requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
+    "Detail was not restored as the sole owner after Add Session Commit.");
+
+  const pendingToggle = document.querySelector<HTMLButtonElement>('[data-report-detail-keyboard-pending="true"]');
+  requireFixture(pendingToggle, "Detail pending fixture control is missing.");
+  pendingToggle!.click();
+  await wait(30);
+  close = detail!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
+  add = detail!.querySelector<HTMLButtonElement>(".reports-sessions__detail-actions button");
+  requireFixture(close?.disabled && add?.disabled, "Pending detail allowed Close/Add Session mutation overlap.");
+  requireFixture(document.activeElement === detail, "Pending detail did not place focus on its shell.");
+  dispatchFixtureKey(detail!, "Escape");
+  await wait(30);
+  requireFixture(document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Pending Escape dismissed task detail.");
+  pendingToggle!.click();
+  await wait(30);
+  requireFixture(close && !close.disabled, "Detail remained disabled after pending ended.");
+
+  dispatchFixtureKey(detail!, "Escape");
+  await waitForElement('[data-report-session-detail-dialog="true"]', false);
+  await wait(30);
+  const trigger = document.querySelector<HTMLButtonElement>('[data-report-detail-keyboard-trigger="true"]');
+  requireFixture(document.activeElement === trigger, "Task detail dismissal did not restore opener focus.");
+  document.documentElement.dataset.reportsDetailKeyboardPass = "true";
+}
+
+if (mode === "sessions-detail-keyboard") {
+  void validateDetailSessionKeyboardFixture()
+    .then(markReady)
+    .catch((error: unknown) => {
+      document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+      throw error;
+    });
+} else if (mode === "sessions-add-keyboard") {
   void validateAddSessionKeyboardFixture()
     .then(markReady)
     .catch((error: unknown) => {
