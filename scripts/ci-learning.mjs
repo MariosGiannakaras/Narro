@@ -30,6 +30,16 @@ export function signalFromLog(log) {
       return { kind: "visual-fixture-assertion", value: assertion[1].toLowerCase() + ":" + digest };
     }
   }
+  // Separate post-capture screenshot validation from in-fixture assertion errors:
+  // these can fail after the fixture capture contract itself reports PASS.
+  for (const line of lines) {
+    const captured = /\bReports captured visual validation failed:\s*([a-z0-9][a-z0-9-]*)\s+(.+)/i.exec(line);
+    if (captured) {
+      const normalized = captured[2].replace(/\s+/g, " ").trim().slice(0, 300);
+      const digest = createHash("sha256").update(normalized).digest("hex").slice(0, 12);
+      return { kind: "reports-captured-contract", value: captured[1].toLowerCase() + ":" + digest };
+    }
+  }
   for (const line of lines) {
     const readiness = /\bReports fixture\s+'([a-z0-9][a-z0-9-]*)'\s+did not report ready after\s+\d+\s+captures/i.exec(line);
     if (readiness) return { kind: "visual-fixture-readiness", value: readiness[1].toLowerCase() };
