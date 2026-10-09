@@ -627,8 +627,7 @@ mod tests {
             end_at: "2026-10-01T00:00:00Z".into(),
             list_ids: Vec::new(),
         };
-        let all = load_sessions_report(&conn, september.clone(), false)
-        .unwrap();
+        let all = load_sessions_report(&conn, september.clone(), false).unwrap();
         assert_eq!(all.summary.total_tasks, 2);
         assert_eq!(all.summary.total_sessions, 0);
         let selected = load_sessions_report(
