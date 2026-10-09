@@ -81,6 +81,8 @@ for (const [haystack, needle, label] of [
   [view, "ReportTaskSessionsDialog", "task session-detail overlay"],
   [view, 'data-report-session-detail-dialog="true"', "detail dialog has a semantic modal owner"],
   [view, "closeButtonRef.current?.focus()", "detail initial keyboard focus"],
+  [view, "returnFocusTarget?.isConnected", "detail return focus"],
+  [sessions, "returnFocusTarget={detailOpenerRef.current}", "detail focus scope"],
   [view, "onKeyDown={handleDetailKeyDown}", "detail keyboard containment and dismissal"],
   [view, "if (!pending) onClose()", "detail Escape guard while mutation is in flight"],
   [view, "if (pending) dialogRef.current?.focus()", "pending detail focus ownership"],
