@@ -590,7 +590,6 @@ export function FocusLiveActions({
             >
               Skip
             </button>
-
             <button
               type="button"
               data-focus-action="done"
