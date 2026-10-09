@@ -11,6 +11,7 @@ export type ArchivedListSummary = {
   title: string;
   color: string | null;
   iconAsset: string | null;
+  iconId?: string | null;
   archivedAt: string;
   previewTasks: ArchivedListTaskPreview[];
 };

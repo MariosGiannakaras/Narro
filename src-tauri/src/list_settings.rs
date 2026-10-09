@@ -32,6 +32,7 @@ pub struct ArchivedListSummary {
     pub title: String,
     pub color: Option<String>,
     pub icon_asset: Option<String>,
+    pub icon_id: Option<String>,
     pub archived_at: String,
     pub preview_tasks: Vec<ArchivedListTaskPreview>,
 }
@@ -48,6 +49,7 @@ impl TryFrom<ListRecord> for ArchivedListSummary {
             title: value.title,
             color: value.color,
             icon_asset: value.icon_asset,
+            icon_id: value.icon_id,
             archived_at,
             preview_tasks: Vec::new(),
         })

@@ -79,13 +79,12 @@
   padding: var(--space-3);
   border: 1px dashed transparent;
   border-radius: var(--radius-panel);
-  cursor: pointer;
+  cursor: default;
 }
 
-.list-editor-modal__upload:hover,
 .list-editor-modal__upload:focus-within {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface-interactive);
+  border-color: transparent;
+  background: transparent;
 }
 
 .list-editor-modal__file-input {
@@ -106,10 +105,12 @@
   overflow: hidden;
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
-  color: var(--color-accent-contrast);
-  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+  padding: 0;
+  cursor: pointer;
+  color: var(--list-preview-contrast, var(--color-accent-contrast));
+  background: var(--selected-list-color, var(--color-accent-solid));
   font-size: 2rem;
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-semibold);
 }
 
 .list-editor-modal__upload-circle img {
@@ -212,53 +213,6 @@
   outline-offset: 3px;
 }
 
-.list-editor-modal__custom-color-panel {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: end;
-  gap: var(--space-3);
-  min-width: 0;
-  margin-top: var(--space-3);
-  padding: var(--space-3);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-control);
-  background: var(--color-surface-deep);
-}
-
-.list-editor-modal__custom-color-field {
-  display: grid;
-  gap: var(--space-1);
-  min-width: 0;
-}
-
-.list-editor-modal__custom-color-field input[type="color"] {
-  width: 3rem;
-  min-height: 2.5rem;
-  padding: var(--space-1);
-  cursor: pointer;
-}
-
-.list-editor-modal__custom-color-field--hex input {
-  width: 100%;
-  min-width: 0;
-  min-height: 2.5rem;
-}
-
-.list-editor-modal__custom-color-error,
-.list-editor-modal__custom-color-actions {
-  grid-column: 1 / -1;
-}
-
-.list-editor-modal__custom-color-error {
-  color: var(--color-destructive);
-}
-
-.list-editor-modal__custom-color-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--space-2);
-}
-
 .list-editor-modal__field {
   display: grid;
   gap: var(--space-2);
@@ -329,4 +283,227 @@
     max-height: calc(100vh - 2 * var(--space-3));
     padding: var(--space-5);
   }
+}
+
+/* Compact 184px Spectrum Core canvas and searchable icon library; these panels
+   are body-portaled but remain in the Create/Edit List modal focus owner. */
+.list-editor-modal__upload-circle:hover:not(:disabled) {
+  box-shadow: 0 0 0 3px var(--color-border-strong);
+}
+.list-editor-modal__upload-circle svg {
+  width: 38px;
+  height: 38px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.list-editor-modal__upload-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.list-editor-modal__swatch--icons {
+  flex: 0 0 2rem;
+  padding: 0;
+  border-color: var(--color-border-strong);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-interactive);
+}
+.list-editor-modal__swatch--icons:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+.list-editor-modal__swatch--icons svg { width: 18px; height: 18px; }
+.list-editor-modal__swatch--icons:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 3px;
+}
+.spectrum-popover, .spectrum-popover *, .icon-popover, .icon-popover * {
+  box-sizing: border-box;
+}
+.spectrum-popover, .icon-popover {
+  position: fixed;
+  z-index: 4000;
+  max-width: calc(100vw - 18px);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-deep);
+  /* User-approved final HTML: standalone flyout elevation is deeper than the modal. */
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.48), 0 2px 8px rgba(0, 0, 0, 0.18);
+  color: var(--color-text-primary);
+}
+.spectrum-popover {
+  width: 226px;
+  display: grid;
+  justify-items: center;
+  gap: 11px;
+  padding: 13px;
+}
+.spectrum-wheel {
+  position: relative;
+  width: 184px;
+  height: 184px;
+}
+.spectrum-wheel canvas {
+  display: block;
+  width: 184px;
+  height: 184px;
+  border-radius: 50%;
+  cursor: crosshair;
+  touch-action: none;
+}
+.spectrum-wheel canvas:focus-visible,
+.icon-popover button:focus-visible,
+.icon-popover input:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+.spectrum-wheel__pin {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.spectrum-hex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 33px;
+  padding: 0 9px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+}
+.spectrum-hex:focus-within {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+.spectrum-hex[aria-invalid="true"] { border-color: var(--color-destructive); }
+.spectrum-hex__dot {
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+}
+.spectrum-hex__hash, .spectrum-hex input {
+  font: 500 12px Consolas, ui-monospace, monospace;
+}
+.spectrum-hex__hash { color: var(--color-text-secondary); }
+.spectrum-hex input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 5px 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+.spectrum-error {
+  justify-self: start;
+  color: var(--color-destructive);
+  font-size: 11px;
+}
+.icon-popover {
+  width: 310px;
+  max-height: min(420px, calc(100dvh - 18px));
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.icon-popover__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.icon-popover__title, .icon-popover__count {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+.icon-popover__title { font-weight: var(--font-weight-semibold); }
+.icon-popover__search {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+.icon-popover__categories {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 5px;
+  padding: 1px 0 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+.icon-popover__category {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  font-size: 11px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+.icon-popover__category[aria-pressed="true"] {
+  border-color: var(--color-accent-solid);
+  color: var(--color-accent-solid);
+  background: var(--color-surface-interactive);
+}
+.icon-popover__results {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.icon-popover__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+}
+.icon-popover__option {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-raised);
+}
+.icon-popover__option:hover:not(:disabled),
+.icon-popover__option:focus-visible {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-interactive);
+}
+.icon-popover__option[aria-pressed="true"] {
+  border-color: var(--color-accent-solid);
+  color: var(--color-accent-solid);
+  background: var(--color-surface-interactive);
+}
+.icon-popover__option svg { width: 20px; height: 20px; }
+.icon-popover__initial { font-size: 19px; font-weight: var(--font-weight-semibold); }
+.icon-popover__empty {
+  padding: 20px 4px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-size: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spectrum-popover, .icon-popover { animation: none; transition: none; transform: none; }
 }
