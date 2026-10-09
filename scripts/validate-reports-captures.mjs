@@ -20,7 +20,7 @@ function validatePng(label) {
   const file = path.join(output, label + ".png");
   invariant(fs.existsSync(file), label + " screenshot is missing");
   const png = fs.readFileSync(file);
-  invariant(png.length > 10_000, label + " screenshot is unexpectedly small");
+  invariant(png.length > 10_000, label + " screenshot is unexpectedly small (bytes=" + png.length + ", PNG dimensions=" + (png.length >= 24 ? png.readUInt32BE(16) + "x" + png.readUInt32BE(20) : "header-incomplete") + ")");
   invariant(
     png.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])),
     label + " is not a PNG",
@@ -132,11 +132,22 @@ for (const theme of ["light", "dark"]) {
 
 
 for (const theme of ["light", "dark"]) {
-  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard"]) {
+  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
     const dom = readDom(label);
     invariant(dom.includes('data-reports-fixture-mode="' + mode + '"'), label + " fixture mode marker differs");
+    if (mode === "sessions-detail-keyboard") {
+      invariant(dom.includes('data-reports-detail-keyboard-pass="true"'),
+        label + " detail-to-Add, pending, Escape, Tab and focus ownership regression did not pass");
+      invariant(dom.includes('data-reports-detail-keyboard-visual-ready="true"'),
+        label + " completed keyboard checks but never reopened the visible detail dialog");
+      invariant(dom.includes('data-report-session-detail-dialog="true"'),
+        label + " keyboard screenshot is missing its visible detail dialog");
+      invariant(dom.includes('aria-modal="true"'),
+        label + " reopened detail must retain the sole modal owner");
+      continue;
+    }
     if (mode === "sessions-add-keyboard") {
       invariant(dom.includes('data-reports-add-keyboard-pass="true"'), label + " keyboard modal regression did not pass");
       invariant(dom.includes('data-reports-add-initial-focus="true"'), label + " initial focus regression did not pass");
