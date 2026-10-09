@@ -356,12 +356,19 @@ export function ReportTaskSessionsDialog({
   );
 }
 
-function focusableDialogElements(container: HTMLElement): HTMLElement[] {
+export function focusableDialogElements(container: HTMLElement): HTMLElement[] {
   return Array.from(
     container.querySelectorAll<HTMLElement>(
       'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     ),
-  ).filter((element) => !element.hasAttribute("hidden"));
+  ).filter((element) => {
+    // A CSS-hidden or inert menu trigger can match the selector but cannot
+    // receive keyboard focus. Do not use such nodes as Tab wrap endpoints.
+    if (element.tabIndex < 0 || element.closest("[hidden], [inert]")) return false;
+    if (element.getClientRects().length === 0) return false;
+    const style = getComputedStyle(element);
+    return style.visibility !== "hidden" && style.visibility !== "collapse";
+  });
 }
 
 export function ReportAddSessionDialog({
