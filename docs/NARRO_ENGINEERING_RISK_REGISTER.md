@@ -81,6 +81,13 @@ Evidence:
 
 Historical CI #794 reached substantial frontend/build work before failing only on `cargo fmt --check`. CI #869 failed before app launch because its PowerShell validator had a parser error; the correction added an earlier parser preflight. These are exactly the failures the current fast-gate/pre-CI discipline is intended to prevent.
 
+**2026-10-10 M6/Focus regression prevention:** A B50 change correctly made the Time's Up action row five contextual buttons, but two independent Windows capture/M7 fixture validators still demanded an obsolete six-button Pause+Extend layout. When an interaction/state contract changes, search *every renderer-based fixture and Windows capture validator* for the old contract, then add a targeted fast preflight guard for the rendered validator itself before expensive Windows builds. A subsequent B67 CSS edit inserted a warning selector at a generic first-matching `.floating-timer-foundation__actions-wrap` text anchor, unintentionally moving a clipping-specific `transition: none` to global scope and limiting the overtime warning to clipping. The prior full-green candidate did not catch the real visual defect. Prefer exact CSS selector/block replacement or AST-aware edits, and assert both normal and special-state selectors. Negative source-string tests must anchor to whole selectors (e.g. line start), not search unanchored substrings that also match a longer legitimate selector. Initial new fast CI failed solely because such a negative assertion was overbroad; the final regex-anchored guard preserves the originally correct source fix. Scope the fix to the first actual failure, not the downstream missing-artifact step.
+
+Evidence:
+- `work-log/2026-10-10-chatgpt-five-of-eight-pr301-and-b67-css-revalidation.md`
+- #299 CI `37990651522` first M7 capture failure, repaired via CI `37996271400`
+- #280 CI `38004427052` overbroad negative test; corrected head `b3eff7a39a595a2146ff28127d682661a705a2fb` CI `38004842175` (status separate)
+
 Evidence:
 - current `STATUS.md` historical CI #794 / #869 records
 - `ENGINEERING_QUALITY.md`
