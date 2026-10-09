@@ -1,5 +1,17 @@
 # HANDOFF — ChatGPT M5 programming fixes; consolidated Windows physical acceptance later
 
+## Latest continuation — 2026-10-09 dependency-safe integration heads
+
+**User-facing validated source progress: 1/8** (only I04 #298 B22 exact-head full-CI SUCCESS and guarded merged `2f0620295ff4588163e6bbf2e57b9fd1475bfa15`). X increments only upon exact-current-head full Windows CI success + guarded merge; do not conflate with M10/physical Codex or future dormant M11.
+
+**Current branch/CI:** #299 I05 B50 head `3c4e09893edc915f7510e9f7277c4d9b325e3d25` CI `37990651522`; #280 I01 B67 head `172f39fd609ec660e60c0ff1f30f0345941e50dc` CI `37990701378`, dependent on #299; #286 I02 B32 head `bbc6d0ac50678a0e6590801e8169bc7ee4a6c4d7` CI `37991324381`; #295 I03 B21 head `3b11e37c88c4e51c1f062391a8ce85fc73e65964` CI `37988686663`; #300 I06 B57 head `b621f14e26afb3cbec0acbe42a93e6c5b66eb6e5` CI `37989290299`, dependent on #295. All **IN PROGRESS / NOT ACCEPTED** at last checkpoint; do not claim green Windows until actual result. If older CI passes a superseded head, it is historical only.
+
+**Important merger safety:** older #299/#280 branches omitted merged #297 `funGifEnabled: celebration?.funGif === true`; corrected on the *current* heads listed above. Old #286 fixture lacked merged #293 Reports Done `listColor` entries; corrected by applying B32 PR patch to latest main before current head. Never restore those stale branch blobs to main. All corrected exact heads require fresh CI. Immutable full details: `work-log/2026-10-09-chatgpt-ci-finish-reconciliation-dependency-safe-focus.md`.
+
+**Dependency-safe feature branches staged, NOT counted, NO PR/CI yet:** I07 B49 `implementation/m6-b49-live-card-hover-actions-20261009` head `c52ae1ab926c75656878ce08bd91fda0883a2f64` (five contextual icon actions overlay live-card heading, keyboard hover/pill, reduced motion and 210px minimum card); I08 B63 `implementation/m6-b63-inline-focus-success-20261009` head `ac44af2b722821d5155473b5e015ef11246409f7` (Panel success inside live card, queue remains visible/inert, Floating dialog semantics kept, quick-create concurrency guard). These are **source-only / local tests NOT RUN**, must reconcile with dependency merges, create coherent PRs, validate/merge.
+
+**Next:** check exact CI after progress or a new user message, guarded merge #299 then #280; #295 then #300; #286 independent. Fix only precise failure. Then PR/CI/merge B49 and B63. Protect approved List Editor (Spectrum Core color/image/218 icons), source-inferred behavior policy, Codex native physical gates OPEN, M11 dormant. No idle CI polling.
+
 ## LATEST handoff — 1/8 accepted before Codex; 2026-10-09
 
 **Fixed X/Y implementation counter = 1/8**, not full milestone/native-completion fraction. I04 #298 B22 timezone guarded-merged `2f0620295ff4588163e6bbf2e57b9fd1475bfa15` after **all-three-job SUCCESS** for exact head `418c6df11dd78a76f0482633f72c4490d45f956b`, CI `37968876485`. Older 0/8 notes below are historical and superseded. I01/I02/I03/I05/I06/I07/I08 OPEN.
