@@ -82,15 +82,47 @@ function client(token, repo) {
   };
 }
 
+export function selectSpreadRuns(runs, maximum = 60) {
+  const ordered = [...runs].sort((a, b) => b.id - a.id);
+  if (ordered.length <= maximum) return ordered;
+  const freshCount = Math.min(20, Math.floor(maximum / 2));
+  const fresh = ordered.slice(0, freshCount);
+  const older = ordered.slice(freshCount);
+  const slots = maximum - freshCount;
+  return [...fresh, ...Array.from({ length: slots }, (_, i) =>
+    older[Math.floor(i * older.length / slots)])];
+}
+
+async function workflowRuns(api, status, cutoff, maxPages) {
+  const records = [];
+  for (let page = 1; page <= maxPages; page++) {
+    const query = new URLSearchParams({
+      status, created: ">=" + cutoff, per_page: "100", page: String(page)
+    });
+    const result = await api.json("/actions/workflows/ci.yml/runs?" + query);
+    records.push(...(result.workflow_runs || []));
+    if (records.length >= (result.total_count || 0) || (result.workflow_runs || []).length < 100)
+      return { records, complete: true };
+  }
+  return { records, complete: false };
+}
+
 async function scan(api) {
   const cutoff = new Date(Date.now() - 14 * 86400000).toISOString().slice(0, 10);
-  const query = new URLSearchParams({ status: "completed", created: ">=" + cutoff, per_page: "100" });
-  const page = await api.json("/actions/workflows/ci.yml/runs?" + query);
-  const recent = page.workflow_runs || [];
-  const failed = recent.filter(r => ["failure", "timed_out"].includes(r.conclusion) || r.run_attempt > 1);
-  let truncated = page.total_count > recent.length || failed.length > 45, unknown = 0, logs = 0;
+  // Query and page failures independently: the latest 100 completed runs
+  // cover less than a day at Narro's present CI cadence.
+  const failures = await workflowRuns(api, "failure", cutoff, 8);
+  const completed = await workflowRuns(api, "completed", cutoff, 20);
+  const byId = new Map();
+  for (const run of failures.records) byId.set(run.id, run);
+  for (const run of completed.records.filter(r => r.run_attempt > 1))
+    byId.set(run.id, run);
+  const candidates = [...byId.values()];
+  const selected = selectSpreadRuns(candidates, 60);
+  let truncated = !failures.complete || !completed.complete ||
+    candidates.length > selected.length, unknown = 0, logs = 0;
   const observations = [];
-  for (const run of failed.slice(0, 45)) {
+  for (const run of selected) {
     if (run.run_attempt > 3) truncated = true;
     for (let attempt = 1; attempt <= Math.min(run.run_attempt || 1, 3); attempt++) {
       let jobs;
@@ -101,7 +133,7 @@ async function scan(api) {
       if (jobs.length === 100) truncated = true;
       for (const job of jobs.filter(j => j.conclusion === "failure")) {
         const step = (job.steps || []).find(s => s.conclusion === "failure");
-        if (!step || logs >= 50) { unknown++; truncated ||= logs >= 50; continue; }
+        if (!step || logs >= 75) { unknown++; truncated ||= logs >= 75; continue; }
         try {
           const log = await api.logs(job.id);
           logs++;
@@ -113,7 +145,8 @@ async function scan(api) {
       }
     }
   }
-  return { groups: repeatGroups(observations), runs: recent.length, logs, unknown, truncated };
+  return { groups: repeatGroups(observations), runs: completed.records.length,
+    candidates: candidates.length, sampled: selected.length, logs, unknown, truncated };
 }
 
 async function issues(api, groups) {
@@ -159,7 +192,8 @@ async function main() {
     throw new Error("GITHUB_TOKEN and GITHUB_REPOSITORY required");
   const api = client(token, repo), result = await scan(api);
   const summary = "CI recurrence scan (14-day window): " + result.runs +
-    " completed runs, " + result.logs + " failed job logs, " +
+    " completed-run metadata, " + result.candidates + " candidate-run metadata, " +
+    result.sampled + " sampled runs, " + result.logs + " failed job logs, " +
     result.groups.length + " candidate families, " + result.unknown +
     " unclassified; coverage limited=" + result.truncated +
     "\nThese are matching signals, not confirmed causes or flaky verdicts.\n" +
