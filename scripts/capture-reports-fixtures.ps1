@@ -85,6 +85,11 @@ function Capture-ReportsState {
                     Write-Warning "Reports fixture '$Label' was captured before ready; recapturing."
                     continue
                 }
+                $failedMarkup = [regex]::Match($domText, 'data-reports-fixture-error="([^"]*)"')
+                if ($failedMarkup.Success) {
+                    $failureDescription = [System.Net.WebUtility]::HtmlDecode($failedMarkup.Groups[1].Value)
+                    throw "Reports fixture $Label assertion: $failureDescription"
+                }
                 throw "Reports fixture '$Label' did not report ready after 2 captures. $stderrText"
             }
 
