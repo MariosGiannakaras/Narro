@@ -1054,6 +1054,31 @@ mod tests {
     }
 
     #[test]
+    fn this_week_completion_handles_iso_year_rollover_and_target_list_scope() {
+        let mut conn = setup();
+        let work = create_named_list(&mut conn, "Work", None);
+        let personal = create_named_list(&mut conn, "Personal", None);
+        let work_done = add_task(&mut conn, work, "December work", PlanningLane::ThisWeek, None);
+        let personal_done = add_task(&mut conn, personal, "January personal", PlanningLane::ThisWeek, None);
+        let old_done = add_task(&mut conn, work, "Prior ISO week", PlanningLane::ThisWeek, None);
+        complete_task(&mut conn, work_done, "2026-12-31T12:00:00Z")
+            .expect("complete December work");
+        complete_task(&mut conn, personal_done, "2027-01-01T12:00:00Z")
+            .expect("complete January personal");
+        complete_task(&mut conn, old_done, "2026-12-25T12:00:00Z")
+            .expect("complete prior ISO week");
+        let current = "2027-01-02T12:00:00Z".parse().expect("parse January Saturday");
+        let work_view = load_at(&conn, Some(work), current, "UTC").expect("work board");
+        let personal_view = load_at(&conn, Some(personal), current, "UTC").expect("personal board");
+        let all_view = load_at(&conn, None, current, "UTC").expect("all lists board");
+        assert_eq!(work_view.this_week_completion_count, 1);
+        assert_eq!(personal_view.this_week_completion_count, 1);
+        assert_eq!(all_view.this_week_completion_count, 2);
+        assert_eq!(work_view.done.count, 2);
+        assert_eq!(all_view.done.count, 3);
+    }
+
+    #[test]
     fn done_month_count_uses_display_timezone_local_month() {
         let mut conn = setup();
         let list_id = create_named_list(&mut conn, "Work", None);
