@@ -17,9 +17,13 @@ function readContract(label) {
   const match = dom.match(/<script id="focus-panel-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(match, `${label} geometry contract is missing`);
   invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group is missing`);
-  for (const action of ["break", "notes", "pause-resume", "skip", "extend", "done"]) {
+  for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
     invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} action is missing`);
   }
+  invariant(dom.includes('data-focus-primary-slot="pause-resume"'),
+    `${label} must show the ordinary Pause/Resume slot outside Time's Up`);
+  invariant(!dom.includes('data-focus-action="extend"'),
+    `${label} must not mount Extend while running or paused`);
   const contract = JSON.parse(match[1]);
   invariant(contract.rowActionSlot?.width === 124, `${label} ordinary row action rail width differs from reserved 124px`);
   invariant(contract.rowActionSlot?.height === 28, `${label} ordinary row action rail height differs from reserved 28px`);
@@ -35,6 +39,7 @@ for (const label of [
   const contract = readContract(label);
   invariant(contract.actions?.width > 0, `${label} action-strip width is invalid`);
   invariant(contract.actions?.height >= 30, `${label} action-strip height is invalid`);
+  invariant(contract.actionLabels?.length === 5, `${label} must have exactly five Focus action hit targets`);
   if (baselineActionWidth === null) baselineActionWidth = contract.actions.width;
   if (baselineActionHeight === null) baselineActionHeight = contract.actions.height;
   invariant(
