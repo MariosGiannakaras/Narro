@@ -60,12 +60,14 @@ function Row({
   title,
   detail,
   children,
+  infoGlyph = false,
   nested = false,
   unavailable = false,
 }: {
   title: string;
   detail: string;
   children: ReactNode;
+  infoGlyph?: boolean;
   nested?: boolean;
   unavailable?: boolean;
 }) {
@@ -75,7 +77,7 @@ function Row({
       data-preference-unavailable={unavailable ? "true" : "false"}
     >
       <div className="preference-settings__copy">
-        <strong>{title}</strong>
+        <strong>{infoGlyph ? <span className="preference-settings__info-glyph" aria-hidden="true">i</span> : null}{title}</strong>
         <span className="type-metadata">{detail}</span>
       </div>
       <div className="preference-settings__control">{children}</div>
@@ -138,6 +140,7 @@ export function BlitzPanelPreferenceSection({
         </button>
       </div>
       <Row
+        infoGlyph
         title="Monitor"
         detail={selectedStillAvailable
           ? "Choose which Windows work area owns the Focus Panel."
@@ -188,7 +191,7 @@ export function BlitzPanelPreferenceSection({
           ) : null}
         </div>
       </Row>
-      <Row title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
+      <Row infoGlyph title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
         <div className="theme-settings__segments" role="group" aria-label="Blitz Panel Side">
           {(["left", "right"] as FocusPanelSidePreference[]).map((side) => {
             const selectedSide = snapshot.general.focusPanelSide === side;
@@ -233,7 +236,7 @@ export function GeneralPreferenceRows({
           onChange={(openOnLogin) => onSave({ openOnLogin }, "openOnLogin")}
         />
       </Row>
-      <Row title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
+      <Row infoGlyph title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
         <Switch
           checked={snapshot.general.hideTaskTimes}
           disabled={pendingKey !== null}
@@ -241,7 +244,7 @@ export function GeneralPreferenceRows({
           onChange={(hideTaskTimes) => onSave({ hideTaskTimes }, "hideTaskTimes")}
         />
       </Row>
-      <Row title="Auto-parse EST from title" detail="Recognize a supported estimate suffix when creating a task.">
+      <Row infoGlyph title="Auto-parse EST from title" detail="Recognize a supported estimate suffix when creating a task.">
         <Switch
           checked={snapshot.general.autoParseEstFromTitle}
           disabled={pendingKey !== null}
