@@ -112,13 +112,14 @@ const preferenceCss = await read("src/preferenceSettingsSections.css");
 for (const snippet of [
   'infoGlyph?: boolean;',
   'className="preference-settings__info-glyph" aria-hidden="true"',
-  'infoGlyph\\n        title="Monitor"',
   '<Row infoGlyph title="Panel side"',
   '<Row infoGlyph title="Hide EST / Time Taken"',
   '<Row infoGlyph title="Auto-parse EST from title"',
 ]) {
-  invariant(preferenceSections.includes(snippet.replace("\\\\n", "\\n")), `SS-C07 information-marker contract missing ${snippet}`);
+  invariant(preferenceSections.includes(snippet), `SS-C07 information-marker contract missing ${snippet}`);
 }
+invariant(/<Row\\s+infoGlyph\\s+title="Monitor"/.test(preferenceSections),
+  "SS-C07 monitor label must carry a decorative information marker");
 invariant(preferenceCss.includes(".preference-settings__copy .preference-settings__info-glyph")
   && preferenceCss.includes("border-radius: 50%")
   && preferenceCss.includes("margin-inline-end: var(--space-2)"),
