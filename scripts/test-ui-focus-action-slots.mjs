@@ -57,6 +57,9 @@ invariant(rowTitleCss.includes("flex: 1 1 auto"), "item-12 flexible title slot m
 invariant(fixture.includes('actions: optionalBox(".focus-panel__live-actions")'), "Windows visual fixture must keep measuring live action geometry whenever a live surface exists");
 invariant(visualValidator.includes("baselineActionWidth"), "Windows visual validator must compare Focus action width across captures");
 invariant(visualValidator.includes("baselineActionHeight"), "Windows visual validator must compare Focus action height across captures");
+invariant(visualValidator.includes('["break", "notes", "pause-resume", "skip", "done"]'), "B50 captured Focus must require five ordinary actions");
+invariant(visualValidator.includes("contract.actionLabels.length === 5"), "B50 capture count must match contextual-five-slot layout");
+invariant(visualValidator.includes('!dom.includes(\'data-focus-action="extend"\')'), "B50 ordinary fixture must reject dormant Extend");
 invariant(pkg.scripts["test:ui-focus-action-slots"] === "node scripts/test-ui-focus-action-slots.mjs", "package script registration differs");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-action-slots"), "frontend preflight must run the Focus action-slot contract");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-action-slot-captures.mjs"), "Windows visual validation must compare stable Focus action geometry");
