@@ -18,6 +18,22 @@ export function signalFromLog(log) {
     const ts = /\berror TS(\d{4,6}):/.exec(line);
     if (ts) return { kind: "typescript", value: "TS" + ts[1] };
   }
+  // Windows visual-regression fixtures expose an explicit assertion identity.
+  // Store the fixture ID and a stable hash of the invariant, not raw failure text
+  // (which may contain unpredictable data). Generic screenshot/exit errors are
+  // still unclassified; a matching fingerprint is only a triage candidate.
+  for (const line of lines) {
+    const fixture = /^Reports fixture ([\\w-]+) assertion: (.+)$/i.exec(line);
+    if (fixture) {
+      const normalized = fixture[2].trim().toLowerCase().replace(/\\s+/g, " ")
+        .replace(/\\d+/g, "#");
+      return {
+        kind: "visual-fixture",
+        value: fixture[1].toLowerCase() + ":" +
+          createHash("sha256").update(normalized).digest("hex").slice(0, 12)
+      };
+    }
+  }
   for (const line of lines) {
     const os = /\bError:\s*(EPERM|EACCES|ENOENT|ENOSPC|ETIMEDOUT|ECONNRESET|EADDRINUSE)\b/i.exec(line);
     if (os) return { kind: "os-error", value: os[1].toUpperCase() };
