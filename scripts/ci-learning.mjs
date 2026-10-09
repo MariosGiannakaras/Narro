@@ -46,7 +46,7 @@ export function repeatGroups(items) {
 
 function client(token, repo) {
   const base = "https://api.github.com/repos/" + repo;
-  const headers = { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token,
+  const headers = { "Accept": "application/vnd.github+json", "Content-Type": "application/json", "Authorization": "Bearer " + token,
     "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "narro-ci-learning" };
   return {
     async json(path, init = {}) {
