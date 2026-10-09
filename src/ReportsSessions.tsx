@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
@@ -153,6 +153,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [readError, setReadError] = useState<string | null>(null);
   const [refreshError, setRefreshError] = useState<string | null>(null);
   const [detailTaskId, setDetailTaskId] = useState<string | null>(null);
+  const detailOpenerRef = useRef<HTMLElement | null>(null);
   const [detail, setDetail] = useState<ReportTaskSessionsDetail | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
@@ -547,13 +548,17 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         onCancelDateRange={cancelDateRange}
         onApplyDateRange={applyDateRange}
         onCommitEndTime={commitEndTime}
-        onOpenDetail={setDetailTaskId}
+        onOpenDetail={(taskId) => {
+          detailOpenerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+          setDetailTaskId(taskId);
+        }}
         onDelete={(row) => void deleteSession(row)}
       />
 
       {detailView && !addOpen ? (
         <ReportTaskSessionsDialog
           detail={detailView}
+          returnFocusTarget={detailOpenerRef.current}
           pendingSessionId={mutationPendingId}
           onClose={() => setDetailTaskId(null)}
           onAddSession={(taskId) => openAddSession(taskId)}
