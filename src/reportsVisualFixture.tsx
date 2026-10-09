@@ -329,7 +329,10 @@ function ReportsDetailKeyboardFixture() {
       ) : null}
       {addOpen ? (
         <ReportAddSessionDialog
-          tasks={addTasks}
+          tasks={[...addTasks, {
+            id: "task-email", listId: "blitzit", listTitle: "Blitzit",
+            listColor: "#48d6c5", title: "Email newsletter", lane: "Today" as const,
+          }]}
           draft={{ ...addDraft, taskId: "task-email" }}
           pending={false}
           error={null}
