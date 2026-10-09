@@ -114,6 +114,11 @@ invariant(
   "Panel and Timer readiness waiters must be isolated by presentation mode",
 );
 invariant(
+  coordinator.includes("completionSuccess !== null || hasActiveModalShortcutBoundary()")
+    && coordinator.includes("[presentationHydrated, timerResizePending, completionSuccess]"),
+  "B63 inline success must block new global quick-task shortcuts until next/close",
+);
+invariant(
   coordinator.includes("inert={!panelActive}")
     && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")

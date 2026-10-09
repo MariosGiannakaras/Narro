@@ -549,7 +549,7 @@ export function FocusSurfaceCoordinator() {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
       if (!shortcut || event.defaultPrevented) return;
-      if (hasActiveModalShortcutBoundary()) {
+      if (completionSuccess !== null || hasActiveModalShortcutBoundary()) {
         event.preventDefault();
         return;
       }
@@ -581,7 +581,7 @@ export function FocusSurfaceCoordinator() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [presentationHydrated, timerResizePending]);
+  }, [presentationHydrated, timerResizePending, completionSuccess]);
 
   useEffect(() => {
     if (!shortcutStatus) return;
