@@ -1,17 +1,23 @@
 # TODO.md
 
+## Current pre-Codex coding queue — 2026-10-10 (4/8)
+
+**4/8** code implementation units exact-head full Windows CI SUCCESS + guarded merged: I02 #286 B32, I03 #295 B21, I04 #298 B22, I06 #300 B57. Open I01 #280 B67, I05 #299 B50, I07 B49, I08 B63. No physical/manual gate counts and optional Blitzit M11 dormant.
+
+**Open CI:** #299 head `6ba29b7c86adb2577917b5501b388999c5e02942` run `37996271400` and #280 head `30dc3c9c6a2a221f18957fb052c44daaab5c65ac` run `37996310963`, NOT YET PASS at checkpoint. Previously both failed old M7 rendered Time's Up fixture expecting six Pause+Extend actions; fixed exact source test contract to five controls with Pause replaced by Extend and fast-gate guard. #299 integrates before #280. After merge reconcile B49 staged branch `c52ae1ab926c75656878ce08bd91fda0883a2f64`, then B63 staged branch `ac44af2b722821d5155473b5e015ef11246409f7`, test and merge with exact CI. Log `work-log/2026-10-10-chatgpt-four-of-eight-m7-b50-failure-reconciliation.md`.
+
 ## Fixed pre-Codex implementation inventory — 2026-10-09 user X/Y request
 
-**Verified continuation:** #298 head `418c6df11dd78a76f0482633f72c4490d45f956b` full CI `37968876485` all three jobs SUCCESS, guarded squash merge `2f0620295ff4588163e6bbf2e57b9fd1475bfa15` into main; I04 done at automated merge scope (native Codex remains OPEN). #299 B50 failed visual slot validator at `37972348897`; all ordinary five-action validators now reconciled in head `40f32547d45ed41ef4fdd0091fa8b8ba398001b2`, replacement CI `37988538379` IN PROGRESS. #286 B32 visual PNG fixture cause corrected but subsequent Windows job `37972566849` CANCELLED, requested targeted Windows-job rerun, now IN PROGRESS; keep NOT PASS. #295 B21 forward reconciled against B22 main as `3b11e37c88c4e51c1f062391a8ce85fc73e65964`, CI `37988686663` IN PROGRESS. #300 old head full CI SUCCESS but source-overlap with #295; defer reconciliation until B21 integration. #280 depends on B50 main. Details: `work-log/2026-10-09-chatgpt-after-ci-results-one-of-eight.md`.
 
-**Progress: 1/8 validated and merged implementation units (I04 #298).** This is the complete currently evidence-backed **coding/CI integration queue** before handing the latest coherent candidate to the separately paused Codex physical agent. Mark X only after exact-head required CI PASS, guarded merge, and necessary main/source validation. PR opened/code submitted/old CI PASS does not count. No Codex native test, source-visual M11 comparison, or release M10 is counted; do not alter Y without a newly demonstrated code gap or product decision, and explain any change.
+
+**Progress: 4/8 validated and merged implementation units (I02 #286, I03 #295, I04 #298, I06 #300).** This is the complete currently evidence-backed **coding/CI integration queue** before handing the latest coherent candidate to the separately paused Codex physical agent. Mark X only after exact-head required CI PASS, guarded merge, and necessary main/source validation. PR opened/code submitted/old CI PASS does not count. No Codex native test, source-visual M11 comparison, or release M10 is counted; do not alter Y without a newly demonstrated code gap or product decision, and explain any change.
 
 - [ ] **I01 — M6 B67 #280:** signed, warm negative overtime clock in Focus/Floating; forward-reconcile older failed CI branch with modern main and #299 action changes, exact-head CI/merge.
-- [ ] **I02 — M9 B32 #286:** Sessions detail focus/modal lifecycle and keyboard state, fix verified Windows fixture capture cause, exact-head CI/merge.
-- [ ] **I03 — M8 B21 #295:** full Preferences monitor thumbnails, modern main dependency reconciliation (#294 shortcut modal and #288 labels), exact-head CI/merge.
+- [x] **I02 — M9 B32 #286:** Sessions detail focus/modal lifecycle and keyboard state, fix verified Windows fixture capture cause, exact-head CI/merge.
+- [x] **I03 — M8 B21 #295:** full Preferences monitor thumbnails, modern main dependency reconciliation (#294 shortcut modal and #288 labels), exact-head CI/merge.
 - [x] **I04 — M8 B22 #298:** accessible IANA/GMT timezone chooser, preserve newer Preferences and tested save behavior, exact-head CI/merge.
 - [ ] **I05 — M6 B50 #299:** replace ordinary Pause with contextual Extend only at Time's Up, five real slots, align all fixtures/validators and Windows CI/merge.
-- [ ] **I06 — M8 B57 #300:** Preferences information markers, reconcile after other Preferences edits, exact-head CI/merge.
+- [x] **I06 — M8 B57 #300:** Preferences information markers, reconcile after other Preferences edits, exact-head CI/merge.
 - [ ] **I07 — M6 B49:** evidenced Focus active-card hover/focus action grammar with accessible stable hit targets; coordinate with I05 and I01; automated CI/merge.
 - [ ] **I08 — M6 B63:** in-place Focus success composition preserving queue/header/next-task/committed ledger; depends on active-card composition I07; automated CI/merge.
 
