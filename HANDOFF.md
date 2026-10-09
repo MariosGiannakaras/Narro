@@ -66,6 +66,16 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
+## Independent CI-learning infrastructure track — 2026-10-09
+
+This is a **separate, narrowly owned prevention/process task**, not the M5/M6 product implementation line. Do not take over other active application PRs or change the existing `NEXT AGENT ACTION` order for product work.
+
+- Binding risk/CI/engineering-quality procedure updates are already on `main`; evidence: `work-log/2026-10-09-chatgpt-ci-recurrence-learning-infra.md`.
+- Only pending infrastructure PR: [#284](https://github.com/MariosGiannakaras/Narro/pull/284) on `infra/ci-learning-20261009`, current exact head `a9213cd56aa4d31501eddae6d79bd8b8d0bddf8b`. New isolated GitHub Action, bounded 14-day paged/spread CI failure scanner and six deterministic tests; no app source or existing Windows workflow changes.
+- Exact-head standalone [CI learning run 37910629902](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629902): **PASS** (6/6 tests). Exact-head [Windows CI 37910629874](https://github.com/MariosGiannakaras/Narro/actions/runs/37910629874): **IN PROGRESS / NOT PASS at this handoff**.
+- **Infra NEXT:** inspect the exact Windows result; if green, verify PR files/unchanged main process truth, expected-head-guard merge PR284, verify resulting `main` has all three reviewed blobs, and record the closure in a *new* immutable work-log entry. The first scheduled production scan and auto-issue behavior remain **NOT RUN** until actually observed; no speculative PASS. If failure, inspect first causal step rather than rerunning blindly.
+- This PR is a CI/process improvement and **does not increment the application's X/Y source-batch denominator**.
+
 ## NEXT AGENT ACTION — ChatGPT implementation, Codex physical paused (2026-10-09)
 
 **User-facing source implementation: 32/35 guarded-merged source PR batches** (#249–#283), #280 B67, #282 M5 Spectrum Core/218 icon library and #283 Finding28 Windows CI cleanup OPEN. #281 B31 exact head `6e053f234f07019cb52e82088a96e648b95a0087` full Windows CI `37897535845` SUCCESS (validation, fast, Windows candidate), GitHub clean, expected-head squash merge **`0ab774008ab8f4a330edb25df924d7d459156080`**. #280 B67 old `94f392b6` CI `37891408784` FAILED (attempt 1 Rust contention, attempt 2 stale visual validator); corrected old head `5a08891f` lacked new CI and conflicted with #281. Reconciled on the same PR #280 branch with both B31/B42 code/test preflights in exact new head **`19c95930a9e3da3f92ba54a71a725763066e6d81`**, new CI **`37902450730` FAILED Windows visual candidate** (validation+fast PASS, `Capture Visual Regression Fixtures` failed; inspect exact logs under #280 ownership). Do not merge until this exact-head full CI succeeds. Codex physical/Blitzit parity OPEN.
