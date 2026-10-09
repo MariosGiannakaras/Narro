@@ -20,6 +20,12 @@ invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
+const m7Integration = read("src/m7IntegrationRegression.tsx");
+invariant(m7Integration.includes("panelPause === null")
+  && m7Integration.includes("panelActions.length === 5")
+  && m7Integration.includes("finding35/B50 Time's Up must expose five controls with Extend instead of Pause"),
+  "M7 production integration fixture must accept B50 contextual five-action Time's Up before Windows capture");
+
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");

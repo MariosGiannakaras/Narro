@@ -503,10 +503,14 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const panelSkip = container.querySelector<HTMLButtonElement>('[data-focus-action="skip"]');
   const panelExtend = container.querySelector<HTMLButtonElement>('[data-focus-action="extend"]');
   const panelDone = container.querySelector<HTMLButtonElement>('[data-focus-action="done"]');
-  assert(Boolean(panelBreak?.disabled) && Boolean(panelPause?.disabled)
+  // B50 keeps five real controls and replaces Pause with Extend only at
+  // Time's Up; the older six-control M7 acceptance assertion is obsolete.
+  const panelActions = container.querySelectorAll<HTMLButtonElement>('[data-focus-action]');
+  assert(panelActions.length === 5
+      && Boolean(panelBreak?.disabled) && panelPause === null
       && Boolean(panelSkip && !panelSkip.disabled) && Boolean(panelExtend && !panelExtend.disabled)
       && Boolean(panelDone && !panelDone.disabled),
-    "finding35 correction changed Panel Time's Up action contract");
+    "finding35/B50 Time's Up must expose five controls with Extend instead of Pause");
   scopeScenario = false;
 
   // Production pointer handlers, real rendered hit testing/placeholder reflow,
