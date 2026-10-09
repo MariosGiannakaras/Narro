@@ -137,6 +137,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                   <ListIcon
                     listId={list.id}
                     iconAsset={list.iconAsset}
+                    iconId={list.iconId}
                     fallback={initial}
                     imageClassName="archived-list-row__icon-image"
                   />

@@ -6,10 +6,18 @@ export type ListIconUploadRequest = {
   bytes: number[];
 };
 
+export type ListIconSelection =
+  | { kind: "keep" }
+  | { kind: "letter" }
+  | { kind: "builtin"; id: string }
+  | { kind: "upload"; filename: string; bytes: number[] };
+
 export type ListEditorRequest = {
   title: string;
   color: string | null;
+  // Legacy direct upload remains accepted by the Rust boundary.
   iconUpload: ListIconUploadRequest | null;
+  iconSelection?: ListIconSelection;
 };
 
 export async function createListFromEditor(request: ListEditorRequest): Promise<void> {

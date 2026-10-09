@@ -16,6 +16,7 @@ export type HomeListCardSnapshot = {
   title: string;
   color: string | null;
   iconAsset: string | null;
+  iconId?: string | null;
   previewTasks: HomeTaskPreview[];
   pendingCount: number;
   aggregateEstSeconds: number;
@@ -50,6 +51,7 @@ type DisplayCard = {
   title: string;
   color: string | null;
   iconAsset: string | null;
+  iconId?: string | null;
   previewTasks: HomeTaskPreview[];
   pendingCount: number;
   aggregateEstSeconds: number;
@@ -108,6 +110,7 @@ function ListCard({
           <ListIcon
             listId={card.id}
             iconAsset={card.iconAsset}
+            iconId={card.iconId}
             fallback={initial}
             imageClassName="home-list-card__icon-image"
           />

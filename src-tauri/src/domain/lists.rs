@@ -7,6 +7,7 @@ pub struct ListRecord {
     pub title: String,
     pub color: Option<String>,
     pub icon_asset: Option<String>,
+    pub icon_id: Option<String>,
     pub sort_rank: u32,
     pub archived_at: Option<String>,
     pub created_at: String,

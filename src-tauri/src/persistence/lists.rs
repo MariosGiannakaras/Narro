@@ -69,6 +69,7 @@ struct RawList {
     title: String,
     color: Option<String>,
     icon_asset: Option<String>,
+    icon_id: Option<String>,
     sort_rank: i64,
     archived_at: Option<String>,
     created_at: String,
@@ -81,10 +82,11 @@ fn raw_list_from_row(row: &Row<'_>) -> rusqlite::Result<RawList> {
         title: row.get(1)?,
         color: row.get(2)?,
         icon_asset: row.get(3)?,
-        sort_rank: row.get(4)?,
-        archived_at: row.get(5)?,
-        created_at: row.get(6)?,
-        updated_at: row.get(7)?,
+        icon_id: row.get(4)?,
+        sort_rank: row.get(5)?,
+        archived_at: row.get(6)?,
+        created_at: row.get(7)?,
+        updated_at: row.get(8)?,
     })
 }
 
@@ -98,6 +100,7 @@ fn decode_list(raw: RawList) -> Result<ListRecord, ListStoreError> {
         title: raw.title,
         color: raw.color,
         icon_asset: raw.icon_asset,
+        icon_id: raw.icon_id,
         sort_rank,
         archived_at: raw.archived_at,
         created_at: raw.created_at,
@@ -121,7 +124,7 @@ fn validate_timestamp(value: &str) -> Result<(), ListStoreError> {
 
 fn get_raw_list(conn: &Connection, id: ListId) -> Result<Option<RawList>, ListStoreError> {
     conn.query_row(
-        "SELECT id, title, color, icon_asset, sort_rank, archived_at, created_at, updated_at
+        "SELECT id, title, color, icon_asset, icon_id, sort_rank, archived_at, created_at, updated_at
          FROM lists
          WHERE id = ?1",
         [id.to_string()],
@@ -138,7 +141,7 @@ fn list_rows(conn: &Connection, archived: bool) -> Result<Vec<ListRecord>, ListS
         ("archived_at IS NULL", "sort_rank, id")
     };
     let sql = format!(
-        "SELECT id, title, color, icon_asset, sort_rank, archived_at, created_at, updated_at
+        "SELECT id, title, color, icon_asset, icon_id, sort_rank, archived_at, created_at, updated_at
          FROM lists
          WHERE {predicate}
          ORDER BY {order}"
@@ -214,6 +217,15 @@ pub fn create_list(
     input: NewListInput,
     now: &str,
 ) -> Result<ListRecord, ListStoreError> {
+    create_list_with_builtin_icon(conn, input, None, now)
+}
+
+pub fn create_list_with_builtin_icon(
+    conn: &mut Connection,
+    input: NewListInput,
+    icon_id: Option<String>,
+    now: &str,
+) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
     let id = ListId::generate();
@@ -221,13 +233,14 @@ pub fn create_list(
     let rank = next_active_rank(&tx)?;
     tx.execute(
         "INSERT INTO lists (
-            id, title, color, icon_asset, sort_rank, archived_at, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, ?5, NULL, ?6, ?6)",
+            id, title, color, icon_asset, icon_id, sort_rank, archived_at, created_at, updated_at
+         ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, NULL, ?7, ?7)",
         params![
             id.to_string(),
             title,
             input.color,
             input.icon_asset,
+            icon_id,
             rank,
             now
         ],
@@ -254,13 +267,14 @@ pub fn duplicate_list(
     let rank = next_active_rank(&tx)?;
     tx.execute(
         "INSERT INTO lists (
-            id, title, color, icon_asset, sort_rank, archived_at, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, ?5, NULL, ?6, ?6)",
+            id, title, color, icon_asset, icon_id, sort_rank, archived_at, created_at, updated_at
+         ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, NULL, ?7, ?7)",
         params![
             new_id.to_string(),
             source.title,
             source.color,
             duplicated_icon_asset,
+            source.icon_id,
             rank,
             now
         ],
@@ -348,14 +362,25 @@ pub fn update_list(
     input: UpdateListInput,
     now: &str,
 ) -> Result<ListRecord, ListStoreError> {
+    let previous = get_list(conn, id)?;
+    update_list_with_builtin_icon(conn, id, input, previous.icon_id, now)
+}
+
+pub fn update_list_with_builtin_icon(
+    conn: &mut Connection,
+    id: ListId,
+    input: UpdateListInput,
+    icon_id: Option<String>,
+    now: &str,
+) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
     let tx = conn.transaction()?;
     let changed = tx.execute(
         "UPDATE lists
-         SET title = ?1, color = ?2, icon_asset = ?3, updated_at = ?4
-         WHERE id = ?5",
-        params![title, input.color, input.icon_asset, now, id.to_string()],
+         SET title = ?1, color = ?2, icon_asset = ?3, icon_id = ?4, updated_at = ?5
+         WHERE id = ?6",
+        params![title, input.color, input.icon_asset, icon_id, now, id.to_string()],
     )?;
     if changed != 1 {
         return Err(ListStoreError::NotFound(id));

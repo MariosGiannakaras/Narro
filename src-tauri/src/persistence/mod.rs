@@ -94,6 +94,7 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!(
             "../../migrations/0010_month_weekday_ordinal.sql"
         )),
+        M::up(include_str!("../../migrations/0011_builtin_list_icons.sql")),
     ])
 }
 
