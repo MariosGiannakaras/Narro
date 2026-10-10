@@ -1,6 +1,18 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 13/70 reviewed; 12/18 code PRs (2026-10-11)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 19/70 reviewed; 18/18 code PRs COMPLETE AS AUDIT (2026-10-11)
+
+- [x] **P12 #313 A08 repeated Blitz entry AUDITED:** exact run `38062951891` 3/3 Windows CI SUCCESS; head `df2bf8a1` original merge `744397d5`, 3/3 blobs. Synchronous `startInFlightRef` spans startBlitz→native presentation, no-eligible and failed morph, synthetic regression only; M6 physical not done.
+- [x] **P13 #314 A09 live subtask/paused metric AUDITED:** exact CI `38063218931` 3/3 SUCCESS, head `1cc03c0a`→merge `8e24cbc4`, 4/4 blobs. Per-mounted synchronous owners and committed-refresh recovery, source-model tests not actual native handlers.
+- [x] **P14 #315 A10 Archive Restore/Delete AUDITED:** exact CI `38063411322` 3/3 SUCCESS, head `81098071`→merge `c21b1f9e`, 3/3 blobs. One synchronous destructive owner; native physical dialog/permanence open.
+- [x] **P15 #316 merged historical A01–A10 CI reachability AUDITED:** exact CI `38066478586` 3/3 SUCCESS, head `edebaa4d`→merge `1bd24411`, 2/2 blobs. Historical artifact `11675827068` predates #317–#320, **not** current integrated candidate I01.
+- [x] **P16 #317 original Search ref leak AUDITED FIXED:** exact CI `38071911442` 3/3 SUCCESS, head `2c9305e4`→merge `0a650c58`, 3/3 blobs; success finally and persistent Search reopen synthetic/actual source check. Do not reimplement.
+- [x] **P17 #318 Reports Add/Edit/Delete shared owner AUDITED:** exact CI `38072180843` 3/3 SUCCESS, head `51b71377`→merge `c93d975a`, 3/3 blobs; synthetic owner tests/native M9 physical still OPEN. Do not reimplement.
+- [x] **All 19 S0 PR audit units REVIEWED:** 18/18 source/test + evidence-only #308; **19/70 total**. Source/CI implementation A01–A14 14/14 guarded merged, roadmap fully physically/source 3/10. Immutable six-PR detail `work-log/2026-10-11-chatgpt-0600-audit-p12-p17-313-318.md`; frozen tracker `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`.
+- [ ] **USER-DEFERRED remediation/CI until entire audit is complete:** all Q01–Q14 open or conditional source/test/CI in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`. No new code/CI until 70/70 audit (or genuine uninspectable blocker documented). Distinguish historical CI vs new requested work.
+- [ ] **NEXT 50 Markdown path audits:** T01–T03, E01–E04, L01–L43 **0/50**, independent current claims/historical logs and exact CI; no edits to immutable logs. After, I01 latest integrated production candidate evidence audit **0/1**, no new CI before audit end, native physical Codex user-paused, M10 blocked, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 13/70 reviewed; 12/18 code PRs (2026-10-11)
 
 - [x] **P08 #309 A03 stale Focus Board reads AUDITED:** exact run `38052663090` 3/3 PASS, resulting merge `f5b9db26`, 3/3 accepted Git blobs; production shared request-epoch/target guards, rendered M7 newest-response-wins inversion actually executes, additional timer/target-switch/error combinations deferred in Q05.
 - [x] **P09 #310 A05 Reports Add Session AUDITED:** exact run `38053306094` 3/3 PASS, resulting merge `3012a030`, 3/3 blobs; scoped synchronous owner plus synthetic deferred test. Historical missing Edit/Delete overlap FIXED by already merged #318 shared owner; actual handler/native boundary deferred Q06.
