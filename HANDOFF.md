@@ -1,6 +1,20 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 8/70 reviewed; code PR 7/18 (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 9/70 reviewed; code PR 8/18 (2026-10-11)
+
+**Fixed retrospective scope** in `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`: **9/70 total = 9/19 PR review units (8/18 actual source/test PRs #280/#301/#302/#305/#306/#307/#319/#320 + evidence-only #308), 0/50 changed Markdown paths, 0/1 latest combined Windows candidate**. Independent implementation A01–A14 **14/14** accepted after exact-head Windows CI and guarded merge; physically/source accepted roadmap **3/10**. Do not count chat groups, physical gates or already-fixed bugs as fresh implementation.
+
+**P06 #307 A04 Board/Search create audit AUDITED_F01_FIXED_F02/F03_COVERAGE_OPEN:** immutable evidence `work-log/2026-10-11-chatgpt-0600-audit-p06-pr307-board-search-single-flight.md`. Original exact PR head `86e6e443d2d55530c8fab185a2270ec5ebaa1904`; run `38056858648` 3/3 validation/fast/windows SUCCESS; guarded accepted merge `ac48759d551279266c2f1d25f35a1e4f58d482e0`, **4/4 changed Git blobs identical**. `ListBoard` Create and Duplicate, `SearchPalette` Quick Task each acquire per-mounted synchronous ref before persistence and hold Board owner through authoritative refresh; failed writes release. Unit tests execute a synthetic deferred owner and inspect production sources, NOT actual React handlers or native persisted double events.
+
+**P06-F01 CONFIRMED ORIGINAL USER-VISIBLE BUG — ALREADY RESOLVED:** original #307 Search `quickTaskInFlightRef` was released only on persistence failure, not successful create; `AppShell` retains closed `SearchPalette` mounted, so later quick create was silently rejected. Existing #317 exact head `2c9305e4f911a2980a67e1e9c3b45489d2e2a8fa`, run `38071911442` 3/3 SUCCESS, guarded merge `0a650c589ffd5f4f203b245ef9bf2ca0f48fcef3`; current `SearchPalette.tsx` includes success-path finally ref and pending release; preflight contains dedicated lifecycle test. **Do not recreate #317.**
+
+**P06-F02/F03 OPEN EVIDENCE GAP (NOT A PROVEN PERSISTED DUPLICATE):** Board create/duplicate use separate refs and Search uses a separate component ref; there is no project-global mutex. Concurrent *deliberate separate creations* may be valid. Abstract test + static source wiring does not validate actual simultaneous Board+Search/Board Create+Duplicate handlers, callback/refresh lifecycle or native two-window writes. Before modifying architecture, reproduce harmful overlapping same intent with actual handler and exact persistence evidence; then choose narrow authority. P02-F01 B49 PNG capture mismatch, P02-F02 Focus Success Next/Break pending-only race, P05-F02 list-picker keyboard-event test gap all remain OPEN.
+
+**NEXT AGENT ACTION:** P08 [#309](https://github.com/MariosGiannakaras/Narro/pull/309) A03 stale Focus board reads; audit real revision/target check across late IPC reads and commit/invalidation, exact CI and merged blob source, tests with delayed snapshots. P07 #308 already audited (evidence only). After code review and evidence-backed fixes, audit 50 S0 Markdown paths and combined latest production Windows candidate/hash without restarting USER-PAUSED physical Codex. C4/M6/F35/F29/F27/M8 and original Blitzit parity physical/motion remain OPEN; mandatory roadmap 3/10, M10 blocked, optional M11 dormant.
+
+**USER ACTION REQUIRED:** none for repo-backed audit; physical Codex can only be restarted by explicit user direction.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 8/70 reviewed; code PR 7/18 (2026-10-10)
 
 **Frozen S0 retrospective scope unchanged:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`. Current audit **8/70 = 8/19 PR (7/18 code/test #280/#301/#302/#305/#306/#319/#320; one evidence-only closed/unmerged #308), 0/50 changed Markdown paths, 0/1 combined native Windows artifact**. Separate A01–A14 source/CI **14/14 guarded merged**, mandatory physically/source accepted roadmap **3/10**. This is actual completed retrospective review, not arbitrary chat-group progress. New immutable direct evidence `work-log/2026-10-10-chatgpt-0600-audit-p05-pr306-focus-list-picker.md`.
 
