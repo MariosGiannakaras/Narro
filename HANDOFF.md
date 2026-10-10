@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — source-frozen 2/70 (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 4/70 reviewed, implementation 14/14 (2026-10-10)
+
+User requested **true code audit X/18, not rolling number of answers**. Frozen S0 scope authority `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`; newest immutable evidence `work-log/2026-10-10-chatgpt-0600-audit-p01-b67-and-p19-a14-closure.md`. **Current audit 4/70 = 4/19 PR, 0/50 Markdown, 0/1 combined artifact; actual production/code/test PR audit 3/18** (#280, #319, #320; evidence-only #308 audited separately). Remaining 15/18 code/test PRs NOT independently audit-reviewed. Source/CI implementation A01–A14 **14/14** guarded merged; mandatory roadmap fully accepted **3/10**. Audited does NOT mean native physical/source parity PASS.
+
+**P01 #280 (B67 signed overtime) AUDITED:** exact head `b3eff7a39a595a2146ff28127d682661a705a2fb`, Windows CI `38004842175` validation/fast/Windows SUCCESS, resulting merge `c1633c9edb372228ad597fde686575b58b8437fb` 10/10 changed blobs identical. Direct original PR280 light/dark Windows Edge screenshots `11651337459` reviewed: -00:07:00 visible/aria and warning-colored; production `formatOvertimeClock` isolated view change, no mutation to positive ledger. Extreme >=1000h may exceed fixed 10ch timer column, UNOBSERVED/conditional risk, not user-visible confirmed failure; source MP4 re-review/native physical NOT RUN.
+
+**P19 #320 (Reports exports) AUDITED / SOURCE/CI INTEGRATED:** latest exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, run `38077203921` **3/3 jobs SUCCESS**. Expected-head guarded squash merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`; all 5 source/test Git blobs byte-identical accepted head vs resulting main. Actual production handlers exercised with deferred Node tests (not native file writes); native/OS PDF/CSV remains NOT RUN. Mergeability was rechecked true before guarded merge.
+
+**NEXT AGENT ACTION:** audit **P02 #301** 16-file B49/B63 Focus accessible action/success lifecycle independently, with causal source/test/rendered details and exact-head/merged-state CI; then P03 #302. Write one immutable work log per meaningful slice and advance actual code X/18/70 only on acceptance. After independent audits/evidence-backed fixes, require final combined source/production Windows CI candidate (PR316 old artifact `11675827068` predates A11–A14) and ZIP/EXE SHA256. Full native Windows C4/M6/F35/F29/F27/M8 physical validations remain OPEN and user-paused; no restarting Codex. M10 blocked; M11 dormant.
+
+**USER ACTION REQUIRED:** no routine permission or product decision; user alone authorizes paused physical Codex restart.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — source-frozen 2/70 (2026-10-10)
 
 **Supersedes arbitrary '7/7 groups' as current audit progress.** User requested exhaustive audit of *everything changed since 06:00* and fixed objective X/Y. Canonical `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, immutable evidence `work-log/2026-10-10-chatgpt-comprehensive-0600-audit-frozen-inventory.md`. Frozen S0 `main` `71536805de34343e6cf9a809557b6d6902e25c48` at 22:03:41 EEST: compare from last pre-window main `13a009b2d03fbcef819a1358bede447bf0564ade` yields **168 main commits, 104 changed paths**: **17 code/test PR merges +151 distinct docs commits**, 54 code/test/config paths +50 Markdown. Plus 1 open source PR320 and 1 closed unmerged evidence PR308 gives **19 PR audit units**; 50 Markdown path audit units; 1 combined candidate boundary, fixed **70**.
 
