@@ -66,24 +66,56 @@ async function findPage(port) {
   throw new Error("No Edge CDP page has the Focus keyboard fixture URL");
 }
 async function waitForFocusedFixture() {
+  let observed = null;
   while (Date.now() < deadline) {
     const response = await evaluate(`(() => {
       const root = document.documentElement;
       const action = document.querySelector('[data-focus-action="pause-resume"]');
       const rail = document.querySelector(".focus-panel__live-actions");
       const heading = document.querySelector(".focus-panel__live-heading");
-      return root.dataset.focusPanelFixtureReady === "true"
-        && root.dataset.focusActionRevealPass === "true"
-        && document.activeElement === action
-        && rail && heading
-        && getComputedStyle(rail).opacity === "1"
-        && getComputedStyle(heading).opacity === "0";
+      const contract = document.querySelector("#focus-panel-visual-contract");
+      const state = {
+        ready: root.dataset.focusPanelFixtureReady === "true",
+        pass: root.dataset.focusActionRevealPass === "true",
+        focusOwner: Boolean(action && document.activeElement === action),
+        activeTag: document.activeElement?.tagName ?? null,
+        actionAvailable: Boolean(action && !action.disabled),
+        keyboardMarker: document.querySelector('[data-focus-live-card="true"]')?.getAttribute("data-focus-actions-keyboard") ?? null,
+        railOpacity: rail ? getComputedStyle(rail).opacity : null,
+        railPointer: rail ? getComputedStyle(rail).pointerEvents : null,
+        headingOpacity: heading ? getComputedStyle(heading).opacity : null,
+        contractError: contract?.textContent?.slice(0, 700) ?? null,
+        path: location.pathname,
+      };
+      return state;
     })()`);
-    if (response.result?.value === true) return;
-    if (response.exceptionDetails) throw new Error("Focus fixture runtime exception");
+    if (response.exceptionDetails) {
+      throw new Error("B49 Focus fixture CDP evaluation exception: " + JSON.stringify(response.exceptionDetails));
+    }
+    observed = response.result?.value ?? null;
+    if (observed?.ready && observed?.pass && observed?.focusOwner
+      && observed?.railOpacity === "1" && observed?.headingOpacity === "0") return;
     await sleep(100);
   }
-  throw new Error("B49 keyboard-focused fixture never reached its real visual state");
+  throw new Error("B49 Focus actual visual state never became ready: " + JSON.stringify(observed));
+}
+
+async function preserveFocusedFailureEvidence() {
+  // A failed readiness gate must be diagnosable from the retained Windows ZIP:
+  // keep actual DOM and screenshot, NEVER mark them as passing evidence.
+  try {
+    const dom = (await evaluate("document.documentElement.outerHTML")).result?.value;
+    if (typeof dom === "string") await fs.writeFile(options.html, dom, "utf8");
+    const shot = await command("Page.captureScreenshot", {
+      format: "png", fromSurface: true, captureBeyondViewport: false,
+      clip: { x: 0, y: 0, width: 420, height: 720, scale: 1 },
+    });
+    if (typeof shot.data === "string") {
+      await fs.writeFile(options.png, Buffer.from(shot.data, "base64"));
+    }
+  } catch (error) {
+    process.stderr.write("B49 could not retain diagnostic DOM/PNG: " + String(error) + "\n");
+  }
 }
 
 try {
@@ -109,11 +141,21 @@ try {
   await command("Emulation.setDeviceMetricsOverride", {
     width: 420, height: 720, deviceScaleFactor: 1, mobile: false,
   });
-  await waitForFocusedFixture();
+  try {
+    await waitForFocusedFixture();
+  } catch (error) {
+    await preserveFocusedFailureEvidence();
+    throw error;
+  }
   // The DOM marker is not a pixel capture. Force two presented frames AFTER
   // the strict focus/opacity contract and capture from the same page session.
   await evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))", true);
-  await waitForFocusedFixture();
+  try {
+    await waitForFocusedFixture();
+  } catch (error) {
+    await preserveFocusedFailureEvidence();
+    throw error;
+  }
   const shot = await command("Page.captureScreenshot", {
     format: "png", fromSurface: true, captureBeyondViewport: false,
     clip: { x: 0, y: 0, width: 420, height: 720, scale: 1 },
