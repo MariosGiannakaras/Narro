@@ -88,4 +88,5 @@ assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query 
   && successValidator.includes('readCapture(theme, "success")')
   && successValidator.includes('data-focus-success-inline-card="true"'),
   "B63 screenshot must be captured and validated in light and dark themes");
+await import("./test-focus-success-actual-handler-owners.mjs");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

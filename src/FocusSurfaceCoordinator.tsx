@@ -72,6 +72,9 @@ export function FocusSurfaceCoordinator() {
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const [completionSuccess, setCompletionSuccess] = useState<FocusCompletionSuccessState | null>(null);
   const [completionSuccessPending, setCompletionSuccessPending] = useState(false);
+  // Shared immediate owner for post-Done Next Task / untimed Take a Break.
+  // React pending state cannot exclude two callbacks in one render.
+  const completionSuccessActionInFlightRef = useRef(false);
   const [completionSuccessError, setCompletionSuccessError] = useState<string | null>(null);
   const [geometryMotion, setGeometryMotion] = useState<FocusGeometryMotion | null>(null);
 
@@ -599,7 +602,8 @@ export function FocusSurfaceCoordinator() {
 
   const startNextTaskFromSuccess = async () => {
     const success = completionSuccess;
-    if (!success?.nextTask || completionSuccessPending) return;
+    if (!success?.nextTask || completionSuccessPending || completionSuccessActionInFlightRef.current) return;
+    completionSuccessActionInFlightRef.current = true;
     setCompletionSuccessPending(true);
     setCompletionSuccessError(null);
     try {
@@ -619,6 +623,7 @@ export function FocusSurfaceCoordinator() {
     } catch (failure: unknown) {
       setCompletionSuccessError(formatInvokeError(failure));
     } finally {
+      completionSuccessActionInFlightRef.current = false;
       setCompletionSuccessPending(false);
     }
   };
@@ -632,7 +637,7 @@ export function FocusSurfaceCoordinator() {
   const timerActive = presentationHydrated && mode === "timer";
   const inlineSuccess = panelActive && completionSuccess !== null;
   const closeCompletionSuccess = () => {
-    if (completionSuccessPending) return;
+    if (completionSuccessPending || completionSuccessActionInFlightRef.current) return;
     setCompletionSuccess(null);
     setCompletionSuccessError(null);
     // Inline success replaces a mounted active card. After dismissing it,
@@ -648,7 +653,8 @@ export function FocusSurfaceCoordinator() {
   // An untimed rest is the safest local "Take a Break" behavior: do not
   // create a phantom work session merely to call manual-break on an idle timer.
   const takeRestBetweenTasks = async () => {
-    if (!completionSuccess || completionSuccessPending) return;
+    if (!completionSuccess || completionSuccessPending || completionSuccessActionInFlightRef.current) return;
+    completionSuccessActionInFlightRef.current = true;
     setCompletionSuccessPending(true);
     setCompletionSuccessError(null);
     try {
@@ -666,6 +672,7 @@ export function FocusSurfaceCoordinator() {
     } catch (failure: unknown) {
       setCompletionSuccessError(formatInvokeError(failure));
     } finally {
+      completionSuccessActionInFlightRef.current = false;
       setCompletionSuccessPending(false);
     }
   };
