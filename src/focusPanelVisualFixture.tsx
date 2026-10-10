@@ -227,6 +227,7 @@ flushSync(() => {
       fixtureLists={[
         { id: workId, title: "Work", color: "#f6e26d" },
         { id: personalId, title: longListTitle, color: "#acb55f" },
+        { id: "a1111111-1111-4111-8111-111111111111", title: "Research", color: "#48d6c5" },
       ]}
       fixtureTimer={timer}
       completionSuccessContent={scenario === "success" ? (
@@ -247,8 +248,8 @@ if (scenario === "selector-open") {
   if (!trigger || trigger.disabled) throw new Error("Focus list selector fixture trigger unavailable");
   flushSync(() => trigger.click());
   const optionNodes = document.querySelectorAll('[data-focus-list-option]');
-  if (optionNodes.length !== 3) {
-    throw new Error(`Focus list selector expected All Lists and two saved lists; saw ${optionNodes.length}`);
+  if (optionNodes.length !== 4) {
+    throw new Error(`Focus list selector expected All Lists and three saved lists; saw ${optionNodes.length}`);
   }
 }
 
@@ -444,6 +445,7 @@ const focusSelectorContract = {
       selected: node.getAttribute('aria-selected'),
       badgeVisible: Boolean(node.querySelector('.board-list-picker__badge')),
     })),
+  overflowBadge: document.querySelector('.board-list-picker--focus .board-list-picker__remaining-count')?.textContent?.trim() ?? null,
   savedBadgeColors: Array.from(document.querySelectorAll<HTMLElement>(
     '[data-focus-list-option]:not([data-focus-list-option="__all_lists__"]) .board-list-picker__badge'
   ), node => getComputedStyle(node).backgroundColor),
