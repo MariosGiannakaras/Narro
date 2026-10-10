@@ -448,6 +448,9 @@ export function FocusPanel({
   // Synchronous per-mounted ownership; React pending state updates after event handlers.
   const rowMutationInFlightRef = useRef(false);
   const addTaskInFlightRef = useRef(false);
+  // A per-mounted, synchronous owner prevents conflicting Focus commands from
+  // racing each other before React publishes any pending UI state.
+  const focusMutationOwnerRef = useRef<"row" | "add" | "make-live" | "change-list" | "delete" | "home" | null>(null);
   const [homePending, setHomePending] = useState(false);
   const [quickPreferencesOpen, setQuickPreferencesOpen] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
@@ -731,7 +734,8 @@ export function FocusPanel({
     success: string,
   ) => {
     if (fixtureMode || !presentationActive || mutationPendingTaskId !== null
-      || rowMutationInFlightRef.current) return;
+      || focusMutationOwnerRef.current !== null || rowMutationInFlightRef.current) return;
+    focusMutationOwnerRef.current = "row";
     rowMutationInFlightRef.current = true;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
@@ -754,12 +758,15 @@ export function FocusPanel({
       }
     } finally {
       rowMutationInFlightRef.current = false;
+      focusMutationOwnerRef.current = null;
       setMutationPendingTaskId(null);
     }
   };
 
   const makeTaskLive = async (task: ListBoardTask) => {
     if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
+    if (focusMutationOwnerRef.current !== null) return;
+    focusMutationOwnerRef.current = "make-live";
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
@@ -777,10 +784,15 @@ export function FocusPanel({
       setNotesTaskId(null);
       setSubtasksTaskId(null);
       setMutationStatus(`${task.title} is now live.`);
-      await refreshBoard();
+      try {
+        await refreshBoard();
+      } catch (failure: unknown) {
+        setError(`Task is live, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`);
+      }
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
     } finally {
+      focusMutationOwnerRef.current = null;
       setMutationPendingTaskId(null);
     }
   };
@@ -804,6 +816,7 @@ export function FocusPanel({
 
   const confirmTaskChangeList = async () => {
     if (!changeListState || changeListPending || mutationPendingTaskId !== null) return;
+    if (focusMutationOwnerRef.current !== null) return;
     const destination = selectorOptions.find(
       (option) => option.id === changeListState.targetListId && option.id !== changeListState.task.listId,
     );
@@ -813,6 +826,7 @@ export function FocusPanel({
     }
 
     const task = changeListState.task;
+    focusMutationOwnerRef.current = "change-list";
     setChangeListPending(true);
     setMutationPendingTaskId(task.id);
     setChangeListError(null);
@@ -835,6 +849,7 @@ export function FocusPanel({
     } catch (failure: unknown) {
       setChangeListError(formatInvokeError(failure));
     } finally {
+      focusMutationOwnerRef.current = null;
       setChangeListPending(false);
       setMutationPendingTaskId(null);
     }
@@ -852,6 +867,8 @@ export function FocusPanel({
 
   const exitFocusHome = async () => {
     if (fixtureMode || !presentationActive || homePending) return;
+    if (focusMutationOwnerRef.current !== null) return;
+    focusMutationOwnerRef.current = "home";
     setHomePending(true);
     setError(null);
     let pausedByHome = false;
@@ -879,12 +896,14 @@ export function FocusPanel({
       }
       setError(formatInvokeError(failure));
     } finally {
+      focusMutationOwnerRef.current = null;
       setHomePending(false);
     }
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || !presentationActive || addTaskPending || addTaskInFlightRef.current) return;
+    if (fixtureMode || !presentationActive || addTaskPending
+      || focusMutationOwnerRef.current !== null || addTaskInFlightRef.current) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
     if (!title) {
@@ -899,6 +918,7 @@ export function FocusPanel({
     const automaticEstimate = autoParseEstFromTitle ? parseEstimateSuffix(title) : null;
     const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
 
+    focusMutationOwnerRef.current = "add";
     addTaskInFlightRef.current = true;
     setAddTaskPending(true);
     setError(null);
@@ -927,35 +947,43 @@ export function FocusPanel({
       setError(formatInvokeError(failure));
     } finally {
       addTaskInFlightRef.current = false;
+      focusMutationOwnerRef.current = null;
       setAddTaskPending(false);
     }
   };
 
   const confirmDelete = async () => {
     if (!presentationActive || !deleteTarget || deletePending) return;
+    if (focusMutationOwnerRef.current !== null) return;
+    focusMutationOwnerRef.current = "delete";
     const task = deleteTarget;
     setDeletePending(true);
     setDeleteError(null);
     setError(null);
     try {
-      await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
-    } catch (failure: unknown) {
-      setDeleteError(formatInvokeError(failure));
-      setDeletePending(false);
-      return;
-    }
+      try {
+        await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
+      } catch (failure: unknown) {
+        setDeleteError(formatInvokeError(failure));
+        return;
+      }
 
-    setDeleteTarget(null);
-    setDeletePending(false);
-    setNotesTaskId((current) => current === task.id ? null : current);
-    setSubtasksTaskId((current) => current === task.id ? null : current);
-    setMutationStatus(`Permanently deleted ${task.title}.`);
-    try {
-      await refreshBoard();
-    } catch (failure: unknown) {
-      setError(
-        `Task was deleted, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
-      );
+      // The write is committed. Dismiss the modal, but retain the mutation
+      // owner until the independently fallible authoritative board refresh ends.
+      setDeleteTarget(null);
+      setNotesTaskId((current) => current === task.id ? null : current);
+      setSubtasksTaskId((current) => current === task.id ? null : current);
+      setMutationStatus(`Permanently deleted ${task.title}.`);
+      try {
+        await refreshBoard();
+      } catch (failure: unknown) {
+        setError(
+          `Task was deleted, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
+        );
+      }
+    } finally {
+      focusMutationOwnerRef.current = null;
+      setDeletePending(false);
     }
   };
 
