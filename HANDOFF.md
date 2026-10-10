@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; code PR 5/18 (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 7/70 reviewed; code PR 6/18 (2026-10-10)
+
+**Authoritative fixed review tracker** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, latest immutable evidence `work-log/2026-10-10-chatgpt-0600-audit-p04-pr305-focus-action-gate.md`. **Retrospective audit 7/70 = 7/19 PR (6/18 code/test #280/#301/#302/#305/#319/#320 and 1 evidence-only #308), 0/50 Markdown, 0/1 combined Windows production candidate.** Implementation A01–A14 already **14/14** source/CI guarded-merged, mandatory roadmap **3/10** fully physically/source accepted. Historical reply/group counts not progress.
+
+**P04 #305 A01 timer action gate AUDITED_SCOPE_PASS:** exact original PR head `73f95f5ce1efa2995025127890b5624aa8d9a814`, CI `38047897329` validation/fast/windows **3/3 SUCCESS**, guarded original merge `9203bf7ec3cd096063059cef2e4326c1199744b6`; changed file blobs **4/4 identical** PR head and resulting-main. Real production `src/focusActionGate.ts` is sync exclusive owner per mounted `FocusLiveActions`. Break/Pause/Resume/Extend, Skip, Done call `beginMutation()` synchronously before first await/native and release with `finally`. Real gate unit tests (not actual React handlers) cover deferred same-tick competing commands, wrong owner, rejection and recovery. Same code and test/preflight present in current `main`; no source changes made in P04 review.
+
+**CRITICAL SEPARATE LIMITATION — P02 findings still OPEN:** P02-F02 Next Task/Take a Break belong to **`FocusSurfaceCoordinator.tsx`**, use React `completionSuccessPending` only, **not** this gate; no real duplicate native persistence proven. P02-F01 original and latest Focus action-focus screenshot pixels unchanged from running despite DOM PASS, also not fixed by this nonvisual PR. Keep evidence-backed targeted remediation tracked; don't declare full Focus interaction or physical visual PASS.
+
+**NEXT AGENT ACTION:** independent **P05 #306** anchored Focus list picker: inspect source/target identity, popover keyboard selection, original/current actual rendered Windows states, exact original CI and merge; compare to later P18 #319 long-label containment to avoid duplicating fixes. Record one immutable audit slice, update tracker and HANDOFF/TODO/STATUS, progress only when completed. After source audits and required narrow remediation, validate one combined current A01–A14 production-config Windows executable with hashes; old #316 artifact 11675827068 predates A11–A14. Genuine physical C4/M6/F35/F29/F27/M8 + original Blitzit motion/source gates remain OPEN; physical Windows Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+**USER ACTION REQUIRED:** none for independent source audit, do not restart Codex native physical work without explicit user authorization.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; code PR 5/18 (2026-10-10)
 
 **Authoritative fixed 06:00 snapshot:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, immutable newest review `work-log/2026-10-10-chatgpt-0600-audit-p03-pr302-finding35-time-up.md`. Actual independent retrospective audit **6/70 = 6/19 PR (5/18 code/test PRs + 1/1 evidence-only #308), 0/50 changed Markdown paths, 0/1 latest combined native candidate**. The audited code PRs are #280, #301, #302, #319, #320; P02 #301 remains AUDITED_WITH_OPEN_FINDINGS, not visual/parity PASS. Separate A01–A14 source/CI code batches **14/14 guarded merged**, mandatory roadmap fully physically/source accepted **3/10**. Do not treat static CI as native physical observation.
 
