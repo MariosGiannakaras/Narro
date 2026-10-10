@@ -122,9 +122,19 @@ invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
   && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
   "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
-invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500')
-  && focusedFixture.includes("revealDeadline = performance.now() + 1_500"),
-  "B49 Edge virtual-time budget must exceed asynchronous focus/opacity settlement before snapshot");
+const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
+const paintValidator = read("scripts/focus-png-pixels.mjs");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
+  && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
+  && cdpCapture.includes('await waitForFocusedFixture();')
+  && cdpCapture.includes('Page.captureScreenshot')
+  && cdpCapture.includes('document.documentElement.outerHTML'),
+  "B49 screenshot and focus-ready DOM must come from the same actual Edge CDP page");
+invariant(focusedFixture.includes('focusActionPaintRegion:')
+  && focusedValidator.includes('differentFocusPixels(')
+  && focusedValidator.includes('minimumChanged')
+  && paintValidator.includes('inflateSync'),
+  "B49 actual decoded action-rail pixels must differ from ordinary running despite HTML contract PASS");
 
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedFixture.includes('"live-actions-focus"')
@@ -135,4 +145,5 @@ invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-
     && focusedValidator.includes('data-focus-action-reveal-pass="true"'),
   "B49 focused icon actions must be captured and checked in both Windows theme screenshots");
 
+await import("./test-b49-actual-png-pixels.mjs");
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");
