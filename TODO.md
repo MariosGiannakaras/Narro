@@ -1,5 +1,11 @@
 # TODO.md
 
+## Active user-directed corrective audit — 2026-10-10 (new bounded 0/1 source unit)
+
+- [ ] **C01 / Finding35 visible Time's Up:** [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302), initial exact head `01e49bc7209142f31125ec6f268e0780c04c15a4`, [CI 38044663152](https://github.com/MariosGiannakaras/Narro/actions/runs/38044663152) initially IN PROGRESS/NOT PASS. Render explicit Time's Up label beside `00:00` in compact and expanded Floating Timer while preserving contextual Extend, geometry, ordinary states and source-approved designs. Add actual production Edge light/dark fixture checks; require exact-head validation+fast+Windows PASS, guarded merge and source identity before source checkbox can close. **Current new correction progress 0/1; historic 8/8 unchanged.** Physical/native visual acceptance remains OPEN after source merge.
+- [ ] **C4 prior FAIL / cause review:** live CI1046 native continuity video shows visible incoming Panel clipped to old Timer bounds. Source CSS explicitly stages 110/300px Panel while independent native-region/position and renderer clip motion run. Do not replace repeated failing animations speculatively; obtain continuous exact-candidate frame/native-state evidence and compare a materially different mechanism under NER-002 before production correction. Remains physical FAIL/OPEN.
+- **Durable source analysis/handoff:** `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md`; latest `HANDOFF.md` is current next-action authority. Paused Codex physical run and optional M11 remain untouched.
+
 ## CURRENT pre-Codex implementation checkpoint — 2026-10-10 (8/8)
 
 **8/8 validated-and-merged implementation units I01–I08; coding campaign COMPLETE, physical Codex gates OPEN.** I07 B49 and I08 B63 both integrated in existing PR [#301](https://github.com/MariosGiannakaras/Narro/pull/301): exact head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, all three Windows CI jobs **SUCCESS** in [run 38037669076](https://github.com/MariosGiannakaras/Narro/actions/runs/38037669076), expected-head guarded squash merge `f921d1e1c716e1c9404265604f23432c19949dfe`. Independently verified **16/16 PR source/test file Git blob SHAs identical** in resulting executable main and accepted head; workflow/config unchanged. No remaining open implementation PR at merge checkpoint.
