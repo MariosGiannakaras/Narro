@@ -106,8 +106,14 @@ invariant(
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
-invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while the new empty fixture removes all Today work");
-invariant(fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty";'), "no-live visual scenarios must be explicit");
+invariant(
+  fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
+    && fixture.includes('scenario === "empty" ? []')
+    && fixture.includes('scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]')
+    && fixture.includes(': normalTodayTasks;'),
+  "no-eligible, empty and committed-success fixtures must retain distinct authoritative Today queues",
+);
+invariant(fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";'), "no-live success/empty visual scenarios must not fabricate timer sessions");
 invariant(fixture.includes('const timer: TimerSessionPayload | null = noLiveScenario ? null : {'), "no-eligible and empty fixtures must not fabricate a live timer");
 
 invariant(
