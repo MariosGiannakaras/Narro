@@ -1,6 +1,10 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 50/50 evidence cross-checked; post-audit PRs 3/4 accepted
+## CURRENT 2026-10-11 — S0 50/50 evidence cross-checked; post-audit PRs 3/5 accepted
+
+**Q03 NEW TEST PR #326:** `audit/20261011-focus-picker-real-keyboard-regression` head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` queued, two source/test paths (M7 actual mounted production Focus picker keyboard events; mandatory frontend preflight source reachability). Pure regression, no product/source design changes. User-facing implementation denominator increases explicitly **3/4 → 3/5**; no acceptance claimed before all exact CI jobs PASS and guarded merge/blob equality. Q01 #321 failed Windows dark B49 and owned by another agent; do not overwrite branch or fabricate latest candidate source/native ZIP hashes. Last independent 50/50 evidence recheck addendum in work-logs, tracker corrects L05/L40 hashes.
+
+
 
 **User-requested full 50-document audit consistency recheck:** GitHub S0 original set vs frozen tracker **50/50 unique exact paths**, no missed/doubled. Audit logs individual row coverage **15+20+15=50**, 43 actual unmodified immutable historical files with **41/43 original summary SHA correct**; two audit-summary evidence transcription errors L05 placeholder/L40 malformed SHA corrected in separate new immutable addenda without overwriting originals. T01–T03 audit hash is *then-current review* identity, not S0; E01–E04 S0 original SHA correct. **70/70 REVIEWED** remains legitimate bounded coverage only, not 70 implementation/physical PASS. Native user-paused C4/M6/F35/F29/F27/M8 and original Blitzit parity independently OPEN. Mandatory roadmap fully accepted 3/10; original A01–A14 source/CI 14/14.
 
