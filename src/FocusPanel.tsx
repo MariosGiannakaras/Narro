@@ -1168,6 +1168,21 @@ export function FocusPanel({
             data-timed-alert-flash-task-id={liveTask.id}
             data-task-id={liveTask.id}
             data-focus-live-state={timer?.runtime.timer.state ?? "idle"}
+            onFocusCapture={(event) => {
+              // Give WebView2 a deterministic keyboard-focus marker in addition
+              // to :focus-within/:has; those selectors may repaint a frame late.
+              if (event.target instanceof Element && event.target.closest(".focus-panel__live-actions")) {
+                event.currentTarget.dataset.focusActionsKeyboard = "true";
+              }
+            }}
+            onBlurCapture={(event) => {
+              const next = event.relatedTarget;
+              if (!(next instanceof Element)
+                || !event.currentTarget.contains(next)
+                || !next.closest(".focus-panel__live-actions")) {
+                delete event.currentTarget.dataset.focusActionsKeyboard;
+              }
+            }}
           >
             <div className="focus-panel__live-heading">
               <FocusLiveTitle title={liveTask.title} scrollingEnabled={scrollingTitleEnabled} />

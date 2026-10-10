@@ -266,6 +266,7 @@ if (scenario === "live-actions-focus") {
   const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
   const revealProblems = [
     document.activeElement !== action ? "keyboard-focus-owner" : null,
+    liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
     getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
     getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
     !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,

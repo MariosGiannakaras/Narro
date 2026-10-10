@@ -11,6 +11,7 @@ function invariant(condition, message) {
 const titleModule = read("src/FocusTaskRowTitle.tsx");
 const slotCss = read("src/focusActionSlots.css");
 const panelCss = read("src/focusPanel.css");
+const panelSource = read("src/FocusPanel.tsx");
 const rowTitleCss = read("src/focusTaskRowTitle.css");
 const subtasks = read("src/TaskSubtasks.tsx");
 const liveActions = read("src/FocusLiveActions.tsx");
@@ -96,6 +97,13 @@ invariant(panelActions.includes('className="focus-panel__live-action-label"'),
 invariant(panelCss.includes('.focus-panel__live-card:hover .focus-panel__live-actions')
   && panelCss.includes('.focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-actions'),
   "B49 pointer and keyboard must reveal the same action controls");
+invariant(panelSource.includes('onFocusCapture={(event) => {')
+  && panelSource.includes('onBlurCapture={(event) => {')
+  && panelSource.includes('event.currentTarget.dataset.focusActionsKeyboard = "true"')
+  && panelSource.includes('delete event.currentTarget.dataset.focusActionsKeyboard')
+  && panelCss.includes('.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-heading')
+  && panelCss.includes('.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-actions'),
+  "B49 keyboard action reveal must use explicit focus state in addition to CSS pseudo-classes");
 invariant(panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-heading')
   && panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-actions'),
   "B49 keyboard focus must reveal heading-swap without depending solely on Edge dynamic :has invalidation");
