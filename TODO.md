@@ -1,6 +1,12 @@
 # TODO.md
 
-## CURRENT 2026-10-10 chunked audit follow-ups (diagnostic first pass 4/4, code acceptance 12/14)
+## CURRENT 2026-10-10 A14 group 05/05 narrow correction submitted; automated acceptance pending
+
+- [ ] **A14 PR320 0/1:** updated head `67814cf144ac0e60d9e146f8485cffc56724914e`. Replaced obsolete PDF guard-string assertion and added actual production-handler execution tests for CSV/PDF async races/failure/retry and body inert restoration in `scripts/test-ui-reports-overview-runtime.mjs`. Exact run `38077203921` validation SUCCESS, fast **IN PROGRESS/NOT PASS**, Windows not yet accepted. Await actual green three-job exact-head CI before guarded merge+main identity; if fail, inspect first failure. Group 05 log `work-log/2026-10-10-chatgpt-chunked-audit-group05-pr320-real-handler-regression.md`.
+- [ ] **A13 PR319 0/1:** exact head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` **validation/fast/Windows SUCCESS**. Screenshot pixel review of new actual light/dark Focus selector artifact `11679205218` **NOT RUN**; merge only after real visual review and guard/blob check.
+- [ ] **Latest integrated final Windows candidate:** accepted A01–A12 **12/14**, but PR316 binary `11675827068` predates A11/A12 resulting-main merges. Build current combined candidate once A13/A14 accepted. Native Windows Codex paused, mandatory roadmap 3/10.
+
+## HISTORICAL 2026-10-10 chunked audit follow-ups (diagnostic first pass 4/4, code acceptance 12/14)
 
 - [ ] **A14 / Reports double CSV/PDF export gate, 0/1:** [PR #320](https://github.com/MariosGiannakaras/Narro/pull/320), head `e3e8c3b8de9e9bcc041c02dc9f4b3441a25337b6`, actual CI `38075611417` validation SUCCESS / fast FAILURE / Windows SKIPPED. Root cause of first failed step: `scripts/test-ui-reports-overview-runtime.mjs:55` demands old guard string without newly added synchronous `exportInFlightRef`. Preserve production protections; repair brittle static assertion as a semantic check, add proportionate real production-behavior tests, then exact-head CI and guarded merge/main identity. New CSV same-tick test currently verifies handler text plus an independent model; do not treat as executed/native integration. Evidence `work-log/2026-10-10-chatgpt-chunked-audit-groups02-04-source-ci-integrated-build.md`.
 - [ ] **A13 / Focus popup long title, 0/1 unchanged:** #319 validation/fast SUCCESS; Windows IN PROGRESS on CI `38072910111`. Actual replacement screenshot pixels not yet inspected. Do not accept until final Windows success, dark/light visual review, guarded merge/main identity.
