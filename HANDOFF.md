@@ -1,6 +1,16 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT CHUNKED AUDIT group 04/04 diagnostic first pass — 2026-10-10 (groups 02–04 persisted)
+## CURRENT CHUNKED AUDIT Group 05/05 source/test correction submitted — 2026-10-10
+
+User-approved chunked audit/correction sequence: diagnostic Groups 01–04 completed, **Group 05/05 current narrow correction submitted**, not all findings resolved or source/CI accepted. Immutable log `work-log/2026-10-10-chatgpt-chunked-audit-group05-pr320-real-handler-regression.md`. PR320 A14 first CI failed at an obsolete exact-string PDF guard assertion. One branch test-only commit `67814cf144ac0e60d9e146f8485cffc56724914e` (only `scripts/test-ui-reports-overview-runtime.mjs`) replaces brittle exact guard check with TypeScript-AST extracted, actually executed production CSV and PDF async handler tests: null/stale inputs, duplicate event, pending owner, failure/retry, PDF inert/print cleanup. Production code unchanged.
+
+**CURRENT BOUNDED IMPLEMENTATION X/Y: A01–A14 = 12/14 guarded merged after exact CI**; A13/A14 OPEN. PR320 [run 38077203921](https://github.com/MariosGiannakaras/Narro/actions/runs/38077203921) validation SUCCESS, fast **IN PROGRESS / NOT PASS** at last useful checkpoint, Windows candidate NOT PASS. PR319 exact head `c3197deca21f4761d55243de901381c5f299804d` [run 38072910111](https://github.com/MariosGiannakaras/Narro/actions/runs/38072910111) three required jobs now SUCCESS, but actual new light/dark screenshots from retained Focus artifact `11679205218` **NOT DIRECTLY INSPECTED**; still unmerged/0/1. Native/manual Windows gates remain OPEN and Codex user-paused; optional M11 dormant. Roadmap 3/10.
+
+**NEXT AGENT ACTION:** first check CI outcome for new exact #320 head `67814cf144ac0e60d9e146f8485cffc56724914e`; diagnose actual log if failed and fix only proven cause; if green, require Windows success and guarded merge/main blob identity. Separately inspect both new PR319 screenshot pixels and DOM contract, then expected-head guarded merge with 3/3 resulting-main blob equality if acceptable. Finally validate latest combined Windows candidate; PR316 artifact predates #317/#318. Complete one coherent, user-visible group per message and show scoped X/Y counts.
+
+**USER ACTION REQUIRED:** only user-paused consolidated Codex native/Windows acceptance later; do not restart without explicit permission. No new immediate product decision needed.
+
+## HISTORICAL CHUNKED AUDIT group 04/04 diagnostic first pass — 2026-10-10 (groups 02–04 persisted)
 
 The user's four-group **diagnostic** first pass is 4/4 reviewed, **not** an acceptance or completion of implementation/physical validation. Direct evidence: `work-log/2026-10-10-chatgpt-chunked-audit-groups02-04-source-ci-integrated-build.md`; group 01 original: `work-log/2026-10-10-chatgpt-chunked-audit-group01-live-pr-ci-inventory.md`. Last inspected source `main` `58d0acccc11536eb3b140b3b0ee5cda1466d53cc`; documentation-only later work-log commit `4822c21301b7688db1d4dadb1f4074c6b80e8172` did not change runtime.
 
