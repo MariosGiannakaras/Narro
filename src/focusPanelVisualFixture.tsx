@@ -252,7 +252,15 @@ if (scenario === "live-actions-focus") {
   const cardBefore = liveCard.getBoundingClientRect();
   const railBefore = rail.getBoundingClientRect();
   action.focus({preventScroll: true});
-  await new Promise<void>(resolve => window.setTimeout(resolve, 300));
+  // Edge may publish focus and compute the opacity transition on different
+  // frames in light/dark fixtures. Require the same fully revealed final
+  // state, but wait for actual style settlement instead of one fixed timeout.
+  const revealDeadline = performance.now() + 1_500;
+  while (performance.now() < revealDeadline
+    && (getComputedStyle(rail).opacity !== "1"
+      || getComputedStyle(heading).opacity !== "0")) {
+    await new Promise<void>(resolve => window.setTimeout(resolve, 40));
+  }
   const cardAfter = liveCard.getBoundingClientRect();
   const railAfter = rail.getBoundingClientRect();
   const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
