@@ -124,6 +124,7 @@ invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
 const paintValidator = read("scripts/focus-png-pixels.mjs");
+const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
   && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
   && cdpCapture.includes('await waitForFocusedFixture();')
@@ -136,7 +137,6 @@ invariant(focusedFixture.includes('focusActionPaintRegion:')
   && paintValidator.includes('inflateSync'),
   "B49 actual decoded action-rail pixels must differ from ordinary running despite HTML contract PASS");
 
-const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedFixture.includes('"live-actions-focus"')
     && focusedFixture.includes("dataset.focusActionRevealPass"),
   "B49 production keyboard-focus reveal must have a real browser visual fixture");
