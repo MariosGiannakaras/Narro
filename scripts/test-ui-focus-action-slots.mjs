@@ -99,11 +99,6 @@ invariant(panelCss.includes('.focus-panel__live-card:hover .focus-panel__live-ac
 invariant(panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-heading')
   && panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-actions'),
   "B49 keyboard focus must reveal heading-swap without depending solely on Edge dynamic :has invalidation");
-invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
-  && focusedFixture.includes('getComputedStyle(rail).opacity !== "1"')
-  && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
-  "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
-
 invariant(panelCss.includes('position: absolute;') && panelCss.includes('pointer-events: none;')
   && panelCss.includes('.focus-panel__live-action-label { display: none;'),
   "B49 action rail must be overlaid, not an always-visible second row");
@@ -114,6 +109,10 @@ invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
   "B49 reveal must honor reduced motion");
 
 const focusedFixture = read("src/focusPanelVisualFixture.tsx");
+invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
+  && focusedFixture.includes('getComputedStyle(rail).opacity !== "1"')
+  && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
+  "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedFixture.includes('"live-actions-focus"')
