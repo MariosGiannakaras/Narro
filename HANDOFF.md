@@ -1,6 +1,12 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT CHUNKED AUDIT Group 06/06 accepted: A13 visual CI and guarded merge — 2026-10-10
+## CURRENT CHUNKED AUDIT Group 07/07 — PR320 exact Windows CI pending (2026-10-10)
+
+**Group-review progress 7/7** within the current bounded sequence; **implementation A01–A14 13/14** accepted/merged (A14 remains OPEN). Direct immutable group07 evidence `work-log/2026-10-10-chatgpt-chunked-audit-group07-pr320-window-ci-checkpoint.md`. PR320 exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, run `38077203921`: validation-gate SUCCESS, fast-gate SUCCESS, Windows job `114287347022` steps 1–14 SUCCESS including Rust check/Clippy/tests/performance, visual fixture capture step 15 IN PROGRESS, subsequent release/packaging/physical candidate steps PENDING/NOT PASS. No merge or production code changes in Group07. Previous literal PDF assertion regression now passed in fast preflight; native CSV/PDF Windows interaction NOT RUN.
+
+**NEXT AGENT ACTION:** recheck exact #320 Windows job result at useful checkpoint. If red, inspect first failing step/log; if full green, revalidate PR head/mergeability, expected-head guarded squash merge and check **5/5** changed file Git blob SHAs versus resulting main. Next, prepare one latest combined-production Windows candidate that includes A11/A12/A13/A14, as PR316 artifact `11675827068` predates later merges. All physical/manual Codex gates user-paused and OPEN; M10 blocked and M11 dormant. Mandatory milestones 3/10.
+
+## HISTORICAL CHUNKED AUDIT Group 06/06 accepted: A13 visual CI and guarded merge — 2026-10-10
 
 **Current bounded A01–A14 implementation SOURCE/CI progress: 13/14** guarded-merged; named chunked audit/correction groups 01–06 **6/6 completed** (this is not total project/audit closure). A13 PR #319 exact head `c3197deca21f4761d55243de901381c5f299804d`, run `38072910111` validation/fast/Windows all SUCCESS, actual new **light/dark selector-open PNGs opened and reviewed directly** from screenshot artifact `11679005142` (archive SHA256 `37afc6927010e76aa5554893be204ef056d9a4b29a6b6a7a4340aba62fef6788`), browser DOM geometry 258px popup, right 346px, option right 341px and long title 178px client vs 339px scroll with ellipsis. Focus list long title now visibly truncates before menu right border. Expected-head guarded squash merge `4ff95925fd8c2216198809210e5188f879f7023b`; changed source/fixture/test blobs **3/3 equal** accepted head and resulting main; PR CLOSED/MERGED. Separate Focus runtime artifact `11679205218` was **not** the PNG source. Complete evidence `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
 
