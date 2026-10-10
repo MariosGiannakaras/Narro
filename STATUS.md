@@ -1,6 +1,10 @@
 # STATUS.md
 
-## CURRENT 2026-10-10 Group 06/06: A13 direct Windows visual accepted and merged; A14 pending
+## CURRENT 2026-10-10 Group07/07: A14 exact Windows candidate not yet accepted
+
+Current bounded A01–A14 **13/14 source/CI guarded-merged**; A13 #319 already merged with screenshot/DOM evidence and 3/3 blobs, A14 #320 only open. Head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation+fast SUCCESS, Windows-candidate IN PROGRESS at visual fixture step after completed Rust check/Clippy/tests and performance harness. No full Windows PASS or merge claim. Final combined binary not yet produced after A11–A14 merges; earlier PR316 `11675827068` remains obsolete for full-current source. Physical Windows gates remain user-paused/OPEN, mandatory milestones 3/10, M11 strictly dormant. Audit log `work-log/2026-10-10-chatgpt-chunked-audit-group07-pr320-window-ci-checkpoint.md`.
+
+## HISTORICAL 2026-10-10 Group 06/06: A13 direct Windows visual accepted and merged; A14 pending
 
 Bounded A01–A14 **13/14** source/CI accepted and guarded-merged. A13 PR #319 exact `c3197deca21f4761d55243de901381c5f299804d` Windows CI `38072910111` all three SUCCESS. Actual new light/dark Focus-selector PNG screenshots downloaded from visual-regression artifact `11679005142`, archive SHA256 `37afc6927010e76aa5554893be204ef056d9a4b29a6b6a7a4340aba62fef6788`, directly viewed, long title has correct visible ellipsis without border clipping; both captured DOM contracts: menu right 346px, option right 341px, title client/scroll widths 178/339px. Expected-head guarded merge `4ff95925fd8c2216198809210e5188f879f7023b`, 3/3 identical Git blobs with accepted PR head. A14 PR #320 updated `67814cf144ac0e60d9e146f8485cffc56724914e` CI `38077203921`: validation and fast SUCCESS, Windows IN PROGRESS, not merged. No latest all-source integrated production candidate (PR316 artifact predates #317/#318/#319). Physically validated mandatory milestones 3/10; genuine native/OS gates OPEN, Codex user-paused, optional M11 dormant. Immutable proof `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
 
