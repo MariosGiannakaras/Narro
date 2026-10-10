@@ -28,6 +28,7 @@ const theme = params.get("theme") === "light" ? "light" : "dark";
 const requestedScenario = params.get("scenario") ?? "running";
 const scenarios = [
   "running",
+  "selector-open",
   "paused-metrics",
   "break",
   "time-up",
@@ -224,8 +225,8 @@ flushSync(() => {
     <FocusPanel
       fixtureBoard={board}
       fixtureLists={[
-        { id: workId, title: "Work" },
-        { id: personalId, title: longListTitle },
+        { id: workId, title: "Work", color: "#f6e26d" },
+        { id: personalId, title: longListTitle, color: "#acb55f" },
       ]}
       fixtureTimer={timer}
       completionSuccessContent={scenario === "success" ? (
@@ -240,6 +241,16 @@ flushSync(() => {
     />,
   );
 });
+
+if (scenario === "selector-open") {
+  const trigger = document.querySelector<HTMLButtonElement>('[data-focus-list-selector="true"]');
+  if (!trigger || trigger.disabled) throw new Error("Focus list selector fixture trigger unavailable");
+  flushSync(() => trigger.click());
+  const optionNodes = document.querySelectorAll('[data-focus-list-option]');
+  if (optionNodes.length !== 3) {
+    throw new Error(`Focus list selector expected All Lists and two saved lists; saw ${optionNodes.length}`);
+  }
+}
 
 if (scenario === "live-actions-focus") {
   const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
@@ -411,7 +422,34 @@ if (queuedRow) {
     successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
+const focusSelector = document.querySelector<HTMLElement>('[data-focus-list-selector="true"]');
+const focusPopup = document.querySelector<HTMLElement>('.board-list-picker--focus .board-list-picker__menu');
+const focusPanelRect = document.querySelector('.focus-panel')?.getBoundingClientRect();
+const focusPopupRect = focusPopup?.getBoundingClientRect();
+const focusSelectorContract = {
+  trigger: focusSelector ? {
+    width: focusSelector.getBoundingClientRect().width,
+    height: focusSelector.getBoundingClientRect().height,
+    expanded: focusSelector.getAttribute('aria-expanded'),
+  } : null,
+  popup: focusPopupRect ? { width: focusPopupRect.width, height: focusPopupRect.height } : null,
+  popupWithinPanel: Boolean(focusPopupRect && focusPanelRect
+    && focusPopupRect.left >= focusPanelRect.left - 1
+    && focusPopupRect.right <= focusPanelRect.right + 1
+    && focusPopupRect.top >= focusPanelRect.top - 1
+    && focusPopupRect.bottom <= focusPanelRect.bottom + 1),
+  listOptions: Array.from(document.querySelectorAll<HTMLElement>('[data-focus-list-option]'),
+    node => ({
+      label: node.querySelector('.board-list-picker__option-title')?.textContent?.trim() ?? '',
+      selected: node.getAttribute('aria-selected'),
+      badgeVisible: Boolean(node.querySelector('.board-list-picker__badge')),
+    })),
+  savedBadgeColors: Array.from(document.querySelectorAll<HTMLElement>(
+    '[data-focus-list-option]:not([data-focus-list-option="__all_lists__"]) .board-list-picker__badge'
+  ), node => getComputedStyle(node).backgroundColor),
+};
 const contract = {
+  focusSelectorContract,
   queueTitleLayout,
   theme,
   scenario,
