@@ -87,6 +87,7 @@ export function SearchPalette({
   const dialogRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const quickTaskTitleRef = useRef<HTMLInputElement>(null);
+  const quickTaskInFlightRef = useRef(false);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const suppressFocusRestoreRef = useRef(false);
 
@@ -264,7 +265,7 @@ export function SearchPalette({
 
   const submitQuickTask = async (event: ReactFormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (quickTaskPending) return;
+    if (quickTaskPending || quickTaskInFlightRef.current) return;
 
     const title = quickTaskTitle.trim();
     if (!title) {
@@ -285,6 +286,7 @@ export function SearchPalette({
       : null;
     const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
 
+    quickTaskInFlightRef.current = true;
     setQuickTaskPending(true);
     setQuickTaskError(null);
     let taskId: string;
@@ -297,6 +299,7 @@ export function SearchPalette({
         insertAtTop: false,
       });
     } catch (failure: unknown) {
+      quickTaskInFlightRef.current = false;
       setQuickTaskPending(false);
       setQuickTaskError(formatInvokeError(failure));
       return;
