@@ -24,6 +24,14 @@ const picker = read("src/BoardListPicker.tsx");
 const pickerCss = read("src/boardListPicker.css");
 const actions = read("src/FocusLiveActions.tsx");
 const m7Integration = read("src/m7IntegrationRegression.tsx");
+invariant(m7Integration.includes('Q03 Focus list trigger ArrowDown must open its ARIA listbox')
+  && m7Integration.includes('Q03 End must focus last option')
+  && m7Integration.includes('Q03 Home must focus first option')
+  && m7Integration.includes('Q03 ArrowUp must wrap from first to last option')
+  && m7Integration.includes('Q03 Escape must dismiss the menu and restore focus to the trigger')
+  && m7Integration.includes('Q03 Tab must dismiss the listbox')
+  && m7Integration.includes('Q03 reopen must focus the newly selected saved list'),
+  "Q03 real Focus picker keyboard-event/ARIA focus regression must run in the M7 mounted component");
 invariant(m7Integration.includes("focusBoardStaleResponsesRejected: true")
   && m7Integration.includes("focusBoardReadWaiters[1](freshFocusBoard)")
   && m7Integration.includes("focusBoardReadWaiters[0](staleFocusBoard)"),
