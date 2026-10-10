@@ -256,14 +256,20 @@ if (scenario === "live-actions-focus") {
   const cardAfter = liveCard.getBoundingClientRect();
   const railAfter = rail.getBoundingClientRect();
   const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
-  if (document.activeElement !== action
-    || getComputedStyle(rail).opacity !== "1"
-    || getComputedStyle(heading).opacity !== "0"
-    || !label || label.getClientRects().length === 0
-    || Math.abs(cardAfter.height - cardBefore.height) > 1
-    || Math.abs(railAfter.width - railBefore.width) > 1
-    || Math.abs(railAfter.top - railBefore.top) > 1) {
-    throw new Error("B49 action focus failed to reveal a labeled icon without moving live-card geometry.");
+  const revealProblems = [
+    document.activeElement !== action ? "keyboard-focus-owner" : null,
+    getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
+    getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
+    !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,
+    Math.abs(cardAfter.height - cardBefore.height) > 1
+      ? `live-card-height-shift=${(cardAfter.height - cardBefore.height).toFixed(2)}px` : null,
+    Math.abs(railAfter.width - railBefore.width) > 1
+      ? `action-rail-width-shift=${(railAfter.width - railBefore.width).toFixed(2)}px` : null,
+    Math.abs(railAfter.top - railBefore.top) > 1
+      ? `action-rail-top-shift=${(railAfter.top - railBefore.top).toFixed(2)}px` : null,
+  ].filter((problem): problem is string => problem !== null);
+  if (revealProblems.length > 0) {
+    throw new Error(`B49 action focus failed to reveal a labeled icon without moving live-card geometry: ${revealProblems.join(", ")}`);
   }
   document.documentElement.dataset.focusActionRevealPass = "true";
 }
