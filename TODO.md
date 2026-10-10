@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 8/70 reviewed; 7/18 code PRs (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 9/70 reviewed; 8/18 code PRs (2026-10-11)
+
+- [x] **P06 #307 AUDITED_F01_RESOLVED_F02/F03_EVIDENCE_OPEN:** head `86e6e443d2d55530c8fab185a2270ec5ebaa1904`, 3/3 exact CI `38056858648` SUCCESS, original merge `ac48759d551279266c2f1d25f35a1e4f58d482e0`, 4/4 Git blobs identical. Board Create/Duplicate and Search QuickTask synchronous per-mounted refs verified before native command; synthetic async model regression and source-wiring static checks in preflight, not actual React handler IPC. Immutable `work-log/2026-10-11-chatgpt-0600-audit-p06-pr307-board-search-single-flight.md`.
+- [x] **P06-F01 original success-owner leak FIXED by existing #317:** `SearchPalette` remains mounted while hidden, #307 never released quickTask ref after successful persist so second create blocked. #317 exact head `2c9305e4f911a2980a67e1e9c3b45489d2e2a8fa`, CI `38071911442` all 3 SUCCESS, original guarded merge `0a650c589ffd5f4f203b245ef9bf2ca0f48fcef3`, present in current main success-path finally/preflight tests. Do not recreate.
+- [ ] **P06-F02/F03 coverage risk:** refs are local to respective handler owners, not project-global; need actual production-handler deferred interleavings for Board Create/Duplicate and Search, and cross-owner harmful-intent reproduction before inventing global lock. No real duplicates proven; independently intended simultaneous creates may be legitimate.
+- [ ] **Existing P02-F01/F02 and P05-F02:** misleading B49 focused PNGs, Success Next/Break pending-only race, picker keyboard-event coverage still open. Keep separate from #307 resolved issue.
+- [ ] **Next P08 #309:** stale Focus Board request ordering and target identity, event invalidation and failure, actual asynchronous test coverage, exact-head Windows CI/merge blobs.
+- [ ] **Frozen scope:** 8/18 actual code/test PR reviews, 1/1 evidence-only #308, 0/50 Markdown files, 0/1 combined candidate = **9/70**. Implementation source/CI 14/14, physically/source completed roadmap 3/10; physical Windows Codex USER-PAUSED, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 8/70 reviewed; 7/18 code PRs (2026-10-10)
 
 - [x] **P05 #306 A02 anchored Focus picker AUDITED:** head `6880f17f701621003f426e0b7416d68f11ea81cf`, all 3 Windows CI jobs `38049022590` SUCCESS, merge `8eea11ea6f7aa40f81efafcd9845bfa7eefe9035`, all 12/12 blobs match. Actual historical SS-H04 original PNG directly opened; original #306 light/dark popup pixels viewed, saved colored badge/+1 and anchored 258×170 popup verified. Historical long-title row overflow confirmed, **resolved by already accepted #319**, #319 real light/dark pixels and computed ellipsis/row geometry inspected. No duplicate fix. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p05-pr306-focus-list-picker.md`.
 - [ ] **P05-F02 keyboard test coverage OPEN:** real Focus picker ArrowUp/Down/Home/End/Escape/Tab/Enter/Space keyboard-event integration and assistive technology native observations NOT RUN. Production handlers exist and click-based M7 list identity/remount/stale/archive/deletion tests PASS; no proven functional failure. Add targeted keyboard regression when narrow independent remediation queued.
