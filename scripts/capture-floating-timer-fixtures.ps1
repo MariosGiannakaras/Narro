@@ -46,11 +46,16 @@ try {
     Wait-ForPreview "$baseUrl/floating-timer-fixture.html?theme=dark"
 
     foreach ($theme in @("light", "dark")) {
-        foreach ($state in @("collapsed", "expanded")) {
+        foreach ($state in @("collapsed", "expanded", "time-up-compact", "time-up-expanded")) {
             $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
             $captureId = [guid]::NewGuid().ToString('N')
-            $label = if ($state -eq "collapsed") { "floating-timer-$theme" } else { "floating-timer-expanded-$theme" }
-            $windowHeight = if ($state -eq "expanded") { 380 } else { 240 }
+            $label = switch ($state) {
+                "collapsed" { "floating-timer-$theme" }
+                "expanded" { "floating-timer-expanded-$theme" }
+                "time-up-compact" { "floating-timer-time-up-compact-$theme" }
+                "time-up-expanded" { "floating-timer-time-up-expanded-$theme" }
+            }
+            $windowHeight = if ($state -eq "expanded" -or $state -eq "time-up-expanded") { 380 } else { 240 }
             $profile = Join-Path $tempRoot "narro-$label-$captureId"
             $stdout = Join-Path $tempRoot "narro-$label-$captureId.stdout.txt"
             $stderr = Join-Path $tempRoot "narro-$label-$captureId.stderr.txt"
