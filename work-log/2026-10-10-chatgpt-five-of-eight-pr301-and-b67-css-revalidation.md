@@ -1,0 +1,17 @@
+# 2026-10-10 — 5/8 current, #280 CSS revalidation, combined B49+B63 PR301
+
+Authoritative progress is 5/8 validated and merged before Codex physical. I05 B50 #299 head 6ba29b7c86adb2577917b5501b388999c5e02942 had CI37996271400 all 3 SUCCESS; guarded squash merged 308c7468573d3ea780b517f7a3d4b18fa6af21d0. I02/I03/I04/I06 also accepted. I01 #280 and I07/I08 are NOT accepted. No native physical/M11 PASS.
+
+## B67 exact CSS issue
+
+Prior head 795b6f2feb4c453c87be77f7a4a4bb1a20a28e1f had full-green CI37999727060 but contains a real Floating Timer CSS regression: a clipping-specific overtime selector incorrectly replaced the clipping-only action-wrap transition guard, and a global action-wrap transition:none defeated normal compact hover. Fixed actual source in src/floatingTimerFoundation.css in head 2ce147cd49556fa6aa8058581bb1472587c65736: restore clipping-specific action transition:none; put overtime warning token on the timer itself unconditionally. Fast-test guard initially used substring search and failed falsely in CI38004427052; anchored the negative matcher to selector line start without changing production code. Current head b3eff7a39a595a2146ff28127d682661a705a2fb, exact CI38004842175: validation and fast PASS, Windows candidate IN PROGRESS/NOT PASS at last check. Merge only full-green exact head with expected-head guard.
+
+## B49/B63 current existing branch and combined PR
+
+Original staged B49 branch head 99ec1450bc22794a6f711acda9984b143071d855 preserved. Original B63 branch head was 7ba149f10ec08b76ede9ed523a36cf97a4903a7f (new keyboard focus restoration after inline Close). Earlier failed CAS attempts were made against *stale* B63 head 5e455...; GitHub ref GET established actual newer head and avoided any overwrite. New forward three-parent source commit e911b86a0359bc8314a176e433c2ae0754d87ba7 was created on original B63 branch and CAS moved its ref from the exact 7ba149 head successfully. Git tree based on then-latest main 171d640521d4d79475bb70cffb660c0fb8870738, explicitly overlays only 20 files: 6 corrected B67 sources/tests (notably timer warning CSS blob dd5a50af240f4ed13c6bc02d18b23f034a2057b9 and corrected fast test blob 022196073b004a9600c62e68320badc4c7e1c7c0) and 14 intended B49/B63 component/fixture files, including latest inline Close focus owner blob 8e7cdb722f1338c6b2552fa9d0cf382b6ead9ffc. All main Markdown/approved List Editor preserved; compare main->branch ahead, behind 0, only 20 intended source/test files.
+
+Opened PR #301 https://github.com/MariosGiannakaras/Narro/pull/301 for combined I07 B49 (five stable icon actions on hover and keyboard focus) and I08 B63 (committed Done success inline active card, visible guarded queue, next-task ownership, inferred untimed idle rest guarded by authoritative timer). Actual Edge rendered screenshot scenarios in two themes: live-actions-focus and success, with fast source/visual validators. Exact head e911b86a0359bc8314a176e433c2ae0754d87ba7, CI38005194255 validation PASS and fast IN PROGRESS/NOT PASS at checkpoint. No PR301 CI/merge acceptance or native physical PASS claimed.
+
+## Next
+
+Check CI38004842175 #280 and CI38005194255 #301 at useful checkpoint. Fix exact primary failures only. When #280 current head fully green, merge guarded and update 6/8. Then verify PR301 current head + required three jobs fully green, inspect diff against resulting main, guarded merge for 8/8; forward-reconcile if squash produces genuine conflict, rerun CI on new head. Keep Codex physical paused until 8/8 and original M11 dormant.
