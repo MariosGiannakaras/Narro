@@ -1,4 +1,4 @@
-import { type CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListIcon } from "./ListIcon";
 import { listIconContrast } from "./listSpectrumColor";
@@ -32,6 +32,9 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
   const [pendingRestoreId, setPendingRestoreId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ArchivedListSummary | null>(null);
   const [deletePending, setDeletePending] = useState(false);
+  // Shared immediate write owner: restore and permanent delete cannot overlap
+  // before React pending flags publish or across different list rows.
+  const archiveMutationInFlightRef = useRef(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -56,7 +59,8 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
   }, [fixtureLists]);
 
   async function restoreList(list: ArchivedListSummary) {
-    if (pendingRestoreId || deletePending) return;
+    if (pendingRestoreId || deletePending || archiveMutationInFlightRef.current) return;
+    archiveMutationInFlightRef.current = true;
     setPendingRestoreId(list.id);
     setLoadError(null);
     try {
@@ -65,18 +69,20 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
     } catch (failure) {
       setLoadError(formatInvokeError(failure));
     } finally {
+      archiveMutationInFlightRef.current = false;
       setPendingRestoreId(null);
     }
   }
 
   function requestDelete(list: ArchivedListSummary) {
-    if (pendingRestoreId || deletePending) return;
+    if (pendingRestoreId || deletePending || archiveMutationInFlightRef.current) return;
     setDeleteTarget(list);
     setDeleteError(null);
   }
 
   async function confirmDelete() {
-    if (!deleteTarget || deletePending) return;
+    if (!deleteTarget || deletePending || pendingRestoreId || archiveMutationInFlightRef.current) return;
+    archiveMutationInFlightRef.current = true;
     setDeletePending(true);
     setDeleteError(null);
     try {
@@ -86,6 +92,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
     } catch (failure) {
       setDeleteError(formatInvokeError(failure));
     } finally {
+      archiveMutationInFlightRef.current = false;
       setDeletePending(false);
     }
   }
@@ -191,7 +198,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
           pending={deletePending}
           error={deleteError}
           onCancel={() => {
-            if (!deletePending) {
+            if (!deletePending && !archiveMutationInFlightRef.current) {
               setDeleteTarget(null);
               setDeleteError(null);
             }

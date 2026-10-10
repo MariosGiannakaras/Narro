@@ -111,4 +111,5 @@ if (shell.includes("onDuplicate: () =>")) {
   throw new Error("List-settings slice must not activate the separately ordered Duplicate target.");
 }
 
+await import("./test-archived-list-mutation-gate.mjs");
 console.log("List settings archive/delete contract checks passed.");
