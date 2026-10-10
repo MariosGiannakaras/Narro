@@ -70,6 +70,17 @@ try {
             New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
             try {
+                # Edge's combined --screenshot/--dump-dom commands may snapshot at
+                # different times. The B49 keyboard-reveal state must be painted
+                # and captured through one debugger page AFTER strict readiness.
+                if ($scenario.Name -eq "live-actions-focus") {
+                    $reducedValue = if ($ReducedMotion) { "true" } else { "false" }
+                    & node "scripts/capture-focus-action-cdp.mjs" "--edge=$edge" "--url=$url" "--profile=$profile" "--png=$screenshot" "--html=$dom" "--reducedMotion=$reducedValue"
+                    if ($LASTEXITCODE -ne 0) {
+                        throw "B49 same-page Edge CDP capture failed for $theme/$($scenario.Name), exit code $LASTEXITCODE"
+                    }
+                    continue
+                }
                 $edgeArguments = @(
                     "--headless=new",
                     "--disable-gpu",
