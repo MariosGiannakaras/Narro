@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import "./test-reports-add-session-single-flight.mjs";
 
 function invariant(condition, message) {
   if (!condition) throw new Error("Reports Sessions production contract failed: " + message);
