@@ -14,7 +14,7 @@
 
 ## 2. Fixed and auditable progress formula
 
-**CURRENT REVIEW COUNTERS (after P12–P17): 19/70 overall = 19/19 PR audited (18/18 actual source/test PR, 1/1 closed-unmerged evidence-only #308), 0/50 frozen S0 Markdown paths, 0/1 latest integrated production candidate. Each PR audit status denotes source/test/CI/merge review with OPEN limitations where documented, NOT native physical or perfect source parity. Original exact PR CI for P12–P17 all 6×3 jobs SUCCESS and all 18/18 resulting-main changed blobs equal. Independent source/CI implementation A01–A14 14/14; mandatory physical/source accepted milestone roadmap 3/10. **No new corrections, source PR or CI until complete audit per explicit user instruction; defer in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`.** New immutable audit `work-log/2026-10-11-chatgpt-0600-audit-p12-p17-313-318.md` and preceding P08–P11 log. Frozen denominator 70 unchanged; all 50 docs current-truth/historical evidence checks and I01 remain.
+**CURRENT REVIEW COUNTERS (after first S0 Markdown group T01–E04, L01–L08): 34/70 total = 19/19 PR audit units, 15/50 frozen Markdown paths individually audited, 0/1 latest integrated production candidate. All 18/18 source/test PRs and evidence-only #308 already reviewed. T01–T03 current tracking and E01 crosswalk/E03 latest-artifact naming/E04 risk family prose have dated/current-truth inconsistencies explicitly OPEN and deferred until after the full audit by user. E02 source-uncertainty register preserves approved Narro color/icon picker and physical/source limits. L01–L08 immutable logs are correct at their historical timestamps (pending then, merged later); DO NOT EDIT. Durable evidence `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md`, with L05 exact Git blob SHA `c4baa5f106e029f0c4f846a9a55767530f19656d` (correcting a placeholder in the immutable log without overwriting it). Defer all new fixes/test PRs/new CI in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md` Q01–Q19; original accepted A01–A14 source/CI 14/14, mandatory fully accepted roadmap 3/10, user-paused physical. Frozen denominator 70 unchanged.**
 
 **Total scoped audit work units = 70 = 19 PR change sets + 50 changed Markdown paths + 1 combined-source/build validation boundary.** This is a coverage measure, not a difficulty estimate: a Critical 16-file PR needs proportionally more detailed subchecks than a single-file historical evidence PR. Every unit has a stable ID below.
 
@@ -49,6 +49,8 @@
 | P19 | [#320](https://github.com/MariosGiannakaras/Narro/pull/320) — A14 CSV/PDF export single-flight | Critical | **AUDITED** | Actual handlers tested in Node VM, fast PASS; Windows candidate pending, no final merge |
 
 ### Review status notes
+- **T01–T03/E01–E04/L01–L08 15/50 FROZEN S0 MARKDOWN AUDITED_WITH_FINDINGS:** top current truth T01/T02/T03 correctly retains 18/18 PR audit, 14/14 source/CI and 3/10 physical/source milestones, but many lower old `CURRENT`/`NEXT` headings not demoted to historical. E01 crosswalk B15 native select/B50 six-action Extend disproved by current #306/#301 code; B7 #285/B18 #262/B21 #295/B22 #298/B52 #289/B67 #280 statuses stale pending though merged. E02 correctly preserves approved Spectrum Core/218 icons and 41 source questions, unknown native/source cases not equal coding tickets. E03 falsely calls pre-#317–#320 #316 candidate (`11675827068`) latest; exact run `38066478586` success remains valid only for old source. E04 NER-013/014 causal text says PRs were pending despite accepted #305–#318, though broader WATCH boundaries stay open. L01–L08 immutable logs are accurate at recorded time, their pending statuses superseded by later exact CI. No code tests or new CI run and NO physical PASS. Full per-file immutable evidence `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md`, L05 original SHA `c4baa5f106e029f0c4f846a9a55767530f19656d` verified and restored here, correction avoids immutable rewrite. All actual corrections deferred per user to post-audit action queue Q15/Q17/Q18/Q19. Next **L09–L43**, then I01.
+
 - **P12–P17 #313–#318 AUDITED WITH HISTORICAL EXACT-CI AND BLOB PROOF:** #313/#314/#315/#316/#317/#318 heads `df2bf8a1`, `1cc03c0a`, `81098071`, `edebaa4d`, `2c9305e4`, `51b71377`; original merges `744397d5`, `8e24cbc4`, `c21b1f9e`, `1bd24411`, `0a650c58`, `c93d975a`; exact runs `38062951891`, `38063218931`, `38063411322`, `38066478586`, `38071911442`, `38072180843` **all validation/fast/windows SUCCESS** and **18/18 head-to-merged-main blob matches**. #313 Blitz Start→native morph sync owner, #314 Focus Subtasks/Metrics two local owners, #315 destructive Archive Restore/Delete shared owner, #316 original A01–A10 CI test reachability plus historical packaged artifact `11675827068` (older than #317–#320, NOT latest integrated I01), #317 fixes original Search success ref leak, #318 fixes original Reports Add/Edit/Delete cross-owner overlap. Original tests mostly source guard checks and async models, not actual React/native event handlers. All remaining new test, remediation and CI steps **deferred post-audit** in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`. Immutable full audit `work-log/2026-10-11-chatgpt-0600-audit-p12-p17-313-318.md`; native Windows and original Blitzit source parity independent OPEN.
 
 - **P08–P11 #309–#312 AUDITED (multi-PR group):** original exact PR heads `7b9d6d3d`, `a293c094`, `60a6e573`, `4e6a84c5`; CI runs `38052663090`, `38053306094`, `38057049911`, `38062610832` each **3/3 validation/fast/windows SUCCESS**; original resulting merges `f5b9db26`, `3012a030`, `057df046`, `7469ae74`; all **12/12 changed head-versus-resulting-main blob identities** verified. #309 actual M7 FocusPanel delayed initial vs newer invalidation rendered regression PASS; not all target/timer/refresh interleavings executed. #310 Add Session ref with synthetic async model, wider Edit/Delete overlap **already fixed #318** current shared `sessionMutationInFlightRef`. #311 Focus row/add local refs and commit-before-fallible-refetch editor close; wider cross-owner overlap **already fixed #312**. #312 current shared `focusMutationOwnerRef` covers six FocusPanel write/Home families, release after refresh/rollback; synthetic model and source guards not actual React/native IPC. **No new confirmed unfixed defect** in these scopes, no new CI/source work this audit group. All new remediation/tests/CI deferred by explicit user direction in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`; work log `work-log/2026-10-11-chatgpt-0600-audit-p08-p11-309-312.md`. Existing P02-F01/F02 plus test gaps remain OPEN.
@@ -65,25 +67,25 @@
 ## 4. Markdown/current-truth audit paths (50, no double counting)
 
 ### T — Current-truth state (3)
-- [ ] **T01** — `HANDOFF.md`
-- [ ] **T02** — `STATUS.md`
-- [ ] **T03** — `TODO.md`
+- [x] **T01** — `HANDOFF.md`
+- [x] **T02** — `STATUS.md`
+- [x] **T03** — `TODO.md`
 
 ### E — Evidence/risk/source-route documents (4)
-- [ ] **E01** — `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`
-- [ ] **E02** — `docs/BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md`
-- [ ] **E03** — `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`
-- [ ] **E04** — `docs/NARRO_ENGINEERING_RISK_REGISTER.md`
+- [x] **E01** — `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`
+- [x] **E02** — `docs/BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md`
+- [x] **E03** — `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`
+- [x] **E04** — `docs/NARRO_ENGINEERING_RISK_REGISTER.md`
 
 ### L — Immutable work-log entries (43)
-- [ ] **L01** — `work-log/2026-10-10-chatgpt-a03-focus-board-read-fence-test-plan.md`
-- [ ] **L02** — `work-log/2026-10-10-chatgpt-a05-merged-a04-rebased-a06-open.md`
-- [ ] **L03** — `work-log/2026-10-10-chatgpt-a05-reports-session-double-submit-risk.md`
-- [ ] **L04** — `work-log/2026-10-10-chatgpt-a06-focus-panel-create-duplicate-single-flight-analysis.md`
-- [ ] **L05** — `work-log/2026-10-10-chatgpt-a07-a10-concurrent-causal-source-corrections-pending.md`
-- [ ] **L06** — `work-log/2026-10-10-chatgpt-a07-a10-exact-ci-guarded-merge-final.md`
-- [ ] **L07** — `work-log/2026-10-10-chatgpt-a07-focus-remaining-live-mutation-guards.md`
-- [ ] **L08** — `work-log/2026-10-10-chatgpt-a07-focus-shared-mutation-ownership-ci-pending.md`
+- [x] **L01** — `work-log/2026-10-10-chatgpt-a03-focus-board-read-fence-test-plan.md`
+- [x] **L02** — `work-log/2026-10-10-chatgpt-a05-merged-a04-rebased-a06-open.md`
+- [x] **L03** — `work-log/2026-10-10-chatgpt-a05-reports-session-double-submit-risk.md`
+- [x] **L04** — `work-log/2026-10-10-chatgpt-a06-focus-panel-create-duplicate-single-flight-analysis.md`
+- [x] **L05** — `work-log/2026-10-10-chatgpt-a07-a10-concurrent-causal-source-corrections-pending.md`
+- [x] **L06** — `work-log/2026-10-10-chatgpt-a07-a10-exact-ci-guarded-merge-final.md`
+- [x] **L07** — `work-log/2026-10-10-chatgpt-a07-focus-remaining-live-mutation-guards.md`
+- [x] **L08** — `work-log/2026-10-10-chatgpt-a07-focus-shared-mutation-ownership-ci-pending.md`
 - [ ] **L09** — `work-log/2026-10-10-chatgpt-audit-react-board-mutator-reentrancy.md`
 - [ ] **L10** — `work-log/2026-10-10-chatgpt-b49-edge-virtual-time-budget-root-cause.md`
 - [ ] **L11** — `work-log/2026-10-10-chatgpt-b49-focus-reveal-reconciliation-cc216569.md`
@@ -129,7 +131,7 @@ Work-logs must never be edited to hide stale conclusions. Report contradictions 
 ## 6. Work order and handoff contract
 
 1. **Already accepted:** PR320 exact Windows CI all SUCCESS and guarded-merged with 5/5 source/test blobs. P19 AUDITED, separate real native CSV/PDF export remains an open physical/manual claim. Do not redo this work.
-2. **PR retrospective P01–P19 COMPLETE AS AUDIT REVIEW:** 18/18 actual code/test PR and 1/1 evidence-only PR examined with exact head CI/blob and causal source/test review. All new code/CI defer until audit closes, registered in post-audit action queue. **NEXT review frozen 50 changed Markdown paths** T01–T03, E01–E04 and L01–L43; use original S0 content when reconciling historical logs and correct any misleading current-truth claims on latest main only. Then I01 combined latest source/production candidate provenance. No physical Codex restart.
+2. **Frozen audit progress now 34/70:** PR retrospective P01–P19 finished 19/19, current-truth/evidence docs T01–E04 and historical logs L01–L08 audited 15/50 with explicitly open documentation repairs. Next immutable work logs **L09–L43** (35 outstanding). Finally I01 newest combined source/production candidate evidence audit, without starting new CI during audit per user; deferred actual source/tests/CI in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`.
 3. **Document claims**: inspect T/E/L 50 frozen Markdown paths, reconcile current-truth files and risk/crosswalk truth; immutable logs retain historical content. Process in bounded file batches but do not redefine the denominator.
 4. **I01** after merges: verify current combined candidate and separate physical limitations, without activating user-paused Codex.
 5. **On every substantive progress update:** report `audit X/70` plus code/test PR X/18, with `P x/19, Markdown y/50, integration z/1` and independent implementation `A01–A14 a/14` and roadmap `3/10`; increase X only for completed ledger item(s), not for number of replies. If scope extends beyond snapshot S0, create a separately identified annex and publicly explain any Y change. No promise of asynchronous work or deferred completion.
