@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { parseMetricDuration } from "./metricDurationInput";
 import {
@@ -103,6 +103,9 @@ export function FocusLiveMetrics({
     fixtureEditorFor(fixtureMode, fixtureEditor, timer, task),
   );
   const [pending, setPending] = useState(false);
+  // A saved paused metric is authoritative before its fallible board refetch;
+  // prevent a second submit until both phases complete even before rerender.
+  const metricMutationInFlightRef = useRef(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -158,7 +161,8 @@ export function FocusLiveMetrics({
   };
 
   const save = async () => {
-    if (fixtureMode || !editor || pending || refreshBlocked || interactionBlocked || !pausedEditable) return;
+    if (fixtureMode || !editor || pending || metricMutationInFlightRef.current
+      || refreshBlocked || interactionBlocked || !pausedEditable) return;
     const parsed = parseMetricDuration(editor.value, editor.metric);
     if (!parsed.ok) {
       setStatus(null);
@@ -172,6 +176,7 @@ export function FocusLiveMetrics({
     }
 
     const metric = editor.metric;
+    metricMutationInFlightRef.current = true;
     setPending(true);
     setStatus(null);
     setError(null);
@@ -208,6 +213,7 @@ export function FocusLiveMetrics({
       setStatus(null);
       setError(formatInvokeError(failure));
     } finally {
+      metricMutationInFlightRef.current = false;
       setPending(false);
     }
   };
