@@ -10,10 +10,12 @@ function invariant(condition, message) {
 }
 
 function readCapture(theme, state) {
-  const label = state === "collapsed" ? `floating-timer-${theme}` : `floating-timer-expanded-${theme}`;
+  const label = state === "collapsed" ? `floating-timer-${theme}`
+    : state === "expanded" ? `floating-timer-expanded-${theme}`
+      : `floating-timer-${state}-${theme}`;
   const screenshot = path.join(outputDirectory, `${label}.png`);
   const domPath = path.join(outputDirectory, `${label}.html`);
-  const expectedHeight = state === "collapsed" ? 240 : 380;
+  const expectedHeight = state === "collapsed" || state === "time-up-compact" ? 240 : 380;
 
   invariant(fs.existsSync(screenshot), `${label} screenshot is missing`);
   const png = fs.readFileSync(screenshot);
@@ -102,6 +104,7 @@ function validateCollapsed(dom, contract, label) {
   invariant(contract.heading?.height > 0, `${label} heading geometry is invalid`);
   invariant(contract.title?.width > 0, `${label} title geometry is invalid`);
   invariant(contract.liveTimer?.width >= 48, `${label} live timer geometry is invalid`);
+  invariant(contract.timeUpLabel === null, `${label} ordinary running state must not show Time\'s Up`);
   invariant(contract.actionStrip === null, `${label} collapsed action strip must be absent`);
   invariant(contract.returnToPanel === null, `${label} collapsed return action must be absent`);
   invariant(contract.subtaskPanel === null, `${label} collapsed subtask panel must be absent`);
@@ -143,6 +146,7 @@ function validateExpanded(dom, contract, label) {
   invariant(contract.heading?.height > 0, `${label} expanded heading geometry is invalid`);
   invariant(contract.title?.width > 0, `${label} expanded title geometry is invalid`);
   invariant(contract.liveTimer?.width >= 48, `${label} expanded live timer geometry is invalid`);
+  invariant(contract.timeUpLabel === null, `${label} ordinary running state must not show Time\'s Up`);
   invariant(contract.actionStrip?.height >= 32, `${label} expanded action strip geometry is invalid`);
   invariant(
     contract.returnToPanel?.width === 32 && contract.returnToPanel?.height === 32,
@@ -164,6 +168,32 @@ for (const state of ["collapsed", "expanded"]) {
     validateSharedGeometry(contract, label, theme, state);
     if (state === "collapsed") validateCollapsed(dom, contract, label);
     else validateExpanded(dom, contract, label);
+  }
+}
+
+// Finding35: exercise the actual production component in both native-height
+// presentations and both themes; an aria-label alone does not satisfy the
+// visible Time's Up acceptance criterion.
+for (const state of ["time-up-compact", "time-up-expanded"]) {
+  for (const theme of ["light", "dark"]) {
+    const { label, dom } = readCapture(theme, state);
+    const contract = readContract(dom, label);
+    const expanded = state === "time-up-expanded";
+    invariant(contract.theme === theme && contract.state === state,
+      `${label} must capture the requested Time's Up state and theme`);
+    invariant(dom.includes('data-floating-live-state="time_up"')
+      && dom.includes('data-floating-live-timer="true"')
+      && dom.includes('data-floating-time-up-label="true"')
+      && dom.includes('aria-label="Time&#x27;s Up"') || false,
+      `${label} must expose Time's Up to the user and accessibility tree`);
+    invariant(dom.includes(">00:00<") && contract.timeUpLabelText === "Time's Up",
+      `${label} must retain the zero clock alongside the visible label`);
+    invariant(contract.timer?.width === 340 && contract.timer?.height === (expanded ? 300 : 110),
+      `${label} must preserve the compact/expanded native bounds`);
+    invariant(contract.timeUpLabel?.width > 0 && contract.timeUpLabel?.height > 0 && contract.timeUpLabelFits,
+      `${label} Time's Up text must be rendered inside the visible heading, not clipped`);
+    invariant(dom.includes('data-floating-action="extend"') && !dom.includes('data-floating-action="pause-resume"'),
+      `${label} must keep the Time's Up contextual Extend slot`);
   }
 }
 
