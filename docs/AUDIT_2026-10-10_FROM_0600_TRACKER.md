@@ -14,7 +14,7 @@
 
 ## 2. Fixed and auditable progress formula
 
-**CURRENT REVIEW COUNTERS (after L09–L28 historical log audit): 54/70 total = 19/19 PR review units, 35/50 frozen S0 Markdown paths (7 T/E + L01–L28), 0/1 latest integrated candidate. All 18/18 code/test PRs completed as retrospective reviews, 1/1 closed unmerged evidence-only PR #308. Newly reviewed 20 immutable L09–L28 preserved unchanged: historical B49 focus screenshot/virtual-time anomalies and old CI failures described accurately at their timestamps, #301/#319/#320 later accepted on exact heads but **B49 focused PNG byte-equality false visual proof remains OPEN**; C4/F35 old native recordings do not validate replacement executable. Exact old #301 artifact hash remains old-candidate only; newest combined ZIP/EXE SHA256 NOT RUN. Existing E01 crosswalk stale source/merge facts, E03 pre-#317–#320 candidate mislabeled latest, E04 risk prose and current-truth heading drift deferred. Full L09–L28 log `work-log/2026-10-11-chatgpt-0600-audit-docs-l09-l28.md`; earlier T01–E04/L01–L08 log `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md` (L05 exact blob `c4baa5f106e029f0c4f846a9a55767530f19656d`, tracker corrects log placeholder immutably). **ALL NEW FIXES/TESTS/CI deferred by user until audit ends**; post-audit queue Q01–Q19. Implementation source/CI A01–A14 14/14, fully accepted mandatory roadmap 3/10, physical Codex USER-PAUSED. Next L29–L43 (15 logs), then I01. Frozen denominator 70 remains.**
+**CURRENT REVIEW COUNTERS (after L29–L43): 69/70 total = 19/19 PR reviews (18/18 code/test + #308 evidence-only), 50/50 frozen S0 Markdown paths T01–T03/E01–E04/L01–L43 individually audited, 0/1 latest combined production candidate evidence I01. No historical work-log overwritten. L36 original #306 reviewer treated long-title hard clip as intended; stronger #319 actual images+DOM later proved overflow and FIXED with CSS/test; preserve historical log as at-time and new evidence as stronger. B49 focused-action screenshot byte-identical to ordinary still Q01 evidence false positive; user-approved picker locked. Crosswalk current-truth stale PR statuses and E03 outdated #316 latest-artifact label queued post-audit. New code/tests/CI still explicitly prohibited until I01 audit concludes; all Q01–Q19 deferred. Last doc audit `work-log/2026-10-11-chatgpt-0600-audit-docs-l29-l43.md`, other immutable audit logs already recorded. Separate A01–A14 source/CI 14/14, mandatory physically/source accepted roadmap 3/10; Codex physical USER-PAUSED, M10 blocked, M11 dormant. Frozen denominator 70 unchanged.**
 
 **Total scoped audit work units = 70 = 19 PR change sets + 50 changed Markdown paths + 1 combined-source/build validation boundary.** This is a coverage measure, not a difficulty estimate: a Critical 16-file PR needs proportionally more detailed subchecks than a single-file historical evidence PR. Every unit has a stable ID below.
 
@@ -49,6 +49,8 @@
 | P19 | [#320](https://github.com/MariosGiannakaras/Narro/pull/320) — A14 CSV/PDF export single-flight | Critical | **AUDITED** | Actual handlers tested in Node VM, fast PASS; Windows candidate pending, no final merge |
 
 ### Review status notes
+- **L29–L43 FINAL 15 IMMUTABLE S0 LOGS AUDITED — DOCS 50/50:** #301 historical blocked merge, inert success-queue capture and stale focus tests, #302 two-mode fixture failure and final 3/3 CI merged, #305 immediate action owner 4/4 blobs, #306 first TS narrowing failure, actual old selector-open screenshots and later 12/12 merge, #307/#311 full CI + guarded merge, #309 stale snapshot cross-epoch real rendered regression, #316 historical combined-source candidate older than #317–#320, first pre-Codex source causal audit. **Special finding:** L36 original #306 screenshot reviewer called hard-clipped long label intended but later stronger #319 exact CSS/real dark+light ellipsis geometric evidence proves it was a bug, already fixed; do not repeat or rewrite immutable L36. B49 screenshot contradiction still OPEN Q01. Audit evidence `work-log/2026-10-11-chatgpt-0600-audit-docs-l29-l43.md`; **69/70, docs 50/50, next I01 only**, all new code/CI deferred until I01 audit conclusion.
+
 - **L09–L28 IMMUTABLE HISTORICAL AUDIT COMPLETE, 20/20 THIS GROUP:** inspect exact old B49 failed Windows runs/focus virtual-time budget and actual PNG/HTML contradictions, #301 old accepted CI and final main CI, #320 first brittle test failure then repaired actual handler VM test, #319 real static light/dark ellipsis before guarded merge, old CI1046 9/9 MKV hash with direct *critical* intervals vs VE-003 not full new-native acceptance, true old #301 ZIP/EXE SHA hashes only, #316 artifact older than #317–#320, Finding35 #302 browser fix vs still native physical OPEN, M5 Home missing-create-tile fixture false alarm. All historical PENDING/PASS statuses scoped to original then-head; logs immutable and not modified. New review evidence `work-log/2026-10-11-chatgpt-0600-audit-docs-l09-l28.md`. Deferred Q01/Q02 and Q15–Q19 remain OPEN, no new CI/source. **Current total 54/70 = 35/50 docs + 19/19 PR; next L29–L43 and I01.**
 
 - **T01–T03/E01–E04/L01–L08 15/50 FROZEN S0 MARKDOWN AUDITED_WITH_FINDINGS:** top current truth T01/T02/T03 correctly retains 18/18 PR audit, 14/14 source/CI and 3/10 physical/source milestones, but many lower old `CURRENT`/`NEXT` headings not demoted to historical. E01 crosswalk B15 native select/B50 six-action Extend disproved by current #306/#301 code; B7 #285/B18 #262/B21 #295/B22 #298/B52 #289/B67 #280 statuses stale pending though merged. E02 correctly preserves approved Spectrum Core/218 icons and 41 source questions, unknown native/source cases not equal coding tickets. E03 falsely calls pre-#317–#320 #316 candidate (`11675827068`) latest; exact run `38066478586` success remains valid only for old source. E04 NER-013/014 causal text says PRs were pending despite accepted #305–#318, though broader WATCH boundaries stay open. L01–L08 immutable logs are accurate at recorded time, their pending statuses superseded by later exact CI. No code tests or new CI run and NO physical PASS. Full per-file immutable evidence `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md`, L05 original SHA `c4baa5f106e029f0c4f846a9a55767530f19656d` verified and restored here, correction avoids immutable rewrite. All actual corrections deferred per user to post-audit action queue Q15/Q17/Q18/Q19. Next **L09–L43**, then I01.
@@ -108,21 +110,21 @@
 - [x] **L26** — `work-log/2026-10-10-chatgpt-final-retrospective-pr302-pr318-source-ci-audit.md`
 - [x] **L27** — `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md`
 - [x] **L28** — `work-log/2026-10-10-chatgpt-m5-home-static-fixture-reference-check.md`
-- [ ] **L29** — `work-log/2026-10-10-chatgpt-post-interruption-verification.md`
-- [ ] **L30** — `work-log/2026-10-10-chatgpt-pr301-exact-head-green-merge-tool-blocked.md`
-- [ ] **L31** — `work-log/2026-10-10-chatgpt-pr301-success-inert-queue-visual-fixture-fix.md`
-- [ ] **L32** — `work-log/2026-10-10-chatgpt-pr301-two-stale-focus-fixture-gates.md`
-- [ ] **L33** — `work-log/2026-10-10-chatgpt-pr302-finding35-merged-automated-green.md`
-- [ ] **L34** — `work-log/2026-10-10-chatgpt-pr302-stale-capture-inventory-ci-failure.md`
-- [ ] **L35** — `work-log/2026-10-10-chatgpt-pr305-focus-action-gate-merged.md`
-- [ ] **L36** — `work-log/2026-10-10-chatgpt-pr306-direct-windows-edge-visual-review.md`
-- [ ] **L37** — `work-log/2026-10-10-chatgpt-pr306-focus-picker-first-fast-failure.md`
-- [ ] **L38** — `work-log/2026-10-10-chatgpt-pr306-focus-picker-validated-merged.md`
-- [ ] **L39** — `work-log/2026-10-10-chatgpt-pr307-pr311-full-ci-guarded-main-closure.md`
-- [ ] **L40** — `work-log/2026-10-10-chatgpt-pr309-exact-head-merged-and-next-audit-disposition.md`
-- [ ] **L41** — `work-log/2026-10-10-chatgpt-pr316-composite-main-windows-ci-merge.md`
-- [ ] **L42** — `work-log/2026-10-10-chatgpt-pre-codex-code-and-rendered-audit-phase1.md`
-- [ ] **L43** — `work-log/2026-10-10-chatgpt-six-of-eight-b49-focus-visual-diagnostic.md`
+- [x] **L29** — `work-log/2026-10-10-chatgpt-post-interruption-verification.md`
+- [x] **L30** — `work-log/2026-10-10-chatgpt-pr301-exact-head-green-merge-tool-blocked.md`
+- [x] **L31** — `work-log/2026-10-10-chatgpt-pr301-success-inert-queue-visual-fixture-fix.md`
+- [x] **L32** — `work-log/2026-10-10-chatgpt-pr301-two-stale-focus-fixture-gates.md`
+- [x] **L33** — `work-log/2026-10-10-chatgpt-pr302-finding35-merged-automated-green.md`
+- [x] **L34** — `work-log/2026-10-10-chatgpt-pr302-stale-capture-inventory-ci-failure.md`
+- [x] **L35** — `work-log/2026-10-10-chatgpt-pr305-focus-action-gate-merged.md`
+- [x] **L36** — `work-log/2026-10-10-chatgpt-pr306-direct-windows-edge-visual-review.md`
+- [x] **L37** — `work-log/2026-10-10-chatgpt-pr306-focus-picker-first-fast-failure.md`
+- [x] **L38** — `work-log/2026-10-10-chatgpt-pr306-focus-picker-validated-merged.md`
+- [x] **L39** — `work-log/2026-10-10-chatgpt-pr307-pr311-full-ci-guarded-main-closure.md`
+- [x] **L40** — `work-log/2026-10-10-chatgpt-pr309-exact-head-merged-and-next-audit-disposition.md`
+- [x] **L41** — `work-log/2026-10-10-chatgpt-pr316-composite-main-windows-ci-merge.md`
+- [x] **L42** — `work-log/2026-10-10-chatgpt-pre-codex-code-and-rendered-audit-phase1.md`
+- [x] **L43** — `work-log/2026-10-10-chatgpt-six-of-eight-b49-focus-visual-diagnostic.md`
 
 Work-logs must never be edited to hide stale conclusions. Report contradictions with a new correction log and fix **current-truth** tracking only where verified. Treat accepted PR CI evidence as historical even if later binary coverage is stale.
 
@@ -133,7 +135,7 @@ Work-logs must never be edited to hide stale conclusions. Report contradictions 
 ## 6. Work order and handoff contract
 
 1. **Already accepted:** PR320 exact Windows CI all SUCCESS and guarded-merged with 5/5 source/test blobs. P19 AUDITED, separate real native CSV/PDF export remains an open physical/manual claim. Do not redo this work.
-2. **Frozen audit progress now 54/70:** PR retrospective 19/19, Markdown/current-truth review 35/50 (T01–T03 E01–E04 L01–L28), I01 0/1. Next inspect and dispose 15 remaining **L29–L43** immutable logs, then latest integrated I01 candidate/source/build provenance review. New fixes/source PR/new CI remain postponed until audit closure by user; accepted physical/state source parity separate.
+2. **Frozen audit progress 69/70:** all 19/19 PR reviews and 50/50 originally changed Markdown paths are audit-closed with specific OPEN findings. **NEXT ONLY I01** latest integrated current source/Windows production candidate evidence review; old pre-#317–#320 artifact is not latest. No new CI until that audit review ends by user order; then execute evidence-backed post-audit Q01/Q02 and conditional queue with exact-head PR CI/merge. Physical manual Codex remains USER-PAUSED.
 3. **Document claims**: inspect T/E/L 50 frozen Markdown paths, reconcile current-truth files and risk/crosswalk truth; immutable logs retain historical content. Process in bounded file batches but do not redefine the denominator.
 4. **I01** after merges: verify current combined candidate and separate physical limitations, without activating user-paused Codex.
 5. **On every substantive progress update:** report `audit X/70` plus code/test PR X/18, with `P x/19, Markdown y/50, integration z/1` and independent implementation `A01–A14 a/14` and roadmap `3/10`; increase X only for completed ledger item(s), not for number of replies. If scope extends beyond snapshot S0, create a separately identified annex and publicly explain any Y change. No promise of asynchronous work or deferred completion.
