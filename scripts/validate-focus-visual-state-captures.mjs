@@ -125,6 +125,8 @@ for (const theme of ["light", "dark"]) {
     `${focusedActions.label} focusing actions must not reflow active card height`);
 
   const success = readCapture(theme, "success");
+  invariant(success.contract.queueTitleLayout?.successQueueInert === true,
+    `focus-panel-success-${theme} must show the queued titles while blocking their focus during committed success`);
   invariant(success.dom.includes('data-focus-success-inline-card="true"'),
     `${success.label} must place committed success inside the active card`);
   invariant(success.dom.includes('data-focus-success-placement="inline"'),
