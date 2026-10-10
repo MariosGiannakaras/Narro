@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
@@ -140,6 +140,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const [reportPending, setReportPending] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
   const [exportPending, setExportPending] = useState(false);
+  // A single Export can create a distinct PDF and temporarily lock body interaction.
+  const exportInFlightRef = useRef(false);
   const [exportStatus, setExportStatus] = useState<string | null>(null);
   const [exportError, setExportError] = useState<string | null>(null);
   const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
@@ -310,7 +312,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   };
 
   const exportOverviewPdf = async () => {
-    if (reportRequest === null || !overviewCurrent || exportPending) return;
+    if (reportRequest === null || !overviewCurrent || exportPending || exportInFlightRef.current) return;
+    exportInFlightRef.current = true;
 
     setExportPending(true);
     setExportStatus(null);
@@ -333,6 +336,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     } finally {
       delete document.documentElement.dataset.reportPdfExport;
       document.body.inert = bodyWasInert;
+      exportInFlightRef.current = false;
       setExportPending(false);
     }
   };
