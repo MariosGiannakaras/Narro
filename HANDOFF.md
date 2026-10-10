@@ -1,6 +1,14 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT CHUNKED AUDIT Group 05/05 source/test correction submitted — 2026-10-10
+## CURRENT CHUNKED AUDIT Group 06/06 accepted: A13 visual CI and guarded merge — 2026-10-10
+
+**Current bounded A01–A14 implementation SOURCE/CI progress: 13/14** guarded-merged; named chunked audit/correction groups 01–06 **6/6 completed** (this is not total project/audit closure). A13 PR #319 exact head `c3197deca21f4761d55243de901381c5f299804d`, run `38072910111` validation/fast/Windows all SUCCESS, actual new **light/dark selector-open PNGs opened and reviewed directly** from screenshot artifact `11679005142` (archive SHA256 `37afc6927010e76aa5554893be204ef056d9a4b29a6b6a7a4340aba62fef6788`), browser DOM geometry 258px popup, right 346px, option right 341px and long title 178px client vs 339px scroll with ellipsis. Focus list long title now visibly truncates before menu right border. Expected-head guarded squash merge `4ff95925fd8c2216198809210e5188f879f7023b`; changed source/fixture/test blobs **3/3 equal** accepted head and resulting main; PR CLOSED/MERGED. Separate Focus runtime artifact `11679205218` was **not** the PNG source. Complete evidence `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
+
+**A14 PR320 remaining 0/1:** new exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, run `38077203921` validation-gate SUCCESS, fast-gate SUCCESS, windows-candidate **IN PROGRESS/NOT PASS** at latest check; unchanged production CSV/PDF double-export sync guards with new real-handler tests. **NEXT AGENT ACTION:** inspect this exact run Windows conclusion at next useful checkpoint, fix only a proven failure or, if SUCCESS, expected-head guarded-merge PR320 and compare changed source/test Git blobs with resulting main. Then validate latest integrated Windows binary for A01–A14; historic PR316 artifact `11675827068` predates later #317/#318/#319 merges. Physical Windows Codex remains user-paused and actual native C4/M6/F35/F29/F27/M8 acceptance OPEN, mandatory roadmap 3/10, optional M11 dormant.
+
+**USER ACTION REQUIRED:** none for implementation; physical Windows Codex only when user explicitly resumes it.
+
+## HISTORICAL CHUNKED AUDIT Group 05/05 source/test correction submitted — 2026-10-10
 
 User-approved chunked audit/correction sequence: diagnostic Groups 01–04 completed, **Group 05/05 current narrow correction submitted**, not all findings resolved or source/CI accepted. Immutable log `work-log/2026-10-10-chatgpt-chunked-audit-group05-pr320-real-handler-regression.md`. PR320 A14 first CI failed at an obsolete exact-string PDF guard assertion. One branch test-only commit `67814cf144ac0e60d9e146f8485cffc56724914e` (only `scripts/test-ui-reports-overview-runtime.mjs`) replaces brittle exact guard check with TypeScript-AST extracted, actually executed production CSV and PDF async handler tests: null/stale inputs, duplicate event, pending owner, failure/retry, PDF inert/print cleanup. Production code unchanged.
 
