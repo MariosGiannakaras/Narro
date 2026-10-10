@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { readEdgePng, differentFocusPixels } from "./focus-png-pixels.mjs";
 
 const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
@@ -35,7 +36,7 @@ function readCapture(theme, scenario) {
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.scenario === scenario, `${label} contract scenario differs`);
   invariant(contract.panel?.width === 340, `${label} Focus Panel width changed from the validated 340px geometry`);
-  return { label, dom, contract };
+  return { label, dom, contract, screenshot };
 }
 
 function requireLiveState(capture, state) {
@@ -123,6 +124,23 @@ for (const theme of ["light", "dark"]) {
     `${focusedActions.label} focused icon needs its original accessible action name and label`);
   invariant(focusedActions.contract.liveCard?.height === running.contract.liveCard?.height,
     `${focusedActions.label} focusing actions must not reflow active card height`);
+  // B49 source/CI finding Q01: a passing HTML marker previously accompanied
+  // screenshots that were byte-for-byte the ordinary running state. Inspect
+  // the *actual painted action pixels*, not merely a DOM/CSS declaration.
+  const region = focusedActions.contract.focusActionPaintRegion;
+  const baselineRegion = running.contract.focusActionPaintRegion;
+  invariant(region && baselineRegion
+    && Math.abs(region.x - baselineRegion.x) <= 1
+    && Math.abs(region.y - baselineRegion.y) <= 1
+    && Math.abs(region.width - baselineRegion.width) <= 1
+    && Math.abs(region.height - baselineRegion.height) <= 1,
+    `${focusedActions.label} action rail moved between resting and focused captures`);
+  const changedPixels = differentFocusPixels(
+    readEdgePng(running.screenshot), readEdgePng(focusedActions.screenshot), region,
+  );
+  const minimumChanged = Math.max(200, Math.ceil(region.width * region.height * 0.02));
+  invariant(changedPixels >= minimumChanged,
+    `${focusedActions.label} B49 FALSE VISUAL PASS: focused action screenshot looks like running in its actual rail (${changedPixels} changed pixels; need ${minimumChanged})`);
 
   const success = readCapture(theme, "success");
   invariant(success.contract.queueTitleLayout?.successQueueInert === true,
