@@ -106,6 +106,12 @@ invariant(
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
+invariant(fixture.includes('const successQueueInert = scenario === "success" && queuedRow.closest(\'[inert]\') !== null')
+    && fixture.includes("if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus')")
+    && fixture.includes('} else if (rowIsVisible) {'),
+  "B63 success fixture must test inert queued focus, not require interactive tooltip");
+invariant(validator.includes('success.contract.queueTitleLayout?.successQueueInert === true'),
+  "B63 Windows visual validator must require noninteractive yet visible success queue");
 invariant(
   fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
     && fixture.includes('scenario === "empty" ? []')
