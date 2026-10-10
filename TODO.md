@@ -1,6 +1,16 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 9/70 reviewed; 8/18 code PRs (2026-10-11)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 13/70 reviewed; 12/18 code PRs (2026-10-11)
+
+- [x] **P08 #309 A03 stale Focus Board reads AUDITED:** exact run `38052663090` 3/3 PASS, resulting merge `f5b9db26`, 3/3 accepted Git blobs; production shared request-epoch/target guards, rendered M7 newest-response-wins inversion actually executes, additional timer/target-switch/error combinations deferred in Q05.
+- [x] **P09 #310 A05 Reports Add Session AUDITED:** exact run `38053306094` 3/3 PASS, resulting merge `3012a030`, 3/3 blobs; scoped synchronous owner plus synthetic deferred test. Historical missing Edit/Delete overlap FIXED by already merged #318 shared owner; actual handler/native boundary deferred Q06.
+- [x] **P10 #311 A06 Focus row/Add AUDITED:** exact run `38057049911` 3/3 PASS, resulting merge `057df046`, 3/3 blobs; immediate owner, post-commit refresh failure keeps saved success separate and closes editor; historical cross-owner gap FIXED by #312; handler test deferred Q07.
+- [x] **P11 #312 A07 shared Focus owner AUDITED:** exact run `38062610832` 3/3 PASS, resulting merge `7469ae74`, 3/3 blobs; six handlers share same per-panel synchronous owner with rollback/finally, synthetic test only; coordinator post-Done Next/Break P02-F02 still OPEN and external.
+- [ ] **USER DEFERRED ALL NEW FIXES, TEST IMPLEMENTATIONS AND NEW CI UNTIL FULL AUDIT:** single action register `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`. DO NOT initiate new feature PR/CI while auditing. Existing CI historical reads allowed; docs evidence on main [skip ci] allowed. Keep prior Q01/Q02 high priority, Q03–Q08 evidence gaps conditional. Immutable full review `work-log/2026-10-11-chatgpt-0600-audit-p08-p11-309-312.md`.
+- [ ] **Next P12 #313** A08 repeated Blitz entry; then P13 #314, P14 #315, P15 #316, P16 #317, P17 #318. Existing audited P18/P19 #319/#320 retained.
+- [ ] **Frozen S0:** code **12/18**, evidence-only #308 **1/1**, Markdown **0/50**, combined integrated Windows candidate **0/1** = total **13/70**. Source/CI implementation A01–A14 **14/14** accepted; mandatory fully physically/source accepted roadmap **3/10**. Physical Codex USER-PAUSED, M10 blocked, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 9/70 reviewed; 8/18 code PRs (2026-10-11)
 
 - [x] **P06 #307 AUDITED_F01_RESOLVED_F02/F03_EVIDENCE_OPEN:** head `86e6e443d2d55530c8fab185a2270ec5ebaa1904`, 3/3 exact CI `38056858648` SUCCESS, original merge `ac48759d551279266c2f1d25f35a1e4f58d482e0`, 4/4 Git blobs identical. Board Create/Duplicate and Search QuickTask synchronous per-mounted refs verified before native command; synthetic async model regression and source-wiring static checks in preflight, not actual React handler IPC. Immutable `work-log/2026-10-11-chatgpt-0600-audit-p06-pr307-board-search-single-flight.md`.
 - [x] **P06-F01 original success-owner leak FIXED by existing #317:** `SearchPalette` remains mounted while hidden, #307 never released quickTask ref after successful persist so second create blocked. #317 exact head `2c9305e4f911a2980a67e1e9c3b45489d2e2a8fa`, CI `38071911442` all 3 SUCCESS, original guarded merge `0a650c589ffd5f4f203b245ef9bf2ca0f48fcef3`, present in current main success-path finally/preflight tests. Do not recreate.
