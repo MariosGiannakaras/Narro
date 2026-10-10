@@ -87,4 +87,5 @@ if (!pkg.scripts["test:visual-regression:windows"]?.includes("validate-search-pa
   throw new Error("Windows visual regression must validate search palette captures.");
 }
 
+await import("./test-search-quick-task-reopen.mjs");
 console.log("Search palette contract checks passed.");

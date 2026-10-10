@@ -305,9 +305,18 @@ export function SearchPalette({
       return;
     }
 
-    suppressFocusRestoreRef.current = true;
-    onRequestClose();
-    onTaskCreated(quickTaskListId, taskId);
+    // SearchPalette remains mounted by AppShell while hidden. Releasing only
+    // on failure permanently blocks Quick Task after the first successful add.
+    // Keep the synchronous owner through close/navigation callbacks, then
+    // release it so a freshly opened palette can create another task.
+    try {
+      suppressFocusRestoreRef.current = true;
+      onRequestClose();
+      onTaskCreated(quickTaskListId, taskId);
+    } finally {
+      quickTaskInFlightRef.current = false;
+      setQuickTaskPending(false);
+    }
   };
 
   const renderSearchSurface = () => {
