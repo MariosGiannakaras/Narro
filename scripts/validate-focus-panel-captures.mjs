@@ -174,6 +174,35 @@ function validateSharedDom(dom, label) {
   invariant(order.every((index, position) => position === 0 || index > order[position - 1]), `${label} hierarchy order differs from source evidence`);
 }
 
+// SS-H04 is a static menu: assert the actual production popup's computed
+// geometry and saved-list badge projection, rather than delegating it to
+// Windows desktop motion validation.
+for (const theme of ["light", "dark"]) {
+  const label = `focus-panel-selector-open-${theme}`;
+  const dom = readCapture(label);
+  invariant(dom.includes('data-focus-list-selector="true"')
+    && dom.includes('role="listbox"')
+    && dom.includes('data-focus-list-option="__all_lists__"'),
+    `${label} must paint a real anchored accessible Focus listbox`);
+  const contract = readContract(dom, label);
+  const menu = contract.focusSelectorContract;
+  invariant(contract.theme === theme && contract.scenario === "selector-open",
+    `${label} theme/scenario mismatch`);
+  invariant(menu?.trigger?.expanded === "true" && menu.trigger.height >= 32,
+    `${label} Focus trigger must expose expanded state and a usable hit target`);
+  invariant(menu.popup?.width > 0 && menu.popup?.height > 0 && menu.popupWithinPanel,
+    `${label} Focus popup must stay inside the 340px panel and visible viewport`);
+  invariant(menu.listOptions.length === 3
+    && menu.listOptions[0].label === "All Lists"
+    && menu.listOptions[1].label === "Work"
+    && menu.listOptions[2].label.length > 0
+    && menu.listOptions.every(item => item.badgeVisible),
+    `${label} popup must contain aggregate and named colored list identities`);
+  invariant(menu.savedBadgeColors.length === 2
+    && menu.savedBadgeColors[0] !== menu.savedBadgeColors[1],
+    `${label} stored list colors must survive real CSS rendering`);
+}
+
 for (const theme of ["light", "dark"]) {
   const label = `focus-panel-${theme}`;
   const dom = readCapture(label);
