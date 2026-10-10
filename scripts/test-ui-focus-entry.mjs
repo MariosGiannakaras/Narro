@@ -329,4 +329,5 @@ if (handler < 0 || registeredPresentation < handler) {
   throw new Error("The coordinator-safe Blitz Focus presentation command must be registered in Tauri IPC.");
 }
 
+await import("./test-blitz-entry-single-flight.mjs");
 console.log("Single-host Focus entry, placement, and display-revalidation contracts passed.");
