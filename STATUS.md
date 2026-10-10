@@ -1,6 +1,10 @@
 # STATUS.md
 
-## CURRENT 2026-10-10 Group07/07: A14 exact Windows candidate not yet accepted
+## CURRENT 2026-10-10 comprehensive 06:00 audit reset — fixed 2/70 review units
+
+GitHub-source-frozen snapshot S0 `71536805de34343e6cf9a809557b6d6902e25c48` at 22:03:41 EEST. Compared to pre-window commit `13a009b2d03fbcef819a1358bede447bf0564ade`: **168 main commits / 104 distinct changed paths**; 17 source/test PR merges +151 verified distinct subject-`docs:` commits; 54 source/scripts/package paths +50 Markdown current-truth/evidence paths. One open source PR320, one closed unmerged temporary evidence PR308: **19 PR reviews + 50 Markdown path reviews + 1 combined Windows candidate validation review =70**. Actual deep audit **2/70** (P07 #308 and P18 #319), not previously advertised rolling group count. Remaining items have their own explicit checklist/status in `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, evidence `work-log/2026-10-10-chatgpt-comprehensive-0600-audit-frozen-inventory.md`. Previously accepted code/CI A01–A14 **13/14** remains unchanged; PR #320 latest `67814cf144ac0e60d9e146f8485cffc56724914e` validation+fast success, Windows candidate still IN PROGRESS and not merged. Final combined production binary not validated; genuine Windows physical and source-parity gates OPEN, user-paused Codex, M10 blocked, M11 dormant, roadmap fully accepted **3/10**.
+
+## HISTORICAL 2026-10-10 Group07/07: A14 exact Windows candidate not yet accepted
 
 Current bounded A01–A14 **13/14 source/CI guarded-merged**; A13 #319 already merged with screenshot/DOM evidence and 3/3 blobs, A14 #320 only open. Head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation+fast SUCCESS, Windows-candidate IN PROGRESS at visual fixture step after completed Rust check/Clippy/tests and performance harness. No full Windows PASS or merge claim. Final combined binary not yet produced after A11–A14 merges; earlier PR316 `11675827068` remains obsolete for full-current source. Physical Windows gates remain user-paused/OPEN, mandatory milestones 3/10, M11 strictly dormant. Audit log `work-log/2026-10-10-chatgpt-chunked-audit-group07-pr320-window-ci-checkpoint.md`.
 
