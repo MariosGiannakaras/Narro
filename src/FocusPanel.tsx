@@ -450,7 +450,11 @@ export function FocusPanel({
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
+  const currentRefreshKeyRef = useRef(refreshKey);
+  currentRefreshKeyRef.current = refreshKey;
   const externalBoardRefreshRevisionRef = useRef(0);
+  // Shared cross-path read epoch: response completion order must not decide freshness.
+  const boardReadRevisionRef = useRef(0);
   const focusPointerDragCleanupRef = useRef<(() => void) | null>(null);
   currentTargetKeyRef.current = currentTargetKey;
   const latestSharedTimerProjectionRef = useRef<TimerSessionPayload | null>(
@@ -470,7 +474,7 @@ export function FocusPanel({
   useEffect(() => {
     if (fixtureBoard) {
       setBoard(fixtureBoard);
-      setBoardReadyRefreshKey(refreshKey);
+      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
       setFocusTarget(
         fixtureBoard.target.kind === "list" && fixtureBoard.target.id
           ? { kind: "list", id: fixtureBoard.target.id }
@@ -481,6 +485,10 @@ export function FocusPanel({
     }
 
     let disposed = false;
+    const readRevision = ++boardReadRevisionRef.current;
+    const requestedTargetKey = targetKey(target);
+    const stillLatest = () => !disposed && readRevision === boardReadRevisionRef.current
+      && currentTargetKeyRef.current === requestedTargetKey;
     const retainCurrentBoard = board !== null && boardReadyTargetKey === currentTargetKey;
     if (!retainCurrentBoard) {
       setBoard(null);
@@ -488,18 +496,18 @@ export function FocusPanel({
     }
     void getListBoardSnapshot(target)
       .then((snapshot) => {
-        if (!disposed) {
+        if (stillLatest()) {
           setBoard(snapshot);
-          setBoardReadyRefreshKey(refreshKey);
-          setBoardReadyTargetKey(targetKey(target));
+          setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+          setBoardReadyTargetKey(requestedTargetKey);
           setError(null);
         }
       })
       .catch((failure: unknown) => {
-        if (!disposed) {
+        if (stillLatest()) {
           if (!retainCurrentBoard) setBoard(null);
-          setBoardReadyRefreshKey(refreshKey);
-          setBoardReadyTargetKey(targetKey(target));
+          setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+          setBoardReadyTargetKey(requestedTargetKey);
           setError(formatInvokeError(failure));
         }
       });
@@ -516,6 +524,7 @@ export function FocusPanel({
     void listenForBoardInvalidation(() => {
       const revision = externalBoardRefreshRevisionRef.current + 1;
       externalBoardRefreshRevisionRef.current = revision;
+      const readRevision = ++boardReadRevisionRef.current;
       const refreshTarget = target;
       const expectedTargetKey = targetKey(refreshTarget);
       void getListBoardSnapshot(refreshTarget)
@@ -523,9 +532,12 @@ export function FocusPanel({
           if (
             !disposed
             && revision === externalBoardRefreshRevisionRef.current
+            && readRevision === boardReadRevisionRef.current
             && currentTargetKeyRef.current === expectedTargetKey
           ) {
             setBoard(snapshot);
+            setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+            setBoardReadyTargetKey(expectedTargetKey);
             setError(null);
           }
         })
@@ -533,6 +545,7 @@ export function FocusPanel({
           if (
             !disposed
             && revision === externalBoardRefreshRevisionRef.current
+            && readRevision === boardReadRevisionRef.current
             && currentTargetKeyRef.current === expectedTargetKey
           ) {
             setError(`Focus data changed, but this view could not refresh. ${formatInvokeError(failure)}`);
@@ -591,6 +604,7 @@ export function FocusPanel({
       setTimerSettled(sharedTimerProjection.settled);
       if (projected?.change) {
         const refreshTarget = target;
+        const readRevision = ++boardReadRevisionRef.current;
         const expectedTargetKey = currentTargetKey;
         const expectedRevision = projected.revision;
         const expectedTaskId = projected.runtime.timer.task_id;
@@ -598,6 +612,7 @@ export function FocusPanel({
         const refreshStillCurrent = () => {
           const latest = latestSharedTimerProjectionRef.current;
           return !disposed
+            && readRevision === boardReadRevisionRef.current
             && currentTargetKeyRef.current === expectedTargetKey
             && latest?.revision === expectedRevision
             && latest.runtime.timer.task_id === expectedTaskId
@@ -608,6 +623,8 @@ export function FocusPanel({
           .then((snapshot) => {
             if (refreshStillCurrent()) {
               setBoard(snapshot);
+              setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+              setBoardReadyTargetKey(expectedTargetKey);
               setError(null);
             }
           })
@@ -628,12 +645,21 @@ export function FocusPanel({
         setTimer((current) => applyTimerSessionProjection(current, incoming));
         if (incoming.change) {
           const refreshTarget = target;
+          const expectedTargetKey = targetKey(refreshTarget);
+          const readRevision = ++boardReadRevisionRef.current;
+          const stillCurrent = () => !disposed && readRevision === boardReadRevisionRef.current
+            && currentTargetKeyRef.current === expectedTargetKey;
           void getListBoardSnapshot(refreshTarget)
             .then((snapshot) => {
-              if (!disposed && sameTarget(refreshTarget, target)) setBoard(snapshot);
+              if (stillCurrent()) {
+                setBoard(snapshot);
+                setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+                setBoardReadyTargetKey(expectedTargetKey);
+                setError(null);
+              }
             })
             .catch((failure: unknown) => {
-              if (!disposed) setError(formatInvokeError(failure));
+              if (stillCurrent()) setError(formatInvokeError(failure));
             });
         }
       },
@@ -683,9 +709,16 @@ export function FocusPanel({
   }, [board, lists, catalogLoaded]);
 
   const refreshBoard = async (): Promise<ListBoardSnapshot> => {
+    const readRevision = ++boardReadRevisionRef.current;
+    const expectedTargetKey = currentTargetKey;
     const refreshed = await getListBoardSnapshot(target);
-    setBoard(refreshed);
-    setError(null);
+    if (readRevision === boardReadRevisionRef.current
+      && currentTargetKeyRef.current === expectedTargetKey) {
+      setBoard(refreshed);
+      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+      setBoardReadyTargetKey(expectedTargetKey);
+      setError(null);
+    }
     return refreshed;
   };
 
