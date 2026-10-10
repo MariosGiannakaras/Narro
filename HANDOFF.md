@@ -1,6 +1,10 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — S0 50-DOCUMENT RECHECK VERIFIED; POST-AUDIT 3/4 SOURCE ACCEPTED
+## CURRENT 2026-10-11 — S0 50-DOCUMENT RECHECK VERIFIED; POST-AUDIT 3/5 SOURCE ACCEPTED
+
+**NEW INDEPENDENT Q03 TEST PR #326** [PR link](https://github.com/MariosGiannakaras/Narro/pull/326), head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` QUEUED at last check. Two paths `src/m7IntegrationRegression.tsx` and `scripts/test-ui-focus-panel.mjs`: actual browser DOM keydown events against mounted production Focus list-picker ArrowUp/Down/Home/End/Escape/Tab, wraparound, ARIA expanded/selected, restoration of trigger focus and selected list identity; production UI and CSS untouched. Exact three Windows jobs and guarded merge NOT YET PASS. Denominator explicitly changes from 4 to **5 bounded post-audit source PRs; 3/5 accepted** #322/#323/#324, pending #321/#326. #321 other agent-owned head `f129c37b...`, run `38092529298` Windows dark B49 capture FAIL; do not overwrite owner branch. Review 50/50 independently reverified with two original summary SHA slips L05/L40 corrected in new immutable addenda; no missing audit files. **Next:** inspect exact #326 CI, resolve only observed cause, guard merge+blob if 3/3; continue independent Q12 candidate planning while owner fixes #321; no physical Codex.
+
+
 
 **User-requested independent 50-file verification COMPLETE:** 50 distinct frozen S0 Markdown paths match exactly GitHub's original 50-path diff, no missing/extra, 3 original audit reports contain individual rows for all 50 (15+20+15). All 43 2026-10-10 historical logs exist and are immutable, unchanged S0→current; **41/43 audit-summary blob hashes were transcribed correctly**, while L05 placeholder and L40 wrong SHA are reconciled via immutable `work-log/2026-10-11-chatgpt-s0-50-doc-audit-independent-sha-reverification.md`. T01–T03 audit summary SHA describes *at-review main*, not frozen S0; independently documented source SHA identities in `work-log/2026-10-11-chatgpt-pr324-guarded-merge-and-50-doc-sha-identity-errata.md`. This proves **50/50 reviewed**, NOT that every old assertion/native parity passed. Frozen S0 review remains **70/70**, physical/source 3/10 complete, original A01–A14 source/CI 14/14.
 
