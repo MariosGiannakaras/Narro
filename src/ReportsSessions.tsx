@@ -156,6 +156,14 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const detailOpenerRef = useRef<HTMLElement | null>(null);
   const [detail, setDetail] = useState<ReportTaskSessionsDetail | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
+  // Filter effects and post-commit refreshes compete for the same view state.
+  // Share one read generation per projection, regardless of who requested it.
+  const sessionsReadRevisionRef = useRef(0);
+  const detailReadRevisionRef = useRef(0);
+  // A committed mutation may resume on a closure from a *previous render*.
+  // Reject old-filter/old-detail requests before they claim a newer generation.
+  const sessionsActiveRequestKeyRef = useRef<string | null>(null);
+  const detailActiveTaskIdRef = useRef<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
@@ -209,41 +217,70 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const refreshSessions = useCallback(async () => {
     const request = currentRequest();
     if (!request) return null;
-    const payload = await getReportSessions(request);
-    setSessions(payload);
-    setRefreshError(null);
-    return payload;
+    const requestKey = JSON.stringify(request);
+    if (sessionsActiveRequestKeyRef.current !== requestKey) return null;
+    const revision = ++sessionsReadRevisionRef.current;
+    try {
+      const payload = await getReportSessions(request);
+      if (revision !== sessionsReadRevisionRef.current
+        || sessionsActiveRequestKeyRef.current !== requestKey) return null;
+      setSessions(payload);
+      setRefreshError(null);
+      return payload;
+    } catch (failure: unknown) {
+      // A superseded mutation refresh must not report a failure over a newer filter.
+      if (revision !== sessionsReadRevisionRef.current
+        || sessionsActiveRequestKeyRef.current !== requestKey) return null;
+      throw failure;
+    }
   }, [currentRequest]);
 
   useEffect(() => {
     if (!preferences.settled || preferences.error) return;
     let disposed = false;
     const request = currentRequest();
+    sessionsActiveRequestKeyRef.current = request ? JSON.stringify(request) : null;
     if (!request) return;
+    const revision = ++sessionsReadRevisionRef.current;
     void getReportSessions(request)
       .then((payload) => {
-        if (disposed) return;
+        if (disposed || revision !== sessionsReadRevisionRef.current) return;
         setSessions(payload);
         setRefreshError(null);
       })
       .catch((failure: unknown) => {
-        if (!disposed) setRefreshError(formatInvokeError(failure));
+        if (!disposed && revision === sessionsReadRevisionRef.current) {
+          setRefreshError(formatInvokeError(failure));
+        }
       });
     return () => { disposed = true; };
   }, [currentRequest, preferences.error, preferences.settled]);
 
   const refreshDetail = useCallback(async (taskId = detailTaskId) => {
     if (!taskId) {
+      ++detailReadRevisionRef.current;
       setDetail(null);
       return null;
     }
-    const payload = await getReportTaskSessions({ taskId });
-    setDetail(payload);
-    setDetailError(null);
-    return payload;
+    if (detailActiveTaskIdRef.current !== taskId) return null;
+    const revision = ++detailReadRevisionRef.current;
+    try {
+      const payload = await getReportTaskSessions({ taskId });
+      if (revision !== detailReadRevisionRef.current
+        || detailActiveTaskIdRef.current !== taskId) return null;
+      setDetail(payload);
+      setDetailError(null);
+      return payload;
+    } catch (failure: unknown) {
+      if (revision !== detailReadRevisionRef.current
+        || detailActiveTaskIdRef.current !== taskId) return null;
+      throw failure;
+    }
   }, [detailTaskId]);
 
   useEffect(() => {
+    detailActiveTaskIdRef.current = detailTaskId;
+    const revision = ++detailReadRevisionRef.current;
     if (!detailTaskId) {
       setDetail(null);
       setDetailError(null);
@@ -252,13 +289,17 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     let disposed = false;
     void getReportTaskSessions({ taskId: detailTaskId })
       .then((payload) => {
-        if (!disposed) {
+        if (!disposed && revision === detailReadRevisionRef.current
+          && detailActiveTaskIdRef.current === detailTaskId) {
           setDetail(payload);
           setDetailError(null);
         }
       })
       .catch((failure: unknown) => {
-        if (!disposed) setDetailError(formatInvokeError(failure));
+        if (!disposed && revision === detailReadRevisionRef.current
+          && detailActiveTaskIdRef.current === detailTaskId) {
+          setDetailError(formatInvokeError(failure));
+        }
       });
     return () => { disposed = true; };
   }, [detailTaskId]);
