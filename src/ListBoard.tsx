@@ -936,15 +936,19 @@ export function ListBoard({
     setDeleteTarget(null);
     setDeletePending(false);
     setDeleteError(null);
+    // A cross-window invalidation may start a newer read before this initial
+    // request settles. Share its revision clock so an old initial snapshot
+    // cannot overwrite the fresher externally refreshed board.
+    const initialRevision = externalRefreshRevisionRef.current;
     void getListBoardSnapshot(target)
       .then((payload) => {
-        if (!disposed) {
+        if (!disposed && initialRevision === externalRefreshRevisionRef.current) {
           setSnapshot(payload);
           setError(null);
         }
       })
       .catch((failure: unknown) => {
-        if (!disposed) {
+        if (!disposed && initialRevision === externalRefreshRevisionRef.current) {
           setSnapshot(null);
           setError(formatInvokeError(failure));
         }
