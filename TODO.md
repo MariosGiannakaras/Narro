@@ -1,7 +1,11 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT EXACT PR HEADS #321–#324 (0/4 SOURCE/CI ACCEPTED)
+## CURRENT 2026-10-11 — POST-AUDIT EXACT PR HEADS #321–#324 (2/4 SOURCE/CI ACCEPTED)
 
+- [x] **Q02 PR #322 guarded MERGED:** exact head `f25bf1e4...`, Windows run `38090642758` **3/3 SUCCESS**, merge `8e7590f635004a00e3fc0d1d5bdf3efc0856b845`, **3/3 blobs same**. Synchronous coordinator Next/Break ref actual handler regression. Native physical OPEN.
+- [x] **Q18 ListBoard PR #323 guarded MERGED:** exact head `0e76b406...`, Windows run `38091028848` **3/3 SUCCESS**, merge `6ee07799b441831f69eb56ba57892788a8d09d5c`, **3/3 blobs same**. Real mounted M7 old initial response inversion test.
+- [ ] **Q01 PR #321 current head `f129c37b30b27897971f3aa8452c563f8f955111`**, run `38092529298` NOT PASS pending. Previous `39926d2a` run `38091625389` **Windows visual FAILED**: actual ready+pass markers but action focus stolen by later queued-tooltip test, opacity 0; archived real DOM/PNG diagnostic ZIP `11684597560`, hash in PR comment 6102994773. Strict visual delta preserved; other agent owns active branch.
+- [ ] **Q18 Reports PR #324** current head `98f8efb71d8e8e119083e9154e2ad13a0d3782d3`, run `38092259831`, validation+fast SUCCESS, Windows IN PROGRESS; guarded merge/blob equality outstanding.
 - [ ] **Q01 PR #321** current head `39926d2ad843ca1dec46559d1dd92d9ed507c6fe`, run `38091625389`: validation SUCCESS, fast IN PROGRESS and Windows NOT PASS yet. **Previous head `12b3768c...` run `38090509904` FAILED** first Windows `Capture Visual Regression Fixtures` at CDP focused-light readiness timeout, while Rust/Clippy/tests/perf succeeded. New head retains real failed PNG+DOM and logs active focus and opacity states without weakening existing visual proof. Immutable `work-log/2026-10-11-chatgpt-pr321-first-windows-cdp-readiness-failure.md`. Guarded merge/blobs pending.
 - [ ] **Q02 PR #322** head `f25bf1e43a9e3776a3449ad659c5c7c30a34eebe`, run `38090642758`: validation SUCCESS, fast SUCCESS, **Windows IN PROGRESS/NOT PASS**. Immediate coordinator owner, actual transpiled Next/Break/Close handlers tested with deferred IPC; original microtask test race fixed. Guarded merge/blob proof outstanding.
 - [ ] **Q18 PR #323** head `0e76b40675776cf469385de9152e154c65ba752d`, run `38091028848`: validation SUCCESS, **fast IN PROGRESS/NOT PASS**, Windows not yet PASS. Shared read revision prevents initial ListBoard result replacing newer event refresh. Mounted M7 inversion regression. Guarded merge/blob proof outstanding.
