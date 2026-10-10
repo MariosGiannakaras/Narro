@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
@@ -206,10 +206,26 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     };
   }, [appliedRange, selectedListIds, showBreakSessions, timeZone]);
 
+  // Query identity is published at commit before passive filter-read effects.
+  // The post-mutation callback may be from an older render, so a sequence
+  // number alone would incorrectly let a stale filtered query win.
+  const sessionsQueryKey = useMemo(() => JSON.stringify(currentRequest()), [currentRequest]);
+  const latestSessionsQueryKeyRef = useRef(sessionsQueryKey);
+  const sessionsReadSequenceRef = useRef(0);
+  useLayoutEffect(() => {
+    latestSessionsQueryKeyRef.current = sessionsQueryKey;
+  }, [sessionsQueryKey]);
+
   const refreshSessions = useCallback(async () => {
     const request = currentRequest();
     if (!request) return null;
+    const key = JSON.stringify(request);
+    // Do not launch or claim ownership for a callback from an older filter.
+    if (key !== latestSessionsQueryKeyRef.current) return null;
+    const revision = ++sessionsReadSequenceRef.current;
     const payload = await getReportSessions(request);
+    if (revision !== sessionsReadSequenceRef.current
+      || key !== latestSessionsQueryKeyRef.current) return null;
     setSessions(payload);
     setRefreshError(null);
     return payload;
@@ -220,14 +236,18 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     let disposed = false;
     const request = currentRequest();
     if (!request) return;
+    const key = JSON.stringify(request);
+    const revision = ++sessionsReadSequenceRef.current;
     void getReportSessions(request)
       .then((payload) => {
-        if (disposed) return;
+        if (disposed || revision !== sessionsReadSequenceRef.current
+          || key !== latestSessionsQueryKeyRef.current) return;
         setSessions(payload);
         setRefreshError(null);
       })
       .catch((failure: unknown) => {
-        if (!disposed) setRefreshError(formatInvokeError(failure));
+        if (!disposed && revision === sessionsReadSequenceRef.current
+          && key === latestSessionsQueryKeyRef.current) setRefreshError(formatInvokeError(failure));
       });
     return () => { disposed = true; };
   }, [currentRequest, preferences.error, preferences.settled]);
