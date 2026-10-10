@@ -1,6 +1,12 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 frozen 06:00 EEST retrospective audit — 54/70; docs 35/50
+## CURRENT 2026-10-11 — S0 retrospective audit REVIEWED 70/70; post-audit remediation queued
+
+**S0 AUDIT COMPLETE AS EVIDENCE REVIEW ONLY:** 70/70 = 19/19 PR, 50/50 historical/current-truth Markdown, 1/1 combined-source-build I01 audited with **LATEST_COMBINED_WINDOWS_CI_NOT_VERIFIED and ZIP/EXE_HASH_NOT_RUN**. Source implementation A01–A14 independently source/CI validated and merged 14/14; mandatory 10-milestone roadmap 3/10 fully accepted (physical/source), native C4/M6/F35/F29/F27/M8 all remain OPEN/USER-PAUSED, M10 blocked, M11 dormant. Last immutable `work-log/2026-10-11-chatgpt-0600-audit-i01-current-integrated-candidate.md`; tracker `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`.
+
+**I01 exact candidate mismatch:** current integrated executable tree at #320 resulting merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`, current main later docs-only. #319 CI run `38072910111` all three SUCCESS; its artifact `11679146292` lacks later #320 exports. #320 CI `38077203921` all three SUCCESS; its artifact `11680205014` lacks all three corrected #319 Focus picker CSS/fixture/test blobs, each differed from #319 and latest main. #316 historical candidate `11675827068` predates both. All changed merged source blobs validated but **no proven one-piece current Windows candidate**; actual ZIP/EXE latest hash and native physical NOT RUN. Do not mistake separate source-branch CI green for integrated resulting-main CI green.
+
+**NOW AUTHORIZED POST AUDIT:** user asked queue repairs and CI until full audit; condition satisfied. Start Q01 evidence-proven B49 false screenshot visual-validation PASS, then Q02 coordinator Next Task/Take a Break same-render ownership actual handler regression, and only evidence-backed remaining Q03–Q14. Q12 fresh latest merged full Windows CI/ZIP/EXE SHA256 required after material fixes; Q15–Q19 crosswalk, physical candidate title, risk register/current status reconciliations. Current action register `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`. No new executable CI in 70-unit audit itself. Physical Codex user-paused, M10 blocked, M11 dormant.
 
 **Authoritative frozen S0 progress**: **54/70 = 19/19 PR (18/18 code/test), 35/50 originally changed Markdown paths T01–T03 E01–E04 L01–L28, I01 latest combined native Windows artifact 0/1**. Source/CI A01–A14 14/14 integrated, mandatory fully source/physical accepted milestones 3/10; actual native C4/M6/F35/F29/F27/M8 OPEN/USER-PAUSED, M10 blocked, M11 opt-in dormant.
 
