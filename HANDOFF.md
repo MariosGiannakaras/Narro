@@ -1,6 +1,16 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 5/70 reviewed; code PR 4/18 (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; code PR 5/18 (2026-10-10)
+
+**Authoritative fixed 06:00 snapshot:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, immutable newest review `work-log/2026-10-10-chatgpt-0600-audit-p03-pr302-finding35-time-up.md`. Actual independent retrospective audit **6/70 = 6/19 PR (5/18 code/test PRs + 1/1 evidence-only #308), 0/50 changed Markdown paths, 0/1 latest combined native candidate**. The audited code PRs are #280, #301, #302, #319, #320; P02 #301 remains AUDITED_WITH_OPEN_FINDINGS, not visual/parity PASS. Separate A01–A14 source/CI code batches **14/14 guarded merged**, mandatory roadmap fully physically/source accepted **3/10**. Do not treat static CI as native physical observation.
+
+**P03 #302 Finding35 AUDITED_STATIC_VISUAL_PASS / PHYSICAL_OPEN:** exact original head `601431bce4d4453d5a6c1a8624901ec7baf2eb58`, run `38044923348` validation/fast/windows **all SUCCESS**; merge `797d0580d89a3a5ef0ff5b561e941d078bb2407f`, 6/6 accepted PR head vs resulting main blobs verified identical. Downloaded Windows visual ZIP artifact **11667603873** SHA256 `120a24bcc0912e206322394d966bde681b4c7a01d3bc96c1c14c2f962ea37773`, actual four compact/expanded × light/dark PNGs personally reviewed: warm visible `Time's Up` below `00:00`, 55×12 measured label fits 340×110/340×300 frame; each differs in pixels from ordinary running, and all four bytes **match latest #320 Windows visual artifact 11679264268**. Original-only Floating Time's Up pixels unavailable; **genuine real native work expiry/time_up→Extend and window/motion manual observation NOT RUN**, Codex user-paused. No new confirmed normal-use source defect in P03. Does not negate unresolved P02-F01 misleading B49 screenshot or P02-F02 Next Task race risk.
+
+**NEXT AGENT ACTION:** review **P04 #305** Focus timer synchronous mutation gate, compare earlier PR301 React pending-only semantics with later current `focusActionGate` and separate P02 Next/Rest handler risk, inspect actual CI/test coverage/merge SHA and relevant UI evidence. Keep immutable finding P02-F01/P02-F02 for future focused remediation, not silently mark fixed. After all source audits and validated remedial code, inspect latest integrated Windows production candidate; PR316 binary obsolete for A11–A14. Physical C4/M6/F35/F29/F27/M8 and Blitzit-source motion gates remain OPEN, M10 blocked, optional M11 dormant.
+
+**USER ACTION REQUIRED:** none for audit; physical Codex only if user explicitly resumes it.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 5/70 reviewed; code PR 4/18 (2026-10-10)
 
 **Authoritative fixed scope:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md` (S0 19 PR incl evidence-only #308 + 50 Markdown changed paths + 1 combined candidate, frozen 70). **Independent retrospective audit 5/70 = 5/19 PR, 0/50 Markdown, 0/1 integration**, actual code/test PR **4/18** (#280, #301, #319, #320); evidence-only #308 audited separately. **A01–A14 SOURCE/CI implementation 14/14** guarded merged, mandatory milestones **3/10**. Historical "X/Y groups" NOT the audit indicator.
 
