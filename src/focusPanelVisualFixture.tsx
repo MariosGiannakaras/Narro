@@ -252,13 +252,27 @@ if (scenario === "live-actions-focus") {
   const cardBefore = liveCard.getBoundingClientRect();
   const railBefore = rail.getBoundingClientRect();
   action.focus({preventScroll: true});
-  // Edge may publish focus and compute the opacity transition on different
-  // frames in light/dark fixtures. Require the same fully revealed final
-  // state, but wait for actual style settlement instead of one fixed timeout.
+  // Edge headless virtual time advances timer callbacks without necessarily
+  // advancing compositor opacity transitions. Complete only the real CSS
+  // opacity transitions after the focus selectors become active; never write
+  // opacity directly or bypass the strict final-state/geometry assertions.
   const revealDeadline = performance.now() + 1_500;
-  while (performance.now() < revealDeadline
-    && (getComputedStyle(rail).opacity !== "1"
-      || getComputedStyle(heading).opacity !== "0")) {
+  while (performance.now() < revealDeadline) {
+    const focusStylesActive = liveCard.matches(":focus-within")
+      && getComputedStyle(rail).pointerEvents === "auto";
+    if (focusStylesActive) {
+      for (const element of [rail, heading]) {
+        for (const animation of element.getAnimations()) {
+          if (animation instanceof CSSTransition
+            && animation.transitionProperty === "opacity"
+            && animation.playState !== "finished") {
+            animation.finish();
+          }
+        }
+      }
+    }
+    if (getComputedStyle(rail).opacity === "1"
+      && getComputedStyle(heading).opacity === "0") break;
     await new Promise<void>(resolve => window.setTimeout(resolve, 40));
   }
   const cardAfter = liveCard.getBoundingClientRect();
@@ -267,6 +281,8 @@ if (scenario === "live-actions-focus") {
   const revealProblems = [
     document.activeElement !== action ? "keyboard-focus-owner" : null,
     liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
+    !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,
+    getComputedStyle(rail).pointerEvents !== "auto" ? `action-rail-pointer-events=${getComputedStyle(rail).pointerEvents}` : null,
     getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
     getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
     !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,
