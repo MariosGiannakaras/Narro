@@ -10,6 +10,12 @@ const section = (start, end) => {
 };
 const create = section("const submitCreate = async () => {", "const submitTitleEdit = async () => {");
 const duplicate = section("const duplicateTaskFromBoard = async", "const handleCommittedSubtaskRefreshFailure");
+const quickTask = fs.readFileSync("src/SearchPalette.tsx", "utf8");
+assert(quickTask.includes("const quickTaskInFlightRef = useRef(false);")
+  && quickTask.includes("if (quickTaskPending || quickTaskInFlightRef.current) return;")
+  && quickTask.indexOf("quickTaskInFlightRef.current = true;") < quickTask.indexOf("await createListBoardTask(")
+  && quickTask.includes("quickTaskInFlightRef.current = false;\n      setQuickTaskPending(false);"),
+  "Quick task create must synchronously exclude same-tick duplicate submissions and allow retry after failure");
 assert(source.includes("const createInFlightRef = useRef(false);"));
 assert(source.includes("const duplicateInFlightRef = useRef(false);"));
 assert(create.includes("|| createInFlightRef.current") &&
@@ -79,4 +85,4 @@ refreshBarrier.resolve();
 assert.equal(await saved, true);
 assert.equal(refreshGate.pending, false);
 assert.equal(writes, 3);
-console.log("Board create/duplicate synchronous exclusion, delayed-refresh guard and retry contracts passed.");
+console.log("Board/Search create/duplicate synchronous exclusion, delayed-refresh guard and retry contracts passed.");
