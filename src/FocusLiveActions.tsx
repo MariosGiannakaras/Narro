@@ -2,6 +2,7 @@ import { listen } from "@tauri-apps/api/event";
 import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
+import { createFocusActionGate, type FocusMutationAction } from "./focusActionGate";
 import { FocusLiveMetrics, type FocusMetricKind } from "./FocusLiveMetrics";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import {
@@ -57,7 +58,7 @@ type FocusLiveActionsProps = {
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
-type FocusAction = "break" | "pause_resume" | "skip" | "done" | "extend";
+type FocusAction = FocusMutationAction;
 
 function isEligibleQueueTask(task: ListBoardTask): boolean {
   return task.scheduledLocalTime === null || task.isOverdue;
@@ -200,6 +201,9 @@ export function FocusLiveActions({
   onCompletionSuccess,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
+  const actionGateRef = useRef<ReturnType<typeof createFocusActionGate> | null>(null);
+  if (actionGateRef.current === null) actionGateRef.current = createFocusActionGate();
+  const actionGate = actionGateRef.current;
   const [notesExpanded, setNotesExpanded] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -235,26 +239,37 @@ export function FocusLiveActions({
     setError(formatInvokeError(failure));
   };
 
+  const beginMutation = (action: FocusAction): boolean => {
+    if (fixtureMode || busy || !actionGate.tryBegin(action)) return false;
+    setPendingAction(action);
+    setStatus(null);
+    setError(null);
+    return true;
+  };
+
+  const finishMutation = (action: FocusAction): void => {
+    actionGate.finish(action);
+    setPendingAction(null);
+  };
+
   const run = async (
     action: FocusAction,
     mutation: () => Promise<TimerSessionPayload>,
     success: string,
   ) => {
-    if (fixtureMode || busy) return;
-    setPendingAction(action);
-    setStatus(null);
-    setError(null);
+    if (!beginMutation(action)) return;
     try {
       applyPayload(await mutation());
       setStatus(success);
     } catch (failure: unknown) {
       fail(failure);
     } finally {
-      setPendingAction(null);
+      finishMutation(action);
     }
   };
 
   const beginBreak = () => {
+    if (fixtureMode || busy || actionGate.current() !== null) return;
     if (defaultBreakMs === null) {
       setStatus(null);
       setError(preferences.error
@@ -279,10 +294,7 @@ export function FocusLiveActions({
   };
 
   const handleSkip = async () => {
-    if (fixtureMode || busy) return;
-    setPendingAction("skip");
-    setStatus(null);
-    setError(null);
+    if (!beginMutation("skip")) return;
     try {
       const [freshBoard, authoritative] = await Promise.all([
         getListBoardSnapshot(target),
@@ -303,15 +315,12 @@ export function FocusLiveActions({
     } catch (failure: unknown) {
       fail(failure);
     } finally {
-      setPendingAction(null);
+      finishMutation("skip");
     }
   };
 
   const handleDone = async () => {
-    if (fixtureMode || busy) return;
-    setPendingAction("done");
-    setStatus(null);
-    setError(null);
+    if (!beginMutation("done")) return;
     try {
       const [freshBoard, authoritative] = await Promise.all([
         getListBoardSnapshot(target),
@@ -399,7 +408,7 @@ export function FocusLiveActions({
     } catch (failure: unknown) {
       fail(failure);
     } finally {
-      setPendingAction(null);
+      finishMutation("done");
     }
   };
 
