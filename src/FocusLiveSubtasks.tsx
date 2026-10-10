@@ -74,6 +74,9 @@ export function FocusLiveSubtasks({
   const [createOpen, setCreateOpen] = useState(false);
   const [editor, setEditor] = useState<TaskSubtasksModel["editor"]>(null);
   const [pending, setPending] = useState(false);
+  // One synchronous mutation owner across Create/Edit/Toggle/Reorder/Delete;
+  // the rendered pending flag can lag same-render keyboard/pointer handlers.
+  const mutationInFlightRef = useRef(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
   const expanded = controlledExpanded ?? internalExpanded;
 
@@ -186,7 +189,9 @@ export function FocusLiveSubtasks({
     mutation: () => Promise<unknown>,
     afterCommit?: () => void,
   ) => {
-    if (fixtureMode || interactionPending || pending || refreshBlocked || !snapshot?.mutable) return;
+    if (fixtureMode || interactionPending || pending || mutationInFlightRef.current
+      || refreshBlocked || !snapshot?.mutable) return;
+    mutationInFlightRef.current = true;
     setPending(true);
     setError(null);
     try {
@@ -200,6 +205,7 @@ export function FocusLiveSubtasks({
     } catch (failure: unknown) {
       if (mountedRef.current) setError(formatInvokeError(failure));
     } finally {
+      mutationInFlightRef.current = false;
       if (mountedRef.current) setPending(false);
     }
   };
