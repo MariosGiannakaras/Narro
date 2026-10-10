@@ -237,8 +237,22 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const renderFocus = (refreshKey = 0, presentationActive = true) => flushSync(() => root.render(
     <FocusPanel refreshKey={refreshKey} presentationActive={presentationActive}
       sharedTimerProjection={{ payload: timer, settled: true }} />));
-  const selector = () => container.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')!;
-  const options = () => Array.from(selector().options).map(option => option.textContent);
+  const selector = () => container.querySelector<HTMLButtonElement>('[data-focus-list-selector="true"]')!;
+  const selectedValue = () => selector().dataset.focusSelectedTarget;
+  const options = () => {
+    flushSync(() => selector().click());
+    const names = Array.from(container.querySelectorAll<HTMLElement>('[data-focus-list-option] .board-list-picker__option-title'),
+      option => option.textContent);
+    flushSync(() => selector().click());
+    return names;
+  };
+  const chooseList = (listId: string) => {
+    flushSync(() => selector().click());
+    const option = Array.from(container.querySelectorAll<HTMLButtonElement>('[data-focus-list-option]'))
+      .find(candidate => candidate.dataset.focusListOption === listId);
+    assert(option, `Focus list option ${listId} unavailable`);
+    flushSync(() => option.click());
+  };
   renderFocus(); await wait(); await wait();
   assert(options().includes("Original"), "initial active catalog missing");
   const request = { title: "New", color: null, iconUpload: null };
@@ -250,7 +264,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   for (const operation of operations) {
     const before = emissions; await operation(); await wait();
     assert(emissions === before + 1, "committed list mutation did not emit exactly once");
-    assert(options().filter(label => label !== "All").join("|") === lists.map(list => list.title).join("|"), "committed catalog remained stale");
+    assert(options().filter(label => label !== "All Lists").join("|") === lists.map(list => list.title).join("|"), "committed catalog remained stale");
   }
   mutationFailure = true;
   const beforeFailure = emissions;
@@ -267,13 +281,13 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   homeWaiters[1](newest); await wait(); homeWaiters[0]({ lists: [{ id, title: "Stale" }] }); await wait();
   assert(options().includes("Latest catalog") && !options().includes("Stale"), "older response overwrote committed catalog");
   deferHome = false;
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait();
+  chooseList(id); await wait();
   await archiveListFromSettings(id); await wait(); await wait();
-  assert(selector().value === "__all_lists__" && !options().includes("Original"), "archived selected list did not recover to All");
+  assert(selectedValue() === "__all_lists__" && !options().includes("Original"), "archived selected list did not recover to All");
   await restoreListFromSettings(id); await wait();
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait();
+  chooseList(id); await wait();
   await permanentlyDeleteListFromSettings(id); await wait(); await wait();
-  assert(selector().value === "__all_lists__", "deleted selected list did not recover to All");
+  assert(selectedValue() === "__all_lists__", "deleted selected list did not recover to All");
   const quietReads = homeReads; await wait(); await wait(); assert(homeReads === quietReads, "catalog polls without changes");
 
   const panel = container.querySelector<HTMLElement>('.focus-panel')!;
@@ -338,14 +352,14 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const renderScopeOwner = (visible: boolean) =>
     flushSync(() => root.render(<FocusScopeOwner visible={visible} />));
   renderScopeOwner(true); await wait(); await wait();
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait(); await wait();
-  assert(selector().value === id, "controlled Focus target did not commit selected list");
+  chooseList(id); await wait(); await wait();
+  assert(selectedValue() === id, "controlled Focus target did not commit selected list");
   renderScopeOwner(false); await wait();
   renderScopeOwner(true); await wait(); await wait();
-  assert(selector().value === id, "coordinator-owned Focus target did not survive Panel remount");
+  assert(selectedValue() === id, "coordinator-owned Focus target did not survive Panel remount");
   lists = [];
   await emitBoardInvalidated(); await wait(); await wait();
-  assert(selector().value === "__all_lists__", "invalid controlled Focus target did not fall back through owner to All");
+  assert(selectedValue() === "__all_lists__", "invalid controlled Focus target did not fall back through owner to All");
 
   scopeScenario = true;
   scopeCompleted = false;
