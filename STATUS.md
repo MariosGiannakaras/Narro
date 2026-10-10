@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 retrospective audit REVIEWED 70/70; post-audit remediation queued
+## CURRENT 2026-10-11 — independent post-audit PR321/PR322/PR323 active; 0/3 accepted
+
+**S0 historical audit 70/70 REVIEWED; prior A01–A14 14/14 source/CI exact integrated; mandatory physical/source milestones 3/10** remain stable. New Q01 B49 false image evidence (#321 exact head `12b3768c`, run `38090509904`) and Q02 coordinator same-render Next/Break immediate ref (#322 head `f25bf1e4`, run `38090642758`) both **validation+fast SUCCESS, Windows IN PROGRESS/NOT PASS** at recorded snapshot. Q18 ListBoard stale initial vs new invalidation (#323 head `0e76b406`, run `38091028848`) validation SUCCESS, fast/Windows NOT PASS yet. These are **three new pending PRs (0/3 accepted)**; no current source/CI gate advanced merely from open PR or running CI. All three change nonoverlapping paths and are independent.
+
+Initial exact CI corrections are independently logged: #321 first run `38090181205` fast failed preflight read-before-declaration; #322 `38090349368` fast failed premature nested VM/IPC microtask counter check. Current heads repaired only those test issues. GitHub workflow Windows candidate is authoritative. Immutable `work-log/2026-10-11-chatgpt-post-audit-q01-q02-q18-active-pr-ci-checkpoint.md`.
+
+**NEXT:** inspect actual finished Windows runs `38090509904`, `38090642758`, `38091028848`; read first failed steps/artifacts if red, otherwise merge only with expected-head guard and compare changed source/test blobs. Latest resulting-main production CI/hash Q12 remains open; original #316/#319/#320 packaged PR-head binaries are stale as full combined candidate. Physical Windows Codex USER-PAUSED, M10 blocked, M11 dormant.
+
+## AUDIT BASELINE (REVIEWED, NOT GREEN BINARY) — 70/70
 
 **S0 AUDIT COMPLETE AS EVIDENCE REVIEW ONLY:** 70/70 = 19/19 PR, 50/50 historical/current-truth Markdown, 1/1 combined-source-build I01 audited with **LATEST_COMBINED_WINDOWS_CI_NOT_VERIFIED and ZIP/EXE_HASH_NOT_RUN**. Source implementation A01–A14 independently source/CI validated and merged 14/14; mandatory 10-milestone roadmap 3/10 fully accepted (physical/source), native C4/M6/F35/F29/F27/M8 all remain OPEN/USER-PAUSED, M10 blocked, M11 dormant. Last immutable `work-log/2026-10-11-chatgpt-0600-audit-i01-current-integrated-candidate.md`; tracker `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`.
 
