@@ -9,10 +9,12 @@ const end = src.indexOf("  useEffect(() => {\n    if (!feedback) return;", start
 assert(start >= 0 && end > start, "Reports actual filter/mutation read callbacks missing");
 const actual = src.slice(start, end);
 assert(actual.includes("++sessionsReadRevisionRef.current")
-  && actual.includes("++detailReadRevisionRef.current"),
+  && actual.includes("++detailReadRevisionRef.current")
+  && actual.includes("sessionsActiveRequestKeyRef.current !== requestKey")
+  && actual.includes("detailActiveTaskIdRef.current !== taskId"),
   "filter, mutation and detail reads must use the same per-projection generation");
 assert(actual.includes("if (disposed || revision !== sessionsReadRevisionRef.current) return;")
-  && actual.includes("if (!disposed && revision === detailReadRevisionRef.current)"),
+  && actual.includes("if (!disposed && revision === detailReadRevisionRef.current"),
   "effect commits must honor superseding mutation/selection reads");
 const executable = ts.transpileModule(
   actual + "\n({ refreshSessions, refreshDetail });",
@@ -35,6 +37,8 @@ function harness() {
     preferences: { settled: true, error: null },
     sessionsReadRevisionRef: { current: 0 },
     detailReadRevisionRef: { current: 0 },
+    sessionsActiveRequestKeyRef: { current: null },
+    detailActiveTaskIdRef: { current: null },
     useCallback: (callback) => callback,
     useEffect: (callback) => effects.push(callback),
     getReportSessions: (request) => {
@@ -86,13 +90,16 @@ function harness() {
 // failure over a newly successful selection, or turn the saved write into error.
 {
   const h = harness();
+  const cleanupOld = h.effects[0]();
   const pendingMutation = h.handlers.refreshSessions();
   h.ctx.currentRequest = () => ({ listIds: ["new"] });
+  cleanupOld();
   const cleanup = h.effects[0]();
-  h.sessionCalls[1].resolve({ rows: ["current"] });
+  h.sessionCalls[2].resolve({ rows: ["current"] });
   await settle();
-  h.sessionCalls[0].reject(new Error("old filtered read failed"));
+  h.sessionCalls[1].reject(new Error("old filtered read failed"));
   assert.equal(await pendingMutation, null);
+  h.sessionCalls[0].reject(new Error("old initial filtered read failed"));
   await settle();
   assert.equal(h.state.sessions.rows[0], "current");
   assert(!h.state.errors.some(error => typeof error === "string" && error.includes("old filtered")));
@@ -118,6 +125,87 @@ function harness() {
   assert.equal(h.state.detail.taskId, "new-task");
   assert(!h.state.detailErrors.some(error => typeof error === "string" && error.includes("obsolete")));
   cleanupNew();
+}
+
+
+// Post-commit async code may resume with a callback from an *old React render*
+// AFTER a newer filter/detail effect already claimed the projection. Reproduce
+// two separate production-render closures sharing the real refs, not a model
+// that changes a variable underneath the same closure.
+{
+  const calls = { sessions: [], detail: [] };
+  const state = { sessions: null, detail: null, errors: [], detailErrors: [] };
+  const shared = {
+    sessionsReadRevisionRef: { current: 0 },
+    detailReadRevisionRef: { current: 0 },
+    sessionsActiveRequestKeyRef: { current: null },
+    detailActiveTaskIdRef: { current: null },
+  };
+  const makeRender = (list, task) => {
+    const effects = [];
+    const ctx = {
+      ...shared,
+      currentRequest: () => ({ listIds: [list] }),
+      detailTaskId: task,
+      preferences: { settled: true, error: null },
+      useCallback: (callback) => callback,
+      useEffect: (callback) => effects.push(callback),
+      getReportSessions: (request) => {
+        const d = deferred();
+        calls.sessions.push({ request, ...d });
+        return d.promise;
+      },
+      getReportTaskSessions: (request) => {
+        const d = deferred();
+        calls.detail.push({ request, ...d });
+        return d.promise;
+      },
+      setSessions: (value) => { state.sessions = value; },
+      setRefreshError: (value) => { state.errors.push(value); },
+      setDetail: (value) => { state.detail = value; },
+      setDetailError: (value) => { state.detailErrors.push(value); },
+      formatInvokeError: (failure) => String(failure.message ?? failure),
+    };
+    const handlers = vm.runInNewContext(executable, ctx);
+    assert.equal(effects.length, 2);
+    return { effects, handlers };
+  };
+  const old = makeRender("old", "old-task");
+  const cleanupOldSessions = old.effects[0]();
+  const cleanupOldDetail = old.effects[1]();
+  assert.equal(calls.sessions.length, 1);
+  assert.equal(calls.detail.length, 1);
+
+  // Different render: new filter and new detail become authoritative.
+  cleanupOldSessions(); cleanupOldDetail();
+  const newer = makeRender("new", "new-task");
+  const cleanupNewSessions = newer.effects[0]();
+  const cleanupNewDetail = newer.effects[1]();
+  assert.equal(calls.sessions.length, 2);
+  assert.equal(calls.detail.length, 2);
+  const revisionSessions = shared.sessionsReadRevisionRef.current;
+  const revisionDetail = shared.detailReadRevisionRef.current;
+  assert.equal(await old.handlers.refreshSessions(), null,
+    "late old-filter mutation callback must not issue or own a new read");
+  assert.equal(await old.handlers.refreshDetail("old-task"), null,
+    "late old-task mutation callback must not issue or own a new detail read");
+  assert.equal(calls.sessions.length, 2, "old render must not create a new filter IPC");
+  assert.equal(calls.detail.length, 2, "old render must not create a new task IPC");
+  assert.equal(shared.sessionsReadRevisionRef.current, revisionSessions,
+    "superseded session callback must not claim newer generation");
+  assert.equal(shared.detailReadRevisionRef.current, revisionDetail,
+    "superseded detail callback must not claim newer generation");
+
+  calls.sessions[1].resolve({ rows: ["new"] });
+  calls.detail[1].resolve({ taskId: "new-task" });
+  calls.sessions[0].reject(new Error("superseded old filter error"));
+  calls.detail[0].reject(new Error("superseded old detail error"));
+  await settle();
+  assert.equal(state.sessions.rows[0], "new");
+  assert.equal(state.detail.taskId, "new-task");
+  assert(!state.errors.some(value => typeof value === "string" && value.includes("superseded")));
+  assert(!state.detailErrors.some(value => typeof value === "string" && value.includes("superseded")));
+  cleanupNewSessions(); cleanupNewDetail();
 }
 
 console.log("Actual Reports session/detail read producers reject stale filtered and post-mutation results.");
