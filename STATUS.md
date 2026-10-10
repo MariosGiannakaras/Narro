@@ -11,6 +11,8 @@
 
 **Next action:** inspect `38028294285` at the next meaningful checkpoint; if any job fails inspect exact first failure and correct narrow cause on existing PR branch, repeat CI. If all three jobs PASS and unchanged head, guarded merge #301 then reconcile tracking, prepare current executable Windows physical candidate for paused Codex. Do not tight-loop poll. Preserve approved Create/Edit List picker and optional M11 deferred status.
 
+**Latest #301 CI preflight reconciliation (2026-10-10):** after prior head `b5c4bb751694ff4ae448f70dad5718c40208ac1a` run `38028294285`, fast-gate failed at `scripts/test-ui-focus-visual-states.mjs:109` because the static fixture check omitted the new committed-success scenario. Corrected that assertion and proactively found/corrected the same stale assumption in next fast script `scripts/test-ui-focus-empty-states.mjs`. Current PR301 head **`c7ff3795ab69ebff79a1d5311dbf757dc18a16d3`**, CI **`38028676924`**, validation SUCCESS, fast in progress and Windows NOT PASS at last check. All fixes on same existing branch and test-only. Precise immutable log: `work-log/2026-10-10-chatgpt-pr301-two-stale-focus-fixture-gates.md`. Continue exact-first-failure triage if red; guard-merge only full current-head green. **6/8 unchanged.**
+
 ## Prior physical and historical reference (non-current)
 
 ## Historical physical batch closure — CI1046, 2026-10-08
