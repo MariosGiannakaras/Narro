@@ -127,4 +127,5 @@ invariant(
   "frontend preflight must include production Sessions contracts",
 );
 
+await import("./test-reports-csv-export-single-flight.mjs");
 console.log("Reports Sessions production contracts: PASS");
