@@ -184,7 +184,7 @@ for (const state of ["time-up-compact", "time-up-expanded"]) {
     invariant(dom.includes('data-floating-live-state="time_up"')
       && dom.includes('data-floating-live-timer="true"')
       && dom.includes('data-floating-time-up-label="true"')
-      && dom.includes('aria-label="Time&#x27;s Up"') || false,
+      && /aria-label="Time(?:&#x27;|&#39;|\')s Up"/.test(dom),
       `${label} must expose Time's Up to the user and accessibility tree`);
     invariant(dom.includes(">00:00<") && contract.timeUpLabelText === "Time's Up",
       `${label} must retain the zero clock alongside the visible label`);
