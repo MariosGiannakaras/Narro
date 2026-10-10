@@ -35,7 +35,7 @@
 }
 
 .focus-panel__selector-wrap { min-width: 0; }
-.focus-panel__selector { width: 100%; min-height: 32px; padding: var(--space-1) var(--space-2); font-size: var(--font-size-metadata); background: var(--color-surface-interactive); }
+.focus-panel__topbar:has(.board-list-picker__menu) { position: relative; z-index: 8; }
 .focus-panel__title { margin: 0; font-size: var(--font-size-section-title); line-height: var(--line-height-section-title); text-align: center; }
 .focus-panel__quick-controls { display: flex; justify-content: flex-end; gap: var(--space-1); }
 .focus-panel__quick-controls button { min-width: 32px; min-height: 32px; padding: var(--space-1) var(--space-2); font-size: var(--font-size-metadata); }
