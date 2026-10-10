@@ -37,3 +37,18 @@ jobs:
             work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/continuous-review-index.json
             work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/chronological-actions.json
             work-log/evidence/ci1046-physical-20261008/file-manifest.json
+
+      - name: Confirm retained VE-003 original Blitzit motion source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s "reference/original-blitzit-videos/inbox/Blitzit Tutorial Blitz Mode.mp4"
+          sha256sum "reference/original-blitzit-videos/inbox/Blitzit Tutorial Blitz Mode.mp4"
+      - name: Export exact retained VE-003 original Blitzit tutorial video
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-existing-canonical-ve003-video
+          retention-days: 2
+          compression-level: 0
+          if-no-files-found: error
+          path: reference/original-blitzit-videos/inbox/Blitzit Tutorial Blitz Mode.mp4
