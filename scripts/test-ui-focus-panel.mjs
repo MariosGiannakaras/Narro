@@ -24,6 +24,14 @@ const picker = read("src/BoardListPicker.tsx");
 const pickerCss = read("src/boardListPicker.css");
 const actions = read("src/FocusLiveActions.tsx");
 const m7Integration = read("src/m7IntegrationRegression.tsx");
+invariant(m7Integration.includes("focusBoardStaleResponsesRejected: true")
+  && m7Integration.includes("focusBoardReadWaiters[1](freshFocusBoard)")
+  && m7Integration.includes("focusBoardReadWaiters[0](staleFocusBoard)"),
+  "A03 real Focus integration must resolve newer board before delayed old snapshot");
+invariant(panel.includes("const boardReadRevisionRef = useRef(0);")
+  && panel.includes("readRevision === boardReadRevisionRef.current")
+  && panel.includes("setBoardReadyTargetKey(expectedTargetKey);"),
+  "A03 Focus board reads need cross-path freshness and presentation readiness guards");
 invariant(m7Integration.includes("panelPause === null")
   && m7Integration.includes("panelActions.length === 5")
   && m7Integration.includes("finding35/B50 Time's Up must expose five controls with Extend instead of Pause"),
