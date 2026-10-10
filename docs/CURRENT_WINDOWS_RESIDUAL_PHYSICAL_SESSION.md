@@ -51,7 +51,12 @@ Preserve these results:
 
 A failure in a current residual check reopens only that authority.
 
-# Minimum closure set
+# Minimum closure set (conditional — gate invalidation applies)
+
+**CI1046 original physical matrix has M5 six accepted PASS rows**, including narrow title, Today progress, ordinary action rail, drag to an *empty* destination, retained Delete menu and native Finding28 post-drag keyboard focus. These are **historical, version-specific PASS**, not latest-build visual parity and not a mandate to redo every row. The nonempty positional drag case was explicitly **not** physically claimed. Source mutation ownership changes in PR307 do not, by themselves, invalidate rest/hover/title geometry; the new duplicate-create guard should be checked with deterministic backend/CI coverage rather than a broad M5 screenshot session. Re-open only specifically invalidated semantics or visibly changed source, following `docs/CI_VALIDATION_STRATEGY.md`.
+
+For current latest-integrated physical work, prioritize true native-only FAIL/OPEN: **M7 C4 continuous same-HWND motion**, **M6 initial morph timing**, **Finding35 compact/expanded native Time's Up**, **Finding29 pending manual Add Session UI Automation focus-owner**, **Finding27 actual 125%→100% monitor DPI/topology**, and **M8 real Windows notifications/audio**, plus precise user-visible source changes that cannot be fully verified in current Edge captures. Keep M5/M6/M9 static menu/icon/title comparisons on current production-component rendered evidence where feasible. The historic detailed scenarios below remain available for selective re-entry; they are **not all fresh physical prerequisites**.
+
 
 ## 0. M5 board current-candidate acceptance — narrow title + P3-M5-01/02/03
 
