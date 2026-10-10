@@ -156,6 +156,10 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const detailOpenerRef = useRef<HTMLElement | null>(null);
   const [detail, setDetail] = useState<ReportTaskSessionsDetail | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
+  // Filter effects and post-commit refreshes compete for the same view state.
+  // Share one read generation per projection, regardless of who requested it.
+  const sessionsReadRevisionRef = useRef(0);
+  const detailReadRevisionRef = useRef(0);
   const [addOpen, setAddOpen] = useState(false);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
@@ -209,10 +213,18 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const refreshSessions = useCallback(async () => {
     const request = currentRequest();
     if (!request) return null;
-    const payload = await getReportSessions(request);
-    setSessions(payload);
-    setRefreshError(null);
-    return payload;
+    const revision = ++sessionsReadRevisionRef.current;
+    try {
+      const payload = await getReportSessions(request);
+      if (revision !== sessionsReadRevisionRef.current) return null;
+      setSessions(payload);
+      setRefreshError(null);
+      return payload;
+    } catch (failure: unknown) {
+      // A superseded mutation refresh must not report a failure over a newer filter.
+      if (revision !== sessionsReadRevisionRef.current) return null;
+      throw failure;
+    }
   }, [currentRequest]);
 
   useEffect(() => {
@@ -220,30 +232,41 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     let disposed = false;
     const request = currentRequest();
     if (!request) return;
+    const revision = ++sessionsReadRevisionRef.current;
     void getReportSessions(request)
       .then((payload) => {
-        if (disposed) return;
+        if (disposed || revision !== sessionsReadRevisionRef.current) return;
         setSessions(payload);
         setRefreshError(null);
       })
       .catch((failure: unknown) => {
-        if (!disposed) setRefreshError(formatInvokeError(failure));
+        if (!disposed && revision === sessionsReadRevisionRef.current) {
+          setRefreshError(formatInvokeError(failure));
+        }
       });
     return () => { disposed = true; };
   }, [currentRequest, preferences.error, preferences.settled]);
 
   const refreshDetail = useCallback(async (taskId = detailTaskId) => {
+    const revision = ++detailReadRevisionRef.current;
     if (!taskId) {
       setDetail(null);
       return null;
     }
-    const payload = await getReportTaskSessions({ taskId });
-    setDetail(payload);
-    setDetailError(null);
-    return payload;
+    try {
+      const payload = await getReportTaskSessions({ taskId });
+      if (revision !== detailReadRevisionRef.current) return null;
+      setDetail(payload);
+      setDetailError(null);
+      return payload;
+    } catch (failure: unknown) {
+      if (revision !== detailReadRevisionRef.current) return null;
+      throw failure;
+    }
   }, [detailTaskId]);
 
   useEffect(() => {
+    const revision = ++detailReadRevisionRef.current;
     if (!detailTaskId) {
       setDetail(null);
       setDetailError(null);
@@ -252,13 +275,15 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     let disposed = false;
     void getReportTaskSessions({ taskId: detailTaskId })
       .then((payload) => {
-        if (!disposed) {
+        if (!disposed && revision === detailReadRevisionRef.current) {
           setDetail(payload);
           setDetailError(null);
         }
       })
       .catch((failure: unknown) => {
-        if (!disposed) setDetailError(formatInvokeError(failure));
+        if (!disposed && revision === detailReadRevisionRef.current) {
+          setDetailError(formatInvokeError(failure));
+        }
       });
     return () => { disposed = true; };
   }, [detailTaskId]);
