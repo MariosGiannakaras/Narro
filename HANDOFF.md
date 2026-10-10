@@ -1,5 +1,13 @@
 # HANDOFF — Narro pre-Codex coding COMPLETE; consolidated physical Windows acceptance next
 
+## CURRENT active correction — 2026-10-10 user-directed implementation-quality review (new 0/1 slice)
+
+The previously accepted fixed **8/8** implementation queue remains closed. A **new, separately scoped 0/1** source-correction unit is underway for physical Finding35; do **not** reset or silently expand the old denominator. [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302) branch `implementation/m7-finding35-visible-time-up-20261010`, first head `01e49bc7209142f31125ec6f268e0780c04c15a4`, [Windows CI 38044663152](https://github.com/MariosGiannakaras/Narro/actions/runs/38044663152) **IN PROGRESS / NOT PASS at initial checkpoint**. Validation-gate PASS; fast-gate in progress; Windows candidate not yet proven. The source candidate adds an actual visible `Time's Up` label in the Floating Timer and rendered light/dark compact/expanded acceptance. Local Node/PowerShell/Rust and physical Windows **NOT RUN**. Check actual PR head and all CI jobs before merging; only expected-head guarded-merge after all mandatory checks pass and reconcile resulting-main evidence.
+
+**C4 currently FAIL/PHYSICAL_OPEN, no code patch:** source analysis identifies an explicit clipped incoming Panel during `geometryMotion.phase=start` while native position/region and CSS clip animations progress independently. This is a concrete staging mechanism consistent with CI1046's actual video, not proof of the unique root cause or permission to alter the composition blindly. NER-002 requires comparative continuous-frame physical native validation before another C4 implementation. Exact evidence, causal boundary and next protocol: `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md`.
+
+**NEXT AGENT ACTION:** inspect exact current PR302 head and GitHub CI run 38044663152; repair only proven first failure if red. If full green, guard-merge after current-main reconciliation, verify resulting source and update this active section, TODO/STATUS/crosswalk and immutable work log. Finding35 physical and C4 physical remain OPEN. The user-paused consolidated Codex physical track is the next **independent** line after the source correction; do not silently activate optional M11.
+
 ## CURRENT definitive checkpoint — 2026-10-10, 8/8 coding merged
 
 **8/8** user-requested pre-Codex implementation units accepted after exact-head Windows CI and expected-head guarded merge. I01 #280 B67, I02 #286 B32, I03 #295 B21, I04 #298 B22, I05 #299 B50, I06 #300 B57, and **I07 B49 + I08 B63 jointly in PR #301**. No outstanding source coding unit in the fixed inventory; **physical Windows/manual parity acceptance and mandatory milestones remain OPEN**.
@@ -13,7 +21,7 @@
 
 **B49 + B63 source result:** keyboard/pointer-triggered five-icon Focus action rail with labeled-pill reveal and stable geometry; committed Done inline success replaces only active card with Today header/queue visible but inert during owned success routing; Next Task, Close focus and typed error ownership preserved. User-directed B50 contextual Extend stays in the five control slots. The post-success Take a Break is **NARRO_INFERRED** untimed idle rest with authoritative-idle guard and no phantom session; not confirmed original Blitzit behavior. Preserve approved user-owned Create/Edit List Spectrum Core 184px picker, image upload, 218 offline icons unchanged. Full provenance/workflow: `work-log/2026-10-10-chatgpt-eight-of-eight-pr301-merged-codex-physical-handoff.md`.
 
-## NEXT AGENT ACTION — physical Windows Codex route
+## NEXT INDEPENDENT PHYSICAL ACTION — user-paused Windows Codex route
 
 **Coding is complete 8/8.** The separate physical-Windows Codex track is **PAUSED by user**, not auto-activated by this merge. The resulting-main push CI `38040736709` has now passed all three jobs. **No further implementation/automated-CI gate remains in this fixed 8/8 campaign.** The next separate line is the user-paused physical Codex agent: make the exact final Windows artifact and physical protocol available for the user to restart it.
 
