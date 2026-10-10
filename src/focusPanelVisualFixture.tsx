@@ -433,7 +433,7 @@ const focusSelectorContract = {
     height: focusSelector.getBoundingClientRect().height,
     expanded: focusSelector.getAttribute('aria-expanded'),
   } : null,
-  popup: focusPopupRect ? { width: focusPopupRect.width, height: focusPopupRect.height } : null,
+  popup: focusPopupRect ? { width: focusPopupRect.width, height: focusPopupRect.height, right: focusPopupRect.right } : null,
   popupWithinPanel: Boolean(focusPopupRect && focusPanelRect
     && focusPopupRect.left >= focusPanelRect.left - 1
     && focusPopupRect.right <= focusPanelRect.right + 1
@@ -445,6 +445,18 @@ const focusSelectorContract = {
       selected: node.getAttribute('aria-selected'),
       badgeVisible: Boolean(node.querySelector('.board-list-picker__badge')),
     })),
+  optionLayout: Array.from(document.querySelectorAll<HTMLElement>('[data-focus-list-option]'), node => {
+    const title = node.querySelector<HTMLElement>('.board-list-picker__option-title');
+    const optionRect = node.getBoundingClientRect();
+    const titleRect = title?.getBoundingClientRect();
+    return {
+      optionRight: optionRect.right,
+      titleRight: titleRect?.right ?? null,
+      titleClientWidth: title?.clientWidth ?? 0,
+      titleScrollWidth: title?.scrollWidth ?? 0,
+      titleOverflow: title ? getComputedStyle(title).textOverflow : null,
+    };
+  }),
   overflowBadge: document.querySelector('.board-list-picker--focus .board-list-picker__remaining-count')?.textContent?.trim() ?? null,
   savedBadgeColors: Array.from(document.querySelectorAll<HTMLElement>(
     '[data-focus-list-option]:not([data-focus-list-option="__all_lists__"]) .board-list-picker__badge'
