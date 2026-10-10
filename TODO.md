@@ -125,7 +125,7 @@
 - **Integral integration gate:** A11 and A12 are integrated; A13 still requires current Windows screenshot acceptance. Once A13 is merged, ensure a **single latest Windows candidate includes all three**; the previous green PR316 artifact `11675827068` is source-stale for these new changes. ZIP/EXE hash verification not run. User-paused native Codex and M11 remain inactive.
 - **Comprehensive findings:** `work-log/2026-10-10-chatgpt-final-morning-a01-a10-retrospective-source-audit.md` separates real source/test acceptance from physical Windows/source parity and flags potential child-live-actions versus parent-Focus-command interleavings for regression-first investigation only (not a confirmed native bug).
 
-## CURRENT user-directed pre-Codex source / rendered audit — 2026-10-10
+## HISTORICAL — CURRENT user-directed pre-Codex source / rendered audit — 2026-10-10
 
 - [x] **Final integrated Windows CI/packaged candidate (10/10 audit source/CI):** [PR #316](https://github.com/MariosGiannakaras/Narro/pull/316) head `edebaa4d1e7f44d95e8dc7730062ae185a7fc6fc`, [CI 38066478586](https://github.com/MariosGiannakaras/Narro/actions/runs/38066478586) validation/fast/Windows **all PASS**; guarded merge `1bd24411e159b8a1e5d8e51c97e005d7163a1c34`; **2/2 exact changed Git blobs identical** with merged main. Latest production-config native candidate `narro-m7-physical-windows-x64` artifact **11675827068**, ZIP/EXE SHA256 **NOT RUN** (verify upon download). No native physical gate closed. Evidence `work-log/2026-10-10-chatgpt-pr316-composite-main-windows-ci-merge.md`.
 **CURRENT integrated programming audit A01–A10 10/10 SOURCE/CI accepted and guarded-merged; latest combined-build Windows CI now PASS.** Separate original initial coding 8/8 and Finding35 correction 1/1 unchanged. Three of ten mandatory milestones fully accepted. Physical user-paused; M10 blocked; optional M11 dormant. Historical checkpoint: A07–A10 4/4 individually source/CI merged
@@ -154,7 +154,7 @@
 - [ ] **C4 prior FAIL / cause review:** live CI1046 native continuity video shows visible incoming Panel clipped to old Timer bounds. Source CSS explicitly stages 110/300px Panel while independent native-region/position and renderer clip motion run. Do not replace repeated failing animations speculatively; obtain continuous exact-candidate frame/native-state evidence and compare a materially different mechanism under NER-002 before production correction. Remains physical FAIL/OPEN.
 - **Durable source analysis/merge/handoff:** `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md` and `work-log/2026-10-10-chatgpt-pr302-finding35-merged-automated-green.md`; latest `HANDOFF.md` is current next-action authority. Paused Codex physical run and optional M11 remain untouched.
 
-## CURRENT pre-Codex implementation checkpoint — 2026-10-10 (8/8)
+## HISTORICAL — CURRENT pre-Codex implementation checkpoint — 2026-10-10 (8/8)
 
 **8/8 validated-and-merged implementation units I01–I08; coding campaign COMPLETE, physical Codex gates OPEN.** I07 B49 and I08 B63 both integrated in existing PR [#301](https://github.com/MariosGiannakaras/Narro/pull/301): exact head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, all three Windows CI jobs **SUCCESS** in [run 38037669076](https://github.com/MariosGiannakaras/Narro/actions/runs/38037669076), expected-head guarded squash merge `f921d1e1c716e1c9404265604f23432c19949dfe`. Independently verified **16/16 PR source/test file Git blob SHAs identical** in resulting executable main and accepted head; workflow/config unchanged. No remaining open implementation PR at merge checkpoint.
 
@@ -181,7 +181,7 @@
 
 **Explicit nonblocking routes:** B47/B70 keep currently coherent, persisted insertion/manual-lane semantics absent verified contrary modern functional evidence; B35/B36/B38 older-version-only visual differences defer exact source inspection to optional explicit M11, not invented pre-Codex code. B44/B56 Narro-local numeric formulas already merged, not open implementation; source appearance to M11. Known M7 C4/Finding35, DPI, Windows notifications, Sessions pending native focus and motion belong to Codex physical gate, not to this X/Y. The separate M11 has NOT been activated.
 
-## Active 2026-10-09 reconciliation — CI policy, implemented functional defaults, physical handoff
+## HISTORICAL — Active 2026-10-09 reconciliation — CI policy, implemented functional defaults, physical handoff
 
 - **Next exact-source validation checkpoint:** #298 B22 forward-merge head `418c6df11dd78a76f0482633f72c4490d45f956b` run `37968876485` IN PROGRESS; #299 B50 test-only correction head `424cc988644ece1d6ce5bc89fd8e7c2cec10cb56` run `37968363127` IN PROGRESS; #286 B32 diagnostic-only correction head `fa8ff721b85e63b5e0d0202058abdf90381454a4` run `37969315839` IN PROGRESS. #300 original exact head full CI `37965486561` SUCCESS but open/source overlap; #295 CI failed before #294 main source; #280 old Windows CI failure. None of the new heads has proven full PASS/merge. Inspect on subsequent user message or when required, not by idle polling. Immutable diagnostics `work-log/2026-10-09-chatgpt-b22-b50-b32-forward-reconciliation.md`.
 - **CI clarified by user:** periodically inspect real Actions at useful decision points and on any new user message; do not idle through a long CI job. No continuous polling, but **no blanket prohibition on checking**. Previous notes saying 'never inspect CI until the user explicitly confirms completion' are superseded.
@@ -192,7 +192,7 @@
 - **Current open PR routing:** #280 B67 old CI FAIL; #286 B32 Windows screenshot unexpectedly small; #295 B21 fast CI FAILED because stale branch lacks #294 WindowsShortcutsDialog; #298 B22 timezone exact-head Windows CI 37963074274 SUCCESS but current-main conflict; #299 B50 contextual Extend old fast check FAIL now branch test-only commit `424cc988644ece1d6ce5bc89fd8e7c2cec10cb56` awaiting replacement CI; #300 B57 validation/fast green while Windows candidate pending at check. Do not force merges; reconcile overlapping source and repeat exact-head CI.
 - **Codex physical remains paused** until the latest integrated code is stabilized. M1 Finding27, M6 visual/motion, M7 C4/Finding35, M9 pending native focus and M8 notification/sound gates remain separate and OPEN. Roadmap stays **3/10 validated mandatory milestones**; M10 hard gate blocked.
 
-## Current physical batch closure — CI1046, 2026-10-08
+## HISTORICAL — Current physical batch closure — CI1046, 2026-10-08
 
 [Complete evidence, exact chronology, scope limits and restored-state proof](work-log/evidence/ci1046-physical-20261008/README.md#final-batch-closure--user-requested-stop-2026-10-08). No Narro source changes or new build. Exact CI1046 candidate remains unchanged; newer main documentation findings are preserved.
 
@@ -219,7 +219,7 @@ This newer checkpoint supersedes older physical-OPEN text only for its explicitl
 - **Roadmap unchanged: 3/10 mandatory milestones** (M2–M4). M1/M5/M6/M7/M8/M9 required gates remain; M10 blocked, M11 dormant.
 
 
-## Current authoritative state — project continuation reconciled 2026-10-06
+## HISTORICAL — Current authoritative state — project continuation reconciled 2026-10-06
 
 This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
 
