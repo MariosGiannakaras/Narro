@@ -398,6 +398,7 @@ export function FloatingTimerFoundation({
             className="floating-timer-foundation__timer timer-numerals"
             data-floating-live-timer="true"
             data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
+            data-floating-timer-overtime={timer?.runtime.timer.state === "overtime_running" || timer?.runtime.timer.state === "overtime_paused" ? "true" : "false"}
             data-timed-alert-flash-task-id={liveTaskId ?? undefined}
             data-timer-numerals="true"
             data-tauri-drag-region="true"

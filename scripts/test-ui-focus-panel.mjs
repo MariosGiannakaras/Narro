@@ -24,7 +24,7 @@ const m7Integration = read("src/m7IntegrationRegression.tsx");
 invariant(m7Integration.includes("panelPause === null")
   && m7Integration.includes("panelActions.length === 5")
   && m7Integration.includes("finding35/B50 Time's Up must expose five controls with Extend instead of Pause"),
-  "M7 production integration fixture must accept B50 contextual five-action Time's Up before Windows capture");
+  "M7 rendered regression must accept five contextual B50 actions before expensive Windows capture");
 
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
@@ -83,6 +83,10 @@ for (const [haystack, needle, label] of [
   [timerPresentation, 'timer.state === "break"', "break countdown projection"],
   [timerPresentation, 'timer.state === "time_up"', "Time's Up display projection"],
   [timerPresentation, 'timer.state === "overtime_running"', "overtime display projection"],
+  [timerPresentation, 'formatOvertimeClock(timer.overtime_ms)', "B67 signed overtime clock"],
+  [panel, 'data-focus-timer-overtime=', "B67 Focus overtime state"],
+  [floating, 'data-floating-timer-overtime=', "B67 Floating overtime state"],
+  [css, '.focus-panel__live-timer[data-focus-timer-overtime="true"]', "B67 calibrated Focus warning treatment"],
   [panel, 'const remainingCandidates = board.today.tasks.filter((task) => task.id !== liveTaskId);', "live task exclusion from queued sections"],
   [panel, 'task.scheduledLocalTime !== null && !task.isOverdue', "future-timed Today scheduled grouping"],
   [panel, 'const scheduledIds = new Set(scheduledTasks.map((task) => task.id));', "scheduled identity set"],

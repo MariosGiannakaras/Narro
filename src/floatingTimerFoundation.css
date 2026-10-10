@@ -122,7 +122,7 @@
 .floating-timer-foundation__heading {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 8ch;
+  grid-template-columns: minmax(0, 1fr) 10ch;
   align-items: center;
   gap: 10px;
 }
@@ -153,8 +153,8 @@
 }
 
 .floating-timer-foundation__timer {
-  width: 8ch;
-  min-width: 8ch;
+  width: 10ch;
+  min-width: 10ch;
   overflow: hidden;
   text-align: right;
   white-space: nowrap;
@@ -162,6 +162,9 @@
   font-size: var(--font-size-body);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+.floating-timer-foundation__timer[data-floating-timer-overtime="true"] {
+  color: var(--color-warning);
 }
 
 .floating-timer-foundation__actions-wrap {

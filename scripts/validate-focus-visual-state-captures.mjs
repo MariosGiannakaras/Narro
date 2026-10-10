@@ -99,8 +99,8 @@ for (const theme of ["light", "dark"]) {
   const overtime = readCapture(theme, "overtime");
   requireLiveState(overtime, "overtime_running");
   requireDistinctCardState(overtime, running);
-  invariant(overtime.dom.includes('aria-label="Overtime: +07:00"'), `${overtime.label} overtime accessible label differs`);
-  invariant(overtime.dom.includes(">+07:00<"), `${overtime.label} overtime display is missing`);
+  invariant(overtime.dom.includes('aria-label="Overtime: -00:07:00"'), `${overtime.label} overtime accessible label differs`);
+  invariant(overtime.dom.includes(">-00:07:00<"), `${overtime.label} overtime display is missing`);
 
   const notes = readCapture(theme, "notes-expanded");
   requireLiveState(notes, "running");

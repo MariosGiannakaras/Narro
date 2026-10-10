@@ -20,6 +20,17 @@ export function formatTimerClock(milliseconds: number | null, rounding: "ceil" |
   return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
 }
 
+/** Signed HH:MM:SS view; authoritative overtime_ms stays nonnegative. */
+export function formatOvertimeClock(milliseconds: number): string {
+  const clock = formatTimerClock(milliseconds, "floor");
+  if (clock === "--:--") return clock;
+  const fields = clock.split(":");
+  const hours = fields.length === 2 ? "00" : fields[0].padStart(2, "0");
+  const minutes = fields.length === 2 ? fields[0] : fields[1];
+  const seconds = fields.length === 2 ? fields[1] : fields[2];
+  return `-${hours}:${minutes}:${seconds}`;
+}
+
 export function focusTimerStateLabel(timer: TimerSnapshot): string {
   switch (timer.state) {
     case "running":
@@ -51,7 +62,7 @@ export function focusTimerPresentation(timer: TimerSnapshot): FocusTimerPresenta
     return { text: "00:00", label: "Time's Up", mode };
   }
   if (timer.state === "overtime_running" || timer.state === "overtime_paused") {
-    const text = `+${formatTimerClock(timer.overtime_ms, "floor")}`;
+    const text = formatOvertimeClock(timer.overtime_ms);
     return { text, label: `${stateLabel}: ${text}`, mode };
   }
   if (timer.mode?.kind === "count_up") {
