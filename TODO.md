@@ -1,13 +1,12 @@
 # TODO.md
 
-
 ## CURRENT coding checkpoint — 2026-10-10 (authoritative 6/8)
 
-**6/8 integrated** after exact-head full Windows CI PASS + guarded merges: I01 #280 B67, I02 #286 B32, I03 #295 B21, I04 #298 B22, I05 #299 B50, I06 #300 B57. **Open 2/8:** I07 B49 and I08 B63 in the same PR #301 (do not double-count before integration).
+**6/8** fixed pre-Codex implementation units validated by all three required Windows CI jobs and merged with expected-head guard: I01 #280 B67 (run `38004842175`, merge `c1633c9edb372228ad597fde686575b58b8437fb`), I02 #286 B32, I03 #295 B21, I04 #298 B22, I05 #299 B50, I06 #300 B57. Only **I07 B49 and I08 B63** remain; both are implemented on existing [PR #301](https://github.com/MariosGiannakaras/Narro/pull/301) but CI/merge NOT PASS and cannot count yet.
 
-**Actual PR #301 failure:** head `c7ff3795ab69ebff79a1d5311dbf757dc18a16d3`, full run `38028676924`: validation+fast PASS, Windows visual screenshot failed only `focus-panel-live-actions-focus-light` B49 focus/geometry assertion; actual light PNG shows focused Pause icon/text. Artifact `11661083388` directly inspected and logged in `work-log/2026-10-10-chatgpt-six-of-eight-b49-focus-visual-diagnostic.md`. Original error lacked condition metrics.
+**Latest exact PR #301 head `77748f99e99a46d427dac8f9ba3178ec842faf55`, CI run `38033418891`** validation green, fast in progress/Windows NOT PASS at last checkpoint. The previous `38029857004` Windows failure precisely measured `action-rail-opacity=0, heading-opacity=1` in B49 light keyboard-focus fixture. Downloaded actual failed artifact `11661354700`; the subsequent light screenshot visibly shows the icon+Pause pill (while the synchronous style check had read opacity0), suggesting Edge style invalidation/timing. Fixed **only** existing PR branch: added direct ancestor `:focus-within` CSS reveal fallback, replaced fixed 300ms fixture snapshot with bounded 1500ms final-state settlement, kept all strict visibility/geometry thresholds and fast regression test. Root analysis and exact change in immutable `work-log/2026-10-10-chatgpt-b49-focus-visual-diagnostics-and-edge-fallback.md`.
 
-**Current PR #301 exact head** `657920b2df19d53d536c6e5d5270ba140d403b6f`, run `38029857004` validation SUCCESS, fast IN PROGRESS and Windows NOT PASS at last checkpoint. The same PR branch changed only visual fixture failure reporting to identify focus owner, opacity/label or numeric geometry delta without changing PASS requirements. On new red CI use the actual named primary failure; on green check exact head, guarded merge, resulting-main, then mark I07 + I08 = **8/8**. Native Codex physical gates separate OPEN; optional Blitzit M11 remains dormant.
+**Next:** when this run reaches completed state, inspect first exact failure or all-green jobs. If all 3 green, verify exact PR head/current main/source, guarded merge #301 and resulting-main validation, then increment implementation counter to **8/8** and prepare paused Codex physical Windows handoff with all physical gates OPEN. If red, inspect failing evidence and fix only demonstrated cause, rerun exact head. Do not idle waiting for CI. Preserve approved Create/Edit List UI, Fun GIF, native time ledgers; M11 optional Blitzit audit still dormant.
 
 ## Fixed pre-Codex implementation inventory — 2026-10-09 user X/Y request
 
