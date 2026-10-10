@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE FROM 06:00 EEST AUDIT — 2/70 frozen review units (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 4/70 reviewed; 3/18 code PRs (2026-10-10)
+
+- [x] **P01 #280 B67 overtime code audit:** actual 10/10 merged blobs, exact-head 3/3 Windows CI, inspected fresh original light/dark Edge overtime captures, tested sign/bounds/paused countup+break/time_up and preflight linkage; no proved normal-use regression, extreme >=1000h 10ch width edge UNTESTED. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p01-b67-and-p19-a14-closure.md`.
+- [x] **P19 #320 A14 Reports exports:** full 3/3 exact-head run `38077203921` SUCCESS, guarded merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`, 5/5 changed Git blobs match, production CSV/PDF handlers exercised in deferred tests, actual native Downloads exports NOT RUN.
+- [x] **A01–A14 14/14 SOURCE/CI:** all exact-head CI/guarded merged, distinct from independent retrospective audit or physical Windows acceptance.
+- [ ] **Next code audit P02 #301:** inspect 16 files Focus action lifecycle, keyboard accessibility, committed success, async/native partial failure and source/rendered evidence. Then P03 #302 and rest of fixed S0 tracker.
+- [ ] **Frozen audit remaining:** code PR audit 3/18, separate evidence PR #308 audited, all Markdown 0/50 and integrated candidate 0/1; total 4/70. `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md` is authoritative for each item. Full current combined Windows candidate/hash/physical evidence still NOT RUN; user-paused Codex/M11 untouched, mandatory milestones 3/10.
+
+## HISTORICAL COMPREHENSIVE FROM 06:00 EEST AUDIT — 2/70 frozen review units (2026-10-10)
 
 - [ ] **Comprehensive audit tracker:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`. Exact S0 GitHub main `71536805de34343e6cf9a809557b6d6902e25c48`: 168 commits =17 merged code/test PRs +151 docs commits, 104 changed paths =54 source/test/config +50 Markdown. Plus open PR320 and closed unmerged evidence PR308, giving **19 PR units +50 Markdown paths +1 integrated candidate =70 fixed audit units**. Completed **2/70** review (P07 #308 and P18 #319); P19 #320 in review. Do not count previously accepted source PRs without independent deep review, do not increment for chats. Exact immutable evidence `work-log/2026-10-10-chatgpt-comprehensive-0600-audit-frozen-inventory.md`.
 - [ ] **A14 PR320 0/1 implementation:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation/fast SUCCESS, Windows-candidate IN PROGRESS/NOT PASS at last check. On full green guarded merge, 5/5 resulting-main changed blob identity and close P19. If red inspect actual first failing step. Do not infer actual native Downloads effect from Node mock.
