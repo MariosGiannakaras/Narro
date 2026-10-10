@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — independent post-audit PR321–PR324 active; 2/4 accepted
+## CURRENT 2026-10-11 — S0 50/50 evidence cross-checked; post-audit PRs 3/4 accepted
+
+**User-requested full 50-document audit consistency recheck:** GitHub S0 original set vs frozen tracker **50/50 unique exact paths**, no missed/doubled. Audit logs individual row coverage **15+20+15=50**, 43 actual unmodified immutable historical files with **41/43 original summary SHA correct**; two audit-summary evidence transcription errors L05 placeholder/L40 malformed SHA corrected in separate new immutable addenda without overwriting originals. T01–T03 audit hash is *then-current review* identity, not S0; E01–E04 S0 original SHA correct. **70/70 REVIEWED** remains legitimate bounded coverage only, not 70 implementation/physical PASS. Native user-paused C4/M6/F35/F29/F27/M8 and original Blitzit parity independently OPEN. Mandatory roadmap fully accepted 3/10; original A01–A14 source/CI 14/14.
+
+**Latest exact source/CI acceptance 3/4 post-audit PRs:** #322 & #323 guarded merges remain 3/3 CI and 3/3 source blobs each. **#324** head `1eab9361049e5cb15177a892385c0f1056756189`, exact CI run `38093211469` all three jobs SUCCESS, expected-head squash `7e6e8ecdd51a374a884e3d96c79ec41e761372a9`, **3/3 head/merge/current-main file blobs equal**. Logs: `work-log/2026-10-11-chatgpt-s0-50-doc-audit-independent-sha-reverification.md`; `work-log/2026-10-11-chatgpt-pr324-guarded-merge-and-50-doc-sha-identity-errata.md`.
+
+**Only open #321**, different agent-owned branch head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298`: validation/fast SUCCESS, Windows candidate FAILED on dark B49 Focus actual CDP focus/opacity/layout after light PASS. Error `activeTag=SPAN, railOpacity=0, headingOpacity=1, queued action layout moved`; diagnostic artifact `11684564496`. Do NOT merge falsely or take branch ownership. Next independent Q03 keyboard event regression; later one latest merged-main production ZIP/EXE Q12, not older #316/#319/#320 branch artifacts. Physical Codex USER-PAUSED, M10 blocked, M11 dormant.
+
+## HISTORICAL — 2/4 post-audit pre-verification checkpoint
 
 **Two post-audit executable slices now accepted:** #322 head `f25bf1e4` run `38090642758` 3/3 CI PASS, guarded merge `8e7590f635004a00e3fc0d1d5bdf3efc0856b845`, **3/3 Git blobs equal**; #323 head `0e76b406` run `38091028848` 3/3 PASS, guarded merge `6ee07799b441831f69eb56ba57892788a8d09d5c`, **3/3 blobs equal**. **2/4** current bounded campaign source/CI accepted; no native physical. Immutable `work-log/2026-10-11-chatgpt-post-audit-pr322-pr323-exact-ci-guarded-merge.md`. Remaining #321 has separate active head `f129c37b...` run `38092529298` NOT PASS; preceding `39926d2a` run `38091625389` Windows FAIL with actual focus changed to queued title, CSS hidden; real diagnostic PNG/DOM and PR comment 6102994773. #324 validation+fast SUCCESS run `38092259831`, Windows IN PROGRESS.
 
