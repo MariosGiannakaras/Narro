@@ -1,5 +1,11 @@
 # STATUS.md
 
+## Active corrective source review — 2026-10-10 (separate from fixed 8/8)
+
+**New correction 0/1 accepted.** User directed a post-interruption architectural/implementation-quality review. A directly evidenced Floating Timer `time_up` visible-status omission is now source-patched in [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302) head `01e49bc7209142f31125ec6f268e0780c04c15a4`, with production-component compact/expanded, dark/light Edge visual fixtures. At checkpoint, Windows CI run `38044663152` IN PROGRESS/NOT PASS; source candidate is **not yet validated/merged**, and local/physical tests are NOT RUN. Prior fixed inventory stays 8/8, not 8/9. `TODO.md` and `HANDOFF.md` hold continuation; immutable causal record `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md`.
+
+**C4 M7:** same-HWND Timer→Panel native FAIL from CI1046 still OPEN. Reviewed current transition code: CSS temporarily makes a 110px/300px-clipped incoming Panel visible after hiding outgoing Timer while native region/position and CSS clipping move on independent clocks; this can reproduce staged presentation, but exact frame-level cause and safe replacement require physical comparative evidence. No C4 production change, no premature PASS. NER-002 repeated-failure escalation still binding. User-paused Codex physical testing not restarted; optional M11 not activated.
+
 ## Current project truth — 2026-10-10: pre-Codex programming 8/8 integrated
 
 **8/8** fixed implementation units completed in source/automated-validation scope. I01 #280 B67, I02 #286 B32, I03 #295 B21, I04 #298 B22, I05 #299 B50, I06 #300 B57, I07 B49 and I08 B63 (last two together #301). Final #301 head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, exact [CI 38037669076](https://github.com/MariosGiannakaras/Narro/actions/runs/38037669076) validation+fast+Windows **SUCCESS**, guarded merge `f921d1e1c716e1c9404265604f23432c19949dfe`. Independently verified all **16/16** changed source/test blobs on resulting main match accepted PR-head Git tree. Main push [CI 38040736709](https://github.com/MariosGiannakaras/Narro/actions/runs/38040736709) **SUCCESS — validation, fast and Windows candidate all green**, independently verified 2026-10-10; resulting-main automated validation accepted. Subsequent docs-only commits do not invalidate accepted source.
