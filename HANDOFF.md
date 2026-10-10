@@ -1,6 +1,16 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT CHUNKED AUDIT Group 07/07 — PR320 exact Windows CI pending (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — source-frozen 2/70 (2026-10-10)
+
+**Supersedes arbitrary '7/7 groups' as current audit progress.** User requested exhaustive audit of *everything changed since 06:00* and fixed objective X/Y. Canonical `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, immutable evidence `work-log/2026-10-10-chatgpt-comprehensive-0600-audit-frozen-inventory.md`. Frozen S0 `main` `71536805de34343e6cf9a809557b6d6902e25c48` at 22:03:41 EEST: compare from last pre-window main `13a009b2d03fbcef819a1358bede447bf0564ade` yields **168 main commits, 104 changed paths**: **17 code/test PR merges +151 distinct docs commits**, 54 code/test/config paths +50 Markdown. Plus 1 open source PR320 and 1 closed unmerged evidence PR308 gives **19 PR audit units**; 50 Markdown path audit units; 1 combined candidate boundary, fixed **70**.
+
+**Actual comprehensive audit review progress 2/70** (P07 #308 unmerged/absent main, P18 #319 exact visual/CI/merge reviewed), **P19 #320 IN REVIEW**. Other previously source/CI-accepted PRs are **not automatically declared retrospectively deeply audited**. Review progress = 2/19 PR, 0/50 Markdown, 0/1 combined candidate. Separate implementation source/CI acceptance **A01–A14 13/14** guarded merged; mandatory roadmap fully accepted **3/10**. DO NOT use arbitrary number of chat responses as X/Y or combine source CI with physical PASS.
+
+**Current PR320 exact head** `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation and fast SUCCESS, Windows **IN PROGRESS/NOT PASS at last check**, OPEN/UNMERGED. **NEXT AGENT ACTION:** check its exact Windows result when useful; if fail inspect first causal failure, else expected-head guarded merge and 5/5 changed Git blob main equality. Then close P19 with exact evidence; independently review P01–P17 in dependency order and 50 Markdown frozen paths according to tracker, validating current merged code rather than obsolete standalone patch. After source integration validate latest combined production-config Windows candidate; PR316 artifact `11675827068` predates A11–A13. Physical user-paused Codex C4/M6/F35/F29/F27/M8 remains OPEN; M10 blocked, M11 strictly dormant.
+
+**USER ACTION REQUIRED:** no new product decision. Physical Codex not to be restarted without explicit user reactivation. Audit as short self-contained slices with fixed, transparent X/70.
+
+## HISTORICAL CHUNKED AUDIT Group 07/07 — PR320 exact Windows CI pending (2026-10-10)
 
 **Group-review progress 7/7** within the current bounded sequence; **implementation A01–A14 13/14** accepted/merged (A14 remains OPEN). Direct immutable group07 evidence `work-log/2026-10-10-chatgpt-chunked-audit-group07-pr320-window-ci-checkpoint.md`. PR320 exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, run `38077203921`: validation-gate SUCCESS, fast-gate SUCCESS, Windows job `114287347022` steps 1–14 SUCCESS including Rust check/Clippy/tests/performance, visual fixture capture step 15 IN PROGRESS, subsequent release/packaging/physical candidate steps PENDING/NOT PASS. No merge or production code changes in Group07. Previous literal PDF assertion regression now passed in fast preflight; native CSV/PDF Windows interaction NOT RUN.
 
