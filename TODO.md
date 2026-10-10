@@ -2,6 +2,7 @@
 
 ## CURRENT user-directed pre-Codex source / rendered audit — 2026-10-10
 
+- [ ] **Final integrated Windows CI/packaged candidate:** [PR #316](https://github.com/MariosGiannakaras/Narro/pull/316) exact head `edebaa4d1e7f44d95e8dc7730062ae185a7fc6fc`, [CI 38066478586](https://github.com/MariosGiannakaras/Narro/actions/runs/38066478586) **IN PROGRESS / NOT YET PASS**. Builds fully merged A01–A10 code and adds meaningful preflight reachability regression; require 3/3 green, expected-head merge, 2/2 source/test blob identity and production-config packaged artifact for later physical user-started session. No native PASS inferred.
 **CURRENT follow-on A07–A10 4/4 SOURCE/PR-CI accepted/merged** (prior A01–A06 **6/6** unchanged). Exact Windows CI/guarded merge/blob proof: `work-log/2026-10-10-chatgpt-a07-a10-exact-ci-guarded-merge-final.md`. Four individual Windows builds passed; **combined resulting-main current tree validation NOT RUN**, no latest combined physical candidate selected yet.
 
 - [x] **A07 / #312:** shared Focus task + native Home mutation ownership. Exact head `4e6a84c54e631570e00b6ccfe5f16ce2e5465c07`, CI `38062610832` three SUCCESS, guarded merge `7469ae748beb15642c58d0f2e311e4c5abc7830e`, 3/3 blobs.
