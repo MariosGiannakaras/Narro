@@ -364,7 +364,14 @@ if (queuedRow) {
   if (before[1].width <= badge.getBoundingClientRect().width) throw new Error('Long list badge dominates the ordinary title');
   if (before[2].top < before[1].bottom) throw new Error('Action rail competes with title allocation');
   const rowIsVisible = before[0].top >= 0 && before[0].bottom <= window.innerHeight;
-  if (rowIsVisible) {
+  // B63 keeps the queue visible but inert until Next Task/Close. Never demand
+  // its ordinary focus-triggered tooltip while completion owns interaction.
+  const successQueueInert = scenario === "success" && queuedRow.closest('[inert]') !== null;
+  if (scenario === "success") {
+    if (!successQueueInert) throw new Error('Committed success queue must remain inert');
+    title.focus({preventScroll: true});
+    if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus');
+  } else if (rowIsVisible) {
     title.focus({preventScroll: true});
     await new Promise<void>(resolve => window.setTimeout(resolve, TOOLTIP_INTENT_DELAY_MS + 50));
     const focusedTooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]');
@@ -375,9 +382,9 @@ if (queuedRow) {
   const tooltipNode = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!;
   const tooltip = tooltipNode.getBoundingClientRect();
   const rowBounds = queuedRow.getBoundingClientRect();
-  const tooltipEscapes = tooltip.left < rowBounds.left
+  const tooltipEscapes = scenario !== "success" && (tooltip.left < rowBounds.left
     || tooltip.right > rowBounds.right
-    || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight));
+    || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight)));
   if (tooltipEscapes) {
     const style = getComputedStyle(tooltipNode);
     throw new Error(
@@ -398,8 +405,10 @@ if (queuedRow) {
       }),
     );
   }
-  queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true, revealGeometryStable: rowIsVisible,
-    rowContained: true, tooltipContained: rowIsVisible, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
+  queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true,
+    revealGeometryStable: scenario === "success" ? null : rowIsVisible,
+    rowContained: true, tooltipContained: scenario === "success" ? null : rowIsVisible,
+    successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
 const contract = {
