@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT CHUNKED GROUP 01 accepted: audit inventory and continuation boundaries — 2026-10-10
+## CURRENT CHUNKED AUDIT group 04/04 diagnostic first pass — 2026-10-10 (groups 02–04 persisted)
+
+The user's four-group **diagnostic** first pass is 4/4 reviewed, **not** an acceptance or completion of implementation/physical validation. Direct evidence: `work-log/2026-10-10-chatgpt-chunked-audit-groups02-04-source-ci-integrated-build.md`; group 01 original: `work-log/2026-10-10-chatgpt-chunked-audit-group01-live-pr-ci-inventory.md`. Last inspected source `main` `58d0acccc11536eb3b140b3b0ee5cda1466d53cc`; documentation-only later work-log commit `4822c21301b7688db1d4dadb1f4074c6b80e8172` did not change runtime.
+
+**Accepted bounded source/CI A01–A14: 12/14** (A01–A10 and A11/A12 independently guarded-merged). **A13 #319 0/1 OPEN:** head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` validation and fast PASS, Windows candidate still IN PROGRESS/NOT PASS at last review; packaged Focus visual artifact `11679205218` exists but new light/dark screenshot pixels NOT DIRECTLY INSPECTED. **A14 #320 0/1 OPEN:** head `e3e8c3b8de9e9bcc041c02dc9f4b3441a25337b6`, CI `38075611417` validation PASS, fast FAIL in `scripts/test-ui-reports-overview-runtime.mjs:55` due obsolete exact PDF guard string excluding new `exportInFlightRef.current`; Windows SKIPPED. CSV regression simulates a separate gate, so actual handler/CSV/PDF runtime or native file effects NOT RUN. Both PRs independently mergeable but do not merge without acceptance.
+
+**Main/candidate boundary:** PR316 combined Windows CI `38066478586` all 3 PASS, artifact `11675827068` remains available but **predates A11 #317 and A12 #318 actual main merges**. No proven final combined candidate includes all latest accepted source. Downloaded ZIP/EXE SHA256 NOT RUN. Mandatory milestones 3/10, real Windows physical gates OPEN; Codex user-paused and M11 DORMANT.
+
+**NEXT AGENT ACTION:** correct PR320's evidenced stale PDF runtime assertion in a narrow source/test branch update, improve meaningful regression coverage where proportionate, run narrow preflight and exact-head triple-gate Windows CI. Independently revisit PR319 when its Windows job completes; directly inspect actual **new** light/dark screenshots and DOM geometry before guarded merge and matching main blobs. After both guarded merges, validate a single latest combined Windows candidate. Do not restart physical Codex or activate M11. Keep this user-requested continuation chunked, completing one self-contained group per reply; continue to show X/Y scoped counter(s) explicitly.
+
+**USER ACTION REQUIRED:** no new product decision; physical Windows Codex remains explicitly user-paused. No physical acceptance can be reported as PASS.
+
+## HISTORICAL CHUNKED GROUP 01 accepted: audit inventory and continuation boundaries — 2026-10-10
 
 User explicitly requires **one self-contained audit/correction group per completed message** to avoid losing unfinished work. Group 01 verified latest main `c57093b56b3da15966b38ea51807cb2d12fac5e2` and live open #319/#320: #319 head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` validation/fast SUCCESS, Windows IN PROGRESS; #320 head `e3e8c3b8de9e9bcc041c02dc9f4b3441a25337b6`, CI `38075611417` validation SUCCESS, fast IN PROGRESS. Neither source correction accepted/merged. Retained A01–A10 10/10, A11/A12 2/2 accepted, mandatory roadmap 3/10. Exact evidence `work-log/2026-10-10-chatgpt-chunked-audit-group01-live-pr-ci-inventory.md`. **NEXT GROUP 02 only:** verify PR319 exact-head CI, directly review both new light/dark rendered popup screenshot pixels and geometry, then guarded merge+3/3 main blobs only if truly accepted; complete user-visible group message before #320. Codex physical paused, M11 dormant.
 
