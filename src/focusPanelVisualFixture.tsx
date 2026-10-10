@@ -433,7 +433,7 @@ const focusSelectorContract = {
     height: focusSelector.getBoundingClientRect().height,
     expanded: focusSelector.getAttribute('aria-expanded'),
   } : null,
-  popup: focusPopupRect ? { width: focusPopupRect.width, height: focusPopupRect.height } : null,
+  popup: focusPopupRect ? { width: focusPopupRect.width, height: focusPopupRect.height, right: focusPopupRect.right } : null,
   popupWithinPanel: Boolean(focusPopupRect && focusPanelRect
     && focusPopupRect.left >= focusPanelRect.left - 1
     && focusPopupRect.right <= focusPanelRect.right + 1
