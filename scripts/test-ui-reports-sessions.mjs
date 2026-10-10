@@ -128,4 +128,5 @@ invariant(
 );
 
 await import("./test-reports-csv-export-single-flight.mjs");
+await import("./test-reports-filter-read-order.mjs");
 console.log("Reports Sessions production contracts: PASS");
