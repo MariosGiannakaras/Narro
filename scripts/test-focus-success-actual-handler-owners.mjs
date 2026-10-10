@@ -83,8 +83,14 @@ function harness({ snapshot, start } = {}) {
   assert.equal(calls.snapshot, 1, "same-render Next+Break must share the same IPC owner");
   assert.equal(calls.cleared, 0, "Close cannot dismiss an in-flight Next");
   read.resolve(idle);
-  await Promise.resolve(); await Promise.resolve();
-  assert.equal(calls.start, 1);
+  // The real coordinator awaits a snapshot helper that itself awaits the
+  // deferred IPC. Drain its bounded microtask chain before inspecting the
+  // subsequent native start: two Promise.resolve ticks are not sufficient
+  // across the nested async wrapper and VM boundary.
+  for (let tick = 0; tick < 24 && calls.start === 0; tick++) {
+    await Promise.resolve();
+  }
+  assert.equal(calls.start, 1, "Next must start once after the deferred idle snapshot settles");
   await handlers.takeRestBetweenTasks();
   assert.equal(calls.snapshot, 1, "owner must survive committed-but-incomplete task startup");
   write.resolve({ runtime: { timer: { state: "running" } } });
