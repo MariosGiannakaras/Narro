@@ -2,7 +2,7 @@
 
 ## CURRENT 2026-10-11 — FROZEN S0 DOCS RECHECKED; POST-AUDIT 3/5 SOURCE/CI ACCEPTED
 
-- [ ] **Q03 PR #326 keyboard Focus list picker** current head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` pending full three Windows gates. Adds actual rendered M7 DOM keyboard/ARIA/focus regression, unchanged production appearance/functionality. Source/CI accepted count stays **3/5** until exact PASS/guarded merge/main blob checks; user-paused physical trusted key/reader NOT RUN.
+- [ ] **Q03 PR #326 keyboard Focus list picker** current head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` validation+fast SUCCESS, Windows-candidate IN PROGRESS / NOT PASS (job `114341694577`) at last check; immutable `work-log/2026-10-11-chatgpt-q03-focus-list-keyboard-pr326-ci-checkpoint.md`. Adds actual rendered M7 DOM keyboard/ARIA/focus regression, unchanged production appearance/functionality. Source/CI accepted count stays **3/5** until exact PASS/guarded merge/main blob checks; user-paused physical trusted key/reader NOT RUN.
 
 
 - [x] **50/50 S0 Markdown identities independently RECHECKED:** 50-path GitHub S0 comparison exactly equals 50 unique tracker IDs and 15+20+15 individual audit rows, no omissions. 43 old logs unchanged/immutable, 41/43 original summary SHA exact, **L05 placeholder and L40 miscopied SHA corrected via new immutable evidence addenda**; T01–T03 snapshot-versus-at-review SHA distinction documented. Original 70/70 is RETROSPECTIVE REVIEW, not native/code 70/70 PASS. `work-log/2026-10-11-chatgpt-s0-50-doc-audit-independent-sha-reverification.md`, `work-log/2026-10-11-chatgpt-pr324-guarded-merge-and-50-doc-sha-identity-errata.md`.
