@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
 import "./blitzEntryButton.css";
 
 export function BlitzEntryButton({ visuallyMuted = false }: { visuallyMuted?: boolean }) {
   const [pending, setPending] = useState(false);
+  // Keep one committed session->native presentation handoff per mounted entry.
+  // React pending state alone does not exclude same-render double activations.
+  const startInFlightRef = useRef(false);
   const [status, setStatus] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const handleStart = async () => {
-    if (pending) return;
+    if (pending || startInFlightRef.current) return;
+    startInFlightRef.current = true;
     setPending(true);
     setStatus("");
     setError(null);
@@ -37,6 +41,7 @@ export function BlitzEntryButton({ visuallyMuted = false }: { visuallyMuted?: bo
     } catch (failure: unknown) {
       setError(`Blitz could not start. ${formatInvokeError(failure)}`);
     } finally {
+      startInFlightRef.current = false;
       setPending(false);
     }
   };
