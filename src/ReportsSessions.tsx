@@ -159,8 +159,9 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [addOpen, setAddOpen] = useState(false);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
-  // React state disables rendered controls, but only this ref excludes same-render event reentry.
-  const addSessionInFlightRef = useRef(false);
+  // Shared synchronous owner for Add, Edit and Delete. React pending state alone
+  // cannot exclude a second keyboard/pointer event or a competing write.
+  const sessionMutationInFlightRef = useRef(false);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [exportPending, setExportPending] = useState(false);
@@ -341,11 +342,13 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const commitEndTime = async (row: ReportsSessionViewRow, endTime: string): Promise<boolean> => {
     const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
+    if (mutationPendingId || sessionMutationInFlightRef.current) return false;
     if (!raw) {
       setMutationError("Session changed before the edit could be prepared. Refresh and try again.");
       return false;
     }
 
+    sessionMutationInFlightRef.current = true;
     setMutationPendingId(row.id);
     setMutationError(null);
     try {
@@ -369,6 +372,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       setMutationError(formatInvokeError(failure));
       return false;
     } finally {
+      sessionMutationInFlightRef.current = false;
       setMutationPendingId(null);
     }
   };
@@ -376,7 +380,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const deleteSession = async (row: ReportsSessionViewRow) => {
     const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
-    if (!raw || mutationPendingId) return;
+    if (!raw || mutationPendingId || sessionMutationInFlightRef.current) return;
+    sessionMutationInFlightRef.current = true;
     setMutationPendingId(row.id);
     setMutationError(null);
     try {
@@ -385,6 +390,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
     } finally {
+      sessionMutationInFlightRef.current = false;
       setMutationPendingId(null);
     }
   };
@@ -396,8 +402,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const commitAddSession = async () => {
-    if (!addDraft.taskId || mutationPendingId || addSessionInFlightRef.current) return;
-    addSessionInFlightRef.current = true;
+    if (!addDraft.taskId || mutationPendingId || sessionMutationInFlightRef.current) return;
+    sessionMutationInFlightRef.current = true;
     setMutationPendingId("add");
     setMutationError(null);
     try {
@@ -419,7 +425,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
     } finally {
-      addSessionInFlightRef.current = false;
+      sessionMutationInFlightRef.current = false;
       setMutationPendingId(null);
     }
   };
@@ -579,7 +585,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
           error={mutationError}
           onDraftChange={({ durationLabel: _durationLabel, ...next }) => setAddDraft(next)}
           onClose={() => {
-            if (mutationPendingId !== "add") setAddOpen(false);
+            if (mutationPendingId !== "add" && !sessionMutationInFlightRef.current) setAddOpen(false);
           }}
           onCommit={() => void commitAddSession()}
         />
