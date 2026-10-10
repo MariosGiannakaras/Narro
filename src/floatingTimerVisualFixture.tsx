@@ -7,8 +7,10 @@ import type { TimerSessionPayload } from "./timerSessionApi";
 
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "light" ? "light" : "dark";
-const idleRecovery = params.get("state") === "idle-recovery";
-const fixtureState = params.get("state") === "expanded" || idleRecovery ? "expanded" : "collapsed";
+const requestedState = params.get("state");
+const idleRecovery = requestedState === "idle-recovery";
+const timeUpFixture = requestedState === "time-up-compact" || requestedState === "time-up-expanded";
+const fixtureState = requestedState === "expanded" || requestedState === "time-up-expanded" || idleRecovery ? "expanded" : "collapsed";
 const expanded = fixtureState === "expanded";
 const fixtureHeight = expanded ? 300 : 110;
 const viewportHeight = expanded ? 380 : 240;
@@ -96,6 +98,14 @@ const fixtureTimer: TimerSessionPayload = idleRecovery ? {
     },
     open_session_id: null,
   },
+} : timeUpFixture ? {
+  ...timer,
+  revision: timer.revision + 1,
+  runtime: { ...timer.runtime, timer: {
+    ...timer.runtime.timer,
+    state: "time_up",
+    countdown_remaining_ms: 0,
+  } },
 } : timer;
 
 const root = document.getElementById("root");
@@ -137,9 +147,21 @@ function optionalBox(selector: string) {
 }
 
 if (!idleRecovery) {
+const timeUpLabelNode = renderedTimer.querySelector<HTMLElement>('[data-floating-time-up-label="true"]');
+const timeUpLabelRect = timeUpLabelNode?.getBoundingClientRect();
+const headingRect = renderedTimer.querySelector(".floating-timer-foundation__heading")?.getBoundingClientRect();
+const timeUpLabelFits = Boolean(timeUpLabelNode && timeUpLabelRect && headingRect
+  && timeUpLabelRect.width > 0 && timeUpLabelRect.height > 0
+  && getComputedStyle(timeUpLabelNode).visibility === "visible"
+  && getComputedStyle(timeUpLabelNode).display !== "none"
+  && timeUpLabelRect.left >= headingRect.left - 1 && timeUpLabelRect.right <= headingRect.right + 1
+  && timeUpLabelRect.top >= headingRect.top - 1 && timeUpLabelRect.bottom <= headingRect.bottom + 1);
 const contract = {
   theme,
-  state: fixtureState,
+  state: timeUpFixture ? requestedState : fixtureState,
+  timeUpLabel: optionalBox('[data-floating-time-up-label="true"]'),
+  timeUpLabelText: timeUpLabelNode?.textContent?.trim() ?? null,
+  timeUpLabelFits,
   timer: box(".floating-timer-foundation"),
   heading: optionalBox(".floating-timer-foundation__heading"),
   title: optionalBox(".floating-timer-foundation__title"),
