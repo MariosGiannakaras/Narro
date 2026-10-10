@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 19/70 reviewed; 18/18 code PRs COMPLETE AS AUDIT (2026-10-11)
+## CURRENT FROZEN 06:00 EEST AUDIT — 54/70 (2026-10-11)
+
+- [x] **All 19/19 PR audit units reviewed:** 18/18 code/test, one #308 evidence-only; separately A01–A14 source/CI integrated 14/14, roadmap fully source+physical complete 3/10.
+- [x] **35/50 S0 Markdown paths audited:** T01–T03, E01–E04, L01–L28. New immutable audit `work-log/2026-10-11-chatgpt-0600-audit-docs-l09-l28.md`, previous `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md`. Stale E01/E03/E04 and T headings explicitly OPEN for **post-audit** docs reconciliation; never overwrite immutable work logs, never infer native PASS.
+- [ ] **Remaining L29–L43: 15 Markdown audits.** Review source checkpoints then-vs-now, PR exact heads/CI/merged blobs and historical physical evidence. Mark counted only once after inspection.
+- [ ] **I01: newest combined source and Windows production candidate provenance 0/1**, after 50 docs reviewed. Historical #316 artifact `11675827068` predates #317–#320; latest exact ZIP/EXE hashes NOT RUN. User prohibits new CI until overall audit complete.
+- [ ] **All executable corrections/tests/new CI DEFERRED until audit complete:** queue `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md` Q01–Q19, especially focused PNG validation false-proof Q01 and coordinator post-Done synchronous owner Q02. Preserving user-approved color picker/icon palette. Physical Windows Codex USER-PAUSED, mandatory M10 blocked, optional M11 dormant.
+- [ ] **Progress:** 19/19 PR + 35/50 docs + 0/1 I01 = **54/70**.
+
+## HISTORICAL — CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 19/70 reviewed; 18/18 code PRs COMPLETE AS AUDIT (2026-10-11)
 
 - [x] **P12 #313 A08 repeated Blitz entry AUDITED:** exact run `38062951891` 3/3 Windows CI SUCCESS; head `df2bf8a1` original merge `744397d5`, 3/3 blobs. Synchronous `startInFlightRef` spans startBlitz→native presentation, no-eligible and failed morph, synthetic regression only; M6 physical not done.
 - [x] **P13 #314 A09 live subtask/paused metric AUDITED:** exact CI `38063218931` 3/3 SUCCESS, head `1cc03c0a`→merge `8e24cbc4`, 4/4 blobs. Per-mounted synchronous owners and committed-refresh recovery, source-model tests not actual native handlers.
