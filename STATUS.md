@@ -2,7 +2,7 @@
 
 ## CURRENT 2026-10-11 — S0 50/50 evidence cross-checked; post-audit PRs 3/5 accepted
 
-**Q03 NEW TEST PR #326:** `audit/20261011-focus-picker-real-keyboard-regression` head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` queued, two source/test paths (M7 actual mounted production Focus picker keyboard events; mandatory frontend preflight source reachability). Pure regression, no product/source design changes. User-facing implementation denominator increases explicitly **3/4 → 3/5**; no acceptance claimed before all exact CI jobs PASS and guarded merge/blob equality. Q01 #321 failed Windows dark B49 and owned by another agent; do not overwrite branch or fabricate latest candidate source/native ZIP hashes. Last independent 50/50 evidence recheck addendum in work-logs, tracker corrects L05/L40 hashes.
+**Q03 NEW TEST PR #326:** `audit/20261011-focus-picker-real-keyboard-regression` head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` validation+fast SUCCESS, Windows candidate IN PROGRESS (job `114341694577`, no PASS), two source/test paths (M7 actual mounted production Focus picker keyboard events; mandatory frontend preflight source reachability). Pure regression, no product/source design changes. User-facing implementation denominator increases explicitly **3/4 → 3/5**; no acceptance claimed before all exact CI jobs PASS and guarded merge/blob equality. Q01 #321 failed Windows dark B49 and owned by another agent; do not overwrite branch or fabricate latest candidate source/native ZIP hashes. Last independent 50/50 evidence recheck addendum in work-logs, tracker corrects L05/L40 hashes.
 
 
 
