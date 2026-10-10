@@ -136,7 +136,8 @@ invariant(fixtureHtml.includes("/src/floatingTimerVisualFixture.tsx"), "Floating
 invariant(vite.includes('floatingTimerFixture: "floating-timer-fixture.html"'), "Vite Floating Timer fixture input is missing");
 invariant(fixture.includes('dataset.floatingTimerFixtureReady = "true"'), "Floating Timer fixture readiness marker is missing");
 invariant(fixture.includes('fixtureState === "expanded"'), "fixture must retain distinct collapsed and expanded states");
-invariant(capture.includes('foreach ($state in @("collapsed", "expanded"))'), "Windows capture must cover collapsed and expanded states");
+invariant(capture.includes('foreach ($state in @("collapsed", "expanded", "time-up-compact", "time-up-expanded"))'),
+  "Windows capture must cover ordinary and Time's Up compact/expanded states");
 invariant(validator.includes("collapsed timer must be exactly 340x110"), "collapsed geometry validation is missing");
 
 invariant(
