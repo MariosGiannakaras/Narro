@@ -6,11 +6,11 @@ const start = source.indexOf("  const commitAddSession = async () => {");
 const end = source.indexOf("  const exportSessions = async () => {", start);
 assert(start >= 0 && end > start, "actual Reports manual Add Session must have a stable owner boundary");
 const section = source.slice(start, end);
-assert(source.includes("const addSessionInFlightRef = useRef(false);"),
+assert(source.includes("const sessionMutationInFlightRef = useRef(false);"),
   "manual Add Session must own one synchronous lock per mounted Reports Sessions view");
-assert(section.includes("mutationPendingId || addSessionInFlightRef.current")
-  && section.indexOf("addSessionInFlightRef.current = true;") < section.indexOf("await createManualReportSession(")
-  && section.includes("finally {\n      addSessionInFlightRef.current = false;"),
+assert(section.includes("mutationPendingId || sessionMutationInFlightRef.current")
+  && section.indexOf("sessionMutationInFlightRef.current = true;") < section.indexOf("await createManualReportSession(")
+  && section.includes("finally {\n      sessionMutationInFlightRef.current = false;"),
   "real Add Session must claim before write and release on both failure and committed refresh");
 assert(section.includes('setAddOpen(false);')
   && section.includes('await afterMutation("Session added successfully!", addDraft.taskId);'),
@@ -68,4 +68,5 @@ assert.equal(writes, 2, "a retry after failed persistence must be permitted exac
 const failedRefresh = gate.commit(async () => { writes++; }, async () => { throw new Error("read delayed"); });
 await assert.rejects(failedRefresh, /read delayed/);
 assert.equal(gate.isActive(), false, "failed post-write refresh must not strand the lock");
+await import("./test-reports-session-write-owners.mjs");
 console.log("Reports Add Session single-flight, delayed-refetch exclusion and failed-write retry passed.");
