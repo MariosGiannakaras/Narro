@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 7/70 reviewed; 6/18 code PRs (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 8/70 reviewed; 7/18 code PRs (2026-10-10)
+
+- [x] **P05 #306 A02 anchored Focus picker AUDITED:** head `6880f17f701621003f426e0b7416d68f11ea81cf`, all 3 Windows CI jobs `38049022590` SUCCESS, merge `8eea11ea6f7aa40f81efafcd9845bfa7eefe9035`, all 12/12 blobs match. Actual historical SS-H04 original PNG directly opened; original #306 light/dark popup pixels viewed, saved colored badge/+1 and anchored 258×170 popup verified. Historical long-title row overflow confirmed, **resolved by already accepted #319**, #319 real light/dark pixels and computed ellipsis/row geometry inspected. No duplicate fix. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p05-pr306-focus-list-picker.md`.
+- [ ] **P05-F02 keyboard test coverage OPEN:** real Focus picker ArrowUp/Down/Home/End/Escape/Tab/Enter/Space keyboard-event integration and assistive technology native observations NOT RUN. Production handlers exist and click-based M7 list identity/remount/stale/archive/deletion tests PASS; no proven functional failure. Add targeted keyboard regression when narrow independent remediation queued.
+- [ ] **Existing P02-F01/F02 unaffected:** B49 focused rail screenshot capture test false positive and Next Task/Take Break coordinator pending-only same-render admission remain OPEN.
+- [ ] **Next P06 #307:** inspect cross-surface Board/Search create synchronous single-flight and side effects, actual tests/CI, retry and 1-write guarantee, merged-main blob equality.
+- [ ] **Fixed review:** code 7/18, evidence-only #308 1/1, Markdown 0/50, combined candidate 0/1, total 8/70. Implementation source/CI A01–A14 14/14, mandatory fully physically/source accepted milestones 3/10, native Codex USER-PAUSED, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 7/70 reviewed; 6/18 code PRs (2026-10-10)
 
 - [x] **P04 #305 synchronous FocusLiveActions gate AUDITED_SCOPE_PASS:** PR head `73f95f5ce1efa2995025127890b5624aa8d9a814`, Windows CI `38047897329` 3/3 SUCCESS, original guarded merge `9203bf7ec3cd096063059cef2e4326c1199744b6`, 4/4 identical Git blobs. Real exclusive per-mounted source gate protects Break/Pause/Resume/Extend/Skip/Done before awaited reads and releases on failure; test imports real gate, exercises duplicate and concurrent different-action deferred mocks and error recovery; React handler/native writes NOT directly executed. Latest main retains code and preflight registration. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p04-pr305-focus-action-gate.md`.
 - [ ] **Open P02-F02 separate coordinator success owner:** `FocusSurfaceCoordinator.tsx` Next Task and Take Break use only React pending state; P04 gate is NOT shared. Source-proven same-render admission; actual native duplicate writes NOT PROVEN. Deferred actual-handler race test and narrow synchronous shared coordinator owner still needed if supported.
