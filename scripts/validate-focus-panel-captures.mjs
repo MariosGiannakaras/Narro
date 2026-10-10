@@ -201,6 +201,17 @@ for (const theme of ["light", "dark"]) {
     `${label} popup must contain aggregate and named colored list identities`);
   invariant(menu.overflowBadge === "+1",
     `${label} stacked All Lists badge must show the remaining list count`);
+  invariant(menu.optionLayout?.length === 4
+    && menu.optionLayout.every(item => Number.isFinite(item.optionRight)
+      && Number.isFinite(item.titleRight)
+      && item.optionRight <= menu.popup.right - 0.5
+      && item.titleRight <= item.optionRight + 0.5),
+    `${label} every row and title must remain within the raised popup bounds`);
+  const longTitle = menu.optionLayout[2];
+  invariant(longTitle.titleOverflow === "ellipsis"
+    && longTitle.titleScrollWidth > longTitle.titleClientWidth
+    && longTitle.titleClientWidth > 0,
+    `${label} long saved-list title must genuinely truncate with visible ellipsis instead of being clipped by the popup border`);
   invariant(menu.savedBadgeColors.length === 3
     && menu.savedBadgeColors[0] !== menu.savedBadgeColors[1],
     `${label} stored list colors must survive real CSS rendering`);
