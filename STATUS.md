@@ -1,6 +1,10 @@
 # STATUS.md
 
-## CURRENT source/CI audit checkpoint — diagnostic groups 01–04 complete, A13/A14 OPEN (2026-10-10)
+## CURRENT 2026-10-10 Group 05/05: A14 test correction submitted, exact CI pending
+
+**A01–A14 bounded code/CI acceptance 12/14**, with A13 and A14 unmerged. PR320 head `67814cf144ac0e60d9e146f8485cffc56724914e`: one existing test file changed to remove proved obsolete literal guard expectation and execute the actual production CSV/PDF handlers under deterministic concurrent/failure/retry conditions, including PDF interaction cleanup. Exact CI `38077203921` validation SUCCESS, fast IN PROGRESS/NOT PASS, Windows not accepted. PR319 head `c3197deca21f4761d55243de901381c5f299804d` CI `38072910111` now three jobs SUCCESS but new light/dark screenshot pixel visual inspection NOT RUN, hence no A13 visual acceptance or merge. PR316 binary stale for later A11/A12 merges; current latest all-integrated Windows candidate NOT RUN. Historical 8/8 and Finding35 1/1 distinct. Mandatory roadmap 3/10, genuine Codex native manual gates OPEN and user-paused; M11 dormant. Group 05 immutable evidence `work-log/2026-10-10-chatgpt-chunked-audit-group05-pr320-real-handler-regression.md`.
+
+## HISTORICAL source/CI audit checkpoint — diagnostic groups 01–04 complete, A13/A14 OPEN (2026-10-10)
 
 **Four of four bounded diagnostic groups REVIEWED, not all remediation accepted.** A01–A12 **12/14 SOURCE/CI guarded-merged** across the explicit A01–A14 follow-up scope; A13 PR319 and A14 PR320 **0/2**. #319 exact `c3197deca21f4761d55243de901381c5f299804d` run `38072910111`: validation/fast SUCCESS, Windows IN PROGRESS; new actual replacement light/dark screenshot visual review NOT RUN. #320 exact `e3e8c3b8de9e9bcc041c02dc9f4b3441a25337b6` run `38075611417`: validation SUCCESS, fast FAILED from obsolete exact-string assertion in `scripts/test-ui-reports-overview-runtime.mjs:55`, Windows SKIPPED; meaningful production PDF/CSV behavioral validation incomplete. The original A01–A10 10/10 and A11/A12 2/2 accepted evidence remains unchanged. Green PR316 combined artifact `11675827068` predates #317 and #318 main merges, so is stale for current integrated native binary claims. All genuine manual Windows gates OPEN; roadmap 3/10; Codex user-paused; M11 dormant. Exact audit: `work-log/2026-10-10-chatgpt-chunked-audit-groups02-04-source-ci-integrated-build.md`.
 
