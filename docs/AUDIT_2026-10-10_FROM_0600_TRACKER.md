@@ -14,6 +14,8 @@
 
 ## 2. Fixed and auditable progress formula
 
+**CURRENT REVIEW COUNTERS (after P01/P19 closure): 4/70 total = 4/19 PR, 0/50 Markdown, 0/1 integrated candidate. Actual code/test PR audits 3/18 (#280, #319, #320); separate evidence-only #308 is fourth PR audit. A01–A14 SOURCE/CI guarded-merged 14/14; physically/source accepted roadmap 3/10.** Exact new source/CI/image/merge proof: `work-log/2026-10-10-chatgpt-0600-audit-p01-b67-and-p19-a14-closure.md`. This line supersedes the at-S0 initial 2/70 inventory checkpoint below; frozen denominator and file IDs unchanged.
+
 **Total scoped audit work units = 70 = 19 PR change sets + 50 changed Markdown paths + 1 combined-source/build validation boundary.** This is a coverage measure, not a difficulty estimate: a Critical 16-file PR needs proportionally more detailed subchecks than a single-file historical evidence PR. Every unit has a stable ID below.
 
 - **At S0 setup: 2/70 deeply reviewed with explicit disposition**, comprising PR #308 (closed unmerged; temporary workflow not on main) and PR #319 (source + new actual light/dark pixels and browser geometry + exact 3-gate CI + guarded merge and 3/3 main blobs). #320 is **IN_REVIEW** and **not counted** until exact Windows CI result/acceptance is dispositioned. **17/19 PR units NOT yet fully audit-closed**, **0/50** changed Markdown paths independently reconciled in this frozen exercise, **0/1** final integration candidate validated.
@@ -26,7 +28,7 @@
 
 | ID | GitHub PR / functional slice | Risk | Audit | Required causal focus |
 |---|---|---|---|---|
-| P01 | [#280](https://github.com/MariosGiannakaras/Narro/pull/280) — B67 overtime clock | High | **PENDING** | Focus/Floating time formatting, negative durations, CSS and value boundary |
+| P01 | [#280](https://github.com/MariosGiannakaras/Narro/pull/280) — B67 overtime clock | High | **AUDITED** | Focus/Floating time formatting, negative durations, CSS and value boundary |
 | P02 | [#301](https://github.com/MariosGiannakaras/Narro/pull/301) — B49+B63 Focus accessible actions/success | Critical | **PENDING** | 16 files; Focus action lifecycle, timing, keyboard and success state |
 | P03 | [#302](https://github.com/MariosGiannakaras/Narro/pull/302) — Finding35 visible Time's Up | High | **PENDING** | Floating timer zero/overtime state, visual fixtures, old native finding |
 | P04 | [#305](https://github.com/MariosGiannakaras/Narro/pull/305) — A01 live timer mutation gating | Critical | **PENDING** | Synchrony, pending actions, failure release, state ownership |
@@ -44,12 +46,13 @@
 | P16 | [#317](https://github.com/MariosGiannakaras/Narro/pull/317) — A11 Search Quick Task reopen | High | **PENDING** | Owner release/re-entry, failed callbacks |
 | P17 | [#318](https://github.com/MariosGiannakaras/Narro/pull/318) — A12 Reports Add/Edit/Delete owner | Critical | **PENDING** | Cross-action session writes/refresh failure |
 | P18 | [#319](https://github.com/MariosGiannakaras/Narro/pull/319) — A13 Focus list overflow | High | **AUDITED** | Full exact-head 3/3 CI, real dark/light screenshots and DOM, guarded merge/3 blobs |
-| P19 | [#320](https://github.com/MariosGiannakaras/Narro/pull/320) — A14 CSV/PDF export single-flight | Critical | **IN_REVIEW** | Actual handlers tested in Node VM, fast PASS; Windows candidate pending, no final merge |
+| P19 | [#320](https://github.com/MariosGiannakaras/Narro/pull/320) — A14 CSV/PDF export single-flight | Critical | **AUDITED** | Actual handlers tested in Node VM, fast PASS; Windows candidate pending, no final merge |
 
 ### Review status notes
+- **P01 #280 AUDITED:** 10/10 exact-head versus merge Git blobs matched; all 3 exact-head Windows CI `38004842175` SUCCESS; direct light/dark Windows Edge overtime screenshots reviewed from artifact `11651337459`, printed signed warning `-00:07:00` without clipping, DOM/aria labels and computed warm colors corroborate. Verified actual pure timer presentation test/edge/failure inputs and preflight registration. Very long overtime (`>=1000h`) may exceed fixed `10ch` width; unobserved niche edge, NOT confirmed normal-use failure. Exact report: `work-log/2026-10-10-chatgpt-0600-audit-p01-b67-and-p19-a14-closure.md`. Separate native physical and original Blitzit motion/pixel parity remain OPEN.
 - **P07 #308 AUDITED (evidence disposition):** patch contains only `.github/workflows/ci1046-evidence-export.yml` in closed unmerged PR; at S0 `main`, GitHub contents lookup for this path returned NOT_FOUND. Therefore it made no executable/workflow change to S0 `main`; its separate CI1046 evidence transfer use, if any, is historical only.
 - **P18 #319 AUDITED (source/CI accepted):** exact head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` validation/fast/Windows SUCCESS, actual new light/dark PNG screenshots reviewed from artifact `11679005142`, option-title ellipsis and bounding geometry confirmed, expected-head guarded merge `4ff95925fd8c2216198809210e5188f879f7023b`, 3/3 Git blobs identical. Manual native/source-complete parity separately OPEN. See `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
-- **P19 #320 IN_REVIEW:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, prior failed run `38075611417` traced to obsolete exact PDF guard assertion; new TypeScript-AST production-handler tests added on same PR, fast gate `38077203921` SUCCESS, **Windows still IN PROGRESS/NOT PASS at last live checkpoint**. Do not merge until exact three-gate acceptance and guarded main blob identity. Actual native Downloads file creation remains manual/Windows evidence OPEN.
+- **P19 #320 AUDITED:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`; first `38075611417` failed obsolete PDF guard text; corrected production-handler CSV/PDF async race tests on same branch; exact run `38077203921` all three CI jobs SUCCESS; expected-head guarded squash merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`, accepted head/main Git blobs 5/5 identical. Same-render double export locks preserved; native actual Downloads writes and physical Windows operations NOT RUN. Immutable detail same P01/P19 log.
 
 ## 4. Markdown/current-truth audit paths (50, no double counting)
 
@@ -113,14 +116,14 @@ Work-logs must never be edited to hide stale conclusions. Report contradictions 
 
 ## 5. Aggregate integration gate
 
-- [ ] **I01** — Validate combined A01–A14 source/test state and exact latest Windows candidate after #320 accepted; PR316 combined artifact `11675827068` predates A11/A12/A13, no current combined candidate accepted. Downloaded ZIP/EXE hashes/real physical Windows observations remain **NOT RUN**; physical C4/M6/F35/F29/F27/M8 remain OPEN with user-paused Codex; M10 blocked.
+- [ ] **I01** — Validate **now merged** combined A01–A14 source/test state and exact latest Windows candidate after #320 guarded merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`; PR316 combined artifact `11675827068` predates A11/A12/A13/A14, no current combined candidate accepted. Downloaded ZIP/EXE hashes/real physical Windows observations remain **NOT RUN**; physical C4/M6/F35/F29/F27/M8 remain OPEN with user-paused Codex; M10 blocked.
 
 ## 6. Work order and handoff contract
 
-1. **First unblock outstanding validated implementation:** check exact Windows job on PR #320 run `38077203921`; if red inspect causally first failed step; if fully green, guarded merge and verify 5/5 source/test blobs. Mark **P19** REVIEWED only after recording source and exact CI/merge result or verified unresolved gate. Preserve user-paused physical acceptance.
-2. **Deep retrospective in causal/dependency order**: audit root user-visible time/Focus behavior (#280, #301, #302); then shared mutable state and stale reads (#305, #307, #309–#315, #317–#318), source picker (#306 versus already accepted #319), and test/candidate orchestration (#316). Use current replacement source on main, not obsolete PR isolated code. Reserve a coherent user-visible chunk per response and record exact finding/next action.
+1. **Already accepted:** PR320 exact Windows CI all SUCCESS and guarded-merged with 5/5 source/test blobs. P19 AUDITED, separate real native CSV/PDF export remains an open physical/manual claim. Do not redo this work.
+2. **Deep retrospective in causal/dependency order**: #280 is audited (P01). Next **P02 #301**, then P03 #302; then shared mutable state and stale reads (#305, #307, #309–#315, #317–#318), source picker (#306 versus already accepted #319), and test/candidate orchestration (#316). Use current replacement source on main, not obsolete PR isolated code. Reserve a coherent user-visible chunk per response and record exact finding/next action.
 3. **Document claims**: inspect T/E/L 50 frozen Markdown paths, reconcile current-truth files and risk/crosswalk truth; immutable logs retain historical content. Process in bounded file batches but do not redefine the denominator.
 4. **I01** after merges: verify current combined candidate and separate physical limitations, without activating user-paused Codex.
-5. **On every substantive progress update:** report `audit X/70`, with `P x/19, Markdown y/50, integration z/1` and independent implementation `A01–A14 a/14` and roadmap `3/10`; increase X only for completed ledger item(s), not for number of replies. If scope extends beyond snapshot S0, create a separately identified annex and publicly explain any Y change. No promise of asynchronous work or deferred completion.
+5. **On every substantive progress update:** report `audit X/70` plus code/test PR X/18, with `P x/19, Markdown y/50, integration z/1` and independent implementation `A01–A14 a/14` and roadmap `3/10`; increase X only for completed ledger item(s), not for number of replies. If scope extends beyond snapshot S0, create a separately identified annex and publicly explain any Y change. No promise of asynchronous work or deferred completion.
 
 **Provenance:** GitHub PR metadata and patches individually inspected for all 19 PRs; full S0 compare; 4 disjoint `docs:` search windows; earlier actual CI logs and real PR319 screenshot evidence. This file is an **inventory plus workplan**, not a claim that the other 68 detailed audits have been performed.
