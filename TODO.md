@@ -1,6 +1,9 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — FROZEN S0 DOCS RECHECKED; POST-AUDIT 3/4 SOURCE/CI ACCEPTED
+## CURRENT 2026-10-11 — FROZEN S0 DOCS RECHECKED; POST-AUDIT 3/5 SOURCE/CI ACCEPTED
+
+- [ ] **Q03 PR #326 keyboard Focus list picker** current head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` pending full three Windows gates. Adds actual rendered M7 DOM keyboard/ARIA/focus regression, unchanged production appearance/functionality. Source/CI accepted count stays **3/5** until exact PASS/guarded merge/main blob checks; user-paused physical trusted key/reader NOT RUN.
+
 
 - [x] **50/50 S0 Markdown identities independently RECHECKED:** 50-path GitHub S0 comparison exactly equals 50 unique tracker IDs and 15+20+15 individual audit rows, no omissions. 43 old logs unchanged/immutable, 41/43 original summary SHA exact, **L05 placeholder and L40 miscopied SHA corrected via new immutable evidence addenda**; T01–T03 snapshot-versus-at-review SHA distinction documented. Original 70/70 is RETROSPECTIVE REVIEW, not native/code 70/70 PASS. `work-log/2026-10-11-chatgpt-s0-50-doc-audit-independent-sha-reverification.md`, `work-log/2026-10-11-chatgpt-pr324-guarded-merge-and-50-doc-sha-identity-errata.md`.
 - [x] **Q18 Reports #324 guarded merged:** exact head `1eab9361049e5cb15177a892385c0f1056756189`, run `38093211469` 3/3 SUCCESS, expected-head squash `7e6e8ecdd51a374a884e3d96c79ec41e761372a9`, 3/3 Git blobs identical. Q18 ListBoard #323 already 3/3 SUCCESS/merged.
