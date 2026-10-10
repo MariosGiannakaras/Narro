@@ -19,7 +19,7 @@ for(const operation of ["createListBoardSubtask({","updateListBoardSubtaskTitle(
 }
 
 const metStart = metrics.indexOf("  const save = async () => {");
-const metEnd = metrics.indexOf("  const statusError = ",metStart);
+const metEnd = metrics.indexOf("  return (",metStart);
 assert(metStart>=0 && metEnd>metStart,"Real Focus metric save path is required");
 const m=metrics.slice(metStart,metEnd);
 assert(metrics.includes("const metricMutationInFlightRef = useRef(false);")
