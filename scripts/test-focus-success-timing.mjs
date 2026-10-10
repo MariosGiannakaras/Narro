@@ -61,11 +61,13 @@ assert.ok(source.includes('data-focus-success-action="take-break" disabled={pend
   && source.includes('onClick={onTakeBreak}')
   && !source.includes("Take a Break is unavailable until"),
   "post-Done Take a Break must be an enabled, guarded local action");
-const restStart = coordinator.indexOf("const takeRestBetweenTasks = () => {");
+const restStart = coordinator.indexOf("const takeRestBetweenTasks = async () => {");
 const restEnd = coordinator.indexOf("const sharedTimerProjection =", restStart);
 const restHandler = coordinator.slice(restStart, restEnd);
 assert.ok(restStart >= 0 && restEnd > restStart
   && restHandler.includes("await snapshotTimerSession()")
+  && restHandler.includes('timer.task_id !== null')
+  && !/await\s+(?:startTimerTask|startManualBreakTimer|skipBreakTimer)\s*\(/.test(restHandler)
   && restHandler.includes('timer.state !== "idle"')
   && restHandler.includes("setCompletionSuccess(null)")
   && restHandler.includes("setCompletionSuccessPending(true)")
