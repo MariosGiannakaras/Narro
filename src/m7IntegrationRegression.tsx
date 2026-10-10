@@ -257,6 +257,72 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   };
   renderFocus(); await wait(); await wait();
   assert(options().includes("Original"), "initial active catalog missing");
+  // Q03: drive the REAL Focus list-picker React keyboard handlers while its
+  // production component is mounted. Source-string assertions alone cannot
+  // establish focus/ARIA behavior in an actual browser DOM.
+  const keyboardOptionNodes = () => Array.from(
+    container.querySelectorAll<HTMLButtonElement>('[data-focus-list-option]'));
+  const keyOn = (element: HTMLElement, key: string) => {
+    const event = new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true });
+    flushSync(() => element.dispatchEvent(event));
+    return event;
+  };
+  selector().focus();
+  const initialKeyboardOpen = keyOn(selector(), "ArrowDown");
+  await wait();
+  assert(initialKeyboardOpen.defaultPrevented && selector().getAttribute("aria-expanded") === "true",
+    "Q03 Focus list trigger ArrowDown must open its ARIA listbox");
+  assert(container.querySelector('[role="listbox"][aria-label="Choose Focus list"]') !== null,
+    "Q03 keyboard-opened Focus selector must expose labeled listbox");
+  const keyboardOptions = keyboardOptionNodes();
+  assert(keyboardOptions.length === 2 && keyboardOptions[0].dataset.focusListOption === "__all_lists__"
+    && keyboardOptions[1].dataset.focusListOption === id,
+    "Q03 keyboard options must preserve the real saved-list identities");
+  assert(keyboardOptions[0].getAttribute("aria-selected") === "true"
+    && keyboardOptions[1].getAttribute("aria-selected") === "false"
+    && document.activeElement === keyboardOptions[0],
+    "Q03 opening a listbox must focus its current accessible selection");
+  assert(keyOn(keyboardOptions[0], "End").defaultPrevented
+    && document.activeElement === keyboardOptions[1],
+    "Q03 End must focus last option");
+  assert(keyOn(keyboardOptions[1], "Home").defaultPrevented
+    && document.activeElement === keyboardOptions[0],
+    "Q03 Home must focus first option");
+  assert(keyOn(keyboardOptions[0], "ArrowUp").defaultPrevented
+    && document.activeElement === keyboardOptions[1],
+    "Q03 ArrowUp must wrap from first to last option");
+  assert(keyOn(keyboardOptions[1], "ArrowDown").defaultPrevented
+    && document.activeElement === keyboardOptions[0],
+    "Q03 ArrowDown must wrap from last to first option");
+  assert(keyOn(keyboardOptions[0], "Escape").defaultPrevented, "Q03 Escape must be handled");
+  await wait();
+  assert(selector().getAttribute("aria-expanded") === "false"
+    && !container.querySelector('[role="listbox"]') && document.activeElement === selector(),
+    "Q03 Escape must dismiss the menu and restore focus to the trigger");
+
+  // Tab dismisses without hijacking the browser's natural next-focus action.
+  assert(keyOn(selector(), "ArrowUp").defaultPrevented, "Q03 ArrowUp must open a closed listbox");
+  await wait();
+  assert(container.querySelector('[role="listbox"]') !== null, "Q03 ArrowUp listbox failed to open");
+  keyOn(keyboardOptionNodes()[0], "Tab");
+  await wait();
+  assert(selector().getAttribute("aria-expanded") === "false"
+    && !container.querySelector('[role="listbox"]'), "Q03 Tab must dismiss the listbox");
+
+  // Existing native button click activation should update the controlled
+  // selection and its accessibility state without changing component styling.
+  chooseList(id); await wait();
+  assert(selectedValue() === id && selector().getAttribute("aria-expanded") === "false",
+    "Q03 selected saved-list identity must commit and close popup");
+  keyOn(selector(), "ArrowDown"); await wait();
+  const selectedKeyboardOption = keyboardOptionNodes().find(button => button.dataset.focusListOption === id);
+  assert(selectedKeyboardOption?.getAttribute("aria-selected") === "true"
+    && document.activeElement === selectedKeyboardOption,
+    "Q03 reopen must focus the newly selected saved list");
+  keyOn(selectedKeyboardOption!, "Escape"); await wait();
+  chooseList("__all_lists__"); await wait();
+  assert(selectedValue() === "__all_lists__",
+    "Q03 restoring All Lists should preserve existing Focus catalog semantics");
   const request = { title: "New", color: null, iconUpload: null };
   const operations = [
     () => createListFromEditor(request), () => updateListFromEditor("new", request),
