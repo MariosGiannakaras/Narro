@@ -11,6 +11,7 @@ function invariant(condition, message) {
 const titleModule = read("src/FocusTaskRowTitle.tsx");
 const slotCss = read("src/focusActionSlots.css");
 const panelCss = read("src/focusPanel.css");
+const panelSource = read("src/FocusPanel.tsx");
 const rowTitleCss = read("src/focusTaskRowTitle.css");
 const subtasks = read("src/TaskSubtasks.tsx");
 const liveActions = read("src/FocusLiveActions.tsx");
@@ -83,5 +84,55 @@ invariant(panelCss.includes("grid-template-columns: minmax(0, 1fr) minmax(0, 1.0
   "Focus must reserve exactly five stable slots with space for Resume/Extend");
 invariant(!panelCss.includes("minmax(0, 1.25fr) minmax(0, 1fr);"),
   "sixth always-visible Extend slot must not reappear");
+
+// B49: title/timer and the five real interactive action targets swap in-place.
+// Keyboard action focus must reveal the same row; no sixth inert Extend reappears.
+for (const icon of ['kind="break"', 'kind="notes"', 'kind="skip"', 'kind="done"']) {
+  invariant(panelActions.includes("<FloatingActionIcon " + icon), "B49 accessible icon missing " + icon);
+}
+invariant(panelActions.includes('kind={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}'),
+  "B49 Pause/Resume must use timer state to select the correct icon");
+invariant(panelActions.includes('className="focus-panel__live-action-label"'),
+  "B49 icons require optional targeted text pills");
+invariant(panelCss.includes('.focus-panel__live-card:hover .focus-panel__live-actions')
+  && panelCss.includes('.focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-actions'),
+  "B49 pointer and keyboard must reveal the same action controls");
+invariant(panelSource.includes('onFocusCapture={(event) => {')
+  && panelSource.includes('onBlurCapture={(event) => {')
+  && panelSource.includes('event.currentTarget.dataset.focusActionsKeyboard = "true"')
+  && panelSource.includes('delete event.currentTarget.dataset.focusActionsKeyboard')
+  && panelCss.includes('.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-heading')
+  && panelCss.includes('.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-actions'),
+  "B49 keyboard action reveal must use explicit focus state in addition to CSS pseudo-classes");
+invariant(panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-heading')
+  && panelCss.includes('.focus-panel__live-card:focus-within .focus-panel__live-actions'),
+  "B49 keyboard focus must reveal heading-swap without depending solely on Edge dynamic :has invalidation");
+invariant(panelCss.includes('position: absolute;') && panelCss.includes('pointer-events: none;')
+  && panelCss.includes('.focus-panel__live-action-label { display: none;'),
+  "B49 action rail must be overlaid, not an always-visible second row");
+invariant(panelCss.includes('width: calc(100% - 2 * var(--space-3))')
+  && panelCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, 0.85fr) minmax(0, 1fr);'),
+  "B49 preserves five stable Focus action hit slots");
+invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
+  "B49 reveal must honor reduced motion");
+
+const focusedFixture = read("src/focusPanelVisualFixture.tsx");
+invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
+  && focusedFixture.includes('getComputedStyle(rail).opacity !== "1"')
+  && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
+  "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
+const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500')
+  && focusedFixture.includes("revealDeadline = performance.now() + 1_500"),
+  "B49 Edge virtual-time budget must exceed asynchronous focus/opacity settlement before snapshot");
+
+const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+invariant(focusedFixture.includes('"live-actions-focus"')
+    && focusedFixture.includes("dataset.focusActionRevealPass"),
+  "B49 production keyboard-focus reveal must have a real browser visual fixture");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
+    && focusedValidator.includes('readCapture(theme, "live-actions-focus")')
+    && focusedValidator.includes('data-focus-action-reveal-pass="true"'),
+  "B49 focused icon actions must be captured and checked in both Windows theme screenshots");
 
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");

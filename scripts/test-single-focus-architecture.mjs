@@ -85,8 +85,9 @@ invariant(
   "production coordinator must delegate prepaint -> native commit -> renderer ownership ordering to the tested transition helper",
 );
 invariant(
-  coordinator.includes("inert={!panelActive || completionSuccess !== null}")
-    && coordinator.includes("inert={!timerActive || completionSuccess !== null}"),
+  coordinator.includes("inert={!panelActive}")
+    && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
+    && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? ("),
   "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
 invariant(
@@ -122,7 +123,8 @@ invariant(
     && completionSuccessCss.includes("height:var(--focus-visible-height,700px)")
     && completionSuccessCss.includes("max-height:100%")
     && completionSuccessCss.includes("overflow:auto")
-    && completionSuccess.includes('role="dialog"')
+    && completionSuccess.includes('role={inline ? "region" : "dialog"}')
+    && completionSuccess.includes('data-focus-success-placement={inline ? "inline" : "overlay"}')
     && completionSuccess.includes("autoFocus"),
   "Focus completion success must stay inside the committed native visible region and keep its actions keyboard-accessible",
 );

@@ -114,6 +114,36 @@ for (const theme of ["light", "dark"]) {
     `${notes.label} Notes expansion must grow vertically inside the active card rather than overlaying task content`,
   );
 
+  const focusedActions = readCapture(theme, "live-actions-focus");
+  requireLiveState(focusedActions, "running");
+  invariant(focusedActions.dom.includes('data-focus-action-reveal-pass="true"'),
+    `${focusedActions.label} real keyboard focus reveal did not pass stable geometry contract`);
+  invariant(focusedActions.dom.includes('aria-label="Pause"')
+    && focusedActions.dom.includes('focus-panel__live-action-label'),
+    `${focusedActions.label} focused icon needs its original accessible action name and label`);
+  invariant(focusedActions.contract.liveCard?.height === running.contract.liveCard?.height,
+    `${focusedActions.label} focusing actions must not reflow active card height`);
+
+  const success = readCapture(theme, "success");
+  invariant(success.contract.queueTitleLayout?.successQueueInert === true,
+    `focus-panel-success-${theme} must show the queued titles while blocking their focus during committed success`);
+  invariant(success.dom.includes('data-focus-success-inline-card="true"'),
+    `${success.label} must place committed success inside the active card`);
+  invariant(success.dom.includes('data-focus-success-placement="inline"'),
+    `${success.label} must use nonmodal inline success semantics`);
+  invariant(!success.dom.includes('aria-modal="true"'),
+    `${success.label} must not mask the visible Focus queue as a modal`);
+  invariant(success.dom.includes('aria-label="Today progress"')
+    && success.dom.includes('data-focus-group="remaining"'),
+    `${success.label} must preserve header and remaining queue`);
+  invariant(success.dom.includes('data-focus-success-action="next-task"')
+    && success.dom.includes('data-focus-success-action="close"'),
+    `${success.label} must retain next/close controls after committed Done`);
+  invariant(success.contract.liveCard?.height > 120
+    && success.contract.liveTimer === null
+    && success.contract.actions === null,
+    `${success.label} must replace the active card without a stale running timer/actions`);
+
   const noEligible = readCapture(theme, "no-eligible");
   invariant(noEligible.dom.includes('data-focus-live-card="false"'), `${noEligible.label} must not fabricate a live card`);
   invariant(noEligible.dom.includes('data-focus-live-state="no-eligible"'), `${noEligible.label} no-eligible visual marker is missing`);

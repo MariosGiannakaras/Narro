@@ -549,7 +549,7 @@ export function FocusSurfaceCoordinator() {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
       if (!shortcut || event.defaultPrevented) return;
-      if (hasActiveModalShortcutBoundary()) {
+      if (completionSuccess !== null || hasActiveModalShortcutBoundary()) {
         event.preventDefault();
         return;
       }
@@ -581,7 +581,7 @@ export function FocusSurfaceCoordinator() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [presentationHydrated, timerResizePending]);
+  }, [presentationHydrated, timerResizePending, completionSuccess]);
 
   useEffect(() => {
     if (!shortcutStatus) return;
@@ -630,6 +630,45 @@ export function FocusSurfaceCoordinator() {
   // it. Only publishPresentation() flips side-effect/interaction ownership.
   const panelActive = presentationHydrated && mode === "panel";
   const timerActive = presentationHydrated && mode === "timer";
+  const inlineSuccess = panelActive && completionSuccess !== null;
+  const closeCompletionSuccess = () => {
+    if (completionSuccessPending) return;
+    setCompletionSuccess(null);
+    setCompletionSuccessError(null);
+    // Inline success replaces a mounted active card. After dismissing it,
+    // restore a visible keyboard target rather than leaving focus on a
+    // detached Next Task / Close button. Floating remains independently owned.
+    if (inlineSuccess) {
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({ preventScroll: true });
+      });
+    }
+  };
+  // A successful Done has already committed and released its timer session.
+  // An untimed rest is the safest local "Take a Break" behavior: do not
+  // create a phantom work session merely to call manual-break on an idle timer.
+  const takeRestBetweenTasks = async () => {
+    if (!completionSuccess || completionSuccessPending) return;
+    setCompletionSuccessPending(true);
+    setCompletionSuccessError(null);
+    try {
+      const authoritative = await snapshotTimerSession();
+      if (authoritative.runtime.timer.state !== "idle" || authoritative.runtime.timer.task_id !== null) {
+        throw new Error("Another task is already active. Close success to return to that task.");
+      }
+      // Deliberately no startTimerTask/startManualBreakTimer: the completed
+      // task's session is already committed; an untimed rest changes no ledger.
+      setCompletionSuccess(null);
+      setShortcutStatus("Break time. No task timer is running; start another task when ready.");
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({preventScroll: true});
+      });
+    } catch (failure: unknown) {
+      setCompletionSuccessError(formatInvokeError(failure));
+    } finally {
+      setCompletionSuccessPending(false);
+    }
+  };
   const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
     settled: timerProjectionSettled,
@@ -654,8 +693,8 @@ export function FocusSurfaceCoordinator() {
           className="focus-surface-coordinator__presentation"
           data-focus-presentation="panel"
           data-focus-visibility={panelActive ? "active" : "preparing"}
-          aria-hidden={panelActive && completionSuccess === null ? undefined : true}
-          inert={!panelActive || completionSuccess !== null}
+          aria-hidden={panelActive ? undefined : true}
+          inert={!panelActive}
         >
           <FocusPanel
             sharedTimerProjection={sharedTimerProjection}
@@ -669,6 +708,13 @@ export function FocusSurfaceCoordinator() {
             refreshKey={panelRefreshKey}
             onPresentationReady={() => markReady("panel")}
             onCompletionSuccess={recordCompletionSuccess}
+            completionSuccessContent={inlineSuccess && completionSuccess ? (
+              <FocusCompletionSuccess inline state={completionSuccess}
+                pending={completionSuccessPending} error={completionSuccessError}
+                onNextTask={() => void startNextTaskFromSuccess()}
+                onTakeBreak={() => void takeRestBetweenTasks()}
+                onClose={closeCompletionSuccess} />
+            ) : null}
           />
         </section>
       ) : null}
@@ -703,17 +749,14 @@ export function FocusSurfaceCoordinator() {
         </section>
       ) : null}
 
-      {completionSuccess ? (
+      {completionSuccess && !inlineSuccess ? (
         <FocusCompletionSuccess
           state={completionSuccess}
           pending={completionSuccessPending}
           error={completionSuccessError}
           onNextTask={() => void startNextTaskFromSuccess()}
-          onClose={() => {
-            if (completionSuccessPending) return;
-            setCompletionSuccess(null);
-            setCompletionSuccessError(null);
-          }}
+          onTakeBreak={() => void takeRestBetweenTasks()}
+          onClose={closeCompletionSuccess}
         />
       ) : null}
 

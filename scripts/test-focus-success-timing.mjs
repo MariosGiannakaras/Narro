@@ -37,4 +37,55 @@ assert.ok(reaction.includes('data-focus-success-reaction="true"'), "reaction DOM
 assert.ok(css.includes("@media (prefers-reduced-motion:reduce)"), "reduced-motion behavior must remain effective");
 assert.ok(css.includes("focus-reaction-spark") && css.includes("animation:"), "reaction requires finite local animation");
 assert.ok(!reaction.includes("http://") && !reaction.includes("https://"), "reaction presentation must not request remote content");
+const panel = read("src/FocusPanel.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+assert.ok(panel.includes('data-focus-success-inline-card="true"')
+  && panel.includes('{completionSuccessContent}'),
+  "B63 success must render as the active card while preserving the Focus queue");
+assert.ok(coordinator.includes("if (inlineSuccess)") && coordinator.includes('[data-focus-list-selector="true"]'),
+  "B63 inline Close must restore keyboard focus to a stable visible Focus selector");
+assert.ok(coordinator.includes('completionSuccessContent={inlineSuccess && completionSuccess ? (')
+  && coordinator.includes('completionSuccess && !inlineSuccess ? ('),
+  "B63 Panel success is inline; Floating success keeps the established overlay");
+assert.ok(source.includes('role={inline ? "region" : "dialog"}')
+  && source.includes('aria-modal={inline ? undefined : "true"}'),
+  "inline success must not falsely advertise a modal dialog");
+assert.ok(css.includes('.focus-completion-success[data-focus-success-placement="inline"]')
+  && css.includes('position: static;'),
+  "inline success may not obscure the Focus header or remaining queue");
+assert.ok(panel.includes('inert={Boolean(completionSuccessContent)}'),
+  "the visible queue must not accept a second task mutation during success");
+// U38 Narro inferred, not a sourced break-duration contract: after committed
+// Done, "Take a Break" leaves the timer idle and never creates phantom sessions.
+assert.ok(source.includes('data-focus-success-action="take-break" disabled={pending}')
+  && source.includes('onClick={onTakeBreak}')
+  && !source.includes("Take a Break is unavailable until"),
+  "post-Done Take a Break must be an enabled, guarded local action");
+const restStart = coordinator.indexOf("const takeRestBetweenTasks = async () => {");
+const restEnd = coordinator.indexOf("const sharedTimerProjection =", restStart);
+const restHandler = coordinator.slice(restStart, restEnd);
+assert.ok(restStart >= 0 && restEnd > restStart
+  && restHandler.includes("await snapshotTimerSession()")
+  && restHandler.includes('timer.task_id !== null')
+  && !/await\s+(?:startTimerTask|startManualBreakTimer|skipBreakTimer)\s*\(/.test(restHandler)
+  && restHandler.includes('timer.state !== "idle"')
+  && restHandler.includes("setCompletionSuccess(null)")
+  && restHandler.includes("setCompletionSuccessPending(true)")
+  && restHandler.includes("setCompletionSuccessError(formatInvokeError(failure))")
+  && restHandler.includes("No task timer is running")
+  && restHandler.includes("requestAnimationFrame(")
+  && coordinator.includes("onTakeBreak={() => void takeRestBetweenTasks()}"),
+  "untimed rest must preserve committed success ledger and never invent a live work/break session");
+
+const successFixture = read("src/focusPanelVisualFixture.tsx");
+const successCapture = read("scripts/capture-focus-panel-fixtures.ps1");
+const successValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+assert.ok(successFixture.includes('"success"')
+  && successFixture.includes("<FocusCompletionSuccess inline")
+  && successFixture.includes('completionSuccessContent={scenario === "success"'),
+  "B63 rendered fixture must mount the real committed success inline");
+assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query = "&scenario=success"')
+  && successValidator.includes('readCapture(theme, "success")')
+  && successValidator.includes('data-focus-success-inline-card="true"'),
+  "B63 screenshot must be captured and validated in light and dark themes");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

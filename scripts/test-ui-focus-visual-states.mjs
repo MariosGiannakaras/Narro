@@ -14,6 +14,7 @@ const styles = read("src/focusVisualStates.css");
 const actionSlots = read("src/focusActionSlots.css");
 const fixture = read("src/focusPanelVisualFixture.tsx");
 const capture = read("scripts/capture-focus-panel-fixtures.ps1");
+const validator = read("scripts/validate-focus-visual-state-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 invariant(
@@ -106,8 +107,20 @@ invariant(
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
-invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while the new empty fixture removes all Today work");
-invariant(fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty";'), "no-live visual scenarios must be explicit");
+invariant(fixture.includes('const successQueueInert = scenario === "success" && queuedRow.closest(\'[inert]\') !== null')
+    && fixture.includes("if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus')")
+    && fixture.includes('} else if (rowIsVisible) {'),
+  "B63 success fixture must test inert queued focus, not require interactive tooltip");
+invariant(validator.includes('success.contract.queueTitleLayout?.successQueueInert === true'),
+  "B63 Windows visual validator must require noninteractive yet visible success queue");
+invariant(
+  fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
+    && fixture.includes('scenario === "empty" ? []')
+    && fixture.includes('scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]')
+    && fixture.includes(': normalTodayTasks;'),
+  "no-eligible, empty and committed-success fixtures must retain distinct authoritative Today queues",
+);
+invariant(fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";'), "no-live success/empty visual scenarios must not fabricate timer sessions");
 invariant(fixture.includes('const timer: TimerSessionPayload | null = noLiveScenario ? null : {'), "no-eligible and empty fixtures must not fabricate a live timer");
 
 invariant(

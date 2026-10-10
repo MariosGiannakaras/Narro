@@ -65,11 +65,14 @@ for (const forbidden of ["transform:", "animation:", "position: absolute"]) {
 
 invariant(fixture.includes('"empty",'), "visual fixture is missing the genuinely empty scenario");
 invariant(
-  fixture.includes('scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks'),
+  fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
+    && fixture.includes('scenario === "empty" ? []')
+    && fixture.includes('scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]')
+    && fixture.includes(': normalTodayTasks;'),
   "fixture must distinguish future-scheduled work from genuinely empty Today work",
 );
 invariant(
-  fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty";'),
+  fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";'),
   "empty fixtures must not fabricate a live timer",
 );
 invariant(

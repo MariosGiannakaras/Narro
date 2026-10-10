@@ -60,6 +60,7 @@
 .focus-panel__queue:focus-visible { outline: 2px solid var(--color-accent-solid); outline-offset: -2px; }
 .focus-panel__live-card, .focus-panel__task-row { box-sizing: border-box; border-radius: var(--radius-task-card); background: var(--color-surface-raised); }
 .focus-panel__live-card { min-height: 82px; padding: var(--space-3); display: flex; flex-direction: column; justify-content: center; gap: var(--space-2); border: 1px solid var(--color-accent-solid); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent-solid) 18%, transparent); }
+.focus-panel__live-card--success { padding: 0; min-height: 0; justify-content: flex-start; }
 .focus-panel__live-card--empty { min-height: 56px; border-color: var(--color-border-subtle); box-shadow: none; color: var(--color-text-secondary); }
 .focus-panel__empty-state { display: grid; gap: var(--space-1); min-width: 0; }
 .focus-panel__empty-state strong { color: var(--color-text-primary); font-size: var(--font-size-task-title); font-weight: var(--font-weight-semibold); }
@@ -75,17 +76,65 @@
 .focus-panel__live-meta, .focus-panel__task-meta { gap: var(--space-2); min-width: 0; color: var(--color-text-secondary); }
 .focus-panel__live-meta > span:not([class]) { display: none; }
 .focus-panel__live-actions-wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+/* One steady heading footprint: hover/focus swaps time and title for
+   accessible compact actions; metrics and subtasks never move. */
+.focus-panel__live-card[data-focus-live-card="true"] { position: relative; min-height: 210px; }
+.focus-panel__live-heading { min-height: 2.25rem; transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter); }
+.focus-panel__live-card:hover .focus-panel__live-heading,
+.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-heading,
+.focus-panel__live-card:focus-within .focus-panel__live-heading,
+.focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-heading { opacity: 0; }
 .focus-panel__live-actions {
   display: grid;
-  /* One shared contextual Pause/Extend slot; five positions never reflow
-     between ordinary work, Time's Up and extended overtime. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, 0.85fr) minmax(0, 1fr);
   gap: var(--space-1);
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--color-border-subtle);
+  position: absolute;
+  z-index: 3;
+  top: var(--space-3);
+  left: var(--space-3);
+  width: calc(100% - 2 * var(--space-3));
+  min-height: 2.25rem;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
 }
-.focus-panel__live-actions button { min-width: 0; min-height: 30px; padding: var(--space-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-metadata); }
-.focus-panel__live-actions button:disabled { opacity: 0.52; }
+.focus-panel__live-card:hover .focus-panel__live-actions,
+.focus-panel__live-card[data-focus-actions-keyboard="true"] .focus-panel__live-actions,
+.focus-panel__live-card:focus-within .focus-panel__live-actions,
+.focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-actions { opacity: 1; pointer-events: auto; }
+.focus-panel__live-actions > button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  min-height: 2rem;
+  padding: var(--space-1);
+  overflow: visible;
+  white-space: nowrap;
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-metadata);
+}
+.focus-panel__live-actions > button svg { flex: none; }
+.focus-panel__live-action-label { display: none; white-space: nowrap; }
+.focus-panel__live-card .focus-panel__live-actions > button:is(:hover, :focus, :focus-visible):not(:disabled) {
+  z-index: 4;
+  width: max-content;
+  min-width: 100%;
+  border-color: var(--color-accent-solid);
+  background: var(--color-surface-interactive);
+  color: var(--color-text-primary);
+}
+.focus-panel__live-actions > button:is(:hover, :focus, :focus-visible) .focus-panel__live-action-label { display: inline; }
+.focus-panel__live-actions > button:last-child:is(:hover, :focus, :focus-visible) { justify-self: end; }
+.focus-panel__live-actions > button:disabled { opacity: 0.52; }
+@media (prefers-reduced-motion: reduce) {
+  .focus-panel__live-heading,
+  .focus-panel__live-actions { transition: none; }
+}
 .focus-panel__notes { min-width: 0; }
 .focus-panel__notes .task-notes__trigger { display: none; }
 .focus-panel__notes .task-notes { width: 100%; min-width: 0; }

@@ -2,6 +2,7 @@ import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import { FocusPanel } from "./FocusPanel";
+import { FocusCompletionSuccess } from "./FocusCompletionSuccess";
 import { TOOLTIP_INTENT_DELAY_MS } from "./overlayPrimitives";
 import type {
   BoardTaskNoteSnapshot,
@@ -32,6 +33,8 @@ const scenarios = [
   "time-up",
   "overtime",
   "notes-expanded",
+  "live-actions-focus",
+  "success",
   "no-eligible",
   "empty",
 ] as const;
@@ -106,7 +109,10 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
 });
 
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
-const todayTasks = scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks;
+const todayTasks = scenario === "no-eligible" ? [scheduledTask]
+  : scenario === "empty" ? []
+  : scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]
+  : normalTodayTasks;
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
   displayTimezone: "Europe/Athens",
@@ -118,11 +124,13 @@ const board: ListBoardSnapshot = {
     tasks: todayTasks,
   },
   done: {
-    count: 1,
-    aggregateEstSeconds: 1200,
-    tasks: [doneTask],
+    count: scenario === "success" ? 2 : 1,
+    aggregateEstSeconds: scenario === "success" ? 4800 : 1200,
+    tasks: scenario === "success"
+      ? [doneTask, { ...liveTask, completedAt: "2026-09-13T09:20:00Z" }]
+      : [doneTask],
   },
-  todayCompletionCount: 0,
+  todayCompletionCount: scenario === "success" ? 1 : 0,
   thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
@@ -143,7 +151,7 @@ function timerState(): TimerStateKind {
 }
 
 const state = timerState();
-const noLiveScenario = scenario === "no-eligible" || scenario === "empty";
+const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";
 const timer: TimerSessionPayload | null = noLiveScenario ? null : {
   revision: scenarios.indexOf(scenario) + 7,
   runtime: {
@@ -220,9 +228,76 @@ flushSync(() => {
         { id: personalId, title: longListTitle },
       ]}
       fixtureTimer={timer}
+      completionSuccessContent={scenario === "success" ? (
+        <FocusCompletionSuccess inline
+          state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,
+            estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
+            funGifEnabled: false,
+            nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
+          pending={false} error={null} onNextTask={() => undefined} onTakeBreak={() => undefined} onClose={() => undefined}
+        />
+      ) : null}
     />,
   );
 });
+
+if (scenario === "live-actions-focus") {
+  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+  const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
+  const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
+  const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
+  if (!action || !rail || !heading || !liveCard || action.disabled) {
+    throw new Error("B49 focus reveal requires a real enabled contextual action and live card.");
+  }
+  const cardBefore = liveCard.getBoundingClientRect();
+  const railBefore = rail.getBoundingClientRect();
+  action.focus({preventScroll: true});
+  // Edge headless virtual time advances timer callbacks without necessarily
+  // advancing compositor opacity transitions. Complete only the real CSS
+  // opacity transitions after the focus selectors become active; never write
+  // opacity directly or bypass the strict final-state/geometry assertions.
+  const revealDeadline = performance.now() + 1_500;
+  while (performance.now() < revealDeadline) {
+    const focusStylesActive = liveCard.matches(":focus-within")
+      && getComputedStyle(rail).pointerEvents === "auto";
+    if (focusStylesActive) {
+      for (const element of [rail, heading]) {
+        for (const animation of element.getAnimations()) {
+          if (animation instanceof CSSTransition
+            && animation.transitionProperty === "opacity"
+            && animation.playState !== "finished") {
+            animation.finish();
+          }
+        }
+      }
+    }
+    if (getComputedStyle(rail).opacity === "1"
+      && getComputedStyle(heading).opacity === "0") break;
+    await new Promise<void>(resolve => window.setTimeout(resolve, 40));
+  }
+  const cardAfter = liveCard.getBoundingClientRect();
+  const railAfter = rail.getBoundingClientRect();
+  const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
+  const revealProblems = [
+    document.activeElement !== action ? "keyboard-focus-owner" : null,
+    liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
+    !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,
+    getComputedStyle(rail).pointerEvents !== "auto" ? `action-rail-pointer-events=${getComputedStyle(rail).pointerEvents}` : null,
+    getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
+    getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
+    !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,
+    Math.abs(cardAfter.height - cardBefore.height) > 1
+      ? `live-card-height-shift=${(cardAfter.height - cardBefore.height).toFixed(2)}px` : null,
+    Math.abs(railAfter.width - railBefore.width) > 1
+      ? `action-rail-width-shift=${(railAfter.width - railBefore.width).toFixed(2)}px` : null,
+    Math.abs(railAfter.top - railBefore.top) > 1
+      ? `action-rail-top-shift=${(railAfter.top - railBefore.top).toFixed(2)}px` : null,
+  ].filter((problem): problem is string => problem !== null);
+  if (revealProblems.length > 0) {
+    throw new Error(`B49 action focus failed to reveal a labeled icon without moving live-card geometry: ${revealProblems.join(", ")}`);
+  }
+  document.documentElement.dataset.focusActionRevealPass = "true";
+}
 
 if (scenario === "notes-expanded") {
   const notesButton = document.querySelector<HTMLButtonElement>('[data-focus-action="notes"]');
@@ -289,7 +364,14 @@ if (queuedRow) {
   if (before[1].width <= badge.getBoundingClientRect().width) throw new Error('Long list badge dominates the ordinary title');
   if (before[2].top < before[1].bottom) throw new Error('Action rail competes with title allocation');
   const rowIsVisible = before[0].top >= 0 && before[0].bottom <= window.innerHeight;
-  if (rowIsVisible) {
+  // B63 keeps the queue visible but inert until Next Task/Close. Never demand
+  // its ordinary focus-triggered tooltip while completion owns interaction.
+  const successQueueInert = scenario === "success" && queuedRow.closest('[inert]') !== null;
+  if (scenario === "success") {
+    if (!successQueueInert) throw new Error('Committed success queue must remain inert');
+    title.focus({preventScroll: true});
+    if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus');
+  } else if (rowIsVisible) {
     title.focus({preventScroll: true});
     await new Promise<void>(resolve => window.setTimeout(resolve, TOOLTIP_INTENT_DELAY_MS + 50));
     const focusedTooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]');
@@ -300,9 +382,9 @@ if (queuedRow) {
   const tooltipNode = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!;
   const tooltip = tooltipNode.getBoundingClientRect();
   const rowBounds = queuedRow.getBoundingClientRect();
-  const tooltipEscapes = tooltip.left < rowBounds.left
+  const tooltipEscapes = scenario !== "success" && (tooltip.left < rowBounds.left
     || tooltip.right > rowBounds.right
-    || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight));
+    || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight)));
   if (tooltipEscapes) {
     const style = getComputedStyle(tooltipNode);
     throw new Error(
@@ -323,8 +405,10 @@ if (queuedRow) {
       }),
     );
   }
-  queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true, revealGeometryStable: rowIsVisible,
-    rowContained: true, tooltipContained: rowIsVisible, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
+  queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true,
+    revealGeometryStable: scenario === "success" ? null : rowIsVisible,
+    rowContained: true, tooltipContained: scenario === "success" ? null : rowIsVisible,
+    successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
 const contract = {
