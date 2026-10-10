@@ -159,6 +159,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [addOpen, setAddOpen] = useState(false);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
+  // React state disables rendered controls, but only this ref excludes same-render event reentry.
+  const addSessionInFlightRef = useRef(false);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [exportPending, setExportPending] = useState(false);
@@ -394,7 +396,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const commitAddSession = async () => {
-    if (!addDraft.taskId || mutationPendingId) return;
+    if (!addDraft.taskId || mutationPendingId || addSessionInFlightRef.current) return;
+    addSessionInFlightRef.current = true;
     setMutationPendingId("add");
     setMutationError(null);
     try {
@@ -416,6 +419,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
     } finally {
+      addSessionInFlightRef.current = false;
       setMutationPendingId(null);
     }
   };
