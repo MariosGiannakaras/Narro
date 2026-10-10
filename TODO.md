@@ -1,6 +1,12 @@
 # TODO.md
 
-## CURRENT 2026-10-10 A14 group 05/05 narrow correction submitted; automated acceptance pending
+## CURRENT 2026-10-10 Group 06/06 A13 accepted; A14 Windows CI pending (13/14 source/CI)
+
+- [x] **A13 Focus popup long title 1/1 SOURCE/CI:** PR #319 exact head `c3197deca21f4761d55243de901381c5f299804d`, all three CI `38072910111` jobs SUCCESS; downloaded artifact **11679005142**, actual dark/light screenshots directly visually reviewed plus DOM geometry/real ellipsis, guarded squash merge `4ff95925fd8c2216198809210e5188f879f7023b`, **3/3 resulting-main blobs match**. Physical native/source exact parity separate and not claimed. Evidence `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
+- [ ] **A14 Reports CSV/PDF single-flight 0/1:** PR #320 latest head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation + fast SUCCESS, windows-candidate **IN PROGRESS/NOT PASS** at latest actual check. Require final success, expected-head guarded merge, resulting-main changed-blob identity; if red, inspect actual failing Windows step/log. See Group 05 immutable log.
+- [ ] **Current full integration physical candidate:** PR316 artifact `11675827068` predates A11/A12/A13 and is not an A01–A14 integrated native build; require one final current combined production Windows candidate once A14 merges; downloaded file/EXE hash NOT RUN. Manual Codex remains explicitly paused, milestones 3/10; M11 dormant.
+
+## HISTORICAL 2026-10-10 A14 group 05/05 narrow correction submitted; automated acceptance pending
 
 - [ ] **A14 PR320 0/1:** updated head `67814cf144ac0e60d9e146f8485cffc56724914e`. Replaced obsolete PDF guard-string assertion and added actual production-handler execution tests for CSV/PDF async races/failure/retry and body inert restoration in `scripts/test-ui-reports-overview-runtime.mjs`. Exact run `38077203921` validation SUCCESS, fast **IN PROGRESS/NOT PASS**, Windows not yet accepted. Await actual green three-job exact-head CI before guarded merge+main identity; if fail, inspect first failure. Group 05 log `work-log/2026-10-10-chatgpt-chunked-audit-group05-pr320-real-handler-regression.md`.
 - [ ] **A13 PR319 0/1:** exact head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` **validation/fast/Windows SUCCESS**. Screenshot pixel review of new actual light/dark Focus selector artifact `11679205218` **NOT RUN**; merge only after real visual review and guard/blob check.
