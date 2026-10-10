@@ -20,6 +20,8 @@ invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POM
 invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
+const picker = read("src/BoardListPicker.tsx");
+const pickerCss = read("src/boardListPicker.css");
 const actions = read("src/FocusLiveActions.tsx");
 const m7Integration = read("src/m7IntegrationRegression.tsx");
 invariant(m7Integration.includes("panelPause === null")
@@ -66,7 +68,13 @@ for (const [haystack, needle, label] of [
   [panel, "latest.runtime.timer.task_id === expectedTaskId", "shared projection live-task identity guard"],
   [panel, "latest.runtime.open_session_id === expectedSessionId", "shared projection session identity guard"],
   [panel, "<FocusLiveActions", "live action composition"],
-  [panel, 'data-focus-list-selector="true"', "list selector hierarchy"],
+  [panel, '<BoardListPicker', "source-evidenced anchored Focus listbox"],
+  [panel, 'variant="focus"', "Focus-specific calibrated popup presentation"],
+  [catalog, "id, title, color, iconAsset, iconId", "saved list identity from authoritative catalog"],
+  [picker, 'data-focus-list-selector={focus ? "true" : undefined}', "Focus selector remains stable keyboard/focus target"],
+  [picker, 'data-focus-list-option={focus ? option.id : undefined}', "real selectable Focus list identity"],
+  [picker, 'role="listbox"', "accessible Focus popup"],
+  [pickerCss, ".board-list-picker--focus .board-list-picker__menu", "scoped anchored Focus popover geometry"],
   [panel, ">Today<", "Today hierarchy title"],
   [panel, 'aria-label="Preferences"', "Preferences quick control"],
   [panel, 'aria-label="Home"', "Home quick control"],
@@ -213,6 +221,9 @@ for (const [haystack, needle, label] of [
   [vite, 'focusPanelFixture: "focus-panel-fixture.html"', "Vite fixture entry"],
   [capture, "focus-panel-fixture.html", "Windows Edge Focus capture"],
   [capture, 'Name = "paused-metrics"', "paused metric Windows Edge capture"],
+  [capture, 'Name = "selector-open"', "source-evidenced Focus menu actual Edge capture"],
+  [validator, 'contract.focusSelectorContract', "real colored Focus menu screenshot geometry assertion"],
+  [fixture, 'if (scenario === "selector-open")', "production Focus popup fixture must open"],
   [validator, "hierarchy order differs from source evidence", "visual hierarchy validation"],
   [validator, "authoritative EST countdown value is missing", "visual live timer validation"],
   [validator, "live subtask progress ring is missing", "visual live subtask validation"],
