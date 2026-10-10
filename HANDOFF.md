@@ -174,7 +174,7 @@ The user's four-group **diagnostic** first pass is 4/4 reviewed, **not** an acce
 
 User explicitly requires **one self-contained audit/correction group per completed message** to avoid losing unfinished work. Group 01 verified latest main `c57093b56b3da15966b38ea51807cb2d12fac5e2` and live open #319/#320: #319 head `c3197deca21f4761d55243de901381c5f299804d`, CI `38072910111` validation/fast SUCCESS, Windows IN PROGRESS; #320 head `e3e8c3b8de9e9bcc041c02dc9f4b3441a25337b6`, CI `38075611417` validation SUCCESS, fast IN PROGRESS. Neither source correction accepted/merged. Retained A01–A10 10/10, A11/A12 2/2 accepted, mandatory roadmap 3/10. Exact evidence `work-log/2026-10-10-chatgpt-chunked-audit-group01-live-pr-ci-inventory.md`. **NEXT GROUP 02 only:** verify PR319 exact-head CI, directly review both new light/dark rendered popup screenshot pixels and geometry, then guarded merge+3/3 main blobs only if truly accepted; complete user-visible group message before #320. Codex physical paused, M11 dormant.
 
-## CURRENT ACTIVE final retrospective audit — 2026-10-10 A11/A12 source/CI integrated; A13 Windows CI pending
+## HISTORICAL — CURRENT ACTIVE final retrospective audit — 2026-10-10 A11/A12 source/CI integrated; A13 Windows CI pending
 
 **Latest A13 static visual audit (SEPARATE 0/1):** directly reopened genuine dark/light Windows Edge `focus-panel-selector-open` screenshots from exact PR306 artifact, found long saved-list text hard-clipped at dropdown border despite intended ellipsis. [PR #319](https://github.com/MariosGiannakaras/Narro/pull/319) exact first head `c3197deca21f4761d55243de901381c5f299804d`, [CI 38072910111](https://github.com/MariosGiannakaras/Narro/actions/runs/38072910111) in progress, applies Focus-only constrained grid track and new **actual computed Edge option/title geometric+ellipsis assertions**. New dark/light screenshots must be **visually inspected after CI**; old PR306 images evidence original symptom only. **A11 #317 and A12 #318 are now exact-head CI-green and merged** (details immediately below); new A11–A13 audit **2/3 SOURCE/CI ACCEPTED**, with A13 0/1 until exact Windows + screenshot. Durable rationale `work-log/2026-10-10-chatgpt-final-audit-a13-focus-popup-long-title-overflow.md`. All three source PRs need full exact-head CI, guarded merge, resulting-main blob checks, and final latest combined-binary validation before resuming user-paused physical Codex.
 
@@ -182,7 +182,7 @@ User explicitly requires **one self-contained audit/correction group per complet
 
 **NEXT AGENT ACTION:** inspect exact PR319 CI `38072910111` *attempt 2* (attempt 1 fast cancelled before running tests; retry validation+fast PASS, Windows IN PROGRESS at last inspection). If Windows red, investigate actual first failing step; if green, independently inspect actual new light/dark popup images and DOM geometry, then expected-head guarded merge and 3/3 Git blob identity. After A11/A12/A13 current main final combined Windows binary validation/packaged candidate is required before resuming user-paused physical Codex. Current A01–A10 source/CI 10/10, A11–A13 2/3, mandatory milestones 3/10. Detailed audit `work-log/2026-10-10-chatgpt-final-retrospective-pr302-pr318-source-ci-audit.md`. Continue only specifically evidenced source checks, do not spin speculative fixes or revive closed A01–A10. User-paused physical Codex NOT activated; native-only C4/M6/F35/F29/F27/M8 OPEN, M10 blocked, optional M11 dormant.
 
-## CURRENT LAST COMPLETED WORK — 2026-10-10 combined-build validation and exact candidate
+## HISTORICAL — CURRENT LAST COMPLETED WORK — 2026-10-10 combined-build validation and exact candidate
 
 **Source/automated integration now ACCEPTED: A01–A10 10/10**, plus historical original 8/8 and separate Finding35 source correction 1/1, all individually validated and merged. Final integration [PR #316](https://github.com/MariosGiannakaras/Narro/pull/316) head `edebaa4d1e7f44d95e8dc7730062ae185a7fc6fc`, [Windows CI 38066478586](https://github.com/MariosGiannakaras/Narro/actions/runs/38066478586) all three validation/fast/Windows SUCCESS, expected-head guarded merge `1bd24411e159b8a1e5d8e51c97e005d7163a1c34`, 2/2 final preflight Git blobs identical on resulting main. Current **production-config physical candidate** `narro-m7-physical-windows-x64` **artifact ID 11675827068** (CI 38066478586); companion latest Focus and M5 rendered artifacts ID 11675511654 / 11675900336. Current artifact **ZIP/EXE SHA256 NOT RUN**; verify actual downloaded bytes before native use. Evidence `work-log/2026-10-10-chatgpt-pr316-composite-main-windows-ci-merge.md`. There are no remaining unmerged source PRs at this checkpoint.
 
@@ -212,7 +212,7 @@ Previously accepted **A01–A06 6/6**, fixed initial programming **8/8**, and Fi
 
 **HISTORICAL NEXT AGENT ACTION (completed/superseded; see current PR #316 section above):** A01–A06 fully source/CI merged and independently blob-verified, no original PR outstanding. Continue **A07 test-first Focus mutations** using latest merged FocusPanel from #311; test same-render repeat/competing Make Live, Change List, Delete and Home across return/failure/reconciliation, without changing Tauri timer state authority or native motion; open narrow source PR and require exact Windows CI before acceptance. Continue static/source visual checks where evidence permits and reduce genuinely native-only consolidated physical list. Do not use superseded PR302 physical binary for latest source. Original CI1046 exact nine videos SHA-verified, direct high-risk M6/C4/F35 slices reviewed; no blanket fresh all-video acceptance. No M10 or optional M11.
 
-## CURRENT completed correction — 2026-10-10 Finding35 source/CI accepted (new 1/1 slice)
+## HISTORICAL — CURRENT completed correction — 2026-10-10 Finding35 source/CI accepted (new 1/1 slice)
 
 The previously accepted fixed **8/8** implementation queue remains closed. The **separate Finding35 source-correction unit is now 1/1 AUTOMATED_ACCEPTED**. [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302) exact validated head `601431bce4d4453d5a6c1a8624901ec7baf2eb58` passed [Windows CI 38044923348](https://github.com/MariosGiannakaras/Narro/actions/runs/38044923348) (**validation/fast/Windows SUCCESS**) and was expected-head-guarded squash-merged as `797d0580d89a3a5ef0ff5b561e941d078bb2407f`; all **6/6 source/test blobs identical** to accepted head on resulting main. Visible `Time's Up` metadata in compact and expanded Floating Timer, four actual light/dark rendered fixtures; timer/ledger/other states intact. Prior failed CI `38044663152` was an obsolete static capture inventory test, fixed on final head; details in `work-log/2026-10-10-chatgpt-pr302-stale-capture-inventory-ci-failure.md`. Local Node/PowerShell/Rust and real native Windows physical **NOT RUN**; original Blitzit Floating pixels unavailable. Full acceptance proof: `work-log/2026-10-10-chatgpt-pr302-finding35-merged-automated-green.md`.
 
@@ -220,7 +220,7 @@ The previously accepted fixed **8/8** implementation queue remains closed. The *
 
 **HISTORICAL NEXT AGENT ACTION (superseded by newer audits/current protocol):** no unmerged Finding35 source change remains. The next independent route is the **user-paused consolidated physical Windows Codex session**, only when explicitly restarted by the user; use the **newest PR302 packaged candidate** from exact CI `38044923348`, artifact `narro-m7-physical-windows-x64` **ID 11667875086**, verify ZIP/EXE SHA256 upon download (not verified yet), then retest Finding35 and C4 plus the remaining independent M1/M6/M8/M9 physical gates. C4 source-level mechanism reviewed but native physical FAIL/OPEN; do not claim source parity or M7 milestone acceptance. M11 explicitly opt-in and dormant. Continue safe independent source analysis only if repo records a concrete new unblocked defect.
 
-## CURRENT definitive checkpoint — 2026-10-10, 8/8 coding merged
+## HISTORICAL — CURRENT definitive checkpoint — 2026-10-10, 8/8 coding merged
 
 **8/8** user-requested pre-Codex implementation units accepted after exact-head Windows CI and expected-head guarded merge. I01 #280 B67, I02 #286 B32, I03 #295 B21, I04 #298 B22, I05 #299 B50, I06 #300 B57, and **I07 B49 + I08 B63 jointly in PR #301**. No outstanding source coding unit in the fixed inventory; **physical Windows/manual parity acceptance and mandatory milestones remain OPEN**.
 
@@ -233,7 +233,7 @@ The previously accepted fixed **8/8** implementation queue remains closed. The *
 
 **B49 + B63 source result:** keyboard/pointer-triggered five-icon Focus action rail with labeled-pill reveal and stable geometry; committed Done inline success replaces only active card with Today header/queue visible but inert during owned success routing; Next Task, Close focus and typed error ownership preserved. User-directed B50 contextual Extend stays in the five control slots. The post-success Take a Break is **NARRO_INFERRED** untimed idle rest with authoritative-idle guard and no phantom session; not confirmed original Blitzit behavior. Preserve approved user-owned Create/Edit List Spectrum Core 184px picker, image upload, 218 offline icons unchanged. Full provenance/workflow: `work-log/2026-10-10-chatgpt-eight-of-eight-pr301-merged-codex-physical-handoff.md`.
 
-## NEXT INDEPENDENT PHYSICAL ACTION — user-paused Windows Codex route
+## HISTORICAL — NEXT INDEPENDENT PHYSICAL ACTION — user-paused Windows Codex route
 
 **Coding is complete 8/8 plus separate Finding35 correction 1/1, source/CI integrated.** The separate physical-Windows Codex track is **PAUSED by user**, not auto-activated by this merge. The resulting-main push CI `38040736709` has now passed all three jobs. **No further implementation/automated-CI gate remains in this fixed 8/8 campaign.** The next separate line is the user-paused physical Codex agent: the NEW exact validated Finding35 #302 Windows artifact is `narro-m7-physical-windows-x64` ID `11667875086` (CI `38044923348`), with visual artifact `11667284635`. Verify its actual hashes before physical launch; the preceding #301 artifact is a superseded but historically green candidate. Do not restart the paused physical agent without user direction.
 
@@ -275,7 +275,7 @@ This newer checkpoint supersedes older physical-OPEN text only for its explicitl
 - **Roadmap unchanged: 3/10 mandatory milestones** (M2–M4). M1/M5/M6/M7/M8/M9 required gates remain; M10 blocked, M11 dormant.
 
 
-## Current authoritative state — project continuation reconciled 2026-10-06
+## HISTORICAL — Current authoritative state — project continuation reconciled 2026-10-06
 
 This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
 
@@ -324,7 +324,7 @@ This is an **independently owned process/CI-monitoring track**, not active produ
 - NER-004 prevention rule strengthened on main; durable evidence: `work-log/2026-10-09-chatgpt-ci-learning-observed-gaps-and-regression.md` plus earlier `work-log/2026-10-09-chatgpt-ci-recurrence-learning-merge-closure.md`. No duplicate risk family. CI-learning PRs **do not change the app source-batch progress denominator**.
 - **Infra NEXT:** inspect precise Windows result `37933752726` on exact head `82ff3bf07997f09588f21a1324070afd2e834880`, correct own-scope errors only; on full PASS check PR/head/main overlap and merge with expected-head guard, verify both blobs and leave a new immutable closure log. Production `CI Failure Learning` daily/dispatch scan, GitHub issue creation/deduplication are still **NOT RUN/NOT VERIFIED** (first schedule 2026-10-10 at 04:19 UTC), not a real end-to-end PASS. Do not claim zero failures from unobserved scanner output.
 
-## NEXT AGENT ACTION — ChatGPT implementation, Codex physical paused (2026-10-09)
+## HISTORICAL — NEXT AGENT ACTION — ChatGPT implementation, Codex physical paused (2026-10-09)
 
 **M8 B57 source candidate 2026-10-09:** user asked implementation throughput, not CI polling. #300 `implementation/m8-b57-static-preference-info-glyphs-20261009` exact head `9a393ee5be8741d442fb36e472dbb1e97b6b5599` adds noninteractive aria-hidden information markers to four selected General/Blitz Panel labels, existing-token CSS, and regression in `scripts/test-ui-theme-settings.mjs`. Deterministic source contract checks PASS, actual Node/TS/Windows checks **NOT RUN**, Actions **NOT CHECKED**, no merge. Canonical SS-C07 confirms *several* info markers but not exact inventory or tooltip mechanics; source parity remains OPEN. Shared `PreferenceSettingsSections.tsx` overlaps #288/#295/#298: reconcile current main and validate replacement head before merge. Documentation `work-log/2026-10-09-chatgpt-m8-b57-preference-info-glyphs-code-submitted.md`. This candidate does NOT advance completed-implementation X. Continue independent code without waiting on Actions.
 
@@ -397,7 +397,7 @@ This is an **independently owned process/CI-monitoring track**, not active produ
 
 **Physical-only:** defer C4/Time's Up/monitor DPI/pending native focus/motion and OS sounds to final consolidated Codex physical build, exactly as user requested; preserve their failed/partial/not-run states and immutable evidence.
 
-## PHYSICAL-ONLY HANDOFF — latest CI1046 batch closed; resume only when that agent is restarted
+## HISTORICAL — PHYSICAL-ONLY HANDOFF — latest CI1046 batch closed; resume only when that agent is restarted
 
 The current accepted/failed/partial CI1046 outcomes are recorded at the top of this HANDOFF and `work-log/evidence/ci1046-physical-20261008/README.md`. The previous NEXT action to run this same bounded session was superseded by its completed capture/analysis; **do not replay that batch as though it were not performed**. CI1046/run `37677630228`, source `515b0f9a9df5cdf1a67e2b879047ee6551ae6dec`, merged source `c389148b9edc56dd616e6c95a32b31d52cf79639`, artifact id `11508639865` are historical exact-build evidence, not a new source-code baseline after documentation commits. The physical agent should resume its exact still-open subset and evidence-backed failures, not repeat PASS observations or take over unrelated programmatic work.
 
