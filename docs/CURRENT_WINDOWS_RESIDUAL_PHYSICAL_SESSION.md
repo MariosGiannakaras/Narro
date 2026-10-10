@@ -1,12 +1,18 @@
 # Current Windows residual physical session
 
+## 2026-10-10 latest-candidate supersession — physical gate still PAUSED
+
+The historical CI1046 details below describe the **2026-10-08 physical acceptance baseline**, not the currently newest executable. The newest source candidate now includes Finding35 visible Time's Up from [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302), accepted exact head `601431bce4d4453d5a6c1a8624901ec7baf2eb58`, all three [Windows CI run 38044923348](https://github.com/MariosGiannakaras/Narro/actions/runs/38044923348) jobs **SUCCESS**, guarded squash merge `797d0580d89a3a5ef0ff5b561e941d078bb2407f` and **6/6 source/test blob identity**. Latest production-config physical candidate is `narro-m7-physical-windows-x64`, **artifact ID `11667875086`**, same CI run. Companion focus runtime visual artifact `11667284635`. **New ZIP/EXE hashes NOT CHECKED** here: download the exact artifact and verify hashes before native launch; never reuse the old CI1046/PR301 binary as new Finding35 correction evidence.
+
+The user-paused consolidated Windows Codex session is **not restarted** by CI completion. Physical Finding35 and C4 previous FAIL remain historical/unresolved until the current candidate is actually tested in continuous real-Windows conditions. M6 Focus motion/hover/keyboard/success, M9 pending Add Session native focus, M1 monitor/DPI, M8 actual notification/sound remain separately OPEN. Historical physical PASS evidence below remains immutable for its exact old candidate and unaffected claims; source-comparison/M11 and mandatory milestone acceptance do not advance. Current next-action protocol in `HANDOFF.md`; merged evidence `work-log/2026-10-10-chatgpt-pr302-finding35-merged-automated-green.md`.
+
 Status: **current bounded physical/manual acceptance plan** for remaining M1/M5/M6/M7/M8/M9 gates.
 
 This plan consolidates compatible current-candidate observations onto one already validated Windows executable. It does **not** reopen historical accepted gates and does **not** authorize a duplicate build merely to run manual acceptance.
 
-## Exact reusable candidate
+## Historical exact CI1046 candidate (superseded for latest code)
 
-Use the exact full-green CI1046 production physical candidate:
+The 2026-10-08 source/physical comparison used the exact full-green CI1046 production physical candidate:
 
 - Windows CI: `37677630228` / CI1046
 - exact workflow head: `515b0f9a9df5cdf1a67e2b879047ee6551ae6dec`
@@ -18,7 +24,7 @@ Use the exact full-green CI1046 production physical candidate:
 - NSIS SHA-256: `714c3c3d99ea9d820a572c64f3df05d108854d31043801111848c1918b997a56`
 - MSI SHA-256: `851f57b27dffb9aa194fc9176696f4a93d35be0ee2b3871e0f85313321886af1`
 
-PR248 exact-head CI1046 is full green and the resulting-main squash merge is 18/18 source/test blob-identical to that validated head. Later changes through this repin are Markdown/process/evidence only. Historical unaffected evidence remains valid; use this CI1046 executable for PR248-affected and compatible remaining observations rather than rebuilding again.
+PR248 exact-head CI1046 is full green and the resulting-main squash merge is 18/18 source/test blob-identical to that validated head. Later post-CI1046 source changes (notably #301 and #302) supersede this executable for affected claims. Historical unaffected evidence remains valid; do **not** use this CI1046 executable for current Finding35 or the consolidated latest-build native session.
 
 Before starting, verify the executable SHA-256. Record the active display topology, Windows scale on each display, animation preference, Narro theme, and any preference intentionally changed for the run. Restore reversible OS/Narro settings after the relevant observation.
 
