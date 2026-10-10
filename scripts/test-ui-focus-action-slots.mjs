@@ -114,6 +114,10 @@ invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
   && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
   "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500')
+  && focusedFixture.includes("revealDeadline = performance.now() + 1_500"),
+  "B49 Edge virtual-time budget must exceed asynchronous focus/opacity settlement before snapshot");
+
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedFixture.includes('"live-actions-focus"')
     && focusedFixture.includes("dataset.focusActionRevealPass"),
