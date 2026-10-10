@@ -1,16 +1,18 @@
 # TODO.md
 
-## CURRENT pre-Codex implementation checkpoint — 2026-10-10 (6/8; #301 retry)
+## CURRENT pre-Codex implementation checkpoint — 2026-10-10 (8/8)
 
-**6/8** I01–I06 exact-head full Windows CI PASS and guarded merged; **I07 B49 and I08 B63** are jointly pending in original PR #301. Current head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, CI `38037669076` **IN PROGRESS/NOT PASS** at recorded checkpoint. No manual/native Codex PASS, optional M11 dormant.
+**8/8 validated-and-merged implementation units I01–I08; coding campaign COMPLETE, physical Codex gates OPEN.** I07 B49 and I08 B63 both integrated in existing PR [#301](https://github.com/MariosGiannakaras/Narro/pull/301): exact head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, all three Windows CI jobs **SUCCESS** in [run 38037669076](https://github.com/MariosGiannakaras/Narro/actions/runs/38037669076), expected-head guarded squash merge `f921d1e1c716e1c9404265604f23432c19949dfe`. Independently verified **16/16 PR source/test file Git blob SHAs identical** in resulting executable main and accepted head; workflow/config unchanged. No remaining open implementation PR at merge checkpoint.
 
-Previous CI `38036152746` green validation/fast, Windows screenshot `focus-panel-success-light` failed `Focused queued title tooltip did not open before containment measurement`. **Root cause:** B63 success intentionally displays an `inert` queue until Next Task/Close, but the generic queued-title fixture expected that inert title to take focus and open a tooltip. Kept ordinary tooltip/geometry validation; success fixture instead verifies inert ancestor, rejected programmatic focus, original row geometry and no overflow. Windows visual validator requires actual success queue inert marker and cheap preflight checks the contract. Immutable record: `work-log/2026-10-10-chatgpt-pr301-success-inert-queue-visual-fixture-fix.md`. Merge only exact green head with expected-head guard, verify resulting main, then count I07+I08 jointly complete **8/8** before Codex Windows physical handoff.
+**Resulting-main push CI:** [run 38040736709](https://github.com/MariosGiannakaras/Narro/actions/runs/38040736709) **IN PROGRESS / not yet a claimed PASS** at first post-merge inspection. Recheck actual run and record result when settled; this is not new open coding work. Current main may advance through documentation-only `[skip ci]` commits without changing accepted source tree.
+
+**Next separate track (not included in X/Y):** user restarts paused Codex for **consolidated real Windows physical validation** on the exact accepted production-config packaged candidate `narro-m7-physical-windows-x64`, run `38037669076`, artifact ID `11665317023`. Physical gates still OPEN: M6 motion/new B49+B63 Focus hover/keyboard/success/native idle rest, M7 C4 Timer→Panel clip and Finding35 Time's Up label, M9 Finding29 pending Add Session focus, M1 Finding27 DPI/monitor, M8 OS notifications/sounds. Old CI1046 physical evidence remains immutable, not replacement-code PASS. Canonical Blitzit source parity separate; optional M11 requires explicit activation and remains dormant. Approved user-owned List Editor spectrum/color/image/218-icons untouched. Exact handoff log `work-log/2026-10-10-chatgpt-eight-of-eight-pr301-merged-codex-physical-handoff.md`.
 
 ## Fixed pre-Codex implementation inventory — 2026-10-09 user X/Y request
 
 
 
-**Progress: 6/8 validated and merged implementation units (I01 #280, I02 #286, I03 #295, I04 #298, I05 #299, I06 #300).** This is the complete currently evidence-backed **coding/CI integration queue** before handing the latest coherent candidate to the separately paused Codex physical agent. Mark X only after exact-head required CI PASS, guarded merge, and necessary main/source validation. PR opened/code submitted/old CI PASS does not count. No Codex native test, source-visual M11 comparison, or release M10 is counted; do not alter Y without a newly demonstrated code gap or product decision, and explain any change.
+**Progress: 8/8 validated and merged implementation units (I01 #280, I02 #286, I03 #295, I04 #298, I05 #299, I06 #300, I07 and I08 jointly #301).** This is the complete currently evidence-backed **coding/CI integration queue** before handing the latest coherent candidate to the separately paused Codex physical agent. Mark X only after exact-head required CI PASS, guarded merge, and necessary main/source validation. PR opened/code submitted/old CI PASS does not count. No Codex native test, source-visual M11 comparison, or release M10 is counted; do not alter Y without a newly demonstrated code gap or product decision, and explain any change.
 
 - [x] **I01 — M6 B67 #280:** signed, warm negative overtime clock in Focus/Floating; forward-reconcile older failed CI branch with modern main and #299 action changes, exact-head CI/merge.
 - [x] **I02 — M9 B32 #286:** Sessions detail focus/modal lifecycle and keyboard state, fix verified Windows fixture capture cause, exact-head CI/merge.
@@ -18,8 +20,8 @@ Previous CI `38036152746` green validation/fast, Windows screenshot `focus-panel
 - [x] **I04 — M8 B22 #298:** accessible IANA/GMT timezone chooser, preserve newer Preferences and tested save behavior, exact-head CI/merge.
 - [x] **I05 — M6 B50 #299:** replace ordinary Pause with contextual Extend only at Time's Up, five real slots, align all fixtures/validators and Windows CI/merge.
 - [x] **I06 — M8 B57 #300:** Preferences information markers, reconcile after other Preferences edits, exact-head CI/merge.
-- [ ] **I07 — M6 B49:** evidenced Focus active-card hover/focus action grammar with accessible stable hit targets; coordinate with I05 and I01; automated CI/merge.
-- [ ] **I08 — M6 B63:** in-place Focus success composition preserving queue/header/next-task/committed ledger; depends on active-card composition I07; automated CI/merge.
+- [x] **I07 — M6 B49:** evidenced Focus active-card hover/focus action grammar with accessible stable hit targets; coordinate with I05 and I01; automated CI/merge.
+- [x] **I08 — M6 B63:** in-place Focus success composition preserving queue/header/next-task/committed ledger; depends on active-card composition I07; automated CI/merge.
 
 **Prevention:** inspect exact failure history before code change; adjust stale source-string/fixture acceptance tests in the *same PR* where UI state changes; preflight matching presentation states (ordinary, paused, time_up, overtime, both themes) before costly Windows captures; preserve failed visual artifacts and failure diagnostics; do not weaken acceptance criteria to mask real defects; retain user-approved List Editor unchanged. Record NOT RUN precisely when no local runner exists.
 
