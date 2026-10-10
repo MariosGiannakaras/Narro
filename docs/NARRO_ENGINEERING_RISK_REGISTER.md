@@ -97,7 +97,12 @@ Evidence:
 
 CI #840's first capture attempts stopped before the real transition endpoint; later harness work changed the sampler/end-checkpoint behavior while the product transition source remained unchanged. CI #952 similarly exhausted a 2500 ms virtual capture budget after the sequential integration suite grew; the correction expanded only that scenario's harness budget.
 
+**2026-10-10 PR301 B49/B63 prevention:** (a) When a rendered fixture uses an asynchronous bounded style/focus settling wait, the *corresponding Edge virtual-time screenshot budget must exceed that deadline*, and a cheap preflight must assert the relationship. The B49 light screenshot on failed run `38033695809` captured a visible focused icon/pill but before the fixture's readiness marker because Edge budget was only 600ms (minimum 800ms) against a 1500ms fixture wait; the source-only correction raised exactly that scenario's capture budget to 2500ms, without weakening opacity/focus/1px geometry acceptance. (b) When production deliberately marks an on-screen queue `inert` during a committed-success state, a generic queued-title tooltip test cannot require keyboard focus there: test **rejected focus + intact geometry in the inert state** and preserve ordinary title tooltip assertions elsewhere. The first failing step in run `38036152746` proved this contradiction; corrected B63 test semantics then passed exact-head Windows CI `38037669076`. Always distinguish early screenshot from product UI failure, and preserve failed PNG+DOM artifacts. These examples strengthen the existing NER-004 harness/state-conditioned fixture family; no new risk ID or global threshold relaxation needed.
+
 Evidence:
+- `work-log/2026-10-10-chatgpt-b49-edge-virtual-time-budget-root-cause.md`
+- `work-log/2026-10-10-chatgpt-pr301-success-inert-queue-visual-fixture-fix.md`
+- [PR301 exact green Windows run 38037669076](https://github.com/MariosGiannakaras/Narro/actions/runs/38037669076)
 - current `STATUS.md` CI #840 / PR215 history
 - `work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md`
 
