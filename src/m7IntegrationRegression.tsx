@@ -559,6 +559,26 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }];
   const scheduled = {...tasks[3], scheduledLocalDate: "2026-10-06"};
   const renderBoard = (key: string) => flushSync(() => root.render(<ListBoard key={key} target={{kind:"list",id}} />));
+  // Q18: actual mounted ListBoard initially requests a snapshot. A newer
+  // cross-window board event can resolve before that old initial promise.
+  // The initial read must never restore an obsolete two-task projection.
+  const staleReadStart = focusBoardReadWaiters.length;
+  boardTasks = [tasks[0], tasks[1]];
+  const staleInitialBoard = board({kind: "list", id});
+  deferFocusBoardReads = true;
+  renderBoard("initial-event-inversion"); await wait(); await wait();
+  assert(focusBoardReadWaiters.length === staleReadStart + 1,
+    "Q18 real ListBoard initial request was not delayed");
+  boardTasks = [tasks[0], tasks[1], tasks[2]];
+  deferFocusBoardReads = false;
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(container.textContent?.includes(tasks[2].title),
+    "Q18 new cross-window invalidation response was not rendered");
+  focusBoardReadWaiters[staleReadStart](staleInitialBoard); await wait(); await wait();
+  assert(container.textContent?.includes(tasks[2].title),
+    "Q18 stale initial board read replaced the newer event snapshot");
+  flushSync(() => root.render(<div data-q18-inversion-done="true" />)); await wait();
+  boardTasks = [...tasks];
   const shell = (taskId: string) => container.querySelector<HTMLElement>('[data-board-drag-task="' + taskId + '"]')!;
   const sendPointer = (element: EventTarget, type: string, x: number, y: number, pointerId = 7) =>
     element.dispatchEvent(new PointerEvent(type, {bubbles:true, cancelable:true, isPrimary:true, pointerId,

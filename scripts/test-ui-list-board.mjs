@@ -12,6 +12,13 @@ const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
 const blockingRead = read("src-tauri/src/blocking_read.rs");
 const component = read("src/ListBoard.tsx");
+const m7Rendered = read("src/m7IntegrationRegression.tsx");
+requireText(component, "const initialRevision = externalRefreshRevisionRef.current;",
+  "Q18 ListBoard initial read shares external invalidation revision clock");
+requireText(component, "if (!disposed && initialRevision === externalRefreshRevisionRef.current)",
+  "Q18 stale initial success/error must not overwrite refreshed board");
+requireText(m7Rendered, "Q18 stale initial board read replaced the newer event snapshot",
+  "Q18 mounted ListBoard out-of-order read test must remain in Windows M7 fixture");
 const picker = read("src/BoardListPicker.tsx");
 const pickerCss = read("src/boardListPicker.css");
 const taskCard = read("src/TaskCard.tsx");
