@@ -1,6 +1,12 @@
 # TODO.md
 
-## CURRENT 2026-10-10 Group07/07 A14 CI checkpoint — implementation 13/14
+## CURRENT COMPREHENSIVE FROM 06:00 EEST AUDIT — 2/70 frozen review units (2026-10-10)
+
+- [ ] **Comprehensive audit tracker:** `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`. Exact S0 GitHub main `71536805de34343e6cf9a809557b6d6902e25c48`: 168 commits =17 merged code/test PRs +151 docs commits, 104 changed paths =54 source/test/config +50 Markdown. Plus open PR320 and closed unmerged evidence PR308, giving **19 PR units +50 Markdown paths +1 integrated candidate =70 fixed audit units**. Completed **2/70** review (P07 #308 and P18 #319); P19 #320 in review. Do not count previously accepted source PRs without independent deep review, do not increment for chats. Exact immutable evidence `work-log/2026-10-10-chatgpt-comprehensive-0600-audit-frozen-inventory.md`.
+- [ ] **A14 PR320 0/1 implementation:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation/fast SUCCESS, Windows-candidate IN PROGRESS/NOT PASS at last check. On full green guarded merge, 5/5 resulting-main changed blob identity and close P19. If red inspect actual first failing step. Do not infer actual native Downloads effect from Node mock.
+- [ ] **Other audited source/doc/integration obligations:** P01–P17 independently review in root-cause/dependency order and T/E/L 50 files per frozen tracker; audit combined latest production Windows binary once accepted source merged. Older PR316 candidate is not representative of later A11–A14. User-paused physical Codex remains OPEN, roadmap 3/10, M11 dormant.
+
+## HISTORICAL 2026-10-10 Group07/07 A14 CI checkpoint — implementation 13/14
 
 - [ ] **A14 PR #320, 0/1:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, [CI 38077203921](https://github.com/MariosGiannakaras/Narro/actions/runs/38077203921) validation and fast SUCCESS, Windows candidate IN PROGRESS (visual capture stage, prior Rust/test steps SUCCESS); NOT ACCEPTED or merged. After full PASS guarded-merge exact head and verify 5/5 changed blobs in resulting main; if FAIL inspect first causally failing Windows step and repair only proven issue.
 - [x] **A13 PR #319, 1/1:** guarded-merged `4ff95925fd8c2216198809210e5188f879f7023b`, three required Windows CI jobs PASS, actual light/dark Focus popup screenshot verified, 3/3 merged blob identity.
