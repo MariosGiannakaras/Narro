@@ -25,11 +25,13 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { BoardListPicker } from "./BoardListPicker";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
 import { beginFocusTaskPointerDrag } from "./focusTaskPointerDrag";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
+import type { FocusListOption } from "./useFocusListCatalog";
 import { TaskNotes } from "./TaskNotes";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
@@ -46,11 +48,6 @@ import { waitForPresentedFrame } from "./presentationFrame";
 import "./focusPanel.css";
 
 const ALL_LISTS_VALUE = "__all_lists__";
-
-type FocusListOption = {
-  id: string;
-  title: string;
-};
 
 type FocusChangeListState = {
   task: ListBoardTask;
@@ -383,10 +380,6 @@ function FocusTaskRow({
   );
 }
 
-function targetFromValue(value: string): ListBoardRequestTarget {
-  return value === ALL_LISTS_VALUE ? { kind: "all" } : { kind: "list", id: value };
-}
-
 function targetKey(target: ListBoardRequestTarget): string {
   return target.kind === "all" ? "all" : `list:${target.id}`;
 }
@@ -684,7 +677,7 @@ export function FocusPanel({
   const selectorOptions = useMemo(() => {
     const options = [...lists];
     if (!catalogLoaded && board?.target.kind === "list" && board.target.id && !options.some((list) => list.id === board.target.id)) {
-      options.push({ id: board.target.id, title: board.target.title });
+      options.push({ id: board.target.id, title: board.target.title, color: board.target.color });
     }
     return options;
   }, [board, lists, catalogLoaded]);
@@ -1089,22 +1082,21 @@ export function FocusPanel({
   return (
     <main className="focus-panel" data-focus-panel="main" data-focus-target={board.target.kind}>
       <header className="focus-panel__topbar" inert={Boolean(completionSuccessContent)}>
-        <label className="focus-panel__selector-wrap">
-          <span className="sr-only">Focus list</span>
-          <select
-            className="focus-panel__selector"
-            aria-label="Focus list"
-            data-focus-list-selector="true"
-            value={selectedValue}
-            disabled={fixtureMode || mutationPendingTaskId !== null || addTaskPending}
-            onChange={(event) => setFocusTarget(targetFromValue(event.currentTarget.value))}
-          >
-            <option value={ALL_LISTS_VALUE}>All</option>
-            {selectorOptions.map((list) => (
-              <option key={list.id} value={list.id}>{list.title}</option>
-            ))}
-          </select>
-        </label>
+        <div className="focus-panel__selector-wrap">
+          <BoardListPicker
+            variant="focus"
+            selectedTarget={selectedValue}
+            options={selectorOptions.map((list) => ({
+              id: list.id,
+              title: list.title,
+              color: list.color ?? null,
+              iconAsset: list.iconAsset ?? null,
+              iconId: list.iconId ?? null,
+            }))}
+            disabled={mutationPendingTaskId !== null || addTaskPending || !presentationActive}
+            onTargetChange={fixtureMode ? undefined : setFocusTarget}
+          />
+        </div>
         <h1 className="focus-panel__title">Today</h1>
         <div className="focus-panel__quick-controls" aria-label="Focus Panel quick controls">
           <Tooltip content="Preferences">
