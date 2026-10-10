@@ -1,0 +1,39 @@
+name: Temporary CI1046 raw physical recordings export
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/ci1046-evidence-export.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export-immutable-ci1046-recordings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Verify source artifact inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=work-log/evidence/ci1046-physical-20261008
+          test -s "$base/Narro-M7-Logs/focus-recovery-06.mkv"
+          test -s "$base/Narro-M7-Logs/focus-05.mkv"
+          test -s "$base/Narro-M7-Logs/time-up-09.mkv"
+          test -s "$base/Narro-M7-Logs/continuous-review-index.json"
+          find "$base/Narro-M7-Logs" -maxdepth 1 -name '*.mkv' -printf '%f %s bytes\n'
+          sha256sum "$base/Narro-M7-Logs/"*.mkv
+      - name: Export exact original 2026-10-08 recordings
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-ci1046-original-full-native-videos
+          retention-days: 2
+          compression-level: 0
+          if-no-files-found: error
+          path: |
+            work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/*.mkv
+            work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/continuous-review-index.json
+            work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/chronological-actions.json
+            work-log/evidence/ci1046-physical-20261008/file-manifest.json
