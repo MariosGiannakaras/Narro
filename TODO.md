@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — S0 AUDIT 70/70 REVIEWED, POST-AUDIT CODE/CI QUEUE ACTIVE
+## CURRENT 2026-10-11 — POST-AUDIT EXACT PR HEADS #321–#323 (0/3 SOURCE/CI ACCEPTED)
+
+- [ ] **Q01 PR #321** head `12b3768c4fc42aba3558146a571ca8d283edfe4b`, run `38090509904`: validation SUCCESS, fast SUCCESS, **Windows IN PROGRESS/NOT PASS**. Same Edge CDP page PNG+DOM readiness; actual Focus rail pixel delta validated against running. First run reference-before-initialization fixed. Guarded merge/blob proof outstanding.
+- [ ] **Q02 PR #322** head `f25bf1e43a9e3776a3449ad659c5c7c30a34eebe`, run `38090642758`: validation SUCCESS, fast SUCCESS, **Windows IN PROGRESS/NOT PASS**. Immediate coordinator owner, actual transpiled Next/Break/Close handlers tested with deferred IPC; original microtask test race fixed. Guarded merge/blob proof outstanding.
+- [ ] **Q18 PR #323** head `0e76b40675776cf469385de9152e154c65ba752d`, run `38091028848`: validation SUCCESS, **fast IN PROGRESS/NOT PASS**, Windows not yet PASS. Shared read revision prevents initial ListBoard result replacing newer event refresh. Mounted M7 inversion regression. Guarded merge/blob proof outstanding.
+- [ ] **Q12 integrated combined Windows candidate/hash** after accepted PR merges (if CI red fix only first evidenced cause). Include #319/#320 and current future accepted source; real latest ZIP/EXE/installer SHA256 and manual/Blitzit parity still NOT RUN. Frozen S0 review 70/70, prior A01–A14 14/14 code/CI accepted, roadmap 3/10 fully accepted; physical Codex USER-PAUSED, M10 blocked, M11 dormant. Immutable PR checkpoint `work-log/2026-10-11-chatgpt-post-audit-q01-q02-q18-active-pr-ci-checkpoint.md`.
+
+## AUDIT BASELINE — S0 70/70 REVIEWED (NOT VALIDATED BINARY PASS)
 
 - [x] **Frozen S0 retrospective source/evidence review complete 70/70:** 19/19 PR units (18/18 code/test + #308 evidence-only), 50/50 Markdown, I01 1/1 `AUDITED_WITH_COMBINED_CI_NOT_VERIFIED`. Exact ledger `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, I01 `work-log/2026-10-11-chatgpt-0600-audit-i01-current-integrated-candidate.md`. Review complete **does not mean 70 green validation checks**.
 - [ ] **Q01 priority:** B49 screenshot proof failure: #301/#320 focused-action screenshot PNG byte-identical to ordinary running in both themes despite HTML focus/DOM PASS; inspect real fixture/capture sequencing + screen pixel distinction, narrow regression/source repair, exact-head required Windows CI, guarded merge. Native/source parity independent.
