@@ -250,7 +250,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     flushSync(() => selector().click());
     const option = Array.from(container.querySelectorAll<HTMLButtonElement>('[data-focus-list-option]'))
       .find(candidate => candidate.dataset.focusListOption === listId);
-    assert(option, `Focus list option ${listId} unavailable`);
+    if (!option) throw new Error(`Focus list option ${listId} unavailable`);
     flushSync(() => option.click());
   };
   renderFocus(); await wait(); await wait();
