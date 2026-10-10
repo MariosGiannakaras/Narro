@@ -36,6 +36,7 @@ $preview = $null
 $locationPushed = $false
 $scenarios = @(
     @{ Name = "running"; Suffix = ""; Query = ""; VirtualTimeBudgetMs = 0 },
+    @{ Name = "selector-open"; Suffix = "-selector-open"; Query = "&scenario=selector-open"; VirtualTimeBudgetMs = 800 },
     @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics"; VirtualTimeBudgetMs = 0 },
     @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break"; VirtualTimeBudgetMs = 0 },
     @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up"; VirtualTimeBudgetMs = 0 },
