@@ -871,6 +871,8 @@ export function ListBoard({
   const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
   const [deletePending, setDeletePending] = useState(false);
   const deleteInFlightRef = useRef(false);
+  const createInFlightRef = useRef(false);
+  const duplicateInFlightRef = useRef(false);
   const removeRecurringInFlightRef = useRef(false);
   const quickRemoveScheduleInFlightRef = useRef(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -1238,7 +1240,8 @@ export function ListBoard({
   };
 
   const duplicateTaskFromBoard = async (task: ListBoardTask) => {
-    if (mutationPendingTaskId || mutationRefreshBlocked) return;
+    if (mutationPendingTaskId || mutationRefreshBlocked || duplicateInFlightRef.current) return;
+    duplicateInFlightRef.current = true;
     setMutationPendingTaskId(task.id);
     setMutationError(null);
     setMutationStatus("");
@@ -1257,6 +1260,7 @@ export function ListBoard({
     } catch (failure: unknown) {
       setMutationError(`Could not duplicate ${task.title}. ${formatInvokeError(failure)}`);
     } finally {
+      duplicateInFlightRef.current = false;
       setMutationPendingTaskId(null);
     }
   };
@@ -1495,6 +1499,7 @@ export function ListBoard({
       || editorState?.kind !== "create"
       || editorMutationPending
       || mutationPendingTaskId
+      || createInFlightRef.current
     ) return;
     const title = editorState.title.trim();
     if (!title) {
@@ -1515,6 +1520,7 @@ export function ListBoard({
     const estSeconds = parsedEstimate.seconds ?? automaticEstimate?.seconds ?? null;
     const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
 
+    createInFlightRef.current = true;
     setEditorMutationPending(true);
     setMutationError(null);
     let createdTaskId: string;
@@ -1529,6 +1535,7 @@ export function ListBoard({
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
       setMutationStatus(`Could not add ${persistedTitle}.`);
+      createInFlightRef.current = false;
       setEditorMutationPending(false);
       return;
     }
@@ -1547,6 +1554,7 @@ export function ListBoard({
       setEditorState(null);
       handleCommittedRefreshFailure(failure);
     } finally {
+      createInFlightRef.current = false;
       setEditorMutationPending(false);
     }
   };
