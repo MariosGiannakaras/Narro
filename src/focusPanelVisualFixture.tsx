@@ -485,6 +485,16 @@ const contract = {
   subtasks: optionalBox(".focus-panel__subtasks"),
   subtaskRing: optionalBox(".focus-panel__subtask-ring"),
   actions: optionalBox(".focus-panel__live-actions"),
+  // State-matched action-rail pixel bounds for focused versus resting PNGs.
+  // This is measured from the actual production element, never hard-coded.
+  focusActionPaintRegion: (() => {
+    const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
+    if (!rail) return null;
+    const rect = rail.getBoundingClientRect();
+    return { x: Math.floor(rect.left), y: Math.floor(rect.top),
+      width: Math.ceil(rect.right) - Math.floor(rect.left),
+      height: Math.ceil(rect.bottom) - Math.floor(rect.top) };
+  })(),
   actionLabels: Array.from(document.querySelectorAll<HTMLButtonElement>(".focus-panel__live-actions > button"), (button) => {
     const rect = button.getBoundingClientRect();
     const style = getComputedStyle(button);
