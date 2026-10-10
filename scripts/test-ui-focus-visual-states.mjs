@@ -14,6 +14,7 @@ const styles = read("src/focusVisualStates.css");
 const actionSlots = read("src/focusActionSlots.css");
 const fixture = read("src/focusPanelVisualFixture.tsx");
 const capture = read("scripts/capture-focus-panel-fixtures.ps1");
+const validator = read("scripts/validate-focus-visual-state-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 invariant(
