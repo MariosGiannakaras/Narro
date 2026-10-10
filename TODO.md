@@ -1,6 +1,12 @@
 # TODO.md
 
-## CURRENT 2026-10-10 Group 06/06 A13 accepted; A14 Windows CI pending (13/14 source/CI)
+## CURRENT 2026-10-10 Group07/07 A14 CI checkpoint — implementation 13/14
+
+- [ ] **A14 PR #320, 0/1:** exact head `67814cf144ac0e60d9e146f8485cffc56724914e`, [CI 38077203921](https://github.com/MariosGiannakaras/Narro/actions/runs/38077203921) validation and fast SUCCESS, Windows candidate IN PROGRESS (visual capture stage, prior Rust/test steps SUCCESS); NOT ACCEPTED or merged. After full PASS guarded-merge exact head and verify 5/5 changed blobs in resulting main; if FAIL inspect first causally failing Windows step and repair only proven issue.
+- [x] **A13 PR #319, 1/1:** guarded-merged `4ff95925fd8c2216198809210e5188f879f7023b`, three required Windows CI jobs PASS, actual light/dark Focus popup screenshot verified, 3/3 merged blob identity.
+- [ ] **Current combined production Windows candidate:** not yet validated for A11–A14; PR316 artifact older. Codex physical user-paused, roadmap 3/10. Group 07 evidence `work-log/2026-10-10-chatgpt-chunked-audit-group07-pr320-window-ci-checkpoint.md`.
+
+## HISTORICAL 2026-10-10 Group 06/06 A13 accepted; A14 Windows CI pending (13/14 source/CI)
 
 - [x] **A13 Focus popup long title 1/1 SOURCE/CI:** PR #319 exact head `c3197deca21f4761d55243de901381c5f299804d`, all three CI `38072910111` jobs SUCCESS; downloaded artifact **11679005142**, actual dark/light screenshots directly visually reviewed plus DOM geometry/real ellipsis, guarded squash merge `4ff95925fd8c2216198809210e5188f879f7023b`, **3/3 resulting-main blobs match**. Physical native/source exact parity separate and not claimed. Evidence `work-log/2026-10-10-chatgpt-chunked-audit-group06-pr319-visual-accepted-merged.md`.
 - [ ] **A14 Reports CSV/PDF single-flight 0/1:** PR #320 latest head `67814cf144ac0e60d9e146f8485cffc56724914e`, CI `38077203921` validation + fast SUCCESS, windows-candidate **IN PROGRESS/NOT PASS** at latest actual check. Require final success, expected-head guarded merge, resulting-main changed-blob identity; if red, inspect actual failing Windows step/log. See Group 05 immutable log.
