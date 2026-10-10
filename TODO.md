@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; 5/18 code PRs (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 7/70 reviewed; 6/18 code PRs (2026-10-10)
+
+- [x] **P04 #305 synchronous FocusLiveActions gate AUDITED_SCOPE_PASS:** PR head `73f95f5ce1efa2995025127890b5624aa8d9a814`, Windows CI `38047897329` 3/3 SUCCESS, original guarded merge `9203bf7ec3cd096063059cef2e4326c1199744b6`, 4/4 identical Git blobs. Real exclusive per-mounted source gate protects Break/Pause/Resume/Extend/Skip/Done before awaited reads and releases on failure; test imports real gate, exercises duplicate and concurrent different-action deferred mocks and error recovery; React handler/native writes NOT directly executed. Latest main retains code and preflight registration. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p04-pr305-focus-action-gate.md`.
+- [ ] **Open P02-F02 separate coordinator success owner:** `FocusSurfaceCoordinator.tsx` Next Task and Take Break use only React pending state; P04 gate is NOT shared. Source-proven same-render admission; actual native duplicate writes NOT PROVEN. Deferred actual-handler race test and narrow synchronous shared coordinator owner still needed if supported.
+- [ ] **Open P02-F01:** focused-action screenshot from actual Edge CI byte-equal running capture even though DOM reports PASS. No new evidence overturns previous finding.
+- [ ] **Next P05 #306 source audit:** Focus anchored list picker menu keyboard/selection/target identity, real screenshots and crosscheck later #319 long-title fix. After, proceed dependency order.
+- [ ] **Remaining frozen review:** code 6/18, evidence-only PR308 1/1, docs 0/50, combined Windows native candidate 0/1, total 7/70. A01–A14 source/CI 14/14 accepted; roadmap 3/10 physically/source accepted; physical Codex user-paused, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; 5/18 code PRs (2026-10-10)
 
 - [x] **P03 #302 Finding35 source/static visual audit:** exact head `601431bce4d4453d5a6c1a8624901ec7baf2eb58`, CI `38044923348` 3/3 PASS, merge `797d0580d89a3a5ef0ff5b561e941d078bb2407f`, 6/6 merged blobs. Actual four compact/expanded light/dark screenshots **directly reviewed** from PR302 artifact 11667603873 and compared to normal running and latest #320 artifact 11679264268. Warm `Time's Up` genuinely visible under `00:00`, pixel-different from running and nonclipped 55×12 label in native-height 340×110/340×300 fixtures. **Physical real WebView2 time_up/Extend natural expiry still OPEN** and original Blitzit direct Floating Time's Up pixels unavailable. Work log `work-log/2026-10-10-chatgpt-0600-audit-p03-pr302-finding35-time-up.md`.
 - [ ] **Next code audit P04 #305:** synchronous FocusLiveActions mutation owner/transaction and tests; cross-check separate P02 Next Task/Rest synchronous ownership risk.
