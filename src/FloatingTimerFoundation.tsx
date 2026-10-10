@@ -248,6 +248,7 @@ export function FloatingTimerFoundation({
     [board, liveTaskId],
   );
   const liveTimer = timer ? focusTimerPresentation(timer.runtime.timer) : null;
+  const timeUp = timer?.runtime.timer.state === "time_up";
   const progress = useMemo(() => subtaskProgress(liveTask), [liveTask]);
   const error = transitionError ?? resizeError ?? timerError ?? boardError;
   const title = liveTask?.title
@@ -394,6 +395,7 @@ export function FloatingTimerFoundation({
           >
             {title}
           </strong>
+          <span className="floating-timer-foundation__timer-stack" data-tauri-drag-region="true">
           <span
             className="floating-timer-foundation__timer timer-numerals"
             data-floating-live-timer="true"
@@ -406,6 +408,13 @@ export function FloatingTimerFoundation({
             aria-live="off"
           >
             {liveTimer?.text ?? "--:--"}
+          </span>
+          {timeUp ? (
+            <span className="floating-timer-foundation__time-up type-metadata"
+              data-floating-time-up-label="true" role="status" data-tauri-drag-region="true">
+              Time's Up
+            </span>
+          ) : null}
           </span>
         </div>
         {liveTask && timer ? (

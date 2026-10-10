@@ -152,6 +152,23 @@
   line-height: 1.2;
 }
 
+.floating-timer-foundation__timer-stack {
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.floating-timer-foundation__time-up {
+  color: var(--color-warning);
+  font-size: var(--font-size-metadata);
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .floating-timer-foundation__timer {
   width: 10ch;
   min-width: 10ch;

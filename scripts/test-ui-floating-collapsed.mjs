@@ -100,6 +100,19 @@ for (const needle of [
   invariant(timerPresentation.includes(needle), `shared timer presentation is missing ${needle}`);
 }
 
+// Finding35: the label must be visible, not only an aria-label on the 00:00 clock.
+invariant(foundation.includes('const timeUp = timer?.runtime.timer.state === "time_up"')
+  && foundation.includes('data-floating-time-up-label="true"')
+  && foundation.includes("Time's Up")
+  && css.includes(".floating-timer-foundation__time-up {")
+  && css.includes("color: var(--color-warning);"),
+  "Floating Time's Up must retain an explicit visible status without changing timer authority");
+invariant(fixture.includes('requestedState === "time-up-compact"')
+  && fixture.includes('requestedState === "time-up-expanded"')
+  && capture.includes('"time-up-compact", "time-up-expanded"')
+  && validator.includes('contract.timeUpLabelFits')
+  && validator.includes('contract.timeUpLabelText === "Time\'s Up"'),
+  "Finding35 must exercise visible nonclipped status in compact/expanded Edge captures");
 invariant(css.includes("height: 110px"), "collapsed surface must retain 110px product height");
 invariant(css.includes("border-radius: 16px"), "collapsed shell must use the calibrated 15-17px source family");
 invariant(css.includes("grid-template-columns: minmax(0, 1fr) 10ch"), "fixed compact timer accommodates signed HH:MM:SS");
@@ -123,7 +136,8 @@ invariant(fixtureHtml.includes("/src/floatingTimerVisualFixture.tsx"), "Floating
 invariant(vite.includes('floatingTimerFixture: "floating-timer-fixture.html"'), "Vite Floating Timer fixture input is missing");
 invariant(fixture.includes('dataset.floatingTimerFixtureReady = "true"'), "Floating Timer fixture readiness marker is missing");
 invariant(fixture.includes('fixtureState === "expanded"'), "fixture must retain distinct collapsed and expanded states");
-invariant(capture.includes('foreach ($state in @("collapsed", "expanded"))'), "Windows capture must cover collapsed and expanded states");
+invariant(capture.includes('foreach ($state in @("collapsed", "expanded", "time-up-compact", "time-up-expanded"))'),
+  "Windows capture must cover ordinary and Time's Up compact/expanded states");
 invariant(validator.includes("collapsed timer must be exactly 340x110"), "collapsed geometry validation is missing");
 
 invariant(
