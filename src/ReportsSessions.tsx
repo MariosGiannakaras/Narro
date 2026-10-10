@@ -165,6 +165,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [exportPending, setExportPending] = useState(false);
+  // CSV export writes a new local file; a second pre-render event must not duplicate it.
+  const exportInFlightRef = useRef(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -431,10 +433,11 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const exportSessions = async () => {
-    if (exportPending) return;
+    if (exportPending || exportInFlightRef.current) return;
     const request = currentRequest();
     if (!request) return;
 
+    exportInFlightRef.current = true;
     setExportPending(true);
     setExportError(null);
     try {
@@ -443,6 +446,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     } catch (failure: unknown) {
       setExportError(formatInvokeError(failure));
     } finally {
+      exportInFlightRef.current = false;
       setExportPending(false);
     }
   };
