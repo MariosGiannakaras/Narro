@@ -81,6 +81,7 @@
 .focus-panel__live-card[data-focus-live-card="true"] { position: relative; min-height: 210px; }
 .focus-panel__live-heading { min-height: 2.25rem; transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter); }
 .focus-panel__live-card:hover .focus-panel__live-heading,
+.focus-panel__live-card:focus-within .focus-panel__live-heading,
 .focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-heading { opacity: 0; }
 .focus-panel__live-actions {
   display: grid;
@@ -98,6 +99,7 @@
   transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
 }
 .focus-panel__live-card:hover .focus-panel__live-actions,
+.focus-panel__live-card:focus-within .focus-panel__live-actions,
 .focus-panel__live-card:has(.focus-panel__live-actions:focus-within) .focus-panel__live-actions { opacity: 1; pointer-events: auto; }
 .focus-panel__live-actions > button {
   position: relative;
