@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT FROZEN 06:00 EEST AUDIT — 54/70 (2026-10-11)
+## CURRENT 2026-10-11 — S0 AUDIT 70/70 REVIEWED, POST-AUDIT CODE/CI QUEUE ACTIVE
+
+- [x] **Frozen S0 retrospective source/evidence review complete 70/70:** 19/19 PR units (18/18 code/test + #308 evidence-only), 50/50 Markdown, I01 1/1 `AUDITED_WITH_COMBINED_CI_NOT_VERIFIED`. Exact ledger `docs/AUDIT_2026-10-10_FROM_0600_TRACKER.md`, I01 `work-log/2026-10-11-chatgpt-0600-audit-i01-current-integrated-candidate.md`. Review complete **does not mean 70 green validation checks**.
+- [ ] **Q01 priority:** B49 screenshot proof failure: #301/#320 focused-action screenshot PNG byte-identical to ordinary running in both themes despite HTML focus/DOM PASS; inspect real fixture/capture sequencing + screen pixel distinction, narrow regression/source repair, exact-head required Windows CI, guarded merge. Native/source parity independent.
+- [ ] **Q02 priority:** FocusSurfaceCoordinator post-Done Next Task / Take a Break pending-state-only same-render dispatch; execute actual deferred handler test then narrow synchronized ownership if causally needed. No proven native duplicates. Preserve timer/SQLite semantics.
+- [ ] **Q12 required current combined Windows candidate:** current runtime/source merged `7df50f61064d56a61baf9906cc606dbaa740d2c5` includes #319 selector changes + #320 Reports export guards, but distinct green PR-head candidates do NOT. #319 artifact `11679146292`, #320 `11680205014`, older #316 `11675827068` all stale for full merged tree; no current union Windows CI/ZIP/EXE hash verified. After prioritized source fixes, run exact latest-main full Windows CI and hash actual ZIP/EXE/installer; do not restart physical Codex.
+- [ ] **Q03–Q14 conditional actual-handler/regression tests** and **Q15–Q19 truth reconciliation** ordered/de-duplicated in `docs/AUDIT_2026-10-10_POST_AUDIT_ACTION_QUEUE.md`. Preserve original historical immutable logs, approved Spectrum Core/218 icon palette and all native/source-parity open gates. Source/CI accepted implementation A01–A14 14/14, mandatory fully accepted roadmap 3/10, physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+## HISTORICAL — S0 audit 54/70 checkpoint
 
 - [x] **All 19/19 PR audit units reviewed:** 18/18 code/test, one #308 evidence-only; separately A01–A14 source/CI integrated 14/14, roadmap fully source+physical complete 3/10.
 - [x] **35/50 S0 Markdown paths audited:** T01–T03, E01–E04, L01–L28. New immutable audit `work-log/2026-10-11-chatgpt-0600-audit-docs-l09-l28.md`, previous `work-log/2026-10-11-chatgpt-0600-audit-docs-t01-e04-l01-l08.md`. Stale E01/E03/E04 and T headings explicitly OPEN for **post-audit** docs reconciliation; never overwrite immutable work logs, never infer native PASS.
