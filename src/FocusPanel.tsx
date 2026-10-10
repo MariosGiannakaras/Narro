@@ -445,6 +445,9 @@ export function FocusPanel({
   const [addTaskTitle, setAddTaskTitle] = useState("");
   const [addTaskListId, setAddTaskListId] = useState("");
   const [addTaskPending, setAddTaskPending] = useState(false);
+  // Synchronous per-mounted ownership; React pending state updates after event handlers.
+  const rowMutationInFlightRef = useRef(false);
+  const addTaskInFlightRef = useRef(false);
   const [homePending, setHomePending] = useState(false);
   const [quickPreferencesOpen, setQuickPreferencesOpen] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
@@ -727,26 +730,30 @@ export function FocusPanel({
     mutation: () => Promise<void>,
     success: string,
   ) => {
-    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
+    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null
+      || rowMutationInFlightRef.current) return;
+    rowMutationInFlightRef.current = true;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
     try {
-      await mutation();
-    } catch (failure: unknown) {
-      setError(formatInvokeError(failure));
-      setMutationPendingTaskId(null);
-      return;
-    }
+      try {
+        await mutation();
+      } catch (failure: unknown) {
+        setError(formatInvokeError(failure));
+        return;
+      }
 
-    setMutationStatus(success);
-    try {
-      await refreshBoard();
-    } catch (failure: unknown) {
-      setError(
-        `Task change was saved, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
-      );
+      setMutationStatus(success);
+      try {
+        await refreshBoard();
+      } catch (failure: unknown) {
+        setError(
+          `Task change was saved, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
+        );
+      }
     } finally {
+      rowMutationInFlightRef.current = false;
       setMutationPendingTaskId(null);
     }
   };
@@ -877,7 +884,7 @@ export function FocusPanel({
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || !presentationActive || addTaskPending) return;
+    if (fixtureMode || !presentationActive || addTaskPending || addTaskInFlightRef.current) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
     if (!title) {
@@ -892,6 +899,7 @@ export function FocusPanel({
     const automaticEstimate = autoParseEstFromTitle ? parseEstimateSuffix(title) : null;
     const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
 
+    addTaskInFlightRef.current = true;
     setAddTaskPending(true);
     setError(null);
     setMutationStatus(null);
@@ -903,13 +911,22 @@ export function FocusPanel({
         estSeconds: automaticEstimate?.seconds ?? null,
         insertAtTop: false,
       });
-      await refreshBoard();
+      // A successful write must dismiss its editor before any fallible refetch.
+      // Otherwise a refresh failure makes retry create a second independent task.
       setAddTaskTitle("");
       setAddTaskOpen(false);
       setMutationStatus(`Added ${persistedTitle} to Today.`);
+      try {
+        await refreshBoard();
+      } catch (failure: unknown) {
+        setError(
+          `Task was added, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
+        );
+      }
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
     } finally {
+      addTaskInFlightRef.current = false;
       setAddTaskPending(false);
     }
   };

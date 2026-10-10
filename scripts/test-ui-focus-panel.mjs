@@ -349,4 +349,5 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-pane
 invariant(pkg.scripts["test:visual-regression:windows"].includes("capture-focus-panel-fixtures.ps1"), "Focus Panel capture is not in Windows visual regression");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-panel-captures.mjs"), "Focus Panel visual validation is not in Windows visual regression");
 
+await import("./test-focus-panel-single-flight.mjs");
 console.log("Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.");
