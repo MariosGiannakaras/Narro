@@ -1,5 +1,11 @@
 # Audit → implementation crosswalk
 
+## 2026-10-10 scoped corrective evidence — Finding35 and C4, NOT ACCEPTED
+
+- **Finding35 / M7:** CI1046 confirmed `time_up` in both Floating Timer sizes but no visible label. Source review identifies a concrete projection gap: `focusTimerPresentation` provides `Time's Up` but `FloatingTimerFoundation` formerly only attached it as `aria-label` to `00:00`. [PR #302](https://github.com/MariosGiannakaras/Narro/pull/302), initial head `01e49bc7209142f31125ec6f268e0780c04c15a4`, adds one explicit visible status in both sizes and rendered light/dark fixture assertions. **CORRECTION_IN_PROGRESS / CI_NOT_YET_PASS / PHYSICAL_OPEN / ORIGINAL_FLOATING_PIXELS_EVIDENCE_LIMIT**. This supersedes any earlier claim that Finding35 has only physical acceptance left; the previous source action substitution is a separate integrated and validated result.
+- **C4 / M7:** actual CI1046 continuous Timer→Panel clipped/staged physical FAIL remains. Current CSS explicitly clips the incoming promoted Panel to the outgoing 110px/300px Timer height during the start phase, and native/renderer geometry motions run independently. This identifies a staging mechanism consistent with the failure, **not** a proved sole native compositor root cause. **CAUSE_REVIEWED / PHYSICAL_FAIL_OPEN / NO_NEW_SOURCE_FIX** until an exact-build continuous-frame native comparison justifies a different mechanism. No blind patch under NER-002.
+- Detailed provenance: `work-log/2026-10-10-chatgpt-finding35-c4-causal-correction-start.md`. Historical fixed coding queue **8/8 stays accepted**, a separate active correction **0/1** source unit is tracked. Physical Codex remains paused; M11 dormant.
+
 ## 2026-10-09 latest user interpretation — binding for open/source-unknown dispositions
 
 - **Functional internals not observable:** implement the best deterministic, reliable local-first Narro contract, with validation and provenance. The fact that Blitzit's private rule is not documented does **not** make an otherwise safe, implemented functional choice permanently `FIX_NOW` or `PRODUCT_DECISION_REQUIRED`. Never claim that an inferred Narro rule is confirmed Blitzit behavior.
