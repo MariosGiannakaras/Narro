@@ -450,6 +450,8 @@ export function FocusPanel({
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
+  const currentRefreshKeyRef = useRef(refreshKey);
+  currentRefreshKeyRef.current = refreshKey;
   const externalBoardRefreshRevisionRef = useRef(0);
   // Shared cross-path read epoch: response completion order must not decide freshness.
   const boardReadRevisionRef = useRef(0);
@@ -472,7 +474,7 @@ export function FocusPanel({
   useEffect(() => {
     if (fixtureBoard) {
       setBoard(fixtureBoard);
-      setBoardReadyRefreshKey(refreshKey);
+      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
       setFocusTarget(
         fixtureBoard.target.kind === "list" && fixtureBoard.target.id
           ? { kind: "list", id: fixtureBoard.target.id }
@@ -496,7 +498,7 @@ export function FocusPanel({
       .then((snapshot) => {
         if (stillLatest()) {
           setBoard(snapshot);
-          setBoardReadyRefreshKey(refreshKey);
+          setBoardReadyRefreshKey(currentRefreshKeyRef.current);
           setBoardReadyTargetKey(requestedTargetKey);
           setError(null);
         }
@@ -504,7 +506,7 @@ export function FocusPanel({
       .catch((failure: unknown) => {
         if (stillLatest()) {
           if (!retainCurrentBoard) setBoard(null);
-          setBoardReadyRefreshKey(refreshKey);
+          setBoardReadyRefreshKey(currentRefreshKeyRef.current);
           setBoardReadyTargetKey(requestedTargetKey);
           setError(formatInvokeError(failure));
         }
@@ -534,7 +536,7 @@ export function FocusPanel({
             && currentTargetKeyRef.current === expectedTargetKey
           ) {
             setBoard(snapshot);
-            setBoardReadyRefreshKey(refreshKey);
+            setBoardReadyRefreshKey(currentRefreshKeyRef.current);
             setBoardReadyTargetKey(expectedTargetKey);
             setError(null);
           }
@@ -621,7 +623,7 @@ export function FocusPanel({
           .then((snapshot) => {
             if (refreshStillCurrent()) {
               setBoard(snapshot);
-              setBoardReadyRefreshKey(refreshKey);
+              setBoardReadyRefreshKey(currentRefreshKeyRef.current);
               setBoardReadyTargetKey(expectedTargetKey);
               setError(null);
             }
@@ -651,7 +653,7 @@ export function FocusPanel({
             .then((snapshot) => {
               if (stillCurrent()) {
                 setBoard(snapshot);
-                setBoardReadyRefreshKey(refreshKey);
+                setBoardReadyRefreshKey(currentRefreshKeyRef.current);
                 setBoardReadyTargetKey(expectedTargetKey);
                 setError(null);
               }
@@ -713,7 +715,7 @@ export function FocusPanel({
     if (readRevision === boardReadRevisionRef.current
       && currentTargetKeyRef.current === expectedTargetKey) {
       setBoard(refreshed);
-      setBoardReadyRefreshKey(refreshKey);
+      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
       setBoardReadyTargetKey(expectedTargetKey);
       setError(null);
     }
