@@ -8,6 +8,9 @@
 
 **Packaged production candidate:** GitHub run `38037669076`, artifact `narro-m7-physical-windows-x64` ID `11665317023` (present, not expired at handoff), companion visual artifact `narro-m7-focus-runtime-visual` ID `11665206823`; M1 diagnostics `11664867911`, M5 visual `11664941831`. Download and hash-check ZIP/EXE before physical testing, run latest exact binary with isolated test DB/profile, preserve and restore production data/environment and record physical artifacts. DO NOT reuse old CI1046 executable as new-code evidence.
 
+**Artifact hash acceptance (verified directly against GitHub download):** ZIP `d967d05f3ce7c1d831d30e2c5b9a7d4fee1d9baf983a7b5f17075b76b1d0b738`; portable `narro.exe` `4768a9b77ad9826f8190a38bc85aeda93baf8f0d662a097dc4b73dc95dcab540`; NSIS installer `b41f07c5f1ec9e077c72c272fbd1ca264a0b343c7c0af946e127c69466e420ad`; MSI `204aa797dfc2a91a7869e16bbced1f98fff56ce31e4a893c74fe7e43320befd7`. Details in `work-log/2026-10-10-chatgpt-exact-final-windows-artifact-hashes.md`; verify physical extracted executable matches before launching.
+
+
 **B49 + B63 source result:** keyboard/pointer-triggered five-icon Focus action rail with labeled-pill reveal and stable geometry; committed Done inline success replaces only active card with Today header/queue visible but inert during owned success routing; Next Task, Close focus and typed error ownership preserved. User-directed B50 contextual Extend stays in the five control slots. The post-success Take a Break is **NARRO_INFERRED** untimed idle rest with authoritative-idle guard and no phantom session; not confirmed original Blitzit behavior. Preserve approved user-owned Create/Edit List Spectrum Core 184px picker, image upload, 218 offline icons unchanged. Full provenance/workflow: `work-log/2026-10-10-chatgpt-eight-of-eight-pr301-merged-codex-physical-handoff.md`.
 
 ## NEXT AGENT ACTION — physical Windows Codex route
