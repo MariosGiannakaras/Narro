@@ -85,4 +85,10 @@ refreshBarrier.resolve();
 assert.equal(await saved, true);
 assert.equal(refreshGate.pending, false);
 assert.equal(writes, 3);
+
+const refreshError = exclusive();
+await assert.rejects(refreshError.run(async () => { writes += 1; }, async () => {
+  throw new Error("read-after-commit unavailable");
+}), /read-after-commit unavailable/);
+assert.equal(refreshError.pending, false, "failed post-commit refresh must release the synchronous guard");
 console.log("Board/Search create/duplicate synchronous exclusion, delayed-refresh guard and retry contracts passed.");
