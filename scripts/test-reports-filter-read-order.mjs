@@ -22,7 +22,7 @@ for (const [needle, message] of [
   ["useLayoutEffect(() => {\n    latestSessionsQueryKeyRef.current = sessionsQueryKey;", "the committed filter identity must be published before passive reads"],
   ["const revision = ++sessionsReadSequenceRef.current;", "all report read producers must share a revision clock"],
   ["if (disposed || revision !== sessionsReadSequenceRef.current", "the normal filter effect must reject stale completions"],
-  ["key !== latestSessionsQueryKeyRef.current) setRefreshError", "stale filter read failure must not replace newer error state"],
+  ["&& key === latestSessionsQueryKeyRef.current) setRefreshError", "stale filter read failure must not replace newer error state"],
 ]) {
   assert(source.includes(needle), message);
 }
