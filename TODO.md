@@ -2,6 +2,15 @@
 
 ## CURRENT user-directed pre-Codex source / rendered audit — 2026-10-10
 
+**Separate follow-on A07–A10 bounded progress: 0/4 SOURCE/CI accepted; previous A01–A06 stays 6/6 validated/merged.** Exact source/cause and CI evidence `work-log/2026-10-10-chatgpt-a07-a10-concurrent-causal-source-corrections-pending.md`.
+
+- [ ] **A07 / #312:** Focus shared row/add/make-live/change-list/Delete/Home synchronous mutation ownership; head `4e6a84c54e631570e00b6ccfe5f16ce2e5465c07`, CI `38062610832` validation+fast PASS, Windows PENDING. No native C4/motion acceptance.
+- [ ] **A08 / #313:** Blitz now same-render double native presentation exclusion; head `df2bf8a19c3feca78b5197815da3647108969b0d`, CI `38062951891` validation+fast PASS, Windows PENDING. Domain timer remains authoritative.
+- [ ] **A09 / #314:** FocusLiveSubtasks Create/Edit/Toggle/Move/Delete and paused EST/Time Taken single-flight ownership; head `1cc03c0ac2bf4fc6ab5d792e73aeb8d9cf8a3fd2`, CI `38063218931` validation+fast PASS, Windows PENDING.
+- [ ] **A10 / #315:** ArchivedLists Restore/permanent Delete cross-owner sync exclusion; head `81098071d109fee25188911f692355f66e98e656`, CI `38063411322` validation PASS, fast PENDING, Windows NOT YET PASS.
+- **ACCEPTANCE:** three required exact-head Windows jobs + expected-head guarded merge + changed source/test blob identity; otherwise NOT PASS. User-paused native Codex and optional M11 NOT STARTED.
+
+
 - [x] **Audit A01 (separate 1/1 source/CI):** Focus live-action single-flight [PR #305](https://github.com/MariosGiannakaras/Narro/pull/305) exact head `73f95f5ce1efa2995025127890b5624aa8d9a814`, [CI 38047897329](https://github.com/MariosGiannakaras/Narro/actions/runs/38047897329) all 3 jobs SUCCESS, guarded squash merge `9203bf7ec3cd096063059cef2e4326c1199744b6`, 4/4 resulting-main changed source/test blob identity. Explicit synchronous exclusion and deferred-mutation regression on existing Focus actions. Separate original 8/8, Finding35 1/1 remain accepted; no native physical PASS inferred.
 - [x] **Audit A02 1/1 source/CI:** PR #306 exact `6880f17f701621003f426e0b7416d68f11ea81cf` Windows CI `38049022590` validation/fast/Windows PASS; guarded merge `8eea11ea6f7aa40f81efafcd9845bfa7eefe9035`, 12/12 changed blobs identical. Direct Windows Edge light/dark screenshots + canonical SS-H04 control anatomy compared. Full source pixel/native motion acceptance not claimed.
 - [x] **Audit A04 1/1 source/CI accepted:** PR #307 exact head `86e6e443d2d55530c8fab185a2270ec5ebaa1904` [CI 38056858648](https://github.com/MariosGiannakaras/Narro/actions/runs/38056858648) all validation/fast/Windows SUCCESS, guarded merge `ac48759d551279266c2f1d25f35a1e4f58d482e0`, 4/4 blobs identical on main.
