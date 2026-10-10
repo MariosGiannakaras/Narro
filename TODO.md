@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 5/70 reviewed; 4/18 code PRs (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 6/70 reviewed; 5/18 code PRs (2026-10-10)
+
+- [x] **P03 #302 Finding35 source/static visual audit:** exact head `601431bce4d4453d5a6c1a8624901ec7baf2eb58`, CI `38044923348` 3/3 PASS, merge `797d0580d89a3a5ef0ff5b561e941d078bb2407f`, 6/6 merged blobs. Actual four compact/expanded light/dark screenshots **directly reviewed** from PR302 artifact 11667603873 and compared to normal running and latest #320 artifact 11679264268. Warm `Time's Up` genuinely visible under `00:00`, pixel-different from running and nonclipped 55×12 label in native-height 340×110/340×300 fixtures. **Physical real WebView2 time_up/Extend natural expiry still OPEN** and original Blitzit direct Floating Time's Up pixels unavailable. Work log `work-log/2026-10-10-chatgpt-0600-audit-p03-pr302-finding35-time-up.md`.
+- [ ] **Next code audit P04 #305:** synchronous FocusLiveActions mutation owner/transaction and tests; cross-check separate P02 Next Task/Rest synchronous ownership risk.
+- [ ] **Open P02 findings (do not overwrite):** P02-F01 Focus icon reveal falsely evidenced by identical focused/running screenshot pixels; P02-F02 Next Task same-render reentrancy source hazard. Require precise deterministic remediation/test, not unsupported user-visible claim.
+- [ ] **Remaining frozen S0:** code PR review 5/18, evidence-only PR 1/1, changed Markdown 0/50, combined binary 0/1: total 6/70. A01–A14 source/CI merged 14/14, physically/source completed milestones 3/10. New combined executable and actual ZIP/EXE SHA256 NOT RUN. User-paused Codex and optional M11 untouched.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 5/70 reviewed; 4/18 code PRs (2026-10-10)
 
 - [x] **P02 #301 AUDITED_WITH_OPEN_FINDINGS:** exact head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, CI `38037669076` three jobs SUCCESS, merge `f921d1e1c716e1c9404265604f23432c19949dfe`, 16/16 blobs. B63 light/dark success real static screenshots show inline active-card and preserved visible inert queue. Evidence `work-log/2026-10-10-chatgpt-0600-audit-p02-pr301-b49-b63-review-findings.md`.
 - [ ] **P02-F01 HIGH VERIFIED visual-test blind spot:** original PR301 artifact `11664941831` **and latest #320 artifact `11679264268`**: light/dark `live-actions-focus` PNG byte-identical to running PNG while HTML declares focus reveal PASS. Investigate Edge screenshot timing, synchronize capture with ready visible state and add actual pixel-state assertion; do not claim real app reveal bug until physical/real capture. Keep B49 source visual/native acceptance OPEN.
