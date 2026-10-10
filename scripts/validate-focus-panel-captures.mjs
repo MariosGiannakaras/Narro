@@ -192,13 +192,16 @@ for (const theme of ["light", "dark"]) {
     `${label} Focus trigger must expose expanded state and a usable hit target`);
   invariant(menu.popup?.width > 0 && menu.popup?.height > 0 && menu.popupWithinPanel,
     `${label} Focus popup must stay inside the 340px panel and visible viewport`);
-  invariant(menu.listOptions.length === 3
+  invariant(menu.listOptions.length === 4
     && menu.listOptions[0].label === "All Lists"
     && menu.listOptions[1].label === "Work"
     && menu.listOptions[2].label.length > 0
+    && menu.listOptions[3].label === "Research"
     && menu.listOptions.every(item => item.badgeVisible),
     `${label} popup must contain aggregate and named colored list identities`);
-  invariant(menu.savedBadgeColors.length === 2
+  invariant(menu.overflowBadge === "+1",
+    `${label} stacked All Lists badge must show the remaining list count`);
+  invariant(menu.savedBadgeColors.length === 3
     && menu.savedBadgeColors[0] !== menu.savedBadgeColors[1],
     `${label} stored list colors must survive real CSS rendering`);
 }
