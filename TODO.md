@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 4/70 reviewed; 3/18 code PRs (2026-10-10)
+## CURRENT COMPREHENSIVE 06:00 EEST AUDIT — 5/70 reviewed; 4/18 code PRs (2026-10-10)
+
+- [x] **P02 #301 AUDITED_WITH_OPEN_FINDINGS:** exact head `5a1a0740b203ecc90dbe2cc21f5a425012a3b5c3`, CI `38037669076` three jobs SUCCESS, merge `f921d1e1c716e1c9404265604f23432c19949dfe`, 16/16 blobs. B63 light/dark success real static screenshots show inline active-card and preserved visible inert queue. Evidence `work-log/2026-10-10-chatgpt-0600-audit-p02-pr301-b49-b63-review-findings.md`.
+- [ ] **P02-F01 HIGH VERIFIED visual-test blind spot:** original PR301 artifact `11664941831` **and latest #320 artifact `11679264268`**: light/dark `live-actions-focus` PNG byte-identical to running PNG while HTML declares focus reveal PASS. Investigate Edge screenshot timing, synchronize capture with ready visible state and add actual pixel-state assertion; do not claim real app reveal bug until physical/real capture. Keep B49 source visual/native acceptance OPEN.
+- [ ] **P02-F02 MEDIUM/HIGH source-proven same-render owner hazard:** current `src/FocusSurfaceCoordinator.tsx` Next Task uses `completionSuccessPending` React state without a synchronous ref before awaited snapshot+start; Take a Break shares same pending state. Add deterministic deferred Next/Rest concurrent callback regression; if proven unsafe native retries, narrow synchronous cross-action owner, exact Windows CI and resulting-main blob identity. **No actual duplicate native persisted sessions verified.**
+- [ ] **Next code audit P03 #302:** independently examine visible Floating Timer Time's Up patch/tests, source/captured imagery and previous physical Finding35 versus current implementation.
+- [ ] **Remaining fixed scope:** audit code 4/18; separate evidence PR #308 audited; Markdown 0/50, integrated candidate 0/1, combined 5/70. Implementation A01–A14 14/14 source/CI accepted; fully accepted milestones 3/10, Codex physical paused, M11 dormant.
+
+## HISTORICAL COMPREHENSIVE 06:00 EEST AUDIT — 4/70 reviewed; 3/18 code PRs (2026-10-10)
 
 - [x] **P01 #280 B67 overtime code audit:** actual 10/10 merged blobs, exact-head 3/3 Windows CI, inspected fresh original light/dark Edge overtime captures, tested sign/bounds/paused countup+break/time_up and preflight linkage; no proved normal-use regression, extreme >=1000h 10ch width edge UNTESTED. Immutable `work-log/2026-10-10-chatgpt-0600-audit-p01-b67-and-p19-a14-closure.md`.
 - [x] **P19 #320 A14 Reports exports:** full 3/3 exact-head run `38077203921` SUCCESS, guarded merge `7df50f61064d56a61baf9906cc606dbaa740d2c5`, 5/5 changed Git blobs match, production CSV/PDF handlers exercised in deferred tests, actual native Downloads exports NOT RUN.
