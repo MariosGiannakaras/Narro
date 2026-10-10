@@ -83,7 +83,7 @@ for (const [haystack, needle, label] of [
   [component, "actions={taskActions}", "task-card callback action projection"],
   [taskCard, 'data-board-task="task-card"', "task-card identity"],
   [picker, 'data-board-list-selector="true"', "confirmed Board list selector"],
-  [picker, 'aria-label="Planning list"', "accessible Board list selector"],
+  [picker, 'focus ? "Focus list" : "Planning list"', "Board accessibility name preserved alongside Focus variant"],
   [picker, 'role="listbox"', "anchored Board listbox"],
   [picker, 'role="option"', "accessible Board options"],
   [picker, 'aria-selected={selectedTarget === option.id}', "selected list state"],

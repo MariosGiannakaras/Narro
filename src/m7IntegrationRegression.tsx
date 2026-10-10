@@ -104,7 +104,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const callbacks = new Map<number, (value: unknown) => void>();
   const listeners = new Map<number, { event: string; handler: number }>();
   let callbackId = 0, homeReads = 0, emissions = 0, mutationFailure = false, deliveryFailure = false;
-  let deferHome = false, deleteFailure = false, deleteCalls = 0;
+  let deferHome = false, deferFocusBoardReads = false, deleteFailure = false, deleteCalls = 0;
+  const focusBoardReadWaiters: Array<(value: ListBoardSnapshot) => void> = [];
   const homeWaiters: Array<(value: unknown) => void> = [];
   let deferredDelete: (() => void) | undefined;
   const dragCalls: Array<Record<string, unknown>> = [];
@@ -146,6 +147,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
       if (command === "get_list_board_snapshot") {
+        if (deferFocusBoardReads) return new Promise(resolve => focusBoardReadWaiters.push(resolve as (value: ListBoardSnapshot) => void));
         if (scopeScenario) {
           const requested = args.listId
             ? { kind: "list", id: String(args.listId) } as ListBoardRequestTarget
@@ -237,8 +239,22 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const renderFocus = (refreshKey = 0, presentationActive = true) => flushSync(() => root.render(
     <FocusPanel refreshKey={refreshKey} presentationActive={presentationActive}
       sharedTimerProjection={{ payload: timer, settled: true }} />));
-  const selector = () => container.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')!;
-  const options = () => Array.from(selector().options).map(option => option.textContent);
+  const selector = () => container.querySelector<HTMLButtonElement>('[data-focus-list-selector="true"]')!;
+  const selectedValue = () => selector().dataset.focusSelectedTarget;
+  const options = () => {
+    flushSync(() => selector().click());
+    const names = Array.from(container.querySelectorAll<HTMLElement>('[data-focus-list-option] .board-list-picker__option-title'),
+      option => option.textContent);
+    flushSync(() => selector().click());
+    return names;
+  };
+  const chooseList = (listId: string) => {
+    flushSync(() => selector().click());
+    const option = Array.from(container.querySelectorAll<HTMLButtonElement>('[data-focus-list-option]'))
+      .find(candidate => candidate.dataset.focusListOption === listId);
+    if (!option) throw new Error(`Focus list option ${listId} unavailable`);
+    flushSync(() => option.click());
+  };
   renderFocus(); await wait(); await wait();
   assert(options().includes("Original"), "initial active catalog missing");
   const request = { title: "New", color: null, iconUpload: null };
@@ -250,7 +266,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   for (const operation of operations) {
     const before = emissions; await operation(); await wait();
     assert(emissions === before + 1, "committed list mutation did not emit exactly once");
-    assert(options().filter(label => label !== "All").join("|") === lists.map(list => list.title).join("|"), "committed catalog remained stale");
+    assert(options().filter(label => label !== "All Lists").join("|") === lists.map(list => list.title).join("|"), "committed catalog remained stale");
   }
   mutationFailure = true;
   const beforeFailure = emissions;
@@ -267,13 +283,13 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   homeWaiters[1](newest); await wait(); homeWaiters[0]({ lists: [{ id, title: "Stale" }] }); await wait();
   assert(options().includes("Latest catalog") && !options().includes("Stale"), "older response overwrote committed catalog");
   deferHome = false;
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait();
+  chooseList(id); await wait();
   await archiveListFromSettings(id); await wait(); await wait();
-  assert(selector().value === "__all_lists__" && !options().includes("Original"), "archived selected list did not recover to All");
+  assert(selectedValue() === "__all_lists__" && !options().includes("Original"), "archived selected list did not recover to All");
   await restoreListFromSettings(id); await wait();
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait();
+  chooseList(id); await wait();
   await permanentlyDeleteListFromSettings(id); await wait(); await wait();
-  assert(selector().value === "__all_lists__", "deleted selected list did not recover to All");
+  assert(selectedValue() === "__all_lists__", "deleted selected list did not recover to All");
   const quietReads = homeReads; await wait(); await wait(); assert(homeReads === quietReads, "catalog polls without changes");
 
   const panel = container.querySelector<HTMLElement>('.focus-panel')!;
@@ -321,6 +337,30 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   flushSync(() => root.render(<div>Disposed Focus</div>)); await wait();
   disposedRead({ lists: [{ id: "disposed", title: "Disposed" }] }); await wait(); deferHome = false;
 
+  // A03: resolve newer board invalidation before delayed initial board read.
+  deferFocusBoardReads = true;
+  renderFocus(10); await wait(); await wait();
+  assert(focusBoardReadWaiters.length === 1, "A03 initial Focus board request must be deferred");
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(focusBoardReadWaiters.length === 2, "A03 invalidation must request a second board");
+  const staleFocusBoard = board({ kind: "all" });
+  const arriving = {
+    ...tasks[1], id: "71111111-1111-4111-8111-111111111111",
+    title: "A03 fresher committed queue item",
+  };
+  const freshFocusBoard = {
+    ...staleFocusBoard,
+    today: { ...staleFocusBoard.today, count: staleFocusBoard.today.count + 1,
+      tasks: [arriving, ...staleFocusBoard.today.tasks] },
+  };
+  focusBoardReadWaiters[1](freshFocusBoard); await wait(); await wait();
+  assert(container.textContent?.includes(arriving.title), "A03 new board was not rendered");
+  focusBoardReadWaiters[0](staleFocusBoard); await wait(); await wait();
+  assert(container.textContent?.includes(arriving.title),
+    "A03 stale initial board overwrote newer event snapshot");
+  deferFocusBoardReads = false;
+  flushSync(() => root.render(<div>A03 finished</div>)); await wait();
+
   // Finding36 regression: the queue/list target must outlive the Panel subtree,
   // and Floating Done/success must compute Next Task from that target rather
   // than the global All-list board.
@@ -338,14 +378,14 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const renderScopeOwner = (visible: boolean) =>
     flushSync(() => root.render(<FocusScopeOwner visible={visible} />));
   renderScopeOwner(true); await wait(); await wait();
-  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait(); await wait();
-  assert(selector().value === id, "controlled Focus target did not commit selected list");
+  chooseList(id); await wait(); await wait();
+  assert(selectedValue() === id, "controlled Focus target did not commit selected list");
   renderScopeOwner(false); await wait();
   renderScopeOwner(true); await wait(); await wait();
-  assert(selector().value === id, "coordinator-owned Focus target did not survive Panel remount");
+  assert(selectedValue() === id, "coordinator-owned Focus target did not survive Panel remount");
   lists = [];
   await emitBoardInvalidated(); await wait(); await wait();
-  assert(selector().value === "__all_lists__", "invalid controlled Focus target did not fall back through owner to All");
+  assert(selectedValue() === "__all_lists__", "invalid controlled Focus target did not fall back through owner to All");
 
   scopeScenario = true;
   scopeCompleted = false;
@@ -676,7 +716,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(boardTasks.length === 1 && boardTasks[0].id === tasks[1].id, "confirmed delete did not preserve independent task identity");
   await openDelete(); // Leave the source comparison state visible in the capture.
   await new Promise<void>(resolve => setTimeout(resolve, 250));
-  return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, catalogEntryReconciled: true,
+  return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, focusBoardStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,

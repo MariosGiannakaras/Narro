@@ -2,7 +2,7 @@
 
 Status: **BINDING PREVENTION INDEX**
 
-Last updated: 2026-10-09
+Last updated: 2026-10-10
 
 ## Purpose
 
@@ -58,6 +58,16 @@ Do not add permanent process for trivial one-off typos that existing preflight a
 | **NER-010** | `css`, `overlay`, `menu`, `rendering` | Functional/DOM correctness does not prove visual stacking or top-hit ownership; an underlying disabled control can paint or hit above the intended menu. | For stacking-sensitive UI, add rendered occlusion/top-hit coverage and retain physical/source comparison where browser/native composition matters. Do not treat a successful action callback alone as paint correctness. | **PARTIAL** |
 | **NER-011** | `github`, `tooling`, `metadata`, `history` | Broad or placeholder write actions can damage durable repository metadata even when source refs are untouched. | Read-before-write, mutate the narrow target, never use placeholder/no-op content on real historical objects, verify the resulting object immediately, and retain immutable evidence sufficient to reconstruct metadata. | **GUARDED** |
 | **NER-012** | `validation`, `physical`, `parity`, `ci` | Automated green, physical Windows correctness and source parity are different claims; collapsing them causes false PASS and unnecessary reruns. | Use the existing validation ladder and claim/invalidation protocol. Merge automated-green source when allowed while keeping observational gates OPEN; rerun only evidence invalidated by a correction. | **GUARDED** |
+| **NER-013** | `react`, `mutation`, `double-submit`, `timer`, `sqlite` | A React `pending` state update does not synchronously lock an event-handler closure. Multiple pointer/keyboard/shortcut callbacks in the same render can launch conflicting commands or create distinct persisted task/session IDs. | For irreversible, non-idempotent or cross-owner mutations acquire a synchronous single-flight owner before the first asynchronous read/IPC, keep it through authoritative refresh and release on every retryable failure. Prove double-submit rejection and failure recovery with deferred-mutation regressions, then preserve Rust transaction authority. Do not infer actual duplicate writes without native/domain evidence. | **WATCH** |
+| **NER-014** | `react`, `async-read`, `invalidation`, `stale-response` | Independently versioned initial reads, cross-window invalidation reads and post-mutation refreshes can commit out of completion order. A stale request may overwrite a newer authoritative UI projection even when one individual effect uses `disposed` or local revision guards. | Exercise A(initial stale)→B(new event)→B resolves→A resolves with delayed mocked IPC. All competing readers of one projection need a common freshness/target fence; retain latest typed authoritative snapshot and proper error states. Do not add polling or declare a database corruption bug from transient stale rendering. | **WATCH** |
+
+### NER-013 — React state is not a synchronous command mutex
+
+The 2026-10-10 code audit found state-only `pendingAction` guards in Focus live actions, `editorMutationPending` and `mutationPendingTaskId` in Main Board task creation/duplicate, `quickTaskPending` in SearchPalette, and `mutationPendingId` around Reports manual Add Session. Some existing UI paths already use synchronous `savingRef` or delete/schedule refs, so this is a reusable per-write-owner prevention family rather than a blanket claim that all current code duplicates writes. Separate audit PR305 first implements the live-action guard; staged A04 handles Board/Search; A05 Reports requires test-first proof. Until their exact-head validations actually pass, keep this NER row WATCH. Evidence: `work-log/2026-10-10-chatgpt-pre-codex-code-and-rendered-audit-phase1.md`, `work-log/2026-10-10-chatgpt-audit-react-board-mutator-reentrancy.md`, `work-log/2026-10-10-chatgpt-a05-reports-session-double-submit-risk.md`.
+
+### NER-014 — all read producers must share freshness ownership
+
+The same audit found `FocusPanel` and `ListBoard` initial read effects commit based on local `disposed`, while their cross-window invalidation callbacks own separate local revision refs. A newer event snapshot may be superseded by an older initial response if completion order is reversed; Focus timer revision-linked and local refresh sources add more producers. Actual repro and fix have not been run and no physical app state corruption is asserted. Evidence: `work-log/2026-10-10-chatgpt-pre-codex-code-and-rendered-audit-phase1.md`. Regression first, then one bounded shared freshness fence, WATCH until accepted.
 
 ## Seed evidence and why each family exists
 

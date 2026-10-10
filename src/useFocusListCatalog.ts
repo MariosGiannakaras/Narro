@@ -4,16 +4,22 @@ import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 
-type ListOption = { id: string; title: string };
+export type FocusListOption = {
+  id: string;
+  title: string;
+  color?: string | null;
+  iconAsset?: string | null;
+  iconId?: string | null;
+};
 
 // Subscribe before the initial read; a later committed invalidation supersedes
 // every older response. Entry also reads once to recover missed delivery hints.
 export function useFocusListCatalog(
-  fixtureLists: ListOption[] | undefined,
+  fixtureLists: FocusListOption[] | undefined,
   refreshKey: number,
   presentationActive: boolean,
 ) {
-  const [lists, setLists] = useState<ListOption[]>(fixtureLists ?? []);
+  const [lists, setLists] = useState<FocusListOption[]>(fixtureLists ?? []);
   const [loaded, setLoaded] = useState(Boolean(fixtureLists));
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -32,7 +38,9 @@ export function useFocusListCatalog(
       try {
         const home = await invoke<HomeSnapshot>("get_home_snapshot");
         if (disposed || request !== revision) return;
-        setLists(home.lists.map(({ id, title }) => ({ id, title })));
+        setLists(home.lists.map(({ id, title, color, iconAsset, iconId }) => ({
+          id, title, color, iconAsset, iconId,
+        })));
         setLoaded(true);
         setError(subscriptionFailure);
       } catch (failure) {

@@ -1,0 +1,14 @@
+# 2026-10-10 — Audit A05: Reports Add Session state-only duplicate-write guard and read ordering
+
+## Source-level findings / required proof
+
+Examined current `src/ReportsSessions.tsx` on authoritative main. `commitAddSession` checks `mutationPendingId` React state, then invokes `setMutationPendingId("add")` and awaits `createManualReportSession` before closing the Add Session dialog and refreshing. React state changes are not a synchronous mutual-exclusion guard between same-render double clicks/Enter; two submissions can both enter while `mutationPendingId` is still null. The endpoint creates distinct manual session IDs. This is a **code-supported duplicate-write possibility**, not a claim that two real sessions were observed. Historical CI1046 Finding29 PASS under an SQLite lock exercises pending dismissal/focus and one committed session for that particular input path; it does **not** establish same-render double-submit exclusivity.
+
+Other code review: ListEditorModal already protects list creation with `savingRef` synchronously, while `SearchPalette.submitQuickTask` did not and is covered by staged A04 Board/Search source branch. `ReportsSessions` has separate mutable projections for initial `getReportSessions` effect, local `refreshSessions` callback and detail `refreshDetail` callback; independent request ordering can leave later responses stale after user changes date/list filters, so verify with deterministic deferred read-response tests instead of assuming safe by `disposed` on only one effect. Do not conflate these with SQLite ledger corruption.
+
+## Routing / sequencing
+
+- **A05 pre-Codex required test-first candidate (NO CODE YET):** construct actual Add Session mounted React/Edge regression with intercepted and deliberately delayed `createManualReportSession` (or supported IPC boundary). Dispatch two same-render pointer/keyboard submits, expect exactly one persistence command; reject first and prove corrected-form retry; verify no extra session and correct UI/error/focus. Then introduce one scoped synchronous ref gate spanning mutation+authoritative refresh. Keep existing exactly-once persisted session/session IDs, expectedUpdatedAt controls and modal keyboard/return focus. Require full exact-head Windows CI/guarded merge/main identity.
+- Native Finding29 independent pending focus-owner check remains PHYSICAL_OPEN after automated DOM regression; no claim original Blitzit hidden modal lifecycle. User paused Codex; do not launch it.
+- **A03 initial/current read-order finding extends across `FocusPanel`, `ListBoard` and Reports;** prioritize initial Focus/Board race before a broader shared refactor. Existing A01 PR305, A02 PR306 and staged A04 branch hold active/overlapping source work; avoid unrelated cross-PR overwrites.
+- Historic 8/8 initial implementation units + Finding35 1/1 remain accepted, mandatory milestone 3/10; A05 code/CI NOT RUN/NOT ACCEPTED. No auto M11 activation.

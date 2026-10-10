@@ -640,7 +640,7 @@ export function FocusSurfaceCoordinator() {
     // detached Next Task / Close button. Floating remains independently owned.
     if (inlineSuccess) {
       window.requestAnimationFrame(() => {
-        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({ preventScroll: true });
+        document.querySelector<HTMLButtonElement>('[data-focus-list-selector="true"]')?.focus({ preventScroll: true });
       });
     }
   };
@@ -661,7 +661,7 @@ export function FocusSurfaceCoordinator() {
       setCompletionSuccess(null);
       setShortcutStatus("Break time. No task timer is running; start another task when ready.");
       window.requestAnimationFrame(() => {
-        document.querySelector<HTMLSelectElement>('[data-focus-list-selector="true"]')?.focus({preventScroll: true});
+        document.querySelector<HTMLButtonElement>('[data-focus-list-selector="true"]')?.focus({preventScroll: true});
       });
     } catch (failure: unknown) {
       setCompletionSuccessError(formatInvokeError(failure));
