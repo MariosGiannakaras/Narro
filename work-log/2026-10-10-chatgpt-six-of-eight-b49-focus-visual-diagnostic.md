@@ -1,0 +1,18 @@
+# 2026-10-10 — 6/8 accepted and B49 Windows focus-reveal diagnostics
+
+## Accepted source
+I01 B67 PR #280 exact head `b3eff7a39a595a2146ff28127d682661a705a2fb` CI run `38004842175`: validation-gate, fast-gate and Windows candidate **all SUCCESS**. Expected-head guarded squash merge into `main`: `c1633c9edb372228ad597fde686575b58b8437fb`. Previously accepted I02 #286, I03 #295, I04 #298, I05 #299, I06 #300 remain unchanged. **Coding progress 6/8; I07 B49 and I08 B63 still not accepted.** Separate physical Codex run OPEN and optional M11 dormant.
+
+## Existing PR #301 root-cause routing
+PR `implementation/m6-b63-inline-focus-success-20261009` holds B49 (hover/keyboard five-action rail) and B63 (inline Done success, live queue remains visible/inert, committed ledger unchanged and Narro-inferred untimed rest). It is a single coherent source PR, not two new redundant PRs.
+
+Full CI `38005194255` failed fast gate because a static test searched the *sync* function declaration `const takeRestBetweenTasks = () => {` while actual source correctly uses async `const takeRestBetweenTasks = async () => {`; corrected fast test and verified that no timer start / manual-break call occurs in rest handler. Follow-up head `c7ff3795ab69ebff79a1d5311dbf757dc18a16d3`, run `38028676924`: validation and fast **PASS**, Windows visual capture **FAIL**, primary: `focus-panel-live-actions-focus-light rendered fixture failed: Uncaught Error: B49 action focus failed to reveal a labeled icon without moving live-card geometry.` Missing later packaged runtime artifact is downstream. No evidence for weakening acceptance thresholds or disabling keyboard focus checks.
+
+Downloaded and **directly inspected** Windows failure diagnostic artifact ID `11661083388`: `focus-panel-live-actions-focus-light.png` visually shows focused Pause icon + text in active card with Today progress and queue intact; its HTML contains `focus-panel-visual-contract: {error:...}` rather than individual measured conditions. Dark counterpart HTML reports `data-focus-action-reveal-pass=true`, and normal success screenshots show inline committed Done inside a visible queue. Therefore *which* strict condition failed in light remains unproven (keyboard focus owner, rail/heading opacity, label box, live card height shift, action rail width/top shift). Do not guess from the generic error or remove validations.
+
+On **same PR #301 branch** added strict per-condition diagnostic in `src/focusPanelVisualFixture.tsx` without changing any acceptance threshold, head `657920b2df19d53d536c6e5d5270ba140d403b6f`, CI `38029857004` validation SUCCESS, fast IN PROGRESS / Windows NOT PASS at last checkpoint. It will report numerical deltas and named failures from exact Windows execution. Do not merge until current-head full CI green. If red, inspect actual named assertion and same-run failure PNG/HTML, fix only demonstrated cause, rerun exact head.
+
+Confirmed current PR diff against merged main via Git trees: 20 changed code/test/config paths, 7 of them byte-identical to main (including package.json, signed-overtime presentation and Floating warning CSS); 13 differ specifically for B49/B63. `get_pr_info` most recent mergeable=true; recheck before guarded merge.
+
+## Next
+Check run `38029857004` at the next meaningful interval or user turn; avoid tight polling. Fix specific visual invariant if failed or expected-head squash merge PR #301 after full SUCCESS. Compare resulting-main source, update TODO/HANDOFF/STATUS to 8/8 when supported, leave consolidated native Windows Codex gates OPEN and M11 inactive. Preserve all #297 Fun GIF, Reports badges, Preferences, approved List Editor and latest repository Markdown.
