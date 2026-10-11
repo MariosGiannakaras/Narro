@@ -333,24 +333,52 @@ try {
   );
   console.log("Finding33 large Notes real Edge Escape regression: PASS");
 } catch (error) {
+  // Never label a blank React root as an application/keyboard regression
+  // without preserving module delivery, JS exceptions, and real page state.
+  let pageState = null;
   if (client) {
     try {
-      const diagnostics = await evaluate(client, `(() => {
+      pageState = await evaluate(client, `(() => {
         const shell = document.querySelector('[data-task-notes-visual="editable"] [data-task-note-editor="true"]');
         const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        const entryScripts = Array.from(document.querySelectorAll("script[src]"))
+          .map(node => ({src: node.src, type: node.type}));
+        const loadedResources = performance.getEntriesByType("resource")
+          .filter(entry => entry.name.includes("/assets/"))
+          .slice(-30).map(entry => ({
+            name: entry.name, duration: entry.duration,
+            transferSize: entry.transferSize, decodedBodySize: entry.decodedBodySize,
+          }));
         return {
+          url: location.href,
           readyState: document.readyState,
+          foreground: document.hasFocus(),
           htmlDataset: { ...document.documentElement.dataset },
+          rootChildren: document.getElementById("root")?.childElementCount ?? null,
           presentation: shell?.getAttribute("data-task-note-presentation") ?? null,
           activeOuterHtml: active?.outerHTML?.slice(0, 500) ?? null,
+          entryScripts,
+          loadedResources,
           keyTrace: (window.__NARRO_FINDING33_KEY_TRACE__ ?? []).slice(),
         };
       })()`);
-      console.error("Finding33 fixture diagnostics:", JSON.stringify(diagnostics, null, 2));
-    } catch {
-      // Preserve the original failure if the page itself is unavailable.
+    } catch (inspectionError) {
+      record({ method: "CDP.DiagnosticFailure", reason: String(inspectionError) });
     }
   }
+  const failure = {
+    category: "finding33-real-edge-bootstrap-or-keyboard-failure",
+    pageUrl,
+    reason: String(error),
+    pageState,
+    browserEvents,
+    browserStderrTail: edgeStderr,
+  };
+  fs.writeFileSync(
+    path.join(outputDirectory, "finding33-large-notes-escape-failure.json"),
+    JSON.stringify(failure, null, 2) + "\n",
+  );
+  console.error("Finding33 real Edge failure diagnostics:", JSON.stringify(failure, null, 2));
   throw error;
 } finally {
   client?.close();
