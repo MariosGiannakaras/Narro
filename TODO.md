@@ -1,6 +1,11 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — Q01 REAL TOOLTIP RETRY, WINDOWS CI IN PROGRESS
+## CURRENT 2026-10-11 — Q01 B49 FOREGROUND FIX IN CI; Q12 BLOCKED
+
+- [ ] **#321 Q01 existing ChatGPT-owned source/CI PR**, latest head `9afe2c06f5a37aa4eccdcdc124c39265e2979e6d`, [Windows CI 38148720131](https://github.com/MariosGiannakaras/Narro/actions/runs/38148720131) **IN PROGRESS / NOT PASS** at snapshot. Prior run `38143961415` exact `221558f...`: validation/fast SUCCESS; Windows FAIL because queued title tooltip remained `data-open=false` even with correct DOM focus owner; real failed ZIP `11704336328` SHA256 `0e623240e205366e68f4b563e6740b1d231703bd019b0da17bdf81c8736c2449`. CDP foreground-before-navigation candidate and focus authenticity gate added on same PR branch; strict captured-pixel checks unaffected. Require exact Windows 3/3, guarded merge and all seven source blobs before counting **11/11**.
+- [ ] **Q12 final post-#321 main Windows union**: real resulting-main exact CI/tree result, download actual production Windows ZIP + hash ZIP, `narro.exe`, NSIS, MSI. Pre-#321 artifact remains intermediate. Codex physical user-paused, M10 blocked, M11 dormant. Current source count **10/11**.
+
+## HISTORICAL 2026-10-11 — Q01 REAL TOOLTIP RETRY, WINDOWS CI IN PROGRESS
 
 - [ ] **#321 Q01 ChatGPT-owned original PR**, latest exact head `221558f80012342d7d3f9e1720c42a8e477c9c67`, [CI 38143961415](https://github.com/MariosGiannakaras/Narro/actions/runs/38143961415) validation **SUCCESS**, fast and Windows **NOT PASS/IN PROGRESS** at checkpoint. Previous head `940ce10e3b3eed83513ea127286d98960d0d12d3`, CI `38141136444`: validation/fast SUCCESS, Windows **FAIL** on real queued-tooltip `data-open=false` after fixed 450ms; diagnostic 11703503337 examined. Same-branch fixture now waits boundedly for real tooltip open/focus owner; no pixel/tooltip/geometry gate relaxed. See `work-log/2026-10-11-chatgpt-b49-actual-tooltip-polling-ci-checkpoint.md`.
 - [ ] **Q12 post-#321 exact resulting-main combined Windows production artifact** after 3/3 CI PASS, guarded #321 merge and 7/7 changed blob SHA validation. Real ZIP/`narro.exe`/NSIS/MSI SHA required. Prior pre-#321 candidate remains intermediate only. **Progress 10/11**, Codex physical paused, M10 blocked/M11 dormant.
