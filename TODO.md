@@ -2,6 +2,8 @@
 
 ## CURRENT 2026-10-11 — POST-AUDIT 10/11 ACCEPTED, Q01 OTHER OWNER OPEN
 
+- [x] **Pre-#321 integrated-main compilation/CI/artifact proof:** #332 union main `c91c5dd86d626ab9a26d763f7e623d11df47c945` run `38124932682` validation/fast/windows 3/3 SUCCESS; downloaded artifact `11697127517` ZIP, production `narro.exe`, NSIS and MSI individually SHA256 verified. Evidence `work-log/2026-10-11-chatgpt-prephysical-post332-main-ci-and-artifact-hashes.md`. This check does **not** close final Q12 after #321 or physical Windows acceptance.
+
 - [x] **S0 audit independently re-verified:** frozen 50/50 unique S0 Markdown paths fetched individually at S0 commit and all 50 audit rows present exactly once (15+20+15); 43 immutable log blobs equal corrected canonical ledger, original L05/L40 proof transcription corrected only in separate immutable addenda, top T01–T03 original S0 different from then-live at-review as documented. **70/70 retrospective REVIEWED** is not physical/native PASS. Detailed immutable `work-log/2026-10-11-chatgpt-independent-s0-50-proof-and-pr330-pr332-exact-ci-merges.md`.
 - [x] **#330 Q07** exact head `42044c17...`, run `38119707298` 3/3 Windows SUCCESS, expected-head merge `0884d058cc788a4a210af6b0e143f9d949ce4fb5`, 2/2 Git blobs verified.
 - [x] **#331 Q09** exact head `e9fcd498...`, run `38120132435` 3/3 SUCCESS, expected-head merge `5352272e1f5d9eb79ba94e695c1426e0f428ea83`, 2/2 blobs verified.
