@@ -117,6 +117,12 @@ invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
   "B49 reveal must honor reduced motion");
 
 const focusedFixture = read("src/focusPanelVisualFixture.tsx");
+invariant(focusedFixture.includes('const tooltipDeadline = performance.now() + 2_000;')
+  && focusedFixture.includes('document.activeElement === title')
+  && focusedFixture.includes('focusedTooltip?.dataset.open !== "true"')
+  && focusedFixture.includes('Focused queued title tooltip did not open before containment measurement:'),
+  "B49 queued-title geometry must wait for actual keyboard tooltip render, with bounded timeout and strict focus owner");
+
 invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
   && focusedFixture.includes('getComputedStyle(rail).opacity !== "1"')
   && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
