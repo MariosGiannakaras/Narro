@@ -1,6 +1,23 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 DOCUMENT EVIDENCE RECONFIRMED; 4/8 POST-AUDIT PR ACCEPTED
+## CURRENT 2026-10-11 — 50/50 S0 DOC AUDIT RECONFIRMED; POST-AUDIT SOURCE PRs 4/9 ACCEPTED
+
+**Frozen S0 audit complete as evidence REVIEW 70/70; independent doc 50/50 unique tracker paths ↔ 15+20+15 audit rows (0 missing/extra), L05/L40 original summary SHA errata only, not old files altered.** Original A01–A14 source/CI 14/14; mandatory source+physical roadmap 3/10; physical Windows USER-PAUSED C4/M6/F35/F29/F27/M8, M10 blocked, optional M11 DORMANT.
+
+**Bounded post-audit implementation progress now 4/9**: #322/#323/#324/#326 each guarded merged after exact required 3/3 Windows CI and changed Git blob matches. Currently open **#321 (other owner; Windows dark B49 FAIL), #327 Q05, #328 Q04, #329 Q06, #330 Q07**. All four latter PRs are narrow TEST-only productions handlers/fixtures, distinct files and CI; **no source/visual/native modifications** in those four. Neither PR head submission nor 2/3 CI increments accepted X.
+
+**Current precise heads/runs:**
+- [#327](https://github.com/MariosGiannakaras/Narro/pull/327) Q05 Focus stale initial IPC exception after newer cross-window result: head `ac12363892cc90ac17d70345df47b72ed4108272`, run `38116234747` validation/fast SUCCESS, Windows IN PROGRESS.
+- [#328](https://github.com/MariosGiannakaras/Narro/pull/328) Q04 real Board Create/Duplicate/Search Quick Task handler VM deferred IPC: head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run `38116433635` validation/fast SUCCESS, Windows IN PROGRESS.
+- [#329](https://github.com/MariosGiannakaras/Narro/pull/329) Q06 real Reports Add/Edit/Delete handler VM deferred IPC: head `228efeafc34719ea8caa9e098c7fc8841518736a`, run `38116774489` validation/fast SUCCESS, Windows IN PROGRESS.
+- [#330](https://github.com/MariosGiannakaras/Narro/pull/330) Q07 real FocusPanel Row/MakeLive/Add/Delete/Home production bodies with shared owner and failed-exit native resume rollback deferred test: head `3c23098db28563ed2e168005d4652ec659c06cec`, run `38117098114` validation SUCCESS, fast IN PROGRESS, Windows NOT PASS. Test-only source imports; no product code changed.
+- [#321](https://github.com/MariosGiannakaras/Narro/pull/321) DIFFERENT OWNER B49: head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298` validation+fast SUCCESS but **Windows FAIL** dark focus CDP ownership and pixel rail. Respect ownership; no merge nor change without owner action.
+
+**Latest immutable work:** `work-log/2026-10-11-chatgpt-q07-real-focus-home-rollback-pr330-ci-checkpoint.md`, preceding Q04/Q05/Q06 immutable logs and reverified 50-doc log.
+
+**NEXT:** inspect completed exact PR CI #327/#328/#329/#330 at useful checkpoint, diagnose first evidenced failure step; if all 3 jobs SUCCESS, check latest head/mergeability/main, guarded expected-head squash merge and verify **every changed Git blob**. After all source union accepted and #321 owner correction, Q12 one latest main production Windows candidate with real ZIP/EXE/installer SHA256; do not use older #316/#319/#320 PR binaries. Physical Codex paused, no M11.
+
+## HISTORICAL — 4/8 before Q07 PR330
 
 **Audit and acceptance invariants:** frozen S0 70/70 independent evidence review, 50/50 unique Markdown paths/actual audit rows (L05/L40 source hash transcription corrections only), original A01–A14 source/CI 14/14 accepted; mandatory fully source/physical roadmap **3/10**. Post-audit bounded new campaign **4/8** source/test PRs accepted (#322/#323/#324/#326 after exact 3/3 CI guarded merges and blob identity). Open Q01 #321 independently owned, Q05 #327, Q04 #328 and new Q06 #329. Physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
 
