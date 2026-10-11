@@ -1,0 +1,104 @@
+# Blitzit unknown-only audit — consolidated 41-finding triage and execution policy
+
+**Date:** 2026-10-11 (Europe/Athens). **Mode:** review/decision matrix only, no app source/config/test changes, no tests or CI executed by this triage, no Blitzit live capture, no optional M11 activation. This **does not supersede** the canonical detailed source-evidence register or the 10-milestone `TODO.md` roadmap.
+
+**Authoritative detail:** `docs/BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md` (U01–U41, every original reference + read-only verified current code path), immutable batch 01–10 `work-log/2026-10-11-chatgpt-blitzit-unknown-only-audit-*`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/EVIDENCE_ROUTING_MAP.md`, original full-video Pass-3 evidence, `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md`. Latest repository bootstrap + `HANDOFF.md` take precedence whenever read again.
+
+**Count:** audit questions **41/41 reviewed**; initial inventory + those 41 = **42/42 bounded audit actions**. These are *review* denominators, not 41 failed features or 41 source-parity passes. Direct original Blitzit source truth, modern v2.6.69 behavior, local Narro code + CI, and *actual native Windows execution* must never be conflated. The separate 31 control-state EVIDENCE_LIMIT subclaims have not been added as 31 new work items.
+
+## Executive disposition — all 41, no duplicate engineering tickets
+
+Five **mutually exclusive** bookkeeping categories cover every exact original U ID once:
+1. **LOCKED APPROVED LOCAL DESIGN (2):** U01, U02. User explicitly owns and approved Spectrum Core color picker, upload/icon/letter behavior and 218-icon set. No Blitzit parity-driven modifications.
+2. **SPECIFIC LOCAL CODE/UI OR AFFORDANCE GAP, sometimes intentionally bounded (9):** U04, U06, U09, U12, U21, U22, U23, U35, U40. A gap is **not automatically safe to fix**: e.g., archived Done deletion is deliberately disabled because of destructive-domain uncertainty; chart menu affordance is truthfully unavailable; manual Break has real recorded source UI but modern source parity open.
+3. **HISTORICAL BLITZIT–NARRO DIFFERENCE (5):** U24, U25, U28, U36, U39. The older original source shows a divergent projection or copy; it is *not* proof the current Blitzit version, user intent, or Narro domain should be rewritten. U24/U25/U36 have meaningful domain/ordering consequences; U28/U39 are minor copy differences.
+4. **COHERENT EXPLICIT NARRO-LOCAL CONTRACT, EXACT SOURCE SEMANTICS UNKNOWN (9):** U08, U13, U15, U16, U29, U31, U32, U38, U41. Prefer safe deterministic documented rule; retain source-unknown marker, don't invent an original algorithm.
+5. **FUNCTIONAL CODE PRESENT, SOURCE/PHYSICAL/DETAILS STILL OPEN (16):** U03, U05, U07, U10, U11, U14, U17, U18, U19, U20, U26, U27, U30, U33, U34, U37. This includes *real prior native FAIL* on U37 Floating Time's Up and code correction after it; CI is not substitute for new actual physical validation. U07 has remaining copy differences, so “code present” does not mean exact text accepted.
+
+**Total:** 2+9+5+9+16=41 unique U questions, no denominator inflation, no speculative extra U42.
+
+## Single exhaustive U01–U41 routing table
+
+| ID | Subject — actual conclusion | Disposition and practical next action |
+| --- | --- | --- |
+| U01 | List color picker: exact Blitzit geometry/HEX unknown; Narro Spectrum Core approved. | **LOCK**. No styling or behavior change; any later source findings informational only. |
+| U02 | Native Blitzit icon/letter/upload behavior unknown; Narro 218-icon chooser approved. | **LOCK**. Preserve upload/letter/icon persistence and appearance. |
+| U03 | Success sounds/preview/volume implemented, original exact rules unobserved. | **NATIVE / SOURCE**: test audible playback/OS volume, selector/preview and mute failure independently. |
+| U04 | Archived Done has original trash affordance; Narro per-row delete is **disabled**, no delete IPC. | **PRODUCT DECISION, not silent coding**: set explicit irreversible-delete scope, cascade/session/export safety + confirmations first, regression first if approved. Disabled is safer than ungrounded destruction. |
+| U05 | Subtask inline +, clear/repeated Enter already implemented. | **SOURCE/UI ACCEPTANCE**: keyboard/pending/hover/native; don't reimplement. |
+| U06 | Reports date calendar double arrows visible in source but no click outcome; local single-step navigation only. | **LIMITED AFFORDANCE**: do not invent year/month jump semantics; infer a documented accessibility-safe local rule only if a product need emerges. |
+| U07 | Reports minor strings/copy have older/new source differences. | **COPY CLEANUP** only from current evidence; no domain changes. |
+| U08 | Focus list picker and scope/fallback implemented; restarting selected scope not proven in source or local persistence. | **LOCAL CONTRACT**: keep React selection/one authoritative timer, test list deletion and restart; don't invent independent timers. |
+| U09 | Reports chart ellipsis source click unknown; Narro disabled honest `Chart options unavailable`. | **SAFELY UNAVAILABLE** until action contract; never fake export/settings. |
+| U10 | Preferences alert hierarchy/saving implemented; exact parent OFF child retention/source UX unknown. | **NATIVE/SOURCE**: test persisted settings, keyboard and sound; preserve Narro typed invariants. |
+| U11 | Monitor thumbnails/selection implemented; hotplug/DPI and stable native window recovery unverified. | **PHYSICAL WINDOWS** F27, exact monitor topology (125%→100% etc); no guessed fallback. |
+| U12 | Timezone dropdown exists, but **direct Rust `validate_preferences` checks timezone token shape, not IANA existence**. | **FIRST EVIDENCE-BACKED CODE CANDIDATE**: deterministic invalid-zone regression for direct typed preference patch + valid legacy/default/DST path, narrow Rust validation without losing existing data; own code/CI PR and new integrated candidate if executed. Source menu visuals separate. |
+| U13 | Home task row trailing time meaning (EST vs Taken) not proven; Narro uses explicit EST. | **LOCAL CONTRACT**; do not mix in session rows or invent Taken data. |
+| U14 | Reports multi-list filter and live metric changes directly shown in source; Narro scoped reads integrated. | **NATIVE/SOURCE** multi-list keyboard, date, reset, long data; no new count formula without evidence. |
+| U15 | Preference immediate patch/close chosen locally; original global Save/Cancel/Escape transaction unproven (not Notes B26). | **LOCAL CONTRACT**: preserve typed immediate SQLite patch and failure recovery; document semantics. |
+| U16 | Early/late percentage aggregate source ratio denominator unknown; Narro time-weighted EST-vs-Taken. | **LOCAL CONTRACT** with tests; no report-math rewrite based on screenshots or transcript only. |
+| U17 | Shortcuts modal and bindings integrated, original keyboard activation/OS conflicts unknown. | **PHYSICAL NATIVE** global registration, OS chords, focus/modal errors; don't alter fixed chords speculatively. |
+| U18 | Reports zero-activity day slots and long-range chart/PDF integrated. | **NATIVE / SOURCE** 60/90d, day labels, no synthetic workdays, PDF usability/overflow. |
+| U19 | Sessions nested Detail/Add picker focus + pending write gates implemented; original keyboard semantics unknown. | **PHYSICAL F29** tab/focus/cancel/submit under pending; no second session IPC. |
+| U20 | Main Preferences overlay and Focus Quick Preferences two distinct shells integrated. | **NATIVE / SOURCE** preserved timer/window morph/Back/Escape; no route rewrite. |
+| U21 | Older Blitzit Break replaces Focus live-card title and queues prior work; Narro retains task live title during break. | **VISUAL PROJECTION GAP**, older source verified. Treat together with U22/U23; don't rewrite Rust timer/Break ledger, modern source unknown. |
+| U22 | Older Blitzit Focus Done includes a Break row without incrementing completed-task fraction; Narro Focus Done shows tasks only. | **VISUAL HISTORY GAP**, not missing persisted Break Sessions. Projection-only candidate; never create a ghost completed task. |
+| U23 | POMO chip already implemented; older live Break temporarily raises header EST then restores, Narro static aggregate doesn't. | **MINOR VIEW PROJECTION GAP**; if done, compute temporary display-only Break contribution, preserve authoritative EST/timer/session totals. |
+| U24 | Older This Week fraction includes Today (superset), Narro uses independent local ISO-week lane. | **OLD-SOURCE DOMAIN DIFFERENCE**. Current source controlled test / product intent before rewriting week denominator, completion history or lane membership. |
+| U25 | Older bottom Today Add inserted newest above previous; Narro bottom appends, separate ADD TO TOP prepends. | **OLD-SOURCE ORDER DIFFERENCE**. Modern source two-create test before reversing priority or breaking user-facing dual buttons. |
+| U26 | Five contextual Focus/Floating actions and Extend integrated after earlier source correction. | **PHYSICAL/UI** hover, time-up, keyboard + C4 HWND; preserve authoritative timer. |
+| U27 | Sessions Break filter with gamepad glyph/aria pressed/CSV scoped rows integrated. | **SOURCE/RENDER** with Break-only, mixed, export; preserve sessions. |
+| U28 | Inline task create field label is `Task` locally, old Blitzit `Title`; functional editor already integrated. | **MINOR OLD-SOURCE COPY DIFFERENCE**; defer exact copy until source-current acceptance, avoid redoing editor. |
+| U29 | Sessions Total Tasks can exceed Sessions; Narro union completed+worked identity rule without phantom rows. | **LOCAL REPORT RULE**; source eligibility/date/list/archive population unknown, no arbitrary count manipulation. |
+| U30 | Preferences circled info icons and section headings **already implemented** despite stale historical crosswalk; hover tooltip exact rule unknown. | **SOURCE/DETAIL ONLY**: don't recreate existing headings or decorative icons; source icon-map/tooltip observation later. |
+| U31 | Empty Today Blitz CTA muted in older source; Narro advisory styling with Rust-authoritative start. | **LOCAL CONTRACT**; the fine future-time visual edge is analyzed separately in U40, not another independently counted feature. |
+| U32 | Inline celebration + selectable Fun GIF built with three offline Narro SVG variants, not source/licensed GIF media. | **APPROVED SAFE LOCAL MEDIA**, test native motion/reduced-motion and success gating; no copied original assets. |
+| U33 | `525 minutes early` exact source phrase implemented via robust BigInt timing projection despite stale crosswalk. | **SOURCE DETAIL/NATIVE** rounding, zero/no EST and late; no rewrite of timer ledger. |
+| U34 | Negative signed overtime in Focus/Floating already implemented, original negative magnitude staged in video. | **NATIVE UI** warm amber/sign/paused/hour rollover. No elapsed-rate conclusions from staged tutorial edit. |
+| U35 | Add Session `Recent Tasks` currently gets **Backlog→This Week→Today→Done lane order** with no recency timestamp, despite label. | **REAL LOCAL LABEL/ORDER SEMANTIC GAP**: choose deterministic recency contract and regression-test stable sorting/search/12 cap/focus, or label it honestly; source's exact recency algorithm still unknown. Do not arbitrarily persist/reorder tasks. |
+| U36 | Older Blitzit unschedule moves originally This Week task to Backlog; Narro preserves manual This Week. | **OLD-SOURCE DOMAIN DIFFERENCE**. Retain CAS/manual-lane integrity unless contemporary controlled source test/product decision supports a deliberate change; watch recurrence children. |
+| U37 | Native Floating Time's Up was physically missing at earlier CI1046; explicit label subsequently implemented/CI-passed. | **PHYSICAL GATE STILL OPEN** on latest real executable, compact+expanded real expiry and focus/hover, not automatic PASS from fixture. |
+| U38 | After Done, Blitzit `Take a Break` visible but not clicked. Narro intentionally performs **untimed rest without phantom session**. | **SAFE LOCAL CONTRACT**, native focus/error validation; do not infer timed post-Done Break from separate active-task break source. |
+| U39 | All three Narro pending empty lanes already `All Clear`; only Done uses `No tasks` vs older Blitzit `All Clear`. | **MINOR OLD-SOURCE COPY DIFFERENCE**, v2.6.69 exact Done copy unknown; not a missing empty state. |
+| U40 | Today future timed task can make advisory Blitz CTA vivid while Rust says not yet eligible; action safely rejects. | **REAL ADVISORY VISUAL/ELIGIBILITY MISMATCH**. Consider a read-only eligibility projection derived from authority or clearer status/accessible cue, **not** a second UI start authority or blind disabled state; tests for future due and races. Source click result unknown. |
+| U41 | Success ON source explicitly waits for Next Task; original **success OFF** advancement unknown. Narro commits Done and best-effort autostarts next. | **SAFE LOCAL CONTRACT**: preserve committed Done and catch failed next start; no auto-advance behavior claim for current Blitzit. Native failure/none/Pomodoro test when available. |
+
+## What to do — narrow, evidence-first delivery sequence
+
+### 0. Finish and pin the already merged Windows executable candidate before unrelated changes
+
+At this triage's live bootstrap, original 11/11 plus PA-06 = **12/12 specific coding PR units guarded merged, exact PR-head CI passed**. #333 merged to source commit `ef22a7e434bea6cc4849282aa46c4786d9d90663` with 5/5 identical blobs. Resulting-main Windows [run 38173126053](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053) **IN PROGRESS, not final PASS** at last observed query. Assigned implementation owner should check all three real jobs, if green download and hash **new production ZIP, `narro.exe`, NSIS and MSI**, update shared `HANDOFF/TODO/STATUS` and physical session candidate. Do not count prior executable's binary hash for new source or mark physical PASS. The audit consolidation owner must not touch those jointly-owned tracking files.
+
+### 1. Establish selective technical shortlist — **not all 41 fixes**
+
+- **Priority A, independently evidence-backed source bug:** U12 invalid IANA preference persistence check. First produce failing Rust regression covering direct preference patch and downstream timezone-sensitive calls; then narrowly fix typed validation while preserving legacy records, valid DST, error model and existing scheduling/reporting tests. If changed, full new exact-head CI, guarded merge, resulting-main candidate and hashes are required before native delivery. This is **a new scope**, so do not silently alter the existing 12/12 denominator without defining that coding unit.
+- **Priority B, non-destructive user-visible semantic consistency:** U35 mislabeled lane-ordered `Recent Tasks`, U40 bright Today CTA for future-only scheduled work. They are demonstrable **local inconsistencies**, but no recorded current original Blitzit algorithm mandates one replacement. Plan a small deterministic, focus/keyboard-safe slice with tests if product accepts local-first semantics. Keep Rust authoritative; avoid reopening stable search, reports or timer engine.
+- **Priority C, correlated Break **view-only** historic-source differences:** U21/U22/U23 should be one causal/reconciliation analysis family (not 3 unrelated timer rewrites), preferably after the pending native baseline is accepted or an independently safe source-only view slice is scoped. UI projections only, preserve SessionKind::Break and task completion counts. Decide whether modern parity is materially needed before coding from old tutorials.
+- **Priority D, intentionally limited controls:** U04 archived Done permanent delete needs explicit policy for irreversible delete, dependent sessions/reports/exports/notes, failed write/retries and user confirmation; **leave disabled** until decided. U06 calendar double arrows and U09 chart ellipsis actions lack original click evidence; keep honest/inert affordances or document a new local function, never pretend original verified.
+- **Priority E, old-version domain or cosmetic differences:** U24/U25/U36 cannot justify editing authoritative week grouping, task ranking or persisted manual lane absent modern source/product decision. U07/U28/U39 minor copy reconciliation can wait for exact current-source snapshot and current native pass.
+
+### 2. Consolidate native Windows physical acceptance when the user resumes Codex
+
+Keep the repo-recorded *USER-PAUSED* physical line paused until explicit resumption. Once authorized, use the freshly validated and SHA-pinned current binary. Native gates: **C4 persistent Focus HWND + Main→Focus morph; F35/U37 real Floating Time's Up compact/expanded; F29/U19 Add Session keyboard/pending focus; F27/U11 selected display/DPI/hotplug; M8/U03/U10 notifications, local sound and listener rejection recovery; persistence/restart and real installer launch**. These are not inferable from Linux/web preview or automated Edge fixtures. Group related U05/U17/U18/U20/U26/U32/U33/U34 into the same physical pass where safe. A success in native validation is still not a direct current Blitzit parity PASS.
+
+### 3. Separately decide whether current-source parity work is worth purchasing
+
+If the user **explicitly opts into optional M11**, follow frozen-corpus source capture before analysis before Narro remediation. Prioritize five controlled **families**, not an unstructured 41-case shopping list:
+1. **Board/domain**: U24/U25/U36 (week scope, insertion order, unschedule), U31/U40 (empty/future Today CTA and task-add semantics).
+2. **Break/Focus/Done**: U21/U22/U23 (live card/Done/EST), U38/U41 (post-Done Break and Show success OFF continuation), U37 true Floating expiry if source supports it.
+3. **Reports/session meaning**: U16/U29 (ratios and Total Tasks denominator), U35 (recent task ordering), U06/U09 menu/disclosure actions, U19 selection focus.
+4. **Settings/OS**: U03/U10/U11/U12/U15/U17 (alerts, monitor, timezone, preference Save and shortcut interactions).
+5. **Low-risk details/copy/media**: U07/U13/U28/U30/U32/U33/U34/U39 and existing per-control static evidence limits.
+
+An ordinary user `continue`, this triage, or the 41/41 counter **does not authorize M11, live Blitzit clicks, or new asset acquisition**. Without M11, use documented local-first deterministic contracts and retain explicit source-unknown status.
+
+### 4. Completion standard and no-go rules
+
+- No 41 issue/PR explosion. Create only tightly scoped defects for real evidenced Narro gaps, cluster by shared state authority, and avoid overlapping active repo ownership.
+- Preserve existing source+CI acceptance; changing source creates a new candidate and independent Windows CI requirements; never extrapolate historical PASS to replacement binaries.
+- Never change the **user-approved Create/Edit List Spectrum Core picker, upload/letter/icon precedence or 218 icons** as a supposed Blitzit fix.
+- Never fabricate source behavior from static screenshots, transcript narration, tutorial-staged timing or UI label alone.
+- Destructive task deletion and domain reclassification require explicit correctness design and/or product decision; don't make them look “fixed” by simply wiring a visible button.
+- The current review is **41/41 inspected**; actual latest native physical acceptance, source-current observable behavior and M10/M11 milestones are separate.
+
+**Next action for a zero-context agent:** Read current `AI_START_HERE.md` / `HANDOFF.md`; finish resulting-main #333 Windows CI + artifact/hash as assigned, or continue independent bounded regression-first U12 if ownership/scope/current repository state permits. This triage does **not** assign overlapping PR ownership or unpause Codex.
