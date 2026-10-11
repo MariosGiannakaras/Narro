@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 independent 50/50 verified, post-audit bounded 4/8 source PRs accepted
+## CURRENT 2026-10-11 — S0 doc identity reverified 50/50; post-audit scoped code/test 4/9 accepted
+
+Historical S0 70/70 REVIEWED (50 original distinct Markdown checked paths and 15+20+15 audit rows verified, 2 SHA transcription corrections handled immutably). Original A01–A14 source/CI 14/14 accepted, mandatory full source+physical roadmap 3/10, Codex physical user-paused, M10 blocked/M11 dormant.
+
+Post-audit source/test PR accepted **4/9** (#322/#323/#324/#326 exact three Windows CI green, guarded merged/blob verified). Pending TEST-only branches: #327 Q05 exact head `ac12363892cc90ac17d70345df47b72ed4108272`, run 38116234747 validation/fast SUCCESS Windows IN PROGRESS; #328 Q04 head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run 38116433635 validation/fast SUCCESS Windows IN PROGRESS; #329 Q06 head `228efeafc34719ea8caa9e098c7fc8841518736a`, run 38116774489 validation/fast SUCCESS Windows IN PROGRESS; NEW #330 Q07 head `3c23098db28563ed2e168005d4652ec659c06cec`, run 38117098114 validation SUCCESS fast IN PROGRESS Windows NOT PASS. #330 executes actual FocusPanel handler bodies for native Home failure/rollback and cross-action synchronous owner; no React/CSS/native code edits. Immutable `work-log/2026-10-11-chatgpt-q07-real-focus-home-rollback-pr330-ci-checkpoint.md`.
+
+#321 B49 belongs to another agent, head `f129c37b30b27897971f3aa8452c563f8f955111` last Windows CI 38092529298 dark Focus capture failed, no owner takeover/fake PASS. Next inspect finished run jobs #327-#330, first red logs or guarded merge/changed blobs as appropriate, Q12 final combined-main ZIP/EXE/installers hash after other agent #321 accepted. Native C4/M6/F35/F29/F27/M8 still OPEN/USER-PAUSED.
+
+## HISTORICAL — 4/8 before Q07
 
 Retrospective 70/70 source/evidence REVIEWED (50/50 Markdown immutable IDs and 15+20+15 audit rows separately rechecked), L05/L40 original source SHA transcription errors corrected in additive logs only, no phantom Windows/Blitzit parity PASS. Original A01–A14 source/CI 14/14, mandatory physical/source accepted 3/10; physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
 
