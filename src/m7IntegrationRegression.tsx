@@ -106,6 +106,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let callbackId = 0, homeReads = 0, emissions = 0, mutationFailure = false, deliveryFailure = false;
   let deferHome = false, deferFocusBoardReads = false, deleteFailure = false, deleteCalls = 0;
   const focusBoardReadWaiters: Array<(value: ListBoardSnapshot) => void> = [];
+  const focusBoardReadRejecters: Array<(failure: unknown) => void> = [];
   const homeWaiters: Array<(value: unknown) => void> = [];
   let deferredDelete: (() => void) | undefined;
   const dragCalls: Array<Record<string, unknown>> = [];
@@ -147,7 +148,10 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
       if (command === "get_list_board_snapshot") {
-        if (deferFocusBoardReads) return new Promise(resolve => focusBoardReadWaiters.push(resolve as (value: ListBoardSnapshot) => void));
+        if (deferFocusBoardReads) return new Promise((resolve, reject) => {
+          focusBoardReadWaiters.push(resolve as (value: ListBoardSnapshot) => void);
+          focusBoardReadRejecters.push(reject);
+        });
         if (scopeScenario) {
           const requested = args.listId
             ? { kind: "list", id: String(args.listId) } as ListBoardRequestTarget
@@ -424,6 +428,25 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   focusBoardReadWaiters[0](staleFocusBoard); await wait(); await wait();
   assert(container.textContent?.includes(arriving.title),
     "A03 stale initial board overwrote newer event snapshot");
+  // Q05: a stale *rejection* from the first Focus read is just as unsafe as
+  // a stale success. The newer event read must keep its task AND clear any old
+  // error even if an earlier IPC completes exceptionally afterward.
+  const staleFailureIndex = focusBoardReadWaiters.length;
+  flushSync(() => root.render(<div>A03 remount for stale-error inversion</div>)); await wait();
+  renderFocus(11); await wait(); await wait();
+  assert(focusBoardReadWaiters.length === staleFailureIndex + 1,
+    "Q05 initial Focus board request must be delayed for stale-error inversion");
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(focusBoardReadWaiters.length === staleFailureIndex + 2,
+    "Q05 newer Focus board invalidation must read a fresh snapshot");
+  focusBoardReadWaiters[staleFailureIndex + 1](freshFocusBoard); await wait(); await wait();
+  assert(container.textContent?.includes(arriving.title),
+    "Q05 newer Focus snapshot was not rendered before stale rejection");
+  focusBoardReadRejecters[staleFailureIndex](new Error("Q05 stale initial IPC must be ignored"));
+  await wait(); await wait();
+  assert(container.textContent?.includes(arriving.title)
+    && !container.textContent?.includes("Q05 stale initial IPC must be ignored"),
+    "Q05 late initial read error replaced newer Focus data or exposed obsolete error");
   deferFocusBoardReads = false;
   flushSync(() => root.render(<div>A03 finished</div>)); await wait();
 
