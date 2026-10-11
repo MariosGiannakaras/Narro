@@ -1,6 +1,10 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — IMPLEMENTATION OWNERSHIP EXPLICITLY REASSIGNED, #321 CI OPEN
+## CURRENT 2026-10-11 — Q01 ACTUAL TOOLTIP FAILURE, NEW HEAD TESTING
+
+Previous exact [#321 run 38141136444](https://github.com/MariosGiannakaras/Narro/actions/runs/38141136444) on head `940ce10e3b3eed83513ea127286d98960d0d12d3` was **validation SUCCESS, fast SUCCESS, Windows FAIL** because Focus CDP light queued title tooltip did not actually open within fixed 450ms. Downloaded diagnostic ZIP `11703503337` SHA256 `a91a6f64cc55fd717d225629eaff0ae9ec4e8204357a1ef158e4d099cc2a2f36`, inspected DOM error-only contract and absence of open tooltip; real ordinary running fixture still had actual open tooltip. Current same-branch fix preserves production Tooltip and strict B49 checks, waits a bounded extra 2s for real `data-open=true` with retained focus owner. New head `221558f80012342d7d3f9e1720c42a8e477c9c67`, [run 38143961415](https://github.com/MariosGiannakaras/Narro/actions/runs/38143961415) validation **SUCCESS**, fast and Windows **IN PROGRESS/NOT PASS** at checkpoint. Source acceptance **10/11**, final post-#321 Q12 pending. See `work-log/2026-10-11-chatgpt-b49-actual-tooltip-polling-ci-checkpoint.md`; Codex physical remains user-paused, M10 blocked, M11 dormant.
+
+## HISTORICAL 2026-10-11 — IMPLEMENTATION OWNERSHIP EXPLICITLY REASSIGNED, #321 CI OPEN
 
 User confirmed ChatGPT alone owns *all* implementation, source/test regression, GitHub Actions and merges. Codex owns only the intentionally paused consolidated physical Windows interaction/observation stage. Prior "other agent #321" ownership records are historical/superseded.
 
