@@ -1,6 +1,12 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 10/11 ACCEPTED, Q01 OTHER OWNER OPEN
+## CURRENT 2026-10-11 — #321 CODING OWNERSHIP REASSIGNED TO CHATGPT
+
+- [ ] **#321 Q01 ChatGPT-owned, active existing PR** head `940ce10e3b3eed83513ea127286d98960d0d12d3`, [run 38141136444](https://github.com/MariosGiannakaras/Narro/actions/runs/38141136444) **IN PROGRESS/NOT PASS**. Corrected known late-viewport-reflow risk by setting CDP 420×720 before fixture navigation; static ordering test added. Require actual strict dark/light rail pixels and exact-head Windows CI 3/3 + guarded merge and main blob identity. Prior run `38092529298` failed dark capture; preserve failure evidence.
+- [ ] **Q12 final integrated post-#321 Windows candidate**: after #321 accepted, verify one real resulting-main production run/artifact and ZIP, EXE, NSIS and MSI SHA256. Existing pre-#321 `38124932682` 3/3 and hashes are intermediate PASS only.
+- [ ] **Physical Windows only (Codex, user-paused)**: retain all still-OPEN native/source-parity gates, do not run physical session from coding track; M10 blocked/M11 dormant. Progress **10/11 coding PR units** pending #321.
+
+## HISTORICAL 2026-10-11 — POST-AUDIT 10/11 ACCEPTED, Q01 OTHER OWNER OPEN
 
 - [x] **Pre-#321 integrated-main compilation/CI/artifact proof:** #332 union main `c91c5dd86d626ab9a26d763f7e623d11df47c945` run `38124932682` validation/fast/windows 3/3 SUCCESS; downloaded artifact `11697127517` ZIP, production `narro.exe`, NSIS and MSI individually SHA256 verified. Evidence `work-log/2026-10-11-chatgpt-prephysical-post332-main-ci-and-artifact-hashes.md`. This check does **not** close final Q12 after #321 or physical Windows acceptance.
 
