@@ -131,6 +131,15 @@ const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
 const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus")')
+  && focusedCapture.includes('$mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }')
+  && focusedCapture.includes('"--mode=$mode"')
+  && cdpCapture.includes('const mode = options.mode ?? "focused"')
+  && cdpCapture.includes('mode === "running" ? waitForRunningFixture : waitForFocusedFixture')
+  && cdpCapture.includes('observed?.viewport?.[0] === 420 && observed?.viewport?.[1] === 720')
+  && cdpCapture.includes('observed?.keyboardMarker === null && observed?.railOpacity === "0"')
+  && cdpCapture.includes('observed?.headingOpacity === "1"'),
+  "B49 both resting and focused painted rail screenshots must use identical actual CDP viewport and strict state ownership");
 const blankPageLaunch = cdpCapture.indexOf('  "about:blank",');
 const viewportOverride = cdpCapture.indexOf('await command("Emulation.setDeviceMetricsOverride"');
 const foregroundPage = cdpCapture.indexOf('await command("Page.bringToFront")');
@@ -144,7 +153,7 @@ invariant(blankPageLaunch >= 0 && viewportOverride >= 0
   "B49 must foreground Edge page after final viewport and before real keyboard/tooltip fixture navigation");
 invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
   && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
-  && cdpCapture.includes('await waitForFocusedFixture();')
+  && cdpCapture.includes('await waitForState();')
   && cdpCapture.includes('Page.captureScreenshot')
   && cdpCapture.includes('document.documentElement.outerHTML'),
   "B49 screenshot and focus-ready DOM must come from the same actual Edge CDP page");
