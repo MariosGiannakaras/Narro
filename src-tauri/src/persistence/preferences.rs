@@ -213,7 +213,9 @@ pub fn validate_preferences(payload: &PreferencesPayload) -> Result<(), Preferen
 // Historical payloads were previously only checked as bounded tokens. Keep their
 // read path compatible so a user can recover the stored settings; all new writes
 // must resolve through the same authoritative IANA database as scheduling.
-fn validate_preferences_for_write(payload: &PreferencesPayload) -> Result<(), PreferenceStoreError> {
+fn validate_preferences_for_write(
+    payload: &PreferencesPayload,
+) -> Result<(), PreferenceStoreError> {
     validate_preferences(payload)?;
     if let Some(timezone) = payload.general.timezone.as_deref() {
         crate::scheduling::validate_timezone_identifier(timezone)
@@ -410,9 +412,14 @@ mod tests {
     fn valid_iana_and_automatic_timezones_round_trip_through_direct_writes() {
         let mut conn = Connection::open_in_memory().expect("open database");
         run_migrations(&mut conn).expect("migrate database");
-        for (index, timezone) in [Some("Europe/Athens"), Some("America/New_York"), Some("UTC"), None]
-            .into_iter()
-            .enumerate()
+        for (index, timezone) in [
+            Some("Europe/Athens"),
+            Some("America/New_York"),
+            Some("UTC"),
+            None,
+        ]
+        .into_iter()
+        .enumerate()
         {
             let written = mutate_preferences(&mut conn, NOW, |payload| {
                 payload.general.timezone = timezone.map(str::to_owned);
@@ -451,7 +458,10 @@ mod tests {
             current.general.timezone = Some("Europe/Athens".into());
         })
         .expect("user can repair stored timezone without resetting other preferences");
-        assert_eq!(corrected.payload.general.timezone.as_deref(), Some("Europe/Athens"));
+        assert_eq!(
+            corrected.payload.general.timezone.as_deref(),
+            Some("Europe/Athens")
+        );
         assert!(corrected.payload.general.open_on_login);
         assert_eq!(get_preferences(&conn).unwrap().unwrap(), corrected);
     }
