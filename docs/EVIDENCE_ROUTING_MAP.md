@@ -30,6 +30,10 @@ When work touches a user-visible surface, Blitzit parity, source evidence, physi
 | Reliability hazards | `BLITZIT_HISTORY_RISK_INDEX.md` | source-product failure families / Narro anti-regressions | visual parity alone |
 | Narro engineering hazards | `NARRO_ENGINEERING_RISK_REGISTER.md` | recurring Narro implementation/process failure families and reusable prevention guards | current work ordering or acceptance status |
 | Reconciliation | `BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `AUDIT_IMPLEMENTATION_CROSSWALK.md` | finding → current Narro comparison → disposition | raw observation |
+| **41-item source-unknown inventory (closed review, open source parity)** | `BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md` + immutable `work-log/2026-10-11-chatgpt-blitzit-unknown-only-audit-batch-*.md` | U01–U41: observed source limitation, verified Narro behavior/code owner, explicit inference/conflict, per-item evidence needed; **41/41 reviewed, not 41 fixes/PASS** | proof current Blitzit live behavior, native Windows physical acceptance |
+| **Consolidated finding / physical-gate inventory** | `BLITZIT_ALL_KNOWN_GAPS_CONSOLIDATED_2026-10-11.md` + `BLITZIT_CONTROL_STATE_AUDIT_MATRIX.md` | all 41 U-items **and** 31 additional static control-state EVIDENCE_LIMIT subclaims **and** PA-01–09 native gate matrix, deduplicated by U ID | an independent new milestone queue or fix authorization |
+| **Disposition / suggested local work order** | `BLITZIT_UNVERIFIED_AUDIT_CONSOLIDATED_TRIAGE_2026-10-11.md` | one-row action/status for each U01–U41; preservation locks, technical candidates, grouped historic-version differences, source-unknown local rules | current live implementation owner, overriding authoritative `TODO.md`/`HANDOFF.md`/PR/CI |
+
 | Deep corrective analysis | `DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` | exhaustive Narro finding review, visual/video analysis depth, causal/disposition matrix, dependency-aware batching | replacement for canonical Blitzit source records |
 | Visible target | `UI_UX_SPEC.md` plus reconciled canonical evidence | implementation-facing visible target | proof Narro matches |
 | Ordered execution | `TODO.md`, `HANDOFF.md`, `STATUS.md` | active/validated/blocked/next state | replacement for detail evidence |
@@ -52,6 +56,8 @@ Never infer current Pass-3 progress from the older 19/19 trackers.
 Do not patch implementation or use current Narro as a reason to stop source inspection early.
 
 ### Reconciliation / implementation chat
+
+**After the canonical crosswalk, read the source-unknown register when an item is U01–U41; for broad multi-finding decisions also read both consolidated indices (one includes the independent 31 screenshot EVIDENCE_LIMIT claims and native PA-01–09, the other groups next actions).** Do not infer a completed source behavior from a reviewed finding or count the supporting screenshot claims as independent coding tasks. Each of these is an analysis index, not permission to activate optional live Blitzit M11 or to change the user-approved List Editor.
 
 `EVIDENCE_ROUTING_MAP → DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW → PARITY_RECONCILIATION_WORKFLOW → PASS3_TRACKER → relevant SOURCE_COMPLETE findings → VISUAL_SYSTEM / calibration tracker when visual → CROSSWALK → affected TODO/UI_UX_SPEC → current implementation/tests`.
 
