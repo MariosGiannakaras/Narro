@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 DOCUMENT EVIDENCE VERIFIED; POST-AUDIT 4/6 ACCEPTED, Q05 #327 CI QUEUED
+## CURRENT 2026-10-11 — 50/50 VERIFIED; POST-AUDIT 4/7 MERGED, #327/#328 WINDOWS CI PENDING
+
+**Frozen S0 70/70 REVIEWED** with 50/50 unique original Markdown paths plus individual logs and L05/L40 immutable errata. Original A01–A14 14/14 source/CI guarded merged, roadmap fully source+physical accepted **3/10**. Bounded new post-audit source/test campaign **4/7 accepted** (#322/#323/#324/#326) and pending #321 other-agent-owned B49, #327 independent Q05, #328 independent Q04. No one-piece latest combined Windows ZIP/EXE hashes yet. User-paused physical C4/M6/F35/F29/F27/M8 OPEN, M10 blocked, optional M11 DORMANT.
+
+**#327 Q05** [PR](https://github.com/MariosGiannakaras/Narro/pull/327) exact head `ac12363892cc90ac17d70345df47b72ed4108272`, [Windows run 38116234747](https://github.com/MariosGiannakaras/Narro/actions/runs/38116234747): validation+fast **SUCCESS**, Windows candidate **IN PROGRESS / NOT PASS** last check. Real mounted FocusPanel stale initial IPC exception arriving after newer cross-window board result, test-only changes `src/m7IntegrationRegression.tsx`, `scripts/test-ui-focus-panel.mjs`. No production code/behavior modified.
+
+**#328 Q04** [PR](https://github.com/MariosGiannakaras/Narro/pull/328) exact head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, [run 38116433635](https://github.com/MariosGiannakaras/Narro/actions/runs/38116433635): validation **SUCCESS**, fast **IN PROGRESS / NOT PASS**, Windows not started. Two test-only files `scripts/test-board-search-production-handlers.mjs` and `scripts/test-board-create-single-flight.mjs`. Node VM evaluates extracted ACTUAL production handler bodies for Board Create/Duplicate and Search Quick Task with deferred command/refresh, including failure, retry, post-commit, same-mounted palette reopen. This addresses Q04 abstract-gate test limitation, **not** a global cross-intent lock. Immutable `work-log/2026-10-11-chatgpt-q04-actual-board-search-handlers-pr328-ci-checkpoint.md`.
+
+**#321 Q01 different active owner, NOT MERGED:** head `f129c37b30b27897971f3aa8452c563f8f955111`, exact run `38092529298` Windows **FAILED** on dark B49 CDP focused-rail state; do not touch branch/merge without ownership and exact head all-three green.
+
+**NEXT AGENT ACTION:** check exact jobs #327 `38116234747` and #328 `38116433635` when needed, inspect *first failure logs* if red and fix evidence-only; if all 3 green recheck head/mergeable/main and guarded merge, independently verify full changed Git blobs. Monitor independently owned #321 only after meaningful change. After all source branches accepted, Q12 single exact combined-main Windows executable/ZIP/installer actual SHA256, physical manual gate still USER-PAUSED. Source+CI #326 already guarded merged `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 blobs, run `38095709184` 3/3 SUCCESS.
+
+## HISTORICAL — 4/6 previous campaign denominator
 
 **Live current truth:** 50/50 original S0 Markdown paths independently matched to unique audit rows (0 missing/duplicate), actual L05/L40 Git SHA documentation errata corrected via immutable addenda; frozen retrospective 70/70 REVIEWED not native PASS. Original A01–A14 source/CI 14/14; mandatory fully source/physical milestones 3/10. Post-audit **4/6** (#322/#323/#324/#326 guarded merged with 3/3 exact CI and blob proof; #321 other-agent-owned B49 FAIL/OPEN; independent #327 Q05 NEW, OPEN/CI QUEUED).
 
