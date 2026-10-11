@@ -4,7 +4,8 @@ import {
   playLocalSound,
   stopLocalSoundPlayback,
 } from "./localSoundCatalog";
-import { connectTimedAlertEffectsWithRecovery, type TimedAlertEffectPayload } from "./timedAlertApi";
+import { type TimedAlertEffectPayload } from "./timedAlertApi";
+import { connectTimedAlertEffectsWithRecovery } from "./timedAlertListenerRecovery";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 
 export function TimedAlertSoundRuntime() {
