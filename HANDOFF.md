@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 VERIFIED; POST-AUDIT 4/7 MERGED, #327/#328 WINDOWS CI PENDING
+## CURRENT 2026-10-11 — 50/50 DOCUMENT EVIDENCE RECONFIRMED; 4/8 POST-AUDIT PR ACCEPTED
+
+**Audit and acceptance invariants:** frozen S0 70/70 independent evidence review, 50/50 unique Markdown paths/actual audit rows (L05/L40 source hash transcription corrections only), original A01–A14 source/CI 14/14 accepted; mandatory fully source/physical roadmap **3/10**. Post-audit bounded new campaign **4/8** source/test PRs accepted (#322/#323/#324/#326 after exact 3/3 CI guarded merges and blob identity). Open Q01 #321 independently owned, Q05 #327, Q04 #328 and new Q06 #329. Physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+**Q06 NEW [#329](https://github.com/MariosGiannakaras/Narro/pull/329)** exact head `228efeafc34719ea8caa9e098c7fc8841518736a`, run [38116774489](https://github.com/MariosGiannakaras/Narro/actions/runs/38116774489) originally QUEUED/NOT PASS. Two test-only files: production `ReportsSessions.tsx` Add/Edit/Delete handler TypeScript bodies evaluated in Node VM with real shared ref under delayed native write+readback, sibling exclusion, failure/retry, committed-readback failure and invalid date handling; wired through mandatory preflight. Existing source/correctness from #318 unchanged. Immutable `work-log/2026-10-11-chatgpt-q06-real-reports-write-handlers-pr329-ci-checkpoint.md`.
+
+**Q05 #327** head `ac12363892cc90ac17d70345df47b72ed4108272`, run 38116234747 validation/fast SUCCESS, Windows IN PROGRESS/NOT PASS last checkpoint. **Q04 #328** head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run 38116433635 validation/fast SUCCESS, Windows IN PROGRESS/NOT PASS last checkpoint. Both independent, test only. Old #326 keyboard/ARIA actual DOM regression 3/3 CI, merge `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 blobs already accepted.
+
+**Q01 #321 owned by a DIFFERENT AGENT** head `f129c37b30b27897971f3aa8452c563f8f955111`, run 38092529298 dark B49 focused action Windows visual FAILED, keep open, no unapproved branch takeover or invented PASS.
+
+**EXACT NEXT ACTION:** inspect latest full CI for #327 run 38116234747, #328 run 38116433635, #329 run 38116774489; first evidenced red step log if any, repair only its cause on same owned branch. If exact validation+fast+windows 3/3 SUCCESS at unchanged head, recheck PR and latest main, expected-head guarded merge, independently match changed Git blobs. Do not idle on CI; continue only safe independent work. Q12 final combined latest-main Windows production candidate/actual ZIP+EXE+installers SHA256 AFTER #321 owner resolves and source PRs merged. Native physical gates C4/M6/F35/F29/F27/M8 OPEN and USER-PAUSED.
+
+## HISTORICAL — 4/7 scope before PR329
 
 **Frozen S0 70/70 REVIEWED** with 50/50 unique original Markdown paths plus individual logs and L05/L40 immutable errata. Original A01–A14 14/14 source/CI guarded merged, roadmap fully source+physical accepted **3/10**. Bounded new post-audit source/test campaign **4/7 accepted** (#322/#323/#324/#326) and pending #321 other-agent-owned B49, #327 independent Q05, #328 independent Q04. No one-piece latest combined Windows ZIP/EXE hashes yet. User-paused physical C4/M6/F35/F29/F27/M8 OPEN, M10 blocked, optional M11 DORMANT.
 
