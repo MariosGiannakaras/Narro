@@ -330,7 +330,22 @@ if (queuedRow) {
     title.focus({preventScroll: true});
     await new Promise<void>(resolve => window.setTimeout(resolve, TOOLTIP_INTENT_DELAY_MS + 50));
     const focusedTooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]');
-    if (focusedTooltip?.dataset.open !== "true") throw new Error('Focused queued title tooltip did not open before containment measurement');
+    // Headless CDP without virtual-time acceleration can delay the real React
+    // tooltip timer/commit beyond the nominal intent delay. Wait for the real
+    // mounted tooltip to OPEN, never treat elapsed time or DOM presence as PASS.
+    const tooltipDeadline = performance.now() + 2_000;
+    while (document.activeElement === title
+      && focusedTooltip?.dataset.open !== "true"
+      && performance.now() < tooltipDeadline) {
+      await new Promise<void>(resolve => window.setTimeout(resolve, 100));
+    }
+    if (document.activeElement !== title || focusedTooltip?.dataset.open !== "true") {
+      throw new Error('Focused queued title tooltip did not open before containment measurement: '
+        + JSON.stringify({focusOwner: document.activeElement === title,
+          activeTag: document.activeElement?.tagName ?? null,
+          tooltipOpen: focusedTooltip?.dataset.open ?? null,
+          rowVisible: rowIsVisible, viewport: [window.innerWidth, window.innerHeight]}));
+    }
   }
   if (JSON.stringify(bounds()) !== JSON.stringify(before)) throw new Error('Revealing queued actions moved title, card or targets');
   if (queuedRow.scrollWidth > queuedRow.clientWidth + 1) throw new Error('Queued task has horizontal overflow ' + JSON.stringify({width: queuedRow.clientWidth, scrollWidth: queuedRow.scrollWidth, escaping: Array.from(queuedRow.querySelectorAll<HTMLElement>('*')).filter(node => node.getBoundingClientRect().right > queuedRow.getBoundingClientRect().right).map(node => ({text: node.textContent?.slice(0,35), class: node.className, right: node.getBoundingClientRect().right}))}));
