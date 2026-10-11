@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — post-#333 narrow U12 and U40 PRs under CI, 0/2 newly accepted
+## CURRENT 2026-10-12 — U12, U40, U35 new source PRs independently under CI
+
+**Prior code/CI campaign 12/12 accepted**, source `ef22a7e434bea6cc4849282aa46c4786d9d90663`, true Q12 production ZIP/exe/NSIS/MSI hashes in immutable `work-log/2026-10-12-chatgpt-post333-final-windows-artifact-hashes-and-candidate-pin.md`. **New independent post-Q12 coding scope 0/3 accepted** pending exact-head and integrated-main validation. Historical binary cannot validate new app source.
+
+**U12 #334** head `3688f22d2051d762bd4d70997fd4947255031cff`, [run 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) validation/fast SUCCESS, Windows attempt1 FAILED **Finding33 existing real Edge CDP `Page.navigate` timeout** in Capture Visual Regression Fixtures despite Rust Check/Clippy/397 unit tests PASS; diagnostic artifact 11718417474. One exact-head Windows job rerun requested (**attempt2 IN PROGRESS / NOT PASS**). Source change only Rust prefs strict IANA write validation, legacy reads preserved. Initial Rust formatting CI FAIL and exact three corrections remain immutable evidence. No causal proof that preference patch caused unrelated browser timing symptom.
+
+**U40 #335** head `878559303aef1184035f300b0a3ba2ccaab103d9`, [run 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) validation/fast SUCCESS, Windows candidate ongoing. Uses already Rust-projected timeliness only for Today Blitz CTA advisory brightness; Rust start remains authoritative. **U35 #336** head `1411093118acb4ecf06e2e046e150469483618cb`, [run 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) in progress. Existing persisted task update time projected read-only; stable sort newest-last-modified first **only Add Session task chooser**; original Blitzit algorithm remains unknown. Independent regression tests on mandatory preflight; no app domain writes.
+
+**Next:** inspect runs and first failed step, expected-head guarded merges after actual 3/3 success, source blob identity, **resulting-main** Windows CI and replacement actual new production ZIP/exe/NSIS/MSI SHA256. Physical Codex PA-01–09 USER-PAUSED; source parity OPEN, optional live M11 dormant, M10 blocked, fully physical milestones 3/10. User-owned Spectrum Core color picker, image and 218 icons unchanged.
+
+## HISTORICAL 2026-10-12 — post-#333 narrow U12 and U40 PRs under CI, 0/2 newly accepted
 
 **Stable prior executable evidence:** previously scoped source/CI `12/12` accepted, Q12 exact source `ef22a7e434bea6cc4849282aa46c4786d9d90663`, resulting-main run `38173126053` 3/3 + actual production ZIP/exe/NSIS/MSI hashes verified and pinned in immutable `work-log/2026-10-12-chatgpt-post333-final-windows-artifact-hashes-and-candidate-pin.md`. This does **not** validate any newer source until merger + new run + actual replacement artifact/hash.
 
