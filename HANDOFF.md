@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 DOCUMENT VERIFICATION RECONFIRMED; POST-AUDIT 4/5 SOURCE/CI ACCEPTED
+## CURRENT 2026-10-11 — 50/50 DOCUMENT EVIDENCE VERIFIED; POST-AUDIT 4/6 ACCEPTED, Q05 #327 CI QUEUED
+
+**Live current truth:** 50/50 original S0 Markdown paths independently matched to unique audit rows (0 missing/duplicate), actual L05/L40 Git SHA documentation errata corrected via immutable addenda; frozen retrospective 70/70 REVIEWED not native PASS. Original A01–A14 source/CI 14/14; mandatory fully source/physical milestones 3/10. Post-audit **4/6** (#322/#323/#324/#326 guarded merged with 3/3 exact CI and blob proof; #321 other-agent-owned B49 FAIL/OPEN; independent #327 Q05 NEW, OPEN/CI QUEUED).
+
+**Q05 new PR [#327](https://github.com/MariosGiannakaras/Narro/pull/327)** exact head `ac12363892cc90ac17d70345df47b72ed4108272`, [Actions run 38116234747](https://github.com/MariosGiannakaras/Narro/actions/runs/38116234747) queued at recorded checkpoint, mergeability true but **NOT ACCEPTED**. Source/test only `src/m7IntegrationRegression.tsx`, `scripts/test-ui-focus-panel.mjs`; mounted Focus Panel receives fresher cross-window board, then stale initial IPC error. Asserts no stale message/no rollback. Production revision gate from #309 unchanged, no design/Rust impact, no native physical PASS. Immutable exact source/CI checkpoint `work-log/2026-10-11-chatgpt-q05-focus-stale-error-pr327-ci-start.md`.
+
+**Q03 #326 safely accepted:** head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` all three Windows jobs SUCCESS, expected-head guarded merge `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 head=merge=current-main blob equal. Full evidence `work-log/2026-10-11-chatgpt-independent-50-doc-verified-and-pr326-merged.md`. Q03 synthetic DOM keyboard/ARIA tested; trusted native keys/reader physical OPEN.
+
+**#321 B49 OWNED BY DIFFERENT AGENT:** latest observed head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298` validation+fast SUCCESS but Windows **FAILED** dark focused action paint/owner; no merge, branch rewrite or false native parity PASS. Respect owner and await meaningful new head/result.
+
+**NEXT SAFE ACTION:** monitor exact PR327 Windows run `38116234747` after useful work; if failure inspect first failing step/actual log before narrow correction; if all three jobs SUCCESS, recheck exact head/mergeability/latest main, guarded expected-head squash merge, verify both Git blobs. Continue independent existing queued Q04/Q05 test coverage if justified; do NOT start Q12 final latest-main archive before #321 accepted. User-paused physical C4/M6/F35/F29/F27/M8 OPEN, M10 blocked, optional M11 strictly dormant.
+
+## HISTORICAL — 4/5 accepted before Q05 PR327
 
 **Latest authoritative checkpoint:** frozen retrospective S0 **70/70 REVIEWED** (19 PR audits, 50 original Markdown audits, I01 combined evidence audit with final binary OPEN); its 50 Markdown units were programmatically rechecked again against live tracker and all three immutable audit logs: **50/50 distinct checked paths, 50/50 distinct individual log IDs, 0 missing/extra**, T3/E4/L43. Two original SHA *transcription errors*, **L05 actual `c4baa5f106e029f0c4f846a9a55767530f19656d` and L40 actual `bc768f7b8167a83342e754a0ed3c0ed248beb221`**, directly fetched and match prior immutable errata; original 43 historical logs remain immutable. **New immutable full checkpoint:** `work-log/2026-10-11-chatgpt-independent-50-doc-verified-and-pr326-merged.md`.
 
