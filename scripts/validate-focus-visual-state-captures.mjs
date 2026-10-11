@@ -127,6 +127,14 @@ for (const theme of ["light", "dark"]) {
   // B49 source/CI finding Q01: a passing HTML marker previously accompanied
   // screenshots that were byte-for-byte the ordinary running state. Inspect
   // the *actual painted action pixels*, not merely a DOM/CSS declaration.
+  // A nominal 420x720 PNG is not proof of a 420x720 browser viewport:
+  // legacy Edge --window-size screenshot was 420x720 but DOM 492x628,
+  // moving the centered rail by 36 px while leaving its width unchanged.
+  for (const capture of [running, focusedActions]) {
+    invariant(capture.contract.layoutViewport?.width === 420
+      && capture.contract.layoutViewport?.height === 720,
+      `${capture.label} actual DOM viewport must be 420x720 before comparing real rail pixels; got ${JSON.stringify(capture.contract.layoutViewport)}`);
+  }
   const region = focusedActions.contract.focusActionPaintRegion;
   const baselineRegion = running.contract.focusActionPaintRegion;
   invariant(region && baselineRegion
