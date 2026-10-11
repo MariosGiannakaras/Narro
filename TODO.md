@@ -1,6 +1,11 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — Q01 B49 FOREGROUND FIX IN CI; Q12 BLOCKED
+## CURRENT 2026-10-11 — Q01 B49 SAME-VIEWPORT CI; Q12 NEXT
+
+- [ ] **#321 Q01** current head `c7a12625797c0762ec3a8a7975007ce34963dacf`, [run 38151014717](https://github.com/MariosGiannakaras/Narro/actions/runs/38151014717) validation SUCCESS, fast/Windows NOT YET PASS. Prior head `9afe2c...` run `38148720131` first Windows FAIL because ordinary 492×628 inner browser viewport (`rail.x=101`) was compared with focused 420×720 (`rail.x=65`) although both PNGs 420×720. Real diagnostic `11706096622` SHA256 `a4ea326fe7e27cd3277300c822e978448cdc55be8a66e42d1b3f2524789415a9`; local decoded color-delta coordinate-adjusted only for diagnosis light2074/dark2193 vs 215 minimum. Existing PR now uses CDP for both ordinary and focused at actual same viewport + strict real DOM, foreground, rail opacity and painted pixel gate; no product UI change. Require exact Windows 3/3 + guarded merge + 7 blob checks to count **11/11**.
+- [ ] **Q12 only after #321:** resulting-main all-source Windows candidate + real final ZIP/production `narro.exe`/NSIS/MSI SHA256; pre-#321 candidate is intermediate. Codex native physical user-paused, M10 blocked, M11 dormant. **Coding progress 10/11**.
+
+## HISTORICAL 2026-10-11 — Q01 B49 FOREGROUND FIX IN CI; Q12 BLOCKED
 
 - [ ] **#321 Q01 existing ChatGPT-owned source/CI PR**, latest head `9afe2c06f5a37aa4eccdcdc124c39265e2979e6d`, [Windows CI 38148720131](https://github.com/MariosGiannakaras/Narro/actions/runs/38148720131) **IN PROGRESS / NOT PASS** at snapshot. Prior run `38143961415` exact `221558f...`: validation/fast SUCCESS; Windows FAIL because queued title tooltip remained `data-open=false` even with correct DOM focus owner; real failed ZIP `11704336328` SHA256 `0e623240e205366e68f4b563e6740b1d231703bd019b0da17bdf81c8736c2449`. CDP foreground-before-navigation candidate and focus authenticity gate added on same PR branch; strict captured-pixel checks unaffected. Require exact Windows 3/3, guarded merge and all seven source blobs before counting **11/11**.
 - [ ] **Q12 final post-#321 main Windows union**: real resulting-main exact CI/tree result, download actual production Windows ZIP + hash ZIP, `narro.exe`, NSIS, MSI. Pre-#321 artifact remains intermediate. Codex physical user-paused, M10 blocked, M11 dormant. Current source count **10/11**.
