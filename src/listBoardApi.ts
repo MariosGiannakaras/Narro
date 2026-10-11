@@ -29,6 +29,8 @@ export type ListBoardTask = {
   recurrenceParentTaskId?: string | null;
   isOverdue: boolean;
   completedAt: string | null;
+  /** Persisted task modification instant; optional only for preexisting visual fixtures. */
+  updatedAt?: string | null;
 };
 
 export type ListBoardLane = {
