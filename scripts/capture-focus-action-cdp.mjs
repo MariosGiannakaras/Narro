@@ -80,6 +80,7 @@ async function waitForFocusedFixture() {
         ready: root.dataset.focusPanelFixtureReady === "true",
         pass: root.dataset.focusActionRevealPass === "true",
         focusOwner: Boolean(action && document.activeElement === action),
+        foreground: document.hasFocus(),
         activeTag: document.activeElement?.tagName ?? null,
         actionAvailable: Boolean(action && !action.disabled),
         keyboardMarker: document.querySelector('[data-focus-live-card="true"]')?.getAttribute("data-focus-actions-keyboard") ?? null,
@@ -95,7 +96,7 @@ async function waitForFocusedFixture() {
       throw new Error("B49 Focus fixture CDP evaluation exception: " + JSON.stringify(response.exceptionDetails));
     }
     observed = response.result?.value ?? null;
-    if (observed?.ready && observed?.pass && observed?.focusOwner
+    if (observed?.ready && observed?.pass && observed?.focusOwner && observed?.foreground
       && observed?.railOpacity === "1" && observed?.headingOpacity === "0") return;
     await sleep(100);
   }
@@ -143,9 +144,13 @@ try {
   await command("Emulation.setDeviceMetricsOverride", {
     width: 420, height: 720, deviceScaleFactor: 1, mobile: false,
   });
-  // Navigation occurs only after the final 420x720 viewport is established.
-  // This prevents late CDP reflow from invalidating the queued-title geometry
-  // check and stealing focus before the final strict B49 action-rail capture.
+  // A CDP-launched about:blank target can lack window focus even while its
+  // document.activeElement is a SPAN. React keyboard Tooltip depends on real
+  // focus events, not merely an activeElement marker. Bring the same page
+  // foreground BEFORE fixture scripts run; retain the exact 420x720 viewport.
+  await command("Page.bringToFront");
+  // Navigation occurs only after the final 420x720 viewport and foreground
+  // are established. Preserve genuine tooltip, focus-owner and geometry gates.
   const navigation = await command("Page.navigate", { url: options.url });
   if (navigation.errorText) throw new Error(`B49 fixture navigation failed: ${navigation.errorText}`);
   try {
