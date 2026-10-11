@@ -60,4 +60,5 @@ await assert.rejects(rejected,/start IPC offline/);
 assert.equal(entry.busy(),false);
 assert.equal(await entry.click(async()=>"already_active",async()=>{throw new Error("host unavailable");}),"committed_no_view");
 assert.equal(entry.busy(),false);
+await import("./test-blitz-entry-actual-handler.mjs");
 console.log("Blitz entry single-flight native handoff and recovery passed.");
