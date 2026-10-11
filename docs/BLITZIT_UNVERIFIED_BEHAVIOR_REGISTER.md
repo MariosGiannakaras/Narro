@@ -2,6 +2,17 @@
 
 **Status:** active pre-M11 implementation uncertainty register; 41 concrete source-uncertainty checks, all direct-Blitzit source-review gates OPEN. These are **not 41 unfinished coding requirements**: many Narro behaviors are already integrated and automated-validated; some remain partial, source-conflicted, safely unavailable, or limited to unverified visual/interactions. First established 2026-10-09; 2026-10-10 stale implementation-status reconciliation. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
 
+## Closeout navigation — verified all IDs, not all Blitzit rules
+
+**Detailed U01–U41 source/current-Narro comparison and later source-check target:** this register remains the per-finding reference; unique numbered rows = **41/41**, reviewed after initial inventory **42/42 actions**. The ten immutable batch logs retain review reasoning/evidence at the time; they do not replace current code verification.
+
+**Where a zero-context agent must look next:**
+- [All known gaps and evidence limits](BLITZIT_ALL_KNOWN_GAPS_CONSOLIDATED_2026-10-11.md): all 41 IDs plus **31 separately tracked screenshot EVIDENCE_LIMIT** claims (from 250 mapped control states), plus still-open Windows physical PA-01–09 acceptance. Their overlap is not 72 separate defects or coding tickets.
+- [One-line disposition and selective safe action per U01–U41](BLITZIT_UNVERIFIED_AUDIT_CONSOLIDATED_TRIAGE_2026-10-11.md): user-locked U01/U02, source-validated/local/code/visual gaps, older-source conflicts, and proposed work order; does **not** override `HANDOFF.md` / `TODO.md`.
+- [Crosswalk](AUDIT_IMPLEMENTATION_CROSSWALK.md): mapping B-items/Finding numbers to implementation and historical CI. [Evidence discovery](EVIDENCE_ROUTING_MAP.md) routes original video/static/Help sources and correct evidence precedence.
+
+**Do not automatically implement 41 changes:** source-confirmed historical differences and local deterministic inferences require different treatment. Original current-version Blitzit equality and native physical PASS remain separately OPEN; optional live Blitzit M11 is dormant until **explicit user activation**. Approved user-owned List Editor / Spectrum Core picker, uploads and 218 icons must not be altered as source-parity remediation.
+
 ## Unknown-only repository audit — 2026-10-11, batch 10 (FINAL INVENTORY CLOSEOUT, three findings U39–U41)
 
 **Mode:** All 41 existing numbered Blitzit unknown-only source questions have now received repository/evidence/current-code review, in 5-item batches until only **three** remained. This final batch compared U39–U41 against previously fully reviewed canonical Pass-3 VE-003/004/005/014, historical SS-T01, Help/static states, Rust/Tauri source and tests. **No new original MP4 viewing or live source clicks, app code/tests/config modifications, CI execution, physical Windows testing or M11 opt-in.** User-approved Create/Edit List, Spectrum Core Color Picker/upload and 218 icons unchanged.
