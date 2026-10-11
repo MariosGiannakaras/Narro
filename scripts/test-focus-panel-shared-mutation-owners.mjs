@@ -114,4 +114,5 @@ assert.equal(await rollbackGate.invoke("make-live", async () => {}), false,
 rollback.resolve();
 await assert.rejects(homeRun, /guarded resume/);
 assert.equal(rollbackGate.current(), null);
+await import("./test-focus-panel-real-owner-rollback.mjs");
 console.log("Focus shared command exclusion, cross-owner delayed read, native rollback and recovery passed.");
