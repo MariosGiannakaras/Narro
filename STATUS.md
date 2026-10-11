@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — FROZEN S0 50/50 CONFIRMED AND POST-AUDIT 4/5 SOURCE PRS MERGED
+## CURRENT 2026-10-11 — 50/50 S0 audit verified; post-audit PR campaign 4/6 accepted
+
+**Frozen audit:** 70/70 reviewed, including original 50/50 unique Markdown paths checked against 15+20+15 exact audit rows; L05/L40 SHA transcription errata corrected only by new immutable records. No new physical/source parity PASS. Original A01–A14 source/CI 14/14, mandatory accepted roadmap 3/10, physical Codex USER-PAUSED, M10 blocked/M11 dormant.
+
+**Accepted post-audit:** #322, #323, #324, **#326** guarded merged after exact three-job Windows CI. #326 accepted head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` all SUCCESS, merge `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 blob verified, real mounted picker keyboard/ARIA test-only. **4/6** since new Q05 #327 opened.
+
+**Q05 #327** head `ac12363892cc90ac17d70345df47b72ed4108272` exact run `38116234747` queued at checkpoint, test-only mounted Focus stale initial IPC failure after fresher event. NOT YET CI PASS/merge, no runtime UI source changed. Evidence `work-log/2026-10-11-chatgpt-q05-focus-stale-error-pr327-ci-start.md`.
+
+**#321 Q01 separate agent owner:** head `f129c37b30b27897971f3aa8452c563f8f955111` run `38092529298` actual Windows dark screenshot FAIL, no merge or unauthorized rewrite. **NEXT** check exact #327 run and fix only causal errors, guarded merge/2 blobs if full green; then Q12 latest union Windows candidate once #321 owner resolves. Native C4/M6/F35/F29/F27/M8 OPEN.
+
+## HISTORICAL — 4/5 PRs before Q05
 
 **Independent 50-original-Markdown verification RECONFIRMED:** GitHub frozen tracker contains 50 checked distinct IDs/paths, individual audit logs contain exactly 50 unique matching entries 15+20+15, no skipped/doubled path. 43 original historic work logs unchanged; evidence hashes 41/43 originally correct, L05 `c4baa5f106e029f0c4f846a9a55767530f19656d` and L40 `bc768f7b8167a83342e754a0ed3c0ed248beb221` corrected through separate immutable addenda, direct source verified again. T01–T03 at-review versus S0 original SHA distinction maintained. Retrospective **70/70 REVIEWED** is bounded evidence status, not native/code 70/70 PASS.
 
