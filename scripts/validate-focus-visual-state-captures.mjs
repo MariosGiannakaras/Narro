@@ -36,6 +36,11 @@ function readCapture(theme, scenario) {
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.scenario === scenario, `${label} contract scenario differs`);
   invariant(contract.panel?.width === 340, `${label} Focus Panel width changed from the validated 340px geometry`);
+  // This reader covers every Focus scenario in both themes, not only the B49
+  // pair. The Windows artifact proved a mixed DOM viewport is a false geometry
+  // regression even if every PNG has the required 420x720 dimensions.
+  invariant(contract.layoutViewport?.width === 492 && contract.layoutViewport?.height === 628,
+    `${label} actual inner viewport differs from the shared Focus 492x628 layout: ${JSON.stringify(contract.layoutViewport)}`);
   return { label, dom, contract, screenshot };
 }
 
