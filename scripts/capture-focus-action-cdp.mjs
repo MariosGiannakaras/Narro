@@ -21,7 +21,9 @@ const browser = spawn(options.edge, [
   "--window-size=420,720", `--user-data-dir=${options.profile}`,
   "--remote-debugging-port=0",
   options.reducedMotion === "true" ? "--force-prefers-reduced-motion" : "--force-prefers-no-reduced-motion",
-  options.url,
+  // The fixture must not execute until CDP has established its final viewport.
+  // Loading the URL first and resizing afterward races queued-row bounds checks.
+  "about:blank",
 ], { windowsHide: true, stdio: "ignore" });
 let socket;
 const pending = new Map();
@@ -59,11 +61,11 @@ async function findPage(port) {
   while (Date.now() < deadline) {
     const pages = await fetch(`http://127.0.0.1:${port}/json/list`, { signal: AbortSignal.timeout(1500) })
       .then((response) => response.json()).catch(() => []);
-    const page = pages.find((entry) => entry.type === "page" && entry.url.startsWith(options.url));
+    const page = pages.find((entry) => entry.type === "page" && entry.url === "about:blank");
     if (page?.webSocketDebuggerUrl) return page.webSocketDebuggerUrl;
     await sleep(100);
   }
-  throw new Error("No Edge CDP page has the Focus keyboard fixture URL");
+  throw new Error("No blank Edge CDP page was available before fixture navigation");
 }
 async function waitForFocusedFixture() {
   let observed = null;
@@ -141,6 +143,11 @@ try {
   await command("Emulation.setDeviceMetricsOverride", {
     width: 420, height: 720, deviceScaleFactor: 1, mobile: false,
   });
+  // Navigation occurs only after the final 420x720 viewport is established.
+  // This prevents late CDP reflow from invalidating the queued-title geometry
+  // check and stealing focus before the final strict B49 action-rail capture.
+  const navigation = await command("Page.navigate", { url: options.url });
+  if (navigation.errorText) throw new Error(`B49 fixture navigation failed: ${navigation.errorText}`);
   try {
     await waitForFocusedFixture();
   } catch (error) {
