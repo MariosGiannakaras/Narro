@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 7/11 SOURCE/CI ACCEPTED, THREE WINDOWS CI ACTIVE
+## CURRENT 2026-10-11 — POST-AUDIT 10/11 SOURCE/CI ACCEPTED; FINAL Q01 OTHER OWNER
+
+**Current authoritative GitHub:** source/test post-audit campaign **10/11 guarded merged** (#322/#323/#324/#326/#327/#328/#329 + #330/#331/#332), exact all-three-gate Windows CI SUCCESS and original head versus resulting-main blob equality for each accepted PR. This turn independently verified #330 `38119707298` 3/3 and 2/2 blobs merged `0884d058cc788a4a210af6b0e143f9d949ce4fb5`, #331 `38120132435` 3/3 and 2/2 blobs merge `5352272e1f5d9eb79ba94e695c1426e0f428ea83`, #332 `38120495638` 3/3 and 4/4 blobs merge `c91c5dd86d626ab9a26d763f7e623d11df47c945`. Test-only actual production source-extracted VM callbacks with mocked native async; no runtime/Blitzit/physical proof.
+
+**S0 independent 50/50 coverage recheck repeated again:** all original 50 tracker IDs/path unique, every S0 blob fetched, exact audit table rows 15+20+15=50 no duplicate/missing. E01–E04 and all 43 immutable historic S0 blobs match canonical SHA; T01–T03 at-review hashes differ from original S0 because active docs changed between dates and correct S0 hashes exist in immutable addendum; original L05 placeholder and L40 malformed audit-summary SHA fixed in separate immutable addenda, no original log rewritten. **70/70 reviewed**, physically/source accepted milestones **3/10**, original A01–A14 source/CI 14/14. New evidence `work-log/2026-10-11-chatgpt-independent-s0-50-proof-and-pr330-pr332-exact-ci-merges.md`.
+
+**Only still-open source PR #321 Q01** head `f129c37b30b27897971f3aa8452c563f8f955111` has exact run `38092529298` validation+fast SUCCESS but Windows **FAIL** on dark focus capture. **Owned by separate agent — no takeover.** Final single latest integrated combined Windows ZIP/EXE/installer hash Q12 **NOT RUN**, wait until #321 merged; don't use old PR binaries. Physical user-paused C4/M6/F35/F29/F27/M8 OPEN; M10 blocked, M11 dormant. Continue safe independent queue/work without intervening on #321's branch.
+
+## HISTORICAL — CURRENT 2026-10-11 — POST-AUDIT 7/11 SOURCE/CI ACCEPTED, THREE WINDOWS CI ACTIVE
 
 S0 retrospective 70/70 REVIEWED and original 50/50 Markdown independent identity/hash validation confirmed with two immutable L05/L40 SHA errata. Original A01–A14 source/CI accepted 14/14, mandatory fully physical/source accepted roadmap 3/10. **Post-audit 7/11 accepted** (#322/#323/#324/#326/#327/#328/#329 all exact validation/fast/windows SUCCESS, expected-head guarded merged/blob-checked). Open three agent-owned PR #330/#331/#332 and one separate agent-owned visual PR #321; 0 new accepted on fast-only results.
 
