@@ -125,6 +125,14 @@ const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
 const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+const blankPageLaunch = cdpCapture.indexOf('  "about:blank",');
+const viewportOverride = cdpCapture.indexOf('await command("Emulation.setDeviceMetricsOverride"');
+const fixtureNavigate = cdpCapture.indexOf('await command("Page.navigate", { url: options.url })');
+invariant(blankPageLaunch >= 0 && viewportOverride >= 0
+  && fixtureNavigate > viewportOverride
+  && cdpCapture.includes('entry.url === "about:blank"')
+  && !cdpCapture.includes('  options.url,\n], { windowsHide: true, stdio: "ignore" });'),
+  "B49 must fix Edge viewport before navigating to the real tooltip/keyboard fixture");
 invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
   && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
   && cdpCapture.includes('await waitForFocusedFixture();')
