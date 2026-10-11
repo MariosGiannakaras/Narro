@@ -59,4 +59,5 @@ assert.equal(gate.busy(),false,"failed deletion must allow deliberate retry");
 assert.equal(await gate.run(async()=>{deleteCalls++;}),true);
 assert.equal(deleteCalls,2);
 assert.equal(gate.busy(),false);
+await import("./test-archived-list-real-handlers.mjs");
 console.log("Archived list Restore/Delete same-render and cross-owner command exclusivity passed.");
