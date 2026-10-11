@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — FROZEN S0 DOCS RECHECKED; POST-AUDIT 3/5 SOURCE/CI ACCEPTED
+## CURRENT 2026-10-11 — S0 50/50 VERIFIED; POST-AUDIT 4/5 SOURCE/CI ACCEPTED
+
+- [x] **50/50 independent audit identity reverified again:** 50 unique frozen Markdown tracker IDs/paths, each checked; exactly 50 matching unique individual audit-log IDs (15+20+15), no missing/extra; 43 preserved historical logs. SHA transcription defects L05/L40 explicitly repaired by immutable errata, rechecked direct source blobs. Frozen total **70/70 REVIEWED**, NOT 70 source/native PASS. New immutable `work-log/2026-10-11-chatgpt-independent-50-doc-verified-and-pr326-merged.md`.
+- [x] **Q03 #326 exact-head CI 3/3 SUCCESS and guarded MERGED:** head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184`, expected-head squash merge `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 changed Git blobs identical accepted head/resulting main. Actual mounted Focus picker keyboard/ARIA DOM regression; real trusted Windows keyboard/screen reader NOT RUN. Source campaign **4/5** accepted (#322/#323/#324/#326).
+- [ ] **Q01 #321 other agent branch** current inspected head `f129c37b30b27897971f3aa8452c563f8f955111` Windows run `38092529298` FAILED dark B49 focus rail capture; no merge until owner repair/real 3/3 CI. Respect concurrent ownership, no fake green.
+- [ ] **Q12 latest single merged-source Windows candidate** with actual ZIP, narro.exe, NSIS/MSI SHA256 AFTER #321 accepted. Older individually-green PR binaries not current union. While waiting, independent Q04/Q05 actual-handler/source evidence work only if safe. Physical Windows Codex USER-PAUSED, mandatory fully accepted roadmap 3/10 and optional M11 DORMANT.
+
+## HISTORICAL — prior 3/5 CI-pending checkpoint
 
 - [ ] **Q03 PR #326 keyboard Focus list picker** current head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` validation+fast SUCCESS, Windows-candidate IN PROGRESS / NOT PASS (job `114341694577`) at last check; immutable `work-log/2026-10-11-chatgpt-q03-focus-list-keyboard-pr326-ci-checkpoint.md`. Adds actual rendered M7 DOM keyboard/ARIA/focus regression, unchanged production appearance/functionality. Source/CI accepted count stays **3/5** until exact PASS/guarded merge/main blob checks; user-paused physical trusted key/reader NOT RUN.
 
