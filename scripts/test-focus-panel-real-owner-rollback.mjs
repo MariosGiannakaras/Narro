@@ -136,7 +136,12 @@ function harness() {
   assert.equal(h.calls.deletes,1);
   assert.equal(h.calls.adds+h.calls.lives,0);
   assert.equal(h.calls.deleteClosed.length,0);
-  write.resolve(); await Promise.resolve(); await Promise.resolve();
+  write.resolve();
+  // Await the real async handler continuation, including promise assimilation
+  // across the VM context; two microtasks are not a completion guarantee.
+  for (let tick = 0; tick < 50 && !h.calls.deleteClosed.includes(null); tick++) {
+    await Promise.resolve();
+  }
   assert(h.calls.deleteClosed.includes(null),"confirmed backend deletion must dismiss modal");
   await h.submitAddTask();
   assert.equal(h.calls.adds,0);
