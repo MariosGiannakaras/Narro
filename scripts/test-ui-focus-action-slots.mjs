@@ -133,12 +133,15 @@ const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 const blankPageLaunch = cdpCapture.indexOf('  "about:blank",');
 const viewportOverride = cdpCapture.indexOf('await command("Emulation.setDeviceMetricsOverride"');
+const foregroundPage = cdpCapture.indexOf('await command("Page.bringToFront")');
 const fixtureNavigate = cdpCapture.indexOf('await command("Page.navigate", { url: options.url })');
 invariant(blankPageLaunch >= 0 && viewportOverride >= 0
-  && fixtureNavigate > viewportOverride
+  && foregroundPage > viewportOverride && fixtureNavigate > foregroundPage
   && cdpCapture.includes('entry.url === "about:blank"')
+  && cdpCapture.includes('foreground: document.hasFocus()')
+  && cdpCapture.includes('observed?.focusOwner && observed?.foreground')
   && !cdpCapture.includes('  options.url,\n], { windowsHide: true, stdio: "ignore" });'),
-  "B49 must fix Edge viewport before navigating to the real tooltip/keyboard fixture");
+  "B49 must foreground Edge page after final viewport and before real keyboard/tooltip fixture navigation");
 invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
   && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
   && cdpCapture.includes('await waitForFocusedFixture();')
