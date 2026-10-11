@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 doc identity reverified 50/50; post-audit scoped code/test 4/9 accepted
+## CURRENT 2026-10-11 — S0 50/50 AUDIT RECONFIRMED; POST-AUDIT 7/9 ACCEPTED
+
+**Frozen S0 retrospective 70/70 evidence REVIEWED**; original **50/50 distinct Markdown paths** externally validated again vs exact 50-of-104 original S0 GitHub compare, all 50 mapped to unique audited rows (15+20+15), all 43 source immutable work logs available: 41/43 first audit hashes right; L05 placeholder and L40 truncated SHA corrected in separate immutable addenda, no original overwritten. E02 current blob unchanged, six T/E docs legitimately changed after review. **No missed or unreviewed S0 doc**. Evidence `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
+
+**New post-audit source/test acceptance 7/9**: #322/#323/#324/#326 existing guarded green; exact **#327** CI `38116234747` 3/3/merge `799538da1fbe336355436126f7ca3925dce2761c` 2/2 blob match, **#328** CI `38116433635` 3/3/merge `2a55972df8873c34471e537eadac72b6ac44a12a` 2/2, **#329** CI `38116774489` 3/3/merge `1dc64c568b7c229d869f794dddb7609b8ccfb4a4` 2/2. No actual native physical Win32 interaction implied from these test-only PRs.
+
+**#330 Q07** exact head `42044c17c69d31034b47621316987d5f01e721d5`, run `38119707298` validation SUCCESS, fast IN PROGRESS/Windows NOT PASS at checkpoint; original `38117098114` fast failure `confirmed backend deletion must dismiss modal` traced to fixed-count microtask waiting in VM regression and test-only actual callback wait, no production code rewrite. **#321 Q01 DIFFERENT OWNER** head `f129c37b30b27897971f3aa8452c563f8f955111` dark B49 Windows FAIL, do not merge/recreate. Next inspect exact #330 CI, accept only if three jobs success/guarded squash/2 blobs; then combined actual Windows ZIP/EXE hash Q12 when owner #321 corrected.
+
+**Mandatory 10 milestones physically/source fully accepted 3/10**, original A01–A14 automated/source accepted 14/14. Physical C4/M6/F35/F29/F27/M8 USER-PAUSED and OPEN, M10 blocked, optional M11 dormant.
+
+## HISTORICAL 2026-10-11 — 4/9 pending test-only PR CI checkpoint
 
 Historical S0 70/70 REVIEWED (50 original distinct Markdown checked paths and 15+20+15 audit rows verified, 2 SHA transcription corrections handled immutably). Original A01–A14 source/CI 14/14 accepted, mandatory full source+physical roadmap 3/10, Codex physical user-paused, M10 blocked/M11 dormant.
 
