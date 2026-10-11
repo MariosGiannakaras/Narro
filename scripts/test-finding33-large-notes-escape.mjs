@@ -59,6 +59,7 @@ class CdpClient {
     this.nextId = 1;
     this.pending = new Map();
     this.socket = null;
+    this.onEvent = null;
   }
 
   async connect() {
@@ -69,15 +70,20 @@ class CdpClient {
       socket.addEventListener("error", reject, { once: true });
       socket.addEventListener("message", (event) => {
         const message = JSON.parse(String(event.data));
-        if (!message.id) return;
+        if (!message.id) {
+          this.onEvent?.(message);
+          return;
+        }
         const pending = this.pending.get(message.id);
         if (!pending) return;
         this.pending.delete(message.id);
+        clearTimeout(pending.timeout);
         if (message.error) pending.reject(new Error(JSON.stringify(message.error)));
         else pending.resolve(message.result);
       });
       socket.addEventListener("close", () => {
         for (const pending of this.pending.values()) {
+          clearTimeout(pending.timeout);
           pending.reject(new Error("CDP socket closed before response."));
         }
         this.pending.clear();
@@ -91,7 +97,11 @@ class CdpClient {
     }
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
-      this.pending.set(id, { resolve, reject });
+      const timeout = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`Finding33 CDP command timed out: ${method}`));
+      }, 8_000);
+      this.pending.set(id, { resolve, reject, timeout });
       this.socket.send(JSON.stringify({ id, method, params }));
     });
   }
@@ -139,11 +149,45 @@ const profile = fs.mkdtempSync(path.join(os.tmpdir(), "narro-finding33-"));
 const pageUrl = `${baseUrl}/task-notes-fixture.html?theme=dark&presentation=large`;
 let edge;
 let client;
+let edgeStderr = "";
+const requestUrls = new Map();
+const browserEvents = [];
+const record = (entry) => {
+  browserEvents.push(entry);
+  if (browserEvents.length > 60) browserEvents.shift();
+};
+function captureEvent(message) {
+  const { method, params = {} } = message;
+  if (method === "Network.requestWillBeSent") {
+    requestUrls.set(params.requestId, params.request?.url ?? null);
+  } else if (method === "Network.loadingFailed") {
+    record({ method, url: requestUrls.get(params.requestId) ?? null,
+      reason: params.errorText ?? null, canceled: params.canceled ?? false });
+  } else if (method === "Network.responseReceived" && params.response?.status >= 400) {
+    record({ method, url: params.response.url, status: params.response.status });
+  } else if (method === "Runtime.exceptionThrown") {
+    record({ method, message: params.exceptionDetails?.exception?.description
+      ?? params.exceptionDetails?.text ?? null });
+  } else if (method === "Log.entryAdded" && ["error", "warning"].includes(params.entry?.level)) {
+    record({ method, level: params.entry.level, message: params.entry.text ?? null,
+      url: params.entry.url ?? null });
+  }
+}
 
 try {
+  // HTML availability alone is not enough: a failed module/bootstrap can leave
+  // <div id="root"></div> while navigation and readyState appear successful.
   const previewResponse = await fetch(pageUrl);
   if (!previewResponse.ok) {
     throw new Error(`Finding33 fixture URL is unavailable: HTTP ${previewResponse.status}`);
+  }
+  const previewHtml = await previewResponse.text();
+  const modules = [...previewHtml.matchAll(/<script\b[^>]*type="module"[^>]*src="([^"]+)"/g)];
+  if (modules.length === 0) throw new Error("Finding33 preview HTML has no executable module entry.");
+  for (const module of modules) {
+    const assetUrl = new URL(module[1], pageUrl);
+    const response = await fetch(assetUrl);
+    if (!response.ok) throw new Error(`Finding33 entry module returned HTTP ${response.status}: ${assetUrl.pathname}`);
   }
 
   edge = spawn(edgeExecutable, [
@@ -156,29 +200,40 @@ try {
     "--window-size=1280,720",
     `--remote-debugging-port=${debugPort}`,
     `--user-data-dir=${profile}`,
-    pageUrl,
+    "about:blank",
   ], {
     cwd: root,
     stdio: ["ignore", "ignore", "pipe"],
     windowsHide: true,
   });
+  // Drain stderr: an unconsumed child pipe can deadlock headless Edge.
+  edge.stderr?.on("data", (chunk) => {
+    edgeStderr = (edgeStderr + String(chunk)).slice(-8_000);
+  });
 
+  // Attach event listeners BEFORE navigating. Attaching to the already loaded
+  // fixture loses its initial JS/network errors, hiding the exact bootstrap cause.
   const target = await waitFor(async () => {
     const response = await fetch(`http://127.0.0.1:${debugPort}/json/list`);
     if (!response.ok) return null;
     const targets = await response.json();
     return targets.find((candidate) =>
       candidate.type === "page"
-      && candidate.url.includes("task-notes-fixture.html")
-      && candidate.url.includes("presentation=large")
+      && candidate.url === "about:blank"
       && candidate.webSocketDebuggerUrl
     ) ?? null;
-  }, "Finding33 Edge page target");
+  }, "Finding33 blank Edge CDP page target");
 
   client = new CdpClient(target.webSocketDebuggerUrl);
+  client.onEvent = captureEvent;
   await client.connect();
   await client.send("Runtime.enable");
   await client.send("Page.enable");
+  await client.send("Network.enable");
+  await client.send("Log.enable");
+  await client.send("Page.bringToFront");
+  const navigation = await client.send("Page.navigate", { url: pageUrl });
+  if (navigation.errorText) throw new Error(`Finding33 Edge navigation failed: ${navigation.errorText}`);
 
   await waitFor(
     () => evaluate(client, 'document.documentElement.dataset.taskNotesFixtureReady === "true"'),
@@ -204,6 +259,7 @@ try {
     }, true);
     editor.focus({ preventScroll: true });
     return {
+      foreground: document.hasFocus(),
       activeIsEditor: document.activeElement === editor,
       presentation: shell.dataset.taskNotePresentation ?? null,
       role: shell.getAttribute("role"),
@@ -211,6 +267,7 @@ try {
     };
   })()`);
 
+  assert.equal(initial.foreground, true, "Finding33 Edge page lacks real browser focus for keyboard input.");
   assert.equal(initial.activeIsEditor, true, "Finding33 could not establish contenteditable keyboard focus.");
   assert.equal(initial.presentation, "large", "Finding33 fixture did not start in large Notes.");
   assert.equal(initial.role, "dialog", "Finding33 large Notes lost dialog semantics.");
