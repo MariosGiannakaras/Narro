@@ -90,4 +90,5 @@ for (const action of actions) {
   assert.equal(await gate.commit(action, async () => {committed++;}), true);
   assert.equal(committed, 2);
 }
+await import("./test-reports-real-mutation-handlers.mjs");
 console.log("Reports Edit/Delete/Add shared mutation exclusion and post-write recovery passed.");
