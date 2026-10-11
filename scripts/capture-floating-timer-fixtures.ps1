@@ -65,26 +65,55 @@ try {
             New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
             try {
-                $process = Start-Process -FilePath $edge -ArgumentList @(
-                    "--headless=new",
-                    "--disable-gpu",
-                    "--disable-background-networking",
-                    "--hide-scrollbars",
-                    "--no-first-run",
-                    "--force-device-scale-factor=1",
-                    "--window-size=420,$windowHeight",
-                    "--user-data-dir=`"$profile`"",
-                    "--screenshot=`"$screenshot`"",
-                    "--dump-dom",
-                    "`"$url`""
-                ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+                # Edge may finish --dump-dom before the Vite module mounts React.
+                # Require the REAL ready marker and measured production contract;
+                # never save an empty #root as a successful visual capture.
+                $readyMarker = 'data-floating-timer-fixture-ready="true"'
+                $contractMarker = '<script id="floating-timer-visual-contract" type="application/json">'
+                $maxReadyAttempts = 4
+                for ($attempt = 1; $attempt -le $maxReadyAttempts; $attempt++) {
+                    # A failed attempt's PNG/stdout must never pass as the next.
+                    Remove-Item -LiteralPath $screenshot -Force -ErrorAction SilentlyContinue
+                    Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
+                    Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+                    $process = Start-Process -FilePath $edge -ArgumentList @(
+                        "--headless=new",
+                        "--disable-gpu",
+                        "--disable-background-networking",
+                        "--hide-scrollbars",
+                        "--no-first-run",
+                        "--force-device-scale-factor=1",
+                        "--window-size=420,$windowHeight",
+                        "--user-data-dir=`"$profile`"",
+                        "--screenshot=`"$screenshot`"",
+                        "--dump-dom",
+                        "`"$url`""
+                    ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
-                $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
-                if ($process.ExitCode -ne 0) { throw "Floating Timer Edge capture failed for $state/$theme. $stderrText" }
-                if (-not (Test-Path $screenshot)) { throw "Floating Timer screenshot missing for $state/$theme. $stderrText" }
-                $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-                if ([string]::IsNullOrWhiteSpace($domText)) { throw "Floating Timer DOM capture missing for $state/$theme. $stderrText" }
-                [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+                    $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
+                    if ($process.ExitCode -ne 0) { throw "Floating Timer Edge capture failed for $state/$theme. $stderrText" }
+                    if (-not (Test-Path $screenshot)) { throw "Floating Timer screenshot missing for $state/$theme. $stderrText" }
+                    $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
+                    if ([string]::IsNullOrWhiteSpace($domText)) { throw "Floating Timer DOM capture missing for $state/$theme. $stderrText" }
+                    $isReady = $domText.Contains($readyMarker) -and $domText.Contains($contractMarker)
+                    if (-not $isReady) {
+                        # Preserve the actual premature browser DOM for CI failure
+                        # artifacts; do not synthesize or relax readiness.
+                        [System.IO.File]::WriteAllText(
+                            (Join-Path $outputPath "$label-not-ready-attempt-$attempt.html"),
+                            $domText,
+                            [System.Text.UTF8Encoding]::new($false)
+                        )
+                        if ($attempt -lt $maxReadyAttempts) {
+                            Write-Warning "Floating Timer '$label' was captured before fixture readiness; retrying ($attempt/$maxReadyAttempts)."
+                            Start-Sleep -Milliseconds (250 * $attempt)
+                            continue
+                        }
+                        throw "Floating Timer '$label' never produced a real ready marker and geometry contract after $maxReadyAttempts Edge captures. $stderrText"
+                    }
+                    [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+                    break
+                }
             } finally {
                 Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
                 Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
