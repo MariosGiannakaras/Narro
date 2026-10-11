@@ -41,9 +41,9 @@ This newer checkpoint supersedes older physical-OPEN text only for its explicitl
 - **Roadmap unchanged: 3/10 mandatory milestones** (M2–M4). M1/M5/M6/M7/M8/M9 required gates remain; M10 blocked, M11 dormant.
 
 
-## Current authoritative state — project continuation reconciled 2026-10-06
+## HISTORICAL — project continuation snapshot reconciled 2026-10-06
 
-This section is the continuation authority. Dated checkpoints below are historical.
+This was the continuation authority **as of 2026-10-06**, but its present-tense open/PASS statuses have been superseded where newer dated evidence above or current `HANDOFF.md`, `TODO.md`, and `STATUS.md` disagree. In particular, CI1046's 2026-10-08 physical closure supersedes the older claim below that Finding07 locked-SQLite keyboard responsiveness remained untested; Finding27 DPI/monitor selection remains OPEN. Keep the historic findings for provenance, not as live next actions.
 
 - **Finding27:** PR236 source correction integrated/automated-green; physical selected-monitor/DPI recovery remains OPEN.
 - **Finding07:** PR237 source correction integrated/automated-green; real locked-SQLite keyboard responsiveness remains OPEN.
@@ -344,7 +344,7 @@ Current residual M6/M1 physical bundle reuses exact CI1025/run `37630032472` rat
 
 **2026-10-04 current-route hygiene:** older family/video/visual-system rows now reflect the implemented PR227/229 corrections and the scoped CI936/942 compact/Preferences observations. The detailed P3 rows below remain the acceptance controller. This reconciliation adds no new physical or SOURCE_PARITY_PASS verdict; real planning/Notes/entry/Preferences comparison remains open where not exercised. [Route reconciliation](../work-log/2026-10-04-codex-crosswalk-current-route-reconciliation.md).
 
-### Explicit current implementation gaps after reconciliation
+### HISTORICAL 2026-10-04 implementation-gap reconciliation snapshot (not the current action queue)
 
 | ID | Gap | Current Narro evidence | Route |
 | --- | --- | --- | --- |
