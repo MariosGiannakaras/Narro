@@ -36,6 +36,9 @@ invariant(m7Integration.includes("focusBoardStaleResponsesRejected: true")
   && m7Integration.includes("focusBoardReadWaiters[1](freshFocusBoard)")
   && m7Integration.includes("focusBoardReadWaiters[0](staleFocusBoard)"),
   "A03 real Focus integration must resolve newer board before delayed old snapshot");
+invariant(m7Integration.includes("focusBoardReadRejecters[staleFailureIndex](new Error")
+  && m7Integration.includes("Q05 late initial read error replaced newer Focus data or exposed obsolete error"),
+  "Q05 real mounted Focus integration must reject obsolete initial IPC errors after fresh event data");
 invariant(panel.includes("const boardReadRevisionRef = useRef(0);")
   && panel.includes("readRevision === boardReadRevisionRef.current")
   && panel.includes("setBoardReadyTargetKey(expectedTargetKey);"),
