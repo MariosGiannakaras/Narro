@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 7/9 ACCEPTED; #330 CI PENDING; #321 OTHER OWNER FAIL
+## CURRENT 2026-10-11 — POST-AUDIT 7/10 ACCEPTED, #330/#331 CI ACTIVE, #321 OTHER OWNER FAIL
+
+- [x] Frozen audit 70/70 independently reviewed, 50/50 original S0 Markdown independently reconfirmed; 41/43 immutable summary SHA exact, L05/L40 corrected only in immutable addenda. A01–A14 original source/CI 14/14, roadmap full source/physical 3/10.
+- [x] New scoped #322/#323/#324/#326/#327/#328/#329 **7/10** source/test PR accepted with 3/3 Windows CI, guarded merge and exact changed blobs. Latest three #327/#328/#329 are 6/6 changed blobs, immutable `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
+- [ ] **#330 Q07** exact head `42044c17c69d31034b47621316987d5f01e721d5`, run `38119707298` validation+fast SUCCESS, Windows IN PROGRESS/NOT PASS at last check; previous actual VM Delete modal premature microtask assertion fixed TEST-only. Guarded merge +2 blobs after exact Windows PASS.
+- [ ] **#331 Q09 NEW** exact head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7`, run `38120132435` validation SUCCESS, fast/Windows NOT PASS yet. Actual Blitz entry production callback deferred IPC/morph test imported via mandatory preflight; no product changes. Work log `work-log/2026-10-11-chatgpt-q09-blitz-actual-handler-pr331-ci-checkpoint.md`. Must obtain 3/3 and guarded merge/2 blobs.
+- [ ] **#321 Q01 other owner** dark B49 screenshot/window CI FAILED head `f129c37b30b27897971f3aa8452c563f8f955111`; no takeover without user/repo reassignment. Q12 full latest-main Windows production ZIP/EXE/installer SHA256 after all source accepted. C4/M6/F35/F29/F27/M8 physical user-paused, M10 blocked, optional M11 dormant.
+
+## HISTORICAL 2026-10-11 — 7/9 prior to PR331
 
 - [x] **User-requested original 50-document recheck 50/50**: exactly 50 Markdown S0 paths in GitHub original 104-path diff, identical 50 unique tracker IDs and 15+20+15 exact individual audit rows, all 50 paths fetched and 43 immutable originals unchanged; **41/43 audit-summary hashes exact, L05/L40 transcription corrected via immutable addenda**, six live tracking/evidence docs changed since original review, E02 stable. Detailed new log `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`. Full retrospective 70/70 REVIEWED, not native PASS.
 - [x] **#327 Q05** exact head `ac12363892cc90ac17d70345df47b72ed4108272`, CI `38116234747` 3/3 SUCCESS, guarded merge `799538da1fbe336355436126f7ca3925dce2761c`, 2/2 accepted blobs.
