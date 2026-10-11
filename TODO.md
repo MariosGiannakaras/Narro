@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — S0 AUDIT 70/70 REVIEWED, POST-AUDIT 4/7 ACCEPTED
+## CURRENT 2026-10-11 — POST-AUDIT 4/8 ACCEPTED; THREE OWNED CI RUNS PENDING
+
+- [x] Frozen 50/50 S0 documentation paths independently proven unique and covered in 15+20+15 audit rows; immutable L05/L40 SHA errata supplied, no missed paths, audit 70/70 REVIEWED not native acceptance.
+- [x] Original A01–A14 14/14 source/CI integrated; post-audit #322/#323/#324/#326 exact Windows 3/3 and guarded merges/changed blob IDs accepted, **4/8** new scoped PRs. Mandatory physically/source roadmap 3/10, physical user-paused.
+- [ ] **Q05 #327** head `ac12363892cc90ac17d70345df47b72ed4108272` run 38116234747 validation/fast SUCCESS, windows-candidate in progress at checkpoint; actual mounted stale IPC initial error regression (test only).
+- [ ] **Q04 #328** head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3` run 38116433635 validation/fast SUCCESS, Windows in progress; actual Board Create/Duplicate/Search Quick Task handlers delayed native work (test only).
+- [ ] **Q06 #329 NEW** head `228efeafc34719ea8caa9e098c7fc8841518736a` run 38116774489 queued initially: actual Reports Add/Edit/Delete handlers shared-owner deferred write/refetch regression. Two test-only paths, exact 3 CI jobs and guarded merge/2 blobs required. Immutable `work-log/2026-10-11-chatgpt-q06-real-reports-write-handlers-pr329-ci-checkpoint.md`.
+- [ ] **Q01 #321 other agent owned** B49 dark actual focus visual Windows FAILED run 38092529298. No unauthorized changes. After all PRs accepted, Q12 current merged-main Windows artifact/actual ZIP, exe and installer SHA256; physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+## HISTORICAL — 4/7 before PR329
 
 - [x] Independently reverified 50/50 frozen document paths and corresponding 50 unique audit logs, with immutable L05/L40 SHA errata; original historical files unchanged, physical/native NOT implied.
 - [x] Accepted #322/#323/#324/#326 exact-head Windows CI 3/3 each and expected-head guarded merge+all blobs. Last #326 head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e` → `a0db381d591bf670ec6d183288f9fa0be37e8b19`, both blobs equal.
