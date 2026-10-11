@@ -71,4 +71,5 @@ for(const component of ["subtask-create","subtask-delete","metric-estimate","met
   await assert.rejects(gate.run(async()=>{writes++;},async()=>{throw new Error("committed but stale read");}),/stale read/);
   assert.equal(gate.busy(),false,component+" failed refresh must not deadlock gate");
 }
+await import("./test-focus-live-real-mutation-handlers.mjs");
 console.log("Focus live subtask/metric same-render duplicate and committed-refetch ownership regression passed.");
