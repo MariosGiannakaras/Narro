@@ -6,11 +6,13 @@ import ts from "typescript";
 // Execute the actual production function extracted by the TypeScript parser;
 // never validate a second invented retry implementation.
 const api = fs.readFileSync("src/timedAlertApi.ts", "utf8");
-const ast = ts.createSourceFile("src/timedAlertApi.ts", api, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+const helper = fs.readFileSync("src/timedAlertListenerRecovery.ts", "utf8");
+const ast = ts.createSourceFile("src/timedAlertListenerRecovery.ts", helper, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
 const entry = ast.statements.find(node => ts.isFunctionDeclaration(node)
   && node.name?.text === "connectTimedAlertEffectsWithRecovery");
 assert.ok(entry, "Timed-alert registration needs a finite recovery owner");
-assert.match(api, /TIMED_ALERT_LISTENER_RETRY_DELAYS_MS\s*=\s*\[250,\s*750\]/);
+assert.match(helper, /TIMED_ALERT_LISTENER_RETRY_DELAYS_MS\s*=\s*\[250,\s*750\]/);
+assert.doesNotMatch(api, /setTimeout\(|setInterval\(/, "Typed Tauri event boundary must stay scheduler-free");
 assert.match(api, /return listen<TimedAlertEffectPayload>/);
 
 function harness(outcomes) {
@@ -39,7 +41,7 @@ function harness(outcomes) {
     "globalThis.__tested = " + entry.getText(ast).replace(/^export\s+/, "") + ";",
     {compilerOptions: {target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None}},
   ).outputText;
-  vm.runInNewContext(javascript, environment, {filename: "src/timedAlertApi.ts"});
+  vm.runInNewContext(javascript, environment, {filename: "src/timedAlertListenerRecovery.ts"});
   return {
     connect: (onEffect = event => received.push(event)) =>
       environment.__tested(onEffect, error => warnings.push(error)),
