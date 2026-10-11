@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — post-audit 4/7 source PRs accepted; #327/#328 CI active
+## CURRENT 2026-10-11 — S0 independent 50/50 verified, post-audit bounded 4/8 source PRs accepted
+
+Retrospective 70/70 source/evidence REVIEWED (50/50 Markdown immutable IDs and 15+20+15 audit rows separately rechecked), L05/L40 original source SHA transcription errors corrected in additive logs only, no phantom Windows/Blitzit parity PASS. Original A01–A14 source/CI 14/14, mandatory physical/source accepted 3/10; physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+Post-audit 4/8 exact accepted #322/#323/#324/#326; pending #321 independently owned B49 dark visual Windows FAILED, #327 Focus stale initial error run 38116234747 validation/fast SUCCESS Windows IN PROGRESS, #328 actual Board/Search handler run 38116433635 validation/fast SUCCESS Windows IN PROGRESS, #329 Reports actual Add/Edit/Delete handler head 228efeafc34719ea8caa9e098c7fc8841518736a run 38116774489 QUEUED at recorded time. Three owned regression PRs independent and TEST-ONLY, no production CSS/native app change. Latest immutable `work-log/2026-10-11-chatgpt-q06-real-reports-write-handlers-pr329-ci-checkpoint.md`.
+
+**NEXT:** continue exact CI #327/#328/#329, inspect any failure logs; expected-head guarded merges and full changed-blob checks only after 3/3 jobs SUCCESS. Respect #321 separate ownership; one latest resulting-main Windows production ZIP/EXE/installer SHA256 Q12 after source union. Physical Windows C4/M6/F35/F29/F27/M8 user-paused OPEN.
+
+## HISTORICAL — 4/7 before PR329
 
 **S0 70/70 REVIEWED**; 50/50 frozen Markdown distinct paths/unique audit rows independently reconfirmed; SHA transcription L05/L40 corrected via immutable addenda, historic files untouched. Original A01–A14 source/CI 14/14 guarded merged; mandatory fully source/physical roadmap **3/10**; physical C4/M6/F35/F29/F27/M8 USER-PAUSED OPEN, M10 blocked, M11 dormant.
 
