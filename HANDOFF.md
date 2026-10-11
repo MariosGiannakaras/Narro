@@ -1,6 +1,18 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 DOCUMENTS RECONFIRMED; POST-AUDIT SOURCE PRs 7/9 ACCEPTED
+## CURRENT 2026-10-11 — SOURCE/CI 7/10 ACCEPTED; Q07 #330 WINDOWS PENDING, Q09 #331 FAST PENDING
+
+**Source-of-truth progress:** Frozen S0 70/70 retrospective reviewed and original 50/50 Markdown separately reverified, source A01–A14 historical 14/14 guarded accepted, fully physically/source accepted roadmap 3/10. New bounded post-audit source/test PR queue is now **7/10 accepted** (#322/#323/#324/#326/#327/#328/#329). New Q09 [#331](https://github.com/MariosGiannakaras/Narro/pull/331) is an independent TEST-ONLY PR in addition to previously counted #330 and other-owner #321. No queued PR increments accepted progress.
+
+**#331 Q09:** branch `audit/20261011-q09-blitz-actual-handler-ipc`, exact head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7`, original [run 38120132435](https://github.com/MariosGiannakaras/Narro/actions/runs/38120132435) validation SUCCESS, fast IN PROGRESS and Windows NOT PASS last checked. Two test-only files: actual extracted TypeScript Blitz Start handler VM with shared ref/stale same-render pending and delayed start/morph/no-eligible/retry/error and reduced-motion tests, imported into mandatory preflight. No product/CSS/Rust changes, no new physical M6 PASS. Immutable `work-log/2026-10-11-chatgpt-q09-blitz-actual-handler-pr331-ci-checkpoint.md`.
+
+**#330 Q07:** existing head `42044c17c69d31034b47621316987d5f01e721d5`, [run 38119707298](https://github.com/MariosGiannakaras/Narro/actions/runs/38119707298), validation/fast SUCCESS, **Windows candidate IN PROGRESS/NOT PASS** last check. Its previous failed fast assertion was repaired ONLY in test by waiting for actual committed Delete modal-close callback rather than VM fixed microtask spins. If Windows 3/3 SUCCESS, use exact-head expected-sha guarded squash merge and 2/2 blob identity.
+
+**#321 Q01:** different active agent owns B49 Focus screenshot PR head `f129c37b30b27897971f3aa8452c563f8f955111`, [run 38092529298](https://github.com/MariosGiannakaras/Narro/actions/runs/38092529298) actual dark Focus Windows FAIL; do NOT edit/merge/take over. Preserve false-positive screenshot evidence until exact corrected state accepted.
+
+**NEXT:** monitor exact #330/#331 workflows (first actual failed log if red), merge only after validation+fast+Windows all SUCCESS at unchanged PR heads, expected-head guard and all changed blob equality. Safely prepare independent Q10/Q11 source-only/actual handler tests if not conflicting while Windows pending; keep test/CI scope narrow. After Q01 other owner and Q07/Q09 accepted, perform Q12 **one combined latest-main Windows production candidate** with actual ZIP/EXE/installer SHA256. Current user-paused physical C4/M6/F35/F29/F27/M8 OPEN, M10 blocked, optional M11 DORMANT.
+
+## HISTORICAL 2026-10-11 — 7/9 before independent Q09 PR331
 
 **AUTHORITATIVE NOW:** Frozen 06:00 S0 retrospective **70/70 REVIEWED**, with **50/50 original S0 Markdown identities** directly reconfirmed against GitHub S0 compare 104 paths (50 Markdown), unique tracker IDs and all 50 original individual audit rows across 15+20+15 logs. All 43 immutable historical work-log source files directly fetched again: 41/43 original audit summary SHAs exact, L05 placeholder corrected actual `c4baa5f106e029f0c4f846a9a55767530f19656d`, L40 original malformed SHA corrected actual `bc768f7b8167a83342e754a0ed3c0ed248beb221`. Both recorded in existing **additive immutable addenda**, no original file overwritten. All seven active docs exist, six changed legitimately after first review (E02 unchanged). **No missing or half-reviewed doc**. New independent evidence `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
 
