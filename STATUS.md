@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 50/50 AUDIT RECONFIRMED; POST-AUDIT 7/9 ACCEPTED
+## CURRENT 2026-10-11 — FROZEN AUDIT 70/70; POST-AUDIT SOURCE PRs 7/10 ACCEPTED
+
+**Independent S0 doc audit 50/50** (50 unique S0 markdown paths against actual GitHub compare, 15+20+15 individual audit rows, immutable L05/L40 summary SHA corrected only by new addenda). S0 review 70/70 with open physical/current-native integrated gates; A01–A14 code/CI 14/14 originally merged; mandatory source+physical accepted roadmap 3/10.
+
+**Post-audit source/test 7/10** exact 3/3 Windows CI guarded-merged: #322/#323/#324/#326/#327/#328/#329. Current **#330 Q07** head `42044c17c69d31034b47621316987d5f01e721d5`, run `38119707298` validation/fast SUCCESS, Windows candidate IN PROGRESS, not accepted. **#331 Q09** new TEST-only actual Blitz Start handler execution head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7`, run `38120132435` validation SUCCESS, fast and Windows NOT PASS at snapshot, not accepted. Real production callback/deferred native start/presentation and owner release tested only after exact CI PASS; physical native M6 remains OPEN. Immutable `work-log/2026-10-11-chatgpt-q09-blitz-actual-handler-pr331-ci-checkpoint.md`.
+
+**#321 OTHER OWNER** B49 focused screenshot dark-state Windows FAIL head `f129c37b30b27897971f3aa8452c563f8f955111`, no autonomous merge/change. NEXT check exact #330/#331 CI, first failure diagnostics or expected-head squash/2 blob proof, then Q12 one latest resulting-main production ZIP/EXE hashes after all queued PR acceptance. Physical Codex USER-PAUSED, M10 blocked, optional M11 dormant.
+
+## HISTORICAL 2026-10-11 — 7/9 prior to PR331
 
 **Frozen S0 retrospective 70/70 evidence REVIEWED**; original **50/50 distinct Markdown paths** externally validated again vs exact 50-of-104 original S0 GitHub compare, all 50 mapped to unique audited rows (15+20+15), all 43 source immutable work logs available: 41/43 first audit hashes right; L05 placeholder and L40 truncated SHA corrected in separate immutable addenda, no original overwritten. E02 current blob unchanged, six T/E docs legitimately changed after review. **No missed or unreviewed S0 doc**. Evidence `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
 
