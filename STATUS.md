@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — FROZEN AUDIT 70/70; POST-AUDIT SOURCE PRs 7/10 ACCEPTED
+## CURRENT 2026-10-11 — POST-AUDIT 7/11 SOURCE/CI ACCEPTED, THREE WINDOWS CI ACTIVE
+
+S0 retrospective 70/70 REVIEWED and original 50/50 Markdown independent identity/hash validation confirmed with two immutable L05/L40 SHA errata. Original A01–A14 source/CI accepted 14/14, mandatory fully physical/source accepted roadmap 3/10. **Post-audit 7/11 accepted** (#322/#323/#324/#326/#327/#328/#329 all exact validation/fast/windows SUCCESS, expected-head guarded merged/blob-checked). Open three agent-owned PR #330/#331/#332 and one separate agent-owned visual PR #321; 0 new accepted on fast-only results.
+
+[#330](https://github.com/MariosGiannakaras/Narro/pull/330) Q07 head `42044c17c69d31034b47621316987d5f01e721d5` run `38119707298` validation/fast SUCCESS Windows IN PROGRESS. [#331](https://github.com/MariosGiannakaras/Narro/pull/331) Q09 head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7` run `38120132435` validation/fast SUCCESS Windows IN PROGRESS. [#332](https://github.com/MariosGiannakaras/Narro/pull/332) Q10/Q11 head `8997b185f3aff764b4694eb653066964945ecb59` run `38120495638` validation SUCCESS fast IN PROGRESS Windows NOT PASS. All are TEST-only real extracted production handlers with deferred IPC; no visual/CSS/native product rewrite. Immutable recent log `work-log/2026-10-11-chatgpt-q10-q11-production-mutations-pr332-ci-checkpoint.md`.
+
+#321 Q01 other owner dark Focus B49 Windows CI FAIL prior run `38092529298`, no takeover. **NEXT** exact CI#330–332, failure/root cause or expected-head merge+all file blob identity; then Q12 fresh latest resulting-main Windows package/ZIP/EXE hash once separate #321 accepted. Physical C4/M6/F35/F29/F27/M8 remains USER-PAUSED OPEN, M10 blocked, optional M11 dormant.
+
+## HISTORICAL 2026-10-11 — 7/10 before PR332
 
 **Independent S0 doc audit 50/50** (50 unique S0 markdown paths against actual GitHub compare, 15+20+15 individual audit rows, immutable L05/L40 summary SHA corrected only by new addenda). S0 review 70/70 with open physical/current-native integrated gates; A01–A14 code/CI 14/14 originally merged; mandatory source+physical accepted roadmap 3/10.
 
