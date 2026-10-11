@@ -210,6 +210,18 @@ pub fn validate_preferences(payload: &PreferencesPayload) -> Result<(), Preferen
     Ok(())
 }
 
+// Historical payloads were previously only checked as bounded tokens. Keep their
+// read path compatible so a user can recover the stored settings; all new writes
+// must resolve through the same authoritative IANA database as scheduling.
+fn validate_preferences_for_write(payload: &PreferencesPayload) -> Result<(), PreferenceStoreError> {
+    validate_preferences(payload)?;
+    if let Some(timezone) = payload.general.timezone.as_deref() {
+        crate::scheduling::validate_timezone_identifier(timezone)
+            .map_err(|_| PreferenceStoreError::InvalidToken("general.timezone"))?;
+    }
+    Ok(())
+}
+
 fn decode_preferences(
     schema_version: i64,
     payload_json: String,
@@ -287,7 +299,7 @@ pub fn mutate_preferences(
         .map(|record| record.payload)
         .unwrap_or_default();
     mutate(&mut payload);
-    validate_preferences(&payload)?;
+    validate_preferences_for_write(&payload)?;
     let payload_json = serde_json::to_string(&payload)?;
     tx.execute(
         "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
@@ -309,7 +321,7 @@ pub fn save_preferences(
     now: &str,
 ) -> Result<PreferencesRecord, PreferenceStoreError> {
     validate_timestamp(now)?;
-    validate_preferences(&payload)?;
+    validate_preferences_for_write(&payload)?;
     let payload_json = serde_json::to_string(&payload)?;
     let tx = conn.transaction()?;
     tx.execute(
