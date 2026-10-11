@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { connectTimedAlertEffects, type TimedAlertEffectPayload } from "./timedAlertApi";
+import { type TimedAlertEffectPayload } from "./timedAlertApi";
+import { connectTimedAlertEffectsWithRecovery } from "./timedAlertListenerRecovery";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import "./timedAlertFlash.css";
 
@@ -67,20 +68,16 @@ export function TimedAlertFlashRuntime() {
 
   useEffect(() => {
     let disposed = false;
-    let stopListening: (() => void) | undefined;
-
-    void connectTimedAlertEffects((effect) => {
+    const stopListening = connectTimedAlertEffectsWithRecovery((effect) => {
       if (disposed) return;
       if (settingsRef.current === null) {
         pendingEffectRef.current = effect;
         return;
       }
       flashEffect(effect);
-    })
-      .then((unlisten) => {
-        if (disposed) unlisten();
-        else stopListening = unlisten;
-      });
+    }, (error: unknown) => {
+      if (!disposed) console.warn("Timed-alert flash could not subscribe to native effects.", error);
+    });
 
     const reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY);
     const handleReducedMotionChange = () => {
@@ -91,7 +88,7 @@ export function TimedAlertFlashRuntime() {
     return () => {
       disposed = true;
       pendingEffectRef.current = null;
-      stopListening?.();
+      stopListening();
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
       clearFlash();
     };

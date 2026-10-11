@@ -4,7 +4,8 @@ import {
   playLocalSound,
   stopLocalSoundPlayback,
 } from "./localSoundCatalog";
-import { connectTimedAlertEffects, type TimedAlertEffectPayload } from "./timedAlertApi";
+import { type TimedAlertEffectPayload } from "./timedAlertApi";
+import { connectTimedAlertEffectsWithRecovery } from "./timedAlertListenerRecovery";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 
 export function TimedAlertSoundRuntime() {
@@ -39,25 +40,21 @@ export function TimedAlertSoundRuntime() {
 
   useEffect(() => {
     let disposed = false;
-    let stopListening: (() => void) | undefined;
-
-    void connectTimedAlertEffects((effect) => {
+    const stopListening = connectTimedAlertEffectsWithRecovery((effect) => {
       if (disposed) return;
       if (settingsRef.current === null) {
         pendingEffectRef.current = effect;
         return;
       }
       playEffect(effect);
-    })
-      .then((unlisten) => {
-        if (disposed) unlisten();
-        else stopListening = unlisten;
-      });
+    }, (error: unknown) => {
+      if (!disposed) console.warn("Timed-alert sound could not subscribe to native effects.", error);
+    });
 
     return () => {
       disposed = true;
       pendingEffectRef.current = null;
-      stopListening?.();
+      stopListening();
       stopLocalSoundPlayback();
     };
   }, []);
