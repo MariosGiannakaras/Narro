@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — S0 50/50 evidence cross-checked; post-audit PRs 3/5 accepted
+## CURRENT 2026-10-11 — FROZEN S0 50/50 CONFIRMED AND POST-AUDIT 4/5 SOURCE PRS MERGED
+
+**Independent 50-original-Markdown verification RECONFIRMED:** GitHub frozen tracker contains 50 checked distinct IDs/paths, individual audit logs contain exactly 50 unique matching entries 15+20+15, no skipped/doubled path. 43 original historic work logs unchanged; evidence hashes 41/43 originally correct, L05 `c4baa5f106e029f0c4f846a9a55767530f19656d` and L40 `bc768f7b8167a83342e754a0ed3c0ed248beb221` corrected through separate immutable addenda, direct source verified again. T01–T03 at-review versus S0 original SHA distinction maintained. Retrospective **70/70 REVIEWED** is bounded evidence status, not native/code 70/70 PASS.
+
+**PR #326 Q03 accepted exact-head** `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, GitHub Windows Actions `38095709184` **3/3 SUCCESS**, expected-head guarded squash `a0db381d591bf670ec6d183288f9fa0be37e8b19`, changed file identity **2/2** PR head=merge=latest main. Real mounted Focus list picker keyboard/ARIA synthetic DOM regression; native trusted keyboard/screen reader NOT RUN. Post-audit accepted **4/5 (#322/#323/#324/#326)**, pending separately-owned B49 #321.
+
+**PR #321** latest read head `f129c37b30b27897971f3aa8452c563f8f955111` exact `38092529298` validation/fast SUCCESS, Windows FAILURE from dark Focus CDP screenshot readiness (active queued SPAN, rail opacity 0), does NOT validate B49 parity. Other agent owns branch; do not overwrite/merge. Latest full combined ZIP/EXE/installer hash Q12 NOT RUN until #321 resolved; manual Windows physical USER-PAUSED; roadmap 3/10 source+physical accepted, original A01–A14 CI 14/14. Latest immutable evidence `work-log/2026-10-11-chatgpt-independent-50-doc-verified-and-pr326-merged.md`.
+
+**NEXT:** monitor #321 only on meaningful owner/CI change; safely evaluate independent Q04/Q05 actual-handlers while blocked; perform Q12 single combined source Windows build and real hashes after source union. No speculative architecture rewrite or accidental other-agent branch takeover.
+
+## HISTORICAL — 3/5 pre-PR326-CI checkpoint
 
 **Q03 NEW TEST PR #326:** `audit/20261011-focus-picker-real-keyboard-regression` head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` validation+fast SUCCESS, Windows candidate IN PROGRESS (job `114341694577`, no PASS), two source/test paths (M7 actual mounted production Focus picker keyboard events; mandatory frontend preflight source reachability). Pure regression, no product/source design changes. User-facing implementation denominator increases explicitly **3/4 → 3/5**; no acceptance claimed before all exact CI jobs PASS and guarded merge/blob equality. Q01 #321 failed Windows dark B49 and owned by another agent; do not overwrite branch or fabricate latest candidate source/native ZIP hashes. Last independent 50/50 evidence recheck addendum in work-logs, tracker corrects L05/L40 hashes.
 
