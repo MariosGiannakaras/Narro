@@ -1,6 +1,11 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — #321 CODING OWNERSHIP REASSIGNED TO CHATGPT
+## CURRENT 2026-10-11 — Q01 REAL TOOLTIP RETRY, WINDOWS CI IN PROGRESS
+
+- [ ] **#321 Q01 ChatGPT-owned original PR**, latest exact head `221558f80012342d7d3f9e1720c42a8e477c9c67`, [CI 38143961415](https://github.com/MariosGiannakaras/Narro/actions/runs/38143961415) validation **SUCCESS**, fast and Windows **NOT PASS/IN PROGRESS** at checkpoint. Previous head `940ce10e3b3eed83513ea127286d98960d0d12d3`, CI `38141136444`: validation/fast SUCCESS, Windows **FAIL** on real queued-tooltip `data-open=false` after fixed 450ms; diagnostic 11703503337 examined. Same-branch fixture now waits boundedly for real tooltip open/focus owner; no pixel/tooltip/geometry gate relaxed. See `work-log/2026-10-11-chatgpt-b49-actual-tooltip-polling-ci-checkpoint.md`.
+- [ ] **Q12 post-#321 exact resulting-main combined Windows production artifact** after 3/3 CI PASS, guarded #321 merge and 7/7 changed blob SHA validation. Real ZIP/`narro.exe`/NSIS/MSI SHA required. Prior pre-#321 candidate remains intermediate only. **Progress 10/11**, Codex physical paused, M10 blocked/M11 dormant.
+
+## HISTORICAL 2026-10-11 — #321 CODING OWNERSHIP REASSIGNED TO CHATGPT
 
 - [ ] **#321 Q01 ChatGPT-owned, active existing PR** head `940ce10e3b3eed83513ea127286d98960d0d12d3`, [run 38141136444](https://github.com/MariosGiannakaras/Narro/actions/runs/38141136444) **IN PROGRESS/NOT PASS**. Corrected known late-viewport-reflow risk by setting CDP 420×720 before fixture navigation; static ordering test added. Require actual strict dark/light rail pixels and exact-head Windows CI 3/3 + guarded merge and main blob identity. Prior run `38092529298` failed dark capture; preserve failure evidence.
 - [ ] **Q12 final integrated post-#321 Windows candidate**: after #321 accepted, verify one real resulting-main production run/artifact and ZIP, EXE, NSIS and MSI SHA256. Existing pre-#321 `38124932682` 3/3 and hashes are intermediate PASS only.
