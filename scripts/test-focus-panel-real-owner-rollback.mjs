@@ -129,6 +129,14 @@ function harness() {
 // its modal closes after commit, not before an asynchronous write resolves.
 {
   const h=harness(), write=delay(), refresh=delay();
+  // Wait for the actual production handler's committed modal-close callback,
+  // rather than assuming any fixed number of cross-context VM microtasks.
+  let signalDeleteCommitted;
+  const modalClosed = new Promise(resolve => { signalDeleteCommitted = resolve; });
+  h.ctx.setDeleteTarget=value=>{
+    h.calls.deleteClosed.push(value);
+    if (value===null) signalDeleteCommitted();
+  };
   h.ctx.permanentlyDeleteListBoardTask=async()=>{h.calls.deletes++;return write.promise;};
   h.ctx.refreshBoard=async()=>{h.calls.refresh++;return refresh.promise;};
   const first=h.confirmDelete();
@@ -137,11 +145,15 @@ function harness() {
   assert.equal(h.calls.adds+h.calls.lives,0);
   assert.equal(h.calls.deleteClosed.length,0);
   write.resolve();
-  // Await the real async handler continuation, including promise assimilation
-  // across the VM context; two microtasks are not a completion guarantee.
-  for (let tick = 0; tick < 50 && !h.calls.deleteClosed.includes(null); tick++) {
-    await Promise.resolve();
-  }
+  // Observe the real handler callback across the Node/VM event-loop boundary.
+  // A fixed Promise.resolve loop can run before the awaited native-IPC
+  // assimilation advances in the isolated VM context.
+  await Promise.race([
+    modalClosed,
+    new Promise((_, reject) => setTimeout(
+      () => reject(new Error("Committed native delete never dismissed modal")), 2_000,
+    )),
+  ]);
   assert(h.calls.deleteClosed.includes(null),"confirmed backend deletion must dismiss modal");
   await h.submitAddTask();
   assert.equal(h.calls.adds,0);
