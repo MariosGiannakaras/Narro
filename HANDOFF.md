@@ -1,6 +1,20 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — SOURCE/CI 7/10 ACCEPTED; Q07 #330 WINDOWS PENDING, Q09 #331 FAST PENDING
+## CURRENT 2026-10-11 — POST-AUDIT 7/11 ACCEPTED; PR #330/#331/#332 CI PENDING
+
+**Latest directly verified source-progress:** original S0 retrospective **70/70 REVIEWED** and independently reverified 50/50 Markdown (41/43 original audit SHA accurate, L05/L40 corrected via separate immutable addenda); original A01–A14 code/CI **14/14 accepted**, mandatory roadmap fully physical/source accepted **3/10**. Bounded post-audit new source/test campaign **7/11 accepted** (#322/#323/#324/#326/#327/#328/#329 3/3 CI expected-head guarded merged, every changed blob matched). Remaining **four open #321, #330, #331, #332**; none accepted merely from fast CI. All native physical C4/M6/F35/F29/F27/M8 USER-PAUSED, M10 blocked, M11 dormant.
+
+**#330 Q07** exact head `42044c17c69d31034b47621316987d5f01e721d5`, run `38119707298` validation/fast SUCCESS, Windows candidate IN PROGRESS/NOT PASS. Same-branch narrow test fix replaced premature 50 VM microtask cycles with waiting for actual Delete modal-close callback; no product changes. Merge only exact three green/expected-head guard/2 blobs.
+
+**#331 Q09** exact head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7`, run `38120132435` validation/fast SUCCESS, Windows IN PROGRESS/NOT PASS. New actual extracted Blitz Start handler VM test against delayed persisted start, reduced-motion native morph, no-eligible, error/retry and same-render duplicate exclusion. Two test-only paths. Immutable `work-log/2026-10-11-chatgpt-q09-blitz-actual-handler-pr331-ci-checkpoint.md`.
+
+**#332 Q10/Q11 NEW** [PR #332](https://github.com/MariosGiannakaras/Narro/pull/332) branch `audit/20261011-q10-q11-live-archive-real-handlers`, exact head **`8997b185f3aff764b4694eb653066964945ecb59`**, [run `38120495638`](https://github.com/MariosGiannakaras/Narro/actions/runs/38120495638) validation SUCCESS, **fast IN PROGRESS/NOT PASS; Windows NOT PASS yet**. Four TEST-only paths: real transpiled production FocusLiveSubtasks/paused Metrics/Archived Restore/Delete handlers executed under deferred IPC with same-render stale React pending, committed-refresh/error/native destructive-dialog boundaries. No source/CSS/Rust behavior changed. Immutable `work-log/2026-10-11-chatgpt-q10-q11-production-mutations-pr332-ci-checkpoint.md`. If red inspect exact first failed fast/Windows log, fix evidence-backed cause on SAME branch and rerun head; no green claim yet.
+
+**#321 Q01 B49 OTHER AGENT** current known head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298` Windows dark focus capture FAILED, branch separately owned; do not edit/merge or restart parallel implementation.
+
+**NEXT:** check actual current heads and exact three jobs #330/#331/#332 frequently; if all green, expected-head squash merge and verify 2/2, 2/2, 4/4 Git blobs respectively. Preserve latest docs on main. If blocked on owner #321, continue safe independent evidence/queue; Q12 must verify ONE final latest-main combined Windows production candidate with real ZIP/EXE/installer SHA256 only after source union, and physical Codex remains USER-PAUSED.
+
+## HISTORICAL 2026-10-11 — 7/10 before Q10/Q11 PR332
 
 **Source-of-truth progress:** Frozen S0 70/70 retrospective reviewed and original 50/50 Markdown separately reverified, source A01–A14 historical 14/14 guarded accepted, fully physically/source accepted roadmap 3/10. New bounded post-audit source/test PR queue is now **7/10 accepted** (#322/#323/#324/#326/#327/#328/#329). New Q09 [#331](https://github.com/MariosGiannakaras/Narro/pull/331) is an independent TEST-ONLY PR in addition to previously counted #330 and other-owner #321. No queued PR increments accepted progress.
 
