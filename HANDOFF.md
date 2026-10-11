@@ -1,6 +1,22 @@
 # HANDOFF — Narro A01–A10 source/CI integrated; consolidated native Windows acceptance remains
 
-## CURRENT 2026-10-11 — 50/50 S0 DOC AUDIT RECONFIRMED; POST-AUDIT SOURCE PRs 4/9 ACCEPTED
+## CURRENT 2026-10-11 — 50/50 DOCUMENTS RECONFIRMED; POST-AUDIT SOURCE PRs 7/9 ACCEPTED
+
+**AUTHORITATIVE NOW:** Frozen 06:00 S0 retrospective **70/70 REVIEWED**, with **50/50 original S0 Markdown identities** directly reconfirmed against GitHub S0 compare 104 paths (50 Markdown), unique tracker IDs and all 50 original individual audit rows across 15+20+15 logs. All 43 immutable historical work-log source files directly fetched again: 41/43 original audit summary SHAs exact, L05 placeholder corrected actual `c4baa5f106e029f0c4f846a9a55767530f19656d`, L40 original malformed SHA corrected actual `bc768f7b8167a83342e754a0ed3c0ed248beb221`. Both recorded in existing **additive immutable addenda**, no original file overwritten. All seven active docs exist, six changed legitimately after first review (E02 unchanged). **No missing or half-reviewed doc**. New independent evidence `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
+
+**POST-AUDIT IMPLEMENTATION NOW 7/9 exact CI + GUARDED MERGE + Git blob ACCEPTED**: previously #322/#323/#324/#326; **NEW #327/#328/#329** accepted:
+- [#327](https://github.com/MariosGiannakaras/Narro/pull/327) head `ac12363892cc90ac17d70345df47b72ed4108272`, run `38116234747` validation/fast/Windows 3/3 SUCCESS, expected-head squash `799538da1fbe336355436126f7ca3925dce2761c`, 2/2 changed blobs match.
+- [#328](https://github.com/MariosGiannakaras/Narro/pull/328) head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run `38116433635` 3/3 SUCCESS, expected-head squash `2a55972df8873c34471e537eadac72b6ac44a12a`, 2/2 changed blobs match.
+- [#329](https://github.com/MariosGiannakaras/Narro/pull/329) head `228efeafc34719ea8caa9e098c7fc8841518736a`, run `38116774489` 3/3 SUCCESS, expected-head squash `1dc64c568b7c229d869f794dddb7609b8ccfb4a4`, 2/2 changed blobs match.
+These three are **real production-handler/test-only regressions**, no new CSS/native product behavior. GitHub mergeability briefly reported false during base updates; guard merging only when recomputed true.
+
+**#330 Q07 PENDING, not accepted:** PR [#330](https://github.com/MariosGiannakaras/Narro/pull/330) on `audit/20261011-focus-panel-real-owner-rollback`, current exact head **`42044c17c69d31034b47621316987d5f01e721d5`**, run **`38119707298`**: validation-gate SUCCESS, fast-gate IN PROGRESS and Windows NOT PASS at last check. Previous head `fba5fea4...` run `38117098114` fast FAILED at actual Focus Delete modal callback assertion after only 50 cross-context VM `Promise.resolve` ticks; scoped test-only change now **awaits real `setDeleteTarget(null)` callback** with bounded timeout, preserving production source. Inspect all actual CI, if red first causal log; do not count/merge unless 3/3 SUCCESS at unchanged head, expected-head guarded squash and 2/2 blob proof.
+
+**#321 B49 OTHER AGENT ACTIVE, NO TAKEOVER:** PR [#321](https://github.com/MariosGiannakaras/Narro/pull/321) head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298` validation/fast SUCCESS, Windows failed dark Focus CDP reveal with focus owner moved and pixel rail 0. Another assigned agent owns it; don't edit or merge without reassignment, preserve accurate FAIL and real screenshot evidence.
+
+**NEXT:** check #330 current exact CI regularly and if 3/3 pass, merge with expected-head guard and all 2 Git blob identities. Meanwhile safe independent inspection of accepted current main, no duplicate #321 replacement. Once #321 owner resolves and source union accepted, **Q12 single latest merged-main Windows CI candidate with actual ZIP/EXE/installer SHA256**; prior #316/#319/#320 packages stale. Mandatory roadmap fully source+physical accepted **3/10**, original A01–A14 14/14 source/CI, physical C4/M6/F35/F29/F27/M8 USER-PAUSED, M10 blocked, optional M11 dormant.
+
+## HISTORICAL 2026-10-11 — prior 4/9 and first 50-file verification checkpoint
 
 **Frozen S0 audit complete as evidence REVIEW 70/70; independent doc 50/50 unique tracker paths ↔ 15+20+15 audit rows (0 missing/extra), L05/L40 original summary SHA errata only, not old files altered.** Original A01–A14 source/CI 14/14; mandatory source+physical roadmap 3/10; physical Windows USER-PAUSED C4/M6/F35/F29/F27/M8, M10 blocked, optional M11 DORMANT.
 
