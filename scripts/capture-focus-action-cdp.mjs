@@ -15,6 +15,11 @@ for (const name of ["edge", "url", "profile", "png", "html"]) {
 }
 const mode = options.mode ?? "focused";
 if (!["running", "focused"].includes(mode)) throw new Error(`Invalid B49 capture mode: ${mode}`);
+// The legacy 420x720 Edge PNG is rendered with a 492x628 inner DOM viewport
+// on Windows. Other Focus scenarios all use that same layout. Keep the
+// identical 420x720 screenshot clip but normalize BOTH B49 CDP page layouts.
+const focusLayoutViewport = { width: 492, height: 628 };
+const screenshotClip = { x: 0, y: 0, width: 420, height: 720, scale: 1 };
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const deadline = Date.now() + 25_000;
 const browser = spawn(options.edge, [
@@ -83,6 +88,7 @@ async function waitForFocusedFixture() {
         pass: root.dataset.focusActionRevealPass === "true",
         focusOwner: Boolean(action && document.activeElement === action),
         foreground: document.hasFocus(),
+        viewport: [document.documentElement.clientWidth, document.documentElement.clientHeight],
         activeTag: document.activeElement?.tagName ?? null,
         actionAvailable: Boolean(action && !action.disabled),
         keyboardMarker: document.querySelector('[data-focus-live-card="true"]')?.getAttribute("data-focus-actions-keyboard") ?? null,
@@ -99,6 +105,8 @@ async function waitForFocusedFixture() {
     }
     observed = response.result?.value ?? null;
     if (observed?.ready && observed?.pass && observed?.focusOwner && observed?.foreground
+      && observed?.viewport?.[0] === focusLayoutViewport.width
+      && observed?.viewport?.[1] === focusLayoutViewport.height
       && observed?.railOpacity === "1" && observed?.headingOpacity === "0") return;
     await sleep(100);
   }
@@ -106,8 +114,8 @@ async function waitForFocusedFixture() {
 }
 
 async function waitForRunningFixture() {
-  // Compare reference and keyboard states with the exact same inner viewport.
-  // The old --window-size=420,720 produced 492x628 on Windows Edge.
+  // Compare reference and keyboard states with the *same* 492x628 actual
+  // inner viewport as paused/break/overtime/Notes and every other Focus case.
   let observed = null;
   while (Date.now() < deadline) {
     const response = await evaluate(`(() => {
@@ -123,7 +131,7 @@ async function waitForRunningFixture() {
         error: parsed?.error ?? null,
         hasContract: Boolean(parsed && !parsed.error),
         foreground: document.hasFocus(),
-        viewport: [window.innerWidth, window.innerHeight],
+        viewport: [document.documentElement.clientWidth, document.documentElement.clientHeight],
         keyboardMarker: document.querySelector('[data-focus-live-card="true"]')?.getAttribute("data-focus-actions-keyboard") ?? null,
         railOpacity: rail ? getComputedStyle(rail).opacity : null,
         headingOpacity: heading ? getComputedStyle(heading).opacity : null,
@@ -132,7 +140,7 @@ async function waitForRunningFixture() {
     if (response.exceptionDetails) throw new Error("B49 resting fixture CDP evaluation exception: " + JSON.stringify(response.exceptionDetails));
     observed = response.result?.value ?? null;
     if (observed?.ready && observed?.hasContract && observed?.scenario === "running"
-      && observed?.foreground && observed?.viewport?.[0] === 420 && observed?.viewport?.[1] === 720
+      && observed?.foreground && observed?.viewport?.[0] === focusLayoutViewport.width && observed?.viewport?.[1] === focusLayoutViewport.height
       && observed?.keyboardMarker === null && observed?.railOpacity === "0"
       && observed?.headingOpacity === "1") return;
     await sleep(100);
@@ -148,7 +156,7 @@ async function preserveFocusedFailureEvidence() {
     if (typeof dom === "string") await fs.writeFile(options.html, dom, "utf8");
     const shot = await command("Page.captureScreenshot", {
       format: "png", fromSurface: true, captureBeyondViewport: false,
-      clip: { x: 0, y: 0, width: 420, height: 720, scale: 1 },
+      clip: screenshotClip,
     });
     if (typeof shot.data === "string") {
       await fs.writeFile(options.png, Buffer.from(shot.data, "base64"));
@@ -179,14 +187,14 @@ try {
   await command("Page.enable");
   await command("Runtime.enable");
   await command("Emulation.setDeviceMetricsOverride", {
-    width: 420, height: 720, deviceScaleFactor: 1, mobile: false,
+    ...focusLayoutViewport, deviceScaleFactor: 1, mobile: false,
   });
   // A CDP-launched about:blank target can lack window focus even while its
   // document.activeElement is a SPAN. React keyboard Tooltip depends on real
   // focus events, not merely an activeElement marker. Bring the same page
-  // foreground BEFORE fixture scripts run; retain the exact 420x720 viewport.
+  // foreground BEFORE fixture scripts run; retain the common 492x628 layout.
   await command("Page.bringToFront");
-  // Navigation occurs only after the final 420x720 viewport and foreground
+  // Navigation occurs only after the shared 492x628 viewport and foreground
   // are established. Preserve genuine tooltip, focus-owner and geometry gates.
   const navigation = await command("Page.navigate", { url: options.url });
   if (navigation.errorText) throw new Error(`B49 fixture navigation failed: ${navigation.errorText}`);
@@ -208,7 +216,7 @@ try {
   }
   const shot = await command("Page.captureScreenshot", {
     format: "png", fromSurface: true, captureBeyondViewport: false,
-    clip: { x: 0, y: 0, width: 420, height: 720, scale: 1 },
+    clip: screenshotClip,
   });
   const png = Buffer.from(shot.data ?? "", "base64");
   if (png.length < 10_000 || png.subarray(1, 4).toString() !== "PNG") {
