@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 4/9 ACCEPTED, FOUR INDEPENDENT TEST PRs CI ACTIVE
+## CURRENT 2026-10-11 — POST-AUDIT 7/9 ACCEPTED; #330 CI PENDING; #321 OTHER OWNER FAIL
+
+- [x] **User-requested original 50-document recheck 50/50**: exactly 50 Markdown S0 paths in GitHub original 104-path diff, identical 50 unique tracker IDs and 15+20+15 exact individual audit rows, all 50 paths fetched and 43 immutable originals unchanged; **41/43 audit-summary hashes exact, L05/L40 transcription corrected via immutable addenda**, six live tracking/evidence docs changed since original review, E02 stable. Detailed new log `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`. Full retrospective 70/70 REVIEWED, not native PASS.
+- [x] **#327 Q05** exact head `ac12363892cc90ac17d70345df47b72ed4108272`, CI `38116234747` 3/3 SUCCESS, guarded merge `799538da1fbe336355436126f7ca3925dce2761c`, 2/2 accepted blobs.
+- [x] **#328 Q04** exact head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, CI `38116433635` 3/3 SUCCESS, guarded merge `2a55972df8873c34471e537eadac72b6ac44a12a`, 2/2 blobs.
+- [x] **#329 Q06** exact head `228efeafc34719ea8caa9e098c7fc8841518736a`, CI `38116774489` 3/3 SUCCESS, guarded merge `1dc64c568b7c229d869f794dddb7609b8ccfb4a4`, 2/2 blobs. Together with #322/#323/#324/#326 **7/9** accepted bounded post-audit units.
+- [ ] **#330 Q07** new head `42044c17c69d31034b47621316987d5f01e721d5` run `38119707298` validation SUCCESS, fast IN PROGRESS and Windows NOT PASS at last check. Previous fast failure actual Delete modal callback assertion after 50 VM microtask spins; updated TEST ONLY to await real modal-close callback; do not claim PASS until exact three CI jobs, expected-head guarded merge+2 Git blobs.
+- [ ] **#321 Q01 other owner** dark B49 actual Windows visual capture FAIL head `f129c37b30b27897971f3aa8452c563f8f955111`, run `38092529298`; no autonomous takeover or fake PASS. After all post-audit product source accepted, **Q12** one current merged-main native Windows candidate with real ZIP/EXE/installer SHA256; physical Codex USER-PAUSED. Original A01–A14 code/CI 14/14; mandatory fully physical/source roadmap 3/10; M10 blocked and M11 dormant.
+
+## HISTORICAL 2026-10-11 — prior 4/9 pending PR checkpoint
 
 - [x] S0 audit 70/70 evidence review and 50/50 original document path+log ID independent recheck; L05/L40 SHA evidence corrections in immutable addenda only. A01–A14 original source/CI 14/14; roadmap fully source+physical 3/10, native Codex USER-PAUSED.
 - [x] Post-audit #322/#323/#324/#326 exact-head Windows 3/3 SUCCESS and guarded merges+blob identity, accepted **4/9** bounded PRs.
