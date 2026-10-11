@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — S0 50/50 RECONFIRMED; POST-AUDIT 4/6 ACCEPTED WITH #327 CI QUEUED
+## CURRENT 2026-10-11 — S0 AUDIT 70/70 REVIEWED, POST-AUDIT 4/7 ACCEPTED
+
+- [x] Independently reverified 50/50 frozen document paths and corresponding 50 unique audit logs, with immutable L05/L40 SHA errata; original historical files unchanged, physical/native NOT implied.
+- [x] Accepted #322/#323/#324/#326 exact-head Windows CI 3/3 each and expected-head guarded merge+all blobs. Last #326 head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e` → `a0db381d591bf670ec6d183288f9fa0be37e8b19`, both blobs equal.
+- [ ] **Q05 #327** head `ac12363892cc90ac17d70345df47b72ed4108272`, run `38116234747` validation+fast SUCCESS, Windows IN PROGRESS/NOT PASS. Mounted Focus stale initial error after newer invalidation; test-only, full 3/3 CI + guarded merge/2 blobs outstanding.
+- [ ] **Q04 #328** head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run `38116433635` validation SUCCESS, fast in progress, Windows not PASS. Extracted ACTUAL Board Create/Duplicate and Search Quick Task handler VM/deferred command regression, preflight wired; 2 test-only files. Immutable `work-log/2026-10-11-chatgpt-q04-actual-board-search-handlers-pr328-ci-checkpoint.md`. After 3 jobs green guarded merge/both blob checks only.
+- [ ] **Q01 #321** B49 other-agent-owned head `f129c37b...` Windows FAILED dark focused rail; do not modify/merge until actual owner-corrected exact CI green. Q12 latest combined Windows ZIP/EXE/installer real SHA256 **NOT RUN** until source union.
+- [ ] **Progress:** bounded new PR scope 4/7 accepted; S0 reviews 70/70 (19 PR/50 docs/I01), original A01–A14 14/14 source CI accepted, roadmap physical/source 3/10. Codex physical USER-PAUSED; M10 blocked, M11 dormant.
+
+## HISTORICAL — 4/6 Q05 queued checkpoint
 
 - [x] Frozen S0 audit **70/70 reviewed**, original 50/50 distinct Markdown manifest paths and audit log rows verified independently; two SHA transcription issues L05/L40 corrected through additive immutable evidence, historical files untouched.
 - [x] Q03 #326 head `8d55e80e...` run `38095709184` validation/fast/windows SUCCESS, guarded squash `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 blob match. Native keyboard/screen-reader USER-PAUSED.
