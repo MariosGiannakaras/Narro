@@ -2,6 +2,20 @@
 
 **Status:** active pre-M11 implementation uncertainty register; 41 concrete source-uncertainty checks, all direct-Blitzit source-review gates OPEN. These are **not 41 unfinished coding requirements**: many Narro behaviors are already integrated and automated-validated; some remain partial, source-conflicted, safely unavailable, or limited to unverified visual/interactions. First established 2026-10-09; 2026-10-10 stale implementation-status reconciliation. This is **not** activation, planning or commencement of optional M11. M11 is still strictly opt-in with its frozen-corpus protocol in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
 
+## Unknown-only repository audit — 2026-10-11, batch 02 (current)
+
+**Scope:** U03 success sound selection, preview, volume, enabled state, persistence and playback; no unrelated feature, source implementation, UI, media, tests or PR touched. The earlier batch 01 U01/U02 observations below are historical and the user-approved Create/Edit List/Color Picker/icon system is **locked and excluded from modification**.
+
+**Audit actions: 4/42 completed. Findings reviewed: 3/41.** One baseline inventory action and three U findings reviewed; denominator remains the 41 discovered stable U routes plus inventory, with 31 matrix-level `EVIDENCE_LIMIT` claims used as supporting/cross-check evidence, not counted as new independent findings without deduplication.
+
+### U03 — success sounds (`BLITZIT_CONFIRMED` controls; `NARRO_INFERRED_IMPLEMENTED`; `SOURCE_AUDIO_INTERACTION_PARITY_OPEN`)
+
+- **Confirmed source:** Current SS-C09 shows separate `Success sound effect` ON toggle, selector/preview/speaker control, and `Show success screen` plus nested Fun GIF. Canonical VE-014 shows `Victory Bell`, demonstrable preview activation and a speaker-triggered vertical volume popover on source sound rows. This does **not** establish the full sound library, acoustic recordings, volume scale/defaults, hidden ON/OFF transitions, playback timing, preview concurrency or persistence.
+- **Current Narro contract:** `PreferenceSettingsSections` + `SoundPreferenceControl` support separate saved success-sound ON/OFF and sound/volume. `localSoundCatalog` synthesizes four offline Narro-owned sounds with one active audio context per WebView, not verified shared ownership across windows; `FocusLiveActions.handleDone` schedules sound **after** authoritative `completeTimerTask()` success, independently of success-screen UI. Rust typed v5 preference schema validates sound IDs and 0–100 volumes, SQLite immediate writer transaction persists and legacy defaults are covered. Async playback error does not roll back committed task/session history. This is a deterministic **Narro** behavior choice; source proof for sound with success screen OFF is absent.
+- **Disposition:** No evidenced missing core sound control or proven source-derived product bug. Historical B9/B18 code-gap claims are superseded by accepted implementations; source sonic and interaction parity, native audio-device behavior and cross-window concurrency are unverified. Existing static/fake-audio/Rust tests were reviewed, **NOT RUN** this batch; source and Windows physical comparison **NOT RUN**. A static test's phrase `evidence-backed local catalog labels` overclaims provenance for all four local sounds and should later be described as a Narro-owned catalog contract, not mistaken for Blitzit equality. No `PRODUCT_DECISION_REQUIRED` identified for this non-domain-changing local contract.
+- **Evidence and analysis:** [immutable batch 02 log](../work-log/2026-10-11-chatgpt-blitzit-unknown-only-audit-batch-02.md).
+- **NEXT only after explicit continuation:** U04 archived-Done deletion/destructive/history unknowns. Do not begin beforehand.
+
 ## Unknown-only repository audit — 2026-10-11, batch 01
 
 **Mode:** source-uncertainty analysis ONLY; no application, test, config, or functional changes. Baseline repository `main` `2e3585adac8ee0a1f2f013a2513a4d3e329ae809`. This review is not optional live Blitzit M11 activation, not native acceptance and not implementation correction.
