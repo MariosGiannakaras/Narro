@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — S0 50/50 VERIFIED; POST-AUDIT 4/5 SOURCE/CI ACCEPTED
+## CURRENT 2026-10-11 — S0 50/50 RECONFIRMED; POST-AUDIT 4/6 ACCEPTED WITH #327 CI QUEUED
+
+- [x] Frozen S0 audit **70/70 reviewed**, original 50/50 distinct Markdown manifest paths and audit log rows verified independently; two SHA transcription issues L05/L40 corrected through additive immutable evidence, historical files untouched.
+- [x] Q03 #326 head `8d55e80e...` run `38095709184` validation/fast/windows SUCCESS, guarded squash `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 blob match. Native keyboard/screen-reader USER-PAUSED.
+- [ ] **Q05 PR #327:** head `ac12363892cc90ac17d70345df47b72ed4108272` run `38116234747` CI QUEUED/NOT PASS. Test-only actual mounted stale initial error after fresher cross-window Focus board read, two changed fixture/preflight files. Do not count until 3/3 CI and guarded merge/2 blobs. `work-log/2026-10-11-chatgpt-q05-focus-stale-error-pr327-ci-start.md`.
+- [ ] Q01 #321 B49 other agent-owned, last head `f129c37b...`, run `38092529298` dark Windows visual FAILED, strict PNG proof remains OPEN; do not merge/overwrite.
+- [ ] Q12 one combined current-main Windows candidate after #321 accepted, fresh ZIP/EXE/installer SHA256 and physical gates kept USER-PAUSED. Explicit bounded code count **4/6**, A01–A14 historic source/CI 14/14, mandatory 3/10 roadmap fully accepted.
+
+## HISTORICAL — 4/5 source accepted before #327 opened
 
 - [x] **50/50 independent audit identity reverified again:** 50 unique frozen Markdown tracker IDs/paths, each checked; exactly 50 matching unique individual audit-log IDs (15+20+15), no missing/extra; 43 preserved historical logs. SHA transcription defects L05/L40 explicitly repaired by immutable errata, rechecked direct source blobs. Frozen total **70/70 REVIEWED**, NOT 70 source/native PASS. New immutable `work-log/2026-10-11-chatgpt-independent-50-doc-verified-and-pr326-merged.md`.
 - [x] **Q03 #326 exact-head CI 3/3 SUCCESS and guarded MERGED:** head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184`, expected-head squash merge `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 changed Git blobs identical accepted head/resulting main. Actual mounted Focus picker keyboard/ARIA DOM regression; real trusted Windows keyboard/screen reader NOT RUN. Source campaign **4/5** accepted (#322/#323/#324/#326).
