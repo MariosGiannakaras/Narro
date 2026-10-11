@@ -1,6 +1,16 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 4/8 ACCEPTED; THREE OWNED CI RUNS PENDING
+## CURRENT 2026-10-11 — POST-AUDIT 4/9 ACCEPTED, FOUR INDEPENDENT TEST PRs CI ACTIVE
+
+- [x] S0 audit 70/70 evidence review and 50/50 original document path+log ID independent recheck; L05/L40 SHA evidence corrections in immutable addenda only. A01–A14 original source/CI 14/14; roadmap fully source+physical 3/10, native Codex USER-PAUSED.
+- [x] Post-audit #322/#323/#324/#326 exact-head Windows 3/3 SUCCESS and guarded merges+blob identity, accepted **4/9** bounded PRs.
+- [ ] #327 Q05 head `ac12363892cc90ac17d70345df47b72ed4108272`, run `38116234747` validation/fast PASS, Windows candidate IN PROGRESS.
+- [ ] #328 Q04 head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run `38116433635` validation/fast PASS, Windows candidate IN PROGRESS.
+- [ ] #329 Q06 head `228efeafc34719ea8caa9e098c7fc8841518736a`, run `38116774489` validation/fast PASS, Windows candidate IN PROGRESS.
+- [ ] **#330 Q07 NEW** head `3c23098db28563ed2e168005d4652ec659c06cec`, run `38117098114` validation SUCCESS, fast IN PROGRESS, Windows NOT PASS. Actual production FocusPanel Row/Make Live/Add/Delete/Home shared owner/rollback handlers delayed native IPC regression, two TEST-only files. Immutable `work-log/2026-10-11-chatgpt-q07-real-focus-home-rollback-pr330-ci-checkpoint.md`. Only 3 exact CI jobs and guarded merge/blob equality count acceptance.
+- [ ] #321 B49 other-agent-owned head `f129c37b...`, previous run `38092529298` dark Windows capture FAIL. No unapproved takeover/merge; Q12 latest integrated-main Windows ZIP/EXE/installer hashes only after all sources accepted. M10 blocked, M11 dormant.
+
+## HISTORICAL — 4/8 before #330
 
 - [x] Frozen 50/50 S0 documentation paths independently proven unique and covered in 15+20+15 audit rows; immutable L05/L40 SHA errata supplied, no missed paths, audit 70/70 REVIEWED not native acceptance.
 - [x] Original A01–A14 14/14 source/CI integrated; post-audit #322/#323/#324/#326 exact Windows 3/3 and guarded merges/changed blob IDs accepted, **4/8** new scoped PRs. Mandatory physically/source roadmap 3/10, physical user-paused.
