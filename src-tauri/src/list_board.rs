@@ -93,6 +93,7 @@ pub struct ListBoardTask {
     pub recurrence_parent_task_id: Option<TaskId>,
     pub is_overdue: bool,
     pub completed_at: Option<String>,
+    pub updated_at: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -308,6 +309,7 @@ impl LaneAccumulator {
                 recurrence_parent_task_id: projected.task.recurrence_parent_task_id,
                 is_overdue: projected.is_overdue,
                 completed_at: projected.task.completed_at,
+                updated_at: projected.task.updated_at,
             });
         }
 
