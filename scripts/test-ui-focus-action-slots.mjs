@@ -136,7 +136,11 @@ invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenari
   && focusedCapture.includes('"--mode=$mode"')
   && cdpCapture.includes('const mode = options.mode ?? "focused"')
   && cdpCapture.includes('mode === "running" ? waitForRunningFixture : waitForFocusedFixture')
-  && cdpCapture.includes('observed?.viewport?.[0] === 420 && observed?.viewport?.[1] === 720')
+  && cdpCapture.includes('const focusLayoutViewport = { width: 492, height: 628 }')
+  && cdpCapture.includes('const screenshotClip = { x: 0, y: 0, width: 420, height: 720, scale: 1 }')
+  && cdpCapture.includes('observed?.viewport?.[0] === focusLayoutViewport.width && observed?.viewport?.[1] === focusLayoutViewport.height')
+  && cdpCapture.includes('...focusLayoutViewport, deviceScaleFactor: 1, mobile: false')
+  && cdpCapture.includes('clip: screenshotClip,')
   && cdpCapture.includes('observed?.keyboardMarker === null && observed?.railOpacity === "0"')
   && cdpCapture.includes('observed?.headingOpacity === "1"'),
   "B49 both resting and focused painted rail screenshots must use identical actual CDP viewport and strict state ownership");
