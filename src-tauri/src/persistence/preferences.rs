@@ -365,6 +365,86 @@ mod tests {
     }
 
     #[test]
+    fn timezone_writes_reject_unresolvable_iana_ids_without_mutating_preferences() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        initialize_preferences(&mut conn, NOW).expect("seed preferences");
+
+        let before = get_preferences(&conn).unwrap().unwrap();
+        let mut invalid = before.payload.clone();
+        invalid.general.timezone = Some("Europe/Atlantis".into());
+        invalid.general.hide_task_times = true;
+        assert!(matches!(
+            save_preferences(&mut conn, invalid, "2026-09-05T14:01:00Z"),
+            Err(PreferenceStoreError::InvalidToken("general.timezone"))
+        ));
+        assert_eq!(get_preferences(&conn).unwrap().unwrap(), before);
+
+        assert!(matches!(
+            mutate_preferences(&mut conn, "2026-09-05T14:02:00Z", |payload| {
+                payload.general.timezone = Some("Not/A_Real_Timezone".into());
+                payload.general.open_on_login = true;
+            }),
+            Err(PreferenceStoreError::InvalidToken("general.timezone"))
+        ));
+        assert_eq!(
+            get_preferences(&conn).unwrap().unwrap(),
+            before,
+            "failed direct patch must not persist unrelated fields or change updated_at"
+        );
+    }
+
+    #[test]
+    fn valid_iana_and_automatic_timezones_round_trip_through_direct_writes() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        for (index, timezone) in [Some("Europe/Athens"), Some("America/New_York"), Some("UTC"), None]
+            .into_iter()
+            .enumerate()
+        {
+            let written = mutate_preferences(&mut conn, NOW, |payload| {
+                payload.general.timezone = timezone.map(str::to_owned);
+                payload.general.hide_task_times = index % 2 == 0;
+            })
+            .expect("valid IANA or Automatic must be accepted");
+            assert_eq!(written.payload.general.timezone.as_deref(), timezone);
+            assert_eq!(get_preferences(&conn).unwrap().unwrap(), written);
+        }
+    }
+
+    #[test]
+    fn existing_legacy_unresolvable_timezone_is_readable_and_can_be_corrected() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        let mut payload = PreferencesPayload::default();
+        payload.general.timezone = Some("Europe/Atlantis".into());
+        payload.general.open_on_login = true;
+        conn.execute(
+            "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
+             VALUES (1, ?1, ?2, ?3)",
+            params![
+                i64::from(PREFERENCES_SCHEMA_VERSION),
+                serde_json::to_string(&payload).unwrap(),
+                NOW
+            ],
+        )
+        .expect("seed legacy token-shaped timezone");
+
+        assert_eq!(
+            get_preferences(&conn).unwrap().unwrap().payload,
+            payload,
+            "reading a historical token-shaped timezone must not destroy user settings"
+        );
+        let corrected = mutate_preferences(&mut conn, "2026-09-05T14:05:00Z", |current| {
+            current.general.timezone = Some("Europe/Athens".into());
+        })
+        .expect("user can repair stored timezone without resetting other preferences");
+        assert_eq!(corrected.payload.general.timezone.as_deref(), Some("Europe/Athens"));
+        assert!(corrected.payload.general.open_on_login);
+        assert_eq!(get_preferences(&conn).unwrap().unwrap(), corrected);
+    }
+
+    #[test]
     fn invalid_sound_id_and_volume_are_rejected() {
         let mut sound = PreferencesPayload::default();
         sound.alerts.task_alert_sound = Some("https://example.com/remote.wav".into());
