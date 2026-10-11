@@ -1,6 +1,12 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 10/11 SOURCE/CI ACCEPTED; FINAL Q01 OTHER OWNER
+## CURRENT 2026-10-11 — IMPLEMENTATION OWNERSHIP EXPLICITLY REASSIGNED, #321 CI OPEN
+
+User confirmed ChatGPT alone owns *all* implementation, source/test regression, GitHub Actions and merges. Codex owns only the intentionally paused consolidated physical Windows interaction/observation stage. Prior "other agent #321" ownership records are historical/superseded.
+
+ChatGPT continued existing [PR #321](https://github.com/MariosGiannakaras/Narro/pull/321) on its original branch. Evidence: `38092529298` exact 3-job results validation/fast SUCCESS, Windows FAIL on dark B49 CDP screenshot after queued-title geometry assertion; source navigated fixture before `Emulation.setDeviceMetricsOverride`, creating a late-reflow risk. New head `940ce10e3b3eed83513ea127286d98960d0d12d3` sets 420×720 before navigating and adds mandatory preflight order test; [CI 38141136444](https://github.com/MariosGiannakaras/Narro/actions/runs/38141136444) **IN PROGRESS/NOT PASS** at checkpoint. No change to visible product or strict screenshot thresholds. **Post-audit source acceptance 10/11**, final Q12 pending post-#321. Physical/source gates OPEN, M10 blocked, M11 dormant.
+
+## HISTORICAL 2026-10-11 — POST-AUDIT 10/11 SOURCE/CI ACCEPTED; FINAL Q01 OTHER OWNER
 
 **Verified intermediate integrated production candidate, 2026-10-11:** resulting-main (not just PR head) push CI `38124932682` on #332 merge SHA `c91c5dd86d626ab9a26d763f7e623d11df47c945` completed **3/3 SUCCESS** (frontend/contracts, Rust check/Clippy/tests, Windows visual+packaged runtime+installer smoke). Downloaded artifact `11697127517` verified ZIP SHA256 `74696defe7963e629878a70ae4fb820734d1aba20958d3714d385ca81579e1d6`, `narro.exe` `8292d9e4cf27742332a4a970f005e5a23713f58a0375f93ed4542a21a5adc0c9`, NSIS `c1b8a8bf5c650f43a1aa452bd8ddddb1813cdc6434da30775a64692755cc5379`, MSI `d2880877304caa13b21d794c5a75bde7668ed0c9806c3d838ea053b008ad043b`. See immutable `work-log/2026-10-11-chatgpt-prephysical-post332-main-ci-and-artifact-hashes.md`. This validates the assembled **pre-#321** source, not the final post-#321 Q12 or native physical/source fidelity.
 
