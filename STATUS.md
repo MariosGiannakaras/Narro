@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-11 — 50/50 S0 audit verified; post-audit PR campaign 4/6 accepted
+## CURRENT 2026-10-11 — post-audit 4/7 source PRs accepted; #327/#328 CI active
+
+**S0 70/70 REVIEWED**; 50/50 frozen Markdown distinct paths/unique audit rows independently reconfirmed; SHA transcription L05/L40 corrected via immutable addenda, historic files untouched. Original A01–A14 source/CI 14/14 guarded merged; mandatory fully source/physical roadmap **3/10**; physical C4/M6/F35/F29/F27/M8 USER-PAUSED OPEN, M10 blocked, M11 dormant.
+
+**Accepted new post-audit** #322/#323/#324/#326 = **4/7** scoped PRs. #326 exact head `8d55e80edbc7afea5eb825de4f5e4e0513b6064e`, run `38095709184` validation/fast/windows 3 SUCCESS, expected-head squash `a0db381d591bf670ec6d183288f9fa0be37e8b19`, 2/2 head→main Git blobs.
+
+**Pending #327** Q05 Focus stale initial read exception after fresher invalidation, head `ac12363892cc90ac17d70345df47b72ed4108272`, run `38116234747` validation+fast SUCCESS, Windows IN PROGRESS. **Pending #328** Q04 real production Board Create/Duplicate and Search Quick Task handlers VM/deferred persistence, head `0d46dd30ab65ea41033a0ec7abcb0b94ce155eb3`, run `38116433635` validation SUCCESS, fast IN PROGRESS, Windows NOT PASS. Both independent test-only and currently unmerged. Work log `work-log/2026-10-11-chatgpt-q04-actual-board-search-handlers-pr328-ci-checkpoint.md`.
+
+**Other-agent-owned #321** head `f129c37b...` Windows dark B49 visual FAILURE run `38092529298`, no merge or unauthorized edit. **NEXT:** check exact CI on 327/328 at useful result time, first failing logs if any; expected-head guarded merge and all blob identities only with 3/3 green; then latest combined Q12 Windows ZIP/EXE SHA256 AFTER #321 real acceptance. Physical native gate untouched.
+
+## HISTORICAL — 4/6 post-audit checkpoint
 
 **Frozen audit:** 70/70 reviewed, including original 50/50 unique Markdown paths checked against 15+20+15 exact audit rows; L05/L40 SHA transcription errata corrected only by new immutable records. No new physical/source parity PASS. Original A01–A14 source/CI 14/14, mandatory accepted roadmap 3/10, physical Codex USER-PAUSED, M10 blocked/M11 dormant.
 
