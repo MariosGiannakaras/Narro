@@ -127,13 +127,14 @@ for (const theme of ["light", "dark"]) {
   // B49 source/CI finding Q01: a passing HTML marker previously accompanied
   // screenshots that were byte-for-byte the ordinary running state. Inspect
   // the *actual painted action pixels*, not merely a DOM/CSS declaration.
-  // A nominal 420x720 PNG is not proof of a 420x720 browser viewport:
-  // legacy Edge --window-size screenshot was 420x720 but DOM 492x628,
-  // moving the centered rail by 36 px while leaving its width unchanged.
+  // Real Windows Edge renders ALL 22 Focus scenario captures at a 492x628
+  // inner DOM viewport despite producing a 420x720 PNG. Keep B49 at the same
+  // page layout as paused, break, Notes, and other cross-state geometry checks.
+  // The pixel clip remains 420x720; never resample or translate painted pixels.
   for (const capture of [running, focusedActions]) {
-    invariant(capture.contract.layoutViewport?.width === 420
-      && capture.contract.layoutViewport?.height === 720,
-      `${capture.label} actual DOM viewport must be 420x720 before comparing real rail pixels; got ${JSON.stringify(capture.contract.layoutViewport)}`);
+    invariant(capture.contract.layoutViewport?.width === 492
+      && capture.contract.layoutViewport?.height === 628,
+      `${capture.label} actual DOM viewport must be 492x628 before comparing real rail pixels; got ${JSON.stringify(capture.contract.layoutViewport)}`);
   }
   const region = focusedActions.contract.focusActionPaintRegion;
   const baselineRegion = running.contract.focusActionPaintRegion;
