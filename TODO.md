@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — latest merged-source Windows CI PASS; actual production archive identities pending; 41-U review routed
+## CURRENT 2026-10-12 — final post-#333 Windows Q12 ZIP/exe/installers verified; physical Codex user-paused
+
+- [x] **12/12 bounded source+CI units merged and latest integrated-source Windows 3/3 PASS.** Source `ef22a7e434bea6cc4849282aa46c4786d9d90663`; resulting-main [CI 38173126053](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053) validation/fast/Windows SUCCESS. Latest doc-only main has **603/603 unchanged non-Markdown non-work-log blobs** relative to exact source.
+- [x] **Final production candidate identity Q12 refreshed:** real [artifact 11715043831](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053/artifacts/11715043831) downloaded, CRC PASS, ZIP SHA256 `61f743d2f26baf92c665597b35e6f777ade4989884ed1af8c6aa644cb7cbbc9b`; extracted `narro.exe` `5015e01d69a5158be7ef7c89ed2d8fab18005bd484633a67aa1414a437955489`; NSIS `8912dd83f42b0bddd25ac4d5d0c6e896975012ab708fb6295ec7e7d2f88cef16`; MSI `b7ab390c9907a080c5c666d5d2b115709391d7dfa8295a5736291a46f47d97fc`. Proof immutable `work-log/2026-10-12-chatgpt-post333-final-windows-artifact-hashes-and-candidate-pin.md`.
+- [x] **41/41 unverified Blitzit behavioral evidence items reviewed** (42/42 including initial inventory); 31 supporting static limitations remain source-evidence bounds, not 31 new implementation tickets. User-approved U01/U02 Spectrum Core locked. Safe optional separate *source-only* U12 IANA validation regression to assess after physical-candidate freeze; U35/U40 semantic UX parity and unknown destructive U04 require their original dispositions, never spontaneous rewrite.
+- [ ] **Physical Windows Codex — USER-PAUSED, not passed:** entire PA-01–09 native/session and installer matrix from `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md` using exact binary SHA above, plus separately true Blitzit source parity. Mandatory milestone physical 3/10; M10 blocked, optional M11 user-opt-in dormant.
+
+## HISTORICAL 2026-10-11 — latest merged-source Windows CI PASS; actual production archive identities pending; 41-U review routed
 
 - [x] **Merged source 12/12 prior bounded coding units accepted + resulting-main Windows CI 3/3 SUCCESS.** [Windows CI 38173126053](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053) on executable source `ef22a7e434bea6cc4849282aa46c4786d9d90663` passed validation, fast, Windows; PR333 exact-head previously passed. **No new physical Windows observation**.
 - [ ] **Latest-production binary integrity before Codex physical:** GitHub Actions PASS artifact `narro-m7-physical-windows-x64` ID **11715043831** still needs actual download, SHA256 ZIP, `narro.exe`, NSIS and MSI; durable hashes, latest candidate pin and `HANDOFF/STATUS` reconciliation. Old Q12 pre-#333 hashes are **not** a new candidate.
