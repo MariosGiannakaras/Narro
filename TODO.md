@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT 2026-10-11 — POST-AUDIT 7/10 ACCEPTED, #330/#331 CI ACTIVE, #321 OTHER OWNER FAIL
+## CURRENT 2026-10-11 — POST-AUDIT 7/11 ACCEPTED; #330–#332 ACTIVE CI
+
+- [x] Original S0 70/70 retrospective evidence reviewed, 50/50 original Markdown independently rechecked (41/43 SHA accurate plus L05/L40 immutable errata), A01–A14 original source/CI 14/14, mandatory full physical/source milestones 3/10.
+- [x] Post-audit **7/11** source/test batches #322/#323/#324/#326/#327/#328/#329 exact 3-job Windows CI SUCCESS, expected-head guarded merged, all changed blobs independently matched.
+- [ ] **#330 Q07** head `42044c17c69d31034b47621316987d5f01e721d5`, run `38119707298` validation/fast SUCCESS, Windows IN PROGRESS; failed earlier Delete modal VM microtask-spin assertion replaced test-only with actual callback await. Merge/2 blobs pending.
+- [ ] **#331 Q09** head `e9fcd498f1e8e3310e9875f6d73c7261790fe5d7`, run `38120132435` validation/fast SUCCESS, Windows IN PROGRESS; production Blitz handleStart VM/deferred native start+presentation, test-only. Merge/2 blobs pending.
+- [ ] **#332 Q10/Q11** head `8997b185f3aff764b4694eb653066964945ecb59`, run `38120495638` validation SUCCESS, fast IN PROGRESS, Windows NOT PASS. Real production FocusLiveSubtasks, FocusLiveMetrics and Archived Restore/Delete callbacks deferred actual-handler regression, four TEST-only paths; immutable `work-log/2026-10-11-chatgpt-q10-q11-production-mutations-pr332-ci-checkpoint.md`. Merge/4 blobs pending.
+- [ ] **#321 OTHER OWNER** B49 exact run `38092529298` Windows dark focus screenshot FAILED, do not touch without reassignment. **Q12** latest combined-main production Windows CI plus actual ZIP/EXE/installer SHA256 after all source merged; native physical C4/M6/F35/F29/F27/M8 USER-PAUSED, M10 blocked, M11 dormant.
+
+## HISTORICAL 2026-10-11 — 7/10 before PR332
 
 - [x] Frozen audit 70/70 independently reviewed, 50/50 original S0 Markdown independently reconfirmed; 41/43 immutable summary SHA exact, L05/L40 corrected only in immutable addenda. A01–A14 original source/CI 14/14, roadmap full source/physical 3/10.
 - [x] New scoped #322/#323/#324/#326/#327/#328/#329 **7/10** source/test PR accepted with 3/3 Windows CI, guarded merge and exact changed blobs. Latest three #327/#328/#329 are 6/6 changed blobs, immutable `work-log/2026-10-11-chatgpt-recheck-50-s0-docs-and-merge-pr327-329.md`.
