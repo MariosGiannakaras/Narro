@@ -70,6 +70,19 @@ try {
             New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
             try {
+                # B49 must compare painted baseline versus keyboard focus at
+                # the SAME actual 420x720 CDP viewport. Legacy --window-size
+                # yields a 492x628 inner viewport on Windows Edge even though
+                # its screenshot is 420x720. Keep every other scenario unchanged.
+                if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus") {
+                    $reducedValue = if ($ReducedMotion) { "true" } else { "false" }
+                    $mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }
+                    & node "scripts/capture-focus-action-cdp.mjs" "--edge=$edge" "--url=$url" "--profile=$profile" "--png=$screenshot" "--html=$dom" "--reducedMotion=$reducedValue" "--mode=$mode"
+                    if ($LASTEXITCODE -ne 0) {
+                        throw "B49 same-viewport Edge CDP capture failed for $theme/$($scenario.Name), exit code $LASTEXITCODE"
+                    }
+                    continue
+                }
                 $edgeArguments = @(
                     "--headless=new",
                     "--disable-gpu",

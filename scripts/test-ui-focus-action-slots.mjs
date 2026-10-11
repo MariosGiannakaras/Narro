@@ -117,16 +117,56 @@ invariant(panelCss.includes("@media (prefers-reduced-motion: reduce)"),
   "B49 reveal must honor reduced motion");
 
 const focusedFixture = read("src/focusPanelVisualFixture.tsx");
+invariant(focusedFixture.includes('const tooltipDeadline = performance.now() + 2_000;')
+  && focusedFixture.includes('document.activeElement === title')
+  && focusedFixture.includes('focusedTooltip?.dataset.open !== "true"')
+  && focusedFixture.includes('Focused queued title tooltip did not open before containment measurement:'),
+  "B49 queued-title geometry must wait for actual keyboard tooltip render, with bounded timeout and strict focus owner");
+
 invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
   && focusedFixture.includes('getComputedStyle(rail).opacity !== "1"')
   && focusedFixture.includes('getComputedStyle(heading).opacity !== "0"'),
   "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
-invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500')
-  && focusedFixture.includes("revealDeadline = performance.now() + 1_500"),
-  "B49 Edge virtual-time budget must exceed asynchronous focus/opacity settlement before snapshot");
-
+const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
+const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus")')
+  && focusedCapture.includes('$mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }')
+  && focusedCapture.includes('"--mode=$mode"')
+  && cdpCapture.includes('const mode = options.mode ?? "focused"')
+  && cdpCapture.includes('mode === "running" ? waitForRunningFixture : waitForFocusedFixture')
+  && cdpCapture.includes('const focusLayoutViewport = { width: 492, height: 628 }')
+  && cdpCapture.includes('const screenshotClip = { x: 0, y: 0, width: 420, height: 720, scale: 1 }')
+  && cdpCapture.includes('observed?.viewport?.[0] === focusLayoutViewport.width && observed?.viewport?.[1] === focusLayoutViewport.height')
+  && cdpCapture.includes('...focusLayoutViewport, deviceScaleFactor: 1, mobile: false')
+  && cdpCapture.includes('clip: screenshotClip,')
+  && cdpCapture.includes('observed?.keyboardMarker === null && observed?.railOpacity === "0"')
+  && cdpCapture.includes('observed?.headingOpacity === "1"'),
+  "B49 both resting and focused painted rail screenshots must use identical actual CDP viewport and strict state ownership");
+const blankPageLaunch = cdpCapture.indexOf('  "about:blank",');
+const viewportOverride = cdpCapture.indexOf('await command("Emulation.setDeviceMetricsOverride"');
+const foregroundPage = cdpCapture.indexOf('await command("Page.bringToFront")');
+const fixtureNavigate = cdpCapture.indexOf('await command("Page.navigate", { url: options.url })');
+invariant(blankPageLaunch >= 0 && viewportOverride >= 0
+  && foregroundPage > viewportOverride && fixtureNavigate > foregroundPage
+  && cdpCapture.includes('entry.url === "about:blank"')
+  && cdpCapture.includes('foreground: document.hasFocus()')
+  && cdpCapture.includes('observed?.focusOwner && observed?.foreground')
+  && !cdpCapture.includes('  options.url,\n], { windowsHide: true, stdio: "ignore" });'),
+  "B49 must foreground Edge page after final viewport and before real keyboard/tooltip fixture navigation");
+invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"')
+  && focusedCapture.includes('scripts/capture-focus-action-cdp.mjs')
+  && cdpCapture.includes('await waitForState();')
+  && cdpCapture.includes('Page.captureScreenshot')
+  && cdpCapture.includes('document.documentElement.outerHTML'),
+  "B49 screenshot and focus-ready DOM must come from the same actual Edge CDP page");
+invariant(focusedFixture.includes('focusActionPaintRegion:')
+  && focusedValidator.includes('differentFocusPixels(')
+  && focusedValidator.includes('minimumChanged')
+  && paintValidator.includes('inflateSync'),
+  "B49 actual decoded action-rail pixels must differ from ordinary running despite HTML contract PASS");
+
 invariant(focusedFixture.includes('"live-actions-focus"')
     && focusedFixture.includes("dataset.focusActionRevealPass"),
   "B49 production keyboard-focus reveal must have a real browser visual fixture");
@@ -135,4 +175,5 @@ invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-
     && focusedValidator.includes('data-focus-action-reveal-pass="true"'),
   "B49 focused icon actions must be captured and checked in both Windows theme screenshots");
 
+await import("./test-b49-actual-png-pixels.mjs");
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");

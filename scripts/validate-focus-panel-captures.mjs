@@ -34,6 +34,8 @@ function readContract(dom, label) {
   invariant(match, `${label} geometry contract is missing`);
   const contract = JSON.parse(match[1]);
   invariant(!contract.error, `${label} rendered fixture failed: ${contract.error}`);
+  invariant(contract.layoutViewport?.width === 492 && contract.layoutViewport?.height === 628,
+    `${label} actual DOM viewport must match all Focus scenario layouts at 492x628; got ${JSON.stringify(contract.layoutViewport)}`);
   return contract;
 }
 
@@ -56,8 +58,8 @@ function validateSharedGeometry(contract, label, theme) {
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.panel?.width === 340, `${label} panel width is ${contract.panel?.width}; expected 340px`);
   invariant(
-    contract.layoutViewport?.width > 0 && contract.layoutViewport?.height > 0,
-    `${label} measured DOM layout viewport is missing or invalid`,
+    contract.layoutViewport?.width === 492 && contract.layoutViewport?.height === 628,
+    `${label} actual DOM viewport must match all Focus variants at 492x628; got ${JSON.stringify(contract.layoutViewport)}`,
   );
   invariant(
     contract.panel?.height >= contract.layoutViewport.height,

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { readEdgePng, differentFocusPixels } from "./focus-png-pixels.mjs";
 
 const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
@@ -35,7 +36,12 @@ function readCapture(theme, scenario) {
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.scenario === scenario, `${label} contract scenario differs`);
   invariant(contract.panel?.width === 340, `${label} Focus Panel width changed from the validated 340px geometry`);
-  return { label, dom, contract };
+  // This reader covers every Focus scenario in both themes, not only the B49
+  // pair. The Windows artifact proved a mixed DOM viewport is a false geometry
+  // regression even if every PNG has the required 420x720 dimensions.
+  invariant(contract.layoutViewport?.width === 492 && contract.layoutViewport?.height === 628,
+    `${label} actual inner viewport differs from the shared Focus 492x628 layout: ${JSON.stringify(contract.layoutViewport)}`);
+  return { label, dom, contract, screenshot };
 }
 
 function requireLiveState(capture, state) {
@@ -123,6 +129,32 @@ for (const theme of ["light", "dark"]) {
     `${focusedActions.label} focused icon needs its original accessible action name and label`);
   invariant(focusedActions.contract.liveCard?.height === running.contract.liveCard?.height,
     `${focusedActions.label} focusing actions must not reflow active card height`);
+  // B49 source/CI finding Q01: a passing HTML marker previously accompanied
+  // screenshots that were byte-for-byte the ordinary running state. Inspect
+  // the *actual painted action pixels*, not merely a DOM/CSS declaration.
+  // Real Windows Edge renders ALL 22 Focus scenario captures at a 492x628
+  // inner DOM viewport despite producing a 420x720 PNG. Keep B49 at the same
+  // page layout as paused, break, Notes, and other cross-state geometry checks.
+  // The pixel clip remains 420x720; never resample or translate painted pixels.
+  for (const capture of [running, focusedActions]) {
+    invariant(capture.contract.layoutViewport?.width === 492
+      && capture.contract.layoutViewport?.height === 628,
+      `${capture.label} actual DOM viewport must be 492x628 before comparing real rail pixels; got ${JSON.stringify(capture.contract.layoutViewport)}`);
+  }
+  const region = focusedActions.contract.focusActionPaintRegion;
+  const baselineRegion = running.contract.focusActionPaintRegion;
+  invariant(region && baselineRegion
+    && Math.abs(region.x - baselineRegion.x) <= 1
+    && Math.abs(region.y - baselineRegion.y) <= 1
+    && Math.abs(region.width - baselineRegion.width) <= 1
+    && Math.abs(region.height - baselineRegion.height) <= 1,
+    `${focusedActions.label} action rail moved between resting and focused captures`);
+  const changedPixels = differentFocusPixels(
+    readEdgePng(running.screenshot), readEdgePng(focusedActions.screenshot), region,
+  );
+  const minimumChanged = Math.max(200, Math.ceil(region.width * region.height * 0.02));
+  invariant(changedPixels >= minimumChanged,
+    `${focusedActions.label} B49 FALSE VISUAL PASS: focused action screenshot looks like running in its actual rail (${changedPixels} changed pixels; need ${minimumChanged})`);
 
   const success = readCapture(theme, "success");
   invariant(success.contract.queueTitleLayout?.successQueueInert === true,

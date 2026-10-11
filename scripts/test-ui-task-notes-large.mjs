@@ -60,6 +60,37 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
+// Finding33 must observe the entire actual browser bootstrap before the
+// interactive Escape test: a 200 HTML response does not prove JS/React loaded.
+const observedNavigation = finding33Driver.indexOf('await client.send("Page.navigate", { url: pageUrl })');
+for (const required of [
+  'const modules = [...previewHtml.matchAll(',
+  'Finding33 entry module returned HTTP',
+  'client.onEvent = captureEvent',
+  'await client.send("Runtime.enable")',
+  'await client.send("Network.enable")',
+  'await client.send("Log.enable")',
+  'await client.send("Page.bringToFront")',
+]) {
+  const index = finding33Driver.indexOf(required);
+  if (index < 0 || observedNavigation < 0 || index > observedNavigation) {
+    throw new Error(`Finding33 must establish bootstrap observation before browser navigation: ${required}`);
+  }
+}
+for (const required of [
+  '"about:blank"',
+  'Network.loadingFailed',
+  'Runtime.exceptionThrown',
+  'Finding33 CDP command timed out:',
+  'rootChildren: document.getElementById("root")?.childElementCount',
+  '"finding33-large-notes-escape-failure.json"',
+  'assert.equal(initial.foreground, true',
+  'assert.equal(initial.activeIsEditor, true',
+  'await key(client, "Escape", "Escape", 27)',
+]) {
+  requireText(finding33Driver, required, "Finding33 real browser bootstrap/keyboard/failure proof");
+}
+
 const richEditorInvocations = notes.match(/<RichNoteEditor\b/g) ?? [];
 if (richEditorInvocations.length !== 1) {
   throw new Error(`Large Notes must reuse one production RichNoteEditor invocation; found ${richEditorInvocations.length}.`);

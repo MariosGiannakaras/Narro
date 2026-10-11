@@ -139,6 +139,18 @@ invariant(fixture.includes('fixtureState === "expanded"'), "fixture must retain 
 invariant(capture.includes('foreach ($state in @("collapsed", "expanded", "time-up-compact", "time-up-expanded"))'),
   "Windows capture must cover ordinary and Time's Up compact/expanded states");
 invariant(validator.includes("collapsed timer must be exactly 340x110"), "collapsed geometry validation is missing");
+// Actual Windows CI once saved a time-up-expanded-light DOM with an empty
+// React #root as a visual PASS. Never accept HTML merely for being non-empty.
+// Match the already-established bounded Edge readiness capture pattern.
+invariant(capture.includes('$readyMarker = \'data-floating-timer-fixture-ready="true"\'')
+  && capture.includes('$contractMarker = \'<script id="floating-timer-visual-contract" type="application/json">\'')
+  && capture.includes('$maxReadyAttempts = 4')
+  && capture.includes('$isReady = $domText.Contains($readyMarker) -and $domText.Contains($contractMarker)')
+  && capture.includes('if (-not $isReady)')
+  && capture.includes('throw "Floating Timer \'$label\' never produced a real ready marker and geometry contract')
+  && capture.includes('Remove-Item -LiteralPath $screenshot -Force -ErrorAction SilentlyContinue')
+  && capture.includes('$state in @("collapsed", "expanded", "time-up-compact", "time-up-expanded")'),
+  "Floating Edge captures must require real React readiness and geometry contract across every state, with bounded rerun only for an early DOM");
 
 invariant(
   pkg.scripts["preflight:frontend"].includes("npm run test:ui-floating-collapsed"),

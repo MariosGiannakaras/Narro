@@ -253,63 +253,6 @@ if (scenario === "selector-open") {
   }
 }
 
-if (scenario === "live-actions-focus") {
-  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
-  const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
-  const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
-  const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
-  if (!action || !rail || !heading || !liveCard || action.disabled) {
-    throw new Error("B49 focus reveal requires a real enabled contextual action and live card.");
-  }
-  const cardBefore = liveCard.getBoundingClientRect();
-  const railBefore = rail.getBoundingClientRect();
-  action.focus({preventScroll: true});
-  // Edge headless virtual time advances timer callbacks without necessarily
-  // advancing compositor opacity transitions. Complete only the real CSS
-  // opacity transitions after the focus selectors become active; never write
-  // opacity directly or bypass the strict final-state/geometry assertions.
-  const revealDeadline = performance.now() + 1_500;
-  while (performance.now() < revealDeadline) {
-    const focusStylesActive = liveCard.matches(":focus-within")
-      && getComputedStyle(rail).pointerEvents === "auto";
-    if (focusStylesActive) {
-      for (const element of [rail, heading]) {
-        for (const animation of element.getAnimations()) {
-          if (animation instanceof CSSTransition
-            && animation.transitionProperty === "opacity"
-            && animation.playState !== "finished") {
-            animation.finish();
-          }
-        }
-      }
-    }
-    if (getComputedStyle(rail).opacity === "1"
-      && getComputedStyle(heading).opacity === "0") break;
-    await new Promise<void>(resolve => window.setTimeout(resolve, 40));
-  }
-  const cardAfter = liveCard.getBoundingClientRect();
-  const railAfter = rail.getBoundingClientRect();
-  const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
-  const revealProblems = [
-    document.activeElement !== action ? "keyboard-focus-owner" : null,
-    liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
-    !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,
-    getComputedStyle(rail).pointerEvents !== "auto" ? `action-rail-pointer-events=${getComputedStyle(rail).pointerEvents}` : null,
-    getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
-    getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
-    !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,
-    Math.abs(cardAfter.height - cardBefore.height) > 1
-      ? `live-card-height-shift=${(cardAfter.height - cardBefore.height).toFixed(2)}px` : null,
-    Math.abs(railAfter.width - railBefore.width) > 1
-      ? `action-rail-width-shift=${(railAfter.width - railBefore.width).toFixed(2)}px` : null,
-    Math.abs(railAfter.top - railBefore.top) > 1
-      ? `action-rail-top-shift=${(railAfter.top - railBefore.top).toFixed(2)}px` : null,
-  ].filter((problem): problem is string => problem !== null);
-  if (revealProblems.length > 0) {
-    throw new Error(`B49 action focus failed to reveal a labeled icon without moving live-card geometry: ${revealProblems.join(", ")}`);
-  }
-  document.documentElement.dataset.focusActionRevealPass = "true";
-}
 
 if (scenario === "notes-expanded") {
   const notesButton = document.querySelector<HTMLButtonElement>('[data-focus-action="notes"]');
@@ -387,7 +330,22 @@ if (queuedRow) {
     title.focus({preventScroll: true});
     await new Promise<void>(resolve => window.setTimeout(resolve, TOOLTIP_INTENT_DELAY_MS + 50));
     const focusedTooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]');
-    if (focusedTooltip?.dataset.open !== "true") throw new Error('Focused queued title tooltip did not open before containment measurement');
+    // Headless CDP without virtual-time acceleration can delay the real React
+    // tooltip timer/commit beyond the nominal intent delay. Wait for the real
+    // mounted tooltip to OPEN, never treat elapsed time or DOM presence as PASS.
+    const tooltipDeadline = performance.now() + 2_000;
+    while (document.activeElement === title
+      && focusedTooltip?.dataset.open !== "true"
+      && performance.now() < tooltipDeadline) {
+      await new Promise<void>(resolve => window.setTimeout(resolve, 100));
+    }
+    if (document.activeElement !== title || focusedTooltip?.dataset.open !== "true") {
+      throw new Error('Focused queued title tooltip did not open before containment measurement: '
+        + JSON.stringify({focusOwner: document.activeElement === title,
+          activeTag: document.activeElement?.tagName ?? null,
+          tooltipOpen: focusedTooltip?.dataset.open ?? null,
+          rowVisible: rowIsVisible, viewport: [window.innerWidth, window.innerHeight]}));
+    }
   }
   if (JSON.stringify(bounds()) !== JSON.stringify(before)) throw new Error('Revealing queued actions moved title, card or targets');
   if (queuedRow.scrollWidth > queuedRow.clientWidth + 1) throw new Error('Queued task has horizontal overflow ' + JSON.stringify({width: queuedRow.clientWidth, scrollWidth: queuedRow.scrollWidth, escaping: Array.from(queuedRow.querySelectorAll<HTMLElement>('*')).filter(node => node.getBoundingClientRect().right > queuedRow.getBoundingClientRect().right).map(node => ({text: node.textContent?.slice(0,35), class: node.className, right: node.getBoundingClientRect().right}))}));
@@ -423,6 +381,70 @@ if (queuedRow) {
     successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
+
+// Keep the strict keyboard-action focus proof LAST among interactive fixture
+// probes. The queued-title tooltip/geometry probe above intentionally focuses
+// a different task row and had been stealing focus AFTER the old B49 "pass"
+// marker, leaving its PNG indistinguishable from the ordinary running state.
+// No validation threshold or application behavior changes.
+if (scenario === "live-actions-focus") {
+  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+  const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
+  const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
+  const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
+  if (!action || !rail || !heading || !liveCard || action.disabled) {
+    throw new Error("B49 focus reveal requires a real enabled contextual action and live card.");
+  }
+  const cardBefore = liveCard.getBoundingClientRect();
+  const railBefore = rail.getBoundingClientRect();
+  action.focus({preventScroll: true});
+  // Edge headless virtual time advances timer callbacks without necessarily
+  // advancing compositor opacity transitions. Complete only the real CSS
+  // opacity transitions after the focus selectors become active; never write
+  // opacity directly or bypass the strict final-state/geometry assertions.
+  const revealDeadline = performance.now() + 1_500;
+  while (performance.now() < revealDeadline) {
+    const focusStylesActive = liveCard.matches(":focus-within")
+      && getComputedStyle(rail).pointerEvents === "auto";
+    if (focusStylesActive) {
+      for (const element of [rail, heading]) {
+        for (const animation of element.getAnimations()) {
+          if (animation instanceof CSSTransition
+            && animation.transitionProperty === "opacity"
+            && animation.playState !== "finished") {
+            animation.finish();
+          }
+        }
+      }
+    }
+    if (getComputedStyle(rail).opacity === "1"
+      && getComputedStyle(heading).opacity === "0") break;
+    await new Promise<void>(resolve => window.setTimeout(resolve, 40));
+  }
+  const cardAfter = liveCard.getBoundingClientRect();
+  const railAfter = rail.getBoundingClientRect();
+  const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
+  const revealProblems = [
+    document.activeElement !== action ? "keyboard-focus-owner" : null,
+    liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
+    !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,
+    getComputedStyle(rail).pointerEvents !== "auto" ? `action-rail-pointer-events=${getComputedStyle(rail).pointerEvents}` : null,
+    getComputedStyle(rail).opacity !== "1" ? `action-rail-opacity=${getComputedStyle(rail).opacity}` : null,
+    getComputedStyle(heading).opacity !== "0" ? `heading-opacity=${getComputedStyle(heading).opacity}` : null,
+    !label || label.getClientRects().length === 0 ? "focused-label-not-visible" : null,
+    Math.abs(cardAfter.height - cardBefore.height) > 1
+      ? `live-card-height-shift=${(cardAfter.height - cardBefore.height).toFixed(2)}px` : null,
+    Math.abs(railAfter.width - railBefore.width) > 1
+      ? `action-rail-width-shift=${(railAfter.width - railBefore.width).toFixed(2)}px` : null,
+    Math.abs(railAfter.top - railBefore.top) > 1
+      ? `action-rail-top-shift=${(railAfter.top - railBefore.top).toFixed(2)}px` : null,
+  ].filter((problem): problem is string => problem !== null);
+  if (revealProblems.length > 0) {
+    throw new Error(`B49 action focus failed to reveal a labeled icon without moving live-card geometry: ${revealProblems.join(", ")}`);
+  }
+  document.documentElement.dataset.focusActionRevealPass = "true";
+}
+
 const focusSelector = document.querySelector<HTMLElement>('[data-focus-list-selector="true"]');
 const focusPopup = document.querySelector<HTMLElement>('.board-list-picker--focus .board-list-picker__menu');
 const focusPanelRect = document.querySelector('.focus-panel')?.getBoundingClientRect();
@@ -485,6 +507,16 @@ const contract = {
   subtasks: optionalBox(".focus-panel__subtasks"),
   subtaskRing: optionalBox(".focus-panel__subtask-ring"),
   actions: optionalBox(".focus-panel__live-actions"),
+  // State-matched action-rail pixel bounds for focused versus resting PNGs.
+  // This is measured from the actual production element, never hard-coded.
+  focusActionPaintRegion: (() => {
+    const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
+    if (!rail) return null;
+    const rect = rail.getBoundingClientRect();
+    return { x: Math.floor(rect.left), y: Math.floor(rect.top),
+      width: Math.ceil(rect.right) - Math.floor(rect.left),
+      height: Math.ceil(rect.bottom) - Math.floor(rect.top) };
+  })(),
   actionLabels: Array.from(document.querySelectorAll<HTMLButtonElement>(".focus-panel__live-actions > button"), (button) => {
     const rect = button.getBoundingClientRect();
     const style = getComputedStyle(button);
