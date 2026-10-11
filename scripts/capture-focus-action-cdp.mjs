@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 
-// B49 only: Chromium --screenshot and --dump-dom run on independent capture
-// timelines. Attach to ONE Edge page and capture its pixels after the fixture's
-// keyboard-focus DOM/opacity contract is true. No application CSS is changed.
+// B49: compare actual running and keyboard-focused pixels on one identical Edge
+// CDP viewport. Chromium --screenshot and --dump-dom can use separate capture
+// timelines AND a different inner viewport. No product appearance is changed.
 const options = Object.fromEntries(process.argv.slice(2).map((entry) => {
   const i = entry.indexOf("=");
   if (!entry.startsWith("--") || i < 3) throw new Error(`Invalid option: ${entry}`);
@@ -13,6 +13,8 @@ const options = Object.fromEntries(process.argv.slice(2).map((entry) => {
 for (const name of ["edge", "url", "profile", "png", "html"]) {
   if (!options[name]) throw new Error(`Missing --${name}`);
 }
+const mode = options.mode ?? "focused";
+if (!["running", "focused"].includes(mode)) throw new Error(`Invalid B49 capture mode: ${mode}`);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const deadline = Date.now() + 25_000;
 const browser = spawn(options.edge, [
@@ -103,6 +105,41 @@ async function waitForFocusedFixture() {
   throw new Error("B49 Focus actual visual state never became ready: " + JSON.stringify(observed));
 }
 
+async function waitForRunningFixture() {
+  // Compare reference and keyboard states with the exact same inner viewport.
+  // The old --window-size=420,720 produced 492x628 on Windows Edge.
+  let observed = null;
+  while (Date.now() < deadline) {
+    const response = await evaluate(`(() => {
+      const root = document.documentElement;
+      const rail = document.querySelector(".focus-panel__live-actions");
+      const heading = document.querySelector(".focus-panel__live-heading");
+      const contract = document.querySelector("#focus-panel-visual-contract");
+      let parsed = null;
+      try { parsed = contract ? JSON.parse(contract.textContent) : null; } catch {}
+      return {
+        ready: root.dataset.focusPanelFixtureReady === "true",
+        scenario: parsed?.scenario ?? null,
+        error: parsed?.error ?? null,
+        hasContract: Boolean(parsed && !parsed.error),
+        foreground: document.hasFocus(),
+        viewport: [window.innerWidth, window.innerHeight],
+        keyboardMarker: document.querySelector('[data-focus-live-card="true"]')?.getAttribute("data-focus-actions-keyboard") ?? null,
+        railOpacity: rail ? getComputedStyle(rail).opacity : null,
+        headingOpacity: heading ? getComputedStyle(heading).opacity : null,
+      };
+    })()`);
+    if (response.exceptionDetails) throw new Error("B49 resting fixture CDP evaluation exception: " + JSON.stringify(response.exceptionDetails));
+    observed = response.result?.value ?? null;
+    if (observed?.ready && observed?.hasContract && observed?.scenario === "running"
+      && observed?.foreground && observed?.viewport?.[0] === 420 && observed?.viewport?.[1] === 720
+      && observed?.keyboardMarker === null && observed?.railOpacity === "0"
+      && observed?.headingOpacity === "1") return;
+    await sleep(100);
+  }
+  throw new Error("B49 running baseline never became ready: " + JSON.stringify(observed));
+}
+
 async function preserveFocusedFailureEvidence() {
   // A failed readiness gate must be diagnosable from the retained Windows ZIP:
   // keep actual DOM and screenshot, NEVER mark them as passing evidence.
@@ -153,17 +190,18 @@ try {
   // are established. Preserve genuine tooltip, focus-owner and geometry gates.
   const navigation = await command("Page.navigate", { url: options.url });
   if (navigation.errorText) throw new Error(`B49 fixture navigation failed: ${navigation.errorText}`);
+  const waitForState = mode === "running" ? waitForRunningFixture : waitForFocusedFixture;
   try {
-    await waitForFocusedFixture();
+    await waitForState();
   } catch (error) {
     await preserveFocusedFailureEvidence();
     throw error;
   }
-  // The DOM marker is not a pixel capture. Force two presented frames AFTER
-  // the strict focus/opacity contract and capture from the same page session.
+  // Require two presented frames and reconfirm real ready state on the SAME
+  // page for both reference and focused captures before reading actual pixels.
   await evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))", true);
   try {
-    await waitForFocusedFixture();
+    await waitForState();
   } catch (error) {
     await preserveFocusedFailureEvidence();
     throw error;
@@ -179,13 +217,13 @@ try {
   const domResult = await evaluate("document.documentElement.outerHTML");
   const dom = domResult.result?.value;
   if (typeof dom !== "string"
-    || !dom.includes('data-focus-action-reveal-pass="true"')
-    || !dom.includes('data-focus-panel-fixture-ready="true"')) {
-    throw new Error("B49 focused screenshot and DOM did not share a ready page state");
+    || !dom.includes('data-focus-panel-fixture-ready="true"')
+    || (mode === "focused" && !dom.includes('data-focus-action-reveal-pass="true"'))) {
+    throw new Error(`B49 ${mode} screenshot and DOM did not share a ready page state`);
   }
   await fs.writeFile(options.png, png);
   await fs.writeFile(options.html, dom, "utf8");
-  process.stdout.write("B49 focused Edge CDP pixel+DOM capture: PASS\n");
+  process.stdout.write(`B49 ${mode} Edge CDP pixel+DOM capture: PASS\n`);
 } finally {
   for (const p of pending.values()) { clearTimeout(p.timeout); p.reject(new Error("Edge capture closed")); }
   pending.clear();
