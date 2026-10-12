@@ -1,9 +1,16 @@
 # Pre-Codex Windows residual audit — 2026-10-11
 
+## CURRENT 2026-10-12 — U06 verified historical Windows candidate; U09 latest merged source pending new package
+
+**Current executable source:** U06 #339 exact PR-head [38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 PASS**, guarded merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, resulting-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) **3/3 PASS** and full actual ZIP/EXE/NSIS/MSI CRC/SHA256 verified in [immutable proof](../work-log/2026-10-12-chatgpt-u06-main-artifact-verified-u09-pr340-guarded-merge-main-pending.md). **Newer U09 #340** exact head `3759e7e8bf388602e12874e1e42d691989a8a0f2` [PR CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) **3/3**, guarded merged **`2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`**, 7/7 Git blobs. Latest resulting-main [CI38248985335](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335) Windows in progress; actual newest U09 release ZIP/exe/NSIS/MSI NOT YET HASHED. Historical U21 and U06 hashes below are source-specific and cannot validate U09. Do not update staging to a fabricated binary; native PA-01–09 remains explicitly USER-PAUSED, NOT RUN, mandatory milestone acceptance 3/10, M10 blocked; optional M11 dormant.
+
+**Nature of the latest changes:** U06 Reports date calendar ±12-month year navigation and U09 accessible React-only chart visibility presets. No data-domain/backend mutation; new source remains subject to final native Windows packaged build and later physical Focus/Reports acceptance. Approved user-owned Spectrum Core picker/image/218 icons unchanged.
+
+
 Status: **STATIC/RUNTIME-SOURCE REVIEW COMPLETE FOR CURRENT RESIDUAL GATE FAMILIES; PHYSICAL VALIDATION OPEN**.
 This is a point-in-time code/test/known-evidence risk analysis, **not** a physical/native PASS. The user explicitly requested maximum proactive diagnosis before unpausing Codex. Do not treat a future source change as covered by this candidate.
 
-## CURRENT 2026-10-12 — Latest U21 Windows source/package accepted; native PA-01–09 still physically OPEN
+## HISTORICAL 2026-10-12 — Latest U21 Windows source/package accepted; native PA-01–09 still physically OPEN
 
 **Newest executable source:** `334566f2a41293c458353991d99d968ad5fa9ad1` (PR338 U21 exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6` guarded merged, **18/18** changed Git blobs identical). [Resulting-main CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) completed **validation/fast/windows-candidate 3/3 PASS**, including Rust, DOM/pixel, packaged runtime, release, physical candidate and M1 diagnostic gates. Later main commits touch documentation only. Actual [Windows physical artifact 11739519083](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248/artifacts/11739519083) downloaded, ZIP CRC PASS; independent SHA256:
 - ZIP **`a2c21cd7718202313dfd3180404f772d9d685f5708ac1f8085a126327cc87f5f`** (15,335,348 bytes).
