@@ -687,11 +687,17 @@ pub fn get_focus_done_breaks(
     let end = chrono::DateTime::parse_from_rfc3339(&end_at)
         .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
     if end <= start {
-        return Err(CommandError::invalid_argument("endAt", "must be after startAt"));
+        return Err(CommandError::invalid_argument(
+            "endAt",
+            "must be after startAt",
+        ));
     }
     let list_id = list_id
-        .map(|raw| ListId::parse_str(&raw)
-            .map_err(|_| CommandError::invalid_argument("listId", "must be a valid saved list UUID")))
+        .map(|raw| {
+            ListId::parse_str(&raw).map_err(|_| {
+                CommandError::invalid_argument("listId", "must be a valid saved list UUID")
+            })
+        })
         .transpose()?;
     let connection = app_database(&app_handle)?;
     recent_closed_focus_breaks(&connection, &start_at, &end_at, list_id)
@@ -699,7 +705,10 @@ pub fn get_focus_done_breaks(
         .into_iter()
         .map(|session| {
             let ended_at = session.ended_at.ok_or_else(|| {
-                CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", "closed Break has no end time")
+                CommandError::new(
+                    "FOCUS_BREAK_HISTORY_READ_FAILED",
+                    "closed Break has no end time",
+                )
             })?;
             Ok(FocusDoneBreakPayload {
                 id: session.id.to_string(),
