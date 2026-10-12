@@ -116,6 +116,7 @@ mod tests {
                 overtime_ms: 0,
                 break_kind: None,
                 break_remaining_ms: None,
+                break_planned_ms: None,
             },
             open_session_id: Some(session_id()),
         }
