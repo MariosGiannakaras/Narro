@@ -91,6 +91,10 @@ for (const theme of ["light", "dark"]) {
 
   const breakState = readCapture(theme, "break");
   requireLiveState(breakState, "break");
+  invariant(breakState.dom.includes('data-focus-break-card="true"'),
+    `${breakState.label} must render an explicit Break live card`);
+  invariant(breakState.dom.includes('data-focus-break-suspended-work="true"'),
+    `${breakState.label} must visibly retain suspended work in the queue`);
   requireDistinctCardState(breakState, running);
   invariant(breakState.dom.includes('aria-label="Break: 07:00 remaining"'), `${breakState.label} break timer label differs`);
   invariant(breakState.dom.includes(">07:00<"), `${breakState.label} break timer value differs`);
