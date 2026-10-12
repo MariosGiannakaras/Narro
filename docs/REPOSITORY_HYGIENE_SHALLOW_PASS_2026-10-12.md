@@ -51,6 +51,10 @@ Examined current `package.json` scripts by their actual command strings: **115 s
 New untruncated GitHub recursive tree confirms **26,609 tracked blob files / 9,415,711,275 bytes**. Of these, `work-log/` has **25,906 / ~9.151 GB**, `work-log/evidence/` **25,240 / ~9.147 GB**, and `reference/` **90 / ~0.256 GB**. Largest common types: **21,224 PNG (~2.426 GB), 256 MP4 (~2.031 GB), 38 MKV (~0.981 GB)**; multi-part video chunks account for additional large fractions. Evidence must be retained unless a separately approved manifest-led archival/migration plan maintains exact hashes, historic links and restore capability. Rewriting history is prohibited without explicit separate scope. [Single current storage decision note](TRACKER_STATUS_INDEX.md). **No binary/file move or deletion.** These latest per-type counts supersede only approximate earlier tree quantities; accepted executable/CI source did not change.
 
 
+## Current active documentation link spot check
+
+Verified actual relative Markdown links in ten canonical entry docs (README, AI_START_HERE, HANDOFF, TODO, STATUS, TRACKER_STATUS_INDEX, this audit, EVIDENCE_ROUTING_MAP, DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW, PROGRESS_REPORTING) against an untruncated GitHub recursive `main` tree. **111/111 local links resolve to tracked paths, 0 missing**. Does not prove internal heading fragments or completeness of all historical files. No source/test/build/config files altered.
+
 ## Result, remaining work, exact next action
 
 **Done in this shallow pass:** exact archival/compaction of three live trackers, repaired README/reporting conflict, canonical current-vs-historical tracker index and this audit, checked 104 open roadmap entries' type/PR sample, verified CI reference existence, sampled code/old PRs, and quantified branch/evidence storage. **No newly confirmed functional bug or unsaved source change.** This is a documentation maintenance/audit acceptance, not a new app-build acceptance.
