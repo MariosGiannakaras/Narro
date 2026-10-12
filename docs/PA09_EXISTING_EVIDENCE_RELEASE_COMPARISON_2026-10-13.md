@@ -33,7 +33,7 @@ The remaining **16** current/direct screenshot references have candidates in the
 | SS-C02 Reports date-range picker | `reports-date-picker-dark.png` |
 | SS-C04 Create List tile | `home-dark.png` (tile presence/scroll position not established) |
 | SS-C05 List hover/overflow | `list-card-states-dark.png`, `list-settings-archive-dark.png` |
-| SS-C06 Search palette | `search-palette-results-dark.png` |
+| SS-C06 Search palette | `search-palette-empty-dark.png` (same empty-query quick-actions state; `search-palette-results-dark.png` represents a different state) |
 | SS-C07 Preferences general | `theme-settings-preferences-upper.png` |
 | SS-C08 Preferences Blitz alerts | `theme-settings-preferences-middle.png` |
 | SS-C09 Preferences celebrations | `theme-settings-preferences-lower.png` |
@@ -42,9 +42,17 @@ The remaining **16** current/direct screenshot references have candidates in the
 | SS-C14 Sessions dashboard empty | `reports-sessions-empty-dark.png` |
 | SS-C15 Reports list filter open | `reports-list-filter-dark.png` |
 | SS-C16 Home light list hover | `home-light.png` (hover state may not match) |
-| SS-C17 Windows Shortcuts dialog | `theme-settings-shortcut-conflict.png` (candidate may NOT represent same dialog; verify) |
+| SS-C17 Windows Shortcuts dialog | **NO matching standalone modal image in accepted CI 38287299890**: `theme-settings-shortcut-conflict.png` captures Preferences, not the dedicated modal. [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds source-backed `theme-settings-shortcuts-dialog-dark/light.png` captures and DOM validation; **PR-head CI PENDING, not accepted in main**. |
 | SS-C21 Focus Notes expanded | `focus-panel-notes-expanded-dark.png` |
 | SS-C22 Sessions task detail inline edit | `reports-sessions-detail-dark.png` |
+
+### Five additional source/release states inspected on 2026-10-13
+
+- **SS-C02 Reports date-range picker:** original 750×494 crop versus real `reports-date-picker-dark.png`. Both visibly present two month calendars, a left preset rail and Cancel/Apply; their viewport, chart background and selected state differ. **Structural consistency observed; actual picker interaction parity and pixel match NOT VERIFIED.**
+- **SS-C05 List hover/overflow:** original 354×372 crop versus real `list-card-states-dark.png`. Both visibly expose Edit List, Duplicate, Archive List on a list card; dimensions/list contents differ. **No missing menu action demonstrated by these images; exact hover geometry OPEN.**
+- **SS-C06 Search empty command palette:** original source shows an empty query and quick-action affordances. Initial pairing to `search-palette-results-dark.png` was **incorrect** because that fixture contains typed search results. The correct same-state candidate `search-palette-empty-dark.png` was opened and shows the three quick actions; layout/viewport differ. **Basic feature structure consistent; exact parity OPEN.**
+- **SS-C17 Windows Shortcuts standalone modal:** source current screenshot directly shows a *separate light closeable modal* with three global toggleable and seven in-app fixed shortcuts. Accepted `theme-settings-shortcut-conflict.png` is **not this dialog**, despite the former Windows CI validator mentioning “Windows shortcuts”. The production `src/WindowsShortcutsDialog.tsx` exists but lacks its own dedicated captured modal screenshot in the accepted visual ZIP. This is a **confirmed visual regression coverage gap**, not proof of an application shortcut malfunction. A narrow [source PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds production-dialog-backed screenshot+DOM coverage for both themes. **NOT yet CI accepted.**
+- **SS-C22 Sessions task detail and inline edit:** source uses a perspective desktop photograph with live task edits; Narro `reports-sessions-detail-dark.png` shows the task-detail/session list and inline edit on fixed fixture data. **Shared basic UI concepts; not an identical state or physical input/commit test.**
 
 **Previously completed work not to repeat:** Pass-3 source forensic 46/46 and 19/19, visual system 8/8, original U01–U41 local coverage 41/41, 9/9 actual code gaps, resulting-main Windows 3/3 and artifact CRC/SHA identity. **Still not done:** final-build like-for-like review of all 22 current screenshots, applicable source-version-labelled video-motion parity matching, exact-source interaction parity for unsupported hidden clicks, and separate real Windows physical PA acceptance. These statuses must not be conflated.
 
@@ -52,5 +60,5 @@ The remaining **16** current/direct screenshot references have candidates in the
 
 1. **Correct the prior mistaken blocker:** An **offline PA-09 existing-evidence review can and should proceed without live Blitzit/M11**. Only *claims specifically requiring unseen contemporary original behavior* remain SOURCE_OPEN; optional M11 is never required for Narro local functionality.
 2. **Do not mark PA-09 PASS** for having 46/46 pictures, 19/19 videos or a passing Windows visual-regression suite. Distinguish (a) original SOURCE_COMPLETE, (b) Narro local IMPLEMENTED/AUTOMATED PASS, (c) historical/source-version-limited paired PARITY, (d) native physical PASS.
-3. **No confirmed new source-code defect from this limited six-pair sample**: different screenshots/states are not evidence of broken Narro controls. Do not create speculative geometry/CSS fixes, rewrite functional behavior or touch protected Spectrum Core.
-4. **Next concrete independent action:** inspect the 16 unreviewed current screenshot candidates on the exact existing release, then reconcile *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.
+3. **No confirmed Narro product behavior defect from the source-to-screenshot comparisons**: different screenshots/states are not evidence of broken Narro controls. Do not create speculative geometry/CSS fixes, rewrite functional behavior or touch protected Spectrum Core.
+4. **Next concrete independent action:** first validate PR #345 exact head and inspect the new standalone-modal Windows screenshot once its CI exists. Then inspect the 11 still-unreviewed current screenshot candidates on the exact existing release, then reconcile *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.
