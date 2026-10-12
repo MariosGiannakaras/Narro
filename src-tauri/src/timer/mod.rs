@@ -833,8 +833,8 @@ mod tests {
         assert_eq!(later.total_break_ms, 120_000);
         assert_eq!(later.work_elapsed_ms, 2_000);
         assert_eq!(
-            serde_json::to_value(&later).unwrap()["break_planned_ms"],
-            600_000
+            serde_json::to_value(&later).unwrap()["break_planned_ms"].as_u64(),
+            Some(600_000)
         );
 
         let paused = engine.skip_break(122_000).unwrap();
