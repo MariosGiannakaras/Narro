@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U22 final merged-main source/package accepted; U23 PR342 exact-head Windows CI pending
+## CURRENT 2026-10-12 — U23 1/1 source guarded merged; resulting-main Windows candidate OPEN
+
+[U23 PR342](https://github.com/MariosGiannakaras/Narro/pull/342) exact source head `2914317b40aa7efa6c1401dff73e0106378fb43f` [CI38272720744](https://github.com/MariosGiannakaras/Narro/actions/runs/38272720744) **3/3 SUCCESS**, expected-head guarded merge source **`4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a`**, **14/14 exact Git blobs MATCH**. Read-only `break_planned_ms` from current authoritative BreakRuntime and selected Focus Today header temporary EST; original saved task estimates, timer/session ledger, task Done fraction, DB schema, user-approved picker/upload/218 icons unchanged. Full [immutable guarded merge](work-log/2026-10-12-chatgpt-u23-pr342-exact-windows-threejob-guarded-merge-main-ci-pending.md). **U23 1/1 source implementation accepted** (not native product physical PASS).
+
+**Open resulting-main release:** [CI38277579376](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376) `push` against exact latest executable `4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a` **IN PROGRESS / NOT PASS** at last checkpoint. No verified U23 ZIP/`narro.exe`/NSIS/MSI SHA256; old U22 [release proof](work-log/2026-10-12-chatgpt-u22-main-windows-attempt2-release-zip-fourhash-accepted.md) valid only for prior source. Next inspect run: 3/3 SUCCESS → download original ZIP CRC and 4 hashes → repin Windows physical candidate/risk → immutable final log; else diagnose first failed step. Do not substitute runner CI for paused real Windows test.
+
+Earlier U12/U40/U35/U21 **4/4**, U06 **1/1**, U09 **1/1**, U22 **1/1** remain independently accepted. Native PA-01–09 **USER-PAUSED / NOT RUN**, mandatory physically validated milestones **3/10**, M10 blocked, M11 dormant/optional. U04 irreversible Archive deletion needs explicit approval. Preserve approved Spectrum Core UI.
+
+## HISTORICAL 2026-10-12 — U22 final merged-main source/package accepted; U23 PR342 exact-head Windows CI pending
 
 **U22 accepted:** [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) exact-head CI 3/3, guarded merge `c8085e94ae6b329fec8a0ad0635f4e2eb294485d` / 12/12 blobs, resulting-main [run38262440802](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802) first attempt Finding33 Edge/CDP historical FAIL, targeted attempt2 validation/fast/Windows **3/3 SUCCESS**. Actual [ZIP artifact11755845732](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802/artifacts/11755845732) independently CRC/3 members and SHA256 verified: ZIP `334e604c2353c590810104b20bedce870df86e93b07a29868310e9765ce5626f`; EXE `664fe1815c8f047ef544986337fc3f11dc28ca334604be7692f672eeadfcf408`; NSIS `953895c98495ce17fa277c4afc74711a67352fc474cc0fbe225ccbefa4916283`; MSI `cebf87dede01aa1d5e968b95fbdfb072cb787671795775215bc8e8f49f55ad58`. [U22 immutable acceptance](work-log/2026-10-12-chatgpt-u22-main-windows-attempt2-release-zip-fourhash-accepted.md), current physical checklist/risk hash pins.
 
