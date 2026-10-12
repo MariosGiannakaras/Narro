@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 /**
  * The Finding33 interactive keyboard test must actually run. One fresh Edge
@@ -82,6 +82,6 @@ function run(argv) {
   return status;
 }
 
-if (process.argv[1] && import.meta.url === new URL("file://" + path.resolve(process.argv[1]).replaceAll("\\", "/")).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   process.exitCode = run(process.argv.slice(2));
 }
