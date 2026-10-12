@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U12/U40 merged exact-source, U35 retry pending; full resulting-main still open
+## CURRENT 2026-10-12 — U12/U40 source integrated, U35 and B49 guard PRs pending
+
+- [x] **U12 #334 and U40 #335 exact-head PR CI + guarded main merges accepted.** U12 [run 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) attempt2 3/3, merge `8615598938dbe08681481d9d824be7cd75fffb2a`, 1/1 blob; U40 [run 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) 3/3, merge `285bb7d4698111d3d701d77464017d2865e495d2`, 2/2 blobs. Previous source/CI campaign 12/12 and old #333 candidate hashes remain historical exact-source only.
+- [ ] **U35 #336** head `1411093118acb4ecf06e2e046e150469483618cb`: [CI 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) first attempt Finding33 `Page.navigate` FAIL, only failed Windows job attempt2 was rerun, Rust+visual capture passed, release build **IN PROGRESS, NOT 3/3 PASS**. Need exact-head CI success, guarded merge, **7/7 matching blobs**.
+- [ ] **B49 harness PR #337** head `d61e6a77b1527915fc9158917f26d969dab53516`: merged-main [run 38211199891](https://github.com/MariosGiannakaras/Narro/actions/runs/38211199891) first Windows B49 failure `EBUSY` `DevToolsActivePort` (Finding33 passed; missing artifact downstream), targeted test-first pure retry-classifier and no visual relaxation, [CI 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) pending. Required exact 3/3 PR-head, guarded merge, **3 changed-file blob identities**, resulting-main integrated validation. Separate infrastructure reliability guard, not newly invented U finding.
+- [ ] **Three-item U12/U40/U35 final union acceptance remains 0/3 fully accepted at resulting-main verified production binary level**, despite 2/3 guarded source merges. After U35 and B49 harness merges, validate latest-main complete 3/3 and download, CRC+SHA256 actual new Windows ZIP/`narro.exe`/NSIS/MSI; update physical PA session candidate and immutable proof. No physical/native PASS from CI.
+- [ ] **Physical Codex USER-PAUSED** full PA-01–09, mandatory milestone count 3/10, M10 blocked, optional M11 dormant. Approved user Spectrum Core picker/photo/218 icons preserved.
+
+## HISTORICAL 2026-10-12 — U12/U40 merged exact-source, U35 retry pending; full resulting-main still open
 
 - [x] **U12 #334 guarded merge + PR CI PASS:** validated head `3688f22d2051d762bd4d70997fd4947255031cff`, [run 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) attempt 2 **3/3 SUCCESS**, source merge `8615598938dbe08681481d9d824be7cd75fffb2a`; single result Git blob MATCH. New IANA validation only on writes; legacy preference reads repairable.
 - [x] **U40 #335 guarded merge + PR CI PASS:** head `878559303aef1184035f300b0a3ba2ccaab103d9`, [run 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) **3/3 SUCCESS**, merge `285bb7d4698111d3d701d77464017d2865e495d2`; both production/test Git blobs MATCH. Advisory Today CTA only.
