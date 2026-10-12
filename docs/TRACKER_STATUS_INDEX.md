@@ -56,6 +56,20 @@
 
 **Decision summary:** Branches audited for metadata **20/20**, but ownership-authorized cleanup **0/20**; two ancestor candidates, 18 divergent HOLD/REVIEW. Safe upcoming step: confirm affected branch owners/consumers and get explicit permission for named branch retirement, or independently design a minimally scoped modern-main Reports stale-filter reproduction; no source change unless failure is established. Retain all original immutable evidence; physical PA-01–09 USER-PAUSED and M11 dormant.
 
+### Phase B sampled test-contract overlap — 2026-10-12 (read-only, no test pruning)
+
+**Verified actual source for seven existing scripts** against live `main` (not a runtime test execution): `scripts/test-ui-focus-panel.mjs`, `scripts/test-ui-focus-action-slots.mjs`, `scripts/test-focus-live-mutation-gates.mjs`, `scripts/test-ui-reports-sessions.mjs`, `scripts/test-ui-reports-overview.mjs`, `scripts/test-ui-floating-collapsed.mjs`, and `scripts/test-merged-prephysical-ci-coverage.mjs`. They share some UI source inputs but enforce **different production invariants**:
+
+| Tested area | Separate invariants actually asserted | Do not collapse without |
+| --- | --- | --- |
+| Focus hierarchy / action slots / mutations | Main Focus task/timer/subtasks structure and nested single-flight contracts; reserved action hit-targets, keyboard reveal, actual PNG pixel gate; post-commit subtask/metrics synchronization and same-render duplicate prevention | Reproducible equivalent assertion coverage for all three behavior types, including browser pixels and async gate tests |
+| Reports Sessions / Overview | Sessions view/API/selection/CSV read-producer and add-session single-flight contracts; separate Overview PDF/export/fixture/presentation invariants | Separate proof both Sessions state/concurrency and Overview PDF/presentation survived |
+| Floating collapsed / merged prephysical integration | Native single-host/collapsed geometry and Windows fixture contract; independent aggregate CI reachability of A01–A10 regressions and downstream build/capture | Exact Windows/source proof of both runtime surface and CI-wiring requirements |
+
+**Result:** **0 of 7 sampled test files qualifies for safe deletion** based on content review. This is a **7-file static overlap sample, NOT 7 runtime PASS tests**, NOT proof that every line of all 98 tests is unique. The already recorded 98/98 CI-reachable / 0 identical npm-command result is still valid at this same source baseline. Do not shorten `preflight:frontend`, drop screen fixtures, remove asynchronous handler regressions, or replace runtime validations with source-string tests merely because assertions or paths repeat. Future optimization requires a semantic assertion inventory, equivalent negative-case tests, and measured CI timing, followed by exact source PR/Windows gates.
+
+**Focused post-consolidation risk (not yet a demonstrated defect):** historical closed/unmerged Reports PR [#325](https://github.com/MariosGiannakaras/Narro/pull/325) has a real deferred-handler stale-filter test missing from current `main`; current ReportsSessions does already have a shared generation guard, while its current-request identity is set by a passive `useEffect`, versus the old branch's `useLayoutEffect`. No physical test or repro of a current user-visible race was run in this read-only consolidation. Track only as a bounded new-reproduction candidate; do not import legacy PR or change Reports code without establishing current failure and correct owner.
+
 ### No-repeat research and tracker intake rule
 
 1. **Look up an existing ID and owner before opening another tracker:** U01–U41 functional disposition → [fixed ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md); current product/source decision → [STATUS](../STATUS.md) and [audit crosswalk](AUDIT_IMPLEMENTATION_CROSSWALK.md); exact original evidence → [evidence routing map](EVIDENCE_ROUTING_MAP.md); code/CI proof → corresponding immutable `work-log/` and current source. An older screenshot/claim does not become a new unresolved Narro bug.
