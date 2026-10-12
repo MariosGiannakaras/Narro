@@ -70,6 +70,8 @@ type DateRangePickerProps = {
   onSelectDay: (dateKey: string) => void;
   onPreviousMonth: () => void;
   onNextMonth: () => void;
+  onPreviousYear: () => void;
+  onNextYear: () => void;
   onCancel: () => void;
   onApply: () => void;
 };
@@ -80,6 +82,8 @@ function DateRangePicker({
   onSelectDay,
   onPreviousMonth,
   onNextMonth,
+  onPreviousYear,
+  onNextYear,
   onCancel,
   onApply,
 }: DateRangePickerProps) {
@@ -101,6 +105,12 @@ function DateRangePicker({
             <header>
               <button
                 type="button"
+                aria-label="Previous year"
+                onClick={onPreviousYear}
+                disabled={monthIndex !== 0}
+              >«</button>
+              <button
+                type="button"
                 aria-label="Previous month"
                 onClick={onPreviousMonth}
                 disabled={monthIndex !== 0}
@@ -112,6 +122,12 @@ function DateRangePicker({
                 onClick={onNextMonth}
                 disabled={monthIndex !== months.length - 1}
               >›</button>
+              <button
+                type="button"
+                aria-label="Next year"
+                onClick={onNextYear}
+                disabled={monthIndex !== months.length - 1}
+              >»</button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["S", "M", "T", "W", "T", "F", "S"].map((label, index) => (
@@ -621,6 +637,8 @@ export type ReportsSessionsViewProps = {
   onSelectCalendarDay: (dateKey: string) => void;
   onPreviousCalendarMonth: () => void;
   onNextCalendarMonth: () => void;
+  onPreviousCalendarYear: () => void;
+  onNextCalendarYear: () => void;
   onCancelDateRange: () => void;
   onApplyDateRange: () => void;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
@@ -653,6 +671,8 @@ export function ReportsSessionsView({
   onSelectCalendarDay,
   onPreviousCalendarMonth,
   onNextCalendarMonth,
+  onPreviousCalendarYear,
+  onNextCalendarYear,
   onCancelDateRange,
   onApplyDateRange,
   onCommitEndTime,
@@ -760,6 +780,8 @@ export function ReportsSessionsView({
               onSelectDay={onSelectCalendarDay}
               onPreviousMonth={onPreviousCalendarMonth}
               onNextMonth={onNextCalendarMonth}
+              onPreviousYear={onPreviousCalendarYear}
+              onNextYear={onNextCalendarYear}
               onCancel={onCancelDateRange}
               onApply={onApplyDateRange}
             />
