@@ -1,0 +1,6 @@
+import sqlite3,pathlib,json,sys,datetime,hashlib
+r=pathlib.Path(__file__).parent;db=pathlib.Path.home()/'AppData/Roaming/com.mariosg.Narro/narro.db';c=sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+names=[v[0] for v in c.execute("select name from sqlite_master where type='table'")];out={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'database':str(db),'tables':{}}
+for t in names:
+ if not t.startswith('_diagnostic'):out['tables'][t]=[dict(v) for v in c.execute('select * from "'+t+'"')]
+(r/'observations'/(sys.argv[1]+'.json')).write_bytes((json.dumps(out,indent=2)+'\n').encode());print(json.dumps({t:len(v) for t,v in out['tables'].items()}))

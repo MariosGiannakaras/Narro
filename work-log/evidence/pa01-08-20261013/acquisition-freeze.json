@@ -1,0 +1,1506 @@
+{
+  "utc": "2026-10-12T23:33:41.351735+00:00",
+  "phase": "acquisition frozen, analysis pending",
+  "files": [
+    {
+      "path": "01-launch.json",
+      "bytes": 3367,
+      "sha256": "7d282819ff598554aba371e6689827f964556e81eff278afbe9b899e539b5ae6"
+    },
+    {
+      "path": "actions.jsonl",
+      "bytes": 19261,
+      "sha256": "ec1eaa59979f2321d0c663abc84a0061aba974474c28a8031b4a88373ec493c1"
+    },
+    {
+      "path": "capture-health-desktop.png",
+      "bytes": 2160033,
+      "sha256": "933c281b8102f02fddbe5a5427487d0c44f3036345ee5581fb1cb27541fda6f2"
+    },
+    {
+      "path": "capture-plan.md",
+      "bytes": 840,
+      "sha256": "3c87a038d6261e4336754e235e5db22472ff20ba7c214c0bb2c7b71a81a94793"
+    },
+    {
+      "path": "continuous.mkv",
+      "bytes": 15048654,
+      "sha256": "a2b43087891f5f839f2b0722d6d8606a80a6e7b054a568fb7823a75dca68903e"
+    },
+    {
+      "path": "fixture-current-dialog.png",
+      "bytes": 58677,
+      "sha256": "9aada6608ae3ef25810db870b42e53931c845d684a7ab09bb26c5e7711e8eb57"
+    },
+    {
+      "path": "fixture-owned-board-open.png",
+      "bytes": 70607,
+      "sha256": "2fd48062fa2b7886bc8a545c15c098f04ec6af4a3d496334d33a7ca63c8d6b40"
+    },
+    {
+      "path": "fixture-owned-list-hover.png",
+      "bytes": 58733,
+      "sha256": "a20a2a9492a389db476e0dc88bf7a3dbab926f05f1f0015d769ddca6ef87b859"
+    },
+    {
+      "path": "fixture-today-task-add.png",
+      "bytes": 75320,
+      "sha256": "5b41035e6e36718cfe987164a89d4c61a6f87f490b6a542b93352636f05e6e85"
+    },
+    {
+      "path": "frozen-test-profile/narro.db",
+      "bytes": 208896,
+      "sha256": "adb02c8d60ddbe6702a2af65c949c07eb8f421ee210e7eeb3096f7ee744069c6"
+    },
+    {
+      "path": "hwnd_trace.py.txt",
+      "bytes": 1068,
+      "sha256": "fb7e7f2b8a753cccd87d6e2da6433294848a3fad0f01ca4ba7412249457347da"
+    },
+    {
+      "path": "key-dispatch.jsonl",
+      "bytes": 1496,
+      "sha256": "cd76e9adfa52b33e972f1498aa4eea8839b207499fa1d96ce13c14fd55c26181"
+    },
+    {
+      "path": "motion-normal.json",
+      "bytes": 227,
+      "sha256": "b5c2b3e3ed7db32fd9fa3d558c87ea020ad3d94ca8c503a809b17205831928bb"
+    },
+    {
+      "path": "motion-original.json",
+      "bytes": 61,
+      "sha256": "71594aecb47838d79835047e3f0efbaefd4f705aa2dbec125bd1ecca830cf32c"
+    },
+    {
+      "path": "motion-restore.json",
+      "bytes": 227,
+      "sha256": "9c7f24acac6e39c23c099e62e994277b492a5df5b4188ce41eb8373c22f52143"
+    },
+    {
+      "path": "motion.py.txt",
+      "bytes": 1193,
+      "sha256": "b1f2865f6507d6eab92189a691f7a065311b65e6878716e49ff4a4c6dd42e08e"
+    },
+    {
+      "path": "Narro-M7-Logs/LATEST.txt",
+      "bytes": 36,
+      "sha256": "fb58d4c171b564d15d5a7e1e77539cd545d1965887eb70a3672206b42c7b9a94"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-c5-last-pass.json",
+      "bytes": 1861,
+      "sha256": "8175423078200d96eecf1540d3b84720dbfd5f218342bb7854186b180225b63f"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+      "bytes": 1861,
+      "sha256": "8175423078200d96eecf1540d3b84720dbfd5f218342bb7854186b180225b63f"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+      "bytes": 521,
+      "sha256": "52be2d8d0e097d5c20106620103610b997e47b7056397d6acb78a2d4b14ee230"
+    },
+    {
+      "path": "Narro-M7-Logs/pending-c5.json",
+      "bytes": 833,
+      "sha256": "ef0bff384a3240de13a5fe7d6dd6947411eb0457150c9b5be2d055b5db5fb64e"
+    },
+    {
+      "path": "Narro-M7-Logs/README.txt",
+      "bytes": 765,
+      "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-222909.850Z-33412/events.jsonl",
+      "bytes": 176450,
+      "sha256": "53d192de259200730e09da2fd602b1995da6f9b8550074fcd7815c43a96449d6"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-222909.850Z-33412/m7-c5-result.json",
+      "bytes": 519,
+      "sha256": "756ddd50b749ac9f84a11bf4e70db91cc230e7e52ad1a4745b435bd580aa0814"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-222909.850Z-33412/session.json",
+      "bytes": 489,
+      "sha256": "f3f60ce23f6b6241ed6967a7d49842138504b93342eb8c54d4b2d3522a3e734b"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-232947.049Z-41708/events.jsonl",
+      "bytes": 15646,
+      "sha256": "5be6a76a9894ad1477f01a8b26cb4269bb28cdeb3fefeaac20ca05583d96c884"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-232947.049Z-41708/m7-c5-result.json",
+      "bytes": 521,
+      "sha256": "52be2d8d0e097d5c20106620103610b997e47b7056397d6acb78a2d4b14ee230"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261012-232947.049Z-41708/session.json",
+      "bytes": 489,
+      "sha256": "23ff14a3b226c1a6c5659c976b81f0652161bcf730cd23b1533ac0b0504a9c73"
+    },
+    {
+      "path": "native-actions.jsonl",
+      "bytes": 31406,
+      "sha256": "4feb89d01dc7b0595e0cd2f3a6e7a5ddb8a0375d1770f0a812eb2d2683bcec68"
+    },
+    {
+      "path": "native-input.py.txt",
+      "bytes": 4651,
+      "sha256": "7b7d2657260da19ac2197ee32ad85af5a7fe11d20ffa4ea0076e46377483ed8d"
+    },
+    {
+      "path": "obs-physical-ready.png",
+      "bytes": 1509408,
+      "sha256": "79a5d3de941ac913de162a4feb8f59f6943fbefb4c87e40452feb88e0f7be866"
+    },
+    {
+      "path": "OBS-recording-stop.png",
+      "bytes": 90990,
+      "sha256": "0e45209edb90a4f99d5dc291245d372f587c51b3e21d20abc812c965ffd701c1"
+    },
+    {
+      "path": "OBS-recording.log",
+      "bytes": 13260,
+      "sha256": "fa1ee238267663b5a1ba5d1afc0bfde76cbe26c05df27a23d42b36a42c14c9e0"
+    },
+    {
+      "path": "observations/02-current-list-modal.json",
+      "bytes": 5168,
+      "sha256": "819b89fbc340184e27b5f26c43ce9dc27a6da830d2e3dd573e70e0109e9e5fb5"
+    },
+    {
+      "path": "observations/after-PA01-cycles.json",
+      "bytes": 5904,
+      "sha256": "628759e510bf7abcf9b2a1cdb87a98dc1646f86b56425a8cd87adacb7e409e4b"
+    },
+    {
+      "path": "observations/after-PA02.json",
+      "bytes": 5535,
+      "sha256": "685c43ad60979f051cbf6a8b16451f43a8b9d2b59f4b13f162fb46301a669737"
+    },
+    {
+      "path": "observations/after-PA04-lock.json",
+      "bytes": 6864,
+      "sha256": "df470cbcb13684be504f6eb215c797fe6dbfbab759035f706415168d7260fe4f"
+    },
+    {
+      "path": "observations/before-PA01-cycles.json",
+      "bytes": 5904,
+      "sha256": "c52a472f56ccbee4d7b5dc5acb5e46e4e4b9b55e098f117e0d3458b862dfe491"
+    },
+    {
+      "path": "observations/before-PA02.json",
+      "bytes": 4314,
+      "sha256": "dd816f6259184bd539a188c6af4d9849ed0848ab55cefb1ad8f8572891c3de72"
+    },
+    {
+      "path": "observations/before-PA04-lock.json",
+      "bytes": 6385,
+      "sha256": "00ecf9088b1e1253b93e4a080a0894460b6853b4992d59aab9cd9f66c1c73c12"
+    },
+    {
+      "path": "observations/fixture-add-task-one.json",
+      "bytes": 7061,
+      "sha256": "14568d3509acca9ddcddd82d9887114037b0f89b91df79d519cd61dda7a5ed15"
+    },
+    {
+      "path": "observations/fixture-batch-editor-close.json",
+      "bytes": 10882,
+      "sha256": "1185e08ed652d364a11decb7c6f7863f6c452972d7f3b13cbd21ab77378bd82d"
+    },
+    {
+      "path": "observations/fixture-before-title.json",
+      "bytes": 5217,
+      "sha256": "ed43a091d7381a45ff49cd670acca18f0c928027626c96b1b67787eb06cbc79a"
+    },
+    {
+      "path": "observations/fixture-list-create-submit.json",
+      "bytes": 5839,
+      "sha256": "ab405d75950d16ddc63689a684bdca3facdb6447c4b82ee78464e2966e64182c"
+    },
+    {
+      "path": "observations/fixture-list-created-state.json",
+      "bytes": 5027,
+      "sha256": "b2591a06cf1700a5fa8e3b96dc6eb43935f592508124df617ea9fe9dfe7c1ffc"
+    },
+    {
+      "path": "observations/fixture-list-title-before-input.json",
+      "bytes": 5063,
+      "sha256": "47dd6f67d9938bb542c144bcfad518693c54b59a882be462fa5576a6df146b40"
+    },
+    {
+      "path": "observations/fixture-list-title-focus.json",
+      "bytes": 5168,
+      "sha256": "a678255382d7fe9557282e78be00b7385cb1bf3f232ee774545304a41f39b125"
+    },
+    {
+      "path": "observations/fixture-owned-board-open.json",
+      "bytes": 7061,
+      "sha256": "6eee05b6c43e35b610c475d92a30c97cc127a27b1d8ff12f30a1c9b3c51f1321"
+    },
+    {
+      "path": "observations/fixture-owned-list-hover.json",
+      "bytes": 5027,
+      "sha256": "4c23dfa094480ffd2bc093f1b87bc4954b469c0aaea19f381df9c167bc102f49"
+    },
+    {
+      "path": "observations/fixture-task-one-commit.json",
+      "bytes": 7155,
+      "sha256": "9c581fbc5ecfd9edca05c49e8fcd2503185b9eaec1ac96bbec08121222f5551c"
+    },
+    {
+      "path": "observations/fixture-task-one-title.json",
+      "bytes": 6310,
+      "sha256": "91dcc6a58b2b7ac70feb2a98a7e4c8be402d66dc2d714f1f35be41b3be0a619e"
+    },
+    {
+      "path": "observations/fixture-task-shortcut-settled.json",
+      "bytes": 7061,
+      "sha256": "a8cce0d5f8afea9b175e1aba7de63680b0846e86607391b55c9b3a9a2025da37"
+    },
+    {
+      "path": "observations/fixture-task-three-commit.json",
+      "bytes": 8839,
+      "sha256": "11ecf4283bf051685f23d38e17ab13580b3541527fa8ed6fdf45b27f8557d4bf"
+    },
+    {
+      "path": "observations/fixture-task-three-title.json",
+      "bytes": 8025,
+      "sha256": "2664cc495e054d236cc30d8ff8a0432ef946e81f12b3489a0d3c3ab45b6e0cfc"
+    },
+    {
+      "path": "observations/fixture-task-two-commit.json",
+      "bytes": 7994,
+      "sha256": "69084582c1a71eddb4166f7348ec19d4ed5ab1396f929e5c97598075d150b506"
+    },
+    {
+      "path": "observations/fixture-task-two-est.json",
+      "bytes": 7172,
+      "sha256": "6174ae890cedc3a8f079f0edb0aee8490d01df7095ff434cc468db4ea293a125"
+    },
+    {
+      "path": "observations/fixture-task-two-title.json",
+      "bytes": 7185,
+      "sha256": "4fd5b66d7f5cb0900282d01ae076abd018cf132ec67e1d94b4677799925a498f"
+    },
+    {
+      "path": "observations/fixture-title-current-cache.json",
+      "bytes": 5217,
+      "sha256": "55dbe52acb6a8ec14e9af7d0f83d9f25a8b4a6853b6d9651963cac87be9ee9b3"
+    },
+    {
+      "path": "observations/fixture-title-value.json",
+      "bytes": 5325,
+      "sha256": "39a785472b238d5c76e2edc0ba412f1cb6662e6af563e15f8f10ee6df806283b"
+    },
+    {
+      "path": "observations/fixture-today-task-add.json",
+      "bytes": 6279,
+      "sha256": "3ec5be2b081c001e2a7890348a6cd3faf0d3a136eac7db88ace35204e95bcaec"
+    },
+    {
+      "path": "observations/obs-file-menu.json",
+      "bytes": 20134,
+      "sha256": "ce6253df3f7a851cc6387c558428647fa8585e1af20505fd4ab5f9c12af66a70"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-01.json",
+      "bytes": 19172,
+      "sha256": "e5d3184b3e466ff18d55a2e0cd8a2a45227ec0b41b6e140d72047112a60271d3"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-02.json",
+      "bytes": 19187,
+      "sha256": "6e80b3dc5489055e7b2d5d72ed4392d9743efa7401853edaea6ff0ddfef1b09a"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-03.json",
+      "bytes": 19187,
+      "sha256": "ba28192adab98a22ad772efd66da6e48cbef657af1fdd0d24fee430e241c393d"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-04.json",
+      "bytes": 19153,
+      "sha256": "c43f0e0ab723cbe7fb440f9a3c6f8a3e316d75db4e9bacb2b79cdfc1d4bffe79"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-05.json",
+      "bytes": 19153,
+      "sha256": "6586c25aa67d9f8586d5031a8d2adc70351dd1d3551f87531a386d53dadf9474"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-06.json",
+      "bytes": 19153,
+      "sha256": "cb5cdedb495a398e022d3029fcb6f37f5b7bfd958d5526fe018b9fa3c1a0d958"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-07.json",
+      "bytes": 19153,
+      "sha256": "23490842acad4ac1a2342fe7c57e0f28cf2783f902710ca81887b5a946646438"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-08.json",
+      "bytes": 19153,
+      "sha256": "e683e511372eb0b071cf34b9973e6e2df686e597a78934d942fffa3e96589796"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-09.json",
+      "bytes": 19153,
+      "sha256": "8deba7efaf9d6ef7317dc6cf2c9f47d85976b34ac4fe5588bd43566dd150b97f"
+    },
+    {
+      "path": "observations/obs-keyboard-navigation-10.json",
+      "bytes": 19153,
+      "sha256": "145c4a4c787257fc446bb67bb9206368236d9b859dcbe23d471e2f63713a38cf"
+    },
+    {
+      "path": "observations/obs-menu-navigation-cancel.json",
+      "bytes": 20134,
+      "sha256": "9d7f2b121b6ccc8f673a2e8356c445723c66af88cb4814037a419c4269c1d993"
+    },
+    {
+      "path": "observations/obs-recording-health.json",
+      "bytes": 19308,
+      "sha256": "bb57c6f83b6d50ab1f3092c97611801fb54cb7960d30d5bbdebed40cf5d14aed"
+    },
+    {
+      "path": "observations/PA01-collapse-1.json",
+      "bytes": 2827,
+      "sha256": "16d61d1dfde00510f4d9a2ef675e5724170b0c024cc78585b41478c62a978945"
+    },
+    {
+      "path": "observations/PA01-collapse-2.json",
+      "bytes": 2827,
+      "sha256": "49f3f664ece8fb62aa14a81912ab7c0b1a7a001e3221d1e928ad9be8b76702fb"
+    },
+    {
+      "path": "observations/PA01-collapse-3.json",
+      "bytes": 2827,
+      "sha256": "7096f07834069f7f1e13dc8d4ddc0cad20be045c54b86aa5dd6a3aa0e3efbab6"
+    },
+    {
+      "path": "observations/PA01-cycle1-controls.json",
+      "bytes": 2843,
+      "sha256": "0535952a4dc3d92a2e76ae4a4b009c763127c453f28fb0ec0a58d996dbb1a8fe"
+    },
+    {
+      "path": "observations/PA01-cycle1-panel-to-timer.json",
+      "bytes": 2224,
+      "sha256": "4972a218da751116a342851eef75ae3e3bdd7f220d3fe473e504ec362ae5054f"
+    },
+    {
+      "path": "observations/PA01-cycle1-timer-to-panel.json",
+      "bytes": 5453,
+      "sha256": "931d87745ff1f3e5c5819fd1fbeeff9cdb99266d9871d116d8c84657770f1c91"
+    },
+    {
+      "path": "observations/PA01-cycle2-controls.json",
+      "bytes": 2862,
+      "sha256": "956dfff07b8dc9beb8a454053ade3defd98aa9d4e3121be68de924ea9d48601a"
+    },
+    {
+      "path": "observations/PA01-cycle2-panel-to-timer.json",
+      "bytes": 2224,
+      "sha256": "6d01f81d9bb390687cc045c28129a3f8ff6193ea5a70904fecb1cacf9dcb3245"
+    },
+    {
+      "path": "observations/PA01-cycle2-timer-to-panel.json",
+      "bytes": 5456,
+      "sha256": "261cad9bc5bdd81e236b0a950c84e7d87d0f9f8927e682ec1c5e33383e4e5362"
+    },
+    {
+      "path": "observations/PA01-cycle3-controls.json",
+      "bytes": 2862,
+      "sha256": "7f7b8ca1339626701657402da2488e3b90a83997e660f17a9e8674f8acb50f65"
+    },
+    {
+      "path": "observations/PA01-cycle3-panel-to-timer.json",
+      "bytes": 2224,
+      "sha256": "bc1475ca272012ed4b83e154101401d35921e153243610ea070092ed340e28bf"
+    },
+    {
+      "path": "observations/PA01-cycle3-timer-to-panel.json",
+      "bytes": 5456,
+      "sha256": "efb6f93155c19563c283d660c2f39d246c4e596ea8bd5674f16f27d796f539de"
+    },
+    {
+      "path": "observations/PA01-expand-1.json",
+      "bytes": 2911,
+      "sha256": "83e21dff65c45aed18a9b44adda0c61e14f284293e5f83f27e874793ee2ddb48"
+    },
+    {
+      "path": "observations/PA01-expand-2.json",
+      "bytes": 2911,
+      "sha256": "c066eaac65724fa118c51358be41e941e6161aed30f75baaae824dca101330b5"
+    },
+    {
+      "path": "observations/PA01-expand-3.json",
+      "bytes": 2911,
+      "sha256": "fe34e933dbb89489404690d2dcbc59271677f7eba63f2990ddffcd1c606c24d8"
+    },
+    {
+      "path": "observations/PA01-first-compact-entry.json",
+      "bytes": 2886,
+      "sha256": "44c239f21b91b5a167a2b674619aca1f9e83a257d5e3cd5b67ab4c9becb13aa2"
+    },
+    {
+      "path": "observations/PA01-owned-session-pause.json",
+      "bytes": 5376,
+      "sha256": "64d73b2bee7a855112ce6a1c3148289231feb084685c2ac280c1dc40e6a52922"
+    },
+    {
+      "path": "observations/PA01-physical-pause.json",
+      "bytes": 2773,
+      "sha256": "82338d927ac9a3b2b9209b81144befcd8a7fac9142e2e631f04dd4f793a31783"
+    },
+    {
+      "path": "observations/PA01-timer-cross-display-position.json",
+      "bytes": 2773,
+      "sha256": "a002742f2582d8a34711c5630a0cf41877536a2d1a9ce69bb759bb11e54da957"
+    },
+    {
+      "path": "observations/PA02-blitz-entry-visible.json",
+      "bytes": 10502,
+      "sha256": "3670c3c10ceeb1c0fd6b8c6fdbd43062619fa1b45dcd6f4bcd816eca906ef84c"
+    },
+    {
+      "path": "observations/PA02-blitz-hover.json",
+      "bytes": 10502,
+      "sha256": "edf349801ac37180827b1b9db68008c25b3bcfc8888e8088debfeaf2b0b3d8ee"
+    },
+    {
+      "path": "observations/PA02-focus-presented.json",
+      "bytes": 5376,
+      "sha256": "38339803ee8dc3302232bbf8162b791803605469ffbe7e163fc79e66822c4512"
+    },
+    {
+      "path": "observations/PA03-authoritative-time-up.json",
+      "bytes": 6380,
+      "sha256": "244504586ac50974355bea15d445bda279859c77853dd7dc4bc56bab7fc9c669"
+    },
+    {
+      "path": "observations/PA03-countdown-title-visible.json",
+      "bytes": 2220,
+      "sha256": "644088cc6924edcd69e0b4b16b208754f5ebe8770d6e2f13f76652e3c8df2848"
+    },
+    {
+      "path": "observations/PA03-expired-compact-contextual-actions.json",
+      "bytes": 3014,
+      "sha256": "5012b0d9107329a4ff71fba535104ee7acb10d62ba923f5c1932fb7fb3a05dd3"
+    },
+    {
+      "path": "observations/PA03-expired-compact-visible.json",
+      "bytes": 2329,
+      "sha256": "498835cf242f060d47a6395a1086540c4967d5df57d1c200c006b48138de6fe2"
+    },
+    {
+      "path": "observations/PA03-expired-expanded-visible.json",
+      "bytes": 3040,
+      "sha256": "20be94981c1d318128cf04353e29056c93644e83526c920e22355a2c84806696"
+    },
+    {
+      "path": "observations/PA03-overtime-pause.json",
+      "bytes": 3049,
+      "sha256": "48313c332b28c0d8bf08e72b07308e00b70c0807672c8dee54d03c9ed0592363"
+    },
+    {
+      "path": "observations/PA03-real-extend-to-overtime.json",
+      "bytes": 3090,
+      "sha256": "33c77fd4a778b1632dc58c5276b711b24802e6258be9377ad4723444a8e2bfb8"
+    },
+    {
+      "path": "observations/PA03-return-panel-after-expiry.json",
+      "bytes": 5507,
+      "sha256": "6669d964238b07828e9b0468370c4d174f240245711a7c5fe477cff101e22f03"
+    },
+    {
+      "path": "observations/PA03-skip-to-timed-task.json",
+      "bytes": 2864,
+      "sha256": "913dc9292d6fee87ed8f6c07c665029a96eefd108ada3f43686339d41ceb4735"
+    },
+    {
+      "path": "observations/PA03-switch-controls.json",
+      "bytes": 2862,
+      "sha256": "45953ab60190afc1b5673672ae047741a489d9fa519275268e94c12dc8581be2"
+    },
+    {
+      "path": "observations/PA04-after-lock-resolved.json",
+      "bytes": 6076,
+      "sha256": "880df710be9772527a8c9b90c2e3e57b0186b43f38eaa62be9ec9f6f7cd14f47"
+    },
+    {
+      "path": "observations/PA04-end-hour-focus.json",
+      "bytes": 8566,
+      "sha256": "fb1e6f2cdef2d40afaea9a212641660a56550f89998b06e97832118c788a313b"
+    },
+    {
+      "path": "observations/PA04-end-midnight-hour.json",
+      "bytes": 8597,
+      "sha256": "4218d76fbf23c0483f58e1e2b37a7a6a331610d3691dcdb16a7801b0d4b2b35b"
+    },
+    {
+      "path": "observations/PA04-end-minute-focus.json",
+      "bytes": 8597,
+      "sha256": "94d9afcc19d32c5db9c6ed9704f02be97a70e3ed40c241af7dc6dd93faf71648"
+    },
+    {
+      "path": "observations/PA04-footer-recovery.json",
+      "bytes": 10677,
+      "sha256": "ced28f82f26c0ee2365300079a63f4a08977f710a8e306384db17512b04c8a04"
+    },
+    {
+      "path": "observations/PA04-lock-events.json",
+      "bytes": 1079,
+      "sha256": "ead7c2544ac0e2aee9c02a8200b3e87d92e64ce38fb50af68883f7ac803ee943"
+    },
+    {
+      "path": "observations/PA04-main-restored.json",
+      "bytes": 10677,
+      "sha256": "7c57b444ef4825f1213643cd5d6ed3cfb9951e029eed3e2638f9d968f65a096a"
+    },
+    {
+      "path": "observations/PA04-native-focus-during-pending.json",
+      "bytes": 102520,
+      "sha256": "e89c90a77c3effe28dd993a93c54017e15414e4e99875194aa99b2748128ec98"
+    },
+    {
+      "path": "observations/PA04-open-add-session.json",
+      "bytes": 5797,
+      "sha256": "db98aeedc4d496188b5fab6ae5344cd1cd398e3accafc0203c1b60ee42656c6d"
+    },
+    {
+      "path": "observations/PA04-owned-one-minute-interval.json",
+      "bytes": 8570,
+      "sha256": "c20aff624d4ceb0abf742c873e065e1aa5cc57c58c60881d26ccd98f79996969"
+    },
+    {
+      "path": "observations/PA04-owned-start-time.json",
+      "bytes": 8565,
+      "sha256": "0442a2e0f58bd5fad6b9b9c97aed8abeac106f9bdf7de8380f683e7fd6530005"
+    },
+    {
+      "path": "observations/PA04-owned-task-option.json",
+      "bytes": 8565,
+      "sha256": "328d533189bacdb03c2dffa7447a02febd750a5c7e9c3908f02ab4150d865b4f"
+    },
+    {
+      "path": "observations/PA04-owned-task-selected.json",
+      "bytes": 5039,
+      "sha256": "38a11b358dd85e1b8f4bdd73c6c43bfa4c3f1955b162dea093ed8de718e85419"
+    },
+    {
+      "path": "observations/PA04-picker-keyboard-select.json",
+      "bytes": 5039,
+      "sha256": "d4cd9b194283223c1cc22185bf275e74efa6fd366246b170c1c19caf8a2c00d0"
+    },
+    {
+      "path": "observations/PA04-picker-modal-scroll.json",
+      "bytes": 5039,
+      "sha256": "b4435e4b76b1ff3c57fda5ba3a2b94f6fef249f8026c6d5962cd90ab3c3d931e"
+    },
+    {
+      "path": "observations/PA04-picker-owned-task-search.json",
+      "bytes": 5039,
+      "sha256": "004c308298b17ba1ce2c999ce15aa728fcaca3595743b737ceac959320f2b609"
+    },
+    {
+      "path": "observations/PA04-reports-navigation.json",
+      "bytes": 10677,
+      "sha256": "270e5bfe273f4f63a6ddf6d6665603b5f1f54a892aea48adef29c71d72fe6928"
+    },
+    {
+      "path": "observations/PA04-reports-visible-footer.json",
+      "bytes": 12967,
+      "sha256": "f100b831ad27515fc4082c634846a045f1d12226c3deac5f8533a6e2dc179fad"
+    },
+    {
+      "path": "observations/PA04-sessions-navigation.json",
+      "bytes": 10677,
+      "sha256": "926fea1d1b21ee2849c231bd15248b9eb71a219f0c31a892deb62440c3565b44"
+    },
+    {
+      "path": "observations/PA04-sessions-tab-visible.json",
+      "bytes": 5069,
+      "sha256": "8a4d64be685ec9b07d74793c7b7180eefe5ca2ba9a63d4b8df011d5150680e79"
+    },
+    {
+      "path": "observations/PA04-start-hour-focus.json",
+      "bytes": 8565,
+      "sha256": "20971f86517b304979bb2387e7f942e4aa22bf50e0defa8a02e386f05adb71e9"
+    },
+    {
+      "path": "observations/PA04-start-midnight-hour.json",
+      "bytes": 8566,
+      "sha256": "0a97c786ca89555145c2ddad03a4f2fd76a26d12a0bbf742e5366ab7a195107c"
+    },
+    {
+      "path": "observations/PA04-task-picker-open.json",
+      "bytes": 5325,
+      "sha256": "415e3bd5e5d7125c645b958454715acadb64c70dea6697b6b2cf48df2c67fe79"
+    },
+    {
+      "path": "observations/PA05-display-settings-launch-error.json",
+      "bytes": 753,
+      "sha256": "8eb8a1faf05666756983888eb5a8d0ad488c7031dce37a30d4a312614b9ca8f2"
+    },
+    {
+      "path": "observations/PA05-explicit-automatic-state.json",
+      "bytes": 22884,
+      "sha256": "bbd590b52e03045ddfa3e4c215411d6fe7234eab5073eb0b64dd39d16ec87c74"
+    },
+    {
+      "path": "observations/PA05-named-LG125.json",
+      "bytes": 7484,
+      "sha256": "844dd2bc895dfa3f6349ec8223188c98b68779766242bad63e985645f94667ef"
+    },
+    {
+      "path": "observations/PA05-named125-panel.json",
+      "bytes": 5630,
+      "sha256": "0b7e91b0fc0c28cb27c307fe5b36e9e67da8ff9157764650bee3b96dc57fa2fc"
+    },
+    {
+      "path": "observations/PA05-open-preferences.json",
+      "bytes": 10452,
+      "sha256": "c1ddd5a73834f1d8ed3d73e66bc381c74a8e805088751dc85c80590049e6a869"
+    },
+    {
+      "path": "observations/PA05-preferences.json",
+      "bytes": 23146,
+      "sha256": "afb1493393eb2ac8b731c109228df90fa76ffffd88c090a6e29e830e43c35720"
+    },
+    {
+      "path": "observations/PA05-stale-after-refresh.json",
+      "bytes": 23365,
+      "sha256": "20ef044ba369d37767133a192d59648a04ced22b5ccc5f5fab89864da956f680"
+    },
+    {
+      "path": "observations/PA05-unavailable-named-selection.json",
+      "bytes": 23365,
+      "sha256": "8022905b794ae3198d6940f0e6f4d463725fb2f887869255e1a5dcd068c127e1"
+    },
+    {
+      "path": "observations/PA06-after-break-deadline.json",
+      "bytes": 7785,
+      "sha256": "d11a6217e8c664105824aff085e921b14139a161ee2a62336cc96b495b2a58c7"
+    },
+    {
+      "path": "observations/PA06-after-previews.json",
+      "bytes": 6076,
+      "sha256": "699a506326acdeec4037cc9d27eadac0327a0895be46d16e75561aa40e8802b9"
+    },
+    {
+      "path": "observations/PA06-board.json",
+      "bytes": 5834,
+      "sha256": "5f20f93e732ce7016b05945867d356298e740f98b811b75689cb14a31e45b39b"
+    },
+    {
+      "path": "observations/PA06-boundary-authority.json",
+      "bytes": 7415,
+      "sha256": "34574aaf6a9a70126e00f02105405ee67d4c375f8551a7c31ef1455f1aac79ea"
+    },
+    {
+      "path": "observations/PA06-break-boundary-setup.json",
+      "bytes": 5630,
+      "sha256": "651dd94c9d0dec1967baadf527aa90ff845d2a7c4f7f119cdeb53f4f2298f32d"
+    },
+    {
+      "path": "observations/PA06-break-control.json",
+      "bytes": 2818,
+      "sha256": "601651403fa687f8fdbbb412b37f28731ea860d79b7eacc3a764ae8e34cb1509"
+    },
+    {
+      "path": "observations/PA06-break-final-minute.json",
+      "bytes": 5630,
+      "sha256": "0ecf2618f477e3e4880242d678723ef0607474bb6bc6272292e1b21a539fd887"
+    },
+    {
+      "path": "observations/PA06-break-native-wait.json",
+      "bytes": 5692,
+      "sha256": "984e2b450e46b047042b1bb60e747335b01b534b69bc74a4c28be589379a6b34"
+    },
+    {
+      "path": "observations/PA06-break-near-end.json",
+      "bytes": 5692,
+      "sha256": "215221b6399247ed125e27c7b719addf704140acb18c9c5ac6b8a62b2eeca00f"
+    },
+    {
+      "path": "observations/PA06-break-panel.json",
+      "bytes": 2818,
+      "sha256": "a5ab475e8f13dbb02f36884d0d53bfb4bd3a997d39bf3ac1f8e1bf1771bd50db"
+    },
+    {
+      "path": "observations/PA06-hover-actions.json",
+      "bytes": 2872,
+      "sha256": "0dc6395e730befe58ee2278a90393aad87f9e7c1666ea20dfd6d5a2c3354135e"
+    },
+    {
+      "path": "observations/PA06-list.json",
+      "bytes": 10367,
+      "sha256": "28f81aad682d83b2b5a88e41ae95cc1797fbf7fe69fc83db22984efa2aa7cf75"
+    },
+    {
+      "path": "observations/PA06-notifications-enabled-sound.json",
+      "bytes": 18743,
+      "sha256": "507d970b4a9caf8ee8de52665526268604e2006b1a41be33ee85d9ad6ba0f015"
+    },
+    {
+      "path": "observations/PA06-open-settings.json",
+      "bytes": 6076,
+      "sha256": "0f13aa204d0129728962b9683774c22232597bcd29acd2d1a488930833757b2d"
+    },
+    {
+      "path": "observations/PA06-panel-break.json",
+      "bytes": 5630,
+      "sha256": "90d30bd7d6102724bba4eb716cc9152c93382503d93330bba5d576c651589def"
+    },
+    {
+      "path": "observations/PA06-real-break-background.json",
+      "bytes": 5692,
+      "sha256": "eeb853c584b2926ce4d391ea8fa6a7d0336e741c94901c6609ed4dae88303c6a"
+    },
+    {
+      "path": "observations/PA06-real-break-elapsing.json",
+      "bytes": 5692,
+      "sha256": "a94513cf39cfa7307a8e8c63a03f0a6737ec51ca89fb9afe315bec31ca58ed00"
+    },
+    {
+      "path": "observations/PA06-restored-focus.json",
+      "bytes": 2234,
+      "sha256": "106d9832fd9fb02f658b1731b86f0f11c568631ee2a8b3741b38435de399b1a1"
+    },
+    {
+      "path": "observations/PA06-settings-open.json",
+      "bytes": 17927,
+      "sha256": "5f9bdda6016d9710bc1c84c5598303f84b3afadcc4629d525fbccf6bb78acb06"
+    },
+    {
+      "path": "observations/PA06-volume-open.json",
+      "bytes": 19126,
+      "sha256": "cd9e4d2c1e74f5e57e8be177537cb88d56a27271f9a2b530b2df6e8aea820692"
+    },
+    {
+      "path": "observations/PA07-after-same-exe-relaunch.json",
+      "bytes": 7788,
+      "sha256": "a0fc5388c71fdaf57d60a407a294f0fcc9981783164dfe5ee989ecfbf9f79b51"
+    },
+    {
+      "path": "observations/PA07-before-normal-quit.json",
+      "bytes": 7786,
+      "sha256": "c8838d3349b923eb28554d53c33fe8274a79d57f559110565611ab2360ef2d6c"
+    },
+    {
+      "path": "observations/PA07-recovery-paused-actions.json",
+      "bytes": 2472,
+      "sha256": "38936c7a61772f0fab9620da575c200b2fc4e9664a9a6c92fecffab2a6b24a2e"
+    },
+    {
+      "path": "observations/PA07-relaunch-main.json",
+      "bytes": 5027,
+      "sha256": "f719e782697f15ea2b878bd7e7f78f9280ebdfe33c2fb118002e76d07c995887"
+    },
+    {
+      "path": "observations/PA07-restored-timer-visible.json",
+      "bytes": 1906,
+      "sha256": "2fad371a2f58722ca4036a2926cea7445897fc405596185924a23fb1a277b670"
+    },
+    {
+      "path": "observations/PA08-installed-nsis-domain.json",
+      "bytes": 7788,
+      "sha256": "7e4aa419d511b9a705a0954d4c49de8b50cf4e5c74113cd14bd53d9da245be0c"
+    },
+    {
+      "path": "observations/PA08-installed-nsis-launch.json",
+      "bytes": 5007,
+      "sha256": "de0321674068dbb33549df270d861b512179bfacbd369e162626e37ef9c1d951"
+    },
+    {
+      "path": "observations/PA08-msi-install.log",
+      "bytes": 40250,
+      "sha256": "4034f5d20b1b1f29737071ef194ff0cfe9c42a0c74a6f6971ae17cb992d85d74"
+    },
+    {
+      "path": "observations/PA08-msi-properties.json",
+      "bytes": 392,
+      "sha256": "259b1b207bbecb257cde5499669560c08178641040bff7b750c91c59739bb81e"
+    },
+    {
+      "path": "observations/PA08-nsis-complete.json",
+      "bytes": 1336,
+      "sha256": "6ddb80b66de30e192d762e9199188326a9b644f815aee1137840f131efd26f20"
+    },
+    {
+      "path": "observations/PA08-nsis-final-page.json",
+      "bytes": 1317,
+      "sha256": "c1e7acf22edf866f70ecf206b6d78040120f89b8fc69e89482ef1fb2e2cd8f5e"
+    },
+    {
+      "path": "observations/PA08-nsis-finish.json",
+      "bytes": 1336,
+      "sha256": "d3e7339cf761a58cab6fb0bf49c7cb150a23666d689ca37866e22ca86affff66"
+    },
+    {
+      "path": "observations/PA08-nsis-install-location.json",
+      "bytes": 1644,
+      "sha256": "7e852a6d40f75ced3f3c9a31e49707ad67588142194d034f576b67a07d4fdc06"
+    },
+    {
+      "path": "observations/PA08-nsis-start-menu.json",
+      "bytes": 1331,
+      "sha256": "5260d5b8c577f7aa00b4839490fa24b8cfda158b1c4eab2d5523aefda1a2b287"
+    },
+    {
+      "path": "observations/PA08-nsis-welcome.json",
+      "bytes": 1097,
+      "sha256": "93d0eeccc10ad8aaa6aeff9def8514dac41d9893ae2a8d4076dd2a5d0c179e45"
+    },
+    {
+      "path": "observations/safety-restored.json",
+      "bytes": 361,
+      "sha256": "9f7e2bf05acbca4cf3e80e0126db1dff9ad6e5f08c2103cb670ee810f63661f3"
+    },
+    {
+      "path": "PA01-collapse-1.png",
+      "bytes": 329363,
+      "sha256": "3853e75c4ca550fce7126be4e9098e05bae1729d205fbf21bb7404c942c81fa5"
+    },
+    {
+      "path": "PA01-collapse-2.png",
+      "bytes": 329363,
+      "sha256": "3853e75c4ca550fce7126be4e9098e05bae1729d205fbf21bb7404c942c81fa5"
+    },
+    {
+      "path": "PA01-collapse-3.png",
+      "bytes": 329363,
+      "sha256": "3853e75c4ca550fce7126be4e9098e05bae1729d205fbf21bb7404c942c81fa5"
+    },
+    {
+      "path": "PA01-continuity-hwnd.jsonl",
+      "bytes": 1120517,
+      "sha256": "0434cd6d66b0fb4ecf794a89c89b2eeb417a71f5cc270f5cc0f50497617bdcb9"
+    },
+    {
+      "path": "PA01-cycle1-controls.png",
+      "bytes": 328407,
+      "sha256": "19746d65e220fc1ad78395a9944cf37b2421b280f11ef7dbf8fb3b1d9135afd4"
+    },
+    {
+      "path": "PA01-cycle1-panel-to-timer.png",
+      "bytes": 330381,
+      "sha256": "8f5424afc9d644ab83923de41a45740fe9e6ac7cd14e3a8781ec5157121c5dcd"
+    },
+    {
+      "path": "PA01-cycle1-timer-to-panel.png",
+      "bytes": 9242,
+      "sha256": "d4a824ae238a5932228f793e48942a56a6203cf18f6be4921284ab2b79e137a2"
+    },
+    {
+      "path": "PA01-cycle2-controls.png",
+      "bytes": 328407,
+      "sha256": "19746d65e220fc1ad78395a9944cf37b2421b280f11ef7dbf8fb3b1d9135afd4"
+    },
+    {
+      "path": "PA01-cycle2-panel-to-timer.png",
+      "bytes": 329672,
+      "sha256": "e66c873bd745a26956835c000d927ec52d5f76ec94edcac6f31e5293f78cf227"
+    },
+    {
+      "path": "PA01-cycle2-timer-to-panel.png",
+      "bytes": 30614,
+      "sha256": "32ce26b1a0fc7468c67b0424c35202cf84c80b1caf7f7bfc77f72c65ac911578"
+    },
+    {
+      "path": "PA01-cycle3-controls.png",
+      "bytes": 328407,
+      "sha256": "19746d65e220fc1ad78395a9944cf37b2421b280f11ef7dbf8fb3b1d9135afd4"
+    },
+    {
+      "path": "PA01-cycle3-panel-to-timer.png",
+      "bytes": 329672,
+      "sha256": "e66c873bd745a26956835c000d927ec52d5f76ec94edcac6f31e5293f78cf227"
+    },
+    {
+      "path": "PA01-cycle3-timer-to-panel.png",
+      "bytes": 10951,
+      "sha256": "7275982be3eb099998dcc0b0ba3dd36c4933c6639399844aff3bec1739c105d5"
+    },
+    {
+      "path": "PA01-expand-1.png",
+      "bytes": 247686,
+      "sha256": "1be98ef8adac1c94d12658867d686250c8d5918fdf3e9f265e338910fbf918ec"
+    },
+    {
+      "path": "PA01-expand-2.png",
+      "bytes": 247686,
+      "sha256": "1be98ef8adac1c94d12658867d686250c8d5918fdf3e9f265e338910fbf918ec"
+    },
+    {
+      "path": "PA01-expand-3.png",
+      "bytes": 247686,
+      "sha256": "1be98ef8adac1c94d12658867d686250c8d5918fdf3e9f265e338910fbf918ec"
+    },
+    {
+      "path": "PA01-expansion-hwnd.jsonl",
+      "bytes": 464323,
+      "sha256": "e65aebe0aad26ada0822823ed81e0308c67133bda678983959239cf9d36f39cc"
+    },
+    {
+      "path": "PA01-first-compact-entry.png",
+      "bytes": 9093,
+      "sha256": "b8d08a8ab37bc0215c87d1c125505b4fe190447feef60aee60ae6635dd693e02"
+    },
+    {
+      "path": "PA01-physical-pause.png",
+      "bytes": 8090,
+      "sha256": "c894f9190d4b8d09545ac4b6e3b82aee9bce21ef53526f434498aea735010066"
+    },
+    {
+      "path": "PA01-reduced-compact.png",
+      "bytes": 296725,
+      "sha256": "00437224295b5a0081b415e94b1c0c9c673d084717020be7d75a9778fda03039"
+    },
+    {
+      "path": "PA01-reduced-expanded.png",
+      "bytes": 232555,
+      "sha256": "511143d13f9382ae3c9d40e95da42016e2059cbbf518c19b9e444cd77ba46dff"
+    },
+    {
+      "path": "PA01-reduced-to-panel.png",
+      "bytes": 31339,
+      "sha256": "55f028c612b152f983dfc6e1303ce07406311f1afba463788ea1a3e0b2561734"
+    },
+    {
+      "path": "PA01-reduced-to-timer.png",
+      "bytes": 298969,
+      "sha256": "090d075d2e33594717c99dec8bd0fc10bd8bbaf067cb7d22df808b434d7e2ad3"
+    },
+    {
+      "path": "PA01-timer-cross-display-position.png",
+      "bytes": 326768,
+      "sha256": "39e7392387bd1ace8d021828181e7cc5328456ed73b1d1142a27422d54ba48cd"
+    },
+    {
+      "path": "PA02-blitz-entry-visible.png",
+      "bytes": 37244,
+      "sha256": "3114bc0a6e97dae3e3182538bee8dcb597ca042bbd410741dce17c12789defdc"
+    },
+    {
+      "path": "PA02-blitz-hover.png",
+      "bytes": 46602,
+      "sha256": "a796ba3dce271712a83bc1f6095923ebab78f7f5093aa4ada187bf90780d9cb5"
+    },
+    {
+      "path": "PA02-focus-presented.png",
+      "bytes": 29572,
+      "sha256": "28aa10f117f7d23d29d865b3042c6aec9f4f82fbe551fc818c67f4b29be3dfde"
+    },
+    {
+      "path": "PA02-initial-morph-hwnd.jsonl",
+      "bytes": 132525,
+      "sha256": "6b67ca7e08acfe03d0db5dceba76ef8c07870ff983415513d27655ca5029e19c"
+    },
+    {
+      "path": "PA02-ordinary-blitz-entry.png",
+      "bytes": 31319,
+      "sha256": "a68093640f19ad54dd47eb50cfb3e101f0a44a443f5d209f148f19bc6b298f85"
+    },
+    {
+      "path": "PA03-countdown-title-visible.png",
+      "bytes": 329626,
+      "sha256": "e53b0f05db106f77660eec1dd7be8b8292e406c42976d761c4b2ea681d2dd3ac"
+    },
+    {
+      "path": "PA03-expired-compact-contextual-actions.png",
+      "bytes": 328830,
+      "sha256": "80030ab0ae22a8346350c07af54886f2ac53da018a237d25345a86443370de73"
+    },
+    {
+      "path": "PA03-expired-compact-visible.png",
+      "bytes": 329922,
+      "sha256": "d57f34c8f980129c813b8e277fd1152a407aba36d0925c602b022bdf99215fb1"
+    },
+    {
+      "path": "PA03-expired-expanded-visible.png",
+      "bytes": 248077,
+      "sha256": "92ffcf6b0fe7c112190004a14f33cb818e22b1bb1278b84f3a5ae85f0100a524"
+    },
+    {
+      "path": "PA03-overtime-pause.png",
+      "bytes": 249430,
+      "sha256": "50e11828806af875f0a4cf991d89a0dfc3180af64a062d018354597e5d0318d4"
+    },
+    {
+      "path": "PA03-real-extend-to-overtime.png",
+      "bytes": 249745,
+      "sha256": "fc2aad441377be904f645dd396878c3887c8079fb590f9ff08c9d49c00c197ba"
+    },
+    {
+      "path": "PA03-return-panel-after-expiry.png",
+      "bytes": 17466,
+      "sha256": "ebe01f082de4c9db268017ced8d3fd514002452edf9efc5d41e44f0f70368132"
+    },
+    {
+      "path": "PA03-skip-to-timed-task.png",
+      "bytes": 328202,
+      "sha256": "d6ed5b46d6ad86993e02382d07a90772151bdebae1a54fd4dc38d5248d4ceea7"
+    },
+    {
+      "path": "PA03-switch-controls.png",
+      "bytes": 328407,
+      "sha256": "19746d65e220fc1ad78395a9944cf37b2421b280f11ef7dbf8fb3b1d9135afd4"
+    },
+    {
+      "path": "PA04-end-hour-focus.png",
+      "bytes": 71764,
+      "sha256": "19e6f8c763d1d2724f81ae1cbb7f8552749b608b3ff2c2c412ef702791fd594b"
+    },
+    {
+      "path": "PA04-end-midnight-hour.png",
+      "bytes": 71861,
+      "sha256": "e84ee403888bf4ff53bc6da86dae613ad94209ee8fc40425360217f3803f9982"
+    },
+    {
+      "path": "PA04-end-minute-focus.png",
+      "bytes": 71693,
+      "sha256": "d1f4c2e955cb2f461caa53634a036ce760fdbebf2aa569a109c94c89cf3f7ef9"
+    },
+    {
+      "path": "PA04-footer-recovery.png",
+      "bytes": 51260,
+      "sha256": "d6d1c8e9e06efe421eb59886a165b51546c9533007210c3003e013f28d13a78a"
+    },
+    {
+      "path": "PA04-home-exit.png",
+      "bytes": 2086850,
+      "sha256": "7a7f78c29b5d5dd7c038c6544d2348e9e9aa0a16d9abc0a34520babca0d0833c"
+    },
+    {
+      "path": "PA04-lock.py.txt",
+      "bytes": 1616,
+      "sha256": "374e8d8868351981fead9eb4b375d79e529a549031c641a6847c9c25eac40070"
+    },
+    {
+      "path": "PA04-open-add-session.png",
+      "bytes": 66608,
+      "sha256": "d6fa64f5bd1562eae9ffe68b20317614ffcbe5887fbcbaa368df863b92951f67"
+    },
+    {
+      "path": "PA04-owned-one-minute-interval.png",
+      "bytes": 71772,
+      "sha256": "013292a35728eeb7df3f27c32bde5fba0fa0141758462d92f103bf0e3dabc374"
+    },
+    {
+      "path": "PA04-owned-option-visible.png",
+      "bytes": 64252,
+      "sha256": "4e825365b8508bf93df4367005359b0731303b18a86bc11929c45ce537d901e5"
+    },
+    {
+      "path": "PA04-owned-task-option.png",
+      "bytes": 70832,
+      "sha256": "6ef66b0e108df1f21ee5d5cd3a55cc59bab5de465b29f0f41f7c8eee97dac44e"
+    },
+    {
+      "path": "PA04-picker-modal-scroll.png",
+      "bytes": 69306,
+      "sha256": "c8e3bdb2d7d6633f6dd2bb0c700341ae92f94468c12874fbfd7992f5600a76e2"
+    },
+    {
+      "path": "PA04-real-pending-add.png",
+      "bytes": 68730,
+      "sha256": "965bcb9697194c3fbc67367819ab2117ce2cc57795af0cd3cbdb9df3ce6c3751"
+    },
+    {
+      "path": "PA04-real-pending-escape.png",
+      "bytes": 68964,
+      "sha256": "0485df485139612d98d5359d801b2f5e99ec396c3486aa27406ac093737b5ed5"
+    },
+    {
+      "path": "PA04-real-pending-shift-tab.png",
+      "bytes": 68964,
+      "sha256": "0485df485139612d98d5359d801b2f5e99ec396c3486aa27406ac093737b5ed5"
+    },
+    {
+      "path": "PA04-real-pending-tab.png",
+      "bytes": 68964,
+      "sha256": "0485df485139612d98d5359d801b2f5e99ec396c3486aa27406ac093737b5ed5"
+    },
+    {
+      "path": "PA04-reports-navigation.png",
+      "bytes": 51699,
+      "sha256": "7dac85059cabd81768c135b9ee04b22c663d07619febc09253d93aed7444b5ba"
+    },
+    {
+      "path": "PA04-reports-visible-footer.png",
+      "bytes": 58841,
+      "sha256": "250c0415267c95b9c30a931f8d6971a12bd7438c9d3ff5b563e33d4c55c3808e"
+    },
+    {
+      "path": "PA04-sessions-navigation.png",
+      "bytes": 51699,
+      "sha256": "feb6853d129fac63143361f4f1944f26cd1760b6369d161eac7ce3d47e551ee0"
+    },
+    {
+      "path": "PA04-sessions-tab-visible.png",
+      "bytes": 63417,
+      "sha256": "44332dc0b73d4fc0296350cf865903782be512d4b967bd8fbd21156bcaff9adf"
+    },
+    {
+      "path": "PA04-start-hour-focus.png",
+      "bytes": 71818,
+      "sha256": "e36fce9e2742d1fc85a696300490a6424352afd15321abb42185537260b545be"
+    },
+    {
+      "path": "PA04-start-midnight-hour.png",
+      "bytes": 71754,
+      "sha256": "44c3644ca82675605ef07575e8672b96551ff8cf647e07a80e0870c66d4919ae"
+    },
+    {
+      "path": "PA04-task-picker-open.png",
+      "bytes": 65642,
+      "sha256": "307c51bc4a523cb627ac22a28b3b2e31cd23ec397da0068e236cd30d644ce877"
+    },
+    {
+      "path": "PA05-close-preferences.png",
+      "bytes": 84770,
+      "sha256": "907a293aac0d60251bfb27b291bcd07339f7df03e6921e16beca665df760248d"
+    },
+    {
+      "path": "PA05-close-restored-preferences.png",
+      "bytes": 84779,
+      "sha256": "ba9a08b6048987a888611c775bc4125d997df5802d3048ed8d2478775ba893c0"
+    },
+    {
+      "path": "PA05-explicit-automatic.png",
+      "bytes": 71144,
+      "sha256": "3d75624904b3324f7b722a8b7d33850c3cd983797caf7600dc0aa9f0130aa8ae"
+    },
+    {
+      "path": "PA05-main-preferences.png",
+      "bytes": 69561,
+      "sha256": "92f9256f5575a26e1834d259712203511d82b5b87b5417a4da05f88fb6906a61"
+    },
+    {
+      "path": "PA05-named-LG-panel-125.png",
+      "bytes": 37183,
+      "sha256": "55c085759c7d71597bcc98b191a1fbd16059b137b11d79adbafd0f3748877fa5"
+    },
+    {
+      "path": "PA05-panel-preferences.png",
+      "bytes": 329829,
+      "sha256": "8b49a8d15753260dbcb4a46d276b515770913442382bfc597242de35e6d2e7df"
+    },
+    {
+      "path": "PA05-select-left-side.png",
+      "bytes": 68533,
+      "sha256": "26c22170d61ede9fd7a7a3d896e33f1a56bd261c601511a29d29e48c27fb5f9d"
+    },
+    {
+      "path": "PA05-select-named-LG-125.png",
+      "bytes": 67305,
+      "sha256": "7a4682822ceee6724d9d8ae4775b3249240c6bfdc702a76ab8c720f86c2cde48"
+    },
+    {
+      "path": "PA05-show-panel-for-monitor.png",
+      "bytes": 85121,
+      "sha256": "0cc3af703c018b70f92740a02adef563cbcfced1ec9c2862fa0bcb5e9d8b80f1"
+    },
+    {
+      "path": "PA05-topology-internal-focus.png",
+      "bytes": 37063,
+      "sha256": "b3285a93dfc9a3dcc3245f1bd062fde8107c4bf3d34c9603d9e2d8397428b464"
+    },
+    {
+      "path": "PA05-unavailable-preferences-recovery.png",
+      "bytes": 71331,
+      "sha256": "50e867fa0d30c5ee0921ce88cc3fbca956b5a2062fb01ea217ac852bbcbf3914"
+    },
+    {
+      "path": "PA05-unavailable-refresh.png",
+      "bytes": 71431,
+      "sha256": "7b122b257ff87cc3804996deda9f207459a44056d476512307d379a3f07b9294"
+    },
+    {
+      "path": "PA06-after-break-deadline-desktop.png",
+      "bytes": 2122609,
+      "sha256": "d89d0e5340cde3c703df3b4e931aaf1a2f6cd85dee66e50068382a6be2c7da07"
+    },
+    {
+      "path": "PA06-background-OBS-foreground.png",
+      "bytes": 94302,
+      "sha256": "a3b990acc22f8a7ccb778c7f13073b97acf99aaf2030858a2429eb08e3cb1795"
+    },
+    {
+      "path": "PA06-before-break-deadline-desktop.png",
+      "bytes": 2117960,
+      "sha256": "3f430a7e51bae03cff7b452b0ef90d53bd3cc74824fedf8940dd7942a2c92592"
+    },
+    {
+      "path": "PA06-break-boundary-setup.png",
+      "bytes": 27822,
+      "sha256": "93e58474016b130d236c03b438e18afdd163c2463d9dd24448a3f8a8adb1802f"
+    },
+    {
+      "path": "PA06-break-final-minute.png",
+      "bytes": 27312,
+      "sha256": "291d58a093c7de925898b027304a1df0197f1ca18f45c796622f01262e034558"
+    },
+    {
+      "path": "PA06-break-native-wait.png",
+      "bytes": 26322,
+      "sha256": "414038bf41196bca85610c815508fb65caaf35508c3aaae7ef3495c19a49cdc0"
+    },
+    {
+      "path": "PA06-break-near-end.png",
+      "bytes": 26311,
+      "sha256": "e0fe78eb328b165dc983de7d65af11d11e041a3c8f16cfc9c28981b732111711"
+    },
+    {
+      "path": "PA06-break-panel-control.png",
+      "bytes": 9081,
+      "sha256": "d3d85e35ba0489df38fc6079e4017b58c882dabe6fc0ac319aa08344028c4c93"
+    },
+    {
+      "path": "PA06-break-panel.png",
+      "bytes": 327216,
+      "sha256": "327dff1e1a3aaab598d9e06dfb545f33265aaa7bada51607452ef99040acc976"
+    },
+    {
+      "path": "PA06-break-unobstructed.png",
+      "bytes": 26322,
+      "sha256": "414038bf41196bca85610c815508fb65caaf35508c3aaae7ef3495c19a49cdc0"
+    },
+    {
+      "path": "PA06-close-preferences.png",
+      "bytes": 70354,
+      "sha256": "4bb47f41b60454aee726f25dede12fde06141b60dfe9639d4b11bcfed2ae286a"
+    },
+    {
+      "path": "PA06-enable-notification-alerts.png",
+      "bytes": 77999,
+      "sha256": "c3efd5755927d62672486bfe45c188f67879a86b2982e4eb104eea1c09b6bf99"
+    },
+    {
+      "path": "PA06-global-focus-open.png",
+      "bytes": 85750,
+      "sha256": "6256b8ab9c0e5c251ecf1cd37c88475ee1f041be06be61240dc3889ba2aae45c"
+    },
+    {
+      "path": "PA06-hover-timer-actions.png",
+      "bytes": 328407,
+      "sha256": "41952ab29ed1db8bbc852a89335ab8a4991ee6b98ad19217de398fb0b89654a7"
+    },
+    {
+      "path": "PA06-mute-home.png",
+      "bytes": 69570,
+      "sha256": "1e3ba2b6e169077fb8db751ea4544f15294d87e1a2ccc60975eaf131e2e166de"
+    },
+    {
+      "path": "PA06-mute-slider.png",
+      "bytes": 80651,
+      "sha256": "c182033c79ef4464a24cfc23246ce986480a62318279e8b7a6c8accea5530b84"
+    },
+    {
+      "path": "PA06-muted-preview.png",
+      "bytes": 67556,
+      "sha256": "44211009ee456dc840ef189360851456a55d5834d9ab564c6281fee3a5977293"
+    },
+    {
+      "path": "PA06-notification-volume.png",
+      "bytes": 82613,
+      "sha256": "a01e6722ff5bd5b1cd774860a539dde882c247a6381be096948d30b6a7a46f58"
+    },
+    {
+      "path": "PA06-open-owned-list.png",
+      "bytes": 85412,
+      "sha256": "b0916cbb58b5d2bb9c086c138c5773f02c49f1d739d76931422bf921b42081ab"
+    },
+    {
+      "path": "PA06-open-settings.png",
+      "bytes": 69867,
+      "sha256": "58ace56b0eff1d3b8f34f33227edfff94614e67af698b5a2331d4ae482111bd6"
+    },
+    {
+      "path": "PA06-preview-normal.png",
+      "bytes": 82774,
+      "sha256": "1963331c713485f6cb329b4464ebc2c4e545f00d91b86c5e86865ae5e12f01e8"
+    },
+    {
+      "path": "PA06-real-break-background.png",
+      "bytes": 26311,
+      "sha256": "e0fe78eb328b165dc983de7d65af11d11e041a3c8f16cfc9c28981b732111711"
+    },
+    {
+      "path": "PA06-real-start-break.png",
+      "bytes": 326821,
+      "sha256": "0c1f69680dc9a0bfd9aa1df9cbe20deb03fe8f8fe3d945a5c039e51c7ae40831"
+    },
+    {
+      "path": "PA06-restored-preview.png",
+      "bytes": 69269,
+      "sha256": "d6ca79bd14488134fddecff09b05a2c4fdae372d4685098f272d44cfd8b1ae9c"
+    },
+    {
+      "path": "PA06-return-board.png",
+      "bytes": 71785,
+      "sha256": "bbfd248bbd026015ee5ba5b657c66a37e686c90f86eb680a0a047287c220e1bf"
+    },
+    {
+      "path": "PA06-scroll-alerts.png",
+      "bytes": 74214,
+      "sha256": "99b53838154b89d703d93951671de752537e742104ffda56579e37547e17a368"
+    },
+    {
+      "path": "PA06-scroll-sound.png",
+      "bytes": 80959,
+      "sha256": "5b6b2a90d1f677e7cd02fadab7e131100e2e7ea0e131ed9f01e475e282d0cc0a"
+    },
+    {
+      "path": "PA06-settings-open.png",
+      "bytes": 68891,
+      "sha256": "5b9c9474703907cfb27776af05d593a999faea9a15eb6ca44c9b794501aea924"
+    },
+    {
+      "path": "PA06-volume-end.png",
+      "bytes": 69831,
+      "sha256": "92bc894eb61b8ebe42c15fb3ae97cb25bc93631c71c3bc783456c31fbb021c38"
+    },
+    {
+      "path": "PA06-volume-slider-restore.png",
+      "bytes": 69202,
+      "sha256": "9007e905c21f3f537e16c4ef12dca934bb9173193253c9b3c198d9d7e2de2558"
+    },
+    {
+      "path": "PA07-desktop-navigation.png",
+      "bytes": 2151753,
+      "sha256": "611bba54cb85cc39ef85dd6828bd81240186917328836419a9a79d6d1814ca7e"
+    },
+    {
+      "path": "PA07-enter-compact-before-quit.png",
+      "bytes": 331187,
+      "sha256": "e7532a662fd9e292ccc1fb8ebe54da587f1eb3aa97b11c5e01a1cbc4b6932c4c"
+    },
+    {
+      "path": "PA07-real-tray-menu.png",
+      "bytes": 18304,
+      "sha256": "987f6ce21d45b9d664a18fe7bf5adccb58c19a20e68d77c215d18ff46f6235a8"
+    },
+    {
+      "path": "PA07-recovery-paused-actions.png",
+      "bytes": 298700,
+      "sha256": "9905424e8a9abcce6413c59faf045f1e199736ff8b9e399088dcf7af7d3c9c2b"
+    },
+    {
+      "path": "PA07-restored-timer-visible.png",
+      "bytes": 300840,
+      "sha256": "ccc5f4b5d5863c04e674d2d72cd54ffa2cb37e95d510a61501da81df9a37d75b"
+    },
+    {
+      "path": "PA07-reveal-restored-timer.png",
+      "bytes": 71428,
+      "sha256": "31f777ccb5ab489ceb9d0f677810c797e16c670d38496fd961c3917c9692cd5f"
+    },
+    {
+      "path": "PA07-stable-topology-qualifying-drag.png",
+      "bytes": 297037,
+      "sha256": "cca152dbf0c61c2d48f63658d3eb556785a5b03846fa9d7bc72cb45c8002e8cf"
+    },
+    {
+      "path": "PA07-tray-reveal.png",
+      "bytes": 84901,
+      "sha256": "ca4e64e8f714ab7eff33447ba5e71490d26b5c49acc7f295a132e9eead890346"
+    },
+    {
+      "path": "PA08-disable-auto-launch.png",
+      "bytes": 15549,
+      "sha256": "4758f5c29cda2e6cedb0e389cf95a9b4a81f6dc7a063e0b23a80ef72fca50a61"
+    },
+    {
+      "path": "PA08-installed-nsis-launch.png",
+      "bytes": 68823,
+      "sha256": "4c0de0f1640bf2849739cffc8f47438eed33ea90389888c2edb4fe72479bd6e3"
+    },
+    {
+      "path": "PA08-no-desktop-shortcut.png",
+      "bytes": 15464,
+      "sha256": "83ef20f4daf8024b3e90e5f660519593efb5eda88d97f9573ec24cc8d486342d"
+    },
+    {
+      "path": "PA08-nsis-finish-click.png",
+      "bytes": 2149885,
+      "sha256": "bea098e88180e2edb79b93ee5a598c8e3fe65c25d13bdd72fb47ce81aaebbea7"
+    },
+    {
+      "path": "PA08-nsis-finish.png",
+      "bytes": 13603,
+      "sha256": "b3a11f52121a99fae361435be2c2d2b47845e3d5a0b84917a119338b6bb89019"
+    },
+    {
+      "path": "PA08-nsis-launch-choices.png",
+      "bytes": 15810,
+      "sha256": "f3dec8cd5438912f0bcc0d5e1b5604f38d4045a36c958c846c53b93d349259ea"
+    },
+    {
+      "path": "recording/continuous.mkv.part001",
+      "bytes": 62914560,
+      "sha256": "1e6ff5a806b5ccc07069afc720c59b0eabf7b89f647e2a7d2a43516db2a1c62c"
+    },
+    {
+      "path": "recording/continuous.mkv.part002",
+      "bytes": 62914560,
+      "sha256": "0fafd9f139f33630fe652a6763cb444f7ea7068572f2949aa898900286f3a0fa"
+    },
+    {
+      "path": "recording/continuous.mkv.part003",
+      "bytes": 62914560,
+      "sha256": "b1515b926dc7e2ba8440bd569d26149527c41fda3f59cff547e666ce8b0de830"
+    },
+    {
+      "path": "recording/continuous.mkv.part004",
+      "bytes": 62914560,
+      "sha256": "86672fd7a6264eb896eaad8b09dd9122811316f20a30f45f0e456703c027f8e4"
+    },
+    {
+      "path": "recording/continuous.mkv.part005",
+      "bytes": 53740117,
+      "sha256": "12a41f9b428a114670d7885c73bd062baa51f0fbf34e9bb96ff960920df0ff08"
+    },
+    {
+      "path": "recording/README.md",
+      "bytes": 320,
+      "sha256": "511611df647e2ab301880a2f8f30397d856c6b2861112a972bc69f42ad3c12f1"
+    },
+    {
+      "path": "recording/recording-manifest.json",
+      "bytes": 1164,
+      "sha256": "37066d80188cbcd861fd72755bdab10ab7b135f3849b18b079f149c3d3bfbe4f"
+    },
+    {
+      "path": "snapshot_domain.py.txt",
+      "bytes": 696,
+      "sha256": "967830e7b9d99f69468d370b480f01612cbc911dedef05002a465b34a6e16391"
+    },
+    {
+      "path": "tray_quit.py.txt",
+      "bytes": 1970,
+      "sha256": "b1ff475045d66af8509cf99687b8d87e882a14e5281958f957deade1027ae177"
+    },
+    {
+      "path": "uia_controls.py.txt",
+      "bytes": 1039,
+      "sha256": "865907df0a3890740107cbaa77c449cd637ee4efefb278ba10da6e76b2dc18fd"
+    },
+    {
+      "path": "uia_focus_probe.py.txt",
+      "bytes": 1881,
+      "sha256": "b8845d21dd0309bf8e10b1313fbb988a88ba2c455021d63f5c6b5e6146ade3d5"
+    },
+    {
+      "path": "windows.json",
+      "bytes": 102,
+      "sha256": "3174c20c2ba0526d6926113a42d3b24c3b5e7a2adee51fba516cc5be0e54dc6e"
+    }
+  ]
+}

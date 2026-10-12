@@ -1,0 +1,12 @@
+{"utc": "2026-10-12T23:11:33.205636+00:00", "label": "PA04-owned-one-minute-interval", "foreground": 3868734, "keys": "0x26"}
+{"utc": "2026-10-12T23:15:49.225140+00:00", "label": "PA04-real-pending-escape", "foreground": 3868734, "keys": "0x1b"}
+{"utc": "2026-10-12T23:15:49.857660+00:00", "label": "PA04-real-pending-tab", "foreground": 3868734, "keys": "0x09"}
+{"utc": "2026-10-12T23:15:50.480176+00:00", "label": "PA04-real-pending-shift-tab", "foreground": 3868734, "keys": "0x10+0x09"}
+{"utc": "2026-10-12T23:17:08.492085+00:00", "label": "PA06-mute-home", "foreground": 3868734, "keys": "0x24"}
+{"utc": "2026-10-12T23:17:10.526179+00:00", "label": "PA06-volume-end", "foreground": 3868734, "keys": "0x23"}
+{"utc": "2026-10-12T23:17:37.858007+00:00", "label": "PA06-global-focus-open", "foreground": 3868734, "keys": "0x11+0x10+0x54"}
+{"utc": "2026-10-12T23:18:57.478224+00:00", "label": "PA05-show-panel-for-monitor", "foreground": 3868734, "keys": "0x11+0x10+0x54"}
+{"utc": "2026-10-12T23:27:46.116372+00:00", "label": "PA06-background-OBS-foreground", "foreground": 1377882, "keys": "0x11"}
+{"utc": "2026-10-12T23:29:57.204645+00:00", "label": "PA07-reveal-restored-timer", "foreground": 658562, "keys": "0x11+0x10+0x54"}
+{"utc": "2026-10-12T23:30:34.736474+00:00", "label": "PA01-reduced-to-panel", "foreground": 5047890, "keys": "0x11+0x10+0x54"}
+{"utc": "2026-10-12T23:30:35.392740+00:00", "label": "PA01-reduced-to-timer", "foreground": 5047890, "keys": "0x11+0x10+0x54"}

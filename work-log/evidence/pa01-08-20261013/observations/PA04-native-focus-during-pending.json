@@ -1,0 +1,5714 @@
+[
+  {
+    "utc": "2026-10-12T23:15:48.111871+00:00",
+    "parents": [
+      {
+        "name": "Minutes End",
+        "id": "",
+        "pid": 33812,
+        "type": 50016,
+        "focused": true,
+        "rect": [
+          563,
+          558,
+          584,
+          582
+        ]
+      },
+      {
+        "name": "End",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          529,
+          548,
+          660,
+          591
+        ]
+      },
+      {
+        "name": "Add Session",
+        "id": "",
+        "pid": 33812,
+        "type": 50032,
+        "focused": false,
+        "rect": [
+          318,
+          219,
+          839,
+          699
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "Minutes End",
+        "type": 50016,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Minutes End",
+            "type": 50016,
+            "id": ""
+          },
+          {
+            "name": "End",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Add Session",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:48.296872+00:00",
+    "parents": [
+      {
+        "name": "Minutes End",
+        "id": "",
+        "pid": 33812,
+        "type": 50016,
+        "focused": true,
+        "rect": [
+          563,
+          558,
+          584,
+          582
+        ]
+      },
+      {
+        "name": "End",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          529,
+          548,
+          660,
+          591
+        ]
+      },
+      {
+        "name": "Add Session",
+        "id": "",
+        "pid": 33812,
+        "type": 50032,
+        "focused": false,
+        "rect": [
+          318,
+          219,
+          839,
+          699
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "Minutes End",
+        "type": 50016,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Minutes End",
+            "type": 50016,
+            "id": ""
+          },
+          {
+            "name": "End",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Add Session",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:48.481141+00:00",
+    "parents": [
+      {
+        "name": "Minutes End",
+        "id": "",
+        "pid": 33812,
+        "type": 50016,
+        "focused": true,
+        "rect": [
+          563,
+          558,
+          584,
+          582
+        ]
+      },
+      {
+        "name": "End",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          529,
+          548,
+          660,
+          591
+        ]
+      },
+      {
+        "name": "Add Session",
+        "id": "",
+        "pid": 33812,
+        "type": 50032,
+        "focused": false,
+        "rect": [
+          318,
+          219,
+          839,
+          699
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "Minutes End",
+        "type": 50016,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Minutes End",
+            "type": 50016,
+            "id": ""
+          },
+          {
+            "name": "End",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Add Session",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:52.689131+00:00",
+    "parents": [
+      {
+        "name": "Minutes End",
+        "id": "",
+        "pid": 33812,
+        "type": 50016,
+        "focused": true,
+        "rect": [
+          563,
+          558,
+          584,
+          582
+        ]
+      },
+      {
+        "name": "End",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          529,
+          548,
+          660,
+          591
+        ]
+      },
+      {
+        "name": "Add Session",
+        "id": "",
+        "pid": 33812,
+        "type": 50032,
+        "focused": false,
+        "rect": [
+          318,
+          219,
+          839,
+          699
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:52.944205+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:53.127198+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:53.307713+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:53.488405+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:53.670411+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:53.892048+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:54.076048+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:54.258959+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:54.439958+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:54.619962+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:54.836960+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.015971+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.201972+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.379835+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.561837+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.741838+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-12T23:15:55.979835+00:00",
+    "parents": [
+      {
+        "name": "\u2190 BACK",
+        "id": "",
+        "pid": 33812,
+        "type": 50000,
+        "focused": true,
+        "rect": [
+          342,
+          219,
+          401,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          342,
+          219,
+          1023,
+          257
+        ]
+      },
+      {
+        "name": "",
+        "id": "main-content",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          294,
+          173,
+          1071,
+          921
+        ]
+      },
+      {
+        "name": "",
+        "id": "root",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50026,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1071,
+          977
+        ]
+      },
+      {
+        "name": "Narro",
+        "id": "RootWebArea",
+        "pid": 33812,
+        "type": 50030,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      },
+      {
+        "name": "",
+        "id": "",
+        "pid": 33812,
+        "type": 50033,
+        "focused": false,
+        "rect": [
+          86,
+          109,
+          1086,
+          809
+        ]
+      }
+    ],
+    "focused_descendants": [
+      {
+        "name": "Narro",
+        "type": 50033,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50032,
+            "id": ""
+          },
+          {
+            "name": "Desktop 1",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      },
+      {
+        "name": "\u2190 BACK",
+        "type": 50000,
+        "id": "",
+        "ancestors": [
+          {
+            "name": "\u2190 BACK",
+            "type": 50000,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "main-content"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": "root"
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50030,
+            "id": "RootWebArea"
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro - Web content",
+            "type": 50033,
+            "id": ""
+          },
+          {
+            "name": "Narro",
+            "type": 50033,
+            "id": ""
+          }
+        ]
+      }
+    ]
+  }
+]

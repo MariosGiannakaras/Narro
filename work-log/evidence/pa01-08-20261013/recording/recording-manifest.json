@@ -1,0 +1,38 @@
+{
+  "original_name": "2026-10-13 01-45-45.mkv",
+  "bytes": 305398357,
+  "sha256": "5a0ac940f01e792afa1335b07e3a63e91166b65e0d943f223dc7801cdb784c03",
+  "duration_seconds": 2769.95,
+  "start_utc": "2026-10-12T22:45:45.449Z",
+  "width": 4480,
+  "height": 1080,
+  "fps": 60,
+  "audio": "AAC stereo 48000Hz",
+  "parts": [
+    {
+      "file": "continuous.mkv.part001",
+      "bytes": 62914560,
+      "sha256": "1e6ff5a806b5ccc07069afc720c59b0eabf7b89f647e2a7d2a43516db2a1c62c"
+    },
+    {
+      "file": "continuous.mkv.part002",
+      "bytes": 62914560,
+      "sha256": "0fafd9f139f33630fe652a6763cb444f7ea7068572f2949aa898900286f3a0fa"
+    },
+    {
+      "file": "continuous.mkv.part003",
+      "bytes": 62914560,
+      "sha256": "b1515b926dc7e2ba8440bd569d26149527c41fda3f59cff547e666ce8b0de830"
+    },
+    {
+      "file": "continuous.mkv.part004",
+      "bytes": 62914560,
+      "sha256": "86672fd7a6264eb896eaad8b09dd9122811316f20a30f45f0e456703c027f8e4"
+    },
+    {
+      "file": "continuous.mkv.part005",
+      "bytes": 53740117,
+      "sha256": "12a41f9b428a114670d7885c73bd062baa51f0fbf34e9bb96ff960920df0ff08"
+    }
+  ]
+}

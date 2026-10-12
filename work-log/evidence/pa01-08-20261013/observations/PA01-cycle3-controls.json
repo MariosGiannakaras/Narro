@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-12T22:56:34.419Z",
+  "accessibility": {
+    "document_text": "PA-01 persistent host untimed taskPA-01 persistent host unti…\n02:09\nStart break\nNotes\nResume\nResume\nSkip task\nComplete task\nReturn to Focus Panel\n0 of 0 subtasks complete\nSubtasks\n+\nExpand Floating Timer",
+    "focused_element": "2 pane Narro Diagnostic - Focus",
+    "tree": "Window: \"Narro - Focus\", App: narro-m7-validation.exe.\n\t0 window Narro - Focus Secondary Actions: Raise\n\t\t1 pane\n\t\t\t2 pane Narro Diagnostic - Focus\n\t\t\t\t3 pane (disabled)\n\t\t\t\t4 region Narro Diagnostic - Focus - Web content\n\t\t\t\t\t5 region\n\t\t\t\t\t\t6 region\n\t\t\t\t\t\t\t7 region\n\t\t\t\t\t\t\t\t8 region\n\t\t\t\t\t\t\t\t9 region\n\t\t\t\t\t\t\t\t\t10 region\n\t\t\t\t\t\t\t\t\t\t11 region\n\t\t\t\t\t\t\t\t\t\t\t12 region\n\t\t\t\t\t\t\t\t\t\t\t\t13 region\n\t\t\t\t\t\t\t\t\t\t\t\t14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea\n\t\t\t\t\t\t\t\t\t\t\t\t\t15 group ID: root\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t16 main\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t216 main Floating Timer\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t217 group Show Floating Timer actions\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t218 text PA-01 persistent host untimed task\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t219 group Paused: 02:09 elapsed\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t220 text 02:09\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t227 group Floating Timer actions\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t228 button Start break\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t229 button Notes\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t230 button Resume\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t234 tool tip Resume\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t231 button Skip task\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t232 button Complete task\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t233 button Return to Focus Panel\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t221 region Subtasks for PA-01 persistent host untimed task\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t222 group Floating Timer subtask summary\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t223 progress indicator 0 of 0 subtasks complete Value: 0\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t224 text Subtasks\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t225 button Add subtask for PA-01 persistent host untimed task\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t226 button Expand Floating Timer\n\t\t\t\t\t\t\t\t67 region\n\t\t\t\t\t\t68 region\n\t\t\t\t\t\t69 region\n\nDocument text: ```\nPA-01 persistent host untimed taskPA-01 persistent host unti…\n02:09\nStart break\nNotes\nResume\nResume\nSkip task\nComplete task\nReturn to Focus Panel\n0 of 0 subtasks complete\nSubtasks\n+\nExpand Floating Timer\n```"
+  },
+  "screenshots": [],
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-PA-session-20261013\\package\\narro-m7-validation.exe",
+    "id": 7276692,
+    "title": "Narro - Focus"
+  }
+}
