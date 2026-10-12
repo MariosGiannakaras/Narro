@@ -1,6 +1,15 @@
 # HANDOFF — Narro bounded implementation and exact Windows source/package accepted; native physical user-paused
 
-## CURRENT 2026-10-12 — U06 PR339 replacement exact-head CI pending after proved fixture TypeScript correction
+## CURRENT 2026-10-12 — U06 PR339 guarded merged 10/10, resulting-main Windows CI in progress
+
+**New independent U06 bounded source slice 1/1 guarded MERGED:** [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) exact source head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [exact PR-head run 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **validation/fast/Windows 3/3 SUCCESS**, GitHub expected-head SHA guarded squash merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, independently compared **10/10 source/CSS/fixture/test blob SHAs exactly identical**. Implements accessible ±12-month Reports Overview+Sessions year navigation preserving ±1 months, draft/Apply/Cancel and report read authority; Narro-local semantics, **no original Blitzit/M11 prerequisite**. Historical initial PR fast gate TS2739 fixture failure was fixed, not ignored. Previous four independent U12/U40/U35/U21 **4/4** remain accepted; U06 is **separate 1/1**, not an invented updated 5-unit denominator.
+
+**CURRENT pending source/release check:** on merged executable source `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, [resulting-main Actions run 38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) validation **SUCCESS**, fast/Windows **IN PROGRESS / NOT FINAL** when logged. Do not use older executable ZIP/narro.exe/NSIS/MSI hashes as if they represented U06. **NEXT:** examine final 3/3 run jobs, diagnose exact failure if red; on full green independently verify latest four packaged artifacts and repin `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md` and `docs/PRE_CODEX_RISK_AUDIT_2026-10-11.md`, reconcile statuses and write immutable acceptance log. [10/10 guarded-merge proof](work-log/2026-10-12-chatgpt-u06-pr339-green-guarded-merge-main-windows-pending.md). U09 source work uses same Reports code: start only with reconciled latest `main`; U22/U23 read-only Break projection follow independently.
+
+**UNCHANGED blocked gates:** physical Codex PA-01–09 **USER-PAUSED / NOT RUN**, mandatory milestones **3/10**, M10 blocked, M11 dormant/optional; user-owned Spectrum Core List Editor untouched.
+
+
+## HISTORICAL 2026-10-12 — U06 PR339 replacement exact-head CI pending after proved fixture TypeScript correction
 
 **Active source branch/PR:** [#339](https://github.com/MariosGiannakaras/Narro/pull/339) `feat/u06-reports-calendar-year-navigation` head **`9c0cea03bb85af074b35ebc293e1ad84e36bbb90`**; ten bounded React/CSS/fixture/test files. Implements accessible ±12-month year chevrons alongside existing ±1 month navigation for Reports Overview and Sessions, preserving draft Apply/Cancel, dataset/read ownership and month labels. M11/source click access **not required**; year meaning is explicitly inferred Narro-local. Previous bounded U12/U40/U35/U21 4/4 acceptance unaffected; NEW U06 0/1 accepted until exact-head 3/3 green and guarded merge.
 
