@@ -723,9 +723,9 @@
 
 .reports-overview__calendar header {
   display: grid;
-  grid-template-columns: 28px 1fr 28px;
+  grid-template-columns: 22px 22px minmax(0, 1fr) 22px 22px;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   min-height: 32px;
   text-align: center;
 }
