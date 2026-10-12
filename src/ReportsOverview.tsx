@@ -431,6 +431,12 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         onNextCalendarMonth={() => {
           setCalendarAnchor((current) => addReportMonths(current ?? reportMonthStart(appliedRange.startDateKey), 1));
         }}
+        onPreviousCalendarYear={() => {
+          setCalendarAnchor((current) => addReportMonths(current ?? reportMonthStart(appliedRange.startDateKey), -12));
+        }}
+        onNextCalendarYear={() => {
+          setCalendarAnchor((current) => addReportMonths(current ?? reportMonthStart(appliedRange.startDateKey), 12));
+        }}
         onCancelDateRange={cancelDateRange}
         onApplyDateRange={applyDateRange}
       />
