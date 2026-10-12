@@ -110,6 +110,32 @@
   gap: var(--space-1);
 }
 
+
+/* The canonical empty-search palette shows its three quick actions as compact
+   adjacent controls, not vertically stacked result rows. Keep result lists
+   unchanged and allow wrapping only if the available modal width requires it. */
+.search-palette__option-list[data-search-palette-actions="true"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option {
+  display: flex;
+  width: auto;
+  min-height: 2.5rem;
+  padding: var(--space-1) var(--space-2);
+  gap: var(--space-2);
+  background: var(--color-surface-interactive);
+}
+
+.search-palette__option-list[data-search-palette-actions="true"] .search-palette__option-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
 .search-palette__option {
   display: grid;
   grid-template-columns: 2rem minmax(0, 1fr);
@@ -293,6 +319,18 @@
 
   .search-palette__query-row {
     padding-inline: var(--space-3);
+  }
+}
+
+
+@media (max-width: 32rem) {
+  .search-palette__option-list[data-search-palette-actions="true"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option {
+    width: 100%;
   }
 }
 

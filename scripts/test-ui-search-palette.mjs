@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const palette = read("src/SearchPalette.tsx");
+const paletteStyles = read("src/searchPalette.css");
 const api = read("src/searchPaletteApi.ts");
 const shell = read("src/AppShell.tsx");
 const fixture = read("src/searchPaletteVisualFixture.tsx");
@@ -64,6 +65,29 @@ for (const [haystack, needle, label] of [
 ]) {
   requireText(haystack, needle, label);
 }
+
+// A current Blitzit v2.6.69 empty-search screenshot shows three
+// side-by-side quick actions. Source-matched quick actions may wrap on narrow
+// windows; actual search result rows must remain full-width and vertical.
+const quickActionsRule = paletteStyles.match(
+  /\.search-palette__option-list\[data-search-palette-actions="true"\]\s*\{([^}]*)\}/,
+);
+if (!quickActionsRule || !quickActionsRule[1].includes("display: flex;")
+  || !quickActionsRule[1].includes("flex-wrap: wrap;")) {
+  throw new Error("Quick actions must use a responsive horizontal group");
+}
+const quickActionButtonsRule = paletteStyles.match(
+  /\.search-palette__option-list\[data-search-palette-actions="true"\]\s*>\s*\.search-palette__option\s*\{([^}]*)\}/,
+);
+if (!quickActionButtonsRule || !quickActionButtonsRule[1].includes("width: auto;")) {
+  throw new Error("Quick action controls must not inherit full-width result styling");
+}
+requireText(paletteStyles, ".search-palette__option-list {\n  display: grid;",
+  "vertical ordinary search results remain intact");
+requireText(paletteStyles, "@media (max-width: 32rem)",
+  "responsive fallback for narrow windows");
+requireText(paletteStyles, 'grid-template-columns: minmax(0, 1fr);',
+  "single-column fallback for narrow quick actions");
 
 const awaitCreate = palette.indexOf('taskId = await createListBoardTask({');
 const publishCreate = palette.indexOf('onTaskCreated(quickTaskListId, taskId);');
