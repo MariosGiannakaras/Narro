@@ -1,5 +1,14 @@
 # TODO.md
 
+## CURRENT 2026-10-12 — U09 active source PR340, U06 merged-main Windows running
+
+- [x] U06 source **1/1 guarded merged**: PR339 exact head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [CI38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) 3/3 SUCCESS, merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, 10/10 identical blob SHAs. Prior U12/U40/U35/U21 4/4 separately accepted.
+- [ ] U06 resulting-main [run38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) 2/3 successful, Windows candidate in progress at log. New package/four SHA hashes NOT certified yet; never use older U21 physical artifact to certify U06 source.
+- [x] U09 source/UI/tests now in [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) head `3759e7e8bf388602e12874e1e42d691989a8a0f2` for real accessible chart options using existing Menu, four nonempty React visibility presets, no analytics/DB mutation. Initial [CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) validation PASS. [Immutable design/source](work-log/2026-10-12-chatgpt-u09-pr340-new-m11-independent-chart-menu-ci-pending.md).
+- [ ] **U09 0/1 CI and merge pending**: require fast+Windows exact-head 3/3, expected-head guarded merge, resulting-main 3/3, exact production artifact validation. No original Blitzit source needed. U22/U23 remain separate typed read-only Break projections, U04 destructive approval required.
+- [ ] Physical Windows Codex PA-01–09 USER-PAUSED, mandatory milestones 3/10; M10 blocked, M11 dormant optional. Spectrum Core user-owned List Editor unchanged.
+
+
 ## CURRENT 2026-10-12 — U06 exact-head green and guarded merge, resulting-main pending
 
 - [x] **New bounded U06 1/1 source/PR accepted**: [#339](https://github.com/MariosGiannakaras/Narro/pull/339) exact `9c0cea03bb85af074b35ebc293e1ad84e36bbb90` [Windows CI 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 PASS**, expected-head guarded squash merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8` and **10/10 Git blobs MATCH**. Year ±12 in Reports Overview+Sessions, normal month ±1/draft/Apply/Cancel/report read unaffected, typed tests and visual fixture. Prior 4/4 U12/U40/U35/U21 independent accepted (not quietly changed denominator).
