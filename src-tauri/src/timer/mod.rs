@@ -666,7 +666,7 @@ impl TimerEngine {
                     overtime_ms,
                     break_kind: None,
                     break_remaining_ms: None,
-            break_planned_ms: None,
+                    break_planned_ms: None,
                 })
             }
             RuntimeState::Break(break_runtime) => {
