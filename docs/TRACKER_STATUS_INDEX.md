@@ -15,6 +15,44 @@
 | Evidence-backed engineering risk | [NARRO_ENGINEERING_RISK_REGISTER.md](NARRO_ENGINEERING_RISK_REGISTER.md), [CI validation](CI_VALIDATION_STRATEGY.md) | Remediation must follow a new evidenced source/test failure; do not erase acceptance tests for easier CI |
 | Immutable implementation/evidence | `work-log/*.md`, `work-log/evidence/**`, [final U04 Windows release proof](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md) | Immutable; never rewrite or delete to tidy the repo |
 
+## CURRENT branch provenance review — 2026-10-12 (20 retained; no deletion)
+
+**User-directed repository consolidation, checkpoint 1.** Latest inspected `main` head **`fd8ee410cfd9c882160c565ab5a743420f6bd971`**, no open PRs. All **20 non-main branches** were individually compared via GitHub against this head (values `ahead / behind` are *commits relative to main*, not outstanding bugs or work units). **2 fully behind / 18 diverged**. Seven exact PR head associations were separately checked live and all seven PRs are CLOSED **without merge**; their original proposals must not override the newer validated main. No branches were deleted, rebased, force-pushed, or reused. Full prior shallow audit is in [repository hygiene review](REPOSITORY_HYGIENE_SHALLOW_PASS_2026-10-12.md).
+
+| Branch | Tip SHA (short) | Ahead / behind | PR evidence | Existing work | Safe disposition |
+| --- | --- | ---: | --- | --- | --- |
+| `analysis/blitzit-pass3-media-bridge` | `7ccd1733` | 1 / 1552 | — | Historical one-off media CI workflow | HOLD: evidence/workflow provenance |
+| `audit/20261011-focus-live-real-handler-regressions` | `89d77d53` | 0 / 402 | — | Fully behind; no unique commits | CANDIDATE for eventual retirement after owner check |
+| `audit/20261011-reports-filter-refresh-stale-order` | `55adc904` | 4 / 467 | [#325](https://github.com/MariosGiannakaras/Narro/pull/325) closed, not merged | Older ReportsSessions stale refresh fix | COMPARE with present request-revision guards; do not cherry-pick |
+| `blitzit/planning-board-forensics-20261002` | `5030ca73` | 3 / 1565 | — | Forensic notes plus old Board mutations | HOLD evidence; current board source newer |
+| `brand/pure-vector-runtime` | `92551eab` | 2 / 1850 | — | Old vector/tray build route | COMPARE against current packaging only when evidenced |
+| `evidence/ci1046-video-transfer-20261010` | `02dbf0a2` | 2 / 630 | [#308](https://github.com/MariosGiannakaras/Narro/pull/308) closed, not merged; do-not-merge | Temporary CI evidence export workflow | PRESERVE provenance; no CI re-enable |
+| `feat/m9-reports-command-api` | `4cd7b92a` | 6 / 1732 | [#204](https://github.com/MariosGiannakaras/Narro/pull/204) closed, not merged | Earlier Reports IPC API proposal | COMPARE against current Reports, not a missing feature |
+| `fix/blitzit-planning-board-parity` | `f630eb4d` | 5 / 1562 | — | Old Board state/order implementation | HOLD: check only on new reproduced regression |
+| `fix/m7-floating-time-up-extend` | `1cc7f169` | 1 / 1141 | — | Old FocusLiveActions change | HOLD: current accepted runtime supersedes context |
+| `fix/m7-visual-hold-physical` | `16be5112` | 15 / 1906 | [#191](https://github.com/MariosGiannakaras/Narro/pull/191) closed, not merged | Old M7 CI, UI and physical visuals | HOLD: ownership/physical provenance sensitive |
+| `fix/visual-fixture-ready-retries` | `cacdaab5` | 0 / 1733 | — | Fully behind; no unique commits | CANDIDATE for eventual retirement after owner check |
+| `implementation/m5-archive-source-empty-copy-20261009` | `dc5f8240` | 2 / 836 | — | Old Archived Done/List copy variant | HOLD: avoid reverting accepted U04 modal/archive |
+| `implementation/m6-b49-live-card-hover-actions-20261009` | `99ec1450` | 21 / 744 | — | Old Focus/Timer action slot and fixture changes | COMPARE only if a concrete current UI regression |
+| `implementation/m6-b50-contextual-extend-slot-20261009` | `aff40cb8` | 6 / 796 | — | Old Extend action alternative | HOLD: current Extend implementation is newer |
+| `infra/ci-learning-visual-fixture-signatures-20261009` | `8dd06096` | 5 / 830 | [#292](https://github.com/MariosGiannakaras/Narro/pull/292) closed, not merged; superseded by [#291](https://github.com/MariosGiannakaras/Narro/pull/291) | Old CI-learning probe | PRESERVE history; do not reintroduce old classifier |
+| `m1/diagnostic-event-trace` | `11e3804e` | 1 / 1570 | — | Old native diagnostic trace | HOLD: user-paused native evidence |
+| `m1/diagnostic-event-trace-v2` | `6f7247d5` | 18 / 1544 | — | Alternate native trace/CI/UI diagnostics | HOLD: original M1 and PA boundary |
+| `m1/retry-diagnostic-db-hash` | `37e1ee98` | 2 / 1514 | [#218](https://github.com/MariosGiannakaras/Narro/pull/218) closed, not merged | Diagnostic hash retry/harness alternative | COMPARE on future native evidence only |
+| `plan/m8-notification-alert-gate` | `bf68f080` | 4 / 1759 | [#196](https://github.com/MariosGiannakaras/Narro/pull/196) closed, not merged | Timer notification preference gate alternative | COMPARE only for proven preference regression |
+| `wip/m7-async-read-and-evidence-tools-20261005` | `99c2e5fc` | 5 / 1197 | — | Large local evidence tools/old fixtures | PRESERVE historical transfer tools and proofs |
+
+**Decision gate:** `0 unique commits` means an *eligible cleanup candidate*, **not** permission to delete; the owner, CI/artifact references, users of branch-specific evidence and restore route must be checked first. `diverged` means an unmerged patch exists, **not** that main lacks the feature. Do not cherry-pick or mark code missing from old PRs without inspecting today's same state-owner, tests, last accepted main CI and explicit ownership. In particular, PR #325/#204/#191/#292/#218/#196/#308 are historical closed unmerged proposals. Branch retirement/LFS/evidence migration remains **REVIEW-ONLY**, subject to specific provenance and approval, not part of this documentation commit.
+
+### No-repeat research and tracker intake rule
+
+1. **Look up an existing ID and owner before opening another tracker:** U01–U41 functional disposition → [fixed ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md); current product/source decision → [STATUS](../STATUS.md) and [audit crosswalk](AUDIT_IMPLEMENTATION_CROSSWALK.md); exact original evidence → [evidence routing map](EVIDENCE_ROUTING_MAP.md); code/CI proof → corresponding immutable `work-log/` and current source. An older screenshot/claim does not become a new unresolved Narro bug.
+2. **Record a new finding only for new reproducible evidence or a new requirement:** identify canonical existing ID (or justify new ID), source/protocol/build SHA, affected runtime owner, expected versus actual, failure classification and tests; link the prior research rather than duplicating its raw media/transcripts/notes. Distinguish functionality, exact original parity, CI and native physical acceptance.
+3. **Update the owner in place; preserve history:** one active `HANDOFF` next action, one user-facing counter, the fixed `TODO` order and concise `STATUS`. Store genuinely new immutable work logs only after substantive new evidence/implementation. Do not edit/delete old immutable records, re-open completed source acquisitions without a material conflict, or add a second active tracker for the same scope.
+4. **Prevent growth at the input:** inventory file size/retention/consumer before committing new binary diagnostics/video; prefer link to already stored exact SHA evidence. New archives need indexed canonical ownership and a documented retention decision. No evidence deletion, Git history rewrite, or migration in this phase.
+
+**Consolidation progress:** active tracker compaction **3/3 preserved**, branch metadata reviewed **20/20**, 7 closed PR associations verified, source/config/tests changed **0**. Remaining organizational tasks: owner-guided branch retention/deletion decisions **20 pending** (including 2 low-risk behind candidates), evidence-storage policy **OPEN** for ~9.4GB immutable tracked media, and script/test overlap audit **OPEN** (115 npm scripts; no weakening or cleanup by mere name resemblance). Physical milestones still **3/10**, PA-01–09 USER-PAUSED, M11 optional dormant.
+
 ## Frozen former live trackers — still preserved, not active work queues
 
 These are historic acquisition/reconciliation documents, not replacements for current source truth. Keep for provenance until a separately approved archival policy exists:
