@@ -59,7 +59,14 @@ for (const [haystack, needle, label] of [
   [donePanel, '<th scope="col">Date</th>', "archive source relative-date column"],
   [donePanel, '<th scope="col">Action</th>', "archive source action column"],
   [donePanel, "task.hasNote", "authoritative note presence drives document Info marker"],
-  [donePanel, 'data-archived-done-delete="unavailable"', "explicit deferred destructive policy"],
+  [donePanel, 'data-archived-done-delete="available"', "confirmable completed archive deletion action"],
+  [donePanel, 'action="delete-done-task"', "named modern irreversible confirmation modal"],
+  [donePanel, "deleteInFlightRef.current", "single-flight irreversible mutation protection"],
+  [donePanel, "await permanentlyDeleteArchivedDoneTaskFromSettings(deleteTarget);", "guarded user-confirmed archived Done IPC call"],
+  [api, "expectedUpdatedAt: task.updatedAt", "immutable snapshot CAS sent to typed deletion command"],
+  [rust, "pub fn permanently_delete_archived_done_task_from_settings(", "Rust archived completed task only IPC"],
+  [rust, "expected_archived_at: String", "expected archive snapshot guard"],
+  [fixture, 'mode === "done-delete-confirm"', "modal fixture mode present"],
   [api, "hasNote: boolean", "typed historical Note presence"],
   [listPanel, "await restoreListFromSettings(list.id);", "existing list restore behavior retained"],
   [listPanel, 'data-archived-list-previews="true"', "archived list preview region"],
@@ -97,7 +104,7 @@ for (const forbidden of [
   "https://",
 ]) {
   if (donePanel.includes(forbidden)) {
-    throw new Error(`Archived Done Tasks must remain read-only/local in item 26: ${forbidden}`);
+    throw new Error(`Archived Done Tasks must not call list mutation APIs or external networks: ${forbidden}`);
   }
 }
 
