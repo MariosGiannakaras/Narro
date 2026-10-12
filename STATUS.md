@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — 40/41 functional U-ID coverage, 8/9 precise gap fixes, U04 pending permission
+## CURRENT 2026-10-12 — U04 user-approved implementation PR343 underway; 40/41 general local coverage pending CI
+
+**General U01–U41 functional local implementation:** **40/41 accepted + U04 0/1 active PR (not yet CI integrated)**. **8/9 specific evidenced gaps** fixed, U04 is final outstanding ninth. Native physically accepted milestones **3/10**, **7 remain**; PA-01–09 **USER-PAUSED / NOT RUN**. [Fixed deduplicated 41-ID progress ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md); these counters are not Blitzit exact-source parity or all app features.
+
+**Explicit latest user approval:** permanently remove one archived completed task plus task-owned notes, subtasks, sessions, reminders/effects and related Reports/exports with no undo, with a modern Narro-themed confirmation modal. This permits implementation but **no live user-data deletion** in this chat. [Auditable approval + implementation and tests](work-log/2026-10-12-chatgpt-u04-user-approved-irreversible-archive-done-delete-pr343-exact-ci-pending.md). Previous product approval blocker superseded.
+
+**Active [PR343](https://github.com/MariosGiannakaras/Narro/pull/343)** branch `feat/u04-archived-done-safe-delete-confirm`, last source head `d86673b278c7de34ae7ce863c2bb82f02bf9b145`; [exact Windows CI38283243930](https://github.com/MariosGiannakaras/Narro/actions/runs/38283243930) validation SUCCESS / fast IN PROGRESS / Windows PENDING at checkpoint, not accepted. Archived-only transactional CAS, no open session/recurrence children, FK cascades and typed errors; UI existing modern accessible modal with explicit history-loss warning and Edge light/dark fixtures; no schema migrations or Spectrum Core modifications. Local build/Rust preflight NOT RUN. On 3/3 gate success guarded merge 13 changed blobs then resulting-main Windows exact 3/3, production ZIP CRC+four SHA checks and fresh physical staging identity required.
+
+**Most recent accepted executable still U23** PR342 merge `4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a`, [main CI38277579376](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376) 3/3, [genuine ZIP artifact11760996038](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376/artifacts/11760996038) CRC/fourhash previously verified. No native Windows AppData/installer operations authorized; M11 optional dormant.
+
+## HISTORICAL 2026-10-12 — 40/41 functional U-ID coverage, 8/9 precise gap fixes, U04 pending permission
 
 **Global user-requested implementation counter FIRST:** **40/41 U01–U41 Narro-local concerns functionally covered**, **1/41 U04 intentionally disabled**. Deduplicated per-ID evidence: approved locked **2**, existing function **16**, deterministic local behavior **9**, working but old-source-differing **5**, fully CI-remediated gaps **8** → **40**; U04 **1** approval-blocked. [Authoritative fixed-scope ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md). 41 historical source unknowns **41/41 reviewed**, not 41 broken app features. This total is *local functionality with safe Narro alternatives*, emphatically NOT direct current Blitzit parity, complete product or native physical validation. In particular U07 copy, U24/U25/U28/U36/U39 source differences and U37 native Time's Up still OPEN as parity/native topics.
 
