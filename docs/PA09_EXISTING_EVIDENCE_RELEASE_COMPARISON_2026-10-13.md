@@ -1,0 +1,91 @@
+# PA-09 — Existing-evidence comparison against the accepted Narro release (2026-10-13)
+
+**Status: 22/22 current-v2.6.69 static screenshots directly sampled against exact Narro release fixtures / SOURCE_PARITY_OPEN, not PA-09 PASS.** This is a bounded **current-release cross-comparison**, not another raw Blitzit source forensic pass, an M11 live audit, or Windows physical acceptance.
+
+## Identity and method
+
+- Narro executable source: guarded-merged `ec7673c921e08c83de11c986bd25fbb3600475ce` (U04 #343), exact resulting-main Windows [CI 38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) validation/fast/Windows **3/3 SUCCESS**. GitHub main at review start `efaaef26e3630ffd8f086f98a33ec9ccaea34e87`; compare between these commits reports **26 Markdown-only changed paths**, no executable/test/fixture drift. Visual artifact ID **11764194285**; packaged Focus runtime visual artifact **11764518139**; physical ZIP artifact **11765510661**.
+- Source: `reference/original-blitzit-screenshots/` and `CANONICAL_INDEX.md`: **22 current/direct v2.6.69 screenshots**, 17 help-v2.x, 7 historical; **19 original tutorial MP4s** with existing SOURCE_COMPLETE Pass-3 analysis. All 46 static references and 19 videos were reviewed previously. That is **source-inspection complete**, *not* proof that Narro's final release matches them.
+- Both real Narro artifact ZIPs were downloaded for the review. The main visual artifact contains **337 entries** and the packaged Focus runtime artifact contains **90 entries** (runtime frames/checkpoints/metadata). Do not mistake Edge visual fixtures for real user-desktop HWND, monitor, OS audio/notification, or installer acceptance.
+- Comparison rules: use the newer screenshot for visual appearance but attribute video motion/behavior to the version in which it was captured. A screenshot only proves its visible state, not the result of clicking a visible control. Different viewport, test data, selected list, task titles, theme, DPI, open menus, clock, or active timer **disallow direct pixel-difference PASS/FAIL**. Identifiable appearance differences must be assessed for intentional Narro-local design versus demonstrable missing feature; do **not** automatically rewrite a functional area to resemble an older Blitzit version.
+- Protected exception: user-approved Spectrum Core List Editor picker, image upload and 218 offline icons must remain unchanged in functionality and appearance. M11 live original Blitzit is **not** activated by this offline inspection. PA-01–08 remain USER-PAUSED; no install/launch or user AppData changes.
+
+## Directly inspected current-source ⇄ release-capture sample
+
+The following paired files were actually opened and visually compared during this pass; these statements do **not** assert pixel-perfect parity.
+
+| Current Blitzit v2.6.69 reference | Narro resulting-main capture | Factual bounded result | Disposition |
+| --- | --- | --- | --- |
+| `current-v2.6.69-home-dark.png` (2559×1079) | `home-dark.png` (visual ZIP) | Both show a dark Home screen, list navigation and list-card summaries. Source is a full desktop capture with different content; Narro fixture uses a smaller app viewport and different task/list data, with visibly different header/navigation/card placement. | **APPEARANCE DIFFERENCE OBSERVED; NOT like-for-like or automatically a bug**. Align viewport/state before any geometry fix. |
+| `current-v2.6.69-focus-panel-full.png` (294×727) | `focus-panel-dark.png`, `focus-panel-runtime.png` | Both show Today/EST/completion, current task and subtasks. Source crop and Narro fixture have visibly different width/content and task states. Packaged runtime captures do not imply current-source motion character parity. | **PARTIAL structural comparison only**; no invariant or regression proven from crop widths. |
+| `current-v2.6.69-floating-timer-collapsed.png` (363×162) | `floating-timer-dark.png`, `floating-timer-runtime.png` | Both expose task title, clock and subtask affordance; source includes desktop context, Narro fixture black padding/capture region. | **PARTIAL**; isolate actual window bounds, theme and active task before comparing dimensions. |
+| `current-v2.6.69-floating-timer-expanded-subtasks.png` (418×310) | `floating-timer-expanded-dark.png`, `floating-timer-expanded-runtime.png` | Both represent an expanded subtask presentation, but source has a different selected state/content. | **PARTIAL**, no source interaction/motion PASS. |
+| `current-v2.6.69-reports-overview-chart-tooltip.png` (2559×1079) | `reports-overview-dark.png` | Reports/metrics/chart structure represented, but data, chart selection and tooltip state differ. | **NOT COMPARABLE for exact tooltip/chart state**, require aligned fixture. |
+| `current-v2.6.69-archived-done-tasks-filter-empty.png` (2559×1079) | `archive-done-empty-dark.png`, `archive-done-filter-dark.png` | Both represent Archived Done and associated filters/empty data, but one original screenshot contains an open list-filter popover while distinct Narro fixtures represent separate states. | **Split comparison required**; do not interpret different popover state as a defect. |
+
+### Current-v2.6.69 references mapped but not yet source-to-release accepted
+
+The **16** initially unreviewed current/direct screenshot references have candidate fixtures: five were subsequently inspected in the first follow-up and the remaining eleven in the second follow-up below. **All 22/22 current v2.6.69 screenshots have now been directly sampled**, but like-for-like visual, interaction, motion and native parity are NOT accepted. in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
+
+| Reference ID | Candidate Narro visual filename(s) |
+| --- | --- |
+| SS-C01 Create List dialog | `list-editor-create-dark.png` (approved exception; no parity-driven modification) |
+| SS-C02 Reports date-range picker | `reports-date-picker-dark.png` |
+| SS-C04 Create List tile | `home-dark.png` (tile presence/scroll position not established) |
+| SS-C05 List hover/overflow | `list-card-states-dark.png`, `list-settings-archive-dark.png` |
+| SS-C06 Search palette | `search-palette-empty-dark.png` (same empty-query quick-actions state; `search-palette-results-dark.png` represents a different state) |
+| SS-C07 Preferences general | `theme-settings-preferences-upper.png` |
+| SS-C08 Preferences Blitz alerts | `theme-settings-preferences-middle.png` |
+| SS-C09 Preferences celebrations | `theme-settings-preferences-lower.png` |
+| SS-C10 Archived Lists empty | `archive-lists-empty-dark.png` |
+| SS-C13 Reports lower panels | `reports-lower-dark.png` |
+| SS-C14 Sessions dashboard empty | `reports-sessions-empty-dark.png` |
+| SS-C15 Reports list filter open | `reports-list-filter-dark.png` |
+| SS-C16 Home light list hover | `home-light.png` (hover state may not match) |
+| SS-C17 Windows Shortcuts dialog | **NO matching standalone modal image in accepted CI 38287299890**: `theme-settings-shortcut-conflict.png` captures Preferences, not the dedicated modal. [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds source-backed `theme-settings-shortcuts-dialog-dark/light.png` captures and DOM validation; **Current PR head `6e9f022cd8eaeddd6d50d4ac4a547df84a16aed6`, [run 38318531339](https://github.com/MariosGiannakaras/Narro/actions/runs/38318531339) PENDING, not accepted in main**. |
+| SS-C21 Focus Notes expanded | `focus-panel-notes-expanded-dark.png` |
+| SS-C22 Sessions task detail inline edit | `reports-sessions-detail-dark.png` |
+
+### Five additional source/release states inspected on 2026-10-13
+
+- **SS-C02 Reports date-range picker:** original 750×494 crop versus real `reports-date-picker-dark.png`. Both visibly present two month calendars, a left preset rail and Cancel/Apply; their viewport, chart background and selected state differ. **Structural consistency observed; actual picker interaction parity and pixel match NOT VERIFIED.**
+- **SS-C05 List hover/overflow:** original 354×372 crop versus real `list-card-states-dark.png`. Both visibly expose Edit List, Duplicate, Archive List on a list card; dimensions/list contents differ. **No missing menu action demonstrated by these images; exact hover geometry OPEN.**
+- **SS-C06 Search empty command palette:** original source shows an empty query and quick-action affordances. Initial pairing to `search-palette-results-dark.png` was **incorrect** because that fixture contains typed search results. The correct same-state candidate `search-palette-empty-dark.png` was opened and shows the three quick actions; layout/viewport differ. **Basic feature structure consistent; exact parity OPEN.**
+- **SS-C17 Windows Shortcuts standalone modal:** source current screenshot directly shows a *separate light closeable modal* with three global toggleable and seven in-app fixed shortcuts. Accepted `theme-settings-shortcut-conflict.png` is **not this dialog**, despite the former Windows CI validator mentioning “Windows shortcuts”. The production `src/WindowsShortcutsDialog.tsx` exists but lacks its own dedicated captured modal screenshot in the accepted visual ZIP. This is a **confirmed visual regression coverage gap**, not proof of an application shortcut malfunction. A narrow [source PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds production-dialog-backed screenshot+DOM coverage for both themes. **NOT yet CI accepted.**
+- **SS-C22 Sessions task detail and inline edit:** source uses a perspective desktop photograph with live task edits; Narro `reports-sessions-detail-dark.png` shows the task-detail/session list and inline edit on fixed fixture data. **Shared basic UI concepts; not an identical state or physical input/commit test.**
+
+### Additional confirmed CI visual-evidence failure
+
+The **previous accepted resulting-main visual ZIP 11764194285** has two `1280×720` theme fixture images that contain **only RGB (236,236,236)** across every pixel: `theme-settings-preferences-middle.png` and `theme-settings-preferences-lower.png` (each 4,255 bytes). The corresponding DOM validators previously returned PASS because the sections existed in the off-screen DOM, so the earlier visual acceptance claim does **not** prove the screenshots for those two states were actually captured. This is a **confirmed visual-test/capture-tooling defect**, not yet evidence that the production preferences screen is blank.
+
+[PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) now also replaces screenshot-unsafe `scrollIntoView` with fixture-only placement that keeps the selected section within the Edge screenshot viewport, and validates actual decoded PNG scanline-data diversity for upper/middle/lower and dedicated Shortcuts dialog captures. The PNG visibility guard was independently checked against the original accepted ZIP: **upper PASS**, **middle FAIL**, **lower FAIL**, as required. **Replacement Windows CI is PENDING; neither new capture nor actual application behavior is accepted yet.** This is a correction to evidence integrity, not a reason to weaken visual validation.
+
+### Remaining eleven current screenshots: direct release-artifact comparison
+
+This completes **22/22 current-v2.6.69 static source images opened and cross-checked against real Narro release capture candidates**, not 22 source-parity PASS.
+
+- **SS-C01 Create List:** original Create List modal versus `list-editor-create-dark.png`. Narro deliberately uses the user-approved Spectrum Core picker/image/icons. **Protected Narro-local deviation; no appearance/function changes allowed.**
+- **SS-C04 Create List tile:** source dashed Create List tile is **present** in Narro `list-card-states-dark.png`; the earlier small `home-dark.png` crop alone did not establish its absence. **Corrected the potential false missing-control inference.** Exact gradient proportions/click behavior not proven equal.
+- **SS-C07 Preferences general:** source and Narro `theme-settings-preferences-upper.png` both include monitor/Blitz Panel/general controls; original screenshot is dark and Narro fixture is system/light with different viewport and scroll position. **Partial structural comparison only.**
+- **SS-C08 Preferences Blitz alerts and SS-C09 Preferences celebration:** source settings are visible; accepted Narro `theme-settings-preferences-middle.png` and `theme-settings-preferences-lower.png` are **completely blank images** despite DOM validator PASS. **Broken screenshot evidence**, not proof production Preferences are blank; await actual replacement imagery from PR #345.
+- **SS-C10 Archived Lists empty:** source and `archive-lists-empty-dark.png` expose Archived Lists/empty state; source shell and fixture viewport differ. **Structural comparison only.**
+- **SS-C13 Reports lower panels:** source and `reports-lower-dark.png` show productivity/lower report sections; sample data and chart viewport differ. **Structural only.**
+- **SS-C14 Sessions dashboard empty:** source and `reports-sessions-empty-dark.png` show Sessions empty data/controls but numerical task/session fixture values differ. **No metric defect inferred from different datasets.**
+- **SS-C15 Reports list filter:** source anchored multi-list filter versus `reports-list-filter-dark.png`; controls are comparable but selected-list semantics/event lifecycle are not established from screenshots. **Not click-semantics PASS.**
+- **SS-C16 Home light list hover:** source shows a hovered list Open overlay; Narro `home-light.png` has no matching hover but `list-card-states-light.png` contains related list states. **Not same-state; missing Open behavior not established.**
+- **SS-C21 Focus Panel notes expanded:** source Focus inline notes versus `focus-panel-notes-expanded-dark.png`; both show notes but content, widths and selected states differ. **No exact visual/motion parity claim.**
+
+### Existing packaged Windows Focus motion: explicit evidence limit
+
+The original [resulting-main packaged Focus visual artifact 11764518139](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11764518139) has `panel-to-timer-runtime/frames.json` and `timer-to-panel-runtime/frames.json` with native-screen motion samples and state manifests. Both report `start.prefersReducedMotion: true` and `settled.prefersReducedMotion: true`. This verifies that the release artifact does **not** provide a like-for-like *normal-motion* comparison to the original Blitzit MP4 transitions. It is useful Windows packaged diagnostic evidence only; the original 19-video source timing analyses and native HWND/physical PA judgments remain separate. **Do not claim normal-motion source parity from these existing frames**.
+
+**Remaining PA-09 work:** inspect replacement standalone Shortcuts and Preferences nonblank captures from PR #345; measure like-state/pixel differences only when data, theme and viewport align; reconcile existing 19 source-video Pass-3 timing/interaction evidence with Narro runtime by video version. Contemporary unseen Blitzit behavior stays SOURCE_OPEN without blocking Narro-local functionality; M11 optional, native physical PA USER-PAUSED.
+
+**Previously completed work not to repeat:** Pass-3 source forensic 46/46 and 19/19, visual system 8/8, original U01–U41 local coverage 41/41, 9/9 actual code gaps, resulting-main Windows 3/3 and artifact CRC/SHA identity. **Still not done:** final-build like-for-like review of all 22 current screenshots, applicable source-version-labelled video-motion parity matching, exact-source interaction parity for unsupported hidden clicks, and separate real Windows physical PA acceptance. These statuses must not be conflated.
+
+## Corrections and acceptance boundary
+
+1. **Correct the prior mistaken blocker:** An **offline PA-09 existing-evidence review can and should proceed without live Blitzit/M11**. Only *claims specifically requiring unseen contemporary original behavior* remain SOURCE_OPEN; optional M11 is never required for Narro local functionality.
+2. **Do not mark PA-09 PASS** for having 46/46 pictures, 19/19 videos or a passing Windows visual-regression suite. Distinguish (a) original SOURCE_COMPLETE, (b) Narro local IMPLEMENTED/AUTOMATED PASS, (c) historical/source-version-limited paired PARITY, (d) native physical PASS.
+3. **No confirmed Narro product behavior defect from the source-to-screenshot comparisons**: different screenshots/states are not evidence of broken Narro controls. Do not create speculative geometry/CSS fixes, rewrite functional behavior or touch protected Spectrum Core.
+4. **Next concrete independent action:** first validate PR #345 exact head and inspect the new standalone-modal Windows screenshot once its CI exists. Then reconcile the already-sampled 22 source screenshots where an exact aligned state/viewport is still unavailable, and *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.

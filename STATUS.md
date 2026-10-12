@@ -8,9 +8,17 @@
 
 **One next action:** finish the real break notification capture due about UTC23:27:57, then normal tray Quit/relaunch and available safe installer checks. Freeze/publish all media/logs and restore original profiles; only then aggregate analysis and confirmed fixes. Mandatory milestones remain 3/10; no M10 entry progress.
 
-## Historical 2026-10-12 consolidation snapshot — owner and physical pause superseded above
 
-## Recorded 2026-10-12 — Original 41 U-ID Narro-local functionality 41/41 and actual code-gap shortlist 9/9 accepted
+**Concurrency boundary:** Preserve the independent PR344/345/346 source workstream below; physical PA-01–08 authorization/owner and exact frozen EXE are stated above. Older pause/next-action text below describes that other owner snapshot and does not cancel this user-resumed acquisition. Do not duplicate those PRs.
+
+## Concurrent source-owner checkpoint 2026-10-13 — source-scoped PA-09 correction without M11 activation
+
+**General U01–U41 Narro-local 41/41; original nine actual code gaps 9/9 accepted; native milestone 3/10 physically accepted, 7 pending.** The 46/46-source screenshot and 19/19-video Pass-3 forensics was already complete; **22/22 current v2.6.69 reference screenshots have now been directly sampled against the exact last accepted Narro release** in [PA-09 paired source review](docs/PA09_EXISTING_EVIDENCE_RELEASE_COMPARISON_2026-10-13.md). This is **not** an overall PA-09 source-parity PASS: different viewport/data and motion/hidden-click evidence remain OPEN. Existing completed source inspection does NOT require activating optional M11 for an offline comparison. Native Windows PA-01–09 remain USER-PAUSED/NOT RUN; no install, run or AppData modification.
+
+Confirmed **visual-validation defects, not proven app-feature defects**: (a) source SS-C17 dedicated Windows Shortcuts modal had no corresponding actual standalone modal visual capture (prior Preferences shortcut-section capture was misidentified); (b) two supposedly accepted Preferences middle/lower screenshots in resulting-main artifact11764194285 were entirely uniform RGB236 despite DOM validator PASS. Complete scan of 166 visual PNGs found **exactly 2 uniform**, and 63 packaged Focus runtime PNGs **0 uniform**. [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) head `6e9f022cd8eaeddd6d50d4ac4a547df84a16aed6`, [replacement CI run38318531339](https://github.com/MariosGiannakaras/Narro/actions/runs/38318531339) **PENDING / NOT 3/3 PASS** adds real-modal fixture capture and fail-closed actual screenshot pixel-content checks, with original old-image guard self-test expected PASS upper / FAIL middle+lower. [Independent PR #344](https://github.com/MariosGiannakaras/Narro/pull/344) for obsolete C5-only physical checklist remains separately owned; do not duplicate or take over. Original last accepted executable remains U04 `ec7673c921e08c83de11c986bd25fbb3600475ce` / resulting-main CI38287299890 3/3 PASS, unaltered by evidence-only documentation.
+
+
+## Historical 2026-10-12 — Original 41 U-ID Narro-local functionality 41/41 and actual code-gap shortlist 9/9 accepted
 
 **Γενική Narro-local λειτουργική κάλυψη U01–U41: 41/41, 0/41 συγκεκριμένα λειτουργικά ευρήματα εκκρεμή.** **Επιμέρους πραγματικά επιβεβαιωμένα κενά 9/9 διορθωμένα**, 0/9 εκκρεμή. Οι 41 κατηγορίες ήταν ιστορικές αβεβαιότητες, όχι 41 bugs ή όλο το app, και τα 41/41 **δεν σημαίνουν** πιστοποιημένη ακριβή πιστότητα στην τρέχουσα Blitzit ούτε φυσική Windows αποδοχή. [Fixed unique U-ID ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
 
