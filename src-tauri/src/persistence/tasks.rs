@@ -710,15 +710,15 @@ pub fn permanently_delete_archived_done_task(
 ) -> Result<(), TaskStoreError> {
     let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let task = get_task(&tx, id)?;
+    if task.completed_at.is_none() || task.archived_at.is_none() {
+        return Err(TaskStoreError::NotArchivedDone(id));
+    }
     if task.list_id != expected_list_id
         || task.updated_at != expected_updated_at
         || task.completed_at.as_deref() != Some(expected_completed_at)
         || task.archived_at.as_deref() != Some(expected_archived_at)
     {
         return Err(TaskStoreError::StaleArchivedDoneSnapshot(id));
-    }
-    if task.completed_at.is_none() || task.archived_at.is_none() {
-        return Err(TaskStoreError::NotArchivedDone(id));
     }
     let parent_archived_at: Option<Option<String>> = tx
         .query_row(
