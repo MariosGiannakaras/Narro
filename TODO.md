@@ -1,5 +1,14 @@
 # TODO.md
 
+## CURRENT 2026-10-12 — U06 live PR339 0/1 CI pending; M11-independent
+
+- [x] **U06 source/fixture/test implementation on PR [#339](https://github.com/MariosGiannakaras/Narro/pull/339)** replacement head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`: year ±12 calendar navigation Overview+Sessions; single month ±1 and draft Apply/Cancel preserved; registered Reports tests expanded. Previous bounded campaign U12/U40/U35/U21 **4/4** independently accepted.
+- [x] **First failing CI diagnosed exactly:** initial head `e727a265...` Windows run [38239291191](https://github.com/MariosGiannakaras/Narro/actions/runs/38239291191) validation PASS, fast TS2739 missing required year handlers in Sessions fixture, Windows SKIPPED. Fixed exactly two fixture-prop bindings, no domain/test weakening; [immutable log](work-log/2026-10-12-chatgpt-u06-pr339-exact-ts-fixture-failure-correction.md).
+- [ ] **U06 0/1 accepted pending** replacement exact-head [run 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) validation PASS, fast/Windows pending at recorded checkpoint. Require Windows validation/fast/candidate 3/3, live expected-head guarded merge, source blob matching, resulting-main CI. No native PASS claim.
+- [x] **Read-only U09 parallel analysis** complete in [shared-owner log](work-log/2026-10-12-chatgpt-u06-pr339-ci-pending-u09-shared-owner-review.md); U09 changes same Reports files and must wait for U06 reconciliation, not start a parallel stale branch. U22/U23 Focus Break read projections separately data-model-dependent.
+- [ ] Physical Codex PA-01–09 **USER-PAUSED**, mandatory milestones **3/10**; M10 blocked, M11 optional/dormant; user-approved Spectrum Core List Editor untouched.
+
+
 ## CURRENT 2026-10-12 — 41-audit follow-up independent of optional M11
 
 - [x] **User-confirmed functional policy:** Narro must be usable without any future live Blitzit audit. M11 is **optional**, not an implementation/CI/M10 native-acceptance prerequisite. For unknown original behavior choose a coherent, tested, keyboard-accessible Narro-local contract; do not silently omit user actions. Proven source behavior is still the default visual target, not a license for speculative domain rewrites.
