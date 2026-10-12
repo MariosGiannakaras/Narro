@@ -24,6 +24,12 @@
 - [x] Check stale `CODE PROPOSED`/historical PR claims against live GitHub: `#286, #293, #294, #295, #298, #300, #262, #269, #272` are **all MERGED**, despite older roadmap lines still presenting proposals/unchecked source parity. Their still-open per-row native/source acceptance is **not** proved by merge. Preserve historical wording as dated evidence, superseded for live source identity by [STATUS](STATUS.md) and merge history.
 - [ ] **Remaining distinct gate, USER ACTION REQUIRED**: Codex native **PA-01–09 USER-PAUSED/NOT RUN**, and **7/10** mandatory milestones not fully physically accepted. No installation, app start or AppData. Modern-original Blitzit comparison remains optional M11; full application completeness is not proven by the 41 reviewed uncertainty IDs. Do not start new coding solely to clear a stale/unknown-source checkbox. [Full hygienic pass evidence](docs/REPOSITORY_HYGIENE_SHALLOW_PASS_2026-10-12.md).
 
+### 2026-10-12 consolidation Phase B — verified, non-destructive
+
+- [x] Reuse the existing branch/tracker index to classify two fully-behind ancestor refs, old Reports [PR325](https://github.com/MariosGiannakaras/Narro/pull/325) and M1 diagnostic branches by actual change/consumer (not inferred feature gaps). **20/20 remote branch metadata reviewed**, **0/20 owner-authorized retirements**, **0 branches deleted**. [Specific proven dispositions](docs/TRACKER_STATUS_INDEX.md) and [immutable evidence](work-log/2026-10-12-chatgpt-consolidation-phase-b-branch-consumers-and-test-overlap.md).
+- [x] Confirm real npm script families: **115 scripts / 98 tests**, all tests CI-reachable, no identical command strings; **no test removal** without semantic assertion/coverage equivalence.
+- [ ] **Separate future approval gate:** review named branch owner/consumers and decide whether to retire either zero-unique-commit ancestor branch. Old Reports PR325 has *unproven* current-main filter/mutation timing risk: reproduce before treating as new app-code task. Immutable 9.4GB evidence storage/migration requires approved manifest, reference/restore and checksum preservation. Native PA-01–09 USER-PAUSED; M11 optional dormant.
+
 ## Historical checkpoint archive — 2026-10-12
 
 The 822 lines of obsolete interim implementation/CI checkpoints previously inserted **ahead of the canonical roadmap** have been moved out of the active read path. The [full exact pre-cleanup TODO snapshot](work-log/tracker-archives/2026-10-12-TODO-before-hygiene.md) has a **byte-identical Git blob** and retains every original checkpoint, milestone, proposed task, counter and decision for audit; this file retains the intact mandatory 1–10 milestone dependency/checklist sections plus the explicitly optional M11 and Final Comprehensive Review below. Do not count a historical checklist box as a current open gap; the current block above is authoritative.
@@ -816,7 +822,7 @@ Do not implement these until Milestones 1–10 and the Final Comprehensive Revie
 - partial-completion/day-by-day accounting
 - bulk task operations
 
-## 2026-10-05 03:43Z — verified CI953 and separate read-worker WIP
+## HISTORICAL 2026-10-05 03:43Z — verified CI953 and separate read-worker WIP (not current instructions)
 
 CI953 is now full PASS on frozen38219e20; artifact11324640580 ZIP7720c2de and EXEbde7646d SHA256 verified. This candidate covers pointer/menu/wrapping only. New local unpushed07 WIP uses async Home/board commands plus a shared spawn_blocking read worker, preserving DTO/errors/domain reads; Home/board contracts and Rust formatting PASS. Actual blocked-SQLite yielding/result and error-preservation tests are added but not compiled locally (MSVC linker unavailable). CI953 does not validate that WIP. Use the frozen953 candidate for affected125% physical checks, batch any substantiated findings with07 before the next exact build. Current LG only; Duplicate->Extend did not restore unavailable UltraGear. M7 remains4/5/C4 open;4/10M ||4/5 |14/19, M10 blocked/M11 dormant.
 
