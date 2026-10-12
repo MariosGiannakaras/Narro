@@ -1,0 +1,20 @@
+# 2026-10-12 — U22 resulting-main Windows candidate attempt 2 fully accepted, original archive and 4 SHA256 independently verified
+
+**Source provenance:** U22 PR [#341](https://github.com/MariosGiannakaras/Narro/pull/341), accepted PR head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, exact [PR-head CI38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) **3/3 SUCCESS**; guarded squash executable merge `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`, **12/12 matching changed Git blobs**. Comparing executable merge SHA with then-current main `d9353b09b2f28f0deb86782de6311c469bbcc0db`: **19 ahead/0 behind, only Markdown changed**, no executable/test/harness change.
+
+**Exact resulting-main run** [38262440802](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802) `push` at executable SHA `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`. **Attempt 1** historical Windows failure: Finding33 real Edge/CDP `Page.navigate` timed out; first failure and downstream skipped artifacts preserved in [diagnostic causal log](2026-10-12-chatgpt-u22-merged-main-windows-cdp-finding33-failure-attempt2-retry.md). Retried **only Windows job** 114857215523. **Attempt 2 completed 2026-10-12 15:07:27Z, SUCCESS across 3/3 jobs:** validation `114864944972`, fast `114864945720`, windows-candidate `114864945006` all COMPLETED SUCCESS. Attempt 1 remains FAIL; attempt 2 is a separate final run attempt, **not proof that the initial timeout root cause was eliminated**.
+
+**Production original** [artifact #11755845732](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802/artifacts/11755845732) (`narro-m7-physical-windows-x64`), obtained through GitHub Actions connector and independently inspected as actual 15,341,308-byte ZIP:
+
+| Artifact | Uncompressed bytes | Full SHA256 |
+| --- | ---: | --- |
+| Original ZIP `narro-m7-physical-windows-x64` | 15,341,308 | `334e604c2353c590810104b20bedce870df86e93b07a29868310e9765ce5626f` |
+| `narro.exe` | 15,906,816 | `664fe1815c8f047ef544986337fc3f11dc28ca334604be7692f672eeadfcf408` |
+| `bundle/nsis/Narro_0.1.0_x64-setup.exe` | 4,105,024 | `953895c98495ce17fa277c4afc74711a67352fc474cc0fbe225ccbefa4916283` |
+| `bundle/msi/Narro_0.1.0_x64_en-US.msi` | 5,799,936 | `cebf87dede01aa1d5e968b95fbdfb072cb787671795775215bc8e8f49f55ad58` |
+
+ZIP **CRC PASS** (`ZipFile.testzip() -> None`), exactly **three** entries, embedded binary magic valid `MZ/MZ/D0CF11E0`. Independently computed ZIP digest **exactly matches** GitHub artifact digest `sha256:334e604c2353c590810104b20bedce870df86e93b07a29868310e9765ce5626f`. Runtime Focus visual [artifact 11754663519](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802/artifacts/11754663519) and visual regression [artifact 11754379161](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802/artifacts/11754379161) were produced within the successful Windows CI, but have not been independently CRC/hash checked here; no fabricated additional verification.
+
+**Scope accepted:** U22 source **1/1 guarded merged** and U22 resulting-main Windows release **3/3 with real production artifact integrity**. Prior independent coding units U12/U40/U35/U21 **4/4**, U06 **1/1**, U09 **1/1** unchanged. This does **not** establish native Windows PA-01–09, installer launch, AppData integrity, original Blitzit source parity, or any of the 7 remaining mandatory physical milestone acceptances. PA-01–09 USER-PAUSED / NOT RUN; mandatory physically accepted milestones **3/10**, M10 blocked; optional M11 strictly dormant. Spectrum Core List Editor picker/upload/218 icons unchanged.
+
+**Next:** repin `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`, `docs/PRE_CODEX_RISK_AUDIT_2026-10-11.md` to *this* ZIP and EXE hash; reconcile HANDOFF/TODO/STATUS/register; next independent coding source U23 planned Break read-only estimate with regression tests and exact-head Windows PR gates. No physical Windows installation or native PA without explicit resumed authorization.
