@@ -1,6 +1,12 @@
 # Current Windows residual physical session
 
-## CURRENT 2026-10-12 — U09 final merged-main Windows production ZIP, CRC and four SHA256 VERIFIED; native PA user-paused
+## CURRENT 2026-10-12 — U22 is newest merged executable; no source-matched physical candidate yet
+
+**Do not stage or run the historical U09 package as the latest Narro build.** Newest merged executable/source is U22 [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) merge `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`, validated exact PR-head [CI38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) **3/3 PASS** / 12/12 blobs. Its [merged-main CI38262440802](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802) attempt **1 FAILED** in Windows Finding33 real Edge CDP `Page.navigate` timeout; validation/fast PASS. Targeted Windows rerun **attempt 2 IN PROGRESS / NOT PASS** at last checked 2026-10-12 14:43 UTC. **No U22 merged-main production ZIP/narro.exe/NSIS/MSI hashes exist yet**. [Immutable exact failure and rerun record](../work-log/2026-10-12-chatgpt-u22-merged-main-windows-cdp-finding33-failure-attempt2-retry.md).
+
+The U09 production ZIP and four hashes in the next **HISTORICAL** section are authentic for U09 source `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1` **only**. The historical staging command with U09 `-ExpectedSha256` must not be reused to claim U22 physical readiness. On full U22 resulting-main CI 3/3 PASS, independently CRC/hash the **actual new** ZIP and all three contained EXE/NSIS/MSI files and replace the current pin; otherwise diagnose exact failure. Native physical PA-01–09 remains **USER-PAUSED / NOT RUN**; no launch/install/AppData change. Mandatory physically accepted milestones **3/10**, M10 blocked, M11 optional/dormant. User-approved Spectrum Core picker/image/218 offline icons unchanged.
+
+## HISTORICAL 2026-10-12 — U09 final merged-main Windows production ZIP, CRC and four SHA256 VERIFIED; native PA user-paused
 
 **Authoritative newest executable source:** U06 [#339](https://github.com/MariosGiannakaras/Narro/pull/339) and U09 [#340](https://github.com/MariosGiannakaras/Narro/pull/340), both exact PR-head Windows **3/3 PASS** and expected-head guarded merged, U06 10/10, U09 7/7 source/test Git blobs identical. Final combined executable merge **`2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`**, [resulting-main Windows CI 38248985335](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335) **validation/fast/windows-candidate 3/3 COMPLETED SUCCESS**. Newer current-main commits after this executable source affect Markdown only. Full [immutable validation, image and release hash proof](../work-log/2026-10-12-chatgpt-u06-u09-final-combined-main-threejob-fourhash-accepted.md).
 
