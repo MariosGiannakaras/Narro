@@ -33,6 +33,28 @@ When a later validated event supersedes a current-state claim:
 A zero-context agent must not need to infer which of two contradictory "current" statements is newer.
 
 
+## Resumed-turn continuity and anti-duplication protocol (binding)
+
+**Distinguish a new zero-context takeover from a continuation of an ongoing task.** A user follow-up, "συνέχισε", "κόλλησες" or "ολοκλήρωσες;" does not erase an existing branch/PR/CI task or require the full onboarding discovery again. The latest user request overrides normal repo access: if it explicitly forbids repository inspection, do not query GitHub for that request. The next explicit repo-work request may authorize it again.
+
+**Resumption state machine (minimal live check, then action):**
+
+| Last confirmed state | Next permissible action | Prohibited repeat |
+| --- | --- | --- |
+| Tool call interrupted or result absent | Read exact target commit/branch/PR/run to determine whether side effects already happened; only retry if absent with current SHA guard | Assuming failure or duplicating a completed write/PR/merge |
+| Existing branch/PR + exact CI RUNNING | Record run ID/head/known active gate and do independent non-overlapping work; re-check when a result is needed or substantive time/work has passed | Repeated identical status calls, new branch for same slice, speculative code changes |
+| Exact PR-head CI FAIL | Fetch actual first failing job, step and logs; classify root and apply minimal evidence-backed fix to existing PR, add/adjust regression coverage; replacement head gets its own full CI | Guessing, weakening tests, passing historical failed SHA |
+| Exact PR-head validation/fast/Windows 3/3 PASS | Reconfirm current head, ownership and mergeability; expected-head guarded merge; compare source/test blobs and validate resulting `main` | Leaving green PR open and restarting discovery next turn |
+| PR merged, resulting-main CI RUNNING | Reconcile current handoff immediately; verify latest run when ready; perform safe independent work meanwhile | Treating PR or prior artifact as latest package acceptance |
+| Resulting-main CI 3/3 PASS | Verify actual required package/artifact identities, update tracking/current candidate where required, then move to first unblocked TODO dependency | Ending on CI green alone or silently treating native physical checks as passed |
+| All permitted work truly blocked | Say exactly what is blocked by which authorization/evidence and preserve one next action; do not start optional M11 or user-paused Codex tests | Endless polling, invented PASS, unnecessary escalation |
+
+On **every resumed turn**, consult last concrete results before broad repository reads; scope GitHub calls to the last known SHA/PR/run and relevant current `main`. If another chat/agent has advanced the same task, use the newer verified state, not earlier chat history. Never overwrite current `HANDOFF.md` tracking with an older feature-branch copy.
+
+**Evidence discipline:** source implementation, exact PR CI, guarded merge, resulting-main CI/artifacts, native Windows PA and confirmed current Blitzit parity are separate claims. Do not change the denominator of a user-facing bounded coding counter without defining a genuinely new scope. Closed milestones require their actual physical gates; M11 remains strictly dormant unless specifically activated.
+
+**Status/reporting discipline:** user-visible updates require a new, supported result or a genuine blocker. Do not write progress messages that just say "checking", "thinking", "inspecting" repeatedly. For "ολοκλήρωσες;" start with ΝΑΙ/ΟΧΙ/ΜΕΡΙΚΩΣ and the exact remaining work; for "κόλλησες" resume the precise last step. Before ending, the topmost `HANDOFF.md` section must be a **single authoritative NOW / NEXT** with exact identifiers and an unambiguous executable operation; stale current sections become historical or are replaced. Never claim monitoring continues after the active tool session ends; future notifications require an expressly scheduled task.
+
 ## Start of every zero-context session
 
 1. Synchronize with latest `main` and inspect recent commits/current Git state.
