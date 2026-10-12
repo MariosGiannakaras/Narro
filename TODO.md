@@ -52,7 +52,7 @@
 - [ ] Physical Windows Codex PA-01–09 USER-PAUSED, mandatory milestones 3/10; M10 blocked, M11 dormant optional. Spectrum Core user-owned List Editor unchanged.
 
 
-## CURRENT 2026-10-12 — U06 exact-head green and guarded merge, resulting-main pending
+## HISTORICAL 2026-10-12 — U06 exact-head green and guarded merge, resulting-main pending
 
 - [x] **New bounded U06 1/1 source/PR accepted**: [#339](https://github.com/MariosGiannakaras/Narro/pull/339) exact `9c0cea03bb85af074b35ebc293e1ad84e36bbb90` [Windows CI 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 PASS**, expected-head guarded squash merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8` and **10/10 Git blobs MATCH**. Year ±12 in Reports Overview+Sessions, normal month ±1/draft/Apply/Cancel/report read unaffected, typed tests and visual fixture. Prior 4/4 U12/U40/U35/U21 independent accepted (not quietly changed denominator).
 - [ ] **Resulting-main Windows source/release acceptance**: [run 38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) validation **SUCCESS**, fast/Windows not yet final at this timestamp. Require exact merged-main 3/3, independent ZIP/EXE/NSIS/MSI CRC+SHA256, and current physical candidate repin. Old U21 package hashes apply ONLY to prior binary. [Immutable exact proof](work-log/2026-10-12-chatgpt-u06-pr339-green-guarded-merge-main-windows-pending.md).
@@ -69,7 +69,7 @@
 - [ ] Physical Codex PA-01–09 **USER-PAUSED**, mandatory milestones **3/10**; M10 blocked, M11 optional/dormant; user-approved Spectrum Core List Editor untouched.
 
 
-## CURRENT 2026-10-12 — 41-audit follow-up independent of optional M11
+## HISTORICAL 2026-10-12 — 41-audit follow-up independent of optional M11
 
 - [x] **User-confirmed functional policy:** Narro must be usable without any future live Blitzit audit. M11 is **optional**, not an implementation/CI/M10 native-acceptance prerequisite. For unknown original behavior choose a coherent, tested, keyboard-accessible Narro-local contract; do not silently omit user actions. Proven source behavior is still the default visual target, not a license for speculative domain rewrites.
 - [x] **41/41 U items reviewed; bounded previous implementation U12/U40/U35/U21 4/4 exact-head Windows 3/3 guarded-merged.** Resulting-main [CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) 3/3 PASS; verified latest ZIP/narro.exe/NSIS/MSI hashes in prior current block; no new code changes from this policy correction.
@@ -79,7 +79,7 @@
 - [ ] **Consolidated real native Windows Codex PA-01–09 USER-PAUSED / NOT RUN.** Physically validated mandatory milestones **3/10**, M10 blocked. M11 strictly optional/dormant; current source-candidate four SHA identities remain valid until a code/build change actually replaces it. [Immutable 41 policy](work-log/2026-10-12-chatgpt-u01-u41-local-first-without-m11-implementation-policy.md).
 
 
-## CURRENT 2026-10-12 — U21 merged/source/artifacts complete; native acceptance remains user-paused
+## HISTORICAL 2026-10-12 — U21 merged/source/artifacts complete; native acceptance remains user-paused
 
 - [x] **U12/U40/U35/U21 bounded 4/4** coding units accepted, exact PR-head Windows 3/3 and guarded merged, B49 harness separate 1/1 accepted. U21 PR338 head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6`, [CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) 3/3, guarded merge `334566f2a41293c458353991d99d968ad5fa9ad1`, all **18/18** changed blobs equal.
 - [x] **Exact resulting-main Windows run [38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248)** on `334566f2...`: validation/fast/Windows **3/3 SUCCESS** including full visual fixtures, Rust, packaged Focus runtime, release, Windows candidate and M1 diagnostic. Post-run main change path set only Markdown.
