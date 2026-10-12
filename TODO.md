@@ -1,6 +1,16 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U01–U41 Narro-local 41/41, original source code gaps 9/9 accepted; 7 mandatory milestone physical gates remain
+## CURRENT 2026-10-13 — authorized PA-01–08 physical capture in progress
+
+**Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
+
+**Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS records both monitors side by side at 4480×1080/60fps. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. Acquired PA01–04 paths and partial PA05/06/08 remain UNASSESSED, no physical PASS claimed. No Narro source/test/runtime/config changes. PA07 tray/relaunch and available installer paths pending.
+
+**One next action:** finish the real break notification capture due about UTC23:27:57, then normal tray Quit/relaunch and available safe installer checks. Freeze/publish all media/logs and restore original profiles; only then aggregate analysis and confirmed fixes. Mandatory milestones remain 3/10; no M10 entry progress.
+
+## Historical 2026-10-12 consolidation snapshot — owner and physical pause superseded above
+
+## Recorded 2026-10-12 — U01–U41 Narro-local 41/41, original source code gaps 9/9 accepted; 7 mandatory milestone physical gates remain
 
 - [x] **GENERAL all-41 Narro-local functional coverage 41/41** (0/41 tracked local function actions incomplete; 41 source-uncertainty IDs reviewed, not 41 bugs). Exact [41-ID disposition ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md) = approved Spectrum Core 2 + existing functional 16 + deterministic local 9 + implemented older-source differences 5 + CI-verified repairs 9. Original current Blitzit parity separately OPEN.
 - [x] **Original nine specifically established missing feature/UI actions 9/9 corrected and automated Windows accepted** U04,U06,U09,U12,U21,U22,U23,U35,U40. Latest U04 [PR343](https://github.com/MariosGiannakaras/Narro/pull/343) green PR CI38284568221 **3/3 PASS**, expected-head guarded merged `ec7673c921e08c83de11c986bd25fbb3600475ce`, **13/13 changed blobs exact MATCH**, merged-main [CI38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) exact executable SHA **3/3 SUCCESS**. Real [production ZIP11765510661](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11765510661) CRC PASS/full ZIP and EXE/NSIS/MSI SHA independently verified and current physical checklist/risk pinned; real [visual11764194285](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11764194285) light/dark modal source-match CRC PASS. [Immutable final proof](work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md). No open U04 PR or CI.

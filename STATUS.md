@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — Original 41 U-ID Narro-local functionality 41/41 and actual code-gap shortlist 9/9 accepted
+## CURRENT 2026-10-13 — authorized PA-01–08 physical capture in progress
+
+**Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
+
+**Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS records both monitors side by side at 4480×1080/60fps. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. Acquired PA01–04 paths and partial PA05/06/08 remain UNASSESSED, no physical PASS claimed. No Narro source/test/runtime/config changes. PA07 tray/relaunch and available installer paths pending.
+
+**One next action:** finish the real break notification capture due about UTC23:27:57, then normal tray Quit/relaunch and available safe installer checks. Freeze/publish all media/logs and restore original profiles; only then aggregate analysis and confirmed fixes. Mandatory milestones remain 3/10; no M10 entry progress.
+
+## Historical 2026-10-12 consolidation snapshot — owner and physical pause superseded above
+
+## Recorded 2026-10-12 — Original 41 U-ID Narro-local functionality 41/41 and actual code-gap shortlist 9/9 accepted
 
 **Γενική Narro-local λειτουργική κάλυψη U01–U41: 41/41, 0/41 συγκεκριμένα λειτουργικά ευρήματα εκκρεμή.** **Επιμέρους πραγματικά επιβεβαιωμένα κενά 9/9 διορθωμένα**, 0/9 εκκρεμή. Οι 41 κατηγορίες ήταν ιστορικές αβεβαιότητες, όχι 41 bugs ή όλο το app, και τα 41/41 **δεν σημαίνουν** πιστοποιημένη ακριβή πιστότητα στην τρέχουσα Blitzit ούτε φυσική Windows αποδοχή. [Fixed unique U-ID ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
 

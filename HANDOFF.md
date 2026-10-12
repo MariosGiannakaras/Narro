@@ -1,6 +1,16 @@
-# HANDOFF — 41/41 original Narro-local findings implemented, 9/9 specific gaps accepted; native PA user-paused
+# HANDOFF — PA-01–08 physical capture; verdicts pending
 
-## CURRENT 2026-10-12 — user-authorized repository consolidation active; local U01–U41 41/41, native PA paused
+## CURRENT 2026-10-13 — authorized PA-01–08 physical capture in progress
+
+**Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
+
+**Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS records both monitors side by side at 4480×1080/60fps. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. Acquired PA01–04 paths and partial PA05/06/08 remain UNASSESSED, no physical PASS claimed. No Narro source/test/runtime/config changes. PA07 tray/relaunch and available installer paths pending.
+
+**One next action:** finish the real break notification capture due about UTC23:27:57, then normal tray Quit/relaunch and available safe installer checks. Freeze/publish all media/logs and restore original profiles; only then aggregate analysis and confirmed fixes. Mandatory milestones remain 3/10; no M10 entry progress.
+
+## Historical 2026-10-12 consolidation snapshot — owner and physical pause superseded above
+
+## Recorded 2026-10-12 — user-authorized repository consolidation active; local U01–U41 41/41, native PA paused
 
 **CURRENT OWNER / PHASE:** ChatGPT documentation and repository metadata consolidation, non-destructive, explicitly requested by user. Verified [single branch/tracker ownership index](docs/TRACKER_STATUS_INDEX.md): **20/20 retained branches compared**, **2 fully behind**, **18 diverged**, **7/7 discovered associated PRs CLOSED/unmerged**, 0 open PR. **115 npm scripts / 98 tests** inventoried; **0 identical command strings**. Complete `package.json` nested npm-run graph rooted at 12 actual CI invocations confirms **98/98 tests CI-reachable**, 108/115 script keys reachable, **0 orphan test entrypoints**; semantic coverage overlap still OPEN. Three previous root tracker archives SHA-matched byte-exact (3/3). [Immutable branch provenance and no-repeat intake log](work-log/2026-10-12-chatgpt-repository-consolidation-20-branches-and-research-intake.md). Added index routing in AI_START_HERE, EVIDENCE_ROUTING_MAP and DEEP_ANALYSIS workflow. **No source changes, branch deletion, evidence deletion, new CI, physical PA or optional M11.**
 
