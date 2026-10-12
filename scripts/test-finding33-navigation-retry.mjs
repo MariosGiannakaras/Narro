@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import {
   isRetryableFinding33NavigationFailure,
   runWithBoundedFinding33BootstrapRecovery,
@@ -70,4 +72,8 @@ const runner = fs.readFileSync("scripts/run-finding33-large-notes-escape.mjs", "
 assert(capture.includes('run-finding33-large-notes-escape.mjs'));
 assert(runner.includes('test-finding33-large-notes-escape.mjs'));
 assert(!runner.includes('await key('), "never replace the original real keyboard test with a mock");
+assert(runner.includes("pathToFileURL(path.resolve(process.argv[1]))"), "portable Windows and POSIX CLI entrypoint required");
+const entry = new URL("./run-finding33-large-notes-escape.mjs", import.meta.url);
+const wrongArgumentRun = spawnSync(process.execPath, [fileURLToPath(entry)], { encoding: "utf8" });
+assert.equal(wrongArgumentRun.status, 2, "the real runner must execute as a CLI and reject missing arguments, never silently succeed");
 console.log("Finding33 evidence-classified at-most-once fresh Edge bootstrap retry: PASS");
