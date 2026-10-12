@@ -30,6 +30,7 @@ export type ArchivedDoneTaskSummary = {
   title: string;
   completedAt: string;
   archivedAt: string;
+  updatedAt: string;
   timeTakenSeconds: string;
   hasNote: boolean;
 };
@@ -61,5 +62,21 @@ export async function restoreListFromSettings(listId: string): Promise<void> {
 
 export async function permanentlyDeleteListFromSettings(listId: string): Promise<void> {
   await invoke<void>("permanently_delete_list_from_settings", { listId });
+  await emitBoardInvalidated();
+}
+
+export type ArchivedDoneDeleteConfirmation = Pick<
+  ArchivedDoneTaskSummary,
+  "id" | "listId" | "updatedAt" | "completedAt" | "archivedAt"
+>;
+
+export async function permanentlyDeleteArchivedDoneTaskFromSettings(task: ArchivedDoneDeleteConfirmation): Promise<void> {
+  await invoke<void>("permanently_delete_archived_done_task_from_settings", {
+    taskId: task.id,
+    expectedListId: task.listId,
+    expectedUpdatedAt: task.updatedAt,
+    expectedCompletedAt: task.completedAt,
+    expectedArchivedAt: task.archivedAt,
+  });
   await emitBoardInvalidated();
 }
