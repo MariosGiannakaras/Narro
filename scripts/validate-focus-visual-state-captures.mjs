@@ -111,6 +111,14 @@ for (const theme of ["light", "dark"]) {
   invariant(runningDoneFraction && breakDoneFraction === runningDoneFraction,
     breakState.label + " must not change authoritative completed-task progress");
 
+  invariant(breakState.dom.includes('data-focus-done-break-session-id="41111111-1111-4111-8111-111111111111"'),
+    breakState.label + " must render the fixture's persisted closed Break identity in Focus Done");
+  invariant(breakState.dom.includes('aria-label="Completed Break, 10min"'),
+    breakState.label + " must expose a readable completed Break and duration");
+  invariant(breakState.dom.includes(">2 Done<") && running.dom.includes(">1 Done<"),
+    breakState.label + " Done heading counts Break history without changing the separate task fraction");
+  invariant(!running.dom.includes('data-focus-done-break-session-id='),
+    running.label + " must not fabricate Break history without a persisted Break row");
   requireDistinctCardState(breakState, running);
   invariant(breakState.dom.includes('aria-label="Break: 07:00 remaining"'), `${breakState.label} break timer label differs`);
   invariant(breakState.dom.includes(">07:00<"), `${breakState.label} break timer value differs`);

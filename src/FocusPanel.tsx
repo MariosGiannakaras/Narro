@@ -34,6 +34,8 @@ import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjecti
 import type { FocusListOption } from "./useFocusListCatalog";
 import { TaskNotes } from "./TaskNotes";
 import { focusBreakPresentation } from "./focusBreakPresentation";
+import { focusDoneBreakDayRange, type FocusDoneBreak } from "./focusDoneBreaks";
+import { useFocusDoneBreaks } from "./useFocusDoneBreaks";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
@@ -59,6 +61,8 @@ export type FocusPanelProps = {
   fixtureBoard?: ListBoardSnapshot;
   fixtureLists?: FocusListOption[];
   fixtureTimer?: TimerSessionPayload | null;
+  /** Deterministic visual-fixture rows, never real task or persisted-session writes. */
+  fixtureDoneBreaks?: FocusDoneBreak[];
   sharedTimerProjection?: {
     payload: TimerSessionPayload | null;
     settled: boolean;
@@ -398,6 +402,7 @@ export function FocusPanel({
   fixtureBoard,
   fixtureLists,
   fixtureTimer = null,
+  fixtureDoneBreaks,
   sharedTimerProjection,
   target: controlledTarget,
   onTargetChange,
@@ -475,6 +480,25 @@ export function FocusPanel({
   const scrollingTitleEnabled = preferences.snapshot?.focus.scrollingTitle ?? false;
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
+  // Read-only Break history follows the exact Focus list and board timezone.
+  // No query is sent until the selected board target is settled.
+  let doneBreakDayKey: string | null = null;
+  if (board?.displayTimezone) {
+    try {
+      doneBreakDayKey = focusDoneBreakDayRange(new Date(), board.displayTimezone).dayKey;
+    } catch {
+      // An unavailable timezone must not crash the authoritative Focus queue.
+    }
+  }
+  const doneBreakHistory = useFocusDoneBreaks({
+    enabled: !fixtureMode && presentationActive && boardReadyTargetKey === currentTargetKey,
+    targetKey: currentTargetKey,
+    listId: target.kind === "list" ? target.id : null,
+    timeZone: board?.displayTimezone ?? null,
+    dayKey: doneBreakDayKey,
+    refreshKey,
+    changeRevision: timer?.change ? timer.revision : null,
+  });
 
   useEffect(() => () => {
     focusPointerDragCleanupRef.current?.();
@@ -1045,6 +1069,7 @@ export function FocusPanel({
   const emptyTodayState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length === 0;
   const emptyStateKind = noEligibleVisualState ? "no-eligible" : emptyTodayState ? "empty" : "none";
   const doneTasks = board.done.tasks;
+  const doneBreaks = fixtureMode ? fixtureDoneBreaks ?? [] : doneBreakHistory.rows;
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
   const rowInteractionDisabled = fixtureMode
@@ -1422,8 +1447,29 @@ export function FocusPanel({
 
         <section className="focus-panel__group" data-focus-group="done" aria-labelledby="focus-done-title">
           <h2 id="focus-done-title" className="focus-panel__group-title">
-            {doneTasks.length} Done
+            {doneTasks.length + doneBreaks.length} Done
           </h2>
+          {doneBreakHistory.error && !fixtureMode
+            ? <p className="focus-panel__action-error type-metadata" role="alert">Break history could not refresh: {doneBreakHistory.error}</p>
+            : null}
+          {doneBreaks.map((session) => (
+            <article
+              key={session.id}
+              className="focus-panel__task-row focus-panel__task-row--done focus-panel__break-done-row"
+              data-focus-done-break-session-id={session.id}
+              aria-label={`Completed Break, ${formatDuration(session.durationSeconds)}`}
+            >
+              <div className="focus-panel__task-row-mainline">
+                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark" aria-hidden="true">✓</span></span>
+                <div className="focus-panel__task-main">
+                  <div className="focus-panel__task-title-row">
+                    <span className="focus-panel__break-done-title">Break</span>
+                  </div>
+                </div>
+                <span className="focus-panel__done-time type-metadata">{formatDuration(session.durationSeconds)}</span>
+              </div>
+            </article>
+          ))}
           {doneTasks.map((task) => (
             <FocusTaskRow
               key={task.id}

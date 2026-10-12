@@ -2586,6 +2586,7 @@ pub fn run() {
             preference_settings::get_preference_settings,
             preference_settings::update_preference_settings,
             report_commands::get_report_history,
+            report_commands::get_focus_done_breaks,
             report_commands::get_report_overview,
             report_commands::export_report_overview_pdf,
             report_commands::get_report_sessions,

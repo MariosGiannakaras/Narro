@@ -4,6 +4,7 @@ import {
   buildReportCalendarMonths,
   defaultReportDateRange,
   normalizeReportDateRange,
+  reportDateKeyInTimeZone,
   reportPresetRange,
   reportRangeRequestBounds,
   zonedReportDateStartIso,
@@ -42,6 +43,22 @@ invariant(
 invariant(
   zonedReportDateStartIso("2026-01-01", "Europe/Athens") === "2025-12-31T22:00:00.000Z",
   "Athens winter local midnight must convert to the correct UTC instant",
+);
+// Focus Done Break history uses the same authoritative local-calendar
+// boundaries; a DST day must NOT be approximated as exactly 24 hours.
+invariant(
+  reportDateKeyInTimeZone(new Date("2026-03-28T22:30:00.000Z"), "Europe/Athens") === "2026-03-29",
+  "Focus Break local day must use the saved timezone across UTC midnight",
+);
+invariant(
+  Date.parse(zonedReportDateStartIso("2026-03-30", "Europe/Athens"))
+    - Date.parse(zonedReportDateStartIso("2026-03-29", "Europe/Athens")) === 23 * 3600_000,
+  "Focus Break spring DST day has 23 hours, not a fabricated 24-hour window",
+);
+invariant(
+  Date.parse(zonedReportDateStartIso("2026-10-26", "Europe/Athens"))
+    - Date.parse(zonedReportDateStartIso("2026-10-25", "Europe/Athens")) === 25 * 3600_000,
+  "Focus Break autumn DST day has 25 hours and retains the repeated hour",
 );
 invariant(
   JSON.stringify(reportRangeRequestBounds(

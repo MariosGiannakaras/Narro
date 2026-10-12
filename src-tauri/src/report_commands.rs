@@ -4,7 +4,7 @@ use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::sessions::{
     create_manual_work_session, delete_closed_session_if_expected, edit_closed_session_if_expected,
-    SessionStoreError,
+    recent_closed_focus_breaks, SessionStoreError,
 };
 use crate::reporting::{
     report_history_snapshot, report_overview, ReportCompletedTaskRow, ReportCompletionTiming,
@@ -47,6 +47,15 @@ pub struct ReportSessionPayload {
     pub updated_at: String,
     pub task_archived: bool,
     pub list_archived: bool,
+}
+
+/// Compact, read-only Focus Done history. A Break never has a Task Done identity.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct FocusDoneBreakPayload {
+    pub id: String,
+    pub ended_at: String,
+    pub duration_seconds: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -661,6 +670,53 @@ pub fn get_report_overview(
     report_overview(&connection, range, &display_timezone)
         .map(Into::into)
         .map_err(map_reporting_error)
+}
+
+/// Today's closed Focus Breaks for one Focus target; no full Reports scan,
+/// task mutation, or session-write side effects. The UTC instants come from
+/// the board's IANA timezone at local midnight, including DST boundaries.
+#[tauri::command(rename_all = "camelCase")]
+pub fn get_focus_done_breaks(
+    app_handle: tauri::AppHandle,
+    start_at: String,
+    end_at: String,
+    list_id: Option<String>,
+) -> CommandResult<Vec<FocusDoneBreakPayload>> {
+    let start = chrono::DateTime::parse_from_rfc3339(&start_at)
+        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
+    let end = chrono::DateTime::parse_from_rfc3339(&end_at)
+        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
+    if end <= start {
+        return Err(CommandError::invalid_argument(
+            "endAt",
+            "must be after startAt",
+        ));
+    }
+    let list_id = list_id
+        .map(|raw| {
+            ListId::parse_str(&raw).map_err(|_| {
+                CommandError::invalid_argument("listId", "must be a valid saved list UUID")
+            })
+        })
+        .transpose()?;
+    let connection = app_database(&app_handle)?;
+    recent_closed_focus_breaks(&connection, &start_at, &end_at, list_id)
+        .map_err(|error| CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", error.to_string()))?
+        .into_iter()
+        .map(|session| {
+            let ended_at = session.ended_at.ok_or_else(|| {
+                CommandError::new(
+                    "FOCUS_BREAK_HISTORY_READ_FAILED",
+                    "closed Break has no end time",
+                )
+            })?;
+            Ok(FocusDoneBreakPayload {
+                id: session.id.to_string(),
+                ended_at,
+                duration_seconds: session.duration_seconds.to_string(),
+            })
+        })
+        .collect()
 }
 
 #[tauri::command(rename_all = "camelCase")]

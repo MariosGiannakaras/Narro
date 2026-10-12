@@ -230,6 +230,11 @@ flushSync(() => {
         { id: "a1111111-1111-4111-8111-111111111111", title: "Research", color: "#48d6c5" },
       ]}
       fixtureTimer={timer}
+      fixtureDoneBreaks={scenario === "break" ? [{
+        id: "41111111-1111-4111-8111-111111111111",
+        endedAt: "2026-09-13T09:10:00Z",
+        durationSeconds: "600",
+      }] : []}
       completionSuccessContent={scenario === "success" ? (
         <FocusCompletionSuccess inline
           state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,

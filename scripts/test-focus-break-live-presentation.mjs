@@ -48,5 +48,5 @@ assert(panel.includes("key={liveTask.id}"),
   "preserve real active task owner for FocusLiveActions");
 assert(panel.includes("const doneTasks = board.done.tasks;")
   && panel.includes("{board.done.count}/{totalCount} Done"),
-  "a Break must not count as a completed task or fabricate a Done row");
+  "completed task progress stays tied to the authoritative Board even if a real closed Break is shown as separate session history");
 console.log("U21 Focus Break presentation is view-only and the suspended task stays noninteractive.");

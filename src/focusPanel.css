@@ -348,6 +348,8 @@
 .focus-panel__row-notes .task-notes__trigger { display: none; }
 .focus-panel__group { padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
 .focus-panel__group-title { margin: 0 0 var(--space-1); color: var(--color-text-secondary); font-size: var(--font-size-metadata); font-weight: var(--font-weight-semibold); line-height: var(--line-height-metadata); }
+.focus-panel__break-done-title { color: var(--color-text-secondary); font-size: var(--font-size-task-title); font-weight: var(--font-weight-semibold); }
+.focus-panel__break-done-row { pointer-events: none; }
 .focus-panel__status { color: var(--color-text-secondary); }
 .focus-panel__error { padding: var(--space-2); border: 1px solid color-mix(in srgb, var(--color-destructive) 45%, transparent); border-radius: var(--radius-control); color: var(--color-destructive); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
