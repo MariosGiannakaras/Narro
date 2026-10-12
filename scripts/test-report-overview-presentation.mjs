@@ -1,5 +1,6 @@
 import {
   addReportDays,
+  addReportMonths,
   buildReportCalendarMonths,
   defaultReportDateRange,
   normalizeReportDateRange,
@@ -14,6 +15,10 @@ function invariant(condition, message) {
 }
 
 invariant(addReportDays("2026-03-01", -1) === "2026-02-28", "date arithmetic must cross month boundaries");
+invariant(addReportMonths("2024-02-01", 12) === "2025-02-01", "calendar next-year navigation preserves the month across a leap year");
+invariant(addReportMonths("2025-02-01", -12) === "2024-02-01", "calendar previous-year navigation crosses back into the leap year");
+invariant(addReportMonths("2026-01-01", -1) === "2025-12-01", "calendar single-month navigation crosses year boundaries");
+invariant(addReportMonths(addReportMonths("2026-09-01", 12), -12) === "2026-09-01", "calendar year navigation must be reversible");
 invariant(
   JSON.stringify(defaultReportDateRange("2026-10-03"))
     === JSON.stringify({ startDateKey: "2026-09-03", endDateKey: "2026-10-03" }),
