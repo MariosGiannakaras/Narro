@@ -48,7 +48,7 @@ for (const [haystack, needle, label] of [
   [fixture, "resizablePresentation", "visual resizable contract"],
   [capture, 'task-notes-large-$theme', "Windows large Notes capture"],
   [capture, 'run-finding33-large-notes-escape.mjs', "Finding33 bounded browser startup orchestration"],
-  [finding33Runner, '"test-finding33-large-notes-escape.mjs"', "Finding33 still executes the original strict real Escape test"],
+  [finding33Runner, 'new URL("./test-finding33-large-notes-escape.mjs", import.meta.url)', "Finding33 still executes the original strict real Escape test"],
   [finding33Runner, 'isRetryableFinding33NavigationFailure', "Finding33 retry requires specific incomplete bootstrap evidence"],
   [finding33Driver, '"Input.dispatchKeyEvent"', "Finding33 real browser keyboard input"],
   [finding33Driver, '[data-task-note-control="editor"]', "Finding33 contenteditable focus path"],
