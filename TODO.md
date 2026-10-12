@@ -1,6 +1,15 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U09 active source PR340, U06 merged-main Windows running
+## CURRENT 2026-10-12 — U06/U09 both guarded merged; latest source Windows candidate pending
+
+- [x] Previous U12/U40/U35/U21 bounded campaign **4/4 accepted**; independent U06 [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) **1/1 source** exact 3/3 + guarded merged `c32e71a17164cb70dcb77463d0473d6eb8a09ce8` 10/10 blobs. U06 merged-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) **3/3 PASS**, archive CRC/ZIP+3 artifact hashes separately computed [proof](work-log/2026-10-12-chatgpt-u06-main-artifact-verified-u09-pr340-guarded-merge-main-pending.md).
+- [x] U09 [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) independent **1/1 source** exact PR-head `3759e7e8bf388602e12874e1e42d691989a8a0f2` [CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) **3/3 PASS**, expected-head guarded squash main source `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`, **7/7 blobs MATCH**; functional accessible chart-options menu with nonempty local presets, no DB/session change. U06/U09 source parity with actual original Blitzit M11 OPEN, never block local functionality on M11.
+- [ ] **Current resulting-main Windows CI and artifact acceptance:** [run 38248985335](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335) validation+fast PASS, Windows **IN PROGRESS** at evidence checkpoint. Require 3/3, independently downloaded production ZIP CRC+full SHA256 ZIP/EXE/NSIS/MSI, current Windows session & risk pin, new immutable closeout. Do not use superseded U06/U21 hashes as current.
+- [ ] **Next source-independent scope:** U22 closed persisted Break history in Focus Done (read-only separate from completed tasks), U23 typed active planned Break EST projection; U04 destructive per-row delete requires explicit integrity/approval decision. [U22 causal assessment](work-log/2026-10-12-chatgpt-u22-break-done-read-model-causal-audit-while-u06-windows-pending.md).
+- [ ] Native Windows Codex PA-01–09 remains **USER-PAUSED/NOT RUN**, mandatory milestones **3/10**, M10 blocked, optional M11 dormant, user-approved Spectrum Core List Editor color/photo/218 icons unchanged.
+
+
+## HISTORICAL 2026-10-12 — U09 active source PR340, U06 merged-main Windows running
 
 - [x] U06 source **1/1 guarded merged**: PR339 exact head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [CI38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) 3/3 SUCCESS, merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, 10/10 identical blob SHAs. Prior U12/U40/U35/U21 4/4 separately accepted.
 - [ ] U06 resulting-main [run38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) 2/3 successful, Windows candidate in progress at log. New package/four SHA hashes NOT certified yet; never use older U21 physical artifact to certify U06 source.
