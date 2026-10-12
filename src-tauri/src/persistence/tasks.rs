@@ -58,9 +58,16 @@ impl Display for TaskStoreError {
                 formatter,
                 "task must be archived before permanent deletion: {id}"
             ),
-            Self::NotArchivedDone(id) => write!(formatter, "task is not an archived completed task: {id}"),
-            Self::StaleArchivedDoneSnapshot(id) => write!(formatter, "archived task changed since confirmation: {id}"),
-            Self::ArchivedDoneHasRecurrenceDependents(id) => write!(formatter, "archived task has dependent recurring tasks: {id}"),
+            Self::NotArchivedDone(id) => {
+                write!(formatter, "task is not an archived completed task: {id}")
+            }
+            Self::StaleArchivedDoneSnapshot(id) => {
+                write!(formatter, "archived task changed since confirmation: {id}")
+            }
+            Self::ArchivedDoneHasRecurrenceDependents(id) => write!(
+                formatter,
+                "archived task has dependent recurring tasks: {id}"
+            ),
         }
     }
 }
@@ -732,21 +739,27 @@ pub fn permanently_delete_archived_done_task(
         Some(Some(_)) => return Err(TaskStoreError::ListArchived(expected_list_id)),
         Some(None) => {}
     }
-    let open_session = tx.query_row(
-        "SELECT 1 FROM sessions WHERE task_id = ?1 AND ended_at IS NULL LIMIT 1",
-        [id.to_string()],
-        |_| Ok(()),
-    ).optional()?.is_some();
+    let open_session = tx
+        .query_row(
+            "SELECT 1 FROM sessions WHERE task_id = ?1 AND ended_at IS NULL LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
     if open_session {
         return Err(TaskStoreError::ActiveSession(id));
     }
     // Preserve separate task identities and recurrence history rather than
     // silently detaching surviving children or deleting a shared rule.
-    let recurrence_dependents = tx.query_row(
-        "SELECT 1 FROM tasks WHERE recurrence_parent_task_id = ?1 LIMIT 1",
-        [id.to_string()],
-        |_| Ok(()),
-    ).optional()?.is_some();
+    let recurrence_dependents = tx
+        .query_row(
+            "SELECT 1 FROM tasks WHERE recurrence_parent_task_id = ?1 LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
     if recurrence_dependents {
         return Err(TaskStoreError::ArchivedDoneHasRecurrenceDependents(id));
     }
@@ -754,8 +767,13 @@ pub fn permanently_delete_archived_done_task(
         "DELETE FROM tasks
          WHERE id = ?1 AND list_id = ?2
            AND completed_at = ?3 AND archived_at = ?4 AND updated_at = ?5",
-        params![id.to_string(), expected_list_id.to_string(), expected_completed_at,
-            expected_archived_at, expected_updated_at],
+        params![
+            id.to_string(),
+            expected_list_id.to_string(),
+            expected_completed_at,
+            expected_archived_at,
+            expected_updated_at
+        ],
     )?;
     if deleted != 1 {
         return Err(TaskStoreError::StaleArchivedDoneSnapshot(id));
