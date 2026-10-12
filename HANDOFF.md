@@ -1,6 +1,18 @@
-# HANDOFF — Overall U01–U41 coverage 40/41; U04 destructive policy approval required; native PA user-paused
+# HANDOFF — U04 authorized PR343 exact Windows CI; physical PA user-paused
 
-## CURRENT 2026-10-12 — User-directed all-41 implementation coverage FIRST; U04 approval-gated
+## CURRENT 2026-10-12 — U04 user-approved destructive Archived Done action PR343 exact CI pending
+
+**GENERAL U01–U41 Narro-local functional coverage 40/41 accepted, U04 0/1 pending implementation validation.** Specifically evidenced local gaps **8/9** accepted; physically accepted mandatory milestones **3/10**, **7 remain**, native PA-01–09 **USER-PAUSED / NOT RUN**. These fixed denominators are distinct, not 41 Blitzit-parity or physical PASS findings. Full mapping [41-ID local implementation ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
+
+**Explicit latest user decision:** User **approved** permanently deleting one archived Done task and its task-owned sessions/notes/report history, with no undo and a modern Narro-coherent confirmation modal. This supersedes previous U04 approval blocker but **does not** authorize physically deleting user data now or resuming Windows PA. [Immutable user approval/implementation evidence](work-log/2026-10-12-chatgpt-u04-user-approved-irreversible-archive-done-delete-pr343-exact-ci-pending.md).
+
+**ONLY ACTIVE SOURCE OWNER:** [U04 PR343](https://github.com/MariosGiannakaras/Narro/pull/343), branch `feat/u04-archived-done-safe-delete-confirm`, initial exact head **`d86673b278c7de34ae7ce863c2bb82f02bf9b145`**, [CI38283243930](https://github.com/MariosGiannakaras/Narro/actions/runs/38283243930) validation SUCCESS, fast IN PROGRESS, Windows PENDING at last observation. 13 scoped Rust/TS/CSS/test/visual files implement transactional archived completed-only CAS delete, open session/recurrence guard, history cascade, typed errors, committed event, modal + light/dark Edge visual fixture; no DB migration, no user data actions. Local preflight NOT RUN (toolchain/repo checkout unavailable).
+
+**EXACT NEXT ACTION:** inspect [PR343 run38283243930](https://github.com/MariosGiannakaras/Narro/actions/runs/38283243930) jobs on exact current head; if FAIL, fetch first actual failing job/step/log and make only evidence-backed fix to **same branch/PR**, re-gate new head. If 3/3 SUCCESS, verify current PR head, expected-head guarded squash merge, all changed source/test blob identities, exact resulting-main Windows 3/3 and original ZIP CRC + ZIP/narro.exe/NSIS/MSI SHA, repin Windows physical/risk and durable log/tracking. Then count general 41/41 Narro-local source/release covered (not exact Blitzit parity/native). Do not start optional M11 or PA-01–09, do not change Spectrum Core approved picker/upload/218 icons.
+
+**Last prior accepted executable:** U23 merge `4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a` [main CI38277579376](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376) 3/3, fourhash proven [artifact11760996038](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376/artifacts/11760996038), remains latest accepted while U04 runs.
+
+## HISTORICAL 2026-10-12 — User-directed all-41 implementation coverage FIRST; U04 approval-gated
 
 **GENERAL U01–U41 Narro-local coverage: 40/41 functionally covered, 1/41 incomplete (U04).** This is a count of 41 fixed reviewed *uncertainty IDs* with Narro functional implementation/approved alternative, not 40/41 Blitzit source parity, 40/41 independent PRs or overall physical app completion. Auditable fixed ID-disjoint split **2 approved locked + 16 existing functionality + 9 local deterministic + 5 functional old-Blitzit differences + 8 newly remedied = 40; U04 = 1 blocked**. Full [all-ID grounded ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md). **Sub-scope:** 8/9 originally classified functional gaps fixed with full source and automated validation; only U04 remains. **Mandatory physically accepted milestones 3/10 (7 pending)**, native PA-01–09 **USER-PAUSED / NOT RUN**, M11 optional unactivated. Report general 40/41 first, then these distinct X/Y.
 
