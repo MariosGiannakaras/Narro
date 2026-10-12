@@ -1,21 +1,14 @@
 # User-facing implementation progress
 
-Canonical compact progress format requested by the user:
+## CURRENT 2026-10-12 — binding user-requested order (see AI_START_HERE.md)
 
-`{completed roadmap milestones}/{total roadmap milestones}M || {completed current-slice checkpoints}/{total current-slice checkpoints} | {completed active-milestone items}/{total active-milestone items}`
+Always distinguish **Narro-local U01–U41 functional coverage**, the **nine specifically evidenced implementation gaps**, and the **ten mandatory milestones requiring independent Windows physical acceptance**. These are *three different denominators*, not interchangeable percentages.
 
-Example shape only: `4/10M || 1/5 | 25/28`.
+1. **Γενική υλοποίηση U01–U41: 41/41** functionally covered under the fixed [41-ID ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md), **0/41 unimplemented tracked concerns**. The original 41 are uncertainty cases, **not** 41 code defects, all product features or proof of exact modern Blitzit source parity. Includes deliberately safe Narro-local behavior and documented source-version deviations.
+2. **Επιμέρους τεκμηριωμένα λειτουργικά κενά: 9/9** source-implemented, guarded merged and resulting-main Windows CI/release artifact accepted, **0/9 remaining**. Fixed gap IDs `U04,U06,U09,U12,U21,U22,U23,U35,U40`. Latest U04 [resulting-main 3/3 Windows PASS](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890).
+3. **Υποχρεωτικά milestones: 3/10** with full physical acceptance, **7/10 remain**. Native Windows PA-01–09 **USER-PAUSED / NOT RUN** pending explicit user permission. The optional M11 current-live Blitzit audit is **not** included or implicitly activated, and Narro must function fully without it.
+4. When work actually starts or completes, report exact PR/branch/head SHA/CI status; NEVER infer PASS from a merge or an active CI. Do not recalculate 41 or 9 by counting Git commits or issues.
 
-Rules:
+**Historical reporting format (superseded):** `{completed milestones}/{10}M || {current checkpoints}/{slice total} | {active milestone items}/{total}`. This older checkpoint-first format and its `4/10M || 1/5 | 25/28` example are recorded for audit only. They no longer replace the user's explicit general-41-first instruction. Never silently mutate denominators. Historical PASS remains historical, physical acceptance remains separately OPEN.
 
-- First field = completed roadmap milestones / total roadmap milestones, followed by `M`.
-- Second field = current implementation-slice checkpoints.
-- Third field = validated top-level items in the active milestone.
-- Derive values from repository state; example numbers are never authoritative.
-- Existing validation/completion rules remain unchanged. If newer evidence or a replacement implementation invalidates the acceptance basis of previously validated items, reopen exactly that affected scope and reduce the current counters accordingly; historical PASS remains historical evidence rather than current validation.
-- Do not silently change denominators.
-- Show the line when a counter changes, when a genuinely new slice resets the small counter, or in a useful final implementation status.
-- Do not repeat an unchanged line in routine progress updates.
-- Do not emit parallel verbose `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` lines unless the user explicitly requests them.
-
-`AI_START_HERE.md` records this as the latest explicit user-facing reporting preference and gives it precedence over older presentation-only wording.
+Canonical routing: [AI_START_HERE](../AI_START_HERE.md) → [HANDOFF](../HANDOFF.md) → [TODO roadmap](../TODO.md) → [STATUS](../STATUS.md). Full prior tracker checkpoint archives are linked from those three current documents.
