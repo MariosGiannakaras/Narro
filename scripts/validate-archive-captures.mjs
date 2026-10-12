@@ -57,11 +57,23 @@ for (const theme of ["light", "dark"]) {
   invariant(doneResults.includes("Ship quarterly planning notes"), `${theme} first archived task is missing`);
   invariant(doneResults.includes("Review distributed systems chapter"), `${theme} second archived task is missing`);
   invariant(!doneResults.includes("Restoring…"), `${theme} archived done task surface must not expose list restore action`);
-  invariant(!doneResults.includes("Permanently delete"), `${theme} archived done task surface must remain read-only in item 26`);
+  invariant(doneResults.includes('aria-label="Permanently delete Ship quarterly planning notes"'), `${theme} archived Done row should offer explicit per-item delete`);
   for (const heading of ["Task Name", "List", "Info", "Date", "Action"]) {
     invariant(doneResults.includes(`<th scope="col">${heading}</th>`), `${theme} missing archived Done table heading ${heading}`);
   }
-  invariant(doneResults.includes('data-archived-done-delete="unavailable"'), `${theme} archived-task deletion must remain explicitly blocked`);
+  invariant((doneResults.match(/data-archived-done-delete="available"/g) ?? []).length === 2, `${theme} archived Done delete must be available on each row`);
+
+  const confirm = read(`archive-done-delete-confirm-${theme}`);
+  common(confirm, `${theme} archived-done delete confirmation`);
+  invariant(confirm.includes('data-list-confirm-action="delete-done-task"'), `${theme} themed destructive modal is missing`);
+  invariant(confirm.includes('role="dialog"') && confirm.includes('aria-modal="true"'), `${theme} deletion dialog is not accessible`);
+  invariant(confirm.includes("Permanently delete this task?"), `${theme} confirmation question is missing`);
+  invariant(confirm.includes("Ship quarterly planning notes"), `${theme} deletion must name the exact selected task`);
+  for (const consequence of ["Notes", "subtasks", "reminders", "tracked sessions", "Reports", "cannot be undone"]) {
+    invariant(confirm.includes(consequence), `${theme} deletion warning omitted ${consequence}`);
+  }
+  invariant(confirm.includes("Delete task permanently"), `${theme} destructive confirm button is missing`);
+  invariant(confirm.includes("Cancel"), `${theme} keyboard-safe cancel button is missing`);
 }
 
 console.log("Archive captured DOM contracts: PASS");
