@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { isRetryableDevToolsPortReadError } from "./edgeCdpDevToolsPortErrors.mjs";
 
 function read(path) {
   return fs.readFileSync(path, "utf8");
@@ -129,6 +130,22 @@ invariant(focusedFixture.includes("revealDeadline = performance.now() + 1_500")
   "B49 Edge capture must await the same strict final visual state, not sample transition mid-frame");
 const focusedCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const cdpCapture = read("scripts/capture-focus-action-cdp.mjs");
+const transientPortReadError = (code) => Object.assign(new Error(`Edge port file ${code}`), { code });
+for (const code of ["ENOENT", "EACCES", "EBUSY"]) {
+  invariant(isRetryableDevToolsPortReadError(transientPortReadError(code)),
+    `B49 transient Edge DevToolsActivePort read ${code} must retry within the existing deadline`);
+}
+for (const code of ["EISDIR", "EINVAL", "ENOTDIR", "EPERM"]) {
+  invariant(!isRetryableDevToolsPortReadError(transientPortReadError(code)),
+    `B49 unexpected DevToolsActivePort read ${code} must fail instead of hiding a real fault`);
+}
+invariant(!isRetryableDevToolsPortReadError(null) && !isRetryableDevToolsPortReadError(new Error("unknown")),
+  "B49 untyped/unexpected exceptions must not be swallowed");
+invariant(cdpCapture.includes("isRetryableDevToolsPortReadError(error)")
+  && cdpCapture.includes("while (Date.now() < deadline)")
+  && cdpCapture.includes("await sleep(100)"),
+  "B49 actual CDP bootstrap must use the bounded transient-read retry, without changing capture/visual gates");
+
 const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
 invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus")')
