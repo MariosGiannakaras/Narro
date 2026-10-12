@@ -1,6 +1,12 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U12/U40 source integrated, U35+Edge B49 capture guard still require CI
+## CURRENT 2026-10-12 — U12/U40/U35 3/3 source PRs merged; final latest-main validation open
+
+**U12 #334, U40 #335 and U35 #336 now 3/3 individually Windows CI accepted and expected-head guarded merged.** #336 head `1411093118acb4ecf06e2e046e150469483618cb`, [run 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) 3/3 PASS attempt2, merge `b4bc534d937611597857aac13c46640f1d364195`, 7/7 exact resulting source/test Git blobs matched. Immutable `work-log/2026-10-12-chatgpt-u35-pr336-guarded-merge-seven-blob-proof.md`.
+
+**Final three-unit integrated candidate remains 0/3 accepted until new main CI 3/3 and actual Windows ZIP/exe/NSIS/MSI SHA256.** Independent B49 Windows Edge `DevToolsActivePort` EBUSY harness fix #337 head `d61e6a77b1527915fc9158917f26d969dab53516`, [CI 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) validation+fast SUCCESS, Windows still in progress at checkpoint. Next verify its exact result, guarded merge with 3/3 blobs if success, then combined-main Windows CI and replacement artifacts. Prior 12/12 accepted and four hashed files apply only to former source. Real Windows Codex physical USER-PAUSED; mandatory roadmap 3/10, M10 blocked, optional M11 dormant. Approved Spectrum Core List Editor/images/218 icons unchanged.
+
+## HISTORICAL 2026-10-12 — U12/U40 source integrated, U35+Edge B49 capture guard still require CI
 
 **Source/PR acceptance versus actual final binary:** Existing original 12/12 Q12 coding scope, prior #333 successful main 3/3 and verified ZIP/exe/installers remain valid for earlier source. New independent U12/U40/U35 line: **2/3 guarded-merged at exact green PR-head**, **0/3 final resulting-main/hashed production artifact accepted**. Physical Codex remains explicitly user-paused; 3/10 mandatory physical/source milestones, M10 blocked, M11 optional dormant.
 
