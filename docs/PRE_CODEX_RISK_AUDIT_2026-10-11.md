@@ -3,7 +3,18 @@
 Status: **STATIC/RUNTIME-SOURCE REVIEW COMPLETE FOR CURRENT RESIDUAL GATE FAMILIES; PHYSICAL VALIDATION OPEN**.
 This is a point-in-time code/test/known-evidence risk analysis, **not** a physical/native PASS. The user explicitly requested maximum proactive diagnosis before unpausing Codex. Do not treat a future source change as covered by this candidate.
 
-## CURRENT 2026-10-12 — Pre-Codex gate still paused; U21 newer source merged, final binary hash pending
+## CURRENT 2026-10-12 — Latest U21 Windows source/package accepted; native PA-01–09 still physically OPEN
+
+**Newest executable source:** `334566f2a41293c458353991d99d968ad5fa9ad1` (PR338 U21 exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6` guarded merged, **18/18** changed Git blobs identical). [Resulting-main CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) completed **validation/fast/windows-candidate 3/3 PASS**, including Rust, DOM/pixel, packaged runtime, release, physical candidate and M1 diagnostic gates. Later main commits touch documentation only. Actual [Windows physical artifact 11739519083](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248/artifacts/11739519083) downloaded, ZIP CRC PASS; independent SHA256:
+- ZIP **`a2c21cd7718202313dfd3180404f772d9d685f5708ac1f8085a126327cc87f5f`** (15,335,348 bytes).
+- `narro.exe` **`941a940ac515f38c886b8c9b9203199f617ef34ef190e0af310c203535b2e395`**.
+- NSIS **`b8bab72b7bf44301ac25a3460a4aaec1e83a11e6a1d7be34c79124f356baeb78`**.
+- MSI **`a766bc8a270b2dd64342800845f19e5c6af7964f59a8c29c1933b2efc9ef61dc`**.
+Full actual artifact and source proof: [immutable closeout](../work-log/2026-10-12-chatgpt-u21-main-windows-three-job-final-candidate-accepted.md), safe checklist and `-ExpectedSha256` at [Current Windows session](CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md).
+
+**No real Windows physical PASS is claimed.** PA-01–09 **USER-PAUSED / NOT RUN** on the current candidate; their detailed native risk dispositions below remain unchanged (same HWND and compositor, morph and DPI, real timer expiry, Reports pending focus, toast/audio/mute, restart persistence, real installer smoke). Do not launch, install or edit user data without authorized physical resumption. Historical Windows CI/binaries (including former #333) are source-specific and superseded. U21 Break UI is view-only, source v2.6.69 visual/motion parity separately OPEN; U22/U23 independent. Mandatory physically accepted milestone 3/10, M10 blocked, optional M11 hard opt-in dormant, approved user-owned Spectrum Core picker/photos/218 icons untouched.
+
+## HISTORICAL 2026-10-12 — Pre-Codex gate paused after U21 merge, final candidate verification pending
 
 **Latest executable source accepted via guarded merge:** `334566f2a41293c458353991d99d968ad5fa9ad1`, PR338 exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6`, [exact Windows CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) **3/3 PASS**, all 18 source/test Git blobs verified identical. [Resulting-main CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) validation/fast **PASS**, Windows **IN PROGRESS / NOT YET FULL PASS** as of evidence checkpoint. Current ZIP/`narro.exe`/NSIS/MSI **not downloaded, not hashed, not accepted**. The historical post-#333 hashes below validate *only* source `ef22a7e4...` and must not be used to start U21 acceptance.
 
