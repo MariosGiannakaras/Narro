@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U12, U40, U35 new source PRs independently under CI
+## CURRENT 2026-10-12 — two scoped source PR merges accepted, U35 Windows retry and union binary pending
+
+**Previous #333 12/12 campaign and its independently hashed Windows ZIP/exe/NSIS/MSI are preserved historic acceptance for source `ef22a7e434bea6cc4849282aa46c4786d9d90663` only.** New U12/U40/U35 additional bounded line: **2/3 PR-head PASS/guarded merged, 0/3 resulting-main final artifact accepted** while #336 remains open. Exact acceptance distinction intentional.
+
+**#334 U12 MERGED:** PR `3688f22d2051d762bd4d70997fd4947255031cff`, [CI 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) **3/3 PASS on attempt 2**, prior attempt1 existing Finding33 Edge `Page.navigate` timeout; guarded squash `8615598938dbe08681481d9d824be7cd75fffb2a`; exact preferences.rs production+tests Git blob `bb97da42c2fa20174ba22fa6cf0ebf8e6ca5934d` matches PR. **#335 U40 MERGED:** PR `878559303aef1184035f300b0a3ba2ccaab103d9`, [CI 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) first attempt **3/3 PASS**, guarded squash `285bb7d4698111d3d701d77464017d2865e495d2`; 2/2 updated source/test Git blobs equal PR head.
+
+**#336 U35 OPEN**, head `1411093118acb4ecf06e2e046e150469483618cb`, [CI 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) first attempt validation+fast PASS but visual capture Windows FAIL at existing Finding33 Edge CDP `Page.navigate` timeout, downstream artifact missing; actual logs examined. One targeted same-head Windows job rerun attempt2 **IN PROGRESS/NOT PASS**; if repeats, diagnose causal harness evidence and avoid speculative app code or unlimited reruns. No generated new final binary hashes yet.
+
+**Next:** inspect #336 retry, guarded merge only if exact head 3/3 SUCCESS and verify 7 resulting blobs; check resulting-main union CI 3/3, download CRC/SHA256 new ZIP/narro.exe/NSIS/MSI and repin current physical candidate. Full physical Codex Windows USER-PAUSED, roadmap 3/10 mandatory physically/source-accepted milestones, M10 blocked, optional M11 dormant. User-approved Spectrum Core list picker/image/218 icons unchanged. Full handoff log `work-log/2026-10-12-chatgpt-u12-u40-guarded-merges-u35-windows-rerun.md`.
+
+## HISTORICAL 2026-10-12 — U12, U40, U35 new source PRs independently under CI
 
 **Prior code/CI campaign 12/12 accepted**, source `ef22a7e434bea6cc4849282aa46c4786d9d90663`, true Q12 production ZIP/exe/NSIS/MSI hashes in immutable `work-log/2026-10-12-chatgpt-post333-final-windows-artifact-hashes-and-candidate-pin.md`. **New independent post-Q12 coding scope 0/3 accepted** pending exact-head and integrated-main validation. Historical binary cannot validate new app source.
 
