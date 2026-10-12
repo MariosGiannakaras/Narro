@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { inflateSync } from "node:zlib";
 import { resolve } from "node:path";
 
 function invariant(condition, message) {
@@ -9,6 +10,32 @@ const root = resolve(process.cwd(), "artifacts", "visual-regression");
 
 async function read(label) {
   return readFile(resolve(root, `${label}.html`), "utf8");
+}
+
+async function assertRenderedScreenshot(label) {
+  const png = await readFile(resolve(root, `${label}.png`));
+  invariant(png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])), `${label} is not a PNG`);
+  const idat = [];
+  for (let at = 8; at + 12 <= png.length;) {
+    const size = png.readUInt32BE(at);
+    const end = at + 12 + size;
+    invariant(end <= png.length, `${label} PNG chunk is truncated`);
+    const kind = png.toString("ascii", at + 4, at + 8);
+    if (kind === "IDAT") idat.push(png.subarray(at + 8, at + 8 + size));
+    at = end;
+    if (kind === "IEND") break;
+  }
+  invariant(idat.length > 0, `${label} PNG contains no image data`);
+  const pixels = inflateSync(Buffer.concat(idat));
+  // Detect the exact previously accepted failure: a single background color
+  // still produced a valid PNG and complete Preferences DOM. The Edge PNGs
+  // are filtered 8-bit RGB; truly rendered UI has substantially more diversity.
+  const distinct = new Set();
+  for (const value of pixels) {
+    distinct.add(value);
+    if (distinct.size > 16) break;
+  }
+  invariant(distinct.size > 16, `${label} screenshot is visually blank/monochrome despite ready DOM`);
 }
 
 for (const preference of ["system", "dark", "light"]) {
@@ -56,6 +83,7 @@ invariant(shortcutConflictDom.includes("Retry"), "shortcut conflict state must e
 invariant(shortcutConflictDom.includes('role="alert"'), "shortcut conflict must be announced as an alert");
 
 for (const section of ["upper", "middle", "lower"]) {
+  await assertRenderedScreenshot(`theme-settings-preferences-${section}`);
   const dom = await read(`theme-settings-preferences-${section}`);
   invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `Preferences ${section} capture did not reach readiness`);
   invariant(dom.includes(`data-theme-settings-section="${section}"`), `Preferences ${section} marker is missing`);
@@ -88,6 +116,7 @@ invariant(lowerDom.includes("Success sound"), "Preferences lower capture success
 // SS-C17 is a dedicated modal, not the shortcut section scrolled into Preferences.
 for (const theme of ["dark", "light"]) {
   const label = `theme-settings-shortcuts-dialog-${theme}`;
+  await assertRenderedScreenshot(label);
   const dom = await read(label);
   invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `${label} did not reach readiness`);
   invariant(dom.includes(`data-theme="${theme}"`), `${label} source theme is missing`);
