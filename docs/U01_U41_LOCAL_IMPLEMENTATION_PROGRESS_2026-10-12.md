@@ -1,6 +1,12 @@
 # U01–U41 Narro-local implementation progress — fixed denominator and evidence boundaries
 
-## CURRENT 2026-10-12 — User-directed general counter first: 40/41 functionally covered, 1/41 intentionally blocked
+## CURRENT 2026-10-12 — U04 user-approved for implementation; source PR343 0/1 accepted pending exact CI
+
+The user explicitly approved irreversible deletion of **one selected Archived Done completed task together with its task-owned sessions, notes, reminders and reports**, with a **modern Narro-style confirmation modal**. [U04 PR343](https://github.com/MariosGiannakaras/Narro/pull/343) is the sole active implementation, initial head `d86673b278c7de34ae7ce863c2bb82f02bf9b145` first [CI38283243930](https://github.com/MariosGiannakaras/Narro/actions/runs/38283243930) failed fast gate at a preexisting dialog focus-restoration string guard, corrected on same branch new head `ceb1c9a0811b32ab89417fc874c0856b1a2c731b`, [replacement CI38283626778](https://github.com/MariosGiannakaras/Narro/actions/runs/38283626778) queued/PENDING, **NOT PASS** at checkpoint. First failed SHA remains historically FAIL. See [immutable implementation handoff](../work-log/2026-10-12-chatgpt-u04-user-approved-irreversible-archive-done-delete-pr343-exact-ci-pending.md). No production or native user data deletion executed.
+
+**User-facing general functional coverage remains `40/41` ACCEPTED, `1/41` U04 implementation **PENDING source validation/guarded merge/resulting-main package**; specific gap shortlist remains `8/9` accepted, physical mandatory milestone acceptance `3/10` with `7` remaining and PA-01–09 USER-PAUSED. Count U04 as 41/41 local functionality **only after** green exact-head Windows validation, guarded source merge, resulting-main validation and real package CRC/fourhash proof. All other original ID buckets below unchanged. Contemporary Blitzit exact parity and optional M11 remain separately OPEN/dormant.
+
+## HISTORICAL 2026-10-12 — User-directed general counter first: 40/41 functionally covered, 1/41 intentionally blocked
 
 **Definition:** Each exact `U01`…`U41` source-uncertainty item is assigned **exactly once** below. "Functionally covered" means that Narro has an approved/implemented and automated-tested local behavior for the relevant capability, including deliberately different documented Narro-local alternatives. It **does not** mean that 40 original contemporary Blitzit algorithms/screens/animations have been matched or that native Windows physical tests have passed. Some findings were uncertainties rather than missing features. This is a *coverage counter for these 41 defined concerns only*, **NOT the denominator for total application functionality or exact Blitzit parity**.
 
