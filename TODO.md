@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — new U12/U40/U35 source 3/3 accepted; B49 guard merged; union Windows CI in flight
+## CURRENT 2026-10-12 — U21 Break Focus source-only PR #338, separate 0/1, while prior union CI runs
+
+- [x] **U12/U40/U35 3/3 source PR heads accepted and merged, B49 visual-test harness 1/1 separately accepted/merged**. Corrected merged-source executable/test tree `3bf54e067cb2b3e7c660e31bea899377615a5a24`, B49 3/3 exact blobs verified. All prior individual head-CI jobs PASS; [prior union resulting-main CI 38216583142](https://github.com/MariosGiannakaras/Narro/actions/runs/38216583142) validation+fast SUCCESS, Windows pending. Latest production ZIP/EXE/NSIS/MSI hashes **NOT YET VERIFIED**.
+- [ ] **U21 separately scoped 0/1 accepted** [PR338](https://github.com/MariosGiannakaras/Narro/pull/338), head `8b99533e171c6058fae2eb959410841b3b540973` [CI 38217740935](https://github.com/MariosGiannakaras/Narro/actions/runs/38217740935) validation SUCCESS, later gates pending. Break live card / disabled suspended queue purely presentation; test-first and real Windows Break visual assertions, no timer/task/session write change. U22/U23 separate, POMO already implemented. No final code PASS or source-current Blitzit parity until exact CI and appropriate merge. [Immutable proof](work-log/2026-10-12-chatgpt-u21-break-live-card-view-only-pr338-checkpoint.md).
+- [ ] **Final merged application candidate still unaccepted for replacement production binary**: after all accepted source PRs, require full resulting-main Windows CI and actual ZIP/exe/NSIS/MSI SHA256; physical Codex full PA-01–09 USER-PAUSED and cannot count as automated PASS.
+- [ ] Mandatory roadmap 3/10 physically complete, M10 blocked, optional M11 hard opt-in dormant. User-approved Spectrum Core Create/Edit List/upload/218 icons LOCKED.
+
+## HISTORICAL 2026-10-12 — new U12/U40/U35 source 3/3 accepted; B49 guard merged; union Windows CI in flight
 
 - [x] **New independent U12 #334, U40 #335 and U35 #336: 3/3 guarded source merges after exact-head Windows CI 3/3 each**, main blob identities previously 1/1, 2/2, 7/7. Their immediate resulting-main [CI 38213868859](https://github.com/MariosGiannakaras/Narro/actions/runs/38213868859) **3/3 SUCCESS**, prior to B49 merge.
 - [x] **B49 Windows Edge visual harness guard #337** separately accepted: exact head `d61e6a77b1527915fc9158917f26d969dab53516`, [run 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) 3/3 SUCCESS, expected-head squash merge `3bf54e067cb2b3e7c660e31bea899377615a5a24`, 3/3 identical CI-head/main source blobs. [Immutable evidence](work-log/2026-10-12-chatgpt-b49-pr337-guarded-merge-union-ci-in-progress.md).
