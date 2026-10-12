@@ -1,6 +1,15 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U09 real chart-menu source proposed while U06 main Windows runs
+## CURRENT 2026-10-12 — U06/U09 both guarded merged 3/3; latest merged-main Windows pending
+
+**Prior implementation campaign:** U12/U40/U35/U21 4/4 source/CI accepted. Additional independent **U06 1/1** [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) 3/3 PR CI + guarded merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, head/main 10/10 blobs. U06 merged-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) **3/3**, independently downloaded U06 ZIP 15,336,398 bytes SHA256 `fba8c3e4c239ef4e0831dc0efb090ef1cc0aab59b1c0a182b44538366cfcbca9` matching artifact digest; `narro.exe` `de7b52258877218496ebd3d49e1ce6227b349565c5ed79afbe4e919eb017ff94`, NSIS `7d4115ecf2eccb749d38db39b1bca1a92a0a517ecd35aa720c3eef1fbc2fd7c5`, MSI `3a64fc0700d1a29a151deffdc75018dce863af0b52bdfd14cdf7142d6d144d92` (CRC and headers passed). **U09 1/1 SOURCE guarded merged:** [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) exact head `3759e7e8bf388602e12874e1e42d691989a8a0f2` [PR CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) **3/3 PASS**, expected-head guarded merge `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`, 7/7 exact Git blobs. U06 year navigation and U09 chart menu are testable Narro-local rules; no current-original Blitzit/M11 claim.
+
+**Current latest merged-main release gate:** [CI38248985335](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335) on `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1` validation+fast PASS; Windows candidate **PENDING** at this checkpoint. Latest U09 production ZIP/exe/installers NOT independently hashed/pinned yet; prior U06 artifact valid only for prior executable. Scheduled [recurrence CI38247012116](https://github.com/MariosGiannakaras/Narro/actions/runs/38247012116) separately FAIL due GitHub HTTP502 on historical workflow API page2, not a Narro application CI failure; do not falsely mark PASS. [Immutable source+artifact proof](work-log/2026-10-12-chatgpt-u06-main-artifact-verified-u09-pr340-guarded-merge-main-pending.md).
+
+**Open:** physically PA-01–09 USER-PAUSED, M1–M9 accepted **3/10**, M10 blocked; M11 optional/dormant. Next after exact Windows release acceptance U22 and U23 read-only Break projections; U04 destructive safety decision. Preserve approved owner-created Spectrum Core List picker/uploads/offline icons.
+
+
+## HISTORICAL 2026-10-12 — U09 real chart-menu source proposed while U06 main Windows runs
 
 U09 [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) head `3759e7e8bf388602e12874e1e42d691989a8a0f2`, [CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) validation-gate SUCCESS, fast/Windows PENDING at checkpoint. Replaces source-uncertain/inert Reports chart ellipsis with existing accessible `Menu` + nonempty pure **Show all, Tasks only, Breaks only, Total only** view-state presets. Read-only data; never claim original Blitzit menu equivalence; no M11 activation. Production helper + 7 scoped test/UI/CSS files in [immutable log](work-log/2026-10-12-chatgpt-u09-pr340-new-m11-independent-chart-menu-ci-pending.md). U09 source **0/1 accepted** before required CI/guarded merge.
 
