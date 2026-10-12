@@ -10,6 +10,24 @@ The audit is deliberately phase-gated:
 
 **Do not collapse these phases. In particular, do not discover a difference during capture and immediately analyze or fix Narro.**
 
+## Mandatory deep reverse-engineering protocol (REA + alternative tools)
+
+**Objective:** obtain the maximum reliable, reproducible understanding of the user's authorized Blitzit installation: appearance, behavior, client-side code paths, application state, local persistence, and observable client/server interactions. A superficial UI/video or network-only audit does not satisfy M11 when relevant deeper evidence is obtainable. Do not claim to have recovered unobservable backend source or algorithms.
+
+**REA is the preferred first candidate, not a compulsory single point of failure.** At activation, assess [Reverse Engineer Anything (REA)](https://github.com/morluto/rea): actual released/installed version, Node/MCP/CLI readiness, compatible host, providers, supported target formats and limits. Verify that the tool genuinely works before relying on its output. REA can analyze Electron/JavaScript/ASAR structures, static .NET metadata/CIL, native binaries with a compatible Hopper/Ghidra/IDA provider, and saved browser/network evidence. Its Windows Ghidra support is experimental and limited; never assume general native Windows coverage. Use other appropriate tools when more informative: Windows process/module/file/registry/ETW monitors, debuggers/profilers, PE/.NET/ASAR inspectors, DevTools and available HAR/state/database views.
+
+**Investigative method:**
+1. Identify the exact client version, packaging/framework (Electron, .NET, native PE or otherwise), installed components, available source maps and artifact hashes. Use only copies/artifacts obtainable from the authorized installation.
+2. Plan a feature-to-evidence matrix before capturing: each scripted action identifies relevant UI state, binary/module candidates, data/persistence changes, timing, network/state messages and restart/error paths.
+3. In capture (Phase 2), collect all three synchronized streams: visible interaction; observable network/state protocol; hash-identified installed artifacts and factual runtime/process/file/registry/database/ETW/debug traces where available. Preserve the evidence without semantic code analysis or Narro changes.
+4. Freeze all raw evidence, artifact hashes, tool versions, provider limitations, timestamps, scenario mappings and sanitized manifests (Phase 3). Analyze the frozen material only afterward.
+5. During Phase 4, use REA and/or suitable alternatives for targeted static reconstruction (modules, imports, IPC, functions, references, serialization, persistence, call/data flow). Correlate it with dynamic execution traces, before/after/restart state and client network events. Test competing hypotheses where feasible.
+6. Before marking a material function **UNKNOWN/UNOBSERVABLE**, document the actual static, dynamic, network and persisted-state approaches attempted and why they failed or were inapplicable; consider a compatible offline analysis host or alternate provider rather than stopping after one failed REA operation. Do not exhaustively disassemble unrelated code.
+7. Each finding must have a traceability row: scenario ID, exact Blitzit artifact/build hash, visual and protocol/state observations, file/symbol/offset or REA evidence, runtime evidence, confidence (direct / strong inference / unknown), gaps and the corresponding Narro behavior.
+8. Only after whole-corpus analysis and findings reconciliation may Narro be corrected. Implement the minimum evidence-backed change with tests and CI, preserving local-only architecture, reliability, accessibility and the approved Spectrum Core Create/Edit List picker, image upload and 218 offline icons unless the user explicitly changes that design.
+
+**Scope boundary:** maximal investigative effort does not automatically authorize bypassing authentication, subscriptions, DRM, certificate pinning or access controls, extracting or replaying credentials, probing unrelated services, or using commercial tooling without a valid license. Use ordinary authorized instrumentation and lawful static/dynamic alternatives, documenting concrete unavailable channels rather than inventing results. Keep raw proprietary binaries and sensitive traces local, and put only sanitized summaries/manifests/hashes in the repository. Separate approval remains required for invasive OS changes, billing/account/security changes or other unrelated destructive actions. This policy does not activate M11 or resume paused native tests.
+
 ## Hard activation gate
 
 **Do not start, prepare, count, schedule, or infer Milestone 11 unless the user gives an explicit instruction to activate M11 after the live Blitzit trial/reference environment is available.**
@@ -51,7 +69,9 @@ Before the capture campaign, record enough provenance to distinguish current liv
 - Windows version and relevant display/DPI/monitor environment;
 - trial/subscription tier and visible/relevant feature limitations;
 - theme, locale, timer/preferences and other settings that materially affect the inspected state;
-- whether the live evidence is created by direct Codex interaction, a user-made recording, or another explicitly identified capture path.
+- whether the live evidence is created by direct Codex interaction, a user-made recording, or another explicitly identified capture path;
+- source installer/client package format, SHA-256 identities, module architecture and exact available artifact copies;
+- REA and alternate-analysis tool versions, provider-readiness results, host/tool constraints and an available offline analysis machine if needed.
 
 Do not silently treat newer live behavior as proof that older canonical evidence was wrong. Version-specific differences remain explicit evidence.
 
@@ -81,9 +101,9 @@ The plan should cover all material in-scope product surfaces and transitions, no
 
 Prefer one comprehensive scripted journey plus explicitly listed branch scenarios over ad-hoc exploration.
 
-## Dual evidence streams
+## Three complementary evidence streams
 
-Every planned interaction should, where technically practical, be recorded on a shared timeline through **both** evidence streams.
+Every planned interaction should, where technically practical, be recorded on a shared timeline through **all applicable** evidence streams. Document any unavailable stream explicitly.
 
 ### A. User-visible stream
 
@@ -109,7 +129,11 @@ Where available without defeating product security controls, record:
 - process/file/database activity observable on the local machine when it materially clarifies state ownership;
 - before/after state snapshots sufficient to infer transitions such as create/edit/move/reorder/timer/session/schedule/report behavior.
 
-This is a Mimic-like **behavioral/protocol observation method**, not an attempt to recover private server source code, internal database schema or unexposed algorithms.
+This is a Mimic-like **behavioral/protocol observation method**, not evidence of private server source code, internal database schema or unexposed algorithms.
+
+### C. Local client artifacts and runtime execution
+
+Record hash-identified read-only inventories of available installer/executables/DLLs, ASAR resources, source maps, .NET assemblies and other client files, plus factual process/module starts, normal filesystem/registry/cache/database changes, ETW/debugger/profiler observations and state snapshots where appropriate. Correlate timestamps with the same scripted UI actions and preserve before/after/restart results. Collection is factual only: REA static analysis, decompilation, code-path inference and parity conclusions belong exclusively to Phase 4 after the capture corpus is frozen.
 
 ## Security/privacy boundary for protocol capture
 
@@ -119,7 +143,7 @@ Do not:
 - fuzz/enumerate undocumented endpoints beyond the actions produced by ordinary product use;
 - bypass certificate pinning, authentication, access controls or other security protections merely to obtain more evidence.
 
-If a protocol/state channel cannot be observed without bypassing such a protection, record it as **UNAVAILABLE / NOT OBSERVED** and continue with the evidence that is legitimately available.
+If a protocol/state channel cannot be observed without bypassing such a protection, record **that channel** as **UNAVAILABLE / NOT OBSERVED** and pursue other appropriate lawful static, runtime and state-observation methods. Do not infer that the entire feature is unknowable from one blocked channel.
 
 Sensitive raw network/state captures should remain local. Repository evidence should use sanitized derivatives, hashes, manifests and redacted structural summaries.
 
@@ -163,6 +187,9 @@ Create a frozen M11 evidence inventory:
 - session IDs and chronology;
 - raw video/screenshot filenames;
 - protocol/state capture filenames;
+- installer/client artifact inventories, hashes and local evidence provenance;
+- process/module/ETW/debug/file/registry/state snapshot filenames where available;
+- REA/provider/tool versions, capabilities, unsupported channels and fallback results;
 - start/end timestamps;
 - SHA-256 or equivalent integrity hashes;
 - environment/provenance metadata;
@@ -180,7 +207,7 @@ The frozen capture corpus is immutable evidence. Corrections or annotations use 
 
 Only after Phase 3 is complete may substantive analysis begin.
 
-Analyze the corpus systematically rather than in discovery order.
+Analyze the corpus systematically rather than in discovery order. Apply the mandatory REA/alternative-tool static, dynamic, protocol and state evidence ladder above to material uncertain flows, produce the reverse-engineering traceability matrix, and distinguish recovered client behavior from inferred or inaccessible backend details.
 
 ## Visual/interaction analysis
 
@@ -212,7 +239,7 @@ Do not infer hidden server internals that are not observable. Distinguish:
 
 Do not begin Narro remediation merely because the first significant finding is understood.
 
-Phase 4 completes only when the entire frozen capture corpus has been reviewed to the planned coverage level and a single M11 findings register exists.
+Phase 4 completes only when the entire frozen capture corpus has been reviewed, all material uncertain flows have either undergone the applicable static/dynamic/protocol/state investigation or have documented limits, the reverse-engineering traceability matrix is complete and a single M11 findings register exists.
 
 # Phase 5 — Reconciliation and remediation plan
 
@@ -271,6 +298,7 @@ M11 is complete only when:
   - capture inventory and integrity;
   - visual findings;
   - observable protocol/state findings;
+  - installed artifact/static/REA/runtime evidence, tool versions, confidence and provider limits;
   - unknown/unobservable backend limits;
   - version-specific differences;
   - accepted Narro deviations;
@@ -288,3 +316,5 @@ M11 authorization is authorization to perform this audit workflow. It is not bla
 - perform destructive account actions unrelated to the scripted audit.
 
 Such actions still require the approval normally required by repository/tool policy.
+
+This documentation-only revision **does not activate M11**, modify the mandatory 10-milestone denominator, resume the user-paused PA-01–09 physical tests, change active code/CI ownership or change any approved Spectrum Core visuals or behavior.
