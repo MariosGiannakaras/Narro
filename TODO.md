@@ -1,6 +1,13 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U12/U40 source integrated, U35 and B49 guard PRs pending
+## CURRENT 2026-10-12 — three U12/U40/U35 PRs 3/3 green/guarded merged; final union CI pending B49 harness #337
+
+- [x] **U12 / U40 / U35 individual source PRs 3/3 ACCEPTED:** #334 [run 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) attempt2 3/3 / merge `8615598938dbe08681481d9d824be7cd75fffb2a` (1/1 blob), #335 [run 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) 3/3 / merge `285bb7d4698111d3d701d77464017d2865e495d2` (2/2 blobs), #336 [run 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) attempt2 3/3 / guarded merge `b4bc534d937611597857aac13c46640f1d364195` (7/7 blobs). U35 local newest-modified timestamp order is not proven original Blitzit sorting algorithm. [Immutable proof](work-log/2026-10-12-chatgpt-u35-pr336-guarded-merge-seven-blob-proof.md).
+- [ ] **Separate B49 Edge CDP EBUSY Windows test-harness correction #337:** exact head `d61e6a77b1527915fc9158917f26d969dab53516`, [CI 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) validation+fast PASS, Windows **IN PROGRESS** when checked. Need actual 3/3, expected-head guarded merge, 3/3 blob verification; failure in older merged-main run 38211199891 was observed `DevToolsActivePort` `EBUSY`, not proven product regression.
+- [ ] **New post-Q12 three-unit final union binary acceptance 0/3:** require resulting-main full 3/3 Windows CI after all source/harness merges, download and hash actual new ZIP/`narro.exe`/NSIS/MSI; pin exact physical candidate and immutable record. Prior original 12/12 code+CI acceptance and old post-#333 four-hash binary remain historical only.
+- [ ] **Physical Codex USER-PAUSED** full PA-01–09, mandatory 3/10 milestone physical acceptance, M10 blocked, optional M11 hard opt-in dormant; U01/U02 user-approved Spectrum Core List Editor/upload/218 icons LOCKED.
+
+## HISTORICAL 2026-10-12 — U12/U40 source integrated, U35 and B49 guard PRs pending
 
 - [x] **U12 #334 and U40 #335 exact-head PR CI + guarded main merges accepted.** U12 [run 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) attempt2 3/3, merge `8615598938dbe08681481d9d824be7cd75fffb2a`, 1/1 blob; U40 [run 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) 3/3, merge `285bb7d4698111d3d701d77464017d2865e495d2`, 2/2 blobs. Previous source/CI campaign 12/12 and old #333 candidate hashes remain historical exact-source only.
 - [ ] **U35 #336** head `1411093118acb4ecf06e2e046e150469483618cb`: [CI 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) first attempt Finding33 `Page.navigate` FAIL, only failed Windows job attempt2 was rerun, Rust+visual capture passed, release build **IN PROGRESS, NOT 3/3 PASS**. Need exact-head CI success, guarded merge, **7/7 matching blobs**.
