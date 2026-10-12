@@ -1,6 +1,13 @@
 # HANDOFF — Narro bounded implementation and exact Windows source/package accepted; native physical user-paused
 
-## CURRENT 2026-10-12 — U22 existing branch PR341 exact-head Windows CI pending
+## CURRENT 2026-10-12 — U22 PR341 exact rustfmt-only failure fixed; replacement CI pending
+
+Preserve live [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) on existing `feat/u22-focus-done-persisted-break-history`. **First PR head** `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02` [run38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626): validation SUCCESS, frontend tests + TypeScript/Vite build SUCCESS, fast-gate FAIL only at **Rust formatting** (job114833893057), Windows SKIPPED. Applied exactly 7+2 rustfmt diff chunks from the real job log to `sessions.rs` and `report_commands.rs`, no semantics/test relaxation. **Latest exact PR head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, [replacement CI38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) validation SUCCESS, fast/Windows IN PROGRESS / NOT PASS** at this checkpoint. U22 independent slice **0/1 accepted**, prior 4/4 + U06 1/1 + U09 1/1 preserved. [Immutable causal proof](work-log/2026-10-12-chatgpt-u22-pr341-fast-rustfmt-only-exact-log-correction.md).
+
+**NEXT:** inspect real replacement run 38256743036; on red diagnose first step and only evidence-backed fix on same branch. On full 3/3 SUCCESS, verify exact live PR SHA and current main/open PRs, guarded squash merge expected-head, source/test blob equality, resulting-main CI 3/3 and actual current ZIP/exe/NSIS/MSI hashes. U23 read-only typed planned active Break duration next **after U22 merge**, [causal plan](work-log/2026-10-12-chatgpt-u23-typed-break-planned-duration-independent-design-while-u22-ci.md). Native Codex PA-01–09 USER-PAUSED, mandatory milestones 3/10, M10 blocked, M11 dormant, Spectrum Core locked.
+
+
+## HISTORICAL 2026-10-12 — U22 existing branch PR341 exact-head Windows CI pending
 
 **Active action (do not recreate):** [PR #341](https://github.com/MariosGiannakaras/Narro/pull/341) on preserved existing branch `feat/u22-focus-done-persisted-break-history`, exact head **`1d20f27bc07e4bd3c05559fda5d8598d7d5adb02`**. It already contained 17 U22 work/test commits when resumed; source work preserved, no parallel branch. Two specific preexisting TS defects fixed in this branch (truncated read-revision hook declaration, incorrect `todayKey` local-date variable), without altering correct domain decisions. Read-only closed Break history SQLite view bounded 24/session, local-day timezone/DST, selected-list filter, stable SessionId; Focus Done visible count includes Break rows while task progress fraction, task identities, saved EST and session ledger remain untouched. Fixture, Rust tests and two-theme visual assertions integrated. Immutable owner/CI [evidence](work-log/2026-10-12-chatgpt-u22-existing-branch-reused-pr341-first-ci-pending.md).
 
