@@ -31,6 +31,10 @@ Do **not** impose either extreme:
 
 The unit of sequencing is the dependency graph, not the order in which observations happened to be discovered.
 
+## Research intake deduplication — before Phase A
+
+For any new analysis/corrective campaign, first read [tracker and branch ownership index](TRACKER_STATUS_INDEX.md) and locate the existing canonical U-ID or source finding (or record why no suitable ID exists). If an existing closed finding already covers the observation, record a new *delta only*: newly observed build/source artifact and SHA, exact changed protocol/state, current implementation owner, impact and a regression hypothesis. Reuse and link earlier evidence rather than copying media, building duplicate trackers, or reimplementing an abandoned branch. `41/41` indicates functional local coverage of a **fixed historical uncertainty register**, not a claim that no new evidence can arrive. Maintain a single current task owner in `HANDOFF`; immutable logs hold history. No branch pruning, Git LFS/evidence migration, native PA execution or optional live-source M11 is implied by an intake review.
+
 ## Phase A — freeze the evidence identity
 
 Before interpreting a finding, record or recover:
