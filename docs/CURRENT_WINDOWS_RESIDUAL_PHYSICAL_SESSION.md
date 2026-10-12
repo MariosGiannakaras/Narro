@@ -1,5 +1,10 @@
 # Current Windows residual physical session
 
+## Current physical disposition — 2026-10-13 user resumed PA01–08
+
+[Authoritative aggregate PA report](WINDOWS_PA01_08_REPORT_2026-10-13.md) supersedes older paused/native-not-run claims below for the exercised ec7673c/CI38287299890 EXE. 8/8 groups triaged: PA03 native Time's Up compact/expanded dark125 PASS; C4 FAIL (clipped/staged incoming content/desktop contamination), F29 FAIL (opener focus returns Back; pending native-focus proof insufficient), PA07 FAIL (about4s work loss on normal Quit) with independent C5 saved placement PASS. PA02 timing/source comparison, PA05 exact125→100, PA06 audible/toast and PA08 MSI/older upgrade remain UNCERTAIN/NOT RUN. Whole corpus/logs/media published; original user profiles restored. No source fix or full milestone closure inferred. Scope excludes PA09/live Blitzit/M11. Earlier exact-build evidence remains immutable.
+
+
 ## CURRENT 2026-10-12 — U04 newest exact resulting-main Windows release, true fourhash pinned; native PA USER-PAUSED
 
 **Newest validated executable:** [U04 PR343](https://github.com/MariosGiannakaras/Narro/pull/343), accepted exact PR head `7ee33aa873cc4025a996efb8f02ec32969842d15`, exact [PR CI38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) 3/3 SUCCESS, expected-head guarded merge **`ec7673c921e08c83de11c986bd25fbb3600475ce`**, 13/13 source/test/visual Git blobs exact MATCH. Exact [resulting-main Windows CI38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) attempt1 head `ec7673c...`, validation/fast/windows **3/3 COMPLETED SUCCESS**. Main changes after merge are Markdown-only, no executable drift. [Immutable accepted executable and package proof](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md).

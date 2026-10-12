@@ -1,0 +1,110 @@
+{
+  "source_recording_sha256": "5a0ac940f01e792afa1335b07e3a63e91166b65e0d943f223dc7801cdb784c03",
+  "clips": [
+    {
+      "file": "PA02-main-entry.mp4",
+      "source_start_seconds": 393,
+      "duration_seconds": 5,
+      "bytes": 900208,
+      "sha256": "a5777f974453175b44c7c36d24d57ff0cd5e7b753e5e2338df493ae7548fe14a"
+    },
+    {
+      "file": "PA01-cycle1-to-panel.mp4",
+      "source_start_seconds": 582,
+      "duration_seconds": 3,
+      "bytes": 383847,
+      "sha256": "3f350b33562adc35d3073562845e00314d923f19031174cee503dbbbfdb3e05c"
+    },
+    {
+      "file": "PA01-cycles2-3.mp4",
+      "source_start_seconds": 641,
+      "duration_seconds": 12,
+      "bytes": 1445501,
+      "sha256": "d1b935a79728d4f3b43f9a7867cc1d17b253daae9359ba6911e67929691fb781"
+    },
+    {
+      "file": "PA01-expansion.mp4",
+      "source_start_seconds": 664,
+      "duration_seconds": 12,
+      "bytes": 1294717,
+      "sha256": "d1f6e0c279e72e30ef3542a13097120a155554506be0755b1397251aaeed90d0"
+    },
+    {
+      "file": "PA03-time-up.mp4",
+      "source_start_seconds": 758,
+      "duration_seconds": 7,
+      "bytes": 766507,
+      "sha256": "a21dd3889059e3486ad977b9f32d17e9b457ac3b9f33016d451ee60f005f3133"
+    },
+    {
+      "file": "PA03-expired-views.mp4",
+      "source_start_seconds": 771,
+      "duration_seconds": 8,
+      "bytes": 789767,
+      "sha256": "b3c405d8d00cd4f7466190d4dae508a182b7e6c6228cafdac5e968740e4f2352"
+    },
+    {
+      "file": "PA03-extend-pause.mp4",
+      "source_start_seconds": 809,
+      "duration_seconds": 7,
+      "bytes": 872901,
+      "sha256": "488a2aa0f36ccd9943dcfd1e8275fac5def9caa6679980bb0b12dc7cff8d1662"
+    },
+    {
+      "file": "PA04-pending-lock.mp4",
+      "source_start_seconds": 1802,
+      "duration_seconds": 9,
+      "bytes": 1262649,
+      "sha256": "ce7a92fd35ca520641b0a0afd2c16c63596cc5a520d133f5a8a79394cea99238"
+    },
+    {
+      "file": "PA05-unavailable.mp4",
+      "source_start_seconds": 2043,
+      "duration_seconds": 20,
+      "bytes": 1141566,
+      "sha256": "7ca653ccbb03c65b55be5204d3318cb26dbbff179057894fd520468a9ac80f44"
+    },
+    {
+      "file": "PA06-audio-previews.mp4",
+      "source_start_seconds": 1865,
+      "duration_seconds": 23,
+      "bytes": 2968280,
+      "sha256": "2782ccd930cdaef1cf475e38008d5daeccc0d44e1939cb6ba68916f00a6884d6"
+    },
+    {
+      "file": "PA06-break-expiry.mp4",
+      "source_start_seconds": 2528,
+      "duration_seconds": 12,
+      "bytes": 1278762,
+      "sha256": "b7d81ee185c0db094fa58a60232e2913aeeef79d2d9c1ca5e535ec52117159e7"
+    },
+    {
+      "file": "PA07-drag.mp4",
+      "source_start_seconds": 2563,
+      "duration_seconds": 4,
+      "bytes": 458725,
+      "sha256": "27dcc3e12644acef4808a54db05a9348c7297817e16d402f03885177dc8923df"
+    },
+    {
+      "file": "PA07-quit-relaunch.mp4",
+      "source_start_seconds": 2625,
+      "duration_seconds": 37,
+      "bytes": 4163572,
+      "sha256": "dc31d33e4b0615523833b56d4919a9daaff527739d55a7f6a03e1a7b1266ba4c"
+    },
+    {
+      "file": "PA01-reduced-motion.mp4",
+      "source_start_seconds": 2688,
+      "duration_seconds": 6,
+      "bytes": 917507,
+      "sha256": "8e383222c82853ce566ac8325428f179a01668f42ccae3baffaf2a34c13ad848"
+    },
+    {
+      "file": "PA08-nsis-installed-launch.mp4",
+      "source_start_seconds": 2744,
+      "duration_seconds": 6,
+      "bytes": 822819,
+      "sha256": "8fd5f82d4cf19e2b2829ed777fb2de21887edfa47b0d78ac705548362169ca2f"
+    }
+  ]
+}

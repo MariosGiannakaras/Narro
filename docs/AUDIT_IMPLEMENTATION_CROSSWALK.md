@@ -1,5 +1,10 @@
 # Audit → implementation crosswalk
 
+## Current physical disposition — 2026-10-13 user resumed PA01–08
+
+[Authoritative aggregate PA report](WINDOWS_PA01_08_REPORT_2026-10-13.md) supersedes older paused/native-not-run claims below for the exercised ec7673c/CI38287299890 EXE. 8/8 groups triaged: PA03 native Time's Up compact/expanded dark125 PASS; C4 FAIL (clipped/staged incoming content/desktop contamination), F29 FAIL (opener focus returns Back; pending native-focus proof insufficient), PA07 FAIL (about4s work loss on normal Quit) with independent C5 saved placement PASS. PA02 timing/source comparison, PA05 exact125→100, PA06 audible/toast and PA08 MSI/older upgrade remain UNCERTAIN/NOT RUN. Whole corpus/logs/media published; original user profiles restored. No source fix or full milestone closure inferred. Scope excludes PA09/live Blitzit/M11. Earlier exact-build evidence remains immutable.
+
+
 ## CURRENT 2026-10-12 — reconciled source/local coverage 41/41, 9/9 concrete gaps; no exhaustive Blitzit parity claim
 
 **Τρέχουσα λειτουργική κατάσταση:** το σταθερό σύνολο U01–U41 είναι **41/41 λειτουργικά καλυμμένο στον Narro**, με **9/9 τεκμηριωμένα επιμέρους κενά** διορθωμένα. Δεν πρόκειται για 41 επιβεβαιωμένα Blitzit bugs ούτε για απόδειξη ότι έχουν εντοπιστεί *όλες* οι πιθανές αθέατες λειτουργίες. Οι U04, U06, U09, U12, U21, U22, U23, U35, U40 έχουν ενσωματωθεί με source+automated Windows acceptance. Τελευταία U04 [PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), guarded merge `ec7673c921e08c83de11c986bd25fbb3600475ce`, 13/13 matching source blobs, [PR CI 38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) **3/3 SUCCESS**, [resulting-main CI 38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS** στο ίδιο executable SHA και [genuine production artifact 11765510661](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11765510661) CRC + ZIP/EXE/NSIS/MSI SHA256 verified. [Final immutable evidence](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md).
