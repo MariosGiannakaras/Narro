@@ -1,7 +1,9 @@
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
   getArchiveSnapshot,
+  permanentlyDeleteArchivedDoneTaskFromSettings,
   type ArchivedDoneTaskSummary,
   type ArchiveSnapshot,
 } from "./listSettingsApi";
@@ -13,6 +15,7 @@ const ALL_LISTS = "all";
 type ArchivedDoneTasksPanelProps = {
   fixtureSnapshot?: ArchiveSnapshot;
   fixtureFilterOpen?: boolean;
+  fixtureDeleteOpen?: boolean;
 };
 
 function taskAccent(color: string | null): CSSProperties | undefined {
@@ -52,6 +55,7 @@ function formatCompletedDate(value: string): string {
 export function ArchivedDoneTasksPanel({
   fixtureSnapshot,
   fixtureFilterOpen = false,
+  fixtureDeleteOpen = false,
 }: ArchivedDoneTasksPanelProps) {
   const [snapshot, setSnapshot] = useState<ArchiveSnapshot | null>(fixtureSnapshot ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -59,6 +63,11 @@ export function ArchivedDoneTasksPanel({
   const [selectedListId, setSelectedListId] = useState(ALL_LISTS);
   const [filterOpen, setFilterOpen] = useState(fixtureFilterOpen);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ArchivedDoneTaskSummary | null>(fixtureDeleteOpen ? fixtureSnapshot?.doneTasks[0] ?? null : null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const deleteInFlightRef = useRef(false);
 
   useEffect(() => {
     if (fixtureSnapshot) return;
