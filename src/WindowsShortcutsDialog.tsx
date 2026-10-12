@@ -1,5 +1,6 @@
 import {
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
   useEffect,
   useRef,
 } from "react";
@@ -8,6 +9,8 @@ import "./windowsShortcutsDialog.css";
 
 type WindowsShortcutsDialogProps = {
   onRequestClose: () => void;
+  /** Preview-only slot; production keeps authoritative native shortcut state. */
+  settingsContent?: ReactNode;
 };
 
 function tabbableWithin(container: HTMLElement): HTMLElement[] {
@@ -22,7 +25,7 @@ function tabbableWithin(container: HTMLElement): HTMLElement[] {
  * Reuses the existing 3 global toggle controls and 7 fixed app-only bindings:
  * no additional shortcut registration/persistence authority is created here.
  */
-export function WindowsShortcutsDialog({ onRequestClose }: WindowsShortcutsDialogProps) {
+export function WindowsShortcutsDialog({ onRequestClose, settingsContent }: WindowsShortcutsDialogProps) {
   const dialogRef = useRef<HTMLElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -102,7 +105,7 @@ export function WindowsShortcutsDialog({ onRequestClose }: WindowsShortcutsDialo
           </button>
         </header>
         <div className="windows-shortcuts-dialog__scroll">
-          <WindowsShortcutSettingsPanel />
+          {settingsContent ?? <WindowsShortcutSettingsPanel />}
         </div>
       </section>
     </div>
