@@ -1,0 +1,13 @@
+# 2026-10-12 — U21 PR338 exact fast CI failure, historical M6 reorder assertion
+
+**Failed exact head:** aa1d8b0cb1488dced0e1940cd5d3817519cfb1b6; https://github.com/MariosGiannakaras/Narro/actions/runs/38218601294 completed FAILURE: validation SUCCESS, fast FAILURE, Windows SKIPPED. Decoded first failing job 114709184381.
+
+**Actual first failure:** Fast Frontend/Contract Gate: npm run test:ui-m6-parity-reconciliation expected the *old exact source string* canReorder={index !== undefined && notesTaskId !== task.id && subtasksTaskId !== task.id}. But the new code correctly strengthens the guard with !suspendedWork && before both existing editor guards. The new pure U21 test, test:ui-focus-panel, and prior live-mutation tests **passed** earlier in the same log. Thus evidence supports one stale static-source test, NOT a product reorder/Break failure. This is unrelated to the separate B49 DevToolsActivePort EBUSY issue.
+
+**Narrow correction:** Changed ONLY scripts/test-ui-m6-parity-reconciliation.mjs, keeping the previous notes/subtasks guard and requiring the new exact string canReorder={index !== undefined && !suspendedWork && notesTaskId !== task.id && subtasksTaskId !== task.id}. Current-main GitHub code search on the old exact fragment returned only FocusPanel.tsx and this M6 script; original basic Focus Panel static check was already reconciled. No product behavior, Rust, session, Break ledger, task counts, or approved Spectrum Core List Editor/picker/photos/218 icons changed by this fix.
+
+**New PR338 exact head:** b652bf1b912fe0c72c0aa4186f3ddc0b5abbca7e, https://github.com/MariosGiannakaras/Narro/actions/runs/38218930996 IN PROGRESS/NOT PASS when recorded. Earlier 38217740935 and 38218578690 are cancelled intermediate heads. New independent U21 implementation 0/1 accepted until exact-head Windows 3/3, expected-head guarded merge, changed-blob verification and resulting-main validation/new executable hashes.
+
+**Separate merged prior source:** U12/U40/U35 all 3/3 individually accepted + B49 accepted at source main 3bf54e067cb2b3e7c660e31bea899377615a5a24; its resulting-main CI 38216583142 was IN PROGRESS (validation+fast PASS, Windows building) at checkpoint. Neither old production hashes nor physical Codex user-paused gates accept a future U21 build. Mandatory roadmap 3/10 physical, M10 blocked, optional M11 dormant.
+
+**Next:** inspect run 38218930996 exact 3 jobs; if red diagnose first log step, if all green recheck PR/main/head, guarded merge, source blob identity, resulting-main Windows candidate and actual ZIP/exe/NSIS/MSI hashes. Do not idle polling or invent old Blitzit v2.6.69 behavior.
