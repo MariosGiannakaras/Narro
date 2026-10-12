@@ -25,7 +25,7 @@ The following paired files were actually opened and visually compared during thi
 
 ### Current-v2.6.69 references mapped but not yet source-to-release accepted
 
-The remaining **16** current/direct screenshot references have candidates in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
+The **16** initially unreviewed current/direct screenshot references have candidates; five were subsequently inspected in the follow-up section below, leaving **11** current v2.6.69 images still not directly compared on this release. in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
 
 | Reference ID | Candidate Narro visual filename(s) |
 | --- | --- |
@@ -42,7 +42,7 @@ The remaining **16** current/direct screenshot references have candidates in the
 | SS-C14 Sessions dashboard empty | `reports-sessions-empty-dark.png` |
 | SS-C15 Reports list filter open | `reports-list-filter-dark.png` |
 | SS-C16 Home light list hover | `home-light.png` (hover state may not match) |
-| SS-C17 Windows Shortcuts dialog | **NO matching standalone modal image in accepted CI 38287299890**: `theme-settings-shortcut-conflict.png` captures Preferences, not the dedicated modal. [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds source-backed `theme-settings-shortcuts-dialog-dark/light.png` captures and DOM validation; **PR-head CI PENDING, not accepted in main**. |
+| SS-C17 Windows Shortcuts dialog | **NO matching standalone modal image in accepted CI 38287299890**: `theme-settings-shortcut-conflict.png` captures Preferences, not the dedicated modal. [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds source-backed `theme-settings-shortcuts-dialog-dark/light.png` captures and DOM validation; **Current PR head `6e9f022cd8eaeddd6d50d4ac4a547df84a16aed6`, [run 38318531339](https://github.com/MariosGiannakaras/Narro/actions/runs/38318531339) PENDING, not accepted in main**. |
 | SS-C21 Focus Notes expanded | `focus-panel-notes-expanded-dark.png` |
 | SS-C22 Sessions task detail inline edit | `reports-sessions-detail-dark.png` |
 
@@ -53,6 +53,12 @@ The remaining **16** current/direct screenshot references have candidates in the
 - **SS-C06 Search empty command palette:** original source shows an empty query and quick-action affordances. Initial pairing to `search-palette-results-dark.png` was **incorrect** because that fixture contains typed search results. The correct same-state candidate `search-palette-empty-dark.png` was opened and shows the three quick actions; layout/viewport differ. **Basic feature structure consistent; exact parity OPEN.**
 - **SS-C17 Windows Shortcuts standalone modal:** source current screenshot directly shows a *separate light closeable modal* with three global toggleable and seven in-app fixed shortcuts. Accepted `theme-settings-shortcut-conflict.png` is **not this dialog**, despite the former Windows CI validator mentioning “Windows shortcuts”. The production `src/WindowsShortcutsDialog.tsx` exists but lacks its own dedicated captured modal screenshot in the accepted visual ZIP. This is a **confirmed visual regression coverage gap**, not proof of an application shortcut malfunction. A narrow [source PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) adds production-dialog-backed screenshot+DOM coverage for both themes. **NOT yet CI accepted.**
 - **SS-C22 Sessions task detail and inline edit:** source uses a perspective desktop photograph with live task edits; Narro `reports-sessions-detail-dark.png` shows the task-detail/session list and inline edit on fixed fixture data. **Shared basic UI concepts; not an identical state or physical input/commit test.**
+
+### Additional confirmed CI visual-evidence failure
+
+The **previous accepted resulting-main visual ZIP 11764194285** has two `1280×720` theme fixture images that contain **only RGB (236,236,236)** across every pixel: `theme-settings-preferences-middle.png` and `theme-settings-preferences-lower.png` (each 4,255 bytes). The corresponding DOM validators previously returned PASS because the sections existed in the off-screen DOM, so the earlier visual acceptance claim does **not** prove the screenshots for those two states were actually captured. This is a **confirmed visual-test/capture-tooling defect**, not yet evidence that the production preferences screen is blank.
+
+[PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) now also replaces screenshot-unsafe `scrollIntoView` with fixture-only placement that keeps the selected section within the Edge screenshot viewport, and validates actual decoded PNG scanline-data diversity for upper/middle/lower and dedicated Shortcuts dialog captures. The PNG visibility guard was independently checked against the original accepted ZIP: **upper PASS**, **middle FAIL**, **lower FAIL**, as required. **Replacement Windows CI is PENDING; neither new capture nor actual application behavior is accepted yet.** This is a correction to evidence integrity, not a reason to weaken visual validation.
 
 **Previously completed work not to repeat:** Pass-3 source forensic 46/46 and 19/19, visual system 8/8, original U01–U41 local coverage 41/41, 9/9 actual code gaps, resulting-main Windows 3/3 and artifact CRC/SHA identity. **Still not done:** final-build like-for-like review of all 22 current screenshots, applicable source-version-labelled video-motion parity matching, exact-source interaction parity for unsupported hidden clicks, and separate real Windows physical PA acceptance. These statuses must not be conflated.
 
