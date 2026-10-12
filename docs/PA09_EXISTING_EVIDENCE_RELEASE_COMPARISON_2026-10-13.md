@@ -1,0 +1,56 @@
+# PA-09 — Existing-evidence comparison against the accepted Narro release (2026-10-13)
+
+**Status: PARTIAL EVIDENCE REVIEW / SOURCE_PARITY_OPEN, not PA-09 PASS.** This is a bounded **current-release cross-comparison**, not another raw Blitzit source forensic pass, an M11 live audit, or Windows physical acceptance.
+
+## Identity and method
+
+- Narro executable source: guarded-merged `ec7673c921e08c83de11c986bd25fbb3600475ce` (U04 #343), exact resulting-main Windows [CI 38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) validation/fast/Windows **3/3 SUCCESS**. GitHub main at review start `efaaef26e3630ffd8f086f98a33ec9ccaea34e87`; compare between these commits reports **26 Markdown-only changed paths**, no executable/test/fixture drift. Visual artifact ID **11764194285**; packaged Focus runtime visual artifact **11764518139**; physical ZIP artifact **11765510661**.
+- Source: `reference/original-blitzit-screenshots/` and `CANONICAL_INDEX.md`: **22 current/direct v2.6.69 screenshots**, 17 help-v2.x, 7 historical; **19 original tutorial MP4s** with existing SOURCE_COMPLETE Pass-3 analysis. All 46 static references and 19 videos were reviewed previously. That is **source-inspection complete**, *not* proof that Narro's final release matches them.
+- Both real Narro artifact ZIPs were downloaded for the review. The main visual artifact contains **337 entries** and the packaged Focus runtime artifact contains **90 entries** (runtime frames/checkpoints/metadata). Do not mistake Edge visual fixtures for real user-desktop HWND, monitor, OS audio/notification, or installer acceptance.
+- Comparison rules: use the newer screenshot for visual appearance but attribute video motion/behavior to the version in which it was captured. A screenshot only proves its visible state, not the result of clicking a visible control. Different viewport, test data, selected list, task titles, theme, DPI, open menus, clock, or active timer **disallow direct pixel-difference PASS/FAIL**. Identifiable appearance differences must be assessed for intentional Narro-local design versus demonstrable missing feature; do **not** automatically rewrite a functional area to resemble an older Blitzit version.
+- Protected exception: user-approved Spectrum Core List Editor picker, image upload and 218 offline icons must remain unchanged in functionality and appearance. M11 live original Blitzit is **not** activated by this offline inspection. PA-01–08 remain USER-PAUSED; no install/launch or user AppData changes.
+
+## Directly inspected current-source ⇄ release-capture sample
+
+The following paired files were actually opened and visually compared during this pass; these statements do **not** assert pixel-perfect parity.
+
+| Current Blitzit v2.6.69 reference | Narro resulting-main capture | Factual bounded result | Disposition |
+| --- | --- | --- | --- |
+| `current-v2.6.69-home-dark.png` (2559×1079) | `home-dark.png` (visual ZIP) | Both show a dark Home screen, list navigation and list-card summaries. Source is a full desktop capture with different content; Narro fixture uses a smaller app viewport and different task/list data, with visibly different header/navigation/card placement. | **APPEARANCE DIFFERENCE OBSERVED; NOT like-for-like or automatically a bug**. Align viewport/state before any geometry fix. |
+| `current-v2.6.69-focus-panel-full.png` (294×727) | `focus-panel-dark.png`, `focus-panel-runtime.png` | Both show Today/EST/completion, current task and subtasks. Source crop and Narro fixture have visibly different width/content and task states. Packaged runtime captures do not imply current-source motion character parity. | **PARTIAL structural comparison only**; no invariant or regression proven from crop widths. |
+| `current-v2.6.69-floating-timer-collapsed.png` (363×162) | `floating-timer-dark.png`, `floating-timer-runtime.png` | Both expose task title, clock and subtask affordance; source includes desktop context, Narro fixture black padding/capture region. | **PARTIAL**; isolate actual window bounds, theme and active task before comparing dimensions. |
+| `current-v2.6.69-floating-timer-expanded-subtasks.png` (418×310) | `floating-timer-expanded-dark.png`, `floating-timer-expanded-runtime.png` | Both represent an expanded subtask presentation, but source has a different selected state/content. | **PARTIAL**, no source interaction/motion PASS. |
+| `current-v2.6.69-reports-overview-chart-tooltip.png` (2559×1079) | `reports-overview-dark.png` | Reports/metrics/chart structure represented, but data, chart selection and tooltip state differ. | **NOT COMPARABLE for exact tooltip/chart state**, require aligned fixture. |
+| `current-v2.6.69-archived-done-tasks-filter-empty.png` (2559×1079) | `archive-done-empty-dark.png`, `archive-done-filter-dark.png` | Both represent Archived Done and associated filters/empty data, but one original screenshot contains an open list-filter popover while distinct Narro fixtures represent separate states. | **Split comparison required**; do not interpret different popover state as a defect. |
+
+### Current-v2.6.69 references mapped but not yet source-to-release accepted
+
+The remaining **16** current/direct screenshot references have candidates in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
+
+| Reference ID | Candidate Narro visual filename(s) |
+| --- | --- |
+| SS-C01 Create List dialog | `list-editor-create-dark.png` (approved exception; no parity-driven modification) |
+| SS-C02 Reports date-range picker | `reports-date-picker-dark.png` |
+| SS-C04 Create List tile | `home-dark.png` (tile presence/scroll position not established) |
+| SS-C05 List hover/overflow | `list-card-states-dark.png`, `list-settings-archive-dark.png` |
+| SS-C06 Search palette | `search-palette-results-dark.png` |
+| SS-C07 Preferences general | `theme-settings-preferences-upper.png` |
+| SS-C08 Preferences Blitz alerts | `theme-settings-preferences-middle.png` |
+| SS-C09 Preferences celebrations | `theme-settings-preferences-lower.png` |
+| SS-C10 Archived Lists empty | `archive-lists-empty-dark.png` |
+| SS-C13 Reports lower panels | `reports-lower-dark.png` |
+| SS-C14 Sessions dashboard empty | `reports-sessions-empty-dark.png` |
+| SS-C15 Reports list filter open | `reports-list-filter-dark.png` |
+| SS-C16 Home light list hover | `home-light.png` (hover state may not match) |
+| SS-C17 Windows Shortcuts dialog | `theme-settings-shortcut-conflict.png` (candidate may NOT represent same dialog; verify) |
+| SS-C21 Focus Notes expanded | `focus-panel-notes-expanded-dark.png` |
+| SS-C22 Sessions task detail inline edit | `reports-sessions-detail-dark.png` |
+
+**Previously completed work not to repeat:** Pass-3 source forensic 46/46 and 19/19, visual system 8/8, original U01–U41 local coverage 41/41, 9/9 actual code gaps, resulting-main Windows 3/3 and artifact CRC/SHA identity. **Still not done:** final-build like-for-like review of all 22 current screenshots, applicable source-version-labelled video-motion parity matching, exact-source interaction parity for unsupported hidden clicks, and separate real Windows physical PA acceptance. These statuses must not be conflated.
+
+## Corrections and acceptance boundary
+
+1. **Correct the prior mistaken blocker:** An **offline PA-09 existing-evidence review can and should proceed without live Blitzit/M11**. Only *claims specifically requiring unseen contemporary original behavior* remain SOURCE_OPEN; optional M11 is never required for Narro local functionality.
+2. **Do not mark PA-09 PASS** for having 46/46 pictures, 19/19 videos or a passing Windows visual-regression suite. Distinguish (a) original SOURCE_COMPLETE, (b) Narro local IMPLEMENTED/AUTOMATED PASS, (c) historical/source-version-limited paired PARITY, (d) native physical PASS.
+3. **No confirmed new source-code defect from this limited six-pair sample**: different screenshots/states are not evidence of broken Narro controls. Do not create speculative geometry/CSS fixes, rewrite functional behavior or touch protected Spectrum Core.
+4. **Next concrete independent action:** inspect the 16 unreviewed current screenshot candidates on the exact existing release, then reconcile *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.
