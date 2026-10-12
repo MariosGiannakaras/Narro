@@ -12,6 +12,7 @@ const css = read("src/taskNotes.css");
 const fixture = read("src/taskNotesVisualFixture.tsx");
 const capture = read("scripts/capture-visual-fixtures.ps1");
 const finding33Driver = read("scripts/test-finding33-large-notes-escape.mjs");
+const finding33Runner = read("scripts/run-finding33-large-notes-escape.mjs");
 const validator = read("scripts/validate-task-note-captures.mjs");
 const packageJson = read("package.json");
 
@@ -46,7 +47,9 @@ for (const [haystack, needle, label] of [
   [fixture, 'presentationButton.click();', "production presentation activation in fixture"],
   [fixture, "resizablePresentation", "visual resizable contract"],
   [capture, 'task-notes-large-$theme', "Windows large Notes capture"],
-  [capture, 'test-finding33-large-notes-escape.mjs', "Finding33 real Edge Escape execution"],
+  [capture, 'run-finding33-large-notes-escape.mjs', "Finding33 bounded browser startup orchestration"],
+  [finding33Runner, '"test-finding33-large-notes-escape.mjs"', "Finding33 still executes the original strict real Escape test"],
+  [finding33Runner, 'isRetryableFinding33NavigationFailure', "Finding33 retry requires specific incomplete bootstrap evidence"],
   [finding33Driver, '"Input.dispatchKeyEvent"', "Finding33 real browser keyboard input"],
   [finding33Driver, '[data-task-note-control="editor"]', "Finding33 contenteditable focus path"],
   [finding33Driver, 'shell.addEventListener("keydown"', "Finding33 key propagation trace"],

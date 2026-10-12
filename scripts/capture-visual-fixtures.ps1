@@ -330,7 +330,7 @@ try {
     }
 
     if ($Scope -eq "all") {
-        & node (Join-Path $PSScriptRoot "test-finding33-large-notes-escape.mjs") $baseUrl $edge
+        & node (Join-Path $PSScriptRoot "run-finding33-large-notes-escape.mjs") $baseUrl $edge
         if ($LASTEXITCODE -ne 0) {
             throw "Finding33 large Notes real Escape regression failed with exit code $LASTEXITCODE."
         }
