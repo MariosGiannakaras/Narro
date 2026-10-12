@@ -42,7 +42,7 @@ const timer: TimerSessionPayload = {
       countdown_remaining_ms: null,
       overtime_ms: 0,
       break_kind: null,
-      break_remaining_ms: null,
+      break_remaining_ms: null, break_planned_ms: null,
     },
   },
 };

@@ -166,6 +166,7 @@ const timer: TimerSessionPayload | null = noLiveScenario ? null : {
       overtime_ms: state.startsWith("overtime") ? 420_000 : 0,
       break_kind: state === "break" ? "manual" : null,
       break_remaining_ms: state === "break" ? 420_000 : null,
+      break_planned_ms: state === "break" ? 600_000 : null,
     },
     open_session_id: "31111111-1111-4111-8111-111111111111",
   },

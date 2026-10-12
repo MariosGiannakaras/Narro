@@ -28,7 +28,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const timer: TimerSessionPayload = { revision: 1, awaitingResume: false, change: null,
     runtime: { open_session_id: null, timer: { state: "idle", task_id: null,
       mode: null, work_elapsed_ms: 0, total_break_ms: 0, countdown_remaining_ms: null,
-      overtime_ms: 0, break_kind: null, break_remaining_ms: null } } };
+      overtime_ms: 0, break_kind: null, break_remaining_ms: null, break_planned_ms: null } } };
 
   const scopeListId = "41111111-1111-4111-8111-111111111111";
   const otherListId = "41111111-1111-4111-8111-222222222222";
@@ -62,7 +62,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         countdown_remaining_ms: null,
         overtime_ms: 0,
         break_kind: null,
-        break_remaining_ms: null,
+        break_remaining_ms: null, break_planned_ms: null,
       },
     },
   };
@@ -201,7 +201,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
             open_session_id: null,
             timer: {
               state: "idle", task_id: null, mode: null, work_elapsed_ms: 0, total_break_ms: 0,
-              countdown_remaining_ms: null, overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+              countdown_remaining_ms: null, overtime_ms: 0, break_kind: null, break_remaining_ms: null, break_planned_ms: null,
             },
           },
         };
@@ -489,7 +489,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       timer: {
         state: "running", task_id: scopedLiveTask.id, mode: { kind: "count_up" },
         work_elapsed_ms: 12_000, total_break_ms: 0, countdown_remaining_ms: null,
-        overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+        overtime_ms: 0, break_kind: null, break_remaining_ms: null, break_planned_ms: null,
       },
     },
   };
@@ -533,7 +533,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         state: "paused", task_id: scopedLiveTask.id,
         mode: { kind: "est_countdown", est_ms: 60_000 },
         work_elapsed_ms: 59_000, total_break_ms: 0, countdown_remaining_ms: 1_000,
-        overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+        overtime_ms: 0, break_kind: null, break_remaining_ms: null, break_planned_ms: null,
       },
     },
   };

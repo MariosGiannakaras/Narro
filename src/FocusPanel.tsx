@@ -34,6 +34,7 @@ import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjecti
 import type { FocusListOption } from "./useFocusListCatalog";
 import { TaskNotes } from "./TaskNotes";
 import { focusBreakPresentation } from "./focusBreakPresentation";
+import { focusHeaderEstimateSeconds } from "./focusBreakEstimate";
 import { focusDoneBreakDayRange, type FocusDoneBreak } from "./focusDoneBreaks";
 import { useFocusDoneBreaks } from "./useFocusDoneBreaks";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
@@ -1047,6 +1048,11 @@ export function FocusPanel({
   const selectedValue = aggregateView ? ALL_LISTS_VALUE : board.target.id ?? ALL_LISTS_VALUE;
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
   const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
+  const headerEstimateSeconds = focusHeaderEstimateSeconds(
+    board.today.aggregateEstSeconds,
+    timer?.runtime.timer ?? null,
+    liveTask !== null && (board.target.kind === "all_lists" || liveTask.listId === board.target.id),
+  );
   const liveTimer = liveTask && timer ? focusTimerPresentation(timer.runtime.timer) : null;
   const breakView = focusBreakPresentation(
     timer?.runtime.timer.state ?? null,
@@ -1253,7 +1259,7 @@ export function FocusPanel({
 
       <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)}>
         <div className="focus-panel__summary-row">
-          <span className="type-metadata">Est: {formatEstimate(board.today.aggregateEstSeconds)}</span>
+          <span className="type-metadata">Est: {formatEstimate(headerEstimateSeconds)}</span>
           <span className="type-metadata" data-focus-done-count="true">{board.done.count}/{totalCount} Done</span>
         </div>
         <div className="focus-panel__progress" aria-hidden="true">

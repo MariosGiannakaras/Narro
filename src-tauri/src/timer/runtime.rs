@@ -1133,6 +1133,34 @@ mod live_estimate_tests {
     }
 
     #[test]
+    fn active_break_plan_remains_stable_after_durable_runtime_recovery() {
+        let (mut conn, _, task_id) = fixture(Some(1_200));
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let started = runtime
+            .start_manual_break(&mut conn, 600_000, 60_000, T1)
+            .unwrap();
+        assert_eq!(started.timer.break_planned_ms, Some(600_000));
+
+        let checkpoint = runtime.checkpoint(&mut conn, 300_000, T5).unwrap();
+        assert_eq!(checkpoint.timer.state, TimerStateKind::Break);
+        assert_eq!(checkpoint.timer.break_remaining_ms, Some(360_000));
+        assert_eq!(checkpoint.timer.break_planned_ms, Some(600_000));
+        let open_session_id = checkpoint.open_session_id;
+
+        let recovered = TimerRuntime::recover(&mut conn, 300_000, T5).unwrap();
+        let snapshot = recovered.snapshot(300_000).unwrap();
+        assert_eq!(snapshot.open_session_id, open_session_id);
+        assert_eq!(snapshot.timer.state, TimerStateKind::Break);
+        assert_eq!(snapshot.timer.break_planned_ms, Some(600_000));
+        assert_eq!(snapshot.timer.break_remaining_ms, Some(360_000));
+        assert_eq!(snapshot.timer.total_break_ms, 240_000);
+        assert_eq!(get_task(&conn, task_id).unwrap().est_seconds, Some(1_200));
+    }
+
+    #[test]
     fn paused_count_up_rebase_to_estimate_preserves_session_and_recovers() {
         let (mut conn, list_id, task_id) = fixture(None);
         let mut runtime = TimerRuntime::new();

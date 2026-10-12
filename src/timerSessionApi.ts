@@ -31,6 +31,7 @@ export type TimerSnapshot = {
   overtime_ms: number;
   break_kind: BreakKind | null;
   break_remaining_ms: number | null;
+  break_planned_ms: number | null;
 };
 
 export type TimerRuntimeSnapshot = {

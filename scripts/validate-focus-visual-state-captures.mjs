@@ -91,6 +91,10 @@ for (const theme of ["light", "dark"]) {
 
   const breakState = readCapture(theme, "break");
   requireLiveState(breakState, "break");
+  invariant(running.dom.includes("Est: 2hr 10min")
+    && breakState.dom.includes("Est: 2hr 20min"),
+    breakState.label + " must add the full planned 10min active Break to Today EST (not 7min remaining or 3min elapsed)");
+
   invariant(breakState.dom.includes('data-focus-break-card="true"'),
     `${breakState.label} must render an explicit Break live card`);
   invariant(breakState.dom.includes('data-focus-break-suspended-work="true"'),

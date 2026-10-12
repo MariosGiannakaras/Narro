@@ -91,6 +91,7 @@ pub struct TimerSnapshot {
     pub overtime_ms: u64,
     pub break_kind: Option<BreakKind>,
     pub break_remaining_ms: Option<u64>,
+    pub break_planned_ms: Option<u64>,
 }
 
 impl TimerSnapshot {
@@ -105,6 +106,7 @@ impl TimerSnapshot {
             overtime_ms: 0,
             break_kind: None,
             break_remaining_ms: None,
+            break_planned_ms: None,
         }
     }
 }
@@ -664,6 +666,7 @@ impl TimerEngine {
                     overtime_ms,
                     break_kind: None,
                     break_remaining_ms: None,
+                    break_planned_ms: None,
                 })
             }
             RuntimeState::Break(break_runtime) => {
@@ -692,6 +695,7 @@ impl TimerEngine {
                             .duration_ms
                             .saturating_sub(current_break_elapsed),
                     ),
+                    break_planned_ms: Some(break_runtime.duration_ms),
                 })
             }
         }
@@ -803,13 +807,43 @@ mod tests {
         assert_eq!(break_snapshot.work_elapsed_ms, 10_000);
         assert_eq!(break_snapshot.total_break_ms, 2_000);
         assert_eq!(break_snapshot.break_remaining_ms, Some(3_000));
+        assert_eq!(break_snapshot.break_planned_ms, Some(5_000));
 
         let awaiting_resume = engine.advance(20_000).unwrap();
         assert_eq!(awaiting_resume.state, TimerStateKind::Paused);
         assert_eq!(awaiting_resume.work_elapsed_ms, 10_000);
         assert_eq!(awaiting_resume.total_break_ms, 5_000);
         assert_eq!(awaiting_resume.countdown_remaining_ms, Some(10_000));
+        assert_eq!(awaiting_resume.break_planned_ms, None);
         assert_eq!(engine.advance(30_000).unwrap().work_elapsed_ms, 10_000);
+    }
+
+    #[test]
+    fn snapshot_break_plan_is_stable_and_not_cumulative_across_breaks() {
+        let mut engine = TimerEngine::new();
+        assert_eq!(engine.snapshot(0).unwrap().break_planned_ms, None);
+        let started = engine.start_task(task(11), TimerMode::CountUp, 0).unwrap();
+        assert_eq!(started.break_planned_ms, None);
+
+        let started_break = engine.start_manual_break(600_000, 2_000).unwrap();
+        assert_eq!(started_break.break_planned_ms, Some(600_000));
+        let later = engine.snapshot(122_000).unwrap();
+        assert_eq!(later.break_planned_ms, Some(600_000));
+        assert_eq!(later.break_remaining_ms, Some(480_000));
+        assert_eq!(later.total_break_ms, 120_000);
+        assert_eq!(later.work_elapsed_ms, 2_000);
+        assert_eq!(
+            serde_json::to_value(&later).unwrap()["break_planned_ms"].as_u64(),
+            Some(600_000)
+        );
+
+        let paused = engine.skip_break(122_000).unwrap();
+        assert_eq!(paused.break_planned_ms, None);
+        assert_eq!(paused.total_break_ms, 120_000);
+        let second = engine.start_manual_break(60_000, 123_000).unwrap();
+        assert_eq!(second.break_planned_ms, Some(60_000));
+        assert_eq!(second.total_break_ms, 120_000);
+        assert_eq!(engine.finish_break(125_000).unwrap().break_planned_ms, None);
     }
 
     #[test]

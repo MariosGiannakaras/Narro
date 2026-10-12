@@ -22,7 +22,7 @@ export async function runShortcutModalRegression(container: HTMLElement) {
     revision: 1, awaitingResume: false, change: null,
     runtime: { open_session_id: "41111111-1111-4111-8111-111111111111",
       timer: { state: "running", task_id: task.id, mode: { kind: "count_up" }, work_elapsed_ms: 10_000,
-        total_break_ms: 0, countdown_remaining_ms: null, overtime_ms: 0, break_kind: null, break_remaining_ms: null } },
+        total_break_ms: 0, countdown_remaining_ms: null, overtime_ms: 0, break_kind: null, break_remaining_ms: null, break_planned_ms: null } },
   };
   const calls: string[] = [];
   const callbacks = new Map<number, (event: unknown) => void>();
