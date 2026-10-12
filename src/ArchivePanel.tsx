@@ -11,6 +11,7 @@ type ArchivePanelProps = {
   fixtureLists?: ArchivedListSummary[];
   fixtureSnapshot?: ArchiveSnapshot;
   fixtureFilterOpen?: boolean;
+  fixtureDeleteOpen?: boolean;
 };
 
 export function ArchivePanel({
@@ -18,6 +19,7 @@ export function ArchivePanel({
   fixtureLists,
   fixtureSnapshot,
   fixtureFilterOpen = false,
+  fixtureDeleteOpen = false,
 }: ArchivePanelProps) {
   const [activeTab, setActiveTab] = useState<ArchiveTab>(fixtureTab ?? "lists");
 
@@ -64,6 +66,7 @@ export function ArchivePanel({
           <ArchivedDoneTasksPanel
             fixtureSnapshot={fixtureSnapshot}
             fixtureFilterOpen={fixtureFilterOpen}
+            fixtureDeleteOpen={fixtureDeleteOpen}
           />
         </div>
       )}
