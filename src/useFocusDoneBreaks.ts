@@ -45,7 +45,8 @@ export function useFocusDoneBreaks({
     let stopListening: (() => void) | undefined;
 
     const refresh = () => {
-      const expectedRevision = ++readRevisio      let range: ReturnType<typeof focusDoneBreakRangeForDay>;
+      const expectedRevision = ++readRevision;
+      let range: ReturnType<typeof focusDoneBreakRangeForDay>;
       try {
         // The board's exact local-day key is authoritative. Reconstruct UTC
         // midnight boundaries from that key (not from an assumed UTC noon).
