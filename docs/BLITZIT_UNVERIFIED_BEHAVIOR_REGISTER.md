@@ -1,6 +1,14 @@
 # Unverified Blitzit behavior register — implementation decisions and later source checks
 
-## CURRENT 2026-10-12 — Narro must work fully without the optional M11
+## CURRENT 2026-10-12 — Nine specific local functional gaps: 8/9 source/release resolved; U04 product approval required
+
+The original source-uncertainty inventory remains **41/41 reviewed** and **NOT 41 defects**. Its nine specific local functional gap IDs were **U04, U06, U09, U12, U21, U22, U23, U35, U40**. As of current live source and exact validated CI, **8/9** have coherent Narro-local source implementation, guarded merge and required automated Windows validation (**U06, U09, U12, U21, U22, U23, U35, U40**). This is a fixed *bounded triage denominator*, not an assertion of whole-app completeness or current-original Blitzit parity. **U04** Archived Done destructive deletion is the **1/9 remaining intentionally disabled pending explicit irreversible data-retention/reporting/confirmation approval**, not an excuse to implement guessed cascade semantics. [Independent U04 safety audit](../work-log/2026-10-12-chatgpt-u04-archived-done-delete-safety-causal-audit-no-source-edit.md).
+
+Newest executable **U23 PR342**, exact head `2914317b40aa7efa6c1401dff73e0106378fb43f`, exact [PR CI38272720744](https://github.com/MariosGiannakaras/Narro/actions/runs/38272720744) **3/3 PASS**, guarded merge `4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a` with **14/14 source blob identity**, exact [resulting-main CI38277579376](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376) **3/3 PASS**. Downloaded [production artifact11760996038](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376/artifacts/11760996038) CRC PASS/ZIP and binary fourhash verified. [Immutable release source truth](../work-log/2026-10-12-chatgpt-u23-resulting-main-threejob-production-crc-four-sha-accepted.md). Earlier U22/U06/U09/U12/U35/U40/U21 separate validated source status unchanged.
+
+Native PA-01–09 **USER-PAUSED / NOT RUN**, physically accepted mandatory milestones **3/10 (7 remain)**. Optional M11 is strictly dormant without express user request; original current Blitzit interaction parity remains OPEN even when Narro local implementation is fully validated. User-approved Spectrum Core List Editor color picker/image upload/218 icons LOCKED. All historical dated sections/rows below are preserved for provenance and do not supersede this top status.
+
+## HISTORICAL 2026-10-12 — Narro must work fully without the optional M11
 
 **User-confirmed binding rule:** Original Blitzit v2.6.69 comparison is optional. **Unknown source internals do not excuse missing or disabled Narro functionality**: choose coherent deterministic, keyboard-accessible, safe and tested Narro-local behavior based on existing evidence and project design, **without waiting for M11**. Historical Blitzit appearance/behavior parity remains OPEN until genuinely evidenced; do not describe Narro inference as source-confirmed. Irreversible/destructive changes still need explicit integrity policy/required user approval; physical/native Windows PA-01–09 still USER-PAUSED.
 
