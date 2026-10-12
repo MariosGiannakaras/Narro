@@ -35,6 +35,11 @@ assert(panel.includes("breakView.suspendedTaskId === task.id"),
 assert(panel.includes("task.id !== breakView.suspendedTaskId"),
   "suspended work must be excluded from persisted reorder candidates");
 assert(panel.includes("const suspendedWork = task.id === breakView.suspendedTaskId;"));
+assert(panel.includes("notesExpanded={!suspendedWork && notesTaskId === task.id}")
+  && panel.includes("subtasksExpanded={!suspendedWork && subtasksTaskId === task.id}"),
+  "already-open editors must not remain mutable when a queued task becomes suspended");
+assert(panel.includes("{moreOpen && !suspended ? ("),
+  "already-open overflow menus must be hidden for suspended work");
 assert(panel.includes("disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}"),
   "suspended work must not be editable/completable during the break");
 assert(panel.includes("<FocusLiveTitle title={breakView.liveTitle}"),
