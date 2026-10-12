@@ -16,6 +16,8 @@ Normal bootstrap remains:
 
 `AI_START_HERE.md → AGENTS.md → ENGINEERING_QUALITY.md → AGENT_WORKFLOW.md → HANDOFF.md → active TODO/STATUS`.
 
+**No-repeat gate:** before any *new* research tracker, finding ID, raw capture, alternate source branch or evidence batch, inspect [active-vs-frozen tracker ownership + 20-branch inventory](TRACKER_STATUS_INDEX.md) and the current canonical ID/crosswalk. Reuse existing immutable receipts and source findings; do not open another research stream solely because the earlier one is buried in history. A genuinely new material observation may create a new work log only when its build/protocol/source, affected invariant and exact additional evidence are named. This rule does not authorize deleting evidence or revisiting optional M11.
+
 When work touches a user-visible surface, Blitzit parity, source evidence, physical visual validation, or a broad set of corrective findings, continue through this map before claiming the surface complete. Use `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` for the binding analysis → disposition → causal tracing → implementation campaign standard.
 
 ## Evidence layers
