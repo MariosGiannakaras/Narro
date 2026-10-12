@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listenForBoardInvalidation } from "./boardInvalidation";
 import {
-  focusDoneBreakDayRange,
+  focusDoneBreakRangeForDay,
   getFocusDoneBreaks,
   type FocusDoneBreak,
 } from "./focusDoneBreaks";
@@ -45,17 +45,11 @@ export function useFocusDoneBreaks({
     let stopListening: (() => void) | undefined;
 
     const refresh = () => {
-      const expectedRevision = ++readRevision;
-      let range: ReturnType<typeof focusDoneBreakDayRange>;
+      const expectedRevision = ++readRevisio      let range: ReturnType<typeof focusDoneBreakRangeForDay>;
       try {
-        // Calendar boundaries are computed from the board timezone, not a
-        // fixed 24-hour offset (which fails during DST transitions).
-        range = focusDoneBreakDayRange(new Date(`${dayKey}T12:00:00Z`), timeZone);
-        // For UTC+/- zones the noon instant can select an adjacent day.
-        // The caller-provided day key is authoritative for the visible Today.
-        if (range.dayKey !== dayKey) {
-          throw new Error("Focus Break date changed during calendar projection.");
-        }
+        // The board's exact local-day key is authoritative. Reconstruct UTC
+        // midnight boundaries from that key (not from an assumed UTC noon).
+        range = focusDoneBreakRangeForDay(dayKey, timeZone);
       } catch (failure: unknown) {
         if (!disposed && expectedRevision === readRevision) {
           setState({ identity, rows: [], error: formatInvokeError(failure) });
