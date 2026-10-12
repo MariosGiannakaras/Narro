@@ -6,6 +6,20 @@ This repository is designed so that **any capable coding AI can continue Narro f
 
 If you are an AI taking over this repository, treat this file as the bootstrap entrypoint.
 
+## Resume-in-place fast path — every continuation message
+
+**Use the zero-context bootstrap below only for a genuinely new coding session without enough live context, and only once. It is NOT a procedure to repeat after every user message.** The latest user instruction decides whether repository access is permitted; if the user says not to inspect the repo for that request, obey that restriction rather than invoking this bootstrap.
+
+For an existing coding chat, interrupted tool call, apparent stall, or messages such as "συνέχισε", "προχώρα", "κόλλησες" or "ολοκλήρωσες;":
+
+1. **Resume the exact operation, do not rediscover the whole project.** Inspect the last concrete tool call/result, active task, owner, branch, PR, exact head SHA, CI run ID and known next step. Compare with the smallest sufficient **live** GitHub check (current PR and/or pending run plus `main`) to catch work another agent finished. Older chat text and historical work logs never override live state.
+2. **Interrupted call: check side effects before retrying.** A missing/partial tool result is *not* proof the write/PR/merge/CI trigger failed. Inspect the target branch/file/PR/commit/run; if the desired action happened, continue after it. Reissue a write only if verified absent, and use current SHA/optimistic guards where supported. Never create a second branch, PR or implementation to replace a still-valid existing one.
+3. **Use the result immediately.** If the exact PR head Windows CI has completed **3/3 SUCCESS**, verify identity, complete any unblocked expected-head guarded merge and resulting-main validation; if FAIL, fetch the first failed job/step/log and fix only an evidenced cause **on the existing work branch**; if RUNNING, record SHA/run/status once and work on genuinely independent analysis/docs/tests rather than polling or starting overlapping code. Do not use a previous FAILED head as acceptance for a later corrected head.
+4. **Do not stop at checkpoints when a safe action exists.** A PR created, CI started, fast-gate passed or Markdown handoff written is not final completion. After merge verify changed source/test blob identity and resulting-main CI/source package. Retain exact next unblocked action in `HANDOFF.md`. Respect user-paused native Windows testing and strict optional M11.
+5. **Report verified movement, not thought loops.** When asked "ολοκλήρωσες;" answer first **ΝΑΙ / ΟΧΙ / ΜΕΡΙΚΩΣ**, with precise PASS/PENDING/NOT RUN and remaining action. When told "κόλλησες", identify the last exact operation and carry it forward. Do not repeat "thinking", generic discovery narration, redundant status calls or arbitrary counters. Give concise updates after real state changes; do not invent background CI monitoring.
+
+The active `HANDOFF.md` top block must contain **one actionable present-tense continuation**, including owner, branch/PR, source/merge SHAs, run IDs, validated gates, restrictions and **one explicit next operation**. Move superseded current checkpoints to immutable `work-log/` or mark them **HISTORICAL**; never leave competing "CURRENT" next steps. Documentation-only reconciliation on `main` must not replace or invalidate the already validated executable source SHA.
+
 ## Zero-context takeover procedure
 
 Before asking the user what to do next, do all of the following:
