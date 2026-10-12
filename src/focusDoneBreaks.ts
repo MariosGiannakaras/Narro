@@ -16,7 +16,7 @@ export type FocusDoneBreak = {
 export function focusDoneBreakRangeForDay(dayKey: string, timeZone: string) {
   return {
     dayKey,
-    startAt: zonedReportDateStartIso(todayKey, timeZone),
+    startAt: zonedReportDateStartIso(dayKey, timeZone),
     endAt: zonedReportDateStartIso(addReportDays(dayKey, 1), timeZone),
   };
 }
