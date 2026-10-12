@@ -84,6 +84,7 @@ type FocusTaskRowProps = {
   nowForOverdueAge: Date;
   done?: boolean;
   scheduled?: boolean;
+  suspended?: boolean;
   disabled: boolean;
   notesExpanded: boolean;
   subtasksExpanded: boolean;
@@ -153,6 +154,7 @@ function FocusTaskRow({
   nowForOverdueAge,
   done = false,
   scheduled = false,
+  suspended = false,
   disabled,
   notesExpanded,
   subtasksExpanded,
@@ -193,6 +195,7 @@ function FocusTaskRow({
     <article
       className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}${task.isOverdue ? " focus-panel__task-row--overdue" : ""}`}
       data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}
+      data-focus-break-suspended-work={suspended ? "true" : undefined}
       data-focus-overdue={task.isOverdue ? "true" : "false"}
       data-focus-task-times-hidden={hideTaskTimes ? "true" : "false"}
       data-focus-drag-task={ordinary && canReorder ? task.id : undefined}
@@ -1112,6 +1115,7 @@ export function FocusPanel({
         displayTimezone={board.displayTimezone}
         nowForOverdueAge={nowForOverdueAge}
         scheduled={scheduled}
+        suspended={suspendedWork}
         disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}
         notesExpanded={notesTaskId === task.id}
         subtasksExpanded={subtasksTaskId === task.id}
