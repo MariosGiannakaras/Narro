@@ -16,6 +16,7 @@ export type SearchPaletteTaskResult = {
   listColor?: string | null;
   title: string;
   lane: SearchPaletteTaskLane;
+  updatedAt?: string | null;
 };
 
 export type SearchPaletteData = {
@@ -31,6 +32,7 @@ function taskResult(task: ListBoardTask, lane: SearchPaletteTaskLane): SearchPal
     listColor: task.listColor,
     title: task.title,
     lane,
+    updatedAt: task.updatedAt ?? null,
   };
 }
 

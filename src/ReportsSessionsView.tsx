@@ -1,9 +1,10 @@
-import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from "react";
+import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
+import { orderRecentSessionTasks } from "./recentSessionTaskChoices";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
 
@@ -390,7 +391,8 @@ export function ReportAddSessionDialog({
 }) {
   const [query, setQuery] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
-  const filtered = tasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
+  const orderedTasks = useMemo(() => orderRecentSessionTasks(tasks), [tasks]);
+  const filtered = orderedTasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
 
   const dialogRef = useRef<HTMLElement>(null);
