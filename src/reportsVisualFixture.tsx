@@ -388,6 +388,8 @@ flushSync(() => {
           onSelectCalendarDay={() => undefined}
           onPreviousCalendarMonth={() => undefined}
           onNextCalendarMonth={() => undefined}
+          onPreviousCalendarYear={() => undefined}
+          onNextCalendarYear={() => undefined}
           onCancelDateRange={() => undefined}
           onApplyDateRange={() => undefined}
           onCommitEndTime={async () => true}
