@@ -7,6 +7,7 @@ use crate::persistence::lists::{
     ListStoreError,
 };
 use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
+use crate::persistence::tasks::{permanently_delete_archived_done_task as delete_archived_done_record, TaskStoreError};
 use chrono::{DateTime, Duration, Utc};
 use rusqlite::{params, OptionalExtension};
 use serde::Serialize;
@@ -74,6 +75,7 @@ pub struct ArchivedDoneTaskSummary {
     pub title: String,
     pub completed_at: String,
     pub archived_at: String,
+    pub updated_at: String,
     pub time_taken_seconds: String,
     pub has_note: bool,
 }
@@ -91,6 +93,7 @@ pub enum ListSettingsError {
     OpenDatabase(rusqlite::Error),
     ConfigureDatabase(persistence::PersistenceError),
     Store(ListStoreError),
+    Task(TaskStoreError),
     TaskMetadata(TaskMetadataError),
     Sqlite(rusqlite::Error),
     ExpectedArchived(ListId),
@@ -111,6 +114,7 @@ impl Display for ListSettingsError {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
             Self::Store(error) => write!(formatter, "list settings mutation failed: {error}"),
+            Self::Task(error) => write!(formatter, "archived completed-task deletion failed: {error}"),
             Self::TaskMetadata(error) => {
                 write!(formatter, "archived task metadata read failed: {error}")
             }
@@ -155,6 +159,7 @@ impl std::error::Error for ListSettingsError {
             Self::OpenDatabase(error) | Self::Sqlite(error) => Some(error),
             Self::ConfigureDatabase(error) => Some(error),
             Self::Store(error) => Some(error),
+            Self::Task(error) => Some(error),
             Self::TaskMetadata(error) => Some(error),
             _ => None,
         }
@@ -164,6 +169,12 @@ impl std::error::Error for ListSettingsError {
 impl From<ListStoreError> for ListSettingsError {
     fn from(value: ListStoreError) -> Self {
         Self::Store(value)
+    }
+}
+
+impl From<TaskStoreError> for ListSettingsError {
+    fn from(error: TaskStoreError) -> Self {
+        Self::Task(error)
     }
 }
 
@@ -222,6 +233,11 @@ fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
     })
 }
 
+fn parse_task_id(task_id: &str) -> CommandResult<TaskId> {
+    TaskId::parse_str(task_id)
+        .map_err(|_| CommandError::invalid_argument("taskId", "must be a valid UUID"))
+}
+
 fn parse_list_id(list_id: &str) -> CommandResult<ListId> {
     ListId::parse_str(list_id)
         .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))
@@ -233,6 +249,13 @@ fn command_error(error: ListSettingsError) -> CommandError {
         ListSettingsError::Store(ListStoreError::MustArchiveBeforePermanentDelete(_)) => {
             "LIST_SETTINGS_MUST_ARCHIVE"
         }
+        ListSettingsError::Task(TaskStoreError::NotFound(_)) => "ARCHIVED_DONE_NOT_FOUND",
+        ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(_)) => "ARCHIVED_DONE_STALE",
+        ListSettingsError::Task(TaskStoreError::NotArchivedDone(_))
+        | ListSettingsError::Task(TaskStoreError::ListArchived(_))
+        | ListSettingsError::Task(TaskStoreError::ListNotFound(_))
+        | ListSettingsError::Task(TaskStoreError::ActiveSession(_))
+        | ListSettingsError::Task(TaskStoreError::ArchivedDoneHasRecurrenceDependents(_)) => "ARCHIVED_DONE_NOT_ALLOWED",
         _ => "LIST_SETTINGS_FAILED",
     };
     CommandError::new(code, error.to_string())
@@ -291,6 +314,7 @@ fn load_archived_done_tasks(
                 tasks.title,
                 tasks.completed_at,
                 tasks.archived_at,
+                tasks.updated_at,
                 lists.title,
                 lists.color,
                 EXISTS(SELECT 1 FROM task_notes WHERE task_notes.task_id = tasks.id)
@@ -309,8 +333,9 @@ fn load_archived_done_tasks(
             row.get::<_, String>(3)?,
             row.get::<_, String>(4)?,
             row.get::<_, String>(5)?,
-            row.get::<_, Option<String>>(6)?,
-            row.get::<_, bool>(7)?,
+            row.get::<_, String>(6)?,
+            row.get::<_, Option<String>>(7)?,
+            row.get::<_, bool>(8)?,
         ))
     })?;
 
@@ -322,6 +347,7 @@ fn load_archived_done_tasks(
             title,
             completed_at,
             archived_at,
+            updated_at,
             list_title,
             list_color,
             has_note,
@@ -338,6 +364,7 @@ fn load_archived_done_tasks(
             title,
             completed_at,
             archived_at,
+            updated_at,
             time_taken_seconds: task_time_taken_seconds(connection, task_id)?.to_string(),
             has_note,
         });
@@ -453,6 +480,40 @@ pub fn permanently_delete(app_dir: &Path, id: ListId) -> Result<(), ListSettings
         cleanup_owned_icon_after_commit(app_dir, relative);
     }
     Ok(())
+}
+
+pub fn permanently_delete_archived_done(
+    app_dir: &Path,
+    id: TaskId,
+    expected_list_id: ListId,
+    expected_updated_at: &str,
+    expected_completed_at: &str,
+    expected_archived_at: &str,
+) -> Result<(), ListSettingsError> {
+    let mut connection = open_database(app_dir)?;
+    delete_archived_done_record(
+        &mut connection, id, expected_list_id, expected_updated_at,
+        expected_completed_at, expected_archived_at,
+    )?;
+    Ok(())
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn permanently_delete_archived_done_task_from_settings(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    expected_list_id: String,
+    expected_updated_at: String,
+    expected_completed_at: String,
+    expected_archived_at: String,
+) -> CommandResult<()> {
+    let id = parse_task_id(&task_id)?;
+    let list_id = parse_list_id(&expected_list_id)?;
+    let app_dir = app_data_dir(&app_handle)?;
+    permanently_delete_archived_done(
+        &app_dir, id, list_id, &expected_updated_at,
+        &expected_completed_at, &expected_archived_at,
+    ).map_err(command_error)
 }
 
 #[tauri::command]
