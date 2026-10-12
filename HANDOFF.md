@@ -1,6 +1,16 @@
-# HANDOFF — U04 PR343 fourth exact-head Windows CI; source approval granted, native PA paused
+# HANDOFF — U04 merged; resulting-main Windows CI38287299890 ongoing, PA user-paused
 
-## CURRENT 2026-10-12 — U04 approved modern confirmation modal: PR343 exact Rust-formatted head Windows CI in progress
+## CURRENT 2026-10-12 — U04 guarded merged, 13/13 blobs, resulting-main Windows candidate RUNNING
+
+**Γενική υλοποίηση U01–U41 40/41 currently release-accepted; U04 1/41 merged source, resulting-main pending.** Narrower original code gaps **8/9 release accepted**, U04 code merged pending exact resulting-main release; mandatory physically accepted milestones **3/10**, **7 outstanding**, physical PA-01–09 **USER-PAUSED/NOT RUN**. Original Blitzit parity separate; M11 optional/dormant.
+
+**Current owner and exact executable:** User approved irrevocable Archived Done deletion with sessions/notes/Reports plus modern Narro-style confirmation modal. [U04 PR343](https://github.com/MariosGiannakaras/Narro/pull/343) exact head `7ee33aa873cc4025a996efb8f02ec32969842d15`, [PR CI38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) validation/fast/Windows **3/3 PASS**, guarded squash merge **`ec7673c921e08c83de11c986bd25fbb3600475ce`**, **13/13 source/test/visual blob MATCH**. Real PR visual [artifact11763915384](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221/artifacts/11763915384) CRC PASS/337 members/SHA `ab8b2d7f9963ebadf75ff9577a3c8e5ae1d3dc604e955466838544f8abfd806b` match provider; light/dark actual Edge captured modal screenshots inspected. [Immutable merge/visual evidence](work-log/2026-10-12-chatgpt-u04-pr343-guarded-merge-13blobs-visual-verified-main-ci-pending.md).
+
+**EXACT CURRENT IN-FLIGHT RELEASE:** [resulting-main Windows CI38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890), head exact merge `ec7673...`, attempt1 validation job114938627726 **SUCCESS**, fast job114938672759 **SUCCESS**, Windows candidate job114939592934 **IN PROGRESS** (last seen checkout). Do **NOT** count it as final release PASS or increase general 40/41 to 41/41 until Windows candidate SUCCESS and actual original production ZIP CRC + ZIP/EXE/NSIS/MSI digest verification. Since executable merge, later `main` edits are Markdown-only. Prior accepted U23 production candidate/hashes remain historical most recent release-accepted until this validation completes.
+
+**ONE NEXT ACTION:** inspect CI38287299890 Windows job; on FAIL get first actual failing step and logs, repair provenance-correctly. On 3/3 PASS download genuine resulting-main production + visual ZIPs, verify provider digest/CRC/four member hashes and actual modal both themes, update current Windows physical checklist/risk audit, mark 41/41 Narro-local functionality and 9/9 specifically classified gaps, final immutable log, reconcile TODO/STATUS/41-ID register/audit. Native PA stay paused; no install/run/AppData; user-approved Spectrum Core picker/photo/218 icons unchanged.
+
+## HISTORICAL 2026-10-12 — U04 approved modern confirmation modal: PR343 exact Rust-formatted head Windows CI in progress
 
 **GENERAL Narro-local U01–U41 functional coverage 40/41 ACCEPTED, 1/41 U04 source in flight**; **specific evidenced code gaps 8/9 accepted**; **mandatory physically accepted milestones 3/10 (7 remain), native PA-01–09 USER-PAUSED/NOT RUN**. Original current Blitzit parity separate; M11 optional dormant. [Fixed 41-ID ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
 
