@@ -9,6 +9,7 @@ import {
   zonedReportDateStartIso,
 } from "../src/reportOverviewPresentation.ts";
 import { reportListAccent } from "../src/reportListAccent.ts";
+import { reportChartSeriesPreset } from "../src/reportChartSeriesPreset.ts";
 
 function invariant(condition, message) {
   if (!condition) throw new Error("Report Overview presentation contract failed: " + message);
@@ -64,6 +65,19 @@ invariant(calendars[1].weeks.flat().length === 42, "second calendar must use a s
 const selected = calendars.flatMap((month) => month.weeks.flat()).filter((day) => day.selected);
 invariant(selected.some((day) => day.dateKey === "2026-09-28"), "selected range start must be represented");
 invariant(selected.some((day) => day.dateKey === "2026-10-03"), "selected range end must be represented");
+
+for (const [preset, expected] of [
+  ["all", { tasks: true, breaks: true, total: true }],
+  ["tasks", { tasks: true, breaks: false, total: false }],
+  ["breaks", { tasks: false, breaks: true, total: false }],
+  ["total", { tasks: false, breaks: false, total: true }],
+]) {
+  const actual = reportChartSeriesPreset(preset);
+  invariant(JSON.stringify(actual) === JSON.stringify(expected),
+    "chart menu local-only visibility preset must project the requested series exactly");
+  invariant(Object.values(actual).filter(Boolean).length >= 1,
+    "chart menu must never leave all three series hidden");
+}
 
 const accents = new Map([
   ["current-list", "#48d6c5"],
