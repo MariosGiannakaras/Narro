@@ -1,6 +1,16 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U22 PR341 exact rustfmt failure corrected, CI replacement pending
+## CURRENT 2026-10-12 — U22 1/1 guarded merged, merged-main Windows and package still pending
+
+- [x] **U22 exact-head 3/3 and guarded merge**: [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, [CI38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) validation/fast/windows **3/3 PASS**, guarded squash `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`, **12/12 blob identity MATCH**; preserved live existing branch and corrected real earlier rustfmt failure. U22 **1/1 source guarded-merged** (earlier independent campaign U12/U40/U35/U21 **4/4** + U06 **1/1** + U09 **1/1** remain accepted).
+- [ ] **Only pending U22 merged-main validation:** exact [run38262440802](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802) on source `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`: validation+fast PASS, Windows candidate RUNNING at checkpoint. Need 3/3 **and genuine ZIP CRC + ZIP/EXE/NSIS/MSI SHA256**, then update physical candidate/risk pins. Old U09 ZIP cannot validate current U22 binary.
+- [ ] **Next coding slice U23 after resulting-main U22 acceptance**, from latest main only: typed current planned active Break duration read-only snapshot and conditional Focus header EST, preserves saved EST/Break session ledger and task fraction; existing [design log](work-log/2026-10-12-chatgpt-u23-typed-break-planned-duration-independent-design-while-u22-ci.md). Do not create duplicate branch/PR or infer source semantics from unobserved Blitzit. U04 irreversible archive deletion requires policy/approval.
+- [x] **Repository anti-stall workflow hardened** in `AI_START_HERE.md`, `AGENT_WORKFLOW.md`, `AGENTS.md`: resumed turn checks last exact SHA/PR/run; no discovery loops, no repeat of interrupted write, running CI = safe independent work, green CI = guarded merge/resulting-main proof; [immutable correction](work-log/2026-10-12-chatgpt-anti-stall-protocol-u22-exact-green-guarded-merge.md).
+- [ ] **Physical Codex PA-01–09 remains USER-PAUSED / NOT RUN**; roadmap **3/10**, M10 blocked, M11 strictly optional/dormant. Spectrum Core user-owned List Editor picker/image/icons unchanged.
+
+
+
+## HISTORICAL 2026-10-12 — U22 PR341 exact rustfmt failure corrected, CI replacement pending
 
 - [x] Prior accepted coding U12/U40/U35/U21 **4/4**, U06 **1/1**, U09 **1/1** remain source/Windows validated.
 - [x] U22 preexisting branch preserved; first PR head `1d20f27...` [CI38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation PASS, frontend/Vite PASS, fast **Rust fmt FAIL** and Windows SKIPPED. Exactly 9 diff hunks from rustfmt log applied to two Rust files, no source behavior changes. [Proof](work-log/2026-10-12-chatgpt-u22-pr341-fast-rustfmt-only-exact-log-correction.md).
@@ -16,7 +26,7 @@
 - [ ] **Physical Codex PA-01–09 USER-PAUSED**, mandatory milestones 3/10, M10 blocked. Optional M11 dormant, user-approved Spectrum Core picker/icons untouched.
 
 
-## CURRENT 2026-10-12 — U06+U09 final combined Windows release 3/3 and real ZIP/EXE/NSIS/MSI verified
+## HISTORICAL 2026-10-12 — U06+U09 final combined Windows release 3/3 and real ZIP/EXE/NSIS/MSI verified
 
 - [x] **Earlier bounded U12/U40/U35/U21 campaign 4/4** already guarded merged/validated. New independent U06 [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) **1/1** exact head/Windows 3/3, guarded merged 10/10 blobs, resulting-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) 3/3 & actual production hashes verified. Independent U09 [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) **1/1** exact head 3/3, expected-head guarded merge to latest executable `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`, 7/7 blobs.
 - [x] **Final U06+U09 merged-main acceptance**: [CI38248985335](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335) validation/fast/Windows **3/3 COMPLETED SUCCESS**; real [artifact 11746849274](https://github.com/MariosGiannakaras/Narro/actions/runs/38248985335/artifacts/11746849274) ZIP CRC + SHA256 verified; ZIP `8bc78ef86e07a70e99bc8fcfd326b1e8623a1492590c6b3f8f0f9b091e0b60f5`, EXE `80f5c5cd5e4d3269ec1291cdf2fd34d288461368b99ba6727ca0299a4f08e089`, NSIS `d7dde6d8d3ba1ccd547ac5bbfd9a86086b9f609229ac27cf4941ae8d04b08d21`, MSI `70c34feda7ff51be50ba7e69ab562f1f18df02e8fe3856f37550b68cb5c07bf4`. Exact physical candidate in [session checklist](docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md), [immutable evidence](work-log/2026-10-12-chatgpt-u06-u09-final-combined-main-threejob-fourhash-accepted.md). Current executable newer main only Markdown differences.
