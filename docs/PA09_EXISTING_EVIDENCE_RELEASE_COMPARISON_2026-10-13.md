@@ -1,6 +1,6 @@
 # PA-09 — Existing-evidence comparison against the accepted Narro release (2026-10-13)
 
-**Status: PARTIAL EVIDENCE REVIEW / SOURCE_PARITY_OPEN, not PA-09 PASS.** This is a bounded **current-release cross-comparison**, not another raw Blitzit source forensic pass, an M11 live audit, or Windows physical acceptance.
+**Status: 22/22 current-v2.6.69 static screenshots directly sampled against exact Narro release fixtures / SOURCE_PARITY_OPEN, not PA-09 PASS.** This is a bounded **current-release cross-comparison**, not another raw Blitzit source forensic pass, an M11 live audit, or Windows physical acceptance.
 
 ## Identity and method
 
@@ -25,7 +25,7 @@ The following paired files were actually opened and visually compared during thi
 
 ### Current-v2.6.69 references mapped but not yet source-to-release accepted
 
-The **16** initially unreviewed current/direct screenshot references have candidates; five were subsequently inspected in the follow-up section below, leaving **11** current v2.6.69 images still not directly compared on this release. in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
+The **16** initially unreviewed current/direct screenshot references have candidate fixtures: five were subsequently inspected in the first follow-up and the remaining eleven in the second follow-up below. **All 22/22 current v2.6.69 screenshots have now been directly sampled**, but like-for-like visual, interaction, motion and native parity are NOT accepted. in the same accepted visual ZIP; the following is **only a pairing index**, not an assertion that images were inspected as matched evidence, nor a parity result.
 
 | Reference ID | Candidate Narro visual filename(s) |
 | --- | --- |
@@ -60,6 +60,23 @@ The **previous accepted resulting-main visual ZIP 11764194285** has two `1280×7
 
 [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) now also replaces screenshot-unsafe `scrollIntoView` with fixture-only placement that keeps the selected section within the Edge screenshot viewport, and validates actual decoded PNG scanline-data diversity for upper/middle/lower and dedicated Shortcuts dialog captures. The PNG visibility guard was independently checked against the original accepted ZIP: **upper PASS**, **middle FAIL**, **lower FAIL**, as required. **Replacement Windows CI is PENDING; neither new capture nor actual application behavior is accepted yet.** This is a correction to evidence integrity, not a reason to weaken visual validation.
 
+### Remaining eleven current screenshots: direct release-artifact comparison
+
+This completes **22/22 current-v2.6.69 static source images opened and cross-checked against real Narro release capture candidates**, not 22 source-parity PASS.
+
+- **SS-C01 Create List:** original Create List modal versus `list-editor-create-dark.png`. Narro deliberately uses the user-approved Spectrum Core picker/image/icons. **Protected Narro-local deviation; no appearance/function changes allowed.**
+- **SS-C04 Create List tile:** source dashed Create List tile is **present** in Narro `list-card-states-dark.png`; the earlier small `home-dark.png` crop alone did not establish its absence. **Corrected the potential false missing-control inference.** Exact gradient proportions/click behavior not proven equal.
+- **SS-C07 Preferences general:** source and Narro `theme-settings-preferences-upper.png` both include monitor/Blitz Panel/general controls; original screenshot is dark and Narro fixture is system/light with different viewport and scroll position. **Partial structural comparison only.**
+- **SS-C08 Preferences Blitz alerts and SS-C09 Preferences celebration:** source settings are visible; accepted Narro `theme-settings-preferences-middle.png` and `theme-settings-preferences-lower.png` are **completely blank images** despite DOM validator PASS. **Broken screenshot evidence**, not proof production Preferences are blank; await actual replacement imagery from PR #345.
+- **SS-C10 Archived Lists empty:** source and `archive-lists-empty-dark.png` expose Archived Lists/empty state; source shell and fixture viewport differ. **Structural comparison only.**
+- **SS-C13 Reports lower panels:** source and `reports-lower-dark.png` show productivity/lower report sections; sample data and chart viewport differ. **Structural only.**
+- **SS-C14 Sessions dashboard empty:** source and `reports-sessions-empty-dark.png` show Sessions empty data/controls but numerical task/session fixture values differ. **No metric defect inferred from different datasets.**
+- **SS-C15 Reports list filter:** source anchored multi-list filter versus `reports-list-filter-dark.png`; controls are comparable but selected-list semantics/event lifecycle are not established from screenshots. **Not click-semantics PASS.**
+- **SS-C16 Home light list hover:** source shows a hovered list Open overlay; Narro `home-light.png` has no matching hover but `list-card-states-light.png` contains related list states. **Not same-state; missing Open behavior not established.**
+- **SS-C21 Focus Panel notes expanded:** source Focus inline notes versus `focus-panel-notes-expanded-dark.png`; both show notes but content, widths and selected states differ. **No exact visual/motion parity claim.**
+
+**Remaining PA-09 work:** inspect replacement standalone Shortcuts and Preferences nonblank captures from PR #345; measure like-state/pixel differences only when data, theme and viewport align; reconcile existing 19 source-video Pass-3 timing/interaction evidence with Narro runtime by video version. Contemporary unseen Blitzit behavior stays SOURCE_OPEN without blocking Narro-local functionality; M11 optional, native physical PA USER-PAUSED.
+
 **Previously completed work not to repeat:** Pass-3 source forensic 46/46 and 19/19, visual system 8/8, original U01–U41 local coverage 41/41, 9/9 actual code gaps, resulting-main Windows 3/3 and artifact CRC/SHA identity. **Still not done:** final-build like-for-like review of all 22 current screenshots, applicable source-version-labelled video-motion parity matching, exact-source interaction parity for unsupported hidden clicks, and separate real Windows physical PA acceptance. These statuses must not be conflated.
 
 ## Corrections and acceptance boundary
@@ -67,4 +84,4 @@ The **previous accepted resulting-main visual ZIP 11764194285** has two `1280×7
 1. **Correct the prior mistaken blocker:** An **offline PA-09 existing-evidence review can and should proceed without live Blitzit/M11**. Only *claims specifically requiring unseen contemporary original behavior* remain SOURCE_OPEN; optional M11 is never required for Narro local functionality.
 2. **Do not mark PA-09 PASS** for having 46/46 pictures, 19/19 videos or a passing Windows visual-regression suite. Distinguish (a) original SOURCE_COMPLETE, (b) Narro local IMPLEMENTED/AUTOMATED PASS, (c) historical/source-version-limited paired PARITY, (d) native physical PASS.
 3. **No confirmed Narro product behavior defect from the source-to-screenshot comparisons**: different screenshots/states are not evidence of broken Narro controls. Do not create speculative geometry/CSS fixes, rewrite functional behavior or touch protected Spectrum Core.
-4. **Next concrete independent action:** first validate PR #345 exact head and inspect the new standalone-modal Windows screenshot once its CI exists. Then inspect the 11 still-unreviewed current screenshot candidates on the exact existing release, then reconcile *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.
+4. **Next concrete independent action:** first validate PR #345 exact head and inspect the new standalone-modal Windows screenshot once its CI exists. Then reconcile the already-sampled 22 source screenshots where an exact aligned state/viewport is still unavailable, and *only reproducible, same-state differences* with `docs/BLITZIT_VISUAL_SYSTEM.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and actual component/test ownership. For motion use existing Pass-3 timestamp measurements plus source-specific runtime footage where available. If a confirmed Narro defect is found, use a coherent source PR, regression tests, exact-head CI and resulting-main validation. Any need for new live original evidence is recorded separately, not made a blocker.
