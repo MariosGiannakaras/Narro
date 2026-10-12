@@ -1,5 +1,18 @@
 # Blitzit unknown-only audit — consolidated 41-finding triage and execution policy
 
+## CURRENT 2026-10-12 — Source-independent functional completeness (user clarification)
+
+**Binding priority:** optional M11 is **never** a prerequisite for Narro to be fully functional. Do not postpone a missing Narro action merely because current Blitzit source behavior has not been observed. Where original semantics are unknown, choose a documented, deterministic, safe and accessible **Narro-local** rule, preserve authoritative domain ownership and test it. M11 remains dormant and optional; its possible future source-comparison results remain parity evidence only, not a condition for shipping otherwise sound behavior.
+
+**The classifications and proposed order below are a historical 2026-10-11 snapshot, NOT current source status.** Four historically listed gaps were since fixed and fully validated/merged: **U12 #334, U40 #335, U35 #336, U21 #338**. Their 4/4 bounded source campaign and latest resulting-main [Windows run 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) **3/3 PASS**, [artifact 11739519083](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248/artifacts/11739519083) independently hashed ZIP/exe/NSIS/MSI, are now current. No replacement source edit or new CI is required for these accepted four items.
+
+**Actual remaining implementation work must be judged by Narro usability, not source-observation availability.** Analyze and route **U22** (read-only Break session entry in Focus Done, task Done counter unchanged), **U23** (view-only Break time in header EST, no timer/session/EST persistence mutation), **U06** (double-chevron Reports calendar navigation), **U09** (chart-options affordance: a real local action contract or an honest noninteractive treatment), and any other *demonstrated* missing behavior. The unobserved original click is not a blocker to a safe local contract. For **U04** archived Done permanent delete, plan data-retention/cascade/undo/confirmation safeguards and obtain approval before destructive effects; this is a safety/approval issue, not an M11 prerequisite. **U24/U25/U36** older-source domain differences are not evidence of broken Narro local week/rank/manual-lane behavior. User-owned U01/U02 Spectrum Core color/image/icons remain locked.
+
+**Next owned coding track:** first read current implementation/read APIs/tests across U22/U23 and U06/U09, settle coherent non-destructive semantics/dependencies and develop narrowly validated slices. Physical Windows Codex PA-01–09 remains USER-PAUSED, mandatory milestone completion 3/10, M10 blocked, M11 opt-in only. Full [immutable user clarification and causal routing](../work-log/2026-10-12-chatgpt-u01-u41-local-first-without-m11-implementation-policy.md).
+
+--- 
+
+
 **Date:** 2026-10-11 (Europe/Athens). **Mode:** review/decision matrix only, no app source/config/test changes, no tests or CI executed by this triage, no Blitzit live capture, no optional M11 activation. This **does not supersede** the canonical detailed source-evidence register or the 10-milestone `TODO.md` roadmap.
 
 **Authoritative detail:** `docs/BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md` (U01–U41, every original reference + read-only verified current code path), immutable batch 01–10 `work-log/2026-10-11-chatgpt-blitzit-unknown-only-audit-*`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/EVIDENCE_ROUTING_MAP.md`, original full-video Pass-3 evidence, `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md`. Latest repository bootstrap + `HANDOFF.md` take precedence whenever read again.
