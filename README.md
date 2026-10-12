@@ -40,15 +40,15 @@ Canonical continuation files:
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-## Current phase
+## Current phase — validated 2026-10-12
 
-Normal ordered evidence analysis, implementation/corrections and validation for the open M1–M9 work, with existing FIX_NOW and acceptance dependencies determining priority. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
+The **41 reviewed source-uncertainty IDs** are all covered by Narro-local functional behavior (**41/41**); the **nine specifically evidenced local code/UI gaps** are automated-Windows-validated and merged (**9/9**). This is neither a claim of **full current Blitzit source parity** nor final physical Windows acceptance. See the [fixed-scope coverage ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md) and [current HANDOFF](HANDOFF.md).
 
-The CI953/source `38219e20` pointer/menu correction from PR235 is integrated on `main` as squash merge `a0dd76ed`. The later async-read finding07 correction is also integrated from PR237/CI967 as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`; only its physical blocked-SQLite responsiveness acceptance remains open. M1 finding27 source correction is integrated with physical DPI/monitor acceptance open; M9 Overview PDF source is integrated with physical PDF acceptance open. Current implementation continuation is M6 P3-M6-05 after integrated PR241 Quick Preferences; see `HANDOFF.md` for the exact queue.
+The latest accepted executable source is guarded-merged [U04 PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), merge `ec7673c921e08c83de11c986bd25fbb3600475ce`; [exact resulting-main Windows CI #38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS**. The original Windows production ZIP, executable, NSIS and MSI were independently checksum-verified, and the modern Archived Done confirmation modal was captured in both Edge themes. The source identity and physical candidate details are pinned in [current physical session instructions](docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md).
 
-Start from [HANDOFF](HANDOFF.md), [TODO](TODO.md) and [STATUS](STATUS.md). The [capture navigation index](work-log/evidence/ci953-capture-index-20261005/README.md) links11 follow-up packets; capture counts are not reviewed/PASS counts. Current authoritative tracking takes precedence over dated historical checkpoints.
+**Mandatory milestone native acceptance remains 3/10, with 7/10 still not physically accepted.** All nine Codex PA-01–09 tests are **USER-PAUSED / NOT RUN** pending explicit reauthorization; do not install/run the current binary or alter AppData without permission. Live original-Blitzit verification is optional M11 and has **not** been activated. The existing Spectrum Core Create/Edit List color picker, image upload and 218 offline icons are user-approved and protected.
 
-Review existing recordings/logs before requesting repeated acquisition; batch compatible evidence-backed corrections and validate them normally. Browser Ctrl+Shift+T A/B/C is closed by [personal user validation](work-log/2026-10-05-user-manual-browser-shortcut-pass.md).
+See [TODO](TODO.md) for the intact 10 mandatory milestone checklists and [STATUS](STATUS.md) for current state. Old progress snapshots are preserved byte-for-byte via their linked immutable archive files rather than presented as active next tasks.
 
 ## Product scope
 
