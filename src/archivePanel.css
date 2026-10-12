@@ -282,8 +282,21 @@
   width: 2rem;
   height: 2rem;
   padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
   color: var(--color-destructive);
   background: transparent;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.archived-done-row__delete:hover:not(:disabled),
+.archived-done-row__delete:focus-visible {
+  border-color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.archived-done-row__delete:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

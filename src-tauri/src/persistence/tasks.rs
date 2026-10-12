@@ -23,6 +23,9 @@ pub enum TaskStoreError {
     CompletedTask(TaskId),
     ActiveSession(TaskId),
     MustArchiveBeforePermanentDelete(TaskId),
+    NotArchivedDone(TaskId),
+    StaleArchivedDoneSnapshot(TaskId),
+    ArchivedDoneHasRecurrenceDependents(TaskId),
 }
 
 impl Display for TaskStoreError {
@@ -54,6 +57,16 @@ impl Display for TaskStoreError {
             Self::MustArchiveBeforePermanentDelete(id) => write!(
                 formatter,
                 "task must be archived before permanent deletion: {id}"
+            ),
+            Self::NotArchivedDone(id) => {
+                write!(formatter, "task is not an archived completed task: {id}")
+            }
+            Self::StaleArchivedDoneSnapshot(id) => {
+                write!(formatter, "archived task changed since confirmation: {id}")
+            }
+            Self::ArchivedDoneHasRecurrenceDependents(id) => write!(
+                formatter,
+                "archived task has dependent recurring tasks: {id}"
             ),
         }
     }
@@ -686,6 +699,84 @@ pub fn permanently_delete_task_confirmed(
     }
     if current.completed_at.is_none() {
         compact_bucket_ranks(&tx, current.list_id, current.manual_lane, now)?;
+    }
+    tx.commit()?;
+    Ok(())
+}
+
+/// Erases one archived completed task and its task-owned history only when the
+/// exact archived snapshot still matches the user's confirmation. Never use
+/// this boundary for ordinary active/unfinished task deletion.
+pub fn permanently_delete_archived_done_task(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    expected_updated_at: &str,
+    expected_completed_at: &str,
+    expected_archived_at: &str,
+) -> Result<(), TaskStoreError> {
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    let task = get_task(&tx, id)?;
+    if task.completed_at.is_none() || task.archived_at.is_none() {
+        return Err(TaskStoreError::NotArchivedDone(id));
+    }
+    if task.list_id != expected_list_id
+        || task.updated_at != expected_updated_at
+        || task.completed_at.as_deref() != Some(expected_completed_at)
+        || task.archived_at.as_deref() != Some(expected_archived_at)
+    {
+        return Err(TaskStoreError::StaleArchivedDoneSnapshot(id));
+    }
+    let parent_archived_at: Option<Option<String>> = tx
+        .query_row(
+            "SELECT archived_at FROM lists WHERE id = ?1",
+            [expected_list_id.to_string()],
+            |row| row.get(0),
+        )
+        .optional()?;
+    match parent_archived_at {
+        None => return Err(TaskStoreError::ListNotFound(expected_list_id)),
+        Some(Some(_)) => return Err(TaskStoreError::ListArchived(expected_list_id)),
+        Some(None) => {}
+    }
+    let open_session = tx
+        .query_row(
+            "SELECT 1 FROM sessions WHERE task_id = ?1 AND ended_at IS NULL LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if open_session {
+        return Err(TaskStoreError::ActiveSession(id));
+    }
+    // Preserve separate task identities and recurrence history rather than
+    // silently detaching surviving children or deleting a shared rule.
+    let recurrence_dependents = tx
+        .query_row(
+            "SELECT 1 FROM tasks WHERE recurrence_parent_task_id = ?1 LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if recurrence_dependents {
+        return Err(TaskStoreError::ArchivedDoneHasRecurrenceDependents(id));
+    }
+    let deleted = tx.execute(
+        "DELETE FROM tasks
+         WHERE id = ?1 AND list_id = ?2
+           AND completed_at = ?3 AND archived_at = ?4 AND updated_at = ?5",
+        params![
+            id.to_string(),
+            expected_list_id.to_string(),
+            expected_completed_at,
+            expected_archived_at,
+            expected_updated_at
+        ],
+    )?;
+    if deleted != 1 {
+        return Err(TaskStoreError::StaleArchivedDoneSnapshot(id));
     }
     tx.commit()?;
     Ok(())

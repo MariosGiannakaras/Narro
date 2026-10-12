@@ -2581,6 +2581,7 @@ pub fn run() {
             list_settings::archive_list_from_settings,
             list_settings::restore_list_from_settings,
             list_settings::permanently_delete_list_from_settings,
+            list_settings::permanently_delete_archived_done_task_from_settings,
             theme_settings::get_theme_preference,
             theme_settings::set_theme_preference,
             preference_settings::get_preference_settings,

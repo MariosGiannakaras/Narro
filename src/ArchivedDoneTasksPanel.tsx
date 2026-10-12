@@ -1,7 +1,9 @@
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
   getArchiveSnapshot,
+  permanentlyDeleteArchivedDoneTaskFromSettings,
   type ArchivedDoneTaskSummary,
   type ArchiveSnapshot,
 } from "./listSettingsApi";
@@ -13,6 +15,7 @@ const ALL_LISTS = "all";
 type ArchivedDoneTasksPanelProps = {
   fixtureSnapshot?: ArchiveSnapshot;
   fixtureFilterOpen?: boolean;
+  fixtureDeleteOpen?: boolean;
 };
 
 function taskAccent(color: string | null): CSSProperties | undefined {
@@ -52,6 +55,7 @@ function formatCompletedDate(value: string): string {
 export function ArchivedDoneTasksPanel({
   fixtureSnapshot,
   fixtureFilterOpen = false,
+  fixtureDeleteOpen = false,
 }: ArchivedDoneTasksPanelProps) {
   const [snapshot, setSnapshot] = useState<ArchiveSnapshot | null>(fixtureSnapshot ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -59,6 +63,11 @@ export function ArchivedDoneTasksPanel({
   const [selectedListId, setSelectedListId] = useState(ALL_LISTS);
   const [filterOpen, setFilterOpen] = useState(fixtureFilterOpen);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ArchivedDoneTaskSummary | null>(fixtureDeleteOpen ? fixtureSnapshot?.doneTasks[0] ?? null : null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const deleteInFlightRef = useRef(false);
 
   useEffect(() => {
     if (fixtureSnapshot) return;
@@ -108,6 +117,40 @@ export function ArchivedDoneTasksPanel({
 
   const selectedList = snapshot?.filterLists.find((list) => list.id === selectedListId) ?? null;
 
+  function requestDelete(task: ArchivedDoneTaskSummary) {
+    if (deleteInFlightRef.current || deletePending || deleteTarget) return;
+    setFilterOpen(false);
+    setDeleteError(null);
+    setDeleteTarget(task);
+  }
+
+  function cancelDelete() {
+    if (deleteInFlightRef.current || deletePending) return;
+    setDeleteError(null);
+    setDeleteTarget(null);
+  }
+
+  async function confirmDelete() {
+    if (!deleteTarget || deleteInFlightRef.current || deletePending || fixtureSnapshot) return;
+    deleteInFlightRef.current = true;
+    setDeletePending(true);
+    setDeleteError(null);
+    try {
+      await permanentlyDeleteArchivedDoneTaskFromSettings(deleteTarget);
+      setSnapshot((current) => current === null ? null : {
+        ...current,
+        doneTasks: current.doneTasks.filter((task) => task.id !== deleteTarget.id),
+      });
+      setDeleteTarget(null);
+    } catch (failure: unknown) {
+      setDeleteError(formatInvokeError(failure));
+    } finally {
+      deleteInFlightRef.current = false;
+      setDeletePending(false);
+    }
+  }
+
+
   function selectList(listId: string) {
     setSelectedListId(listId);
     setFilterOpen(false);
@@ -125,6 +168,7 @@ export function ArchivedDoneTasksPanel({
           <span className="sr-only">Search archived done tasks</span>
           <span aria-hidden="true">⌕</span>
           <input
+            ref={searchInputRef}
             type="search"
             value={query}
             onChange={(event) => setQuery(event.currentTarget.value)}
@@ -243,10 +287,11 @@ export function ArchivedDoneTasksPanel({
                     <button
                       type="button"
                       className="archived-done-row__delete"
-                      aria-label={`Permanent deletion of ${task.title} is not available`}
-                      title="Permanent deletion is unavailable until the archived-task deletion policy is confirmed."
-                      disabled
-                      data-archived-done-delete="unavailable"
+                      aria-label={`Permanently delete ${task.title}`}
+                      title="Permanently delete this archived completed task"
+                      disabled={deletePending}
+                      onClick={() => requestDelete(task)}
+                      data-archived-done-delete="available"
                     >
                       <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v7m4-7v7" />
@@ -259,6 +304,17 @@ export function ArchivedDoneTasksPanel({
           </table>
         </div>
       )}
+      {deleteTarget ? (
+        <ListMutationConfirmDialog
+          action="delete-done-task"
+          listTitle={deleteTarget.title}
+          pending={deletePending}
+          error={deleteError}
+          onCancel={cancelDelete}
+          onConfirm={() => void confirmDelete()}
+          onReturnFocus={() => searchInputRef.current?.focus()}
+        />
+      ) : null}
     </section>
   );
 }

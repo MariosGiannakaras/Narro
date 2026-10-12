@@ -106,7 +106,7 @@ try {
     Wait-ForPreview -Url "$baseUrl/archive-fixture.html?theme=light&mode=lists-empty"
 
     foreach ($theme in @("light", "dark")) {
-        foreach ($archiveMode in @("lists-empty", "done-empty", "done-filter", "done-results")) {
+        foreach ($archiveMode in @("lists-empty", "done-empty", "done-filter", "done-results", "done-delete-confirm")) {
             $label = "archive-$archiveMode-$theme"
             $url = "$baseUrl/archive-fixture.html?theme=$theme&mode=$archiveMode"
             Capture-ArchiveState `
