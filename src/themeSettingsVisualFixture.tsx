@@ -178,7 +178,16 @@ const sectionTarget: Record<string, string> = {
 };
 
 window.requestAnimationFrame(() => {
-  if (!shortcutsDialog) document.getElementById(sectionTarget[section] ?? sectionTarget.upper)?.scrollIntoView({ block: "start" });
+  // Source-aligned section captures must stay inside Edge's screenshot viewport.
+  // scrollIntoView scrolled the page past the visible fixture: the former
+  // preferences-middle/lower PNGs were entirely blank although the DOM passed.
+  if (!shortcutsDialog && section !== "upper") {
+    const target = document.getElementById(sectionTarget[section] ?? sectionTarget.upper);
+    const surface = document.querySelector<HTMLElement>(".theme-settings");
+    if (!target || !surface) throw new Error("Preferences fixture section target is missing.");
+    const relativeTop = target.getBoundingClientRect().top - surface.getBoundingClientRect().top;
+    surface.style.transform = `translateY(-${Math.max(0, Math.round(relativeTop) - 72)}px)`;
+  }
   window.requestAnimationFrame(() => {
     document.documentElement.dataset.themeSettingsFixtureReady = "true";
   });
