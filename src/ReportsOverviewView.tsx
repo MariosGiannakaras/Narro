@@ -91,6 +91,8 @@ export type ReportsOverviewViewProps = {
   onSelectCalendarDay?: (dateKey: string) => void;
   onPreviousCalendarMonth?: () => void;
   onNextCalendarMonth?: () => void;
+  onPreviousCalendarYear?: () => void;
+  onNextCalendarYear?: () => void;
   onCancelDateRange?: () => void;
   onApplyDateRange?: () => void;
   onOpenSessions?: () => void;
@@ -245,6 +247,8 @@ function DateRangePicker({
   onSelectDay,
   onPreviousMonth,
   onNextMonth,
+  onPreviousYear,
+  onNextYear,
   onCancel,
   onApply,
 }: {
@@ -253,6 +257,8 @@ function DateRangePicker({
   onSelectDay?: (dateKey: string) => void;
   onPreviousMonth?: () => void;
   onNextMonth?: () => void;
+  onPreviousYear?: () => void;
+  onNextYear?: () => void;
   onCancel?: () => void;
   onApply?: () => void;
 }) {
@@ -273,9 +279,11 @@ function DateRangePicker({
         {months.slice(0, 2).map((month) => (
           <section className="reports-overview__calendar" key={month.label} aria-label={month.label}>
             <header>
+              <button type="button" aria-label={`Previous year from ${month.label}`} onClick={onPreviousYear} disabled={!onPreviousYear}>«</button>
               <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}>‹</button>
               <strong>{month.label}</strong>
               <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}>›</button>
+              <button type="button" aria-label={`Next year from ${month.label}`} onClick={onNextYear} disabled={!onNextYear}>»</button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => <span key={day}>{day}</span>)}
@@ -336,6 +344,8 @@ export function ReportsOverviewView({
   onSelectCalendarDay,
   onPreviousCalendarMonth,
   onNextCalendarMonth,
+  onPreviousCalendarYear,
+  onNextCalendarYear,
   onCancelDateRange,
   onApplyDateRange,
   onOpenSessions,
@@ -470,6 +480,8 @@ export function ReportsOverviewView({
               onSelectDay={onSelectCalendarDay}
               onPreviousMonth={onPreviousCalendarMonth}
               onNextMonth={onNextCalendarMonth}
+              onPreviousYear={onPreviousCalendarYear}
+              onNextYear={onNextCalendarYear}
               onCancel={onCancelDateRange}
               onApply={onApplyDateRange}
             />
