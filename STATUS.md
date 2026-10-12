@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U04 user-approved implementation PR343 underway; 40/41 general local coverage pending CI
+## CURRENT 2026-10-12 — U04 modern user-approved Archived Done delete PR343 fourth CI, general U count 40/41
+
+**General Narro-local U01–U41 functional coverage: 40/41 accepted, 1/41 U04 implementation PENDING exact CI/merge/main release.** **Specific evidenced gap shortlist: 8/9 code+automated release accepted, U04 0/1**. Mandatory physically accepted milestones **3/10, 7 remain**, native PA-01–09 USER-PAUSED/NOT RUN; original current Blitzit source parity OPEN, M11 strictly optional/dormant. [41-ID implementation ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
+
+**U04 consent+implementation:** user agreed permanent removal of chosen Archived Done completed task, its task-owned notes, sessions and report/export history without undo, and asked for modern Narro-matching confirmation modal. [PR343](https://github.com/MariosGiannakaras/Narro/pull/343) current exact head `7ee33aa873cc4025a996efb8f02ec32969842d15`, [Windows PR CI38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) validation PASS, fast IN PROGRESS, Windows pending. CI 38283243930 initial FAIL old opener-focus source contract, 38283626778 second FAIL old four-mode archive capture text, 38284091358 third FAIL rustfmt style; all first-failure logs diagnosed and narrow compliant corrections on same PR (18 exact rustfmt diff patches) without weakening existing assertions. No meaningful Windows acceptance yet. 13 changed scoped sources/fixtures ensure typed archived-completed-only SQLite transaction, stale/list/version guarding, session+recurrence guards and task-only cascade, typed errors, single-flight UI, accessible warning modal + dual-theme Edge fixture. No physical user data, AppData, installer or user-owned Spectrum Core changed.
+
+**Latest previously accepted production baseline U23:** guarded merge `4ce42cd9b41c4c445a1acbf0737c3a7b3063af7a`, [resulting-main CI38277579376](https://github.com/MariosGiannakaras/Narro/actions/runs/38277579376) 3/3+ZIP CRC/fourhash. Do not replace as current until U04 has own resulting-main acceptance.
+
+## HISTORICAL 2026-10-12 — U04 user-approved implementation PR343 underway; 40/41 general local coverage pending CI
 
 **General U01–U41 functional local implementation:** **40/41 accepted + U04 0/1 active PR (not yet CI integrated)**. **8/9 specific evidenced gaps** fixed, U04 is final outstanding ninth. Native physically accepted milestones **3/10**, **7 remain**; PA-01–09 **USER-PAUSED / NOT RUN**. [Fixed deduplicated 41-ID progress ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md); these counters are not Blitzit exact-source parity or all app features.
 
