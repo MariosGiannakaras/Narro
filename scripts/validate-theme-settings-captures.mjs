@@ -85,4 +85,25 @@ invariant(lowerDom.includes("Show success screen"), "Preferences lower capture s
 invariant(lowerDom.includes("Fun GIF"), "Preferences lower capture nested GIF control is missing");
 invariant(lowerDom.includes("Success sound"), "Preferences lower capture success-sound state is missing");
 
+// SS-C17 is a dedicated modal, not the shortcut section scrolled into Preferences.
+for (const theme of ["dark", "light"]) {
+  const label = `theme-settings-shortcuts-dialog-${theme}`;
+  const dom = await read(label);
+  invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `${label} did not reach readiness`);
+  invariant(dom.includes(`data-theme="${theme}"`), `${label} source theme is missing`);
+  invariant(dom.includes('data-theme-settings-shortcuts-dialog="true"'), `${label} fixture did not select the dedicated dialog`);
+  invariant(dom.includes('data-windows-shortcuts-dialog="true"'), `${label} must capture the actual WindowsShortcutsDialog wrapper`);
+  invariant(dom.includes('role="dialog"') && dom.includes('aria-modal="true"'), `${label} accessible modal semantics missing`);
+  invariant(dom.includes('data-windows-shortcuts-close="true"'), `${label} close control missing`);
+  invariant(dom.includes("Windows Shortcuts"), `${label} heading missing`);
+  invariant(dom.includes('data-windows-shortcut-settings="true"'), `${label} shortcut controls missing`);
+  invariant(!dom.includes('data-theme-settings="true"'), `${label} wrongly captured the Preferences panel instead of the standalone modal`);
+  for (const shortcut of ["goToNarro", "toggleFocusMode", "findFocusTimer"]) {
+    invariant(dom.includes(`data-global-shortcut-kind="${shortcut}"`), `${label} global row missing: ${shortcut}`);
+  }
+  for (const shortcut of ["create-task", "start-break", "pause-resume", "skip-task", "finish-task", "notes", "search"]) {
+    invariant(dom.includes(`data-app-shortcut="${shortcut}"`), `${label} app shortcut missing: ${shortcut}`);
+  }
+}
+
 console.log("Theme settings + Windows shortcuts + Preferences Edge capture contract: PASS");
