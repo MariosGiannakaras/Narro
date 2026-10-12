@@ -1,6 +1,13 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U06 calendar year navigation replacement PR head awaiting exact Windows CI
+## CURRENT 2026-10-12 — U06 source/CI accepted with guarded merge; resulting-main CI underway
+
+U06 Reports year navigation independent coding slice **1/1 source accepted** on [PR339](https://github.com/MariosGiannakaras/Narro/pull/339), exact head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [PR-head run 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 SUCCESS**, guarded squash-merged `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, **10/10 changed source/test blobs matched**. Initial head historical fast-gate TS2739 missing Sessions visual fixture props was fixed at accepted head. Narro-local ±12-month buttons in both Reports calendars complement existing ±1/month/date range Apply/Cancel and never mutate reports ledger; M11 not required.
+
+**Merge-source resulting-main [run 38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979)** validation PASS, fast/Windows candidate **IN PROGRESS / NOT YET ACCEPTED** at documented checkpoint; new ZIP/EXE/NSIS/MSI identities and physically accepted build are not yet established. Previous campaign **4/4** unchanged; U06 separate **1/1 source**, full integrated final pending. [Immutable 10/10+CI proof](work-log/2026-10-12-chatgpt-u06-pr339-green-guarded-merge-main-windows-pending.md). Physical Codex PA-01–09 USER-PAUSED, mandatory 3/10, M10 blocked, M11 dormant. User-owned picker/icons untouched.
+
+
+## HISTORICAL 2026-10-12 — U06 calendar year navigation replacement PR head awaiting exact Windows CI
 
 [PR #339](https://github.com/MariosGiannakaras/Narro/pull/339) `feat/u06-reports-calendar-year-navigation` proposes previous/next **year** ±12 calendar-anchor buttons for both Reports surfaces, tested against pre-existing `addReportMonths` plus leap-year/round-trip invariants; no DB/report data alteration or M11 dependency. Original PR head `e727a265...` [CI 38239291191](https://github.com/MariosGiannakaras/Narro/actions/runs/38239291191) validation SUCCESS, fast FAILED due exact TS2739 omitted required props in Sessions visual fixture; Windows SKIPPED. Narrow fixture fix created replacement exact head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [new CI 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) validation+fast **2/3 SUCCESS** and Windows candidate **IN PROGRESS / NOT PASS**. **No U06 acceptance yet (0/1)**, no latest release binary superseded until resulting-main green. Existing bounded U12/U40/U35/U21 **4/4** acceptance preserved. [Exact failure/correction](work-log/2026-10-12-chatgpt-u06-pr339-exact-ts-fixture-failure-correction.md), [U09 independent design/owner boundary](work-log/2026-10-12-chatgpt-u06-pr339-ci-pending-u09-shared-owner-review.md). Native Windows PA-01–09 USER-PAUSED, mandatory 3/10, M10 blocked, M11 dormant and optional.
 
