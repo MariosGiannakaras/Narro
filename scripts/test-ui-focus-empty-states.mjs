@@ -53,7 +53,7 @@ for (const forbidden of [
   invariant(!panel.includes(forbidden), `empty-state rendering must not become general timer/session authority via ${forbidden}`);
 }
 invariant(
-  panel.includes("canMakeLive={!scheduled}"),
+  panel.includes("canMakeLive={!scheduled && !suspendedWork}"),
   "future scheduled rows in the no-eligible state must not expose an enabled Rocket Make Live path",
 );
 
