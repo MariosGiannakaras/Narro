@@ -1,6 +1,11 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U22 persisted Break Done PR341 pending CI, approved prior baseline intact
+## CURRENT 2026-10-12 — U22 exact rustfmt-only gate failed; evidence-based correction re-CI pending
+
+U22 [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) first head `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02` [run38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation SUCCESS, frontend preflight and Vite build PASS, fast **FAIL only on cargo fmt --check**; Windows candidate SKIPPED. Exact nine rustfmt hunks on two Rust files applied without domain/test changes. New exact head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, replacement [run38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) validation SUCCESS, fast + Windows PENDING at recorded checkpoint, **U22 0/1 accepted**. Prior bounded campaign 4/4 + separate U06 1/1 and U09 1/1 accepted. Full [formatting incident](work-log/2026-10-12-chatgpt-u22-pr341-fast-rustfmt-only-exact-log-correction.md); [U23 planned Break typed view analysis](work-log/2026-10-12-chatgpt-u23-typed-break-planned-duration-independent-design-while-u22-ci.md). PA-01–09 USER-PAUSED, mandatory milestones 3/10, M10 blocked, M11 optional/dormant.
+
+
+## HISTORICAL 2026-10-12 — U22 persisted Break Done PR341 pending CI, approved prior baseline intact
 
 Existing in-progress U22 source branch `feat/u22-focus-done-persisted-break-history` was **reused**, not rebuilt; source/tests now on [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) exact `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02`. Current implementation: bounded max24 closed Break SessionId records by local day, saved list and timezone, stale-target read protection; Focus Done visible row count plus real Break history, task progress remains authoritative. Corrected exact two TS defects (`readRevisio` truncated declaration and `todayKey` typo). [PR CI38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation SUCCESS, fast-gate IN PROGRESS, Windows candidate not complete at this checkpoint. **New U22 0/1 accepted** until full Windows PR head, guarded merge and resulting-main proof. Existing U12/U40/U35/U21 4/4 and independent U06 1/1 + U09 1/1 fully validated remain intact. PA-01–09 USER-PAUSED, mandatory 3/10, M10 blocked, optional M11 dormant. [Immutable precise resume](work-log/2026-10-12-chatgpt-u22-existing-branch-reused-pr341-first-ci-pending.md).
 
