@@ -3,7 +3,13 @@
 Status: **STATIC/RUNTIME-SOURCE REVIEW COMPLETE FOR CURRENT RESIDUAL GATE FAMILIES; PHYSICAL VALIDATION OPEN**.
 This is a point-in-time code/test/known-evidence risk analysis, **not** a physical/native PASS. The user explicitly requested maximum proactive diagnosis before unpausing Codex. Do not treat a future source change as covered by this candidate.
 
-## CURRENT 2026-10-12 — PA-06 merged-main Windows package integrity verified; physical gates unchanged
+## CURRENT 2026-10-12 — Pre-Codex gate still paused; U21 newer source merged, final binary hash pending
+
+**Latest executable source accepted via guarded merge:** `334566f2a41293c458353991d99d968ad5fa9ad1`, PR338 exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6`, [exact Windows CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) **3/3 PASS**, all 18 source/test Git blobs verified identical. [Resulting-main CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) validation/fast **PASS**, Windows **IN PROGRESS / NOT YET FULL PASS** as of evidence checkpoint. Current ZIP/`narro.exe`/NSIS/MSI **not downloaded, not hashed, not accepted**. The historical post-#333 hashes below validate *only* source `ef22a7e4...` and must not be used to start U21 acceptance.
+
+The prior PA-01–09 physical-only gates and risk dispositions below remain applicable, with U21 Break view-only presentation now part of the latest source under test. Actual Windows native PA-01–09 **USER-PAUSED / NOT RUN**; timer/session/ledger and source Blitzit parity separate. Mandatory physically accepted milestones 3/10, M10 blocked, M11 explicit opt-in dormant. Do not launch the old candidate, alter user AppData or begin physical automation. [U21 immutable guarded merge proof](../work-log/2026-10-12-chatgpt-u21-pr338-guarded-merge-18-blob-union-main-ci-pending.md).
+
+## HISTORICAL 2026-10-12 — PA-06 post-#333 merged-main package integrity verified for prior executable
 
 **Final current source:** `ef22a7e434bea6cc4849282aa46c4786d9d90663`, [resulting-main Windows CI 38173126053](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053) validation/fast/Windows **3/3 SUCCESS**. Independently downloaded [production ZIP 11715043831](https://github.com/MariosGiannakaras/Narro/actions/runs/38173126053/artifacts/11715043831) and verified CRC plus SHA256 actual bytes: ZIP `61f743d2f26baf92c665597b35e6f777ade4989884ed1af8c6aa644cb7cbbc9b`, `narro.exe` `5015e01d69a5158be7ef7c89ed2d8fab18005bd484633a67aa1414a437955489`, NSIS `8912dd83f42b0bddd25ac4d5d0c6e896975012ab708fb6295ec7e7d2f88cef16`, MSI `b7ab390c9907a080c5c666d5d2b115709391d7dfa8295a5736291a46f47d97fc`. Compared source and current documentation-only main: **603/603** executable/config/test Git blobs byte-identical, 0 differences. See immutable `work-log/2026-10-12-chatgpt-post333-final-windows-artifact-hashes-and-candidate-pin.md`.
 
