@@ -8,7 +8,7 @@ import type { ArchiveSnapshot, ArchivedListSummary } from "./listSettingsApi";
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "dark" ? "dark" : "light";
 const requestedMode = params.get("mode");
-const mode = ["lists-empty", "done-empty", "done-filter", "done-results"].includes(requestedMode ?? "")
+const mode = ["lists-empty", "done-empty", "done-filter", "done-results", "done-delete-confirm"].includes(requestedMode ?? "")
   ? requestedMode!
   : "lists-empty";
 
@@ -32,6 +32,7 @@ const populatedSnapshot: ArchiveSnapshot = {
       title: "Ship quarterly planning notes",
       completedAt: "2026-06-20T08:30:00Z",
       archivedAt: "2026-08-20T08:30:01Z",
+      updatedAt: "2026-08-20T08:30:01Z",
       timeTakenSeconds: "4500",
       hasNote: true,
     },
@@ -43,6 +44,7 @@ const populatedSnapshot: ArchiveSnapshot = {
       title: "Review distributed systems chapter",
       completedAt: "2026-06-18T18:00:00Z",
       archivedAt: "2026-08-18T18:00:01Z",
+      updatedAt: "2026-08-18T18:00:01Z",
       timeTakenSeconds: "2700",
       hasNote: false,
     },
@@ -59,7 +61,7 @@ const emptyLists: ArchivedListSummary[] = [];
 
 function FixtureSurface() {
   const tab: ArchiveTab = mode.startsWith("done-") ? "done" : "lists";
-  const snapshot = mode === "done-results" ? populatedSnapshot : emptySnapshot;
+  const snapshot = mode === "done-results" || mode === "done-delete-confirm" ? populatedSnapshot : emptySnapshot;
   return (
     <AppShell
       fixtureMode
@@ -69,6 +71,7 @@ function FixtureSurface() {
           fixtureLists={emptyLists}
           fixtureSnapshot={snapshot}
           fixtureFilterOpen={mode === "done-filter"}
+          fixtureDeleteOpen={mode === "done-delete-confirm"}
         />
       )}
     />
