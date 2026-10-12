@@ -1,4 +1,4 @@
-# HANDOFF — Narro bounded implementation and exact Windows source/package accepted; native physical user-paused
+# HANDOFF — U22 #341 merged; resulting-main Windows candidate pending; Codex native physical user-paused
 
 ## CURRENT 2026-10-12 — U22 guarded merged; exact resulting-main Windows candidate running; resume-in-place enforced
 
