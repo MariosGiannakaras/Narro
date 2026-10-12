@@ -59,6 +59,7 @@ These files have distinct jobs:
 - `TODO.md` — ordered executable milestones; `[x]` means implemented **and validated**.
 - `STATUS.md` — concise durable project-level truth, measurements, accepted/rejected architecture findings and important limitations. Current-state sections must not retain superseded claims as if they were still active; move historical checkpoints to `work-log/` or label them explicitly as historical.
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work.
+- `docs/TRACKER_STATUS_INDEX.md` — single live directory for active vs historical trackers, 20 retained branch provenance records and the no-repeat research intake rule. **Check here before opening a new research/tracking file or resurrecting an old branch**; old PR/CI statuses are not live task instructions.
 - `WORK_LOG.md` — legacy historical archive retained for older context; do not replace or truncate it.
 - `docs/*` — specifications, research evidence, validation procedures and optional design/decision aids.
 - Documentation/process/tracking Markdown is committed directly to `main` when it does not affect executable/build/test/CI semantics. Non-Markdown evidence-only artifacts may also go directly to `main` when they are not runtime/build/test inputs; use `[skip ci]` on those direct-main commits so Windows CI is not started. Feature branches are for source/config/test work, not for holding newer repository truth.
