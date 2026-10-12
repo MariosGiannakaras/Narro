@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U06 live PR339 0/1 CI pending; M11-independent
+## CURRENT 2026-10-12 — U06 exact-head green and guarded merge, resulting-main pending
+
+- [x] **New bounded U06 1/1 source/PR accepted**: [#339](https://github.com/MariosGiannakaras/Narro/pull/339) exact `9c0cea03bb85af074b35ebc293e1ad84e36bbb90` [Windows CI 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 PASS**, expected-head guarded squash merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8` and **10/10 Git blobs MATCH**. Year ±12 in Reports Overview+Sessions, normal month ±1/draft/Apply/Cancel/report read unaffected, typed tests and visual fixture. Prior 4/4 U12/U40/U35/U21 independent accepted (not quietly changed denominator).
+- [ ] **Resulting-main Windows source/release acceptance**: [run 38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) validation **SUCCESS**, fast/Windows not yet final at this timestamp. Require exact merged-main 3/3, independent ZIP/EXE/NSIS/MSI CRC+SHA256, and current physical candidate repin. Old U21 package hashes apply ONLY to prior binary. [Immutable exact proof](work-log/2026-10-12-chatgpt-u06-pr339-green-guarded-merge-main-windows-pending.md).
+- [ ] **Next U09 local-first UI slice** after U06 source/main reconciliation; Reports same-file ownership. U22 persisted Break Done history and U23 typed planned Break duration later, no ghost task or ledger mutations. U04 destructive action remains policy/permission gate.
+- [ ] **Native Windows Codex PA-01–09 USER-PAUSED**, mandatory **3/10**, M10 blocked; M11 strictly optional/dormant; preserve locked Spectrum Core List Editor design.
+
+
+## HISTORICAL 2026-10-12 — U06 live PR339 0/1 CI pending; M11-independent
 
 - [x] **U06 source/fixture/test implementation on PR [#339](https://github.com/MariosGiannakaras/Narro/pull/339)** replacement head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`: year ±12 calendar navigation Overview+Sessions; single month ±1 and draft Apply/Cancel preserved; registered Reports tests expanded. Previous bounded campaign U12/U40/U35/U21 **4/4** independently accepted.
 - [x] **First failing CI diagnosed exactly:** initial head `e727a265...` Windows run [38239291191](https://github.com/MariosGiannakaras/Narro/actions/runs/38239291191) validation PASS, fast TS2739 missing required year handlers in Sessions fixture, Windows SKIPPED. Fixed exactly two fixture-prop bindings, no domain/test weakening; [immutable log](work-log/2026-10-12-chatgpt-u06-pr339-exact-ts-fixture-failure-correction.md).
