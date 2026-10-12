@@ -1,6 +1,16 @@
-# HANDOFF — U04 authorized PR343 exact Windows CI; physical PA user-paused
+# HANDOFF — U04 PR343 fourth exact-head Windows CI; source approval granted, native PA paused
 
-## CURRENT 2026-10-12 — U04 user-approved destructive Archived Done action PR343 exact CI pending
+## CURRENT 2026-10-12 — U04 approved modern confirmation modal: PR343 exact Rust-formatted head Windows CI in progress
+
+**GENERAL Narro-local U01–U41 functional coverage 40/41 ACCEPTED, 1/41 U04 source in flight**; **specific evidenced code gaps 8/9 accepted**; **mandatory physically accepted milestones 3/10 (7 remain), native PA-01–09 USER-PAUSED/NOT RUN**. Original current Blitzit parity separate; M11 optional dormant. [Fixed 41-ID ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
+
+**Explicit user authorizes U04** permanent erasure of one selected Archived Done completed task together with task-owned historical sessions, notes and Reports/exports, no undo, **with modern Narro-matching confirmation modal**. This does not authorize current user's real data deletion or native Windows install/run. [Original immutable permission/source log](work-log/2026-10-12-chatgpt-u04-user-approved-irreversible-archive-done-delete-pr343-exact-ci-pending.md), [two distinct first fast failures](work-log/2026-10-12-chatgpt-u04-pr343-two-fast-contract-failures-corrected-ci3.md). No new DB schema, no Spectrum Core picker/image/icons changes.
+
+**ONLY ACTIVE SOURCE OWNER:** [PR343](https://github.com/MariosGiannakaras/Narro/pull/343) same branch `feat/u04-archived-done-safe-delete-confirm`, current exact head `7ee33aa873cc4025a996efb8f02ec32969842d15`, [replacement CI38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) **validation PASS, fast IN PROGRESS, Windows PENDING / NOT PASS**. Superseded CI38283243930 first failed focus contract; CI38283626778 second failed legacy capture mode assertion; CI38284091358 third failed Rust formatting; **18 exact rustfmt patches** from real failed job applied to two Rust files in head `7ee33aa...`, intermediate format-run CI38284559385 cancelled. All historical failures remain FAILED, not green.
+
+**EXACT NEXT ACTION:** inspect head CI38284568221. If FAIL, inspect first failure job/step/log and narrow fix on same PR, preserving tests; new exact-head CI. If full 3/3 SUCCESS, expected-head guarded squash merge and verify **13/13 changed source/test/visual Git blobs**, then resulting-main Windows 3/3, download genuine resulting-main production ZIP and verify CRC plus ZIP/narro.exe/NSIS/MSI SHA, repin physical session/risk docs, update current U-ID ledger and count **41/41 Narro-local coverage** (NOT Blitzit parity or physical). No background monitoring after execution and no user-paused PA or M11.
+
+## HISTORICAL 2026-10-12 — U04 user-approved destructive Archived Done action PR343 exact CI pending
 
 **GENERAL U01–U41 Narro-local functional coverage 40/41 accepted, U04 0/1 pending implementation validation.** Specifically evidenced local gaps **8/9** accepted; physically accepted mandatory milestones **3/10**, **7 remain**, native PA-01–09 **USER-PAUSED / NOT RUN**. These fixed denominators are distinct, not 41 Blitzit-parity or physical PASS findings. Full mapping [41-ID local implementation ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
 
