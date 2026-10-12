@@ -1,4 +1,4 @@
-use crate::domain::ids::{SessionId, TaskId};
+use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
@@ -384,6 +384,44 @@ pub fn get_session(conn: &Connection, id: SessionId) -> Result<SessionRecord, Se
 
 pub fn get_open_session(conn: &Connection) -> Result<Option<SessionRecord>, SessionStoreError> {
     load_open_session(conn)
+}
+
+/// Focus Done is a finite read of durable CLOSED Focus Break sessions, not the
+/// unbounded Reports history or a synthetic completed task. SQL filters by the
+/// local-day UTC bounds, optional saved-list identity, and returns newest first.
+/// Both bounds are validated by the command before this read is called.
+pub fn recent_closed_focus_breaks(
+    conn: &Connection,
+    start_at: &str,
+    end_at: &str,
+    list_id: Option<ListId>,
+) -> Result<Vec<SessionRecord>, SessionStoreError> {
+    const MAX_VISIBLE_BREAKS: i64 = 24;
+    let list_id = list_id.map(|id| id.to_string());
+    let mut statement = conn.prepare(
+        "SELECT s.id, s.task_id, s.kind, s.started_at, s.ended_at,
+                s.duration_seconds, s.source, s.created_at, s.updated_at
+         FROM sessions s
+         LEFT JOIN tasks t ON t.id = s.task_id
+         WHERE s.kind = 'break' AND s.source = 'focus'
+           AND s.ended_at IS NOT NULL
+           AND julianday(s.ended_at) >= julianday(?1)
+           AND julianday(s.ended_at) < julianday(?2)
+           AND (?3 IS NULL OR t.list_id = ?3)
+         ORDER BY julianday(s.ended_at) DESC, s.id DESC
+         LIMIT ?4",
+    )?;
+    let rows = statement.query_map(
+        params![start_at, end_at, list_id, MAX_VISIBLE_BREAKS],
+        raw_from_row,
+    )?;
+    let mut breaks = Vec::new();
+    for row in rows {
+        // The existing session decoder validates persisted IDs, timestamps,
+        // source tokens and duration rather than silently accepting bad rows.
+        breaks.push(decode_session(row?)?);
+    }
+    Ok(breaks)
 }
 
 pub fn checkpoint_open_session(
