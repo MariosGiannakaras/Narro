@@ -58,7 +58,7 @@ export function ListMutationConfirmDialog({
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     cancelRef.current?.focus();
     return () => {
-      if (openerRef.current?.isConnected) openerRef.current.focus();
+      if (openerRef.current?.isConnected) openerRef.current?.focus();
       else onReturnFocus?.();
     };
   }, []);
