@@ -43,6 +43,8 @@ for (const [haystack, needle, label] of [
   [runtime, "onToggleListSelection={toggleListSelection}", "live list-filter interaction"],
   [runtime, "onSelectDatePreset={selectDatePreset}", "date preset state wiring"],
   [runtime, "onSelectCalendarDay={selectCalendarDay}", "custom calendar range wiring"],
+  [runtime, "onSelectChartPreset={applyChartSeriesPreset}", "Narro-local chart menu state wiring"],
+  [runtime, "setVisibleSeries(reportChartSeriesPreset(preset))", "chart presets atomically replace only display visibility"],
   [runtime, "onPreviousCalendarYear={() => {", "previous-year anchor control wiring"],
   [runtime, "onNextCalendarYear={() => {", "next-year anchor control wiring"],
   [runtime, "reportMonthStart(appliedRange.startDateKey), -12", "previous-year anchor uses existing date arithmetic"],

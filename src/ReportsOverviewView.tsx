@@ -1,5 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { ReportListBadges } from "./ReportListBadges";
+import { Menu, MenuItem } from "./overlayPrimitives";
+import type { ReportChartPreset } from "./reportChartSeriesPreset";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import "./reportsOverview.css";
 
@@ -87,6 +89,7 @@ export type ReportsOverviewViewProps = {
   onToggleListFilter?: () => void;
   onToggleDatePicker?: () => void;
   onToggleChartSeries?: (series: ReportsChartSeries) => void;
+  onSelectChartPreset?: (preset: ReportChartPreset) => void;
   onSelectDatePreset?: (preset: ReportDatePreset) => void;
   onSelectCalendarDay?: (dateKey: string) => void;
   onPreviousCalendarMonth?: () => void;
@@ -129,11 +132,13 @@ function ReportChart({
   tooltipDayId,
   visibleSeries,
   onToggleSeries,
+  onSelectPreset,
 }: {
   days: ReportsChartDay[];
   tooltipDayId?: string | null;
   visibleSeries: ReportsChartVisibility;
   onToggleSeries?: (series: ReportsChartSeries) => void;
+  onSelectPreset?: (preset: ReportChartPreset) => void;
 }) {
   const [interactiveTooltipDayId, setInteractiveTooltipDayId] = useState<string | null>(null);
   const activeTooltipDayId = tooltipDayId ?? interactiveTooltipDayId;
@@ -146,14 +151,14 @@ function ReportChart({
           <p className="reports-overview__section-kicker">Productivity</p>
           <h2 id="reports-productivity-title">Time by day</h2>
         </div>
-        <button
-          type="button"
-          className="reports-overview__chart-menu"
-          aria-label="Chart options unavailable"
-          title="Chart options are unavailable in this version"
-          data-report-chart-options="unavailable"
-          disabled
-        >•••</button>
+        <span className="reports-overview__chart-options" data-report-chart-options="available">
+          <Menu triggerLabel="Chart options" trigger={<span aria-hidden="true">•••</span>} align="end">
+            <MenuItem onSelect={() => onSelectPreset?.("all")}>Show all series</MenuItem>
+            <MenuItem onSelect={() => onSelectPreset?.("tasks")}>Tasks only</MenuItem>
+            <MenuItem onSelect={() => onSelectPreset?.("breaks")}>Breaks only</MenuItem>
+            <MenuItem onSelect={() => onSelectPreset?.("total")}>Total only</MenuItem>
+          </Menu>
+        </span>
       </div>
 
       <div
@@ -340,6 +345,7 @@ export function ReportsOverviewView({
   onToggleListFilter,
   onToggleDatePicker,
   onToggleChartSeries,
+  onSelectChartPreset,
   onSelectDatePreset,
   onSelectCalendarDay,
   onPreviousCalendarMonth,
@@ -504,6 +510,7 @@ export function ReportsOverviewView({
         tooltipDayId={tooltipDayId}
         visibleSeries={visibleSeries}
         onToggleSeries={onToggleChartSeries}
+        onSelectPreset={onSelectChartPreset}
       />
 
       <div className="reports-overview__productive-grid" data-report-productive-cards="true">
