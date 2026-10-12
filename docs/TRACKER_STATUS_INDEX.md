@@ -55,6 +55,13 @@
 
 **Consolidation progress:** active tracker compaction **3/3 preserved**, branch metadata reviewed **20/20**, 7 closed PR associations verified, source/config/tests changed **0**. Remaining organizational tasks: owner-guided branch retention/deletion decisions **20 pending** (including 2 low-risk behind candidates), evidence-storage policy **OPEN** for ~9.4GB immutable tracked media, and script **behavioral-coverage overlap** audit OPEN, but **98/98 named test scripts are reachable from 12 actual CI npm roots** via the current package.json nested-script graph (108/115 total scripts CI-reachable, 7 non-CI dev/preflight/prep entries, 0 unknown script dependencies; checked source path/graph, not test runtime). No test removal or gate weakening. Physical milestones still **3/10**, PA-01–09 USER-PAUSED, M11 optional dormant.
 
+## Storage footprint — measured bytes, not permission to prune
+
+**2026-10-12 exact GitHub recursive tracked-tree inventory:** 26,609 blob files, **9,415,711,275 bytes** (9.416 decimal GB), untruncated. `work-log/` **25,906 files / ~9.151 GB**, of which `work-log/evidence/` **25,240 / ~9.147 GB**. `reference/` **90 / ~0.256 GB**. High-volume suffixes: **21,224 PNG / ~2.426 GB**, **256 MP4 / ~2.031 GB**, **38 MKV / ~0.981 GB**, plus chunked `.partNNN` video transfers. There is no supportable assumption that identically named evidence captures are duplicates; some belong to separate runs/monitors and are needed for historical validation.
+
+**Decision boundary:** treat old captures/logs as **immutable evidence**. Before any proposed external storage/LFS migration: generate exact path+Git blob+SHA256+size+origin/run/consumer manifest, identify source-of-truth links, verify at least one durable restore path and a dry-run clone/consumer check, keep original URL aliases resolvable or explicitly migrate references, and obtain separate approval for any move/deletion/history rewrite. Simply switching to LFS does **not remove existing large blobs from Git history**; a Git-history rewrite is a qualitatively different operation and not authorized. The present consolidation only records sizes and future safeguards; **0 media moved/deleted**.
+
+
 ## Frozen former live trackers — still preserved, not active work queues
 
 These are historic acquisition/reconciliation documents, not replacements for current source truth. Keep for provenance until a separately approved archival policy exists:
