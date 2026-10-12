@@ -103,7 +103,19 @@ A capable agent should normally:
 
 Do not make the user act as a messenger between agents. If the next agent needs information, commit it to the repository.
 
-## User-facing progress — ChatGPT implementation track (2026-10-09 latest user direction)
+## User-facing progress — ChatGPT implementation track (2026-10-12 LATEST user instruction)
+
+**2026-10-12 explicit supersession (takes precedence over the historical 2026-10-09 counters below):** The user wants the **GENERAL implementation coverage of all 41 U01–U41 reviewed topics reported FIRST**, then the narrower implementation/roadmap X/Y numbers separately. Use the fixed, ID-deduplicated [current U01–U41 coverage ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md). The 41 were originally *source uncertainty findings*, not 41 defects or 41 coding PRs: for general progress, **40/41 have an implemented, approved or deterministic local Narro behavior** including acknowledged old-source differences, and **1/41 (U04)** has an intentionally disabled irreversible Archived Done deletion requiring explicit retention/cascade policy approval. **40/41 is Narro-local functional coverage, NOT 40/41 modern Blitzit parity**, native Windows acceptance, or all app functionality.
+
+**Compact ordered progress to report on every substantive continuation:**
+- **Γενική υλοποίηση U01–U41: 40/41 λειτουργικά καλυμμένα, 1/41 εκκρεμές (U04)**, with fixed explicit local-coverage semantics and IDs.
+- **Επιμέρους επιβεβαιωμένα λειτουργικά κενά: 8/9 διορθωμένα, 1/9 έγκριση U04** (exact gaps U04/U06/U09/U12/U21/U22/U23/U35/U40; count only when CI/merge acceptance validated).
+- **Υποχρεωτικά milestones: 3/10 φυσικά αποδεκτά, 7/10 εκκρεμούν.** Native PA-01–09 **USER-PAUSED / NOT RUN**, not presumed failures or success; M11 optional and never implicitly activated.
+- Give exact current task PR/head/CI/blocker only when relevant. Keep these denominators consistent in HANDOFF, TODO, STATUS and source audit. Do not silently promote alternate local implementations, older-version visual differences or CI to current Blitzit exact source parity.
+
+**Irreversible safety gate:** A question such as "Γιατί δεν έκανες το U04;" is not itself unambiguous approval to irrevocably delete notes, task-owned sessions, report/export history and cascaded records. Explain the deletion consequences and ask for explicit product/retention/confirmation authorization before coding or exposing the destructive operation; the independent source audit in `work-log/2026-10-12-chatgpt-u04-archived-done-delete-safety-causal-audit-no-source-edit.md` is already complete. Normal safe non-destructive engineering and CI remain permitted.
+
+## Historical progress — 2026-10-09 superseded by the 2026-10-12 all-41-first counter
 
 **2026-10-09 user supersession:** the user explicitly rejects PR counts as user-facing progress and asks for an X/Y counter of concrete coding implementation units remaining before the consolidated Codex physical run, excluding all Codex physical checks and separate future source-uncertainty/deviation review. Do not present historical X/Y PR batch counts or change denominators opportunistically. If a full fixed unit inventory has not been reconciled, label any smaller X/Y count by its exact bounded scope; do not pretend it is the whole remaining app. Progress requires implemented source **and the required automated validation**; mere code submission is not an accepted X.
 
