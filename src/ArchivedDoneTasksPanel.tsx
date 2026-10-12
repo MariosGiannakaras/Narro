@@ -117,6 +117,40 @@ export function ArchivedDoneTasksPanel({
 
   const selectedList = snapshot?.filterLists.find((list) => list.id === selectedListId) ?? null;
 
+  function requestDelete(task: ArchivedDoneTaskSummary) {
+    if (deleteInFlightRef.current || deletePending || deleteTarget) return;
+    setFilterOpen(false);
+    setDeleteError(null);
+    setDeleteTarget(task);
+  }
+
+  function cancelDelete() {
+    if (deleteInFlightRef.current || deletePending) return;
+    setDeleteError(null);
+    setDeleteTarget(null);
+  }
+
+  async function confirmDelete() {
+    if (!deleteTarget || deleteInFlightRef.current || deletePending || fixtureSnapshot) return;
+    deleteInFlightRef.current = true;
+    setDeletePending(true);
+    setDeleteError(null);
+    try {
+      await permanentlyDeleteArchivedDoneTaskFromSettings(deleteTarget);
+      setSnapshot((current) => current === null ? null : {
+        ...current,
+        doneTasks: current.doneTasks.filter((task) => task.id !== deleteTarget.id),
+      });
+      setDeleteTarget(null);
+    } catch (failure: unknown) {
+      setDeleteError(formatInvokeError(failure));
+    } finally {
+      deleteInFlightRef.current = false;
+      setDeletePending(false);
+    }
+  }
+
+
   function selectList(listId: string) {
     setSelectedListId(listId);
     setFilterOpen(false);
