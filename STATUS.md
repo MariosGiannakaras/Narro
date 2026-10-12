@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U12/U40/U35 3/3 source PRs merged; final latest-main validation open
+## CURRENT 2026-10-12 — new three PRs + B49 merged/CI-green individually, exact resulting-main CI not yet accepted
+
+**Three newly scoped U12/U40/U35 code PRs 3/3 individually guarded-merged with exact-head Windows 3/3 and recorded changed-blobs verification**: U12 #334, U40 #335, U35 #336. Their combined pre-B49 `main` `b4bc534d937611597857aac13c46640f1d364195` [Windows CI 38213868859](https://github.com/MariosGiannakaras/Narro/actions/runs/38213868859) **validation/fast/windows 3/3 PASS**. Independent B49 Windows CDP EBUSY capture harness #337 head `d61e6a77b1527915fc9158917f26d969dab53516` [run 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) **3/3 PASS**, expected-head squash merged to new main `3bf54e067cb2b3e7c660e31bea899377615a5a24`, **3/3 changed files exact Git blob identity**. [Immutable merge log](work-log/2026-10-12-chatgpt-b49-pr337-guarded-merge-union-ci-in-progress.md).
+
+**Latest all-source union Windows [run 38216583142](https://github.com/MariosGiannakaras/Narro/actions/runs/38216583142) IN PROGRESS / NOT YET 3/3 ACCEPTED at checkpoint**; final new U12/U40/U35 replacement *production executable* acceptance **0/3** until exact union CI and actual ZIP, `narro.exe`, NSIS and MSI hashes. Prior 12/12 accepted campaign and old #333 four hashed products remain valid historical proof, not replacement proof. No physical Windows Codex PA-01–09, original-source Blender/Blitzit visual equality, or user opt-in M11 claims from this CI. Physical milestones 3/10, M10 blocked, M11 dormant. Source-unknown inventory 41/41 reviewed, user-approved Spectrum Core Create/Edit List picker/photos/218 icons locked.
+
+**Next:** inspect 38216583142 actual result and produce real artifact SHA256 if green; independently continue only dependency-safe work during CI, do not idle or fabricate native pass.
+
+## HISTORICAL 2026-10-12 — U12/U40/U35 3/3 source PRs merged; final latest-main validation open
 
 **U12 #334, U40 #335 and U35 #336 now 3/3 individually Windows CI accepted and expected-head guarded merged.** #336 head `1411093118acb4ecf06e2e046e150469483618cb`, [run 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) 3/3 PASS attempt2, merge `b4bc534d937611597857aac13c46640f1d364195`, 7/7 exact resulting source/test Git blobs matched. Immutable `work-log/2026-10-12-chatgpt-u35-pr336-guarded-merge-seven-blob-proof.md`.
 
