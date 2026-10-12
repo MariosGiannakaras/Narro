@@ -403,7 +403,7 @@ pub fn recent_closed_focus_breaks(
                 s.duration_seconds, s.source, s.created_at, s.updated_at
          FROM sessions s
          LEFT JOIN tasks t ON t.id = s.task_id
-         WHERE s.kind = 'break' AND s.source = 'focus'
+         WHERE s.kind = 'break'
            AND s.ended_at IS NOT NULL
            AND julianday(s.ended_at) >= julianday(?1)
            AND julianday(s.ended_at) < julianday(?2)
