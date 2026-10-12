@@ -1,6 +1,14 @@
 # TODO.md
 
-## CURRENT 2026-10-12 — U22 PR341 exact-head gated CI in progress
+## CURRENT 2026-10-12 — U22 PR341 exact rustfmt failure corrected, CI replacement pending
+
+- [x] Prior accepted coding U12/U40/U35/U21 **4/4**, U06 **1/1**, U09 **1/1** remain source/Windows validated.
+- [x] U22 preexisting branch preserved; first PR head `1d20f27...` [CI38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation PASS, frontend/Vite PASS, fast **Rust fmt FAIL** and Windows SKIPPED. Exactly 9 diff hunks from rustfmt log applied to two Rust files, no source behavior changes. [Proof](work-log/2026-10-12-chatgpt-u22-pr341-fast-rustfmt-only-exact-log-correction.md).
+- [ ] U22 **0/1 accepted** until replacement exact [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf` [run38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) full 3/3 SUCCESS, expected-head guarded merge, blob match, resulting-main 3/3 and genuine artifact ZIP/EXE/NSIS/MSI SHA verification. Validation PASS, fast/Windows pending at current checkpoint.
+- [x] Independent U23 follow-up read-only architecture analysis recorded in [causal plan](work-log/2026-10-12-chatgpt-u23-typed-break-planned-duration-independent-design-while-u22-ci.md); do not touch overlapping FocusPanel before U22 merge. U04 destructive approval remains separate. Physical PA-01–09 USER-PAUSED, mandatory 3/10, M11 optional.
+
+
+## HISTORICAL 2026-10-12 — U22 PR341 exact-head gated CI in progress
 
 - [x] **Reuse existing U22 source branch** `feat/u22-focus-done-persisted-break-history`, no parallel implementation. Existing persisted Break Done read-only bounded SQL, typed command/hook, Focus rows and native/visual tests reviewed. Two actual TypeScript typos repaired without domain rewrite; [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) exact head `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02`.
 - [ ] **New U22 0/1 source acceptance, CI PENDING**: [run 38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation PASS, fast running/Windows not final at captured checkpoint. Before counting 1/1 require exact-head 3/3, expected-head guarded merge, 12/12 changed Git blob matching and resulting-main Windows 3/3 + new real package identities. [Immutable evidence](work-log/2026-10-12-chatgpt-u22-existing-branch-reused-pr341-first-ci-pending.md).
