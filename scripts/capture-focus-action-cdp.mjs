@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
+import { isRetryableDevToolsPortReadError } from "./edgeCdpDevToolsPortErrors.mjs";
 
 // B49: compare actual running and keyboard-focused pixels on one identical Edge
 // CDP viewport. Chromium --screenshot and --dump-dom can use separate capture
@@ -58,7 +59,7 @@ async function waitForDebugger() {
       const port = Number(contents.split(/\r?\n/)[0]);
       if (port > 0) return port;
     } catch (error) {
-      if (error.code !== "ENOENT" && error.code !== "EACCES") throw error;
+      if (!isRetryableDevToolsPortReadError(error)) throw error;
     }
     await sleep(100);
   }
