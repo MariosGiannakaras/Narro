@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — new three PRs + B49 merged/CI-green individually, exact resulting-main CI not yet accepted
+## CURRENT 2026-10-12 — prior 3/3 U fixes and B49 merged; independent U21 PR338 new 0/1 under CI
+
+**Validated code staging:** Previous 12/12 code campaign historical accepted; new U12 #334 / U40 #335 / U35 #336 **3/3 individual PR source + exact-head Windows 3/3 accepted/guarded merged**. Separate B49 harness correction #337 **1/1** exact head CI and guarded merge `3bf54e067cb2b3e7c660e31bea899377615a5a24` with 3/3 identical blobs; [final pre-U21 main CI 38216583142](https://github.com/MariosGiannakaras/Narro/actions/runs/38216583142) validation+fast SUCCESS, Windows **IN PROGRESS / NOT FINAL PASS** at record time. Replacing old #333 production ZIP/exe/installers still needs a new exact-build SHA256.
+
+**Independent next user-visible Focus U21 slice 0/1:** [PR338](https://github.com/MariosGiannakaras/Narro/pull/338) `fix/20261012-u21-focus-break-live-projection` exact head `8b99533e171c6058fae2eb959410841b3b540973`, [Windows CI 38217740935](https://github.com/MariosGiannakaras/Narro/actions/runs/38217740935) validation-gate SUCCESS, remaining gates pending at checkpoint. Pure `focusBreakPresentation` displays Break as live and suspended work as disabled/nonreorderable queue row, keeps real timer.task_id and existing FocusLiveActions, no Rust persistence/ledger/Done changes. Pure test + mandatory preflight + actual Break visual capture assertions. Original older-source VE-016/018 direct source label/queue evidence, present v2.6.69 native parity still OPEN. [Immutable PR checkpoint](work-log/2026-10-12-chatgpt-u21-break-live-card-view-only-pr338-checkpoint.md).
+
+**Next:** inspect both exact CI conclusions at useful checkpoints, evidence-backed fixes only; do not merge U21 merely because earlier main CI passed. After final source acceptance, resulting-main CI and new real 4-hash production identity before physical candidate. Codex native Windows paused, milestones 3/10, M10 blocked, M11 dormant, approved Create/Edit List Spectrum Core picker/uploads/218 icons unchanged.
+
+## HISTORICAL 2026-10-12 — new three PRs + B49 merged/CI-green individually, exact resulting-main CI not yet accepted
 
 **Three newly scoped U12/U40/U35 code PRs 3/3 individually guarded-merged with exact-head Windows 3/3 and recorded changed-blobs verification**: U12 #334, U40 #335, U35 #336. Their combined pre-B49 `main` `b4bc534d937611597857aac13c46640f1d364195` [Windows CI 38213868859](https://github.com/MariosGiannakaras/Narro/actions/runs/38213868859) **validation/fast/windows 3/3 PASS**. Independent B49 Windows CDP EBUSY capture harness #337 head `d61e6a77b1527915fc9158917f26d969dab53516` [run 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) **3/3 PASS**, expected-head squash merged to new main `3bf54e067cb2b3e7c660e31bea899377615a5a24`, **3/3 changed files exact Git blob identity**. [Immutable merge log](work-log/2026-10-12-chatgpt-b49-pr337-guarded-merge-union-ci-in-progress.md).
 
