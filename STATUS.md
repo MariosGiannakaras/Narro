@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U22 source guarded-merged; merged-main Edge/CDP Windows release blocked at targeted rerun
+## CURRENT 2026-10-12 — U22 resulting-main Windows 3/3 and four production SHA256 independently validated; next U23
+
+U22 [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) source head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, PR CI38256743036 **3/3 SUCCESS**, guarded merge `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`, **12/12 blob match**. Resulting-main [run38262440802](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802) attempt1 historical Finding33 CDP FAIL; targeted Windows retry attempt2 **validation/fast/windows-candidate 3/3 SUCCESS** at same executable SHA. Rust and TS automated passes do not establish live native Windows or exact current Blitzit parity.
+
+**Production current artifact** [11755845732](https://github.com/MariosGiannakaras/Narro/actions/runs/38262440802/artifacts/11755845732) ZIP 15,341,308 bytes **CRC PASS** / 3 entries, exact ZIP SHA256 `334e604c2353c590810104b20bedce870df86e93b07a29868310e9765ce5626f` matching GitHub digest; `narro.exe` `664fe1815c8f047ef544986337fc3f11dc28ca334604be7692f672eeadfcf408`, NSIS `953895c98495ce17fa277c4afc74711a67352fc474cc0fbe225ccbefa4916283`, MSI `cebf87dede01aa1d5e968b95fbdfb072cb787671795775215bc8e8f49f55ad58` all independently computed. [Immutable U22 proof](work-log/2026-10-12-chatgpt-u22-main-windows-attempt2-release-zip-fourhash-accepted.md). Physical release preparation and risk docs pinned. U22 source **1/1** and resulting-main release accepted; earlier U12/U40/U35/U21 **4/4**, U06 **1/1**, U09 **1/1** preserved.
+
+**Next source task U23:** typed current Break planned duration read-only timer snapshot and Focus header EST, filtered selected list, no persisted task EST, board aggregate, task Done, timer/session ledger mutations. [Causal design](work-log/2026-10-12-chatgpt-u23-typed-break-planned-duration-independent-design-while-u22-ci.md). **NOT RUN/NOT ACCEPTED U23** until actual source/CI. Physical Windows PA-01–09 **USER-PAUSED / NOT RUN**, mandatory physically accepted milestones **3/10**, M10 blocked; M11 optional/dormant and source comparison never a local function prerequisite. Approved Spectrum Core color picker/images/218 icons unchanged. U04 destructive action separate explicit approval.
+
+## HISTORICAL 2026-10-12 — U22 source guarded-merged; merged-main Edge/CDP Windows release blocked at targeted rerun
 
 **Integrated U22 source:** [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) exact validated head `3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`, [PR-head CI38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) **3/3 SUCCESS**; expected-head squash `c8085e94ae6b329fec8a0ad0635f4e2eb294485d`, **12/12 exact changed blobs**. **U22 source 1/1 integrated** and scoped persisted Break Done read model implemented; U12/U40/U35/U21 **4/4** + U06 **1/1** + U09 **1/1** independently accepted. No change to saved EST, task completion fraction, session ledger, or user-owned Spectrum Core List Editor.
 
