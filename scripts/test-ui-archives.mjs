@@ -79,7 +79,7 @@ for (const [haystack, needle, label] of [
   [fixture, 'mode === "done-filter"', "filter-open archived task fixture"],
   [fixture, 'fixtureTab={tab}', "segmented archive fixture"],
   [vite, 'archiveFixture: "archive-fixture.html"', "archive fixture build input"],
-  [capture, 'foreach ($archiveMode in @("lists-empty", "done-empty", "done-filter", "done-results"))', "archive Edge capture mode loop"],
+  [capture, 'foreach ($archiveMode in @("lists-empty", "done-empty", "done-filter", "done-results", "done-delete-confirm"))', "archive Edge capture mode loop including confirmed destructive dialog"],
   [capture, '$label = "archive-$archiveMode-$theme"', "archive capture label"],
   [validator, "Archive captured DOM contracts: PASS", "archive captured-DOM validator"],
   [packageJson, '"test:ui-archives": "node scripts/test-ui-archives.mjs"', "archive frontend preflight script"],
