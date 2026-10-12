@@ -95,6 +95,22 @@ for (const theme of ["light", "dark"]) {
     `${breakState.label} must render an explicit Break live card`);
   invariant(breakState.dom.includes('data-focus-break-suspended-work="true"'),
     `${breakState.label} must visibly retain suspended work in the queue`);
+  const liveBreakTag = breakState.dom.match(/<article\b[^>]*data-focus-break-card="true"[^>]*>/)?.[0] ?? "";
+  const suspendedMarkup = breakState.dom.match(/<article\b[^>]*data-focus-break-suspended-work="true"[^>]*>[\s\S]*?<\/article>/)?.[0] ?? "";
+  const workTaskId = 'data-task-id="21111111-1111-4111-8111-111111111111"';
+  invariant(liveBreakTag.includes(workTaskId) && suspendedMarkup.includes(workTaskId),
+    breakState.label + " must preserve the authoritative work identity in both Break and suspended views");
+  invariant(suspendedMarkup.includes('data-focus-reorderable="false"')
+    && !suspendedMarkup.includes('data-focus-drag-task='),
+    breakState.label + " must prevent any persisted reorder of suspended work");
+  const suspendedButtons = [...suspendedMarkup.matchAll(/<button\b[^>]*>/g)].map(match => match[0]);
+  invariant(suspendedButtons.length === 5 && suspendedButtons.every(button => /\sdisabled(?:=""|\s|>)/.test(button)),
+    breakState.label + " must disable every queued work action during Break");
+  const runningDoneFraction = running.dom.match(/data-focus-done-count="true"[^>]*>([^<]+)</)?.[1];
+  const breakDoneFraction = breakState.dom.match(/data-focus-done-count="true"[^>]*>([^<]+)</)?.[1];
+  invariant(runningDoneFraction && breakDoneFraction === runningDoneFraction,
+    breakState.label + " must not change authoritative completed-task progress");
+
   requireDistinctCardState(breakState, running);
   invariant(breakState.dom.includes('aria-label="Break: 07:00 remaining"'), `${breakState.label} break timer label differs`);
   invariant(breakState.dom.includes(">07:00<"), `${breakState.label} break timer value differs`);

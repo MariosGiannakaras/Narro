@@ -99,14 +99,34 @@ try {
                 $edgeArguments = @($(if ($ReducedMotion) { "--force-prefers-reduced-motion" } else { "--force-prefers-no-reduced-motion" })) + $edgeArguments
                 $edgeArguments = @("--virtual-time-budget=$([Math]::Max(800, [int]$scenario.VirtualTimeBudgetMs))") + $edgeArguments
 
-                $process = Start-Process -FilePath $edge -ArgumentList $edgeArguments -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait -WindowStyle Hidden
-
-                $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
-                if ($process.ExitCode -ne 0) { throw "Focus Panel Edge capture failed for $theme/$($scenario.Name). $stderrText" }
-                if (-not (Test-Path $screenshot)) { throw "Focus Panel screenshot missing for $theme/$($scenario.Name). $stderrText" }
-                $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-                if ([string]::IsNullOrWhiteSpace($domText)) { throw "Focus Panel DOM capture missing for $theme/$($scenario.Name). $stderrText" }
-                [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+                # CI 38222942950 captured an empty React root and a 2353-byte PNG.
+                # Retain all 420x720 visual assertions; retry only objectively
+                # unfinished browser bootstrap/paint, never a rendered product error.
+                $maxAttempts = 5
+                for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+                    Remove-Item -LiteralPath $screenshot -Force -ErrorAction SilentlyContinue
+                    Remove-Item -LiteralPath $dom -Force -ErrorAction SilentlyContinue
+                    Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
+                    Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+                    $process = Start-Process -FilePath $edge -ArgumentList $edgeArguments -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait -WindowStyle Hidden
+                    $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
+                    if ($process.ExitCode -ne 0) {
+                        throw "Focus Panel Edge capture failed for $theme/$($scenario.Name) on attempt $attempt. $stderrText"
+                    }
+                    $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
+                    [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+                    & node "scripts/focus-panel-capture-readiness.mjs" $dom $screenshot $theme $scenario.Name
+                    $gateStatus = $LASTEXITCODE
+                    if ($gateStatus -eq 0) { break }
+                    if ($gateStatus -ne 75) {
+                        throw "Focus Panel $theme/$($scenario.Name) has an actual invalid/error-state capture; no retry. $stderrText"
+                    }
+                    if ($attempt -eq $maxAttempts) {
+                        throw "Focus Panel $theme/$($scenario.Name) did not render/paint a ready fixture after $maxAttempts bounded attempts. The last DOM and PNG remain in artifacts for diagnosis. $stderrText"
+                    }
+                    Write-Warning "Focus Panel $theme/$($scenario.Name) not rendered/painted on attempt $attempt/$maxAttempts; retrying bounded capture."
+                    Start-Sleep -Milliseconds (250 * $attempt)
+                }
             } finally {
                 Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
                 Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
