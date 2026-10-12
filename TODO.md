@@ -1,5 +1,13 @@
 # TODO.md
 
+## CURRENT 2026-10-12 — U22 PR341 exact-head gated CI in progress
+
+- [x] **Reuse existing U22 source branch** `feat/u22-focus-done-persisted-break-history`, no parallel implementation. Existing persisted Break Done read-only bounded SQL, typed command/hook, Focus rows and native/visual tests reviewed. Two actual TypeScript typos repaired without domain rewrite; [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) exact head `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02`.
+- [ ] **New U22 0/1 source acceptance, CI PENDING**: [run 38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation PASS, fast running/Windows not final at captured checkpoint. Before counting 1/1 require exact-head 3/3, expected-head guarded merge, 12/12 changed Git blob matching and resulting-main Windows 3/3 + new real package identities. [Immutable evidence](work-log/2026-10-12-chatgpt-u22-existing-branch-reused-pr341-first-ci-pending.md).
+- [x] **Previous campaign 4/4 + independent U06 1/1 + U09 1/1 remain accepted** on their separate exact validated Windows artifacts. U23 typed planned Break EST view-only enhancement is next **after U22 merge**, no overlapping stale FocusPanel branch. U04 destructive archived Done delete remains safety/explicit-approval constrained.
+- [ ] **Physical Codex PA-01–09 USER-PAUSED**, mandatory milestones 3/10, M10 blocked. Optional M11 dormant, user-approved Spectrum Core picker/icons untouched.
+
+
 ## CURRENT 2026-10-12 — U06+U09 final combined Windows release 3/3 and real ZIP/EXE/NSIS/MSI verified
 
 - [x] **Earlier bounded U12/U40/U35/U21 campaign 4/4** already guarded merged/validated. New independent U06 [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) **1/1** exact head/Windows 3/3, guarded merged 10/10 blobs, resulting-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) 3/3 & actual production hashes verified. Independent U09 [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) **1/1** exact head 3/3, expected-head guarded merge to latest executable `2c25281a21e0e19c71a33e15bfe2294a77dfc3a1`, 7/7 blobs.
