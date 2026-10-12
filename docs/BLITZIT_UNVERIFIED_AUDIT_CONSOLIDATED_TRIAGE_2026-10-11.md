@@ -1,6 +1,12 @@
 # Blitzit unknown-only audit — consolidated 41-finding triage and execution policy
 
-## CURRENT 2026-10-12 — Verified gap shortlist 8/9 resolved; U04 1/9 blocked by irreversible-delete policy
+## CURRENT 2026-10-12 — U04 explicit irreversible-delete approval; PR343 being validated; U01–U41 40/41 accepted
+
+The user **explicitly approved** permanent Archived Done row deletion that erases the chosen task's notes, tracked sessions and related report/export history with no undo, **and requested a modern Narro-style confirmation modal**. [U04 PR343](https://github.com/MariosGiannakaras/Narro/pull/343) is implementing this Narro-local contract with typed IMMEDIATE DB/CAS validation, open-session/recurrence guards, explicit irreversible consequence disclosure, keyboard-accessible themed dialog and light/dark Edge captures. Initial source head `d86673b278c7de34ae7ce863c2bb82f02bf9b145` [CI38283243930](https://github.com/MariosGiannakaras/Narro/actions/runs/38283243930) first failed **fast** at a legacy list-confirmation source-string test, fixed without weakening test in replacement branch head `ceb1c9a0811b32ab89417fc874c0856b1a2c731b`, [CI38283626778](https://github.com/MariosGiannakaras/Narro/actions/runs/38283626778) **PENDING / NOT PASS** at checkpoint. Previous U04 "approval required" claims below are **HISTORICAL**; approval is granted, **implementation/CI acceptance still OPEN**. [Immutable scope and handoff](../work-log/2026-10-12-chatgpt-u04-user-approved-irreversible-archive-done-delete-pr343-exact-ci-pending.md).
+
+**General U01–U41 Narro-local coverage remains `40/41` source/release ACCEPTED and specific gaps `8/9` accepted** until exact U04 PR CI Windows 3/3/guarded merge/resulting-main package integrity. This is not full source-current Blitzit parity. Native PA-01–09 **USER-PAUSED / NOT RUN**, physically accepted mandatory milestones `3/10` (`7` pending), M11 optional dormant. User-owned Spectrum Core picker/upload/218 icons LOCKED.
+
+## HISTORICAL 2026-10-12 — Verified gap shortlist 8/9 resolved; U04 1/9 blocked by irreversible-delete policy
 
 **User-facing implementation scope counter (latest 2026-10-12 instruction): `40/41` Narro-local functional coverage, `1/41` missing U04, always before the older `8/9` specific-gap count.** Fixed ID-disjoint audit: 2 approved locked + 16 existing functioning + 9 deterministic Narro local + 5 working but divergent older-source semantics + 8 remediated gaps = 40; U04 = 1. See [full 41-ID implementation coverage ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md). This does **not** claim 40/41 direct Blitzit current-source parity or Windows native physical acceptance.
 
