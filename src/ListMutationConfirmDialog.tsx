@@ -37,6 +37,7 @@ export function ListMutationConfirmDialog({
 }: ListMutationConfirmDialogProps) {
   const titleId = useId();
   const descriptionId = useId();
+  const warningId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -102,7 +103,7 @@ export function ListMutationConfirmDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        aria-describedby={descriptionId}
+        aria-describedby={isDoneTaskDelete ? `${descriptionId} ${warningId}` : descriptionId}
         data-list-confirm-action={action}
         onKeyDown={handleKeyDown}
       >
@@ -112,7 +113,7 @@ export function ListMutationConfirmDialog({
         <h2 id={titleId} className="list-confirm-dialog__title type-section-title">{heading}</h2>
         <p id={descriptionId} className="list-confirm-dialog__description">{description}</p>
         {isDoneTaskDelete ? (
-          <div className="list-confirm-dialog__irreversible" data-archived-done-delete-warning="true">
+          <div id={warningId} className="list-confirm-dialog__irreversible" data-archived-done-delete-warning="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 3 2 21h20L12 3Z" />
               <path d="M12 9v5" />
@@ -141,7 +142,7 @@ export function ListMutationConfirmDialog({
             disabled={pending}
             onClick={onConfirm}
           >
-            {pending ? "Saving…" : confirmLabel}
+            {pending ? (isDoneTaskDelete ? "Deleting…" : "Saving…") : confirmLabel}
           </button>
         </div>
       </div>
