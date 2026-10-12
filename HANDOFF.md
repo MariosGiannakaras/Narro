@@ -61,7 +61,7 @@ Preserve live [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) on ex
 **NEXT ACTION:** check both active workflows at decision checkpoints. If U09 fast or Windows fails, inspect exact first failure and correct only that cause. If U06 resulting main 3/3 finishes, independently hash exact artifact and preserve build SHA provenance; if U09 later changes executable source, don't pin U06 ZIP as final new U09 candidate. On U09 3/3 exact head and live ownership state, expected-head guarded merge with 7/7 blob check and resulting-main CI/physical artifact. User-paused PA-01–09 **NOT RUN**, required milestones **3/10**, M10 blocked, optional M11 dormant.
 
 
-## CURRENT 2026-10-12 — U06 PR339 guarded merged 10/10, resulting-main Windows CI in progress
+## HISTORICAL 2026-10-12 — U06 PR339 guarded merged 10/10, resulting-main Windows CI in progress
 
 **New independent U06 bounded source slice 1/1 guarded MERGED:** [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) exact source head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [exact PR-head run 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **validation/fast/Windows 3/3 SUCCESS**, GitHub expected-head SHA guarded squash merge `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, independently compared **10/10 source/CSS/fixture/test blob SHAs exactly identical**. Implements accessible ±12-month Reports Overview+Sessions year navigation preserving ±1 months, draft/Apply/Cancel and report read authority; Narro-local semantics, **no original Blitzit/M11 prerequisite**. Historical initial PR fast gate TS2739 fixture failure was fixed, not ignored. Previous four independent U12/U40/U35/U21 **4/4** remain accepted; U06 is **separate 1/1**, not an invented updated 5-unit denominator.
 
@@ -79,7 +79,7 @@ Preserve live [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) on ex
 **NEXT ACTION:** inspect actual replacement PR head CI 38239596149 jobs and exact logs if red. On real 3/3 PASS recheck PR head, current `main` and open PRs, expected-head guarded squash merge #339, independently compare changed source/test blobs, and validate resulting-main Windows run before counting U06 1/1 or creating a new physical package pin. Meanwhile read-only [U09 shared-Reports owner analysis](work-log/2026-10-12-chatgpt-u06-pr339-ci-pending-u09-shared-owner-review.md) is complete; do **not** fork competing U09 source from older main while U06 touches the same files. M1–M9 native PA-01–09 USER-PAUSED, mandatory 3/10, M10 blocked, M11 dormant. No live Blitzit, install or AppData mutation.
 
 
-## CURRENT 2026-10-12 — User-confirmed M11 optional; U01–U41 Narro-local functionality must stand alone
+## HISTORICAL 2026-10-12 — User-confirmed M11 optional; U01–U41 Narro-local functionality must stand alone
 
 **Binding scope correction:** The user reiterates that M11 is strictly **optional** and Narro **must work fully without any additional Blitzit access**. An unknown original-source algorithm/interaction never blocks a safe, documented, deterministic and accessible Narro-local implementation. The previously completed 41/41 register audit is an analysis index, **not 41 complete source matches or 41 mandatory coding tasks**. Implement demonstrated missing functionality locally; preserve confirmed source and authoritatively persisted timer/task/session/Reports invariants. Keep U01/U02 user-owned Spectrum Core Create/Edit List Color Picker/upload/218 icons LOCKED. Irreversible U04 Archived Done deletion requires safety/retention/cascade/undo/confirmation design and any required explicit approval; this is not M11.
 
@@ -90,7 +90,7 @@ Preserve live [PR341](https://github.com/MariosGiannakaras/Narro/pull/341) on ex
 **User-paused gates unchanged:** native Windows Codex PA-01–09 NOT RUN, mandatory source+physical milestones **3/10**, M10 blocked, optional M11 unactivated/dormant. **Do not launch Codex or live-source Blitzit.** Existing U21 release ZIP and hashes remain pinned until executable source actually changes.
 
 
-## CURRENT 2026-10-12 — U21 #338 final merged-main Windows 3/3 and four-file SHA256 VERIFIED
+## HISTORICAL 2026-10-12 — U21 #338 final merged-main Windows 3/3 and four-file SHA256 VERIFIED
 
 **Coding implementation:** bounded U12/U40/U35/U21 **4/4 guarded merged after individual exact-head Windows CI 3/3**, B49 separate harness 1/1. U21 [PR338](https://github.com/MariosGiannakaras/Narro/pull/338) exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6` [CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) **3/3 SUCCESS**, guarded squash merge source `334566f2a41293c458353991d99d968ad5fa9ad1`, **18/18** changed blob hashes identical. [Exact resulting-main Windows run 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) on merge source completed **validation/fast/Windows 3/3 SUCCESS**, all intermediate visual, packaged runtime, release, installers and M1 diagnostic steps PASS; subsequent main changes only Markdown.
 
