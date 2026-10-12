@@ -4,6 +4,8 @@
 
 This file contains durable implementation rules for Narro. Keep changing progress in `STATUS.md` and `TODO.md`; do not turn this file into a changelog.
 
+**Continuation overrides startup:** for an active coding chat, interrupted tool call or "συνέχισε/κόλλησες/ολοκλήρωσες;" first preserve the exact live owner/branch/PR/head SHA/CI run and resume its next action. Check whether an interrupted write/merge already occurred before retrying. Do not repeat full discovery, open a duplicate PR or invent pending CI when the recorded run has completed. Follow the binding minimal-check state machine in [`AI_START_HERE.md`](AI_START_HERE.md) and [`AGENT_WORKFLOW.md`](AGENT_WORKFLOW.md). Apply the zero-context onboarding **once only** when genuinely needed for a new coding session; obey the latest user's explicit repository-access restrictions.
+
 ## Start-of-task procedure
 
 Before making changes:
