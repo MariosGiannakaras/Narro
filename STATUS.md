@@ -1,6 +1,16 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — two scoped source PR merges accepted, U35 Windows retry and union binary pending
+## CURRENT 2026-10-12 — U12/U40 source integrated, U35+Edge B49 capture guard still require CI
+
+**Source/PR acceptance versus actual final binary:** Existing original 12/12 Q12 coding scope, prior #333 successful main 3/3 and verified ZIP/exe/installers remain valid for earlier source. New independent U12/U40/U35 line: **2/3 guarded-merged at exact green PR-head**, **0/3 final resulting-main/hashed production artifact accepted**. Physical Codex remains explicitly user-paused; 3/10 mandatory physical/source milestones, M10 blocked, M11 optional dormant.
+
+**U12 #334 accepted source:** head `3688f22d2051d762bd4d70997fd4947255031cff`, exact [CI 38182179391](https://github.com/MariosGiannakaras/Narro/actions/runs/38182179391) 3/3 attempt2, guarded merge `8615598938dbe08681481d9d824be7cd75fffb2a` and 1/1 Git blob match. **U40 #335 accepted source:** head `878559303aef1184035f300b0a3ba2ccaab103d9`, exact [CI 38182357941](https://github.com/MariosGiannakaras/Narro/actions/runs/38182357941) 3/3, guarded merge `285bb7d4698111d3d701d77464017d2865e495d2`, 2/2 blob matches. **U35 #336 still OPEN:** exact `1411093118acb4ecf06e2e046e150469483618cb`, [run 38182898889](https://github.com/MariosGiannakaras/Narro/actions/runs/38182898889) attempt2 after initial Finding33 Edge `Page.navigate` fail, passed Rust Check/Clippy/Tests/Performance and visual capture to release-build stage, final Windows/3rd-gate **PENDING/NOT PASS**.
+
+**New hard blocker in interim merged-main [run 38211199891](https://github.com/MariosGiannakaras/Narro/actions/runs/38211199891):** validation+fast PASS, Windows failed **B49 Edge `DevToolsActivePort` EBUSY locked read**, separately after Finding33 Notes Escape **PASS**; Windows job `114686276314` actual stack `scripts/capture-focus-action-cdp.mjs:57`, later missing artifact upload only derivative. Dedicated independent **PR [#337](https://github.com/MariosGiannakaras/Narro/pull/337)** head `d61e6a77b1527915fc9158917f26d969dab53516` narrowly permits only observed transient Windows file-port EBUSY alongside existing ENOENT/EACCES within same 25sec/100ms bounded loop; test-first existing mandatory preflight, no UI changes/visual assertion relaxation. [CI 38212493178](https://github.com/MariosGiannakaras/Narro/actions/runs/38212493178) **PENDING / NOT PASS**. Immutable `work-log/2026-10-12-chatgpt-b49-win-edge-devtoolsport-ebusy-pr337-exact-cause.md`.
+
+**Next:** close #336 and #337 only on actual 3/3 exact-head, guarded merge, Git blob identity, then latest resulting-main Windows 3/3 and fresh full real ZIP/exe/NSIS/MSI SHA256/pin. User-owned Spectrum Core Create/Edit List picker/images/218 offline icons untouched. This check does not activate Blitzit M11 or pass native Windows.
+
+## HISTORICAL 2026-10-12 — two scoped source PR merges accepted, U35 Windows retry and union binary pending
 
 **Previous #333 12/12 campaign and its independently hashed Windows ZIP/exe/NSIS/MSI are preserved historic acceptance for source `ef22a7e434bea6cc4849282aa46c4786d9d90663` only.** New U12/U40/U35 additional bounded line: **2/3 PR-head PASS/guarded merged, 0/3 resulting-main final artifact accepted** while #336 remains open. Exact acceptance distinction intentional.
 
