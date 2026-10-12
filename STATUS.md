@@ -1,12 +1,12 @@
 # STATUS.md
 
-## CURRENT 2026-10-13 — authorized PA-01–08 physical capture in progress
+## CURRENT 2026-10-13 — PA-01–08 acquisition frozen; aggregate analysis active
 
 **Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
 
-**Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS records both monitors side by side at 4480×1080/60fps. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. Acquired PA01–04 paths and partial PA05/06/08 remain UNASSESSED, no physical PASS claimed. No Narro source/test/runtime/config changes. PA07 tray/relaunch and available installer paths pending.
+**Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS finalized whole 46m10s recording, both monitors side by side at 4480×1080/60fps with stereo audio. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. All eight PA groups have acquired available paths; full verdicts pending. PA07 normal tray Quit/same EXE relaunch and fresh NSIS install/installed launch captured. MSI NOT RUN: Computer Use product policy blocks msiexec.exe; DPI125→100 NOT RUN: Windows Settings protocol absent. Original profiles restored with identical original database SHA; test installer removed and original Windows motion/dual topology restored. No Narro source/test/runtime/config changes. [Frozen complete evidence](work-log/evidence/pa01-08-20261013/acquisition-freeze.json), whole video split into five ordered parts with SHA/reassembly manifest.
 
-**One next action:** finish the real break notification capture due about UTC23:27:57, then normal tray Quit/relaunch and available safe installer checks. Freeze/publish all media/logs and restore original profiles; only then aggregate analysis and confirmed fixes. Mandatory milestones remain 3/10; no M10 entry progress.
+**One next action:** analyze frozen video/screenshots/UIA/HWND/domain ledgers per PA, distinguish sufficient PASS/FAIL from UNCERTAIN/NOT RUN, then correct only confirmed issues after checking independent source-owner PR344/345/346 to avoid duplicate work. Mandatory milestones remain 3/10; no M10 entry progress.
 
 
 **Concurrency boundary:** Preserve the independent PR344/345/346 source workstream below; physical PA-01–08 authorization/owner and exact frozen EXE are stated above. Older pause/next-action text below describes that other owner snapshot and does not cancel this user-resumed acquisition. Do not duplicate those PRs.

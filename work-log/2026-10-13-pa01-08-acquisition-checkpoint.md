@@ -19,3 +19,11 @@ PA05 125→100 DPI branch not exercised: actual ms-settings protocol absent and 
 ## Exact continuation
 
 OBS PID47196 recording. Narro PID33412 exact validation EXE, main HWND3868734, Focus HWND7276692. Owned task PA03 is in a real break due approximately UTC23:27:57. Keep capture through the actual event, then perform PA07 normal tray Quit/relaunch and available safe installer checks. Do not assign verdicts or make corrective source edits until corpus is frozen. Publish whole current Narro-M7-Logs (beside EXE), screenshots/UIA/HWND/actions and whole recording with checksums/reassembly if split; then analyze per PA. Milestone counters remain 3/10, U-ID41/41 and prior confirmed gaps9/9; no M10 advancement.
+
+## Acquisition freeze and safety restoration — UTC23:32:40
+
+OBS stopped normally UTC23:31:55.927. Whole recording 2769.95s /305398357 bytes/H2644480×1080@60fps/AAC stereo48kHz; whole SHA256 `5a0ac940f01e792afa1335b07e3a63e91166b65e0d943f223dc7801cdb784c03`. Five ordered binary parts preserve the entire recording. [Frozen 300-file evidence manifest](evidence/pa01-08-20261013/acquisition-freeze.json), including whole current Narro-M7-Logs, screenshots, HWND/UIA/domain/action sidecars and setup video. Original user data/backups and runtime EXEs omitted.
+
+PA07 actual normal Quit/new PID41708/same EXE/Timer reappearance at saved[-1009,348], paused recovery, captured. Original Windows animation settings restored; one additional Panel↔Timer/expanded pair recorded in that state. Fresh NSIS installed into a session-owned destination and installed EXE launched against retained owned data; installed EXE hash884a7926b3ee86db9cd3aff2df62d2abf89cb48fdd965410be5b8a4a20d0b72d kept separate from standalone candidate. No older-version upgrade claimed. MSI welcome launched but Computer Use product policy blocked msiexec.exe; spawned wizard closed before install. No bypass.
+
+All Narro processes stopped; disposable test profile frozen and original Roaming/Local profiles restored intact; original DB SHA exactly matches pre-run. Session-owned NSIS installation uninstalled before originals restored. OBS remains open/idle; no user app/data cleanup. Current phase now aggregate analysis, no verdict assigned merely from capture. Concurrent source-owner PR344/345/346 preserved; runtime baseline unchanged at this capture.
