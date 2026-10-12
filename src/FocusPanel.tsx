@@ -323,7 +323,7 @@ function FocusTaskRow({
                 </button>
               </Tooltip>
             </div>
-            {moreOpen ? (
+            {moreOpen && !suspended ? (
               <div className="focus-panel__row-menu" role="menu" aria-label={`Actions for ${task.title}`}>
                 <button type="button" role="menuitem" onClick={() => runMoreAction(onSchedule)}>
                   Schedule
@@ -1117,8 +1117,8 @@ export function FocusPanel({
         scheduled={scheduled}
         suspended={suspendedWork}
         disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}
-        notesExpanded={notesTaskId === task.id}
-        subtasksExpanded={subtasksTaskId === task.id}
+        notesExpanded={!suspendedWork && notesTaskId === task.id}
+        subtasksExpanded={!suspendedWork && subtasksTaskId === task.id}
         target={target}
         fixtureMode={fixtureMode}
         canMakeLive={!scheduled && !suspendedWork}
