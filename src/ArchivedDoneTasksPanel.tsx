@@ -168,6 +168,7 @@ export function ArchivedDoneTasksPanel({
           <span className="sr-only">Search archived done tasks</span>
           <span aria-hidden="true">⌕</span>
           <input
+            ref={searchInputRef}
             type="search"
             value={query}
             onChange={(event) => setQuery(event.currentTarget.value)}
@@ -286,10 +287,11 @@ export function ArchivedDoneTasksPanel({
                     <button
                       type="button"
                       className="archived-done-row__delete"
-                      aria-label={`Permanent deletion of ${task.title} is not available`}
-                      title="Permanent deletion is unavailable until the archived-task deletion policy is confirmed."
-                      disabled
-                      data-archived-done-delete="unavailable"
+                      aria-label={`Permanently delete ${task.title}`}
+                      title="Permanently delete this archived completed task"
+                      disabled={deletePending}
+                      onClick={() => requestDelete(task)}
+                      data-archived-done-delete="available"
                     >
                       <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v7m4-7v7" />
@@ -302,6 +304,17 @@ export function ArchivedDoneTasksPanel({
           </table>
         </div>
       )}
+      {deleteTarget ? (
+        <ListMutationConfirmDialog
+          action="delete-done-task"
+          listTitle={deleteTarget.title}
+          pending={deletePending}
+          error={deleteError}
+          onCancel={cancelDelete}
+          onConfirm={() => void confirmDelete()}
+          onReturnFocus={() => searchInputRef.current?.focus()}
+        />
+      ) : null}
     </section>
   );
 }
