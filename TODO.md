@@ -1,5 +1,14 @@
 # TODO.md
 
+## CURRENT 2026-10-12 — 41-audit follow-up independent of optional M11
+
+- [x] **User-confirmed functional policy:** Narro must be usable without any future live Blitzit audit. M11 is **optional**, not an implementation/CI/M10 native-acceptance prerequisite. For unknown original behavior choose a coherent, tested, keyboard-accessible Narro-local contract; do not silently omit user actions. Proven source behavior is still the default visual target, not a license for speculative domain rewrites.
+- [x] **41/41 U items reviewed; bounded previous implementation U12/U40/U35/U21 4/4 exact-head Windows 3/3 guarded-merged.** Resulting-main [CI 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) 3/3 PASS; verified latest ZIP/narro.exe/NSIS/MSI hashes in prior current block; no new code changes from this policy correction.
+- [ ] **Next local-first code-slice assessment:** inspect actual code/data/tests for **U22** read-only completed Break row in Focus Done, **U23** view-only transient Break duration in Focus header EST, **U06** Reports calendar double-chevron and **U09** Reports chart ellipsis. Don't require M11 source clicks; design usable, safe non-ledger-mutating semantics and regression tests. Do not count a slice accepted before exact Windows CI/merge. Further U-item gaps should be taken only when actual Narro functionality is missing/unsafe.
+- [ ] **U04 Archived Done trash safety:** leave irreversible deletion unavailable while defining ownership/cascade/recovery/undo/confirmation and obtaining necessary explicit approval; not a missing Blitzit-video problem. Preserve current approved U01/U02 Spectrum Core picker/image/218 icons.
+- [ ] **Consolidated real native Windows Codex PA-01–09 USER-PAUSED / NOT RUN.** Physically validated mandatory milestones **3/10**, M10 blocked. M11 strictly optional/dormant; current source-candidate four SHA identities remain valid until a code/build change actually replaces it. [Immutable 41 policy](work-log/2026-10-12-chatgpt-u01-u41-local-first-without-m11-implementation-policy.md).
+
+
 ## CURRENT 2026-10-12 — U21 merged/source/artifacts complete; native acceptance remains user-paused
 
 - [x] **U12/U40/U35/U21 bounded 4/4** coding units accepted, exact PR-head Windows 3/3 and guarded merged, B49 harness separate 1/1 accepted. U21 PR338 head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6`, [CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) 3/3, guarded merge `334566f2a41293c458353991d99d968ad5fa9ad1`, all **18/18** changed blobs equal.
