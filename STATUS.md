@@ -1,5 +1,12 @@
 # STATUS.md
 
+## CURRENT 2026-10-12 — U09 real chart-menu source proposed while U06 main Windows runs
+
+U09 [PR340](https://github.com/MariosGiannakaras/Narro/pull/340) head `3759e7e8bf388602e12874e1e42d691989a8a0f2`, [CI38245931584](https://github.com/MariosGiannakaras/Narro/actions/runs/38245931584) validation-gate SUCCESS, fast/Windows PENDING at checkpoint. Replaces source-uncertain/inert Reports chart ellipsis with existing accessible `Menu` + nonempty pure **Show all, Tasks only, Breaks only, Total only** view-state presets. Read-only data; never claim original Blitzit menu equivalence; no M11 activation. Production helper + 7 scoped test/UI/CSS files in [immutable log](work-log/2026-10-12-chatgpt-u09-pr340-new-m11-independent-chart-menu-ci-pending.md). U09 source **0/1 accepted** before required CI/guarded merge.
+
+Prior U06 [PR339](https://github.com/MariosGiannakaras/Narro/pull/339) head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90` 3/3 exact Windows SUCCESS and merged as `c32e71a17164cb70dcb77463d0473d6eb8a09ce8` with 10/10 blob identities, separate U06 source **1/1**; merged-main [CI38244820979](https://github.com/MariosGiannakaras/Narro/actions/runs/38244820979) validation+fast PASS, Windows **IN PROGRESS** and production artifact SHA not yet finalized. Previous four-unit campaign 4/4 unaffected. Native PA-01–09 USER-PAUSED, mandatory milestones 3/10, M10 blocked, M11 optional/dormant. Existing Spectrum Core List Editor untouched.
+
+
 ## CURRENT 2026-10-12 — U06 source/CI accepted with guarded merge; resulting-main CI underway
 
 U06 Reports year navigation independent coding slice **1/1 source accepted** on [PR339](https://github.com/MariosGiannakaras/Narro/pull/339), exact head `9c0cea03bb85af074b35ebc293e1ad84e36bbb90`, [PR-head run 38239596149](https://github.com/MariosGiannakaras/Narro/actions/runs/38239596149) **3/3 SUCCESS**, guarded squash-merged `c32e71a17164cb70dcb77463d0473d6eb8a09ce8`, **10/10 changed source/test blobs matched**. Initial head historical fast-gate TS2739 missing Sessions visual fixture props was fixed at accepted head. Narro-local ±12-month buttons in both Reports calendars complement existing ±1/month/date range Apply/Cancel and never mutate reports ledger; M11 not required.
