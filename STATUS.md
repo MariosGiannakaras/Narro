@@ -1,5 +1,14 @@
 # STATUS.md
 
+## CURRENT 2026-10-12 — Source-independent U01–U41 functionality policy; M11 optional
+
+The user explicitly reiterates: **M11 is an optional later Blitzit comparison, NOT a dependency of Narro being complete or usable**. The implementation agent must decide and validate deterministic safe Narro-local behavior even when current original Blitzit internals/interactive details are missing. The 41/41 audit is a source-uncertainty inventory, not 41 programming failures/41 source parity PASS. U01/U02 Spectrum Core owner-approved picker/upload/218 icons locked.
+
+**Existing source/CI evidence unchanged:** bounded U12/U40/U35/U21 **4/4 guarded-merged**, resulting-main [run 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) Windows 3/3 SUCCESS on `334566f2a41293c458353991d99d968ad5fa9ad1`, actual ZIP/narro.exe/NSIS/MSI separately hashed and pinned. Only Markdown policy/tracking changes in this clarification; no new feature implementation or CI claimed. Native PA-01–09 USER-PAUSED, mandatory milestone 3/10, M10 blocked, M11 dormant.
+
+**Source-independent next work, subject to exact implementation-path analysis and new PR/CI:** U22 visual read-only Break Done session history, U23 temporary header Break EST without saved metric/session/task side effects, U06 calendar double-chevron action, U09 chart-options affordance. A source click not recorded does not justify a fake/disabled Narro feature indefinitely; every action must have documented local semantics and fail safely. U04 permanent deletion still needs explicit integrity model and destructive approval, not original-source observation; historical U24/U25/U36 may be coherent current local behavior and are not code bugs by default. [Current triage](docs/BLITZIT_UNVERIFIED_AUDIT_CONSOLIDATED_TRIAGE_2026-10-11.md), [immutable decision](work-log/2026-10-12-chatgpt-u01-u41-local-first-without-m11-implementation-policy.md).
+
+
 ## CURRENT 2026-10-12 — 4/4 bounded code accepted, final resulting-main Windows artifact pinned, physical OPEN
 
 **Coding implementation:** bounded U12/U40/U35/U21 **4/4 guarded merged after individual exact-head Windows CI 3/3**, B49 separate harness 1/1. U21 [PR338](https://github.com/MariosGiannakaras/Narro/pull/338) exact head `10d5370ac92a2e5be2ee696c04ba28ea368f4ae6` [CI 38228307088](https://github.com/MariosGiannakaras/Narro/actions/runs/38228307088) **3/3 SUCCESS**, guarded squash merge source `334566f2a41293c458353991d99d968ad5fa9ad1`, **18/18** changed blob hashes identical. [Exact resulting-main Windows run 38231906248](https://github.com/MariosGiannakaras/Narro/actions/runs/38231906248) on merge source completed **validation/fast/Windows 3/3 SUCCESS**, all intermediate visual, packaged runtime, release, installers and M1 diagnostic steps PASS; subsequent main changes only Markdown.
