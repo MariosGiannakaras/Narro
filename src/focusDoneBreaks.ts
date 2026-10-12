@@ -13,13 +13,16 @@ export type FocusDoneBreak = {
 };
 
 /** Use the saved board timezone and local calendar day; DST boundaries are not 24h offsets. */
-export function focusDoneBreakDayRange(now: Date, timeZone: string) {
-  const todayKey = reportDateKeyInTimeZone(now, timeZone);
+export function focusDoneBreakRangeForDay(dayKey: string, timeZone: string) {
   return {
-    dayKey: todayKey,
+    dayKey,
     startAt: zonedReportDateStartIso(todayKey, timeZone),
-    endAt: zonedReportDateStartIso(addReportDays(todayKey, 1), timeZone),
+    endAt: zonedReportDateStartIso(addReportDays(dayKey, 1), timeZone),
   };
+}
+
+export function focusDoneBreakDayRange(now: Date, timeZone: string) {
+  return focusDoneBreakRangeForDay(reportDateKeyInTimeZone(now, timeZone), timeZone);
 }
 
 /** One bounded, read-only native query. A list scope never falls back to All Lists. */
