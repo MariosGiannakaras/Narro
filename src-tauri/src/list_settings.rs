@@ -7,7 +7,9 @@ use crate::persistence::lists::{
     ListStoreError,
 };
 use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
-use crate::persistence::tasks::{permanently_delete_archived_done_task as delete_archived_done_record, TaskStoreError};
+use crate::persistence::tasks::{
+    permanently_delete_archived_done_task as delete_archived_done_record, TaskStoreError,
+};
 use chrono::{DateTime, Duration, Utc};
 use rusqlite::{params, OptionalExtension};
 use serde::Serialize;
@@ -114,7 +116,10 @@ impl Display for ListSettingsError {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
             Self::Store(error) => write!(formatter, "list settings mutation failed: {error}"),
-            Self::Task(error) => write!(formatter, "archived completed-task deletion failed: {error}"),
+            Self::Task(error) => write!(
+                formatter,
+                "archived completed-task deletion failed: {error}"
+            ),
             Self::TaskMetadata(error) => {
                 write!(formatter, "archived task metadata read failed: {error}")
             }
@@ -250,12 +255,16 @@ fn command_error(error: ListSettingsError) -> CommandError {
             "LIST_SETTINGS_MUST_ARCHIVE"
         }
         ListSettingsError::Task(TaskStoreError::NotFound(_)) => "ARCHIVED_DONE_NOT_FOUND",
-        ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(_)) => "ARCHIVED_DONE_STALE",
+        ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(_)) => {
+            "ARCHIVED_DONE_STALE"
+        }
         ListSettingsError::Task(TaskStoreError::NotArchivedDone(_))
         | ListSettingsError::Task(TaskStoreError::ListArchived(_))
         | ListSettingsError::Task(TaskStoreError::ListNotFound(_))
         | ListSettingsError::Task(TaskStoreError::ActiveSession(_))
-        | ListSettingsError::Task(TaskStoreError::ArchivedDoneHasRecurrenceDependents(_)) => "ARCHIVED_DONE_NOT_ALLOWED",
+        | ListSettingsError::Task(TaskStoreError::ArchivedDoneHasRecurrenceDependents(_)) => {
+            "ARCHIVED_DONE_NOT_ALLOWED"
+        }
         _ => "LIST_SETTINGS_FAILED",
     };
     CommandError::new(code, error.to_string())
@@ -492,8 +501,12 @@ pub fn permanently_delete_archived_done(
 ) -> Result<(), ListSettingsError> {
     let mut connection = open_database(app_dir)?;
     delete_archived_done_record(
-        &mut connection, id, expected_list_id, expected_updated_at,
-        expected_completed_at, expected_archived_at,
+        &mut connection,
+        id,
+        expected_list_id,
+        expected_updated_at,
+        expected_completed_at,
+        expected_archived_at,
     )?;
     Ok(())
 }
@@ -511,9 +524,14 @@ pub fn permanently_delete_archived_done_task_from_settings(
     let list_id = parse_list_id(&expected_list_id)?;
     let app_dir = app_data_dir(&app_handle)?;
     permanently_delete_archived_done(
-        &app_dir, id, list_id, &expected_updated_at,
-        &expected_completed_at, &expected_archived_at,
-    ).map_err(command_error)
+        &app_dir,
+        id,
+        list_id,
+        &expected_updated_at,
+        &expected_completed_at,
+        &expected_archived_at,
+    )
+    .map_err(command_error)
 }
 
 #[tauri::command]
@@ -870,19 +888,31 @@ mod tests {
         setup(&app_dir);
         let list = create_fixture(&app_dir, None);
         let mut conn = open_database(&app_dir).expect("open database");
-        let target = create_done_task(&mut conn, list.id, "Delete archived history", "2026-06-01T00:00:00Z");
-        let retained = create_done_task(&mut conn, list.id, "Retain unrelated history", "2026-06-02T00:00:00Z");
+        let target = create_done_task(
+            &mut conn,
+            list.id,
+            "Delete archived history",
+            "2026-06-01T00:00:00Z",
+        );
+        let retained = create_done_task(
+            &mut conn,
+            list.id,
+            "Retain unrelated history",
+            "2026-06-02T00:00:00Z",
+        );
         let subtask = TaskId::generate();
         conn.execute(
             "INSERT INTO subtasks (id, task_id, title, sort_rank, created_at, updated_at)
              VALUES (?1, ?2, 'Task note', 0, ?3, ?3)",
             params![subtask.to_string(), target.to_string(), T1],
-        ).expect("seed subtask");
+        )
+        .expect("seed subtask");
         conn.execute(
             "INSERT INTO task_notes (task_id, editor_format_version, content, updated_at)
              VALUES (?1, 1, '{}', ?2)",
             params![target.to_string(), T1],
-        ).expect("seed saved note");
+        )
+        .expect("seed saved note");
         conn.execute(
             "INSERT INTO sessions (id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at)
              VALUES (?1, ?2, 'work', ?3, ?4, 90, 'focus', ?3, ?4)",
@@ -891,48 +921,97 @@ mod tests {
         drop(conn);
 
         let now = DateTime::parse_from_rfc3339("2026-10-12T00:00:00Z")
-            .expect("fixed clock").with_timezone(&Utc);
+            .expect("fixed clock")
+            .with_timezone(&Utc);
         let snapshot = load_archive_snapshot_at(&app_dir, &now).expect("archive snapshot");
-        let selected = snapshot.done_tasks.iter().find(|task| task.id == target.to_string())
+        let selected = snapshot
+            .done_tasks
+            .iter()
+            .find(|task| task.id == target.to_string())
             .expect("target projected");
         let stale = permanently_delete_archived_done(
-            &app_dir, target, list.id, "stale version", &selected.completed_at, &selected.archived_at,
-        ).expect_err("stale CAS must not delete");
-        assert!(matches!(stale, ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(id)) if id == target));
+            &app_dir,
+            target,
+            list.id,
+            "stale version",
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect_err("stale CAS must not delete");
+        assert!(
+            matches!(stale, ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(id)) if id == target)
+        );
         let wrong_list = ListId::generate();
         let wrong = permanently_delete_archived_done(
-            &app_dir, target, wrong_list, &selected.updated_at,
-            &selected.completed_at, &selected.archived_at,
-        ).expect_err("wrong list must not delete");
-        assert!(matches!(wrong, ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(id)) if id == target));
+            &app_dir,
+            target,
+            wrong_list,
+            &selected.updated_at,
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect_err("wrong list must not delete");
+        assert!(
+            matches!(wrong, ListSettingsError::Task(TaskStoreError::StaleArchivedDoneSnapshot(id)) if id == target)
+        );
         let conn = open_database(&app_dir).expect("read after rejected attempts");
-        assert!(get_task(&conn, target).is_ok(), "rejected deletion preserves target");
+        assert!(
+            get_task(&conn, target).is_ok(),
+            "rejected deletion preserves target"
+        );
         drop(conn);
 
         permanently_delete_archived_done(
-            &app_dir, target, list.id, &selected.updated_at,
-            &selected.completed_at, &selected.archived_at,
-        ).expect("delete exactly archived completed target");
+            &app_dir,
+            target,
+            list.id,
+            &selected.updated_at,
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect("delete exactly archived completed target");
 
         let conn = open_database(&app_dir).expect("read committed deletion");
-        assert!(matches!(get_task(&conn, target), Err(TaskStoreError::NotFound(_))));
-        assert!(get_task(&conn, retained).is_ok(), "unrelated task must survive");
+        assert!(matches!(
+            get_task(&conn, target),
+            Err(TaskStoreError::NotFound(_))
+        ));
+        assert!(
+            get_task(&conn, retained).is_ok(),
+            "unrelated task must survive"
+        );
         for table in ["subtasks", "task_notes", "sessions"] {
-            let deleted: i64 = conn.query_row(
-                &format!("SELECT COUNT(*) FROM {table} WHERE task_id = ?1"),
-                [target.to_string()], |row| row.get(0),
-            ).expect("count cascaded dependent history");
+            let deleted: i64 = conn
+                .query_row(
+                    &format!("SELECT COUNT(*) FROM {table} WHERE task_id = ?1"),
+                    [target.to_string()],
+                    |row| row.get(0),
+                )
+                .expect("count cascaded dependent history");
             assert_eq!(deleted, 0, "{table} remains after irreversible deletion");
         }
         drop(conn);
         let second = permanently_delete_archived_done(
-            &app_dir, target, list.id, &selected.updated_at,
-            &selected.completed_at, &selected.archived_at,
-        ).expect_err("replay must not pretend success");
-        assert!(matches!(second, ListSettingsError::Task(TaskStoreError::NotFound(id)) if id == target));
+            &app_dir,
+            target,
+            list.id,
+            &selected.updated_at,
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect_err("replay must not pretend success");
+        assert!(
+            matches!(second, ListSettingsError::Task(TaskStoreError::NotFound(id)) if id == target)
+        );
         let refreshed = load_archive_snapshot_at(&app_dir, &now).expect("updated archive read");
-        assert!(!refreshed.done_tasks.iter().any(|task| task.id == target.to_string()));
-        assert!(refreshed.done_tasks.iter().any(|task| task.id == retained.to_string()));
+        assert!(!refreshed
+            .done_tasks
+            .iter()
+            .any(|task| task.id == target.to_string()));
+        assert!(refreshed
+            .done_tasks
+            .iter()
+            .any(|task| task.id == retained.to_string()));
         std::fs::remove_dir_all(app_dir).expect("cleanup");
     }
 
@@ -943,45 +1022,88 @@ mod tests {
         let list = create_fixture(&app_dir, None);
         let mut conn = open_database(&app_dir).expect("database");
         let incomplete = create_task(
-            &mut conn, NewTaskInput {
-                list_id: list.id, title: "Still unfinished".into(),
-                manual_lane: PlanningLane::Backlog, est_seconds: None,
-            }, T1,
-        ).expect("unfinished task");
+            &mut conn,
+            NewTaskInput {
+                list_id: list.id,
+                title: "Still unfinished".into(),
+                manual_lane: PlanningLane::Backlog,
+                est_seconds: None,
+            },
+            T1,
+        )
+        .expect("unfinished task");
         let target = create_done_task(&mut conn, list.id, "Old done", "2026-06-01T00:00:00Z");
         let child = create_task(
-            &mut conn, NewTaskInput {
-                list_id: list.id, title: "Recurring child".into(),
-                manual_lane: PlanningLane::Backlog, est_seconds: None,
-            }, T1,
-        ).expect("dependent task");
+            &mut conn,
+            NewTaskInput {
+                list_id: list.id,
+                title: "Recurring child".into(),
+                manual_lane: PlanningLane::Backlog,
+                est_seconds: None,
+            },
+            T1,
+        )
+        .expect("dependent task");
         let now = DateTime::parse_from_rfc3339("2026-10-12T00:00:00Z")
-            .expect("fixed clock").with_timezone(&Utc);
+            .expect("fixed clock")
+            .with_timezone(&Utc);
         drop(conn);
         let snapshot = load_archive_snapshot_at(&app_dir, &now).expect("snapshot");
-        let selected = snapshot.done_tasks.iter().find(|t| t.id == target.to_string()).expect("target");
+        let selected = snapshot
+            .done_tasks
+            .iter()
+            .find(|t| t.id == target.to_string())
+            .expect("target");
         let mut conn = open_database(&app_dir).expect("connection");
         let incomplete_result = crate::persistence::tasks::permanently_delete_archived_done_task(
-            &mut conn, incomplete.id, list.id, T1, T1, T2,
-        ).expect_err("unfinished task must not delete");
-        assert!(matches!(incomplete_result, TaskStoreError::NotArchivedDone(id) if id == incomplete.id));
+            &mut conn,
+            incomplete.id,
+            list.id,
+            T1,
+            T1,
+            T2,
+        )
+        .expect_err("unfinished task must not delete");
+        assert!(
+            matches!(incomplete_result, TaskStoreError::NotArchivedDone(id) if id == incomplete.id)
+        );
         conn.execute(
             "INSERT INTO sessions (id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at)
              VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
             params![crate::domain::ids::SessionId::generate().to_string(), target.to_string(), T1],
         ).expect("open unfinished session");
         let open_result = crate::persistence::tasks::permanently_delete_archived_done_task(
-            &mut conn, target, list.id, &selected.updated_at, &selected.completed_at, &selected.archived_at,
-        ).expect_err("open session guard");
+            &mut conn,
+            target,
+            list.id,
+            &selected.updated_at,
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect_err("open session guard");
         assert!(matches!(open_result, TaskStoreError::ActiveSession(id) if id == target));
-        conn.execute("UPDATE sessions SET ended_at = ?1 WHERE task_id = ?2",
-            params![T2, target.to_string()]).expect("close session");
-        conn.execute("UPDATE tasks SET recurrence_parent_task_id = ?1 WHERE id = ?2",
-            params![target.to_string(), child.id.to_string()]).expect("link child");
+        conn.execute(
+            "UPDATE sessions SET ended_at = ?1 WHERE task_id = ?2",
+            params![T2, target.to_string()],
+        )
+        .expect("close session");
+        conn.execute(
+            "UPDATE tasks SET recurrence_parent_task_id = ?1 WHERE id = ?2",
+            params![target.to_string(), child.id.to_string()],
+        )
+        .expect("link child");
         let dependent_result = crate::persistence::tasks::permanently_delete_archived_done_task(
-            &mut conn, target, list.id, &selected.updated_at, &selected.completed_at, &selected.archived_at,
-        ).expect_err("must not detach a surviving child");
-        assert!(matches!(dependent_result, TaskStoreError::ArchivedDoneHasRecurrenceDependents(id) if id == target));
+            &mut conn,
+            target,
+            list.id,
+            &selected.updated_at,
+            &selected.completed_at,
+            &selected.archived_at,
+        )
+        .expect_err("must not detach a surviving child");
+        assert!(
+            matches!(dependent_result, TaskStoreError::ArchivedDoneHasRecurrenceDependents(id) if id == target)
+        );
         assert!(get_task(&conn, child.id).is_ok());
         assert!(get_task(&conn, target).is_ok());
         drop(conn);
