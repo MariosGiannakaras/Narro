@@ -964,4 +964,81 @@ mod tests {
             Err(SessionStoreError::TaskNotActive(id)) if id == task_id
         ));
     }
+
+    #[test]
+    fn focus_done_break_history_is_read_only_and_uses_closed_break_identity() {
+        let (mut conn, task_id) = fixture();
+        let list_id = conn.query_row(
+            "SELECT list_id FROM tasks WHERE id = ?1",
+            [task_id.to_string()],
+            |row| row.get::<_, String>(0),
+        ).map(|raw| ListId::parse_str(&raw).expect("saved list id")).expect("task list");
+
+        let opened_break = open_focus_break_session(&mut conn, Some(task_id), T0).unwrap();
+        let closed_break = close_session(&mut conn, opened_break.id, 60, T1).unwrap();
+        let work = open_focus_work_session(&mut conn, task_id, T1).unwrap();
+        close_session(&mut conn, work.id, 60, T2).unwrap();
+        let open_break = open_focus_break_session(&mut conn, Some(task_id), T2).unwrap();
+
+        let original_count: i64 = conn.query_row("SELECT COUNT(*) FROM sessions", [], |row| row.get(0)).unwrap();
+        let rows = recent_closed_focus_breaks(
+            &conn, "2026-09-04T00:00:00Z", "2026-09-05T00:00:00Z", Some(list_id),
+        ).unwrap();
+        assert_eq!(rows.len(), 1, "closed Break only, not work or running Break");
+        assert_eq!(rows[0].id, closed_break.id);
+        assert_eq!(rows[0].duration_seconds, 60);
+        assert!(rows[0].ended_at.is_some());
+        assert_eq!(get_open_session(&conn).unwrap().map(|s| s.id), Some(open_break.id));
+        assert!(recent_closed_focus_breaks(
+            &conn, "2026-09-04T00:00:00Z", "2026-09-05T00:00:00Z",
+            Some(ListId::from_uuid(uuid::Uuid::from_u128(999))),
+        ).unwrap().is_empty(), "another selected list must not receive this Break");
+        assert_eq!(
+            conn.query_row("SELECT COUNT(*) FROM sessions", [], |row| row.get::<_, i64>(0)).unwrap(),
+            original_count,
+            "view-only history must not create or delete sessions",
+        );
+
+        // Reports can edit a closed Focus Break, changing source to 'edit'.
+        // Its durable Break identity must remain visible in Focus Done.
+        let edited = edit_closed_session_if_expected(
+            &mut conn, closed_break.id, &closed_break.updated_at, T0, T1, 60, T2,
+        ).unwrap();
+        assert_eq!(edited.source, SessionSource::Edit);
+        let after_edit = recent_closed_focus_breaks(
+            &conn, "2026-09-04T00:00:00Z", "2026-09-05T00:00:00Z", None,
+        ).unwrap();
+        assert_eq!(after_edit.len(), 1);
+        assert_eq!(after_edit[0].id, edited.id);
+    }
+
+    #[test]
+    fn focus_done_breaks_group_by_end_date_and_cap_newest_history() {
+        let (mut conn, task_id) = fixture();
+        let midnight = open_focus_break_session(
+            &mut conn, Some(task_id), "2026-09-04T23:58:00Z",
+        ).unwrap();
+        close_session(&mut conn, midnight.id, 240, "2026-09-05T00:02:00Z").unwrap();
+        assert!(recent_closed_focus_breaks(
+            &conn, "2026-09-04T00:00:00Z", "2026-09-05T00:00:00Z", None,
+        ).unwrap().is_empty(), "Break belongs to its completed local day");
+        let next_day = recent_closed_focus_breaks(
+            &conn, "2026-09-05T00:00:00Z", "2026-09-06T00:00:00Z", None,
+        ).unwrap();
+        assert_eq!(next_day.len(), 1);
+        assert_eq!(next_day[0].id, midnight.id);
+
+        for minute in 0..26 {
+            let start = format!("2026-09-05T10:{minute:02}:00Z");
+            let end = format!("2026-09-05T10:{minute:02}:30Z");
+            let opened = open_focus_break_session(&mut conn, Some(task_id), &start).unwrap();
+            close_session(&mut conn, opened.id, 30, &end).unwrap();
+        }
+        let recent = recent_closed_focus_breaks(
+            &conn, "2026-09-05T00:00:00Z", "2026-09-06T00:00:00Z", None,
+        ).unwrap();
+        assert_eq!(recent.len(), 24, "Focus must not load unbounded historical sessions");
+        assert_eq!(recent[0].ended_at.as_deref(), Some("2026-09-05T10:25:30Z"));
+        assert_eq!(recent.last().and_then(|row| row.ended_at.as_deref()), Some("2026-09-05T10:02:30Z"));
+    }
 }
