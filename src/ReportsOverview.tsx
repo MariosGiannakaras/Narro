@@ -16,6 +16,7 @@ import {
   type ReportsListTime,
   type ReportsMetric,
 } from "./ReportsOverviewView";
+import { reportChartSeriesPreset, type ReportChartPreset } from "./reportChartSeriesPreset";
 import {
   addReportMonths,
   buildReportCalendarMonths,
@@ -311,6 +312,10 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     });
   };
 
+  const applyChartSeriesPreset = (preset: ReportChartPreset) => {
+    setVisibleSeries(reportChartSeriesPreset(preset));
+  };
+
   const exportOverviewPdf = async () => {
     if (reportRequest === null || !overviewCurrent || exportPending || exportInFlightRef.current) return;
     exportInFlightRef.current = true;
@@ -423,6 +428,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         onToggleListFilter={() => setListFilterOpen((open) => !open)}
         onToggleDatePicker={toggleDatePicker}
         onToggleChartSeries={toggleChartSeries}
+        onSelectChartPreset={applyChartSeriesPreset}
         onSelectDatePreset={selectDatePreset}
         onSelectCalendarDay={selectCalendarDay}
         onPreviousCalendarMonth={() => {
