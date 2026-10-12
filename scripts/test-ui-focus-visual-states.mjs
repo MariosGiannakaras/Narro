@@ -104,6 +104,13 @@ invariant(
   capture.includes('[Math]::Max(800, [int]$scenario.VirtualTimeBudgetMs)'),
   "Focus capture harness must let production focus and tooltip assertions settle in every scenario",
 );
+invariant(
+  capture.includes('for ($attempt = 1; $attempt -le $maxAttempts; $attempt++)')
+    && capture.includes('scripts/focus-panel-capture-readiness.mjs')
+    && capture.includes('$gateStatus -ne 75')
+    && capture.includes('$maxAttempts = 5'),
+  "Focus Edge captures must retry only objectively unready React/paint states within a fixed bound",
+);
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");

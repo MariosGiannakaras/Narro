@@ -33,6 +33,7 @@ import { beginFocusTaskPointerDrag } from "./focusTaskPointerDrag";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import type { FocusListOption } from "./useFocusListCatalog";
 import { TaskNotes } from "./TaskNotes";
+import { focusBreakPresentation } from "./focusBreakPresentation";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
@@ -83,6 +84,7 @@ type FocusTaskRowProps = {
   nowForOverdueAge: Date;
   done?: boolean;
   scheduled?: boolean;
+  suspended?: boolean;
   disabled: boolean;
   notesExpanded: boolean;
   subtasksExpanded: boolean;
@@ -152,6 +154,7 @@ function FocusTaskRow({
   nowForOverdueAge,
   done = false,
   scheduled = false,
+  suspended = false,
   disabled,
   notesExpanded,
   subtasksExpanded,
@@ -192,6 +195,7 @@ function FocusTaskRow({
     <article
       className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}${task.isOverdue ? " focus-panel__task-row--overdue" : ""}`}
       data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}
+      data-focus-break-suspended-work={suspended ? "true" : undefined}
       data-focus-overdue={task.isOverdue ? "true" : "false"}
       data-focus-task-times-hidden={hideTaskTimes ? "true" : "false"}
       data-focus-drag-task={ordinary && canReorder ? task.id : undefined}
@@ -319,7 +323,7 @@ function FocusTaskRow({
                 </button>
               </Tooltip>
             </div>
-            {moreOpen ? (
+            {moreOpen && !suspended ? (
               <div className="focus-panel__row-menu" role="menu" aria-label={`Actions for ${task.title}`}>
                 <button type="button" role="menuitem" onClick={() => runMoreAction(onSchedule)}>
                   Schedule
@@ -1020,14 +1024,21 @@ export function FocusPanel({
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
   const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
   const liveTimer = liveTask && timer ? focusTimerPresentation(timer.runtime.timer) : null;
-  const remainingCandidates = board.today.tasks.filter((task) => task.id !== liveTaskId);
+  const breakView = focusBreakPresentation(
+    timer?.runtime.timer.state ?? null,
+    liveTaskId,
+    liveTask?.title ?? null,
+  );
+  const remainingCandidates = board.today.tasks.filter((task) => (
+    task.id !== liveTaskId || breakView.suspendedTaskId === task.id
+  ));
   const scheduledTasks = remainingCandidates.filter(
-    (task) => task.scheduledLocalTime !== null && !task.isOverdue,
+    (task) => task.id !== breakView.suspendedTaskId && task.scheduledLocalTime !== null && !task.isOverdue,
   );
   const scheduledIds = new Set(scheduledTasks.map((task) => task.id));
   const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));
   const reorderableTasks = target.kind === "list"
-    ? remainingTasks.filter((task) => task.scheduledLocalDate === null && task.listId === target.id)
+    ? remainingTasks.filter((task) => task.id !== breakView.suspendedTaskId && task.scheduledLocalDate === null && task.listId === target.id)
     : [];
   const reorderIndex = new Map(reorderableTasks.map((task, index) => [task.id, index]));
   const noEligibleVisualState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length > 0;
@@ -1094,6 +1105,7 @@ export function FocusPanel({
   };
 
   const renderTaskRow = (task: ListBoardTask, scheduled = false) => {
+    const suspendedWork = task.id === breakView.suspendedTaskId;
     const index = reorderIndex.get(task.id);
     return (
       <FocusTaskRow
@@ -1103,15 +1115,16 @@ export function FocusPanel({
         displayTimezone={board.displayTimezone}
         nowForOverdueAge={nowForOverdueAge}
         scheduled={scheduled}
-        disabled={rowInteractionDisabled || mutationPendingTaskId === task.id}
-        notesExpanded={notesTaskId === task.id}
-        subtasksExpanded={subtasksTaskId === task.id}
+        suspended={suspendedWork}
+        disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}
+        notesExpanded={!suspendedWork && notesTaskId === task.id}
+        subtasksExpanded={!suspendedWork && subtasksTaskId === task.id}
         target={target}
         fixtureMode={fixtureMode}
-        canMakeLive={!scheduled}
+        canMakeLive={!scheduled && !suspendedWork}
         canMoveUp={index !== undefined && index > 0}
         canMoveDown={index !== undefined && index < reorderableTasks.length - 1}
-        canReorder={index !== undefined && notesTaskId !== task.id && subtasksTaskId !== task.id}
+        canReorder={index !== undefined && !suspendedWork && notesTaskId !== task.id && subtasksTaskId !== task.id}
         onMakeLive={() => void makeTaskLive(task)}
         onPointerReorder={(event) => beginFocusTaskReorder(task, event)}
         onKeyboardReorder={(direction) => moveFocusTask(task, direction)}
@@ -1235,6 +1248,7 @@ export function FocusPanel({
           <article
             className="focus-panel__live-card"
             data-focus-live-card="true"
+            data-focus-break-card={breakView.showBreakCard ? "true" : undefined}
             data-timed-alert-flash-task-id={liveTask.id}
             data-task-id={liveTask.id}
             data-focus-live-state={timer?.runtime.timer.state ?? "idle"}
@@ -1255,7 +1269,7 @@ export function FocusPanel({
             }}
           >
             <div className="focus-panel__live-heading">
-              <FocusLiveTitle title={liveTask.title} scrollingEnabled={scrollingTitleEnabled} />
+              <FocusLiveTitle title={breakView.liveTitle} scrollingEnabled={scrollingTitleEnabled} />
               {liveTimer ? (
                 <span
                   className="focus-panel__live-timer timer-numerals"
@@ -1275,8 +1289,8 @@ export function FocusPanel({
               {timer?.runtime.timer.mode?.kind === "pomodoro" ? (
                 <span className="focus-panel__pomodoro-badge" data-focus-pomodoro-badge="true" aria-label="Pomodoro mode">POMO</span>
               ) : null}
-              {aggregateView ? <span className="focus-panel__list-chip">{liveTask.listTitle}</span> : null}
-              {subtaskLabel(liveTask) ? <span>{subtaskLabel(liveTask)}</span> : null}
+              {aggregateView && !breakView.showBreakCard ? <span className="focus-panel__list-chip">{liveTask.listTitle}</span> : null}
+              {!breakView.showBreakCard && subtaskLabel(liveTask) ? <span>{subtaskLabel(liveTask)}</span> : null}
               {timer ? <span className="focus-panel__live-state">{focusTimerStateLabel(timer.runtime.timer)}</span> : null}
             </div>
             {timer ? (

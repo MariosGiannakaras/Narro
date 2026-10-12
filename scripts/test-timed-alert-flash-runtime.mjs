@@ -38,7 +38,7 @@ invariant(
   "Focus Panel live timer must bind the flash target to the authoritative live task id",
 );
 invariant(
-  /data-focus-live-card="true"\s+data-timed-alert-flash-task-id=\{liveTask.id\}/.test(panel),
+  /<article\b[^>]*\bdata-focus-live-card="true"[^>]*\bdata-timed-alert-flash-task-id=\{liveTask\.id\}/s.test(panel),
   "the active Focus card itself must receive the same authoritative flash task id",
 );
 invariant(
