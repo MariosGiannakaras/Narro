@@ -1,6 +1,14 @@
 # STATUS.md
 
-## CURRENT 2026-10-12 — U04 modern user-approved Archived Done delete PR343 fourth CI, general U count 40/41
+## CURRENT 2026-10-12 — U04 merged source and visual proof, resulting-main Windows candidate RUNNING
+
+**First/general U01–U41 local functional acceptance 40/41**, U04 approval+guarded source merged but latest resulting-main release pending before count closes. **Specific code-gap implementation 8/9 accepted**, U04 source merged, main artifact pending. **Physically accepted milestones 3/10 (7 pending)** and PA-01–09 USER-PAUSED/NOT RUN. Source-current Blitzit parity and M11 optional separately OPEN/dormant.
+
+**U04 exact source:** user explicitly authorized irreversible Archived Done task+owned Notes/subtasks/reminders/sessions and Reports/export history loss, requested a modern themed modal. [PR343](https://github.com/MariosGiannakaras/Narro/pull/343) exact head `7ee33aa873cc4025a996efb8f02ec32969842d15`, [CI38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) validation/fast/Windows **3/3 SUCCESS**, expected-head guarded merge **`ec7673c921e08c83de11c986bd25fbb3600475ce`**, all **13/13 modified source/test blob MATCH**. Real original [visual artifact11763915384](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221/artifacts/11763915384) SHA `ab8b2d7f9963ebadf75ff9577a3c8e5ae1d3dc604e955466838544f8abfd806b`/CRC PASS, actual light+dark modal screenshot inspected, follows Narro theme. [Immutable proof](work-log/2026-10-12-chatgpt-u04-pr343-guarded-merge-13blobs-visual-verified-main-ci-pending.md).
+
+**Live resulting-main Windows release:** [CI38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) exact executable merge SHA `ec7673c...`, validation job114938627726 PASS, fast job114938672759 PASS, windows-candidate job114939592934 **IN PROGRESS**, no final real production ZIP or resulting-main PASS claim yet. Next successful Windows job requires independent genuine ZIP CRC/fourhash and current physical/risk pin. Do not mistake green PR for resulting-main or physical approval. No user data installation/run/AppData, PA and M11 paused; Spectrum Core picker/upload/218 icons unchanged.
+
+## HISTORICAL 2026-10-12 — U04 modern user-approved Archived Done delete PR343 fourth CI, general U count 40/41
 
 **General Narro-local U01–U41 functional coverage: 40/41 accepted, 1/41 U04 implementation PENDING exact CI/merge/main release.** **Specific evidenced gap shortlist: 8/9 code+automated release accepted, U04 0/1**. Mandatory physically accepted milestones **3/10, 7 remain**, native PA-01–09 USER-PAUSED/NOT RUN; original current Blitzit source parity OPEN, M11 strictly optional/dormant. [41-ID implementation ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
 
