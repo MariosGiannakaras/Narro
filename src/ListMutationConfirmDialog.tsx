@@ -6,7 +6,7 @@ import {
 } from "react";
 import "./listMutationConfirmDialog.css";
 
-export type ListMutationConfirmAction = "archive" | "delete";
+export type ListMutationConfirmAction = "archive" | "delete" | "delete-done-task";
 
 type ListMutationConfirmDialogProps = {
   action: ListMutationConfirmAction;
@@ -15,6 +15,7 @@ type ListMutationConfirmDialogProps = {
   error?: string | null;
   onCancel: () => void;
   onConfirm: () => void;
+  onReturnFocus?: () => void;
 };
 
 function focusableElements(container: HTMLElement): HTMLElement[] {
@@ -32,6 +33,7 @@ export function ListMutationConfirmDialog({
   error = null,
   onCancel,
   onConfirm,
+  onReturnFocus,
 }: ListMutationConfirmDialogProps) {
   const titleId = useId();
   const descriptionId = useId();
@@ -39,17 +41,25 @@ export function ListMutationConfirmDialog({
   const cancelRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
-  const isDelete = action === "delete";
-  const heading = isDelete ? `Permanently delete ${listTitle}?` : `Archive ${listTitle}?`;
-  const description = isDelete
-    ? "This permanently removes the archived list and its tasks. This action cannot be undone."
-    : "The list leaves your active workspace, but its tasks and history stay preserved and can be restored later.";
-  const confirmLabel = isDelete ? "Permanently delete" : "Archive list";
+  const isDelete = action !== "archive";
+  const isDoneTaskDelete = action === "delete-done-task";
+  const heading = isDoneTaskDelete
+    ? "Permanently delete this task?"
+    : isDelete ? `Permanently delete ${listTitle}?` : `Archive ${listTitle}?`;
+  const description = isDoneTaskDelete
+    ? `“${listTitle}” and its saved information will be permanently removed.`
+    : isDelete
+      ? "This permanently removes the archived list and its tasks. This action cannot be undone."
+      : "The list leaves your active workspace, but its tasks and history stay preserved and can be restored later.";
+  const confirmLabel = isDoneTaskDelete ? "Delete task permanently" : isDelete ? "Permanently delete" : "Archive list";
 
   useEffect(() => {
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     cancelRef.current?.focus();
-    return () => openerRef.current?.focus();
+    return () => {
+      if (openerRef.current?.isConnected) openerRef.current.focus();
+      else onReturnFocus?.();
+    };
   }, []);
 
   function requestCancel() {
@@ -101,6 +111,16 @@ export function ListMutationConfirmDialog({
         </p>
         <h2 id={titleId} className="list-confirm-dialog__title type-section-title">{heading}</h2>
         <p id={descriptionId} className="list-confirm-dialog__description">{description}</p>
+        {isDoneTaskDelete ? (
+          <div className="list-confirm-dialog__irreversible" data-archived-done-delete-warning="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3 2 21h20L12 3Z" />
+              <path d="M12 9v5" />
+              <path d="M12 18h.01" />
+            </svg>
+            <span>Notes, subtasks, reminders, tracked sessions and their Reports / export history will also be deleted. This cannot be undone.</span>
+          </div>
+        ) : null}
 
         {error ? <div className="list-confirm-dialog__error" role="alert">{error}</div> : null}
 
