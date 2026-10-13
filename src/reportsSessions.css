@@ -188,6 +188,7 @@
   background: var(--color-success);
 }
 
+.reports-sessions__backdrop[hidden] { display: none; }
 .reports-sessions__backdrop {
   position: fixed;
   z-index: 2200;

@@ -1,6 +1,6 @@
 import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
-import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { focusOverdueAge } from "./focusOverdueAge";
 import { listenForBoardInvalidation } from "./boardInvalidation";
@@ -456,6 +456,13 @@ export function FocusPanel({
   const [addTaskTitle, setAddTaskTitle] = useState("");
   const [addTaskListId, setAddTaskListId] = useState("");
   const [addTaskPending, setAddTaskPending] = useState(false);
+  const addTaskEditorRef = useRef<HTMLFormElement>(null);
+  useLayoutEffect(() => {
+    if (addTaskOpen && presentationActive) {
+      // Input autofocus alone may leave the action row below the compact queue.
+      addTaskEditorRef.current?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+    }
+  }, [addTaskOpen, presentationActive]);
   // Synchronous per-mounted ownership; React pending state updates after event handlers.
   const rowMutationInFlightRef = useRef(false);
   const addTaskInFlightRef = useRef(false);
@@ -1388,6 +1395,7 @@ export function FocusPanel({
           </button>
         ) : (
           <form
+            ref={addTaskEditorRef}
             className="focus-panel__add-task-editor"
             data-focus-add-task="editor"
             inert={Boolean(completionSuccessContent)}

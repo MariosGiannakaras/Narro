@@ -28,7 +28,7 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
  if(scenario==='m7-integration') {
   required.length=0;
   required.push('catalogCommittedCrud','catalogStaleResponsesRejected','catalogEntryReconciled','catalogSelectedRecovery',
-   'catalogNoPolling','catalogDisposedResponseIgnored','queueLastRowReachable','queueMenuReachable','queueHeaderStable','queueNoHorizontalOverflow',
+   'catalogNoPolling','catalogDisposedResponseIgnored','queueLastRowReachable','queueMenuReachable','queueHeaderStable','queueNoHorizontalOverflow','focusAddEditorFullyVisible',
    'deleteMenuRetained','deleteMenuUnobscured','deleteCardMetadataStable','deleteCancelAndDismissSafe','deleteFailureRetrySafe','deletePendingExactlyOnce','deleteIndependentIdentityPreserved',
    'pointerDragCrossLane','pointerDragSameLane','pointerDragIdentityPreserved','pointerDragCancellationSafe','pointerDragThresholdSafe','pointerDragInteractiveGuard','pointerDragScheduledGuard','pointerDragCleanup','keyboardReorderPreserved');
  }
