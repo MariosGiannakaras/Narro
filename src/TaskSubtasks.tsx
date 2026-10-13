@@ -272,7 +272,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onDelete(subtask);
                                 }}
-                              ><ActionIcon name="close" /></button>
+                              ><ActionIcon name="trash" /></button>
                             </Tooltip>
                           </>
                         )}
