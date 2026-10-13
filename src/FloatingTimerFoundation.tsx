@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { formatInvokeError } from "./diagnosticApi";
@@ -489,11 +490,11 @@ export function FloatingTimerFoundation({
                   aria-label="Collapse Timer"
                   disabled={transitionPending || resizePending}
                   onClick={() => { void requestExpanded(false); }}
-                >⌃</button>
+                ><ActionIcon name="chevron-up" /></button>
               </Tooltip>
             ) : (
               <Tooltip content="Add subtask" align="end">
-                <button type="button" className="floating-timer-foundation__subtask-control" aria-label="Add subtask" disabled>+</button>
+                <button type="button" className="floating-timer-foundation__subtask-control" aria-label="Add subtask" disabled><ActionIcon name="plus" /></button>
               </Tooltip>
             )}
             <Tooltip content="Return to Focus Panel" align="end">
@@ -504,7 +505,7 @@ export function FloatingTimerFoundation({
                 aria-label="Return to Focus Panel"
                 disabled={transitionPending || resizePending}
                 onClick={onReturnToPanel}
-              >↗</button>
+              ><ActionIcon name="timer-to-panel" /></button>
             </Tooltip>
           </div>
         )}
