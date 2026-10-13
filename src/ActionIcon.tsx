@@ -35,9 +35,9 @@ export function ActionIcon({ name, size = 16 }: { name: ActionIconName; size?: n
     case "chevrons-right": return <svg {...common}><path d="m6 17 5-5-5-5m7 10 5-5-5-5" /></svg>;
     // Distinct, mirrored window-state icons rather than font-dependent diagonal arrows.
     case "panel-to-timer":
-    case "shrink": return <svg {...common}><path d="m14 10 7-7m-5 0h5v5M10 14l-7 7m0-5v5h5" /></svg>;
+    case "shrink": return <svg {...common}><path d="m3 3 7 7m0-6v6H4M21 21l-7-7m0 6v-6h6" /></svg>;
     case "timer-to-panel":
-    case "expand": return <svg {...common}><path d="M8 3H3v5m0-5 7 7m6 11h5v-5m0 5-7-7" /></svg>;
+    case "expand": return <svg {...common}><path d="M10 10 3 3m0 6V3h6m5 11 7 7m0-6v6h-6" /></svg>;
     case "arrow-left": return <svg {...common}><path d="m12 19-7-7 7-7M5 12h14" /></svg>;
     case "arrow-right": return <svg {...common}><path d="m12 5 7 7-7 7M19 12H5" /></svg>;
     case "arrow-up": return <svg {...common}><path d="m5 12 7-7 7 7M12 19V5" /></svg>;
