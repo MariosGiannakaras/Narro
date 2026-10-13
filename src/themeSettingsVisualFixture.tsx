@@ -11,6 +11,7 @@ import { ThemeSettingsPanelView } from "./ThemeSettingsPanel";
 import type { MonitorDescriptor } from "./diagnosticApi";
 import type { ThemePreference } from "./themeApi";
 import { WindowsShortcutSettingsPanelView } from "./WindowsShortcutSettingsPanel";
+import { WindowsShortcutsDialog } from "./WindowsShortcutsDialog";
 import type { GlobalShortcutSettingsSnapshot } from "./globalShortcutSettingsApi";
 
 const params = new URLSearchParams(window.location.search);
@@ -20,6 +21,7 @@ const error = params.get("error") === "1"
   ? "[THEME_PREFERENCE_FAILED] The theme preference could not be saved."
   : null;
 const shortcutConflict = params.get("shortcutConflict") === "1";
+const shortcutsDialog = params.get("shortcutsDialog") === "1";
 const section = params.get("section") ?? "upper";
 
 const preferenceSnapshot: PreferenceSettingsSnapshot = {
@@ -119,6 +121,17 @@ if (!root) throw new Error("Theme settings fixture root is missing.");
 
 flushSync(() => {
   createRoot(root).render(
+    shortcutsDialog ? (
+      <WindowsShortcutsDialog
+        onRequestClose={() => undefined}
+        settingsContent={(
+          <WindowsShortcutSettingsPanelView
+            snapshot={shortcutSnapshot}
+            onChange={() => undefined}
+          />
+        )}
+      />
+    ) : (
     <ThemeSettingsPanelView
       theme={theme}
       error={error}
@@ -149,11 +162,13 @@ flushSync(() => {
         snapshot={shortcutSnapshot}
         onChange={() => undefined}
       />
-    </ThemeSettingsPanelView>,
+    </ThemeSettingsPanelView>
+    ),
   );
 });
 
 document.documentElement.dataset.themeSettingsShortcutConflict = shortcutConflict ? "true" : "false";
+document.documentElement.dataset.themeSettingsShortcutsDialog = shortcutsDialog ? "true" : "false";
 document.documentElement.dataset.themeSettingsSection = section;
 
 const sectionTarget: Record<string, string> = {
@@ -163,8 +178,25 @@ const sectionTarget: Record<string, string> = {
 };
 
 window.requestAnimationFrame(() => {
-  document.getElementById(sectionTarget[section] ?? sectionTarget.upper)?.scrollIntoView({ block: "start" });
+  // Source-aligned section captures must stay inside Edge's screenshot viewport.
+  // scrollIntoView scrolled the page past the visible fixture: the former
+  // preferences-middle/lower PNGs were entirely blank although the DOM passed.
+  if (!shortcutsDialog && section !== "upper") {
+    const target = document.getElementById(sectionTarget[section] ?? sectionTarget.upper);
+    const surface = document.querySelector<HTMLElement>(".theme-settings");
+    if (!target || !surface) throw new Error("Preferences fixture section target is missing.");
+    const relativeTop = target.getBoundingClientRect().top - surface.getBoundingClientRect().top;
+    surface.style.transform = `translateY(-${Math.max(0, Math.round(relativeTop) - 72)}px)`;
+  }
   window.requestAnimationFrame(() => {
+    // Check actual layout: these three readable accessibility names must not
+    // occupy visible space in a standalone renderer without unrelated CSS.
+    const labels = Array.from(document.querySelectorAll<HTMLElement>(".windows-shortcuts__toggle .sr-only"));
+    const labelsHidden = labels.length === 3 && labels.every((label) => {
+      const bounds = label.getBoundingClientRect();
+      return bounds.width <= 1 && bounds.height <= 1;
+    });
+    document.documentElement.dataset.themeSettingsShortcutLabelsHidden = labelsHidden ? "true" : "false";
     document.documentElement.dataset.themeSettingsFixtureReady = "true";
   });
 });

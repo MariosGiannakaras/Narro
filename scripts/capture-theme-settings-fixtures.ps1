@@ -131,7 +131,9 @@ try {
         @{ Label = "shortcut-conflict"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&shortcutConflict=1" },
         @{ Label = "preferences-upper"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=upper" },
         @{ Label = "preferences-middle"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=middle" },
-        @{ Label = "preferences-lower"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=lower" }
+        @{ Label = "preferences-lower"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=lower" },
+        @{ Label = "shortcuts-dialog-dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark&shortcutsDialog=1" },
+        @{ Label = "shortcuts-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&shortcutsDialog=1" }
     )
 
     foreach ($state in $states) {
