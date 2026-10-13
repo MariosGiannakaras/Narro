@@ -237,7 +237,7 @@ function FocusTaskRow({
               </button>
             </Tooltip>
           ) : (
-            <span className="focus-panel__done-mark" aria-hidden="true">✓</span>
+            <span className="focus-panel__done-mark"><ActionIcon name="check" /></span>
           )}
         </span>
 
@@ -1467,7 +1467,7 @@ export function FocusPanel({
               aria-label={`Completed Break, ${formatDuration(session.durationSeconds)}`}
             >
               <div className="focus-panel__task-row-mainline">
-                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark" aria-hidden="true">✓</span></span>
+                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark"><ActionIcon name="check" /></span></span>
                 <div className="focus-panel__task-main">
                   <div className="focus-panel__task-title-row">
                     <span className="focus-panel__break-done-title">Break</span>
