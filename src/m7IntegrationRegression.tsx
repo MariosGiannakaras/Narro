@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
 import { ListBoard } from "./ListBoard";
+import { AppShell } from "./AppShell";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
 import { archiveListFromSettings, restoreListFromSettings, permanentlyDeleteListFromSettings } from "./listSettingsApi";
 import { emitBoardInvalidated } from "./boardInvalidation";
@@ -240,6 +241,34 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     },
   };
   const root = createRoot(container);
+  // Exercise the real production shell CSS, rather than the separately bounded
+  // screenshot fixture. Tall content must scroll inside Main and keep its nav.
+  const shellHost = document.createElement("div");
+  shellHost.style.cssText = "position:fixed;inset:0;z-index:10000";
+  document.body.append(shellHost);
+  const shellRoot = createRoot(shellHost);
+  try {
+    flushSync(() => shellRoot.render(<AppShell fixtureMode homeContent={
+      <div style={{ height: 1800 }}>Long owned planning/report content</div>
+    } />));
+    const shell = shellHost.querySelector<HTMLElement>(".app-shell")!;
+    shell.classList.remove("app-shell--fixture");
+    await wait();
+    const main = shell.querySelector<HTMLElement>(".app-shell__content")!;
+    const nav = shell.querySelector<HTMLElement>(".app-shell__primary-nav")!;
+    assert(shell.getBoundingClientRect().bottom <= innerHeight + 1
+      && nav.getBoundingClientRect().bottom <= innerHeight + 1,
+    "production shell expands beyond the Windows viewport and hides navigation");
+    assert(main.scrollHeight > main.clientHeight && main.clientHeight > 0,
+      "long content must retain an internal scroll owner");
+    main.scrollTop = 120;
+    assert(main.scrollTop === 120, "Main scrolling was disabled instead of contained");
+    assert(getComputedStyle(main).scrollbarWidth === "none",
+      "Main exposes native scrollbar chrome");
+  } finally {
+    flushSync(() => shellRoot.unmount());
+    shellHost.remove();
+  }
   const renderFocus = (refreshKey = 0, presentationActive = true) => flushSync(() => root.render(
     <FocusPanel refreshKey={refreshKey} presentationActive={presentationActive}
       sharedTimerProjection={{ payload: timer, settled: true }} />));
@@ -864,7 +893,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
-    focusAddEditorFullyVisible: true,
+    focusAddEditorFullyVisible: true, productionShellViewportContained: true,
     pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
     pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
     deleteMenuRetained: true, deleteMenuUnobscured: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
