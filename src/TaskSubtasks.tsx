@@ -223,7 +223,7 @@ export function TaskSubtasks({
                                 aria-label="Cancel subtask edit"
                                 disabled={model.pending}
                                 onClick={onCancelEdit}
-                              >×</button>
+                              ><UiActionIcon name="x" size={14} /></button>
                             </Tooltip>
                             <Tooltip content="Save subtask title">
                               <button
@@ -233,7 +233,7 @@ export function TaskSubtasks({
                                 aria-label="Save subtask title"
                                 disabled={model.pending || !model.editor?.value.trim()}
                                 onClick={onSaveEdit}
-                              >✓</button>
+                              ><UiActionIcon name="check" size={14} /></button>
                             </Tooltip>
                           </>
                         ) : (
@@ -272,7 +272,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onDelete(subtask);
                                 }}
-                              >×</button>
+                              ><UiActionIcon name="x" size={14} /></button>
                             </Tooltip>
                           </>
                         )}
@@ -304,7 +304,7 @@ export function TaskSubtasks({
                         onCreateValueChange("");
                         newSubtaskInputRef.current?.focus();
                       }}
-                    >×</button>
+                    ><UiActionIcon name="x" size={14} /></button>
                   ) : null}
                   <button
                     type="submit"
