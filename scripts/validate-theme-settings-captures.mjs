@@ -38,6 +38,11 @@ async function assertRenderedScreenshot(label) {
   invariant(distinct.size > 16, `${label} screenshot is visually blank/monochrome despite ready DOM`);
 }
 
+function assertShortcutLabelsHidden(dom, label) {
+  invariant(dom.includes('data-theme-settings-shortcut-labels-hidden="true"'),
+    `${label} renders accessible-only toggle labels into the visible layout`);
+}
+
 for (const preference of ["system", "dark", "light"]) {
   const label = `theme-settings-${preference}`;
   const dom = await read(label);
@@ -45,6 +50,7 @@ for (const preference of ["system", "dark", "light"]) {
   invariant(dom.includes('data-theme-settings="true"'), `${label} production settings surface is missing`);
   invariant(dom.includes(`data-theme="${preference}"`), `${label} root theme token is incorrect`);
   invariant(dom.includes(`data-theme-settings-preference="${preference}"`), `${label} fixture preference marker is incorrect`);
+  assertShortcutLabelsHidden(dom, label);
   invariant(dom.includes("Preferences"), `${label} Preferences heading is missing`);
   invariant(dom.includes("General"), `${label} General section is missing`);
   invariant(dom.includes('role="group" aria-label="Theme"'), `${label} accessible Theme group is missing`);
@@ -74,6 +80,7 @@ invariant(errorDom.includes("THEME_PREFERENCE_FAILED"), "error state must retain
 invariant(/data-theme-option="system"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-theme-option="system"/.test(errorDom), "error state must keep System selected after a failed save");
 
 const shortcutConflictDom = await read("theme-settings-shortcut-conflict");
+assertShortcutLabelsHidden(shortcutConflictDom, "theme-settings-shortcut-conflict");
 invariant(shortcutConflictDom.includes('data-theme-settings-shortcut-conflict="true"'), "shortcut conflict fixture marker is missing");
 invariant(shortcutConflictDom.includes('data-global-shortcut-kind="findFocusTimer"'), "Find Timer row is missing in conflict state");
 invariant(shortcutConflictDom.includes('data-global-shortcut-enabled="true"'), "conflicted shortcut must retain enabled preference intent");
@@ -85,6 +92,7 @@ invariant(shortcutConflictDom.includes('role="alert"'), "shortcut conflict must 
 for (const section of ["upper", "middle", "lower"]) {
   await assertRenderedScreenshot(`theme-settings-preferences-${section}`);
   const dom = await read(`theme-settings-preferences-${section}`);
+  assertShortcutLabelsHidden(dom, `theme-settings-preferences-${section}`);
   invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `Preferences ${section} capture did not reach readiness`);
   invariant(dom.includes(`data-theme-settings-section="${section}"`), `Preferences ${section} marker is missing`);
   invariant(dom.includes("Blitz Panel"), `Preferences ${section} Blitz Panel section is missing`);
@@ -118,6 +126,7 @@ for (const theme of ["dark", "light"]) {
   const label = `theme-settings-shortcuts-dialog-${theme}`;
   await assertRenderedScreenshot(label);
   const dom = await read(label);
+  assertShortcutLabelsHidden(dom, label);
   invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `${label} did not reach readiness`);
   invariant(dom.includes(`data-theme="${theme}"`), `${label} source theme is missing`);
   invariant(dom.includes('data-theme-settings-shortcuts-dialog="true"'), `${label} fixture did not select the dedicated dialog`);
