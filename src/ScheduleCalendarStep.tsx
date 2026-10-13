@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { useEffect, useState } from "react";
 import { formatVisibleDate } from "./dateTimeFormat";
 import { calendarMonthDays, calendarMonthLabel, shiftCalendarMonth, validCalendarDate } from "./scheduleCalendar";
@@ -26,14 +27,14 @@ export function ScheduleCalendarStep({ selectedDate, todayDate, disabled, onSele
           aria-label="Previous calendar month"
           disabled={disabled || month === "0001-01"}
           onClick={() => setMonth((current) => shiftCalendarMonth(current, -1))}
-        >‹</button>
+        ><UiActionIcon name="chevron-left" /></button>
         <h3 className="type-section-title">{calendarMonthLabel(month)}</h3>
         <button
           type="button"
           aria-label="Next calendar month"
           disabled={disabled || month === "9999-12"}
           onClick={() => setMonth((current) => shiftCalendarMonth(current, 1))}
-        >›</button>
+        ><UiActionIcon name="chevron-right" /></button>
       </div>
       <div className="task-schedule-dialog__calendar-grid" role="group" aria-label="Choose schedule date">
         {MONDAY_FIRST.map((day) => (
