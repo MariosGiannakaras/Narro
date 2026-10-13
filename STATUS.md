@@ -1,10 +1,10 @@
 # STATUS.md
 
-## NOW — PR350 merged/CI3/3; targeted native0/5
+## NOW — PA350 targeted native capture5/5 frozen; analysis0/5
 
-[Accepted source and safety checkpoint](work-log/2026-10-14-pa350-merged-native-ready.md): PR350 CI38464889855 **3/3 SUCCESS**, guarded merged0f606bc3;527/527 source/build/test/config blobs identical. Full original artifacts uploaded, validation EXE6c780f13. Prior acquisition/review8/8, corrected native2/3; targeted0/5. Fresh current original privately backed up/protected, owned profile ACTIVE; no stale original restored.
+[Whole recording,312 files, logs and exact continuation](work-log/2026-10-14-pa350-native-acquisition-complete.md). PR350 merged0f606bc3, exact PR CI3/3,527/527 executable/source/build/test/config blobs equal. EXE6c780f13. Continuous21m14.602s dual4480x1080/60fps captured all five targeted groups including actual300s+300s Pomodoro boundaries. Original profiles/motion/topology/Focus Assist restored with fresh-baseline hash equality. Personal backups/ledger excluded.
 
-**NEXT:** dual-screen targeted capture: normal Main entry, exact Ctrl+Alt+P, full Focus form, nested Reports Cancel/pending Commit, actual Pomodoro delivery. Normal Quit/freeze/upload, restore current original/motion/topology/Focus Assist. MSI/hardware/source parity/performance comparison OPEN/NOT RUN. Mandatory3/10/M10 blocked; M11/PA09 excluded, picker/upload/218icons preserved.
+**NEXT:** aggregate frames/audio/native traces/domain review, disposition every sufficiently exercised open gate; confirmed corrections only. Prior native corrective2/3, mandatory3/10 unchanged. MSI/hardware/source parity/performance comparison OPEN/NOT RUN, M10 blocked, M11/PA09 excluded; picker/upload/218icons preserved.
 
 **Historical CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
 
