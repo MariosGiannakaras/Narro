@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-13T10:18:29.066156+00:00",
+  "pr": 349,
+  "first_head": "31fc1ef91f0ecc15a75bdf9a11deba8d9d1525d2",
+  "first_ci": 38376479046,
+  "first_ci_verdict": "3/3 SUCCESS; not mergeable acceptance because late visual review found introduced summary layout regression",
+  "replacement_head": "d32a500e2f00aeeb2bf73033195e96ee6e46ce10",
+  "replacement_ci": 38381266484,
+  "replacement_ci_verdict": "PENDING, not 3/3 accepted",
+  "local_frontend_entries_passed": 95,
+  "transition_unit_tests_passed": 22,
+  "reports_theme_mode_captures_passed": 22,
+  "windows_harness_self_tests_passed": 5,
+  "native_acceptance_corrected": "0/3",
+  "recorder_health": {
+    "verdict": "PASS recorder only; not PA06 Narro audible acceptance",
+    "duration_seconds": 78.284,
+    "width": 4480,
+    "height": 1080,
+    "fps": 60,
+    "mean_db": -43.2,
+    "peak_db": -12.1,
+    "stimulus": "Windows stock Notify System Generic sound"
+  },
+  "settings_repair": "existing signed Microsoft package registered successfully; ms-settings URI still unavailable, DPI change NOT RUN",
+  "files": [
+    {
+      "path": "after-reports-sessions-add-keyboard-dark.png",
+      "bytes": 34790,
+      "sha256": "f78b5063f69a8245d763dc520472bb895b56d55a905db107757873a704ec412b"
+    },
+    {
+      "path": "after-reports-sessions-populated-dark.png",
+      "bytes": 43190,
+      "sha256": "3efbc75359864263b3d46e09ad2a306370655a6db41ee8c52376d681dfa8b52a"
+    },
+    {
+      "path": "before-reports-sessions-add-keyboard-dark.png",
+      "bytes": 34526,
+      "sha256": "bc2e89682885aa50a2709db18338b36da7fd30fc564bfeaf1e56239efd256c2d"
+    },
+    {
+      "path": "before-reports-sessions-populated-dark.png",
+      "bytes": 43058,
+      "sha256": "cbd19562179120f97af90150357de882148129dfc2a6ef321e241b05a1395fb1"
+    },
+    {
+      "path": "local-regressions-and-ci-31fc1ef9.zip",
+      "bytes": 1969506,
+      "sha256": "ac85a22cfeaa578ae3f80cb386bd94bcd5288d655a312e31e3d2d71dc7d7fbf8"
+    },
+    {
+      "path": "recorder-health-20261013.mkv",
+      "bytes": 11001680,
+      "sha256": "69863691a02bd913704ecdb683d5b06f941cd70eb7707b8cafcf607d53d1f447"
+    }
+  ]
+}

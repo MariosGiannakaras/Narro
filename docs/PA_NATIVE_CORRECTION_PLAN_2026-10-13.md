@@ -23,3 +23,7 @@ The actual tray handler saves Floating Timer placement then exits, without forci
 Historical source/CI/physical evidence stays immutable. Any replacement of Focus paint/region composition reopens affected current M1 monitor/DPI, M6/M7 transition/Time's Up/window interaction and M8 shortcut integration acceptance until the new exact binary is checked; unaffected source functionality is not reopened wholesale. Shutdown correction reopens its M7/M9 elapsed/persistence path only. M10 entry remains blocked, M11 excluded. Preserve Spectrum Core picker, image upload and218 icons.
 
 Regression-first, coherent feature PR, exact-head Windows CI, guarded merge and resulting-main proof precede final physical acceptance. Available environment/capture deficiencies are repaired separately; blocked MSI and unavailable Windows Settings remain explicit manual/environment actions.
+
+## Candidate implementation checkpoint
+
+[PR349 source/regression checkpoint](../work-log/2026-10-13-pa-corrections-pr349-local-validation.md): candidate B implemented, exact rectangular native region authority/idempotent recovery and real Win32-region regression included. F29 now also includes directly rendered long-title overflow correction; erroneous summary layout in initial candidate restored and guarded. Initial CI3/3 is historic, replacement d32a500e CI38381266484 pending; native corrected acceptance0/3. Audio recorder health proven independently; Settings registration did not repair URI.

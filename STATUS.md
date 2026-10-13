@@ -15,6 +15,8 @@
 
 **One next action:** PR349 DRAFT, replacement head d32a500e2f00aeeb2bf73033195e96ee6e46ce10 / CI38381266484 PENDING. First head31fc1ef9 CI38376479046 was3/3 green but rejected in late review for an introduced Reports summary regression, now corrected with rendered coverage. Local frontend95/95, transition22/22, Reports captures22/22, Windows harness5/5, rustfmt PASS. [Exact source/evidence/continuation checkpoint](work-log/2026-10-13-pa-corrections-pr349-local-validation.md). Resolve replacement CI, reconcile current main/independent PR348, guarded merge/resulting-main/hash proof, then owned-profile dense physical regression. Corrected acceptances0/3, mandatory3/10, M10 blocked/M11 excluded. Recorder real audio health PASS (peak−12.1dB), PA06 Narro sound still open. Original profiles restored; Settings package registration succeeded but URI remains unavailable, exact DPI change NOT RUN; MSI product-policy block remains. All code pushed on feature branch; evidence/current truth on main.
 
+
+
 **Concurrency boundary:** Preserve the independent PR344/345/346 source workstream below; physical PA-01–08 authorization/owner and exact frozen EXE are stated above. Older pause/next-action text below describes that other owner snapshot and does not cancel this user-resumed acquisition. Do not duplicate those PRs.
 
 ## Source-owner PR #345 acceptance — 2026-10-13
