@@ -458,7 +458,7 @@ export function ReportsOverviewView({
                     key={option.id ?? "all"}
                     onClick={() => onToggleListSelection?.(option.id)}
                   >
-                    <span className="reports-overview__list-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+                    <span className="reports-overview__list-check">{selected ? <ActionIcon name="check" /> : null}</span>
                     <i style={{ backgroundColor: option.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
                     {option.title}
                   </button>
