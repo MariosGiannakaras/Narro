@@ -317,7 +317,7 @@ export function FocusLiveSubtasks({
                               completed: !completed,
                             }))}
                           >
-                            <ActionIcon name={completed ? "check" : "circle"} />
+                            <ActionIcon name={completed ? "circle-check" : "circle"} />
                           </button>
                         </Tooltip>
 
