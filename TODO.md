@@ -1,5 +1,8 @@
 # TODO.md
 
+**Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
+
+
 **Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
 
 
