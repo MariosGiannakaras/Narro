@@ -272,7 +272,7 @@ export function ArchivedDoneTasksPanel({
                   </td>
                   <td>
                     {task.hasNote ? (
-                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note">▤</span>
+                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><UiActionIcon name="file-text" /></span>
                     ) : <span className="type-metadata">No Info</span>}
                   </td>
                   <td>
