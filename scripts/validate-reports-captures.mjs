@@ -154,6 +154,8 @@ for (const theme of ["light", "dark"]) {
       invariant(dom.includes('data-reports-add-tab-contained="true"'), label + " Tab containment regression did not pass");
       invariant(dom.includes('data-reports-add-escape-dismissed="true"'), label + " Escape dismissal regression did not pass");
       invariant(dom.includes('data-reports-add-focus-restored="true"'), label + " focus restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-commit-focus-restored="true"'), label + " successful-submit opener restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-long-title-contained="true"'), label + " selected long task caused horizontal dialog overflow");
       invariant(dom.includes('data-reports-add-pending-guard="true"'), label + " pending dismissal/containment regression did not pass");
       continue;
     }

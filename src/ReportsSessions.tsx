@@ -165,6 +165,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const sessionsActiveRequestKeyRef = useRef<string | null>(null);
   const detailActiveTaskIdRef = useRef<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
+  const addOpenerRef = useRef<HTMLElement | null>(null);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
   // Shared synchronous owner for Add, Edit and Delete. React pending state alone
@@ -438,7 +439,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     }
   };
 
-  const openAddSession = (taskId = "") => {
+  const openAddSession = (taskId = "", opener?: HTMLElement) => {
+    addOpenerRef.current = opener ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
     setMutationError(null);
     setAddDraft(makeAddDraft(timeZone, taskId));
     setAddOpen(true);
@@ -590,7 +592,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         exportPending={exportPending}
         onBack={onBack}
         onOpenOverview={onOpenOverview}
-        onOpenAddSession={() => openAddSession()}
+        onOpenAddSession={(opener) => openAddSession("", opener)}
         onExport={() => void exportSessions()}
         onToggleBreakSessions={() => setShowBreakSessions((visible) => !visible)}
         onToggleListFilter={() => setListFilterOpen((open) => !open)}
@@ -618,7 +620,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
           returnFocusTarget={detailOpenerRef.current}
           pendingSessionId={mutationPendingId}
           onClose={() => setDetailTaskId(null)}
-          onAddSession={(taskId) => openAddSession(taskId)}
+          onAddSession={(taskId, opener) => openAddSession(taskId, opener)}
           onCommitEndTime={commitEndTime}
           onDelete={(row) => void deleteSession(row)}
         />
@@ -626,6 +628,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
 
       {addOpen ? (
         <ReportAddSessionDialog
+          returnFocusTarget={addOpenerRef.current}
           tasks={searchData?.tasks ?? []}
           draft={addDraftView}
           pending={mutationPendingId === "add"}

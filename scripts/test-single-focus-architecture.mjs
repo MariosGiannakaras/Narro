@@ -8,6 +8,7 @@ const invariant = (condition, message) => {
 const config = JSON.parse(read("src-tauri/tauri.conf.json"));
 const capability = JSON.parse(read("src-tauri/capabilities/default.json"));
 const lib = read("src-tauri/src/lib.rs");
+const shutdown = read("src-tauri/src/normal_shutdown.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const region = read("src-tauri/src/timer_region.rs");
 const placement = read("src-tauri/src/floating_placement.rs");
@@ -80,13 +81,13 @@ invariant(
 invariant(
   coordinator.includes("commitPreparedFocusPresentation({")
     && coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
-    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation")
+    && coordinator.includes("await applyFocusSurfacePresentation(next)")
     && coordinator.includes("commitRendererPresentation: (next) =>"),
   "production coordinator must delegate prepaint -> native commit -> renderer ownership ordering to the tested transition helper",
 );
 invariant(
-  coordinator.includes("inert={!panelActive}")
-    && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
+  coordinator.includes("inert={!panelActive || transitionPending}")
+    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? ("),
   "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
@@ -101,7 +102,7 @@ invariant(
 invariant(
   coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
     && coordinator.includes("animateNativePresentation: (next) =>")
-    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs)")
+    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
@@ -110,10 +111,11 @@ invariant(
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
     && lib.includes("fluent_point_to_point_easing")
-    && coordinatorCss.includes('data-focus-geometry-motion-from="timerCompact"')
-    && coordinatorCss.includes('data-focus-geometry-motion-from="timerExpanded"')
-    && coordinatorCss.includes("clip-path: inset(0 0 590px 0 round 12px)")
-    && coordinatorCss.includes("clip-path: inset(0 0 400px 0 round 12px)"),
+    && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)")
+    && coordinator.includes("afterRendererCommit: async () =>")
+    && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
+    && !coordinatorCss.includes("inset(0 0 590px")
+    && !coordinatorCss.includes("inset(0 0 400px"),
   "Panel/Timer switching must coordinate finite Fluent point-to-point same-WebView geometry and native position continuity",
 );
 invariant(
@@ -239,16 +241,17 @@ invariant(
   "diagnostic persistence startup must fail closed before creating/opening SQLite outside the diagnostic app-data namespace",
 );
 const trayQuitBranch = lib.indexOf('} else if event.id() == "quit" {');
-const trayQuitSave = lib.indexOf(
-  "floating_placement::save_if_timer_visible(app_handle)",
-  trayQuitBranch,
-);
-const trayQuitExit = lib.indexOf("app_handle.exit(0);", trayQuitSave);
+const trayQuitSave = shutdown.indexOf("floating_placement::save_if_timer_visible(&app)");
+const timerFlush = shutdown.indexOf("service.checkpoint_before_normal_exit(&app)?");
+const trayQuitExit = shutdown.indexOf("app.exit(0);", timerFlush);
 invariant(
   trayQuitBranch >= 0
-    && trayQuitSave > trayQuitBranch
-    && trayQuitExit > trayQuitSave,
-  "tray Quit must persist visible Timer placement before terminating the Narro process",
+    && lib.includes("normal_shutdown::request_normal_exit(app_handle)")
+    && trayQuitSave >= 0 && timerFlush > trayQuitSave && trayQuitExit > timerFlush
+    && shutdown.includes("checkpoint()?;")
+    && shutdown.includes("EXIT_PENDING.swap(true")
+    && shutdown.includes("spawn_blocking"),
+  "tray Quit must offload its single owner, persist placement and force the timer checkpoint before exit; a failed checkpoint must not exit",
 );
 invariant(
   !lib.includes("prepare_floating_timer")
@@ -338,10 +341,11 @@ invariant(
     && placement.includes("pub(crate) fn planned_timer_position(")
     && lib.includes("fn animate_focus_surface_presentation_internal(")
     && lib.includes("windows::suspend_focus_display_recovery()")
-    && lib.includes("timer_region::apply(&window, target.region())")
-    && lib.includes("fn apply_panel_native_after_animated_cross_dpi_move(")
-    && lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),
-  "interactive/programmatic cross-monitor movement must defer competing DPI recovery, clip Panel-to-Timer before motion, and defer cross-DPI Panel reveal until target viewport settlement",
+    && lib.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && lib.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && lib.includes("restore_focus_native_snapshot_protected")
+    && !lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),
+  "interactive/programmatic cross-monitor movement must defer competing DPI recovery, protect outgoing and incoming pixels on one raster timeline, and hold through final DPI paint acknowledgement",
 );
 invariant(
   verifyConfig.includes("windows.length === 2")

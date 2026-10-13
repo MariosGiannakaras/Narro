@@ -264,3 +264,40 @@ test("failed renderer recovery preserves both failures for diagnosis", async () 
     return true;
   });
 });
+
+test("raster is retained through native commit and released only after renderer paint acknowledgement", async () => {
+  const h = harness("timerCompact", "panel", true);
+  h.transition.afterRendererCommit = async () => { h.calls.push("paint:panel"); h.calls.push("release:raster"); };
+  await commitPreparedFocusPresentation(h.transition);
+  assert.deepEqual(h.calls, ["ready:panel", "before:panel", "animated:panel", "motion:panel", "renderer:panel", "paint:panel", "release:raster"]);
+});
+
+for (const failedStage of ["before", "animated", "paint"]) {
+  test(`raster ${failedStage} failure paints the prior renderer before releasing native protection`, async () => {
+    const h = harness("timerCompact", "panel", true);
+    const failure = new Error(`raster ${failedStage} failed`);
+    if (failedStage === "paint") h.transition.afterRendererCommit = async () => { h.calls.push("paint:panel"); throw failure; };
+    else h.failures.set(failedStage, failure);
+    h.transition.beforeNativeRollback = async () => { h.calls.push("rollback-paint:timerCompact"); };
+    await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+    const painted = h.calls.indexOf("rollback-paint:timerCompact");
+    const restored = h.calls.indexOf("native:timerCompact");
+    assert.ok(painted >= 0 && painted < restored);
+    assert.equal(h.calls.filter((call) => call === "native:timerCompact").length, 1);
+  });
+}
+
+test("failed rollback paint preserves its error and does not uncover an unpainted native state", async () => {
+  const h = harness("panel", "timerCompact", true);
+  const failure = new Error("animation failed");
+  const recovery = new Error("rollback paint failed");
+  h.failures.set("animated", failure);
+  h.transition.beforeNativeRollback = async () => { throw recovery; };
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), (error) => {
+    assert.ok(error instanceof FocusPresentationRecoveryError);
+    assert.equal(error.transitionFailure, failure);
+    assert.equal(error.recoveryFailure, recovery);
+    return true;
+  });
+  assert.equal(h.calls.includes("native:panel"), false);
+});

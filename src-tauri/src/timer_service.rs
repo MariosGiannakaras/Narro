@@ -157,6 +157,36 @@ impl TimerService {
         )
     }
 
+    /// A periodic checkpoint is crash recovery, not the final normal-Quit boundary.
+    /// Capture time after acquiring the same gate as commands/background advancement.
+    pub fn checkpoint_before_normal_exit(
+        &self,
+        app_handle: &tauri::AppHandle,
+    ) -> CommandResult<TimerSessionPayload> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let raw_ms = self.raw_now_ms()?;
+        let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
+        let wall_time = current_wall_time();
+        let TimerServiceState {
+            controller,
+            effects_connection,
+            observed_ms,
+            ..
+        } = &mut *state;
+        checkpoint_runtime_before_exit(
+            controller,
+            effects_connection,
+            observed_ms,
+            now_ms,
+            &wall_time,
+            |payload| report_timer_change(app_handle, payload),
+        )?;
+        Ok(controller.snapshot())
+    }
+
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -769,6 +799,32 @@ fn decorate_timer_payload(
     Ok(payload)
 }
 
+fn checkpoint_runtime_before_exit<F>(
+    controller: &mut TimerController,
+    effects_connection: &mut Connection,
+    observed_ms: &mut u64,
+    now_ms: u64,
+    wall_time: &str,
+    report_change: F,
+) -> CommandResult<()>
+where
+    F: FnMut(&TimerSessionPayload),
+{
+    advance_controller_to(
+        controller,
+        effects_connection,
+        observed_ms,
+        now_ms,
+        wall_time,
+        report_change,
+    )?;
+    controller
+        .checkpoint(now_ms, wall_time)
+        .map_err(CommandError::timer_operation)?;
+    *observed_ms = now_ms;
+    Ok(())
+}
+
 fn advance_controller_to<F>(
     controller: &mut TimerController,
     effects_connection: &mut Connection,
@@ -1208,6 +1264,155 @@ mod tests {
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T6: &str = "2026-09-05T12:00:06Z";
+
+    #[test]
+    fn normal_exit_checkpoint_preserves_final_interval_identity_and_excludes_downtime() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+        controller
+            .checkpoint(5_000, "2026-09-05T12:00:05Z")
+            .unwrap();
+        let mut observed_ms = 5_000;
+        checkpoint_runtime_before_exit(
+            &mut controller,
+            &mut effects,
+            &mut observed_ms,
+            9_480,
+            "2026-09-05T12:00:09.480Z",
+            |_| {},
+        )
+        .unwrap();
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            9
+        );
+        drop(controller);
+        let recovered =
+            TimerController::recover(Connection::open(&path).unwrap(), 0, "2026-09-05T13:00:00Z")
+                .unwrap();
+        let payload = recovered.snapshot();
+        assert_eq!(payload.runtime.open_session_id, Some(session_id));
+        assert_eq!(payload.runtime.timer.task_id, Some(task_id));
+        assert_eq!(payload.runtime.timer.state, TimerStateKind::Paused);
+        assert_eq!(payload.runtime.timer.work_elapsed_ms, 9_480);
+        drop(recovered);
+        drop(effects);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn normal_exit_checkpoint_applies_due_countdown_boundary_before_persistence() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::EstCountdown { est_ms: 2_000 }, 0, T0)
+            .unwrap();
+        let mut observed_ms = 0;
+        let mut changes = Vec::new();
+        checkpoint_runtime_before_exit(
+            &mut controller,
+            &mut effects,
+            &mut observed_ms,
+            9_480,
+            "2026-09-05T12:00:09.480Z",
+            |payload| changes.push(payload.clone()),
+        )
+        .unwrap();
+        assert_eq!(
+            controller.snapshot().runtime.timer.state,
+            TimerStateKind::TimeUp
+        );
+        assert_eq!(controller.snapshot().runtime.timer.work_elapsed_ms, 2_000);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            2
+        );
+        assert!(!changes.is_empty());
+        drop(controller);
+        drop(effects);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn failed_normal_exit_checkpoint_does_not_exit_and_can_retry_without_duplicate_session() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+        controller
+            .checkpoint(5_000, "2026-09-05T12:00:05Z")
+            .unwrap();
+        effects.execute_batch("CREATE TRIGGER fail_exit_checkpoint BEFORE UPDATE ON timer_runtime_checkpoint BEGIN SELECT RAISE(ABORT, 'owned checkpoint failure'); END;").unwrap();
+        let mut observed_ms = 5_000;
+        let mut exited = false;
+        let result = crate::normal_shutdown::complete_after_checkpoint(
+            || {
+                checkpoint_runtime_before_exit(
+                    &mut controller,
+                    &mut effects,
+                    &mut observed_ms,
+                    9_480,
+                    "2026-09-05T12:00:09.480Z",
+                    |_| {},
+                )
+            },
+            || {
+                exited = true;
+            },
+        );
+        assert!(result.is_err());
+        assert!(!exited);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            5
+        );
+        effects
+            .execute_batch("DROP TRIGGER fail_exit_checkpoint;")
+            .unwrap();
+        crate::normal_shutdown::complete_after_checkpoint(
+            || {
+                checkpoint_runtime_before_exit(
+                    &mut controller,
+                    &mut effects,
+                    &mut observed_ms,
+                    9_480,
+                    "2026-09-05T12:00:09.480Z",
+                    |_| {},
+                )
+            },
+            || {
+                exited = true;
+            },
+        )
+        .unwrap();
+        assert!(exited);
+        assert_eq!(
+            controller.snapshot().runtime.open_session_id,
+            Some(session_id)
+        );
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            9
+        );
+        drop(controller);
+        drop(effects);
+        fs::remove_file(path).unwrap();
+    }
 
     fn fixture() -> (TimerController, Connection, TaskId, PathBuf) {
         let path =
