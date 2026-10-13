@@ -1,5 +1,11 @@
 # TODO.md
 
+## Parallel ChatGPT icon-control workstream — separate from PA-01–08 physical ownership
+
+- [x] **PR #347 shared SVG action-icon replacement fully accepted:** [PR](https://github.com/MariosGiannakaras/Narro/pull/347), head `61987f37065bb5987f95e41745792c3c5f8e5f7d`, PR [CI38370233998](https://github.com/MariosGiannakaras/Narro/actions/runs/38370233998) **3/3 PASS**, guarded squash merge `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, resulting-main [CI38374569549](https://github.com/MariosGiannakaras/Narro/actions/runs/38374569549) attempt2 **3/3 PASS**; ZIP validation: visual341/341 CRC/168 PNG, Focus runtime90/90 CRC, EXE/NSIS/MSI3/3 CRC; original picker/upload/218 icons untouched. [Immutable proof](work-log/2026-10-13-chatgpt-pr347-action-icon-resulting-main-accepted.md). No native physical or M11 acceptance.
+- [ ] **PR #348 final source-backed action icons:** [PR](https://github.com/MariosGiannakaras/Narro/pull/348), exact head `e1f0406adf2464cda6b5b3632d12d4fbdec905e4`, [CI38376948390](https://github.com/MariosGiannakaras/Narro/actions/runs/38376948390) validation/fast PASS, Windows candidate **RUNNING**. Visual ZIP11802079395 341/341 CRC, 168 PNG, dark/light expanded Timer verified (Trash Delete / X Cancel / circular check). Pending Windows full 3/3, guarded merge and resulting-main three-gate/artifact identity; Codex separately owns PA-01–08.
+
+
 ## CURRENT 2026-10-13 — PA-01–08 triaged; three confirmed corrective paths active
 
 **Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
