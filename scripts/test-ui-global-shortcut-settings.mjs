@@ -164,6 +164,15 @@ invariant(
     && validator.includes("Retry"),
   "Windows visual regression must capture and validate shortcut conflict/retry state",
 );
+invariant(panel.includes('className="sr-only"'), "global shortcut toggle needs an accessible name");
+invariant(css.includes(".windows-shortcuts__toggle .sr-only")
+  && css.includes("clip-path: inset(50%)")
+  && css.includes("white-space: nowrap"),
+  "accessible toggle labels must remain visually hidden without unrelated stylesheet imports");
+invariant(validator.includes("assertShortcutLabelsHidden")
+  && fixture.includes("themeSettingsShortcutLabelsHidden"),
+  "shortcuts visual fixture must verify actual hidden-label layout");
+
 invariant(
   css.includes("@media (max-width: 720px)")
     && css.includes("@media (prefers-reduced-motion: reduce)")
