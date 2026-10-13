@@ -166,7 +166,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
             >
               {option.id === ALL_LISTS ? <ListBadges options={options} focus={focus} /> : <ListBadge option={option} focus={focus} />}
               <span className="board-list-picker__option-title">{option.title}</span>
-              <span className="board-list-picker__check" aria-hidden="true">{selectedTarget === option.id ? "✓" : ""}</span>
+              <span className="board-list-picker__check">{selectedTarget === option.id ? <ActionIcon name="check" /> : null}</span>
             </button>
           ))}
         </div>
