@@ -461,7 +461,7 @@ export function FocusLiveSubtasks({
                                     listId: task.listId,
                                     expectedUpdatedAt: subtask.updatedAt,
                                   }))}
-                                ><ActionIcon name="close" /></button>
+                                ><ActionIcon name="trash" /></button>
                               </Tooltip>
                             </>
                           )}
