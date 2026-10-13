@@ -189,6 +189,14 @@ window.requestAnimationFrame(() => {
     surface.style.transform = `translateY(-${Math.max(0, Math.round(relativeTop) - 72)}px)`;
   }
   window.requestAnimationFrame(() => {
+    // Check actual layout: these three readable accessibility names must not
+    // occupy visible space in a standalone renderer without unrelated CSS.
+    const labels = Array.from(document.querySelectorAll<HTMLElement>(".windows-shortcuts__toggle .sr-only"));
+    const labelsHidden = labels.length === 3 && labels.every((label) => {
+      const bounds = label.getBoundingClientRect();
+      return bounds.width <= 1 && bounds.height <= 1;
+    });
+    document.documentElement.dataset.themeSettingsShortcutLabelsHidden = labelsHidden ? "true" : "false";
     document.documentElement.dataset.themeSettingsFixtureReady = "true";
   });
 });
