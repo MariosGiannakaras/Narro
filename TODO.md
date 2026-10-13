@@ -1,5 +1,8 @@
 # TODO.md
 
+**Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
+
+
 ## Parallel ChatGPT icon-control workstream — separate from PA-01–08 physical ownership
 
 - [x] **PR #347 shared SVG action-icon replacement fully accepted:** [PR](https://github.com/MariosGiannakaras/Narro/pull/347), head `61987f37065bb5987f95e41745792c3c5f8e5f7d`, PR [CI38370233998](https://github.com/MariosGiannakaras/Narro/actions/runs/38370233998) **3/3 PASS**, guarded squash merge `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, resulting-main [CI38374569549](https://github.com/MariosGiannakaras/Narro/actions/runs/38374569549) attempt2 **3/3 PASS**; ZIP validation: visual341/341 CRC/168 PNG, Focus runtime90/90 CRC, EXE/NSIS/MSI3/3 CRC; original picker/upload/218 icons untouched. [Immutable proof](work-log/2026-10-13-chatgpt-pr347-action-icon-resulting-main-accepted.md). No native physical or M11 acceptance.

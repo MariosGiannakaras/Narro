@@ -1,5 +1,8 @@
 # HANDOFF — PA-01–08 triaged; confirmed corrections 0/3
 
+**Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
+
+
 ## CURRENT 2026-10-13 — PA-01–08 triaged; three confirmed corrective paths active
 
 **Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
