@@ -88,6 +88,22 @@
   display: inline-block;
 }
 
+/* Global toggle names remain available to screen readers but must not be
+   visible in the standalone modal or isolated Edge fixture. Do not depend on
+   Focus/Archive stylesheets importing a global .sr-only utility. */
+.windows-shortcuts__toggle .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .windows-shortcuts__toggle input {
   position: absolute;
   inline-size: 1px;
