@@ -451,7 +451,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
       onPointerDown={(event) => event.stopPropagation()}
     >
       <span className="list-board-task__completion-slot" aria-hidden="true">
-        <span className="list-board-task__completion-mark">{done ? "✓" : "○"}</span>
+        <span className="list-board-task__completion-mark"><ActionIcon name={done ? "check" : "circle"} /></span>
       </span>
       <input
         className="list-board-task__title-input"
@@ -620,7 +620,7 @@ function NotesExpandedState() {
   return (
     <div className="list-board-task__fixture-body" data-fixture-only-body="notes-expanded">
       <span className="list-board-task__fixture-toolbar type-metadata" aria-hidden="true">
-        <strong>B</strong><em>I</em><s>S</s><span>• List</span><span>1. List</span><span>↶</span><span>↷</span>
+        <strong>B</strong><em>I</em><s>S</s><span>• List</span><span>1. List</span><span><ActionIcon name="undo" /></span><span><ActionIcon name="redo" /></span>
       </span>
       <p className="list-board-task__fixture-note">Review the launch notes and confirm the final checklist.</p>
       <span className="list-board-task__fixture-helper type-metadata">Links open only after explicit activation.</span>
@@ -637,7 +637,7 @@ function SubtasksExpandedState() {
       </div>
       <span className="list-board-task__subtask"><ActionIcon name="check" /><s>Collect references</s></span>
       <span className="list-board-task__subtask"><ActionIcon name="check" /><s>Draft outline</s></span>
-      <span className="list-board-task__subtask"><span aria-hidden="true">○</span><span>Review final copy</span></span>
+      <span className="list-board-task__subtask"><ActionIcon name="circle" /><span>Review final copy</span></span>
     </div>
   );
 }
