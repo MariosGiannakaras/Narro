@@ -1,3 +1,4 @@
+import { ActionIcon, type ActionIconName } from "./ActionIcon";
 import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
@@ -203,7 +204,7 @@ function TaskActionButton({
   disabled = false,
 }: {
   label: string;
-  glyph: string;
+  glyph: ActionIconName;
   action: () => void;
   actionId: "subtasks" | "notes" | "lane-left" | "lane-right";
   disabled?: boolean;
@@ -220,7 +221,7 @@ function TaskActionButton({
         onPointerDown={(event) => event.stopPropagation()}
         onClick={action}
       >
-        <span aria-hidden="true">{glyph}</span>
+        <ActionIcon name={glyph} />
       </button>
     </Tooltip>
   );
@@ -265,7 +266,7 @@ function TaskOverflowMenu({
       <Menu
         triggerLabel="Task actions"
         align="end"
-        trigger={<span aria-hidden="true">…</span>}
+        trigger={<ActionIcon name="more" />}
         onDismiss={confirmation?.onCancel}
         dismissDisabled={confirmation?.pending}
       >
@@ -285,7 +286,7 @@ function TaskOverflowMenu({
               ariaLabel={`Remove schedule for ${quickRemoveScheduleLabel}`}
               onSelect={actions.onRemoveSchedule}
             >
-              <span className="list-board-task__quick-unschedule-x" aria-hidden="true">×</span>
+              <span className="list-board-task__quick-unschedule-x"><ActionIcon name="close" /></span>
             </MenuItem>
           </div>
         ) : null}
@@ -329,7 +330,7 @@ function TaskActionRail({
         {actions.onSubtasks ? (
           <TaskActionButton
             label="Subtasks"
-            glyph="☷"
+            glyph="list"
             action={actions.onSubtasks}
             actionId="subtasks"
             disabled={Boolean(confirmation)}
@@ -340,7 +341,7 @@ function TaskActionRail({
         {actions.onNotes ? (
           <TaskActionButton
             label="Notes"
-            glyph="▤"
+            glyph="notes"
             action={actions.onNotes}
             actionId="notes"
             disabled={Boolean(confirmation)}
@@ -351,7 +352,7 @@ function TaskActionRail({
         {actions.onMoveLaneLeft ? (
           <TaskActionButton
             label="Move task one lane left"
-            glyph="←"
+            glyph="arrow-left"
             action={actions.onMoveLaneLeft}
             actionId="lane-left"
             disabled={Boolean(confirmation)}
@@ -362,7 +363,7 @@ function TaskActionRail({
         {actions.onMoveLaneRight ? (
           <TaskActionButton
             label="Move task one lane right"
-            glyph="→"
+            glyph="arrow-right"
             action={actions.onMoveLaneRight}
             actionId="lane-right"
             disabled={Boolean(confirmation)}
@@ -419,7 +420,7 @@ function InlineDeleteConfirmation({
           onPointerDown={(event) => event.stopPropagation()}
           onClick={confirmation.onCancel}
         >
-          <span aria-hidden="true">×</span>
+          <ActionIcon name="close" />
         </button>
       </Tooltip>
       {confirmation.error ? (
@@ -475,7 +476,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
               onPointerDown={(event) => event.stopPropagation()}
               onClick={editor.onCancel}
             >
-              <span aria-hidden="true">×</span>
+              <ActionIcon name="close" />
             </button>
           </Tooltip>
           <Tooltip content="Save task title">
@@ -488,7 +489,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
               disabled={editor.pending}
               onPointerDown={(event) => event.stopPropagation()}
             >
-              <span aria-hidden="true">✓</span>
+              <ActionIcon name="check" />
             </button>
           </Tooltip>
         </span>
@@ -511,7 +512,7 @@ function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
           onPointerDown={(event) => event.stopPropagation()}
           onClick={editor.onCancel}
         >
-          <span aria-hidden="true">×</span>
+          <ActionIcon name="close" />
         </button>
       </Tooltip>
       <Tooltip content="Save metric" boundarySelector=".list-board-task">
@@ -525,7 +526,7 @@ function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
           onPointerDown={(event) => event.stopPropagation()}
           onClick={editor.onSubmit}
         >
-          <span aria-hidden="true">✓</span>
+          <ActionIcon name="check" />
         </button>
       </Tooltip>
     </span>
@@ -634,8 +635,8 @@ function SubtasksExpandedState() {
         <span className="type-metadata">2/3 subtasks</span>
         <span className="list-board-task__subtask-progress" aria-label="2 of 3 subtasks complete"><span /></span>
       </div>
-      <span className="list-board-task__subtask"><span aria-hidden="true">✓</span><s>Collect references</s></span>
-      <span className="list-board-task__subtask"><span aria-hidden="true">✓</span><s>Draft outline</s></span>
+      <span className="list-board-task__subtask"><ActionIcon name="check" /><s>Collect references</s></span>
+      <span className="list-board-task__subtask"><ActionIcon name="check" /><s>Draft outline</s></span>
       <span className="list-board-task__subtask"><span aria-hidden="true">○</span><span>Review final copy</span></span>
     </div>
   );
@@ -768,11 +769,11 @@ export function TaskCard({
                       onPointerDown={(event) => event.stopPropagation()}
                       onClick={onComplete}
                     >
-                      <span className="list-board-task__completion-mark">○</span>
+                      <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
                     </button>
                   ) : (
                     <span className="list-board-task__completion-preview" aria-hidden="true">
-                      <span className="list-board-task__completion-mark">○</span>
+                      <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
                     </span>
                   )}
                 </span>
@@ -787,11 +788,11 @@ export function TaskCard({
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={onComplete}
                 >
-                  <span className="list-board-task__completion-mark">○</span>
+                  <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
                 </button>
               ) : (
                 <span className="list-board-task__completion-slot" aria-hidden="true">
-                  <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
+                  <span className="list-board-task__completion-mark"><ActionIcon name={state === "done" ? "check" : "circle"} /></span>
                 </span>
               )}
               {onTitleEdit ? (
