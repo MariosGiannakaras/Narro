@@ -1,3 +1,4 @@
+import { UiActionIcon, type UiActionIconName } from "./UiActionIcon";
 import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
@@ -197,13 +198,13 @@ function liveStateLabel(state: TimerStateKind | null | undefined): string | null
 
 function TaskActionButton({
   label,
-  glyph,
+  icon,
   action,
   actionId,
   disabled = false,
 }: {
   label: string;
-  glyph: string;
+  icon: UiActionIconName;
   action: () => void;
   actionId: "subtasks" | "notes" | "lane-left" | "lane-right";
   disabled?: boolean;
@@ -220,7 +221,7 @@ function TaskActionButton({
         onPointerDown={(event) => event.stopPropagation()}
         onClick={action}
       >
-        <span aria-hidden="true">{glyph}</span>
+        <UiActionIcon name={icon} size={15} />
       </button>
     </Tooltip>
   );
@@ -265,7 +266,7 @@ function TaskOverflowMenu({
       <Menu
         triggerLabel="Task actions"
         align="end"
-        trigger={<span aria-hidden="true">…</span>}
+        trigger={<UiActionIcon name="ellipsis" size={16} />}
         onDismiss={confirmation?.onCancel}
         dismissDisabled={confirmation?.pending}
       >
@@ -285,7 +286,7 @@ function TaskOverflowMenu({
               ariaLabel={`Remove schedule for ${quickRemoveScheduleLabel}`}
               onSelect={actions.onRemoveSchedule}
             >
-              <span className="list-board-task__quick-unschedule-x" aria-hidden="true">×</span>
+              <UiActionIcon name="x" className="list-board-task__quick-unschedule-x" size={14} />
             </MenuItem>
           </div>
         ) : null}
@@ -329,7 +330,7 @@ function TaskActionRail({
         {actions.onSubtasks ? (
           <TaskActionButton
             label="Subtasks"
-            glyph="☷"
+            icon="list"
             action={actions.onSubtasks}
             actionId="subtasks"
             disabled={Boolean(confirmation)}
@@ -340,7 +341,7 @@ function TaskActionRail({
         {actions.onNotes ? (
           <TaskActionButton
             label="Notes"
-            glyph="▤"
+            icon="file-text"
             action={actions.onNotes}
             actionId="notes"
             disabled={Boolean(confirmation)}
@@ -351,7 +352,7 @@ function TaskActionRail({
         {actions.onMoveLaneLeft ? (
           <TaskActionButton
             label="Move task one lane left"
-            glyph="←"
+            icon="arrow-left"
             action={actions.onMoveLaneLeft}
             actionId="lane-left"
             disabled={Boolean(confirmation)}
@@ -362,7 +363,7 @@ function TaskActionRail({
         {actions.onMoveLaneRight ? (
           <TaskActionButton
             label="Move task one lane right"
-            glyph="→"
+            icon="arrow-right"
             action={actions.onMoveLaneRight}
             actionId="lane-right"
             disabled={Boolean(confirmation)}
@@ -419,7 +420,7 @@ function InlineDeleteConfirmation({
           onPointerDown={(event) => event.stopPropagation()}
           onClick={confirmation.onCancel}
         >
-          <span aria-hidden="true">×</span>
+          <UiActionIcon name="x" size={14} />
         </button>
       </Tooltip>
       {confirmation.error ? (
@@ -475,7 +476,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
               onPointerDown={(event) => event.stopPropagation()}
               onClick={editor.onCancel}
             >
-              <span aria-hidden="true">×</span>
+              <UiActionIcon name="x" size={14} />
             </button>
           </Tooltip>
           <Tooltip content="Save task title">
@@ -488,7 +489,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
               disabled={editor.pending}
               onPointerDown={(event) => event.stopPropagation()}
             >
-              <span aria-hidden="true">✓</span>
+              <UiActionIcon name="check" size={14} />
             </button>
           </Tooltip>
         </span>
@@ -511,7 +512,7 @@ function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
           onPointerDown={(event) => event.stopPropagation()}
           onClick={editor.onCancel}
         >
-          <span aria-hidden="true">×</span>
+          <UiActionIcon name="x" size={14} />
         </button>
       </Tooltip>
       <Tooltip content="Save metric" boundarySelector=".list-board-task">
@@ -525,7 +526,7 @@ function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
           onPointerDown={(event) => event.stopPropagation()}
           onClick={editor.onSubmit}
         >
-          <span aria-hidden="true">✓</span>
+          <UiActionIcon name="check" size={14} />
         </button>
       </Tooltip>
     </span>
