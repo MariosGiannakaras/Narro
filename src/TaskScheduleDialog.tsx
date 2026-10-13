@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -541,7 +542,7 @@ export function TaskScheduleDialog({
                   data-task-schedule-control="pick-date"
                   disabled={pending}
                   onClick={() => setCalendarStep("date")}
-                >‹ PICK DATE</button>
+                ><UiActionIcon name="chevron-left" /> PICK DATE</button>
             <section className="task-schedule-dialog__section" aria-labelledby="task-schedule-section-title">
               <div className="task-schedule-dialog__section-heading">
                 <div>
