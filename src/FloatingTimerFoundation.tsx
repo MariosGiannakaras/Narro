@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { formatInvokeError } from "./diagnosticApi";
@@ -489,7 +490,7 @@ export function FloatingTimerFoundation({
                   aria-label="Collapse Timer"
                   disabled={transitionPending || resizePending}
                   onClick={() => { void requestExpanded(false); }}
-                >⌃</button>
+                ><UiActionIcon name="chevron-up" /></button>
               </Tooltip>
             ) : (
               <Tooltip content="Add subtask" align="end">
@@ -504,7 +505,7 @@ export function FloatingTimerFoundation({
                 aria-label="Return to Focus Panel"
                 disabled={transitionPending || resizePending}
                 onClick={onReturnToPanel}
-              >↗</button>
+              ><UiActionIcon name="maximize" size={18} /></button>
             </Tooltip>
           </div>
         )}
