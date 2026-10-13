@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { useState, type CSSProperties } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
@@ -284,11 +285,11 @@ function DateRangePicker({
         {months.slice(0, 2).map((month) => (
           <section className="reports-overview__calendar" key={month.label} aria-label={month.label}>
             <header>
-              <button type="button" aria-label={`Previous year from ${month.label}`} onClick={onPreviousYear} disabled={!onPreviousYear}>«</button>
-              <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}>‹</button>
+              <button type="button" aria-label={`Previous year from ${month.label}`} onClick={onPreviousYear} disabled={!onPreviousYear}><ActionIcon name="chevrons-left" /></button>
+              <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}><ActionIcon name="chevron-left" /></button>
               <strong>{month.label}</strong>
-              <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}>›</button>
-              <button type="button" aria-label={`Next year from ${month.label}`} onClick={onNextYear} disabled={!onNextYear}>»</button>
+              <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}><ActionIcon name="chevron-right" /></button>
+              <button type="button" aria-label={`Next year from ${month.label}`} onClick={onNextYear} disabled={!onNextYear}><ActionIcon name="chevrons-right" /></button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => <span key={day}>{day}</span>)}
@@ -394,7 +395,7 @@ export function ReportsOverviewView({
     >
       <header className="reports-overview__header">
         <div className="reports-overview__title-row">
-          <button type="button" className="reports-overview__back" onClick={onBack}>‹ Back</button>
+          <button type="button" className="reports-overview__back" onClick={onBack}><ActionIcon name="arrow-left" /> Back</button>
           <h1 id="reports-overview-title">Reports</h1>
         </div>
         <button
@@ -405,7 +406,7 @@ export function ReportsOverviewView({
           aria-busy={exportPending || undefined}
           title={exportPending ? "Exporting the current Overview to PDF…" : undefined}
         >
-          {exportPending ? "Exporting…" : "⇩ Export PDF"}
+          {exportPending ? "Exporting…" : <><ActionIcon name="download" /> Export PDF</>}
         </button>
       </header>
 
@@ -435,7 +436,7 @@ export function ReportsOverviewView({
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={listFilterOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {listFilterOpen ? (
             <div
@@ -476,7 +477,7 @@ export function ReportsOverviewView({
             onClick={onToggleDatePicker}
             data-report-date-range="true"
           >
-            <span aria-hidden="true">▣</span>
+            <ActionIcon name="calendar" />
             {rangeLabel}
           </button>
           {datePickerOpen ? (
