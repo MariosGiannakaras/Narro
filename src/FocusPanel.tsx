@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
@@ -298,7 +299,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleSubtasks}
                 >
-                  ≡
+                  <UiActionIcon name="list" />
                 </button>
               </Tooltip>
               <Tooltip content="Notes" boundarySelector=".focus-panel__task-row">
@@ -311,7 +312,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleNotes}
                 >
-                  ▤
+                  <UiActionIcon name="file-text" />
                 </button>
               </Tooltip>
               <Tooltip content="More task actions" boundarySelector=".focus-panel__task-row">
@@ -324,7 +325,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={() => setMoreOpen((open) => !open)}
                 >
-                  ⋯
+                  <UiActionIcon name="ellipsis" />
                 </button>
               </Tooltip>
             </div>
@@ -1229,7 +1230,7 @@ export function FocusPanel({
               disabled={!presentationActive}
               onClick={() => setQuickPreferencesOpen(true)}
             >
-              ⚙
+              <UiActionIcon name="settings" />
             </button>
           </Tooltip>
           <Tooltip content="Home">
@@ -1240,7 +1241,7 @@ export function FocusPanel({
               disabled={fixtureMode || homePending}
               onClick={() => void exitFocusHome()}
             >
-              Home
+              <UiActionIcon name="home" />
             </button>
           </Tooltip>
           <Tooltip content="Compact view">
@@ -1251,7 +1252,7 @@ export function FocusPanel({
               disabled={!onRequestCompact || compactTransitionPending}
               onClick={onRequestCompact}
             >
-              ↙
+              <UiActionIcon name="minimize" size={17} />
             </button>
           </Tooltip>
         </div>
