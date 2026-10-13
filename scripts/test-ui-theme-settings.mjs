@@ -73,6 +73,8 @@ for (const [source, needle, label] of [
   [capture, 'shortcutsDialog=1', "dedicated modal Windows capture routing"],
   [validator, 'data-windows-shortcuts-dialog="true"', "dedicated dialog must be validated independently of Preferences"],
   [validator, 'assertRenderedScreenshot', "pixel content check must reject blank Preferences/shortcut captures"],
+  [validator, 'assertShortcutLabelsHidden', "shortcut accessible labels must not overlap rendered controls"],
+  [fixture, 'dataset.themeSettingsShortcutLabelsHidden', "fixture must measure accessible-only label bounds"],
   [fixture, 'surface.style.transform', "section fixture must move visible DOM into viewport instead of scrolling past screenshot"],
   [fixtureHtml, "/src/themeSettingsVisualFixture.tsx", "fixture entry module"],
   [vite, 'themeSettingsFixture: "theme-settings-fixture.html"', "Vite fixture input"],
