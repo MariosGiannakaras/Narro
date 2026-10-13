@@ -173,7 +173,7 @@ export function TaskSubtasks({
                             if (belongsToRenderedTask(event, subtask)) onToggleCompleted(subtask);
                           }}
                         >
-                          <ActionIcon name={completed ? "check" : "circle"} />
+                          <ActionIcon name={completed ? "circle-check" : "circle"} />
                         </button>
                       </Tooltip>
 
