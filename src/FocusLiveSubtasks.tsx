@@ -317,7 +317,7 @@ export function FocusLiveSubtasks({
                               completed: !completed,
                             }))}
                           >
-                            <span aria-hidden="true">{completed ? "✓" : "○"}</span>
+                            <ActionIcon name={completed ? "check" : "circle"} />
                           </button>
                         </Tooltip>
 
