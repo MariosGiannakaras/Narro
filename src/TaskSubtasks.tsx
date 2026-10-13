@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
@@ -110,7 +111,7 @@ export function TaskSubtasks({
       >
         <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} subtasks`}</span>
         {totalCount > 0 ? <Progress completed={completedCount} total={totalCount} /> : null}
-        <span aria-hidden="true" className="list-board-task__subtask-chevron">{expanded ? "⌃" : "⌄"}</span>
+        <span aria-hidden="true" className="list-board-task__subtask-chevron"><UiActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
       </button>
 
       {expanded && model ? (
@@ -247,7 +248,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "up");
                                 }}
-                              >↑</button>
+                              ><UiActionIcon name="arrow-up" /></button>
                             </Tooltip>
                             <Tooltip content="Move subtask down">
                               <button
@@ -259,7 +260,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "down");
                                 }}
-                              >↓</button>
+                              ><UiActionIcon name="arrow-down" /></button>
                             </Tooltip>
                             <Tooltip content="Delete subtask">
                               <button
