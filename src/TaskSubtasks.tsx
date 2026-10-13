@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
@@ -110,7 +111,7 @@ export function TaskSubtasks({
       >
         <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} subtasks`}</span>
         {totalCount > 0 ? <Progress completed={completedCount} total={totalCount} /> : null}
-        <span aria-hidden="true" className="list-board-task__subtask-chevron">{expanded ? "⌃" : "⌄"}</span>
+        <span className="list-board-task__subtask-chevron"><ActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
       </button>
 
       {expanded && model ? (
@@ -131,7 +132,7 @@ export function TaskSubtasks({
                     aria-label={`Add a subtask to ${taskTitle}`}
                     disabled={model.pending}
                     onClick={() => newSubtaskInputRef.current?.focus()}
-                  >+</button>
+                  ><ActionIcon name="plus" /></button>
                 ) : null}
               </div>
               <div className="list-board-task__subtask-summary">
@@ -172,7 +173,7 @@ export function TaskSubtasks({
                             if (belongsToRenderedTask(event, subtask)) onToggleCompleted(subtask);
                           }}
                         >
-                          <span aria-hidden="true">{completed ? "✓" : "○"}</span>
+                          <ActionIcon name={completed ? "check" : "circle"} />
                         </button>
                       </Tooltip>
 
@@ -222,7 +223,7 @@ export function TaskSubtasks({
                                 aria-label="Cancel subtask edit"
                                 disabled={model.pending}
                                 onClick={onCancelEdit}
-                              >×</button>
+                              ><ActionIcon name="close" /></button>
                             </Tooltip>
                             <Tooltip content="Save subtask title">
                               <button
@@ -232,7 +233,7 @@ export function TaskSubtasks({
                                 aria-label="Save subtask title"
                                 disabled={model.pending || !model.editor?.value.trim()}
                                 onClick={onSaveEdit}
-                              >✓</button>
+                              ><ActionIcon name="check" /></button>
                             </Tooltip>
                           </>
                         ) : (
@@ -247,7 +248,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "up");
                                 }}
-                              >↑</button>
+                              ><ActionIcon name="arrow-up" /></button>
                             </Tooltip>
                             <Tooltip content="Move subtask down">
                               <button
@@ -259,7 +260,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "down");
                                 }}
-                              >↓</button>
+                              ><ActionIcon name="arrow-down" /></button>
                             </Tooltip>
                             <Tooltip content="Delete subtask">
                               <button
@@ -271,7 +272,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onDelete(subtask);
                                 }}
-                              >×</button>
+                              ><ActionIcon name="close" /></button>
                             </Tooltip>
                           </>
                         )}
@@ -303,7 +304,7 @@ export function TaskSubtasks({
                         onCreateValueChange("");
                         newSubtaskInputRef.current?.focus();
                       }}
-                    >×</button>
+                    ><ActionIcon name="close" /></button>
                   ) : null}
                   <button
                     type="submit"

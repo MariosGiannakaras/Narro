@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import {
   type CSSProperties,
@@ -302,7 +303,7 @@ function InlineCreateEditor({
           disabled={pending}
           aria-label={`Cancel adding task to ${laneTitle}`}
           data-task-create-cancel="true"
-        ><span aria-hidden="true">×</span> CANCEL</button>
+        ><ActionIcon name="close" /> CANCEL</button>
       </div>
       <div className="list-board-task-create__inputs">
         <label className="list-board-task-create__field list-board-task-create__field--title">

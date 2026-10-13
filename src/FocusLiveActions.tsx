@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { listen } from "@tauri-apps/api/event";
 import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
@@ -142,7 +143,7 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
     case "done":
       return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>;
     case "return":
-      return <svg {...common}><path d="M8 5H5v3M16 19h3v-3M5 8l5-5M19 16l-5 5" /></svg>;
+      return <ActionIcon name="timer-to-panel" size={18} />;
   }
 }
 

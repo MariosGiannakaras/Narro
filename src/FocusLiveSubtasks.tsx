@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import {
@@ -274,7 +275,7 @@ export function FocusLiveSubtasks({
               disabled={interactionPending || pending}
               onClick={() => void toggleExpanded()}
             >
-              <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+              <ActionIcon name={expanded ? "chevron-up" : "chevron-down"} />
             </button>
           </Tooltip>
         </div>
@@ -316,7 +317,7 @@ export function FocusLiveSubtasks({
                               completed: !completed,
                             }))}
                           >
-                            <span aria-hidden="true">{completed ? "✓" : "○"}</span>
+                            <ActionIcon name={completed ? "check" : "circle"} />
                           </button>
                         </Tooltip>
 
@@ -383,7 +384,7 @@ export function FocusLiveSubtasks({
                                   aria-label="Cancel subtask edit"
                                   disabled={pending}
                                   onClick={() => setEditor(null)}
-                                >×</button>
+                                ><ActionIcon name="close" /></button>
                               </Tooltip>
                               <Tooltip content="Save subtask title" align="end">
                                 <button
@@ -406,7 +407,7 @@ export function FocusLiveSubtasks({
                                       () => setEditor(null),
                                     );
                                   }}
-                                >✓</button>
+                                ><ActionIcon name="check" /></button>
                               </Tooltip>
                             </>
                           ) : (
@@ -427,7 +428,7 @@ export function FocusLiveSubtasks({
                                       orderedIds: order.orderedIds,
                                     }));
                                   }}
-                                >↑</button>
+                                ><ActionIcon name="arrow-up" /></button>
                               </Tooltip>
                               <Tooltip content="Move subtask down" align="end">
                                 <button
@@ -445,7 +446,7 @@ export function FocusLiveSubtasks({
                                       orderedIds: order.orderedIds,
                                     }));
                                   }}
-                                >↓</button>
+                                ><ActionIcon name="arrow-down" /></button>
                               </Tooltip>
                               <Tooltip content="Delete subtask" align="end">
                                 <button
@@ -460,7 +461,7 @@ export function FocusLiveSubtasks({
                                     listId: task.listId,
                                     expectedUpdatedAt: subtask.updatedAt,
                                   }))}
-                                >×</button>
+                                ><ActionIcon name="close" /></button>
                               </Tooltip>
                             </>
                           )}
@@ -537,7 +538,7 @@ export function FocusLiveSubtasks({
           onClick={() => void toggleExpanded()}
         >
           <span>{progress.total === 0 ? "Subtasks" : `${progress.completed}/${progress.total} Subtasks`}</span>
-          <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+          <ActionIcon name={expanded ? "chevron-up" : "chevron-down"} />
         </button>
         <Tooltip content="Add subtask">
           <button

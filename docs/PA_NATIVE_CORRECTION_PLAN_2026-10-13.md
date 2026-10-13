@@ -12,7 +12,7 @@ Compare A/B on the same3 paired Panel↔Timer observations at primary100/LG125,3
 
 ## F29
 
-Observed post-add focus is Back rather than +Add Session. The dialog currently samples `document.activeElement` in a passive effect; use an explicit trigger identity established at opening and validate with actual DOM events, delayed pending closure and returned focus. The4.2s native UIA provider gap remains a distinct investigation; no unproved native-thread fix.
+Observed post-add focus is Back rather than +Add Session. The dialog currently samples `document.activeElement` in a passive effect; use an explicit trigger identity established at opening and validate with actual DOM events, delayed pending closure and returned focus. The4.2s native UIA provider gap now correlates with synchronous create_manual_report_session opening/writing SQLite on the command path. Offload only this manual Add write, await its durable typed result and add a real-lock worker/yield/one-write/error regression; exact replacement-binary keyboard/UIA responsiveness remains open. [Source checkpoint](../work-log/2026-10-13-pa-corrections-source-checkpoint.md).
 
 ## Normal shutdown
 

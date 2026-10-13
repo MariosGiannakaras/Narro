@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, useRef } from "react";
 import "./preferencesDialog.css";
 
@@ -81,7 +82,7 @@ export function PreferencesDialog({ onRequestClose, children }: PreferencesDialo
             data-preferences-close="true"
             onClick={onRequestClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </div>
         <div className="preferences-dialog__scroll">{children}</div>
