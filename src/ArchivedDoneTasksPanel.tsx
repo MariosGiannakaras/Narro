@@ -233,7 +233,7 @@ export function ArchivedDoneTasksPanel({
         <div className="archive-panel__loading" role="status">Loading archived tasks…</div>
       ) : visibleTasks.length === 0 ? (
         <div className="archive-panel__empty" data-archived-done-empty="true">
-          <span className="archive-panel__empty-icon" aria-hidden="true">✓</span>
+          <span className="archive-panel__empty-icon"><ActionIcon name="check" size={24} /></span>
           <strong>No Archived tasks found</strong>
           <span>
             {normalizedQuery || selectedListId !== ALL_LISTS
@@ -260,7 +260,7 @@ export function ArchivedDoneTasksPanel({
                   <td>
                     <div className="archived-done-row__task">
                       <span className="archived-done-row__ordinal type-metadata" aria-hidden="true">{index + 1}</span>
-                      <span className="archived-done-row__status" aria-label="Completed" role="img">✓</span>
+                      <span className="archived-done-row__status" aria-label="Completed" role="img"><ActionIcon name="check" /></span>
                       <span className="archived-done-row__title">{task.title}</span>
                     </div>
                   </td>
@@ -272,7 +272,7 @@ export function ArchivedDoneTasksPanel({
                   </td>
                   <td>
                     {task.hasNote ? (
-                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note">▤</span>
+                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><ActionIcon name="notes" /></span>
                     ) : <span className="type-metadata">No Info</span>}
                   </td>
                   <td>
