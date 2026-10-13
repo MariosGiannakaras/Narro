@@ -68,6 +68,12 @@ The [PR #345 interim Windows visual artifact 11790905850](https://github.com/Mar
 
 The same [PR #345](https://github.com/MariosGiannakaras/Narro/pull/345) now has replacement head `7b69c6ca7f85b550f5817e26338441d6f32494b7` and new [CI 38350431624](https://github.com/MariosGiannakaras/Narro/actions/runs/38350431624) **PENDING**: scoped visually-hidden CSS for accessible toggle labels plus render-time `getBoundingClientRect` fixture assertions and test guards. This preserves screen-reader text/keyboard access and all native shortcut authority. **Do not mark this third defect fixed or merge until the replacement exact-SHA visual PNGs show no overlap and CI 3/3 PASS.**
 
+### Replacement PR #345 exact-head Windows visual evidence — inspected
+
+On head **`7b69c6ca7f85b550f5817e26338441d6f32494b7`**, the Windows candidate reached/passed the visual fixture capture step and uploaded [artifact11790728062](https://github.com/MariosGiannakaras/Narro/actions/runs/38350431624/artifacts/11790728062) ([CI38350431624](https://github.com/MariosGiannakaras/Narro/actions/runs/38350431624)). Downloaded original ZIP SHA-256 **`fcd2d243a62d2c3ad4546c95ebaf37240e38049fa3de198ffe2c7cffc4f74d62`**, identical to GitHub provider digest, **341/341 CRC PASS**, **168/168 PNGs without fully uniform images**. Exact relevant screenshot unique RGB counts: upper **1,548**, middle **881**, lower **1,130**; dedicated Shortcuts modal dark **617**, light **586**. All five PNGs directly inspected. The two previously blank Preferences screenshots contain real settings, and neither standalone Shortcuts modal has overflowing accessibility-only label text. Corresponding HTML in both modal themes, upper/lower/middle Preferences and standard dark theme carries **`data-theme-settings-shortcut-labels-hidden="true"`** plus ready/modal identity markers. This corrects the observable visual-evidence defects, including the newly discovered toggle-label spill, **at the PR-head fixture layer**.
+
+**Boundary:** Full PR Windows candidate build and final three-gate result are still PENDING at the capture checkpoint; do not call PR/release/merged-main PASS until exact completion. Native Windows physical acceptance and full contemporary Blitzit parity remain independent.
+
 ### Remaining eleven current screenshots: direct release-artifact comparison
 
 This completes **22/22 current-v2.6.69 static source images opened and cross-checked against real Narro release capture candidates**, not 22 source-parity PASS.
