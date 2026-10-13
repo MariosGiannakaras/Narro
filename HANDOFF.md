@@ -1,5 +1,8 @@
 # HANDOFF — PA-01–08 triaged; confirmed corrections 0/3
 
+**CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
+
+
 **CURRENT postfix acquisition checkpoint:** [Segment1 full video/logs/screens/owned DB published](work-log/2026-10-13-pa-postfix-segment1-acquisition.md). New acquisition4/8 primary groups; new analysis0/8; corrected native0/3. Original profiles PROTECTED/owned namespace ACTIVE; source35528dea EXEcc36f832. NEXT PA05–08 dense segment2, then aggregate review. Nested opener focus and other observations bookmarked; no Narro source edits.
 
 
