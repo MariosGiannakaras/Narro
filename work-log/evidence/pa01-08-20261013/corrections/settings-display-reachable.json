@@ -1,0 +1,331 @@
+{
+  "utc": "2026-10-13T10:28:28.504186+00:00",
+  "hwnd": 790236,
+  "controls": [
+    {
+      "name": "Settings",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        395,
+        372,
+        443,
+        404
+      ]
+    },
+    {
+      "name": "Back",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        395,
+        372,
+        443,
+        404
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        832,
+        372,
+        1020,
+        404
+      ]
+    },
+    {
+      "name": "Minimize Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        882,
+        372,
+        928,
+        404
+      ]
+    },
+    {
+      "name": "Maximize Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        928,
+        372,
+        974,
+        404
+      ]
+    },
+    {
+      "name": "Close Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        974,
+        372,
+        1020,
+        404
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        395,
+        372,
+        1020,
+        811
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        397,
+        420,
+        445,
+        468
+      ]
+    },
+    {
+      "name": "Monitor layout",
+      "type": 50025,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        411,
+        587,
+        976,
+        787
+      ]
+    },
+    {
+      "name": "Display 1",
+      "type": 50025,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        667,
+        643,
+        870,
+        729
+      ]
+    },
+    {
+      "name": "Display 2",
+      "type": 50025,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        513,
+        643,
+        664,
+        729
+      ]
+    },
+    {
+      "name": "Identify",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        776,
+        791,
+        866,
+        811
+      ]
+    },
+    {
+      "name": "Detect",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        886,
+        791,
+        976,
+        811
+      ]
+    },
+    {
+      "name": "Night light",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Color profile",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "LG ULTRAGEAR\n",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Use HDR",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Change the size of text, apps, and other items",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "100% (Recommended)",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Display resolution",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "2560 × 1080 (Recommended)",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Display orientation",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Landscape",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Multiple displays",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Extend these displays",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
