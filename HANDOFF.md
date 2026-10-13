@@ -1,5 +1,8 @@
 # HANDOFF — PA-01–08 triaged; confirmed corrections 0/3
 
+**Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
+
+
 **Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
 
 
