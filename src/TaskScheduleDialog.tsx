@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -490,7 +491,7 @@ export function TaskScheduleDialog({
             disabled={pending}
             onClick={onClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </header>
 
@@ -541,7 +542,7 @@ export function TaskScheduleDialog({
                   data-task-schedule-control="pick-date"
                   disabled={pending}
                   onClick={() => setCalendarStep("date")}
-                >‹ PICK DATE</button>
+                ><ActionIcon name="chevron-left" /> PICK DATE</button>
             <section className="task-schedule-dialog__section" aria-labelledby="task-schedule-section-title">
               <div className="task-schedule-dialog__section-heading">
                 <div>
@@ -584,7 +585,7 @@ export function TaskScheduleDialog({
                     }
                   }}
                 >
-                  {scheduleUseTime ? "× REMOVE" : "+ ADD"}
+                  {scheduleUseTime ? <><ActionIcon name="close" /> REMOVE</> : <><ActionIcon name="plus" /> ADD</>}
                 </button>
               </div>
               {scheduleUseTime ? (

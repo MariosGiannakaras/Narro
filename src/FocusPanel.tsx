@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
@@ -232,11 +233,11 @@ function FocusTaskRow({
                 disabled={disabled}
                 onClick={onComplete}
               >
-                ○
+                <ActionIcon name="circle" />
               </button>
             </Tooltip>
           ) : (
-            <span className="focus-panel__done-mark" aria-hidden="true">✓</span>
+            <span className="focus-panel__done-mark"><ActionIcon name="check" /></span>
           )}
         </span>
 
@@ -285,7 +286,7 @@ function FocusTaskRow({
                   disabled={disabled || !canMakeLive}
                   onClick={onMakeLive}
                 >
-                  🚀
+                  <ActionIcon name="rocket" />
                 </button>
               </Tooltip>
               <Tooltip content="Subtasks" boundarySelector=".focus-panel__task-row">
@@ -298,7 +299,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleSubtasks}
                 >
-                  ≡
+                  <ActionIcon name="list" />
                 </button>
               </Tooltip>
               <Tooltip content="Notes" boundarySelector=".focus-panel__task-row">
@@ -311,7 +312,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleNotes}
                 >
-                  ▤
+                  <ActionIcon name="notes" />
                 </button>
               </Tooltip>
               <Tooltip content="More task actions" boundarySelector=".focus-panel__task-row">
@@ -324,7 +325,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={() => setMoreOpen((open) => !open)}
                 >
-                  ⋯
+                  <ActionIcon name="more" />
                 </button>
               </Tooltip>
             </div>
@@ -1229,7 +1230,7 @@ export function FocusPanel({
               disabled={!presentationActive}
               onClick={() => setQuickPreferencesOpen(true)}
             >
-              ⚙
+              <ActionIcon name="settings" />
             </button>
           </Tooltip>
           <Tooltip content="Home">
@@ -1240,7 +1241,7 @@ export function FocusPanel({
               disabled={fixtureMode || homePending}
               onClick={() => void exitFocusHome()}
             >
-              Home
+              <ActionIcon name="home" />
             </button>
           </Tooltip>
           <Tooltip content="Compact view">
@@ -1251,7 +1252,7 @@ export function FocusPanel({
               disabled={!onRequestCompact || compactTransitionPending}
               onClick={onRequestCompact}
             >
-              ↙
+              <ActionIcon name="panel-to-timer" />
             </button>
           </Tooltip>
         </div>
@@ -1466,7 +1467,7 @@ export function FocusPanel({
               aria-label={`Completed Break, ${formatDuration(session.durationSeconds)}`}
             >
               <div className="focus-panel__task-row-mainline">
-                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark" aria-hidden="true">✓</span></span>
+                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark"><ActionIcon name="check" /></span></span>
                 <div className="focus-panel__task-main">
                   <div className="focus-panel__task-title-row">
                     <span className="focus-panel__break-done-title">Break</span>

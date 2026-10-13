@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
@@ -101,7 +102,7 @@ export function WindowsShortcutsDialog({ onRequestClose, settingsContent }: Wind
             aria-label="Close Windows Shortcuts"
             onClick={onRequestClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </header>
         <div className="windows-shortcuts-dialog__scroll">

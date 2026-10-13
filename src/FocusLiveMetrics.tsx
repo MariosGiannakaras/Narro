@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { parseMetricDuration } from "./metricDurationInput";
@@ -261,7 +262,7 @@ export function FocusLiveMetrics({
                       aria-label={`Cancel ${metricLabel(metric)} edit`}
                       disabled={pending || interactionBlocked}
                       onClick={() => setEditor(null)}
-                    >×</button>
+                    ><ActionIcon name="close" /></button>
                   </Tooltip>
                   <Tooltip content={`Save ${metricLabel(metric)}`}>
                     <button
@@ -270,7 +271,7 @@ export function FocusLiveMetrics({
                       aria-label={`Save ${metricLabel(metric)}`}
                       disabled={pending || interactionBlocked}
                       onClick={() => void save()}
-                    >✓</button>
+                    ><ActionIcon name="check" /></button>
                   </Tooltip>
                 </span>
               </>
