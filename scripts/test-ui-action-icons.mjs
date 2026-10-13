@@ -56,8 +56,41 @@ assert(panel.includes('onClick={onRequestCompact}') &&
   "normalization must preserve the native control handlers");
 assert(!board.includes('glyph="←"') && !board.includes('glyph="→"'),
   "lane reordering must use semantic ArrowLeft/ArrowRight vectors");
-assert(!read("src/ListEditorModal.tsx").includes('from "./ActionIcon"'),
-  "approved Spectrum Core List Editor must remain outside this icon migration");
+// The close button is a separate user action, not part of the approved picker.
+// Protect picker state, selection checks, uploads and built-in icon ownership.
+const listEditor = read("src/ListEditorModal.tsx");
+assert(listEditor.includes('aria-label="Close list editor" onClick={requestClose} disabled={saving}><ActionIcon name="close" />'),
+  "the List Editor close affordance must use the same SVG X without changing its handler");
+for (const [needle, label] of [
+  ['<SpectrumColorPopover color={color} onChange={setColor}', "approved color picker state and onChange"],
+  ['<BuiltinListIcon id={builtinIconId} />', "approved built-in icon catalog rendering"],
+  ['URL.createObjectURL(file)', "approved image upload preview"],
+  ['onChange={(event) => void handleIconChange(event)}', "approved image-upload input handler"],
+  ['{selected ? "✓" : ""}', "approved color swatch selected-state decoration"],
+  ['{!isPresetColor ? "✓" : "+"}', "approved custom-color selected-state decoration"],
+]) assert(listEditor.includes(needle), `List Editor must preserve ${label}`);
+const sound = read("src/SoundPreferenceControl.tsx");
+assert(sound.includes('<ActionIcon name="play" />') && sound.includes("onClick={preview}")
+  && sound.includes('className="preference-settings__sound-preview motion-interactive"'),
+  "audio preview must use SVG Play with the unchanged handler and visual control identity");
+assert(icons.includes('case "play"'), "the shared Play icon is not defined");
+// The original Blitzit v2.6.69 expanded-Timer screenshot uses a trash can
+// for deleting a subtask; the X glyph is reserved for canceling an edit.
+for (const [path, deleteMarker, cancelMarker, name] of [
+  ["src/FocusLiveSubtasks.tsx", 'data-floating-subtask-action="delete"', 'data-floating-subtask-action="cancel-edit"', "Timer"],
+  ["src/TaskSubtasks.tsx", 'data-task-subtask-control="delete"', 'data-task-subtask-control="cancel-edit"', "Board"],
+]) {
+  const source = read(path);
+  const deleting = source.slice(source.indexOf(deleteMarker), source.indexOf("</button>", source.indexOf(deleteMarker)));
+  const cancelling = source.slice(source.indexOf(cancelMarker), source.indexOf("</button>", source.indexOf(cancelMarker)));
+  assert(deleting.includes('<ActionIcon name="trash" />')
+    && deleting.includes("onClick="), `${name} Delete must render a trash SVG and preserve its handler`);
+  assert(cancelling.includes('<ActionIcon name="close" />'),
+    `${name} Cancel Edit must retain the distinct X semantic SVG`);
+  assert(source.includes('<ActionIcon name={completed ? "circle-check" : "circle"} />'),
+    `${name} completed subtasks must use the original circular-check shape, not a free-floating tick`);
+}
+
 const pkg = JSON.parse(read("package.json"));
 assert(pkg.scripts["test:ui-action-icons"] === "node scripts/test-ui-action-icons.mjs",
   "shared action-icon test script is missing");

@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type ChangeEvent, type CSSProperties, type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef, useState,
@@ -257,7 +258,7 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
         aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId}
         data-list-editor-mode={mode} onKeyDown={handleDialogKeyDown}>
         <button type="button" className="list-editor-modal__close motion-interactive"
-          aria-label="Close list editor" onClick={requestClose} disabled={saving}>×</button>
+          aria-label="Close list editor" onClick={requestClose} disabled={saving}><ActionIcon name="close" /></button>
         <header className="list-editor-modal__header">
           <p className="list-editor-modal__eyebrow type-metadata">Lists</p>
           <h2 id={titleId} className="list-editor-modal__title type-page-title">{heading}</h2>

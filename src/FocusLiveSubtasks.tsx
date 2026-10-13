@@ -317,7 +317,7 @@ export function FocusLiveSubtasks({
                               completed: !completed,
                             }))}
                           >
-                            <ActionIcon name={completed ? "check" : "circle"} />
+                            <ActionIcon name={completed ? "circle-check" : "circle"} />
                           </button>
                         </Tooltip>
 
@@ -461,7 +461,7 @@ export function FocusLiveSubtasks({
                                     listId: task.listId,
                                     expectedUpdatedAt: subtask.updatedAt,
                                   }))}
-                                ><ActionIcon name="close" /></button>
+                                ><ActionIcon name="trash" /></button>
                               </Tooltip>
                             </>
                           )}
