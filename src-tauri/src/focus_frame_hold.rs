@@ -408,17 +408,7 @@ mod native {
                 if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, width, height, 0x50) } == 0 {
                     return Err(failure("resize transition raster envelope"));
                 }
-                let parent_region =
-                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, 0, 0) };
-                if parent_region.is_null() {
-                    return Err(failure("create transition parent envelope"));
-                }
-                if unsafe { SetWindowRgn(parent as Handle, parent_region, 0) } == 0 {
-                    unsafe {
-                        DeleteObject(parent_region);
-                    }
-                    return Err(failure("apply transition parent envelope"));
-                }
+                crate::timer_region::apply_native_rect(parent, visible, false)?;
                 unsafe {
                     InvalidateRect(child, ptr::null(), 0);
                     UpdateWindow(child);

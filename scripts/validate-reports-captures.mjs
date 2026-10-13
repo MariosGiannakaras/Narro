@@ -56,6 +56,7 @@ function common(dom, label) {
 }
 
 function sessionsCommon(dom, label) {
+  invariant(dom.includes('data-reports-summary-single-row="true"'), label + " three desktop summary cards did not remain in one row");
   invariant(dom.includes('data-reports-sessions="true"'), label + " Sessions surface is missing");
   invariant(dom.includes(">Reports<"), label + " Reports title is missing");
   invariant(dom.includes('role="tablist"'), label + " Reports tablist is missing");

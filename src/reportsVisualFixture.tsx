@@ -447,6 +447,13 @@ flushSync(() => {
 });
 
 const markReady = () => {
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".reports-sessions__summary article"));
+  if (cards.length) {
+    const firstTop = cards[0].getBoundingClientRect().top;
+    requireFixture(cards.length === 3 && cards.every((card) => Math.abs(card.getBoundingClientRect().top - firstTop) <= 1),
+      "Reports Sessions desktop summary must retain three cards in one row.");
+    document.documentElement.dataset.reportsSummarySingleRow = "true";
+  }
   document.documentElement.dataset.reportsFixtureReady = "true";
 };
 

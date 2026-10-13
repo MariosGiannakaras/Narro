@@ -187,7 +187,8 @@ invariant(
     && finishRaster.indexOf("focus_mode_raster::decode(") < finishRaster.indexOf("lease.hold.release()?")
     && finishRaster.includes("restore_focus_native_snapshot_protected")
     && finishRaster.includes("lease.token != raster_token")
-    && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("SetWindowRgn(parent as Handle, parent_region, 0)")
+    && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
+    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
     && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
   "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
 );
