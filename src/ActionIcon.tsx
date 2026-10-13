@@ -8,7 +8,7 @@ export type ActionIconName =
   | "chevrons-left" | "chevrons-right"
   | "panel-to-timer" | "timer-to-panel" | "expand" | "shrink"
   | "arrow-left" | "arrow-right" | "arrow-up" | "arrow-down"
-  | "plus" | "close" | "check" | "circle" | "more"
+  | "plus" | "close" | "check" | "circle" | "more" | "play"
   | "list" | "notes" | "settings" | "home" | "rocket"
   | "calendar" | "download" | "undo" | "redo" | "trash";
 
@@ -44,6 +44,7 @@ export function ActionIcon({ name, size = 16 }: { name: ActionIconName; size?: n
     case "arrow-down": return <svg {...common}><path d="m19 12-7 7-7-7M12 5v14" /></svg>;
     case "plus": return <svg {...common}><path d="M12 5v14M5 12h14" /></svg>;
     case "close": return <svg {...common}><path d="M18 6 6 18M6 6l12 12" /></svg>;
+    case "play": return <svg {...common}><path d="m8 5 11 7-11 7V5Z" /></svg>;
     case "check": return <svg {...common}><path d="m5 12 4 4L19 6" /></svg>;
     case "circle": return <svg {...common}><circle cx="12" cy="12" r="9" /></svg>;
     case "more": return <svg {...common}><circle cx="5" cy="12" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /></svg>;
