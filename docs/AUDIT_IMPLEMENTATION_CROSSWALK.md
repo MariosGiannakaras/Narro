@@ -1,5 +1,8 @@
 # Audit → implementation crosswalk
 
+**Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](../work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
+
+
 ## Current physical disposition — 2026-10-13 user resumed PA01–08
 
 [Authoritative aggregate PA report](WINDOWS_PA01_08_REPORT_2026-10-13.md) supersedes older paused/native-not-run claims below for the exercised ec7673c/CI38287299890 EXE. 8/8 groups triaged: PA03 native Time's Up compact/expanded dark125 PASS; C4 FAIL (clipped/staged incoming content/desktop contamination), F29 FAIL (opener focus returns Back; pending native-focus proof insufficient), PA07 FAIL (about4s work loss on normal Quit) with independent C5 saved placement PASS. PA02 timing/source comparison, PA05 exact125→100, PA06 audible/toast and PA08 MSI/older upgrade remain UNCERTAIN/NOT RUN. Whole corpus/logs/media published; original user profiles restored. Source candidates now tracked in [PR349 checkpoint](../work-log/2026-10-13-pa-corrections-pr349-local-validation.md); replacement CI/native acceptance pending, no full milestone closure inferred. Scope excludes PA09/live Blitzit/M11. Earlier exact-build evidence remains immutable.

@@ -1,5 +1,8 @@
 # STATUS.md
 
+**Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
+
+
 **Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
 
 
@@ -16,7 +19,7 @@
 
 **Checkpoint:** [Physical acquisition provenance and exact continuation](work-log/2026-10-13-pa01-08-acquisition-checkpoint.md). OBS finalized whole 46m10s recording, both monitors side by side at4480×1080/60fps; AAC stereo stream was silent because its OBS endpoint was invalid. Exact resulting-main EXE SHA256 `fd375c10ba53696a8475ccc9b3e21469c3185a9be8d780ef3784ebb026a9ba56`, CI38287299890 3/3 SUCCESS; current main intake `efaaef26`. Original user profiles protected; owned disposable profile only. All eight PA groups have acquired available paths and aggregate verdicts are in the report below. PA07 normal tray Quit/same EXE relaunch and fresh NSIS install/installed launch captured. MSI NOT RUN: Computer Use product policy blocks msiexec.exe; DPI125→100 NOT RUN: Windows Settings protocol absent. Original profiles restored with identical original database SHA; test installer removed and original Windows motion/dual topology restored. No Narro source/test/runtime/config changes during the frozen acquisition phase. [Frozen complete evidence](work-log/evidence/pa01-08-20261013/acquisition-freeze.json), whole video split into five ordered parts with SHA/reassembly manifest.
 
-**One next action:** PR349 MERGED at35528dea615e28b146d5eb808cc9432582184738; exact PR CI38381266484 all3 SUCCESS;25/25 changed source/test blobs MATCH,413 Rust library tests PASS and CI visual341/341 CRC/168 nonuniform PNG. Resulting-main CI38384969271 RUNNING, no resulting-main artifact/native acceptance yet. ONE NEXT: resulting-main CI/package hashes, owned-profile dense postfix physical capture. Corrected native0/3, mandatory3/10, M10 blocked/M11 excluded. Original profiles hash-identical, OBS audio health verified, genuine Display Settings reachable; MSI product-policy blocked. [Exact merge continuation](work-log/2026-10-13-pa349-merged-main-pending.md).
+**One next action:** finish exact resulting-main CI38384969271 attempt2 (attempt1 CANCELLED), verify package/source hashes, then run the prepared owned-profile physical capture. PR349 already merged35528dea; do not duplicate it. Corrected physical0/3. [Latest exact continuation](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md).
 
 
 
