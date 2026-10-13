@@ -1,8 +1,8 @@
 # TODO.md
 
-## NOW — PA8/8 reviewed; PR350 Windows CI queued
+## NOW — PA8/8 reviewed; PR350 CI2/3 and exact artifacts verified
 
-[Physical report](docs/WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md): original corrective native2/3 accepted; nested F29/form visibility remain for new exact binary. Full raw corpus main73716afb and aggregate evidence212beec3 uploaded; original profiles/motion/topology restored, original DB hash identical. [PR350 source/preflight receipt](work-log/2026-10-13-pa350-residual-regressions-ci.md), head4b183470b6e90abfb8f2cb717e931e17531a0d0d, CI38464889855 QUEUED. Both red→green renderer regressions, TypeScript,94-entry frontend preflight/build PASS;8 related files only.
+[Physical report](docs/WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md): original corrective native2/3 accepted; nested F29/form visibility remain for new exact binary. Full raw corpus main73716afb and aggregate evidence212beec3 uploaded; original profiles/motion/topology restored, original DB hash identical. [PR350 source/preflight receipt](work-log/2026-10-13-pa350-residual-regressions-ci.md), head4b183470b6e90abfb8f2cb717e931e17531a0d0d, CI38464889855 validation/fast PASS2/3; Windows IN_PROGRESS. [Five full artifacts/hash receipts](work-log/2026-10-14-pa350-exact-artifacts-native-continuation.md); exact validation EXE6c780f13. New native NOT RUN. Both red→green renderer regressions, TypeScript,94-entry frontend preflight/build PASS;8 related files only.
 
 **NEXT:** finish exact PR350 CI3/3, guarded squash merge with expected head/source proof, verify package identity and targeted native nested Add/form acceptance. Existing standalone source35528dea/cc36f832 C4/Quit evidence retained for unaffected scope; no full-matrix repeat. Source worktree `E:\SystemFiles\Desktop\Narro-PA-20261013`, branch `fix/pa04-nested-focus-add-visibility`; docs/evidence main worktree `C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload`. MSI/hardware branches explicit NOT RUN; source-motion/automatic delivery/performance comparison OPEN. Mandatory3/10/M10 blocked, M11/PA09 excluded, picker/upload/218icons preserved.
 

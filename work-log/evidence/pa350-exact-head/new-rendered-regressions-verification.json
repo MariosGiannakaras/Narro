@@ -1,0 +1,14 @@
+{
+  "head": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "m7_geometry_normal_reduced_themes": [
+    "focus-editor-m7-integration-dark-reduced.html",
+    "focus-editor-m7-integration-dark.html",
+    "focus-editor-m7-integration-light-reduced.html",
+    "focus-editor-m7-integration-light.html"
+  ],
+  "nested_focus_themes": [
+    "reports-sessions-detail-keyboard-dark.html",
+    "reports-sessions-detail-keyboard-light.html"
+  ],
+  "native_user_desktop_acceptance": "NOT RUN"
+}
