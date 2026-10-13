@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import {
   type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -445,7 +446,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onGoReports)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">↗</span>
+                  <span className="search-palette__option-icon"><UiActionIcon name="arrow-up-right" /></span>
                   <span className="search-palette__option-copy"><strong>Go to Reports</strong></span>
                 </button>
               </div>
