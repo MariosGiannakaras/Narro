@@ -475,7 +475,7 @@ export function SearchPalette({
           }}
           disabled={quickTaskPending}
         >
-          {taskCreateOnly ? "Cancel" : "← Back"}
+          {taskCreateOnly ? "Cancel" : <><UiActionIcon name="arrow-left" /> Back</>}
         </button>
         <div>
           <p className="search-palette__eyebrow type-metadata">Quick action</p>
