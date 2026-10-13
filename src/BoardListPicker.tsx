@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import type { ListBoardRequestTarget } from "./listBoardApi";
 import { ListIcon } from "./ListIcon";
@@ -148,7 +149,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
       >
         {selected ? <ListBadge option={selected} focus={focus} /> : <ListBadges options={options} focus={focus} />}
         <span className="board-list-picker__current">{selected?.title ?? "All Lists"}</span>
-        <span aria-hidden="true">⌄</span>
+        <ActionIcon name={open ? "chevron-up" : "chevron-down"} />
       </button>
       {open && !disabled ? (
         <div className="board-list-picker__menu" id={id} role="listbox"
