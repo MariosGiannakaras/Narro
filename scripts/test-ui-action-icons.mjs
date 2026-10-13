@@ -87,6 +87,8 @@ for (const [path, deleteMarker, cancelMarker, name] of [
     && deleting.includes("onClick="), `${name} Delete must render a trash SVG and preserve its handler`);
   assert(cancelling.includes('<ActionIcon name="close" />'),
     `${name} Cancel Edit must retain the distinct X semantic SVG`);
+  assert(source.includes('<ActionIcon name={completed ? "circle-check" : "circle"} />'),
+    `${name} completed subtasks must use the original circular-check shape, not a free-floating tick`);
 }
 
 const pkg = JSON.parse(read("package.json"));
