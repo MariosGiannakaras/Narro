@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import {
   Fragment,
@@ -564,8 +565,8 @@ function RichNoteEditor({
           <ToolbarButton label="Strikethrough" disabled={pending} onAction={() => command("strikeThrough")}><s>S</s></ToolbarButton>
           <ToolbarButton label="Bulleted list" disabled={pending} onAction={() => command("insertUnorderedList")}>•</ToolbarButton>
           <ToolbarButton label="Numbered list" disabled={pending} onAction={() => command("insertOrderedList")}>1.</ToolbarButton>
-          <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
-          <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
+          <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}><ActionIcon name="undo" /></ToolbarButton>
+          <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}><ActionIcon name="redo" /></ToolbarButton>
           <Tooltip content={presentationLabel} align="end" boundarySelector=".task-notes__editor-shell">
             <button
               ref={presentationButtonRef}
@@ -579,7 +580,7 @@ function RichNoteEditor({
               onMouseDown={(event) => event.preventDefault()}
               onClick={toggleLargePresentation}
             >
-              <span aria-hidden="true">{largePresentation ? "↙" : "⛶"}</span>
+              <ActionIcon name={largePresentation ? "shrink" : "expand"} />
             </button>
           </Tooltip>
         </div>
@@ -837,7 +838,7 @@ export function TaskNotes({
         onClick={onToggleExpanded}
       >
         <span>{note ? "Notes" : "Add notes"}</span>
-        <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+        <ActionIcon name={expanded ? "chevron-up" : "chevron-down"} />
       </button>
 
       {expanded ? (
@@ -906,7 +907,7 @@ export function TaskNotes({
                   disabled={pending}
                   onClick={onToggleExpanded}
                 >
-                  <span aria-hidden="true">×</span>
+                  <ActionIcon name="close" />
                   Close
                 </button>
               </div>
