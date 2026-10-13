@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import {
   Fragment,
@@ -579,7 +580,7 @@ function RichNoteEditor({
               onMouseDown={(event) => event.preventDefault()}
               onClick={toggleLargePresentation}
             >
-              <span aria-hidden="true">{largePresentation ? "↙" : "⛶"}</span>
+              <UiActionIcon name={largePresentation ? "minimize" : "maximize"} />
             </button>
           </Tooltip>
         </div>
@@ -837,7 +838,7 @@ export function TaskNotes({
         onClick={onToggleExpanded}
       >
         <span>{note ? "Notes" : "Add notes"}</span>
-        <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+        <UiActionIcon name={expanded ? "chevron-up" : "chevron-down"} />
       </button>
 
       {expanded ? (
