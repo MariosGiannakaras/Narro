@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
@@ -188,7 +189,7 @@ export function ArchivedDoneTasksPanel({
             data-archive-list-filter="true"
           >
             <span>{selectedList?.title ?? "All Lists"}</span>
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={filterOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {filterOpen ? (
             <div
