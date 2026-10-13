@@ -1,5 +1,8 @@
 # STATUS.md
 
+**ChatGPT icon work is complete (2026-10-13):** PR #347 merged `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, resulting-main CI38374569549 attempt2 **3/3 PASS**. PR #348 merged `123ecfa18cac89432f337fba45a8bf84fa088564`, direct resulting-main CI38380701881 **CANCELLED** (historical), but descendant-main [CI38384969271 attempt2](https://github.com/MariosGiannakaras/Narro/actions/runs/38384969271) for `35528dea615e28b146d5eb808cc9432582184738` **3/3 PASS**. **6/6** PR348 exact-head source/test Git blobs equal in main; descendant visual artifact11808301580 SHA/CRC 341/341 and 168 PNG decode PASS; production artifact11808147828 SHA/CRC 3/3 PASS. Full [immutable acceptance log](work-log/2026-10-13-chatgpt-pr348-descendant-main-acceptance.md). **No remaining icon-code/CI action.** This does not assert Blitzit exact parity or native PA pass and does not change Codex PA01–08 ownership.
+
+
 **Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
 
 
