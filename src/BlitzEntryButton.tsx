@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
@@ -56,7 +57,7 @@ export function BlitzEntryButton({ visuallyMuted = false }: { visuallyMuted?: bo
         disabled={pending}
         data-start-blitz="true"
       >
-        <span aria-hidden="true">🚀</span>
+        <ActionIcon name="rocket" />
         <span>{pending ? "Starting Blitz…" : "Blitz now"}</span>
       </button>
       {status || error ? (
