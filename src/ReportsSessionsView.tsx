@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
@@ -108,26 +109,26 @@ function DateRangePicker({
                 aria-label="Previous year"
                 onClick={onPreviousYear}
                 disabled={monthIndex !== 0}
-              >«</button>
+              ><UiActionIcon name="chevrons-left" /></button>
               <button
                 type="button"
                 aria-label="Previous month"
                 onClick={onPreviousMonth}
                 disabled={monthIndex !== 0}
-              >‹</button>
+              ><UiActionIcon name="chevron-left" /></button>
               <strong>{month.label}</strong>
               <button
                 type="button"
                 aria-label="Next month"
                 onClick={onNextMonth}
                 disabled={monthIndex !== months.length - 1}
-              >›</button>
+              ><UiActionIcon name="chevron-right" /></button>
               <button
                 type="button"
                 aria-label="Next year"
                 onClick={onNextYear}
                 disabled={monthIndex !== months.length - 1}
-              >»</button>
+              ><UiActionIcon name="chevrons-right" /></button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["S", "M", "T", "W", "T", "F", "S"].map((label, index) => (
@@ -208,7 +209,7 @@ function SessionRow({
       </span>
       <span className="reports-sessions__date">{row.dateLabel}</span>
       <span className="reports-sessions__time">{row.startLabel}</span>
-      <span className="reports-sessions__arrow" aria-hidden="true">→</span>
+      <span className="reports-sessions__arrow"><UiActionIcon name="arrow-right" /></span>
       <span className="reports-sessions__time reports-sessions__time--end">
         {editing ? (
           <span className="reports-sessions__inline-editor">
@@ -519,7 +520,7 @@ export function ReportAddSessionDialog({
             onClick={() => setPickerOpen((current) => !current)}
           >
             <span>{selected?.title ?? "Select tasks..."}</span>
-            <span aria-hidden="true">⌄</span>
+            <UiActionIcon name="chevron-down" />
           </button>
           {pickerOpen && !pending ? (
             <div className="reports-sessions__task-selector-popover" data-report-task-picker-open="true">
@@ -683,7 +684,7 @@ export function ReportsSessionsView({
     <section className="reports-overview reports-sessions" data-reports-sessions="true">
       <header className="reports-overview__header">
         <div className="reports-overview__title-row">
-          <button type="button" className="reports-overview__back" onClick={onBack}>← Back</button>
+          <button type="button" className="reports-overview__back" onClick={onBack}><UiActionIcon name="arrow-left" /> Back</button>
           <h1>Reports</h1>
         </div>
         <div className="reports-sessions__top-actions">
@@ -717,7 +718,7 @@ export function ReportsSessionsView({
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
-            <span aria-hidden="true">⌄</span>
+            <UiActionIcon name="chevron-down" />
           </button>
           {listFilterOpen ? (
             <div
