@@ -266,15 +266,20 @@ const addDraft = {
 function ReportsAddSessionKeyboardFixture() {
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
+  const [draft, setDraft] = useState(addDraft);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const unrelatedRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    triggerRef.current?.focus();
+    // A pointer/programmatic click need not focus its opener. The modal must
+    // return to the actual Add Session trigger, not the previous Back control.
+    unrelatedRef.current?.focus();
     setOpen(true);
   }, []);
 
   return (
     <>
+      <button ref={unrelatedRef} type="button" data-report-add-keyboard-unrelated="true">← Back</button>
       <button ref={triggerRef} type="button" data-report-add-keyboard-trigger="true" onClick={() => setOpen(true)}>
         + Add Session
       </button>
@@ -289,13 +294,14 @@ function ReportsAddSessionKeyboardFixture() {
       </button>
       {open ? (
         <ReportAddSessionDialog
+          returnFocusTarget={triggerRef.current}
           tasks={addTasks}
-          draft={addDraft}
+          draft={draft}
           pending={pending}
           error={null}
-          onDraftChange={() => undefined}
+          onDraftChange={(next) => setDraft(next)}
           onClose={() => setOpen(false)}
-          onCommit={() => undefined}
+          onCommit={() => setOpen(false)}
         />
       ) : null}
     </>
@@ -441,6 +447,13 @@ flushSync(() => {
 });
 
 const markReady = () => {
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".reports-sessions__summary article"));
+  if (cards.length) {
+    const firstTop = cards[0].getBoundingClientRect().top;
+    requireFixture(cards.length === 3 && cards.every((card) => Math.abs(card.getBoundingClientRect().top - firstTop) <= 1),
+      "Reports Sessions desktop summary must retain three cards in one row.");
+    document.documentElement.dataset.reportsSummarySingleRow = "true";
+  }
   document.documentElement.dataset.reportsFixtureReady = "true";
 };
 
@@ -550,6 +563,29 @@ async function validateAddSessionKeyboardFixture() {
   );
 
   document.documentElement.dataset.reportsAddPendingGuard = "true";
+
+  // Submission uses the same production cleanup as successful persistence.
+  // Reproduce a pointer opener whose previous focus belongs to Back.
+  const activePickerTrigger = pendingDialog!.querySelector<HTMLButtonElement>('[data-report-task-selector-trigger="true"]');
+  activePickerTrigger!.click();
+  const choice = await waitForElement<HTMLButtonElement>('.reports-sessions__task-picker button[role="option"]');
+  requireFixture(choice, "Submission focus fixture has no owned task choice.");
+  choice!.click();
+  await wait(30);
+  document.documentElement.dataset.reportsAddClientWidth = String(pendingDialog!.clientWidth);
+  document.documentElement.dataset.reportsAddScrollWidth = String(pendingDialog!.scrollWidth);
+  requireFixture(pendingDialog!.scrollWidth <= pendingDialog!.clientWidth + 1,
+    "Selected long task creates horizontal overflow in Add Session.");
+  document.documentElement.dataset.reportsAddLongTitleContained = "true";
+  const addButton = pendingDialog!.querySelector<HTMLButtonElement>('footer .reports-sessions__primary');
+  requireFixture(addButton && !addButton.disabled, "Submission focus fixture must enable Add Session.");
+  addButton!.click();
+  await waitForElement('.reports-sessions__add-dialog', false);
+  await wait(30);
+  requireFixture(document.activeElement === trigger, "Successful Add Session did not restore its actual opener.");
+  document.documentElement.dataset.reportsAddCommitFocusRestored = "true";
+  trigger!.click();
+  await waitForElement('.reports-sessions__add-dialog');
   document.documentElement.dataset.reportsAddKeyboardPass = "true";
 }
 

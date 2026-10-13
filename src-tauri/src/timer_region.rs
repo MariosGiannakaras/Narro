@@ -59,17 +59,28 @@ mod native {
     #[link(name = "gdi32")]
     unsafe extern "system" {
         fn CreateRectRgn(left: i32, top: i32, right: i32, bottom: i32) -> *mut c_void;
+        fn GetRgnBox(region: *mut c_void, rect: *mut Rect) -> i32;
         fn DeleteObject(object: *mut c_void) -> i32;
     }
 
     #[link(name = "user32")]
     unsafe extern "system" {
         fn SetWindowRgn(hwnd: *mut c_void, region: *mut c_void, redraw: i32) -> i32;
+        fn GetWindowRgn(hwnd: *mut c_void, region: *mut c_void) -> i32;
     }
 
     #[link(name = "kernel32")]
     unsafe extern "system" {
         fn GetLastError() -> u32;
+    }
+
+    #[repr(C)]
+    #[derive(Default)]
+    struct Rect {
+        left: i32,
+        top: i32,
+        right: i32,
+        bottom: i32,
     }
 
     fn visible_size_for_scale(
@@ -115,6 +126,20 @@ mod native {
                 format!("resolve focusSurface HWND: {error}"),
             )
         })?;
+        apply_native_rect(hwnd.0 as usize, visible, redraw).map(|_| ())
+    }
+
+    pub(crate) fn apply_native_rect(
+        hwnd: usize,
+        visible: tauri::PhysicalSize<u32>,
+        redraw: bool,
+    ) -> CommandResult<bool> {
+        if visible.width == 0 || visible.height == 0 {
+            return Err(CommandError::new(
+                "FOCUS_REGION_FAILED",
+                "native visible region must be non-empty",
+            ));
+        }
         let width = i32::try_from(visible.width).map_err(|_| {
             CommandError::new(
                 "FOCUS_REGION_FAILED",
@@ -128,6 +153,28 @@ mod native {
             )
         })?;
 
+        // Display recovery may follow a completed raster transaction. Replacing
+        // an identical region can provoke another native non-client repaint;
+        // retain an already-correct rectangular envelope instead.
+        let existing = unsafe { CreateRectRgn(0, 0, 0, 0) };
+        if !existing.is_null() {
+            let kind = unsafe { GetWindowRgn(hwnd as *mut c_void, existing) };
+            let mut bounds = Rect::default();
+            let box_kind = unsafe { GetRgnBox(existing, &mut bounds) };
+            unsafe {
+                DeleteObject(existing);
+            }
+            if kind == 2
+                && box_kind == 2
+                && bounds.left == 0
+                && bounds.top == 0
+                && bounds.right == width
+                && bounds.bottom == height
+            {
+                return Ok(false);
+            }
+        }
+
         // On success SetWindowRgn owns the HRGN. If SetWindowRgn fails, Narro
         // retains ownership and must delete the region.
         let region = unsafe { CreateRectRgn(0, 0, width, height) };
@@ -139,7 +186,7 @@ mod native {
         }
 
         let redraw = if redraw { 1 } else { 0 };
-        if unsafe { SetWindowRgn(hwnd.0 as isize as *mut c_void, region, redraw) } == 0 {
+        if unsafe { SetWindowRgn(hwnd as *mut c_void, region, redraw) } == 0 {
             let error = unsafe { GetLastError() };
             unsafe { DeleteObject(region) };
             return Err(CommandError::new(
@@ -147,7 +194,7 @@ mod native {
                 format!("SetWindowRgn failed: {error}"),
             ));
         }
-        Ok(())
+        Ok(true)
     }
 
     pub fn apply(
@@ -188,6 +235,85 @@ mod native {
             )
         })?;
         apply_physical(window, outer, true)
+    }
+
+    #[cfg(test)]
+    mod native_tests {
+        use super::*;
+        #[link(name = "user32")]
+        unsafe extern "system" {
+            fn CreateWindowExW(
+                ex: u32,
+                class: *const u16,
+                title: *const u16,
+                style: u32,
+                x: i32,
+                y: i32,
+                width: i32,
+                height: i32,
+                parent: *mut c_void,
+                menu: *mut c_void,
+                instance: *mut c_void,
+                parameter: *mut c_void,
+            ) -> *mut c_void;
+            fn DestroyWindow(window: *mut c_void) -> i32;
+        }
+        struct OwnedWindow(*mut c_void);
+        impl Drop for OwnedWindow {
+            fn drop(&mut self) {
+                unsafe {
+                    DestroyWindow(self.0);
+                }
+            }
+        }
+        #[test]
+        fn actual_win32_region_is_exact_and_identical_requests_do_not_replace_it() {
+            let class: Vec<u16> = "STATIC".encode_utf16().chain(Some(0)).collect();
+            let hwnd = unsafe {
+                CreateWindowExW(
+                    0,
+                    class.as_ptr(),
+                    class.as_ptr(),
+                    0,
+                    0,
+                    0,
+                    425,
+                    875,
+                    std::ptr::null_mut(),
+                    std::ptr::null_mut(),
+                    std::ptr::null_mut(),
+                    std::ptr::null_mut(),
+                )
+            };
+            assert!(!hwnd.is_null(), "create hidden native region-test window");
+            let _owned = OwnedWindow(hwnd);
+            for visible in [
+                tauri::PhysicalSize::new(340, 110),
+                tauri::PhysicalSize::new(425, 138),
+                tauri::PhysicalSize::new(425, 375),
+            ] {
+                assert!(apply_native_rect(hwnd as usize, visible, false).unwrap());
+                assert!(
+                    !apply_native_rect(hwnd as usize, visible, true).unwrap(),
+                    "same geometry must not replace HRGN"
+                );
+                let region = unsafe { CreateRectRgn(0, 0, 0, 0) };
+                assert!(!region.is_null());
+                assert_eq!(unsafe { GetWindowRgn(hwnd, region) }, 2);
+                let mut bounds = Rect::default();
+                assert_eq!(unsafe { GetRgnBox(region, &mut bounds) }, 2);
+                unsafe {
+                    DeleteObject(region);
+                }
+                assert_eq!(
+                    (bounds.left, bounds.top, bounds.right, bounds.bottom),
+                    (0, 0, visible.width as i32, visible.height as i32)
+                );
+            }
+            assert!(
+                apply_native_rect(hwnd as usize, tauri::PhysicalSize::new(0, 110), false).is_err()
+            );
+        }
     }
 }
 
@@ -232,6 +358,8 @@ mod native {
     }
 }
 
+#[cfg(windows)]
+pub(crate) use native::apply_native_rect;
 pub use native::{apply, apply_full_host, apply_with_scale, apply_without_redraw, visible_size};
 
 #[cfg(test)]

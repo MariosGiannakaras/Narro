@@ -61,53 +61,23 @@
   pointer-events: none;
 }
 
-/* Preparation still paints below the outgoing view. After readiness, promote
-   the opaque target before native clipping/movement, without transferring its
-   interaction ownership. Avoid blending two task hierarchies or transporting
-   the old Panel header inside the compact Timer region. */
+/* The bounded native raster protects outgoing pixels before this promotion.
+   Keep the complete incoming hierarchy painted for CapturePreview; geometry
+   and blending share one native timeline, never a second CSS crop/reveal. */
 .focus-surface-coordinator[data-focus-geometry-motion="true"]
   .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
   z-index: 3;
   opacity: 1;
   transform: none;
-  transition: clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
+  clip-path: inset(0 0 0 0 round 12px);
+  transition: none;
 }
 
-/* The ready Timer is shorter than the outgoing Panel. Promotion alone leaves
-   the Panel visible below it until the first native region update. Transfer
-   visual ownership in the same paint; rollback restores the committed view. */
 .focus-surface-coordinator[data-focus-geometry-motion="true"]
   .focus-surface-coordinator__presentation[data-focus-visibility="active"] {
   opacity: 0;
   pointer-events: none;
   transition: none;
-}
-
-/* Establish the initial clip atomically during the presented-frame barrier;
-   only the subsequent running phase animates toward the destination geometry. */
-.focus-surface-coordinator[data-focus-geometry-motion-phase="start"]
-  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
-  transition: none;
-}
-
-/* Timer -> Panel first expands the native region while the prepared Panel is
-   clipped to the Timer's current visible height, then reveals the same WebView
-   continuously. Compact and expanded Timer origins are handled separately. */
-.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
-  clip-path: inset(0 0 590px 0 round 12px);
-}
-
-.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
-  clip-path: inset(0 0 400px 0 round 12px);
-}
-
-.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"],
-.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
-  clip-path: inset(0 0 0 0 round 12px);
 }
 
 .focus-surface-coordinator__presentation[data-focus-visibility="inactive"] {

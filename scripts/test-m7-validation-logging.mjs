@@ -6,6 +6,7 @@ function invariant(condition, message) {
 
 const logger = fs.readFileSync("src-tauri/src/validation_log.rs", "utf8");
 const lib = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
+const shutdown = fs.readFileSync("src-tauri/src/normal_shutdown.rs", "utf8");
 const placement = fs.readFileSync("src-tauri/src/floating_placement.rs", "utf8");
 const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
 const smoke = fs.readFileSync("scripts/verify-m7-validation-logging.ps1", "utf8");
@@ -63,10 +64,13 @@ for (const required of [
   "validation_log::record_single_instance_attempt(app_handle)",
   "validation_log::record_timer_move(",
   "validation_log::record_focus_close_requested(window.app_handle())",
-  "validation_log::record_tray_quit_requested(app_handle)",
-  "validation_log::record_tray_quit_completed(",
+  "normal_shutdown::request_normal_exit(app_handle)",
   "validation_log::record_presentation(app_handle, presentation.event_name())",
 ]) invariant(lib.includes(required), `runtime boundary is missing validation hook ${required}`);
+for (const required of ["record_tray_quit_requested", "record_tray_quit_completed", "record_exit_timer_checkpoint"]) {
+  invariant(shutdown.includes(required), `normal Quit owner lost diagnostic hook ${required}`);
+}
+invariant(logger.includes("timer-checkpoint-saved-before-normal-exit"), "normal Quit must record durable final elapsed authority");
 
 invariant(
   placement.includes("crate::validation_log::record_placement_saved(app_handle, &saved)")

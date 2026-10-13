@@ -92,7 +92,9 @@ invariant(
 );
 invariant(
   coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
-    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation"),
+    && coordinator.includes("await applyFocusSurfacePresentation(next)")
+    && coordinator.includes("await prepareFocusSurfaceModeRaster(targetPresentation)")
+    && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)"),
   "global toggle must prepaint before the native presentation transaction commits",
 );
 invariant(

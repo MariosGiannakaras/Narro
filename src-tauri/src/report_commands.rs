@@ -833,7 +833,7 @@ pub fn get_report_task_sessions(
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn create_manual_report_session(
+pub async fn create_manual_report_session(
     app_handle: tauri::AppHandle,
     task_id: String,
     started_at: String,
@@ -841,17 +841,37 @@ pub fn create_manual_report_session(
     duration_seconds: u32,
 ) -> CommandResult<ReportSessionMutationPayload> {
     let task_id = parse_task_id(&task_id)?;
-    let mut connection = app_database(&app_handle)?;
-    create_manual_work_session(
-        &mut connection,
-        task_id,
-        &started_at,
-        &ended_at,
-        u64::from(duration_seconds),
-        &chrono::Utc::now().to_rfc3339(),
-    )
-    .map(Into::into)
-    .map_err(map_session_error)
+    run_manual_session_write(move || {
+        let mut connection = app_database(&app_handle)?;
+        create_manual_work_session(
+            &mut connection,
+            task_id,
+            &started_at,
+            &ended_at,
+            u64::from(duration_seconds),
+            &chrono::Utc::now().to_rfc3339(),
+        )
+        .map(Into::into)
+        .map_err(map_session_error)
+    })
+    .await
+}
+
+// The owned write can wait on SQLite while the native loop keeps processing
+// keyboard/focus events. Await its durable result before reporting success.
+async fn run_manual_session_write<T, F>(operation: F) -> CommandResult<T>
+where
+    T: Send + 'static,
+    F: FnOnce() -> CommandResult<T> + Send + 'static,
+{
+    tauri::async_runtime::spawn_blocking(operation)
+        .await
+        .map_err(|error| {
+            CommandError::new(
+                "REPORT_SESSION_WRITE_FAILED",
+                format!("background manual-session write failed: {error}"),
+            )
+        })?
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -894,6 +914,83 @@ pub fn delete_report_session(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn locked_manual_write_yields_and_commits_once_before_returning() {
+        use std::future::Future;
+        use std::sync::mpsc;
+        use std::task::{Context, Poll, Waker};
+        use std::time::Duration;
+
+        let path =
+            std::env::temp_dir().join(format!("narro-manual-write-{}.db", uuid::Uuid::new_v4()));
+        let owner = rusqlite::Connection::open(&path).expect("open lock owner");
+        owner
+            .execute_batch(
+                "PRAGMA journal_mode=DELETE;
+             CREATE TABLE owned_write_ledger(id TEXT PRIMARY KEY, seconds INTEGER NOT NULL);
+             BEGIN EXCLUSIVE;",
+            )
+            .expect("hold exclusive lock");
+        let worker_path = path.clone();
+        let caller = std::thread::current().id();
+        let (started_tx, started_rx) = mpsc::channel();
+        let (finished_tx, finished_rx) = mpsc::channel();
+        let mut pending = Box::pin(run_manual_session_write(move || {
+            let map = |error: rusqlite::Error| {
+                CommandError::new("REPORT_SESSION_WRITE_FAILED", error.to_string())
+            };
+            let mut worker = rusqlite::Connection::open(worker_path).map_err(map)?;
+            worker.busy_timeout(Duration::from_secs(3)).map_err(map)?;
+            started_tx
+                .send(std::thread::current().id())
+                .expect("worker started");
+            let transaction = worker.transaction().map_err(map)?;
+            transaction
+                .execute(
+                    "INSERT INTO owned_write_ledger VALUES('owned-session',60)",
+                    [],
+                )
+                .map_err(map)?;
+            transaction.commit().map_err(map)?;
+            finished_tx.send(()).expect("committed");
+            Ok("owned-session")
+        }));
+        let mut context = Context::from_waker(Waker::noop());
+        assert!(matches!(pending.as_mut().poll(&mut context), Poll::Pending));
+        assert_ne!(
+            started_rx
+                .recv_timeout(Duration::from_secs(2))
+                .expect("start"),
+            caller
+        );
+        assert!(matches!(pending.as_mut().poll(&mut context), Poll::Pending));
+        assert_eq!(finished_rx.try_recv(), Err(mpsc::TryRecvError::Empty));
+        owner.execute_batch("ROLLBACK").expect("release lock");
+        assert_eq!(
+            tauri::async_runtime::block_on(pending).expect("committed result"),
+            "owned-session"
+        );
+        let actual: (i64, i64) = owner
+            .query_row(
+                "SELECT COUNT(*), SUM(seconds) FROM owned_write_ledger",
+                [],
+                |row| Ok((row.get(0)?, row.get(1)?)),
+            )
+            .expect("read durable result");
+        assert_eq!(actual, (1, 60));
+        drop(owner);
+        std::fs::remove_file(path).expect("remove owned test database");
+    }
+
+    #[test]
+    fn manual_write_worker_preserves_domain_errors() {
+        let expected = CommandError::invalid_argument("durationSeconds", "must be positive");
+        let returned = expected.clone();
+        let result: CommandResult<()> =
+            tauri::async_runtime::block_on(run_manual_session_write(move || Err(returned)));
+        assert_eq!(result, Err(expected));
+    }
 
     #[test]
     fn overview_pdf_export_range_dates_are_filename_safe() {

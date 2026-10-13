@@ -16,6 +16,8 @@ import {
   applyFocusSurfacePresentation,
   focusSurfaceModeOf,
   getFocusSurfacePresentation,
+  prepareFocusSurfaceModeRaster,
+  finishFocusSurfaceModeRaster,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
@@ -148,8 +150,8 @@ export function FocusSurfaceCoordinator() {
     to: FocusSurfacePresentation,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
-    // Promote the ready, opaque target before native clipping/movement. It stays
-    // inert until native success; the outgoing view remains mounted for rollback.
+    // Native outgoing-pixel protection is installed before this promotion.
+    // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
     await waitForPresentedFrame();
   }, []);
@@ -244,6 +246,7 @@ export function FocusSurfaceCoordinator() {
     const previousPresentation = presentationRef.current;
     const targetPresentation = modePresentation(targetMode);
 
+    let rasterToken: number | undefined;
     try {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
@@ -255,14 +258,41 @@ export function FocusSurfaceCoordinator() {
         previousPresentation,
         targetPresentation,
         waitForTargetReady: () => waitForReady(targetMode),
-        beforeNativeCommit: () => prepareGeometryMotion(previousPresentation, targetPresentation),
-        applyNativePresentation: applyFocusSurfacePresentation,
+        beforeNativeCommit: async () => {
+          rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
+          await prepareGeometryMotion(previousPresentation, targetPresentation);
+        },
+        beforeNativeRollback: async () => {
+          flushSync(() => {
+            setGeometryMotion(null);
+            publishPresentation(previousPresentation);
+          });
+          await waitForPresentedFrame();
+        },
+        applyNativePresentation: async (next) => {
+          if (rasterToken !== undefined) {
+            await finishFocusSurfaceModeRaster(rasterToken, true);
+            await waitForPresentedFrame();
+            await finishFocusSurfaceModeRaster(rasterToken);
+            rasterToken = undefined;
+          } else {
+            await applyFocusSurfacePresentation(next);
+          }
+        },
         animateNativePresentation: (next) =>
-          animateFocusSurfacePresentation(next, motionDurationMs),
+          animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!),
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
         commitRendererPresentation: (next) => {
-          flushSync(() => publishPresentation(next));
+          flushSync(() => {
+            setGeometryMotion(null);
+            publishPresentation(next);
+          });
+        },
+        afterRendererCommit: async () => {
+          await waitForPresentedFrame();
+          await finishFocusSurfaceModeRaster(rasterToken!);
+          rasterToken = undefined;
         },
       });
 
@@ -701,7 +731,7 @@ export function FocusSurfaceCoordinator() {
           data-focus-presentation="panel"
           data-focus-visibility={panelActive ? "active" : "preparing"}
           aria-hidden={panelActive ? undefined : true}
-          inert={!panelActive}
+          inert={!panelActive || transitionPending}
         >
           <FocusPanel
             sharedTimerProjection={sharedTimerProjection}
@@ -732,7 +762,7 @@ export function FocusSurfaceCoordinator() {
           data-focus-presentation="timer"
           data-focus-visibility={timerActive ? "active" : "preparing"}
           aria-hidden={timerActive && completionSuccess === null ? undefined : true}
-          inert={!timerActive || completionSuccess !== null}
+          inert={!timerActive || transitionPending || completionSuccess !== null}
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}

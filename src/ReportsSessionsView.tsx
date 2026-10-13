@@ -277,7 +277,7 @@ export function ReportTaskSessionsDialog({
   pendingSessionId: string | null;
   returnFocusTarget?: HTMLElement | null;
   onClose: () => void;
-  onAddSession: (taskId: string) => void;
+  onAddSession: (taskId: string, opener?: HTMLElement) => void;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
   onDelete: (row: ReportsSessionViewRow) => void;
 }) {
@@ -352,7 +352,7 @@ export function ReportTaskSessionsDialog({
         </header>
         <div className="reports-sessions__detail-actions">
           <button type="button" className="reports-sessions__primary" disabled={pending}
-            onClick={() => { if (!pending) onAddSession(detail.taskId); }}>
+            onClick={(event) => { if (!pending) onAddSession(detail.taskId, event.currentTarget); }}>
             + Add Session
           </button>
         </div>
@@ -390,6 +390,7 @@ export function focusableDialogElements(container: HTMLElement): HTMLElement[] {
 }
 
 export function ReportAddSessionDialog({
+  returnFocusTarget,
   tasks,
   draft,
   pending,
@@ -398,6 +399,7 @@ export function ReportAddSessionDialog({
   onClose,
   onCommit,
 }: {
+  returnFocusTarget?: HTMLElement | null;
   tasks: SearchPaletteTaskResult[];
   draft: ReportsAddSessionDraft;
   pending: boolean;
@@ -419,10 +421,12 @@ export function ReportAddSessionDialog({
   const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    // Pointer activation may leave Back focused. The opening event owns identity.
+    openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
     pickerTriggerRef.current?.focus();
-    return () => openerRef.current?.focus();
-  }, []);
+    return () => { if (openerRef.current?.isConnected) openerRef.current.focus(); };
+  }, [returnFocusTarget]);
 
   useEffect(() => {
     if (pending) {
@@ -562,8 +566,8 @@ export function ReportAddSessionDialog({
         {selected ? (
           <div className="reports-sessions__add-fields">
             <p className="reports-sessions__selected-task">
-              <strong>{selected.title}</strong>
-              <span>{selected.listTitle}</span>
+              <strong title={selected.title}>{selected.title}</strong>
+              <span title={selected.listTitle}>{selected.listTitle}</span>
             </p>
             <label className="reports-sessions__field">
               <span>Date</span>
@@ -628,7 +632,7 @@ export type ReportsSessionsViewProps = {
   exportPending?: boolean;
   onBack?: () => void;
   onOpenOverview: () => void;
-  onOpenAddSession: () => void;
+  onOpenAddSession: (opener: HTMLElement) => void;
   onExport?: () => void;
   onToggleBreakSessions: () => void;
   onToggleListFilter: () => void;
@@ -688,7 +692,7 @@ export function ReportsSessionsView({
           <h1>Reports</h1>
         </div>
         <div className="reports-sessions__top-actions">
-          <button type="button" className="reports-sessions__primary" onClick={onOpenAddSession}>+ Add Session</button>
+          <button type="button" className="reports-sessions__primary" onClick={(event) => onOpenAddSession(event.currentTarget)}>+ Add Session</button>
           <button
             type="button"
             className="reports-overview__export"

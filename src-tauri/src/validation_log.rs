@@ -522,6 +522,24 @@ pub fn record_tray_quit_requested(app_handle: &tauri::AppHandle) {
     record_event(app_handle, "tray-quit-requested", json!({}));
 }
 
+pub fn record_exit_timer_checkpoint(
+    app_handle: &tauri::AppHandle,
+    snapshot: &crate::domain::timer_events::TimerSessionPayload,
+) {
+    if !enabled() {
+        return;
+    }
+    record_event(
+        app_handle,
+        "timer-checkpoint-saved-before-normal-exit",
+        json!({
+            "sessionId": snapshot.runtime.open_session_id,
+            "timerState": snapshot.runtime.timer.state,
+            "workElapsedMs": snapshot.runtime.timer.work_elapsed_ms,
+        }),
+    );
+}
+
 pub fn record_tray_quit_completed(
     app_handle: &tauri::AppHandle,
     placement_saved: bool,

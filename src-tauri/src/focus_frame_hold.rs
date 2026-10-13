@@ -105,6 +105,7 @@ mod native {
         fn BeginPaint(window: Handle, paint: *mut Paint) -> Handle;
         fn EndPaint(window: Handle, paint: *const Paint) -> i32;
         fn UpdateWindow(window: Handle) -> i32;
+        fn InvalidateRect(window: Handle, rect: *const Rect, erase: i32) -> i32;
         fn FindWindowExW(
             parent: Handle,
             after: Handle,
@@ -284,9 +285,138 @@ mod native {
 
     pub struct Hold {
         window: tauri::WebviewWindow,
+        child: usize,
         armed: bool,
     }
     impl Hold {
+        pub(crate) fn release(&mut self) -> CommandResult<()> {
+            let owned = self.child;
+            on_window_thread(&self.window, move |parent| {
+                let name = wide(CLASS);
+                let child = unsafe {
+                    FindWindowExW(
+                        parent as Handle,
+                        ptr::null_mut(),
+                        name.as_ptr(),
+                        ptr::null(),
+                    )
+                };
+                if !child.is_null()
+                    && child as usize == owned
+                    && unsafe { DestroyWindow(child) } == 0
+                {
+                    return Err(failure("release owned raster"));
+                }
+                Ok(())
+            })?;
+            self.armed = false;
+            Ok(())
+        }
+        pub(crate) fn replace_transition_frame(
+            &self,
+            visible: tauri::PhysicalSize<u32>,
+            bytes: Vec<u8>,
+        ) -> CommandResult<()> {
+            if visible.width == 0
+                || visible.height == 0
+                || visible.width > 4096
+                || visible.height > 4096
+                || bytes.len() != visible.width as usize * visible.height as usize * 4
+            {
+                return Err(failure("invalid transition frame"));
+            }
+            let width = visible.width as i32;
+            let height = visible.height as i32;
+            let child_id = self.child;
+            let scale = self
+                .window
+                .scale_factor()
+                .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
+            let diameter = (32.0 * scale).round() as i32;
+            on_window_thread(&self.window, move |parent| {
+                let name = wide(CLASS);
+                let child = unsafe {
+                    FindWindowExW(
+                        parent as Handle,
+                        ptr::null_mut(),
+                        name.as_ptr(),
+                        ptr::null(),
+                    )
+                };
+                if child.is_null() || child as usize != child_id {
+                    return Err(failure("transition raster expired or superseded"));
+                }
+                let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
+                if pixels.is_null() {
+                    return Err(failure("transition raster has no pixels"));
+                }
+                let image = unsafe { &mut *pixels };
+                let info = BitmapInfo {
+                    size: 40,
+                    width,
+                    height: -height,
+                    planes: 1,
+                    bits: 32,
+                    compression: 0,
+                    image_size: bytes.len() as u32,
+                    x_pels: 0,
+                    y_pels: 0,
+                    colors_used: 0,
+                    colors_important: 0,
+                    color: 0,
+                };
+                let mut bits = ptr::null_mut();
+                let bitmap =
+                    unsafe { CreateDIBSection(image.dc, &info, 0, &mut bits, ptr::null_mut(), 0) };
+                if bitmap.is_null() || bits.is_null() {
+                    if !bitmap.is_null() {
+                        unsafe {
+                            DeleteObject(bitmap);
+                        }
+                    }
+                    return Err(failure("allocate transition bitmap"));
+                }
+                unsafe {
+                    ptr::copy_nonoverlapping(bytes.as_ptr(), bits.cast(), bytes.len());
+                }
+                let old = unsafe { SelectObject(image.dc, bitmap) };
+                if old.is_null() || old as isize == -1 {
+                    unsafe {
+                        DeleteObject(bitmap);
+                    }
+                    return Err(failure("select transition bitmap"));
+                }
+                unsafe {
+                    DeleteObject(image.bitmap);
+                }
+                image.bitmap = bitmap;
+                image.width = width;
+                image.height = height;
+                let region =
+                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+                if region.is_null() {
+                    return Err(failure("create transition child envelope"));
+                }
+                if unsafe { SetWindowRgn(child, region, 0) } == 0 {
+                    unsafe {
+                        DeleteObject(region);
+                    }
+                    return Err(failure("apply transition child envelope"));
+                }
+                // Install the complete bitmap and child geometry BEFORE exposing
+                // the matching parent region, all on the same window thread.
+                if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, width, height, 0x50) } == 0 {
+                    return Err(failure("resize transition raster envelope"));
+                }
+                crate::timer_region::apply_native_rect(parent, visible, false)?;
+                unsafe {
+                    InvalidateRect(child, ptr::null(), 0);
+                    UpdateWindow(child);
+                    DwmFlush();
+                }
+                Ok(())
+            })
+        }
         // The one-shot native timer now owns cleanup. No GUI-thread sleep,
         // renderer authority, domain-state delay or continuous polling.
         pub fn commit(mut self) {
@@ -296,7 +426,7 @@ mod native {
     impl Drop for Hold {
         fn drop(&mut self) {
             if self.armed {
-                if let Err(error) = clear(&self.window) {
+                if let Err(error) = self.release() {
                     eprintln!("Could not clean up rolled-back Focus raster: {error}");
                 }
             }
@@ -308,6 +438,25 @@ mod native {
         visible: tauri::PhysicalSize<u32>,
         png: &[u8],
     ) -> CommandResult<Hold> {
+        begin_with_lifetime(window, visible, png, HOLD_MS)
+    }
+
+    pub(crate) fn begin_mode_transition(
+        window: &tauri::WebviewWindow,
+        visible: tauri::PhysicalSize<u32>,
+        png: &[u8],
+    ) -> CommandResult<Hold> {
+        // Explicit renderer acknowledgement normally releases this lease.
+        // A bounded watchdog handles renderer loss without an idle capture loop.
+        begin_with_lifetime(window, visible, png, 8_000)
+    }
+
+    fn begin_with_lifetime(
+        window: &tauri::WebviewWindow,
+        visible: tauri::PhysicalSize<u32>,
+        png: &[u8],
+        lifetime_ms: u32,
+    ) -> CommandResult<Hold> {
         let bytes = crate::focus_frame_capture::compact_bgra(png, visible.width, visible.height)?;
         let width = i32::try_from(visible.width).map_err(|_| failure("invalid raster width"))?;
         let height = i32::try_from(visible.height).map_err(|_| failure("invalid raster height"))?;
@@ -315,7 +464,7 @@ mod native {
             .scale_factor()
             .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
         let diameter = (32.0 * scale).round() as i32;
-        on_window_thread(window, move |parent| {
+        let child = on_window_thread(window, move |parent| {
             let name = wide(CLASS);
             let instance = unsafe { GetModuleHandleW(ptr::null()) };
             let class = WindowClass {
@@ -408,7 +557,7 @@ mod native {
                     }
                     return Err(failure("clip raster child"));
                 }
-                if unsafe { SetTimer(child, 1, HOLD_MS, ptr::null_mut()) } == 0 {
+                if unsafe { SetTimer(child, 1, lifetime_ms, ptr::null_mut()) } == 0 {
                     return Err(failure("arm finite raster expiry"));
                 }
                 if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, width, height, 0x50) } == 0 {
@@ -418,7 +567,7 @@ mod native {
                     UpdateWindow(child);
                     DwmFlush();
                 }
-                Ok(())
+                Ok(child as usize)
             })();
             if installed.is_err() {
                 unsafe {
@@ -429,6 +578,7 @@ mod native {
         })?;
         Ok(Hold {
             window: window.clone(),
+            child,
             armed: true,
         })
     }
@@ -440,6 +590,16 @@ mod native {
     pub struct Hold;
     impl Hold {
         pub fn commit(self) {}
+        pub(crate) fn release(&mut self) -> CommandResult<()> {
+            Ok(())
+        }
+        pub(crate) fn replace_transition_frame(
+            &self,
+            _: tauri::PhysicalSize<u32>,
+            _: Vec<u8>,
+        ) -> CommandResult<()> {
+            Ok(())
+        }
     }
     pub fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
@@ -451,6 +611,14 @@ mod native {
     ) -> CommandResult<Hold> {
         Ok(Hold)
     }
+    pub(crate) fn begin_mode_transition(
+        window: &tauri::WebviewWindow,
+        visible: tauri::PhysicalSize<u32>,
+        png: &[u8],
+    ) -> CommandResult<Hold> {
+        begin(window, visible, png)
+    }
 }
 
 pub use native::{begin, clear};
+pub(crate) use native::{begin_mode_transition, Hold};

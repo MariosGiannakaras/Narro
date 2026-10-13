@@ -56,6 +56,7 @@ function common(dom, label) {
 }
 
 function sessionsCommon(dom, label) {
+  invariant(dom.includes('data-reports-summary-single-row="true"'), label + " three desktop summary cards did not remain in one row");
   invariant(dom.includes('data-reports-sessions="true"'), label + " Sessions surface is missing");
   invariant(dom.includes(">Reports<"), label + " Reports title is missing");
   invariant(dom.includes('role="tablist"'), label + " Reports tablist is missing");
@@ -154,6 +155,8 @@ for (const theme of ["light", "dark"]) {
       invariant(dom.includes('data-reports-add-tab-contained="true"'), label + " Tab containment regression did not pass");
       invariant(dom.includes('data-reports-add-escape-dismissed="true"'), label + " Escape dismissal regression did not pass");
       invariant(dom.includes('data-reports-add-focus-restored="true"'), label + " focus restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-commit-focus-restored="true"'), label + " successful-submit opener restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-long-title-contained="true"'), label + " selected long task caused horizontal dialog overflow");
       invariant(dom.includes('data-reports-add-pending-guard="true"'), label + " pending dismissal/containment regression did not pass");
       continue;
     }
