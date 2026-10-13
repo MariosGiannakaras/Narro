@@ -74,6 +74,21 @@ assert(sound.includes('<ActionIcon name="play" />') && sound.includes("onClick={
   && sound.includes('className="preference-settings__sound-preview motion-interactive"'),
   "audio preview must use SVG Play with the unchanged handler and visual control identity");
 assert(icons.includes('case "play"'), "the shared Play icon is not defined");
+// The original Blitzit v2.6.69 expanded-Timer screenshot uses a trash can
+// for deleting a subtask; the X glyph is reserved for canceling an edit.
+for (const [path, deleteMarker, cancelMarker, name] of [
+  ["src/FocusLiveSubtasks.tsx", 'data-floating-subtask-action="delete"', 'data-floating-subtask-action="cancel-edit"', "Timer"],
+  ["src/TaskSubtasks.tsx", 'data-task-subtask-control="delete"', 'data-task-subtask-control="cancel-edit"', "Board"],
+]) {
+  const source = read(path);
+  const deleting = source.slice(source.indexOf(deleteMarker), source.indexOf("</button>", source.indexOf(deleteMarker)));
+  const cancelling = source.slice(source.indexOf(cancelMarker), source.indexOf("</button>", source.indexOf(cancelMarker)));
+  assert(deleting.includes('<ActionIcon name="trash" />')
+    && deleting.includes("onClick="), `${name} Delete must render a trash SVG and preserve its handler`);
+  assert(cancelling.includes('<ActionIcon name="close" />'),
+    `${name} Cancel Edit must retain the distinct X semantic SVG`);
+}
+
 const pkg = JSON.parse(read("package.json"));
 assert(pkg.scripts["test:ui-action-icons"] === "node scripts/test-ui-action-icons.mjs",
   "shared action-icon test script is missing");
