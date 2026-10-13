@@ -384,7 +384,7 @@ export function FocusLiveSubtasks({
                                   aria-label="Cancel subtask edit"
                                   disabled={pending}
                                   onClick={() => setEditor(null)}
-                                >×</button>
+                                ><UiActionIcon name="x" size={14} /></button>
                               </Tooltip>
                               <Tooltip content="Save subtask title" align="end">
                                 <button
@@ -407,7 +407,7 @@ export function FocusLiveSubtasks({
                                       () => setEditor(null),
                                     );
                                   }}
-                                >✓</button>
+                                ><UiActionIcon name="check" size={14} /></button>
                               </Tooltip>
                             </>
                           ) : (
@@ -461,7 +461,7 @@ export function FocusLiveSubtasks({
                                     listId: task.listId,
                                     expectedUpdatedAt: subtask.updatedAt,
                                   }))}
-                                >×</button>
+                                ><UiActionIcon name="x" size={14} /></button>
                               </Tooltip>
                             </>
                           )}
