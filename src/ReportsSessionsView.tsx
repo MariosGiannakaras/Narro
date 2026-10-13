@@ -267,6 +267,7 @@ function SessionRow({
 export function ReportTaskSessionsDialog({
   detail,
   pendingSessionId,
+  covered = false,
   returnFocusTarget,
   onClose,
   onAddSession,
@@ -275,6 +276,7 @@ export function ReportTaskSessionsDialog({
 }: {
   detail: ReportsTaskDetailView;
   pendingSessionId: string | null;
+  covered?: boolean;
   returnFocusTarget?: HTMLElement | null;
   onClose: () => void;
   onAddSession: (taskId: string, opener?: HTMLElement) => void;
@@ -283,13 +285,14 @@ export function ReportTaskSessionsDialog({
 }) {
   const dialogRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const nestedReturnPendingRef = useRef(false);
   const openerRef = useRef<HTMLElement | null>(null);
   const pending = pendingSessionId !== null;
 
   useEffect(() => {
     const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    // The detail is temporarily unmounted while nested Add Session owns focus.
-    // Reuse the original list opener after remount, not document.body.
+    // Nested Add keeps this owner mounted, preserving its actual button opener.
     openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
     closeButtonRef.current?.focus();
     return () => {
@@ -298,8 +301,16 @@ export function ReportTaskSessionsDialog({
   }, []);
 
   useEffect(() => {
-    if (pending) dialogRef.current?.focus();
-  }, [pending]);
+    if (pending && !covered) dialogRef.current?.focus();
+  }, [pending, covered]);
+
+  useEffect(() => {
+    if (covered) nestedReturnPendingRef.current = true;
+    if (nestedReturnPendingRef.current && !covered && !pending) {
+      nestedReturnPendingRef.current = false;
+      addButtonRef.current?.focus();
+    }
+  }, [covered, pending]);
 
   function handleDetailKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.key === "Escape") {
@@ -331,9 +342,10 @@ export function ReportTaskSessionsDialog({
   }
 
   return (
-    <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true">
+    <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true"
+      hidden={covered} inert={covered} aria-hidden={covered ? true : undefined}>
       <section ref={dialogRef} className="reports-sessions__detail" role="dialog"
-        aria-modal="true" aria-labelledby="report-task-sessions-title" tabIndex={-1}
+        aria-modal={covered ? undefined : true} aria-labelledby="report-task-sessions-title" tabIndex={-1}
         onKeyDown={handleDetailKeyDown} data-report-session-detail-dialog="true">
         <header className="reports-sessions__detail-header">
           <div>
@@ -352,6 +364,7 @@ export function ReportTaskSessionsDialog({
         </header>
         <div className="reports-sessions__detail-actions">
           <button type="button" className="reports-sessions__primary" disabled={pending}
+            ref={addButtonRef}
             onClick={(event) => { if (!pending) onAddSession(detail.taskId, event.currentTarget); }}>
             + Add Session
           </button>

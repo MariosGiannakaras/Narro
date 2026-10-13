@@ -314,6 +314,7 @@ function ReportsDetailKeyboardFixture() {
   const [addOpen, setAddOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const nestedOpenerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     triggerRef.current?.focus();
@@ -326,19 +327,24 @@ function ReportsDetailKeyboardFixture() {
         onClick={() => setDetailOpen(true)}>Open task session detail</button>
       <button hidden type="button" aria-pressed={pending} data-report-detail-keyboard-pending="true"
         onClick={() => setPending((previous) => !previous)}>Toggle pending</button>
-      {detailOpen && !addOpen ? (
+      {detailOpen ? (
         <ReportTaskSessionsDialog
           detail={taskDetail}
+          covered={addOpen}
           returnFocusTarget={triggerRef.current}
           pendingSessionId={pending ? "session-01" : null}
           onClose={() => setDetailOpen(false)}
-          onAddSession={() => setAddOpen(true)}
+          onAddSession={(_taskId, opener) => {
+            nestedOpenerRef.current = opener ?? null;
+            setAddOpen(true);
+          }}
           onCommitEndTime={async () => true}
           onDelete={() => undefined}
         />
       ) : null}
       {addOpen ? (
         <ReportAddSessionDialog
+          returnFocusTarget={nestedOpenerRef.current}
           tasks={[...addTasks, {
             id: "task-email", listId: "blitzit", listTitle: "Blitzit",
             listColor: "#48d6c5", title: "Email newsletter", lane: "Today" as const,
@@ -348,7 +354,13 @@ function ReportsDetailKeyboardFixture() {
           error={null}
           onDraftChange={() => undefined}
           onClose={() => setAddOpen(false)}
-          onCommit={() => setAddOpen(false)}
+          onCommit={() => {
+            setPending(true);
+            setAddOpen(false);
+            // The real durable write closes Add before its fallible refresh.
+            // Its parent must return focus only when controls are enabled again.
+            window.setTimeout(() => setPending(false), 80);
+          }}
         />
       ) : null}
     </>
@@ -613,8 +625,9 @@ async function validateDetailSessionKeyboardFixture() {
   add!.click();
   const nested = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
   requireFixture(nested, "Detail to Add Session transfer did not open.");
-  requireFixture(!document.querySelector('[data-report-session-detail-dialog="true"]'),
-    "Detail remained mounted as a second aria-modal during Add Session.");
+  requireFixture(detail!.closest<HTMLElement>('[data-report-session-detail="true"]')?.hidden
+      && !detail!.hasAttribute("aria-modal") && add!.isConnected,
+    "Nested Add must retain its opener in a hidden, inactive parent without a second modal owner.");
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Add Session transfer has competing modal owners.");
   await wait(30);
@@ -624,13 +637,15 @@ async function validateDetailSessionKeyboardFixture() {
   const cancel = nested!.querySelector<HTMLButtonElement>("footer button");
   requireFixture(cancel, "Add Session Cancel control is missing.");
   cancel!.click();
-  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await waitForElement(".reports-sessions__add-dialog", false);
+  requireFixture(detail === document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Nested Cancel replaced its parent or disconnected the actual opener.");
   await wait(30);
   close = detail!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
   add = detail!.querySelector<HTMLButtonElement>(".reports-sessions__detail-actions button");
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Detail was not restored as the sole owner after Add Session Cancel.");
-  requireFixture(document.activeElement === close, "Detail did not reacquire focus after nested Cancel.");
+  requireFixture(document.activeElement === add, "Nested Add Session Cancel did not restore its actual Add Session opener.");
 
   add!.click();
   const commitDialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
@@ -639,10 +654,14 @@ async function validateDetailSessionKeyboardFixture() {
   const commit = commitDialog!.querySelector<HTMLButtonElement>("footer .reports-sessions__primary");
   requireFixture(commit && !commit.disabled, "Preselected Add Session is not commit-ready.");
   commit!.click();
-  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await waitForElement(".reports-sessions__add-dialog", false);
+  requireFixture(detail === document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Nested Commit replaced its parent or disconnected the actual opener.");
+  await waitForElement('.reports-sessions__detail-actions button:not([disabled])');
   await wait(30);
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Detail was not restored as the sole owner after Add Session Commit.");
+  requireFixture(document.activeElement === add, "Nested Add Session Commit did not restore its actual Add Session opener.");
 
   const pendingToggle = document.querySelector<HTMLButtonElement>('[data-report-detail-keyboard-pending="true"]');
   requireFixture(pendingToggle, "Detail pending fixture control is missing.");

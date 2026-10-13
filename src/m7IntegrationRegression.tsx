@@ -259,6 +259,41 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     if (!option) throw new Error(`Focus list option ${listId} unavailable`);
     flushSync(() => option.click());
   };
+  // Native PA03: autofocus exposed the title but left Add/Cancel below the
+  // compact Panel queue. Exercise the production form at its real700px height.
+  const originalBoardTasks = boardTasks;
+  const originalTimerRuntime = timer.runtime;
+  const originalScroll = { x: window.scrollX, y: window.scrollY };
+  boardTasks = tasks.slice(0, 3);
+  timer.runtime = { ...timer.runtime, open_session_id: "add-geometry-session",
+    timer: { ...timer.runtime.timer, state: "paused", task_id: tasks[0].id,
+      mode: { kind: "est_countdown", est_ms: 120_000 }, work_elapsed_ms: 126_000,
+      countdown_remaining_ms: -6_000, overtime_ms: 6_000 } };
+  renderFocus(); await wait(); await wait();
+  const addPanel = container.querySelector<HTMLElement>(".focus-panel")!;
+  const originalPanelHeight = addPanel.style.height;
+  const originalPanelMinHeight = addPanel.style.minHeight;
+  addPanel.style.height = "700px";
+  addPanel.style.minHeight = "700px";
+  const addQueue = addPanel.querySelector<HTMLElement>(".focus-panel__queue")!;
+  const addTrigger = addPanel.querySelector<HTMLButtonElement>('[data-focus-add-task="open"]')!;
+  flushSync(() => addTrigger.click());
+  await wait();
+  const editor = addPanel.querySelector<HTMLFormElement>('[data-focus-add-task="editor"]')!;
+  const editorBounds = editor.getBoundingClientRect();
+  const queueBounds = addQueue.getBoundingClientRect();
+  assert(editorBounds.top >= queueBounds.top - 1 && editorBounds.bottom <= queueBounds.bottom + 1,
+    "Focus Add Task complete form must fit inside its visible queue after opening.");
+  assert(document.activeElement === editor.querySelector('[data-focus-add-task-title="true"]'),
+    "Revealing the whole Focus Add form must preserve title-input autofocus.");
+  flushSync(() => editor.querySelector<HTMLButtonElement>('button[type="button"]')!.click());
+  addPanel.style.height = originalPanelHeight;
+  addPanel.style.minHeight = originalPanelMinHeight;
+  addQueue.scrollTop = 0;
+  boardTasks = originalBoardTasks;
+  timer.runtime = originalTimerRuntime;
+  flushSync(() => root.render(<div>Reset isolated Add geometry scenario</div>));
+  window.scrollTo(originalScroll.x, originalScroll.y);
   renderFocus(); await wait(); await wait();
   assert(options().includes("Original"), "initial active catalog missing");
   // Q03: drive the REAL Focus list-picker React keyboard handlers while its
@@ -829,6 +864,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
+    focusAddEditorFullyVisible: true,
     pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
     pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
     deleteMenuRetained: true, deleteMenuUnobscured: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,

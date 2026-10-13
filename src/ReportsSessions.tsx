@@ -614,9 +614,10 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         onDelete={(row) => void deleteSession(row)}
       />
 
-      {detailView && !addOpen ? (
+      {detailView ? (
         <ReportTaskSessionsDialog
           detail={detailView}
+          covered={addOpen}
           returnFocusTarget={detailOpenerRef.current}
           pendingSessionId={mutationPendingId}
           onClose={() => setDetailTaskId(null)}
