@@ -1,0 +1,63 @@
+{
+  "utc": "2026-10-13T12:52:19.088689+00:00",
+  "source": "35528dea615e28b146d5eb808cc9432582184738",
+  "ci": 38384969271,
+  "attempt": 2,
+  "conclusion": "3/3 SUCCESS",
+  "supplemental_artifacts": [
+    {
+      "kind": "focus-runtime",
+      "artifact": 11807982033,
+      "sha256": "91b0f7a537147371213088377972d3c48691f9be7d7c34560c9a0179a9aee24e",
+      "crc_entries": 90,
+      "nonuniform_png": 63
+    },
+    {
+      "kind": "validation",
+      "artifact": 11808157722,
+      "sha256": "c7e48e7c86a052c1d28d3efcf827241cc9e38e0a179512ed9037d27c7c519dde",
+      "crc_entries": 2,
+      "exe_sha256": "cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8"
+    }
+  ],
+  "production": {
+    "source": "35528dea615e28b146d5eb808cc9432582184738",
+    "artifact": 11808147828,
+    "kind": "production",
+    "zip_sha256": "ff65798b13397aa1a526daaa93302180dfaa64cbe0cec30047f52a4e36c69626",
+    "crc_entries": 3,
+    "files": [
+      {
+        "path": "narro.exe",
+        "bytes": 16115712,
+        "sha256": "cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8"
+      },
+      {
+        "path": "bundle/msi/Narro_0.1.0_x64_en-US.msi",
+        "bytes": 5857280,
+        "sha256": "5e369362c4cd5ef35923073f1573f8837dbae8fe47b7e195cb02202e63a8b21f"
+      },
+      {
+        "path": "bundle/nsis/Narro_0.1.0_x64-setup.exe",
+        "bytes": 4149165,
+        "sha256": "ff5e212a0f0843e707ddf3d231e0fd3d8f97da4d0196e4dac0c82dfbae19c5aa"
+      }
+    ],
+    "native_acceptance": "NOT RUN"
+  },
+  "visual": {
+    "source": "35528dea615e28b146d5eb808cc9432582184738",
+    "artifact": 11808301580,
+    "kind": "visual",
+    "zip_sha256": "738abc779c588e3e357b3ddccefdd56a903e54827e63136f9f4e3384c928ecdd",
+    "crc_entries": 341,
+    "files": [],
+    "native_acceptance": "NOT RUN",
+    "decoded_png": 168,
+    "uniform_png": [],
+    "add_focus_overflow_themes": 2,
+    "summary_row_themes": 2
+  },
+  "physical_acceptance": "0/3; no corrected executable launched",
+  "runtime": "E:\\SystemFiles\\Desktop\\Narro-PA-postfix-20261013\\package\\narro-m7-validation.exe"
+}

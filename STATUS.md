@@ -1,5 +1,8 @@
 # STATUS.md
 
+**CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
+
+
 **ChatGPT icon work is complete (2026-10-13):** PR #347 merged `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, resulting-main CI38374569549 attempt2 **3/3 PASS**. PR #348 merged `123ecfa18cac89432f337fba45a8bf84fa088564`, direct resulting-main CI38380701881 **CANCELLED** (historical), but descendant-main [CI38384969271 attempt2](https://github.com/MariosGiannakaras/Narro/actions/runs/38384969271) for `35528dea615e28b146d5eb808cc9432582184738` **3/3 PASS**. **6/6** PR348 exact-head source/test Git blobs equal in main; descendant visual artifact11808301580 SHA/CRC 341/341 and 168 PNG decode PASS; production artifact11808147828 SHA/CRC 3/3 PASS. Full [immutable acceptance log](work-log/2026-10-13-chatgpt-pr348-descendant-main-acceptance.md). **No remaining icon-code/CI action.** This does not assert Blitzit exact parity or native PA pass and does not change Codex PA01–08 ownership.
 
 

@@ -1,5 +1,8 @@
 # Current Windows residual physical session
 
+**CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](../work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
+
+
 **Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](../work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
 
 
