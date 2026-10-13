@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -395,7 +396,7 @@ export function SearchPalette({
                           data-search-task-id={task.id}
                           onClick={() => transition(() => onOpenTask(task))}
                         >
-                          <span className="search-palette__option-icon" aria-hidden="true">✓</span>
+                          <span className="search-palette__option-icon"><ActionIcon name="check" /></span>
                           <span className="search-palette__option-copy">
                             <strong><HighlightedMatch text={task.title} query={queryToken} /></strong>
                             <span>{task.listTitle} · {task.lane}</span>
@@ -445,7 +446,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onGoReports)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">↗</span>
+                  <span className="search-palette__option-icon"><ActionIcon name="arrow-right" /></span>
                   <span className="search-palette__option-copy"><strong>Go to Reports</strong></span>
                 </button>
               </div>
@@ -474,7 +475,7 @@ export function SearchPalette({
           }}
           disabled={quickTaskPending}
         >
-          {taskCreateOnly ? "Cancel" : "← Back"}
+          {taskCreateOnly ? "Cancel" : <><ActionIcon name="arrow-left" /> Back</>}
         </button>
         <div>
           <p className="search-palette__eyebrow type-metadata">Quick action</p>
