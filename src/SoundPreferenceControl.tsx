@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { useEffect, useId, useRef, useState } from "react";
 import { LOCAL_SOUND_OPTIONS, playLocalSoundPreview, type LocalSoundId } from "./localSoundCatalog";
 
@@ -164,7 +165,7 @@ export function SoundPreferenceControl({
         disabled={disabled}
         onClick={preview}
       >
-        <span aria-hidden="true">▶</span>
+        <ActionIcon name="play" />
       </button>
       <select
         aria-label={soundLabel}
