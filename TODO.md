@@ -1,10 +1,10 @@
 # TODO.md
 
-## NOW — PA350 targeted native capture5/5 frozen; analysis0/5
+## NOW — PA350 acquisition/review5/5; original corrected native3/3, new failures routed
 
-[Whole recording,312 files, logs and exact continuation](work-log/2026-10-14-pa350-native-acquisition-complete.md). PR350 merged0f606bc3, exact PR CI3/3,527/527 executable/source/build/test/config blobs equal. EXE6c780f13. Continuous21m14.602s dual4480x1080/60fps captured all five targeted groups including actual300s+300s Pomodoro boundaries. Original profiles/motion/topology/Focus Assist restored with fresh-baseline hash equality. Personal backups/ledger excluded.
+[Aggregate exact report](docs/WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md). Two PR350 fixes2/2 accepted; actual new C5 PASS. Full recording/raw logs main25d28531 plus all-frame/audio/supplemental evidence below. New confirmed FAIL: M6 normal Main entry clips/blanks/overshoots; actual notification100 silent despite positive preview; Main/detail visible scrollbars. Actual toast delivery foreground/background PASS. Physical scancodes resume correctly; no shortcut product patch warranted, reverse direction still to acquire.
 
-**NEXT:** aggregate frames/audio/native traces/domain review, disposition every sufficiently exercised open gate; confirmed corrections only. Prior native corrective2/3, mandatory3/10 unchanged. MSI/hardware/source parity/performance comparison OPEN/NOT RUN, M10 blocked, M11/PA09 excluded; picker/upload/218icons preserved.
+**NEXT:** confirmed three-family regression-first branch, one aggregate CI and exact targeted native recheck. Original profiles/motion/topology/Focus Assist restored, fresh DB hash identical. MSI/hardware/listener-failure/source parity/performance comparison OPEN/NOT RUN. Mandatory3/10/M10 blocked; M11/PA09 excluded, picker/upload/218icons preserved.
 
 **Historical CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
 

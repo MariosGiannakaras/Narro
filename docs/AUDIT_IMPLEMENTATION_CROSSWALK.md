@@ -1,5 +1,10 @@
 # Audit → implementation crosswalk
 
+## CURRENT PA350 native reconciliation — 2026-10-14
+
+[Authoritative exact report](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md): nested F29 and full Focus form PASS, C5 new-executable restart PASS; repaired original families3/3. New M6 initial-entry paint/timing, actual notification audio100 and Reports visible-scrollbar findings FIX_NOW in next narrow batch. Native toast delivery PASS, source parity/hardware/MSI/listener failure OPEN/NOT RUN. Virtual-key tool failures do not authorize a shortcut patch: held physical scancodes succeed. Mandatory3/10/M10 blocked; historical results below remain immutable.
+
+
 ## CURRENT native postfix disposition — 2026-10-13
 
 [Exact35528dea PA report](WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md) supersedes old baseline failure/paused statements only for the explicitly exercised gates: C4 acquired transition matrix, F35 dark125, C5 placement and normal-Quit elapsed PASS; nested F29 FAIL. Display125→100→125/logical recovery and preview/mute/unmute scoped PASS; physical unplug/MSI NOT RUN; source entry timing/automatic delivery/performance comparison and wider parity OPEN. No full milestone/M10 advancement. Next confirmed nested-focus/form-visibility correction, not unrelated implementation. Historical evidence retained below.

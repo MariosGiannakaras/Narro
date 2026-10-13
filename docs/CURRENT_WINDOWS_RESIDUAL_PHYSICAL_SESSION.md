@@ -1,5 +1,10 @@
 # Current Windows residual physical session
 
+## NOW — PA350 exact native disposition, 2026-10-14
+
+[Current report and next corrective batch](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md) supersedes historical current pins/pauses below only for exercised PA01–08 branches. Source4b183470/main0f606bc3/EXE6c780f13, acquisition/review5/5 targeted, original fixes3/3 accepted; new Main entry/audio/Reports scroll failures remain. Original profiles/settings restored. No full-matrix repeat, M10 blocked/M11 dormant/PA09 excluded.
+
+
 **CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](../work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
 
 
