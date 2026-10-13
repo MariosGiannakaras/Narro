@@ -1,3 +1,4 @@
+import { UiActionIcon } from "./UiActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import {
@@ -274,7 +275,7 @@ export function FocusLiveSubtasks({
               disabled={interactionPending || pending}
               onClick={() => void toggleExpanded()}
             >
-              <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+              <span aria-hidden="true"><UiActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
             </button>
           </Tooltip>
         </div>
@@ -427,7 +428,7 @@ export function FocusLiveSubtasks({
                                       orderedIds: order.orderedIds,
                                     }));
                                   }}
-                                >↑</button>
+                                ><UiActionIcon name="arrow-up" /></button>
                               </Tooltip>
                               <Tooltip content="Move subtask down" align="end">
                                 <button
@@ -445,7 +446,7 @@ export function FocusLiveSubtasks({
                                       orderedIds: order.orderedIds,
                                     }));
                                   }}
-                                >↓</button>
+                                ><UiActionIcon name="arrow-down" /></button>
                               </Tooltip>
                               <Tooltip content="Delete subtask" align="end">
                                 <button
@@ -537,7 +538,7 @@ export function FocusLiveSubtasks({
           onClick={() => void toggleExpanded()}
         >
           <span>{progress.total === 0 ? "Subtasks" : `${progress.completed}/${progress.total} Subtasks`}</span>
-          <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
+          <span aria-hidden="true"><UiActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
         </button>
         <Tooltip content="Add subtask">
           <button
