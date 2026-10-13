@@ -1,24 +1,31 @@
 # TODO.md
 
-**CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
+## NOW — PA postfix capture/review8/8; original corrective native2/3
+
+[Aggregate exact35528dea physical disposition](docs/WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md):3 scoped PASS,1 FAIL,4 UNCERTAIN with branch-level limits. Full raw evidence main73716afb; [all36 continuous frame sequences/audio](work-log/evidence/pa-postfix-35528dea/review/bundle-sha256.json), [exact Quit/NSIS/native ledgers](work-log/evidence/pa-postfix-35528dea/review/ledger-proof.json). C4 acquired matrix and final328346ms Quit checkpoint accepted; nested F29 opener remains FAIL. Original profiles/motion/primary-DPI restored; original DB hash identical. Owned installation remains in explicit session directory, do not validate against personal profile.
+
+**NEXT:** branch `fix/pa04-nested-focus-add-visibility` in `E:\SystemFiles\Desktop\Narro-PA-20261013`: regress/fix retained nested dialog opener and whole Focus Add form visibility, aggregate preflight, one PR/CI/guarded merge and targeted native recheck. Shortcut observation/source-motion uncertainty are not speculative patch authority. Mandatory3/10, M10 blocked, M11/PA09 excluded, approved picker/upload/218icons preserved. Historical current-state text below is superseded by this NOW block.
 
 
-**CURRENT postfix acquisition checkpoint:** [Segment1 full video/logs/screens/owned DB published](work-log/2026-10-13-pa-postfix-segment1-acquisition.md). New acquisition4/8 primary groups; new analysis0/8; corrected native0/3. Original profiles PROTECTED/owned namespace ACTIVE; source35528dea EXEcc36f832. NEXT PA05–08 dense segment2, then aggregate review. Nested opener focus and other observations bookmarked; no Narro source edits.
+**Historical CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
 
 
-**CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
+**Historical CURRENT postfix acquisition checkpoint:** [Segment1 full video/logs/screens/owned DB published](work-log/2026-10-13-pa-postfix-segment1-acquisition.md). New acquisition4/8 primary groups; new analysis0/8; corrected native0/3. Original profiles PROTECTED/owned namespace ACTIVE; source35528dea EXEcc36f832. NEXT PA05–08 dense segment2, then aggregate review. Nested opener focus and other observations bookmarked; no Narro source edits.
 
 
-**Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
+**Historical CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
 
 
-**Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
+**Historical Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
 
 
-**Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
+**Historical Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
 
 
-**Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
+**Historical Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
+
+
+**Historical Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
 
 
 ## Parallel ChatGPT icon-control workstream — separate from PA-01–08 physical ownership
@@ -27,7 +34,7 @@
 - [x] **PR #348 final source-backed action icons, accepted on descendant main:** PR head `e1f0406adf2464cda6b5b3632d12d4fbdec905e4`, PR CI38376948390 **3/3 PASS**, guarded merge `123ecfa18cac89432f337fba45a8bf84fa088564`. Direct resulting-main CI38380701881 CANCELLED; the later [descendant-main run38384969271](https://github.com/MariosGiannakaras/Narro/actions/runs/38384969271) attempt2 **3/3 PASS**, 6/6 PR-head blobs unchanged, ZIP visual CRC341/341/168 PNG, production CRC3/3/digests verified. [Immutable proof](work-log/2026-10-13-chatgpt-pr348-descendant-main-acceptance.md). No native physical/M11 PASS; Codex PA-01–08 separately owned.
 
 
-## CURRENT 2026-10-13 — PA-01–08 triaged; three confirmed corrective paths active
+## HISTORICAL baseline PA triage / PR349 continuation — superseded above
 
 **Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
 

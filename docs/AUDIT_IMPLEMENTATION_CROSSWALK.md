@@ -1,5 +1,10 @@
 # Audit → implementation crosswalk
 
+## CURRENT native postfix disposition — 2026-10-13
+
+[Exact35528dea PA report](WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md) supersedes old baseline failure/paused statements only for the explicitly exercised gates: C4 acquired transition matrix, F35 dark125, C5 placement and normal-Quit elapsed PASS; nested F29 FAIL. Display125→100→125/logical recovery and preview/mute/unmute scoped PASS; physical unplug/MSI NOT RUN; source entry timing/automatic delivery/performance comparison and wider parity OPEN. No full milestone/M10 advancement. Next confirmed nested-focus/form-visibility correction, not unrelated implementation. Historical evidence retained below.
+
+
 **CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](../work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
 
 

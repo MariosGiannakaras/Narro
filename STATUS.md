@@ -1,27 +1,34 @@
 # STATUS.md
 
-**CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
+## NOW — PA postfix capture/review8/8; original corrective native2/3
+
+[Aggregate exact35528dea physical disposition](docs/WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md):3 scoped PASS,1 FAIL,4 UNCERTAIN with branch-level limits. Full raw evidence main73716afb; [all36 continuous frame sequences/audio](work-log/evidence/pa-postfix-35528dea/review/bundle-sha256.json), [exact Quit/NSIS/native ledgers](work-log/evidence/pa-postfix-35528dea/review/ledger-proof.json). C4 acquired matrix and final328346ms Quit checkpoint accepted; nested F29 opener remains FAIL. Original profiles/motion/primary-DPI restored; original DB hash identical. Owned installation remains in explicit session directory, do not validate against personal profile.
+
+**NEXT:** branch `fix/pa04-nested-focus-add-visibility` in `E:\SystemFiles\Desktop\Narro-PA-20261013`: regress/fix retained nested dialog opener and whole Focus Add form visibility, aggregate preflight, one PR/CI/guarded merge and targeted native recheck. Shortcut observation/source-motion uncertainty are not speculative patch authority. Mandatory3/10, M10 blocked, M11/PA09 excluded, approved picker/upload/218icons preserved. Historical current-state text below is superseded by this NOW block.
 
 
-**CURRENT postfix acquisition checkpoint:** [Segment1 full video/logs/screens/owned DB published](work-log/2026-10-13-pa-postfix-segment1-acquisition.md). New acquisition4/8 primary groups; new analysis0/8; corrected native0/3. Original profiles PROTECTED/owned namespace ACTIVE; source35528dea EXEcc36f832. NEXT PA05–08 dense segment2, then aggregate review. Nested opener focus and other observations bookmarked; no Narro source edits.
+**Historical CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
 
 
-**CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
+**Historical CURRENT postfix acquisition checkpoint:** [Segment1 full video/logs/screens/owned DB published](work-log/2026-10-13-pa-postfix-segment1-acquisition.md). New acquisition4/8 primary groups; new analysis0/8; corrected native0/3. Original profiles PROTECTED/owned namespace ACTIVE; source35528dea EXEcc36f832. NEXT PA05–08 dense segment2, then aggregate review. Nested opener focus and other observations bookmarked; no Narro source edits.
+
+
+**Historical CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
 
 
 **ChatGPT icon work is complete (2026-10-13):** PR #347 merged `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, resulting-main CI38374569549 attempt2 **3/3 PASS**. PR #348 merged `123ecfa18cac89432f337fba45a8bf84fa088564`, direct resulting-main CI38380701881 **CANCELLED** (historical), but descendant-main [CI38384969271 attempt2](https://github.com/MariosGiannakaras/Narro/actions/runs/38384969271) for `35528dea615e28b146d5eb808cc9432582184738` **3/3 PASS**. **6/6** PR348 exact-head source/test Git blobs equal in main; descendant visual artifact11808301580 SHA/CRC 341/341 and 168 PNG decode PASS; production artifact11808147828 SHA/CRC 3/3 PASS. Full [immutable acceptance log](work-log/2026-10-13-chatgpt-pr348-descendant-main-acceptance.md). **No remaining icon-code/CI action.** This does not assert Blitzit exact parity or native PA pass and does not change Codex PA01–08 ownership.
 
 
-**Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
+**Historical Additional completed check:** [Resulting-main attempt2 frontend artifact integrity](work-log/2026-10-13-pa-main-fast-artifact-integrity.md):86/86 CRC files,16/16 HTML entries,432/432 local asset references, provider SHA match. Evidence uploaded; Windows CI still pending, corrected physical0/3.
 
 
-**Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
+**Historical Capacity checkpoint uploaded:** [Latest combined-main CI and exact physical continuation](work-log/2026-10-13-pa-native-final-capacity-handoff.md). Do not rerun older-main CI against the shared concurrency group. Corrected physical0/3; original profiles restored, no new capture.
 
 
-**Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
+**Historical Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
 
 
-**Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
+**Historical Latest uploaded checkpoint:** [Final PR349 CI evidence and prepared physical continuation](work-log/2026-10-13-pa349-final-evidence-uploaded.md). Final Windows log/CI visual ZIP/hash verification and capture-order/helper snapshots are now versioned. Resulting-main CI38384969271: validation/fast SUCCESS, Windows IN_PROGRESS; corrected physical0/3. No corrected launch/isolation/capture yet; original profiles remain restored.
 
 
 ## Parallel ChatGPT source owner — PR #347 UI icon normalization accepted
@@ -29,7 +36,7 @@
 [PR #347](https://github.com/MariosGiannakaras/Narro/pull/347) final head `61987f37065bb5987f95e41745792c3c5f8e5f7d`, exact-head [CI38370233998](https://github.com/MariosGiannakaras/Narro/actions/runs/38370233998) **3/3 SUCCESS**, guarded squash merge `5509e52f37824ec3063d2bdf39fc3ffd7254ea4a`, **24/24 merged source blobs identical**, exact resulting-main [CI38374569549](https://github.com/MariosGiannakaras/Narro/actions/runs/38374569549) attempt2 **3/3 SUCCESS**. Real resulting-main visual ZIP11802176699 341/341 CRC/168 PNG decode, packaged Focus artifact11802755614 90/90 CRC, Windows EXE/NSIS/MSI ZIP11802711624 3/3 CRC, all published digests verified independently. [Immutable proof](work-log/2026-10-13-chatgpt-pr347-action-icon-resulting-main-accepted.md). Scope: normalized offline action SVG iconography and mandatory regression test only; handlers/accessibility/focus/timer geometry and approved List Editor picker/upload/218 icon catalogue preserved. **No physical PA PASS inferred.** Independent [PR #348](https://github.com/MariosGiannakaras/Narro/pull/348) corrects remaining Play/Close and Blitzit subtask Trash/circular-check: exact head `e1f0406adf2464cda6b5b3632d12d4fbdec905e4`, [CI38376948390](https://github.com/MariosGiannakaras/Narro/actions/runs/38376948390) validation/fast PASS, Windows **RUNNING at checkpoint**; visual ZIP11802079395 CRC341/341/168 PNG validated, both expanded Timer themes inspected. **Next: exact PR348 Windows 3/3 before guarded merge, then resulting-main three-gate and source/artifact verification.**
 
 
-## CURRENT 2026-10-13 — PA-01–08 triaged; three confirmed corrective paths active
+## HISTORICAL baseline PA triage / PR349 continuation — superseded above
 
 **Owner / scope:** Codex Windows acceptance, capture → aggregate analysis → confirmed corrections only. User explicitly resumed PA-01–08; previous physical pause is superseded for these eight checks. PA-09/M11/live Blitzit excluded. Preserve Spectrum Core picker/image upload/218 icons.
 
