@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-const button = fs.readFileSync("src/BlitzEntryButton.tsx", "utf8");
+const button = fs.readFileSync("src/BlitzEntryButton.tsx", "utf8").replace(/\r\n/g, "\n");
 const start = button.indexOf("  const handleStart = async () => {");
 const end = button.indexOf("  return (", start);
 assert(start >= 0 && end > start, "real Blitz event handler is required");

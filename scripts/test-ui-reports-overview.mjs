@@ -92,6 +92,14 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
+for (const selector of [".reports-overview__chart-scroll", ".reports-overview__done-list"]) {
+  const declaration = css.match(new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + String.raw`\s*\{([^}]*)\}`))?.[1];
+  if (!declaration || !/overflow-[xy]:\s*auto/.test(declaration) || !/scrollbar-width:\s*none/.test(declaration)) {
+    throw new Error(`${selector} must remain scrollable without native scrollbar chrome`);
+  }
+  requireText(css, `${selector}::-webkit-scrollbar { display: none; }`, `${selector} WebView2 scrollbar suppression`);
+}
+
 for (const forbidden of [
   'from "@tauri-apps/api',
   "invoke(",

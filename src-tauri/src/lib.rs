@@ -21,6 +21,7 @@ pub mod list_builtin_icons;
 pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;
+mod main_focus_raster;
 mod normal_shutdown;
 pub mod notifications;
 pub mod persistence;
@@ -1450,7 +1451,7 @@ fn interpolate_blitz_morph_rect(
 }
 
 fn animate_main_focus_rect(
-    window: &tauri::WebviewWindow,
+    raster: &main_focus_raster::Raster,
     start: GeometryRect,
     target: GeometryRect,
     duration_ms: u64,
@@ -1465,10 +1466,12 @@ fn animate_main_focus_rect(
     let begun = std::time::Instant::now();
     loop {
         let elapsed = (begun.elapsed().as_millis() as u64).min(duration_ms);
-        main_focus_morph::set_outer_rect(
-            window,
-            interpolate_blitz_morph_rect(start, target, elapsed, duration_ms)?,
-        )?;
+        raster.set_rect(interpolate_blitz_morph_rect(
+            start,
+            target,
+            elapsed,
+            duration_ms,
+        )?)?;
         if elapsed == duration_ms {
             break;
         }
@@ -2113,31 +2116,6 @@ fn show_focus_after_blitz_entry(
     Ok(())
 }
 
-fn restore_main_after_blitz_morph(
-    main: &tauri::WebviewWindow,
-    snapshot: GeometryRect,
-) -> CommandResult<()> {
-    let mut failures = Vec::new();
-    if let Err(error) = main_focus_morph::set_outer_rect(main, snapshot) {
-        failures.push(error);
-    }
-    if let Err(error) = focus_frame_hold::clear(main) {
-        failures.push(error);
-    }
-    if failures.is_empty() {
-        Ok(())
-    } else {
-        Err(CommandError::new(
-            "FOCUS_PRESENTATION_RECOVERY_FAILED",
-            failures
-                .iter()
-                .map(ToString::to_string)
-                .collect::<Vec<_>>()
-                .join("; "),
-        ))
-    }
-}
-
 #[tauri::command(rename_all = "camelCase")]
 async fn present_focus_for_blitz(
     app_handle: tauri::AppHandle,
@@ -2190,89 +2168,59 @@ async fn present_focus_for_blitz(
             return show_focus_after_blitz_entry(&app_handle, &main, &focus);
         }
     };
-    let hold = match focus_frame_hold::begin_mode_transition(&main, visible, &frame) {
-        Ok(hold) => hold,
+    let raster = match main_focus_raster::Raster::begin(&main, main_snapshot, visible, &frame) {
+        Ok(raster) => raster,
         Err(error) => {
-            eprintln!("Blitz Main raster hold failed; using direct Focus handoff: {error}");
+            eprintln!("Blitz pixel popup failed; using direct Focus handoff: {error}");
             return show_focus_after_blitz_entry(&app_handle, &main, &focus);
         }
     };
 
-    let worker_main = main.clone();
-    let transition = match tauri::async_runtime::spawn_blocking(move || {
-        animate_main_focus_rect(
-            &worker_main,
-            main_snapshot,
-            focus_target,
-            BLITZ_MAIN_MORPH_MS,
-        )
-    })
-    .await
-    {
-        Ok(result) => result,
-        Err(error) => Err(CommandError::new(
-            "FOCUS_PRESENTATION_FAILED",
-            format!("Board-to-Focus morph worker failed: {error}"),
-        )),
-    };
-
-    if let Err(error) = transition {
-        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
-        drop(hold);
-        return match recovery {
-            Ok(()) => {
-                eprintln!("Board-to-Focus morph failed; using direct Focus handoff: {error}");
-                show_focus_after_blitz_entry(&app_handle, &main, &focus)
-            }
-            Err(recovery) => Err(CommandError::new(
-                "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                format!("{error}; Main rollback failed: {recovery}"),
-            )),
-        };
-    }
-
-    // Keep the fitted outgoing Board available until the incoming host has an
-    // opaque compositor frame. The old hide/restore/reveal order exposed desktop.
-    if let Err(error) = main_focus_morph::reveal_opaque(&focus) {
-        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
-        drop(hold);
-        recovery?;
+    // The outgoing pixels are a separate finite native popup. Main itself is
+    // never resized, so WebView2 cannot recompose a clipped sidebar during the
+    // move. The popup is unowned so hiding Main does not hide the pixels.
+    if let Err(error) = main.hide() {
+        drop(raster);
+        let error = map_window_error(MAIN_WINDOW_LABEL, "hide for Blitz pixel morph", error);
         return Err(recover_main_after_blitz_reveal_failure(
             &main, &focus, error,
         ));
     }
+    let transition = match tauri::async_runtime::spawn_blocking(move || {
+        let result =
+            animate_main_focus_rect(&raster, main_snapshot, focus_target, BLITZ_MAIN_MORPH_MS);
+        (result, raster)
+    })
+    .await
+    {
+        Ok(result) => result,
+        Err(error) => {
+            let error = CommandError::new(
+                "FOCUS_PRESENTATION_FAILED",
+                format!("Board-to-Focus pixel morph worker failed: {error}"),
+            );
+            return Err(recover_main_after_blitz_reveal_failure(
+                &main, &focus, error,
+            ));
+        }
+    };
+    let (transition, mut raster) = transition;
 
-    if let Err(error) = main.hide() {
-        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
-        drop(hold);
-        return match recovery {
-            Ok(()) => {
-                eprintln!(
-                    "Could not hide Main at the Board-to-Focus morph endpoint; using direct Focus handoff: {error}"
-                );
-                show_focus_after_blitz_entry(&app_handle, &main, &focus)
-            }
-            Err(recovery) => Err(CommandError::new(
-                "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                format!("{error}; Main rollback failed: {recovery}"),
-            )),
-        };
+    if let Err(error) = transition {
+        raster.release()?;
+        eprintln!("Board pixel morph failed; using direct Focus handoff: {error}");
+        return show_focus_after_blitz_entry(&app_handle, &main, &focus);
     }
 
-    // Restore the outgoing Main only while hidden, after the opaque Focus
-    // frame has replaced it. The snapshot lease remains owned through handoff.
-    if let Err(recovery) = restore_main_after_blitz_morph(&main, main_snapshot) {
-        drop(hold);
-        let visibility_recovery = show_and_focus(&main);
-        return match visibility_recovery {
-            Ok(()) => Err(recovery),
-            Err(visibility) => Err(CommandError::new(
-                "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                format!("{recovery}; Main visibility recovery failed: {visibility}"),
-            )),
-        };
+    // Keep the complete outgoing Board available until the already-prepared
+    // Focus host has an opaque compositor frame at the destination.
+    if let Err(error) = main_focus_morph::reveal_opaque(&focus) {
+        raster.release()?;
+        return Err(recover_main_after_blitz_reveal_failure(
+            &main, &focus, error,
+        ));
     }
-    drop(hold);
+    raster.release()?;
 
     if let Err(error) = request_blitz_panel_after_reveal(&app_handle) {
         return Err(recover_main_after_blitz_reveal_failure(

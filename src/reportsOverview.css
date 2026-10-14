@@ -289,7 +289,10 @@
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  scrollbar-width: none;
 }
+
+.reports-overview__chart-scroll::-webkit-scrollbar { display: none; }
 
 .reports-overview__chart {
   display: grid;
@@ -569,7 +572,10 @@
   max-height: 224px;
   margin-top: 12px;
   overflow-y: auto;
+  scrollbar-width: none;
 }
+
+.reports-overview__done-list::-webkit-scrollbar { display: none; }
 
 .reports-overview__done-group { display: grid; }
 .reports-overview__done-group > header {
