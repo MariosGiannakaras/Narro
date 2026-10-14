@@ -1462,19 +1462,26 @@ fn animate_main_focus_rect(
         ));
     }
 
-    let steps = duration_ms.div_ceil(FOCUS_POSITION_MOTION_STEP_MS).max(1);
-    let mut elapsed_ms = 0_u64;
-    for step in 1..=steps {
-        let target_elapsed_ms = duration_ms * step / steps;
-        let sleep_ms = target_elapsed_ms.saturating_sub(elapsed_ms);
-        if sleep_ms != 0 {
-            std::thread::sleep(Duration::from_millis(sleep_ms));
-        }
-        elapsed_ms = target_elapsed_ms;
+    let begun = std::time::Instant::now();
+    loop {
+        let elapsed = (begun.elapsed().as_millis() as u64).min(duration_ms);
         main_focus_morph::set_outer_rect(
             window,
-            interpolate_blitz_morph_rect(start, target, step, steps)?,
+            interpolate_blitz_morph_rect(start, target, elapsed, duration_ms)?,
         )?;
+        if elapsed == duration_ms {
+            break;
+        }
+        let after_paint = begun.elapsed().as_millis() as u64;
+        let next = main_focus_morph::next_frame_deadline(
+            after_paint,
+            duration_ms,
+            FOCUS_POSITION_MOTION_STEP_MS,
+        );
+        let sleep = next.saturating_sub(after_paint);
+        if sleep != 0 {
+            std::thread::sleep(Duration::from_millis(sleep));
+        }
     }
     Ok(())
 }
@@ -2183,7 +2190,7 @@ async fn present_focus_for_blitz(
             return show_focus_after_blitz_entry(&app_handle, &main, &focus);
         }
     };
-    let hold = match focus_frame_hold::begin(&main, visible, &frame) {
+    let hold = match focus_frame_hold::begin_mode_transition(&main, visible, &frame) {
         Ok(hold) => hold,
         Err(error) => {
             eprintln!("Blitz Main raster hold failed; using direct Focus handoff: {error}");
@@ -2224,6 +2231,17 @@ async fn present_focus_for_blitz(
         };
     }
 
+    // Keep the fitted outgoing Board available until the incoming host has an
+    // opaque compositor frame. The old hide/restore/reveal order exposed desktop.
+    if let Err(error) = main_focus_morph::reveal_opaque(&focus) {
+        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
+        drop(hold);
+        recovery?;
+        return Err(recover_main_after_blitz_reveal_failure(
+            &main, &focus, error,
+        ));
+    }
+
     if let Err(error) = main.hide() {
         let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
         drop(hold);
@@ -2241,9 +2259,8 @@ async fn present_focus_for_blitz(
         };
     }
 
-    // Match the source-backed handoff: once the frozen Main reaches the Focus
-    // target, remove Main from view, restore its exact user geometry while it
-    // is hidden, clear the finite raster, then reveal the prepared Focus host.
+    // Restore the outgoing Main only while hidden, after the opaque Focus
+    // frame has replaced it. The snapshot lease remains owned through handoff.
     if let Err(recovery) = restore_main_after_blitz_morph(&main, main_snapshot) {
         drop(hold);
         let visibility_recovery = show_and_focus(&main);
@@ -2257,11 +2274,6 @@ async fn present_focus_for_blitz(
     }
     drop(hold);
 
-    if let Err(error) = show_and_focus(&focus) {
-        return Err(recover_main_after_blitz_reveal_failure(
-            &main, &focus, error,
-        ));
-    }
     if let Err(error) = request_blitz_panel_after_reveal(&app_handle) {
         return Err(recover_main_after_blitz_reveal_failure(
             &main, &focus, error,

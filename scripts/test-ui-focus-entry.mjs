@@ -94,7 +94,7 @@ for (const [haystack, needle, label] of [
   [button, "await presentFocusForBlitz(reducedMotion);", "post-commit native Focus presentation"],
   [lib, "const BLITZ_MAIN_MORPH_MS: u64 = 220;", "source-calibrated finite Board-to-Focus duration"],
   [lib, "focus_frame_capture::capture(main.clone()).await", "Main WebView CapturePreview path"],
-  [lib, "focus_frame_hold::begin(&main, visible, &frame)", "finite frozen Main raster hold"],
+  [lib, "focus_frame_hold::begin_mode_transition(&main, visible, &frame)", "bounded frozen Main raster lease"],
   [lib, "animate_main_focus_rect(", "native Main rect morph"],
   [lib, "restore_main_after_blitz_morph(&main, main_snapshot)", "Main geometry rollback/restoration"],
   [lib, "main_focus_morph::safe_restored_state(&main)?", "unsafe Main state direct-handoff guard"],
@@ -232,13 +232,13 @@ if (
   throw new Error("Blitz Focus entry must preserve the visible coordinator path and use the bounded native morph only for hidden Focus.");
 }
 
-const sourceHandoffComment = hiddenBranch.indexOf("// Match the source-backed handoff:");
+const sourceHandoffComment = hiddenBranch.indexOf("// Restore the outgoing Main only while hidden");
 const successHide = hiddenBranch.lastIndexOf("if let Err(error) = main.hide()", sourceHandoffComment);
 const successRestore = hiddenBranch.indexOf(
   "restore_main_after_blitz_morph(&main, main_snapshot)",
   sourceHandoffComment,
 );
-const successFocusReveal = hiddenBranch.indexOf("show_and_focus(&focus)", successRestore);
+const successFocusReveal = hiddenBranch.indexOf("main_focus_morph::reveal_opaque(&focus)");
 const successPanelRequest = hiddenBranch.indexOf(
   "request_blitz_panel_after_reveal(&app_handle)",
   successFocusReveal,
@@ -252,12 +252,13 @@ if (
   || successHide < 0
   || successHide > sourceHandoffComment
   || successRestore < sourceHandoffComment
-  || successFocusReveal < successRestore
+  || successFocusReveal < 0
+  || successFocusReveal > successHide
   || successPanelRequest < successFocusReveal
   || successRevealRecovery < successFocusReveal
 ) {
   throw new Error(
-    "P3-M6-01/06 success handoff must hide Main, restore while hidden, reveal Focus, then request the Blitz Panel handshake.",
+    "P3-M6-01/06 must retain Main until opaque Focus, then hide/restore Main and request the Blitz Panel handshake.",
   );
 }
 

@@ -118,7 +118,7 @@ for (const [haystack, needle, label] of [
   [entry, "await presentFocusForBlitz(reducedMotion);", "P3-M6-01 native presentation after authoritative start"],
   [native, "const BLITZ_MAIN_MORPH_MS: u64 = 220;", "P3-M6-01 calibrated native morph duration"],
   [native, "focus_frame_capture::capture(main.clone()).await", "P3-M6-01 frozen Main WebView capture"],
-  [native, "focus_frame_hold::begin(&main, visible, &frame)", "P3-M6-01 finite Main raster hold"],
+  [native, "focus_frame_hold::begin_mode_transition(&main, visible, &frame)", "P3-M6-01 bounded Main raster lease"],
   [native, "animate_main_focus_rect(", "P3-M6-01 native geometry morph"],
   [native, "restore_main_after_blitz_morph(&main, main_snapshot)", "P3-M6-01 exact Main rollback"],
   [morph, "SetWindowPos(", "P3-M6-01 native outer-rect ownership"],
