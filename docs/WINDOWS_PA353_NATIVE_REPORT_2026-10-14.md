@@ -1,5 +1,7 @@
 # PA353 exact-main Windows physical report
 
+Byte-preservation note: [raw-observations.zip](../work-log/evidence/pa353-native-20261014/raw-observations.zip) contains all original non-video observations, including the complete Narro-M7-Logs folder, verified byte-for-byte against the frozen Windows files. Use this SHA-checked companion archive for exact original newline/hash verification; Git may normalize the browsable text copies. The video byte chunks are unchanged binary data.
+
 PR353 head `8bda5cc40be905c4a91506e0708d39e2770b4cde`, guarded merged main `a8d7c9050004eb9e8d21cfdf2652425016acf019`, CI38558587191 **3/3 PASS**, 530/530 executable/build/test/config blobs equal. Exact x64 validation EXE SHA-256 `8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18`. [CI/artifact proof](../work-log/2026-10-14-pa353-merged-exact-ci-native-pending.md).
 
 Real extended Windows desktop: primary2560×1080/100%, LG1920×1080/125%, virtual rectangle x−1920/y0/4480×1080. Computer Use screenshot returned `FrameArrived timed out` even after window refresh/kernel reset; indexed click reported unavailable coordinate geometry. Acquisition therefore used real desktop gdigrab video at60fps, native UIA observations and real Windows mouse/keyboard input. No domain state or renderer fixture was substituted for physical actions. Continuous recordings are **359.950s** and **205.350s**, both complete, with chronological action logs; no audio needed for these two visual/scroll checks. Original personal profile was backed up/protected; owned synthetic profile only.
