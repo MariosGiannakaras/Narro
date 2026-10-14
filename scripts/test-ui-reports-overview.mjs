@@ -57,6 +57,8 @@ for (const [haystack, needle, label] of [
   [view, 'days.length <= 14 || index % 7 === 0', "long-range label density"],
   [view, "day.taskSeconds > 0", "zero activity draws no false task bar"],
   [css, ".reports-overview__chart-scroll", "scrollable 30/60/90-day chart surface"],
+  [view, 'className="reports-overview__done-list" role="region" aria-label="Done Tasks" tabIndex={0}', "keyboard reachable Done Tasks scroll region"],
+  [css, ".reports-overview__done-list:focus-visible", "visible focus for hidden-scrollbar Done Tasks region"],
   [css, "repeat(var(--report-chart-day-count, 8)", "dynamic date grid rather than fixed eight bins"],
   [css, 'html[data-report-pdf-export="true"] .reports-overview__chart-scroll', "PDF owns full date chart without clipped scroll"],
   [view, 'role="tooltip"', "keyboard-readable chart tooltip"],

@@ -104,7 +104,8 @@ for (const [haystack, needle, label] of [
   [lib, "focus_frame_capture::capture(main.clone()).await", "Main WebView CapturePreview path"],
   [lib, "main_focus_raster::Raster::begin(&main, main_snapshot, visible, &frame)", "separate bounded Board pixel raster"],
   [lib, "animate_main_focus_rect(", "native pixel-only geometry morph"],
-  [lib, "raster.release()?", "explicit Board raster release after Focus reveal"],
+  [lib, "recover_after_blitz_raster_failure(", "cleanup and visible rollback after raster failure"],
+  [pixels, '"initial pixel popup frame did not paint"', "paint confirmation before Main hides"],
   [lib, "main_focus_morph::safe_restored_state(&main)?", "unsafe Main state direct-handoff guard"],
   [pixels, "SetWindowPos(", "separate native top-level raster rect authority"],
   [pixels, "DwmFlush()", "finite pixel compositor-step flush"],
@@ -245,7 +246,7 @@ const rasterBegin = hiddenBranch.indexOf("main_focus_raster::Raster::begin(&main
 const successHide = hiddenBranch.indexOf("if let Err(error) = main.hide()", rasterBegin);
 const morphStart = hiddenBranch.indexOf("animate_main_focus_rect(", successHide);
 const successFocusReveal = hiddenBranch.indexOf("main_focus_morph::reveal_opaque(&focus)");
-const successRelease = hiddenBranch.lastIndexOf("raster.release()?", hiddenBranch.indexOf("if let Err(error) = request_blitz_panel_after_reveal(&app_handle)"));
+const successRelease = hiddenBranch.indexOf(".release()\n        .map_err(|error| recover_main_after_blitz_reveal_failure(&main, &focus, error))?", successFocusReveal);
 const successPanelRequest = hiddenBranch.indexOf(
   "request_blitz_panel_after_reveal(&app_handle)",
   successFocusReveal,
@@ -264,10 +265,23 @@ if (
   || successPanelRequest < successFocusReveal
   || successRevealRecovery < successFocusReveal
   || hiddenBranch.includes("main_focus_morph::set_outer_rect(&main")
+  || hiddenBranch.includes("main.set_size(")
 ) {
   throw new Error(
     "P3-M6-01/06 must morph separate pixels without Main HWND resizing, reveal opaque Focus, release raster and request the Panel handshake.",
   );
+}
+
+const rasterRecoveryStart = lib.indexOf("fn recover_after_blitz_raster_failure(");
+const rasterRecoveryEnd = lib.indexOf("fn show_focus_after_blitz_entry(", rasterRecoveryStart);
+const rasterRecovery = lib.slice(rasterRecoveryStart, rasterRecoveryEnd);
+if (
+  rasterRecoveryStart < 0
+  || rasterRecoveryEnd < rasterRecoveryStart
+  || rasterRecovery.indexOf("raster.release().err()") < 0
+  || rasterRecovery.indexOf("recover_main_after_blitz_reveal_failure(main, focus, primary)") < rasterRecovery.indexOf("raster.release().err()")
+) {
+  throw new Error("Raster cleanup failure must still attempt Main/Focus rollback before returning.");
 }
 
 const revealRecoveryStart = lib.indexOf("fn recover_main_after_blitz_reveal_failure(");

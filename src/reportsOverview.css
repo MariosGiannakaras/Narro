@@ -577,6 +577,11 @@
 
 .reports-overview__done-list::-webkit-scrollbar { display: none; }
 
+.reports-overview__done-list:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
 .reports-overview__done-group { display: grid; }
 .reports-overview__done-group > header {
   display: flex;

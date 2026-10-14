@@ -70,6 +70,7 @@ mod native {
         bgra: Vec<u8>,
         width: i32,
         height: i32,
+        painted: bool,
     }
 
     #[link(name = "user32")]
@@ -177,8 +178,8 @@ mod native {
                 let mut paint: Paint = std::mem::zeroed();
                 let dc = BeginPaint(hwnd, &mut paint);
                 let mut area = Rect::default();
-                if GetClientRect(hwnd, &mut area) != 0 {
-                    let pixels = &*pointer;
+                if !dc.is_null() && GetClientRect(hwnd, &mut area) != 0 {
+                    let pixels = &mut *pointer;
                     let info = BitmapInfo {
                         size: 40,
                         width: pixels.width,
@@ -192,7 +193,7 @@ mod native {
                         colors_used: 0,
                         colors_important: 0,
                     };
-                    StretchDIBits(
+                    let copied = StretchDIBits(
                         dc,
                         0,
                         0,
@@ -207,6 +208,7 @@ mod native {
                         0,
                         0x00cc0020,
                     );
+                    pixels.painted = copied > 0;
                 }
                 EndPaint(hwnd, &paint);
                 0
@@ -305,16 +307,19 @@ mod native {
                 if hwnd.is_null() {
                     return Err(failure("create pixel popup"));
                 }
-                unsafe {
-                    SetWindowLongPtrW(
-                        hwnd,
-                        USER_DATA,
-                        Box::into_raw(Box::new(Pixels {
-                            bgra,
-                            width: source_width,
-                            height: source_height,
-                        })) as isize,
-                    );
+                let pixels = Box::into_raw(Box::new(Pixels {
+                    bgra,
+                    width: source_width,
+                    height: source_height,
+                    painted: false,
+                }));
+                unsafe { SetWindowLongPtrW(hwnd, USER_DATA, pixels as isize) };
+                if unsafe { GetWindowLongPtrW(hwnd, USER_DATA) } != pixels as isize {
+                    unsafe {
+                        DestroyWindow(hwnd);
+                        drop(Box::from_raw(pixels));
+                    }
+                    return Err(failure("attach pixel popup frame"));
                 }
                 let prepared = (|| {
                     if unsafe { SetTimer(hwnd, 1, 8_000, ptr::null_mut()) } == 0 {
@@ -338,6 +343,13 @@ mod native {
                         InvalidateRect(hwnd, ptr::null(), 0);
                         UpdateWindow(hwnd);
                         DwmFlush();
+                    }
+                    if !unsafe { (&*(GetWindowLongPtrW(hwnd, USER_DATA) as *const Pixels)).painted }
+                    {
+                        return Err(CommandError::new(
+                            "FOCUS_ENTRY_RASTER_FAILED",
+                            "initial pixel popup frame did not paint",
+                        ));
                     }
                     Ok(hwnd as usize)
                 })();
@@ -377,9 +389,16 @@ mod native {
                     return Err(failure("move pixel popup"));
                 }
                 unsafe {
+                    (*(GetWindowLongPtrW(hwnd, USER_DATA) as *mut Pixels)).painted = false;
                     InvalidateRect(hwnd, ptr::null(), 0);
                     UpdateWindow(hwnd);
                     DwmFlush();
+                }
+                if !unsafe { (&*(GetWindowLongPtrW(hwnd, USER_DATA) as *const Pixels)).painted } {
+                    return Err(CommandError::new(
+                        "FOCUS_ENTRY_RASTER_FAILED",
+                        "moved pixel popup frame did not paint",
+                    ));
                 }
                 Ok(())
             })

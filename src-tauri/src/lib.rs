@@ -2098,6 +2098,26 @@ fn recover_main_after_blitz_reveal_failure(
     primary
 }
 
+fn recover_after_blitz_raster_failure(
+    main: &tauri::WebviewWindow,
+    focus: &tauri::WebviewWindow,
+    raster: &mut main_focus_raster::Raster,
+    primary: CommandError,
+) -> CommandError {
+    // Always attempt both cleanup and visible-window recovery. An early `?`
+    // here can leave Main hidden or skip Focus rollback when Win32 cleanup
+    // itself fails; the raster watchdog is only the final safety net.
+    let cleanup = raster.release().err();
+    let recovery = recover_main_after_blitz_reveal_failure(main, focus, primary);
+    match cleanup {
+        Some(cleanup) => CommandError::new(
+            "FOCUS_PRESENTATION_RECOVERY_FAILED",
+            format!("{recovery}; Board raster cleanup failed: {cleanup}"),
+        ),
+        None => recovery,
+    }
+}
+
 fn show_focus_after_blitz_entry(
     app_handle: &tauri::AppHandle,
     main: &tauri::WebviewWindow,
@@ -2207,7 +2227,16 @@ async fn present_focus_for_blitz(
     let (transition, mut raster) = transition;
 
     if let Err(error) = transition {
-        raster.release()?;
+        if let Err(cleanup) = raster.release() {
+            return Err(recover_main_after_blitz_reveal_failure(
+                &main,
+                &focus,
+                CommandError::new(
+                    "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                    format!("Board pixel morph failed: {error}; raster cleanup failed: {cleanup}"),
+                ),
+            ));
+        }
         eprintln!("Board pixel morph failed; using direct Focus handoff: {error}");
         return show_focus_after_blitz_entry(&app_handle, &main, &focus);
     }
@@ -2215,12 +2244,16 @@ async fn present_focus_for_blitz(
     // Keep the complete outgoing Board available until the already-prepared
     // Focus host has an opaque compositor frame at the destination.
     if let Err(error) = main_focus_morph::reveal_opaque(&focus) {
-        raster.release()?;
-        return Err(recover_main_after_blitz_reveal_failure(
-            &main, &focus, error,
+        return Err(recover_after_blitz_raster_failure(
+            &main,
+            &focus,
+            &mut raster,
+            error,
         ));
     }
-    raster.release()?;
+    raster
+        .release()
+        .map_err(|error| recover_main_after_blitz_reveal_failure(&main, &focus, error))?;
 
     if let Err(error) = request_blitz_panel_after_reveal(&app_handle) {
         return Err(recover_main_after_blitz_reveal_failure(

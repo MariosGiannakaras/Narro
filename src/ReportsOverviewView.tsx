@@ -572,7 +572,7 @@ export function ReportsOverviewView({
             <i className="is-late" style={{ width: `${Math.max(0, Math.min(100, punctuality.latePercent))}%` }} />
           </div>
           {doneTasks.length ? (
-            <div className="reports-overview__done-list">
+            <div className="reports-overview__done-list" role="region" aria-label="Done Tasks" tabIndex={0}>
               {doneGroups.map(([completionLabel, tasks]) => (
                 <section className="reports-overview__done-group" key={completionLabel} data-report-done-group="true">
                   <header>
