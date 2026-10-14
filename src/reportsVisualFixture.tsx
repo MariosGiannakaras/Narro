@@ -582,6 +582,15 @@ async function validateChartTooltipContainmentFixture() {
   await settle();
   requireFixture(buttons[40]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-40", "Pointer leave lost the still-focused date tooltip.");
   bounded("pointer leave restores focused date");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
+  await settle();
+  await focus(buttons[42]!);
+  requireFixture(buttons[42]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-42", "New keyboard focus did not take tooltip ownership from stationary pointer hover.");
+  bounded("new keyboard focus takes tooltip from stationary pointer");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
+  await settle();
+  requireFixture(buttons[42]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-42", "Old pointer leave cleared the newer focused date tooltip.");
+  bounded("old pointer leave preserves newer keyboard owner");
   scroll!.scrollLeft = 0;
   scroll!.dispatchEvent(new Event("scroll"));
   await settle();

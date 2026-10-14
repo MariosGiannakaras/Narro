@@ -63,7 +63,7 @@ for (const [haystack, needle, label] of [
   [css, 'html[data-report-pdf-export="true"] .reports-overview__chart-scroll', "PDF owns full date chart without clipped scroll"],
   [view, 'role="tooltip"', "keyboard-readable chart tooltip"],
   [view, "onMouseEnter={() => setHoveredDayId(day.id)}", "pointer chart tooltip activation"],
-  [view, "onFocus={() => setFocusedDayId(day.id)}", "keyboard chart tooltip activation"],
+  [view, "setFocusedDayId(day.id)", "keyboard chart tooltip activation"],
   [view, 'data-report-chart-active={tooltipOpen ? "true" : "false"}', "same day identity for hover and keyboard band"],
   [css, '.reports-overview__chart-day[data-report-chart-active="true"]::before', "entire active date category wash"],
   [css, '.reports-overview__chart-day:focus-within::before', "keyboard active date category wash"],

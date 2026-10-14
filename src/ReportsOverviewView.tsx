@@ -255,7 +255,10 @@ function ReportChart({
                 aria-describedby={tooltipOpen ? `report-tooltip-${day.id}` : undefined}
                 onMouseEnter={() => setHoveredDayId(day.id)}
                 onMouseLeave={() => setHoveredDayId(null)}
-                onFocus={() => setFocusedDayId(day.id)}
+                onFocus={() => {
+                  setHoveredDayId(null);
+                  setFocusedDayId(day.id);
+                }}
                 onBlur={() => setFocusedDayId(null)}
               >
                 <span
