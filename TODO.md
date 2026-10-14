@@ -1,5 +1,14 @@
 # TODO.md
 
+## Current final PA354 physical continuation
+
+- [x] Confirm stationary-pointer/new-keyboard-focus regression in actual DOM before fixing; preserve latest-focus ownership and pointer-leave fallback. Final head7647ffab, geometry2052/2052, whole frontend preflight/build, DOM56/56 PASS.
+- [ ] CI38614321520 Windows pending (2/3 gates PASS); complete guarded merge/source proof/five original artifact hashes, fresh Reports capture0/4→4/4 and aggregate tooltip acceptance0/1→1/1 only if exercised/pass. [One exact next operation](work-log/2026-10-14-pa354-keyboard-regression-final-ci.md).
+- [x] Exact PR353 [MSI](docs/WINDOWS_PA08_MSI_REPORT_2026-10-14.md) and [NSIS](docs/WINDOWS_PA08_NSIS_REPORT_2026-10-14.md) installed launch/removal-restoration2/2 scoped PASS, complete useful evidence published; originals restored/no app or recorder.
+- [ ] PA05 actual HDMI unplug/replug **NOT RUN / manual continuation explicitly chosen by user**. Clean-machine-MSI/older-version/true-boot limits remain explicit; PA02 reliability PASS/source-motion OPEN. Mandatory3/10/M10 blocked; PA09/M11 excluded.
+
+All prior checkpoint sections below are historical.
+
 ## Current PA354/MSI continuation
 
 - [x] Repair only the first CI fixture's geometry/delivery assumptions; strict48/48 actual DOM assertions, geometry2052/2052 and final whole frontend preflight/build PASS. PR354 exact09c35bb0/CI38611160137 running; previous38571856805 failed head remains historical.

@@ -1,6 +1,10 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — exact revised PR354 CI; next guarded merge and Reports capture
+## NOW — final PR354 head7647ffab; exact CI and Reports capture
+
+Owner Codex PA01–08; PR354 branch `fix/pa353-reports-tooltip-containment`, head `7647ffabb8ee93edfe95f90395baec632802b25e`, Windows CI38614321520 **2/3 PASS, Windows IN_PROGRESS**. Whole preflight/build, geometry2052/2052, actual DOM56/56 PASS; keyboard ownership regression reproduced before fix. Tooltip physical0/1; prepared capture0/4. **NEXT:** finish this exact CI; if3/3/currenthead green, expected-head guarded merge/source proof/five original SHA+CRC artifacts, then fresh protected-profile Reports capture and aggregate review. [Exact checkpoint](work-log/2026-10-14-pa354-keyboard-regression-final-ci.md). Independent MSI/NSIS installers2/2 scoped PASS/evidence uploaded; originals restored/no Narro or recording. PA05 physical HDMI unplug/replug NOT RUN, explicitly deferred manually by user. PA02 reliability PASS retained, strict source-motion OPEN (existing-capture direct comparison); PA09/M11 excluded. Mandatory3/10/M10 blocked.
+
+## HISTORICAL — revised PR354 head09c35bb0 before keyboard regression
 
 Owner Codex PA01–08; branch `fix/pa353-reports-tooltip-containment`, PR354 head `09c35bb093423c0a8240667c1f79514b46fdf6d0`, CI38611160137 IN_PROGRESS. Fixture repair only; full frontend preflight/build and both rendered layout-driver matrices48/48 PASS. New tooltip physical0/1; PA04 FAIL until exact-EXE recheck; prior PA353 scoped2/2 retained. **NEXT:** finish exact CI38611160137; if3/3 green, guarded merge at09c35bb0/source proof and fresh protected-profile Reports capture. [Detailed checkpoint](work-log/2026-10-14-pa354-fixture-repair-and-msi-checkpoint.md). PA08 verified MSI installation/installed launch/removal-restoration scoped PASS; clean-machine/older-version/true-boot NOT RUN. Original DB/NSIS registry/shortcut restored, no Narro running. Mandatory3/10/M10 blocked; PA09/M11 excluded. Older continuation blocks below are historical.
 

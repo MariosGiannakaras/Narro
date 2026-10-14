@@ -1,0 +1,35 @@
+{
+  "commit": "8c87599f",
+  "files": [
+    {
+      "file": "installed-main.png",
+      "oid": "dc71601bb4a78854c7d3bcc9b73fe2dbaf67fe2d",
+      "identical": true
+    },
+    {
+      "file": "installed-reports.png",
+      "oid": "8d62f06a06f25ad2e45ddcfc99a87146b8fac104",
+      "identical": true
+    },
+    {
+      "file": "msi-installed-launch.mkv",
+      "oid": "dbc27e2b3e076603ca70506e2aecaaed4e867d78",
+      "identical": true
+    },
+    {
+      "file": "raw-observations.zip",
+      "oid": "40c04b6ca567f6aabccdd7e40aca2ff57bba3864",
+      "identical": true
+    },
+    {
+      "file": "msi-install.log.txt",
+      "oid": "74327daa8cd26a55fd7beebb8e219a36890ff44e",
+      "identical": true
+    },
+    {
+      "file": "msi-uninstall.log.txt",
+      "oid": "d12fdd90ac6e221ebb14e2ed6a994b318b11be54",
+      "identical": true
+    }
+  ]
+}

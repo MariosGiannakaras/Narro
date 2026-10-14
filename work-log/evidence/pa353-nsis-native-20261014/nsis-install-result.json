@@ -1,0 +1,8 @@
+{
+  "scope": "Exact verified PR353 NSIS install into fresh owned directory; same source as MSI independent of tooltip",
+  "installerSha256": "b8d27378a5ffd79a6fad69561c195cf4a4a7e748fd03a4f96777807855b354c3",
+  "exitCode": 0,
+  "target": "E:\\SystemFiles\\Desktop\\Narro-PA353-nsis-20261014\\installed-nsis",
+  "startedUtc": "2026-10-14T18:25:38.2328993Z",
+  "endedUtc": "2026-10-14T18:25:39.1159614Z"
+}
