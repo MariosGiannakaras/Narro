@@ -1,6 +1,9 @@
 # Audit → implementation crosswalk
 
-## CURRENT PA350 native reconciliation — 2026-10-14
+## CURRENT PA350 native reconciliation — 2026-10-14
+**Current candidate:** PR351 heada89aea6adb864698a0457a9c5eb13aec323655e7 / CI38517414879 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
+
+
 
 [Authoritative exact report](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md): nested F29 and full Focus form PASS, C5 new-executable restart PASS; repaired original families3/3. New M6 initial-entry paint/timing, actual notification audio100 and Reports visible-scrollbar findings FIX_NOW in next narrow batch. Native toast delivery PASS, source parity/hardware/MSI/listener failure OPEN/NOT RUN. Virtual-key tool failures do not authorize a shortcut patch: held physical scancodes succeed. Mandatory3/10/M10 blocked; historical results below remain immutable.
 

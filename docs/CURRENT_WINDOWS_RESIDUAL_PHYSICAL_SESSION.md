@@ -1,6 +1,9 @@
 # Current Windows residual physical session
 
-## NOW — PA350 exact native disposition, 2026-10-14
+## NOW — PA350 exact native disposition, 2026-10-14
+**Current candidate:** PR351 heada89aea6adb864698a0457a9c5eb13aec323655e7 / CI38517414879 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
+
+
 
 [Current report and next corrective batch](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md) supersedes historical current pins/pauses below only for exercised PA01–08 branches. Source4b183470/main0f606bc3/EXE6c780f13, acquisition/review5/5 targeted, original fixes3/3 accepted; new Main entry/audio/Reports scroll failures remain. Original profiles/settings restored. No full-matrix repeat, M10 blocked/M11 dormant/PA09 excluded.
 

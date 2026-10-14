@@ -1,4 +1,4 @@
-# HANDOFF — PA postfix review8/8; native corrective2/3
+# HANDOFF — PA01–08 residual correction batch
 
 ## NOW — PA residual correction batch: candidates3/3, new native acceptance0/3
 
