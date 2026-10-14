@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**Latest PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+
 **Current PA354 code integrated / physical acquisition next:** head7647ffab/CI38614321520 **3/3 PASS**, guarded main73601944,532/532 source/build/test/config blobs identical. Five original verified artifacts [published](../work-log/2026-10-14-pa354-merged-native-ready.md), exact EXE205e0a42. Reports physical0/4/tooltip0/1; fresh owned profile is now ACTIVE and original personal namespaces remain intact/protected. No new physical PASS; Source-motion/HDMI limits and mandatory3/10/M10 blocked remain. Prior CI-pending checkpoints below are historical.
 
 **Current final PA354/PA08 disposition:** head7647ffab/CI38614321520 **2/3 PASS, Windows pending**; strict DOM56/56 and full preflight PASS after a reproduced keyboard ownership regression was corrected. Tooltip **PHYSICAL_OPEN0/1 / PA04 FAIL** until exact Windows retest. Independent MSI/NSIS capture/review2/2 scoped installation/installed launch/data-retention/removal-restoration PASS; [NSIS](WINDOWS_PA08_NSIS_REPORT_2026-10-14.md) retains the0.6s native cold-start white observation without claiming flash-free startup. PA05 HDMI explicitly user-deferred/manual NOT RUN. Existing P3-M6-01 [direct source comparison](../work-log/2026-10-14-pa02-existing-capture-source-comparison.md) confirms scaled-bitmap vs source clipping/composition variance; reliability PASS retained, SOURCE_MOTION_OPEN. [Exact next action](../work-log/2026-10-14-pa354-keyboard-regression-final-ci.md). Mandatory3/10/M10 blocked; PA09/M11 excluded. Older checkpoints below are historical.
@@ -16,7 +18,8 @@
 
 **2026-10-14 PA351 exact-main physical review:** [Report](WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) and [full evidence](../work-log/evidence/pa351-native-20261014). Actual selected notification sound/volume 0/100 boundary **PHYSICAL_PASS scoped**. Normal Main→Focus outgoing Board disappearance **FIX_NOW / PHYSICAL_FAIL** despite removal of pale flash; reduced-motion entry scoped PASS. Production Reports wheel/PageDown works but chart/detail scrollbar chrome persists: **FIX_NOW / PHYSICAL_FAIL**. C5 same EXE/152px/normal tray Quit/relaunch saved Timer PASS. Capture5/5; PA dispositions8/8 reviewed; new correction families1/3 PASS/2/3 FAIL. Personal profile restored. M1–M9 existing gates only close where their exact behavior was exercised; mandatory3/10 and M10 blocked. Older candidate lines below are historical.
 
-## CURRENT PA350 native reconciliation — 2026-10-14
+## CURRENT PA350 native reconciliation — 2026-10-14
+
 **Current candidate:** PR351 head372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c / CI38521066086 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
 
 

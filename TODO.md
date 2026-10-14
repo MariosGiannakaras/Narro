@@ -1,5 +1,7 @@
 # TODO.md
 
+**Latest PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+
 ## Current PA354 exact Windows capture
 
 - [x] Exact final CI38614321520 3/3, guarded main73601944,532/532 source/build/test/config identity; original five SHA/CRC artifacts verified and [published](work-log/2026-10-14-pa354-merged-native-ready.md).

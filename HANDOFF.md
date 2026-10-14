@@ -1,6 +1,10 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — PR354 merged, exact executable ready; Reports physical0/4
+## NOW — PA354 acquisition4/4, originals restored, phase2 aggregate review
+
+**Latest PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+
+## HISTORICAL — PR354 protected acquisition setup
 
 **Acquisition setup ACTIVE:** exact205e0a42 PID22520/Main HWND1183842 launched under fresh owned profile; original personal namespaces retained/protected, backup quick_check PASS. Main primary100%/LG125% extended desktop. Recording not yet started; NEXT prepared four-group Reports capture, stop/freeze, normal Quit and exact profile/motion restore. Do not launch a second Narro or restore originals while this owned process is alive.
 

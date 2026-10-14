@@ -1,0 +1,56 @@
+[
+  {
+    "name": "pa354-reports-segment2.mkv",
+    "bytes": 49282566,
+    "sha256": "d423e678de55fc6947931bf589a12c1ef3e4e3f9ba96ba4da66b7ceaa2e349a8",
+    "durationSeconds": 299.984,
+    "parts": [
+      {
+        "name": "pa354-reports-segment2.mkv.part01",
+        "bytes": 41943040,
+        "sha256": "3776e592372b858d9f0037ad2a8ee2a692c28dbe4ba1b3034afd1197470a77e4"
+      },
+      {
+        "name": "pa354-reports-segment2.mkv.part02",
+        "bytes": 7339526,
+        "sha256": "7e81be63e586d4e169ce91bc947240c61a8db0c09ae1dce80eac87d0f5267941"
+      }
+    ]
+  },
+  {
+    "name": "pa354-reports-segment3.mkv",
+    "bytes": 40685667,
+    "sha256": "ccdf75e76522d40beabd086f13cc6d0d47261b54ee5f865d68ed5584a2c82f37",
+    "durationSeconds": 240.0,
+    "parts": [
+      {
+        "name": "pa354-reports-segment3.mkv.part01",
+        "bytes": 40685667,
+        "sha256": "ccdf75e76522d40beabd086f13cc6d0d47261b54ee5f865d68ed5584a2c82f37"
+      }
+    ]
+  },
+  {
+    "name": "pa354-reports.mkv",
+    "bytes": 85141241,
+    "sha256": "83426eaea011c3b87c5d4eea7ebd7870cd313fbbe7551b2ab3dd83b887a1b348",
+    "durationSeconds": 479.967,
+    "parts": [
+      {
+        "name": "pa354-reports.mkv.part01",
+        "bytes": 41943040,
+        "sha256": "4ba688d25fc1a6c16182e5c942fc4ddb11e84a33994ded8c677e5c35d687c79c"
+      },
+      {
+        "name": "pa354-reports.mkv.part02",
+        "bytes": 41943040,
+        "sha256": "491a26a134b45b5efeac4585e49535950c85565775854fec4abd202b9ae34811"
+      },
+      {
+        "name": "pa354-reports.mkv.part03",
+        "bytes": 1255161,
+        "sha256": "4a3e8e9bc666ada2c39bdf40d3a546b716df59c9483e972cccbd72ea111aec9b"
+      }
+    ]
+  }
+]
