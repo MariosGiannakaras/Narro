@@ -1,0 +1,16 @@
+# PA351 independent checks during Windows CI
+
+Exact fa3ca8e0 / CI38519177394 fast artifact11873655963 independently downloaded while Windows gate runs. Provider SHA256 d8e8722fe5b61810c3fd1686d038981bcfabf81ca5e023f04920d7b07b3aea8a MATCH,86/86 ZIP entries CRC PASS,16/16 HTML entrypoints,877/877 actual local HTML/chunk references exist. Actual built Focus JS contains notification-sound-ready and drain_notification_sounds; this proves packaging, not audible/native acceptance. Whole original ZIP and receipt are in evidence/pa351-preflight.
+
+## Reuse and native acceptance matrix
+
+| Scope | Acquired proof to preserve | New acquisition / acceptance boundary |
+|---|---|---|
+| M1 topology / AOT | Previous actual two monitors and AOT; current DISPLAY1 primary96 + LG secondary120 confirmed | Current candidate monitor/DPI/system facts and adjacent Timer over normal maximized app. Quiet idle performance not proved by video; physical cable changes NOT RUN. |
+| M5 Main / Reports | Previous domain/reports F29 acceptance; production-root RED→GREEN regression | Production Main nav in viewport100/125, actual wheel/keyboard scroll, detail no visible bar chrome with accessible overflow, actual nested Cancel opener. New CSS acceptance OPEN. |
+| M6 initial entry | Old4b normal entry FAIL; old native full Focus form PASS | Normal/reduced restored Main entry, full continuous pixel sequence plus8ms HWND trace, outgoing Board contents retained, no empty shell/desktop gap, actual elapsed timing separated from click/data-preparation latency, Main geometry restored. Source comparison remains separately bounded. |
+| M7 shared Focus / C5 | Old C4 matrix, Time's Up, normal-Quit ledger and4b C5 scoped passes immutable | Related Panel/Timer pair, held physical Ctrl+Alt+P resume AND pause, fresh exact EXE drag≥64px/normal tray Quit/new PID and Timer restore. No simulated new native PASS. |
+| M8 Preferences / actual alerts | Old real foreground/background toasts, failed100 audio and successful same-device Preview | Fresh actual notification volume0 and selected local tone100, positive audio control in same OBS recording, real5min work/break boundaries and background delivery where available. Disabled-device/OS-permission/listener-failure branches remain NOT RUN unless actually exercised. |
+| M9 packaging / persistence | Same-version owned NSIS data maintenance scoped proof | New exact EXE/package hashes, normal Quit/interrupted restart data/identities. MSI tool-policy-blocked, true cross-schema migration/autostart acceptance remain OPEN/NOT RUN. |
+
+Prepared safety checks reject a changed/unowned personal profile or wrong executable before launch, preserve a fresh private SQLite backup, clone only a marked synthetic retained profile, and require no running Narro before restoration. Original profiles/settings remain untouched during CI. OBS verified dual4480x1080/60fps with two visible capture sources; temporary capture-only wake lease avoids idle suspend without changing durable power policy. Whole logs/media/helpers and chronological actions will freeze after acquisition. Acquisition/analysis on prior4b remains5/5; new residual native acceptance0/3, mandatory3/10/M10 blocked. PA01–08 only, no PA09/M11 or protected picker/upload/218-icon changes.

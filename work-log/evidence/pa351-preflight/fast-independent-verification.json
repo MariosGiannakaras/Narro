@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-14T06:05:39.268217+00:00",
+  "ci": 38519177394,
+  "head": "fa3ca8e063104ad1d0449d4bc6675bb29a8979a8",
+  "artifact": 11873655963,
+  "zipSha256": "d8e8722fe5b61810c3fd1686d038981bcfabf81ca5e023f04920d7b07b3aea8a",
+  "crcEntries": 86,
+  "htmlEntries": 16,
+  "localHtmlAndChunkReferences": 877,
+  "missingReferences": [],
+  "actualFocusAudioConnectorPresent": true,
+  "nativeAcceptance": "NOT RUN; Windows gate pending"
+}
