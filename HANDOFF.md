@@ -1,5 +1,9 @@
 # HANDOFF — PA01–08 residual correction batch
 
+## NOW — PR354 first CI failed at fixture resize assertion; repair in progress
+
+[Causal failure/evidence](work-log/2026-10-14-pa354-first-ci-fixture-failure.md). Headf28c6e95/CI38571856805 validation+fast and Windows Rust tests passed; new light-theme DOM resize assertion failed. Fixture-only repair uses real frame barriers and measured anchor visibility; production tooltip code unchanged. NEXT browser matrix at1280×720, final preflight, new exact PR head/CI, then guarded merge/physical0/1 recheck. No new native run/profile mutation; original DB restored. Older CI-running block below is historical.
+
 **Independent PA08 MSI intake:** exact package/MSI hash and read-only database inspected; installer is per-machine and current process non-admin. User UAC availability requested, **MSI still NOT RUN**; no new isolation/install/launch. Existing NSIS test registration preserved. [Exact safe continuation](work-log/2026-10-14-pa08-msi-admin-intake.md). PR354 CI remains the primary ongoing action below.
 
 ## NOW — PR354 tooltip candidate under CI; native0/1

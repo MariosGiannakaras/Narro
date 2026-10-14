@@ -1,5 +1,7 @@
 # TODO.md
 
+- [ ] **PR354 CI fixture repair:** first38571856805 failed light chart resize assertion after Rust/fast PASS; original diagnostic published. Replace timer/visibility assumption with actual frame+geometry observation, retain12 strict cases, repeat browser matrix/preflight then one new exact CI head. Product tooltip source unchanged by this diagnosis. [Failure](work-log/2026-10-14-pa354-first-ci-fixture-failure.md); physical0/1.
+
 - [ ] **PA354 exact candidate continuation:** [PR354](https://github.com/MariosGiannakaras/Narro/pull/354) headf28c6e95 / CI38571856805 running. Tooltip clipping/hover/focus/scroll/resize/PDF path corrected; placement2052/2052, actual DOM24/24, final frontend preflight/build PASS. Finish exactCI/guarded merge/source proof and one Reports native recheck (**0/1** new corrected physical). PA353 original criteria2/2 scoped PASS; PA04 overall remains FAIL. [Checkpoint](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md).
 
 - [x] **PA353 physical acquisition/review2/2:** original two correction criteria2/2 scoped PASS; normal Board pixels preserved/same Main geometry/opaque Focus/finite popup cleanup and hidden native Reports bars with genuine wheel/keyboard scrolling. [Report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md), full evidence/logs published; original personal profile restored.
