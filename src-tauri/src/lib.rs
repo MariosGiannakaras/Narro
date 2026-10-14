@@ -2818,6 +2818,7 @@ pub fn run() {
             toggle_timer,
             mutate_state,
             send_test_notification,
+            notifications::sound::drain_notification_sounds,
             schedule_reminder_acceptance_probe,
             autostart_status,
             autostart_enable,
