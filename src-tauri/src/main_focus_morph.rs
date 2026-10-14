@@ -33,7 +33,7 @@ pub(crate) fn reveal_opaque(window: &tauri::WebviewWindow) -> CommandResult<()> 
     let hwnd = window
         .hwnd()
         .map_err(|e| morph_error("resolve reveal HWND", e))?
-        .0 as *mut std::ffi::c_void;
+        .0;
     if unsafe { GetWindowThreadProcessId(hwnd, std::ptr::null_mut()) == GetCurrentThreadId() } {
         return reveal_opaque_on_window_thread(window);
     }
@@ -65,7 +65,7 @@ fn reveal_opaque_on_window_thread(window: &tauri::WebviewWindow) -> CommandResul
     let hwnd = window
         .hwnd()
         .map_err(|e| morph_error("resolve reveal HWND", e))?
-        .0 as *mut c_void;
+        .0;
     // Narro owns this transient property. Preserve its ordinary default after
     // the explicit native entry frame, without changing system motion settings.
     let disabled = 1_i32;

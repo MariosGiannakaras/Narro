@@ -24,6 +24,9 @@ function requireText(haystack, needle, label) {
 requireText(morph, "run_on_main_thread", "opaque reveal executes on the HWND owner");
 requireText(morph, "recv_timeout(Duration::from_secs(2))", "native reveal acknowledgement is bounded");
 requireText(morph, "reveal_opaque_on_window_thread(&target)", "acknowledgement follows the actual reveal");
+if (/\.0\s+as\s+\*mut\s+(?:std::ffi::)?c_void/.test(morph)) {
+  throw new Error("The Windows HWND already contains a c_void pointer; do not add same-type casts rejected by Clippy.");
+}
 
 for (const [haystack, needle, label] of [
   [rust, "scheduling::focus_eligibility_at", "authoritative M4 Focus eligibility reuse"],
