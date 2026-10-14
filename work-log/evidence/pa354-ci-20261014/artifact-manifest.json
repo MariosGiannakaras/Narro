@@ -1,0 +1,755 @@
+{
+  "run": {
+    "id": 38614321520,
+    "name": "Windows CI",
+    "node_id": "WFR_kwLOT4vbVs8AAAAI_ZfJcA",
+    "head_branch": "fix/pa353-reports-tooltip-containment",
+    "head_sha": "7647ffabb8ee93edfe95f90395baec632802b25e",
+    "path": ".github/workflows/ci.yml",
+    "display_title": "Keep Reports tooltips inside the visible chart viewport",
+    "run_number": 1406,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 348518527,
+    "check_suite_id": 104638146331,
+    "check_suite_node_id": "CS_kwDOT4vbVs8AAAAYXOtnGw",
+    "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520",
+    "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38614321520",
+    "pull_requests": [
+      {
+        "url": "https://api.github.com/repos/MariosGiannakaras/Narro/pulls/354",
+        "id": 4858610452,
+        "number": 354,
+        "head": {
+          "ref": "fix/pa353-reports-tooltip-containment",
+          "sha": "7647ffabb8ee93edfe95f90395baec632802b25e",
+          "repo": {
+            "id": 1334565718,
+            "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+            "name": "Narro"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "d55553076c80ef047a407400f8277bfbeac0482e",
+          "repo": {
+            "id": 1334565718,
+            "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+            "name": "Narro"
+          }
+        }
+      }
+    ],
+    "created_at": "2026-10-14T18:20:30Z",
+    "updated_at": "2026-10-14T18:58:05Z",
+    "actor": {
+      "login": "MariosGiannakaras",
+      "id": 28479056,
+      "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/MariosGiannakaras",
+      "html_url": "https://github.com/MariosGiannakaras",
+      "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+      "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+      "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+      "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+      "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+      "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-10-14T18:20:30Z",
+    "triggering_actor": {
+      "login": "MariosGiannakaras",
+      "id": 28479056,
+      "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/MariosGiannakaras",
+      "html_url": "https://github.com/MariosGiannakaras",
+      "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+      "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+      "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+      "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+      "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+      "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520/jobs",
+    "logs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520/logs",
+    "check_suite_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-suites/104638146331",
+    "artifacts_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520/artifacts",
+    "cancel_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520/cancel",
+    "rerun_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/workflows/348518527",
+    "head_commit": {
+      "id": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "tree_id": "a7601c09f62f1ebd55cd2787c7501a24ac51dd0b",
+      "message": "fix(reports): let new keyboard focus own the active date tooltip",
+      "timestamp": "2026-10-14T18:20:21Z",
+      "author": {
+        "name": "Marios Giannakaras",
+        "email": "mariosgiannakaras@gmail.com"
+      },
+      "committer": {
+        "name": "Marios Giannakaras",
+        "email": "mariosgiannakaras@gmail.com"
+      }
+    },
+    "repository": {
+      "id": 1334565718,
+      "node_id": "R_kgDOT4vbVg",
+      "name": "Narro",
+      "full_name": "MariosGiannakaras/Narro",
+      "private": false,
+      "owner": {
+        "login": "MariosGiannakaras",
+        "id": 28479056,
+        "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MariosGiannakaras",
+        "html_url": "https://github.com/MariosGiannakaras",
+        "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+        "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+        "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+        "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+        "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+        "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/MariosGiannakaras/Narro",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+      "forks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/forks",
+      "keys_url": "https://api.github.com/repos/MariosGiannakaras/Narro/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/MariosGiannakaras/Narro/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/MariosGiannakaras/Narro/teams",
+      "hooks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/hooks",
+      "issue_events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/events",
+      "assignees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/MariosGiannakaras/Narro/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/tags",
+      "blobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/MariosGiannakaras/Narro/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/MariosGiannakaras/Narro/languages",
+      "stargazers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/stargazers",
+      "contributors_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contributors",
+      "subscribers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscribers",
+      "subscription_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscription",
+      "commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/MariosGiannakaras/Narro/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/MariosGiannakaras/Narro/merges",
+      "archive_url": "https://api.github.com/repos/MariosGiannakaras/Narro/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/MariosGiannakaras/Narro/downloads",
+      "issues_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/MariosGiannakaras/Narro/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/MariosGiannakaras/Narro/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/MariosGiannakaras/Narro/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/MariosGiannakaras/Narro/labels{/name}",
+      "releases_url": "https://api.github.com/repos/MariosGiannakaras/Narro/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/deployments"
+    },
+    "head_repository": {
+      "id": 1334565718,
+      "node_id": "R_kgDOT4vbVg",
+      "name": "Narro",
+      "full_name": "MariosGiannakaras/Narro",
+      "private": false,
+      "owner": {
+        "login": "MariosGiannakaras",
+        "id": 28479056,
+        "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MariosGiannakaras",
+        "html_url": "https://github.com/MariosGiannakaras",
+        "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+        "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+        "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+        "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+        "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+        "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/MariosGiannakaras/Narro",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+      "forks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/forks",
+      "keys_url": "https://api.github.com/repos/MariosGiannakaras/Narro/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/MariosGiannakaras/Narro/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/MariosGiannakaras/Narro/teams",
+      "hooks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/hooks",
+      "issue_events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/events",
+      "assignees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/MariosGiannakaras/Narro/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/tags",
+      "blobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/MariosGiannakaras/Narro/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/MariosGiannakaras/Narro/languages",
+      "stargazers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/stargazers",
+      "contributors_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contributors",
+      "subscribers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscribers",
+      "subscription_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscription",
+      "commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/MariosGiannakaras/Narro/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/MariosGiannakaras/Narro/merges",
+      "archive_url": "https://api.github.com/repos/MariosGiannakaras/Narro/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/MariosGiannakaras/Narro/downloads",
+      "issues_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/MariosGiannakaras/Narro/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/MariosGiannakaras/Narro/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/MariosGiannakaras/Narro/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/MariosGiannakaras/Narro/labels{/name}",
+      "releases_url": "https://api.github.com/repos/MariosGiannakaras/Narro/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/deployments"
+    }
+  },
+  "jobs": [
+    {
+      "id": 116025510571,
+      "run_id": 38614321520,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/pa353-reports-tooltip-containment",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbA6jKqw",
+      "head_sha": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116025510571",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38614321520/job/116025510571",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-14T18:20:48Z",
+      "started_at": "2026-10-14T18:20:50Z",
+      "completed_at": "2026-10-14T18:20:53Z",
+      "name": "validation-gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T18:20:50Z",
+          "completed_at": "2026-10-14T18:20:51Z"
+        },
+        {
+          "name": "Check for already validated identical PR tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T18:20:51Z",
+          "completed_at": "2026-10-14T18:20:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T18:20:51Z",
+          "completed_at": "2026-10-14T18:20:51Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116025510571",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000038515,
+      "runner_name": "GitHub Actions 1000038515",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 116025552209,
+      "run_id": 38614321520,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/pa353-reports-tooltip-containment",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbA6ltUQ",
+      "head_sha": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116025552209",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38614321520/job/116025552209",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-14T18:20:53Z",
+      "started_at": "2026-10-14T18:20:55Z",
+      "completed_at": "2026-10-14T18:29:59Z",
+      "name": "fast-gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T18:20:56Z",
+          "completed_at": "2026-10-14T18:20:57Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T18:20:57Z",
+          "completed_at": "2026-10-14T18:29:08Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T18:29:08Z",
+          "completed_at": "2026-10-14T18:29:10Z"
+        },
+        {
+          "name": "Setup Rustfmt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T18:29:10Z",
+          "completed_at": "2026-10-14T18:29:11Z"
+        },
+        {
+          "name": "Install Frontend Dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T18:29:11Z",
+          "completed_at": "2026-10-14T18:29:13Z"
+        },
+        {
+          "name": "Run Fast Frontend and Contract Gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T18:29:13Z",
+          "completed_at": "2026-10-14T18:29:52Z"
+        },
+        {
+          "name": "Check Rust Formatting",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T18:29:52Z",
+          "completed_at": "2026-10-14T18:29:54Z"
+        },
+        {
+          "name": "Upload Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T18:29:54Z",
+          "completed_at": "2026-10-14T18:29:56Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T18:29:56Z",
+          "completed_at": "2026-10-14T18:29:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-14T18:29:56Z",
+          "completed_at": "2026-10-14T18:29:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-14T18:29:56Z",
+          "completed_at": "2026-10-14T18:29:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116025552209",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000038516,
+      "runner_name": "GitHub Actions 1000038516",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 116029978065,
+      "run_id": 38614321520,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/pa353-reports-tooltip-containment",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38614321520",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbA-z10Q",
+      "head_sha": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116029978065",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38614321520/job/116029978065",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-14T18:29:59Z",
+      "started_at": "2026-10-14T18:30:01Z",
+      "completed_at": "2026-10-14T18:58:04Z",
+      "name": "windows-candidate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T18:30:02Z",
+          "completed_at": "2026-10-14T18:30:04Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T18:30:04Z",
+          "completed_at": "2026-10-14T18:36:28Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T18:36:28Z",
+          "completed_at": "2026-10-14T18:36:36Z"
+        },
+        {
+          "name": "Setup Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T18:36:36Z",
+          "completed_at": "2026-10-14T18:36:57Z"
+        },
+        {
+          "name": "Restore Rust cache",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T18:36:57Z",
+          "completed_at": "2026-10-14T18:37:44Z"
+        },
+        {
+          "name": "Install Frontend Dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T18:37:44Z",
+          "completed_at": "2026-10-14T18:38:02Z"
+        },
+        {
+          "name": "Download Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T18:38:02Z",
+          "completed_at": "2026-10-14T18:38:03Z"
+        },
+        {
+          "name": "Verify Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T18:38:03Z",
+          "completed_at": "2026-10-14T18:38:03Z"
+        },
+        {
+          "name": "Print Versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-14T18:38:03Z",
+          "completed_at": "2026-10-14T18:38:16Z"
+        },
+        {
+          "name": "Prepare Packaging Icons",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-14T18:38:16Z",
+          "completed_at": "2026-10-14T18:38:25Z"
+        },
+        {
+          "name": "Check Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-14T18:38:25Z",
+          "completed_at": "2026-10-14T18:39:02Z"
+        },
+        {
+          "name": "Run Clippy",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-14T18:39:02Z",
+          "completed_at": "2026-10-14T18:39:15Z"
+        },
+        {
+          "name": "Run Rust Tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-14T18:39:15Z",
+          "completed_at": "2026-10-14T18:40:41Z"
+        },
+        {
+          "name": "Validate Performance Harness",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T18:40:41Z",
+          "completed_at": "2026-10-14T18:40:46Z"
+        },
+        {
+          "name": "Capture Visual Regression Fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T18:40:46Z",
+          "completed_at": "2026-10-14T18:47:25Z"
+        },
+        {
+          "name": "Upload Visual Regression Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-14T18:47:25Z",
+          "completed_at": "2026-10-14T18:47:28Z"
+        },
+        {
+          "name": "Retain Visual Regression Diagnostics After Capture Failure",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 17,
+          "started_at": "2026-10-14T18:47:28Z",
+          "completed_at": "2026-10-14T18:47:28Z"
+        },
+        {
+          "name": "Build Tauri Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-14T18:47:28Z",
+          "completed_at": "2026-10-14T18:49:55Z"
+        },
+        {
+          "name": "Capture Packaged Focus Runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-14T18:49:55Z",
+          "completed_at": "2026-10-14T18:50:11Z"
+        },
+        {
+          "name": "Upload Packaged Focus Runtime Visual Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-14T18:50:11Z",
+          "completed_at": "2026-10-14T18:50:13Z"
+        },
+        {
+          "name": "Build Physical Validation Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-14T18:50:13Z",
+          "completed_at": "2026-10-14T18:55:48Z"
+        },
+        {
+          "name": "Verify Physical Validation Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-14T18:55:48Z",
+          "completed_at": "2026-10-14T18:55:57Z"
+        },
+        {
+          "name": "Prepare M7 Automatic Validation Executable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-14T18:55:57Z",
+          "completed_at": "2026-10-14T18:55:58Z"
+        },
+        {
+          "name": "Verify M7 Automatic Validation Logging",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-14T18:55:58Z",
+          "completed_at": "2026-10-14T18:56:00Z"
+        },
+        {
+          "name": "Upload Physical Validation Build Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-14T18:56:00Z",
+          "completed_at": "2026-10-14T18:56:02Z"
+        },
+        {
+          "name": "Upload M7 Automatic Validation Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-14T18:56:02Z",
+          "completed_at": "2026-10-14T18:56:04Z"
+        },
+        {
+          "name": "Build M1 Diagnostic Validation Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-14T18:56:04Z",
+          "completed_at": "2026-10-14T18:57:54Z"
+        },
+        {
+          "name": "Verify M1 Diagnostic Storage Isolation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-14T18:57:54Z",
+          "completed_at": "2026-10-14T18:57:58Z"
+        },
+        {
+          "name": "Upload M1 Diagnostic Validation Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-14T18:57:58Z",
+          "completed_at": "2026-10-14T18:58:00Z"
+        },
+        {
+          "name": "Post Restore Rust cache",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 56,
+          "started_at": "2026-10-14T18:58:00Z",
+          "completed_at": "2026-10-14T18:58:00Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 57,
+          "started_at": "2026-10-14T18:58:00Z",
+          "completed_at": "2026-10-14T18:58:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 58,
+          "started_at": "2026-10-14T18:58:00Z",
+          "completed_at": "2026-10-14T18:58:02Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 59,
+          "started_at": "2026-10-14T18:58:02Z",
+          "completed_at": "2026-10-14T18:58:02Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116029978065",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000038524,
+      "runner_name": "GitHub Actions 1000038524",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact": 11922380097,
+      "name": "narro-m7-validation-windows-x64",
+      "source": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "ci": 38614321520,
+      "zip_sha256": "404129b1f1582c86f1d9b35692105796476894223beadb101e03991a0b3463f8",
+      "crc_entries": 2,
+      "exe_sha256": "205e0a422042e76db0ccee0317dda06d9a3186b0fc12d4c864054bc0a63f4f3a"
+    },
+    {
+      "artifact": 11921575303,
+      "name": "narro-m7-physical-windows-x64",
+      "source": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "ci": 38614321520,
+      "zip_sha256": "e8eb821632cb03183523624da664f184ce7246bbf8d7b6417d73de4d15a4ebdd",
+      "crc_entries": 3
+    },
+    {
+      "artifact": 11919354160,
+      "name": "narro-m5-visual-regression",
+      "source": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "ci": 38614321520,
+      "zip_sha256": "9e058a9027f1595ad456fbac1fef5764d3942d252820046f9eb50ad9aaccc3e3",
+      "crc_entries": 345
+    },
+    {
+      "artifact": 11920509139,
+      "name": "narro-m7-focus-runtime-visual",
+      "source": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "ci": 38614321520,
+      "zip_sha256": "5cbd5e3c37eca46a6d5c441f92e8011ba5fc50db9f3968c47eb455dd9d360d3a",
+      "crc_entries": 90
+    },
+    {
+      "artifact": 11919371282,
+      "name": "narro-fast-frontend-dist",
+      "source": "7647ffabb8ee93edfe95f90395baec632802b25e",
+      "ci": 38614321520,
+      "zip_sha256": "50237346dbb5d82ed9033bbbea3abdae4f8ea56ded638eba2fdd9e73ac347bef",
+      "crc_entries": 86
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # TODO.md
 
+## Current PA354 exact Windows capture
+
+- [x] Exact final CI38614321520 3/3, guarded main73601944,532/532 source/build/test/config identity; original five SHA/CRC artifacts verified and [published](work-log/2026-10-14-pa354-merged-native-ready.md).
+- [ ] Fresh protected-profile exact205e0a42 Reports capture0/4→4/4; aggregate video/UIA/PDF review and tooltip physical0/1→1/1 only if sufficiently exercised/PASS. Real HDMI manually deferred NOT RUN; mandatory3/10/M10 blocked, PA09/M11 excluded. Previous checkpoint blocks are historical.
+
 ## Current final PA354 physical continuation
 
 - [x] Confirm stationary-pointer/new-keyboard-focus regression in actual DOM before fixing; preserve latest-focus ownership and pointer-leave fallback. Final head7647ffab, geometry2052/2052, whole frontend preflight/build, DOM56/56 PASS.

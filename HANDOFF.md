@@ -1,6 +1,10 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — final PR354 head7647ffab; exact CI and Reports capture
+## NOW — PR354 merged, exact executable ready; Reports physical0/4
+
+Owner Codex PA01–08. [Accepted source/artifacts](work-log/2026-10-14-pa354-merged-native-ready.md): PRhead7647ffab/CI38614321520 **3/3 PASS**, guarded main73601944, source532/532 identical/workflow unchanged. Exact EXE205e0a42. **NEXT:** fresh owned-profile protection and prepared dense Reports capture0/4, then freeze/restore/aggregate review (tooltip physical0/1). Original DB/registry/shortcut restored/no running Narro or recording before this next session. Installer2/2 scoped PASS, HDMI manually deferred NOT RUN; source motion OPEN, mandatory3/10/M10 blocked, PA09/M11 excluded. Previous continuation blocks are historical.
+
+## HISTORICAL — final PR354 head7647ffab while CI pending
 
 Owner Codex PA01–08; PR354 branch `fix/pa353-reports-tooltip-containment`, head `7647ffabb8ee93edfe95f90395baec632802b25e`, Windows CI38614321520 **2/3 PASS, Windows IN_PROGRESS**. Whole preflight/build, geometry2052/2052, actual DOM56/56 PASS; keyboard ownership regression reproduced before fix. Tooltip physical0/1; prepared capture0/4. **NEXT:** finish this exact CI; if3/3/currenthead green, expected-head guarded merge/source proof/five original SHA+CRC artifacts, then fresh protected-profile Reports capture and aggregate review. [Exact checkpoint](work-log/2026-10-14-pa354-keyboard-regression-final-ci.md). Independent MSI/NSIS installers2/2 scoped PASS/evidence uploaded; originals restored/no Narro or recording. PA05 physical HDMI unplug/replug NOT RUN, explicitly deferred manually by user. PA02 reliability PASS retained, strict source-motion OPEN (existing-capture direct comparison); PA09/M11 excluded. Mandatory3/10/M10 blocked.
 
