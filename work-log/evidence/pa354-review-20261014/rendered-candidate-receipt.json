@@ -1,0 +1,56 @@
+{
+  "sourceBefore": "7647ffabb8ee93edfe95f90395baec632802b25e",
+  "sourceCandidate": "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5",
+  "beforePicker": {
+    "dialogBottom": 467.25,
+    "optionTop": 485.25,
+    "optionHit": false,
+    "keyboardSelection": false
+  },
+  "renderedMatrix": {
+    "pickerAndPreferences": {
+      "viewports": [
+        [
+          900,
+          660
+        ],
+        [
+          768,
+          600
+        ],
+        [
+          900,
+          420
+        ]
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "passed": 12,
+      "total": 12
+    },
+    "printMedia": {
+      "days": [
+        8,
+        31,
+        61,
+        91
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "passed": 8,
+      "total": 8,
+      "scrollWidth": 1235,
+      "clientWidth": 1235
+    }
+  },
+  "extraDifferentTaskPointerRegressionBothThemes": "PASS",
+  "statefulFilteredRoadmapPointerSelection": "PASS",
+  "staticScreenshotFixtureFilteredSelection": "NOT_VALID: static fixture onDraftChange is intentionally no-op; not a product failure",
+  "newNativeAcceptance": "0/3 OPEN",
+  "localRustCompile": "NOT RUN: missing MSVC link.exe",
+  "note": "Read-only actual DOM/print geometry observations; not physical executable acceptance. Print/button intrinsic-width overflow was caught and corrected before CI. Prior intermediate syntax/cross-realm test errors repaired locally before candidate."
+}

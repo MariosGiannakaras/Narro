@@ -1,8 +1,14 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — PA354 acquisition4/4, originals restored, phase2 aggregate review
+## NOW — PR355 exact CI pending, next corrected native0/3
 
-**Latest PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+**Current PA continuation:** PA354 acquisition4/4/review4/4, tooltip1/1 scopedPASS; PA04 remainsFAIL for picker/PDF, M8 widthFIX_NOW. [PR355](https://github.com/MariosGiannakaras/Narro/pull/355) head7b54e62f/CI38630226135 in progress; preflight/build/rustfmt and actual DOM12/12 + print8/8PASS. New corrected physical0/3. Original profiles/motion restored/no app or recorder. [Exact continuation and evidence](work-log/2026-10-14-pa354-review-pr355-ci.md). Mandatory3/10/M10blocked; HDMI manualNOTRUN, PA09/M11excluded.
+
+All following older checkpoint blocks are historical; retain their immutable work-log evidence, not their superseded next actions.
+
+## HISTORICAL — PA354 acquisition4/4, originals restored, phase2 aggregate review
+
+**Historical PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
 
 ## HISTORICAL — PR354 protected acquisition setup
 

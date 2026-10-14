@@ -1,13 +1,21 @@
 # TODO.md
 
-**Latest PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+**Current PA continuation:** PA354 acquisition4/4/review4/4, tooltip1/1 scopedPASS; PA04 remainsFAIL for picker/PDF, M8 widthFIX_NOW. [PR355](https://github.com/MariosGiannakaras/Narro/pull/355) head7b54e62f/CI38630226135 in progress; preflight/build/rustfmt and actual DOM12/12 + print8/8PASS. New corrected physical0/3. Original profiles/motion restored/no app or recorder. [Exact continuation and evidence](work-log/2026-10-14-pa354-review-pr355-ci.md). Mandatory3/10/M10blocked; HDMI manualNOTRUN, PA09/M11excluded.
 
-## Current PA354 exact Windows capture
+- [x] PA354 complete acquisition/review4/4, full evidence and profile restoration, tooltip1/1 scoped physicalPASS.
+- [ ] PR355 exact3/3 CI/guardedmerge/sourceproof and fresh protected3-group physical acceptance0/3.
+- [ ] PA05 real HDMI unplug/replug manualNOTRUN by user decision.
+
+All following older checkpoint blocks are historical; retain their immutable work-log evidence, not their superseded next actions.
+
+**Historical PA354 physical checkpoint:** acquisition4/4 complete; complete dual-screen recordings/UIA/screenshots/PDF/seven logs published, originals restored/no app or recorder. Phase2 aggregate review, no new source edits. Tooltip native disposition pending review; picker selection unsuccessful; PDF3/3 inspected with clipped final date/filename discrepancy. [Exact continuation](work-log/2026-10-14-pa354-acquisition-complete.md). HDMI manual NOT RUN; mandatory3/10/M10 blocked. All older checkpoint claims below are historical.
+
+## HISTORICAL PA354 exact Windows capture
 
 - [x] Exact final CI38614321520 3/3, guarded main73601944,532/532 source/build/test/config identity; original five SHA/CRC artifacts verified and [published](work-log/2026-10-14-pa354-merged-native-ready.md).
 - [ ] Fresh protected-profile exact205e0a42 Reports capture0/4→4/4; aggregate video/UIA/PDF review and tooltip physical0/1→1/1 only if sufficiently exercised/PASS. Real HDMI manually deferred NOT RUN; mandatory3/10/M10 blocked, PA09/M11 excluded. Previous checkpoint blocks are historical.
 
-## Current final PA354 physical continuation
+## HISTORICAL final PA354 physical continuation
 
 - [x] Confirm stationary-pointer/new-keyboard-focus regression in actual DOM before fixing; preserve latest-focus ownership and pointer-leave fallback. Final head7647ffab, geometry2052/2052, whole frontend preflight/build, DOM56/56 PASS.
 - [ ] CI38614321520 Windows pending (2/3 gates PASS); complete guarded merge/source proof/five original artifact hashes, fresh Reports capture0/4→4/4 and aggregate tooltip acceptance0/1→1/1 only if exercised/pass. [One exact next operation](work-log/2026-10-14-pa354-keyboard-regression-final-ci.md).
@@ -16,7 +24,7 @@
 
 All prior checkpoint sections below are historical.
 
-## Current PA354/MSI continuation
+## HISTORICAL PA354/MSI continuation
 
 - [x] Repair only the first CI fixture's geometry/delivery assumptions; strict48/48 actual DOM assertions, geometry2052/2052 and final whole frontend preflight/build PASS. PR354 exact09c35bb0/CI38611160137 running; previous38571856805 failed head remains historical.
 - [ ] Finish exact3/3 CI, guarded merge/source proof; new tooltip protected-profile actual Reports capture and aggregate review (physical0/1). PA04 remains FAIL until accepted; prior PA353 fixes2/2 scoped PASS retained.
@@ -38,7 +46,7 @@ Prior checkpoint blocks below are historical. [One exact continuation](work-log/
 
 - [ ] **PA02 repeated-failure escalation:** PA350/PA351 exact physical captures both failed the normal whole-entry criterion. Implement and compare the selected separate native pixel-raster morph (no Main HWND resize, no extra WebView) against existing child-raster/resized-Main path; preserve finite motion, same timer authority and Main geometry. Require exact-build continuous 60fps Windows acceptance before PASS. [Failure evidence](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md).
 
-## NOW — PA351 physical 5/5 captured, 8/8 disposed, new correction families 1/3 PASS
+## HISTORICAL — PA351 physical 5/5 captured, 8/8 disposed, new correction families 1/3 PASS
 
 - [x] PR351 exact merged-main EXE physical Windows/dual-monitor capture, aggregate review and complete evidence upload: [report](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) / [recordings, screenshots, entire Narro-M7-Logs](work-log/evidence/pa351-native-20261014). Owned synthetic profile only; original personal DB/motion/autostart/Focus Assist restored.
 - [x] Real notification selected tone/volume 0 and 100 boundary plus positive Preview: PA06 scoped PASS; C5 152px/tray Quit/same-EXE/Timer reappearance: PA07 scoped PASS.
@@ -46,7 +54,7 @@ Prior checkpoint blocks below are historical. [One exact continuation](work-log/
 - [ ] PA04 production Reports: wheel/PageDown scrolling works, but visible horizontal chart/detail scrollbar chrome remains; fix without blocking scroll, regression and exact native recheck. Picker interaction remains OPEN, no unsupported PASS/FAIL.
 - [ ] Other PA05/PA08 device/installer/boot gates remain UNCERTAIN/NOT RUN where specified in report. Mandatory milestones **3/10**, M10 hard gate blocked, PA09/M11 excluded. Older NOW below is historical.
 
-## NOW — PA351 merged/exact CI accepted; new native acceptance 0/3
+## HISTORICAL — PA351 merged/exact CI accepted; new native acceptance 0/3
 
 - [x] PR351 exact head `372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c`: Windows CI `38521066086` validation/fast/windows **3/3 SUCCESS**, guarded merge `4cb94f0eda3433137a9db0dc1555f89b8281d873`, 529/529 executable/build/test/config blobs equal to main. Five original artifacts/hash/CRC receipts [uploaded](work-log/2026-10-14-pa351-merged-exact-ci-native-pending.md); exact x64 EXE SHA-256 `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3`.
 - [ ] Fresh isolated-profile exact-EXE dual-display capture: Main→Focus whole entry, Main/Reports production scrolling, real notification tone/volume 0/100 and positive preview, paired PA checks/C5. Current corrected-family physical acceptance **0/3**; aggregate and upload whole new corpus. Mandatory milestones **3/10**, M10 hard gate blocked. Older NOW below is the pre-merge checkpoint.
