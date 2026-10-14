@@ -1,0 +1,7 @@
+# PA351 common candidate — local preflight accepted, exact Windows CI pending
+
+PR https://github.com/MariosGiannakaras/Narro/pull/351, head3fa815e1c63dfc4b7d924fc6b54a77e5ea7d91e9, branch fix/pa-native-entry-alerts-scroll. One batch16 source/test/config files; no protected picker/upload/icons or tracking-file source diff. Exact Windows CI38516756071 in progress, validation-gate SUCCESS at checkpoint; no native acceptance.
+
+Candidate families3/3 implemented, local full95 frontend test entries plus TypeScript/build PASS, Rust fmt PASS. Rust unit execution NOT RUN locally (missing MSVC link.exe); CI must provide actual compiler/clippy/domain results. Whole local preflight and actual production-root RED/GREEN DOM are in evidence/pa351-preflight, with intended dense dual-screen native order. New native acceptance0/3. Prior acquisition/review5/5 and original corrected families3/3 retain their historical scoped meaning; mandatory3/10 unchanged.
+
+Next: exact-head3/3, expected-head guarded merge and executable/source proof, then fresh guarded owned-profile recording. No app launched or profile altered during preparation. All prior media/logs already uploaded. Local generated icons/line-ending-only unrelated changes excluded.
