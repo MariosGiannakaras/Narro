@@ -1,6 +1,8 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — PA residual correction batch: candidates3/3, new native acceptance0/3
+## NOW — PA351 merged/exact CI accepted; new native acceptance 0/3
+
+PR351 head `372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c` passed Windows CI `38521066086` **3/3 jobs** and merged to `main` at `4cb94f0eda3433137a9db0dc1555f89b8281d873`. Merged-main source/build/test/config identity **529/529 blobs equal**, workflow unchanged. All five original CI artifacts and provider/CRC verification are [uploaded](work-log/2026-10-14-pa351-merged-exact-ci-native-pending.md); x64 EXE SHA-256 `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3`. **No new native run; corrected-family physical 0/3.** Next exact action: fresh owned-profile isolation and guarded same-EXE launch, dual-display continuous recording, combined PA01–08 physical acquisition, aggregate review and evidence upload. Mandatory milestones 3/10; M10 blocked, PA09/M11 excluded. The older NOW paragraph below is a historical pre-merge checkpoint.
 
 Owner Codex PA01–08; source branch `fix/pa-native-entry-alerts-scroll`, commits `55f090bc` production viewport containment and `86f3f8d8` fitted Main raster / elapsed-clock opaque Focus entry. Notification selected-tone/volume binding and bounded single-Focus renderer queue/recovery are written and narrow regression PASS; aggregate frontend preflight PASS; PR351/CI38521066086 pending. No new candidate physical PASS. Exact PA350 acquisition/review5/5 and original corrected families3/3 remain historical scoped acceptance. Resulting-main CI38469878482 completed SUCCESS at exact0f606bc3.
 

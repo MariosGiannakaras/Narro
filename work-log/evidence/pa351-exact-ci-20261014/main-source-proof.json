@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-14T06:55:22.765023+00:00",
+  "pr_head": "372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c",
+  "main": "4cb94f0eda3433137a9db0dc1555f89b8281d873",
+  "ci": 38521066086,
+  "source_build_test_config_blobs_matched": 529,
+  "mismatches": [],
+  "workflow_unchanged": true,
+  "main_validation": "Exact PR tree reuse only when all executable/build/test/config blobs match under CI_VALIDATION_STRATEGY section7"
+}
