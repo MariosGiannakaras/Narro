@@ -1,0 +1,9 @@
+{
+  "userShortcutIdentical": true,
+  "noNarroProcesses": true,
+  "msiAllUsersShortcutRemoved": true,
+  "nsisRestoredExeSha256": "f50f3d9334c42238c91b385a944dcafe4b2c7a50edf7d71c7e18dc3db1a6c190",
+  "msiRegistrationRemoved": true,
+  "utc": "2026-10-14T18:06:06.6083541Z",
+  "nsisRegistryRestored": true
+}

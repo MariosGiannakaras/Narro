@@ -1,0 +1,146 @@
+{
+  "utc": "2026-10-14T18:07:21.490584+00:00",
+  "state": "ORIGINAL_PROFILE_RESTORED",
+  "files": [
+    {
+      "file": "actions.jsonl",
+      "bytes": 204,
+      "sha256": "96b21a59631b58f6bab1938d87c45f49f71431d410584760412cb1e55c582e5e"
+    },
+    {
+      "file": "admin-token-proof.json",
+      "bytes": 169,
+      "sha256": "d42a7bd002c6e5abe4cb2f3651b80b28057b230944d4c8e812d545cce4d88efe"
+    },
+    {
+      "file": "compare-payloads.py",
+      "bytes": 1784,
+      "sha256": "5dd417443e2a760ec5fa443d89cb883342bfdd86d12a463e6a97bb3afc10584d"
+    },
+    {
+      "file": "install-msi.ps1",
+      "bytes": 1385,
+      "sha256": "3c366a3b4cde2ff67f1d5ebb0207b2ff92896adde3bf8b69e9926355ef1e0f55"
+    },
+    {
+      "file": "installed-exe-provenance.json",
+      "bytes": 356,
+      "sha256": "1fc61b26663d58cd9a989fe9f350c0ef211ec3a0a95e5ef02bca0c215264e845"
+    },
+    {
+      "file": "installed-launch-uia.json",
+      "bytes": 564,
+      "sha256": "0c973745009ad00a6fc5637d629b7e58c4688aa8679eae0f8c67fc86b70b8c00"
+    },
+    {
+      "file": "installed-main.png",
+      "bytes": 65558,
+      "sha256": "796cf5b0c65690acb2381771250a46eaee5d8f3bd3ee38041228616d339eeb26"
+    },
+    {
+      "file": "installed-reports-uia.json",
+      "bytes": 21225,
+      "sha256": "7b3d7c68054112e762a3672d22f689d60f605eed7ebc6aec5cedb9730724db2b"
+    },
+    {
+      "file": "installed-reports.png",
+      "bytes": 62100,
+      "sha256": "d2b3cabe8809d25e2827f7a48d6b613637c55e45c909a0070e2c931ebfdf59ae"
+    },
+    {
+      "file": "installer-restoration-proof.json",
+      "bytes": 313,
+      "sha256": "29758489b11600742cf05fd9397241e74ecb138e20852b1c3123efef25f1bc05"
+    },
+    {
+      "file": "isolate-profile.py",
+      "bytes": 2945,
+      "sha256": "ec1cfec366b0488c5e5b65c4c005a9c9d326c583eed91ed81db6d577370f13e4"
+    },
+    {
+      "file": "msi-install-result.json",
+      "bytes": 230,
+      "sha256": "06a45f52d76a763025ae2486f321fce22757d76c3350e7e2b0caf80072abd841"
+    },
+    {
+      "file": "msi-install.log.txt",
+      "bytes": 108542,
+      "sha256": "9e18a90139a8a9cec31f3a2738cb58bb34bca2533eb3d4fd33e69fafb1a01ec2"
+    },
+    {
+      "file": "msi-installed-launch.mkv",
+      "bytes": 14369262,
+      "sha256": "e05d2503df050f5d1e9413dada1eed5074c90aa7e953e7c260b589ff69e0c28d"
+    },
+    {
+      "file": "msi-metadata.json",
+      "bytes": 2412,
+      "sha256": "49cd1b8ca6ef1a6461d2148bdd95a4c4974a6d803b144df4ef48b7114eacf8cc"
+    },
+    {
+      "file": "msi-uninstall-result.json",
+      "bytes": 202,
+      "sha256": "838e204af59c9ae41903699cfda039ccaec0c0f1f96f87c07dd65b701b419693"
+    },
+    {
+      "file": "msi-uninstall.log.txt",
+      "bytes": 99680,
+      "sha256": "0bbb1556898ba4abf7adc430b05978599b375d43f01830c3b9cd9af5339ce84a"
+    },
+    {
+      "file": "native-actions.jsonl",
+      "bytes": 994,
+      "sha256": "ffd6f31911e649e05189e7680c8b2985f6fd4a862dcf3a75c26d2f18f03b3c66"
+    },
+    {
+      "file": "nsis-restoration.json",
+      "bytes": 285,
+      "sha256": "ec296414a53a9794507582f805bdc4cabba144795866d779c90d0f1fb19297ef"
+    },
+    {
+      "file": "original-profile-restoration-proof.json",
+      "bytes": 208,
+      "sha256": "7054a49fb96210a6a2fbf80f2ca42e67647cccfe6e0ec1045302ee7b2597d461"
+    },
+    {
+      "file": "owned-data-retention-proof.json",
+      "bytes": 2190,
+      "sha256": "694449175ff66b121d930d183d7de045db185ae8f50e3da370f6b494a311b17f"
+    },
+    {
+      "file": "owned-row-change-details.json",
+      "bytes": 169,
+      "sha256": "b387b52665dd4499b8c36e0bf995c63f0e527bfcb691cf9c960617a9ab71baa6"
+    },
+    {
+      "file": "payload-comparison.json",
+      "bytes": 2860,
+      "sha256": "d1c7daf404dd92c32be7e637ad39fa31d054d46ddceed6a4f4ddcb51552502d2"
+    },
+    {
+      "file": "raw-observations.zip",
+      "bytes": 161542,
+      "sha256": "bf22fc3e82daf052b4a9c7ae5f3a75dd13f40e5dad40e4acaf336de6f3624815"
+    },
+    {
+      "file": "restore-profile.py",
+      "bytes": 2200,
+      "sha256": "6cc051a6b7e0fec0b8cec45e6597ab51380dae775be9595b4cca7dfd710a03e3"
+    },
+    {
+      "file": "session-meta.json",
+      "bytes": 411,
+      "sha256": "835951878693dbb360dcda5b8ce6aedad57200490b8cd04f81cf3913c5d1c4b6"
+    },
+    {
+      "file": "uninstall-msi.ps1",
+      "bytes": 926,
+      "sha256": "2e6a51593e8e370537ae938516b402d79e5fb920e1e79f6ed16b06463fb50477"
+    },
+    {
+      "file": "verify-restoration.py",
+      "bytes": 1696,
+      "sha256": "ce774388838f069b82f33c029e0527e8d46315a917801ff0686891fec67c6f0c"
+    }
+  ]
+}

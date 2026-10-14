@@ -1,5 +1,13 @@
 # TODO.md
 
+## Current PA354/MSI continuation
+
+- [x] Repair only the first CI fixture's geometry/delivery assumptions; strict48/48 actual DOM assertions, geometry2052/2052 and final whole frontend preflight/build PASS. PR354 exact09c35bb0/CI38611160137 running; previous38571856805 failed head remains historical.
+- [ ] Finish exact3/3 CI, guarded merge/source proof; new tooltip protected-profile actual Reports capture and aggregate review (physical0/1). PA04 remains FAIL until accepted; prior PA353 fixes2/2 scoped PASS retained.
+- [x] [Verified PA08 MSI](docs/WINDOWS_PA08_MSI_REPORT_2026-10-14.md): actual installation/installed launch/owned data retention/normal Quit/removal-restoration scoped PASS. Original DB/NSIS registry/shortcut restored, no Narro running. Clean-machine/older-version/true-boot NOT RUN; physical HDMI/device/source-parity gates stay open where insufficiently exercised.
+
+Prior checkpoint blocks below are historical. [One exact continuation](work-log/2026-10-14-pa354-fixture-repair-and-msi-checkpoint.md). Mandatory3/10/M10 blocked; PA09/M11 excluded.
+
 - [ ] **PR354 CI fixture repair:** first38571856805 failed light chart resize assertion after Rust/fast PASS; original diagnostic published. Replace timer/visibility assumption with actual frame+geometry observation, retain12 strict cases, repeat browser matrix/preflight then one new exact CI head. Product tooltip source unchanged by this diagnosis. [Failure](work-log/2026-10-14-pa354-first-ci-fixture-failure.md); physical0/1.
 
 - [ ] **PA354 exact candidate continuation:** [PR354](https://github.com/MariosGiannakaras/Narro/pull/354) headf28c6e95 / CI38571856805 running. Tooltip clipping/hover/focus/scroll/resize/PDF path corrected; placement2052/2052, actual DOM24/24, final frontend preflight/build PASS. Finish exactCI/guarded merge/source proof and one Reports native recheck (**0/1** new corrected physical). PA353 original criteria2/2 scoped PASS; PA04 overall remains FAIL. [Checkpoint](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md).

@@ -1,0 +1,6 @@
+{
+  "purpose": "Restore prior owned NSIS test installation from its original verified artifact after MSI removed its shared file",
+  "exitCode": 0,
+  "utc": "2026-10-14T18:01:44.3018672Z",
+  "installerSha256": "ff5e212a0f0843e707ddf3d231e0fd3d8f97da4d0196e4dac0c82dfbae19c5aa"
+}

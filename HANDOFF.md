@@ -1,32 +1,36 @@
 # HANDOFF — PA01–08 residual correction batch
 
-## NOW — PR354 first CI failed at fixture resize assertion; repair in progress
+## NOW — exact revised PR354 CI; next guarded merge and Reports capture
+
+Owner Codex PA01–08; branch `fix/pa353-reports-tooltip-containment`, PR354 head `09c35bb093423c0a8240667c1f79514b46fdf6d0`, CI38611160137 IN_PROGRESS. Fixture repair only; full frontend preflight/build and both rendered layout-driver matrices48/48 PASS. New tooltip physical0/1; PA04 FAIL until exact-EXE recheck; prior PA353 scoped2/2 retained. **NEXT:** finish exact CI38611160137; if3/3 green, guarded merge at09c35bb0/source proof and fresh protected-profile Reports capture. [Detailed checkpoint](work-log/2026-10-14-pa354-fixture-repair-and-msi-checkpoint.md). PA08 verified MSI installation/installed launch/removal-restoration scoped PASS; clean-machine/older-version/true-boot NOT RUN. Original DB/NSIS registry/shortcut restored, no Narro running. Mandatory3/10/M10 blocked; PA09/M11 excluded. Older continuation blocks below are historical.
+
+## HISTORICAL — PR354 first CI failed at fixture resize assertion; repair in progress
 
 [Causal failure/evidence](work-log/2026-10-14-pa354-first-ci-fixture-failure.md). Headf28c6e95/CI38571856805 validation+fast and Windows Rust tests passed; new light-theme DOM resize assertion failed. Fixture-only repair uses real frame barriers and measured anchor visibility; production tooltip code unchanged. NEXT browser matrix at1280×720, final preflight, new exact PR head/CI, then guarded merge/physical0/1 recheck. No new native run/profile mutation; original DB restored. Older CI-running block below is historical.
 
 **Independent PA08 MSI intake:** exact package/MSI hash and read-only database inspected; installer is per-machine and current process non-admin. User UAC availability requested, **MSI still NOT RUN**; no new isolation/install/launch. Existing NSIS test registration preserved. [Exact safe continuation](work-log/2026-10-14-pa08-msi-admin-intake.md). PR354 CI remains the primary ongoing action below.
 
-## NOW — PR354 tooltip candidate under CI; native0/1
+## HISTORICAL — PR354 tooltip candidate under CI; native0/1
 
 [Exact source/test continuation](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md). PR354 headf28c6e95, CI38571856805 running; final frontend preflight/build PASS, placement2052/2052 and actual DOM24/24 PASS. New tooltip native0/1; PA353 original criteria2/2 scoped PASS retained. NEXT finish exact CI/guarded merge/blob proof and protected-profile Reports-only physical recheck; independent open PA checks may reuse the accepted PA353 package if unaffected. Original personal profile restored/no Narro running. Mandatory3/10/M10 blocked; PA09/M11 excluded. Older correction-next block below is historical.
 
-## NOW — PA353 physical2/2 reviewed; original fixes pass, new Reports tooltip FAIL
+## HISTORICAL — PA353 physical2/2 reviewed; original fixes pass, new Reports tooltip FAIL
 
 [Authoritative report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md) / [complete videos/logs/UIA/screenshots](work-log/evidence/pa353-native-20261014). Acquisition2/2/review2/2; original Main-entry and scrollbar criteria **2/2 scoped PASS**. PA02 reliability passes; PA04 remains FAIL because tooltip clips at left chart boundary after horizontal keyboard scrolling in30/90-day ranges. NEXT narrow tooltip ownership/anchor/scroll/focus correction, regressions/PR/CI/exact physical recheck. Personal profile and motion restored; no Narro running. Aggregate PA01–08 dispositions8/8; mandatory3/10, M10 blocked, PA09/M11 excluded. Older pending-capture blocks below are historical.
 
-## NOW — PR353 merged, exact CI/artifacts accepted; physical 0/2
+## HISTORICAL — PR353 merged, exact CI/artifacts accepted; physical 0/2
 
 [Verified candidate and exact continuation](work-log/2026-10-14-pa353-merged-exact-ci-native-pending.md): main `a8d7c905`, PR head `8bda5cc4`, CI38558587191 **3/3 PASS**, **530/530** source/build/test/config blobs equal, original five artifacts/hash/CRC published. Exact EXE SHA `8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18`. Next owned-profile dual-display continuous PA02/PA04 capture, aggregate review and original-profile restoration. New physical corrected acceptance **0/2**; aggregate PA review8/8, mandatory milestones3/10, M10 blocked. Older in-flight block below is historical.
 
-## NOW — PR353 source correction under exact Windows CI
+## HISTORICAL — PR353 source correction under exact Windows CI
 
 [PR #353](https://github.com/MariosGiannakaras/Narro/pull/353) head `8bda5cc40be905c4a91506e0708d39e2770b4cde`, Windows CI [38558587191](https://github.com/MariosGiannakaras/Narro/actions/runs/38558587191) in progress. It changes only the two PA351-confirmed failures: Main→Focus animates a separately painted native pixel popup without resizing Main; Reports hides native chart/Done Tasks scrollbar chrome while preserving scroll and keyboard access. Deeper failure-path audit added initial-paint confirmation and cleanup/visible-window rollback even when raster release fails. Local full frontend preflight, production build, targeted regressions and Rust formatting PASS; local Rust compilation NOT RUN (missing MSVC linker). **Physical corrected acceptance remains 0/2**, aggregate PA review 8/8, mandatory milestones 3/10, M10 blocked. Next: finish exact CI, guarded merge/source identity, then one focused dual-display protected-profile capture for PA02/PA04. Preserve PA351 historical evidence and user profile.
 
-## NOW — PA351 exact-main physical acquisition/review complete; two narrow failures
+## HISTORICAL — PA351 exact-main physical acquisition/review complete; two narrow failures
 
 PA351 exact x64 EXE `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3` was run on real extended dual-monitor Windows with owned isolated profile and continuous OBS. Capture groups **5/5**, aggregate PA dispositions **8/8 reviewed**, three new PR351 correction families **1/3 PASS** (actual selected tone/volume), **2/3 FAIL** (normal Main→Focus outgoing Board disappears; Reports horizontal/detail scrollbar chrome persists). Reduced-motion Main entry PASS scoped; C5 152px/tray Quit/same EXE relaunch/Timer position PASS. [Authoritative physical report](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) and [full published evidence](work-log/evidence/pa351-native-20261014), including both active OBS segments and entire Narro-M7-Logs. Personal profile restored byte-identically; original motion/autostart/Focus Assist restored; no Narro running. Next: correct only the two confirmed failures, regression tests, one PR/exact CI/guarded merge/new exact-Windows recapture. Mandatory milestones **3/10**, M10 blocked; PA09/M11 excluded. Older NOW blocks below are historical checkpoints.
 
-## NOW — PA351 merged/exact CI accepted; new native acceptance 0/3
+## HISTORICAL — PA351 merged/exact CI accepted; new native acceptance 0/3
 
 PR351 head `372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c` passed Windows CI `38521066086` **3/3 jobs** and merged to `main` at `4cb94f0eda3433137a9db0dc1555f89b8281d873`. Merged-main source/build/test/config identity **529/529 blobs equal**, workflow unchanged. All five original CI artifacts and provider/CRC verification are [uploaded](work-log/2026-10-14-pa351-merged-exact-ci-native-pending.md); x64 EXE SHA-256 `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3`. **No new native run; corrected-family physical 0/3.** Next exact action: fresh owned-profile isolation and guarded same-EXE launch, dual-display continuous recording, combined PA01–08 physical acquisition, aggregate review and evidence upload. Mandatory milestones 3/10; M10 blocked, PA09/M11 excluded. The older NOW paragraph below is a historical pre-merge checkpoint.
 

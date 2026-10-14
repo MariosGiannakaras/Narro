@@ -1,0 +1,92 @@
+{
+  "files": [
+    {
+      "path": "E:\\SystemFiles\\Desktop\\Narro-PA353-msi-20261014\\analysis\\physical\\narro.exe",
+      "bytes": 16075776,
+      "sha256": "8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18",
+      "sections": [
+        {
+          "name": ".text",
+          "bytes": 11380736,
+          "sha256": "0999961e399cd7f5340d37585f26fea15c2eb5bcc1103e7694db12b2a508febf"
+        },
+        {
+          "name": ".rdata",
+          "bytes": 3982336,
+          "sha256": "dccc0ddc2ada2016aac7b7cab169db341126349e14e472273610a03c513a9de3"
+        },
+        {
+          "name": ".data",
+          "bytes": 28160,
+          "sha256": "bdd6109dc387c140ffb34d3619389179a709da42299d329ece33fbff1067449b"
+        },
+        {
+          "name": ".pdata",
+          "bytes": 605696,
+          "sha256": "7c4891b42578be80be7af7acc79935b2604fc99df87030adaa7f12eee56f9e18"
+        },
+        {
+          "name": ".rsrc",
+          "bytes": 49664,
+          "sha256": "8107bc9da7058e0f28930e849f22fa8c072d118332fdfeba5e14ddf9b6a6e73a"
+        },
+        {
+          "name": ".reloc",
+          "bytes": 28160,
+          "sha256": "9a35b716410612355b9f7d8122a22e9ec61f47ab9ae648b438b10e7d56d4af52"
+        }
+      ],
+      "sourceMarker": true,
+      "runtimeVisualQuery": false
+    },
+    {
+      "path": "E:\\SystemFiles\\Desktop\\Narro-PA353-msi-20261014\\private-installer-backup\\msi-installed-narro.exe",
+      "bytes": 16075776,
+      "sha256": "5152e504c3d9ff1e646cd83a7c9549c9a7520ffe56f2f66ccffb68417e9cbbdb",
+      "sections": [
+        {
+          "name": ".text",
+          "bytes": 11380736,
+          "sha256": "0999961e399cd7f5340d37585f26fea15c2eb5bcc1103e7694db12b2a508febf"
+        },
+        {
+          "name": ".rdata",
+          "bytes": 3982336,
+          "sha256": "f2d10f82ad16ea1b411a06ed8b1ef4b6f7b48f4ed5587ed165f68e04946f0bf9"
+        },
+        {
+          "name": ".data",
+          "bytes": 28160,
+          "sha256": "bdd6109dc387c140ffb34d3619389179a709da42299d329ece33fbff1067449b"
+        },
+        {
+          "name": ".pdata",
+          "bytes": 605696,
+          "sha256": "7c4891b42578be80be7af7acc79935b2604fc99df87030adaa7f12eee56f9e18"
+        },
+        {
+          "name": ".rsrc",
+          "bytes": 49664,
+          "sha256": "8107bc9da7058e0f28930e849f22fa8c072d118332fdfeba5e14ddf9b6a6e73a"
+        },
+        {
+          "name": ".reloc",
+          "bytes": 28160,
+          "sha256": "9a35b716410612355b9f7d8122a22e9ec61f47ab9ae648b438b10e7d56d4af52"
+        }
+      ],
+      "sourceMarker": true,
+      "runtimeVisualQuery": false
+    }
+  ],
+  "differentByteOffsets": [
+    12687866,
+    12687867,
+    12687868
+  ],
+  "bundleMarkers": [
+    "UNK",
+    "MSI"
+  ],
+  "onlyBundleMarkerDiffers": true
+}
