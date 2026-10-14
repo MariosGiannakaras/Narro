@@ -1,9 +1,10 @@
 import { ActionIcon } from "./ActionIcon";
-import { useState, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportChartPreset } from "./reportChartSeriesPreset";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
+import { placeReportChartTooltip } from "./reportChartTooltipPlacement";
 import "./reportsOverview.css";
 
 export type ReportsMetric = {
@@ -141,9 +142,71 @@ function ReportChart({
   onToggleSeries?: (series: ReportsChartSeries) => void;
   onSelectPreset?: (preset: ReportChartPreset) => void;
 }) {
-  const [interactiveTooltipDayId, setInteractiveTooltipDayId] = useState<string | null>(null);
-  const activeTooltipDayId = tooltipDayId ?? interactiveTooltipDayId;
+  const [hoveredDayId, setHoveredDayId] = useState<string | null>(null);
+  const [focusedDayId, setFocusedDayId] = useState<string | null>(null);
+  const activeTooltipDayId = tooltipDayId ?? hoveredDayId ?? focusedDayId;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const maximum = Math.max(1, ...days.map((day) => day.taskSeconds + day.breakSeconds));
+
+  useLayoutEffect(() => {
+    const anchor = anchorRef.current;
+    const tooltip = tooltipRef.current;
+    const scroll = scrollRef.current;
+    if (!anchor || !tooltip || !scroll) return;
+    const ancestors: HTMLElement[] = [];
+    for (let node: HTMLElement | null = scroll; node; node = node.parentElement) ancestors.push(node);
+    const print = window.matchMedia("print");
+    const place = () => {
+      // Print/export CSS owns its hidden state. Do not turn that temporary
+      // zero-sized box into a persistent inline display:none after export.
+      if (document.documentElement.dataset.reportPdfExport === "true" || print.matches) return;
+      tooltip.style.display = "grid";
+      const origin = anchor.getBoundingClientRect();
+      const scale = anchor.offsetWidth > 0 ? origin.width / anchor.offsetWidth : 1;
+      if (!Number.isFinite(scale) || scale <= 0) {
+        tooltip.style.display = "none";
+        return;
+      }
+      const clip = { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
+      // A horizontally scrolling chart also clips vertically; Main's scroll
+      // viewport can further trim it. Bound to every actual clipping ancestor.
+      for (const node of ancestors) {
+        const style = window.getComputedStyle(node);
+        const box = node.getBoundingClientRect();
+        const ratio = node.offsetWidth > 0 ? box.width / node.offsetWidth : 1;
+        if (style.overflowX !== "visible") {
+          clip.left = Math.max(clip.left, box.left + node.clientLeft * ratio);
+          clip.right = Math.min(clip.right, box.left + (node.clientLeft + node.clientWidth) * ratio);
+        }
+        if (style.overflowY !== "visible") {
+          clip.top = Math.max(clip.top, box.top + node.clientTop * ratio);
+          clip.bottom = Math.min(clip.bottom, box.top + (node.clientTop + node.clientHeight) * ratio);
+        }
+      }
+      tooltip.style.maxWidth = `${Math.max(0, (clip.right - clip.left) / scale - 8)}px`;
+      const placement = placeReportChartTooltip(origin, clip, tooltip.offsetWidth * scale, tooltip.offsetHeight * scale, scale);
+      tooltip.style.display = placement ? "grid" : "none";
+      if (placement) {
+        tooltip.style.left = `${placement.left}px`;
+        tooltip.style.top = `${placement.top}px`;
+        tooltip.style.maxWidth = `${placement.maxWidth}px`;
+      }
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    for (const node of [...ancestors, anchor, tooltip]) observer.observe(node);
+    window.addEventListener("scroll", place, true);
+    window.addEventListener("resize", place);
+    print.addEventListener("change", place);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", place, true);
+      window.removeEventListener("resize", place);
+      print.removeEventListener("change", place);
+    };
+  }, [activeTooltipDayId, days]);
 
   return (
     <section className="reports-overview__chart-card" aria-labelledby="reports-productivity-title">
@@ -163,6 +226,7 @@ function ReportChart({
       </div>
 
       <div
+        ref={scrollRef}
         className="reports-overview__chart-scroll"
         role="region"
         aria-label="Daily Tasks, Breaks and Total session time"
@@ -177,6 +241,7 @@ function ReportChart({
           const tooltipOpen = activeTooltipDayId === day.id;
           return (
             <div
+              ref={tooltipOpen ? anchorRef : undefined}
               key={day.id}
               className="reports-overview__chart-day"
               style={chartStyle(day, maximum)}
@@ -188,10 +253,10 @@ function ReportChart({
                 className="reports-overview__chart-hit"
                 aria-label={`${day.label}: Tasks ${formatDuration(day.taskSeconds)}, Breaks ${formatDuration(day.breakSeconds)}, Total ${formatDuration(total)}`}
                 aria-describedby={tooltipOpen ? `report-tooltip-${day.id}` : undefined}
-                onMouseEnter={() => setInteractiveTooltipDayId(day.id)}
-                onMouseLeave={() => setInteractiveTooltipDayId(null)}
-                onFocus={() => setInteractiveTooltipDayId(day.id)}
-                onBlur={() => setInteractiveTooltipDayId(null)}
+                onMouseEnter={() => setHoveredDayId(day.id)}
+                onMouseLeave={() => setHoveredDayId(null)}
+                onFocus={() => setFocusedDayId(day.id)}
+                onBlur={() => setFocusedDayId(null)}
               >
                 <span
                   className="reports-overview__chart-bars"
@@ -209,6 +274,7 @@ function ReportChart({
 
               {tooltipOpen ? (
                 <div
+                  ref={tooltipRef}
                   id={`report-tooltip-${day.id}`}
                   className="reports-overview__chart-tooltip"
                   role="tooltip"

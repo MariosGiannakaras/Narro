@@ -28,6 +28,7 @@ const mode = [
   "list-filter",
   "date-picker",
   "series-toggle",
+  "chart-containment",
   "lower",
   "sessions-empty",
   "sessions-populated",
@@ -60,6 +61,13 @@ const chartDays: ReportsChartDay[] = [
   { id: "aug-13", label: "Thu 13, Aug", taskSeconds: 4800, breakSeconds: 600 },
   { id: "aug-14", label: "Fri 14, Aug", taskSeconds: 2700, breakSeconds: 600 },
 ];
+
+const containmentDays: ReportsChartDay[] = Array.from({ length: 90 }, (_, index) => ({
+  id: `containment-day-${index}`,
+  label: `Day ${index + 1}, September 2026`,
+  taskSeconds: 1200 + index * 60,
+  breakSeconds: 300,
+}));
 
 const listOptions: ReportsListOption[] = [
   { id: null, title: "All Lists", color: "#48d6c5" },
@@ -439,7 +447,7 @@ flushSync(() => {
     ) : (
       <ReportsOverviewView
         metrics={metrics}
-        chartDays={chartDays}
+        chartDays={mode === "chart-containment" ? containmentDays : chartDays}
         productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
         timeByList={timeByList}
         doneTasks={doneTasks}
@@ -490,6 +498,84 @@ function dispatchFixtureKey(target: HTMLElement, key: string, shiftKey = false) 
     bubbles: true,
     cancelable: true,
   }));
+}
+
+async function validateChartTooltipContainmentFixture() {
+  const scroll = await waitForElement<HTMLDivElement>(".reports-overview__chart-scroll");
+  requireFixture(scroll, "Chart scroll viewport missing.");
+  scroll!.style.maxWidth = "320px";
+  scroll!.scrollIntoView({ block: "center" });
+  await wait(40);
+  const buttons = Array.from(scroll!.querySelectorAll<HTMLButtonElement>(".reports-overview__chart-hit"));
+  requireFixture(buttons.length === 90, "Containment fixture must exercise actual long-range overflow.");
+  const originalScrollWidth = scroll!.scrollWidth;
+  let cases = 0;
+  const bounded = (label: string) => {
+    const tooltip = scroll!.querySelector<HTMLElement>('[role="tooltip"]');
+    requireFixture(tooltip && window.getComputedStyle(tooltip).display !== "none", `${label}: tooltip did not remain visible.`);
+    const b = scroll!.getBoundingClientRect();
+    const t = tooltip!.getBoundingClientRect();
+    requireFixture(t.left >= Math.max(0, b.left) + 3 && t.right <= Math.min(window.innerWidth, b.right) - 3,
+      `${label}: tooltip clipped horizontally (${t.left},${t.right} vs ${b.left},${b.right}).`);
+    requireFixture(t.top >= Math.max(0, b.top) + 3 && t.bottom <= Math.min(window.innerHeight, b.bottom) - 3,
+      `${label}: tooltip clipped vertically.`);
+    requireFixture(scroll!.scrollWidth === originalScrollWidth, `${label}: tooltip enlarged chart scroll extent.`);
+    cases++;
+  };
+  const focus = async (button: HTMLButtonElement) => {
+    flushSync(() => button.focus());
+    await wait(40);
+  };
+  await focus(buttons[0]!);
+  bounded("first date keyboard focus");
+  scroll!.scrollLeft = 12;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await wait(40);
+  bounded("partly visible left date");
+  await focus(buttons[89]!);
+  bounded("last date keyboard focus");
+  scroll!.style.maxWidth = "180px";
+  await wait(40);
+  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Resize left an offscreen date tooltip visible.");
+  cases++;
+  scroll!.scrollLeft = scroll!.scrollWidth;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await wait(40);
+  bounded("narrow viewport resize");
+  scroll!.style.maxWidth = "320px";
+  await focus(buttons[40]!);
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
+  await wait(40);
+  bounded("pointer takes tooltip from focused date");
+  requireFixture(buttons[41]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-41", "Hover did not bind tooltip to hovered date.");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
+  await wait(40);
+  requireFixture(buttons[40]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-40", "Pointer leave lost the still-focused date tooltip.");
+  bounded("pointer leave restores focused date");
+  scroll!.scrollLeft = 0;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await wait(40);
+  const hidden = scroll!.querySelector<HTMLElement>('[role="tooltip"]');
+  requireFixture(hidden && window.getComputedStyle(hidden).display === "none", "Fully scrolled-out date retained a stale tooltip.");
+  requireFixture(scroll!.scrollWidth === originalScrollWidth, "Hidden tooltip enlarged scroll extent.");
+  cases++;
+  await focus(buttons[0]!);
+  scroll!.style.height = "60px";
+  await wait(40);
+  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Vertically clipped chart exposed a cut tooltip.");
+  cases++;
+  scroll!.style.height = "";
+  await wait(40);
+  bounded("visible viewport restores tooltip after resize");
+  document.documentElement.dataset.reportPdfExport = "true";
+  await wait(40);
+  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "PDF export did not hide chart tooltip.");
+  cases++;
+  delete document.documentElement.dataset.reportPdfExport;
+  await wait(40);
+  bounded("PDF state restoration preserves interactive tooltip");
+  document.documentElement.dataset.reportsChartTooltipBounded = "true";
+  document.documentElement.dataset.reportsChartTooltipCases = String(cases);
 }
 
 async function validateAddSessionKeyboardFixture() {
@@ -699,7 +785,12 @@ async function validateDetailSessionKeyboardFixture() {
   document.documentElement.dataset.reportsDetailKeyboardPass = "true";
 }
 
-if (mode === "sessions-detail-keyboard") {
+if (mode === "chart-containment") {
+  void validateChartTooltipContainmentFixture().then(markReady).catch((error: unknown) => {
+    document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+    throw error;
+  });
+} else if (mode === "sessions-detail-keyboard") {
   void validateDetailSessionKeyboardFixture()
     .then(markReady)
     .catch((error: unknown) => {
