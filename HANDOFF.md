@@ -1,5 +1,7 @@
 # HANDOFF — PA01–08 residual correction batch
 
+**Independent PA08 MSI intake:** exact package/MSI hash and read-only database inspected; installer is per-machine and current process non-admin. User UAC availability requested, **MSI still NOT RUN**; no new isolation/install/launch. Existing NSIS test registration preserved. [Exact safe continuation](work-log/2026-10-14-pa08-msi-admin-intake.md). PR354 CI remains the primary ongoing action below.
+
 ## NOW — PR354 tooltip candidate under CI; native0/1
 
 [Exact source/test continuation](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md). PR354 headf28c6e95, CI38571856805 running; final frontend preflight/build PASS, placement2052/2052 and actual DOM24/24 PASS. New tooltip native0/1; PA353 original criteria2/2 scoped PASS retained. NEXT finish exact CI/guarded merge/blob proof and protected-profile Reports-only physical recheck; independent open PA checks may reuse the accepted PA353 package if unaffected. Original personal profile restored/no Narro running. Mandatory3/10/M10 blocked; PA09/M11 excluded. Older correction-next block below is historical.
