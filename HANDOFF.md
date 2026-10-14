@@ -2,6 +2,8 @@
 
 ## NOW — PR354 merged, exact executable ready; Reports physical0/4
 
+**Acquisition setup ACTIVE:** exact205e0a42 PID22520/Main HWND1183842 launched under fresh owned profile; original personal namespaces retained/protected, backup quick_check PASS. Main primary100%/LG125% extended desktop. Recording not yet started; NEXT prepared four-group Reports capture, stop/freeze, normal Quit and exact profile/motion restore. Do not launch a second Narro or restore originals while this owned process is alive.
+
 Owner Codex PA01–08. [Accepted source/artifacts](work-log/2026-10-14-pa354-merged-native-ready.md): PRhead7647ffab/CI38614321520 **3/3 PASS**, guarded main73601944, source532/532 identical/workflow unchanged. Exact EXE205e0a42. **NEXT:** fresh owned-profile protection and prepared dense Reports capture0/4, then freeze/restore/aggregate review (tooltip physical0/1). Original DB/registry/shortcut restored/no running Narro or recording before this next session. Installer2/2 scoped PASS, HDMI manually deferred NOT RUN; source motion OPEN, mandatory3/10/M10 blocked, PA09/M11 excluded. Previous continuation blocks are historical.
 
 ## HISTORICAL — final PR354 head7647ffab while CI pending
