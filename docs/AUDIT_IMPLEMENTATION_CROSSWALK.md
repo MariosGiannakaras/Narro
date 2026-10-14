@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**PA351 findings implementation in flight (2026-10-14):** [PR353](https://github.com/MariosGiannakaras/Narro/pull/353) head `8bda5cc40be905c4a91506e0708d39e2770b4cde` addresses only PA02 normal Board-entry paint and PA04 Reports scrollbar visibility, including keyboard scroll reachability. Exact Windows CI38558587191 running; **FIX_NOW remains OPEN / physical corrected acceptance 0/2** until merged-main exact-executable continuous dual-screen capture. Earlier PA351 failures and evidence remain immutable. M1–M9 unaffected gates retain their own dispositions; M10 blocked.
+
 **2026-10-14 PA351 exact-main physical review:** [Report](WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) and [full evidence](../work-log/evidence/pa351-native-20261014). Actual selected notification sound/volume 0/100 boundary **PHYSICAL_PASS scoped**. Normal Main→Focus outgoing Board disappearance **FIX_NOW / PHYSICAL_FAIL** despite removal of pale flash; reduced-motion entry scoped PASS. Production Reports wheel/PageDown works but chart/detail scrollbar chrome persists: **FIX_NOW / PHYSICAL_FAIL**. C5 same EXE/152px/normal tray Quit/relaunch saved Timer PASS. Capture5/5; PA dispositions8/8 reviewed; new correction families1/3 PASS/2/3 FAIL. Personal profile restored. M1–M9 existing gates only close where their exact behavior was exercised; mandatory3/10 and M10 blocked. Older candidate lines below are historical.
 
 ## CURRENT PA350 native reconciliation — 2026-10-14

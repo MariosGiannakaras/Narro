@@ -1,5 +1,7 @@
 # TODO.md
 
+- [ ] **PR353 exact-CI/physical continuation:** [PR](https://github.com/MariosGiannakaras/Narro/pull/353) head `8bda5cc40be905c4a91506e0708d39e2770b4cde`, [Windows CI38558587191](https://github.com/MariosGiannakaras/Narro/actions/runs/38558587191) running. Local frontend preflight/build, Focus-entry/Reports regressions and rustfmt PASS; Rust compile local NOT RUN (link.exe absent). Finish CI, guarded merge/blob proof, targeted owned-profile 60fps dual-screen PA02 normal/reduced entry and PA04 Reports wheel/PageDown/Done Tasks keyboard scroll. Corrected physical **0/2** until exact executable capture. Aggregate PA01–08 review **8/8**; mandatory milestones **3/10**, M10 blocked; PA09/M11 excluded.
+
 - [ ] **PA02 repeated-failure escalation:** PA350/PA351 exact physical captures both failed the normal whole-entry criterion. Implement and compare the selected separate native pixel-raster morph (no Main HWND resize, no extra WebView) against existing child-raster/resized-Main path; preserve finite motion, same timer authority and Main geometry. Require exact-build continuous 60fps Windows acceptance before PASS. [Failure evidence](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md).
 
 ## NOW — PA351 physical 5/5 captured, 8/8 disposed, new correction families 1/3 PASS
