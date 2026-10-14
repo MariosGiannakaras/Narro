@@ -6,7 +6,7 @@ import ts from "typescript";
 // Exercise the REAL production handler body, not an independently written
 // mutex model. The React pending value intentionally stays stale across
 // same-render calls, while the production ref and delayed IPC are shared.
-const source = fs.readFileSync("src/BlitzEntryButton.tsx", "utf8");
+const source = fs.readFileSync("src/BlitzEntryButton.tsx", "utf8").replace(/\r\n/g, "\n");
 const begin = source.indexOf("  const handleStart = async () => {");
 const end = source.indexOf("\n  return (\n", begin);
 assert(begin >= 0 && end > begin, "Missing production Blitz handleStart callback");
