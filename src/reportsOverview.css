@@ -385,13 +385,14 @@
 .reports-overview__chart-tooltip {
   position: absolute;
   z-index: 10;
-  left: 50%;
-  bottom: 45px;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
   display: grid;
   gap: 6px;
   width: 146px;
   padding: 10px;
-  transform: translateX(-50%);
+  overflow-wrap: anywhere;
   border: 1px solid var(--color-border-strong);
   border-radius: 7px;
   color: var(--color-text-primary);
@@ -844,6 +845,10 @@ html[data-report-pdf-export="true"] .reports-overview__chart-scroll {
 
 html[data-report-pdf-export="true"] .reports-overview__chart-day::before {
   display: none;
+}
+
+html[data-report-pdf-export="true"] .reports-overview__chart-tooltip {
+  display: none !important;
 }
 
 html[data-report-pdf-export="true"] .reports-overview__chart {
