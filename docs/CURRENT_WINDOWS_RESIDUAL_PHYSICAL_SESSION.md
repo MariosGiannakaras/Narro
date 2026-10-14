@@ -1,23 +1,16 @@
 # Current Windows residual physical session
 
-## NOW — PA350 exact native disposition, 2026-10-14
-**Current candidate:** PR351 head372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c / CI38521066086 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
+## NOW — PA354 aggregate accepted scope / PR355 correction pending
 
+Owner Codex PA01–08 only. Optional PA09/M11/live Blitzit excluded. [Current report](WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md) / [one exact continuation](../work-log/2026-10-14-pa354-review-pr355-ci.md). Source7647ffab/CI38614321520/EXE205e0a42 acquisition4/4/review4/4, tooltip1/1 scopedPHYSICAL_PASS. PA04 picker/print and M8 Preferences width corrections are in PR355 head7b54e62f / CI38630226135, new physical0/3. Whole preflight/build/rustfmt/DOM12/12/print8/8PASS; localRustcompileNOTRUN. Complete exact3/3/guardedmerge/sourceproof/artifact verification before any new launch.
 
+Prepared dense [three-group physical order](../work-log/evidence/pa354-review-20261014/pa355-capture-order.md): Preferences width/scroll/Escape, Sessions keyboard+pointer selection/manual commit/detail focus, actual PDF30/90-day/default Windows viewer/second export without overwrite/tooltip return. Reuse unchanged prior PA01/02/03/06/07 and installer2/2 scoped acceptance; do not repeat full PA matrix. Real HDMI unplug/replug **NOT RUN/manual by explicit user decision**. Prior native DPI positioning does not substitute for it. Clean-machine MSI/older-schema upgrade/trueboot and OS-denial/listener-failure branches retain unexercised limits.
 
-[Current report and next corrective batch](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md) supersedes historical current pins/pauses below only for exercised PA01–08 branches. Source4b183470/main0f606bc3/EXE6c780f13, acquisition/review5/5 targeted, original fixes3/3 accepted; new Main entry/audio/Reports scroll failures remain. Original profiles/settings restored. No full-matrix repeat, M10 blocked/M11 dormant/PA09 excluded.
+Original personal profiles/DB/motion/topology restored, no Narro or recorder. Full PA354 recordings/screens/PDF/actions/system/UIA/entire seven logs published;13/13 binary Git blobs verified. M9 actual normal-viewer and second non-overwriting export requirements remain OPEN until actually exercised;3/3 static PDF render pages alone did not close that gate. Mandatory3/10/M10hardentry blocked.
 
+## Historical protocol and prior baselines
 
-**CURRENT PA capture ready:** resulting-main CI38384969271 attempt2 **3/3 SUCCESS**, exact EXE SHA256cc36f832b7db7a5c09a1d87cc1b581b32af7680bdff079093db36db1a41856f8. [Uploaded original artifacts, hashes and dense physical workflow](../work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md). Budget restored/user resumed. NEXT owned-profile isolation and continuous dual-screen capture. Corrected physical0/3; no corrected launch yet. Earlier pending-CI/capacity blocks below are historical.
-
-
-**Current PA continuation:** resulting-main CI38384969271 attempt1 CANCELLED; exact35528dea attempt2 **IN_PROGRESS**. [Uploaded full cancellation log, fresh guarded PA04 tools and one next action](../work-log/2026-10-13-pa349-main-rerun-physical-handoff.md). Acquisition8/8, analysis8/8, corrected physical0/3; no corrected launch/capture, original profiles restored. Complete attempt2 and verify package before owned-profile capture.
-
-
-## Current physical disposition — 2026-10-13 user resumed PA01–08
-
-[Authoritative aggregate PA report](WINDOWS_PA01_08_REPORT_2026-10-13.md) supersedes older paused/native-not-run claims below for the exercised ec7673c/CI38287299890 EXE. 8/8 groups triaged: PA03 native Time's Up compact/expanded dark125 PASS; C4 FAIL (clipped/staged incoming content/desktop contamination), F29 FAIL (opener focus returns Back; pending native-focus proof insufficient), PA07 FAIL (about4s work loss on normal Quit) with independent C5 saved placement PASS. PA02 timing/source comparison, PA05 exact125→100, PA06 audible/toast and PA08 MSI/older upgrade remain UNCERTAIN/NOT RUN. Whole corpus/logs/media published; original user profiles restored. No source fix or full milestone closure inferred. Scope excludes PA09/live Blitzit/M11. Earlier exact-build evidence remains immutable.
-
+Everything below is historical reference. Its old executable pins, pending PR/CI, MSI/Settings blocker statements, fresh-permission requirements and wider9-case run scope are superseded by the current report/order above. Historical PASS remains evidence of its own exact build; no later physical PASS is inferred.
 
 ## HISTORICAL 2026-10-12 — U04 frozen baseline pin; superseded continuation
 

@@ -1,5 +1,7 @@
 # Scoped physical-failure correction plan
 
+**Historical initial correction plan.** Its PR349/old-CI/source candidates are already integrated and have later exact-build dispositions. Use [current PA354 report](WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md) and [PR355 exact continuation](../work-log/2026-10-14-pa354-review-pr355-ci.md); do not revive this old branch or repeat superseded fixes. Historical failure paths/decisions below remain immutable reference. Current original profiles are restored; hardware HDMI is manually deferred, installer2/2 scoped checks are complete.
+
 Baseline and proof: [PA01–08 aggregate report](WINDOWS_PA01_08_REPORT_2026-10-13.md), exact ec7673c executable. Source branch `fix/pa01-04-07-native-acceptance` in isolated `E:\SystemFiles\Desktop\Narro-PA-20261013`. Preserve concurrent PR344/345/346 and old dirty NarroUpload WIP.
 
 ## C4 whole-path reassessment and alternative
