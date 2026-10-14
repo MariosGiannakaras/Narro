@@ -1,5 +1,9 @@
 # HANDOFF — PA01–08 residual correction batch
 
+## NOW — PR354 tooltip candidate under CI; native0/1
+
+[Exact source/test continuation](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md). PR354 headf28c6e95, CI38571856805 running; final frontend preflight/build PASS, placement2052/2052 and actual DOM24/24 PASS. New tooltip native0/1; PA353 original criteria2/2 scoped PASS retained. NEXT finish exact CI/guarded merge/blob proof and protected-profile Reports-only physical recheck; independent open PA checks may reuse the accepted PA353 package if unaffected. Original personal profile restored/no Narro running. Mandatory3/10/M10 blocked; PA09/M11 excluded. Older correction-next block below is historical.
+
 ## NOW — PA353 physical2/2 reviewed; original fixes pass, new Reports tooltip FAIL
 
 [Authoritative report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md) / [complete videos/logs/UIA/screenshots](work-log/evidence/pa353-native-20261014). Acquisition2/2/review2/2; original Main-entry and scrollbar criteria **2/2 scoped PASS**. PA02 reliability passes; PA04 remains FAIL because tooltip clips at left chart boundary after horizontal keyboard scrolling in30/90-day ranges. NEXT narrow tooltip ownership/anchor/scroll/focus correction, regressions/PR/CI/exact physical recheck. Personal profile and motion restored; no Narro running. Aggregate PA01–08 dispositions8/8; mandatory3/10, M10 blocked, PA09/M11 excluded. Older pending-capture blocks below are historical.

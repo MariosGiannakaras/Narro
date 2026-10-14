@@ -1,5 +1,7 @@
 # TODO.md
 
+- [ ] **PA354 exact candidate continuation:** [PR354](https://github.com/MariosGiannakaras/Narro/pull/354) headf28c6e95 / CI38571856805 running. Tooltip clipping/hover/focus/scroll/resize/PDF path corrected; placement2052/2052, actual DOM24/24, final frontend preflight/build PASS. Finish exactCI/guarded merge/source proof and one Reports native recheck (**0/1** new corrected physical). PA353 original criteria2/2 scoped PASS; PA04 overall remains FAIL. [Checkpoint](work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md).
+
 - [x] **PA353 physical acquisition/review2/2:** original two correction criteria2/2 scoped PASS; normal Board pixels preserved/same Main geometry/opaque Focus/finite popup cleanup and hidden native Reports bars with genuine wheel/keyboard scrolling. [Report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md), full evidence/logs published; original personal profile restored.
 - [ ] **PA353 new PA04/M9 FIX_NOW:** chart hover tooltip clips heading/series at left scroll boundary after keyboard horizontal scroll, directly seen in30/90-day recordings. Investigate whole tooltip anchoring/hover/focus/scroll/resize path, add behavior regressions, one PR/exact CI/guarded merge/native recheck. PA04 remains FAIL; PA02 scoped reliability PASS, direct source motion remains OPEN. Mandatory3/10/M10 blocked.
 
