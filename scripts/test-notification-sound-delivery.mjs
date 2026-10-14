@@ -60,6 +60,13 @@ assert.match(native,/window\.label\(\) != "focusSurface"/);
 assert.match(native,/SQLITE_OPEN_READ_ONLY/);
 assert.match(native,/saturating_duration_since/);
 assert.match(fs.readFileSync("src-tauri/src/notifications/mod.rs","utf8"),/sound::enqueue\(app_handle\)/);
+// Catch unresolved logging crates even on hosts without the MSVC linker.
+const cargo=fs.readFileSync("src-tauri/Cargo.toml","utf8");
+for (const path of ["src-tauri/src/notifications/mod.rs","src-tauri/src/notifications/sound.rs"]) {
+  for (const match of fs.readFileSync(path,"utf8").matchAll(/\b(\w+)::(?:warn|error|info|debug|trace)!/g)) {
+    assert(new RegExp(`^${match[1]}\\s*=`,"m").test(cargo), `Undeclared native diagnostic dependency ${match[1]}`);
+  }
+}
 const pkg=JSON.parse(fs.readFileSync("package.json","utf8"));
 assert(pkg.scripts["preflight:frontend"].includes("npm run test:notification-sound-delivery"));
 console.log("Notification audio delivery: selected tone, mute, backlog, claim-once wakes, finite recovery, disposal and one renderer PASS.");
