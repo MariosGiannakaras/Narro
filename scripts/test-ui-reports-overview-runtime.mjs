@@ -170,7 +170,7 @@ const documentStub = {body: {inert: false}, documentElement: {dataset: {}}};
 const pdfWait = deferred();
 const pdfFile = deferred();
 let pdfWrites = 0;
-const pdfRequest = {startAt: "2026-10-01", endAt: "2026-10-10"};
+const pdfRequest = {startAt: "2026-10-01", endAt: "2026-10-10", displayTimezone: "Europe/Athens"};
 const pdfBindings = {
   reportRequest: pdfRequest, overviewCurrent: true, exportPending: false,
   exportInFlightRef: pdfRef, document: documentStub,
@@ -179,7 +179,7 @@ const pdfBindings = {
   setExportError: value => pdfErrors.push(value),
   setListFilterOpen: () => {}, setDatePickerOpen: () => {},
   waitForReportPrintLayout: () => pdfWait.promise,
-  exportReportOverviewPdf: () => { pdfWrites++; return pdfFile.promise; },
+  exportReportOverviewPdf: request => { assert.deepEqual({ ...request }, pdfRequest, "PDF filename receives the same display timezone/range as Overview"); pdfWrites++; return pdfFile.promise; },
   formatInvokeError: failure => failure.message,
 };
 for (const invalid of [

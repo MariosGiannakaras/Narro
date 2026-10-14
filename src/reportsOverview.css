@@ -923,6 +923,7 @@ html[data-report-pdf-export="true"] .reports-overview__chart {
   html[data-report-pdf-export="true"] .reports-overview__export,
   html[data-report-pdf-export="true"] .reports-overview__tabs,
   html[data-report-pdf-export="true"] .reports-overview__chart-menu,
+  html[data-report-pdf-export="true"] .reports-overview__chart-options,
   html[data-report-pdf-export="true"] .reports-overview__list-menu,
   html[data-report-pdf-export="true"] .reports-overview__date-popover,
   html[data-report-pdf-export="true"] .reports-overview__chart-tooltip,
@@ -958,6 +959,14 @@ html[data-report-pdf-export="true"] .reports-overview__chart {
     max-height: none;
     overflow: visible;
   }
+
+  html[data-report-pdf-export="true"] .reports-overview__chart-scroll { overflow: visible; }
+  html[data-report-pdf-export="true"] .reports-overview__chart { width: 100%; box-sizing: border-box; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day { min-width: 0; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-hit { min-width: 0; box-sizing: border-box; grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day:last-child .reports-overview__chart-label { justify-self: end; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day:first-child .reports-overview__chart-label { justify-self: start; }
+  html[data-report-pdf-export="true"] .reports-overview__chart[data-report-sparse-labels="true"] .reports-overview__chart-day:nth-last-child(-n+3):not(:last-child) .reports-overview__chart-label { visibility: hidden; }
 
   html[data-report-pdf-export="true"] .reports-overview__metric,
   html[data-report-pdf-export="true"] .reports-overview__chart-card,

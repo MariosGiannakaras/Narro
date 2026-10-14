@@ -144,4 +144,11 @@ for (const theme of ["dark", "light"]) {
   }
 }
 
+for (const theme of ["dark", "light"]) {
+  const label = `theme-settings-preferences-dialog-${theme}`;
+  const dom = await read(label);
+  await assertRenderedScreenshot(label);
+  invariant(dom.includes('data-theme-settings-dialog-containment-pass="true"'), `${label} parent containment/scroll/Escape/reopen did not pass`);
+  invariant(dom.includes('data-preferences-dialog="true"'), `${label} actual parent dialog missing`);
+}
 console.log("Theme settings + Windows shortcuts + Preferences Edge capture contract: PASS");

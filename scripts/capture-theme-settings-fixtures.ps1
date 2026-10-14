@@ -133,7 +133,9 @@ try {
         @{ Label = "preferences-middle"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=middle" },
         @{ Label = "preferences-lower"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=lower" },
         @{ Label = "shortcuts-dialog-dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark&shortcutsDialog=1" },
-        @{ Label = "shortcuts-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&shortcutsDialog=1" }
+        @{ Label = "shortcuts-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&shortcutsDialog=1" },
+        @{ Label = "preferences-dialog-dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark&preferencesDialog=1" },
+        @{ Label = "preferences-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&preferencesDialog=1" }
     )
 
     foreach ($state in $states) {

@@ -466,6 +466,42 @@ fn export_range_date(value: &str) -> &str {
         .unwrap_or("range")
 }
 
+fn overview_pdf_file_stem(
+    start_at: &str,
+    end_at: &str,
+    display_timezone: &str,
+) -> CommandResult<String> {
+    let start = chrono::DateTime::parse_from_rfc3339(start_at)
+        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
+    let end = chrono::DateTime::parse_from_rfc3339(end_at)
+        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
+    if end <= start {
+        return Err(CommandError::invalid_argument(
+            "endAt",
+            "must be after startAt",
+        ));
+    }
+    let zone = jiff::tz::TimeZone::get(display_timezone).map_err(|_| {
+        CommandError::invalid_argument("displayTimezone", "must be a valid IANA timezone name")
+    })?;
+    // Reporting uses an exclusive next-day boundary; the filename names the
+    // same inclusive local dates that were displayed and printed.
+    let last_included = end
+        .checked_sub_signed(chrono::Duration::nanoseconds(1))
+        .ok_or_else(|| CommandError::invalid_argument("endAt", "outside supported date range"))?;
+    let local_date = |value: chrono::DateTime<chrono::FixedOffset>| -> CommandResult<String> {
+        let timestamp = value.to_rfc3339().parse::<jiff::Timestamp>().map_err(|_| {
+            CommandError::invalid_argument("range", "outside supported local date range")
+        })?;
+        Ok(zone.to_datetime(timestamp).date().to_string())
+    };
+    Ok(format!(
+        "narro-overview-{}-to-{}",
+        local_date(start)?,
+        local_date(last_included)?
+    ))
+}
+
 fn write_unique_export(
     directory: &Path,
     file_stem: &str,
@@ -744,6 +780,7 @@ pub async fn export_report_overview_pdf(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
+    display_timezone: String,
 ) -> CommandResult<ReportPdfExportPayload> {
     if window.label() != "main" {
         return Err(CommandError::new(
@@ -752,22 +789,7 @@ pub async fn export_report_overview_pdf(
         ));
     }
 
-    let start = chrono::DateTime::parse_from_rfc3339(&start_at)
-        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
-    let end = chrono::DateTime::parse_from_rfc3339(&end_at)
-        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
-    if end <= start {
-        return Err(CommandError::invalid_argument(
-            "endAt",
-            "must be after startAt",
-        ));
-    }
-
-    let file_stem = format!(
-        "narro-overview-{}-to-{}",
-        export_range_date(&start_at),
-        export_range_date(&end_at)
-    );
+    let file_stem = overview_pdf_file_stem(&start_at, &end_at, &display_timezone)?;
     let pdf = crate::report_pdf::capture(window).await?;
     let download_directory = app_handle.path().download_dir().map_err(|error| {
         CommandError::new(
@@ -996,6 +1018,52 @@ mod tests {
     fn overview_pdf_export_range_dates_are_filename_safe() {
         assert_eq!(export_range_date("2026-10-01T00:00:00+03:00"), "2026-10-01");
         assert_eq!(export_range_date("not-a-range"), "range");
+    }
+
+    #[test]
+    fn overview_pdf_filename_uses_inclusive_local_dates_and_dst() {
+        for (start, end, zone, expected) in [
+            (
+                "2026-09-13T21:00:00Z",
+                "2026-10-14T21:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-09-14-to-2026-10-14",
+            ),
+            (
+                "2026-10-01T00:00:00Z",
+                "2026-10-02T00:00:00Z",
+                "UTC",
+                "narro-overview-2026-10-01-to-2026-10-01",
+            ),
+            (
+                "2026-03-08T08:00:00Z",
+                "2026-03-09T07:00:00Z",
+                "America/Los_Angeles",
+                "narro-overview-2026-03-08-to-2026-03-08",
+            ),
+            (
+                "2026-03-28T22:00:00Z",
+                "2026-03-29T21:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-03-29-to-2026-03-29",
+            ),
+            (
+                "2026-10-24T21:00:00Z",
+                "2026-10-25T22:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-10-25-to-2026-10-25",
+            ),
+        ] {
+            assert_eq!(overview_pdf_file_stem(start, end, zone).unwrap(), expected);
+        }
+        assert!(overview_pdf_file_stem("bad", "2026-10-02T00:00:00Z", "UTC").is_err());
+        assert!(
+            overview_pdf_file_stem("2026-10-02T00:00:00Z", "2026-10-01T00:00:00Z", "UTC").is_err()
+        );
+        assert!(
+            overview_pdf_file_stem("2026-10-01T00:00:00Z", "2026-10-02T00:00:00Z", "../bad")
+                .is_err()
+        );
     }
 
     #[test]

@@ -334,6 +334,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
       const result = await exportReportOverviewPdf({
         startAt: reportRequest.startAt,
         endAt: reportRequest.endAt,
+        displayTimezone: reportRequest.displayTimezone,
       });
       setExportStatus(`Saved PDF to ${result.path}`);
     } catch (failure: unknown) {

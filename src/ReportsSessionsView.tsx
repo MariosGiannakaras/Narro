@@ -1,5 +1,5 @@
 import { ActionIcon } from "./ActionIcon";
-import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
@@ -423,6 +423,7 @@ export function ReportAddSessionDialog({
 }) {
   const [query, setQuery] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [pickerPlacement, setPickerPlacement] = useState({ above: false, maxHeight: 280 });
   const orderedTasks = useMemo(() => orderRecentSessionTasks(tasks), [tasks]);
   const filtered = orderedTasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
@@ -431,6 +432,7 @@ export function ReportAddSessionDialog({
   const pickerAnchorRef = useRef<HTMLDivElement>(null);
   const pickerTriggerRef = useRef<HTMLButtonElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -459,6 +461,38 @@ export function ReportAddSessionDialog({
     document.addEventListener("pointerdown", onOutside);
     return () => document.removeEventListener("pointerdown", onOutside);
   }, [pickerOpen, pending]);
+
+  useLayoutEffect(() => {
+    if (!pickerOpen || pending) return;
+    const place = () => {
+      const anchor = pickerAnchorRef.current?.getBoundingClientRect();
+      if (!anchor) return;
+      const below = Math.max(0, window.innerHeight - anchor.bottom - 8);
+      const above = Math.max(0, anchor.top - 8);
+      const useAbove = below < 160 && above > below;
+      setPickerPlacement({ above: useAbove, maxHeight: Math.min(280, useAbove ? above : below) });
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [pickerOpen, pending]);
+
+  function handlePickerKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (pending) return;
+    const options = Array.from(pickerRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]:not([disabled])') ?? []);
+    if (!options.length || !["ArrowDown", "ArrowUp", "Home", "End", "Enter"].includes(event.key)) return;
+    const index = options.indexOf(document.activeElement as HTMLButtonElement);
+    if (event.key === "Enter") {
+      if (index >= 0) { event.preventDefault(); options[index].click(); }
+      return;
+    }
+    event.preventDefault();
+    const next = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1
+      : event.key === "ArrowDown" ? (index + 1) % options.length
+      : index <= 0 ? options.length - 1 : index - 1;
+    options[next].focus({ preventScroll: true });
+    options[next].scrollIntoView({ block: "nearest" });
+  }
 
   function closePicker() {
     setPickerOpen(false);
@@ -540,7 +574,9 @@ export function ReportAddSessionDialog({
             <ActionIcon name={pickerOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {pickerOpen && !pending ? (
-            <div className="reports-sessions__task-selector-popover" data-report-task-picker-open="true">
+            <div ref={pickerRef} className="reports-sessions__task-selector-popover" data-report-task-picker-open="true"
+              data-picker-above={pickerPlacement.above ? "true" : "false"}
+              style={{ maxHeight: pickerPlacement.maxHeight }} onKeyDown={handlePickerKeyDown}>
               <input
                 ref={searchInputRef}
                 type="search"
