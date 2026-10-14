@@ -1,0 +1,5 @@
+{
+  "source": "local installed wry-0.55.1/src/lib.rs:843 and src/webview2/mod.rs:300-301",
+  "defaultWryAutoplayEnabled": true,
+  "nativeAudioAcceptance": "OPEN; source default does not prove actual audible output"
+}

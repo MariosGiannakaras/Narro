@@ -1,5 +1,13 @@
 # TODO.md
 
+## NOW — PA351 physical 5/5 captured, 8/8 disposed, new correction families 1/3 PASS
+
+- [x] PR351 exact merged-main EXE physical Windows/dual-monitor capture, aggregate review and complete evidence upload: [report](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) / [recordings, screenshots, entire Narro-M7-Logs](work-log/evidence/pa351-native-20261014). Owned synthetic profile only; original personal DB/motion/autostart/Focus Assist restored.
+- [x] Real notification selected tone/volume 0 and 100 boundary plus positive Preview: PA06 scoped PASS; C5 152px/tray Quit/same-EXE/Timer reappearance: PA07 scoped PASS.
+- [ ] PA02 normal Main→Focus: outgoing Board disappears briefly despite no pale frame; fix whole-entry raster/geometry, regression and exact native recheck. Reduced-motion entry PASS scoped.
+- [ ] PA04 production Reports: wheel/PageDown scrolling works, but visible horizontal chart/detail scrollbar chrome remains; fix without blocking scroll, regression and exact native recheck. Picker interaction remains OPEN, no unsupported PASS/FAIL.
+- [ ] Other PA05/PA08 device/installer/boot gates remain UNCERTAIN/NOT RUN where specified in report. Mandatory milestones **3/10**, M10 hard gate blocked, PA09/M11 excluded. Older NOW below is historical.
+
 ## NOW — PA351 merged/exact CI accepted; new native acceptance 0/3
 
 - [x] PR351 exact head `372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c`: Windows CI `38521066086` validation/fast/windows **3/3 SUCCESS**, guarded merge `4cb94f0eda3433137a9db0dc1555f89b8281d873`, 529/529 executable/build/test/config blobs equal to main. Five original artifacts/hash/CRC receipts [uploaded](work-log/2026-10-14-pa351-merged-exact-ci-native-pending.md); exact x64 EXE SHA-256 `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3`.

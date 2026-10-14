@@ -1,5 +1,9 @@
 # STATUS.md
 
+## Current PA351 physical truth — 2026-10-14
+
+[Exact Windows physical report](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md): five dual-monitor capture groups complete, PA01–08 reviewed 8/8, new PR351 correction families **1/3 scoped PASS, 2/3 FAIL**. Actual selected `Melodic Bell` volume0/100 boundaries PASS; normal Main→Focus outgoing Board disappearance and persistent Reports scrollbar chrome FAIL. Independent C5 same-EXE tray-Quit/relaunch saved placement PASS. Full active video/screenshots/native traces/audio-envelope and all 12 `Narro-M7-Logs` files [published](work-log/evidence/pa351-native-20261014). Original personal DB restored with identical SHA, original Windows motion/autostart/Focus Assist restored; no Narro process. Two narrow fixes/regressions/PR/CI/exact physical retest next. Mandatory milestones **3/10**; M10 blocked; PA09/M11 excluded. Historical blocks below are superseded for current physical state.
+
 ## NOW — PA351 merged/exact CI accepted; new native acceptance 0/3
 
 PR351 passed exact head `372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c` Windows CI `38521066086` **3/3 jobs**, then guarded squash merged to main `4cb94f0eda3433137a9db0dc1555f89b8281d873`. Verified **529/529** executable/build/test/config blobs equal to CI head, workflow unchanged. [Original five artifacts and hashes](work-log/2026-10-14-pa351-merged-exact-ci-native-pending.md) uploaded; x64 EXE SHA-256 `40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3`. New candidate physical acceptance **0/3**; no new EXE launched. Next fresh protected owned-profile continuous dual-display PA capture and aggregate review. Mandatory milestones **3/10**, M10 blocked, PA09/M11 excluded. Previous NOW paragraph below is pre-merge history.

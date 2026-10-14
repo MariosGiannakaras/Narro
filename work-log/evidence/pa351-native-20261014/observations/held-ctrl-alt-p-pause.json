@@ -1,0 +1,54 @@
+{
+  "hwnd": 463450,
+  "chord": "physical Ctrl+Alt+P, no Shift",
+  "events": [
+    {
+      "utc": "2026-10-14T07:04:10.422408+00:00",
+      "scan": 29,
+      "up": false,
+      "ctrl": true,
+      "alt": false,
+      "shift": false
+    },
+    {
+      "utc": "2026-10-14T07:04:10.473407+00:00",
+      "scan": 56,
+      "up": false,
+      "ctrl": true,
+      "alt": true,
+      "shift": false
+    },
+    {
+      "utc": "2026-10-14T07:04:10.524409+00:00",
+      "scan": 25,
+      "up": false,
+      "ctrl": true,
+      "alt": true,
+      "shift": false
+    },
+    {
+      "utc": "2026-10-14T07:04:10.626408+00:00",
+      "scan": 25,
+      "up": true,
+      "ctrl": true,
+      "alt": true,
+      "shift": false
+    },
+    {
+      "utc": "2026-10-14T07:04:10.677921+00:00",
+      "scan": 56,
+      "up": true,
+      "ctrl": true,
+      "alt": false,
+      "shift": false
+    },
+    {
+      "utc": "2026-10-14T07:04:10.728921+00:00",
+      "scan": 29,
+      "up": true,
+      "ctrl": false,
+      "alt": false,
+      "shift": false
+    }
+  ]
+}

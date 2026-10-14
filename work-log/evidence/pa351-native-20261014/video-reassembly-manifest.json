@@ -1,0 +1,53 @@
+{
+  "createdUtc": "2026-10-14T11:08:39.974762+00:00",
+  "method": "ordered exact byte chunks; concatenate parts in lexical order",
+  "recordings": {
+    "obs-active-part1-0659-to-0724-utc.mkv": {
+      "bytes": 192768027,
+      "sha256": "68efa5dcbb7a52e80cff52c372aa06efb8f55fdcb416237772542dda1aab3d5b",
+      "parts": [
+        {
+          "file": "obs-active-part1-0659-to-0724-utc.mkv.part001",
+          "bytes": 41943040,
+          "sha256": "f6d75883f429d830ba8ebbc0ca21682748a28c978872565b15a11f682f13a241"
+        },
+        {
+          "file": "obs-active-part1-0659-to-0724-utc.mkv.part002",
+          "bytes": 41943040,
+          "sha256": "ae132d5cfd056ce29526ef4e8da0593069ed6594e516fe1c7a1c4efe6932bad4"
+        },
+        {
+          "file": "obs-active-part1-0659-to-0724-utc.mkv.part003",
+          "bytes": 41943040,
+          "sha256": "a9b8363045b68fcb06004e8e64eb64deb37bb8f3cd2c497c4f58a20ed0bd0f13"
+        },
+        {
+          "file": "obs-active-part1-0659-to-0724-utc.mkv.part004",
+          "bytes": 41943040,
+          "sha256": "f307d093da152a75d354985af76a0f82fb6ee2973ae028aaaf95378776168d4a"
+        },
+        {
+          "file": "obs-active-part1-0659-to-0724-utc.mkv.part005",
+          "bytes": 24995867,
+          "sha256": "15ab19674a11ac52a0fe6d42599deb726906ec08e554fc3919a7934549cebe57"
+        }
+      ]
+    },
+    "obs-active-part2-1054-to-1100-utc.mkv": {
+      "bytes": 55750335,
+      "sha256": "fe953b87705fd0ee6d5b29aa8394f1e6050404b76e46d017e5ff2fd2fe7ae8ea",
+      "parts": [
+        {
+          "file": "obs-active-part2-1054-to-1100-utc.mkv.part001",
+          "bytes": 41943040,
+          "sha256": "25318e6802743100da6bd03ce3529bdf2efda164afdee855ecfae65a5a61c2ac"
+        },
+        {
+          "file": "obs-active-part2-1054-to-1100-utc.mkv.part002",
+          "bytes": 13807295,
+          "sha256": "b9d658cf82496cc2c77bed0ea1f4e5e93206b998d4c368e6c145a8e646b74798"
+        }
+      ]
+    }
+  }
+}

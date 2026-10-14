@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**2026-10-14 PA351 exact-main physical review:** [Report](WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) and [full evidence](../work-log/evidence/pa351-native-20261014). Actual selected notification sound/volume 0/100 boundary **PHYSICAL_PASS scoped**. Normal Main→Focus outgoing Board disappearance **FIX_NOW / PHYSICAL_FAIL** despite removal of pale flash; reduced-motion entry scoped PASS. Production Reports wheel/PageDown works but chart/detail scrollbar chrome persists: **FIX_NOW / PHYSICAL_FAIL**. C5 same EXE/152px/normal tray Quit/relaunch saved Timer PASS. Capture5/5; PA dispositions8/8 reviewed; new correction families1/3 PASS/2/3 FAIL. Personal profile restored. M1–M9 existing gates only close where their exact behavior was exercised; mandatory3/10 and M10 blocked. Older candidate lines below are historical.
+
 ## CURRENT PA350 native reconciliation — 2026-10-14
 **Current candidate:** PR351 head372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c / CI38521066086 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
 
