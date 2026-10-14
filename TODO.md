@@ -1,5 +1,8 @@
 # TODO.md
 
+- [x] **PA353 physical acquisition/review2/2:** original two correction criteria2/2 scoped PASS; normal Board pixels preserved/same Main geometry/opaque Focus/finite popup cleanup and hidden native Reports bars with genuine wheel/keyboard scrolling. [Report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md), full evidence/logs published; original personal profile restored.
+- [ ] **PA353 new PA04/M9 FIX_NOW:** chart hover tooltip clips heading/series at left scroll boundary after keyboard horizontal scroll, directly seen in30/90-day recordings. Investigate whole tooltip anchoring/hover/focus/scroll/resize path, add behavior regressions, one PR/exact CI/guarded merge/native recheck. PA04 remains FAIL; PA02 scoped reliability PASS, direct source motion remains OPEN. Mandatory3/10/M10 blocked.
+
 - [x] **PR353 exact automated candidate accepted:** guarded merged main `a8d7c905`, CI38558587191 **3/3 PASS**, 530/530 source/build/test/config blobs equal and all five original artifacts/hash/CRC [published](work-log/2026-10-14-pa353-merged-exact-ci-native-pending.md).
 - [ ] **PA353 physical next:** exact EXE SHA `8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18`, fresh protected/owned profile, dual-display continuous PA02 normal/reduced entry + PA04 Reports wheel/keyboard scroll and no bars, aggregate review/upload/restoration. Corrected physical **0/2**; older in-flight CI row below is historical.
 

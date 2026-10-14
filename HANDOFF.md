@@ -1,5 +1,9 @@
 # HANDOFF — PA01–08 residual correction batch
 
+## NOW — PA353 physical2/2 reviewed; original fixes pass, new Reports tooltip FAIL
+
+[Authoritative report](docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md) / [complete videos/logs/UIA/screenshots](work-log/evidence/pa353-native-20261014). Acquisition2/2/review2/2; original Main-entry and scrollbar criteria **2/2 scoped PASS**. PA02 reliability passes; PA04 remains FAIL because tooltip clips at left chart boundary after horizontal keyboard scrolling in30/90-day ranges. NEXT narrow tooltip ownership/anchor/scroll/focus correction, regressions/PR/CI/exact physical recheck. Personal profile and motion restored; no Narro running. Aggregate PA01–08 dispositions8/8; mandatory3/10, M10 blocked, PA09/M11 excluded. Older pending-capture blocks below are historical.
+
 ## NOW — PR353 merged, exact CI/artifacts accepted; physical 0/2
 
 [Verified candidate and exact continuation](work-log/2026-10-14-pa353-merged-exact-ci-native-pending.md): main `a8d7c905`, PR head `8bda5cc4`, CI38558587191 **3/3 PASS**, **530/530** source/build/test/config blobs equal, original five artifacts/hash/CRC published. Exact EXE SHA `8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18`. Next owned-profile dual-display continuous PA02/PA04 capture, aggregate review and original-profile restoration. New physical corrected acceptance **0/2**; aggregate PA review8/8, mandatory milestones3/10, M10 blocked. Older in-flight block below is historical.

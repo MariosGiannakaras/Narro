@@ -1,0 +1,85 @@
+{
+  "normalTraceSamples": 420,
+  "mainRectangles": [
+    [
+      182,
+      182,
+      1198,
+      921
+    ]
+  ],
+  "mainGeometryPreserved": true,
+  "popupFirst": [
+    "2026-10-14T12:43:34.669396+00:00",
+    {
+      "hwnd": 2233082,
+      "pid": 69184,
+      "title": "NarroBoardFocusPixels",
+      "visible": true,
+      "rect": [
+        182,
+        182,
+        1198,
+        921
+      ],
+      "dpi": 96,
+      "region_kind": 0,
+      "visible_region_box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "popupLast": [
+    "2026-10-14T12:43:35.134001+00:00",
+    {
+      "hwnd": 2233082,
+      "pid": 69184,
+      "title": "NarroBoardFocusPixels",
+      "visible": true,
+      "rect": [
+        -1920,
+        0,
+        -1495,
+        875
+      ],
+      "dpi": 120,
+      "region_kind": 0,
+      "visible_region_box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "focusFirstVisible": [
+    "2026-10-14T12:43:35.073004+00:00",
+    {
+      "hwnd": 986812,
+      "pid": 69184,
+      "title": "Narro - Focus",
+      "visible": true,
+      "rect": [
+        -1920,
+        0,
+        -1495,
+        875
+      ],
+      "dpi": 120,
+      "region_kind": 2,
+      "visible_region_box": [
+        0,
+        0,
+        425,
+        875
+      ]
+    }
+  ],
+  "popupAbsentAtEnd": true,
+  "focusHwnds": [
+    986812
+  ]
+}

@@ -1,0 +1,4 @@
+{"utc": "2026-10-14T12:40:02.136751+00:00", "label": "reports-done-keyboard-pagedown", "foreground": 5444582, "keys": "0x22"}
+{"utc": "2026-10-14T12:40:47.505819+00:00", "label": "reports-recovery-close-preferences", "foreground": 5444582, "keys": "0x1b"}
+{"utc": "2026-10-14T12:41:05.640881+00:00", "label": "reports-chart-shift-tab-region", "foreground": 5444582, "keys": "0x10+0x09"}
+{"utc": "2026-10-14T12:47:53.510670+00:00", "label": "reports-90days-focus-region", "foreground": 5444582, "keys": "0x10+0x09"}

@@ -1,0 +1,23 @@
+{
+  "os": {
+    "Caption": "Microsoft Windows 10 Pro",
+    "Version": "10.0.19045",
+    "BuildNumber": "19045",
+    "OSArchitecture": "64-bit"
+  },
+  "virtualDesktop": {
+    "width": 4480,
+    "y": 0,
+    "height": 1080,
+    "x": -1920,
+    "monitors": 2
+  },
+  "capture": "gdigrab4480x1080/60fps, no audio required for PA02/PA04",
+  "focusDpi": 120,
+  "gpu": {
+    "Name": "Radeon RX 570 Series",
+    "DriverVersion": "31.0.21925.1001"
+  },
+  "utc": "2026-10-14T12:55:46.5893919Z",
+  "mainDpi": 96
+}
