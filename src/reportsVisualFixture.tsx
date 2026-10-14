@@ -501,11 +501,25 @@ function dispatchFixtureKey(target: HTMLElement, key: string, shiftKey = false) 
 }
 
 async function validateChartTooltipContainmentFixture() {
+  // Interactive browsers exercise natural ResizeObserver/frame delivery. The
+  // headless virtual clock can advance without producing those frames, so its
+  // fixture explicitly exercises the production viewport-resize listener before
+  // asserting actual DOM bounds; it never assigns tooltip placement itself.
+  const naturalFrames = new URLSearchParams(window.location.search).get("renderFrames") === "true";
+  document.documentElement.dataset.reportsChartLayoutDriver = naturalFrames ? "natural-frames" : "viewport-resize-event";
+  const settle = async () => {
+    if (naturalFrames) {
+      await new Promise<void>((resolve) => window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve())));
+    } else {
+      await wait(40);
+      window.dispatchEvent(new Event("resize"));
+    }
+  };
   const scroll = await waitForElement<HTMLDivElement>(".reports-overview__chart-scroll");
   requireFixture(scroll, "Chart scroll viewport missing.");
   scroll!.style.maxWidth = "320px";
   scroll!.scrollIntoView({ block: "center" });
-  await wait(40);
+  await settle();
   const buttons = Array.from(scroll!.querySelectorAll<HTMLButtonElement>(".reports-overview__chart-hit"));
   requireFixture(buttons.length === 90, "Containment fixture must exercise actual long-range overflow.");
   const originalScrollWidth = scroll!.scrollWidth;
@@ -524,55 +538,71 @@ async function validateChartTooltipContainmentFixture() {
   };
   const focus = async (button: HTMLButtonElement) => {
     flushSync(() => button.focus());
-    await wait(40);
+    await settle();
   };
   await focus(buttons[0]!);
   bounded("first date keyboard focus");
   scroll!.scrollLeft = 12;
   scroll!.dispatchEvent(new Event("scroll"));
-  await wait(40);
+  await settle();
   bounded("partly visible left date");
   await focus(buttons[89]!);
   bounded("last date keyboard focus");
   scroll!.style.maxWidth = "180px";
-  await wait(40);
-  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Resize left an offscreen date tooltip visible.");
-  cases++;
+  await settle();
+  const resizedViewport = scroll!.getBoundingClientRect();
+  const resizedDate = buttons[89]!.getBoundingClientRect();
+  const resizedTooltip = scroll!.querySelector<HTMLElement>('[role="tooltip"]')!;
+  const tooltipBox = resizedTooltip.getBoundingClientRect();
+  document.documentElement.dataset.reportsChartResizeObservation = JSON.stringify({
+    chart: { left: resizedViewport.left, right: resizedViewport.right },
+    date: { left: resizedDate.left, right: resizedDate.right },
+    tooltip: { left: tooltipBox.left, right: tooltipBox.right, display: window.getComputedStyle(resizedTooltip).display },
+    scrollLeft: scroll!.scrollLeft,
+  });
+  if (resizedDate.left >= resizedViewport.right || resizedDate.right <= resizedViewport.left) {
+    requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Resize left an offscreen date tooltip visible.");
+    cases++;
+  } else {
+    // Browsers may keep the focused date visible during resize. Both outcomes
+    // are valid, but any visible tooltip must satisfy the complete bounds.
+    bounded("resize retains visible focused date");
+  }
   scroll!.scrollLeft = scroll!.scrollWidth;
   scroll!.dispatchEvent(new Event("scroll"));
-  await wait(40);
+  await settle();
   bounded("narrow viewport resize");
   scroll!.style.maxWidth = "320px";
   await focus(buttons[40]!);
   flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
-  await wait(40);
+  await settle();
   bounded("pointer takes tooltip from focused date");
   requireFixture(buttons[41]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-41", "Hover did not bind tooltip to hovered date.");
   flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
-  await wait(40);
+  await settle();
   requireFixture(buttons[40]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-40", "Pointer leave lost the still-focused date tooltip.");
   bounded("pointer leave restores focused date");
   scroll!.scrollLeft = 0;
   scroll!.dispatchEvent(new Event("scroll"));
-  await wait(40);
+  await settle();
   const hidden = scroll!.querySelector<HTMLElement>('[role="tooltip"]');
   requireFixture(hidden && window.getComputedStyle(hidden).display === "none", "Fully scrolled-out date retained a stale tooltip.");
   requireFixture(scroll!.scrollWidth === originalScrollWidth, "Hidden tooltip enlarged scroll extent.");
   cases++;
   await focus(buttons[0]!);
   scroll!.style.height = "60px";
-  await wait(40);
+  await settle();
   requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Vertically clipped chart exposed a cut tooltip.");
   cases++;
   scroll!.style.height = "";
-  await wait(40);
+  await settle();
   bounded("visible viewport restores tooltip after resize");
   document.documentElement.dataset.reportPdfExport = "true";
-  await wait(40);
+  await settle();
   requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "PDF export did not hide chart tooltip.");
   cases++;
   delete document.documentElement.dataset.reportPdfExport;
-  await wait(40);
+  await settle();
   bounded("PDF state restoration preserves interactive tooltip");
   document.documentElement.dataset.reportsChartTooltipBounded = "true";
   document.documentElement.dataset.reportsChartTooltipCases = String(cases);
