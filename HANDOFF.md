@@ -1,5 +1,9 @@
 # HANDOFF — PA01–08 residual correction batch
 
+## NOW — PR353 merged, exact CI/artifacts accepted; physical 0/2
+
+[Verified candidate and exact continuation](work-log/2026-10-14-pa353-merged-exact-ci-native-pending.md): main `a8d7c905`, PR head `8bda5cc4`, CI38558587191 **3/3 PASS**, **530/530** source/build/test/config blobs equal, original five artifacts/hash/CRC published. Exact EXE SHA `8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18`. Next owned-profile dual-display continuous PA02/PA04 capture, aggregate review and original-profile restoration. New physical corrected acceptance **0/2**; aggregate PA review8/8, mandatory milestones3/10, M10 blocked. Older in-flight block below is historical.
+
 ## NOW — PR353 source correction under exact Windows CI
 
 [PR #353](https://github.com/MariosGiannakaras/Narro/pull/353) head `8bda5cc40be905c4a91506e0708d39e2770b4cde`, Windows CI [38558587191](https://github.com/MariosGiannakaras/Narro/actions/runs/38558587191) in progress. It changes only the two PA351-confirmed failures: Main→Focus animates a separately painted native pixel popup without resizing Main; Reports hides native chart/Done Tasks scrollbar chrome while preserving scroll and keyboard access. Deeper failure-path audit added initial-paint confirmation and cleanup/visible-window rollback even when raster release fails. Local full frontend preflight, production build, targeted regressions and Rust formatting PASS; local Rust compilation NOT RUN (missing MSVC linker). **Physical corrected acceptance remains 0/2**, aggregate PA review 8/8, mandatory milestones 3/10, M10 blocked. Next: finish exact CI, guarded merge/source identity, then one focused dual-display protected-profile capture for PA02/PA04. Preserve PA351 historical evidence and user profile.
