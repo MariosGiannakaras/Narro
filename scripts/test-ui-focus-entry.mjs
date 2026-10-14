@@ -21,6 +21,10 @@ function requireText(haystack, needle, label) {
   if (!haystack.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
 }
 
+requireText(morph, "run_on_main_thread", "opaque reveal executes on the HWND owner");
+requireText(morph, "recv_timeout(Duration::from_secs(2))", "native reveal acknowledgement is bounded");
+requireText(morph, "reveal_opaque_on_window_thread(&target)", "acknowledgement follows the actual reveal");
+
 for (const [haystack, needle, label] of [
   [rust, "scheduling::focus_eligibility_at", "authoritative M4 Focus eligibility reuse"],
   [rust, "active_lists(conn)?", "active-list priority source"],

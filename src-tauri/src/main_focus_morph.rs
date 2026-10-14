@@ -21,6 +21,36 @@ pub(crate) fn next_frame_deadline(elapsed: u64, duration: u64, step: u64) -> u64
 
 #[cfg(windows)]
 pub(crate) fn reveal_opaque(window: &tauri::WebviewWindow) -> CommandResult<()> {
+    use std::{sync::mpsc, time::Duration};
+    #[link(name = "user32")]
+    unsafe extern "system" {
+        fn GetWindowThreadProcessId(hwnd: *mut std::ffi::c_void, pid: *mut u32) -> u32;
+    }
+    #[link(name = "kernel32")]
+    unsafe extern "system" {
+        fn GetCurrentThreadId() -> u32;
+    }
+    let hwnd = window
+        .hwnd()
+        .map_err(|e| morph_error("resolve reveal HWND", e))?
+        .0 as *mut std::ffi::c_void;
+    if unsafe { GetWindowThreadProcessId(hwnd, std::ptr::null_mut()) == GetCurrentThreadId() } {
+        return reveal_opaque_on_window_thread(window);
+    }
+    let target = window.clone();
+    let (send, receive) = mpsc::sync_channel(1);
+    window
+        .run_on_main_thread(move || {
+            let _ = send.send(reveal_opaque_on_window_thread(&target));
+        })
+        .map_err(|e| morph_error("dispatch opaque reveal", e))?;
+    receive
+        .recv_timeout(Duration::from_secs(2))
+        .map_err(|e| morph_error("wait for opaque reveal", e))?
+}
+
+#[cfg(windows)]
+fn reveal_opaque_on_window_thread(window: &tauri::WebviewWindow) -> CommandResult<()> {
     use std::ffi::c_void;
     #[link(name = "dwmapi")]
     unsafe extern "system" {
