@@ -1,0 +1,11 @@
+# PA residual source checkpoint — 2026-10-14
+
+Exact source owner `fix/pa-native-entry-alerts-scroll`; viewport55f090bc and Main entry86f3f8d8 pushed, audio work in progress. Frozen native corpus and aggregate report remain immutable on main8e69e176; acquisition/review5/5, repaired original families3/3. New batch candidates3/3 written, new physical acceptance0/3.
+
+Production AppShell regression first failed for expanding shell/hidden navigation, then passed actual production-root DOM with viewport containment and functioning scrolling. Fitted outgoing Main pixels, elapsed-clock frames and opaque incoming Focus-before-Main-hide now replace expired/clipped500ms hold and cumulative fixed sleeps. Native candidate unaccepted pending Windows CI and continuous capture.
+
+Actual sound gap is corrected by reading committed alert sound/volume, bounded ephemeral30s/16-item native claim-once queue, targeted persistent Focus wake and finite listener recovery/backlog drain. Existing four local synthesis recipes are reused; no remote assets/new window/schema/timer authority. Mute/disabled suppress audio; successful toast is not retried for secondary audio failure. Native OS banners remain Windows-controlled; local sound follows Narro alert preferences (no claim that manual Focus Assist suppression was established). Native/background audio must be proven by exact-build capture. Meaningful connector regressions PASS; aggregate preflight pending. Matching prevention invariants NER001 continuous motion, NER003 local fast gate and NER005 secondary-effect safety retained.
+
+Local TypeScript and narrow connector PASS; cargo formatting PASS; Rust execution NOT RUN (missing MSVC link.exe). No source changes to approved Spectrum Core picker, image upload,218 icons or global shortcut semantics. Source branch has unrelated line-ending phantom modified files excluded from commits.
+
+Resulting-main38469878482 completed SUCCESS exact0f606bc3. Next: aggregate preflight/review/one PR+CI; guarded merge and targeted normal/reduced Main entry, production scroll, real muted/100-volume boundaries and held physical shortcut both directions, with fresh owned-profile guard. Personal database is restored with fresh baseline equality; backups excluded from public evidence. Mandatory3/10/M10 blocked; MSI/physical hardware cases NOT RUN, M11/PA09 excluded.

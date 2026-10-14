@@ -1,10 +1,10 @@
 # TODO.md
 
-## NOW — PA350 acquisition/review5/5; original corrected native3/3, new failures routed
+## NOW — PA residual correction batch: candidates3/3, new native acceptance0/3
 
-[Aggregate exact report](docs/WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md). Two PR350 fixes2/2 accepted; actual new C5 PASS. Full recording/raw logs main25d28531 plus all-frame/audio/supplemental evidence below. New confirmed FAIL: M6 normal Main entry clips/blanks/overshoots; actual notification100 silent despite positive preview; Main/detail visible scrollbars. Actual toast delivery foreground/background PASS. Physical scancodes resume correctly; no shortcut product patch warranted, reverse direction still to acquire.
+Owner Codex PA01–08; source branch `fix/pa-native-entry-alerts-scroll`, commits `55f090bc` production viewport containment and `86f3f8d8` fitted Main raster / elapsed-clock opaque Focus entry. Notification selected-tone/volume binding and bounded single-Focus renderer queue/recovery are written and narrow regression PASS; aggregate preflight/PR/CI remain pending. No new candidate physical PASS. Exact PA350 acquisition/review5/5 and original corrected families3/3 remain historical scoped acceptance. Resulting-main CI38469878482 completed SUCCESS at exact0f606bc3.
 
-**NEXT:** confirmed three-family regression-first branch, one aggregate CI and exact targeted native recheck. Original profiles/motion/topology/Focus Assist restored, fresh DB hash identical. MSI/hardware/listener-failure/source parity/performance comparison OPEN/NOT RUN. Mandatory3/10/M10 blocked; M11/PA09 excluded, picker/upload/218icons preserved.
+**NEXT:** aggregate local preflight, final patch review and one feature PR/Windows CI for all three confirmed residual families; then guarded merge/exact executable and targeted continuous native recheck. Local Rust execution NOT RUN because MSVC link.exe is absent; formatting/static tests PASS. Personal profiles/motion/topology/Focus Assist restored; no recording/app running. Mandatory milestones3/10 unchanged, M10 blocked, M11/PA09 excluded; approved picker/upload/218 icons preserved. MSI/hardware/listener-failure/source-parity/performance comparison remain OPEN/NOT RUN. [Batch checkpoint](work-log/2026-10-14-pa-residual-source-batch-checkpoint.md).
 
 **Historical CURRENT postfix acquisition COMPLETE8/8:** [Full segment2 evidence and continuation](work-log/2026-10-13-pa-postfix-acquisition-complete.md). Both dual-screen recordings, screenshots/UIA/HWND, entire Narro-M7-Logs and owned DB published. Aggregate review0/8; corrected overall0/3; independent C5 placement PASS. Source35528dea/EXEcc36f832. NEXT aggregate review, then confirmed residual fixes only; MSI/physical unplug NOT RUN, no M10 advancement.
 
