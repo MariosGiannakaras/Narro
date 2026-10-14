@@ -1,5 +1,7 @@
 # TODO.md
 
+- [ ] **PA02 repeated-failure escalation:** PA350/PA351 exact physical captures both failed the normal whole-entry criterion. Implement and compare the selected separate native pixel-raster morph (no Main HWND resize, no extra WebView) against existing child-raster/resized-Main path; preserve finite motion, same timer authority and Main geometry. Require exact-build continuous 60fps Windows acceptance before PASS. [Failure evidence](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md).
+
 ## NOW — PA351 physical 5/5 captured, 8/8 disposed, new correction families 1/3 PASS
 
 - [x] PR351 exact merged-main EXE physical Windows/dual-monitor capture, aggregate review and complete evidence upload: [report](docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) / [recordings, screenshots, entire Narro-M7-Logs](work-log/evidence/pa351-native-20261014). Owned synthetic profile only; original personal DB/motion/autostart/Focus Assist restored.
