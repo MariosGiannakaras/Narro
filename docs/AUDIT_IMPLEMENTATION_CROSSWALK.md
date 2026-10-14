@@ -1,7 +1,7 @@
 # Audit → implementation crosswalk
 
 ## CURRENT PA350 native reconciliation — 2026-10-14
-**Current candidate:** PR351 headfa3ca8e063104ad1d0449d4bc6675bb29a8979a8 / CI38519177394 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
+**Current candidate:** PR351 head372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c / CI38521066086 pending; three confirmed residual families implemented, local regressions/preflight PASS, new native acceptance0/3. Prior4b183470 remains the last physically examined executable. [Exact continuation](../work-log/2026-10-14-pa351-reveal-thread-acknowledgement.md).
 
 
 
