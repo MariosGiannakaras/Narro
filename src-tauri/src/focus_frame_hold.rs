@@ -113,6 +113,8 @@ mod native {
             title: *const u16,
         ) -> Handle;
         fn GetWindowThreadProcessId(window: Handle, pid: *mut u32) -> u32;
+        fn GetClientRect(window: Handle, rect: *mut Rect) -> i32;
+        fn GetDpiForWindow(window: Handle) -> u32;
     }
     #[link(name = "gdi32")]
     unsafe extern "system" {
@@ -135,6 +137,19 @@ mod native {
             source: Handle,
             sx: i32,
             sy: i32,
+            operation: u32,
+        ) -> i32;
+        fn StretchBlt(
+            target: Handle,
+            x: i32,
+            y: i32,
+            width: i32,
+            height: i32,
+            source: Handle,
+            sx: i32,
+            sy: i32,
+            sw: i32,
+            sh: i32,
             operation: u32,
         ) -> i32;
         fn CreateRoundRectRgn(
@@ -175,6 +190,7 @@ mod native {
         original: Handle,
         width: i32,
         height: i32,
+        fit_client: bool,
     }
     impl Drop for Pixels {
         fn drop(&mut self) {
@@ -203,17 +219,36 @@ mod native {
                 let mut paint: Paint = std::mem::zeroed();
                 let dc = BeginPaint(hwnd, &mut paint);
                 let image = &*pixels;
-                BitBlt(
-                    dc,
-                    0,
-                    0,
-                    image.width,
-                    image.height,
-                    image.dc,
-                    0,
-                    0,
-                    0x00cc0020,
-                );
+                if image.fit_client {
+                    let mut rect = Rect::default();
+                    if GetClientRect(hwnd, &mut rect) != 0 {
+                        StretchBlt(
+                            dc,
+                            0,
+                            0,
+                            rect.right,
+                            rect.bottom,
+                            image.dc,
+                            0,
+                            0,
+                            image.width,
+                            image.height,
+                            0x00cc0020,
+                        );
+                    }
+                } else {
+                    BitBlt(
+                        dc,
+                        0,
+                        0,
+                        image.width,
+                        image.height,
+                        image.dc,
+                        0,
+                        0,
+                        0x00cc0020,
+                    );
+                }
                 EndPaint(hwnd, &paint);
                 0
             }
@@ -258,6 +293,61 @@ mod native {
                 format!("window-thread dispatch: {e}"),
             )
         })?
+    }
+
+    // Main alone changes its HWND size during entry. Its frozen Board must fit
+    // the current client, rather than clip away all tasks as the HWND narrows.
+    // Ordinary Focus region/raster transitions retain their original paint path.
+    pub(crate) fn fit_main_client(window: &tauri::WebviewWindow) -> CommandResult<()> {
+        if window.label() != "main" {
+            return Err(failure("fit requires Main"));
+        }
+        on_window_thread(window, move |parent| {
+            let parent = parent as Handle;
+            let name = wide(CLASS);
+            let child =
+                unsafe { FindWindowExW(parent, ptr::null_mut(), name.as_ptr(), ptr::null()) };
+            if child.is_null() {
+                return Ok(());
+            } // Also used by rollback after expiry.
+            let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
+            if pixels.is_null() {
+                return Err(failure("Main raster has no pixels"));
+            }
+            let mut rect = Rect::default();
+            if unsafe { GetClientRect(parent, &mut rect) } == 0
+                || rect.right <= 0
+                || rect.bottom <= 0
+            {
+                return Err(failure("read Main client"));
+            }
+            unsafe {
+                (*pixels).fit_client = true;
+            }
+            let diameter = (32.0 * unsafe { GetDpiForWindow(parent) } as f64 / 96.0).round() as i32;
+            let region = unsafe {
+                CreateRoundRectRgn(0, 0, rect.right + 1, rect.bottom + 1, diameter, diameter)
+            };
+            if region.is_null() {
+                return Err(failure("create Main fit region"));
+            }
+            if unsafe { SetWindowRgn(child, region, 0) } == 0 {
+                unsafe {
+                    DeleteObject(region);
+                }
+                return Err(failure("apply Main fit region"));
+            }
+            if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, rect.right, rect.bottom, 0x50) }
+                == 0
+            {
+                return Err(failure("fit Main raster"));
+            }
+            unsafe {
+                InvalidateRect(child, ptr::null(), 0);
+                UpdateWindow(child);
+            }
+            Ok(())
+        })
     }
 
     pub fn clear(window: &tauri::WebviewWindow) -> CommandResult<()> {
@@ -490,6 +580,7 @@ mod native {
                 original: ptr::null_mut(),
                 width,
                 height,
+                fit_client: false,
             };
             if pixels.dc.is_null() {
                 return Err(failure("create raster DC"));
@@ -604,6 +695,9 @@ mod native {
     pub fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
     }
+    pub(crate) fn fit_main_client(_: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
     pub fn begin(
         _: &tauri::WebviewWindow,
         _: tauri::PhysicalSize<u32>,
@@ -621,4 +715,4 @@ mod native {
 }
 
 pub use native::{begin, clear};
-pub(crate) use native::{begin_mode_transition, Hold};
+pub(crate) use native::{begin_mode_transition, fit_main_client, Hold};
