@@ -1,0 +1,56 @@
+- main [ref=f2e3]:
+  - generic [ref=f2e4]:
+    - button "Focus list" [ref=f2e7] [cursor=pointer]:
+      - generic [aria-hidden] [ref=f2e9]: O
+    - heading "Today" [level=1] [ref=f2e12]
+    - generic "Focus Panel quick controls" [ref=f2e13]:
+      - button "Preferences" [ref=f2e15] [cursor=pointer]
+      - button "Home" [ref=f2e20] [cursor=pointer]
+      - button "Compact view" [disabled] [ref=f2e24]
+  - region "Today progress" [ref=f2e27]:
+    - generic [ref=f2e28]:
+      - generic [ref=f2e29]: "Est: —"
+      - generic [ref=f2e30]: 0/3 Done
+  - region "Focus queue" [ref=f2e32]:
+    - article [ref=f2e33]:
+      - generic [ref=f2e34]:
+        - generic "Queue task 1 with long readable title" [ref=f2e35]
+        - 'generic "Paused: --:-- remaining" [ref=f2e37]': "--:--"
+      - generic [ref=f2e38]:
+        - generic [ref=f2e39]: Original
+        - generic [ref=f2e40]: Paused
+      - generic [ref=f2e41]:
+        - region "Live task time details" [ref=f2e42]:
+          - generic [ref=f2e43]:
+            - generic [ref=f2e44]: EST
+            - 'button "Edit EST: —" [ref=f2e45] [cursor=pointer]': —
+          - generic [ref=f2e46]:
+            - generic [ref=f2e47]: Time Taken
+            - 'button "Edit Time Taken: 0:00:00" [ref=f2e48] [cursor=pointer]': 0:00:00
+        - region "Subtasks for Queue task 1 with long readable title" [ref=f2e49]:
+          - generic [ref=f2e50]:
+            - progressbar "0 of 0 subtasks complete" [ref=f2e51]:
+              - generic [aria-hidden] [ref=f2e52]: 0/0
+            - button "Subtasks" [ref=f2e53] [cursor=pointer]
+            - button "Add subtask for Queue task 1 with long readable title" [ref=f2e58] [cursor=pointer]: +
+        - group "Live task actions":
+          - button "Start break"
+          - button "Notes"
+          - button "Resume"
+          - button "Skip task"
+          - button "Complete task"
+    - generic [ref=f2e59]:
+      - article [ref=f2e60]:
+        - generic [ref=f2e65]:
+          - 'generic "Task title: Queue task 2 with long readable title" [ref=f2e67]': Queue task 2 with long readable title
+          - generic "Original" [ref=f2e68]
+      - article [ref=f2e71]:
+        - generic [ref=f2e76]:
+          - 'generic "Task title: Queue task 3 with long readable title" [ref=f2e78]': Queue task 3 with long readable title
+          - generic "Original" [ref=f2e79]
+    - button "Add task in Focus Panel" [ref=f2e82] [cursor=pointer]: + ADD TASK
+    - region [ref=f2e83]:
+      - heading "0 Scheduled tasks" [level=2] [ref=f2e84]
+    - region [ref=f2e85]:
+      - heading "0 Done" [level=2] [ref=f2e86]
+      - alert [ref=f2e87]: "Break history could not refresh: Unexpected native command: get_focus_done_breaks"
