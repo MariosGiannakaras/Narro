@@ -30,6 +30,8 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
   required.push('catalogCommittedCrud','catalogStaleResponsesRejected','catalogEntryReconciled','catalogSelectedRecovery',
    'catalogNoPolling','catalogDisposedResponseIgnored','queueLastRowReachable','queueMenuReachable','queueHeaderStable','queueNoHorizontalOverflow','focusAddEditorFullyVisible','productionShellViewportContained',
    'deleteMenuRetained','deleteMenuUnobscured','deleteCardMetadataStable','deleteCancelAndDismissSafe','deleteFailureRetrySafe','deletePendingExactlyOnce','deleteIndependentIdentityPreserved',
+   'sourceMenuCompactPlain','deleteConfirmationGeometryStable','sourceEmptyAllFourLanes','sourceCreateTitleLabel',
+   'sourceBottomCreateNewestFirst','sourceCreateFormPositionStable','sourceCreateIndependentIdentities',
    'pointerDragCrossLane','pointerDragSameLane','pointerDragIdentityPreserved','pointerDragCancellationSafe','pointerDragThresholdSafe','pointerDragInteractiveGuard','pointerDragScheduledGuard','pointerDragCleanup','keyboardReorderPreserved');
  }
  if(reducedMotion && !['board-narrow','board-metrics','shortcut-modal','m7-integration'].includes(scenario))required.push('reducedMotionRespected');

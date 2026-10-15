@@ -111,6 +111,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const homeWaiters: Array<(value: unknown) => void> = [];
   let deferredDelete: (() => void) | undefined;
   const dragCalls: Array<Record<string, unknown>> = [];
+  const createCalls: Array<Record<string, unknown>> = [];
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -218,6 +219,19 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         const before = args.beforeTaskId ? boardTasks.findIndex(other => other.id === args.beforeTaskId) : -1;
         boardTasks.splice(before < 0 ? boardTasks.length : before, 0, task);
         return;
+      }
+      if (command === "create_list_board_task") {
+        createCalls.push({ ...args });
+        const created = {
+          ...tasks[0],
+          id: `61111111-1111-4111-8111-${String(createCalls.length).padStart(12, "0")}`,
+          title: String(args.title),
+          estSeconds: args.estSeconds as number | null,
+        };
+        taskLanes.set(created.id, String(args.lane).replace("this_week", "thisWeek") as "backlog" | "thisWeek" | "today");
+        if (args.insertAtTop) boardTasks.unshift(created);
+        else boardTasks.push(created);
+        return created.id;
       }
       if (command === "permanently_delete_list_board_task") {
         deleteCalls++;
@@ -821,6 +835,52 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   }
   container.style.zoom = "1"; taskLanes.clear();
 
+  // Source bottom ADD TASK keeps the form below the rows, but creates
+  // newest-first. Exercise the real handler, inputs, refresh and repeated entry.
+  boardTasks = [];
+  renderBoard("source-create"); await wait(); await wait();
+  const emptyLanes = Array.from(container.querySelectorAll<HTMLElement>('.list-board-lane__empty'));
+  assert(emptyLanes.length === 4 && emptyLanes.every(lane => lane.textContent === "All Clear"),
+    "source empty state is inconsistent across the four lanes");
+  assert(!container.querySelector('[data-board-lane="Done"] [data-board-add-task]'), "Done incorrectly permits task creation");
+  const startCreate = async (selector: string) => {
+    container.querySelector<HTMLButtonElement>(selector)!.click(); await wait();
+    const form = container.querySelector<HTMLFormElement>('[data-board-task-create="editor"]')!;
+    assert(form && form.querySelector('label')?.textContent === "Title", "source Title label missing");
+    return form;
+  };
+  const fillCreate = async (form: HTMLFormElement, title: string) => {
+    const input = form.querySelector<HTMLInputElement>('[data-task-create-title]')!;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, title);
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    await wait(); await wait(); await wait();
+    assert(input.value === "" && document.activeElement === input, "successful repeated entry lost cleared draft/focus");
+    assert(form === container.querySelector('[data-board-task-create="editor"]'), "repeated create remounted the form");
+  };
+  const bottomForm = await startCreate('[data-board-add-task="today"]');
+  await fillCreate(bottomForm, "Video");
+  await fillCreate(bottomForm, "Record voice");
+  const todayList = container.querySelector<HTMLElement>('[aria-label="Today tasks"]')!;
+  const createdTitles = () => Array.from(todayList.querySelectorAll<HTMLElement>('[data-board-task="task-card"] .list-board-task__title')).map(node => node.textContent);
+  assert(createdTitles().join("|") === "Record voice|Video", "bottom repeated create did not render newest-first");
+  assert(bottomForm === todayList.lastElementChild, "bottom editor moved when the new task prepended");
+  bottomForm.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  const topForm = await startCreate('[data-board-add-task-top="today"]');
+  await fillCreate(topForm, "Top entry");
+  assert(topForm === todayList.firstElementChild && createdTitles()[0] === "Top entry", "explicit top entry lost its form or insertion position");
+  topForm.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  for (const lane of ["backlog", "thisWeek"]) {
+    const form = await startCreate(`[data-board-add-task="${lane}"]`);
+    await fillCreate(form, `${lane} entry`);
+    form.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  }
+  assert(createCalls.length === 5 && createCalls.every(call => call.insertAtTop === true && call.listId === id),
+    "Board create did not use the existing atomic prepend request exactly once per task");
+  assert(boardTasks.length === 5 && new Set(boardTasks.map(task => task.id)).size === 5,
+    "repeated Board create lost or aliased task identities");
+  taskLanes.clear();
+
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -835,10 +895,30 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     }));
     assert(Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).map(button => button.textContent).join("|")
       === "Schedule|Change List|Duplicate|Delete", "source menu order differs");
+    const zoom = Number(container.style.zoom) || 1;
+    // Layout dimensions exclude the menu's finite opening scale animation.
+    const restingMenu = { width: menu().offsetWidth, height: menu().offsetHeight };
+    for (const row of menu().querySelectorAll<HTMLElement>('[role="menuitem"]')) {
+      const style = getComputedStyle(row);
+      const height = row.getBoundingClientRect().height / zoom;
+      assert(height >= 30 && height <= 36 && style.backgroundColor === "rgba(0, 0, 0, 0)",
+        "source menu row uses raised/oversized button styling: " + JSON.stringify({ height, background: style.backgroundColor }));
+    }
     const deletion = Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).find(button => button.textContent === "Delete")!;
     deletion.click(); await wait();
     await new Promise<void>(resolve => setTimeout(resolve, 250));
     assert(menu() && menu().querySelector('[data-task-delete-confirm="inline"]'), "confirmation left source menu container");
+    const confirmationBounds = { width: menu().offsetWidth, height: menu().offsetHeight };
+    assert(Math.abs(confirmationBounds.width - restingMenu.width) <= 1
+      && Math.abs(confirmationBounds.height - restingMenu.height) <= 1,
+      "inline confirmation changed source menu geometry: " + JSON.stringify({ before: restingMenu, after: confirmationBounds }));
+    assert(menu().querySelectorAll('[role="separator"]').length === 1
+      && getComputedStyle(menu().querySelector('[data-task-delete-confirm]')!).borderTopStyle === "none",
+      "inline confirmation duplicated the destructive separator");
+    const confirmStyle = getComputedStyle(menu().querySelector('[data-task-delete-control="confirm"]')!);
+    const cancelStyle = getComputedStyle(menu().querySelector('[data-task-delete-control="cancel"]')!);
+    assert(confirmStyle.backgroundColor === "rgba(0, 0, 0, 0)" && cancelStyle.backgroundColor === "rgba(0, 0, 0, 0)"
+      && confirmStyle.color !== cancelStyle.color, "source inline confirm/cancel lost plain destructive/neutral styling");
     assert(menu().textContent?.includes("Schedule") && menu().textContent?.includes("Change List") && menu().textContent?.includes("Duplicate"), "source sibling rows disappeared");
     assert(menu().querySelector('svg'), "trash glyph missing");
     const popup = menu();
@@ -897,5 +977,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
     pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
     deleteMenuRetained: true, deleteMenuUnobscured: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
-    deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true };
+    deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true,
+    sourceMenuCompactPlain: true, deleteConfirmationGeometryStable: true, sourceEmptyAllFourLanes: true,
+    sourceCreateTitleLabel: true, sourceBottomCreateNewestFirst: true, sourceCreateFormPositionStable: true,
+    sourceCreateIndependentIdentities: true };
 }

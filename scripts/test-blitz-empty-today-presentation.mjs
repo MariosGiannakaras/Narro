@@ -35,7 +35,8 @@ const backend = fs.readFileSync("src-tauri/src/list_board.rs", "utf8");
 assert(backend.includes("ScheduleKind::LocalDateTime => Ok(matches!(")
   && backend.includes("FocusEligibility::Eligible"),
   "timed eligibility advisory comes from authoritative Rust board projection");
-assert(board.includes('pendingLane !== null ? "All Clear" : "No tasks"'), "empty pending lanes source copy");
+// Empty copy now has production DOM coverage for all four lanes in
+// m7IntegrationRegression (sourceEmptyAllFourLanes), required by the capture validator.
 assert(board.includes("!hasActionableTodayPreview(lane.tasks)"), "Today display cue is scoped to visible board");
 assert(button.includes("data-blitz-entry-muted={visuallyMuted"), "display-only DOM marker");
 assert(button.includes("disabled={pending}"), "do not disable based on unverified source click");

@@ -99,6 +99,7 @@ type TaskEditorState =
       lane: PendingLaneKey;
       title: string;
       est: string;
+      // Form location only; both entry points create newest-first.
       insertAtTop: boolean;
       resetOrdinal: number;
     }
@@ -307,7 +308,7 @@ function InlineCreateEditor({
       </div>
       <div className="list-board-task-create__inputs">
         <label className="list-board-task-create__field list-board-task-create__field--title">
-          <span className="type-metadata">Task</span>
+          <span className="type-metadata">Title</span>
           <input
             ref={titleRef}
             value={title}
@@ -790,7 +791,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">{pendingLane !== null ? "All Clear" : "No tasks"}</div>
+          <div className="list-board-lane__empty type-metadata">All Clear</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -1535,7 +1536,9 @@ export function ListBoard({
         lane: LANE_TOKEN[editorState.lane],
         title: persistedTitle,
         estSeconds,
-        insertAtTop: editorState.insertAtTop,
+        // The source bottom form stays below the list while each new task
+        // prepends. Reuse atomic rank allocation; never reorder existing IDs.
+        insertAtTop: true,
       });
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
@@ -1545,8 +1548,7 @@ export function ListBoard({
       return;
     }
 
-    const createdAtTop = editorState.insertAtTop;
-    setMutationStatus(createdAtTop ? `Added ${persistedTitle} to the top.` : `Added ${persistedTitle}.`);
+    setMutationStatus(`Added ${persistedTitle} to the top.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);

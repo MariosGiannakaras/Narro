@@ -599,6 +599,25 @@
 
 .list-board-task__overflow .overlay-menu {
   min-width: 10.5rem;
+  border-radius: var(--radius-control);
+  background: var(--color-surface-deep);
+  font-size: var(--font-size-task-title);
+  line-height: var(--line-height-task-title);
+}
+
+.list-board-task__overflow .overlay-menu__item {
+  min-height: 2rem;
+  padding: var(--space-1) var(--space-3);
+  border-color: transparent;
+  background: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-regular);
+}
+
+.list-board-task__overflow .overlay-menu__item:hover:not(:disabled),
+.list-board-task__overflow .overlay-menu__item:active:not(:disabled) {
+  border-color: transparent;
+  background: var(--color-surface-interactive-hover);
 }
 
 .list-board-task__delete-confirm {
@@ -606,30 +625,37 @@
   grid-template-columns: minmax(0, 1fr) 1.75rem;
   gap: var(--space-1);
   width: 100%;
-  padding-top: var(--space-1);
-  border-top: 1px solid var(--color-border-subtle);
-  min-height: 1.75rem;
+  min-height: 2rem;
 }
 
 .list-board-task__delete-confirm-action { display: flex; align-items: center; gap: var(--space-1); }
 
 .list-board-task__delete-confirm-action,
 .list-board-task__delete-cancel {
-  min-height: 1.75rem;
-  padding: 0 var(--space-2);
-  border: 1px solid color-mix(in srgb, var(--color-destructive) 58%, var(--color-border-subtle));
+  min-height: 2rem;
+  padding: 0 var(--space-3);
+  border: 1px solid transparent;
   border-radius: var(--radius-control);
   color: var(--color-destructive);
-  background: var(--color-destructive-surface);
+  background: transparent;
   font: inherit;
   font-size: var(--font-size-metadata);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-regular);
   cursor: pointer;
 }
 
 .list-board-task__delete-cancel {
   width: 1.75rem;
   padding: 0;
+  color: var(--color-text-primary);
+}
+
+.list-board-task__delete-confirm-action:hover:not(:disabled),
+.list-board-task__delete-cancel:hover:not(:disabled),
+.list-board-task__delete-confirm-action:active:not(:disabled),
+.list-board-task__delete-cancel:active:not(:disabled) {
+  border-color: transparent;
+  background: var(--color-surface-interactive-hover);
 }
 
 .list-board-task__delete-confirm-action:focus-visible,
