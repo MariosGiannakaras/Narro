@@ -2,7 +2,9 @@
 
 ## Current Windows acceptance
 
-PA356 acquisition **2/2**, review **2/2**, targeted acceptance **2/2 PASS scoped**. Reports/PDF **PASS**, M9export **12/12**; narrow M8 actualtheme-save/Tab/Escape gate closed after same-EXE neutral-input diagnostic, actualLG dark/light and externalviewer return. [Current report](docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [workflow review/actions](work-log/2026-10-15-pa356-workflow-review.md). No new product patch/build/CI for diagnostic. Mandatory milestones **3/10**, M10blocked; HDMI user-deferred manualNOTRUN, PA09/M11excluded.
+PA356 acquisition **2/2**, review **2/2**, targeted acceptance **2/2 PASS scoped**. Reports/PDF **PASS**, M9export **12/12**; narrow M8 actualtheme-save/Tab/Escape gate closed after same-EXE neutral-input diagnostic, actualLG dark/light and externalviewer return. [Current report](docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [workflow review/actions](work-log/2026-10-15-pa356-workflow-review.md). No new product patch/build/CI for diagnostic. Mandatory milestones **4/10**, M10blocked; HDMI hardwareNOTRUN/accepted limitation, PA09/M11excluded.
+
+PA05 **PASS — software topology/DPI scope**, physical HDMI **NOT RUN / accepted unavailable hardware limitation** at the user’s request; no cable action pending. Five targeted suites5/5 and exactWindowsCI43/43 relevant Rust testsPASS; accepted actual125→100→125/logical-removal/Automatic/Duplicate→Extend evidence reused with5 file+7 function identity proof. Current quietperformance6/6valid, no current-code regression established by exactold-build comparator. **M1 GateA reclosed; mandatory4/10 (M1–M4), M10blocked.** [Residual report](docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md). Prior Preferences/PDF2/2PASS and M9export12/12 retained; PA09/M11excluded.
 
 Prior checkpoint/consolidation front matter is preserved in [the immutable snapshot](work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md); it is historical, not additional pending PA work. The ordered milestone checklist below is retained.
 
@@ -36,11 +38,11 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - Historical evidence: the superseded host passed implementation/geometry tests and physical selected-monitor left/right validation; this does not validate replacement geometry.
   - [x] Replacement automated geometry validation passes.
   - [x] Replacement physical selected-monitor left/right validation passes on exact isolated CI942.
-- [ ] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro. CI942 software2→1→2 with Main present/absent and same PID/HWND; physical cable/sleep-wake not claimed.
+- [x] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro. CI942 software2→1→2 with Main present/absent and same PID/HWND; physical cable/sleep-wake not claimed.
   - Historical evidence: the superseded host passed event-driven topology tests and physical disconnect/reconnect recovery; this does not validate replacement region/DPI recovery.
   - [x] Replacement automated topology/DPI/work-area recovery validation passes.
   - [x] Replacement physical software display removal/reconnect recovery validation passes on exact CI942; actual active topology re-enumerated after Duplicate→Extend.
-  - [ ] New27: explicit selected-monitor125→100% DPI identity/anchor recovery and direct stale→automatic preference commit; exact953 FAIL. Retain accepted942 removal/reconnect scope; reopen only this newly exercised DPI/recovery path.
+  - [x] New27: selected-monitor125→100→125 identity/anchor and stale→Automatic commit PASS on actual source35528dea Windows capture, retained on currentf7456738 by5-file/7-function identity proof plus exactCI43/43 and local5/5. Historical953 FAIL preserved; physical HDMI NOTRUN/accepted unavailable hardware limitation. See current residual report.
 - [x] Prove global shortcut registration and conflict/error handling.
   - [x] native registration/unregistration/conflict implementation and Windows CI validation
   - [x] physical shortcut validation
@@ -80,7 +82,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
 
-**Gate A current result: REOPENED / narrow selected-monitor DPI recovery27 on CI953.** Exact942 remains accepted evidence for its exercised placement/topology/performance paths; new real selected-monitor125→100% entry/recovery fails and requires correction/native acceptance. Earlier replacement architecture/bundle/lifecycle/topmost contracts and accepted809/936 native evidence combine with exact942 selected-monitor4/4 twice, software topology Main present/absent and three valid quiet performance runs. [Complete evidence and bounded performance decision](work-log/2026-10-04-codex-m7-ci942-physical-results.md). At the942 checkpoint, its materially reopened M1 items were satisfied; physical cable/display sleep-wake and long-duration leakage were not added as fabricated PASS. PR232 changes event-time shortcut ownership only, preserving native composition/performance paths. Historical superseded-code PASS remains immutable.
+**Gate A current result: PASS — M1 reclosed2026-10-15.** Actual later125→100→125/logical-removal/Automatic recovery supersedes the narrow953 New27 failure; current source-equivalence and43/43 nativeCI+5/5 local suites preserve its exercised acceptance. Current compact floating-only6/6 measurements valid; same-machine exactold-byte comparator does not establish current-code regression. Physical HDMI remainsNOTRUN/accepted unavailable hardware limitation, not fabricated physicalPASS. [Full bounded decision and evidence](docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md). Other scaffold acceptance is retained; standalone harness invocation remains optional.
 
 Do not implement polished Blitzit UI in this milestone.
 
@@ -473,7 +475,7 @@ These requirements apply to every open or reopened roadmap milestone. A later re
 - [ ] Verify no decorative animation runs continuously while idle.
   - Historical evidence: Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
   - Historical evidence: Physical CI #503 collapsed/expanded paused idle: zero running DOM animations/pulse nodes, and paired settled screenshots byte-identical. True-idle collapsed CI #505 also showed zero animations. Revalidate if later source changes idle motion.
-- [ ] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
+- [x] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present. Current PR356 diagnostic compact true-idle/Main destroyed:6/6 valid30s/60s runs, zerochurn, OBSclosed median2.3822% onecore/0.1985% total,392.807MiB working/309.189MiB private. ExactCI942 comparator today2.7654% onecore; bounded current-code regression not established. No expanded/long-duration/all-workload claim. [Report](docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md).
   - Historical evidence: CI #505 executable on Windows 10 with `main` destroyed: three valid 30s/60s runs per collapsed/expanded true-idle state, zero churn, idle CPU median 0.000% of one core in each state; separate running-timer run averaged 0.155%. Working set medians were 429.76/421.39 MiB, private medians 375.19/327.56 MiB. See 2026-09-25 work log for per-run ranges, warm-state caveat, source/artifact identity, and profile restoration. Re-measure after future performance-relevant source changes.
 
 Acceptance criteria:

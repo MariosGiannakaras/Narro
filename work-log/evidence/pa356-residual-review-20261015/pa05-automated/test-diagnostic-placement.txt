@@ -1,0 +1,5 @@
+
+> narro@0.1.0 test:diagnostic-placement
+> node --experimental-strip-types scripts/test-diagnostic-placement-preferences.mjs
+
+Diagnostic placement preference/DPI recovery/restore regression: PASS

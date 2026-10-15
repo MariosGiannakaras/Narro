@@ -1,0 +1,13 @@
+
+> narro@0.1.0 test:ui-preferences
+> node scripts/test-ui-preferences.mjs
+
+file:///E:/SystemFiles/Desktop/Narro-PA352/scripts/test-ui-preferences.mjs:4
+  if (!condition) throw new Error(`M8 Preferences contract failed: ${message}`);
+                        ^
+
+Error: M8 Preferences contract failed: dedicated Shortcuts replaces, rather than nests under, the Preferences modal
+    at invariant (file:///E:/SystemFiles/Desktop/Narro-PA352/scripts/test-ui-preferences.mjs:4:25)
+    at file:///E:/SystemFiles/Desktop/Narro-PA352/scripts/test-ui-preferences.mjs:97:1
+
+Node.js v24.7.0
