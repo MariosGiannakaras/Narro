@@ -1,5 +1,7 @@
 # TODO.md
 
+**Current checkpoint — 2026-10-16:** PR357 merged as `2378a632c322b51ce889dde32afaaad54e598b2d`; exact PR CI38796243985 and resulting-main CI38816212773 SUCCESS3/3. 552 executable/build/test/config/workflow inputs identical to validated a56571d2. Artifact12002784723 EXE SHA256 `9cd45b762713932c7bc1f2fd9f41a3970fb964174846aacc298a923b6a813819`. Native four-item acquisition0/4, review0/4, acceptance0/4; fresh owned profile active, original DB backed up/renamed safely (hash13185e54 unchanged). OBS restarted after prior-crash warning; recording not started. Next: bounded four-item recording, normal Quit, prompt stop/freeze and exact original-profile restoration. M1–M4 remain4/10; M10blocked.
+
 **Source-evidence rule (user clarification, 2026-10-15):** existing screenshots/videos/Pass-3 drive current acceptance. A directly demonstrated older behavior is assumed unchanged where newer evidence does not cover it; do not defer it to M11 solely for age. Preserve approved Narro exceptions and label genuinely unobserved details accurately. U01-U41 are 41/41 locally implemented concerns, not 41 missing features. Reconcile existing U24/U25/U36/U39 demonstrated differences; U28 source composition already integrated/acceptance open. [Full rule and provenance](work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).
 
 ## Current Windows acceptance
