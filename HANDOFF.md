@@ -1,6 +1,8 @@
 # HANDOFF — current M5 source correction
 
-**Current checkpoint — 2026-10-16:** PR357 four-item M5 slice acquisition4/4, review4/4, scoped acceptance4/4PASS. Guarded merge2378a632; exactPR CI38796243985 and resulting-main CI38816212773 both3/3SUCCESS;552 input blobs identical. Complete304.450s dual-screen video,28 native screenshots/UIA/chronology and whole7-fileNarro-M7-Logs published. Original profiles restored, DB13185e54 byte-identical; no Narro/recording active. M1–M4 remain4/10, M5wholeOPEN, M10blocked. [PR357 native report](work-log/2026-10-16-pr357-native-four-item-acceptance.md). Next B70/U36 atomic quick-clear-schedule correction with regressions; do not repeat the accepted four states without an invalidating change.
+**Active M5 candidate — 2026-10-16:** [PR358](https://github.com/MariosGiannakaras/Narro/pull/358), exact head17d8ad043e8b1851ade32ea8d1795841854257c1, [CI38825996083](https://github.com/MariosGiannakaras/Narro/actions/runs/38825996083) RUNNING. B70/U36 dedicated atomic quick-clear plus reused PR346 SS-C06 Search layout; aggregate frontend/buildPASS, actualReact4/4PASS, Search geometry8/8PASS.12 Rust regressions await WindowsCI (local linker unavailable); native new slice0/2OPEN. Prior PR3574/4 staysaccepted. No Narro/recording/profile isolation active. [Full plan/evidence](work-log/2026-10-16-pr358-m5-atomic-quick-clear-candidate.md).
+
+**Current checkpoint — 2026-10-16:** PR357 four-item M5 slice acquisition4/4, review4/4, scoped acceptance4/4PASS. Guarded merge2378a632; exactPR CI38796243985 and resulting-main CI38816212773 both3/3SUCCESS;552 input blobs identical. Complete304.450s dual-screen video,28 native screenshots/UIA/chronology and whole7-fileNarro-M7-Logs published. Original profiles restored, DB13185e54 byte-identical; no Narro/recording active. M1–M4 remain4/10, M5wholeOPEN, M10blocked. [PR357 native report](work-log/2026-10-16-pr357-native-four-item-acceptance.md). Current next operation is exactPR358CI acceptance and bounded2-claim native run below; do not repeat the accepted four states without an invalidating change.
 
 **Source-evidence rule (user clarification, 2026-10-15):** existing screenshots/videos/Pass-3 drive current acceptance. A directly demonstrated older behavior is assumed unchanged where newer evidence does not cover it; do not defer it to M11 solely for age. Preserve approved Narro exceptions and label genuinely unobserved details accurately. U01-U41 are 41/41 locally implemented concerns, not 41 missing features. Reconcile existing U24/U25/U36/U39 demonstrated differences; U28 source composition already integrated/acceptance open. [Full rule and provenance](work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).
 
@@ -8,9 +10,9 @@
 
 PA01–08 8/8 dispositioned within the final report scope; physicalHDMI NOTRUN/accepted unavailable, no cable request pending. Approved SpectrumCore/imageupload/218icons locked. M11/liveBlitzit dormant. U01–U41 local coverage41/41 is separate from remaining parity gates. Prior C5/performance/notifications/packaging/export acceptance retained on unchanged foundations.
 
-## Next source slice
+## One next operation
 
-B70/U36 is a confirmed source discrepancy: quick-X of a future scheduled task projected into Backlog must clear it into ordinary Backlog instead of resurrecting the old manualThisWeek lane. Follow the atomic lane/rank/stale/live/recurrence/identity regression plan in `work-log/2026-10-15-m5-u24-u36-causal-disposition.md`. U24/B44 real conflicting recordings have been dispositioned; do not re-run the41-point provenance audit. Review reusable existing PR346 horizontal search actions before creating duplicate work. Source implementation/test/config changes use exact-head CI/PR; documentation/evidence stays onmain.
+Inspect exactCI38825996083 on17d8ad04. If FAIL, investigate its first failing step and correct only the demonstrated candidate issue. If all3SUCCESS, expected-head guarded merge, source/workflow and main validation proof, hash/CRC/x64-verified artifact; execute the two-claim owned-profile native plan in the linked current report. Do not copy/replay the restored PA357 profile ledger. Keep original dirtycheckout/generatedicons intact. PR346 remains open until reused replacement is accepted. No wholeM5 or M10 advance.
 
 ## Workspace
 
