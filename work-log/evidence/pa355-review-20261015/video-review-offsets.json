@@ -1,0 +1,68 @@
+[
+  {
+    "name": "dark100-lower",
+    "actionUtc": "2026-10-15T04:39:18+00:00",
+    "approximateMovieOffset": 426.54735,
+    "crop": [
+      2050,
+      150,
+      1020,
+      750
+    ]
+  },
+  {
+    "name": "picker125-selected",
+    "actionUtc": "2026-10-15T04:36:42+00:00",
+    "approximateMovieOffset": 270.54735,
+    "crop": [
+      140,
+      150,
+      1280,
+      930
+    ]
+  },
+  {
+    "name": "different-pointer-selected",
+    "actionUtc": "2026-10-15T04:37:28+00:00",
+    "approximateMovieOffset": 316.54735,
+    "crop": [
+      140,
+      150,
+      1280,
+      930
+    ]
+  },
+  {
+    "name": "one-minute-commit",
+    "actionUtc": "2026-10-15T04:37:57+00:00",
+    "approximateMovieOffset": 345.54735,
+    "crop": [
+      140,
+      150,
+      1280,
+      930
+    ]
+  },
+  {
+    "name": "escape-failure",
+    "actionUtc": "2026-10-15T04:39:26+00:00",
+    "approximateMovieOffset": 434.54735,
+    "crop": [
+      2050,
+      150,
+      1020,
+      750
+    ]
+  },
+  {
+    "name": "valid-primary-picker",
+    "actionUtc": "2026-10-15T04:40:40+00:00",
+    "approximateMovieOffset": 508.54735,
+    "crop": [
+      2050,
+      150,
+      1020,
+      750
+    ]
+  }
+]

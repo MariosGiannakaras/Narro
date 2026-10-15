@@ -1,0 +1,496 @@
+[
+  {
+    "name": "g1-dark-theme",
+    "utc": "2026-10-15T04:32:48.982072+00:00",
+    "dialogs": [
+      "Preferences"
+    ],
+    "focused": [],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g1-dark-escape",
+    "utc": "2026-10-15T04:32:51.442815+00:00",
+    "dialogs": [],
+    "focused": [
+      "Settings"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g1-lg-wheel-bottom",
+    "utc": "2026-10-15T04:35:48.699401+00:00",
+    "dialogs": [
+      "Preferences"
+    ],
+    "focused": [
+      "Close Preferences"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g1-dark-wheel-bottom",
+    "utc": "2026-10-15T04:39:17.512410+00:00",
+    "dialogs": [
+      "Preferences"
+    ],
+    "focused": [],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-keyboard-selected",
+    "utc": "2026-10-15T04:36:41.213771+00:00",
+    "dialogs": [
+      "Add Session"
+    ],
+    "focused": [
+      "Select task for session"
+    ],
+    "tooltips": [],
+    "visibleFields": [
+      {
+        "name": "Date",
+        "value": "2026-10-15"
+      },
+      {
+        "name": "Month Date",
+        "value": "10"
+      },
+      {
+        "name": "Day Date",
+        "value": "15"
+      },
+      {
+        "name": "Year Date",
+        "value": "2026"
+      },
+      {
+        "name": "Hours Start",
+        "value": "07"
+      },
+      {
+        "name": "Minutes Start",
+        "value": "36"
+      },
+      {
+        "name": "AM/PM Start",
+        "value": "AM"
+      },
+      {
+        "name": "Hours End",
+        "value": "08"
+      },
+      {
+        "name": "Minutes End",
+        "value": "36"
+      },
+      {
+        "name": "AM/PM End",
+        "value": "AM"
+      }
+    ],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g2-mouse-selected",
+    "utc": "2026-10-15T04:37:28.402176+00:00",
+    "dialogs": [
+      "Add Session"
+    ],
+    "focused": [
+      "Select task for session"
+    ],
+    "tooltips": [],
+    "visibleFields": [
+      {
+        "name": "Date",
+        "value": "2026-10-15"
+      },
+      {
+        "name": "Month Date",
+        "value": "10"
+      },
+      {
+        "name": "Day Date",
+        "value": "15"
+      },
+      {
+        "name": "Year Date",
+        "value": "2026"
+      },
+      {
+        "name": "Hours Start",
+        "value": "07"
+      },
+      {
+        "name": "Minutes Start",
+        "value": "36"
+      },
+      {
+        "name": "AM/PM Start",
+        "value": "AM"
+      },
+      {
+        "name": "Hours End",
+        "value": "08"
+      },
+      {
+        "name": "Minutes End",
+        "value": "36"
+      },
+      {
+        "name": "AM/PM End",
+        "value": "AM"
+      }
+    ],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-after-manual-commit",
+    "utc": "2026-10-15T04:37:56.319338+00:00",
+    "dialogs": [],
+    "focused": [
+      "+ Add Session"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-nested-add",
+    "utc": "2026-10-15T04:38:45.702282+00:00",
+    "dialogs": [
+      "Add Session"
+    ],
+    "focused": [
+      "Select task for session"
+    ],
+    "tooltips": [],
+    "visibleFields": [
+      {
+        "name": "Date",
+        "value": "2026-10-15"
+      },
+      {
+        "name": "Month Date",
+        "value": "10"
+      },
+      {
+        "name": "Day Date",
+        "value": "15"
+      },
+      {
+        "name": "Year Date",
+        "value": "2026"
+      },
+      {
+        "name": "Hours Start",
+        "value": "07"
+      },
+      {
+        "name": "Minutes Start",
+        "value": "38"
+      },
+      {
+        "name": "AM/PM Start",
+        "value": "AM"
+      },
+      {
+        "name": "Hours End",
+        "value": "08"
+      },
+      {
+        "name": "Minutes End",
+        "value": "38"
+      },
+      {
+        "name": "AM/PM End",
+        "value": "AM"
+      }
+    ],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-nested-cancel",
+    "utc": "2026-10-15T04:38:46.639895+00:00",
+    "dialogs": [
+      "PA-04 manual session owned fixture"
+    ],
+    "focused": [
+      "+ Add Session"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture",
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-primary-cancel",
+    "utc": "2026-10-15T04:39:25.587631+00:00",
+    "dialogs": [
+      "Preferences"
+    ],
+    "focused": [],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-primary-valid-initial",
+    "utc": "2026-10-15T04:40:28.528090+00:00",
+    "dialogs": [
+      "Add Session"
+    ],
+    "focused": [
+      "Select task for session"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-primary-valid-selected",
+    "utc": "2026-10-15T04:40:40.531416+00:00",
+    "dialogs": [
+      "Add Session"
+    ],
+    "focused": [
+      "Select task for session"
+    ],
+    "tooltips": [],
+    "visibleFields": [
+      {
+        "name": "Date",
+        "value": "2026-10-15"
+      },
+      {
+        "name": "Month Date",
+        "value": "10"
+      },
+      {
+        "name": "Day Date",
+        "value": "15"
+      },
+      {
+        "name": "Year Date",
+        "value": "2026"
+      },
+      {
+        "name": "Hours Start",
+        "value": "07"
+      },
+      {
+        "name": "Minutes Start",
+        "value": "40"
+      },
+      {
+        "name": "AM/PM Start",
+        "value": "AM"
+      },
+      {
+        "name": "Hours End",
+        "value": "08"
+      },
+      {
+        "name": "Minutes End",
+        "value": "40"
+      },
+      {
+        "name": "AM/PM End",
+        "value": "AM"
+      }
+    ],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g2-primary-valid-cancel",
+    "utc": "2026-10-15T04:40:41.928418+00:00",
+    "dialogs": [],
+    "focused": [
+      "+ Add Session"
+    ],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": [
+      "PA-04 manual session owned fixture",
+      "Session actions for PA-04 manual session owned fixture"
+    ]
+  },
+  {
+    "name": "g3-new-keyboard-owner",
+    "utc": "2026-10-15T04:41:28.969123+00:00",
+    "dialogs": [],
+    "focused": [
+      "Wed, Sep 16: Tasks 0min, Breaks 0min, Total 0min"
+    ],
+    "tooltips": [
+      {
+        "name": "Wed, Sep 16 TASKS: 0min BREAKS: 0min TOTAL: 0min",
+        "type": 50022,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          414,
+          681,
+          561,
+          787
+        ]
+      }
+    ],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g3-pointer-leave",
+    "utc": "2026-10-15T04:41:29.882818+00:00",
+    "dialogs": [],
+    "focused": [
+      "Wed, Sep 16: Tasks 0min, Breaks 0min, Total 0min"
+    ],
+    "tooltips": [
+      {
+        "name": "Wed, Sep 16 TASKS: 0min BREAKS: 0min TOTAL: 0min",
+        "type": 50022,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          414,
+          681,
+          561,
+          787
+        ]
+      }
+    ],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g3-before-first-pdf",
+    "utc": "2026-10-15T04:41:34.073127+00:00",
+    "dialogs": [],
+    "focused": [
+      " Export PDF"
+    ],
+    "tooltips": [
+      {
+        "name": "Sat, Sep 19 TASKS: 0min BREAKS: 0min TOTAL: 0min",
+        "type": 50022,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          415,
+          680,
+          562,
+          787
+        ]
+      }
+    ],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g3-tooltip-after-30pdf",
+    "utc": "2026-10-15T04:45:12.560151+00:00",
+    "dialogs": [],
+    "focused": [],
+    "tooltips": [],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g3-90-before-export",
+    "utc": "2026-10-15T04:46:17.111269+00:00",
+    "dialogs": [],
+    "focused": [
+      " Export PDF"
+    ],
+    "tooltips": [
+      {
+        "name": "Fri, Jul 17 TASKS: 0min BREAKS: 0min TOTAL: 0min",
+        "type": 50022,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -1442,
+          863,
+          -1258,
+          996
+        ]
+      }
+    ],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  },
+  {
+    "name": "g3-final-tooltip",
+    "utc": "2026-10-15T04:47:07.176781+00:00",
+    "dialogs": [],
+    "focused": [
+      "Daily Tasks, Breaks and Total session time"
+    ],
+    "tooltips": [
+      {
+        "name": "Thu, Oct 15 TASKS: 1min BREAKS: 0min TOTAL: 1min",
+        "type": 50022,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -801,
+          811,
+          -618,
+          944
+        ]
+      }
+    ],
+    "visibleFields": [],
+    "visibleManualTitles": []
+  }
+]
