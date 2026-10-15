@@ -4,13 +4,13 @@
 
 ## Current — 2026-10-15
 
-PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). M5 four-item source batch ACTIVE on fix/m5-board-menu-source-parity; no new PR/CI yet. Accepted native baseline exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
 **Safe final state:** no Narro/recording active; original productionDB13185e54 byte-identical, actual original FocusAssistAlarms-only/rulesOn/globalnotificationsOn and Settings normal geometry restored. Final65MB packet contains complete19-fileNarro-M7-Logs, full successful background/failedsetup and complete245s active foreground interval; original2.39GB interruption/idle tail retained locally and excluded explicitly. Prior Preferences/PDF2/2 and M9export12/12 retained.
 
 **Current authorized continuation — 2026-10-15:** the user confirms existing screenshots/videos and Pass-3 are the PA09 source corpus and grants continuation; M11 is the separate future live-Blitzit phase and remains dormant. Resume required M5–M9 parity/reconciliation with existing evidence; preserve PA01–08 acceptance and the approved SpectrumCore/imageupload/218icons. No further approval question is needed for this scope.
 
-**ACTIVE:** first M5 comparison is implemented destructive-menu/inline confirmation (P3-M5-04/B48). Canonical source and current CI visuals are available locally; no raw-source research restart, new app launch or product edit yet. Live PR285/289/295 factual reconciliation3/3 already published; required milestone4/10 unchanged until acceptance. [Current operation](HANDOFF.md).
+**ACTIVE:** [four confirmed M5 Board source discrepancies](work-log/2026-10-15-m5-board-source-batch-plan.md), implementation branch fix/m5-board-menu-source-parity, no PR/CI yet. Existing exact native baseline retained; no new source/physical PASS.
 
 ## Preserved project truth
 
