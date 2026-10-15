@@ -2,7 +2,7 @@
 
 Only after exactCI38684913852/head9232a6a6 succeeds3/3, guarded merge/main source proof and actual artifact SHA/CRC/x64 verification. Protect personal namespaces with sqlite backup/quick_check and verified owned prior synthetic profile; record exact monitor/motion/input/source.
 
-One full virtual-desktop4480x1080/60fps continuous recording. Do not change primary monitor or repeat HDMI (manualNOTRUN). Record UTC/nativeUIA/HWND; no source edits/deep analysis inside useful interval. New FAIL gets factual timestamp; continue independent group unless recovery required.
+One full virtual-desktop4480x1080/60fps continuous OBS recording. OBS health verified5.45s H264/AAC with both displays on2026-10-15 at05:12UTC; original scene/profile unchanged, health clip private/excluded. ComputerUse imagery timesout and indexedclick lacks geometry; real nativeUIAInvokePattern reliably starts/stops OBS and verifies settled button state. Use gdigrab only if OBS capture health changes. Do not change primary monitor or repeat HDMI (manualNOTRUN). Record UTC/nativeUIA/HWND; no source edits/deep analysis inside useful interval. New FAIL gets factual timestamp; continue independent group unless recovery required.
 
 G1 Preferences: primary100 normal and LG125 light/reduced. Actual change to a different theme via native input (pending disabling may orphan focus), native scroll lower/top then real heldEscape; verify close/opener focus. Reopen and actual theme change then Tab/Escape to exercise recovery, and dedicatedShortcuts→Escape return if available in same state. Preserve existing width/vertical scroll. Exclude actions behind any stillopen modal, recover via realClose only as needed.
 
