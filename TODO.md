@@ -1,5 +1,9 @@
 # TODO.md
 
+**PR356 exact candidate accepted:** CI386886465403/3SUCCESS, source`f7456738b8b8498387d4d9637409c4a384f95ba3`, guarded main`e0e7c3b3c9dd7352d5514bddd98457e8a457b93d`, source539/539/workflow identical; five original artifact SHA/CRC verified, EXE`b2d51e4e8b97f2feb5ae8235f91222126eca498c3615722e68531f912ec50293`. [One next operation](work-log/2026-10-15-pa356-merged-native-ready.md): protected targeted Windows capture/review**0/2**, real Preferences Escape after theme-save focus loss + actual PDF legibility. PA355capture/review3/3/scoped acceptance retained; M9export11/12 pendingphysical. Originals restored/no Narro/recorder; HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
+
+Older checkpoints below are historical.
+
 **PR356 final readiness head/CI:** source`f7456738b8b8498387d4d9637409c4a384f95ba3`, [CI38688646540](https://github.com/MariosGiannakaras/Narro/actions/runs/38688646540) queued/pending. Actualready/diagnostic capture plus deterministic startup/cleanup boundary guards integrated; wholepreflight/build PASS, productfixes/assertions unchanged. [Exact continuation](work-log/2026-10-15-pa356-final-readiness-source-ci.md). Old38684913852 FAILED and38688218496 superseded/cancelrequested, not currentacceptance. Native0/2/no newEXE orprofilelaunch; M9export11/12, HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.
@@ -12,7 +16,7 @@ Older checkpoints below are historical.
 
 Earlier pendingCI checkpoints are historical.
 
-**PR356 correction checkpoint:** [PR356](https://github.com/MariosGiannakaras/Narro/pull/356), branch`fix/pa355-preferences-keyboard-pdf-labels`, exacthead`9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97`, [WindowsCI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) queued/running. PA355 capture/review**3/3** published; two confirmed residual fixes implemented with failing-before/passing-after regressions. Whole frontend preflight/finalTS+build/rustfmt PASS, browserPreferences12/12, print8/8, printlengths3660/3660. Corrected physical**0/2** until exact new EXE. NEXT finish this exactCI, expected-head merge/main source proof and artifact verification, then protected targeted Preferences/PDF capture only. Original profiles restored/no Narro/recorder. HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
+**Historical PR356 pendingCI checkpoint:** [PR356](https://github.com/MariosGiannakaras/Narro/pull/356), branch`fix/pa355-preferences-keyboard-pdf-labels`, exacthead`9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97`, [WindowsCI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) queued/running. PA355 capture/review**3/3** published; two confirmed residual fixes implemented with failing-before/passing-after regressions. Whole frontend preflight/finalTS+build/rustfmt PASS, browserPreferences12/12, print8/8, printlengths3660/3660. Corrected physical**0/2** until exact new EXE. NEXT finish this exactCI, expected-head merge/main source proof and artifact verification, then protected targeted Preferences/PDF capture only. Original profiles restored/no Narro/recorder. HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.
 
