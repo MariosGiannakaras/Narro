@@ -1,0 +1,11 @@
+# PA356 prepared targeted acquisition — physical0/2
+
+Only after exactCI38684913852/head9232a6a6 succeeds3/3, guarded merge/main source proof and actual artifact SHA/CRC/x64 verification. Protect personal namespaces with sqlite backup/quick_check and verified owned prior synthetic profile; record exact monitor/motion/input/source.
+
+One full virtual-desktop4480x1080/60fps continuous recording. Do not change primary monitor or repeat HDMI (manualNOTRUN). Record UTC/nativeUIA/HWND; no source edits/deep analysis inside useful interval. New FAIL gets factual timestamp; continue independent group unless recovery required.
+
+G1 Preferences: primary100 normal and LG125 light/reduced. Actual change to a different theme via native input (pending disabling may orphan focus), native scroll lower/top then real heldEscape; verify close/opener focus. Reopen and actual theme change then Tab/Escape to exercise recovery, and dedicatedShortcuts→Escape return if available in same state. Preserve existing width/vertical scroll. Exclude actions behind any stillopen modal, recover via realClose only as needed.
+
+G2 Reports: actual last90dayJul17→Oct15 export, preserve new actualPDF, final label/preceding visible tick should be legible with all daily bars. Actual30day export onprimarydark as paired print-density smoke if available without reset. Atleast90dayPDF in normaldefaultreader/page1–3; close owned reader normally. Post-export full tooltip/scroll/state cleanup. Do not repeat picker/manual persistence/C5/audio/installer evidence unless changed behavior invalidates it.
+
+Then normaltrayQuit, stopvideo, entireNarro-M7-Logs, restore personal DB byte-identically and originalmotion/topology; freeze/upload whole corpus before aggregate analysis. Acquisition2/2 is not PASS2/2. Reconcile report/tracking/crosswalk and preserve conditionaldevice/OSdenial/boot/source-parity limits.
