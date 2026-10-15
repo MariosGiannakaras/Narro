@@ -1,0 +1,12 @@
+{
+  "setup": "Synthetic owned task/reminder rows only; unmodified native runtime uses real wall/monotonic time; no delivery or clock simulation",
+  "probes": [
+    {
+      "condition": "enabled-background",
+      "taskId": "ee588523-e5f8-478a-9181-df4e45060beb",
+      "reminderId": "92165bd7-ff2d-479a-b2c6-232309349dbc",
+      "dueUtc": "2026-10-15T17:05:00+00:00",
+      "localTime": "2026-10-15T20:05:00+03:00"
+    }
+  ]
+}
