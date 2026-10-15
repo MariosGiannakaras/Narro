@@ -2,11 +2,9 @@
 
 ## Current Windows acceptance
 
-PA356 acquisition **2/2**, review **2/2**, targeted acceptance **2/2 PASS scoped**. Reports/PDF **PASS**, M9export **12/12**; narrow M8 actualtheme-save/Tab/Escape gate closed after same-EXE neutral-input diagnostic, actualLG dark/light and externalviewer return. [Current report](docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [workflow review/actions](work-log/2026-10-15-pa356-workflow-review.md). No new product patch/build/CI for diagnostic. Mandatory milestones **4/10**, M10blocked; HDMI hardwareNOTRUN/accepted limitation, PA09/M11excluded.
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09/sourceparity and optionalM11/liveBlitzit excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
-PA05 **PASS — software topology/DPI scope**, physical HDMI **NOT RUN / accepted unavailable hardware limitation** at the user’s request; no cable action pending. Five targeted suites5/5 and exactWindowsCI43/43 relevant Rust testsPASS; accepted actual125→100→125/logical-removal/Automatic/Duplicate→Extend evidence reused with5 file+7 function identity proof. Current quietperformance6/6valid, no current-code regression established by exactold-build comparator. **M1 GateA reclosed; mandatory4/10 (M1–M4), M10blocked.** [Residual report](docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md). Prior Preferences/PDF2/2PASS and M9export12/12 retained; PA09/M11excluded.
-
-Prior checkpoint/consolidation front matter is preserved in [the immutable snapshot](work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md); it is historical, not additional pending PA work. The ordered milestone checklist below is retained.
+PA01–08 campaign complete within its explicit native/software scope; no further user action. Keep M5–M9 source/implementation gates below separate. Prior Preferences/PDF2/2PASS and M9export12/12 retained. The previously published targeted and residual reports remain immutable scoped evidence; this final disposition owns the current continuation.
 
 ## Milestone 1 — Windows desktop scaffold, capability and performance spike
 

@@ -1,5 +1,10 @@
 # Audit → implementation crosswalk
 
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09/sourceparity and optionalM11/liveBlitzit excluded. [Final report](WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
+
+Prior targeted/residual summaries below are historical acquisition checkpoints; the final report supersedes their remaining PA06-next claims, not their original evidence.
+
+
 PA05 **PASS — software topology/DPI scope**, physical HDMI **NOT RUN / accepted unavailable hardware limitation** at the user’s request; no cable action pending. Five targeted suites5/5 and exactWindowsCI43/43 relevant Rust testsPASS; accepted actual125→100→125/logical-removal/Automatic/Duplicate→Extend evidence reused with5 file+7 function identity proof. Current quietperformance6/6valid, no current-code regression established by exactold-build comparator. **M1 GateA reclosed; mandatory4/10 (M1–M4), M10blocked.** [Residual report](WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md). Prior Preferences/PDF2/2PASS and M9export12/12 retained; PA09/M11excluded.
 
 **Historical PA356 targeted disposition:** acquisition/review2/2, targetedacceptance2/2PASSscoped after sameEXE neutralkeyboard/context capture. PDF endpoint legibilityPASS/M9export12/12 and narrowM8theme-save/Escape gate accepted; historical08:38 attempt excluded, not a new confirmed productFAIL. [Current report](WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [applied workflow review](../work-log/2026-10-15-pa356-workflow-review.md). Olderpending paragraphs historical. Directcanonical sourceparity/conditionalperformance and mandatory3/10/M10blocked unchanged.

@@ -2,13 +2,11 @@
 
 ## Current — 2026-10-15
 
-PA356 acquisition **2/2**, review **2/2**, targeted acceptance **2/2 PASS scoped**. Reports/PDF **PASS**, M9export **12/12**; narrow M8 actualtheme-save/Tab/Escape gate closed after same-EXE neutral-input diagnostic, actualLG dark/light and externalviewer return. [Current report](docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [workflow review/actions](work-log/2026-10-15-pa356-workflow-review.md). No new product patch/build/CI for diagnostic. Mandatory milestones **4/10**, M10blocked; HDMI hardwareNOTRUN/accepted limitation, PA09/M11excluded.
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09/sourceparity and optionalM11/liveBlitzit excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
-Exact PR356 sourcef7456738 / CI38688646540 all3SUCCESS / guarded main e0e7c3b3; 539/539 executable/build/test/config blobs identical. EXE b2d51e4e8b97f2feb5ae8235f91222126eca498c3615722e68531f912ec50293. Complete395.5s dual-display OBS recording, four actualPDFs, screens/nativeUIA/actions/system and whole7logs published. Personal profiles restored byte-identically, original motion/topology restored; no activeNarro/recording/viewer.
+**Safe final state:** no Narro/recording active; original productionDB13185e54 byte-identical, actual original FocusAssistAlarms-only/rulesOn/globalnotificationsOn and Settings normal geometry restored. Final65MB packet contains complete19-fileNarro-M7-Logs, full successful background/failedsetup and complete245s active foreground interval; original2.39GB interruption/idle tail retained locally and excluded explicitly. Prior Preferences/PDF2/2 and M9export12/12 retained.
 
-PA05 **PASS — software topology/DPI scope**, physical HDMI **NOT RUN / accepted unavailable hardware limitation** at the user’s request; no cable action pending. Five targeted suites5/5 and exactWindowsCI43/43 relevant Rust testsPASS; accepted actual125→100→125/logical-removal/Automatic/Duplicate→Extend evidence reused with5 file+7 function identity proof. Current quietperformance6/6valid, no current-code regression established by exactold-build comparator. **M1 GateA reclosed; mandatory4/10 (M1–M4), M10blocked.** [Residual report](docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md). Prior Preferences/PDF2/2PASS and M9export12/12 retained; PA09/M11excluded.
-
-**NOW:** all Narro quit/recording stopped, profiles restored, productionDB unchanged. PA06 diagnostic toast probes are inconclusive because its AUMID is unregistered; next use exact accepted production/installed identity under fresh profile isolation. No product patch/newCI.
+**Task boundary:** authorized PA01–08 campaign complete within stated limits; no remaining user action for this scope. Do not repeat accepted checks or startPA09/M11/M10. Later ordinary implementation resumes earliest actual M5–M9 open gate.
 
 ## Preserved project truth
 
