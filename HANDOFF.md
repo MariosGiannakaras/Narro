@@ -4,7 +4,7 @@ Owner Codex. Scope: physical PA01–08 and confirmed corrections only. PA09/M11/
 
 ## Current exact operation
 
-**NEXT AGENT ACTION:** exactCI38688646540 **3/3SUCCESS**, PR356 source`f7456738b8b8498387d4d9637409c4a384f95ba3` guarded merged as`e0e7c3b3c9dd7352d5514bddd98457e8a457b93d`, full539-blob/workflow equivalence and all5artifacts verified. Launch only EXE`b2d51e4e8b97f2feb5ae8235f91222126eca498c3615722e68531f912ec50293` under fresh protected ownedprofile and execute prepared2-group OBS/nativeUIA capture; corrected physical **0/2**. [Accepted source/artifacts/order](work-log/2026-10-15-pa356-merged-native-ready.md). Do not reopen PR or repeat discovery/unchanged accepted checks.
+**NEXT AGENT ACTION:** PA356 targeted acquisition **2/2 COMPLETE**, full395.5s OBS4480x1080/60fps video/four actualPDFs/screens/UIA/whole7logs published in work-log/evidence/pa356-native-20261015. Original profile byte-identically restored and motion/topology restored; no Narro or recording. Aggregate review **0/2** next; examine Preferences still-visible after physicalEscape08:38:27, never infer closure from filteredUIA. Then user-requested workflow efficiency review and scoped process correction before further source/CI/native work. ExactPR356 CI3/3/main539blob proof retained; duplicate resultingmain38706169738 completedCANCELLED under strategy7. No new corrected native PASS yet.
 
 **USER ACTION REQUIRED:** none for this continuation. Actual PA05 HDMI unplug/replug was explicitly deferred to manual continuation; keep NOTRUN and do not ask again.
 
