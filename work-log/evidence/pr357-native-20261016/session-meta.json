@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "a56571d26611cbe2978669bf6144edcef827cd4e",
+  "ci": 38796243985,
+  "pr": 357,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA357-native-20261015\\analysis\\validation\\narro-m7-validation.exe",
+  "sha256": "9cd45b762713932c7bc1f2fd9f41a3970fb964174846aacc298a923b6a813819",
+  "scope": "Four changed M5 Board states only; native menu/cancel, Title, empty Done, newest-first repeated create; reuse actually exercised adjacent open gates only."
+}
