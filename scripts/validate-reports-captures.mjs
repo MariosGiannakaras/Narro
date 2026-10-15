@@ -203,4 +203,12 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
+for (const theme of ["dark", "light"]) {
+  for (const days of [8, 31, 61, 91]) {
+    const label = `reports-print-${days}-${theme}`;
+    const dom = readDom(label);
+    invariant(dom.includes('data-reports-fixture-ready="true"'), `${label} never reached actual rendered readiness`);
+    invariant(dom.includes('data-reports-print-layout-pass="true"'), `${label} date text bounds/endpoint regression failed`);
+  }
+}
 console.log("Reports Overview + Sessions captured visual contracts: PASS");

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { validateReportPrintLayout } from "./reportPrintLayoutRegression";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import {
@@ -451,7 +452,9 @@ flushSync(() => {
         metrics={metrics}
         chartDays={mode === "chart-containment" ? containmentDays : [8, 31, 61, 91].includes(pdfDayCount)
           ? Array.from({ length: pdfDayCount }, (_, index) => ({
-            id: `pdf-${index}`, label: `Wed, Oct ${String(index + 1).padStart(2, "0")}`,
+            id: `pdf-${index}`, label: new Intl.DateTimeFormat("en-US", {
+              weekday: "short", month: "short", day: "2-digit", timeZone: "UTC",
+            }).format(new Date(Date.UTC(2026, 9, 15 - (pdfDayCount - 1) + index))),
             taskSeconds: 1200, breakSeconds: 300,
           })) : chartDays}
         productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
@@ -460,7 +463,10 @@ flushSync(() => {
         listLabel="All Lists"
         selectedListIds={[]}
         listOptions={listOptions}
-        rangeLabel="Aug 07, 2026  –  Aug 14, 2026"
+        rangeLabel={[8, 31, 61, 91].includes(pdfDayCount)
+          ? `${new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit", year: "numeric", timeZone: "UTC" })
+            .format(new Date(Date.UTC(2026, 9, 15 - (pdfDayCount - 1))))} – Oct 15, 2026`
+          : "Aug 07, 2026  –  Aug 14, 2026"}
         calendarMonths={[august, september]}
         listFilterOpen={mode === "list-filter"}
         datePickerOpen={mode === "date-picker"}
@@ -865,7 +871,12 @@ async function validateDetailSessionKeyboardFixture() {
   document.documentElement.dataset.reportsDetailKeyboardPass = "true";
 }
 
-if (mode === "chart-containment") {
+if ([8, 31, 61, 91].includes(pdfDayCount)) {
+  void validateReportPrintLayout().then(markReady).catch((error: unknown) => {
+    document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+    throw error;
+  });
+} else if (mode === "chart-containment") {
   void validateChartTooltipContainmentFixture().then(markReady).catch((error: unknown) => {
     document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
     throw error;

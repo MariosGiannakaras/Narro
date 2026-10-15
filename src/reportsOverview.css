@@ -966,7 +966,7 @@ html[data-report-pdf-export="true"] .reports-overview__chart {
   html[data-report-pdf-export="true"] .reports-overview__chart-hit { min-width: 0; box-sizing: border-box; grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
   html[data-report-pdf-export="true"] .reports-overview__chart-day:last-child .reports-overview__chart-label { justify-self: end; }
   html[data-report-pdf-export="true"] .reports-overview__chart-day:first-child .reports-overview__chart-label { justify-self: start; }
-  html[data-report-pdf-export="true"] .reports-overview__chart[data-report-sparse-labels="true"] .reports-overview__chart-day:nth-last-child(-n+3):not(:last-child) .reports-overview__chart-label { visibility: hidden; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-label[data-report-print-label="false"] { visibility: hidden; }
 
   html[data-report-pdf-export="true"] .reports-overview__metric,
   html[data-report-pdf-export="true"] .reports-overview__chart-card,

@@ -1,5 +1,5 @@
 import { flushSync } from "react-dom";
-import { type ReactNode, useState } from "react";
+import { cloneElement, type ComponentProps, type ReactElement, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import {
@@ -15,6 +15,7 @@ import { WindowsShortcutSettingsPanelView } from "./WindowsShortcutSettingsPanel
 import { WindowsShortcutsDialog } from "./WindowsShortcutsDialog";
 import { PreferencesDialog } from "./PreferencesDialog";
 import type { GlobalShortcutSettingsSnapshot } from "./globalShortcutSettingsApi";
+import { runPreferencesKeyboardRegression } from "./preferencesKeyboardRegression";
 
 const params = new URLSearchParams(window.location.search);
 const requested = params.get("preference");
@@ -26,10 +27,31 @@ const shortcutConflict = params.get("shortcutConflict") === "1";
 const shortcutsDialog = params.get("shortcutsDialog") === "1";
 const preferencesDialog = params.get("preferencesDialog") === "1";
 
-function PreferencesFixture({ children }: { children: ReactNode }) {
+let settleThemeSave: ((failed: boolean) => void) | null = null;
+function PreferencesFixture({ children }: { children: ReactElement<ComponentProps<typeof ThemeSettingsPanelView>> }) {
   const [open, setOpen] = useState(true);
-  return open ? <PreferencesDialog onRequestClose={() => setOpen(false)}>{children}</PreferencesDialog>
-    : <button type="button" data-preferences-fixture-reopen="true" onClick={() => setOpen(true)}>Reopen Preferences</button>;
+  const [selectedTheme, setTheme] = useState(theme);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  return <>
+    <button type="button" data-preferences-fixture-reopen="true" onClick={() => { setSaveError(null); setOpen(true); }}>Reopen Preferences</button>
+    {open ? <PreferencesDialog onRequestClose={() => setOpen(false)}>{cloneElement(children, {
+      theme: selectedTheme, pending: saving, error: saveError,
+      onSelectTheme: (next: ThemePreference) => {
+        if (saving || next === selectedTheme) return;
+        setSaving(true);
+        setSaveError(null);
+        // A deferred native-save boundary: the regression controls completion
+        // so pending, failure and late completion after close are deterministic.
+        settleThemeSave = (failed) => {
+          setSaving(false);
+          if (failed) setSaveError("Fixture theme save failed");
+          else setTheme(next);
+          settleThemeSave = null;
+        };
+      },
+    })}</PreferencesDialog> : null}
+  </>;
 }
 const section = params.get("section") ?? "upper";
 
@@ -187,7 +209,7 @@ const sectionTarget: Record<string, string> = {
   lower: "preferences-celebration-title",
 };
 
-window.requestAnimationFrame(() => {
+window.requestAnimationFrame(async () => {
   if (preferencesDialog) {
     const scroll = document.querySelector<HTMLElement>('.preferences-dialog__scroll');
     if (!scroll || scroll.scrollWidth > scroll.clientWidth + 1) throw new Error('Preferences parent dialog has horizontal overflow.');
@@ -198,6 +220,16 @@ window.requestAnimationFrame(() => {
     flushSync(() => close.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })));
     if (document.querySelector('[data-preferences-dialog="true"]')) throw new Error('Preferences Escape did not dismiss.');
     flushSync(() => document.querySelector<HTMLButtonElement>('[data-preferences-fixture-reopen="true"]')!.click());
+    try {
+      await runPreferencesKeyboardRegression((failed) => {
+        if (!settleThemeSave) throw new Error('Missing pending fixture theme save.');
+        flushSync(() => settleThemeSave!(failed));
+      });
+      document.documentElement.dataset.themeSettingsKeyboardPass = 'true';
+    } catch (error) {
+      document.documentElement.dataset.themeSettingsKeyboardError = String(error);
+      throw error;
+    }
     document.documentElement.dataset.themeSettingsDialogContainmentPass = 'true';
   }
   // Source-aligned section captures must stay inside Edge's screenshot viewport.

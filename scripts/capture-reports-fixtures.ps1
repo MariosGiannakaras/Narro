@@ -129,6 +129,11 @@ try {
             $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=$reportsMode"
             Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
         }
+        foreach ($days in @(8, 31, 61, 91)) {
+            $label = "reports-print-$days-$theme"
+            $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=overview&pdfDays=$days"
+            Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
+        }
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
