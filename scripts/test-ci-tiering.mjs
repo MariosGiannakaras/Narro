@@ -1,6 +1,9 @@
 import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { execFileSync } from "node:child_process";
 
-const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
+const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8").replace(/\r\n/g, "\n");
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
 function invariant(condition, message) {
@@ -17,6 +20,43 @@ invariant(candidateIndex > fastIndex, "windows-candidate must follow the fast ga
 
 const fastBlock = workflow.slice(fastIndex, candidateIndex);
 const candidateBlock = workflow.slice(candidateIndex);
+
+// Execute the actual checkout patterns against Git. Both jobs must keep all
+// build/test inputs while excluding only the large raw evidence corpora.
+const checkoutPatterns = (block) => {
+  invariant(block.includes("sparse-checkout-cone-mode: false"), "evidence exclusions need non-cone sparse checkout");
+  const match = block.match(/        sparse-checkout: \|\n((?:          [^\n]+\n)+)/);
+  invariant(match, "checkout patterns missing");
+  return match[1].split("\n").map(line => line.trim()).filter(Boolean);
+};
+const fastPatterns = checkoutPatterns(fastBlock);
+const candidatePatterns = checkoutPatterns(candidateBlock);
+invariant(JSON.stringify(fastPatterns) === JSON.stringify(candidatePatterns), "fast/candidate checkout inputs differ");
+const tempRoot = fs.realpathSync(os.tmpdir());
+const probe = fs.mkdtempSync(path.join(tempRoot, "narro-ci-checkout-"));
+try {
+  const required = ["package.json", "src/card.tsx", "src-tauri/src/lib.rs", "src-tauri/icons/icon.ico",
+    "scripts/check.mjs", "tests/visual-fixtures/dark.json", "assets/branding/logo.png",
+    "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md", ".github/workflows/ci.yml", "focus-editor-fixture.html"];
+  const excluded = ["work-log/evidence/clip.mp4", "reference/original-blitzit-screenshots/source.png"];
+  for (const file of [...required, ...excluded]) {
+    const target = path.join(probe, file);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, "fixture\n");
+  }
+  const git = (...args) => execFileSync("git", args, { cwd: probe, stdio: ["pipe", "pipe", "pipe"] });
+  git("init", "--quiet");
+  git("add", ".");
+  git("-c", "user.name=Narro test", "-c", "user.email=narro-test@localhost", "-c", "commit.gpgsign=false", "commit", "--quiet", "-m", "fixture");
+  execFileSync("git", ["sparse-checkout", "set", "--no-cone", "--stdin"], {
+    cwd: probe, input: fastPatterns.join("\n") + "\n", stdio: ["pipe", "pipe", "pipe"],
+  });
+  for (const file of required) invariant(fs.existsSync(path.join(probe, file)), "checkout excluded required input " + file);
+  for (const file of excluded) invariant(!fs.existsSync(path.join(probe, file)), "checkout retained raw evidence " + file);
+} finally {
+  invariant(path.dirname(fs.realpathSync(probe)) === tempRoot, "temporary checkout escaped its intended directory");
+  fs.rmSync(probe, { recursive: true, force: true });
+}
 
 for (const required of [
   "runs-on: ubuntu-latest",

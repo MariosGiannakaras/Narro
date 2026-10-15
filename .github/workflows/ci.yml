@@ -139,6 +139,12 @@ jobs:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        # Raw acceptance media is retained in Git, not consumed by build/tests.
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /*
+          !/work-log/
+          !/reference/
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -178,6 +184,11 @@ jobs:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /*
+          !/work-log/
+          !/reference/
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
