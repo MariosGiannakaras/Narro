@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import { isRetryableDevToolsPortReadError } from "./edgeCdpDevToolsPortErrors.mjs";
+import { waitForOwnedBlankPage } from "./edgeCdpPageReadiness.mjs";
 
 // These sequential DOM/focus regressions require live frame progression and
 // their actual completion marker, not the CLI virtual-time screenshot deadline.
@@ -55,10 +56,16 @@ async function connect() {
     if (!port) await sleep(50);
   }
   if (!port) throw new Error("Ready-fixture Edge never published DevToolsActivePort");
-  const pages = await fetch(`http://127.0.0.1:${port}/json/list`, { signal: AbortSignal.timeout(3000) }).then((r) => r.json());
-  const page = pages.find((p) => p.type === "page" && p.url === "about:blank");
-  if (!page?.webSocketDebuggerUrl) throw new Error("Expected the owned blank Edge page");
-  socket = new WebSocket(page.webSocketDebuggerUrl);
+  const pageUrl = await waitForOwnedBlankPage({
+    listPages: async () => {
+      const response = await fetch(`http://127.0.0.1:${port}/json/list`, { signal: AbortSignal.timeout(3000) });
+      if (!response.ok) throw new Error(`Debugger page HTTP ${response.status}`);
+      return response.json();
+    },
+    isAlive: () => browser.exitCode === null && !failure,
+    now: Date.now, sleep, deadline,
+  });
+  socket = new WebSocket(pageUrl);
   socket.addEventListener("message", (event) => {
     const message = JSON.parse(String(event.data));
     if (!message.id) {
@@ -127,10 +134,15 @@ try {
       }
     } catch (error) { failure ??= `Could not retain fixture DOM/PNG: ${error}`; }
   }
-  await fs.writeFile(options.html + ".diagnostics.json", JSON.stringify({ failure, observed, events, stderr, kind: options.kind, url: options.url }, null, 2));
-  for (const item of pending.values()) clearTimeout(item.timeout);
-  pending.clear(); socket?.close();
-  if (browser.pid && browser.exitCode === null) spawnSync("taskkill.exe", ["/PID", String(browser.pid), "/T", "/F"], { windowsHide: true, stdio: "ignore" });
+  try {
+    await fs.writeFile(options.html + ".diagnostics.json", JSON.stringify({ failure, observed, events, stderr, kind: options.kind, url: options.url }, null, 2));
+  } catch (error) {
+    failure ??= `Could not write fixture diagnostics: ${error}`;
+  } finally {
+    for (const item of pending.values()) clearTimeout(item.timeout);
+    pending.clear(); socket?.close();
+    if (browser.pid && browser.exitCode === null) spawnSync("taskkill.exe", ["/PID", String(browser.pid), "/T", "/F"], { windowsHide: true, stdio: "ignore" });
+  }
 }
 if (failure) throw new Error(failure);
 console.log(`Ready-fixture ${options.kind} actual completion + DOM/PNG: PASS`);
