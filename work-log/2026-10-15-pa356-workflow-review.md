@@ -1,6 +1,6 @@
 # Workflow review and applied correction — 2026-10-15
 
-The current PA356 capture/review is complete2/2; one group fully closed, Preferences incomplete. Review concerns execution efficiency, not weakening acceptance or expanding PA09/M11.
+Current PA356 capture/review/targetedacceptance is complete2/2 after the neutral-input diagnostic. The earlier review checkpoint had one closed group and one incomplete Preferences group; that history explains the findings below. Review concerns execution efficiency, not weakening acceptance or expanding PA09/M11.
 
 ## Findings
 
@@ -11,8 +11,12 @@ The current PA356 capture/review is complete2/2; one group fully closed, Prefere
 5. Checkout cost is dominated by multi-GB tracked evidence; previous measured checkout took about8min per job. This is an infrastructure cost, not a reason to migrate/delete immutable evidence or alter CI blindly during physical acceptance. No workflowYAML/dependency/source change made in this process slice. Existing CI strategy§7–8 already requires claim-driven batching/reuse; the error was inconsistent execution, not a lack of more policy.
 6. Progress mixed acquisition, review, native acceptance and fullmilestones. Applied reporting: active physical acquisition/review/fullyclosed counts first; whole mandatory3/10 separately; no U41/gap counters unless requested. A complete recording is not a PASS. M9export12/12 is a concrete closed subgate, not wholeM9completion.
 
-## Active continuation
+## Diagnostic plan at review checkpoint (now completed)
 
-Keep the same validated PR356EXE; no rebuild orCI for a focus-context observation. One focused capture after externalviewer return, with exactownedforeground/nativefocus and positivevisiblepostcondition, should decide the openPreferences episode. If that observation is invalid, repair input/capture state only. If it is a confirmed product failure, analyze the entire affected focus/activation/event path, add failing-before/passing-after regression, batch any compatible confirmed fixes, then one coherent sourcePR/preflight/exactCI and only invalidated native checks. Never replay unaffected PA/installer/audio/C5 passes. Quiet performance and user-deferred hardware remain separate protocols.
+Keep the same validated PR356EXE; no rebuild orCI for a focus-context observation. That focused capture is now complete and accepted as recorded in the result below. If that observation is invalid, repair input/capture state only. If it is a confirmed product failure, analyze the entire affected focus/activation/event path, add failing-before/passing-after regression, batch any compatible confirmed fixes, then one coherent sourcePR/preflight/exactCI and only invalidated native checks. Never replay unaffected PA/installer/audio/C5 passes. Quiet performance and user-deferred hardware remain separate protocols.
 
 Checkpoint only meaningful boundaries: sourcecandidate ready; rawcapture frozen/restored; aggregate disposition. Preserve recovery checkpoints where needed, but do not create a freshCI/checkpoint/report for every microaction. WhileCI runs, prepare pending evidence/analysis independently; avoid unrelated sourcechanges. No waiting on nonexistent/duplicate identical-tree CI.
+
+## Applied same-EXE diagnostic result
+
+The proposed bounded diagnostic is now executed and reviewed, not pending. Initial actual LeftAlt down was caught/released; originunknown and original08:38modifierstate unrecorded. An occludedMain attempt was excluded and keyboardguard refused input because foreground/focus belonged toNitro. Six required keyboard preconditions passed after recovery; actualLGdark/light persistence, Tab/Closefocus, Escape/Settingsopener and externalviewer-return allpassed. Entire164.684s OBS movie/context/whole10logs uploaded and reviewed; no newNarro sourcepatch/build/CI. Targetedacceptance2/2, M9export12/12 and narrowM8gate closed; mandatory3/10 unchanged. This is a concrete avoided speculative patch/CI cycle. Positive successor state and modifier/focus guards are now explicit in existing strategy5, not a separate parallel process. Remaining independent physical/device/sourceparity limits remain reportedOPEN/NOTRUN.
