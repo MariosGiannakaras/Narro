@@ -96,6 +96,8 @@ The recording/checklist should cover all currently open physical observations th
 
 Physical evidence is observational acceptance, not a reason to keep an otherwise automated-green implementation branch permanently unmerged.
 
+For native keyboard acceptance, verify the actual foreground/focus owner and target state before input, then a positive visible postcondition. An absent filtered UIA node or a successful input API call does not prove modal closure or persistence. An unproven/undelivered interaction is UNCERTAIN, not a product failure to patch. Resolve that input context with a bounded observation on the same validated artifact before opening another source/CI cycle. Keep one current handoff/evidence matrix and update it at meaningful phase boundaries; archive obsolete checkpoint prose rather than accumulating conflicting current NEXT operations.
+
 ## 6. Milestone completion
 
 Merge state and milestone completion are distinct.

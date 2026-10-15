@@ -1,0 +1,73 @@
+Reports
+Total work days
+3
+3 active days
+Total tasks done
+6
+2.0 avg / active day
+Total time worked
+51min
+17min avg / active day
+Avg. Time per task
+4min
+includes partial tasks
+PRODUCTIVITY
+TIME BY DAY
+TASKS
+BREAKS
+TOTAL
+Most Productive hour
+12 AM–1 AM
+Most Productive day
+Tuesday
+Most Productive month
+Oct 26
+All Lists
+Jul 17, 2026 – Oct 15, 2026
+Fri, Jul 17
+Fri, Jul 31
+Fri, Aug 14
+Fri, Aug 28
+Fri, Sep 11
+Fri, Sep 25
+Thu, Oct 15
+
+
+TIME BY LIST
+Total Time: 26min
+PA 20261013 isolated Windows acceptance
+26min 100%
+26min
+
+
+DONE TASKS
+● Early 0.00%
+● Late 100.00%
+Oct 13, 2026
+1 task
+PA-04 manual session owned fixture
+PA 20261013 isolated Windows acceptance
+No Est
+Time Taken 5min
+Oct 14, 2026
+5 tasks
+PA350 owned form insertion and Pomodoro delivery
+PA 20261013 isolated Windows acceptance
+No Est
+Time Taken 0min
+PA-01 persistent host untimed task
+PA 20261013 isolated Windows acceptance
+No Est
+Time Taken 2min
+PA-03 actual one minute countdown
+PA 20261013 isolated Windows acceptance
+2min late
+Time Taken 3min
+PA03 postfix real deadline 1m
+PA 20261013 isolated Windows acceptance
+4min late
+Time Taken 6min
+PA350 fresh five minute Pomodoro automatic toast
+PA 20261013 isolated Windows acceptance
+No Est
+Time Taken 0min

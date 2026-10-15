@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**Current PA356 disposition:** acquisition/review2/2, PDF endpoint legibilityPASS/M9export12/12; Preferences scopedPASS paths plus UNCERTAIN input/focus context, completegroupOPEN. [Current report](WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [applied workflow review](../work-log/2026-10-15-pa356-workflow-review.md). PriorPR356 pending/checkpoint paragraphs below are historical. Direct canonical sourceparity and mandatory3/10/M10blocked remain unchanged.
+
 **PR356 exact candidate accepted:** CI386886465403/3SUCCESS, source`f7456738b8b8498387d4d9637409c4a384f95ba3`, guarded main`e0e7c3b3c9dd7352d5514bddd98457e8a457b93d`, source539/539/workflow identical; five original artifact SHA/CRC verified, EXE`b2d51e4e8b97f2feb5ae8235f91222126eca498c3615722e68531f912ec50293`. [One next operation](../work-log/2026-10-15-pa356-merged-native-ready.md): protected targeted Windows capture/review**0/2**, real Preferences Escape after theme-save focus loss + actual PDF legibility. PA355capture/review3/3/scoped acceptance retained; M9export11/12 pendingphysical. Originals restored/no Narro/recorder; HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.

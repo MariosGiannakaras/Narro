@@ -1,0 +1,173 @@
+[
+  {
+    "name": "g1-tab-recovery.json",
+    "utc": "2026-10-15T08:34:05.198433+00:00",
+    "focused": [
+      {
+        "name": "Close Preferences",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": true,
+        "rect": [
+          1022,
+          237,
+          1054,
+          269
+        ]
+      }
+    ],
+    "dialogs": [
+      {
+        "name": "Preferences",
+        "type": 50032,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          313,
+          228,
+          1067,
+          898
+        ]
+      }
+    ],
+    "themes": [
+      {
+        "name": "Light theme \u2014 Use Narro's light surfaces",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          923,
+          422,
+          1001,
+          459
+        ],
+        "toggle": 1
+      }
+    ]
+  },
+  {
+    "name": "g1-lg-tab.json",
+    "utc": "2026-10-15T08:34:55.304668+00:00",
+    "focused": [
+      {
+        "name": "Light theme \u2014 Use Narro's light surfaces",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": true,
+        "rect": [
+          -954,
+          477,
+          -856,
+          523
+        ],
+        "toggle": 0
+      }
+    ],
+    "dialogs": [
+      {
+        "name": "Preferences",
+        "type": 50032,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -1716,
+          239,
+          -774,
+          1076
+        ]
+      }
+    ],
+    "themes": [
+      {
+        "name": "Dark theme \u2014 Use Narro's dark surfaces",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -1056,
+          477,
+          -958,
+          523
+        ],
+        "toggle": 1
+      }
+    ]
+  },
+  {
+    "name": "g1-shortcuts-open.json",
+    "utc": "2026-10-15T08:35:09.741231+00:00",
+    "focused": [
+      {
+        "name": "Close Windows Shortcuts",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": true,
+        "rect": [
+          -860,
+          260,
+          -820,
+          300
+        ]
+      }
+    ],
+    "dialogs": [
+      {
+        "name": "Windows Shortcuts",
+        "type": 50032,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -1696,
+          239,
+          -794,
+          1076
+        ]
+      }
+    ],
+    "themes": []
+  },
+  {
+    "name": "g1-shortcuts-return.json",
+    "utc": "2026-10-15T08:35:10.324332+00:00",
+    "focused": [
+      {
+        "name": "Close Preferences",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": true,
+        "rect": [
+          -830,
+          250,
+          -790,
+          290
+        ]
+      }
+    ],
+    "dialogs": [
+      {
+        "name": "Preferences",
+        "type": 50032,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          -1716,
+          239,
+          -774,
+          1076
+        ]
+      }
+    ],
+    "themes": []
+  }
+]

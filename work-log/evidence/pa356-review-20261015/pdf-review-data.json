@@ -1,0 +1,90 @@
+[
+  {
+    "pdf": "narro-overview-2026-07-17-to-2026-10-15-2.pdf",
+    "sha256": "671a9e3f80c5fc8311766917456d26ff6ccfbc6e1d358b56f1795dd8c6f26f9a",
+    "pages": 3,
+    "renderHashes": [
+      "df039e3824e5dc704614856761c7ffc34cce30571929a7166d47e891b5fa36fd",
+      "40fc3bfec17a1401974a07b5a48688aeec05f2835da1b0047cb4be789952d53a",
+      "40897670d5c18180aa4df9f7d2b8edc0d0eb73eeff2d3edba40a4660a4b57b3a"
+    ],
+    "chartDateSpans": [
+      {
+        "page": 1,
+        "text": "Oct 26",
+        "bbox": [
+          536.25,
+          539.860107421875,
+          570.5963134765625,
+          554.823486328125
+        ]
+      }
+    ]
+  },
+  {
+    "pdf": "narro-overview-2026-09-15-to-2026-10-15-3.pdf",
+    "sha256": "1931f1c51b3ad8a0fbc6716219753c2ad1a83d46005e20605a62c2b53dd10c49",
+    "pages": 3,
+    "renderHashes": [
+      "6c52ecb44ae62d12726d86c5167f85819f20c6099ae95073d77eca3e16d873f2",
+      "40fc3bfec17a1401974a07b5a48688aeec05f2835da1b0047cb4be789952d53a",
+      "40897670d5c18180aa4df9f7d2b8edc0d0eb73eeff2d3edba40a4660a4b57b3a"
+    ],
+    "chartDateSpans": [
+      {
+        "page": 1,
+        "text": "Oct 26",
+        "bbox": [
+          536.25,
+          539.860107421875,
+          570.5963134765625,
+          554.823486328125
+        ]
+      }
+    ]
+  },
+  {
+    "pdf": "narro-overview-2026-09-15-to-2026-10-15-4.pdf",
+    "sha256": "108d0a2d32b038ab12981df3aef3320d7ce4b6d62d68f9613d5ffb68c26e7b17",
+    "pages": 3,
+    "renderHashes": [
+      "6c52ecb44ae62d12726d86c5167f85819f20c6099ae95073d77eca3e16d873f2",
+      "40fc3bfec17a1401974a07b5a48688aeec05f2835da1b0047cb4be789952d53a",
+      "40897670d5c18180aa4df9f7d2b8edc0d0eb73eeff2d3edba40a4660a4b57b3a"
+    ],
+    "chartDateSpans": [
+      {
+        "page": 1,
+        "text": "Oct 26",
+        "bbox": [
+          536.25,
+          539.860107421875,
+          570.5963134765625,
+          554.823486328125
+        ]
+      }
+    ]
+  },
+  {
+    "pdf": "narro-overview-2026-09-15-to-2026-10-15-5.pdf",
+    "sha256": "25aae666be704deb06d8a945b9ff8963c1964f1a7f63a13e4aa08022ece92779",
+    "pages": 3,
+    "renderHashes": [
+      "6c52ecb44ae62d12726d86c5167f85819f20c6099ae95073d77eca3e16d873f2",
+      "40fc3bfec17a1401974a07b5a48688aeec05f2835da1b0047cb4be789952d53a",
+      "40897670d5c18180aa4df9f7d2b8edc0d0eb73eeff2d3edba40a4660a4b57b3a"
+    ],
+    "chartDateSpans": [
+      {
+        "page": 1,
+        "text": "Oct 26",
+        "bbox": [
+          536.25,
+          539.860107421875,
+          570.5963134765625,
+          554.823486328125
+        ]
+      }
+    ]
+  }
+]
