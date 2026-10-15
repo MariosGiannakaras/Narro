@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09/sourceparity and optionalM11/liveBlitzit excluded. [Final report](WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
 Prior targeted/residual summaries below are historical acquisition checkpoints; the final report supersedes their remaining PA06-next claims, not their original evidence.
 

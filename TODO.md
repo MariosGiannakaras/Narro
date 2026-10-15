@@ -2,9 +2,9 @@
 
 ## Current Windows acceptance
 
-PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09/sourceparity and optionalM11/liveBlitzit excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
+PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
-PA01–08 campaign complete within its explicit native/software scope; no further user action. Keep M5–M9 source/implementation gates below separate. Prior Preferences/PDF2/2PASS and M9export12/12 retained. The previously published targeted and residual reports remain immutable scoped evidence; this final disposition owns the current continuation.
+PA01–08 campaign complete within its explicit native/software scope; user now authorizes PA09 using existing images/video/Pass3. M11 remains the separate future live-Blitzit phase. Keep M5–M9 source/implementation gates below separate. Prior Preferences/PDF2/2PASS and M9export12/12 retained. The previously published targeted and residual reports remain immutable scoped evidence; this final disposition owns the current continuation.
 
 ## Milestone 1 — Windows desktop scaffold, capability and performance spike
 
