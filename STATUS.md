@@ -1,6 +1,10 @@
 # STATUS.md
 
-**Current PA continuation:** PA354 acquisition4/4/review4/4, tooltip1/1 scopedPASS; PA04 remainsFAIL for picker/PDF, M8 widthFIX_NOW. [PR355](https://github.com/MariosGiannakaras/Narro/pull/355) head7b54e62f/CI38630226135 in progress; preflight/build/rustfmt and actual DOM12/12 + print8/8PASS. New corrected physical0/3. Original profiles/motion restored/no app or recorder. [Exact continuation and evidence](work-log/2026-10-14-pa354-review-pr355-ci.md). Mandatory3/10/M10blocked; HDMI manualNOTRUN, PA09/M11excluded.
+**Current PA355 exact candidate accepted:** PRhead7b54e62f/CI38630226135 **3/3 PASS**, guarded main**dbc3f6f2**, source532/532/workflow identical; five SHA/CRC artifacts published, exactx64EXE**d772edbf**. [One next operation](work-log/2026-10-15-pa355-merged-native-ready.md): fresh protected native3-group capture/aggregate acceptance**0/3**. PA3544/4capture/review and tooltip1/1 scopedPASS retained. Originals restored/no app or recorder; HDMI manualNOTRUN. Mandatory3/10/M10blocked; PA09/M11excluded.
+
+Older checkpoints below are historical.
+
+**Historical PA continuation:** PA354 acquisition4/4/review4/4, tooltip1/1 scopedPASS; PA04 remainsFAIL for picker/PDF, M8 widthFIX_NOW. [PR355](https://github.com/MariosGiannakaras/Narro/pull/355) head7b54e62f/CI38630226135 in progress; preflight/build/rustfmt and actual DOM12/12 + print8/8PASS. New corrected physical0/3. Original profiles/motion restored/no app or recorder. [Exact continuation and evidence](work-log/2026-10-14-pa354-review-pr355-ci.md). Mandatory3/10/M10blocked; HDMI manualNOTRUN, PA09/M11excluded.
 
 All following older checkpoint blocks are historical; retain their immutable work-log evidence, not their superseded next actions.
 
