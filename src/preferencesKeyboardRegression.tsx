@@ -8,6 +8,7 @@ const frame = () => new Promise<void>((resolve) => requestAnimationFrame(() => r
 /** Actual parent + ThemeSettingsPanelView + disabled/async save boundary.
  * Body-targeted keys reproduce native Chromium's lost focused-control path. */
 export async function runPreferencesKeyboardRegression(settleSave: (failed: boolean) => void) {
+  const phase = (name: string) => { document.documentElement.dataset.themeSettingsKeyboardPhase = name; };
   const dialog = () => document.querySelector<HTMLElement>('[data-preferences-dialog="true"]');
   const close = () => document.querySelector<HTMLButtonElement>('[data-preferences-close="true"]')!;
   const opener = () => document.querySelector<HTMLButtonElement>('[data-preferences-fixture-reopen="true"]')!;
@@ -32,14 +33,18 @@ export async function runPreferencesKeyboardRegression(settleSave: (failed: bool
     check(document.activeElement === document.body, 'lost-control path did not reach body');
   };
 
+  phase('initial-close-reopen');
   close().focus(); key('Escape'); await reopen();
+  phase('successful-save-orphaned-escape');
   await startSave(); settleSave(false); await frame();
   check(key('Escape').defaultPrevented && !dialog(), 'Escape after successful save/focus loss did not close');
   check(document.activeElement === opener(), 'successful-save close lost opener focus');
+  phase('pending-close-late-completion');
   await reopen(); await startSave();
   check(key('Escape').defaultPrevented && !dialog(), 'pending Escape did not close');
   settleSave(false); await frame();
   check(!dialog(), 'late async completion resurrected closed Preferences');
+  phase('failed-save-tab-wrap');
   await reopen(); await startSave();
   check(key('Tab').defaultPrevented && document.activeElement === close(), 'orphaned Tab escaped modal');
   key('Tab', true);
@@ -49,6 +54,8 @@ export async function runPreferencesKeyboardRegression(settleSave: (failed: bool
   (document.activeElement as HTMLElement).blur();
   check(key('Escape').defaultPrevented && !dialog(), 'failed-save orphaned Escape did not close');
   await reopen();
+
+  phase('child-and-newer-modal-ownership');
 
   // Existing inner popovers consume Escape before it reaches the modal/window.
   const child = document.createElement('button');
@@ -64,5 +71,7 @@ export async function runPreferencesKeyboardRegression(settleSave: (failed: bool
   close().focus(); key('Escape');
   opener().blur();
   check(!key('Escape').defaultPrevented, 'unmounted Preferences retained global listener');
+  phase('final-reopen');
   await reopen();
+  phase('complete');
 }

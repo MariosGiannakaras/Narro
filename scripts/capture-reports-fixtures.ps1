@@ -51,6 +51,11 @@ function Capture-ReportsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "reports-print-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=print"
+            if ($LASTEXITCODE -ne 0) { throw "Reports actual-print readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         for ($attempt = 1; $attempt -le 2; $attempt++) {
             # Allow the sequential chart interaction matrix to finish; ordinary
             # static fixtures keep their existing budget.

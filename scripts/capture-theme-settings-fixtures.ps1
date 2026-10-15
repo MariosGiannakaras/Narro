@@ -51,6 +51,11 @@ function Capture-ThemeSettingsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "theme-settings-preferences-dialog-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=preferences"
+            if ($LASTEXITCODE -ne 0) { throw "Preferences actual-readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         $readyMarker = 'data-theme-settings-fixture-ready="true"'
         $maxAttempts = 4
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
@@ -86,6 +91,7 @@ function Capture-ThemeSettingsState {
             if ([string]::IsNullOrWhiteSpace($domText)) {
                 throw "Edge did not return theme-settings DOM for '$Label'. $stderrText"
             }
+            [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
             if (-not $domText.Contains($readyMarker)) {
                 if ($attempt -lt $maxAttempts) {
                     Write-Warning "Theme-settings fixture '$Label' was captured before it reported ready; retrying capture ($attempt/$maxAttempts)."
