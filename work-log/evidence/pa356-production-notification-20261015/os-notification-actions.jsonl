@@ -1,0 +1,4 @@
+{"utc": "2026-10-15T10:08:56.196339+00:00", "action": "Actual Windows Settings UIA TogglePattern", "control": "Get notifications from apps and other senders", "requested": "1", "before": 1, "after": 1}
+{"utc": "2026-10-15T10:10:27.732080+00:00", "action": "Actual Windows Settings UIA TogglePattern", "control": "Get notifications from apps and other senders", "requested": "0", "before": 1, "after": 0}
+{"utc": "2026-10-15T10:11:24.056317+00:00", "action": "Actual Windows Settings UIA TogglePattern", "control": "Get notifications from apps and other senders", "requested": "1", "before": 0, "after": 1}
+{"utc": "2026-10-15T10:12:46.863376+00:00", "action": "Actual Windows Settings UIA TogglePattern", "control": "Get notifications from apps and other senders", "requested": "restore", "before": 1, "after": 1}
