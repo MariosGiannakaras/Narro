@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-**Current PA355 exact candidate accepted:** PRhead7b54e62f/CI38630226135 **3/3 PASS**, guarded main**dbc3f6f2**, source532/532/workflow identical; five SHA/CRC artifacts published, exactx64EXE**d772edbf**. [One next operation](../work-log/2026-10-15-pa355-merged-native-ready.md): fresh protected native3-group capture/aggregate acceptance**0/3**. PA3544/4capture/review and tooltip1/1 scopedPASS retained. Originals restored/no app or recorder; HDMI manualNOTRUN. Mandatory3/10/M10blocked; PA09/M11excluded.
+**Current PA355 exact candidate accepted:** PRhead7b54e62f/CI38630226135 **3/3 PASS**, guarded main**dbc3f6f2**, source532/532/workflow identical; five SHA/CRC artifacts published, exactx64EXE**d772edbf**. [One next operation](../work-log/2026-10-15-pa355-merged-native-ready.md): fresh protected native3-group capture/aggregate acceptance**0/3**. PA3544/4capture/review and tooltip1/1 scopedPASS retained. Owned profile ACTIVE/exactPID13792/MainHWND14291232; originals protected with verified backup, capture next; HDMI manualNOTRUN. Mandatory3/10/M10blocked; PA09/M11excluded.
 
 Older checkpoints below are historical.
 
