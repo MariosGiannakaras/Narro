@@ -14,7 +14,10 @@ use narro_lib::persistence::tasks::{active_tasks_in_bucket, get_task, TaskStoreE
 use narro_lib::recurrence::materialize_recurrence_week;
 use narro_lib::scheduling::effective_planning_lane_at;
 use rusqlite::{params, Connection};
-use support::{insert_work_session, migrated, ListFixture, TaskFixture, CREATED_AT, MUTATED_AT};
+use support::{
+    insert_work_session, migrated, ListFixture, TaskFixture, CREATED_AT, MUTATED_AGAIN_AT,
+    MUTATED_AT,
+};
 
 fn request(task: &TaskRecord) -> QuickClearTaskScheduleRequest {
     let schedule = match task.schedule_kind {
@@ -241,41 +244,31 @@ fn stale_schedule_list_version_or_child_link_cannot_mutate_any_task() {
 fn active_paused_open_session_completed_archived_and_archived_list_are_rejected() {
     for case in ["open-session", "completed", "archived", "archived-list"] {
         let mut conn = migrated();
-        let task = future_fixture(&conn);
-        match case {
-            "open-session" => {
-                insert_work_session(&conn, 1, task.id, 0);
-                conn.execute(
-                    "UPDATE sessions SET ended_at=NULL WHERE task_id=?1",
-                    [task.id.to_string()],
-                )
-                .unwrap();
-            }
-            "completed" => {
-                conn.execute(
-                    "UPDATE tasks SET completed_at=?1 WHERE id=?2",
-                    params![CREATED_AT, task.id.to_string()],
-                )
-                .unwrap();
-            }
-            "archived" => {
-                conn.execute(
-                    "UPDATE tasks SET archived_at=?1 WHERE id=?2",
-                    params![CREATED_AT, task.id.to_string()],
-                )
-                .unwrap();
-            }
-            "archived-list" => {
-                conn.execute(
-                    "UPDATE lists SET archived_at=?1 WHERE id=?2",
-                    params![CREATED_AT, task.list_id.to_string()],
-                )
-                .unwrap();
-            }
-            _ => unreachable!(),
+        let list = ListFixture::new(1, "Protected list");
+        let list = if case == "archived-list" {
+            list.archived(MUTATED_AT)
+        } else {
+            list
+        }
+        .insert(&conn);
+        let fixture = TaskFixture::new(1, list.id, "Protected schedule", PlanningLane::ThisWeek)
+            .date_only("2026-09-18");
+        let task = match case {
+            "completed" => fixture.completed(MUTATED_AT),
+            "archived" => fixture.archived(MUTATED_AT),
+            _ => fixture,
+        }
+        .insert(&conn);
+        if case == "open-session" {
+            insert_work_session(&conn, 1, task.id, 0);
+            conn.execute(
+                "UPDATE sessions SET ended_at=NULL WHERE task_id=?1",
+                [task.id.to_string()],
+            )
+            .unwrap();
         }
         let before = get_task(&conn, task.id).unwrap();
-        let result = clear(&mut conn, request(&before), MUTATED_AT);
+        let result = clear(&mut conn, request(&before), MUTATED_AGAIN_AT);
         if case == "open-session" {
             assert!(matches!(
                 result,
