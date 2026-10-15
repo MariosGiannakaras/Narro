@@ -1,6 +1,10 @@
 # Current Windows residual physical session
 
-## NOW — PA354 aggregate accepted scope / PR355 correction pending
+**PA355 aggregate reviewed3/3:** acquisition3/3/full evidence published and originals restored. Picker/manual60s commit/cancel, Preferences width, tooltip containment/ownership, actual PDF/default viewer/non-overwrite/local filename **PASS scoped**. Remaining **FIX_NOW2**: Preferences Escape after theme-save focus loss; actual90day PDF adjacent final labels overlap. [Authoritative report](WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md). NEXT new narrow branch from latestmain, reproduce/fix these two with behavioral regressions, one CI and affected native recheck. HDMI manualNOTRUN, mandatory3/10/M10blocked; PA09/M11excluded.
+
+Older checkpoints are historical.
+
+## HISTORICAL — PA354 aggregate accepted scope / PR355 correction pending
 
 Owner Codex PA01–08 only. Optional PA09/M11/live Blitzit excluded. [Current report](WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md) / [one exact continuation](../work-log/2026-10-14-pa354-review-pr355-ci.md). Source7647ffab/CI38614321520/EXE205e0a42 acquisition4/4/review4/4, tooltip1/1 scopedPHYSICAL_PASS. PA04 picker/print and M8 Preferences width corrections are in PR355 head7b54e62f / CI38630226135, new physical0/3. Whole preflight/build/rustfmt/DOM12/12/print8/8PASS; localRustcompileNOTRUN. Complete exact3/3/guardedmerge/sourceproof/artifact verification before any new launch.
 

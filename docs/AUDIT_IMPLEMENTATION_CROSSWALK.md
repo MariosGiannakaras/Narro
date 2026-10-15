@@ -1,6 +1,10 @@
 # Audit → implementation crosswalk
 
-**Current PA355 acquisition complete:** exactd772edbf source7b54e62f/main dbc3f6f2/CI38630226135. Native capture**3/3**, full914s video/screens/PDF/seven logs published; originals/motion/topology restored/no app or recorder. Phase2 aggregate review next; Preferences Escape/focus-loss observation bookmarked, invalid background attempts excluded. [One continuation](../work-log/2026-10-15-pa355-acquisition-complete.md). HDMI manualNOTRUN; mandatory3/10/M10blocked; PA09/M11excluded.
+**PA355 aggregate reviewed3/3:** acquisition3/3/full evidence published and originals restored. Picker/manual60s commit/cancel, Preferences width, tooltip containment/ownership, actual PDF/default viewer/non-overwrite/local filename **PASS scoped**. Remaining **FIX_NOW2**: Preferences Escape after theme-save focus loss; actual90day PDF adjacent final labels overlap. [Authoritative report](WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md). NEXT new narrow branch from latestmain, reproduce/fix these two with behavioral regressions, one CI and affected native recheck. HDMI manualNOTRUN, mandatory3/10/M10blocked; PA09/M11excluded.
+
+Older checkpoints are historical.
+
+**Historical PA355 acquisition freeze:** exactd772edbf source7b54e62f/main dbc3f6f2/CI38630226135. Native capture**3/3**, full914s video/screens/PDF/seven logs published; originals/motion/topology restored/no app or recorder. Phase2 aggregate review next; Preferences Escape/focus-loss observation bookmarked, invalid background attempts excluded. [One continuation](../work-log/2026-10-15-pa355-acquisition-complete.md). HDMI manualNOTRUN; mandatory3/10/M10blocked; PA09/M11excluded.
 
 Older checkpoints below are historical; active-profile setup claims are superseded by verified restoration.
 
