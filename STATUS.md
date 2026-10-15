@@ -6,7 +6,7 @@ PA356 acquisition **2/2**, review **2/2**, targeted acceptance **2/2 PASS scoped
 
 Exact PR356 sourcef7456738 / CI38688646540 all3SUCCESS / guarded main e0e7c3b3; 539/539 executable/build/test/config blobs identical. EXE b2d51e4e8b97f2feb5ae8235f91222126eca498c3615722e68531f912ec50293. Complete395.5s dual-display OBS recording, four actualPDFs, screens/nativeUIA/actions/system and whole7logs published. Personal profiles restored byte-identically, original motion/topology restored; no activeNarro/recording/viewer.
 
-**Next:** only the independently remaining PA01–08 OPEN/NOTRUN gates in the current report: quietperformance protocol, conditionalOSdenial/listenerfailure and clean-machine/older-schema/trueboot limits. HDMI is explicitly user-deferred manualNOTRUN. Do not repeat the accepted Preferences/PDF, C5, audioselection or installers, rebuild unchanged code, expand into PA09/M11, or advance M10. Canonical sourceparity remains separate from native acceptance.
+**ACTIVE:** isolatedM1Diagnostic exact73a78877, PID11832/compactFocus5900496, Maindestroyed. Performance3-run batchinprogress/2valid; OBSpreviewcomparison torecorderclosed baseline next. ProductionDBunchanged; diagnosticoriginalsprotected. [Exact active state and safety recovery](work-log/2026-10-15-pa356-performance-active.md). PriorPreferences/PDF2/2PASS retained; do notrepeat. No newbuild/CI. Native permission/disabledalerts next; hardwareHDMImanualdeferred and otherboundaries unchanged.
 
 ## Preserved project truth
 
