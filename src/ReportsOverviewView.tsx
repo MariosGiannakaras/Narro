@@ -235,6 +235,7 @@ function ReportChart({
       <div
         className="reports-overview__chart"
         style={{ "--report-chart-day-count": Math.max(1, days.length) } as CSSProperties}
+        data-report-sparse-labels={days.length > 14 ? "true" : "false"}
       >
         {days.map((day, index) => {
           const total = day.taskSeconds + day.breakSeconds;

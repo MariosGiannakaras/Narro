@@ -42,6 +42,8 @@ const mode = [
 
 document.documentElement.dataset.theme = theme;
 document.documentElement.dataset.reportsFixtureMode = mode;
+const pdfDayCount = Number(params.get("pdfDays"));
+if ([8, 31, 61, 91].includes(pdfDayCount)) document.documentElement.dataset.reportPdfExport = "true";
 document.body.classList.add("visual-fixture-body");
 
 const metrics: ReportsMetric[] = [
@@ -447,7 +449,11 @@ flushSync(() => {
     ) : (
       <ReportsOverviewView
         metrics={metrics}
-        chartDays={mode === "chart-containment" ? containmentDays : chartDays}
+        chartDays={mode === "chart-containment" ? containmentDays : [8, 31, 61, 91].includes(pdfDayCount)
+          ? Array.from({ length: pdfDayCount }, (_, index) => ({
+            id: `pdf-${index}`, label: `Wed, Oct ${String(index + 1).padStart(2, "0")}`,
+            taskSeconds: 1200, breakSeconds: 300,
+          })) : chartDays}
         productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
         timeByList={timeByList}
         doneTasks={doneTasks}
@@ -630,7 +636,42 @@ async function validateAddSessionKeyboardFixture() {
   const search = dialog!.querySelector<HTMLInputElement>('input[type="search"]');
   requireFixture(document.activeElement === search, "Opening the Add Session task picker did not focus its search.");
   requireFixture(pickerTrigger!.getAttribute("aria-expanded") === "true", "Add Session task picker did not disclose.");
-  dispatchFixtureKey(search!, "Escape");
+  const options = Array.from(dialog!.querySelectorAll<HTMLButtonElement>('[role="option"]'));
+  requireFixture(options.length > 1, "Picker regression needs multiple actual task options.");
+  const optionBounds = options[0].getBoundingClientRect();
+  requireFixture(document.elementFromPoint(optionBounds.left + optionBounds.width / 2,
+    optionBounds.top + optionBounds.height / 2)?.closest('[role="option"]') === options[0],
+    "Task option is clipped or covered by its modal/footer/backdrop.");
+  dispatchFixtureKey(search!, "ArrowDown");
+  requireFixture(document.activeElement === options[0], "Search ArrowDown did not focus the first task.");
+  dispatchFixtureKey(options[0], "End");
+  requireFixture(document.activeElement === options[options.length - 1], "Picker End did not reach the last task.");
+  dispatchFixtureKey(options[options.length - 1], "ArrowDown");
+  requireFixture(document.activeElement === options[0], "Picker ArrowDown did not wrap.");
+  dispatchFixtureKey(options[0], "Enter");
+  await wait(30);
+  requireFixture(pickerTrigger!.textContent?.includes(options[0].querySelector('span')!.textContent!),
+    "Keyboard selection did not commit the task draft.");
+  requireFixture(document.activeElement === pickerTrigger, "Selection lost picker trigger focus.");
+  pickerTrigger!.click();
+  await wait(30);
+  const mouseOption = dialog!.querySelectorAll<HTMLButtonElement>('[role="option"]')[1];
+  const mouseBounds = mouseOption.getBoundingClientRect();
+  requireFixture(document.elementFromPoint(mouseBounds.left + mouseBounds.width / 2,
+    mouseBounds.top + mouseBounds.height / 2)?.closest('[role="option"]') === mouseOption,
+    "Selected-task form clips/obscures its picker option.");
+  mouseOption.click();
+  await wait(30);
+  requireFixture(pickerTrigger!.textContent?.includes(mouseOption.querySelector('span')!.textContent!),
+    "Pointer selection did not replace the previously selected task draft.");
+  requireFixture(!dialog!.querySelector('[data-report-task-picker-open="true"]'), "Pointer selection did not close picker.");
+  requireFixture(!dialog!.querySelector<HTMLButtonElement>('footer .reports-sessions__primary')!.disabled,
+    "Selected task did not enable Add Session.");
+  document.documentElement.dataset.reportsAddPickerInteractionPass = "true";
+  pickerTrigger!.click();
+  await wait(30);
+  const reopenedSearch = dialog!.querySelector<HTMLInputElement>('input[type="search"]')!;
+  dispatchFixtureKey(reopenedSearch, "Escape");
   await wait(30);
   requireFixture(document.querySelector(".reports-sessions__add-dialog"), "Picker Escape dismissed the whole Add Session modal.");
   requireFixture(document.activeElement === pickerTrigger, "Picker Escape did not restore trigger focus.");

@@ -267,6 +267,21 @@
 
 .reports-sessions__add-dialog {
   width: min(520px, calc(100vw - 2 * var(--space-6)));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.reports-sessions__add-dialog > header,
+.reports-sessions__add-dialog > .reports-sessions__task-selector,
+.reports-sessions__add-dialog > footer { flex: 0 0 auto; }
+.reports-sessions__add-dialog > header { border-radius: var(--radius-modal) var(--radius-modal) 0 0; }
+
+.reports-sessions__add-dialog > .reports-sessions__add-fields {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .reports-sessions__add-dialog > header button,
@@ -343,12 +358,21 @@
   border-radius: var(--radius-control);
   background: var(--color-surface-raised);
   box-shadow: var(--elevation-overlay);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
 }
+
+.reports-sessions__task-selector-popover[data-picker-above="true"] { top: auto; bottom: 100%; }
+.reports-sessions__task-selector-popover > input { flex: 0 0 auto; }
 
 .reports-sessions__task-picker {
   display: grid;
   gap: 4px;
   min-width: 0;
+  min-height: 0;
+  flex: 0 1 auto;
   max-height: 190px;
   margin: var(--space-2) 0 0;
   overflow-x: hidden;

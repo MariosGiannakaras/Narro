@@ -1,4 +1,5 @@
 import { flushSync } from "react-dom";
+import { type ReactNode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import {
@@ -12,6 +13,7 @@ import type { MonitorDescriptor } from "./diagnosticApi";
 import type { ThemePreference } from "./themeApi";
 import { WindowsShortcutSettingsPanelView } from "./WindowsShortcutSettingsPanel";
 import { WindowsShortcutsDialog } from "./WindowsShortcutsDialog";
+import { PreferencesDialog } from "./PreferencesDialog";
 import type { GlobalShortcutSettingsSnapshot } from "./globalShortcutSettingsApi";
 
 const params = new URLSearchParams(window.location.search);
@@ -22,6 +24,13 @@ const error = params.get("error") === "1"
   : null;
 const shortcutConflict = params.get("shortcutConflict") === "1";
 const shortcutsDialog = params.get("shortcutsDialog") === "1";
+const preferencesDialog = params.get("preferencesDialog") === "1";
+
+function PreferencesFixture({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(true);
+  return open ? <PreferencesDialog onRequestClose={() => setOpen(false)}>{children}</PreferencesDialog>
+    : <button type="button" data-preferences-fixture-reopen="true" onClick={() => setOpen(true)}>Reopen Preferences</button>;
+}
 const section = params.get("section") ?? "upper";
 
 const preferenceSnapshot: PreferenceSettingsSnapshot = {
@@ -120,7 +129,7 @@ const root = document.getElementById("root");
 if (!root) throw new Error("Theme settings fixture root is missing.");
 
 flushSync(() => {
-  createRoot(root).render(
+  const content = (
     shortcutsDialog ? (
       <WindowsShortcutsDialog
         onRequestClose={() => undefined}
@@ -163,8 +172,9 @@ flushSync(() => {
         onChange={() => undefined}
       />
     </ThemeSettingsPanelView>
-    ),
+    )
   );
+  createRoot(root).render(preferencesDialog ? <PreferencesFixture>{content}</PreferencesFixture> : content);
 });
 
 document.documentElement.dataset.themeSettingsShortcutConflict = shortcutConflict ? "true" : "false";
@@ -178,6 +188,18 @@ const sectionTarget: Record<string, string> = {
 };
 
 window.requestAnimationFrame(() => {
+  if (preferencesDialog) {
+    const scroll = document.querySelector<HTMLElement>('.preferences-dialog__scroll');
+    if (!scroll || scroll.scrollWidth > scroll.clientWidth + 1) throw new Error('Preferences parent dialog has horizontal overflow.');
+    scroll.scrollTop = scroll.scrollHeight;
+    if (scroll.scrollTop <= 0) throw new Error('Preferences vertical scrolling was lost.');
+    scroll.scrollTop = 0;
+    const close = document.querySelector<HTMLButtonElement>('[data-preferences-close="true"]')!;
+    flushSync(() => close.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })));
+    if (document.querySelector('[data-preferences-dialog="true"]')) throw new Error('Preferences Escape did not dismiss.');
+    flushSync(() => document.querySelector<HTMLButtonElement>('[data-preferences-fixture-reopen="true"]')!.click());
+    document.documentElement.dataset.themeSettingsDialogContainmentPass = 'true';
+  }
   // Source-aligned section captures must stay inside Edge's screenshot viewport.
   // scrollIntoView scrolled the page past the visible fixture: the former
   // preferences-middle/lower PNGs were entirely blank although the DOM passed.

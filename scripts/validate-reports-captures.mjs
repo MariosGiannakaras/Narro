@@ -155,6 +155,7 @@ for (const theme of ["light", "dark"]) {
       continue;
     }
     if (mode === "sessions-add-keyboard") {
+      invariant(dom.includes('data-reports-add-picker-interaction-pass="true"'), label + " real picker hit testing/Arrow/Enter/selection draft regression did not pass");
       invariant(dom.includes('data-reports-add-keyboard-pass="true"'), label + " keyboard modal regression did not pass");
       invariant(dom.includes('data-reports-add-initial-focus="true"'), label + " initial focus regression did not pass");
       invariant(dom.includes('data-reports-add-tab-contained="true"'), label + " Tab containment regression did not pass");
