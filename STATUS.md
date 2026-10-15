@@ -1,5 +1,9 @@
 # STATUS.md
 
+**PR356 final readiness head/CI:** source`f7456738b8b8498387d4d9637409c4a384f95ba3`, [CI38688646540](https://github.com/MariosGiannakaras/Narro/actions/runs/38688646540) queued/pending. Actualready/diagnostic capture plus deterministic startup/cleanup boundary guards integrated; wholepreflight/build PASS, productfixes/assertions unchanged. [Exact continuation](work-log/2026-10-15-pa356-final-readiness-source-ci.md). Old38684913852 FAILED and38688218496 superseded/cancelrequested, not currentacceptance. Native0/2/no newEXE orprofilelaunch; M9export11/12, HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
+
+Older checkpoints below are historical.
+
 **PR356 repaired exactCI pending:** head`b43549bf24f1edb9080f5651496ef27d6c054228`, [WindowsCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496) queued/running; samebranch/PR. Productfixes/assertions unchanged, live-ready/first-failure diagnostics harness repaired; wholepreflight/build and liveCDP10/10PASS. [Exact continuation](work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). Previous38684913852 failure historical; native0/2/no newEXE orprofilelaunch. M9export11/12/M8EscapeOPEN; HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.

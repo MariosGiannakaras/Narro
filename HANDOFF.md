@@ -4,7 +4,7 @@ Owner Codex. Scope: physical PA01–08 and confirmed corrections only. PA09/M11/
 
 ## Current exact operation
 
-**NEXT AGENT ACTION:** finish existing [PR356 correctedCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496), head`b43549bf24f1edb9080f5651496ef27d6c054228`, branch`fix/pa355-preferences-keyboard-pdf-labels`. Wholepreflight/build and liveCDP10/10PASS; dedicated actual-readiness capture/first-failure diagnostics repaired, productfixes/assertions unchanged. Old9232a6a6/38684913852 is FAILED historical, not acceptance. Onnewexact3/3SUCCESS/currenthead, guardedmerge/mainproof/artifacts then protected2-groupnativeOBSsession, physical0/2. [One exact continuation](work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). No newNarro/profilelaunch.
+**NEXT AGENT ACTION:** finish existing [PR356 finalCI38688646540](https://github.com/MariosGiannakaras/Narro/actions/runs/38688646540), head`f7456738b8b8498387d4d9637409c4a384f95ba3`, branch`fix/pa355-preferences-keyboard-pdf-labels`. Wholepreflight/build and scoped6-case capturestartup guard PASS; liveCDP10/10 retained. Product fixes/assertions unchanged. Old38684913852 FAILED;38688218496 superseded/cancelrequested. Onfinalexact3/3SUCCESS/currenthead, guardedmerge/mainproof/5artifacts then protected2-groupnativeOBSsession, physical0/2. [One exact continuation](work-log/2026-10-15-pa356-final-readiness-source-ci.md). No newNarro/profilelaunch.
 
 **USER ACTION REQUIRED:** none for this continuation. Actual PA05 HDMI unplug/replug was explicitly deferred to manual continuation; keep NOTRUN and do not ask again.
 
