@@ -1,5 +1,9 @@
 # TODO.md
 
+**PR356 firstCI failure / same branch repair:** source9232a6a6/CI38684913852 first failed newPreferences actualreadiness capture; Rust/Clippy/fast and earlier Focusfixtures PASS. FailedPNG/log/entire original diagnosticsZIP published, exactstoppedphaseUNKNOWN because olddriver discarded failedDOM. [Narrow readiness/observability repair](work-log/2026-10-15-pa356-first-ci-readiness-failure.md) inprogress; productfixes/assertions unchanged, no newEXE/profile launch, native0/2. M9export11/12, mandatory3/10/M10blocked; HDMI manualNOTRUN; PA09/M11excluded.
+
+Earlier pendingCI checkpoints are historical.
+
 **PR356 correction checkpoint:** [PR356](https://github.com/MariosGiannakaras/Narro/pull/356), branch`fix/pa355-preferences-keyboard-pdf-labels`, exacthead`9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97`, [WindowsCI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) queued/running. PA355 capture/review**3/3** published; two confirmed residual fixes implemented with failing-before/passing-after regressions. Whole frontend preflight/finalTS+build/rustfmt PASS, browserPreferences12/12, print8/8, printlengths3660/3660. Corrected physical**0/2** until exact new EXE. NEXT finish this exactCI, expected-head merge/main source proof and artifact verification, then protected targeted Preferences/PDF capture only. Original profiles restored/no Narro/recorder. HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.

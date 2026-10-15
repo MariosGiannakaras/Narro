@@ -4,7 +4,7 @@ Owner Codex. Scope: physical PA01–08 and confirmed corrections only. PA09/M11/
 
 ## Current exact operation
 
-**NEXT AGENT ACTION:** complete the existing [Windows CI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) for [PR356](https://github.com/MariosGiannakaras/Narro/pull/356), branch`fix/pa355-preferences-keyboard-pdf-labels`, head`9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97`. Validation+fast **2/3PASS**, Windows candidate active. Do not open another PR or restart discovery. On3/3SUCCESS/currenthead, expected-head guarded merge, source/build/test/config blob equality and unchanged-workflow proof, download/verify original5artifacts. Only then execute the prepared targeted2-group Windows session; current new-artifact physical **0/2**.
+**NEXT AGENT ACTION:** repair the first exact [PR356 CI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) failure on existing branch`fix/pa355-preferences-keyboard-pdf-labels`: new Preferences fixture did not reach readiness under CLI800ms virtualtime, failedDOM not retained. Sourcebase9232a6a6; narrow liveCDP readiness/first-failure diagnostics repair inprogress, product fixes/assertions unchanged. Finish local preflight/livebrowser replay, forwardcommit and one new exactheadCI; then guardedmerge/sourceproof/artifacts/native0/2. [Exact first failure and next action](work-log/2026-10-15-pa356-first-ci-readiness-failure.md). No new executable/profile launch; original profiles restored.
 
 **USER ACTION REQUIRED:** none for this continuation. Actual PA05 HDMI unplug/replug was explicitly deferred to manual continuation; keep NOTRUN and do not ask again.
 
