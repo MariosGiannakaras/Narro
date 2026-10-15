@@ -1,5 +1,9 @@
 # Audit → implementation crosswalk
 
+**PR356 repaired exactCI pending:** head`b43549bf24f1edb9080f5651496ef27d6c054228`, [WindowsCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496) queued/running; samebranch/PR. Productfixes/assertions unchanged, live-ready/first-failure diagnostics harness repaired; wholepreflight/build and liveCDP10/10PASS. [Exact continuation](../work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). Previous38684913852 failure historical; native0/2/no newEXE orprofilelaunch. M9export11/12/M8EscapeOPEN; HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
+
+Older checkpoints below are historical.
+
 **PR356 firstCI failure / same branch repair:** source9232a6a6/CI38684913852 first failed newPreferences actualreadiness capture; Rust/Clippy/fast and earlier Focusfixtures PASS. FailedPNG/log/entire original diagnosticsZIP published, exactstoppedphaseUNKNOWN because olddriver discarded failedDOM. [Narrow readiness/observability repair](../work-log/2026-10-15-pa356-first-ci-readiness-failure.md) inprogress; productfixes/assertions unchanged, no newEXE/profile launch, native0/2. M9export11/12, mandatory3/10/M10blocked; HDMI manualNOTRUN; PA09/M11excluded.
 
 Earlier pendingCI checkpoints are historical.

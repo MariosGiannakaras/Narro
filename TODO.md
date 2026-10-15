@@ -1,5 +1,9 @@
 # TODO.md
 
+**PR356 repaired exactCI pending:** head`b43549bf24f1edb9080f5651496ef27d6c054228`, [WindowsCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496) queued/running; samebranch/PR. Productfixes/assertions unchanged, live-ready/first-failure diagnostics harness repaired; wholepreflight/build and liveCDP10/10PASS. [Exact continuation](work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). Previous38684913852 failure historical; native0/2/no newEXE orprofilelaunch. M9export11/12/M8EscapeOPEN; HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
+
+Older checkpoints below are historical.
+
 **PR356 firstCI failure / same branch repair:** source9232a6a6/CI38684913852 first failed newPreferences actualreadiness capture; Rust/Clippy/fast and earlier Focusfixtures PASS. FailedPNG/log/entire original diagnosticsZIP published, exactstoppedphaseUNKNOWN because olddriver discarded failedDOM. [Narrow readiness/observability repair](work-log/2026-10-15-pa356-first-ci-readiness-failure.md) inprogress; productfixes/assertions unchanged, no newEXE/profile launch, native0/2. M9export11/12, mandatory3/10/M10blocked; HDMI manualNOTRUN; PA09/M11excluded.
 
 Earlier pendingCI checkpoints are historical.
@@ -763,7 +767,7 @@ Acceptance criteria:
   - [ ] **A11/B32 Sessions detail modal focus/lifecycle:** **CODE INTEGRATED** via PR286 finalhead`bbc6d0ac50678a0e6590801e8169bc7ee4a6c4d7`, merge`af11f115803bbd6d6ad5a2b94b61aaa185a1a0d5` present oncurrentmain. PA350/PA355 native nested Add/Cancel/commit and focus-return scopes are accepted where exercised. Direct source keyboard-detail parity remains OPEN; old failed intermediate heads are historical, not current unmerged work.
 - [x] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented. Authoritative reporting persistence regression remains green in resulting-main CI #907.
 - [ ] Implement evidence-selected exports: **REOPENED only for current PDF legibility; Sessions CSV acceptance retained.**
-  - [ ] Overview -> PDF — **REOPENED physical legibility**: old CI1046 creation/defaultNitro/rendering/non-overwrite PASS remains historical. PA355 re-establishes actual defaultviewer/non-overwrite/inclusive filenames, but90day adjacent final labels overlap. PR356 exactCI38684913852/native0/1 pending; do not close from browser fixtures alone. [Current report](docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md).
+  - [ ] Overview -> PDF — **REOPENED physical legibility**: old CI1046 creation/defaultNitro/rendering/non-overwrite PASS remains historical. PA355 re-establishes actual defaultviewer/non-overwrite/inclusive filenames, but90day adjacent final labels overlap. PR356 exactCI38688218496/native0/1 pending; do not close from browser fixtures alone. [Current report](docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md).
   - [x] Sessions -> CSV — implemented fully locally in PR #226 / CI #915, present on current `main`, and resulting-main CI #917 PASSed. The export uses the active report range/list/break filter, writes a non-overwriting UTF-8 CSV to local Downloads, and performs CSV escaping/formula-prefix hardening.
 - [x] Verify archived lists/tasks remain represented correctly in historical reports. Archived-history projection/regression remains green in resulting-main CI #907.
 - [x] Limit chart animation to initial load/filter changes; no continuous chart motion. Production chart transitions are data-change driven only, with reduced-motion handling; visual/runtime contracts PASSed CI #906/#907.

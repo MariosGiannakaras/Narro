@@ -1,5 +1,9 @@
 # Current Windows residual physical session
 
+**PR356 repaired exactCI pending:** head`b43549bf24f1edb9080f5651496ef27d6c054228`, [WindowsCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496) queued/running; samebranch/PR. Productfixes/assertions unchanged, live-ready/first-failure diagnostics harness repaired; wholepreflight/build and liveCDP10/10PASS. [Exact continuation](../work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). Previous38684913852 failure historical; native0/2/no newEXE orprofilelaunch. M9export11/12/M8EscapeOPEN; HDMI manualNOTRUN, mandatory3/10/M10blocked, PA09/M11excluded.
+
+Older checkpoints below are historical.
+
 **PR356 correction checkpoint:** [PR356](https://github.com/MariosGiannakaras/Narro/pull/356), branch`fix/pa355-preferences-keyboard-pdf-labels`, exacthead`9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97`, [WindowsCI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) queued/running. PA355 capture/review**3/3** published; two confirmed residual fixes implemented with failing-before/passing-after regressions. Whole frontend preflight/finalTS+build/rustfmt PASS, browserPreferences12/12, print8/8, printlengths3660/3660. Corrected physical**0/2** until exact new EXE. NEXT finish this exactCI, expected-head merge/main source proof and artifact verification, then protected targeted Preferences/PDF capture only. Original profiles restored/no Narro/recorder. HDMI manualNOTRUN; mandatory3/10/M10blocked, PA09/M11excluded.
 
 Older checkpoints below are historical.

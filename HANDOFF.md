@@ -4,7 +4,7 @@ Owner Codex. Scope: physical PA01–08 and confirmed corrections only. PA09/M11/
 
 ## Current exact operation
 
-**NEXT AGENT ACTION:** repair the first exact [PR356 CI38684913852](https://github.com/MariosGiannakaras/Narro/actions/runs/38684913852) failure on existing branch`fix/pa355-preferences-keyboard-pdf-labels`: new Preferences fixture did not reach readiness under CLI800ms virtualtime, failedDOM not retained. Sourcebase9232a6a6; narrow liveCDP readiness/first-failure diagnostics repair inprogress, product fixes/assertions unchanged. Finish local preflight/livebrowser replay, forwardcommit and one new exactheadCI; then guardedmerge/sourceproof/artifacts/native0/2. [Exact first failure and next action](work-log/2026-10-15-pa356-first-ci-readiness-failure.md). No new executable/profile launch; original profiles restored.
+**NEXT AGENT ACTION:** finish existing [PR356 correctedCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496), head`b43549bf24f1edb9080f5651496ef27d6c054228`, branch`fix/pa355-preferences-keyboard-pdf-labels`. Wholepreflight/build and liveCDP10/10PASS; dedicated actual-readiness capture/first-failure diagnostics repaired, productfixes/assertions unchanged. Old9232a6a6/38684913852 is FAILED historical, not acceptance. Onnewexact3/3SUCCESS/currenthead, guardedmerge/mainproof/artifacts then protected2-groupnativeOBSsession, physical0/2. [One exact continuation](work-log/2026-10-15-pa356-repaired-readiness-exact-ci.md). No newNarro/profilelaunch.
 
 **USER ACTION REQUIRED:** none for this continuation. Actual PA05 HDMI unplug/replug was explicitly deferred to manual continuation; keep NOTRUN and do not ask again.
 
