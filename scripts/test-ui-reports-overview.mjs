@@ -120,4 +120,5 @@ if ((view.match(/className="reports-overview__metric"/g) ?? []).length !== 1) {
 }
 
 await import("./test-report-chart-tooltip-placement.mjs");
+await import("./test-report-chart-print-labels.mjs");
 console.log("Reports Overview presentational/fixture contract checks passed.");

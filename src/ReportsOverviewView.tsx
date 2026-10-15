@@ -1,4 +1,5 @@
 import { ActionIcon } from "./ActionIcon";
+import { reportChartPrintLabelIndices } from "./reportChartPrintLabels";
 import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
@@ -208,6 +209,7 @@ function ReportChart({
     };
   }, [activeTooltipDayId, days]);
 
+  const printLabelIndices = reportChartPrintLabelIndices(days.length);
   return (
     <section className="reports-overview__chart-card" aria-labelledby="reports-productivity-title">
       <div className="reports-overview__section-heading">
@@ -271,7 +273,7 @@ function ReportChart({
                   {visibleSeries.breaks && day.breakSeconds > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" /> : null}
                   {visibleSeries.total && total > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--total" /> : null}
                 </span>
-                <span className="reports-overview__chart-label">
+                <span className="reports-overview__chart-label" data-report-print-label={printLabelIndices.has(index) ? "true" : "false"}>
                   {days.length <= 14 || index % 7 === 0 || index === days.length - 1 ? day.label : ""}
                 </span>
               </button>

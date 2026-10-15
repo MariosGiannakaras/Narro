@@ -138,4 +138,5 @@ invariant(!preferenceSections.includes('aria-label="More information"')
   && !preferenceSections.includes('data-preference-info-trigger'),
   "SS-C07 does not establish a tooltip or clickable information action");
 
+await import("./test-ready-fixture-startup.mjs");
 console.log("Theme settings/runtime contract: PASS");

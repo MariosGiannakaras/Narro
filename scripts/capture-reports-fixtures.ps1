@@ -51,6 +51,11 @@ function Capture-ReportsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "reports-print-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=print"
+            if ($LASTEXITCODE -ne 0) { throw "Reports actual-print readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         for ($attempt = 1; $attempt -le 2; $attempt++) {
             # Allow the sequential chart interaction matrix to finish; ordinary
             # static fixtures keep their existing budget.
@@ -127,6 +132,11 @@ try {
         foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "chart-containment", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard")) {
             $label = "reports-$reportsMode-$theme"
             $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=$reportsMode"
+            Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
+        }
+        foreach ($days in @(8, 31, 61, 91)) {
+            $label = "reports-print-$days-$theme"
+            $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=overview&pdfDays=$days"
             Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
         }
     }
