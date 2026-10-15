@@ -8,6 +8,8 @@ PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised
 
 **Task boundary:** authorized PA01–08 campaign complete within stated limits; no remaining user action for this scope. Do not repeat accepted checks or startPA09/M11/M10. Later ordinary implementation resumes earliest actual M5–M9 open gate.
 
+Continuation reconciliation **3/3**: live GitHub/CI/main ancestry corrected stale PR285/289/295 implementation states; all are already integrated. [Tracking-only receipt](work-log/2026-10-15-completed-pr-tracking-reconciliation.md). No application code, tests or physical acceptance changed. The earliest M5 remaining gate is PA09 existing-corpus comparison; clarification of that scope is pending because the preceding instruction limited this campaign to PA01–08. Mandatory4/10 and accepted native evidence remain unchanged.
+
 ## Preserved project truth
 
 Narro remains local-only Windows; SpectrumCore picker, imageupload and218icons locked. OptionalM11 dormant; no allM1–M9 completion claim. U01–U41 Narro-local coverage41/41 and original nine source gaps9/9 are separate from physical/milestone/sourceparity acceptance. Current PR345/347/source-owner acceptance is retained in the linked immutable snapshot and its original reports; no other workstream was reverted.

@@ -1,0 +1,45 @@
+{
+  "verifiedAtUtc": "2026-10-15T17:44:59.224849+00:00",
+  "method": "Live gh pr view state/head/merge/statusCheckRollup plus git merge-base ancestry; evidence only, not new native/source parity acceptance",
+  "prs": [
+    {
+      "pr": 285,
+      "head": "c2de5400a9e14d9c29ab6887b6026aa0dc5c0f95",
+      "merge": "b68942aa4149941742e646be3e1c028485c9440f",
+      "ci": 37917252663,
+      "state": "MERGED",
+      "requiredCiResults": [
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS"
+      ],
+      "currentMainAncestor": true
+    },
+    {
+      "pr": 289,
+      "head": "1bbfbf092de90a79393564a93a8127e75da3f670",
+      "merge": "083acef676ea422ecc901b64469f4f898c9e5f63",
+      "ci": 37928150288,
+      "state": "MERGED",
+      "requiredCiResults": [
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS"
+      ],
+      "currentMainAncestor": true
+    },
+    {
+      "pr": 295,
+      "head": "3b11e37c88c4e51c1f062391a8ce85fc73e65964",
+      "merge": "ab763cb247b380fb587261ff760988d780a83daf",
+      "ci": 37988686663,
+      "state": "MERGED",
+      "requiredCiResults": [
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS"
+      ],
+      "currentMainAncestor": true
+    }
+  ]
+}
