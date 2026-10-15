@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5",
+  "ci": 38630226135,
+  "pr": 355,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA355-native-20261014\\analysis\\validation\\narro-m7-validation.exe",
+  "sha256": "d772edbfe09711ced7a5780dcedfd7bb8429999f4cc409ccb5e9f74377a8d074",
+  "scope": "Three grouped exact Windows checks: Preferences containment; actual Sessions keyboard/pointer/commit; PDF30/90-day range/viewer/non-overwrite and tooltip return"
+}

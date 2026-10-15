@@ -1,0 +1,8 @@
+{
+  "pid": 9072,
+  "processStartUtc": "2026-10-15T04:32:11.4526507Z",
+  "method": "gdigrab full virtual desktop 4480x1080 60fps",
+  "hardCapSeconds": 1200,
+  "utcCorrelation": "process start approximate; action timestamps exact",
+  "computerUseImage": "FrameArrived timed out; native UIA and real input with continuous gdigrab used"
+}

@@ -1,6 +1,10 @@
 # STATUS.md
 
-**Current PA355 exact candidate accepted:** PRhead7b54e62f/CI38630226135 **3/3 PASS**, guarded main**dbc3f6f2**, source532/532/workflow identical; five SHA/CRC artifacts published, exactx64EXE**d772edbf**. [One next operation](work-log/2026-10-15-pa355-merged-native-ready.md): fresh protected native3-group capture/aggregate acceptance**0/3**. PA3544/4capture/review and tooltip1/1 scopedPASS retained. Owned profile ACTIVE/exactPID13792/MainHWND14291232; originals protected with verified backup, capture next; HDMI manualNOTRUN. Mandatory3/10/M10blocked; PA09/M11excluded.
+**Current PA355 acquisition complete:** exactd772edbf source7b54e62f/main dbc3f6f2/CI38630226135. Native capture**3/3**, full914s video/screens/PDF/seven logs published; originals/motion/topology restored/no app or recorder. Phase2 aggregate review next; Preferences Escape/focus-loss observation bookmarked, invalid background attempts excluded. [One continuation](work-log/2026-10-15-pa355-acquisition-complete.md). HDMI manualNOTRUN; mandatory3/10/M10blocked; PA09/M11excluded.
+
+Older checkpoints below are historical; active-profile setup claims are superseded by verified restoration.
+
+**Historical PA355 exact candidate setup:** PRhead7b54e62f/CI38630226135 **3/3 PASS**, guarded main**dbc3f6f2**, source532/532/workflow identical; five SHA/CRC artifacts published, exactx64EXE**d772edbf**. [One next operation](work-log/2026-10-15-pa355-merged-native-ready.md): fresh protected native3-group capture/aggregate acceptance**0/3**. PA3544/4capture/review and tooltip1/1 scopedPASS retained. Owned profile ACTIVE/exactPID13792/MainHWND14291232; originals protected with verified backup, capture next; HDMI manualNOTRUN. Mandatory3/10/M10blocked; PA09/M11excluded.
 
 Older checkpoints below are historical.
 
