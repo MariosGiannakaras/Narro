@@ -25,6 +25,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       : `Queue task ${index + 1} with long readable title`,
     estSeconds: null, timeTakenSeconds: "0", subtaskTotalCount: 0, subtaskCompletedCount: 0,
     scheduledLocalDate: null, scheduledLocalTime: null, isOverdue: false, completedAt: null,
+    updatedAt: "2026-10-06T09:00:00Z",
   }));
   const timer: TimerSessionPayload = { revision: 1, awaitingResume: false, change: null,
     runtime: { open_session_id: null, timer: { state: "idle", task_id: null,
@@ -112,6 +113,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let deferredDelete: (() => void) | undefined;
   const dragCalls: Array<Record<string, unknown>> = [];
   const createCalls: Array<Record<string, unknown>> = [];
+  const quickClearCalls: Array<Record<string, unknown>> = [];
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -218,6 +220,26 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         boardTasks = boardTasks.filter(other => other.id !== task.id);
         const before = args.beforeTaskId ? boardTasks.findIndex(other => other.id === args.beforeTaskId) : -1;
         boardTasks.splice(before < 0 ? boardTasks.length : before, 0, task);
+        return;
+      }
+      if (command === "get_list_board_task_schedule_editor") {
+        const task = boardTasks.find(task => task.id === args.taskId)!;
+        assert(task && task.listId === args.listId && task.scheduledLocalDate, "invalid quick-clear editor identity");
+        return { taskId: task.id, listId: task.listId, updatedAt: task.updatedAt,
+          schedule: { kind: "date_only", local_date: task.scheduledLocalDate },
+          recurrenceParentTaskId: task.recurrenceParentTaskId ?? null, recurrence: null,
+          deleteExistingEligibleCount: 0, protectedExistingCount: 0 };
+      }
+      if (command === "quick_clear_list_board_task_schedule") {
+        const request = args.request as Record<string, unknown>;
+        quickClearCalls.push(request);
+        const task = boardTasks.find(task => task.id === request.taskId)!;
+        assert(task && request.listId === task.listId && request.expectedUpdatedAt === task.updatedAt
+          && request.expectedRecurrenceParentTaskId === (task.recurrenceParentTaskId ?? null)
+          && (request.expectedSchedule as { local_date: string }).local_date === task.scheduledLocalDate
+          && typeof request.fallbackDisplayTimezone === "string", "quick clear lost authoritative CAS/timezone arguments");
+        boardTasks = boardTasks.map(other => other.id === task.id
+          ? { ...other, scheduledLocalDate: null, scheduledLocalTime: null, updatedAt: "2026-10-06T09:01:00Z" } : other);
         return;
       }
       if (command === "create_list_board_task") {
@@ -881,6 +903,24 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     "repeated Board create lost or aliased task identities");
   taskLanes.clear();
 
+  // Exercise the actual Board menu, read/version check, dedicated native API,
+  // event refresh and retained identity. Rust tests own the real SQLite lane
+  // projection/atomicity; this mock never claims to prove that backend logic.
+  boardTasks = [{ ...tasks[0], title: "Future scheduled task", scheduledLocalDate: "2026-12-18" }];
+  taskLanes.set(tasks[0].id, "backlog");
+  renderBoard("quick-clear"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[aria-label="Task actions"]')!.click(); await wait();
+  const quickX = container.querySelector<HTMLButtonElement>('[data-task-schedule-quick-remove] [role="menuitem"]')!;
+  assert(quickX, "real scheduled menu omitted quick-X");
+  quickX.click(); quickX.click(); await wait(); await wait(); await wait();
+  assert(quickClearCalls.length === 1 && boardTasks.length === 1 && boardTasks[0].id === tasks[0].id
+    && boardTasks[0].scheduledLocalDate === null && laneTasks("backlog")[0].id === tasks[0].id,
+    "quick-X handler failed dedicated once-only command/refresh/identity path");
+  container.querySelector<HTMLButtonElement>('[aria-label="Task actions"]')!.click(); await wait();
+  assert(!container.querySelector('[data-task-schedule-quick-remove]'), "committed quick-X left stale scheduled controls");
+  document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true })); await wait();
+  taskLanes.clear();
+
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -980,5 +1020,5 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true,
     sourceMenuCompactPlain: true, deleteConfirmationGeometryStable: true, sourceEmptyAllFourLanes: true,
     sourceCreateTitleLabel: true, sourceBottomCreateNewestFirst: true, sourceCreateFormPositionStable: true,
-    sourceCreateIndependentIdentities: true };
+    sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true };
 }

@@ -131,7 +131,6 @@ for (const [haystack, needle, label] of [
   [board, "const handleRemoveRecurring = async (task: ListBoardTask)", "parent quick-remove handler"],
   [board, "const handleQuickRemoveSchedule = async (task: ListBoardTask)", "non-destructive child schedule quick-remove handler"],
   [board, "expectedQuickRemoveSchedule(task, latest)", "fresh authoritative stale-safe schedule and identity match"],
-  [board, 'schedule: { kind: "none" }', "existing atomic schedule removal command reuse"],
   [board, 'await handleScheduleCommitted(task.id, "Removed schedule from task.");', "committed quick removal refresh"],
   [board, "quickRemoveScheduleInFlightRef.current = true", "double invocation guarded"],
   [board, 'setMutationRefreshBlocked(true);', "ambiguous post-commit mutation blocked"],
