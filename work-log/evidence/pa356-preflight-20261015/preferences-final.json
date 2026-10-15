@@ -1,0 +1,28 @@
+[
+  {
+    "theme": "dark",
+    "result": {
+      "theme": "dark",
+      "themeSettingsDialogContainmentPass": "true",
+      "themeSettingsFixtureReady": "true",
+      "themeSettingsKeyboardPass": "true",
+      "themeSettingsSection": "upper",
+      "themeSettingsShortcutConflict": "false",
+      "themeSettingsShortcutLabelsHidden": "true",
+      "themeSettingsShortcutsDialog": "false"
+    }
+  },
+  {
+    "theme": "light",
+    "result": {
+      "theme": "light",
+      "themeSettingsDialogContainmentPass": "true",
+      "themeSettingsFixtureReady": "true",
+      "themeSettingsKeyboardPass": "true",
+      "themeSettingsSection": "upper",
+      "themeSettingsShortcutConflict": "false",
+      "themeSettingsShortcutLabelsHidden": "true",
+      "themeSettingsShortcutsDialog": "false"
+    }
+  }
+]
