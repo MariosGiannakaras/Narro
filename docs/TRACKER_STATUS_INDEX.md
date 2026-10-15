@@ -1,6 +1,6 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## CURRENT 2026-10-12 — use one active owner for each kind of state
+## CURRENT 2026-10-15 — use one active owner for each kind of state
 
 **Start here:** [AI_START_HERE](../AI_START_HERE.md) → [HANDOFF](../HANDOFF.md) → [TODO](../TODO.md) → [STATUS](../STATUS.md). The latest explicit user direction and current GitHub source/CI override old tracker checkpoints. Do not infer a new coding task from a historical tracker or source screenshot alone.
 
@@ -10,12 +10,12 @@
 | Fixed milestone work order | [TODO.md](../TODO.md) | Intact mandatory M1–M10 gates and Final Review; optional M11 hard opt-in. Unchecked native/source acceptance rows are **not** a count of missing implemented features |
 | Current source, release, product decisions | [STATUS.md](../STATUS.md) | Concise accepted executable identity, boundaries and canonical links; old durable decisions preserved byte-for-byte in immutable tracker snapshot |
 | User-facing counters | [PROGRESS_REPORTING.md](PROGRESS_REPORTING.md), [41-ID ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md) | **41/41 local coverage → 9/9 specific code gaps → 3/10 physically accepted milestones**. No modern-original Blitzit parity claim |
-| Native Windows physical acceptance | [CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md](CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md), [risk audit](PRE_CODEX_RISK_AUDIT_2026-10-11.md) | 9 Codex PA scenarios **USER-PAUSED / NOT RUN**, 7 mandatory milestones not fully accepted. No installer/AppData/user-data operations permitted |
-| Source evidence and parity | [EVIDENCE_ROUTING_MAP.md](EVIDENCE_ROUTING_MAP.md) → [Pass-3 tracker](BLITZIT_FORENSIC_PASS3_TRACKER.md) → [U01–41 register](BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md) → [PA-09 accepted-release screenshot cross-comparison](PA09_EXISTING_EVIDENCE_RELEASE_COMPARISON_2026-10-13.md) | 46/46 original screenshots and 19/19 videos source-inspected; all 22/22 current v2.6.69 static source screenshots now sampled against last accepted Narro fixtures but not like-state/source-parity PASS. SS-C17 actual modal and blank middle/lower Preferences screenshot evidence fixes in [PR345](https://github.com/MariosGiannakaras/Narro/pull/345), CI pending. M11 optional/dormant |
+| Native Windows physical acceptance | [Current native session](CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md), [PA355 report](WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md), [HANDOFF](../HANDOFF.md) | PA01–08 explicitly resumed; aggregate PA dispositions8/8 reviewed, latest capture/review3/3. PR356 two residual corrections exactCI pending/newphysical0/2. Original profile restored; HDMI user-deferred manualNOTRUN. PA09/M11 excluded; mandatory3/10/M10blocked |
+| Source evidence and parity | [Routing](EVIDENCE_ROUTING_MAP.md) → [Pass3](BLITZIT_FORENSIC_PASS3_TRACKER.md) → [U01–41 register](BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md) | Original46screens/19videos inspected; prior PA09 existing-evidence comparison remains historical. PR345 actualShortcuts/Preferences fixture corrections merged asfa063143, current source preserved. Native acceptance and canonical source parity remain distinct; current scope excludes PA09/M11/liveBlitzit |
 | Evidence-backed engineering risk | [NARRO_ENGINEERING_RISK_REGISTER.md](NARRO_ENGINEERING_RISK_REGISTER.md), [CI validation](CI_VALIDATION_STRATEGY.md) | Remediation must follow a new evidenced source/test failure; do not erase acceptance tests for easier CI |
 | Immutable implementation/evidence | `work-log/*.md`, `work-log/evidence/**`, [final U04 Windows release proof](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md) | Immutable; never rewrite or delete to tidy the repo |
 
-## CURRENT branch provenance review — 2026-10-12 (20 retained; no deletion)
+## HISTORICAL branch provenance review — 2026-10-12 (20 retained; no deletion)
 
 **User-directed repository consolidation, checkpoint 1.** Latest inspected `main` head **`fd8ee410cfd9c882160c565ab5a743420f6bd971`**, no open PRs. All **20 non-main branches** were individually compared via GitHub against this head (values `ahead / behind` are *commits relative to main*, not outstanding bugs or work units). **2 fully behind / 18 diverged**. Seven exact PR head associations were separately checked live and all seven PRs are CLOSED **without merge**; their original proposals must not override the newer validated main. No branches were deleted, rebased, force-pushed, or reused. Full prior shallow audit is in [repository hygiene review](REPOSITORY_HYGIENE_SHALLOW_PASS_2026-10-12.md).
 
