@@ -1,6 +1,8 @@
 # PR358 — coherent M5 quick-clear and Search candidate
 
-The completed PR357 physical slice is published on main188b73d2: acquisition/review/acceptance4/4; no repetition required. Current source [PR358](https://github.com/MariosGiannakaras/Narro/pull/358) head `17d8ad043e8b1851ade32ea8d1795841854257c1`, [CI38825996083](https://github.com/MariosGiannakaras/Narro/actions/runs/38825996083) **RUNNING**, implements the next confirmed B70/U36 correction and reuses existing PR346 SS-C06 Search CSS. Native acceptance for this new two-claim slice is **0/2 OPEN**. No new personal-profile isolation or recording has started.
+**Current candidate update:** head6a6079465fab293b973258083550192d640f4884 / CI38826523275RUNNING. First head17d8ad04/CI38825996083 failed Clippy shared-fixture dead-code only; test-setup correction uses existing builders. Product/API/CSS unchanged, localfrontend receipts reused. [Diagnosis + additional B55 reuse](2026-10-16-pa357-home-heading-reuse-and-pr358-ci-disposition.md).
+
+The completed PR357 physical slice is published on main188b73d2: acquisition/review/acceptance4/4; no repetition required. Current source [PR358](https://github.com/MariosGiannakaras/Narro/pull/358) head `17d8ad043e8b1851ade32ea8d1795841854257c1`, [CI38825996083](https://github.com/MariosGiannakaras/Narro/actions/runs/38825996083) **FAILED at test-fixture Clippy / superseded**, implements the next confirmed B70/U36 correction and reuses existing PR346 SS-C06 Search CSS. Native acceptance for this new two-claim slice is **0/2 OPEN**. No new personal-profile isolation or recording has started.
 
 ## Root-cause correction and invalidation boundary
 
