@@ -1,5 +1,7 @@
 # HANDOFF — PA01–08 Windows acceptance
 
+**Source-evidence rule (user clarification, 2026-10-15):** existing screenshots/videos/Pass-3 drive current acceptance. A directly demonstrated older behavior is assumed unchanged where newer evidence does not cover it; do not defer it to M11 solely for age. Preserve approved Narro exceptions and label genuinely unobserved details accurately. U01-U41 are 41/41 locally implemented concerns, not 41 missing features. Reconcile existing U24/U25/U36/U39 demonstrated differences; U28 source composition already integrated/acceptance open. [Full rule and provenance](work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).
+
 ## Current operation — PA09 existing-corpus M5 comparison
 
 PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](docs/WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.

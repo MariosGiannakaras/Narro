@@ -1,5 +1,9 @@
 # Audit → implementation crosswalk
 
+## CURRENT source-version routing — 2026-10-15
+
+The user's cross-version continuity rule in AGENTS.md supersedes dated caveats that require a new-version recording despite direct older evidence. Use the demonstrated old behavior/visual as the target when no contradictory newer evidence exists; missing coverage is not a change. Reconcile existing U24/B44, U25/B47, U36/B70 and U39/B61 against that target with invariants preserved. U28/B52 source anatomy already merged in PR289; remaining acceptance is distinct from implementation. Retain accepted U21-U23 implementations and approved Narro deviations. Truly unobserved outcomes/formulas remain unknown. This updates routing only, not source-parity PASS or milestone counters. [Review provenance and exact boundaries](../work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).
+
 PA01–08 **8/8 dispositioned; no confirmed native FAIL remains in the exercised scope**. PA06 visible banners2/2PASS plus OS enabled/disabled matrix3/3 reviewed; actual original FocusAssistAlarms-only restored. PA05 software/native topologyPASS, physicalHDMI **NOT RUN / accepted unavailable limitation**; no cable action pending. **M1–M4 complete:4/10 mandatory milestones; M10blocked**. PA09 existing-corpus comparison ACTIVE; optionalM11/liveBlitzit remain excluded. [Final report](WINDOWS_PA01_08_FINAL_2026-10-15.md). No new productpatch/PR/CI; exactPR356 sourcef7456738/CI38688646540 all3SUCCESS retained. Approved SpectrumCore/imageupload/218icons unchanged.
 
 Prior targeted/residual summaries below are historical acquisition checkpoints; the final report supersedes their remaining PA06-next claims, not their original evidence.
