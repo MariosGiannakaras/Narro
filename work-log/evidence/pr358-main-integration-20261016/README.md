@@ -1,0 +1,3 @@
+# PR358 accepted integration
+
+Exact6a607946/CI38826523275 all3jobsSUCCESS; guarded merge0a4267bb,553 build/test/config/workflow input identity. Duplicate main38828452837 cancelled after identity proof under CI strategy7, not a source failure. Previous docs/evidence-only38828156179 was cancelled after verifying no build input changed; subsequent evidence commits use skip-ci. Artifact12015807692 providerSHA/CRC/x64 validated, EXEa0c710ce664d081fb4ceab6045285f19fd0d34a84d639281d5143e722b99bd15. New native acceptance0/2 pending; prior4/4 and B55 retained. PR346closed as reused implementation is now integrated.
