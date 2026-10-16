@@ -10,3 +10,6 @@ C5 automatic **INCONCLUSIVE**, expected: this Board/Panel run does not exercise 
 
 
 [Exact original structured bytes](raw-structured-evidence.zip) and [archive SHA](raw-structured-evidence.json) preserve all UIA/log/chronology bytes across Git newline normalization. Earlier controller-adaptation label198 means **098**; no action198 occurred. Whole sibling EXE logs were copied after normalQuit; originals restored, owned profile retained locally.
+
+
+Scope clarification: **All Lists creation was unavailable**, and **completed task subtasks were read-only**. The captured All task was completed, so this does not prove blanket read-only semantics for all pending tasks in All Lists. Existing task-specific edits may retain their true owning list; no product policy change is inferred from this capture. Canonical calibration records SS-C06/SS-H11 are SYSTEM_REFERENCE and SS-H12 SYSTEM_COVERED in the completed visual-calibration tracker; this was direct final verification, not a new research pass.
