@@ -2,7 +2,9 @@
 
 Status: **DORMANT / STRICTLY OPT-IN**.
 
-This protocol defines the optional post-M10 live Blitzit audit. Its purpose is to observe the actual product interactively and capture both the user-visible experience and the **observable client/backend/state contract** that cannot be recovered reliably from curated screenshots, tutorials and recordings.
+This protocol defines the optional post-M10 live Blitzit audit. **Its overriding product goal is to make Narro reproduce the real Blitzit as faithfully as evidence permits—visually, interactively and functionally across every in-scope interface, state and transition.** This includes exact user-visible content, layouts, original palette, animation and micro-animation, micro-interactions, modal/menu/message behavior, state changes and persistence, rather than mere screenshot similarity. Where Blitzit's internal source code is unavailable, reconstruct the complete observable behavior through sound Narro-local engineering with meaningful validation.
+
+**Evidence acquisition is a means to that product goal, not a separate objective that displaces it.** Use the user-guided continuous recording, synchronized observable client/protocol/state capture, authentic client assets/theme evidence and proportionate static/dynamic investigation to resolve what the application actually does. Do not require knowledge of hidden server code to reproduce demonstrated behavior. Do not substitute invented Blitzit specifics for missing evidence; record bounded unknowns and defensible Narro-local choices.
 
 The audit is deliberately phase-gated:
 
@@ -347,8 +349,10 @@ Re-run:
 M11 is complete only when:
 - the planned capture campaign is complete and frozen;
 - the entire frozen corpus has been analyzed;
+- the per-interface/component/state/transition coverage ledger accounts for all planned and discovered in-scope scenarios, with source evidence or an explicit unavailable/not-observed disposition rather than assumed coverage;
 - all material findings are reconciled;
 - every selected Narro correction is implemented and validated;
+- the corrected Narro surfaces and interactions have **source-to-Narro side-by-side visual/motion/behavior acceptance evidence** at relevant before/action/transient/after states, with measured differences where the source permits and explicitly documented exceptions. Validate real outcomes and persistence where applicable, not merely visual resemblance;
 - affected prior parity/physical gates are re-run where necessary;
 - a final M11 report records:
   - live Blitzit provenance/version;
