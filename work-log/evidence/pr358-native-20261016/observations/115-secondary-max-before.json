@@ -1,0 +1,734 @@
+{
+  "utc": "2026-10-16T00:33:03.199720+00:00",
+  "hwnd": 5573518,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1483,
+        273,
+        -233,
+        1148
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1483,
+        273,
+        -1223,
+        1148
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1468,
+        298,
+        -1239,
+        358
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1408,
+        304,
+        -1356,
+        331
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1468,
+        358,
+        -1239,
+        545
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1468,
+        358,
+        -1239,
+        408
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1468,
+        439,
+        -1239,
+        490
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1468,
+        494,
+        -1239,
+        545
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1223,
+        273,
+        -233,
+        353
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -474,
+        287,
+        -258,
+        338
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -474,
+        287,
+        -373,
+        338
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        -364,
+        287,
+        -258,
+        338
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1223,
+        353,
+        -233,
+        1078
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        383,
+        -263,
+        1173
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        383,
+        -263,
+        490
+      ]
+    },
+    {
+      "name": "HOME",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        383,
+        -1144,
+        403
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        413,
+        -263,
+        450
+      ]
+    },
+    {
+      "name": "Plan the next work that deserves your attention.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        460,
+        -771,
+        488
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        519,
+        -263,
+        1173
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        523,
+        -1107,
+        550
+      ]
+    },
+    {
+      "name": "Lists with your upcoming tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -534,
+        520,
+        -263,
+        548
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        569,
+        -738,
+        863
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1192,
+        570,
+        -739,
+        642
+      ]
+    },
+    {
+      "name": "All Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1122,
+        592,
+        -809,
+        619
+      ]
+    },
+    {
+      "name": "All Lists task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1192,
+        641,
+        -739,
+        807
+      ]
+    },
+    {
+      "name": "Keep weekly",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1137,
+        657,
+        -1027,
+        685
+      ]
+    },
+    {
+      "name": "Find new copywriter",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1137,
+        697,
+        -959,
+        725
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1137,
+        737,
+        -1018,
+        765
+      ]
+    },
+    {
+      "name": "15m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -789,
+        741,
+        -759,
+        762
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1031,
+        699,
+        -900,
+        749
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1192,
+        806,
+        -739,
+        862
+      ]
+    },
+    {
+      "name": "3 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1172,
+        824,
+        -1067,
+        845
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -815,
+        824,
+        -788,
+        845
+      ]
+    },
+    {
+      "name": "15m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -789,
+        824,
+        -759,
+        845
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -718,
+        569,
+        -263,
+        863
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -717,
+        570,
+        -264,
+        642
+      ]
+    },
+    {
+      "name": "PA358 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -647,
+        592,
+        -334,
+        619
+      ]
+    },
+    {
+      "name": "More actions for PA358 Board",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -324,
+        585,
+        -284,
+        626
+      ]
+    },
+    {
+      "name": "PA358 Board task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -717,
+        641,
+        -264,
+        807
+      ]
+    },
+    {
+      "name": "Keep weekly",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -662,
+        657,
+        -552,
+        685
+      ]
+    },
+    {
+      "name": "Find new copywriter",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -662,
+        697,
+        -484,
+        725
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -662,
+        737,
+        -543,
+        765
+      ]
+    },
+    {
+      "name": "15m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -314,
+        741,
+        -284,
+        762
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -556,
+        699,
+        -425,
+        749
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -717,
+        806,
+        -264,
+        862
+      ]
+    },
+    {
+      "name": "3 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -697,
+        824,
+        -592,
+        845
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -340,
+        824,
+        -313,
+        845
+      ]
+    },
+    {
+      "name": "15m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -314,
+        824,
+        -284,
+        845
+      ]
+    },
+    {
+      "name": "CREATE LIST",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1193,
+        882,
+        -738,
+        1173
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1223,
+        1078,
+        -233,
+        1148
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -893,
+        1089,
+        -733,
+        1139
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -723,
+        1089,
+        -563,
+        1139
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1483,
+        243,
+        -1455,
+        271
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -411,
+        235,
+        -351,
+        272
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -351,
+        235,
+        -292,
+        272
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -292,
+        235,
+        -232,
+        272
+      ]
+    }
+  ]
+}

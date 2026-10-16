@@ -1,0 +1,502 @@
+{
+  "utc": "2026-10-16T00:31:06.305693+00:00",
+  "hwnd": 5573518,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        208,
+        1080
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        43,
+        195,
+        91
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        60,
+        48,
+        102,
+        69
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        131
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        156,
+        195,
+        196
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        12,
+        200,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        23,
+        2560,
+        87
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2448,
+        75
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2455,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        87,
+        2560,
+        1024
+      ]
+    },
+    {
+      "name": "Archived items",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        856,
+        111,
+        1912,
+        554
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        135,
+        1888,
+        188
+      ]
+    },
+    {
+      "name": "ARCHIVE",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        135,
+        936,
+        151
+      ]
+    },
+    {
+      "name": "Archived items",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        159,
+        1042,
+        188
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50019,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        885,
+        212,
+        1016,
+        252
+      ],
+      "selected": 1
+    },
+    {
+      "name": "Archived done tasks",
+      "type": 50019,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1019,
+        212,
+        1199,
+        252
+      ],
+      "selected": 0
+    },
+    {
+      "name": "Archived lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        276,
+        1888,
+        530
+      ]
+    },
+    {
+      "name": "Your archived lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1793,
+        276,
+        1888,
+        293
+      ]
+    },
+    {
+      "name": "Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        305,
+        1545,
+        351
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        880,
+        372,
+        1888,
+        530
+      ]
+    },
+    {
+      "name": "PA358 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        953,
+        389,
+        1601,
+        411
+      ]
+    },
+    {
+      "name": "Archived \u00b7 history preserved",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        953,
+        419,
+        1100,
+        436
+      ]
+    },
+    {
+      "name": "Task previews for PA358 Board",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        953,
+        450,
+        1601,
+        513
+      ]
+    },
+    {
+      "name": "Keep weekly",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        977,
+        451,
+        1043,
+        468
+      ]
+    },
+    {
+      "name": "Find new copywriter",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        977,
+        473,
+        1084,
+        490
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        977,
+        495,
+        1049,
+        512
+      ]
+    },
+    {
+      "name": "Restore",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1616,
+        431,
+        1697,
+        471
+      ]
+    },
+    {
+      "name": "Permanently delete",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1704,
+        431,
+        1871,
+        471
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        1024,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1252,
+        1033,
+        1380,
+        1073
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1388,
+        1033,
+        1516,
+        1073
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2419,
+        8,
+        2466,
+        22
+      ]
+    },
+    {
+      "name": "Restore",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2466,
+        8,
+        2512,
+        22
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2512,
+        8,
+        2568,
+        22
+      ]
+    }
+  ]
+}

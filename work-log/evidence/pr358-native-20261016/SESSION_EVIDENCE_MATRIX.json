@@ -1,0 +1,506 @@
+{
+  "preparedUtc": "2026-10-16T00:18:59.870228+00:00",
+  "source": "6a6079465fab293b973258083550192d640f4884",
+  "ci": 38826523275,
+  "repositoryDocumentsRead": [
+    "TODO.md",
+    "HANDOFF.md",
+    "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md"
+  ],
+  "m1_m9OpenTodo": [
+    {
+      "milestone": 1,
+      "item": "explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A6/B23, SS-C03 current Home task-preview grammar:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A22/B54, SS-C04 current Create List tile border:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "SS-C01 Create/Edit List \u2014 approved Narro design preservation / remaining rendered acceptance:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "B62 / VE-005 empty Today CTA:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B39, SS-H01 + VE-008/017 recurring parent Backlog subgroup:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B40, SS-H01 + VE-008/017 scheduled occurrences group:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "Video-to-code V12/B71, VE-008 01:16\u201301:33 recurring-parent pending arithmetic:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B43, SS-H01 + VE-008 Done date grouping:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B44, SS-H01 This Week completion progress bar:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A6/B24, VE-005 01:09\u201301:23 source Board list selector:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "Revalidate CI893 narrow-title failure after PR #225: visible title/edit input, reserved action row, no hover/focus geometry change on the actual Windows board. Unrelated historical",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "Video-to-code V03/B66, VE-002 ~00:18\u201300:48 live title\u2192EST preview:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A20/B53, VE-005 + VE-016 HH:MM metric input compatibility:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A17/B46, VE-005 01:25\u201301:50 repeat-ready task creation:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A16/B45, VE-017 ~00:34\u201300:40 parent recurring overflow and VE-008 ~02:22:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B41, VE-008 + VE-017 recurring-parent cadence badge:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A15/B42, VE-008/017 scheduled-task overflow quick-remove control:",
+      "route": "MANDATORY PR358 native0/2; actual source/UI/state proof required"
+    },
+    {
+      "milestone": 5,
+      "item": "V11/B70/U36 quick-X visible-lane retention:",
+      "route": "MANDATORY PR358 native0/2; actual source/UI/state proof required"
+    },
+    {
+      "milestone": 5,
+      "item": "A12/B33, VE-009 + VE-017 recurrence live readable summary and selected-date presets:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A4/B19, SS-H07 + VE-007 scheduling flow:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A4/B20, VE-009 custom monthly nth-weekday recurrence:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 5,
+      "item": "A28/B60, SS-H12 Board subtask progress ring:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A2/B12 source subtask create:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "A6/B26, SS-C21/SS-H10 Focus/board Notes inline editor:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "SS-C06 quick-action row:",
+      "route": "MANDATORY PR358 native0/2; actual source/UI/state proof required"
+    },
+    {
+      "milestone": 5,
+      "item": "Evidence-to-code audit A2 / SS-H14 + VE-006 archived list preview:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 5,
+      "item": "Evidence-to-code audit A2 / SS-H15 + VE-006 archived Done table/action:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A3 / SS-H04 + VE-003 Focus list selector parity:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A18/B49, VE-010 00:21\u201300:25 and VE-003 live-card hover grammar:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A14/B37, VE-016 ~01:32\u201301:44 Pomodoro timer badge:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A14/B36, VE-016 ~01:36\u201301:40 + VE-018 ~02:24\u201302:40 Break Done history:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "Video-to-code V01/B63, VE-003 repeated Done\u2192success + VE-005 ~02:45\u201303:20:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "Video-to-code V01/B64, VE-003 multiple success transitions + VE-005 ~02:45\u201303:20:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "Video-to-code V01/B65, VE-005 ~02:45\u201302:51 numeric completion feedback:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A14/B35, VE-016 ~01:35 + VE-018 ~02:24 Break active-card identity:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A14/B38, VE-018 ~02:24\u201302:40 Break temporary header EST:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A21/B53 expanded Focus metric-input compatibility:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 6,
+      "item": "Video-to-code V05/B67, VE-016 00:53\u201300:56 post-Extend overdue-clock parity:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 6,
+      "item": "A18/B50, VE-016 00:42\u201300:53 Time's Up action-set disclosure:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 6,
+      "item": "A10/B31, SS-C19 Focus overdue relative-age metadata:",
+      "route": "CONDITIONAL REUSE only if recorded state adequately exercises requirement"
+    },
+    {
+      "milestone": 6,
+      "item": "Revalidate the complete M6 Focus Panel end to end inside the replacement single-`focusSurface` coordinator: entry/selection, hierarchy, authoritative timer projection, every existi",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement expanded subtask rows with completion, title editing, reorder, delete and progress.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Keep icon hit targets stable and show tooltips without changing window width.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implemented replacement direction:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Validate the completed replacement on its exact executable against the continuous Panel\u2194Timer and Timer Expand/Collapse Gate 7 criterion at the appropriate physical-validation chec",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flick",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement shortcut to alternate Focus Panel/Floating Timer.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Persist a safe last position and recover after monitor changes/restart.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Verify no decorative animation runs continuously while idle.",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "VALIDATION_OPEN `M7-OBS-20261003-01`: later CI953 recordings supersede PR225 as the current observation corpus, but detailed normal/reduced continuous-motion and canonical comparis",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "VALIDATION_OPEN `M7-OBS-20261003-02`: action-label behavior has later CI953 native evidence, including true Windows 100% acquisition, but only the specifically reviewed cells may b",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 7,
+      "item": "Complete the remaining M7 milestone/physical reconciliation only after the exact PR #225 observations are dispositioned. Keep M1 Candidate B physical/performance acceptance separat",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A9/B29, SS-C17 dedicated Windows Shortcuts dialog:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A23/B57, SS-C07 General/Blitz Panel label info icons:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A23/B58, SS-C08/C09 full Preferences section headings:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A13/B34, SS-C07/C08/C09 + VE-014 full Preferences overlay/modal root:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A5/B21, SS-C07+VE-014 full Preferences monitor thumbnail selection:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A5/B22, SS-C07 Timezone selector:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A4/B17 VE-014 parent child disclosure:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A4/B18, VE-014 anchored volume speaker popover:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "Video-to-code V10/B69, VE-014 ~01:32\u201301:56 timed-alert flash composition:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 8,
+      "item": "A2/B9 independent Success sound effect:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A6/B25 SS-C15 + VE-015 Reports filter trigger:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A10/B30 VE-011/VE-012 Reports date completeness:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A7/B28, VE-011 chart hover category band:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A3 / SS-C12 Reports Chart options dead control:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A7/B27, VE-011 populated Reports Done rows:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "Evidence-to-code audit A2 / SS-C02 date navigation:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "B56 / SS-C14 + VE-015 Sessions Total Tasks:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A19/B51 VE-015 Sessions Break icon:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "Video-to-code V06/B68, VE-015 02:05\u201302:20 + SS-H17 Add Session task-selector open/closed state:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A28/B59, SS-H17 Add Session Recent Tasks badges:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    },
+    {
+      "milestone": 9,
+      "item": "A11/B32 Sessions detail modal focus/lifecycle:",
+      "route": "NOT EXERCISED / keep existing open or scoped historical status"
+    }
+  ],
+  "crosswalkOpenRows": [
+    "|09/21/23 full title/queue|Unbroken tooltips wrap inside native Panel100/125 normal/reduced, full accessible names retained. Vertical/end/menu evidence reused/exercised. Horizontal provider assertion remains inconsistent (true/85.31% view, SetScrollPercent100 leaves0 and no movement); VALIDATION_OPEN, no demonstrated visible horizontal overflow.|",
+    "|23 queue|Wheel/Ctrl+End/last-row menu and Tab access100%/125% **SCOPED PHYSICAL_PASS**. Horizontal-provider metric and actual unbroken-title bounds **VALIDATION_OPEN**; no whole source claim.|",
+    "|M7-OBS-20261005-26 menu paint|Disabled underlying metadata paints above transformed menu rail in native footage, unlike opaque/unobscured VE00618s. **FAIL / FIX_NOW M5**: rendered top-hit assertions and scoped explicit stacking ownership; portal alternative considered if scoped correction is insufficient.|",
+    "| Home/list/create/search shells | SS-C01, SS-C03, SS-C04, SS-C05, SS-C06, SS-C16 | Basic Home list/search states exist, but B3/B7/B8 custom color, B23 task-preview content, **B54 gradient dashed create tile** and **B55 section helper right alignment** remain. A22 current-image per-control code audit documents scoped present/unknown controls; no rendered source-parity PASS. | **M5 B3/B7/B8 FIX_NOW; B23/B54/B55 SOURCE_CONTROL/VISUAL_PARITY_OPEN** |",
+    "| Planning board + archive | SS-C10, SS-C11, SS-H01, SS-H02, SS-H11, SS-H12, SS-H13, SS-H14, SS-H15; VE-005 empty Board | Scoped Board/archives domain accepted only for original contracts; B10/B11/B12/B14/B24/B39\u2013B48/B52/B53/B60 plus **B61** source empty-lane copy and **B62** visually subdued no-runnable Today CTA route separately. | **M5 B10/B11/B12/B45/B53 FIX_NOW; B60 ring/B61 copy/B62 CTA source presentation OPEN; older-video version caveat** |",
+    "| Focus / Floating / Notes / subtasks | SS-C18\u2013C21, SS-H03\u2013H05, SS-H09\u2013H12, VE-003/005 | Prior Focus/Floating scoped runtime/physical gates coexist with B15/B26/B31/B35\u2013B38/B49/B50 and NEW **B63 success entire opaque Focus overlay instead of in-place live-card**, **B64 no animated media despite Fun GIF setting**, **B65 no EST\u2212Taken early/late verdict**. Existing CI1046 C4/35 native FAIL and pending success physical reviews remain separate. | **M6 B63/B64/B65 HIGH-VISIBILITY SOURCE_PARITY_OPEN**, preserve validated transaction and explicit Next Task; M7 physical C4 OPEN |",
+    "| Preferences / Windows shortcuts | SS-C07, SS-C08, SS-C09, SS-C17, SS-H06 | Full Preferences modal B34 plus B9/B17/B18/B21/B22/B29 remain substantive known source-control gaps. A23 current-image per-control review adds **B57** label info glyphs (per-label mechanics evidence-limited) and **B58** exact section heading copy; runtime shortcut/audio/persistence PASS scoped. | **M8 B34/B9/B17/B29 FIX_NOW; B18/B21/B22/B57 SOURCE_CONTROL_PARITY_OPEN; B58 LOW COPY_PARITY_OPEN** |",
+    "| Scheduling / recurrence | SS-H07, SS-H08 | Historical M4 date/DST/recurrence/No Repeat domain safety remains scoped validated, but B19 two-step wizard is absent, B20 ordinal monthly recurrence is missing from model/materialization, and B33 date-derived presets/Custom live natural-language summary are absent. | **M5 B19/B20/B33 FIX_NOW; M4 domain extension required for B20; historical scoped M4 PASS retained** |",
+    "| Reports / Sessions | SS-C02, SS-C12, SS-C13, SS-C14, SS-C15, SS-C22, SS-H16, SS-H17 | Historic scoped Rust/Windows Reports validations coexist with B13/B16/B25/B27/B28/B30/B32/B51 and **B56 current-source Sessions Total Tasks metric incompatible with session-only distinct-task projection**. `reportsVisualFixture` matches source 2/0 only via hardcoded fixture values. | **M9 B56 HIGH-PRIORITY METRIC-DEFINITION RECONCILIATION; B16/B30 FIX_NOW; B32 accessibility; other source controls OPEN** |",
+    "| VE-002 | Video-to-code V03: current `taskEstimateParser` handles source minute/hour/combined suffix grammar and validated committed title normalization, but `ListBoard::InlineCreateEditor` does **not** update the EST field reactively during title typing; it parses only on `submitCreate`. B66 records this missed intermediate source state. Full-word `hours` was narration, not an executed source demonstration, though Narro grammar/test supports it. | **VIDEO_CODE_REVIEWED V03 / M5 B66 FIX_NOW / VE-F001 COMMIT VALIDATED** |",
+    "| VE-003 | Focus queue/live actions, success gate and Panel/Floating foundation exist. The compact rest/hover/selected-pill grammar and rounded silhouette now have exact CI936 direct source comparison, with the exterior shadow deviation documented. Other Focus/source gates retain their detailed routes. | **SCOPED PHYSICAL_PASS / SOURCE_COMPARISON_PASS grammar/silhouette; exterior shadow INTENTIONAL_DEVIATION; remaining VALIDATION_OPEN** |",
+    "| VE-005 | Earlier source-video code gap IDs B3/B7/B8/B23/B24/B46/B47/B48/B52/B53 retained. **V01 fine-grained pass** adds B61 empty pending lane `All Clear` vs `No tasks`, B62 empty Today subdued CTA vs vivid always-enabled rendering, and cross-video-confirmed B63\u2013B65 Focus success card/animated GIF/525-minutes-early projection omissions. Source time cuts cannot prove native handoff latency or disabled CTA click. | **VIDEO_CODE_REVIEWED 1/19; M5 B61/B62 SOURCE_VERSION_LIMIT; M6 B63/B64/B65 SOURCE_PARITY_OPEN** |",
+    "| VE-011 | Overview data aggregation and legend are scoped-validated, but source filter badges B25, Done pills B27, chart hover band B28 and consecutive eight-day category dates B30 are not matched. Historic numeric ambiguity remains separate. | **M9 B25/B27/B28/B30 SOURCE_PARITY_OPEN, scoped aggregation PASS retained** |",
+    "| VE-012 | Source 30-day report chart includes zero-activity calendar dates; current Rust `daily_series` omits them and fixed eight-column layout requires long-range verification (B30). Other session-derived aggregation and known rounding ambiguity retain their scoped status. | **M9 B30 FIX_NOW + long-range RENDERED_TEST_REQUIRED, previous scoped semantic validation retained** |",
+    "| VE-013 | Durable subtask add/edit/complete/reorder/delete and progress are implemented; source board-inline first-add header-plus/input-placeholder/in-field-X composition differs (B12). Focus/Floating live subtask behavior otherwise retains scoped validations. | **M5 B12 FIX_NOW for source control grammar / domain implementation validated** |",
+    "| VE-016 | **V05 full-video-to-code reviewed.** Original scoped EST/Pomodoro/count-up domain remains, with existing B35\u2013B38 Break/POMO, B50 context Extend and B53 HH:MM edit-source mismatches. **New B67:** source post-Extend warm negative `-00:01:xx` vs Narro positive `+...` default-color formatter. Exact Time's Up presentation remains independently physically FAILED as Finding35; no source-time-jump metrics inferred. | **VIDEO_CODE_REVIEWED V05 / M6 B67 SOURCE_PARITY_OPEN; M7 Finding35 native FAIL unchanged** |",
+    "| VS-01 Shells / surface hierarchy | Main/Focus/Floating/modal/Preferences shells exist. Compact16px rounded treatment and cyan\u2192mint/lime live edge are implemented in PR228/229. CI936 directly accepts the compact silhouette; native exterior shadow deviation is explicit. Other calibrated shells require their source comparison. | **IMPLEMENTED / scoped compact PHYSICAL_PASS; VALIDATION_OPEN M5\u2013M9** |",
+    "| VS-02 Spacing / density / alignment | Shared spacing tokens and dense card/row foundations exist; PR #225 corrects narrow-card/readability regressions. Cross-surface direct source comparison is not yet certified. | **IMPLEMENTED foundation / VALIDATION_OPEN M5\u2013M9** |",
+    "| VS-03 Typography / truncation | Shared hierarchy/ellipsis exists. Exact Blitzit font identity is not established by source evidence and must not be invented. | **IMPLEMENTED / AMBIGUOUS exact font / VALIDATION_OPEN** |",
+    "| VS-04 Controls / inputs | Shared compact controls exist, but source-calibrated focus/selected treatment must be consumed per affected surface rather than replaced by arbitrary one-off styling. | **ROUTED_M5/M6/M8/M9; VALIDATION_OPEN** |",
+    "| VS-05 Cards / rows | Planning ordinal\u2192completion and five-action hover rail are implemented and automated-validated by PR227/CI927. P3-M5-02 retains direct source/physical acceptance; PR233 separately corrects narrow metric and queued-title allocation. | **AUTOMATED_VALIDATED / VALIDATION_OPEN M5/M6** |",
+    "| VS-06 Accent / glow / progress | Today done/total progress and calibrated Focus live edge/glow are implemented and automated-validated in PR227/229. Today progress source comparison remains under P3-M5-01; P3-M6-03 signature edge has scoped direct CI942 comparison PASS, whole Focus parity remains open. | **AUTOMATED_VALIDATED M5/M6 / VALIDATION_OPEN source comparison** |",
+    "| VS-07 Menus / popovers / dialogs | Shared overlay primitives exist. Inline task-delete and direct active-list Archive presentation are implemented by PR227/CI927; source/state verification remains under P3-M5-04/05. Other overlays require their direct parity checks. | **AUTOMATED_VALIDATED M5; VALIDATION_OPEN affected overlays** |",
+    "| P3-M5-01 | Today must expose source `done/total Done` progress treatment while retaining persistent accent/CTA structure. | Merged `ListBoard.tsx`/Rust projection renders typed Today completion numerator + pending denominator with calibrated progress while preserving Today accent/CTA. PR #227 CI #927 and resulting-main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| P3-M5-02 | Resting planning card uses ordinal; hover replaces/reveals completion at left and exposes Subtasks / Notes / lane-left / lane-right / overflow at right without geometry reflow. | Merged `TaskCard.tsx` reserves ordinal/completion and exact five-action rail; narrow-card reserved-row readability remains intact. PR #227 CI #927 and main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| P3-M5-03 | Cross-lane drag must preserve the observed lifted-card/live-reflow/settle grammar in addition to positional insertion. | Merged drag presentation adds lifted preview, card-height placeholder/live reflow and finite settle; authoritative mutation still persists positional `beforeTaskId`. PR #227 CI #927 and main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| P3-M5-05 | List Archive applies directly from the list menu; permanent archived-list delete remains destructive. | CI948 actual owned empty-list archive/restore and VE00636s direct-action comparison pass the no-second-dialog grammar. Whole shell/nonempty aggregate count remains open. | **SCOPED_SOURCE_PARITY_PASS / PHYSICAL_PASS; wider VALIDATION_OPEN** |",
+    "| P3-M6-04 | Focus-local `Menu \u2192 Quick Preferences` exposes the source-evidenced compact preference subset and reuses the existing persisted Preferences authority rather than a second settings system. | Canonical SS-H05 + full Pass-3 VE-003 establish the surface. PR241 exact head `57445875f7b04eae4d8b7e35fc8c0d5012899619` passed CI985 and merged as `3a06f1003a513f1af942ec076a9f50617f2abfe2`; 7/7 source/test blobs match resulting `main`. Direct current-candidate source/physical acceptance is not claimed. | **AUTOMATED_VALIDATED M6 / SOURCE_PARITY_OPEN** |",
+    "| P3-M6-05 | Ordinary Focus queue hover/focus rail is `Complete \u2192 Make Live \u2192 Subtasks \u2192 Notes \u2192 overflow`; overflow is `Schedule \u2192 Change list \u2192 Duplicate \u2192 Delete`. | PR242 exact head `5623e7340d15f53d8fedecdf0286e9fa58913163` implements the evidenced rail/menu grammar while preserving reorder through source-compatible pointer/Alt+Arrow behavior and reusing existing Notes/Subtasks/Change List/Duplicate authorities. Exact-head CI999/run `37532811582` PASSed, guarded squash merge `6b4f8cfa8a1ff107fa95d4248e61dba176059493` is 11/11 source/test blob-identical, and resulting-main CI1000/run `37545545505` PASSed. | **INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN \u2014 direct current-candidate canonical acceptance remains OPEN** |",
+    "| P3-M6-06 | Focus Home visibly produces `PAUSED` before exit and a paused transient on later re-entry before running resumes, without corrupting intentional user pause. | VE-003 establishes the visible sequence. PR244 exact head `ae69acd71ef15d91c87a3d935e4df40479a1ae2b` implements the bounded one-shot Home pause lease from `work-log/2026-10-07-chatgpt-m6-p3-m6-06-home-pause-origin-design.md`: exact revision/task/session provenance inside TimerService, paused-frame-before-exit, paused-first `start_blitz`, and Panel-reveal/frame-before-guarded-resume. Exact-head CI1013/run `37594066892` passed the full workflow; guarded squash merge `8c9a1a181c51e9119ef2e04a5de742027ed845ea` is 9/9 source/test blob-identical. Resulting-main CI1014/run `37602323133` also completed successfully through the full candidate workflow. | **INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN \u2014 physical/direct canonical acceptance remains OPEN** |",
+    "| P3-M9-01 | Overview export generates a fully local PDF; Sessions export follows the current-source CSV control. | PR238 exact head `e584b5d5d40623a9e14b7180ecb5b117ad73ae03` passed Windows CI971 and merged as `c8d1b67f74d5c2347877da410a4584fb6625a74c`; all 10 changed source/test blobs match resulting `main`. Physical Windows PDF creation/open/rendering remains OPEN, and direct Reports source comparison remains separate. | **AUTOMATED_VALIDATED M9 / PHYSICAL_WINDOWS_OPEN / SOURCE_PARITY_OPEN** |",
+    "| P3-VAL-01 | Affected Notes/tooltip/expansion/narrow-card/Preferences correction acceptance must follow current exact-source evidence. | CI936/942 close large-Notes and changed-host transition paths; CI944 closes modal action routing17; CI948 closes wrapped-tooltip09 and native modal-default18 in their bounded scopes; CI950 closes writer19 and catalog22 plus queue vertical/end/menu/Tab access; CI953 closes native drag24 function, menu paint26 and reduced125 metric20 while title21/source-detail and finding07 physical responsiveness remain open. | **PARTIAL PHYSICAL_PASS / remaining VALIDATION_OPEN M5/M6/M7/M8** |",
+    "| P3-VAL-02 | Reports/Sessions and all stable calibrated surfaces still require actual canonical-source comparison before any `SOURCE_PARITY_PASS`. | Narro-owned fixture/capture PASS exists but is not source-side comparison evidence. | **VALIDATION_OPEN affected milestone; M10 release recheck** |",
+    "| P3-RISK-01 | Fresh-launch no-implicit-start and running-session Notes/title continuity still lack the dedicated integrated regressions required by the history risk index. | Current architecture is aligned, but dedicated regressions are not located. | **VALIDATION_OPEN M10** |",
+    "| B10 | SS-H14 + VE-006 populated Archived Lists shows muted cards with recognizable task previews; current archive summary/UI contains no previews | M5 archive populated-state parity | **CODE_INTEGRATED PR252 / HEAD-CI-PASS / SOURCE_RENDERED_PARITY_OPEN**; archive/restore/delete domain is separately validated |",
+    "| B11 | SS-H15 + VE-006 populated Archived Done is Task Name/List/Info/Date/Action table with visible trash; Narro uses read-only simplified rows and fixture locks no deletion control | M5 Archived Done populated-state parity | **PR259 CODE_INTEGRATED / HEAD-CI-PASS / SOURCE_RENDERED_PARITY_OPEN; SOURCE_INTERACTION_EVIDENCE_LIMIT** on unseen trash click, require safe local destructive policy |",
+    "| B20 | VE-009 01:31\u201301:54 source custom monthly rule chooses `Monthly on the 2nd Sunday` (and shows `every 4 months on the 2nd Sunday`). Current UI models month date OR weekday mask; Rust monthly mask matches **every** Sunday in eligible months rather than the ordinal Sunday. | M5 recurrence editor with M4 recurrence domain/persistence dependency | **PR266 DOMAIN/MIGRATION INTEGRATED, CI 37838146574 SUCCESS; PR273 EDITOR+SUMMARY+TESTS INTEGRATED, exact-head CI 37857212033 SUCCESS, guarded merge 43e9604f; SOURCE_RENDERED_PARITY_OPEN / B19 WIZARD OPEN**; new distinct rule schema/materialization/testing needed, not cosmetic relabel; historical M4 rule-engine validation remains scoped |",
+    "| B21 | SS-C07 / VE-014 source full Preferences shows selected Screen N preview with actual WxH overlay and cyan\u2192lime outline. Older Narro full Preferences only had native text dropdown; Focus Quick Preferences already had adjacent thumbnail composition. | M8 full Preferences monitor selector; PR295 finalhead`3b11e37c88c4e51c1f062391a8ce85fc73e65964`/CI37988686663 **3/3 SUCCESS**, identity/stale+Automatic/refresh retained; old cb68f1b2/overlap proposal is historical | **PR295 MERGED** as `ab763cb247b380fb587261ff760988d780a83daf` / **NATIVE_SOURCE_PARITY_OPEN**; original proposal checkpoint LOCAL TESTS NOT RUN is historical; no Codex monitor/DPI physical gate changed |",
+    "| B24 | VE-005 01:09\u201301:23 Board list-scope trigger opens a compact anchored popup with All Lists and named list badges; `ListBoard.tsx` has native text-only `<select>` | M5 Board list-scope selector presentation | **PR260 CODE INTEGRATED / guarded merge `906b35678c608e678231f5e554a68dba13dabc76` / SOURCE_RENDERED_PARITY_OPEN M5**; list-target logic already implemented |",
+    "| B28 | VE-011 01:24\u201301:32 chart pointer hover illuminates the full vertical date category and brightens the Total series bar. Pre-PR268 Narro offered a tooltip without the day/category band; current implementation includes the bounded hover/focus band treatment, pending direct pixel comparison. | M9 Overview chart hover/focus source visuals | **PR268 CODE INTEGRATED**: exact head `b900fa5955a6315f0d5e10ce4b467d7904f15890`, full Windows CI `37841229293` SUCCESS, guarded merge `ddce48d36b1554e8ec61f209ab8b8521645ce0e7`; **SOURCE_RENDERED_PARITY_OPEN**. Prior accessible tooltip, keyboard focus and series toggles remain independently validated. |",
+    "| B33 | VE-009 and VE-017 custom recurrence show live human-readable rule summary (`every week on Friday, Saturday, Sunday`, ordinal month) and date-derived presets (`Every Monday`, `Every month on 22nd`). Current `TaskScheduleDialog` uses fixed `Weekly on start weekday`/`Monthly on start date` labels and no Custom rule summary; existing `scheduleDescription` displays only normal date/time. | M5 Scheduling natural-language rule feedback, alongside B19/B20 | **CODE_INTEGRATED PR254 / HEAD-CI-PASS / B19-B20 AND SOURCE_RENDERED_PARITY_OPEN**, do not present ordinal preview before B20 domain rule is implemented |",
+    "| B34 | Current SS-C07\u2013C09 and VE-014 show tall scrollable Preferences modal over dimmed previous Home/Board context with explicit X. Earlier audit claimed current AppShell routed Settings as replacement main body. **That code claim is superseded**: live `AppShell.tsx` already uses `preferencesOpen` separately from destination/board and renders `PreferencesDialog` around ThemeSettingsPanel; `PreferencesDialog.tsx` owns backdrop, close/Escape/Tab focus containment, opener return and scroll clipping, with existing regression guards in test-ui-preferences. | M8 full Preferences modal shell already CODE PRESENT on main; no duplicate PR required | **CODE PRESENT / RENDERED_CURRENT_SOURCE_PARITY_OPEN / PHYSICAL_WINDOWS_OPEN**, independent B21/B22/B29 remain; do not assume exact animation/opening timing or source parity from DOM contracts |",
+    "| B36 | VE-016 01:36\u201301:40 and VE-018 02:24\u201302:40 show completed Break in Focus Done list, separate from task-completion numerator/denominator. Narro `doneTasks=board.done.tasks` and renders only task rows; no break history projection. | M6 Focus Done break-session row projection | **SOURCE_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**; never synthesize a completed task for a Break or miscount task completions |",
+    "| B39 | SS-H01 current Help board + VE-008 01:16\u201301:33 and VE-017 01:52\u201302:02 directly show distinct Backlog `Recurring tasks` section; current `BoardLane` flat maps `lane.tasks` and renders no parent section | M5 board recurring-parent group | **CODE_INTEGRATED PR249 + resulting-main CI PASS / SOURCE_RENDERED_PARITY_OPEN**; dedicated recurring parent grouping now implemented without parent pending inflation. |",
+    "| B40 | SS-H01/VE-008/VE-017 show dedicated scheduled-task subgroups including `4 Scheduled tasks this week`; current BoardLane renders no subgroup/count, only flat row schedule metadata | M5 scheduled occurrences grouped board projection | **CODE_INTEGRATED PR249 + resulting-main CI PASS / SOURCE_RENDERED_PARITY_OPEN**; scheduled groups/counts project in Board without altering domain identities. |",
+    "| B59 | SS-H17/VE-015 task picker rows show colored list badges; the pre-PR265 Add Session picker had plain list names without their saved list colors. Current Add Session selector projects list-color badges from source state. | M9 Recent Tasks picker list badge | **PR265 CODE INTEGRATED**: exact head `b804c3e81c052ef55cc440f9b26b4c47b3d3efb4`, full Windows CI `37837474958` SUCCESS, guarded merge `d09aa0dec4e11b08ca6582612b621a713b49b819`; **SOURCE_RENDERED_PARITY_OPEN** distinct from Finding30/B25. |",
+    "| VE-F012 | Today shows completion progress `done/total Done` and highlighted lane treatment | PR227/CI927 implements Today done/total Done progress in addition to the existing accent/CTA. P3-M5-01 awaits direct current-source visual comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| VE-F013 | Task ordinal is visible at rest and remains attached to moved cards during demonstrated planning sequence | PR227/CI927 implements the task ordinal at rest and hover/focus completion substitution. P3-M5-02 awaits direct source/interaction comparison; unsupported source persistence claims remain unasserted. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| VE-F014 | Planning hover grammar is ordinal\u2192completion at left plus Notes/lane-left/lane-right/overflow at right | PR227/CI927 implements reserved ordinal/completion and Subtasks/Notes/lane-left/lane-right/overflow targets. P3-M5-02 awaits direct physical/source hover/focus geometry comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **IMPLEMENTED / VALIDATION_OPEN M9** \u2014 current-source Sessions CSV is integrated/validated from PR226/CI915; Overview PDF is integrated/automated-validated from PR238/CI971. Physical PDF creation/open/rendering and direct canonical Reports comparison remain OPEN. |",
+    "| UX-F007 | Task hover keeps geometry; completion left/actions right; anchored overflow | PR227/CI927 implements stable reserved ordinal/completion and five-action hover rail. Direct physical/source validation remains under P3-M5-02; narrow card/metric containment20 remains separately reopened. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison and affected containment** |",
+    "| UX-F012 | Reports hierarchy: four metrics \u2192 main chart \u2192 secondary panels | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 production Overview PASSed CI #906/#907; direct canonical source comparison remains open. |",
+    "| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 production Sessions/Add/Edit/detail is on current main with PR #226 changed-blob identity to exact-head CI #915 and resulting-main CI #917 PASS; direct canonical source comparison remains open. |",
+    "| UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | PR227/CI927 implements lifted drag preview, card-height placeholder/live reflow, positional persistence and finite settle. P3-M5-03 awaits direct physical/source comparison; exact source drag duration remains unmeasured. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| UX-F018 | Today progress is a done/total progress treatment, corroborated by current help-v2.x screenshot | Typed Today numerator/denominator and progress are implemented in PR227/CI927. P3-M5-01 awaits direct calibrated source comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| UX-F019 | Resting task-left affordance is ordinal; completion replaces/reveals on hover without geometry shift | Resting ordinal and hover/focus completion substitution are implemented in PR227/CI927 with reserved geometry. P3-M5-02 awaits direct source/physical comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+    "| RISK-F007 | Surprise implicit timer start on fresh app launch | Fresh startup must not create/start a focus session without explicit user action; recovery may only restore an existing durable checkpoint under the validated M3 recovery policy | **VALIDATION_OPEN** \u2014 current startup/Focus/shortcut contracts expose no intended implicit-start path, but no dedicated fresh-start regression was located; close before final M10 reliability acceptance |",
+    "| RISK-F008 | Live-task Notes/title metadata edit disturbs timer/session | Opening, editing and saving Notes/title must preserve live task/session identity and authoritative elapsed/accounting; EST/Time Taken edits remain restricted to the validated paused-runtime boundaries | **VALIDATION_OPEN** \u2014 functional Notes/title editing and paused metric safety are validated, but no dedicated integrated running-session continuity regression was located; close before final M10 reliability acceptance |",
+    "| M7-OBS-20261004-21 | CI944 long All Lists badge + reserved actions reduce ordinary title to about28 physical pixels at125%; SS-C19 retains readable narrow queued titles | Affected M6 queue / M7 integration | **SCOPED PHYSICAL_PASS / SOURCE_PARITY_OPEN** \u2014 PR233 title-first allocation is automated-validated; CI953 confirms full-title tooltip containment/wrapping at real100%/125% normal/reduced. Exact ordinary-row source allocation remains part of the active M6 queue/source reconciliation rather than a physical-retest omission. |",
+    "| M5-OBS-20261003-10 | CI893 default small planning lanes reserve all title width for action slots, making titles invisible | M5 narrow desktop card layout, exposed during M7 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 PR #225 implements the narrow-card second-row correction and exact-head CI #911 PASSed; exact-EXE title/edit/hover/focus physical retest remains open. This does not close the separate source ordinal/hover-rail gaps. |",
+    "| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 PR #222 bounds box sizing and horizontal content, collapses closed tooltip geometry while preserving its opacity/transform opening state, and aligns the edge tooltip inward. Real rendered keyboard-open/transition/Escape and reduced-motion regressions PASS; preserve intentional vertical editor scroll. Exact-EXE retest remains OPEN |",
+    "| M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **PARTIAL PHYSICAL_PASS / FAIL native pending responsiveness / FIX_NOW** \u2014 CI950 actual controlled SQLite latency shows loading shell and ready title focus, but Tab/Escape wait for release in Main and Focus. Existing rendered coverage does not expose the native synchronous read path. Preserve07 OPEN; scoped command-thread correction and exact-build retest required. [Whole addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) |"
+  ],
+  "note": "Historical crosswalk prose does not override current PA01\u201308 disposition or reopen unchanged foundations. No M10 checkbox advance; M11 dormant.",
+  "postSession": {
+    "reviewedUtc": "2026-10-16T00:47:19.258719+00:00",
+    "documentsRechecked": [
+      "TODO.md",
+      "HANDOFF.md",
+      "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md"
+    ],
+    "coreAcquisition": "2/2",
+    "coreScopedAcceptance": "2/2",
+    "B70": "PASS native/domain preservation/source-behavior slice",
+    "SS-C06": "PASS horizontal quick-action row plus real three actions; whole Search geometry/motion not claimed",
+    "B46": "PASS remaining nonempty EST reset and repeat-ready keyboard boundary",
+    "B12": "FAIL repeat-ready focus after subtask commit; exact32/45/48/51/54 UIA, saved children preserved; remaining composition/source parity OPEN",
+    "B60": "Circular 4/5 count native render present; exact SS-H12 header composition OPEN (ring/count/plus arrangement differs, duplicate summary)",
+    "B26": "Save, lower-right Close, later reopen preserved note; dirty/cancel/source-wide parity OPEN",
+    "B24": "Anchored colored selector/keyboard named-All-named captured; complete source comparison OPEN",
+    "B40_B42": "Scheduled Backlog header and quick-X exercised; recurrence and full lane matrix OPEN",
+    "B23_A2": "Populated Home/archive previews and Restore captured, not full source-parity acceptance",
+    "B53": "00:15 accepted at creation only; metric-edit/Taken/Focus paths NOT RUN",
+    "M1_M4": "accepted foundation unchanged; no fresh performance/topology claims",
+    "M6_M9": "No new full source/native acceptance; retain prior scope",
+    "M10": "BLOCKED; zero counters advanced",
+    "M11": "dormant"
+  }
+}
