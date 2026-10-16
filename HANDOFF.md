@@ -8,6 +8,8 @@
 
 ## Preserved acceptance
 
+**Optional future M12 (2026-10-16):** The user requested a separate professional **in-app-only user QA** stage; specification [`docs/NARRO_OPTIONAL_USER_QA.md`](docs/NARRO_OPTIONAL_USER_QA.md) and milestone section in [`TODO.md`](TODO.md). **DORMANT / NOT RUN** until a separate explicit activation, independently of M11. The normal M5 next action and validated M1–M4 4/10 mandatory count are unchanged. No two-screen/cable/hotplug/Windows settings, AppData/DB/system stress or backend instrumentation within M12; PA-01–09 do not resume. This documentation does not authorize installing or running Narro.
+
 PA01–08 8/8 dispositioned within the final report scope; physicalHDMI NOTRUN/accepted unavailable, no cable request pending. Approved SpectrumCore/imageupload/218icons locked. M11/liveBlitzit dormant. U01–U41 local coverage41/41 is separate from remaining parity gates. Prior C5/performance/notifications/packaging/export acceptance retained on unchanged foundations.
 
 ## One next operation
