@@ -81,6 +81,8 @@ Do not silently treat newer live behavior as proof that older canonical evidence
 
 # Phase 1 — Plan the complete capture campaign
 
+**User-operated visual capture script:** [M11 Greek step-by-step recording guide](M11_USER_VIDEO_CAPTURE_GUIDE.md) is the exhaustive, future-use operator itinerary (S00–S22; source micro-interactions, optional branches, safe test-only destructive paths and synchronized Codex log anchors). The guide is documentation-only while M11 is dormant; when M11 is explicitly activated, tailor it to the observed installed build and verified capture channels without silently dropping coverage. It does not itself authorize starting capture.
+
 Build the capture agenda **before** substantive exploration begins.
 
 Start from:
