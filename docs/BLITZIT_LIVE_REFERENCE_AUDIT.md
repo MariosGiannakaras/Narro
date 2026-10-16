@@ -10,6 +10,8 @@ The audit is deliberately phase-gated:
 
 **Do not collapse these phases. In particular, do not discover a difference during capture and immediately analyze or fix Narro.**
 
+**Binding future palette deliverable:** M11 must recover Blitzit's **actual original color values**, rather than choose visually similar alternatives, and use the provenance-verified palette as the primary source for Narro's general semantic color system and affected dark/light UI. This includes surfaces, text, borders, statuses, list presets, states and gradient/alpha specifications. Preserve verified source values, unavailable values, screenshot-derived approximations and justified Narro-specific exceptions as distinct categories. This is a **future opt-in M11 requirement**, not permission to start its audit or recolor Narro now.
+
 ## Mandatory deep reverse-engineering protocol (REA + alternative tools)
 
 **Objective:** obtain the maximum reliable, reproducible understanding of the user's authorized Blitzit installation: appearance, behavior, client-side code paths, application state, local persistence, and observable client/server interactions. A superficial UI/video or network-only audit does not satisfy M11 when relevant deeper evidence is obtainable. Do not claim to have recovered unobservable backend source or algorithms.
@@ -97,7 +99,8 @@ The plan should cover all material in-scope product surfaces and transitions, no
 - Preferences and conditional settings;
 - Reports/Overview/Sessions/export flows;
 - loading/empty/error/unavailable/recovery/transient states that can be reached through ordinary use;
-- representative Windows/DPI/monitor behavior where useful for source observation.
+- representative Windows/DPI/monitor behavior where useful for source observation;
+- an explicit **palette coverage matrix** for dark/light/system themes and representative default, hover, focus, selected, pressed, disabled, error and success states, spanning neutral surfaces, text, dividers/borders, accent/CTA, list presets, status colors, gradients/stops and alpha overlays. Plan evidence retrieval from accessible original client resources (bundled CSS/styles, theme constants/variables, SVG/assets, runtime computed styles or equivalent), with state/selector/surface identifiers and exact client version. Screen pixels are a separate measurement channel, not proof of byte-exact original color tokens.
 
 Prefer one comprehensive scripted journey plus explicitly listed branch scenarios over ad-hoc exploration.
 
@@ -134,6 +137,8 @@ This is a Mimic-like **behavioral/protocol observation method**, not evidence of
 ### C. Local client artifacts and runtime execution
 
 Record hash-identified read-only inventories of available installer/executables/DLLs, ASAR resources, source maps, .NET assemblies and other client files, plus factual process/module starts, normal filesystem/registry/cache/database changes, ETW/debugger/profiler observations and state snapshots where appropriate. Correlate timestamps with the same scripted UI actions and preserve before/after/restart results. Collection is factual only: REA static analysis, decompilation, code-path inference and parity conclusions belong exclusively to Phase 4 after the capture corpus is frozen.
+
+**Color-source acquisition:** preserve read-only, hash-identified copies or factual exports of accessible color-bearing style/theme/client/asset resources (including raw CSS variable declarations or runtime computed-style values where available), paired with screenshots and theme/state/selector/monitor/DPI/color-profile metadata. Record timestamps, artifact identity and gaps. Do not interpret the palette, classify token equivalence or modify Narro during acquisition. If exact source values are not exposed, preserve screenshot samples as raw measurements for later qualified analysis.
 
 ## Security/privacy boundary for protocol capture
 
@@ -195,7 +200,8 @@ Create a frozen M11 evidence inventory:
 - environment/provenance metadata;
 - capture gaps, tool failures and explicitly unobserved channels;
 - sanitization/redaction status;
-- mapping from planned scenarios to evidence files/time ranges.
+- mapping from planned scenarios to evidence files/time ranges;
+- mapping from palette/theme/state capture scenarios to original color-bearing resources, computed-style snapshots, visual samples, relevant display/color-management context and unavailable exact-source channels.
 
 Verify that recordings/logs are readable and that the intended coverage was actually captured.
 
@@ -217,6 +223,12 @@ For every relevant surface/state:
 - measure meaningful motion/transition sequencing/timing where useful;
 - inspect transient states and interaction ordering;
 - compare against the canonical older Blitzit evidence and record version-dependent differences.
+
+## Authentic palette extraction and color-system analysis
+
+From the **frozen** authorized original client/style/theme/assets and rendered-state evidence, produce a version-identified **Blitzit palette inventory**. For each material color record its semantic role, UI surface/component/state, theme, exact source HEX/RGB(A)/HSL value where recovered, gradients with stops/positions/direction, alpha and compositing backgrounds, extraction method, artifact hash or selector/property reference, corroborating frame/time and evidence-confidence tier. Prefer verifiable packaged theme/CSS/asset values or actual computed runtime styles; where values are generated dynamically, trace the original client logic if accessible. Avoid claiming byte-exact source values solely from screenshot pixels, which may differ because of compression, antialiasing, opacity, DPI, ICC/color management or capture pipelines.
+
+Keep **VERIFIED ORIGINAL VALUE**, **RENDERED PIXEL MEASUREMENT**, **INFERRED APPROXIMATION** and **UNAVAILABLE** clearly separate. Compare the source palette with Narro's current semantic tokens and usage (including color hierarchy, light/dark mapping, disabled/selected/focus states and signature gradients). Measure representative actual foreground/background contrast against applicable WCAG 2.2 AA criteria (normal text 4.5:1; large text and meaningful non-text UI 3:1 where applicable), reporting violations or justified deviations rather than silently 'correcting' or misrepresenting original Blitzit colors.
 
 ## Protocol/state analysis
 
@@ -255,7 +267,8 @@ After full-corpus analysis:
    - evidence insufficient / accepted ambiguity;
    - Narro correction required;
 6. group required corrections into coherent, dependency-aware remediation batches;
-7. define the validation required for each batch.
+7. define the validation required for each batch;
+8. freeze a **source-to-Narro palette crosswalk** mapping every verified Blitzit semantic color/gradient/theme/state to Narro's existing or required centralized design tokens and affected UI consumers. The intended outcome is a Narro theme **grounded in the actual Blitzit palette**, not arbitrary similar shades. Flag unverified entries and differences required by accessibility/Windows/local-only constraints; preserve the explicitly approved Spectrum Core Create/Edit List picker, upload and 218-icon library appearance/behavior without interpreting this palette request as approval to restyle that locked component.
 
 **No Narro implementation begins until this reconciliation/remediation plan is complete.**
 
@@ -277,7 +290,8 @@ Implementation rules:
 - preserve Narro's local-only architecture unless an explicit user product decision changes it;
 - reproduce **observable semantics**, not Blitzit's cloud implementation for its own sake;
 - add regression coverage for material behavior discovered during M11;
-- keep source changes and evidence/tracking changes clearly attributable to the relevant M11 finding IDs.
+- keep source changes and evidence/tracking changes clearly attributable to the relevant M11 finding IDs;
+- apply the frozen original-to-Narro palette mapping primarily through shared `src/theme.css` semantic tokens and coherent affected component state/gradient usage, not scattered hardcoded replacements. Retain user-configurable list colors and the locked approved Spectrum Core design; add dark/light and representative contrast/regression coverage. Where actual original values cannot be verified, keep evidence-limited fallbacks explicitly labeled rather than claiming exact source parity.
 
 # Phase 7 — Revalidation and M11 closure
 
@@ -297,6 +311,7 @@ M11 is complete only when:
   - live Blitzit provenance/version;
   - capture inventory and integrity;
   - visual findings;
+  - **Blitzit authentic palette inventory with per-value provenance/confidence, theme/state, exact-vs-estimated status, measured contrast, source-to-Narro token crosswalk, validated Narro palette changes and exceptions**;
   - observable protocol/state findings;
   - installed artifact/static/REA/runtime evidence, tool versions, confidence and provider limits;
   - unknown/unobservable backend limits;
