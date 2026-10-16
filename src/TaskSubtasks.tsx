@@ -1,5 +1,5 @@
 import { ActionIcon } from "./ActionIcon";
-import { useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 
@@ -87,9 +87,64 @@ export function TaskSubtasks({
 }: TaskSubtasksProps) {
   const expanded = Boolean(model?.expanded);
   const newSubtaskInputRef = useRef<HTMLInputElement>(null);
+  const createFocusRef = useRef<{
+    input: HTMLInputElement;
+    taskId: string | undefined;
+    value: string;
+    count: number;
+    sawPending: boolean;
+  } | null>(null);
+  // Disabling a focused input during native commit moves focus to the body.
+  // Restore the initiating field only after authoritative refresh re-enables it.
+  // Explicit navigation elsewhere cancels that intent, including outside clicks
+  // on non-focusable content and focus moves that subsequently return to body.
+  useEffect(() => {
+    if (!expanded) return;
+    const cancelForOtherTarget = (event: Event) => {
+      const request = createFocusRef.current;
+      if (request && event.target !== request.input
+        && !request.input.form?.contains(event.target as Node)) createFocusRef.current = null;
+    };
+    document.addEventListener("focusin", cancelForOtherTarget);
+    document.addEventListener("pointerdown", cancelForOtherTarget, true);
+    return () => {
+      createFocusRef.current = null;
+      document.removeEventListener("focusin", cancelForOtherTarget);
+      document.removeEventListener("pointerdown", cancelForOtherTarget, true);
+    };
+  }, [expanded]);
+  useLayoutEffect(() => {
+    const request = createFocusRef.current;
+    if (!request) return;
+    if (!expanded || !model?.mutable || model.loading || model.error
+      || request.input !== newSubtaskInputRef.current
+      || request.taskId !== request.input.closest<HTMLElement>("[data-task-id]")?.dataset.taskId) {
+      createFocusRef.current = null;
+      return;
+    }
+    if (model.pending) {
+      request.sawPending = true;
+      return;
+    }
+    if (!request.sawPending && model.createValue === request.value
+      && model.subtasks.length === request.count) return;
+    createFocusRef.current = null;
+    if (request.input.isConnected && !request.input.disabled
+      && (document.activeElement === document.body || document.activeElement === request.input)) {
+      request.input.focus({ preventScroll: true });
+    }
+  });
   const handleCreate = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (model?.pending || !model?.mutable) return;
+    if (model?.pending || !model?.mutable || !model.createValue.trim() || createFocusRef.current) return;
+    const input = newSubtaskInputRef.current;
+    if (input) createFocusRef.current = {
+      input,
+      taskId: input.closest<HTMLElement>("[data-task-id]")?.dataset.taskId,
+      value: model.createValue,
+      count: model.subtasks.length,
+      sawPending: false,
+    };
     onCreate();
   };
 

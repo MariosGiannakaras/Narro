@@ -15,12 +15,19 @@ const options = Object.fromEntries(process.argv.slice(2).map((arg) => {
 for (const key of ["edge", "url", "profile", "png", "html", "kind"]) {
   if (!options[key]) throw new Error(`Missing --${key}`);
 }
-if (!["preferences", "print"].includes(options.kind)) throw new Error("Unknown ready-fixture kind");
+if (!["preferences", "print", "m7-integration"].includes(options.kind)) throw new Error("Unknown ready-fixture kind");
 const fixtureUrl = new URL(options.url);
 if (fixtureUrl.hostname !== "127.0.0.1" || fixtureUrl.protocol !== "http:") throw new Error("Fixture must be local HTTP");
-const deadline = Date.now() + 25_000;
+const integration = options.kind === "m7-integration";
+const integrationMotion = fixtureUrl.searchParams.get("motion")?.toLowerCase();
+if (integration && (fixtureUrl.searchParams.get("scenario") !== "m7-integration"
+  || !["true", "false"].includes(integrationMotion))) throw new Error("M7 capture requires exact scenario and motion identity");
+// M7 runs the full sequential interaction corpus (~20s on the local Edge
+// preflight), including controlled native waits. Keep a hard outer bound,
+// while completion is still exclusively the fixture's actual semantic result.
+const deadline = Date.now() + (integration ? 60_000 : 25_000);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const viewport = { width: 1280, height: 720 };
+const viewport = { width: 1280, height: integration ? 1080 : 720 };
 const clip = { x: 0, y: 0, ...viewport, scale: 1 };
 const events = [];
 let stderr = "", socket, serial = 0, observed = null, failure = null;
@@ -28,7 +35,7 @@ const pending = new Map();
 const browser = spawn(options.edge, [
   "--headless=new", "--disable-gpu", "--disable-background-networking",
   "--hide-scrollbars", "--no-first-run", "--force-device-scale-factor=1",
-  "--window-size=1280,720", `--user-data-dir=${options.profile}`,
+  `--window-size=${viewport.width},${viewport.height}`, `--user-data-dir=${options.profile}`,
   "--remote-debugging-port=0", "about:blank",
 ], { windowsHide: true, stdio: ["ignore", "ignore", "pipe"] });
 browser.stderr.on("data", (data) => { stderr = (stderr + data).slice(-16_000); });
@@ -86,7 +93,8 @@ async function connect() {
 }
 async function state() {
   return evaluate(`({dataset:{...document.documentElement.dataset},rootChildren:document.getElementById('root')?.childElementCount,
-    readyState:document.readyState,url:location.href,viewport:[innerWidth,innerHeight],focus:document.activeElement?.outerHTML.slice(0,300)})`);
+    readyState:document.readyState,url:location.href,viewport:[innerWidth,innerHeight],focus:document.activeElement?.outerHTML.slice(0,300),
+    contract:document.getElementById('focus-editor-contract') ? JSON.parse(document.getElementById('focus-editor-contract').textContent) : null})`);
 }
 function complete(value) {
   if (value?.url !== options.url) return false;
@@ -94,6 +102,18 @@ function complete(value) {
   const error = d.themeSettingsKeyboardError ?? d.reportsFixtureError;
   if (error) throw new Error(`Ready-fixture assertion: ${error}`);
   if (events.length) throw new Error("Ready-fixture renderer/network failure (see diagnostics)");
+  if (integration) {
+    if (value.contract?.error) throw new Error(`M7 integration assertion: ${value.contract.error}`);
+    if (d.focusEditorFixtureReady !== "true") return false;
+    const contract = value.contract;
+    if (contract?.scenario !== "m7-integration" || contract.theme !== fixtureUrl.searchParams.get("theme")
+      || contract.reducedMotion !== (integrationMotion === "true")) throw new Error("M7 completion identity mismatch");
+    for (const key of ["subtaskRepeatFocusAfterNativeRefresh", "subtaskFailureDraftAndFocus", "subtaskExplicitFocusOwnership",
+      "subtaskStaleRefreshFailClosed", "subtaskDisposedFocusSafe"]) {
+      if (contract[key] !== true) throw new Error(`M7 completed fixture lacks ${key}`);
+    }
+    return true;
+  }
   return options.kind === "preferences"
     ? d.themeSettingsFixtureReady === "true" && d.themeSettingsKeyboardPass === "true" && d.themeSettingsDialogContainmentPass === "true"
     : d.reportsFixtureReady === "true" && d.reportsPrintLayoutPass === "true";
@@ -103,6 +123,9 @@ try {
   await command("Page.enable"); await command("Runtime.enable"); await command("Network.enable");
   await command("Emulation.setDeviceMetricsOverride", { ...viewport, deviceScaleFactor: 1, mobile: false });
   if (options.kind === "print") await command("Emulation.setEmulatedMedia", { media: "print" });
+  if (integration) await command("Emulation.setEmulatedMedia", {
+    features: [{ name: "prefers-reduced-motion", value: integrationMotion === "true" ? "reduce" : "no-preference" }],
+  });
   await command("Page.bringToFront");
   const navigation = await command("Page.navigate", { url: options.url });
   if (navigation.errorText) throw new Error(`Fixture navigation: ${navigation.errorText}`);

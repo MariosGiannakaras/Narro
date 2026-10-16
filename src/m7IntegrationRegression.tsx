@@ -8,7 +8,7 @@ import { AppShell } from "./AppShell";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
 import { archiveListFromSettings, restoreListFromSettings, permanentlyDeleteListFromSettings } from "./listSettingsApi";
 import { emitBoardInvalidated } from "./boardInvalidation";
-import type { ListBoardRequestTarget, ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
+import type { BoardSubtask, ListBoardRequestTarget, ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
 import type { TimerSessionPayload } from "./timerSessionApi";
 
 // Render production components and call production APIs; replace only native
@@ -114,6 +114,9 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const dragCalls: Array<Record<string, unknown>> = [];
   const createCalls: Array<Record<string, unknown>> = [];
   const quickClearCalls: Array<Record<string, unknown>> = [];
+  const ownedSubtasks: BoardSubtask[] = [];
+  let subtaskCalls = 0, subtaskFail = false, subtaskRefreshFail = false;
+  let releaseSubtask: (() => void) | undefined;
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -152,6 +155,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
       if (command === "get_list_board_snapshot") {
+        if (subtaskRefreshFail) throw new Error("controlled committed subtask refresh failure");
         if (deferFocusBoardReads) return new Promise((resolve, reject) => {
           focusBoardReadWaiters.push(resolve as (value: ListBoardSnapshot) => void);
           focusBoardReadRejecters.push(reject);
@@ -241,6 +245,24 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         boardTasks = boardTasks.map(other => other.id === task.id
           ? { ...other, scheduledLocalDate: null, scheduledLocalTime: null, updatedAt: "2026-10-06T09:01:00Z" } : other);
         return;
+      }
+      if (command === "get_list_board_task_subtasks") {
+        return { taskId: args.taskId, listId: args.listId, mutable: true, subtasks: [...ownedSubtasks] };
+      }
+      if (command === "create_list_board_subtask") {
+        subtaskCalls++;
+        assert(args.taskId === tasks[0].id && args.listId === id, "subtask create lost parent identity");
+        if (subtaskFail) throw new Error("controlled uncommitted subtask failure");
+        return new Promise<BoardSubtask>(resolve => {
+          releaseSubtask = () => {
+            const child: BoardSubtask = { id: `child-${subtaskCalls}`, taskId: String(args.taskId),
+              title: String(args.title), sortRank: ownedSubtasks.length, completedAt: null, updatedAt: "2026-10-16T00:00:00Z" };
+            ownedSubtasks.push(child);
+            boardTasks = boardTasks.map(task => task.id === child.taskId
+              ? { ...task, subtaskTotalCount: ownedSubtasks.length } : task);
+            resolve(child);
+          };
+        });
       }
       if (command === "create_list_board_task") {
         createCalls.push({ ...args });
@@ -921,6 +943,58 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true })); await wait();
   taskLanes.clear();
 
+  // Actual Board + shared TaskSubtasks, with deferred native commit and real
+  // pending/refresh renders. An isolated synchronous fixture misses the blur.
+  boardTasks = [tasks[0]];
+  renderBoard("subtask-create-focus"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[data-task-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  const subtaskInput = () => container.querySelector<HTMLInputElement>('[data-task-subtask-control="create-input"]')!;
+  const submitChild = async (title: string, doubleSubmit = true) => {
+    const input = subtaskInput(); input.focus();
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, title);
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    const form = input.form!;
+    if (doubleSubmit) form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    await wait();
+    return input;
+  };
+  for (const title of ["First child", "Second child"]) {
+    const calls = subtaskCalls;
+    const input = await submitChild(title, title !== "First child");
+    assert(input.disabled && subtaskCalls === calls + 1, "pending subtask duplicated native command or remained editable");
+    releaseSubtask!(); await wait(); await wait(); await wait();
+    assert(subtaskInput() === input && input.value === "" && !input.disabled && document.activeElement === input,
+      "committed subtask create lost repeat-ready input/focus after authoritative refresh");
+  }
+  subtaskFail = true;
+  const failedInput = await submitChild("Retain failed draft"); await wait();
+  assert(failedInput.value === "Retain failed draft" && !failedInput.disabled && document.activeElement === failedInput,
+    "uncommitted failure lost editable draft/focus");
+  subtaskFail = false;
+  await submitChild("Navigation ownership");
+  const elsewhere = document.createElement("button"); elsewhere.textContent = "Outside focus owner";
+  document.body.append(elsewhere); elsewhere.focus();
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(document.activeElement === elsewhere, "completed native response stole explicitly moved focus");
+  elsewhere.remove();
+  await submitChild("Committed stale details");
+  subtaskRefreshFail = true;
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(!subtaskInput() && document.activeElement !== failedInput
+    && container.textContent?.includes("panel is stale"), "committed refresh failure refocused stale editing state");
+  subtaskRefreshFail = false;
+  // Dispose an outstanding request; its completion must not focus a new tree.
+  renderBoard("subtask-disposal"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[data-task-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  await submitChild("Disposed owner");
+  flushSync(() => root.render(<button id="new-focus-owner">New owner</button>));
+  const newOwner = container.querySelector<HTMLButtonElement>("#new-focus-owner")!; newOwner.focus();
+  releaseSubtask!(); await wait(); await wait();
+  assert(document.activeElement === newOwner, "disposed subtask response stole replacement focus");
+  assert(new Set(ownedSubtasks.map(child => child.id)).size === ownedSubtasks.length,
+    "subtask capture fixture lost independent child identities");
+
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -1020,5 +1094,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true,
     sourceMenuCompactPlain: true, deleteConfirmationGeometryStable: true, sourceEmptyAllFourLanes: true,
     sourceCreateTitleLabel: true, sourceBottomCreateNewestFirst: true, sourceCreateFormPositionStable: true,
-    sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true };
+    sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true,
+    subtaskRepeatFocusAfterNativeRefresh: true, subtaskFailureDraftAndFocus: true,
+    subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true };
 }
