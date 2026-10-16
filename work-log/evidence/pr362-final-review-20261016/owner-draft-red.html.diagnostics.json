@@ -1,0 +1,83 @@
+{
+  "failure": "Error: Ready-fixture renderer/network failure (see diagnostics)",
+  "observed": {
+    "dataset": {
+      "theme": "dark",
+      "focusEditorFixtureReady": "true"
+    },
+    "rootChildren": 1,
+    "readyState": "complete",
+    "url": "http://127.0.0.1:4174/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=false",
+    "viewport": [
+      1280,
+      1080
+    ],
+    "focus": "<input data-task-subtask-control=\"create-input\" aria-label=\"New subtask for Queue task 2 with long readable title\" placeholder=\"Enter subtask task title*\" value=\"Old task draft must not migrate\">",
+    "contract": {
+      "error": "Uncaught Error: M7 projection: old task create draft crossed into the new Focus owner"
+    }
+  },
+  "events": [
+    {
+      "method": "Runtime.exceptionThrown",
+      "params": {
+        "timestamp": 1792149253363.248,
+        "exceptionDetails": {
+          "exceptionId": 1,
+          "text": "Uncaught",
+          "lineNumber": 0,
+          "columnNumber": 1321,
+          "scriptId": "16",
+          "url": "http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "a",
+                "scriptId": "16",
+                "url": "http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js",
+                "lineNumber": 0,
+                "columnNumber": 1321
+              },
+              {
+                "functionName": "Va",
+                "scriptId": "16",
+                "url": "http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js",
+                "lineNumber": 0,
+                "columnNumber": 43539
+              }
+            ]
+          },
+          "exception": {
+            "type": "object",
+            "subtype": "error",
+            "className": "Error",
+            "description": "Error: M7 projection: old task create draft crossed into the new Focus owner\n    at a (http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js:1:1322)\n    at Va (http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js:1:43540)\n    at async http://127.0.0.1:4174/assets/focusEditorFixture-DfPNQkPM.js:2:9001",
+            "objectId": "736717959111265776.2.1",
+            "preview": {
+              "type": "object",
+              "subtype": "error",
+              "description": "Error: M7 projection: old task create draft crossed into the new Focus owner\n    at a (http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js:1:1322)\n    at Va (http://127.0.0.1:4174/assets/m7IntegrationRegression-6P7XoIJg.js:1:43540)\n    at async http://127.0.0.1:4174/assets/focusEditorFixture-DfPNQkPM.js:2:9001",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "Error: M7 projection: old task create draft crosse…4174/assets/focusEditorFixture-DfPNQkPM.js:2:9001"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "M7 projection: old task create draft crossed into the new Focus owner"
+                }
+              ]
+            }
+          },
+          "executionContextId": 2
+        }
+      }
+    }
+  ],
+  "stderr": "[45548:46728:1016/141353.030:ERROR:components\\edge_ess\\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577\r\n\r\nDevTools listening on ws://127.0.0.1:51717/devtools/browser/5c2e583d-7f3b-49bd-80c3-db3f7556d2d7\r\n[45548:66676:1016/141356.818:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n[45548:46728:1016/141357.075:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[45548:46728:1016/141358.975:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n",
+  "kind": "m7-integration",
+  "url": "http://127.0.0.1:4174/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=false"
+}
