@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-**Current PR358 acceptance:** B70/SS-C06 row **2/2 scoped source/native PASS**, B46 remaining ESTreset PASS. B12 keyboard repeat-entry **FAIL** after pending commit; correction branch active, not yet accepted. B60 full header/source grammar remainsOPEN. [Report](../work-log/2026-10-16-pr358-native-acceptance-and-subtask-focus-failure.md).
+**Current source candidate:** PR359 mergededcc5fc6/exact055350d6CI3/3, main553-input proof accepted. PR360916b17d2/CI38860384226 batches existing B24/B60/B12/SS-C06 fixes; frontend/rendered/actualReact PASS, native5groups0/5. Old Search visual acceptance reopened for changed composition; no old pixels validate replacement. [Exact scope/evidence](../work-log/2026-10-16-pr359-integration-and-pr360-batched-controls.md).
 
 **Current PR357 disposition — 2026-10-16:** B47/B48/B52/B61 and P3-M5-04 affected claims source/nativePASS; capture/review/acceptance4/4, PR/mainCI3/3SUCCESS. Historical older OPEN/status prose does not override the current rows/report. B60 and other M5 gates remainOPEN; M1–M4=4/10, M10blocked. [Full evidence/boundaries](../work-log/2026-10-16-pr357-native-four-item-acceptance.md).
 

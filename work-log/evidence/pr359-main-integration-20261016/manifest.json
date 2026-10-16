@@ -1,0 +1,21 @@
+{
+  "source": "055350d61f6f0ee8ae8b26803bd38f4ca3e4ed12",
+  "nativeAcceptance": "OPEN",
+  "files": [
+    {
+      "path": "accepted-ci.json",
+      "bytes": 13591,
+      "sha256": "6ee63be581446bb7c035415db056ee9ea05c54722bbf6686de8928a97f5c1825"
+    },
+    {
+      "path": "ci38857668558-success.log",
+      "bytes": 420341,
+      "sha256": "a1b97bb28f2cb4411c8ac4cd82ba99ec1a8be4873dab3bcac1422e3fe1618faf"
+    },
+    {
+      "path": "main-input-identity.json",
+      "bytes": 29842,
+      "sha256": "607040e863dbe2a2be3e8f2ad06ef5147c943f691c37cd154f2c0cc5c88753e6"
+    }
+  ]
+}
