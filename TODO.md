@@ -736,15 +736,45 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 
 **M11 completion gate (only if activated):** the capture campaign is complete and frozen, the entire corpus has been analyzed, every material finding is reconciled, the remediation plan is complete, every selected Narro correction is validated, affected prior gates are re-run as required, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin.
 
-## Final Comprehensive Review Stage — after Milestone 10, or after Milestone 11 only when M11 was explicitly activated
+## Milestone 12 — OPTIONAL professional user-facing QA / testing (Narro only)
 
-This is a required post-roadmap quality stage and is **not itself a numbered milestone**. With M11 dormant/skipped, the normal roadmap denominator remains 10 and this stage begins after validated M10. If the user explicitly activated optional M11, the denominator becomes 11 and this stage begins only after M11 is complete. No item in this stage may be marked complete before the applicable preceding milestone path is complete and the corresponding review work has actually been performed and validated.
+**STATUS: DORMANT / STRICTLY OPT-IN / NOT RUN.** This stage is independently optional and is **not** automatically enabled by continuing M1–M10, completing M10, activating/completing M11, or creating this specification. A separate explicit user instruction naming M12 / optional normal-use QA is required to start. M11 and M12 never activate each other; keep the mandatory milestones exactly **10** and do not change the current denominator until an optional milestone is explicitly activated. If both are activated, they are separately reported alongside the 10 mandatory milestones.
+
+**Scope boundary: ONLY ordinary actions a user performs within Narro.** Normal screens/forms, list/task operations, drag/drop, planning/scheduling/recurrence, Focus/Timer, settings **inside the app**, archives, reports, notes, search, exports through the normal app UI, keyboard navigation, modal/feedback states and user-visible persistence after normal quit/reopen. The purpose is professional practical QA: realistic end-to-end journeys, smoke, bounded exploratory testing, defect reports with reproduction/evidence, priority/severity, fix/retest and regression.
+
+**Explicit exclusions:** multi-monitor/two-screen experiments, display hotplug, unplugging cables, changes to Windows settings/notifications/DPI/timezone/resolution/power, drivers, OS/hardware stress, installation/migration/uninstall, AppData/database edits, process killing, fault injection, network tampering, debugging/DevTools/backend instrumentation, original Blitzit analysis, subscription/AI/MCP/cloud services. No new user-profile changes or use of personal data without separate user permission. Existing paused PA-01–09 remain paused and separate.
+
+**Authoritative plan:** [docs/NARRO_OPTIONAL_USER_QA.md](docs/NARRO_OPTIONAL_USER_QA.md). Full execution requires a verified final packaged Narro candidate after validated M10 and (only if separately activated) completed M11. When dormant, mark M12 **SKIPPED BY DESIGN**, do not consider these checkboxes blockers and proceed to the mandatory Final Comprehensive Review.
+
+### Activation and user-safe setup
+
+- [ ] Record explicit activation, exact candidate SHA/build/package, session owner/permissions, existing monitor/Windows environment **without changing it**, safe disposable in-app test dataset and source of expected behavior.
+- [ ] Define reproducible in-app test cases and expected outcomes from actual Narro requirements; register PASS/FAIL/BLOCKED/NOT RUN/N/A per executed case. Unexecuted does not mean PASS.
+
+### Professional in-app test campaign
+
+- [ ] Run minimal smoke: launch, main navigation, create/edit test task, Focus, Reports, normal quit/relaunch.
+- [ ] Exercise all applicable QA-01–QA-12 user journeys from the protocol: list/task CRUD, ordering/moves, subtasks/notes, scheduling/recurrence, search/archive, Focus/Timer, sessions/reports/export, in-app Preferences and keyboard/menu/modal UX.
+- [ ] Verify ordinary positive, negative/cancel, empty/error, hover/focus, feedback, saved-state and cross-surface paths, without OS/system testing or destructive actions on personal data.
+- [ ] Perform bounded in-app exploratory testing using the same no-OS/no-external-services constraints; log unexpected behavior and accessibility/usability defects.
+
+### Issue triage, correction and completion
+
+- [ ] For each real defect: preserve exact in-app repro, expected/actual, evidence, build identity, impact and severity; deduplicate issues; fix through normal repository workflow and validate exact code/release.
+- [ ] Retest every material fix in the **actual corrected packaged Narro**, run affected end-to-end regression and preserve existing feature/visual invariants.
+- [ ] Publish a report with QA scenario coverage, PASS/FAIL/BLOCKED/NOT RUN, unresolved/accepted defects, exact candidate identity, evidence and qualified release recommendation. No open P0/P1 in exercised scope for unqualified PASS; any unresolved P2 requires an explicit documented disposition.
+- [ ] Close M12 only after **actual in-app execution** and required retesting; do not infer physical PASS from tests/CI and do not claim that M12 replaces required Final Comprehensive Review or paused Windows acceptance.
+
+## Final Comprehensive Review Stage — after the mandatory M10 and any separately activated optional M11/M12
+
+This is a required post-roadmap quality stage and is **not itself a numbered milestone**. It begins after validated M10 **and completion of whichever optional milestones the user independently activated**: M11 source audit, then M12 user-facing in-app QA if both were activated. If neither optional milestone was activated, proceed after M10 with the original mandatory denominator **10**. With one separately activated optional milestone the active total is 11; with both, 12. Never count dormant/skipped optionals as unfinished mandatory work. No item in this stage may be marked complete before the applicable preceding stages and the review work itself have actually been performed and validated.
 
 ### Review preparation and evidence inventory
 
-- [ ] Freeze the final review baseline at the validated Milestone 10 source SHA when M11 was dormant/skipped, or at the validated post-M11 source SHA when M11 was explicitly activated; record the complete application/version/environment under review.
+- [ ] Freeze the final review baseline at the validated M10 source SHA if both optionals were dormant/skipped, otherwise use the latest validated candidate after the separately activated M11 and/or M12; record exact source/build/package identity, application version and environment. Do not infer a PASS for any skipped optional stage.
 - [ ] Inventory all relevant Narro specifications, validated work logs, screenshots, visual fixtures, and current product states that define expected behavior.
 - [ ] Record M11 disposition explicitly for the review: `NOT ACTIVATED / SKIPPED BY DESIGN`, or `ACTIVATED / COMPLETE` with the live-source audit report and post-M11 SHA. Never perform M11 implicitly as part of Final Review.
+- [ ] Record M12 disposition explicitly and separately: `NOT ACTIVATED / SKIPPED BY DESIGN`, or `ACTIVATED / COMPLETE` with the in-app-only QA coverage, defect/retest report and exact accepted build SHA. M12 does not reactivate PA-01–09 or require any OS/display/hardware procedure.
 - [ ] Inventory **all available Blitzit screenshots, images, videos, transcripts/captions, and visual references**, including the supplied reference screenshots, `reference/original-blitzit-videos/inbox/`, and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
 - [ ] Verify the already-complete canonical Pass-3 corpus inventory remains intact and traceable: 19/19 MP4 records, 46/46 canonical screenshot records/dispositions and 8/8 calibrated visual-system families. Do **not** re-ingest or broadly re-analyze the corpus merely because Final Review has started.
 - [ ] Consume the completed canonical timestamped Pass-3 recording analysis for interaction flow, UI states, motion, transition/resize ordering and transient states. Re-open raw media only for a concrete ambiguity/conflict, an implementation-exposed uncaptured detail, or direct final source verification of a comparable release-candidate state; never substitute a fresh broad forensic pass for the canonical records.
