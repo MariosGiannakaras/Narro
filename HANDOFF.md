@@ -12,6 +12,8 @@ PA01–08 8/8 dispositioned within the final report scope; physicalHDMI NOTRUN/a
 
 ## One next operation
 
+**Integration hold for exact0e9cdae1:** final code-path review identified a possible late successful detail read clearing a committed-refresh failure message. Additional real-component deferred-read regression is being exercised before merge; previous4/4positive matrix does not resolve this new case. Do not merge0e9 automatically on greenCI until this case is dispositioned. No new physicalcapture/profileactive.
+
 **Finish PR362 exact validation/integration, then one corrected-native sync capture0/1.** Branch `fix/m5-m6-cross-window-subtasks`, exact0e9cdae1835caad37baaef402b8faca46b591cff; CI38889617175 active. Fullfrontendpreflight and4/4realproductioncomponentcapturesPASS; no sourceWIP. Apply result immediately: failure→firstcausalstep on samebranch; success3/3→expected-headguardedmerge, maininput/workflowproof/providerhash, freshprofileprotection/dualOBS and Board↔Focus/expandedTimer actualcross-window details/draft/count/identity check. Do not repeat acceptedsourcecontrols/Search or broaderM7/performance. Originalprofiles restored; evidence alreadymain. [Fullcandidateprotocol](work-log/2026-10-16-pr362-cross-window-subtask-correction-preflight.md).
 
 ## Workspace
