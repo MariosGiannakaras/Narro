@@ -50,7 +50,7 @@ import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
-import { getTaskScheduleEditor, removeTaskRecurrence, updateTaskSchedule } from "./taskScheduleApi";
+import { getTaskScheduleEditor, quickClearTaskSchedule, removeTaskRecurrence } from "./taskScheduleApi";
 import { canQuickRemoveSchedule, expectedQuickRemoveSchedule } from "./taskScheduleQuickRemove";
 import {
   applyTimerSessionProjection,
@@ -1342,12 +1342,16 @@ export function ListBoard({
     // Verify the identity, linked-child relation and visible date against a
     // fresh authoritative read. The persisted timezone remains untouched.
     let expectedSchedule;
+    let expectedUpdatedAt;
+    let expectedRecurrenceParentTaskId;
     try {
       const latest = await getTaskScheduleEditor(task.id, task.listId);
       expectedSchedule = expectedQuickRemoveSchedule(task, latest);
-      if (!expectedSchedule) {
+      if (!expectedSchedule || !latest.updatedAt) {
         throw new Error("This task schedule changed. Refresh the board before trying again.");
       }
+      expectedUpdatedAt = latest.updatedAt;
+      expectedRecurrenceParentTaskId = latest.recurrenceParentTaskId;
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
       setMutationStatus("Could not verify the current schedule.");
@@ -1357,11 +1361,12 @@ export function ListBoard({
     }
 
     try {
-      await updateTaskSchedule({
+      await quickClearTaskSchedule({
         taskId: task.id,
         listId: task.listId,
         expectedSchedule,
-        schedule: { kind: "none" },
+        expectedUpdatedAt,
+        expectedRecurrenceParentTaskId,
       });
       await handleScheduleCommitted(task.id, "Removed schedule from task.");
     } catch (failure: unknown) {

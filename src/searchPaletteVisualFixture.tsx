@@ -106,4 +106,24 @@ if (!root) throw new Error("Search palette fixture root is missing.");
 flushSync(() => {
   createRoot(root).render(<FixtureSurface />);
 });
-document.documentElement.dataset.searchPaletteFixtureReady = "true";
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  const group = document.querySelector<HTMLElement>(mode === "empty"
+    ? '[data-search-palette-actions="true"]' : '[data-search-palette-results="true"]');
+  const rows = group ? Array.from(group.querySelectorAll<HTMLElement>('.search-palette__option')) : [];
+  const geometry = rows.map(row => row.getBoundingClientRect().toJSON());
+  const narrow = window.innerWidth <= 512;
+  const horizontal = mode === "empty" && !narrow;
+  const layoutPass = mode !== "empty" && mode !== "results" || geometry.length > 0 && geometry.every((rect, i) => {
+    if (rect.left < -1 || rect.right > window.innerWidth + 1) return false;
+    if (i === 0) return true;
+    const previous = geometry[i - 1];
+    return horizontal ? Math.abs(rect.top - previous.top) <= 1 && rect.left >= previous.right - 1
+      : rect.top >= previous.bottom - 1;
+  });
+  const contract = document.createElement("script");
+  contract.id = "search-palette-contract";
+  contract.type = "application/json";
+  contract.textContent = JSON.stringify({ mode, theme, viewport: window.innerWidth, layoutPass, horizontal, geometry });
+  document.body.appendChild(contract);
+  document.documentElement.dataset.searchPaletteFixtureReady = "true";
+}));

@@ -261,7 +261,7 @@ fn bucket_ids(
     Ok(ids)
 }
 
-fn next_bucket_rank(
+pub(super) fn next_bucket_rank(
     conn: &Connection,
     list_id: ListId,
     lane: PlanningLane,
@@ -283,7 +283,7 @@ fn next_bucket_rank(
     }
 }
 
-fn compact_bucket_ranks(
+pub(super) fn compact_bucket_ranks(
     tx: &Transaction<'_>,
     list_id: ListId,
     lane: PlanningLane,

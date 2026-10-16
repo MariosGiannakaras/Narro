@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { emitBoardInvalidated } from "./boardInvalidation";
+import { systemDisplayTimezone } from "./listBoardApi";
 
 export type TaskSchedule =
   | { kind: "none" }
@@ -39,6 +40,7 @@ export type TaskScheduleEditorSnapshot = {
   taskId: string;
   listId: string;
   schedule: TaskSchedule;
+  updatedAt: string;
   recurrenceParentTaskId: string | null;
   recurrence: BoardRecurrenceRule | null;
   deleteExistingEligibleCount: number;
@@ -94,6 +96,18 @@ export function updateTaskSchedule(request: {
   schedule: TaskSchedule;
 }): Promise<void> {
   return committedScheduleMutation<void>("update_list_board_task_schedule", request);
+}
+
+export function quickClearTaskSchedule(request: {
+  taskId: string;
+  listId: string;
+  expectedSchedule: TaskSchedule;
+  expectedUpdatedAt: string;
+  expectedRecurrenceParentTaskId: string | null;
+}): Promise<void> {
+  return committedScheduleMutation<void>("quick_clear_list_board_task_schedule", {
+    request: { ...request, fallbackDisplayTimezone: systemDisplayTimezone() },
+  });
 }
 
 export function saveTaskRecurrence(request: {

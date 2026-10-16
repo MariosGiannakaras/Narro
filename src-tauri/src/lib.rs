@@ -2756,6 +2756,7 @@ pub fn run() {
             board_task_schedule::get_list_board_task_schedule_editor,
             board_task_schedule::resolve_list_board_schedule_shortcut,
             board_task_schedule::update_list_board_task_schedule,
+            board_task_schedule::quick_clear_list_board_task_schedule,
             board_task_schedule::save_list_board_task_recurrence,
             board_task_schedule::remove_list_board_task_recurrence,
             board_task_notes::get_list_board_task_note,

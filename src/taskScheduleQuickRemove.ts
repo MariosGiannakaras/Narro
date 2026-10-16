@@ -14,8 +14,8 @@ export function canQuickRemoveSchedule(task: ScheduleRemovalTask): boolean {
 }
 
 /**
- * Read-only revalidation before invoking the existing atomic expected-schedule
- * mutation. A generated child may unschedule independently; a recurring parent
+ * Read-only revalidation before the dedicated atomic quick-clear mutation.
+ * A generated child may unschedule independently; a recurring parent
  * cannot be detached through an ordinary scheduled-child control.
  */
 export function expectedQuickRemoveSchedule(

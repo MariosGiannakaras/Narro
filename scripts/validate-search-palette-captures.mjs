@@ -17,6 +17,10 @@ function read(label) {
   invariant(dom.includes('role="dialog"'), `${label} lacks dialog semantics`);
   invariant(dom.includes('aria-modal="true"'), `${label} lacks modal semantics`);
   invariant(!dom.includes("Archived done tasks"), `${label} absorbed later archive scope`);
+  const contract = dom.match(/<script id="search-palette-contract" type="application\/json">([\s\S]*?)<\/script>/);
+  invariant(contract, `${label} missing actual rendered layout contract`);
+  const result = JSON.parse(contract[1]);
+  invariant(result.layoutPass === true, `${label} wrong quick-action/result layout or horizontal overflow`);
   return dom;
 }
 
