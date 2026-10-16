@@ -684,6 +684,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 
 - [ ] Record the live Blitzit reference environment: observable version/build, date/time, Windows/display/DPI context, trial/subscription limitations, theme/locale/preferences and evidence provenance.
 - [ ] Build a complete scripted capture matrix before substantive exploration starts, using current TODO/HANDOFF/crosswalk plus unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes.
+- [ ] Apply M11's explicit scope filter: **skip exhaustive capture/analysis of accounts, subscriptions, AI chat, MCP and cloud/third-party integration services**; retain a short non-invasive discovery scan for features absent from older evidence, especially potentially useful local-only capabilities.
 - [ ] Define synchronized capture for both streams:
   - continuous user-visible screen recording/screenshots/keyframes;
   - observable client/backend/state evidence from ordinary authorized product use: request/event shapes, timing/status/order, local storage/app-data/process/file state where legitimately observable.
@@ -712,6 +713,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 ### Phase 4 — full-corpus analysis
 
 - [ ] Review the **entire frozen visual corpus** systematically for layout, hierarchy, typography, icons, spacing, states, menus/dialogs/tooltips, motion, transitions, transient states and version-dependent differences.
+- [ ] Classify every previously undocumented feature captured as **current in-scope**, **future local-use candidate**, **excluded online service**, or **ambiguous**, with source/version/timecodes and durable deduplicated registration. Do not automatically implement future candidates or count excluded services as missing parity.
 - [ ] **Extract and document the genuine Blitzit color palette** from frozen, authorized original client/theme/style/computed-render resources where possible: exact HEX/RGB(A) values, semantic roles, theme/state variants, gradient stops/directions, alpha/blending and provenance per value. Distinguish independently verified original values from screenshot pixel measurements/visual estimates; never label sampled approximations as byte-exact Blitzit tokens. Quantify representative text/non-text contrast and record genuinely inaccessible values as unknown.
 - [ ] Review the **entire frozen observable protocol/state corpus** and correlate user actions with task identity/mutations, reorder/move, timer/session accounting, Notes/subtasks, scheduling/recurrence, reports, optimistic acknowledgement/reconciliation, retries/conflicts and local-vs-remote state where supported.
 - [ ] Classify backend conclusions as directly observed contract / strong evidence-based inference / unknown-unobservable; never claim hidden server implementation from client evidence.
