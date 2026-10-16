@@ -33,6 +33,20 @@ When a later validated event supersedes a current-state claim:
 A zero-context agent must not need to infer which of two contradictory "current" statements is newer.
 
 
+## Active work phase checkpoints — truthful repository visibility (binding; 2026-10-16)
+
+`HANDOFF.md` is the **single canonical current-work record**, not a real-time process monitor. Another agent can know only the **last pushed/verified checkpoint** plus live GitHub PR/CI state; no repository-only mechanism can determine whether an unreported local Codex recording, analysis or edit is currently running, stopped or hung. **Never present a stale checkpoint as live activity.** Do not add a competing progress tracker or change historical immutable logs.
+
+At a **safe transition before starting a substantial phase**, record one compact top-of-`HANDOFF.md` active-work entry with:
+- named owner/track, exact task and scenario/requirement IDs, phase `PREPARED | CAPTURING | FROZEN | ANALYZING | FIXING | TESTING | CI_WAIT | BLOCKED | DONE` and **last reported UTC timestamp** (meaning "last observed/pushed", *not* guaranteed current activity);
+- exact branch/PR/head SHA/validated executable/CI run ID when applicable; for local capture, the owned session/evidence root and safe artifact pointer (no personal paths/secrets beyond already documented permitted context);
+- **last completed atomic operation and evidence identity**, bounded progress `x/y` only for the defined active batch, current blocker/uncertainty, protected in-flight resources, and **one next safe operation** if the session stops;
+- whether the next operation can be resumed in place or requires first checking local process/OBS status, partial artifacts and source/DB backup/restore state.
+
+After a **meaningful phase boundary or durable completed group**, publish an updated checkpoint when safe; for source work, use the existing PR/CI and HANDOFF identity without unrelated duplicate commits. **Do not inject GitHub commits/checkpoints into a continuous evidence recording, violate the capture-phase analysis embargo, restart a recording, touch protected AppData or introduce a second session just for status visibility.** During such acquisition keep a local factual timestamp/action journal if already permitted by its capture protocol; publish the result and updated `HANDOFF.md` at the next safe stop/freeze or documented capture boundary. If a task is interrupted between pushes, the repository may be behind reality; the resuming agent must first inspect actual owned local processes, files and evidence safely **before** repeating anything.
+
+Interpret remote observations conservatively: `CI_RUNNING` means GitHub confirms a remote job (not local Codex activity); `CAPTURING` is the **last declared phase** until corroborated by current runtime/evidence; no recent commit or expired timestamp alone establishes `stopped` or `hung`. Label unverified current liveness **UNKNOWN**. This protocol improves recovery, not continuous telemetry and not permission to activate M11/M12 or user-paused physical tests.
+
 ## Resumed-turn continuity and anti-duplication protocol (binding)
 
 **Distinguish a new zero-context takeover from a continuation of an ongoing task.** A user follow-up, "συνέχισε", "κόλλησες" or "ολοκλήρωσες;" does not erase an existing branch/PR/CI task or require the full onboarding discovery again. The latest user request overrides normal repo access: if it explicitly forbids repository inspection, do not query GitHub for that request. The next explicit repo-work request may authorize it again.
