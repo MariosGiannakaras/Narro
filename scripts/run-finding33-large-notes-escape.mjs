@@ -10,10 +10,21 @@ import { fileURLToPath, pathToFileURL } from "node:url";
  */
 export function isRetryableFinding33NavigationFailure(value) {
   if (!value || value.reason !== "Error: Finding33 CDP command timed out: Page.navigate") return false;
+  if (typeof value.pageUrl !== "string" || !value.pageUrl.startsWith("http://127.0.0.1:")) {
+    return false;
+  }
   const page = value.pageState;
-  return typeof value.pageUrl === "string"
-    && value.pageUrl.startsWith("http://127.0.0.1:")
-    && page?.url === value.pageUrl
+  // A fresh retry is also safe when the *CDP transport itself* became
+  // unresponsive during navigation, before any keyboard input. Require
+  // the precise, independently observed diagnostic timeout and no other
+  // browser events. Do not classify renderer or keyboard failures as transient.
+  if (page === null && value.phase === "navigating") {
+    return Array.isArray(value.browserEvents)
+      && value.browserEvents.length === 1
+      && value.browserEvents[0]?.method === "CDP.DiagnosticFailure"
+      && value.browserEvents[0]?.reason === "Error: Finding33 CDP command timed out: Runtime.evaluate";
+  }
+  return page?.url === value.pageUrl
     && page.readyState === "interactive"
     && page.rootChildren === 0
     && page.presentation === null
@@ -76,7 +87,7 @@ function run(argv) {
       fs.copyFileSync(failurePath, retainedPath);
     },
     onRetry: () => {
-      console.warn("Finding33 Edge Page.navigate stalled before module/React bootstrap; retrying once with a fresh isolated Edge process, preserving the first diagnostic.");
+      console.warn("Finding33 pre-input Edge Page.navigate/CDP stalled; retrying once with a fresh isolated Edge process, preserving the first diagnostic and re-running all real keyboard assertions.");
     },
   });
   return status;

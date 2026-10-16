@@ -36,6 +36,41 @@ for (const invalid of [
   assert.equal(isRetryableFinding33NavigationFailure(invalid), false,
     "only exact pre-bootstrap Page.navigate timeouts may retry");
 }
+// Actual CI #38899562913: Page.navigate timed out, then the separate
+// diagnostic Runtime.evaluate also timed out. The real Escape input never ran.
+// Retest the entire browser/keyboard sequence exactly once on a fresh process.
+const transportStall = {
+  reason: "Error: Finding33 CDP command timed out: Page.navigate",
+  phase: "navigating",
+  pageUrl: target,
+  pageState: null,
+  browserEvents: [{
+    method: "CDP.DiagnosticFailure",
+    reason: "Error: Finding33 CDP command timed out: Runtime.evaluate",
+  }],
+};
+assert.equal(isRetryableFinding33NavigationFailure(transportStall), true);
+for (const invalid of [
+  {...transportStall, phase: "keyboard-input"},
+  {...transportStall, phase: "keyboard-dispatched"},
+  {...transportStall, phase: "fixture-ready"},
+  {...transportStall, phase: undefined},
+  {...transportStall, pageUrl: "http://example.com"},
+  {...transportStall, pageState: {...incomplete.pageState}},
+  {...transportStall, browserEvents: []},
+  {...transportStall, browserEvents: [{method: "Runtime.exceptionThrown"}]},
+  {...transportStall, browserEvents: [{
+    method: "CDP.DiagnosticFailure", reason: "Error: Finding33 CDP command timed out: Page.captureScreenshot",
+  }]},
+  {...transportStall, browserEvents: [
+    ...transportStall.browserEvents, {method: "Network.loadingFailed"},
+  ]},
+  {...transportStall, reason: "Error: Finding33 CDP command timed out: Runtime.evaluate"},
+]) {
+  assert.equal(isRetryableFinding33NavigationFailure(invalid), false,
+    "only independently verified pre-keyboard CDP transport stalls may retry");
+}
+
 function scenario(codes, diagnostics) {
   let count = 0;
   const preserved = [];
@@ -57,6 +92,15 @@ run = scenario([1,1], [incomplete, incomplete]);
 assert.equal(run.result, 1);
 assert.equal(run.count, 2, "a third attempt must never run");
 assert.equal(run.preserved.length, 1);
+run = scenario([1,0], [transportStall]);
+assert.equal(run.result, 0, "a second fresh Edge process still has to pass real keyboard checks");
+assert.equal(run.count, 2);
+assert.equal(run.preserved[0].failure, transportStall);
+run = scenario([1,1], [transportStall, transportStall]);
+assert.equal(run.result, 1, "two consecutive CDP stalls remain CI FAIL");
+assert.equal(run.count, 2);
+run = scenario([1,0], [{...transportStall, phase: "keyboard-input"}]);
+assert.equal(run.count, 1, "never retry after keyboard input begins");
 run = scenario([1,0], [{...incomplete, browserEvents: [{method: "Runtime.exceptionThrown"}]}]);
 assert.equal(run.result, 1);
 assert.equal(run.count, 1, "true renderer errors must fail closed");
@@ -76,4 +120,4 @@ assert(runner.includes("pathToFileURL(path.resolve(process.argv[1]))"), "portabl
 const entry = new URL("./run-finding33-large-notes-escape.mjs", import.meta.url);
 const wrongArgumentRun = spawnSync(process.execPath, [fileURLToPath(entry)], { encoding: "utf8" });
 assert.equal(wrongArgumentRun.status, 2, "the real runner must execute as a CLI and reject missing arguments, never silently succeed");
-console.log("Finding33 evidence-classified at-most-once fresh Edge bootstrap retry: PASS");
+console.log("Finding33 evidence-classified at-most-once fresh Edge bootstrap/CDP transport retry: PASS");
