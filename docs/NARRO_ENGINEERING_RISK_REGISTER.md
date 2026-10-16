@@ -18,6 +18,8 @@ It complements, rather than replaces:
 
 This file is **not** another backlog, issue tracker, milestone ledger, acceptance gate or CI stage. A risk entry never means that a current bug is open, and a guarded entry never closes an existing physical/source-parity gate.
 
+**2026-10-16 NER-009/013 prevention addition:** exact PR358 physical Board capture exposed subtask create focus loss: the native pending flag disabled the active input, while authoritative refresh re-enabled it without restoring the initiating field. Synchronous component fixtures missed the real pending/refresh cycle. The corrective slice uses the actual mounted Board with deferred native writes and real shared TaskSubtasks renders, covering repeat entry, same-render duplicate submission, retryable failure/draft preservation, explicit focus ownership, stale refresh and disposal. Only the initiating live owner may recover focus after refresh; physical acceptance of the corrected executable remains separate. [Incident and original evidence](../work-log/2026-10-16-pr358-native-acceptance-and-subtask-focus-failure.md).
+
 ## How to use it
 
 Before a non-trivial source/config/test slice:
