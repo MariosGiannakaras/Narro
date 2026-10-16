@@ -1,0 +1,26 @@
+[
+  {
+    "name": "current-v2.6.69-preferences-general.png",
+    "sha256": "ceb08796bb6ed65ec1edd42781f74e467091a3b56fcf4facc9cf0f6e835f2c38"
+  },
+  {
+    "name": "current-v2.6.69-preferences-blitz-mode-alerts.png",
+    "sha256": "256e1dbc5a4b3fb714eec9b435a13da6dbd80e443e53eecd0f1022bd815c2bc9"
+  },
+  {
+    "name": "current-v2.6.69-preferences-alerts-celebration.png",
+    "sha256": "a5992a0eec3d9ce9b5f51c764d24c1bdbe507c3fc38f18520a187d0df228d53a"
+  },
+  {
+    "name": "lg-dark-save.png",
+    "sha256": "473c4ebd5dced954d8ee1eb9a71dda0d865764e0f611d57af3015d88d790023d"
+  },
+  {
+    "name": "primary-before-escape.png",
+    "sha256": "843a76c4856ca12eae930ced8c9cf100a8198168b7b9062ebe036cbfecf003f9"
+  },
+  {
+    "name": "g1-lg-prefs-bottom.png",
+    "sha256": "4f40d216b8bd2ce7aa86fced8516ba52542f95607c8a7636ff22877007bc3872"
+  }
+]

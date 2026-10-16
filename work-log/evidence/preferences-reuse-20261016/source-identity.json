@@ -1,0 +1,46 @@
+{
+  "claim": "B58 exact visible section-heading copy only",
+  "identicalInputs": [
+    {
+      "path": "src/PreferenceSettingsSections.tsx",
+      "blobs": {
+        "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5": "ae2dcf4d53a2c03fa353d2e73f1b59103cbe40b4",
+        "f7456738b8b8498387d4d9637409c4a384f95ba3": "ae2dcf4d53a2c03fa353d2e73f1b59103cbe40b4",
+        "560efeb076d2ec167232b9d86aa3354f6893214b": "ae2dcf4d53a2c03fa353d2e73f1b59103cbe40b4"
+      }
+    },
+    {
+      "path": "src/preferenceSettingsSections.css",
+      "blobs": {
+        "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5": "281e1a5f7318e1fd884646d45b2a5dcce2b071a9",
+        "f7456738b8b8498387d4d9637409c4a384f95ba3": "281e1a5f7318e1fd884646d45b2a5dcce2b071a9",
+        "560efeb076d2ec167232b9d86aa3354f6893214b": "281e1a5f7318e1fd884646d45b2a5dcce2b071a9"
+      }
+    },
+    {
+      "path": "src/ThemeSettingsPanel.tsx",
+      "blobs": {
+        "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5": "1de639f292d8034bcb8f76cc1bcda5af8de8d039",
+        "f7456738b8b8498387d4d9637409c4a384f95ba3": "1de639f292d8034bcb8f76cc1bcda5af8de8d039",
+        "560efeb076d2ec167232b9d86aa3354f6893214b": "1de639f292d8034bcb8f76cc1bcda5af8de8d039"
+      }
+    },
+    {
+      "path": "src/themeSettingsPanel.css",
+      "blobs": {
+        "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5": "28d5c189e67b22d29bc5f5c944f7cf2279f94050",
+        "f7456738b8b8498387d4d9637409c4a384f95ba3": "28d5c189e67b22d29bc5f5c944f7cf2279f94050",
+        "560efeb076d2ec167232b9d86aa3354f6893214b": "28d5c189e67b22d29bc5f5c944f7cf2279f94050"
+      }
+    },
+    {
+      "path": "src/typography.css",
+      "blobs": {
+        "7b54e62f5d5f814e3e37ed93d8dfa996e9bad6e5": "0f7c0dd445acc705ae8b42cf136bb7abc70b0024",
+        "f7456738b8b8498387d4d9637409c4a384f95ba3": "0f7c0dd445acc705ae8b42cf136bb7abc70b0024",
+        "560efeb076d2ec167232b9d86aa3354f6893214b": "0f7c0dd445acc705ae8b42cf136bb7abc70b0024"
+      }
+    }
+  ],
+  "limits": "PreferencesDialog changed in PR356 keyboard fix; not part of heading-copy identity proof. Whole Preferences composition not accepted."
+}
