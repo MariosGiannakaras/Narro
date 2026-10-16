@@ -80,6 +80,8 @@ type ListBoardOption = {
   id: string;
   title: string;
   color: string | null;
+  iconAsset?: string | null;
+  iconId?: string | null;
 };
 
 type DragState = {
@@ -1041,7 +1043,7 @@ export function ListBoard({
     void invoke<HomeSnapshot>("get_home_snapshot")
       .then((home) => {
         if (!disposed) {
-          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title, color: list.color })));
+          setListOptions(home.lists.map(({ id, title, color, iconAsset, iconId }) => ({ id, title, color, iconAsset, iconId })));
         }
       })
       .catch(() => {

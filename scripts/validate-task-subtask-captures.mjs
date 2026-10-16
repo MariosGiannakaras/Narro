@@ -59,7 +59,7 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-subtask-control="create"'), `${label} create control is missing`);
   invariant(dom.includes('data-task-subtask-control="add-focus"'), `${label} source Subtasks add header is missing`);
   invariant(dom.includes('data-board-subtask-progress-ring="true"'), `${label} circular progress ring is missing`);
-  invariant(dom.includes("Enter Subtask task title*"), `${label} sourced input guidance is missing`);
+  invariant(dom.includes("Enter subtask task title*"), `${label} sourced input guidance is missing`);
   invariant(dom.includes("Completed tasks keep subtasks as read-only history."), `${label} read-only history guidance is missing`);
   invariant(dom.includes('data-task-subtasks-expanded="true"'), `${label} production TaskCard expansion marker is missing`);
 
@@ -68,6 +68,9 @@ for (const theme of ["light", "dark"]) {
   const contract = JSON.parse(contractMatch[1]);
   invariant(contract.fixture === "task-subtasks", `${label} fixture contract identity differs`);
   invariant(contract.theme === theme, `${label} theme identity differs`);
+  for (const key of ["singleSourceHeader", "headerRingCountPlusAligned", "headerPlusTopHit", "clearInsideField"]) {
+    invariant(contract[key] === true, `${label} ${key} failed`);
+  }
   invariant(contract.viewport?.width === 1280 && contract.viewport?.height === 720, `${label} viewport contract differs`);
 
   for (const key of [

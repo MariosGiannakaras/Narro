@@ -234,7 +234,7 @@ for (const [haystack, needle, label] of [
   [css, ".focus-panel__live-meta > span:not([class]) { display: none; }", "legacy live subtask text hidden in favor of authoritative Focus progress surface"],
   [css, "conic-gradient(", "Focus subtask progress ring"],
   [css, "grid-template-columns: 2.25rem minmax(0, 1fr) 2rem", "stable Focus subtask toolbar geometry"],
-  [css, ".focus-panel__subtasks .list-board-task__subtask-trigger { display: none; }", "single Focus subtask toggle without duplicate Main trigger"],
+  [css, ".focus-panel__subtasks .list-board-task__subtask-header { display: none; }", "single Focus subtask toolbar without duplicate Main header controls"],
   [css, "prefers-reduced-motion", "reduced-motion coverage"],
   [fixture, "fixtureBoard={board}", "deterministic production-component fixture"],
   [fixture, '"paused-metrics"', "paused metric visual scenario"],

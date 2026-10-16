@@ -128,7 +128,8 @@
   display: none;
 }
 
-.board-list-picker__badge--focus {
+.board-list-picker__badge--focus,
+.board-list-picker__badge--board-icon {
   --board-list-accent-foreground: var(--color-text-primary);
   display: inline-grid;
   place-items: center;

@@ -35,23 +35,23 @@ function listAccent(color: string | null): CSSProperties | undefined {
 function ListBadge({ option, focus }: { option: BoardListOption; focus: boolean }) {
   return (
     <span
-      className={focus ? "board-list-picker__badge board-list-picker__badge--focus" : "board-list-picker__badge"}
+      className={focus ? "board-list-picker__badge board-list-picker__badge--focus" : "board-list-picker__badge board-list-picker__badge--board-icon"}
       style={listAccent(option.color)}
       aria-hidden="true"
     >
-      {focus ? <ListIcon listId={option.id} iconAsset={option.iconAsset ?? null}
+      <ListIcon listId={option.id} iconAsset={option.iconAsset ?? null}
         iconId={option.iconId} fallback={option.title.trim().slice(0, 1).toUpperCase() || "•"}
-        imageClassName="board-list-picker__badge-icon" /> : null}
+        imageClassName="board-list-picker__badge-icon" />
     </span>
   );
 }
 
 function ListBadges({ options, focus }: { options: BoardListOption[]; focus: boolean }) {
-  const shown = options.slice(0, focus ? 2 : 3);
+  const shown = options.slice(0, 2);
   return (
     <span className="board-list-picker__all-badges" aria-hidden="true">
       {shown.map((option) => <ListBadge key={option.id} option={option} focus={focus} />)}
-      {focus && options.length > shown.length ? (
+      {options.length > shown.length ? (
         <span className="board-list-picker__remaining-count">+{options.length - shown.length}</span>
       ) : null}
     </span>

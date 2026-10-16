@@ -428,7 +428,7 @@ export function SearchPalette({
                   }}
                   disabled={loading || Boolean(dataError)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">+</span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="plus" /></span>
                   <span className="search-palette__option-copy"><strong>Add new task</strong></span>
                 </button>
                 <button
@@ -437,7 +437,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onAddList)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">+</span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="plus" /></span>
                   <span className="search-palette__option-copy"><strong>Add new list</strong></span>
                 </button>
                 <button
@@ -446,7 +446,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onGoReports)}
                 >
-                  <span className="search-palette__option-icon"><ActionIcon name="arrow-right" /></span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="chart" /></span>
                   <span className="search-palette__option-copy"><strong>Go to Reports</strong></span>
                 </button>
               </div>

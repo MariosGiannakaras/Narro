@@ -3,8 +3,10 @@ import { flushSync } from "react-dom";
 import { useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
+import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { ListBoard } from "./ListBoard";
 import { AppShell } from "./AppShell";
+import { BUILTIN_LIST_ICONS } from "./BuiltinListIcon";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
 import { archiveListFromSettings, restoreListFromSettings, permanentlyDeleteListFromSettings } from "./listSettingsApi";
 import { emitBoardInvalidated } from "./boardInvalidation";
@@ -17,7 +19,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const assert = (value: unknown, text: string) => { if (!value) throw new Error("M7 projection: " + text); };
   const wait = () => new Promise<void>(resolve => setTimeout(resolve, 25));
   const id = "21111111-1111-4111-8111-111111111111";
-  let lists = [{ id, title: "Original" }];
+  let lists: Array<{ id: string; title: string; color?: string | null; iconAsset?: string | null; iconId?: string | null }> = [{ id, title: "Original" }];
   const tasks: ListBoardTask[] = Array.from({ length: 12 }, (_, index) => ({
     id: `31111111-1111-4111-8111-${String(index + 1).padStart(12, "0")}`,
     listId: id, listTitle: "Original", listColor: null, title: index === 11
@@ -967,6 +969,18 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     assert(subtaskInput() === input && input.value === "" && !input.disabled && document.activeElement === input,
       "committed subtask create lost repeat-ready input/focus after authoritative refresh");
   }
+  const clearInput = subtaskInput();
+  const clearWidth = clearInput.getBoundingClientRect().width;
+  const beforeClearCalls = subtaskCalls;
+  Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(clearInput, "Uncommitted draft");
+  clearInput.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+  const clearButton = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!;
+  const clearBounds = clearButton.getBoundingClientRect(), inputBounds = clearInput.getBoundingClientRect();
+  assert(clearBounds.left >= inputBounds.left && clearBounds.right <= inputBounds.right,
+    "subtask clear must remain inside its reserved input slot");
+  clearButton.click(); await wait();
+  assert(clearInput.value === "" && document.activeElement === clearInput && subtaskCalls === beforeClearCalls
+    && clearInput.getBoundingClientRect().width === clearWidth, "subtask draft clear mutated storage or reflowed/lost input");
   subtaskFail = true;
   const failedInput = await submitChild("Retain failed draft"); await wait();
   assert(failedInput.value === "Retain failed draft" && !failedInput.disabled && document.activeElement === failedInput,
@@ -994,6 +1008,71 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(document.activeElement === newOwner, "disposed subtask response stole replacement focus");
   assert(new Set(ownedSubtasks.map(child => child.id)).size === ownedSubtasks.length,
     "subtask capture fixture lost independent child identities");
+
+  // Actual option projection, approved icon/initial consumer, and scope owner.
+  lists = [{ id, title: "Glyph list", color: "#48d6c5", iconId: BUILTIN_LIST_ICONS[0].id },
+    { id: "badge-second", title: "Second", color: "#b7d96d" },
+    { id: "badge-third", title: "Third", color: "#de8db3" }];
+  function BadgeBoardHarness() {
+    const [target, setTarget] = useState<ListBoardRequestTarget>({ kind: "list", id });
+    return <ListBoard target={target} onTargetChange={setTarget} />;
+  }
+  flushSync(() => root.render(<BadgeBoardHarness />)); await wait(); await wait();
+  const badgeTrigger = () => container.querySelector<HTMLButtonElement>('[aria-label="Planning list"]')!;
+  assert(badgeTrigger().querySelector('.board-list-picker__badge svg'), "Board dropped authoritative built-in icon metadata");
+  badgeTrigger().click(); await wait();
+  const boardBadgeOptions = Array.from(container.querySelectorAll<HTMLButtonElement>('[role="listbox"] [role="option"]'));
+  assert(boardBadgeOptions.length === 4 && boardBadgeOptions[0].querySelectorAll('.board-list-picker__badge').length === 2
+    && boardBadgeOptions[0].querySelector('.board-list-picker__remaining-count')?.textContent === "+1"
+    && boardBadgeOptions[1].querySelector('.board-list-picker__badge svg')
+    && boardBadgeOptions[2].querySelector('.board-list-picker__badge')?.textContent === "S",
+    "Board listbox lost icon/initial/AllLists remaining-count grammar");
+  for (const badge of container.querySelectorAll<HTMLElement>('.board-list-picker__badge')) {
+    const rect = badge.getBoundingClientRect();
+    assert(rect.width >= 18 && rect.height >= 18 && Math.abs(rect.width - rect.height) <= 1,
+      "Board source badges regressed to dots or distorted images");
+  }
+  boardBadgeOptions[1].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true, cancelable: true }));
+  assert(document.activeElement === boardBadgeOptions[0], "Board Home did not reach AllLists");
+  boardBadgeOptions[0].click(); await wait(); await wait();
+  assert(badgeTrigger().textContent?.includes("All Lists") && !container.querySelector('[data-board-add-task]'),
+    "Board AllLists scope failed or permitted owned-list creation");
+  badgeTrigger().click(); await wait();
+  container.querySelectorAll<HTMLButtonElement>('[role="listbox"] [role="option"]')[1].click(); await wait(); await wait();
+  assert(badgeTrigger().querySelector('.board-list-picker__badge svg') && container.querySelector('[data-board-add-task]'),
+    "Board selected list/icon failed to return after AllLists");
+
+  // Focus owns its toolbar and its minimal stylesheet; the shared input must
+  // not depend on Board CSS specificity or reveal a second summary header.
+  boardTasks = [tasks[0]];
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} /></div>));
+  const boardOnlyStyles: Array<{ rule: CSSStyleRule; css: string }> = [];
+  for (const sheet of Array.from(document.styleSheets)) for (const rule of Array.from(sheet.cssRules)) {
+    if (rule instanceof CSSStyleRule && rule.selectorText.includes(".list-board-task__subtask")
+      && !rule.selectorText.includes(".focus-panel__subtasks")) {
+      boardOnlyStyles.push({ rule, css: rule.style.cssText });
+      rule.style.cssText = "";
+    }
+  }
+  assert(boardOnlyStyles.length > 0, "Focus isolation test did not remove any Board-only style dependency");
+  try {
+  container.querySelector<HTMLButtonElement>('[data-focus-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  const panelInput = await submitChild("Panel shared keyboard create");
+  assert(panelInput.disabled, "Focus shared create did not acquire native pending");
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(subtaskInput() === panelInput && !panelInput.disabled && panelInput.value === "" && document.activeElement === panelInput,
+    "Focus shared input lost repeat-ready focus after real authoritative refresh");
+  const panelHeader = container.querySelector<HTMLElement>('[data-task-subtask-header]')!;
+  assert(getComputedStyle(panelHeader).display === "none", "Focus revealed duplicate Board summary controls");
+  const panelClear = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!.getBoundingClientRect();
+  const panelBounds = panelInput.getBoundingClientRect();
+  assert(panelClear.left >= panelBounds.left && panelClear.right <= panelBounds.right
+    && panelClear.top >= panelBounds.top && panelClear.bottom <= panelBounds.bottom,
+    "Focus scoped CSS displaced the shared in-field clear");
+  } finally {
+    for (const { rule, css } of boardOnlyStyles) rule.style.cssText = css;
+  }
 
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
@@ -1096,5 +1175,6 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     sourceCreateTitleLabel: true, sourceBottomCreateNewestFirst: true, sourceCreateFormPositionStable: true,
     sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true,
     subtaskRepeatFocusAfterNativeRefresh: true, subtaskFailureDraftAndFocus: true,
-    subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true };
+    subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
+    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true };
 }

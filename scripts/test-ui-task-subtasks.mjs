@@ -91,7 +91,7 @@ for (const [haystack, needle, label] of [
   [subtasks, 'data-task-subtask-control="create"', "create control"],
   [subtasks, 'data-board-subtask-progress-ring="true"', "source circular subtask progress ring"],
   [subtasks, 'data-task-subtask-control="add-focus"', "source Subtasks plus focuses inline add"],
-  [subtasks, 'placeholder="Enter Subtask task title*"', "source inline add placeholder"],
+  [subtasks, 'placeholder="Enter subtask task title*"', "source inline add placeholder"],
   [subtasks, 'data-task-subtask-control="cancel-create"', "clear stale subtask draft without persistence"],
   [css, "conic-gradient(var(--color-success)", "subtask progress is a token-based circular ring"],
   [subtasks, 'event.key === "Escape"', "keyboard cancel"],

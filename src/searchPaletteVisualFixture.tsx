@@ -123,7 +123,20 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
   const contract = document.createElement("script");
   contract.id = "search-palette-contract";
   contract.type = "application/json";
-  contract.textContent = JSON.stringify({ mode, theme, viewport: window.innerWidth, layoutPass, horizontal, geometry });
+  const palette = document.querySelector<HTMLElement>('.search-palette')!;
+  const paletteRect = palette.getBoundingClientRect();
+  const actionsHeading = document.getElementById('search-palette-actions-title');
+  const actionIcons = document.querySelectorAll<HTMLElement>('[data-search-palette-actions] .search-palette__option-icon');
+  const viewportContainmentPass = paletteRect.left >= -1 && paletteRect.top >= -1
+    && paletteRect.right <= innerWidth + 1 && paletteRect.bottom <= innerHeight + 1;
+  const upperPlacementPass = innerWidth <= 576 || innerHeight < 600
+    || paletteRect.top >= 20 && paletteRect.top < innerHeight * 0.35;
+  const quickHeadingCasePass = !actionsHeading || getComputedStyle(actionsHeading).textTransform === 'none';
+  const boxedActionGlyphsPass = actionIcons.length === 0 || actionIcons.length === 3 && Array.from(actionIcons).every(icon =>
+    icon.querySelector('svg') && getComputedStyle(icon).backgroundColor !== 'rgba(0, 0, 0, 0)');
+  contract.textContent = JSON.stringify({ mode, theme, viewport: window.innerWidth, layoutPass, horizontal, geometry,
+    viewportContainmentPass, upperPlacementPass, quickHeadingCasePass, boxedActionGlyphsPass,
+    paletteGeometry: paletteRect.toJSON() });
   document.body.appendChild(contract);
   document.documentElement.dataset.searchPaletteFixtureReady = "true";
 }));

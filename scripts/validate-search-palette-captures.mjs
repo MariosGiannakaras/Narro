@@ -21,6 +21,9 @@ function read(label) {
   invariant(contract, `${label} missing actual rendered layout contract`);
   const result = JSON.parse(contract[1]);
   invariant(result.layoutPass === true, `${label} wrong quick-action/result layout or horizontal overflow`);
+  for (const key of ["viewportContainmentPass", "upperPlacementPass", "quickHeadingCasePass", "boxedActionGlyphsPass"]) {
+    invariant(result[key] === true, `${label} ${key} failed`);
+  }
   return dom;
 }
 
