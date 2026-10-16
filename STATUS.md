@@ -8,6 +8,8 @@
 
 ## Preserved project truth
 
+**Optional future M12 (2026-10-16):** The user requested a separate professional **in-app-only user QA** stage; specification [`docs/NARRO_OPTIONAL_USER_QA.md`](docs/NARRO_OPTIONAL_USER_QA.md) and milestone section in [`TODO.md`](TODO.md). **DORMANT / NOT RUN** until a separate explicit activation, independently of M11. The normal M5 next action and validated M1–M4 4/10 mandatory count are unchanged. No two-screen/cable/hotplug/Windows settings, AppData/DB/system stress or backend instrumentation within M12; PA-01–09 do not resume. This documentation does not authorize installing or running Narro.
+
 Narro remains local-only Windows; SpectrumCore picker, imageupload and218icons locked. OptionalM11 dormant; no allM1–M9 completion claim. U01–U41 Narro-local coverage41/41 and original nine source gaps9/9 are separate from physical/milestone/sourceparity acceptance. Current PR345/347/source-owner acceptance is retained in the linked immutable snapshot and its original reports; no other workstream was reverted.
 
 All prior tracking, durable decision history and consolidation ownership remain preserved in [the immutable pre-compaction snapshot](work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md), original work-log reports and Git history. The ordered current milestone checklist remains in TODO.md; HANDOFF.md owns one next operation.
