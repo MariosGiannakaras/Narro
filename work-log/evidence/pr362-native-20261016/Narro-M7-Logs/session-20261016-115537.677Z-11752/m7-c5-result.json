@@ -1,0 +1,15 @@
+{
+  "currentSessionId": "653875d3-c5f8-49ec-b76d-2c358a40bec8",
+  "generatedUtc": "2026-10-16T12:04:14.886Z",
+  "metrics": {
+    "maxMoveDistancePx": 0,
+    "qualifyingMove": false,
+    "qualifyingMoveThresholdPx": 64
+  },
+  "pendingSourceSessionId": "653875d3-c5f8-49ec-b76d-2c358a40bec8",
+  "reason": "tray-quit-recorded-but-drag-was-not-large-enough-for-automatic-pass",
+  "schemaVersion": 1,
+  "sourceSha": "560efeb076d2ec167232b9d86aa3354f6893214b",
+  "status": "PENDING",
+  "test": "M7-C5-saved-placement-restart"
+}

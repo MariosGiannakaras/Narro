@@ -231,3 +231,6 @@ Record a precise immutable incident/correction in `work-log/` with failed run/at
 ### PA360 native detail-invalidation evidence — 2026-10-16
 
 NER-014 related confirmed current **PA360-XW-SUBTASKS**: board invalidation updates aggregate counts but independent expanded Board/Focus child snapshots remain old in both directions. Actual DBfive/fourcomplete, Main2rows/header4 then returningFocus0/4. This proves a detail-projection invalidation gap; do not call it database corruption or the same PA358createfocus failure. Narrow producer/consumer/freshness regression required; preserve existing NER-013 single-flight and active draft. [Frozen native evidence](../work-log/2026-10-16-pr360-native-five-groups-and-cross-window-subtask-failure.md).
+
+
+NER-014 PA360-XW-SUBTASKS is now physically accepted3/3 onPR362560efeb0/CI38894130069/merge5dfbede3. All detail read producers share event/owner/revision fencing; preserve synchronous committed-refresh error latch and admission guard so late successful reads cannot erase unsafe-retry feedback. Actual deferred-failure red/green + real handler regressions precede exactCI; native success dataflows separately captured. Keep WATCH for new claims, not an unresolved current child-cache failure. [Exact result](../work-log/2026-10-16-pr362-native-cross-window-acceptance.md).

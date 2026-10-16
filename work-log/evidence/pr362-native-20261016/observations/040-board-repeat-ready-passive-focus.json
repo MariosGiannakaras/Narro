@@ -1,0 +1,34 @@
+{
+  "label": "040-board-repeat-ready",
+  "expectedField": "New subtask for PA362Live",
+  "passiveOnly": true,
+  "elapsedSeconds": 0.6720000000204891,
+  "clearedEnabledVisibleFocusObserved": true,
+  "samples": [
+    {
+      "utc": "2026-10-16T11:59:44.203400+00:00",
+      "field": [
+        {
+          "name": "New subtask for PA362Live",
+          "type": 50004,
+          "enabled": true,
+          "offscreen": false,
+          "focused": true,
+          "rect": [
+            1038,
+            616,
+            1357,
+            649
+          ],
+          "value": ""
+        }
+      ],
+      "focused": [
+        {
+          "name": "New subtask for PA362Live",
+          "type": 50004
+        }
+      ]
+    }
+  ]
+}

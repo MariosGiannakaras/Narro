@@ -822,3 +822,8 @@ B58 exact visible heading copy2/2PASS from existing actual Windows screenshots a
 ## 2026-10-16 B42 direct source/native comparison completion
 
 B42 ordinary scheduled-task date/circularX and preserved-task removal outcome **SCOPED SOURCE_CONTROL_AND_NATIVE_PASS**, reusing PA358 real pointer/DB/restart proof and direct VE007147.8s /canonical02:28–02:33 comparison. Schedule/card/native input and actual handler identity through560efeb0; no repeat Windows execution. Full recurrence/calendar/generated-child physical/motion gates stay separatelyOPEN. [Report](../work-log/2026-10-16-b42-existing-native-source-reconciliation.md).
+
+
+## 2026-10-16 PR362 exact native correction acceptance
+
+PA360-XW-SUBTASKS **CLOSED3/3scopedPASS** on560efeb0/CI38894130069/merge5dfbede3: actual cross-window create/title/order/completion/count/IDs/retaineddraft; rawcompletevideo/logs published. B26 BoardClose/save/dirty existingpolicyPASS, FocusNotes stillOPEN. B62 empty native policy/subduedintentPASS, sourceclickunknown preserved. **B43 SOURCE_VISUAL_FAIL/FIX_NOW M5**: grouping/count data and lastrow scroll work, but canonical date-left/task-count-right differs from inline date·nDone. Correct that header only unless stronger state-specific evidence supports a compatible correction. No unrelated/nativefoundation/M10/M11 advance. [Full report](../work-log/2026-10-16-pr362-native-cross-window-acceptance.md).

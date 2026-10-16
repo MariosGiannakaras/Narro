@@ -1,0 +1,4921 @@
+{
+  "utc": "2026-10-16T12:01:11.028003+00:00",
+  "hwnd": 7801954,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        216,
+        1032
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        51,
+        203,
+        99
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        68,
+        56,
+        110,
+        77
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        139
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        164,
+        203,
+        204
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        208,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        31,
+        1792,
+        95
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1680,
+        83
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1687,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        95,
+        1792,
+        976
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        119,
+        1768,
+        4202
+      ]
+    },
+    {
+      "name": "Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        239,
+        119,
+        1158,
+        140
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        239,
+        118,
+        240,
+        119
+      ]
+    },
+    {
+      "name": "Completed FocusRenamedAlpha.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        239,
+        119,
+        473,
+        140
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        119,
+        1768,
+        180
+      ]
+    },
+    {
+      "name": "PLANNING",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        264,
+        130,
+        333,
+        147
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        264,
+        150,
+        404,
+        180
+      ]
+    },
+    {
+      "name": "List",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1216,
+        119,
+        1234,
+        135
+      ]
+    },
+    {
+      "name": "Planning list",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1216,
+        139,
+        1400,
+        180
+      ]
+    },
+    {
+      "name": "Plan this list across Backlog, This Week, Today, and Done.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1443,
+        132,
+        1768,
+        178
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        199,
+        613,
+        486
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        212,
+        600,
+        257
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        212,
+        311,
+        233
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        236,
+        290,
+        253
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        566,
+        216,
+        588,
+        233
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        588,
+        216,
+        600,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        265,
+        348,
+        294
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        404,
+        336,
+        449,
+        353
+      ]
+    },
+    {
+      "name": "Add task to Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        442,
+        334,
+        471
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        625,
+        199,
+        998,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        212,
+        985,
+        286
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        212,
+        713,
+        233
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        236,
+        675,
+        253
+      ]
+    },
+    {
+      "name": "0 of 0 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        261,
+        713,
+        286
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        269,
+        645,
+        286
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        644,
+        269,
+        650,
+        286
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        649,
+        269,
+        656,
+        286
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        655,
+        269,
+        688,
+        286
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        951,
+        216,
+        973,
+        233
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        973,
+        216,
+        985,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        294,
+        733,
+        323
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        789,
+        365,
+        834,
+        382
+      ]
+    },
+    {
+      "name": "Add task to This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        471,
+        719,
+        500
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1010,
+        199,
+        1383,
+        803
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        212,
+        1370,
+        286
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        212,
+        1073,
+        233
+      ]
+    },
+    {
+      "name": "1 task",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        236,
+        1054,
+        253
+      ]
+    },
+    {
+      "name": "1 of 2 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        261,
+        1073,
+        286
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        269,
+        1030,
+        286
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1029,
+        269,
+        1035,
+        286
+      ]
+    },
+    {
+      "name": "2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1034,
+        269,
+        1041,
+        286
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1040,
+        269,
+        1073,
+        286
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1325,
+        216,
+        1347,
+        233
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1346,
+        216,
+        1370,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        294,
+        1118,
+        323
+      ]
+    },
+    {
+      "name": "PA362LiveLive \u00b7 PausedEst: 20mTaken: 1mAdd notes2/3 SubtasksBoardRenamedBetaBoardGammaFocusRenamedAlphaTimerDelta",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        333,
+        1370,
+        662
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        333,
+        1370,
+        662
+      ]
+    },
+    {
+      "name": "PA362Live",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1062,
+        345,
+        1132,
+        366
+      ]
+    },
+    {
+      "name": "Live \u00b7 Paused",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        378,
+        1108,
+        395
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        378,
+        1259,
+        395
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1258,
+        378,
+        1265,
+        395
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1264,
+        378,
+        1288,
+        395
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1304,
+        378,
+        1335,
+        395
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1334,
+        378,
+        1341,
+        395
+      ]
+    },
+    {
+      "name": "1m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1340,
+        378,
+        1357,
+        395
+      ]
+    },
+    {
+      "name": "Expand notes for PA362Live",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        411,
+        1357,
+        440
+      ]
+    },
+    {
+      "name": "Collapse subtasks for PA362Live",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        452,
+        1357,
+        481
+      ]
+    },
+    {
+      "name": "2/3 Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1070,
+        458,
+        1138,
+        475
+      ]
+    },
+    {
+      "name": "Add a subtask to PA362Live",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1141,
+        452,
+        1170,
+        481
+      ]
+    },
+    {
+      "name": "BoardRenamedBeta",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        492,
+        1357,
+        529
+      ]
+    },
+    {
+      "name": "Reopen subtask: BoardRenamedBeta",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1042,
+        496,
+        1070,
+        525
+      ]
+    },
+    {
+      "name": "BoardRenamedBeta",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1074,
+        497,
+        1257,
+        524
+      ]
+    },
+    {
+      "name": "Move subtask up: BoardRenamedBeta",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1261,
+        496,
+        1289,
+        525
+      ]
+    },
+    {
+      "name": "Move subtask down: BoardRenamedBeta",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1293,
+        496,
+        1321,
+        525
+      ]
+    },
+    {
+      "name": "Delete subtask: BoardRenamedBeta",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1325,
+        496,
+        1353,
+        525
+      ]
+    },
+    {
+      "name": "BoardGamma",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        532,
+        1357,
+        569
+      ]
+    },
+    {
+      "name": "Complete subtask: BoardGamma",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1042,
+        536,
+        1070,
+        565
+      ]
+    },
+    {
+      "name": "BoardGamma",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1074,
+        537,
+        1257,
+        564
+      ]
+    },
+    {
+      "name": "Move subtask up: BoardGamma",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1261,
+        536,
+        1289,
+        565
+      ]
+    },
+    {
+      "name": "Move subtask down: BoardGamma",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1293,
+        536,
+        1321,
+        565
+      ]
+    },
+    {
+      "name": "Delete subtask: BoardGamma",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1325,
+        536,
+        1353,
+        565
+      ]
+    },
+    {
+      "name": "FocusRenamedAlpha",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        572,
+        1357,
+        609
+      ]
+    },
+    {
+      "name": "Reopen subtask: FocusRenamedAlpha",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1042,
+        576,
+        1070,
+        605
+      ]
+    },
+    {
+      "name": "FocusRenamedAlpha",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1074,
+        577,
+        1257,
+        604
+      ]
+    },
+    {
+      "name": "Move subtask up: FocusRenamedAlpha",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1261,
+        576,
+        1289,
+        605
+      ]
+    },
+    {
+      "name": "Move subtask down: FocusRenamedAlpha",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1293,
+        576,
+        1321,
+        605
+      ]
+    },
+    {
+      "name": "Delete subtask: FocusRenamedAlpha",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1325,
+        576,
+        1353,
+        605
+      ]
+    },
+    {
+      "name": "New subtask for PA362Live",
+      "type": 50004,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        1038,
+        616,
+        1357,
+        649
+      ],
+      "value": "TimerDelta"
+    },
+    {
+      "name": "Clear new subtask draft",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1329,
+        620,
+        1353,
+        645
+      ]
+    },
+    {
+      "name": "Add task to Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        671,
+        1104,
+        700
+      ]
+    },
+    {
+      "name": "Blitz entry",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        721,
+        1370,
+        790
+      ]
+    },
+    {
+      "name": "Blitz now",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        721,
+        1370,
+        766
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        773,
+        1370,
+        790
+      ]
+    },
+    {
+      "name": "Blitz started.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        773,
+        1088,
+        790
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1395,
+        199,
+        1768,
+        4202
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        212,
+        1755,
+        257
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        212,
+        1542,
+        233
+      ]
+    },
+    {
+      "name": "22 completed this month",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        236,
+        1542,
+        253
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1710,
+        216,
+        1732,
+        233
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1731,
+        216,
+        1755,
+        233
+      ]
+    },
+    {
+      "name": "Oct 16, 2026 \u00b7 1 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        312,
+        1755,
+        338
+      ]
+    },
+    {
+      "name": "Call with PeteEst: 20mTaken: 1mAdd notes4/5 Subtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        349,
+        1755,
+        510
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        349,
+        1755,
+        510
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1447,
+        361,
+        1540,
+        382
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1628,
+        394,
+        1644,
+        411
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1643,
+        394,
+        1650,
+        411
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1649,
+        394,
+        1673,
+        411
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1689,
+        394,
+        1720,
+        411
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1719,
+        394,
+        1726,
+        411
+      ]
+    },
+    {
+      "name": "1m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1725,
+        394,
+        1742,
+        411
+      ]
+    },
+    {
+      "name": "Expand notes for Call with Pete",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        427,
+        1742,
+        456
+      ]
+    },
+    {
+      "name": "Expand subtasks for Call with Pete",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        468,
+        1742,
+        497
+      ]
+    },
+    {
+      "name": "4/5 Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1455,
+        474,
+        1523,
+        491
+      ]
+    },
+    {
+      "name": "Oct 14, 2026 \u00b7 7 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        525,
+        1755,
+        551
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 1Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        562,
+        1755,
+        723
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        562,
+        1755,
+        723
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1447,
+        574,
+        1600,
+        595
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1628,
+        607,
+        1644,
+        624
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1643,
+        607,
+        1650,
+        624
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1649,
+        607,
+        1662,
+        624
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1689,
+        607,
+        1720,
+        624
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1719,
+        607,
+        1726,
+        624
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1725,
+        607,
+        1742,
+        624
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        640,
+        1742,
+        669
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        681,
+        1742,
+        710
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1455,
+        687,
+        1502,
+        704
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 2Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        730,
+        1755,
+        891
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        730,
+        1755,
+        891
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1447,
+        742,
+        1603,
+        763
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1628,
+        775,
+        1644,
+        792
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1643,
+        775,
+        1650,
+        792
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1649,
+        775,
+        1662,
+        792
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1689,
+        775,
+        1720,
+        792
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1719,
+        775,
+        1726,
+        792
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1725,
+        775,
+        1742,
+        792
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        808,
+        1742,
+        837
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        849,
+        1742,
+        878
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1455,
+        855,
+        1502,
+        872
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 3Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        898,
+        1755,
+        1059
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        898,
+        1755,
+        1059
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1447,
+        910,
+        1603,
+        931
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1628,
+        943,
+        1644,
+        960
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1643,
+        943,
+        1650,
+        960
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1649,
+        943,
+        1662,
+        960
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1689,
+        943,
+        1720,
+        960
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1719,
+        943,
+        1726,
+        960
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1725,
+        943,
+        1742,
+        960
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        976,
+        1742,
+        1005
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1017,
+        1742,
+        1046
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1023,
+        1502,
+        1040
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 4Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1066,
+        1755,
+        1227
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1066,
+        1755,
+        1227
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1078,
+        1603,
+        1099
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1111,
+        1644,
+        1128
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1111,
+        1650,
+        1128
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1111,
+        1662,
+        1128
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1111,
+        1720,
+        1128
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1111,
+        1726,
+        1128
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1111,
+        1742,
+        1128
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1144,
+        1742,
+        1173
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1185,
+        1742,
+        1214
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1191,
+        1502,
+        1208
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 5Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1234,
+        1755,
+        1395
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1234,
+        1755,
+        1395
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1246,
+        1603,
+        1267
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1279,
+        1644,
+        1296
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1279,
+        1650,
+        1296
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1279,
+        1662,
+        1296
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1279,
+        1720,
+        1296
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1279,
+        1726,
+        1296
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1279,
+        1742,
+        1296
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1312,
+        1742,
+        1341
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1353,
+        1742,
+        1382
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1359,
+        1502,
+        1376
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 6Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1402,
+        1755,
+        1563
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1402,
+        1755,
+        1563
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1414,
+        1603,
+        1435
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1447,
+        1644,
+        1464
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1447,
+        1650,
+        1464
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1447,
+        1662,
+        1464
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1447,
+        1720,
+        1464
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1447,
+        1726,
+        1464
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1447,
+        1742,
+        1464
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1480,
+        1742,
+        1509
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1521,
+        1742,
+        1550
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1527,
+        1502,
+        1544
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 7Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1570,
+        1755,
+        1731
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1570,
+        1755,
+        1731
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1582,
+        1602,
+        1603
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1615,
+        1644,
+        1632
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1615,
+        1650,
+        1632
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1615,
+        1662,
+        1632
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1615,
+        1720,
+        1632
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1615,
+        1726,
+        1632
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1615,
+        1742,
+        1632
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 14 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1648,
+        1742,
+        1677
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 14 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1689,
+        1742,
+        1718
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1695,
+        1502,
+        1712
+      ]
+    },
+    {
+      "name": "Oct 13, 2026 \u00b7 7 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1746,
+        1755,
+        1772
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 1Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1783,
+        1755,
+        1944
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1783,
+        1755,
+        1944
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1795,
+        1600,
+        1816
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1828,
+        1644,
+        1845
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1828,
+        1650,
+        1845
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1828,
+        1662,
+        1845
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1828,
+        1720,
+        1845
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1828,
+        1726,
+        1845
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1828,
+        1742,
+        1845
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1861,
+        1742,
+        1890
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        1902,
+        1742,
+        1931
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        1908,
+        1502,
+        1925
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 2Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1951,
+        1755,
+        2112
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        1951,
+        1755,
+        2112
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        1963,
+        1602,
+        1984
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        1996,
+        1644,
+        2013
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        1996,
+        1650,
+        2013
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        1996,
+        1662,
+        2013
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        1996,
+        1720,
+        2013
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        1996,
+        1726,
+        2013
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        1996,
+        1742,
+        2013
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2029,
+        1742,
+        2058
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2070,
+        1742,
+        2099
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2076,
+        1502,
+        2093
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 3Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2119,
+        1755,
+        2280
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2119,
+        1755,
+        2280
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        2131,
+        1602,
+        2152
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        2164,
+        1644,
+        2181
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        2164,
+        1650,
+        2181
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        2164,
+        1662,
+        2181
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        2164,
+        1720,
+        2181
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        2164,
+        1726,
+        2181
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        2164,
+        1742,
+        2181
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2197,
+        1742,
+        2226
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2238,
+        1742,
+        2267
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2244,
+        1502,
+        2261
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 4Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2287,
+        1755,
+        2448
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2287,
+        1755,
+        2448
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        2299,
+        1603,
+        2320
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        2332,
+        1644,
+        2349
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        2332,
+        1650,
+        2349
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        2332,
+        1662,
+        2349
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        2332,
+        1720,
+        2349
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        2332,
+        1726,
+        2349
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        2332,
+        1742,
+        2349
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2365,
+        1742,
+        2394
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2406,
+        1742,
+        2435
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2412,
+        1502,
+        2429
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 5Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2455,
+        1755,
+        2616
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2455,
+        1755,
+        2616
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        2467,
+        1602,
+        2488
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        2500,
+        1644,
+        2517
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        2500,
+        1650,
+        2517
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        2500,
+        1662,
+        2517
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        2500,
+        1720,
+        2517
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        2500,
+        1726,
+        2517
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        2500,
+        1742,
+        2517
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2533,
+        1742,
+        2562
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2574,
+        1742,
+        2603
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2580,
+        1502,
+        2597
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 6Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2623,
+        1755,
+        2784
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2623,
+        1755,
+        2784
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        2635,
+        1602,
+        2656
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        2668,
+        1644,
+        2685
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        2668,
+        1650,
+        2685
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        2668,
+        1662,
+        2685
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        2668,
+        1720,
+        2685
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        2668,
+        1726,
+        2685
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        2668,
+        1742,
+        2685
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2701,
+        1742,
+        2730
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2742,
+        1742,
+        2771
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2748,
+        1502,
+        2765
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 7Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2791,
+        1755,
+        2952
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2791,
+        1755,
+        2952
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        2803,
+        1602,
+        2824
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        2836,
+        1644,
+        2853
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        2836,
+        1650,
+        2853
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        2836,
+        1662,
+        2853
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        2836,
+        1720,
+        2853
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        2836,
+        1726,
+        2853
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        2836,
+        1742,
+        2853
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 13 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2869,
+        1742,
+        2898
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 13 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        2910,
+        1742,
+        2939
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        2916,
+        1502,
+        2933
+      ]
+    },
+    {
+      "name": "Oct 12, 2026 \u00b7 7 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        2967,
+        1755,
+        2993
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 1Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3004,
+        1755,
+        3165
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3004,
+        1755,
+        3165
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3016,
+        1600,
+        3037
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3049,
+        1644,
+        3066
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3049,
+        1650,
+        3066
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3049,
+        1662,
+        3066
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3049,
+        1720,
+        3066
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3049,
+        1726,
+        3066
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3049,
+        1742,
+        3066
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3082,
+        1742,
+        3111
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 1",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3123,
+        1742,
+        3152
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3129,
+        1502,
+        3146
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 2Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3172,
+        1755,
+        3333
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3172,
+        1755,
+        3333
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3184,
+        1602,
+        3205
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3217,
+        1644,
+        3234
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3217,
+        1650,
+        3234
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3217,
+        1662,
+        3234
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3217,
+        1720,
+        3234
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3217,
+        1726,
+        3234
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3217,
+        1742,
+        3234
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3250,
+        1742,
+        3279
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 2",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3291,
+        1742,
+        3320
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3297,
+        1502,
+        3314
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 3Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3340,
+        1755,
+        3501
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3340,
+        1755,
+        3501
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3352,
+        1602,
+        3373
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3385,
+        1644,
+        3402
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3385,
+        1650,
+        3402
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3385,
+        1662,
+        3402
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3385,
+        1720,
+        3402
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3385,
+        1726,
+        3402
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3385,
+        1742,
+        3402
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3418,
+        1742,
+        3447
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 3",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3459,
+        1742,
+        3488
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3465,
+        1502,
+        3482
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 4Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3508,
+        1755,
+        3669
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3508,
+        1755,
+        3669
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3520,
+        1603,
+        3541
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3553,
+        1644,
+        3570
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3553,
+        1650,
+        3570
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3553,
+        1662,
+        3570
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3553,
+        1720,
+        3570
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3553,
+        1726,
+        3570
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3553,
+        1742,
+        3570
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3586,
+        1742,
+        3615
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 4",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3627,
+        1742,
+        3656
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3633,
+        1502,
+        3650
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 5Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3676,
+        1755,
+        3837
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3676,
+        1755,
+        3837
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3688,
+        1602,
+        3709
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3721,
+        1644,
+        3738
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3721,
+        1650,
+        3738
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3721,
+        1662,
+        3738
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3721,
+        1720,
+        3738
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3721,
+        1726,
+        3738
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3721,
+        1742,
+        3738
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3754,
+        1742,
+        3783
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 5",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3795,
+        1742,
+        3824
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3801,
+        1502,
+        3818
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 6Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3844,
+        1755,
+        4005
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        3844,
+        1755,
+        4005
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        3856,
+        1602,
+        3877
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        3889,
+        1644,
+        3906
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        3889,
+        1650,
+        3906
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        3889,
+        1662,
+        3906
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        3889,
+        1720,
+        3906
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        3889,
+        1726,
+        3906
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        3889,
+        1742,
+        3906
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3922,
+        1742,
+        3951
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 6",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        3963,
+        1742,
+        3992
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        3969,
+        1502,
+        3986
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 7Est: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        4012,
+        1755,
+        4173
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1408,
+        4012,
+        1755,
+        4173
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1447,
+        4024,
+        1602,
+        4045
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1628,
+        4057,
+        1644,
+        4074
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1643,
+        4057,
+        1650,
+        4074
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1649,
+        4057,
+        1662,
+        4074
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1689,
+        4057,
+        1720,
+        4074
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1719,
+        4057,
+        1726,
+        4074
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1725,
+        4057,
+        1742,
+        4074
+      ]
+    },
+    {
+      "name": "Expand notes for PA362 history 12 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        4090,
+        1742,
+        4119
+      ]
+    },
+    {
+      "name": "Expand subtasks for PA362 history 12 row 7",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1423,
+        4131,
+        1742,
+        4160
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1455,
+        4137,
+        1502,
+        4154
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        976,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        872,
+        985,
+        1000,
+        1025
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1008,
+        985,
+        1136,
+        1025
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        8,
+        30,
+        30
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1653,
+        1,
+        1700,
+        31
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1700,
+        1,
+        1746,
+        31
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1746,
+        1,
+        1793,
+        31
+      ]
+    }
+  ]
+}
