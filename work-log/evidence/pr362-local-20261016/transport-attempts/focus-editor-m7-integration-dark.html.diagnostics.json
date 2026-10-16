@@ -1,0 +1,8 @@
+{
+  "failure": "Error: Owned blank Edge target readiness deadline: TypeError: fetch failed",
+  "observed": null,
+  "events": [],
+  "stderr": "[37500:40556:1016/134358.295:ERROR:components\\edge_ess\\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577\r\n\r\nDevTools listening on ws://127.0.0.1:63517/devtools/browser/e30e71cb-13af-4d4b-a77e-da9b572b5849\r\n[37500:8176:1016/134401.627:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n",
+  "kind": "m7-integration",
+  "url": "http://127.0.0.1:4174/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=false"
+}
