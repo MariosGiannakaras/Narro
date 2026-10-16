@@ -315,6 +315,17 @@ A live-source observation does not automatically override:
 
 Only after Phase 5 is frozen may M11 change Narro.
 
+## Reconstruct observable behavior, not hidden source code
+
+**Black-box functional reconstruction is a first-class M11 outcome, even when the original application's implementation is inaccessible.** The Codex agent must synthesize the actual user-facing behavior established by the synchronized video, accessible client events, observable state and controlled repeat/restart trials into a complete, robust Narro-local implementation. Not knowing Blitzit's private functions, server database or framework does **not** justify leaving a demonstrated feature missing, inert, generic, superficially animated or behaviorally incorrect.
+
+For each interaction reconstruct the observable contract: triggering input; exact visible before/pending/confirmation/success/cancel/error states; message wording; positioning; animation and timing; affected UI entities and reflow; permitted dismissal paths; navigation/focus effects; state mutation and persistence; relevant interdependencies; and safe failure/retry/re-entrancy semantics. Separate **directly demonstrated effects**, **strongly inferred behavior**, **unobserved branches** and **Narro-local engineering choices**. Video proves only what appears in its frames; use accessible logs, state snapshots, ordinary UI probes and restart tests to investigate persistent or hidden effects, never claim them from pixels alone.
+
+**Deletion reference scenario:** capture opening the relevant delete control; whether/how a confirmation modal appears, its precise copy, position, style and entrance/exit animation; confirm versus cancel, Escape and outside-click; whether a toast/banner appears; element disappearance, sibling reflow, counters and selection/focus changes; and post-navigation/restart state where observable. Apply the same depth to every other destructive, reversible and non-destructive action. When some branch was not observed despite proportionate attempts, implement a deterministic and safe Narro-local path consistent with established evidence, label it as such, and test it; do not fabricate a Blitzit-specific modal, message, timing, backend guarantee or source-code match.
+
+**Acceptance is functional + visual + state parity against evidence, not internal implementation parity.** Deliver working interaction paths with regression tests; never accept merely screenshot-similar UI with disabled controls or unproven persistence. Preserve Narro's existing data-integrity safeguards and explicitly approved design exceptions.
+
+
 Implementation rules:
 - use narrow evidence-backed corrections;
 - batch compatible findings where validation can remain clear;
