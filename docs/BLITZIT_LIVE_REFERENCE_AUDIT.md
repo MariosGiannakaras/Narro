@@ -6,6 +6,18 @@ This protocol defines the optional post-M10 live Blitzit audit. **Its overriding
 
 **Evidence acquisition is a means to that product goal, not a separate objective that displaces it.** Use the user-guided continuous recording, synchronized observable client/protocol/state capture, authentic client assets/theme evidence and proportionate static/dynamic investigation to resolve what the application actually does. Do not require knowledge of hidden server code to reproduce demonstrated behavior. Do not substitute invented Blitzit specifics for missing evidence; record bounded unknowns and defensible Narro-local choices.
 
+## Fidelity scope filter and discovery of previously undocumented features
+
+**Apply a product-scope filter before spending observation/analysis time.** This is a personal, local-only Windows reconstruction, **not** a replication of Blitzit's online business, identity or service platform.
+
+- **EXCLUDED_SERVICE — skip deep capture, reverse engineering, functional parity and Narro implementation:** accounts, login/profile management, billing, subscription/upgrade/trial purchase flows, AI chat/Blitzy, MCP/AI agents, cloud sync as a service, third-party integrations/connectors (including external calendars/Notion), commercial onboarding, marketing, support/community/help and other cloud/account-only features. Do **not** click through these workflows, instrument their service-specific API calls or inspect private implementation simply for completeness. Incidental appearance of a menu label, badge or navigation item in an in-scope screenshot is sufficient; it is **not** a missing Narro feature. Do not collect secrets or enter paid/third-party flows.
+- **IN_SCOPE — fully capture and analyze:** the local-use planning, lists, tasks, scheduling, recurrence, notes, subtasks, Focus/Timer, preferences needed locally, notifications, archives, history, reporting, visual system, interactions, persistence and related functionality. If an ostensibly excluded cloud feature reveals a **separable local-use action or shared UI pattern** that materially affects these surfaces, inspect only that separable, relevant behavior; never reproduce the excluded service infrastructure.
+- **NEW_DISCOVERY — never silently discard an unfamiliar feature because old screenshots, Pass-3 or U01–U41 do not mention it.** During a brief, non-invasive scan of actual navigation and reachable in-scope menus, record an unfamiliar label/icon/location, observed purpose only if directly visible, entry path, version/build, theme, video timecode and a short safe overview of accessible states. Preserve it as **NEW_UNCATALOGUED** during collection, without a speculative product verdict. For an obviously locally relevant feature, capture its safely reachable interaction branches at full Pass-3+ depth within the campaign. For an ambiguous item, capture only sufficient harmless context to enable later classification; no account/service exploration or scope creep.
+
+**Only after freeze, during analysis/reconciliation, classify every NEW_UNCATALOGUED item** as (a) existing covered in-scope behavior, (b) new *local-use candidate* worth a dedicated **future-addition backlog** entry, (c) excluded service, or (d) ambiguous/needs targeted evidence. Record a durable, deduplicated item with unique ID, source version, UI entry point, concise visual/functional description, evidence filename/timecodes, local relevance, dependencies, confidence and reason for disposition. **A future-addition candidate is not automatically an M11 implementation requirement or a blocker for current parity**: it requires the normal explicit scope/prioritization decision. Do not create a new bug/PR per discovery or equate such entries with U01–U41. If the newly found feature is already required for an existing in-scope user workflow, route it to current parity reconciliation instead of deferring a genuine gap.
+
+The M11 coverage ledger must distinguish **IN_SCOPE FULL**, **NEW_DISCOVERY REGISTERED**, **EXCLUDED_SERVICE SKIPPED** and **NOT OBSERVED/UNAVAILABLE**. The goal is exhaustive *relevant* interface fidelity plus preservation of useful surprises, not exhaustive inspection of every monetized feature. This filter is applied consistently to the operator's video guide and all technical/static/REA analysis.
+
 The audit is deliberately phase-gated:
 
 `PLAN -> CAPTURE EVERYTHING -> FREEZE CORPUS -> ANALYZE -> RECONCILE/PLAN -> IMPLEMENT -> REVALIDATE`
@@ -92,7 +104,7 @@ Start from:
 - known `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes;
 - the final M10 Narro state.
 
-The plan should cover all material in-scope product surfaces and transitions, not only known gaps. At minimum consider:
+The plan should cover all material in-scope product surfaces and transitions, not only known gaps. **Include a short discovery scan of navigation/menus for previously unknown local-use features, and list excluded service areas as SKIPPED, not as pending full capture.** At minimum consider:
 - fresh launch and normal navigation;
 - list/lane/task create, edit, duplicate, move, reorder, complete, archive and delete;
 - hover/focus/pressed/selected/disabled/pending states;
@@ -352,6 +364,7 @@ M11 is complete only when:
 - the planned capture campaign is complete and frozen;
 - the entire frozen corpus has been analyzed;
 - the per-interface/component/state/transition coverage ledger accounts for all planned and discovered in-scope scenarios, with source evidence or an explicit unavailable/not-observed disposition rather than assumed coverage;
+- any newly encountered feature is represented in the deduplicated discovery register with an explicit in-scope / future-local-candidate / excluded-service / ambiguous disposition; excluded service branches were not exhaustively audited;
 - all material findings are reconciled;
 - every selected Narro correction is implemented and validated;
 - the corrected Narro surfaces and interactions have **source-to-Narro side-by-side visual/motion/behavior acceptance evidence** at relevant before/action/transient/after states, with measured differences where the source permits and explicitly documented exceptions. Validate real outcomes and persistence where applicable, not merely visual resemblance;
