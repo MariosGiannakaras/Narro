@@ -11,3 +11,5 @@ Four changed M5 claims acquired4/4, reviewed4/4, scopedPASS4/4. [Full report, ex
 - Exact executable is retained in GitHub artifact12002784723; hashes/CI provider receipts and552-input main equality proof are included. Personal DB/backup/private ledger excluded. [Original profile restoration proof](original-profile-restoration-proof.json).
 
 These are actual Windows/Narro observations, not mocked browser fixtures. Review screenshots and video together with UIA/state evidence. Source copy/menu claims are narrowly accepted; physical reduced motion, startup transitions and unrelated milestones are not claimed.
+
+Finding-ID erratum: [B60 routing correction](acceptance-routing-correction.json); original acceptance-review JSON is retained unchanged. B61 acceptance is copy-only.
