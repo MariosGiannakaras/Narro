@@ -79,7 +79,9 @@ export function FocusLiveSubtasks({
   // the rendered pending flag can lag same-render keyboard/pointer handlers.
   const mutationInFlightRef = useRef(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
+  const committedRefreshBlockedRef = useRef(false);
   const expanded = controlledExpanded ?? internalExpanded;
+
 
   useEffect(() => {
     mountedRef.current = true;
@@ -98,17 +100,25 @@ export function FocusLiveSubtasks({
     setCreateOpen(false);
     setEditor(null);
     setPending(false);
+    committedRefreshBlockedRef.current = false;
     setRefreshBlocked(false);
   }, [controlledExpanded, fixtureExpanded, fixtureMode, fixtureSnapshot]);
 
   const progress = useMemo(() => progressState(task, expanded ? snapshot : null), [expanded, snapshot, task]);
+
   const mutable = Boolean(snapshot?.mutable) && !refreshBlocked;
 
   const subtaskProjection = useSubtaskProjection({
-    taskId: task.id, listId: task.listId, enabled: !fixtureMode && expanded,
+    taskId: task.id, listId: task.listId, enabled: !fixtureMode && expanded && !refreshBlocked,
     onLoad: () => { setLoading(true); setError(null); },
-    onSnapshot: incoming => { setSnapshot(incoming); setLoading(false); setError(null); },
-    onError: failure => { setLoading(false); setError(formatInvokeError(failure)); },
+    onSnapshot: incoming => {
+      if (committedRefreshBlockedRef.current) return;
+      setSnapshot(incoming); setLoading(false); setError(null);
+    },
+    onError: failure => {
+      if (committedRefreshBlockedRef.current) return;
+      setLoading(false); setError(formatInvokeError(failure));
+    },
   });
 
   const requestExpanded = async (nextExpanded: boolean) => {
@@ -167,6 +177,9 @@ export function FocusLiveSubtasks({
 
   const handleCommittedRefreshFailure = (failure: unknown) => {
     if (!mountedRef.current) return;
+    // A later detail success cannot turn a committed/blocked write into an
+    // unexplained disabled editor, including before the blocked render commits.
+    committedRefreshBlockedRef.current = true;
     setRefreshBlocked(true);
     setError(
       `Subtask change was saved, but authoritative Focus progress could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more subtask changes.`,
@@ -178,7 +191,7 @@ export function FocusLiveSubtasks({
     afterCommit?: () => void,
   ) => {
     if (fixtureMode || interactionPending || pending || mutationInFlightRef.current
-      || refreshBlocked || !snapshot?.mutable) return;
+      || refreshBlocked || committedRefreshBlockedRef.current || !snapshot?.mutable) return;
     mutationInFlightRef.current = true;
     setPending(true);
     setError(null);

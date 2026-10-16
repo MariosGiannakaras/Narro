@@ -1044,10 +1044,16 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(document.activeElement === elsewhere, "completed native response stole explicitly moved focus");
   elsewhere.remove();
   await submitChild("Committed stale details");
-  subtaskRefreshFail = true;
+  subtaskRefreshFail = true; deferSubtaskReads = true;
   releaseSubtask!(); await wait(); await wait(); await wait();
   assert(!subtaskInput() && document.activeElement !== failedInput
     && container.textContent?.includes("panel is stale"), "committed refresh failure refocused stale editing state");
+  const lateBoardDetails = subtaskReadWaiters.splice(0);
+  assert(lateBoardDetails.length > 0, "Board partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateBoardDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  const boardCommittedErrorRetained = !subtaskInput() && Boolean(container.textContent?.includes("panel is stale"));
   subtaskRefreshFail = false;
   // Dispose an outstanding request; its completion must not focus a new tree.
   renderBoard("subtask-disposal"); await wait(); await wait();
@@ -1107,6 +1113,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     }
   }
   assert(boardOnlyStyles.length > 0, "Focus isolation test did not remove any Board-only style dependency");
+  let partialFocusErrorRetained = false;
   try {
   container.querySelector<HTMLButtonElement>('[data-focus-subtask-control="toggle"]')!.click(); await wait(); await wait();
   const panelInput = await submitChild("Panel shared keyboard create");
@@ -1122,10 +1129,27 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(panelClear.left >= panelBounds.left && panelClear.right <= panelBounds.right
     && panelClear.top >= panelBounds.top && panelClear.bottom <= panelBounds.bottom,
     "Focus scoped CSS displaced the shared in-field clear");
+  await submitChild("Focus committed partial refresh failure");
+  subtaskRefreshFail = true; deferSubtaskReads = true;
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(container.querySelector('[data-focus-subtask-refresh-blocked="true"]')
+    && container.textContent?.includes("authoritative Focus progress could not refresh"),
+    "Focus committed partial failure did not expose blocked error state");
+  const lateFocusDetails = subtaskReadWaiters.splice(0);
+  assert(lateFocusDetails.length > 0, "Focus partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateFocusDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  partialFocusErrorRetained = Boolean(container.querySelector('[data-focus-subtask-refresh-blocked="true"]'))
+    && Boolean(container.textContent?.includes("authoritative Focus progress could not refresh"));
+  subtaskRefreshFail = false;
   } finally {
     for (const { rule, css } of boardOnlyStyles) rule.style.cssText = css;
   }
 
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks key="fresh-owner-race"
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+  await wait(); await wait();
   // Keep the same component instance while its task owner changes; reject
   // the old owner's late payload and clean the event listener on disposal.
   deferSubtaskReads = true;
@@ -1134,7 +1158,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(oldOwnerRead, "Focus owner test needs an in-flight authoritative detail read");
   deferSubtaskReads = false;
   flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
-    task={tasks[1]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+    key="fresh-owner-race" task={tasks[1]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
   await wait(); await wait();
   oldOwnerRead.resolve(oldOwnerRead.payload); await wait(); await wait();
   assert(!container.querySelector('[data-subtask-id]') && !container.textContent?.includes("Latest Focus"),
@@ -1158,6 +1182,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(container.querySelector('[data-floating-subtask-id]')?.textContent?.includes("Floating external rename"),
     "expanded Floating Timer retained stale shared child data");
 
+  assert(boardCommittedErrorRetained && partialFocusErrorRetained,
+    "late detail read erased committed-refresh failure: " + JSON.stringify({ boardCommittedErrorRetained, partialFocusErrorRetained }));
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -1262,5 +1288,5 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
     boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true,
     subtaskCrossWindowCreate: true, subtaskCrossWindowSameCount: true, subtaskCrossWindowDraftPreserved: true,
-    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true };
+    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true, subtaskCommittedErrorRetained: true };
 }
