@@ -3,6 +3,7 @@ import { flushSync } from "react-dom";
 import { useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
+import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { ListBoard } from "./ListBoard";
 import { AppShell } from "./AppShell";
 import { BUILTIN_LIST_ICONS } from "./BuiltinListIcon";
@@ -1041,6 +1042,38 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(badgeTrigger().querySelector('.board-list-picker__badge svg') && container.querySelector('[data-board-add-task]'),
     "Board selected list/icon failed to return after AllLists");
 
+  // Focus owns its toolbar and its minimal stylesheet; the shared input must
+  // not depend on Board CSS specificity or reveal a second summary header.
+  boardTasks = [tasks[0]];
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} /></div>));
+  const boardOnlyStyles: Array<{ rule: CSSStyleRule; css: string }> = [];
+  for (const sheet of Array.from(document.styleSheets)) for (const rule of Array.from(sheet.cssRules)) {
+    if (rule instanceof CSSStyleRule && rule.selectorText.includes(".list-board-task__subtask")
+      && !rule.selectorText.includes(".focus-panel__subtasks")) {
+      boardOnlyStyles.push({ rule, css: rule.style.cssText });
+      rule.style.cssText = "";
+    }
+  }
+  assert(boardOnlyStyles.length > 0, "Focus isolation test did not remove any Board-only style dependency");
+  try {
+  container.querySelector<HTMLButtonElement>('[data-focus-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  const panelInput = await submitChild("Panel shared keyboard create");
+  assert(panelInput.disabled, "Focus shared create did not acquire native pending");
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(subtaskInput() === panelInput && !panelInput.disabled && panelInput.value === "" && document.activeElement === panelInput,
+    "Focus shared input lost repeat-ready focus after real authoritative refresh");
+  const panelHeader = container.querySelector<HTMLElement>('[data-task-subtask-header]')!;
+  assert(getComputedStyle(panelHeader).display === "none", "Focus revealed duplicate Board summary controls");
+  const panelClear = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!.getBoundingClientRect();
+  const panelBounds = panelInput.getBoundingClientRect();
+  assert(panelClear.left >= panelBounds.left && panelClear.right <= panelBounds.right
+    && panelClear.top >= panelBounds.top && panelClear.bottom <= panelBounds.bottom,
+    "Focus scoped CSS displaced the shared in-field clear");
+  } finally {
+    for (const { rule, css } of boardOnlyStyles) rule.style.cssText = css;
+  }
+
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -1143,5 +1176,5 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true,
     subtaskRepeatFocusAfterNativeRefresh: true, subtaskFailureDraftAndFocus: true,
     subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
-    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true };
+    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true };
 }
