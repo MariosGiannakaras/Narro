@@ -12,6 +12,7 @@ import {
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { listenForBoardInvalidation } from "./boardInvalidation";
+import { useSubtaskProjection } from "./useSubtaskProjection";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   changeListBoardTask,
@@ -21,7 +22,6 @@ import {
   deleteListBoardSubtask,
   duplicateListBoardTask,
   getListBoardSnapshot,
-  getListBoardTaskSubtasks,
   moveListBoardTask,
   permanentlyDeleteListBoardTask,
   reorderListBoardSubtasks,
@@ -869,6 +869,22 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const committedSubtaskRefreshBlockedRef = useRef(false);
+  const subtaskProjection = useSubtaskProjection({
+    taskId: subtaskPanel?.taskId, listId: subtaskPanel?.listId,
+    enabled: !fixtureSnapshot && Boolean(subtaskPanel) && !mutationRefreshBlocked,
+    onLoad: () => setSubtaskPanel(current => current ? { ...current, loading: true } : current),
+    onSnapshot: payload => {
+      if (committedSubtaskRefreshBlockedRef.current) return;
+      setSubtaskPanel(current => current?.taskId === payload.taskId && current.listId === payload.listId
+        ? { ...current, loading: false, snapshot: payload, error: null } : current);
+    },
+    onError: failure => {
+      if (committedSubtaskRefreshBlockedRef.current) return;
+      setSubtaskPanel(current => current
+        ? { ...current, loading: false, error: formatInvokeError(failure) } : current);
+    },
+  });
   const [changeListState, setChangeListState] = useState<ChangeListState | null>(null);
   const [changeListPending, setChangeListPending] = useState(false);
   const [changeListError, setChangeListError] = useState<string | null>(null);
@@ -912,6 +928,7 @@ export function ListBoard({
       setEditorMutationPending(false);
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
+      committedSubtaskRefreshBlockedRef.current = false;
       setSubtaskPanel(null);
       setChangeListState(null);
       setChangeListPending(false);
@@ -933,6 +950,7 @@ export function ListBoard({
     setEditorMutationPending(false);
     setScheduleEditorTaskId(null);
     setNotePanelTaskId(null);
+    committedSubtaskRefreshBlockedRef.current = false;
     setSubtaskPanel(null);
     setChangeListState(null);
     setChangeListPending(false);
@@ -1274,6 +1292,9 @@ export function ListBoard({
   };
 
   const handleCommittedSubtaskRefreshFailure = (failure: unknown) => {
+    // Latch before React renders: an already in-flight successful detail read
+    // must not clear the unsafe-retry error after the paired board read fails.
+    committedSubtaskRefreshBlockedRef.current = true;
     setMutationRefreshBlocked(true);
     setMutationError(
       `Subtask change was saved, but authoritative task details could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
@@ -1289,20 +1310,14 @@ export function ListBoard({
   };
 
   const refreshSubtasksAndBoard = async (taskId: string, listId: string) => {
-    const [subtasksPayload, boardPayload] = await Promise.all([
-      getListBoardTaskSubtasks(taskId, listId),
+    const revision = ++externalRefreshRevisionRef.current;
+    const [, boardPayload] = await Promise.all([
+      subtaskProjection.refresh(),
       getListBoardSnapshot(target),
     ]);
-    setSnapshot(boardPayload);
-    setSubtaskPanel((current) => current?.taskId === taskId
-      ? {
-          ...current,
-          loading: false,
-          snapshot: subtasksPayload,
-          error: null,
-          pending: false,
-        }
-      : current);
+    if (revision === externalRefreshRevisionRef.current) setSnapshot(boardPayload);
+    setSubtaskPanel(current => current?.taskId === taskId && current.listId === listId
+      ? { ...current, pending: false } : current);
     markSettling(taskId);
   };
 
@@ -1822,22 +1837,13 @@ export function ListBoard({
       editor: null,
       pending: false,
     });
-    void getListBoardTaskSubtasks(task.id, task.listId)
-      .then((payload) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, snapshot: payload, error: null }
-          : current);
-      })
-      .catch((failure: unknown) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, error: formatInvokeError(failure) }
-          : current);
-      });
+
   };
 
   const beginSubtaskMutation = (): SubtaskPanelState | null => {
     if (
       !interactionBoardEnabled
+      || committedSubtaskRefreshBlockedRef.current
       || !subtaskPanel
       || subtaskPanel.loading
       || subtaskPanel.error

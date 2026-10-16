@@ -44,6 +44,7 @@ function subtasks({ refresh } = {}) {
   const ctx = {
     fixtureMode: false, interactionPending: false, pending: false,
     mutationInFlightRef: { current: false },
+    committedRefreshBlockedRef: { current: false },
     refreshBlocked: false, snapshot: { mutable: true },
     mountedRef: { current: true },
     setPending: value => calls.pending.push(value),
@@ -88,6 +89,9 @@ function subtasks({ refresh } = {}) {
   await h.runMutation(async () => { written++; });
   assert.equal(written, 1);
   assert.deepEqual(h.calls.blocked, [true]);
+  assert.equal(h.ctx.committedRefreshBlockedRef.current, true);
+  await h.runMutation(async () => { written++; });
+  assert.equal(written, 1, "Committed refresh failure must reject retry before React renders blocked state");
   assert.match(String(h.calls.errors.at(-1)),
     /Subtask change was saved.*readback offline/);
   assert.equal(h.ctx.mutationInFlightRef.current, false);
@@ -98,6 +102,23 @@ function subtasks({ refresh } = {}) {
   assert.match(String(h.calls.errors.at(-1)), /subtask storage rejected/);
   assert.equal(h.calls.refreshes, 0);
   assert.equal(h.ctx.mutationInFlightRef.current, false);
+}
+
+// The Board uses the same synchronous blocked-admission rule even when its
+// rendered interactionBoardEnabled value has not caught up with the failure.
+{
+  const begin = extract("src/ListBoard.tsx", "  const beginSubtaskMutation = (", "  const finishSubtaskCommit = async (");
+  let pendingUpdates = 0;
+  const panel = { loading: false, error: null, pending: false, snapshot: { mutable: true } };
+  const ctx = { interactionBoardEnabled: true, subtaskPanel: panel,
+    committedSubtaskRefreshBlockedRef: { current: true },
+    setSubtaskPanel: () => { pendingUpdates++; }, setMutationError: () => {} };
+  const h = vm.runInNewContext(actualJs(begin, ["beginSubtaskMutation"]), ctx);
+  assert.equal(h.beginSubtaskMutation(), null);
+  assert.equal(pendingUpdates, 0);
+  ctx.committedSubtaskRefreshBlockedRef.current = false;
+  assert.equal(h.beginSubtaskMutation(), panel);
+  assert.equal(pendingUpdates, 1);
 }
 
 const metricBody = extract("src/FocusLiveMetrics.tsx",

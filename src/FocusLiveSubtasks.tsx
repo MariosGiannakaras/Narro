@@ -5,7 +5,6 @@ import {
   createListBoardSubtask,
   deleteListBoardSubtask,
   getListBoardSnapshot,
-  getListBoardTaskSubtasks,
   reorderListBoardSubtasks,
   setListBoardSubtaskCompletion,
   updateListBoardSubtaskTitle,
@@ -15,6 +14,7 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { useSubtaskProjection } from "./useSubtaskProjection";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 
 type FocusLiveSubtasksProps = {
@@ -79,7 +79,9 @@ export function FocusLiveSubtasks({
   // the rendered pending flag can lag same-render keyboard/pointer handlers.
   const mutationInFlightRef = useRef(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
+  const committedRefreshBlockedRef = useRef(false);
   const expanded = controlledExpanded ?? internalExpanded;
+
 
   useEffect(() => {
     mountedRef.current = true;
@@ -98,28 +100,26 @@ export function FocusLiveSubtasks({
     setCreateOpen(false);
     setEditor(null);
     setPending(false);
+    committedRefreshBlockedRef.current = false;
     setRefreshBlocked(false);
   }, [controlledExpanded, fixtureExpanded, fixtureMode, fixtureSnapshot]);
 
-  const progress = useMemo(() => progressState(task, snapshot), [snapshot, task]);
+  const progress = useMemo(() => progressState(task, expanded ? snapshot : null), [expanded, snapshot, task]);
+
   const mutable = Boolean(snapshot?.mutable) && !refreshBlocked;
 
-  const loadSubtasks = async () => {
-    if (fixtureMode || loading) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const incoming = await getListBoardTaskSubtasks(task.id, task.listId);
-      if (incoming.taskId !== task.id || incoming.listId !== task.listId) {
-        throw new Error("Authoritative subtask snapshot did not match the live task.");
-      }
-      if (mountedRef.current) setSnapshot(incoming);
-    } catch (failure: unknown) {
-      if (mountedRef.current) setError(formatInvokeError(failure));
-    } finally {
-      if (mountedRef.current) setLoading(false);
-    }
-  };
+  const subtaskProjection = useSubtaskProjection({
+    taskId: task.id, listId: task.listId, enabled: !fixtureMode && expanded && !refreshBlocked,
+    onLoad: () => { setLoading(true); setError(null); },
+    onSnapshot: incoming => {
+      if (committedRefreshBlockedRef.current) return;
+      setSnapshot(incoming); setLoading(false); setError(null);
+    },
+    onError: failure => {
+      if (committedRefreshBlockedRef.current) return;
+      setLoading(false); setError(formatInvokeError(failure));
+    },
+  });
 
   const requestExpanded = async (nextExpanded: boolean) => {
     if (interactionPending) return false;
@@ -150,15 +150,13 @@ export function FocusLiveSubtasks({
     await ensureExpanded();
   };
 
-  useEffect(() => {
-    if (expanded && !snapshot && !fixtureMode && !loading && !error) void loadSubtasks();
-  }, [error, expanded, fixtureMode, loading, snapshot, task.id, task.listId]);
 
   const refreshSubtasksAndBoard = async () => {
     const [subtasksPayload, boardPayload] = await Promise.all([
-      getListBoardTaskSubtasks(task.id, task.listId),
+      subtaskProjection.refresh(),
       getListBoardSnapshot(target),
     ]);
+    if (!subtasksPayload || !subtaskProjection.isCurrent(subtasksPayload)) return; // Newer event/owner owns this read.
     if (subtasksPayload.taskId !== task.id || subtasksPayload.listId !== task.listId) {
       throw new Error("Authoritative subtask refresh did not match the live task.");
     }
@@ -173,13 +171,15 @@ export function FocusLiveSubtasks({
       throw new Error("Authoritative Focus subtask progress did not reconcile after the saved change.");
     }
     if (!mountedRef.current) return;
-    setSnapshot(subtasksPayload);
     onTaskProjection?.(projectedTask);
     setError(null);
   };
 
   const handleCommittedRefreshFailure = (failure: unknown) => {
     if (!mountedRef.current) return;
+    // A later detail success cannot turn a committed/blocked write into an
+    // unexplained disabled editor, including before the blocked render commits.
+    committedRefreshBlockedRef.current = true;
     setRefreshBlocked(true);
     setError(
       `Subtask change was saved, but authoritative Focus progress could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more subtask changes.`,
@@ -191,7 +191,7 @@ export function FocusLiveSubtasks({
     afterCommit?: () => void,
   ) => {
     if (fixtureMode || interactionPending || pending || mutationInFlightRef.current
-      || refreshBlocked || !snapshot?.mutable) return;
+      || refreshBlocked || committedRefreshBlockedRef.current || !snapshot?.mutable) return;
     mutationInFlightRef.current = true;
     setPending(true);
     setError(null);

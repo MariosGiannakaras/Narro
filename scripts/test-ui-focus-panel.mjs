@@ -51,6 +51,7 @@ invariant(m7Integration.includes("panelPause === null")
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
+const subtaskProjection = read("src/useSubtaskProjection.ts");
 const taskSubtasks = read("src/TaskSubtasks.tsx");
 const timerApi = read("src/timerSessionApi.ts");
 const timerPresentation = read("src/focusTimerPresentation.ts");
@@ -189,7 +190,9 @@ for (const [haystack, needle, label] of [
   [read("src/metricDurationInput.ts"), "MAX_EDITABLE_SECONDS = 4_294_967_295n", "Rust u32 metric range mirror"],
   [metricsCss, "grid-template-columns: 5rem minmax(0, 1fr) 4.75rem", "stable Focus metric row geometry"],
   [metricsCss, "grid-template-columns: repeat(2, 2.25rem)", "stable metric action geometry"],
-  [subtasks, "getListBoardTaskSubtasks(task.id, task.listId)", "authoritative live-task subtask read"],
+  [subtasks, "useSubtaskProjection({", "shared live-task detail projection"],
+  [subtaskProjection, "await getListBoardTaskSubtasks(taskId, listId)", "authoritative owner-bound subtask read"],
+  [subtaskProjection, "listenForBoardInvalidation", "cross-window detail invalidation"],
   [subtasks, "Promise.all([", "combined authoritative subtask/board refresh"],
   [subtasks, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
   [subtasks, "projectedTotal !== subtasksPayload.subtasks.length || projectedCompleted !== actualCompleted", "subtask/list-board progress reconciliation"],

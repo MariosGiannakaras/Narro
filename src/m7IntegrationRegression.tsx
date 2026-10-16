@@ -119,6 +119,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const ownedSubtasks: BoardSubtask[] = [];
   let subtaskCalls = 0, subtaskFail = false, subtaskRefreshFail = false;
   let releaseSubtask: (() => void) | undefined;
+  let deferSubtaskReads = false;
+  const subtaskReadWaiters: Array<{ resolve: (value: unknown) => void; reject: (failure: unknown) => void; payload: unknown }> = [];
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -249,7 +251,10 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         return;
       }
       if (command === "get_list_board_task_subtasks") {
-        return { taskId: args.taskId, listId: args.listId, mutable: true, subtasks: [...ownedSubtasks] };
+        const payload = { taskId: args.taskId, listId: args.listId, mutable: true,
+          subtasks: ownedSubtasks.filter(child => child.taskId === args.taskId).map(child => ({ ...child })) };
+        if (deferSubtaskReads) return new Promise((resolve, reject) => subtaskReadWaiters.push({ resolve, reject, payload }));
+        return payload;
       }
       if (command === "create_list_board_subtask") {
         subtaskCalls++;
@@ -261,7 +266,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
               title: String(args.title), sortRank: ownedSubtasks.length, completedAt: null, updatedAt: "2026-10-16T00:00:00Z" };
             ownedSubtasks.push(child);
             boardTasks = boardTasks.map(task => task.id === child.taskId
-              ? { ...task, subtaskTotalCount: ownedSubtasks.length } : task);
+              ? { ...task, subtaskTotalCount: ownedSubtasks.length, subtaskCompletedCount: ownedSubtasks.filter(child => child.completedAt !== null).length } : task);
             resolve(child);
           };
         });
@@ -969,6 +974,52 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     assert(subtaskInput() === input && input.value === "" && !input.disabled && document.activeElement === input,
       "committed subtask create lost repeat-ready input/focus after authoritative refresh");
   }
+  // Reproduce PA360 with the real mounted Board detail consumer. An event
+  // carries no data: the independently stored child snapshot must be re-read.
+  const verifyExternalSubtasks = async (surface: string) => {
+    const input = subtaskInput(); input.focus();
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "Retained cross-window draft");
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    ownedSubtasks.push({ id: `external-${surface}`, taskId: tasks[0].id, title: `External ${surface}`,
+      sortRank: ownedSubtasks.length, completedAt: null, updatedAt: "2026-10-16T10:00:00Z" });
+    boardTasks = boardTasks.map(task => ({ ...task, subtaskTotalCount: ownedSubtasks.length }));
+    await emitBoardInvalidated(); await wait(); await wait(); await wait();
+    const rows = () => Array.from(container.querySelectorAll<HTMLElement>('[data-subtask-id]'));
+    assert(rows().length === ownedSubtasks.length && rows().some(row => row.dataset.subtaskId === `external-${surface}`),
+      surface + " expanded detail missed cross-window create despite board invalidation");
+    assert(subtaskInput() === input && input.value === "Retained cross-window draft" && document.activeElement === input,
+      surface + " external detail refresh remounted, cleared or stole draft focus");
+    ownedSubtasks.reverse();
+    ownedSubtasks.forEach((child, index) => { child.sortRank = index; });
+    ownedSubtasks[0] = { ...ownedSubtasks[0], title: `Renamed ${surface}`, completedAt: "2026-10-16T10:01:00Z" };
+    boardTasks = boardTasks.map(task => ({ ...task, subtaskCompletedCount: ownedSubtasks.filter(child => child.completedAt !== null).length }));
+    await emitBoardInvalidated(); await wait(); await wait(); await wait();
+    assert(rows().map(row => row.dataset.subtaskId).join("|") === ownedSubtasks.map(child => child.id).join("|")
+      && rows()[0].textContent?.includes(`Renamed ${surface}`) && rows()[0].dataset.subtaskCompleted === "true",
+      surface + " same-count rename/reorder/completion remained stale");
+    // Independently delayed native reads must not rewind details or publish
+    // a stale failure after a newer event won, including same-count updates.
+    for (const staleFailure of [false, true]) {
+      deferSubtaskReads = true;
+      await emitBoardInvalidated(); await wait();
+      const older = subtaskReadWaiters.shift()!;
+      assert(older, surface + " did not read detail on invalidation");
+      ownedSubtasks[0] = { ...ownedSubtasks[0], title: `Latest ${surface} ${staleFailure}` };
+      await emitBoardInvalidated(); await wait();
+      const newer = subtaskReadWaiters.shift()!;
+      assert(newer, surface + " coalesced away a newer required read");
+      newer.resolve(newer.payload); await wait(); await wait();
+      if (staleFailure) older.reject(new Error("obsolete detail read failure"));
+      else older.resolve(older.payload);
+      await wait(); await wait();
+      assert(rows()[0].textContent?.includes(`Latest ${surface} ${staleFailure}`)
+        && !container.textContent?.includes("obsolete detail read failure"), surface + " stale detail/error replaced latest event");
+      deferSubtaskReads = false;
+    }
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "");
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+  };
+  await verifyExternalSubtasks("Board");
   const clearInput = subtaskInput();
   const clearWidth = clearInput.getBoundingClientRect().width;
   const beforeClearCalls = subtaskCalls;
@@ -993,10 +1044,16 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(document.activeElement === elsewhere, "completed native response stole explicitly moved focus");
   elsewhere.remove();
   await submitChild("Committed stale details");
-  subtaskRefreshFail = true;
+  subtaskRefreshFail = true; deferSubtaskReads = true;
   releaseSubtask!(); await wait(); await wait(); await wait();
   assert(!subtaskInput() && document.activeElement !== failedInput
     && container.textContent?.includes("panel is stale"), "committed refresh failure refocused stale editing state");
+  const lateBoardDetails = subtaskReadWaiters.splice(0);
+  assert(lateBoardDetails.length > 0, "Board partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateBoardDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  const boardCommittedErrorRetained = !subtaskInput() && Boolean(container.textContent?.includes("panel is stale"));
   subtaskRefreshFail = false;
   // Dispose an outstanding request; its completion must not focus a new tree.
   renderBoard("subtask-disposal"); await wait(); await wait();
@@ -1056,6 +1113,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     }
   }
   assert(boardOnlyStyles.length > 0, "Focus isolation test did not remove any Board-only style dependency");
+  let partialFocusErrorRetained = false;
   try {
   container.querySelector<HTMLButtonElement>('[data-focus-subtask-control="toggle"]')!.click(); await wait(); await wait();
   const panelInput = await submitChild("Panel shared keyboard create");
@@ -1063,6 +1121,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   releaseSubtask!(); await wait(); await wait(); await wait();
   assert(subtaskInput() === panelInput && !panelInput.disabled && panelInput.value === "" && document.activeElement === panelInput,
     "Focus shared input lost repeat-ready focus after real authoritative refresh");
+  await verifyExternalSubtasks("Focus");
   const panelHeader = container.querySelector<HTMLElement>('[data-task-subtask-header]')!;
   assert(getComputedStyle(panelHeader).display === "none", "Focus revealed duplicate Board summary controls");
   const panelClear = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!.getBoundingClientRect();
@@ -1070,10 +1129,61 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(panelClear.left >= panelBounds.left && panelClear.right <= panelBounds.right
     && panelClear.top >= panelBounds.top && panelClear.bottom <= panelBounds.bottom,
     "Focus scoped CSS displaced the shared in-field clear");
+  await submitChild("Focus committed partial refresh failure");
+  subtaskRefreshFail = true; deferSubtaskReads = true;
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(container.querySelector('[data-focus-subtask-refresh-blocked="true"]')
+    && container.textContent?.includes("authoritative Focus progress could not refresh"),
+    "Focus committed partial failure did not expose blocked error state");
+  const lateFocusDetails = subtaskReadWaiters.splice(0);
+  assert(lateFocusDetails.length > 0, "Focus partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateFocusDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  partialFocusErrorRetained = Boolean(container.querySelector('[data-focus-subtask-refresh-blocked="true"]'))
+    && Boolean(container.textContent?.includes("authoritative Focus progress could not refresh"));
+  subtaskRefreshFail = false;
   } finally {
     for (const { rule, css } of boardOnlyStyles) rule.style.cssText = css;
   }
 
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks key="fresh-owner-race"
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+  await wait(); await wait();
+  // Keep the same component instance while its task owner changes; reject
+  // the old owner's late payload and clean the event listener on disposal.
+  deferSubtaskReads = true;
+  await emitBoardInvalidated(); await wait();
+  const oldOwnerRead = subtaskReadWaiters.shift()!;
+  assert(oldOwnerRead, "Focus owner test needs an in-flight authoritative detail read");
+  deferSubtaskReads = false;
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    key="fresh-owner-race" task={tasks[1]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+  await wait(); await wait();
+  oldOwnerRead.resolve(oldOwnerRead.payload); await wait(); await wait();
+  assert(!container.querySelector('[data-subtask-id]') && !container.textContent?.includes("Latest Focus"),
+    "old task detail crossed into the new Focus owner");
+  const detailListeners = () => [...listeners.values()].filter(listener => listener.event === "board-data-invalidated").length;
+  const beforeDispose = detailListeners();
+  deferSubtaskReads = true; await emitBoardInvalidated(); await wait();
+  const disposedSubtaskRead = subtaskReadWaiters.shift()!;
+  flushSync(() => root.render(<div>Disposed subtask owner</div>)); await wait();
+  deferSubtaskReads = false; disposedSubtaskRead.reject(new Error("disposed detail read failure")); await wait(); await wait();
+  assert(detailListeners() === beforeDispose - 1 && container.textContent === "Disposed subtask owner",
+    "disposed subtask listener/read changed the next owner or leaked");
+
+  // The same production data consumer serves expanded Floating Timer; its
+  // separate visual editor must receive same-count invalidations as well.
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} presentation="floating" expanded /></div>));
+  await wait(); await wait();
+  ownedSubtasks[0] = { ...ownedSubtasks[0], title: "Floating external rename" };
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(container.querySelector('[data-floating-subtask-id]')?.textContent?.includes("Floating external rename"),
+    "expanded Floating Timer retained stale shared child data");
+
+  assert(boardCommittedErrorRetained && partialFocusErrorRetained,
+    "late detail read erased committed-refresh failure: " + JSON.stringify({ boardCommittedErrorRetained, partialFocusErrorRetained }));
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -1176,5 +1286,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true,
     subtaskRepeatFocusAfterNativeRefresh: true, subtaskFailureDraftAndFocus: true,
     subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
-    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true };
+    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true,
+    subtaskCrossWindowCreate: true, subtaskCrossWindowSameCount: true, subtaskCrossWindowDraftPreserved: true,
+    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true, subtaskCommittedErrorRetained: true };
 }
