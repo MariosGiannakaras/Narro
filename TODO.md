@@ -688,12 +688,14 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
   - continuous user-visible screen recording/screenshots/keyframes;
   - observable client/backend/state evidence from ordinary authorized product use: request/event shapes, timing/status/order, local storage/app-data/process/file state where legitimately observable.
 - [ ] Define the privacy/security filter before capture: no credentials/tokens/cookies/payment/private unrelated data in repo evidence; no endpoint fuzzing, auth/access-control bypass, certificate-pinning bypass or secret replay.
+- [ ] Plan an **authentic Blitzit palette extraction** across dark/light themes and meaningful states: canvas, raised/interactive surfaces, primary/secondary text, borders, focus/hover/selected/disabled, list presets, success/warning/destructive, gradients/stops, transparency and compositing. Include capture routes for actual client theme/style/CSS variables, computed styles and palette-bearing assets when lawfully accessible, plus screenshot sampling only as a clearly labeled fallback.
 
 ### Phase 2 — continuous evidence acquisition only
 
 - [ ] Execute the full scripted product journey and branch scenarios with visual + protocol/state streams synchronized on one timeline.
 - [ ] Keep each scripted session continuous; segment only for technical reliability/size while preserving session IDs, chronological order, hashes/reassembly metadata and explicit capture gaps.
 - [ ] Preserve unexpected/failing states and repeats as evidence rather than overwriting them.
+- [ ] Collect read-only, version/hash-identified original color-bearing client resources and state-linked raw computed-style/render evidence where accessible, including gradient/alpha values and display/color-profile context. Preserve raw data only during acquisition: **no palette inference, crosswalk decisions or Narro changes before corpus freeze and analysis**.
 - [ ] Enforce the **analysis embargo** throughout capture:
   - no Narro source/config/test changes because of an observation;
   - no parity verdict/crosswalk disposition;
@@ -710,6 +712,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 ### Phase 4 — full-corpus analysis
 
 - [ ] Review the **entire frozen visual corpus** systematically for layout, hierarchy, typography, icons, spacing, states, menus/dialogs/tooltips, motion, transitions, transient states and version-dependent differences.
+- [ ] **Extract and document the genuine Blitzit color palette** from frozen, authorized original client/theme/style/computed-render resources where possible: exact HEX/RGB(A) values, semantic roles, theme/state variants, gradient stops/directions, alpha/blending and provenance per value. Distinguish independently verified original values from screenshot pixel measurements/visual estimates; never label sampled approximations as byte-exact Blitzit tokens. Quantify representative text/non-text contrast and record genuinely inaccessible values as unknown.
 - [ ] Review the **entire frozen observable protocol/state corpus** and correlate user actions with task identity/mutations, reorder/move, timer/session accounting, Notes/subtasks, scheduling/recurrence, reports, optimistic acknowledgement/reconciliation, retries/conflicts and local-vs-remote state where supported.
 - [ ] Classify backend conclusions as directly observed contract / strong evidence-based inference / unknown-unobservable; never claim hidden server implementation from client evidence.
 - [ ] Produce one complete M11 findings register. **Do not begin Narro fixes before the planned corpus has been analyzed to completion.**
@@ -719,13 +722,15 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 - [ ] Reconcile every material live finding against canonical Pass-3/static-calibration evidence and the final M10 Narro implementation; record version conflicts and ambiguity explicitly.
 - [ ] Disposition every finding before implementation: no difference, source-version difference, intentional Narro deviation, insufficient evidence/accepted ambiguity, or Narro correction required.
 - [ ] Freeze a dependency-aware remediation plan grouping required fixes into coherent validation batches. **No M11 implementation begins before this plan is complete.**
+- [ ] Freeze a source-to-Narro **semantic palette/token mapping** so Narro's general theme and components are based on the authentic, provenance-verified Blitzit palette rather than guessed screenshot colors. Record dark/light roles, states, gradients, unverified fallbacks, contrast/accessibility exceptions and the explicitly approved Narro-specific Spectrum Core picker/icon design that must remain unchanged.
 
 ### Phase 6–7 — implementation, revalidation and closure
 
 - [ ] Implement only the evidence-backed corrections selected by the frozen remediation plan; preserve Narro's local-only architecture and reproduce observable semantics rather than Blitzit's private cloud architecture.
+- [ ] Align Narro's shared color tokens and affected UI surfaces/states with the verified original Blitzit palette, using centralized tokens rather than arbitrary component HEX values. Preserve the approved Spectrum Core Create/Edit List appearance/behavior, image upload, 218 offline icons and user-selected custom list colors; document justified accessibility/Windows exceptions and regression-test both themes.
 - [ ] Add/update regression coverage for material visual/behavior/state-contract findings.
 - [ ] Re-run affected automated/Windows/source-parity/data-integrity gates.
-- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA.
+- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, **extracted original palette with per-color evidence/confidence and Narro token mapping**, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA.
 
 **M11 completion gate (only if activated):** the capture campaign is complete and frozen, the entire corpus has been analyzed, every material finding is reconciled, the remediation plan is complete, every selected Narro correction is validated, affected prior gates are re-run as required, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin.
 
