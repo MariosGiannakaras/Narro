@@ -50,6 +50,13 @@ for (const [parent, child] of indirect) {
 }
 
 const regressionFile = fs.readFileSync("src/m7IntegrationRegression.tsx", "utf8");
+// The expanded sequential native/focus regression must run to its semantic
+// completion, rather than silently consuming the former 10s virtual budget.
+// This guards CI wiring; actual CDP captures and the fixture own behavior.
+const visualCapture = fs.readFileSync("scripts/capture-visual-fixtures.ps1", "utf8");
+assert.match(visualCapture,
+  /if \(\$Theme -like "focus-editor-m7-integration-\*"\)\s*\{[\s\S]*?capture-ready-fixture-cdp\.mjs[\s\S]*?--kind=m7-integration[\s\S]*?return\s*\}/,
+  "M7 integration must use actual-readiness CDP capture before the CLI virtual-time path");
 assert(regressionFile.includes("focusBoardStaleResponsesRejected: true")
   && regressionFile.includes("focusBoardReadWaiters[1](freshFocusBoard)")
   && regressionFile.includes("focusBoardReadWaiters[0](staleFocusBoard)"),
