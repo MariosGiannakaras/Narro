@@ -20,6 +20,8 @@ This file is **not** another backlog, issue tracker, milestone ledger, acceptanc
 
 **2026-10-16 NER-009/013 prevention addition:** exact PR358 physical Board capture exposed subtask create focus loss: the native pending flag disabled the active input, while authoritative refresh re-enabled it without restoring the initiating field. Synchronous component fixtures missed the real pending/refresh cycle. The corrective slice uses the actual mounted Board with deferred native writes and real shared TaskSubtasks renders, covering repeat entry, same-render duplicate submission, retryable failure/draft preservation, explicit focus ownership, stale refresh and disposal. Only the initiating live owner may recover focus after refresh; physical acceptance of the corrected executable remains separate. [Incident and original evidence](../work-log/2026-10-16-pr358-native-acceptance-and-subtask-focus-failure.md).
 
+**2026-10-16 NER-004/003 guard:** PR359/CI38856507685 first failed M7 capture readiness at the final fixture stage, not an assertion. Same product/fixture10s CLI virtual budget reproduced missing completion; diagnostic15s completed. Reuse actual-ready CDP for that sequential scenario, retain exact1280×1080/theme/motion identity and all behavioral assertions, preserve failure DOM/PNG/diagnostics and a finite outer bound; capture-route reachability is now an aggregate preflight contract. No unchanged-SHA rerun or weakened product checks. [Causal record](../work-log/2026-10-16-pr359-ci-readiness-failure-and-correction.md).
+
 ## How to use it
 
 Before a non-trivial source/config/test slice:
