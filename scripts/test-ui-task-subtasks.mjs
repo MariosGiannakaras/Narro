@@ -72,7 +72,7 @@ for (const [haystack, needle, label] of [
   [board, "&& subtaskPanel === null", "subtask interaction lock"],
   [board, "mutable: Boolean(taskSubtaskPanel.snapshot?.mutable)", "authoritative mutable projection in All Lists"],
   [board, "Promise.all([", "combined authoritative refresh"],
-  [board, "getListBoardTaskSubtasks(taskId, listId)", "authoritative subtask refresh"],
+  [board, "subtaskProjection.refresh()", "shared authoritative subtask read owner"],
   [board, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
   [board, "Subtask change was saved, but authoritative task details could not refresh.", "committed subtask refresh-failure distinction"],
   [board, "setMutationRefreshBlocked(true)", "unsafe retry blocker"],

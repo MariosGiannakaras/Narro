@@ -12,6 +12,7 @@ import {
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { listenForBoardInvalidation } from "./boardInvalidation";
+import { useSubtaskProjection } from "./useSubtaskProjection";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   changeListBoardTask,
@@ -21,7 +22,6 @@ import {
   deleteListBoardSubtask,
   duplicateListBoardTask,
   getListBoardSnapshot,
-  getListBoardTaskSubtasks,
   moveListBoardTask,
   permanentlyDeleteListBoardTask,
   reorderListBoardSubtasks,
@@ -869,6 +869,15 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const subtaskProjection = useSubtaskProjection({
+    taskId: subtaskPanel?.taskId, listId: subtaskPanel?.listId,
+    enabled: !fixtureSnapshot && Boolean(subtaskPanel),
+    onLoad: () => setSubtaskPanel(current => current ? { ...current, loading: true } : current),
+    onSnapshot: payload => setSubtaskPanel(current => current?.taskId === payload.taskId && current.listId === payload.listId
+      ? { ...current, loading: false, snapshot: payload, error: null } : current),
+    onError: failure => setSubtaskPanel(current => current
+      ? { ...current, loading: false, error: formatInvokeError(failure) } : current),
+  });
   const [changeListState, setChangeListState] = useState<ChangeListState | null>(null);
   const [changeListPending, setChangeListPending] = useState(false);
   const [changeListError, setChangeListError] = useState<string | null>(null);
@@ -1289,20 +1298,14 @@ export function ListBoard({
   };
 
   const refreshSubtasksAndBoard = async (taskId: string, listId: string) => {
-    const [subtasksPayload, boardPayload] = await Promise.all([
-      getListBoardTaskSubtasks(taskId, listId),
+    const revision = ++externalRefreshRevisionRef.current;
+    const [, boardPayload] = await Promise.all([
+      subtaskProjection.refresh(),
       getListBoardSnapshot(target),
     ]);
-    setSnapshot(boardPayload);
-    setSubtaskPanel((current) => current?.taskId === taskId
-      ? {
-          ...current,
-          loading: false,
-          snapshot: subtasksPayload,
-          error: null,
-          pending: false,
-        }
-      : current);
+    if (revision === externalRefreshRevisionRef.current) setSnapshot(boardPayload);
+    setSubtaskPanel(current => current?.taskId === taskId && current.listId === listId
+      ? { ...current, pending: false } : current);
     markSettling(taskId);
   };
 
@@ -1822,17 +1825,7 @@ export function ListBoard({
       editor: null,
       pending: false,
     });
-    void getListBoardTaskSubtasks(task.id, task.listId)
-      .then((payload) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, snapshot: payload, error: null }
-          : current);
-      })
-      .catch((failure: unknown) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, error: formatInvokeError(failure) }
-          : current);
-      });
+
   };
 
   const beginSubtaskMutation = (): SubtaskPanelState | null => {

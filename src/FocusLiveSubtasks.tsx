@@ -5,7 +5,6 @@ import {
   createListBoardSubtask,
   deleteListBoardSubtask,
   getListBoardSnapshot,
-  getListBoardTaskSubtasks,
   reorderListBoardSubtasks,
   setListBoardSubtaskCompletion,
   updateListBoardSubtaskTitle,
@@ -15,6 +14,7 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { useSubtaskProjection } from "./useSubtaskProjection";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 
 type FocusLiveSubtasksProps = {
@@ -101,25 +101,15 @@ export function FocusLiveSubtasks({
     setRefreshBlocked(false);
   }, [controlledExpanded, fixtureExpanded, fixtureMode, fixtureSnapshot]);
 
-  const progress = useMemo(() => progressState(task, snapshot), [snapshot, task]);
+  const progress = useMemo(() => progressState(task, expanded ? snapshot : null), [expanded, snapshot, task]);
   const mutable = Boolean(snapshot?.mutable) && !refreshBlocked;
 
-  const loadSubtasks = async () => {
-    if (fixtureMode || loading) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const incoming = await getListBoardTaskSubtasks(task.id, task.listId);
-      if (incoming.taskId !== task.id || incoming.listId !== task.listId) {
-        throw new Error("Authoritative subtask snapshot did not match the live task.");
-      }
-      if (mountedRef.current) setSnapshot(incoming);
-    } catch (failure: unknown) {
-      if (mountedRef.current) setError(formatInvokeError(failure));
-    } finally {
-      if (mountedRef.current) setLoading(false);
-    }
-  };
+  const subtaskProjection = useSubtaskProjection({
+    taskId: task.id, listId: task.listId, enabled: !fixtureMode && expanded,
+    onLoad: () => { setLoading(true); setError(null); },
+    onSnapshot: incoming => { setSnapshot(incoming); setLoading(false); setError(null); },
+    onError: failure => { setLoading(false); setError(formatInvokeError(failure)); },
+  });
 
   const requestExpanded = async (nextExpanded: boolean) => {
     if (interactionPending) return false;
@@ -150,15 +140,13 @@ export function FocusLiveSubtasks({
     await ensureExpanded();
   };
 
-  useEffect(() => {
-    if (expanded && !snapshot && !fixtureMode && !loading && !error) void loadSubtasks();
-  }, [error, expanded, fixtureMode, loading, snapshot, task.id, task.listId]);
 
   const refreshSubtasksAndBoard = async () => {
     const [subtasksPayload, boardPayload] = await Promise.all([
-      getListBoardTaskSubtasks(task.id, task.listId),
+      subtaskProjection.refresh(),
       getListBoardSnapshot(target),
     ]);
+    if (!subtasksPayload || !subtaskProjection.isCurrent(subtasksPayload)) return; // Newer event/owner owns this read.
     if (subtasksPayload.taskId !== task.id || subtasksPayload.listId !== task.listId) {
       throw new Error("Authoritative subtask refresh did not match the live task.");
     }
@@ -173,7 +161,6 @@ export function FocusLiveSubtasks({
       throw new Error("Authoritative Focus subtask progress did not reconcile after the saved change.");
     }
     if (!mountedRef.current) return;
-    setSnapshot(subtasksPayload);
     onTaskProjection?.(projectedTask);
     setError(null);
   };
