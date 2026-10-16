@@ -10,7 +10,7 @@ export type ActionIconName =
   | "arrow-left" | "arrow-right" | "arrow-up" | "arrow-down"
   | "plus" | "close" | "check" | "circle" | "circle-check" | "more" | "play"
   | "list" | "notes" | "settings" | "home" | "rocket"
-  | "calendar" | "download" | "undo" | "redo" | "trash";
+  | "calendar" | "download" | "undo" | "redo" | "trash" | "chart";
 
 export function ActionIcon({ name, size = 16 }: { name: ActionIconName; size?: number }) {
   const common = {
@@ -43,6 +43,7 @@ export function ActionIcon({ name, size = 16 }: { name: ActionIconName; size?: n
     case "arrow-up": return <svg {...common}><path d="m5 12 7-7 7 7M12 19V5" /></svg>;
     case "arrow-down": return <svg {...common}><path d="m19 12-7 7-7-7M12 5v14" /></svg>;
     case "plus": return <svg {...common}><path d="M12 5v14M5 12h14" /></svg>;
+    case "chart": return <svg {...common}><path d="M4 20h16M7 16V9M12 16V4M17 16v-5" /></svg>;
     case "close": return <svg {...common}><path d="M18 6 6 18M6 6l12 12" /></svg>;
     case "play": return <svg {...common}><path d="m8 5 11 7-11 7V5Z" /></svg>;
     case "check": return <svg {...common}><path d="m5 12 4 4L19 6" /></svg>;

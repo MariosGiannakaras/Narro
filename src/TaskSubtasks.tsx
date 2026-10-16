@@ -154,6 +154,7 @@ export function TaskSubtasks({
       data-task-subtasks={expanded ? "expanded" : "collapsed"}
       onPointerDown={(event) => event.stopPropagation()}
     >
+      <div className="list-board-task__subtask-header" data-task-subtask-header="true" data-can-expand={canExpand}>
       <button
         type="button"
         className="list-board-task__subtask-trigger motion-interactive"
@@ -164,10 +165,19 @@ export function TaskSubtasks({
         draggable={false}
         onClick={onToggleExpanded}
       >
-        <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} subtasks`}</span>
-        {totalCount > 0 ? <Progress completed={completedCount} total={totalCount} /> : null}
         <span className="list-board-task__subtask-chevron"><ActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
       </button>
+      <span className="list-board-task__subtask-header-copy">
+        <Progress completed={completedCount} total={totalCount} />
+        <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} Subtasks`}</span>
+      </span>
+      {expanded && model?.mutable && !model.loading && !model.error ? (
+        <button type="button" className="list-board-task__subtask-add-trigger motion-interactive"
+          data-task-subtask-control="add-focus" aria-label={`Add a subtask to ${taskTitle}`}
+          disabled={model.pending} onClick={() => newSubtaskInputRef.current?.focus()}
+        ><ActionIcon name="plus" /></button>
+      ) : null}
+      </div>
 
       {expanded && model ? (
         <div className="list-board-task__subtask-panel" data-task-subtask-panel="true">
@@ -177,35 +187,8 @@ export function TaskSubtasks({
             <span className="list-board-task__subtask-error type-metadata" role="alert">{model.error}</span>
           ) : (
             <>
-              <div className="list-board-task__subtask-header">
-                <strong className="type-metadata">Subtasks</strong>
-                {model.mutable ? (
-                  <button
-                    type="button"
-                    className="list-board-task__subtask-add-trigger motion-interactive"
-                    data-task-subtask-control="add-focus"
-                    aria-label={`Add a subtask to ${taskTitle}`}
-                    disabled={model.pending}
-                    onClick={() => newSubtaskInputRef.current?.focus()}
-                  ><ActionIcon name="plus" /></button>
-                ) : null}
-              </div>
-              <div className="list-board-task__subtask-summary">
-                <span className="type-metadata">
-                  {model.subtasks.filter((subtask) => subtask.completedAt !== null).length}/{model.subtasks.length} complete
-                </span>
-                {model.subtasks.length > 0 ? (
-                  <Progress
-                    completed={model.subtasks.filter((subtask) => subtask.completedAt !== null).length}
-                    total={model.subtasks.length}
-                  />
-                ) : null}
-              </div>
-
               <div className="list-board-task__subtask-list" role="list" aria-label={`Subtasks for ${taskTitle}`}>
-                {model.subtasks.length === 0 ? (
-                  <span className="list-board-task__subtask-empty type-metadata">No subtasks yet.</span>
-                ) : model.subtasks.map((subtask, index) => {
+                {model.subtasks.map((subtask, index) => {
                   const editing = model.editor?.id === subtask.id;
                   const completed = subtask.completedAt !== null;
                   return (
@@ -338,35 +321,29 @@ export function TaskSubtasks({
               </div>
 
               {model.mutable ? (
-                <form className="list-board-task__subtask-create" onSubmit={handleCreate}>
+                <form className="list-board-task__subtask-create" data-task-subtask-control="create" onSubmit={handleCreate}>
+                  <div className="list-board-task__subtask-create-field">
                   <input
                     ref={newSubtaskInputRef}
                     value={model.createValue}
                     data-task-subtask-control="create-input"
                     aria-label={`New subtask for ${taskTitle}`}
-                    placeholder="Enter Subtask task title*"
+                    placeholder="Enter subtask task title*"
                     disabled={model.pending}
                     onChange={(event) => onCreateValueChange(event.target.value)}
                   />
-                  {model.createValue.trim() ? (
                     <button
                       type="button"
                       className="list-board-task__subtask-clear motion-interactive"
                       aria-label="Clear new subtask draft"
                       data-task-subtask-control="cancel-create"
-                      disabled={model.pending}
+                      disabled={model.pending || !model.createValue}
                       onClick={() => {
                         onCreateValueChange("");
                         newSubtaskInputRef.current?.focus();
                       }}
                     ><ActionIcon name="close" /></button>
-                  ) : null}
-                  <button
-                    type="submit"
-                    className="motion-interactive"
-                    data-task-subtask-control="create"
-                    disabled={model.pending || !model.createValue.trim()}
-                  >Add</button>
+                  </div>
                 </form>
               ) : (
                 <span className="list-board-task__subtask-readonly type-metadata">Completed tasks keep subtasks as read-only history.</span>
