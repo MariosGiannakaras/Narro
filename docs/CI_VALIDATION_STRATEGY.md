@@ -150,7 +150,15 @@ For physical acceptance, prefer the latest relevant integrated candidate when a 
 
 The governing question is: **what concrete claim is missing or stale, and what is the least expensive evidence that can validly prove it without weakening the repository's required candidate gates?**
 
-## 9. Recurrent failure detection and prevention
+## 9. M10 release-candidate evidence reconciliation (no indiscriminate reruns)
+
+M10 starts **only after** the hard M1–M9 entry gate in `AGENT_WORKFLOW.md` / `TODO.md` has been proven closed. It consolidates existing acceptance evidence instead of replaying successful tests by default.
+
+For **each** M10 TODO criterion, maintain a claim-level release-candidate matrix with: criterion/claim; existing M1–M9 evidence reference and PASS scope; exact source SHA, executable/artifact identity and environment; relevant code/dependency/config changes since that evidence; disposition (`REUSED_VALID`, `NEW_CHECK_REQUIRED`, `LIMITATION_ACCEPTED`, or `OPEN`); and any new check/result. Reuse prior PASS only when its scope genuinely covers the claim and later changes have not invalidated it. Prior screenshots, native observations or CI PASS from a different build do not automatically prove final-installer, migration/upgrade, actual sign-in/autostart or changed cross-feature integration behavior. A check shown to be unchanged does not need repeating just to create fresh M10 evidence.
+
+Execute the **smallest missing/invalidated** targeted checks and genuinely release-candidate-specific end-to-end/packaging/install checks; maintain required aggregate preflight, exact-head Windows CI and narrowly justified integrated smoke. Where a shared implementation was replaced, trace actual dependency impact and rerun the affected acceptance claims only, not the entire old milestone. Do not silently downgrade a required physical/source-parity or security gate to a paper review. Count an M10 checklist item complete only after its full evidence matrix supports its acceptance, with `REUSED_VALID` distinguished from newly executed PASS and accepted limitations explicitly scoped.
+
+## 10. Recurrent failure detection and prevention
 
 The independent `CI Failure Learning` GitHub Actions workflow runs daily (and on manual dispatch), outside the Windows release/packaging path. It scans a **bounded rolling 14-day window** of completed `ci.yml` runs; reads failed-job logs where retrievable; identifies candidate failure signatures by failed job + **first failed step** + structured Rust-test/compiler/OS diagnostic or named Reports visual-fixture assertion (fixture slug plus hashed assertion invariant; no raw assertion text); and groups only **distinct workflow run IDs**. Multiple attempts of a single run do not establish recurrence. A successful rerun is inspected for earlier failed attempts where available but is never automatically labeled flaky.
 
