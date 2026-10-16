@@ -1,0 +1,43 @@
+{
+  "acquisition": "5/5",
+  "review": "5/5",
+  "groupResults": [
+    {
+      "id": 1,
+      "name": "Board repeated native create / clear",
+      "status": "PASS",
+      "scope": "Two Enter creates without refocus; cleared enabled focused; clear and empty Enter do not create extra IDs"
+    },
+    {
+      "id": 2,
+      "name": "Focus repeated native create / cross-window projection",
+      "status": "FAIL",
+      "scope": "Repeat entry itself PASS; existing expanded detail snapshots remain stale across other-window creates/completions. Main count0/4 with two rows; returning Focus0/4 with four old uncompleted rows while DB has five/fourcomplete."
+    },
+    {
+      "id": 3,
+      "name": "Selector icon consumers / keyboard / scope",
+      "status": "PASS",
+      "scope": "Actual initial/code/localimage lists, All2badges+1, End/Home/arrows/Enter, named-All-named and readonly; no identity clone"
+    },
+    {
+      "id": 4,
+      "name": "Subtasks source header / field",
+      "status": "PASS",
+      "scope": "Scoped static one header/ring4/5/plus/chevron/infieldX/placeholder, expand/collapse/hover/focus, dark100 and light125; cross-window detail correctness is group2FAIL"
+    },
+    {
+      "id": 5,
+      "name": "Search affected residual composition/actions",
+      "status": "PASS",
+      "scope": "Upper placement/titlecase/boxed plus-chart/horizontal actions; all3 real routes, result/noresult/Tab/Escape; dark100/light125; exhaustive source motion/reduced native not claimed"
+    }
+  ],
+  "reviewMethod": "20 full native PNGs/4 contact sheets,30 context frames15s/3 sheets, UIA/action/DB/log correlation, full video decode, direct canonical SS-H11/H12/SS-C06/VE00570s comparison. Sampling does not prove every microanimation.",
+  "source": "916b17d247c62c5ccc31353b657119b61981b409",
+  "confirmedFailure": "PA360-XW-SUBTASKS",
+  "fixStatus": "NOT STARTED at checkpoint",
+  "milestonesComplete": "4/10 M1-M4",
+  "m10": "BLOCKED",
+  "m11": "DORMANT"
+}

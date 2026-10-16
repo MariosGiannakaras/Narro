@@ -808,3 +808,8 @@ All findings use the exact CI #884 validation EXE and real Windows 125% capture 
 | M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **PARTIAL PHYSICAL_PASS / FAIL native pending responsiveness / FIX_NOW** — CI950 actual controlled SQLite latency shows loading shell and ready title focus, but Tab/Escape wait for release in Main and Focus. Existing rendered coverage does not expose the native synchronous read path. Preserve07 OPEN; scoped command-thread correction and exact-build retest required. [Whole addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) |
 
 
+
+
+### PA360 current physical/source disposition — 2026-10-16
+
+Acquisition/review5/5; B24selector glyph/scope, B60one-header4/5ring, B12in-fieldclear/lowercaseplaceholder/repeatedEnterfocus and SS-C06affectedcomposition/actions scopedPASS on916b17d2/CI38860384226. **PA360-XW-SUBTASKS confirmedFAIL/FIX_NOW M5/M6**: expanded detail snapshots retain old rows across other-window creates/completions despite authoritative counts/DB updating. No data loss evidenced. Preserve earlier scoped source/PASS claims but wholeB12integration/M5/M6 acceptance staysOPEN until correction/nativecheck. [Full bounded report](../work-log/2026-10-16-pr360-native-five-groups-and-cross-window-subtask-failure.md). M1–M4unchanged4/10; noM10/M11 advance.

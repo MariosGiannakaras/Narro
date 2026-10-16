@@ -1,0 +1,1623 @@
+{
+  "utc": "2026-10-16T06:57:41.415245+00:00",
+  "hwnd": 4723784,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1831,
+        98,
+        249,
+        1225
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1831,
+        98,
+        249,
+        1225
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1831,
+        98,
+        -1571,
+        1225
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1816,
+        123,
+        -1587,
+        183
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1756,
+        129,
+        -1704,
+        156
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1816,
+        183,
+        -1587,
+        370
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1816,
+        183,
+        -1587,
+        233
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1816,
+        264,
+        -1587,
+        315
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1816,
+        319,
+        -1587,
+        370
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1571,
+        98,
+        249,
+        178
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        112,
+        224,
+        163
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        112,
+        109,
+        163
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        118,
+        112,
+        224,
+        163
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1571,
+        178,
+        249,
+        1155
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1541,
+        208,
+        219,
+        1498
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        235,
+        189,
+        283
+      ]
+    },
+    {
+      "name": " BACK",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        235,
+        -1435,
+        283
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1419,
+        241,
+        -1312,
+        277
+      ]
+    },
+    {
+      "name": " Export PDF",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        29,
+        237,
+        189,
+        281
+      ]
+    },
+    {
+      "name": "Overview",
+      "type": 50019,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1505,
+        313,
+        -1385,
+        354
+      ],
+      "selected": 1
+    },
+    {
+      "name": "Sessions BETA",
+      "type": 50019,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1380,
+        313,
+        -1219,
+        354
+      ],
+      "selected": 0
+    },
+    {
+      "name": "All Lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        379,
+        -1288,
+        427
+      ]
+    },
+    {
+      "name": "Sep 16, 2026 \u2013 Oct 16, 2026",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -126,
+        379,
+        189,
+        427
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        444,
+        -1097,
+        566
+      ]
+    },
+    {
+      "name": "Total work days",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        471,
+        -1398,
+        489
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        498,
+        -1479,
+        529
+      ]
+    },
+    {
+      "name": "1 active day",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        530,
+        -1427,
+        547
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1083,
+        444,
+        -668,
+        566
+      ]
+    },
+    {
+      "name": "Total tasks done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1064,
+        471,
+        -966,
+        489
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1064,
+        498,
+        -1050,
+        529
+      ]
+    },
+    {
+      "name": "1.0 avg / active day",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1064,
+        530,
+        -957,
+        547
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -654,
+        444,
+        -239,
+        566
+      ]
+    },
+    {
+      "name": "Total time worked",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -635,
+        471,
+        -526,
+        489
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -635,
+        498,
+        -581,
+        529
+      ]
+    },
+    {
+      "name": "0min avg / active day",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -635,
+        530,
+        -517,
+        547
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -225,
+        444,
+        189,
+        566
+      ]
+    },
+    {
+      "name": "Avg. Time per task",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -207,
+        471,
+        -94,
+        489
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -207,
+        498,
+        -152,
+        529
+      ]
+    },
+    {
+      "name": "includes partial tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -207,
+        530,
+        -92,
+        547
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        583,
+        189,
+        955
+      ]
+    },
+    {
+      "name": "PRODUCTIVITY",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        602,
+        -1390,
+        621
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        627,
+        -1390,
+        648
+      ]
+    },
+    {
+      "name": "Chart options",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        130,
+        607,
+        171,
+        643
+      ]
+    },
+    {
+      "name": "Daily Tasks, Breaks and Total session time",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        647,
+        171,
+        901
+      ]
+    },
+    {
+      "name": "Wed, Sep 16: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1485,
+        675,
+        -1431,
+        900
+      ]
+    },
+    {
+      "name": "Thu, Sep 17: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1432,
+        675,
+        -1378,
+        900
+      ]
+    },
+    {
+      "name": "Fri, Sep 18: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1379,
+        675,
+        -1325,
+        900
+      ]
+    },
+    {
+      "name": "Sat, Sep 19: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1326,
+        675,
+        -1272,
+        900
+      ]
+    },
+    {
+      "name": "Sun, Sep 20: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1273,
+        675,
+        -1219,
+        900
+      ]
+    },
+    {
+      "name": "Mon, Sep 21: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1220,
+        675,
+        -1166,
+        900
+      ]
+    },
+    {
+      "name": "Tue, Sep 22: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1167,
+        675,
+        -1112,
+        900
+      ]
+    },
+    {
+      "name": "Wed, Sep 23: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1113,
+        675,
+        -1059,
+        900
+      ]
+    },
+    {
+      "name": "Thu, Sep 24: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1060,
+        675,
+        -1006,
+        900
+      ]
+    },
+    {
+      "name": "Fri, Sep 25: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1007,
+        675,
+        -953,
+        900
+      ]
+    },
+    {
+      "name": "Sat, Sep 26: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -954,
+        675,
+        -900,
+        900
+      ]
+    },
+    {
+      "name": "Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -901,
+        675,
+        -847,
+        900
+      ]
+    },
+    {
+      "name": "Mon, Sep 28: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -848,
+        675,
+        -793,
+        900
+      ]
+    },
+    {
+      "name": "Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -794,
+        675,
+        -740,
+        900
+      ]
+    },
+    {
+      "name": "Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -741,
+        675,
+        -687,
+        900
+      ]
+    },
+    {
+      "name": "Thu, Oct 01: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -688,
+        675,
+        -634,
+        900
+      ]
+    },
+    {
+      "name": "Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -635,
+        675,
+        -581,
+        900
+      ]
+    },
+    {
+      "name": "Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -582,
+        675,
+        -528,
+        900
+      ]
+    },
+    {
+      "name": "Sun, Oct 04: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -529,
+        675,
+        -474,
+        900
+      ]
+    },
+    {
+      "name": "Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -475,
+        675,
+        -421,
+        900
+      ]
+    },
+    {
+      "name": "Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -422,
+        675,
+        -368,
+        900
+      ]
+    },
+    {
+      "name": "Wed, Oct 07: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -369,
+        675,
+        -315,
+        900
+      ]
+    },
+    {
+      "name": "Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -316,
+        675,
+        -262,
+        900
+      ]
+    },
+    {
+      "name": "Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -263,
+        675,
+        -209,
+        900
+      ]
+    },
+    {
+      "name": "Sat, Oct 10: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -210,
+        675,
+        -155,
+        900
+      ]
+    },
+    {
+      "name": "Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -156,
+        675,
+        -102,
+        900
+      ]
+    },
+    {
+      "name": "Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -103,
+        675,
+        -49,
+        900
+      ]
+    },
+    {
+      "name": "Tue, Oct 13: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -50,
+        675,
+        4,
+        900
+      ]
+    },
+    {
+      "name": "Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        3,
+        675,
+        57,
+        900
+      ]
+    },
+    {
+      "name": "Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        56,
+        675,
+        110,
+        900
+      ]
+    },
+    {
+      "name": "Fri, Oct 16: Tasks 0min, Breaks 0min, Total 0min",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        109,
+        675,
+        163,
+        900
+      ]
+    },
+    {
+      "name": "Chart legend",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        910,
+        171,
+        939
+      ]
+    },
+    {
+      "name": "TASKS",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        910,
+        -1420,
+        939
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "BREAKS",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1411,
+        910,
+        -1330,
+        939
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "TOTAL",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1321,
+        910,
+        -1248,
+        939
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        972,
+        -954,
+        1078
+      ]
+    },
+    {
+      "name": "Most Productive hour",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        998,
+        -1361,
+        1017
+      ]
+    },
+    {
+      "name": "9 AM\u201310 AM",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        1031,
+        -1378,
+        1057
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -940,
+        972,
+        -382,
+        1078
+      ]
+    },
+    {
+      "name": "Most Productive day",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -921,
+        998,
+        -796,
+        1017
+      ]
+    },
+    {
+      "name": "Friday",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -921,
+        1031,
+        -866,
+        1057
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -368,
+        972,
+        189,
+        1078
+      ]
+    },
+    {
+      "name": "Most Productive month",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -350,
+        998,
+        -206,
+        1017
+      ]
+    },
+    {
+      "name": "Oct 26",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -350,
+        1031,
+        -291,
+        1057
+      ]
+    },
+    {
+      "name": "TIME BY LIST",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1511,
+        1094,
+        -668,
+        1445
+      ]
+    },
+    {
+      "name": "TIME BY LIST",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1493,
+        1119,
+        -1390,
+        1140
+      ]
+    },
+    {
+      "name": "Total Time: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -780,
+        1121,
+        -716,
+        1138
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -717,
+        1121,
+        -687,
+        1138
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -1174,
+        1232,
+        -1096,
+        1251
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -773,
+        1232,
+        -739,
+        1251
+      ]
+    },
+    {
+      "name": "100",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -730,
+        1232,
+        -707,
+        1251
+      ]
+    },
+    {
+      "name": "%",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -708,
+        1232,
+        -696,
+        1251
+      ]
+    },
+    {
+      "name": "DONE TASKS",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -654,
+        1094,
+        189,
+        1445
+      ]
+    },
+    {
+      "name": "DONE TASKS",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -635,
+        1119,
+        -533,
+        1140
+      ]
+    },
+    {
+      "name": "Completion punctuality",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -3,
+        1120,
+        171,
+        1140
+      ]
+    },
+    {
+      "name": "\u25cf Early ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -3,
+        1121,
+        39,
+        1138
+      ]
+    },
+    {
+      "name": "100.00",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        38,
+        1121,
+        75,
+        1138
+      ]
+    },
+    {
+      "name": "%",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        74,
+        1121,
+        85,
+        1138
+      ]
+    },
+    {
+      "name": "\u25cf Late ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        99,
+        1121,
+        138,
+        1138
+      ]
+    },
+    {
+      "name": "0.00",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        137,
+        1121,
+        161,
+        1138
+      ]
+    },
+    {
+      "name": "%",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        160,
+        1121,
+        171,
+        1138
+      ]
+    },
+    {
+      "name": "Done Tasks",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -635,
+        1179,
+        171,
+        1286
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -635,
+        1179,
+        171,
+        1216
+      ]
+    },
+    {
+      "name": "Oct 16, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -630,
+        1188,
+        -548,
+        1207
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        133,
+        1189,
+        140,
+        1206
+      ]
+    },
+    {
+      "name": " ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        139,
+        1189,
+        144,
+        1206
+      ]
+    },
+    {
+      "name": "task",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        143,
+        1189,
+        166,
+        1206
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -635,
+        1215,
+        171,
+        1286
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -630,
+        1228,
+        -533,
+        1249
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        -612,
+        1256,
+        -540,
+        1273
+      ]
+    },
+    {
+      "name": "20min early",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        88,
+        1230,
+        155,
+        1247
+      ]
+    },
+    {
+      "name": "Time Taken ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        72,
+        1258,
+        138,
+        1275
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        137,
+        1258,
+        166,
+        1275
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1571,
+        1155,
+        249,
+        1225
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -826,
+        1166,
+        -666,
+        1216
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -656,
+        1166,
+        -496,
+        1216
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        -1831,
+        69,
+        -1803,
+        97
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        71,
+        61,
+        131,
+        98
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        131,
+        61,
+        190,
+        98
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        190,
+        61,
+        250,
+        98
+      ]
+    }
+  ]
+}

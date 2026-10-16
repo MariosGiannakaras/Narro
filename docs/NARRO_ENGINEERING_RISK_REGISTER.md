@@ -226,3 +226,8 @@ Record a precise immutable incident/correction in `work-log/` with failed run/at
 
 
 **2026-10-15 PR357 / existing NER-003 and NER-004:** raw acceptance media must not turn build checkout into a553s gate before tests. Retain authoritative media in Git, but keep unconsumed /work-log/ and /reference/ corpora out of validation worktrees through actual semantically tested sparse patterns. Retain every source/config/docs/tests/assets/icon input and exact candidate identity; never substitute a longer timeout or remove a check. First run38794604453CANCELLED, no source failure inferred; new heada56571d2/run38796243985pending. [Exact evidence and boundaries](../work-log/2026-10-15-pr357-checkout-input-reduction.md).
+
+
+### PA360 native detail-invalidation evidence — 2026-10-16
+
+NER-014 related confirmed current **PA360-XW-SUBTASKS**: board invalidation updates aggregate counts but independent expanded Board/Focus child snapshots remain old in both directions. Actual DBfive/fourcomplete, Main2rows/header4 then returningFocus0/4. This proves a detail-projection invalidation gap; do not call it database corruption or the same PA358createfocus failure. Narrow producer/consumer/freshness regression required; preserve existing NER-013 single-flight and active draft. [Frozen native evidence](../work-log/2026-10-16-pr360-native-five-groups-and-cross-window-subtask-failure.md).
