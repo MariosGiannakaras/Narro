@@ -1,0 +1,23 @@
+{
+  "source": "560efeb076d2ec167232b9d86aa3354f6893214b",
+  "ci": 38894130069,
+  "artifact": 12043124219,
+  "providerSha256": "a4c7cb8e1b8ed9ed28bf4ba5520e8f916c0157713f10bfc2e30104fd0dcbf115",
+  "zipCrc": "PASS",
+  "entries": 380,
+  "m7Files": [
+    "focus-editor-m7-integration-dark-reduced.html",
+    "focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+    "focus-editor-m7-integration-dark-reduced.png",
+    "focus-editor-m7-integration-dark.html",
+    "focus-editor-m7-integration-dark.html.diagnostics.json",
+    "focus-editor-m7-integration-dark.png",
+    "focus-editor-m7-integration-light-reduced.html",
+    "focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+    "focus-editor-m7-integration-light-reduced.png",
+    "focus-editor-m7-integration-light.html",
+    "focus-editor-m7-integration-light.html.diagnostics.json",
+    "focus-editor-m7-integration-light.png"
+  ],
+  "claim": "CI acquisition evidence only; full CI/native approval still pending"
+}

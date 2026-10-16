@@ -817,3 +817,8 @@ Acquisition/review5/5; B24selector glyph/scope, B60one-header4/5ring, B12in-fiel
 ## 2026-10-16 retained Preferences evidence comparison
 
 B58 exact visible heading copy2/2PASS from existing actual Windows screenshots and direct canonical SS-C08/C09 comparison, with input identity proof. B34 native modal/scroll/keyboard subclaims retained, **source composition FIX_NOW M8**: existing Narro group-card shells/category eyebrows differ from the evidenced continuous section-rule surface and calibrated visual-system requirement. Keep B34OPEN; implement only when that ordered milestone is reached. No new physical execution, M8 completion or M10/M11 advance. [Full bounded comparison](../work-log/2026-10-16-preferences-heading-evidence-reuse.md).
+
+
+## 2026-10-16 B42 direct source/native comparison completion
+
+B42 ordinary scheduled-task date/circularX and preserved-task removal outcome **SCOPED SOURCE_CONTROL_AND_NATIVE_PASS**, reusing PA358 real pointer/DB/restart proof and direct VE007147.8s /canonical02:28–02:33 comparison. Schedule/card/native input and actual handler identity through560efeb0; no repeat Windows execution. Full recurrence/calendar/generated-child physical/motion gates stay separatelyOPEN. [Report](../work-log/2026-10-16-b42-existing-native-source-reconciliation.md).

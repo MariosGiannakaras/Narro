@@ -1,0 +1,54 @@
+[
+  {
+    "case": "focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+    "failure": null,
+    "checks": {
+      "subtaskCrossWindowCreate": true,
+      "subtaskCrossWindowSameCount": true,
+      "subtaskCrossWindowDraftPreserved": true,
+      "subtaskReadOrderAndErrorSafe": true,
+      "subtaskOwnerAndDisposalSafe": true,
+      "subtaskFloatingInvalidation": true,
+      "subtaskCommittedErrorRetained": true
+    }
+  },
+  {
+    "case": "focus-editor-m7-integration-dark.html.diagnostics.json",
+    "failure": null,
+    "checks": {
+      "subtaskCrossWindowCreate": true,
+      "subtaskCrossWindowSameCount": true,
+      "subtaskCrossWindowDraftPreserved": true,
+      "subtaskReadOrderAndErrorSafe": true,
+      "subtaskOwnerAndDisposalSafe": true,
+      "subtaskFloatingInvalidation": true,
+      "subtaskCommittedErrorRetained": true
+    }
+  },
+  {
+    "case": "focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+    "failure": null,
+    "checks": {
+      "subtaskCrossWindowCreate": true,
+      "subtaskCrossWindowSameCount": true,
+      "subtaskCrossWindowDraftPreserved": true,
+      "subtaskReadOrderAndErrorSafe": true,
+      "subtaskOwnerAndDisposalSafe": true,
+      "subtaskFloatingInvalidation": true,
+      "subtaskCommittedErrorRetained": true
+    }
+  },
+  {
+    "case": "focus-editor-m7-integration-light.html.diagnostics.json",
+    "failure": null,
+    "checks": {
+      "subtaskCrossWindowCreate": true,
+      "subtaskCrossWindowSameCount": true,
+      "subtaskCrossWindowDraftPreserved": true,
+      "subtaskReadOrderAndErrorSafe": true,
+      "subtaskOwnerAndDisposalSafe": true,
+      "subtaskFloatingInvalidation": true,
+      "subtaskCommittedErrorRetained": true
+    }
+  }
+]
