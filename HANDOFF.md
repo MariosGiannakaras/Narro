@@ -12,7 +12,7 @@ PA01–08 8/8 dispositioned within the final report scope; physicalHDMI NOTRUN/a
 
 ## One next operation
 
-PR359 exact7ee33be7 / CI38856507685 is the one active source slice. Read first causal failure log if any; on3/3 green guarded-merge and verify main inputs, obtain verified artifact, then bounded Board/Focus repeated-subtask native capture with fresh protective profile ledger. Full frontend and actual React4/4 plus original-code red proof already PASS; do not repeat unless a semantic change invalidates them. Original profiles restored and OBS stopped. While CI runs, independent existing-corpus/evidence reuse analysis may continue. [Full exact continuation](work-log/2026-10-16-pr359-subtask-focus-preflight-and-ci.md).
+PR359 exact7ee33be7 / CI38856507685 is the active immutable source slice. First causal failure log if any; on3/3 green guarded merge/main input verification. **Then one compatible M5 source batch B24 badges +B60/B12 header +SS-C06 palette residuals before physical recapture**, to avoid immediately invalidating an interim keyboard capture. Preserve359 focus recovery and approved picker/upload218icon behavior. [Confirmed comparisons and exact next batch](work-log/2026-10-16-m5-three-residuals-and-batched-recapture-plan.md). Latest final artifact should receive one prepared combined native run; current PR3590/2 physical denominator is not advanced. Frontend/red-green4/4 already PASS. Original profiles restored/OBS stopped.
 
 ## Workspace
 

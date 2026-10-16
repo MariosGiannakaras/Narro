@@ -4,6 +4,8 @@
 
 **Current PR357 disposition — 2026-10-16:** B47/B48/B52/B61 and P3-M5-04 affected claims source/nativePASS; capture/review/acceptance4/4, PR/mainCI3/3SUCCESS. Historical older OPEN/status prose does not override the current rows/report. B60 and other M5 gates remainOPEN; M1–M4=4/10, M10blocked. [Full evidence/boundaries](../work-log/2026-10-16-pr357-native-four-item-acceptance.md).
 
+**PA358 residual source comparison:** existing B24 badge glyphs, B60/B12 single-header composition and SS-C06 vertical placement/casing/action glyphs remain source-parity OPEN; next compatible M5 batch after359 integration, then one combined latest-build native capture. No new finding IDs. [Direct comparisons](../work-log/2026-10-16-m5-three-residuals-and-batched-recapture-plan.md).
+
 ## CURRENT source-version routing — 2026-10-15
 
 The user's cross-version continuity rule in AGENTS.md supersedes dated caveats that require a new-version recording despite direct older evidence. Use the demonstrated old behavior/visual as the target when no contradictory newer evidence exists; missing coverage is not a change. Reconcile existing U24/B44, U25/B47, U36/B70 and U39/B61 against that target with invariants preserved. U28/B52 source anatomy already merged in PR289; remaining acceptance is distinct from implementation. Retain accepted U21-U23 implementations and approved Narro deviations. Truly unobserved outcomes/formulas remain unknown. This updates routing only, not source-parity PASS or milestone counters. [Review provenance and exact boundaries](../work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).

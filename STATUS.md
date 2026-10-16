@@ -11,3 +11,5 @@
 Narro remains local-only Windows; SpectrumCore picker, imageupload and218icons locked. OptionalM11 dormant; no allM1–M9 completion claim. U01–U41 Narro-local coverage41/41 and original nine source gaps9/9 are separate from physical/milestone/sourceparity acceptance. Current PR345/347/source-owner acceptance is retained in the linked immutable snapshot and its original reports; no other workstream was reverted.
 
 All prior tracking, durable decision history and consolidation ownership remain preserved in [the immutable pre-compaction snapshot](work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md), original work-log reports and Git history. The ordered current milestone checklist remains in TODO.md; HANDOFF.md owns one next operation.
+
+**Prepared workflow update (2026-10-16):** after PR359 integration, batch the three confirmed M5 source residuals before one combined latest-build capture; avoid superseded interim runs. [Evidence/plan](work-log/2026-10-16-m5-three-residuals-and-batched-recapture-plan.md).
