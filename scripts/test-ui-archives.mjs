@@ -14,6 +14,7 @@ const shell = read("src/AppShell.tsx");
 const archivePanel = read("src/ArchivePanel.tsx");
 const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
+const listPanelCss = read("src/archivedListsPanel.css");
 const fixture = read("src/archiveVisualFixture.tsx");
 const listSettingsFixture = read("src/listSettingsVisualFixture.tsx");
 const vite = read("vite.config.ts");
@@ -87,6 +88,23 @@ for (const [haystack, needle, label] of [
 ]) {
   requireText(haystack, needle, label);
 }
+
+// The Blitzit v2.6.69 archived-empty reference shows three equal card slots
+// with the sole readable empty message in the center. Ghost cards must remain
+// presentation-only and vanish on the existing narrow-screen breakpoint.
+requireText(listPanel, 'className="archived-lists-panel__empty-grid"', "source-composition empty grid");
+requireText(listPanel, 'data-archived-lists-empty="true"', "existing empty-state capture contract");
+requireText(listPanel, 'data-archived-lists-empty-message="true"', "center empty-message marker");
+const ghostCount = (listPanel.match(/data-archived-empty-ghost="true"/g) ?? []).length;
+if (ghostCount !== 2) throw new Error("Archived empty layout must have exactly two decorative side cards.");
+const hiddenGhostCount = (listPanel.match(/data-archived-empty-ghost="true" aria-hidden="true"/g) ?? []).length;
+if (hiddenGhostCount !== 2) throw new Error("Decorative archived empty cards must be ignored by assistive technology.");
+requireText(listPanelCss, "grid-template-columns: repeat(3, minmax(0, 1fr))", "three source-like card columns");
+requireText(listPanelCss, "gap: var(--space-3)", "shared visual spacing token");
+requireText(listPanelCss, "@media (max-width: 48rem)", "existing narrow-screen breakpoint");
+requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout hides decorative side cards");
+requireText(listPanelCss, "display: none", "narrow layout removes ghost cards");
+requireText(validator, "data-archived-empty-ghost", "captured Windows DOM validates ghost-card count");
 
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
