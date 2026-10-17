@@ -2,6 +2,8 @@
 
 ## Current verified state — 2026-10-17
 
+**M5 B43 bounded current-source recheck:** timezone-local date grouping, narrow column CSS and PR372 measured Windows no-overlap evidence inspected; no deterministic unowned production defect established for a new patch. Long localized native layout and physical Done scroll/source pixel parity remain OPEN/NOT RUN. Historical M6/P02 focused-action false-positive screenshot and success action overlap have current code fixes via CDP pixel-state compare and shared actual-handler single-flight; do not reopen these as missing code. [Record](work-log/2026-10-17-chatgpt-b43-narrow-source-safety.md).
+
 **Latest PR373 M5/B45 merged-main acceptance:** [PR373](https://github.com/MariosGiannakaras/Narro/pull/373) head `3ff3972e2872dd69c07efe883428239eb06dd366` CI `39066811125` **3/3 SUCCESS**, expected-head guarded merge `355d9a6feb774b89845532de7f028a0ee7ead3d4`, exact resulting-main push run `39071099958` **3/3 SUCCESS**; both changed source/test blobs identical. Direct recurring-parent handler/API tests protect non-destructive saved occurrences, fresh rule version and post-commit failures; no personal Windows native acceptance. [Evidence](work-log/2026-10-17-chatgpt-pr373-merged-main-ci.md).
 
 
