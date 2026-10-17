@@ -555,6 +555,8 @@ const visualContract = fixture === "app-shell"
         home: readVisualNode(".home-dashboard", ["width", "height"]),
         aggregateCard: readVisualNode('[data-home-card="all-lists"]', ["width", "height", "backgroundColor", "borderRadius"]),
         listCard: readVisualNode('[data-home-card="list"]', ["width", "height", "backgroundColor", "borderRadius"]),
+        taskPreviewRow: readVisualNode('[data-home-card="all-lists"] .home-list-card__task', ["width", "height", "backgroundColor", "borderRadius", "paddingLeft", "paddingRight"]),
+        taskPreviewOrdinal: readVisualNode('[data-home-card="all-lists"] .home-list-card__task-ordinal', ["color", "opacity"]),
       }
     : fixture === "list-card-states"
       ? {
