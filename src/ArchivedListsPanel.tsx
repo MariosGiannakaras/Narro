@@ -1,6 +1,7 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListIcon } from "./ListIcon";
+import { ActionIcon } from "./ActionIcon";
 import { listIconContrast } from "./listSpectrumColor";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
@@ -144,18 +145,19 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                 data-archived-list-id={list.id}
                 style={listAccent(list.color)}
               >
-                <span className="archived-list-row__icon" aria-hidden="true">
-                  <ListIcon
-                    listId={list.id}
-                    iconAsset={list.iconAsset}
-                    iconId={list.iconId}
-                    fallback={initial}
-                    imageClassName="archived-list-row__icon-image"
-                  />
-                </span>
+                <header className="archived-list-row__header">
+                  <span className="archived-list-row__icon" aria-hidden="true">
+                    <ListIcon
+                      listId={list.id}
+                      iconAsset={list.iconAsset}
+                      iconId={list.iconId}
+                      fallback={initial}
+                      imageClassName="archived-list-row__icon-image"
+                    />
+                  </span>
+                  <h2 className="archived-list-row__title type-section-title" title={list.title}>{list.title}</h2>
+                </header>
                 <div className="archived-list-row__copy">
-                  <h2 className="archived-list-row__title type-section-title">{list.title}</h2>
-                  <span className="type-metadata">Archived · history preserved</span>
                   {list.previewTasks.length > 0 ? (
                     <div className="archived-list-row__previews" aria-label={`Task previews for ${list.title}`} data-archived-list-previews="true">
                       {list.previewTasks.map((task, index) => (
@@ -171,18 +173,22 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                   <button
                     type="button"
                     className="archived-list-row__restore motion-interactive"
+                    aria-label={`Unarchive ${list.title}`}
                     disabled={Boolean(pendingRestoreId) || deletePending}
                     onClick={() => void restoreList(list)}
                   >
-                    {restoring ? "Restoring…" : "Restore"}
+                    <ActionIcon name="undo" size={14} />
+                    {restoring ? "Unarchiving…" : "Unarchive"}
                   </button>
                   <button
                     type="button"
                     className="archived-list-row__delete motion-interactive"
+                    aria-label={`Delete Forever ${list.title}`}
                     disabled={Boolean(pendingRestoreId) || deletePending}
                     onClick={() => requestDelete(list)}
                   >
-                    Permanently delete
+                    <ActionIcon name="trash" size={14} />
+                    Delete Forever
                   </button>
                 </div>
               </article>

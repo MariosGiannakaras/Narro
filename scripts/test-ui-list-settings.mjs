@@ -56,7 +56,7 @@ for (const [haystack, needle, label] of [
   [panel, "await restoreListFromSettings(list.id);", "persistence-first restore"],
   [panel, "await permanentlyDeleteListFromSettings(deleteTarget.id);", "persistence-first permanent delete"],
   [panel, 'data-archived-lists-panel="true"', "archived-list panel marker"],
-  [panel, "Permanently delete", "archived permanent-delete control"],
+  [panel, "Delete Forever", "source archived permanent-delete control"],
   [dialog, 'role="dialog"', "confirmation dialog semantics"],
   [dialog, 'aria-modal="true"', "confirmation modal semantics"],
   [dialog, 'event.key === "Escape"', "confirmation Escape handling"],

@@ -703,11 +703,15 @@ function BoardLane({
               <div key={task.id} className="list-board-task-slot">
                 {doneHeading ? (
                   <h3
-                    className="list-board-lane__subgroup-heading type-metadata"
+                    className="list-board-lane__subgroup-heading list-board-lane__done-heading type-metadata"
                     data-board-done-date={doneHeading.dayKey}
                     data-board-done-date-count={doneHeading.tasks.length}
+                    aria-label={`${doneHeading.label}, ${doneHeading.tasks.length} ${doneHeading.tasks.length === 1 ? "task" : "tasks"}`}
                   >
-                    {doneHeading.label} · {doneHeading.tasks.length} Done
+                    <span className="list-board-lane__done-date">{doneHeading.label}</span>
+                    <span className="list-board-lane__done-count">
+                      {doneHeading.tasks.length} {doneHeading.tasks.length === 1 ? "task" : "tasks"}
+                    </span>
                   </h3>
                 ) : subgroupHeading ? (
                   <h3 className="list-board-lane__subgroup-heading type-metadata" data-board-task-subgroup={group}>
