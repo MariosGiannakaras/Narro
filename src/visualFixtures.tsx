@@ -20,6 +20,7 @@ const fixture = requestedFixture === "app-shell"
   || requestedFixture === "list-board"
   || requestedFixture === "list-board-all"
   || requestedFixture === "task-card-states"
+  || requestedFixture === "task-recurring-menu"
   ? requestedFixture
   : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
@@ -399,6 +400,41 @@ function TaskCardStatesFixture() {
   );
 }
 
+// B45: the real TaskCard overflow menu, opened without any persistence calls.
+// This supplements source-level route checks; it does not simulate Rust edits.
+function RecurringParentMenuFixture() {
+  const task = {
+    ...taskForFixtureState("normal", 0),
+    title: "Repeat weekly review",
+    recurrenceRuleId: "84444444-4444-4444-8444-444444444444",
+    recurrenceCadence: "weekdays" as const,
+  };
+  return (
+    <AppShell
+      fixtureMode
+      homeContent={
+        <section className="task-recurring-menu-fixture" data-task-recurring-menu-fixture="true" aria-label="Recurring parent task menu fixture">
+          <h1 className="type-page-title">Recurring parent task</h1>
+          <div className="task-recurring-menu-fixture__card">
+            <TaskCard
+              task={task}
+              aggregateView
+              fixtureState="action_revealed"
+              actions={{
+                onSchedule: fixtureAction,
+                onRemoveRecurring: fixtureAction,
+                onChangeList: fixtureAction,
+                onDuplicate: fixtureAction,
+                onDelete: fixtureAction,
+              }}
+            />
+          </div>
+        </section>
+      }
+    />
+  );
+}
+
 function VisualFixtureSurface() {
   if (fixture === "app-shell") {
     return <AppShell fixtureMode homeContent={<ShellPlaceholderFixture />} />;
@@ -437,6 +473,7 @@ function VisualFixtureSurface() {
   if (fixture === "list-board") return <ListBoardFixture aggregate={false} />;
   if (fixture === "list-board-all") return <ListBoardFixture aggregate />;
   if (fixture === "task-card-states") return <TaskCardStatesFixture />;
+  if (fixture === "task-recurring-menu") return <RecurringParentMenuFixture />;
   return <FoundationFixtureSurface />;
 }
 
@@ -448,6 +485,17 @@ if (!rootElement) {
 flushSync(() => {
   createRoot(rootElement).render(<VisualFixtureSurface />);
 });
+
+if (fixture === "task-recurring-menu") {
+  const trigger = document.querySelector<HTMLButtonElement>(
+    '[data-task-recurring-menu-fixture="true"] button[aria-label="Task actions"]',
+  );
+  if (!trigger) throw new Error("Recurring parent Task actions trigger is missing.");
+  flushSync(() => trigger.click());
+  if (!document.querySelector('[data-task-recurring-menu-fixture="true"] .overlay-menu[data-open="true"]')) {
+    throw new Error("Recurring parent Task actions menu did not open.");
+  }
+}
 
 if (fixture === "list-card-states") {
   const menuTrigger = document.querySelector<HTMLButtonElement>('button[aria-label="More actions for Study"]');
@@ -595,7 +643,17 @@ const visualContract = fixture === "app-shell"
                 canvas: readVisualNode("body", ["backgroundColor", "color"]),
                 ...taskCardStatesContract(),
               }
-            : {
+            : fixture === "task-recurring-menu"
+              ? {
+                  fixture,
+                  theme,
+                  viewport: captureViewport,
+                  canvas: readVisualNode("body", ["backgroundColor", "color"]),
+                  ...shellContract(),
+                  parentCard: readVisualNode('[data-task-recurring-menu-fixture="true"] .list-board-task', ["width", "height", "borderRadius"]),
+                  menu: readVisualNode('[data-task-recurring-menu-fixture="true"] .overlay-menu[data-open="true"]', ["width", "height", "borderRadius"]),
+                }
+              : {
                 theme,
                 viewport: captureViewport,
                 canvas: readVisualNode("body", ["backgroundColor", "color"]),
