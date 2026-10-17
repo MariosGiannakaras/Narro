@@ -34,6 +34,7 @@ for (const [haystack, needle, label] of [
   [shell, 'src={narroLogoLight} alt="" aria-hidden="true"', "light brand asset"],
   [shell, 'src={narroLogoDark} alt="" aria-hidden="true"', "dark brand asset"],
   [shell, 'src={narroSymbol} alt="" aria-hidden="true"', "small screen symbol"],
+  [shell, 'className="app-shell__brand" role="img" aria-label="Narro"', "one accessible brand identity"],
   [css, '.app-shell__brand-logo--dark', "light/dark responsive branding"],
   [css, ':root[data-theme="dark"] .app-shell__brand-logo--light', "explicit dark-theme logo choice"],
   [css, ':root[data-theme="system"] .app-shell__brand-logo--dark', "system theme choice"],
