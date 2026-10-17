@@ -180,6 +180,34 @@ function validateListBoardFixture(theme, aggregate) {
   invariant(dom.includes('data-completed="true"'), `${label} Done projection does not contain a completed task`);
   invariant(dom.includes("Est:"), `${label} lane/task estimate metadata is missing`);
 
+  // The individual and aggregate production-Board fixtures deliberately exercise
+  // singular (1 task) and plural (2 tasks) Done date headings at the same narrow
+  // four-column shell width. Check actual rendered children/geometry, not only
+  // static CSS or a detached mockup.
+  invariant(Array.isArray(contract.doneHeadings) && contract.doneHeadings.length === 1,
+    `${label} must render exactly one dated Done group`);
+  const doneHeading = contract.doneHeadings[0];
+  const expectedDoneCount = aggregate ? 2 : 1;
+  invariant(doneHeading.dateKey === "2026-09-08",
+    `${label} completion grouping changed the local day`);
+  invariant(doneHeading.count === expectedDoneCount,
+    `${label} Done group count differs from authoritative fixture tasks`);
+  invariant(doneHeading.dateText.length > 0,
+    `${label} date label is not rendered`);
+  invariant(doneHeading.countText === `${expectedDoneCount} ${aggregate ? "tasks" : "task"}`,
+    `${label} Done heading singular/plural copy is incorrect`);
+  invariant(Number.isFinite(doneHeading.dateRight)
+    && Number.isFinite(doneHeading.countLeft)
+    && Number.isFinite(doneHeading.countRight)
+    && Number.isFinite(doneHeading.headingRight),
+  `${label} Done heading geometry is invalid`);
+  invariant(doneHeading.dateRight <= doneHeading.countLeft,
+    `${label} Done date overlaps the right-hand group count`);
+  invariant(doneHeading.countRight <= doneHeading.headingRight,
+    `${label} Done count extends beyond its own heading`);
+  invariant(!doneHeading.dateOverflows && !doneHeading.countOverflows,
+    `${label} Done date or count text is clipped`);
+
   if (aggregate) {
     invariant(dom.includes("All Lists"), `${label} aggregate title is missing`);
     invariant(dom.includes('title="Work"'), `${label} Work origin label is missing`);
