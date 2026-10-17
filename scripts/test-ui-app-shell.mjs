@@ -13,9 +13,32 @@ const preferencesCss = read("src/preferencesDialog.css");
 const reportsWorkspace = read("src/ReportsWorkspace.tsx");
 const css = read("src/appShell.css");
 const app = read("src/App.tsx");
+const lightLogo = read("assets/branding/narro-logo-horizontal-light.svg");
+const darkLogo = read("assets/branding/narro-logo-horizontal-dark.svg");
+const symbol = read("assets/branding/narro-symbol.svg");
+for (const [asset, label] of [[lightLogo, "light"], [darkLogo, "dark"], [symbol, "symbol"]]) {
+  if (!asset.startsWith("<svg") || !asset.includes("<path")) {
+    throw new Error("Sidebar brand must use a standalone canonical vector: " + label);
+  }
+}
+if (shell.includes('app-shell__brand-mark" aria-hidden="true">N</span>')) {
+  throw new Error("The obsolete N lettermark must not reappear in the production sidebar.");
+}
+
 
 for (const [haystack, needle, label] of [
   [shell, 'data-app-shell="main"', "shell identity"],
+  [shell, 'import narroLogoLight from "../assets/branding/narro-logo-horizontal-light.svg";', "canonical light logo import"],
+  [shell, 'import narroLogoDark from "../assets/branding/narro-logo-horizontal-dark.svg";', "canonical dark logo import"],
+  [shell, 'import narroSymbol from "../assets/branding/narro-symbol.svg";', "canonical narrow symbol import"],
+  [shell, 'src={narroLogoLight} alt="" aria-hidden="true"', "light brand asset"],
+  [shell, 'src={narroLogoDark} alt="" aria-hidden="true"', "dark brand asset"],
+  [shell, 'src={narroSymbol} alt="" aria-hidden="true"', "small screen symbol"],
+  [css, '.app-shell__brand-logo--dark', "light/dark responsive branding"],
+  [css, ':root[data-theme="dark"] .app-shell__brand-logo--light', "explicit dark-theme logo choice"],
+  [css, ':root[data-theme="system"] .app-shell__brand-logo--dark', "system theme choice"],
+  [css, ':root .app-shell__brand .app-shell__brand-logo', "narrow brand sizing"],
+  [css, '.app-shell__brand-symbol', "mobile standalone brand mark"],
   [shell, 'aria-label="List navigation"', "list navigation landmark"],
   [shell, 'aria-label="Primary"', "primary navigation landmark"],
   [shell, 'aria-label="Utilities"', "utility action group"],
