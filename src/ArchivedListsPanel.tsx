@@ -119,19 +119,30 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </header>
       )}
 
-      <p className="archived-lists-panel__scope-note">
-        Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
-      </p>
+      {lists?.length === 0 ? null : (
+        <p className="archived-lists-panel__scope-note">
+          Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
+        </p>
+      )}
 
       {loadError ? <div className="archived-lists-panel__error" role="alert">{loadError}</div> : null}
 
       {lists === null && !loadError ? (
         <div className="archived-lists-panel__loading" role="status">Loading archived lists…</div>
       ) : lists?.length === 0 ? (
-        <div className="archived-lists-panel__empty" data-archived-lists-empty="true">
-          <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
-          <strong>No archived lists found</strong>
-          <span>Lists you archive from Home will appear here and can be restored later.</span>
+        <div className="archived-lists-panel__empty-grid" data-archived-lists-empty="true">
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
+          <div className="archived-lists-panel__empty" data-archived-lists-empty-message="true">
+            <span className="archived-lists-panel__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+                <rect x="3" y="4" width="18" height="4" rx="1" />
+                <path d="M5 8v11h14V8M10 12h4" />
+              </svg>
+            </span>
+            <strong>No archived lists found</strong>
+            <span>Looks like you do not have any archived lists at this moment.</span>
+          </div>
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
         </div>
       ) : (
         <div className="archived-lists-panel__items">
