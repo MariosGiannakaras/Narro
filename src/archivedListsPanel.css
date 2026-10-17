@@ -80,6 +80,7 @@
 
 .archived-lists-panel__empty-grid > .archived-lists-panel__empty {
   min-width: 0;
+  min-height: 10rem; /* calibrated to source v2.6.69 empty card height */
   margin-top: 0;
 }
 
