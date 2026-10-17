@@ -214,7 +214,8 @@ try {
             "list-editor-edit",
             "list-board",
             "list-board-all",
-            "task-card-states"
+            "task-card-states",
+            "task-recurring-menu"
         )
 
         foreach ($fixture in $fixtures) {
