@@ -67,12 +67,13 @@ invariant(fixture.includes('"empty",'), "visual fixture is missing the genuinely
 invariant(
   fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
     && fixture.includes('scenario === "empty" ? []')
-    && fixture.includes('scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]')
+    && fixture.includes(': isSuccessScenario ? [overdueTask, longTitleTask, scheduledTask]')
+    && fixture.includes('const isSuccessScenario = scenario === "success" || scenario === "success-fun-gif";')
     && fixture.includes(': normalTodayTasks;'),
   "fixture must distinguish future-scheduled work from genuinely empty Today work",
 );
 invariant(
-  fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";'),
+  fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || isSuccessScenario;'),
   "empty fixtures must not fabricate a live timer",
 );
 invariant(
