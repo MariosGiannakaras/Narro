@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-17T07:07:23.488463+00:00",
+  "acquired": "4/4",
+  "review": "NOT RUN",
+  "screenshots": 24,
+  "logs": 7,
+  "recordings": 2,
+  "source": "b11c80bb43e11ee438698450377beea0b31933c1",
+  "mainMerge": "2aa03803590efde8c1fab658ac92e2f0a7984e30",
+  "prCI": 38994951447,
+  "mainCI": 38996513400,
+  "ci": "both3/3SUCCESS"
+}

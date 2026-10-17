@@ -1,0 +1,14 @@
+{
+  "phase": "FROZEN_CAPTURE_ONLY",
+  "acquired": "4/4",
+  "review": "NOT RUN",
+  "groups": {
+    "C4": "Darkcustom111111 applied by outside click, Save/reopen/Cancel; Home and archived color visible.",
+    "C2": "Two populated archived cards, dark/light rest/hover/keyboard, DeleteForever confirmation Cancel, actual Unarchive/rearchive, narrow900x1000.",
+    "C1": "Singular then complete WeekA to plural Done; light/dark wide/narrow900x1000.",
+    "C3": "Actual UpdateRecurring menu\u2192editor\u2192Cancel; RemoveRecurring; Oct12child\u2192TomorrowOct18 and Oct13child\u2192NextweekOct24; finalThisWeek/Backlogscheduledheaders captured."
+  },
+  "conditional125DPI": "NOT RUN: actualoneprimary96DPI, no topologychange",
+  "noNewPassFail": "Acquisition complete is not acceptance; no substantive frame/motion/source analysis or Narro changes after latest user instruction.",
+  "originalProfilesRestored": true
+}
