@@ -80,6 +80,22 @@ invariant(
   rust.indexOf("let saved = mutate_preferences") < rust.indexOf("app_handle.emit(PREFERENCES_CHANGED_EVENT"),
   "Preferences event must be emitted only after persistence commits",
 );
+invariant(
+  rust.includes("crate::scheduling::validate_timezone_identifier(timezone)"),
+  "Rust must validate direct preference timezone patches using the authoritative IANA parser",
+);
+invariant(
+  rust.includes('CommandError::invalid_argument(\n                "patch.timezone"'),
+  "invalid direct timezone patches must return a typed argument error",
+);
+invariant(
+  rust.includes("direct_timezone_patch_rejects_unknown_zones_before_any_write"),
+  "unknown IANA timezone regression is missing",
+);
+invariant(
+  rust.includes("timezone_patch_accepts_valid_iana_alias_and_automatic_without_changing_other_settings"),
+  "valid/Automatic/legacy timezone preservation regression is missing",
+);
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
 const shortcutsDialogSource = await read("src/WindowsShortcutsDialog.tsx");
 const shortcutsDialogCss = await read("src/windowsShortcutsDialog.css");
