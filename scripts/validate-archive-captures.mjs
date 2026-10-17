@@ -31,6 +31,9 @@ for (const theme of ["light", "dark"]) {
   invariant(listsEmpty.includes('aria-selected="true"'), `${theme} lists segment is not selected`);
   invariant(listsEmpty.includes('data-archived-lists-panel="true"'), `${theme} embedded list archive panel is missing`);
   invariant(listsEmpty.includes('data-archived-lists-empty="true"'), `${theme} archived-list empty state is missing`);
+  invariant(listsEmpty.includes('data-archived-lists-empty-message="true"'), `${theme} centered archived empty message is missing`);
+  invariant((listsEmpty.match(/data-archived-empty-ghost="true"/g) ?? []).length === 2,
+    `${theme} archived-list empty screen must have exactly two decorative side cards`);
   invariant(listsEmpty.includes("No archived lists found"), `${theme} archived-list empty copy is missing`);
 
   const doneEmpty = read(`archive-done-empty-${theme}`);
