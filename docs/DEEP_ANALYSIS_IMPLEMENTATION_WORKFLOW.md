@@ -239,6 +239,8 @@ Keep each level distinct:
 
 Narro-owned visual fixtures are regression protection, not proof of Blitzit parity.
 
+**Scope of repeated checks vs one-time release-candidate sweep (user decision, 2026-10-17):** Normal implementation PRs retain their **targeted affected-component/source-state regression and required CI gates**. Do **not** demand a new whole-app screenshot/brand inventory after every change. The **systematic whole-app visual-composition, official branding, shared shell/controls and screen/state coverage sweep is a named required checkbox in M10**; it begins only after M10's hard entry prerequisites. At that point reuse all still-valid existing image/video/fixture evidence, supplement only genuine gaps, and respect separate user authorization for paused native Windows PA work. A high-confidence defect found earlier (e.g., actual production placeholder logo) may still be fixed immediately with its own focused tests; deferring the *global sweep* never justifies ignoring a proven local defect.
+
 A source PR may be integrated after exact-head automated validation while compatible physical/source-parity gates remain explicitly OPEN, per `docs/CI_VALIDATION_STRATEGY.md`.
 
 ## Visual/source acceptance standard
