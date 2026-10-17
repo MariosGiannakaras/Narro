@@ -582,7 +582,12 @@ mod tests {
         );
         assert!(!payload.shortcuts.go_to_narro_enabled);
 
-        for zone in ["Europe/Athens", "America/New_York", "UTC", "  Europe/Athens  "] {
+        for zone in [
+            "Europe/Athens",
+            "America/New_York",
+            "UTC",
+            "  Europe/Athens  ",
+        ] {
             let prepared = prepare_patch(PreferenceSettingsPatch {
                 timezone: Some(zone.into()),
                 ..PreferenceSettingsPatch::default()
