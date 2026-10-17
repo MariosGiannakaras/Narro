@@ -164,3 +164,28 @@ body.visual-fixture-body {
   gap: var(--space-1);
   padding-top: var(--space-1);
 }
+
+
+/* Evidence-only B45 fixture: roomy space for the real task overflow menu.
+   No production TaskCard or user-visible layout rules are changed. */
+.task-recurring-menu-fixture {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  height: 100%;
+}
+
+.task-recurring-menu-fixture h1 {
+  margin: 0;
+}
+
+.task-recurring-menu-fixture__card {
+  width: min(100%, 20rem);
+}
+
+.task-recurring-menu-fixture .list-board-task__actions {
+  opacity: 1;
+  visibility: visible;
+}
