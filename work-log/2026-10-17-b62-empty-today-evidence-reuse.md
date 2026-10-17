@@ -1,0 +1,7 @@
+# B62 empty Today — accepted-evidence reuse, 2026-10-17
+
+One existing requirement dispositioned without a new build, native replay or product change. PR362 final source560efeb0/CI38894130069/EXE434b7182 already exercises empty Today at11:56:23Z: subdued reachable CTA, actual click, explicit no-eligible status, no Focus or new session. Its [frozen report](2026-10-16-pr362-native-cross-window-acceptance.md) directly compared VE00560s visual intent; raw full video/PNGs/UIA/SQL/logs remain published there. This consumes the existing reviewed evidence, not a claim of a new capture.
+
+[Five unchanged input blobs and Board callsite](evidence/b62-reuse-20261017/unchanged-inputs.json) preserve this bounded acceptance through candidate PR364b11c80bb; its only ListBoard change is the unrelated Done heading. Mark the scoped B62 requirement accepted while retaining source empty-click/disabled/race EVIDENCE_LIMIT. An unobserved original-source click is not an implementation requirement or a reason to keep an otherwise exercised local gate open; no source-outcome equality or native future-timed acceptance is claimed. The existing authoritative Rust eligibility, accessible pending/error behavior and synchronous admission guard remain unchanged. This does not accept whole Board/M5 or start M10/M11/M12.
+
+Active operation remains PR364CI38994951447; native affected/missing4-group capture remains prepared0/4. No recording/profile/executable state changed by this analysis.
