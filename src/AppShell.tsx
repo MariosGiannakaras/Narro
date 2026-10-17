@@ -328,7 +328,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
         data-active-destination={activeDestination}
       >
         <aside className="app-shell__sidebar" aria-label="List navigation">
-          <div className="app-shell__brand" aria-label="Narro">
+          <div className="app-shell__brand" role="img" aria-label="Narro">
             <img className="app-shell__brand-logo app-shell__brand-logo--light" src={narroLogoLight} alt="" aria-hidden="true" />
             <img className="app-shell__brand-logo app-shell__brand-logo--dark" src={narroLogoDark} alt="" aria-hidden="true" />
             <img className="app-shell__brand-symbol" src={narroSymbol} alt="" aria-hidden="true" />
