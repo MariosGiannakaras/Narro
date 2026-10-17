@@ -2,6 +2,9 @@
 
 ## Current verified state — 2026-10-17
 
+**Latest PR373 M5/B45 merged-main acceptance:** [PR373](https://github.com/MariosGiannakaras/Narro/pull/373) head `3ff3972e2872dd69c07efe883428239eb06dd366` CI `39066811125` **3/3 SUCCESS**, expected-head guarded merge `355d9a6feb774b89845532de7f028a0ee7ead3d4`, exact resulting-main push run `39071099958` **3/3 SUCCESS**; both changed source/test blobs identical. Direct recurring-parent handler/API tests protect non-destructive saved occurrences, fresh rule version and post-commit failures; no personal Windows native acceptance. [Evidence](work-log/2026-10-17-chatgpt-pr373-merged-main-ci.md).
+
+
 **Latest accepted PR372 (M5 B43 rendered Done headings):** final test-only head `835c294034be7ef7b00781adfa2532738a08c166`, PR run `39060175537` **3/3 SUCCESS**, expected-head guarded squash merge `03c01d73705423dea67d65f611449b59eeff869f`, matching three source/test blobs, exact `push/main` run `39064534266` **3/3 SUCCESS**. Actual Windows captures at head and merged-main validate dates and singular/plural Done counts without clipping or overlap in four existing light/dark single/aggregate fixtures; no change to production behavior. B43 unexercised long localized labels, physical native scroll and modern-original geometry/motion remain OPEN. M5 still OPEN. [Immutable acceptance](work-log/2026-10-17-chatgpt-pr372-merged-main-ci.md).
 
 The 2026-10-17 `push/main` Windows CI identity check is now **available and completed**. Merge SHAs, run IDs, outcomes and the historical PR369 screenshot failure are listed in [the immutable reconciliation record](work-log/2026-10-17-chatgpt-main-push-ci-reconciliation.md) and the current [HANDOFF.md](HANDOFF.md).
