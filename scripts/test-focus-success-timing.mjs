@@ -1,4 +1,6 @@
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { focusReactionVariant } from "../src/focusReactionVariant.ts";
 import assert from "node:assert/strict";
 import { successTimingCopy } from "../src/focusSuccessTiming.ts";
@@ -80,6 +82,10 @@ assert.ok(restStart >= 0 && restEnd > restStart
 const successFixture = read("src/focusPanelVisualFixture.tsx");
 const successCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const successValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+// Fast preflight must parse the actual Windows-only visual validator. It once
+// escaped Node preflight with duplicate lexical declarations and failed late in
+// Windows screenshot validation after successful capture.
+execFileSync(process.execPath, ["--check", fileURLToPath(new URL("./validate-focus-visual-state-captures.mjs", import.meta.url))]);
 assert.ok(successFixture.includes('"success"')
   && successFixture.includes("<FocusCompletionSuccess inline")
   && successFixture.includes('completionSuccessContent={scenario === "success"'),
