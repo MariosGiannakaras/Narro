@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**2026-10-17 existing M5 A2/SS-H14 FIX_NOW:** final PR362 archived-list fixture still wide rows vs source muted cards/footer actions. Batch presentation-only correction with B43; preserve lifecycle/confirmation. [Evidence/plan](../work-log/2026-10-17-archived-list-card-source-reconciliation.md).
+
 **Current source candidate:** PR359 mergededcc5fc6/exact055350d6CI3/3, main553-input proof accepted. PR360916b17d2/CI38860384226 batches existing B24/B60/B12/SS-C06 fixes; frontend/rendered/actualReact PASS, native5groups0/5. Old Search visual acceptance reopened for changed composition; no old pixels validate replacement. [Exact scope/evidence](../work-log/2026-10-16-pr359-integration-and-pr360-batched-controls.md).
 
 **Current PR357 disposition — 2026-10-16:** B47/B48/B52/B61 and P3-M5-04 affected claims source/nativePASS; capture/review/acceptance4/4, PR/mainCI3/3SUCCESS. Historical older OPEN/status prose does not override the current rows/report. B60 and other M5 gates remainOPEN; M1–M4=4/10, M10blocked. [Full evidence/boundaries](../work-log/2026-10-16-pr357-native-four-item-acceptance.md).
