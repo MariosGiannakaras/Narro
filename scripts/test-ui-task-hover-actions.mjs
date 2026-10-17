@@ -173,4 +173,25 @@ for (const forbidden of ["setSnapshot(", "crypto.randomUUID(", "Math.random("]) 
   }
 }
 
+// B45: direct parent-only overflow menu route was not exercised in the frozen
+// Windows user session. Add a nonmutating actual rendered TaskCard menu fixture
+// and guarantee the production callback never deletes generated children.
+const visualFixture = read("src/visualFixtures.tsx");
+const captureScript = read("scripts/capture-visual-fixtures.ps1");
+const captureValidator = read("scripts/validate-task-card-state-captures.mjs");
+for (const [haystack, needle, label] of [
+  [visualFixture, 'requestedFixture === "task-recurring-menu"', "registered B45 visual fixture"],
+  [visualFixture, 'data-task-recurring-menu-fixture="true"', "dedicated parent-only fixture DOM"],
+  [visualFixture, 'onRemoveRecurring: fixtureAction', "nonmutating recurring action"],
+  [visualFixture, 'flushSync(() => trigger.click())', "actual Task actions menu activation"],
+  [visualFixture, 'recurrenceRuleId: "84444444-4444-4444-8444-444444444444"', "linked parent identity"],
+  [captureScript, '"task-recurring-menu"', "automated Windows screenshot capture"],
+  [captureValidator, 'recurringMenus.get("light")', "light/dark menu geometry equivalence"],
+  [captureValidator, 'Remove Recurring', "actual rendered Remove Recurring menu option"],
+  [board, 'onRemoveRecurring: canEditSchedule && Boolean(task.recurrenceRuleId)', "parent-only editable callback"],
+  [board, 'deleteExistingTasks: false', "preserve already generated child task identities"],
+  [board, 'expectedRuleUpdatedAt: recurrence.updatedAt', "authoritative stale-rule guard"],
+  [board, 'removeRecurringInFlightRef.current', "duplicate-mutation guard"],
+]) requireText(haystack, needle, label);
+
 console.log("Task hover/action-menu geometry and persistence contracts passed.");
