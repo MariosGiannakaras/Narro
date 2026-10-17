@@ -1,3 +1,6 @@
+import narroLogoDark from "../assets/branding/narro-logo-horizontal-dark.svg";
+import narroLogoLight from "../assets/branding/narro-logo-horizontal-light.svg";
+import narroSymbol from "../assets/branding/narro-symbol.svg";
 import { emitTo } from "@tauri-apps/api/event";
 import { type ReactNode, useEffect, useState } from "react";
 import { ArchivePanel } from "./ArchivePanel";
@@ -326,8 +329,9 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
       >
         <aside className="app-shell__sidebar" aria-label="List navigation">
           <div className="app-shell__brand" aria-label="Narro">
-            <span className="app-shell__brand-mark" aria-hidden="true">N</span>
-            <span className="app-shell__brand-name">Narro</span>
+            <img className="app-shell__brand-logo app-shell__brand-logo--light" src={narroLogoLight} alt="" aria-hidden="true" />
+            <img className="app-shell__brand-logo app-shell__brand-logo--dark" src={narroLogoDark} alt="" aria-hidden="true" />
+            <img className="app-shell__brand-symbol" src={narroSymbol} alt="" aria-hidden="true" />
           </div>
 
           <nav className="app-shell__list-nav" aria-label="Lists">
