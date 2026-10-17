@@ -133,9 +133,14 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         <div className="archived-lists-panel__empty-grid" data-archived-lists-empty="true">
           <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
           <div className="archived-lists-panel__empty" data-archived-lists-empty-message="true">
-            <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
+            <span className="archived-lists-panel__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+                <rect x="3" y="4" width="18" height="4" rx="1" />
+                <path d="M5 8v11h14V8M10 12h4" />
+              </svg>
+            </span>
             <strong>No archived lists found</strong>
-            <span>Lists you archive from Home will appear here and can be restored later.</span>
+            <span>Looks like you do not have any archived lists at this moment.</span>
           </div>
           <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
         </div>
