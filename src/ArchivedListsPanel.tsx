@@ -128,10 +128,14 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
       {lists === null && !loadError ? (
         <div className="archived-lists-panel__loading" role="status">Loading archived lists…</div>
       ) : lists?.length === 0 ? (
-        <div className="archived-lists-panel__empty" data-archived-lists-empty="true">
-          <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
-          <strong>No archived lists found</strong>
-          <span>Lists you archive from Home will appear here and can be restored later.</span>
+        <div className="archived-lists-panel__empty-grid" data-archived-lists-empty="true">
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
+          <div className="archived-lists-panel__empty" data-archived-lists-empty-message="true">
+            <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
+            <strong>No archived lists found</strong>
+            <span>Lists you archive from Home will appear here and can be restored later.</span>
+          </div>
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
         </div>
       ) : (
         <div className="archived-lists-panel__items">
