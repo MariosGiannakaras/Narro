@@ -228,14 +228,14 @@ for (const theme of ["light", "dark"]) {
   const reaction = funGif.contract.successReaction;
   invariant(reaction?.fitsCard && reaction.svgVisible && reaction.notClipped,
     `${funGif.label} enabled decorative vector is missing or clipped`);
-  const region = reaction.paintRegion;
-  invariant(region.width > 80 && region.height >= 90
-    && region.x >= 0 && region.y >= 0
-    && region.x + region.width <= 420
-    && region.y + region.height <= 720,
+  const reactionRegion = reaction.paintRegion;
+  invariant(reactionRegion.width > 80 && reactionRegion.height >= 90
+    && reactionRegion.x >= 0 && reactionRegion.y >= 0
+    && reactionRegion.x + reactionRegion.width <= 420
+    && reactionRegion.y + reactionRegion.height <= 720,
     `${funGif.label} reaction must be visibly inside actual screenshot dimensions`);
   const changed = differentFocusPixels(
-    readEdgePng(success.screenshot), readEdgePng(funGif.screenshot), region,
+    readEdgePng(success.screenshot), readEdgePng(funGif.screenshot), reactionRegion,
   );
   invariant(changed >= 200,
     `${funGif.label} enabled reaction screenshot was indistinguishable from disabled state (${changed} changed pixels)`);
