@@ -1428,6 +1428,7 @@ export function ListBoard({
         || current.recurrenceParentTaskId !== null
         || !current.recurrence
         || current.recurrence.id !== task.recurrenceRuleId
+        || !current.recurrence.updatedAt?.trim()
       ) {
         throw new Error("This recurring task changed. Refresh the board before trying again.");
       }

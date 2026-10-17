@@ -130,3 +130,122 @@ for (const scenario of ["live", "stale-date", "missing-version", "read-error", "
   assert.equal(context.invalidations, 1, "failed native write must not publish success");
 }
 console.log("Actual quick-clear handler/API: one writer, fresh version/link, native atomic command, invalidation/error ownership PASS.");
+
+
+const recurringParent = {
+  ...task, id: "recurring-parent", recurrenceRuleId: "rule-42",
+  recurrenceParentTaskId: null, scheduledLocalDate: null, scheduledLocalTime: null,
+};
+const parentEditor = {
+  taskId: recurringParent.id, listId: recurringParent.listId,
+  recurrenceParentTaskId: null,
+  recurrence: { id: "rule-42", updatedAt: "rule-version-7" },
+};
+function removeRecurringHarness() {
+  const calls = { writes: [], refreshed: [], statuses: [], errors: [], blocked: [], pending: [] };
+  const context = {
+    canStartScheduleEditor: true, timerPayload: {}, liveStateForTask: () => null,
+    removeRecurringInFlightRef: { current: false },
+    setMutationPendingTaskId: id => calls.pending.push(id),
+    setMutationError: error => calls.errors.push(error),
+    setMutationStatus: status => calls.statuses.push(status),
+    setDragState() {}, setDropTarget() {},
+    setMutationRefreshBlocked: flag => calls.blocked.push(flag),
+    getTaskScheduleEditor: async () => parentEditor,
+    removeTaskRecurrence: async request => {
+      calls.writes.push(request);
+      return { preservedExistingCount: 3 };
+    },
+    handleScheduleCommitted: async (id, status) => calls.refreshed.push({ id, status }),
+    formatInvokeError: error => String(error),
+  };
+  return { context, calls, run: actualFunction(boardSource,
+    "  const handleRemoveRecurring = async", "  const commitDrop = async",
+    "handleRemoveRecurring", context) };
+}
+{
+  // Hold the authoritative read while a second menu activation arrives.
+  const h = removeRecurringHarness();
+  let resolveRead;
+  h.context.getTaskScheduleEditor = () => new Promise(resolve => { resolveRead = resolve; });
+  const first = h.run(recurringParent);
+  await h.run(recurringParent);
+  assert.equal(h.context.removeRecurringInFlightRef.current, true,
+    "a second Remove Recurring cannot start while the first awaits authority");
+  resolveRead(parentEditor);
+  await first;
+  assert.deepEqual(JSON.parse(JSON.stringify(h.calls.writes)), [{
+    taskId: recurringParent.id, listId: recurringParent.listId,
+    expectedRuleId: "rule-42", expectedRuleUpdatedAt: "rule-version-7",
+    deleteExistingTasks: false,
+  }], "one non-destructive, version-pinned recurrence parent removal");
+  assert.deepEqual(h.calls.refreshed, [{
+    id: recurringParent.id,
+    status: "Stopped repeating " + recurringParent.title + "; 3 existing occurrences kept.",
+  }], "only committed recurrence removal refreshes the authoritative board");
+  assert.equal(h.context.removeRecurringInFlightRef.current, false);
+  assert.equal(h.calls.pending.at(-1), null, "pending parent identity is released");
+  assert.deepEqual(h.calls.blocked, [], "confirmed success never blocks refresh");
+}
+for (const scenario of [
+  "disabled", "not-parent", "done", "live", "stale-task", "stale-list",
+  "generated-child", "missing-rule", "stale-rule", "missing-version",
+  "blank-version", "read-error", "write-error", "refresh-error",
+]) {
+  const h = removeRecurringHarness();
+  let input = recurringParent;
+  if (scenario === "disabled") h.context.canStartScheduleEditor = false;
+  if (scenario === "not-parent") input = { ...recurringParent, recurrenceRuleId: null };
+  if (scenario === "done") input = { ...recurringParent, completedAt: "2026-10-16T09:00:00Z" };
+  if (scenario === "live") h.context.liveStateForTask = () => ({ state: "paused" });
+  if (scenario === "stale-task") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, taskId: "other-task" });
+  if (scenario === "stale-list") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, listId: "other-list" });
+  if (scenario === "generated-child") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, recurrenceParentTaskId: "another-parent" });
+  if (scenario === "missing-rule") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, recurrence: null });
+  if (scenario === "stale-rule") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, recurrence: { ...parentEditor.recurrence, id: "changed-rule" } });
+  if (scenario === "missing-version") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, recurrence: { id: "rule-42" } });
+  if (scenario === "blank-version") h.context.getTaskScheduleEditor = async () => ({ ...parentEditor, recurrence: { id: "rule-42", updatedAt: "  " } });
+  if (scenario === "read-error") h.context.getTaskScheduleEditor = async () => { throw Error("authoritative read unavailable"); };
+  if (scenario === "write-error") h.context.removeTaskRecurrence = async () => { throw Error("native CAS rejected"); };
+  if (scenario === "refresh-error") h.context.handleScheduleCommitted = async () => { throw Error("post-commit notification uncertain"); };
+  await h.run(input);
+  assert.equal(h.context.removeRecurringInFlightRef.current, false, scenario + " unlocks single-flight");
+  if (!["write-error", "refresh-error"].includes(scenario)) {
+    assert.equal(h.calls.writes.length, 0, scenario + " cannot remove existing recurrence");
+  }
+  if (["write-error", "refresh-error"].includes(scenario)) {
+    assert.equal(h.calls.blocked.at(-1), true, scenario + " fails closed after uncertain commit");
+    assert.equal(h.calls.pending.at(-1), null, scenario + " releases pending ID");
+  }
+}
+// The typed production command must preserve the entire non-destructive CAS
+// request and publish invalidation only after its native mutation commits.
+{
+  const source = fs.readFileSync("src/taskScheduleApi.ts", "utf8");
+  const context = { calls: [], invalidations: 0 };
+  context.invoke = async (command, args) => {
+    context.calls.push({ command, args });
+    return { preservedExistingCount: 3 };
+  };
+  context.emitBoardInvalidated = async () => { context.invalidations++; };
+  context.committedScheduleMutation = actualFunction(source,
+    "async function committedScheduleMutation", "export function updateTaskSchedule",
+    "committedScheduleMutation", context);
+  const remove = actualFunction(source + "\n// END RECURRENCE COMMAND",
+    "export function removeTaskRecurrence", "// END RECURRENCE COMMAND",
+    "removeTaskRecurrence", context);
+  const request = {
+    taskId: recurringParent.id, listId: recurringParent.listId,
+    expectedRuleId: "rule-42", expectedRuleUpdatedAt: "rule-version-7",
+    deleteExistingTasks: false,
+  };
+  assert.deepEqual(JSON.parse(JSON.stringify(await remove(request))), { preservedExistingCount: 3 });
+  assert.deepEqual(JSON.parse(JSON.stringify(context.calls)), [{
+    command: "remove_list_board_task_recurrence", args: request,
+  }], "native recurrence removal receives exact guarded request");
+  assert.equal(context.invalidations, 1, "committed detach publishes one board invalidation");
+  context.invoke = async () => { throw Error("native rule CAS failed"); };
+  await assert.rejects(remove(request), /native rule CAS failed/);
+  assert.equal(context.invalidations, 1, "rejected native recurrence removal emits no new invalidation");
+}
+console.log("Actual recurring-parent Remove Recurring handler/API: fresh version, single flight, preserved children and fail-closed boundaries PASS.");
