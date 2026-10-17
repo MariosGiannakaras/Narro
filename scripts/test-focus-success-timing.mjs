@@ -88,5 +88,13 @@ assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query 
   && successValidator.includes('readCapture(theme, "success")')
   && successValidator.includes('data-focus-success-inline-card="true"'),
   "B63 screenshot must be captured and validated in light and dark themes");
+assert.ok(successFixture.includes('"success-fun-gif"')
+  && successFixture.includes('funGifEnabled: scenario === "success-fun-gif"')
+  && successFixture.includes("successReaction: (() => {")
+  && successCapture.includes('Name = "success-fun-gif"; Suffix = "-success-fun-gif"')
+  && successValidator.includes('readCapture(theme, "success-fun-gif")')
+  && successValidator.includes("reaction.svgVisible && reaction.notClipped")
+  && successValidator.includes("differentFocusPixels("),
+  "enabled Fun GIF must be captured and visibly validated against disabled preference in both themes");
 await import("./test-focus-success-actual-handler-owners.mjs");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

@@ -208,6 +208,38 @@ for (const theme of ["light", "dark"]) {
     && success.contract.actions === null,
     `${success.label} must replace the active card without a stale running timer/actions`);
 
+  // D2 native Windows evidence shows the optional offline celebration only
+  // when Fun GIF is enabled. Capture both preferences, not merely its DOM
+  // component source, and reject an invisible/overflowing decorative SVG.
+  const funGif = readCapture(theme, "success-fun-gif");
+  invariant(!success.dom.includes('data-focus-success-reaction="true"'),
+    `${success.label} disabled Fun GIF must not leak the decoration`);
+  invariant(funGif.dom.includes('data-focus-success-reaction="true"')
+    && funGif.dom.includes('data-focus-success-placement="inline"')
+    && !funGif.dom.includes('aria-modal="true"'),
+    `${funGif.label} enabled Fun GIF must appear inside production inline success`);
+  invariant(funGif.contract.queueTitleLayout?.successQueueInert === true
+    && funGif.contract.liveTimer === null
+    && funGif.contract.actions === null
+    && funGif.dom.includes('data-focus-success-action="next-task"')
+    && funGif.dom.includes('data-focus-success-action="take-break"')
+    && funGif.dom.includes('data-focus-success-action="close"'),
+    `${funGif.label} reaction must retain safe committed state and actions`);
+  const reaction = funGif.contract.successReaction;
+  invariant(reaction?.fitsCard && reaction.svgVisible && reaction.notClipped,
+    `${funGif.label} enabled decorative vector is missing or clipped`);
+  const region = reaction.paintRegion;
+  invariant(region.width > 80 && region.height >= 90
+    && region.x >= 0 && region.y >= 0
+    && region.x + region.width <= 420
+    && region.y + region.height <= 720,
+    `${funGif.label} reaction must be visibly inside actual screenshot dimensions`);
+  const changed = differentFocusPixels(
+    readEdgePng(success.screenshot), readEdgePng(funGif.screenshot), region,
+  );
+  invariant(changed >= 200,
+    `${funGif.label} enabled reaction screenshot was indistinguishable from disabled state (${changed} changed pixels)`);
+
   const noEligible = readCapture(theme, "no-eligible");
   invariant(noEligible.dom.includes('data-focus-live-card="false"'), `${noEligible.label} must not fabricate a live card`);
   invariant(noEligible.dom.includes('data-focus-live-state="no-eligible"'), `${noEligible.label} no-eligible visual marker is missing`);
