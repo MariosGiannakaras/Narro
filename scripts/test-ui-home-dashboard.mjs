@@ -71,4 +71,29 @@ if (css.includes("--color-text-muted")) {
   throw new Error("Home styles must use the validated semantic theme-token contract only.");
 }
 
+// B23: canonical Home previews are distinct muted rounded rows, not bare text lines.
+const cssRule = (selector) => {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\console.log("Home dashboard/list-card contract checks passed.");");
+  const block = css.match(new RegExp(`${escaped}\\s*\\{([^}]*)\\}`));
+  if (!block) throw new Error(`Missing Home preview CSS rule: ${selector}`);
+  return block[1];
+};
+const previewRow = cssRule(".home-list-card__task");
+const previewOrdinal = cssRule(".home-list-card__task-ordinal");
+const previewTime = cssRule(".home-list-card__task-est");
+for (const [rule, value, label] of [
+  [previewRow, "background: var(--color-surface-interactive)", "semantic muted row fill"],
+  [previewRow, "border-radius: var(--radius-control)", "rounded preview row"],
+  [previewRow, "min-width: 0", "long-title containment"],
+  [previewRow, "grid-template-columns: 1.25rem minmax(0, 1fr) auto", "reserved trailing metadata"],
+  [previewOrdinal, "color: var(--color-text-secondary)", "ordinal no longer uses list accent"],
+  [previewTime, "white-space: nowrap", "time preserved on one line"],
+]) requireText(rule, value, label);
+requireText(css, ".home-list-card__task + .home-list-card__task", "independent row spacing");
+requireText(fixtures, 'taskPreviewRow: readVisualNode', "visual capture of row fill/geometry");
+requireText(fixtures, 'taskPreviewOrdinal: readVisualNode', "visual capture of subdued ordinal");
+if (previewOrdinal.includes("var(--home-list-accent)")) {
+  throw new Error("B23 ordinal must not revert to the list accent.");
+}
+
 console.log("Home dashboard/list-card contract checks passed.");
