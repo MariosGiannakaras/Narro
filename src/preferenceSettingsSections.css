@@ -1,5 +1,5 @@
 .preference-settings__section {
-  margin-bottom: var(--space-4);
+  margin-bottom: 0;
 }
 
 .preference-settings__row {
@@ -12,7 +12,6 @@
 
 .preference-settings__row + .preference-settings__row {
   padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border-subtle);
 }
 
 .preference-settings__row--nested {
