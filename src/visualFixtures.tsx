@@ -538,6 +538,45 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
   return values;
 }
 
+
+type DoneHeadingGeometry = {
+  dateKey: string;
+  count: number;
+  dateText: string;
+  countText: string;
+  dateRight: number;
+  countLeft: number;
+  countRight: number;
+  headingRight: number;
+  dateOverflows: boolean;
+  countOverflows: boolean;
+};
+
+function readDoneHeadingGeometry(): DoneHeadingGeometry[] {
+  return Array.from(
+    document.querySelectorAll<HTMLElement>('[data-board-lane="Done"] [data-board-done-date]'),
+    (heading) => {
+      const date = heading.querySelector<HTMLElement>(".list-board-lane__done-date");
+      const count = heading.querySelector<HTMLElement>(".list-board-lane__done-count");
+      if (!date || !count) throw new Error("Done heading lost its date or count child");
+      const dateRect = date.getBoundingClientRect();
+      const countRect = count.getBoundingClientRect();
+      return {
+        dateKey: heading.dataset.boardDoneDate ?? "",
+        count: Number(heading.dataset.boardDoneDateCount),
+        dateText: date.textContent?.trim() ?? "",
+        countText: count.textContent?.trim() ?? "",
+        dateRight: dateRect.right,
+        countLeft: countRect.left,
+        countRight: countRect.right,
+        headingRight: heading.getBoundingClientRect().right,
+        dateOverflows: date.scrollWidth > date.clientWidth + 1,
+        countOverflows: count.scrollWidth > count.clientWidth + 1,
+      };
+    },
+  );
+}
+
 function readLayoutViewport() {
   return {
     width: window.innerWidth,
@@ -634,6 +673,7 @@ const visualContract = fixture === "app-shell"
               viewport: captureViewport,
               canvas: readVisualNode("body", ["backgroundColor", "color"]),
               ...boardContract(),
+              doneHeadings: readDoneHeadingGeometry(),
             }
           : fixture === "task-card-states"
             ? {
