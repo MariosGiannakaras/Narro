@@ -163,9 +163,13 @@ for (const theme of themes) {
   }
   invariant(!dom.includes(">Update Schedule</button>"), `${label} showed occurrence schedule instead of parent recurring edit`);
   invariant(!dom.includes(">Remove schedule</button>"), `${label} parent exposes wrong occurrence quick-remove`);
-  const match = dom.match(/<script id="visual-contract" type="application\\/json">([\\s\\S]*?)<\\/script>/);
-  invariant(match, `${label} visual geometry contract missing`);
-  const contract = JSON.parse(match[1]);
+  const openingTag = '<script id="visual-contract" type="application/json">';
+  const contractStart = dom.indexOf(openingTag);
+  invariant(contractStart >= 0, `${label} visual geometry contract missing`);
+  const jsonStart = contractStart + openingTag.length;
+  const jsonEnd = dom.indexOf("</script>", jsonStart);
+  invariant(jsonEnd > jsonStart, `${label} visual geometry contract truncated`);
+  const contract = JSON.parse(dom.slice(jsonStart, jsonEnd));
   invariant(contract.fixture === "task-recurring-menu", `${label} incorrect fixture identity`);
   invariant(contract.theme === theme, `${label} wrong theme`);
   invariant(contract.parentCard?.width > 0 && contract.parentCard?.height > 0, `${label} recurring card not rendered`);
