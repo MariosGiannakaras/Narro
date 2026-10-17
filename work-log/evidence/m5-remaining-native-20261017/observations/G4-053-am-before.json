@@ -1,0 +1,3249 @@
+{
+  "utc": "2026-10-17T01:56:26.462101+00:00",
+  "hwnd": 6819644,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        216,
+        1032
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        51,
+        203,
+        99
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        68,
+        56,
+        110,
+        77
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        139
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        164,
+        203,
+        204
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        208,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        31,
+        1792,
+        95
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1680,
+        83
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1687,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        95,
+        1792,
+        976
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        119,
+        1768,
+        1643
+      ]
+    },
+    {
+      "name": "Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        239,
+        119,
+        1158,
+        140
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        239,
+        118,
+        240,
+        119
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        119,
+        1768,
+        180
+      ]
+    },
+    {
+      "name": "PLANNING",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        264,
+        130,
+        333,
+        147
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        264,
+        150,
+        404,
+        180
+      ]
+    },
+    {
+      "name": "List",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1216,
+        119,
+        1234,
+        135
+      ]
+    },
+    {
+      "name": "Planning list",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1216,
+        139,
+        1400,
+        180
+      ]
+    },
+    {
+      "name": "Plan this list across Backlog, This Week, Today, and Done.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1443,
+        132,
+        1768,
+        178
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        240,
+        199,
+        613,
+        518
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        212,
+        600,
+        257
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        212,
+        311,
+        233
+      ]
+    },
+    {
+      "name": "1 task",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        236,
+        284,
+        253
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        566,
+        216,
+        588,
+        233
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        588,
+        216,
+        600,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        265,
+        348,
+        294
+      ]
+    },
+    {
+      "name": "M5MonthlyCheckEst: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        304,
+        600,
+        465
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        304,
+        600,
+        465
+      ]
+    },
+    {
+      "name": "M5MonthlyCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        292,
+        316,
+        413,
+        337
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        473,
+        349,
+        489,
+        366
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        488,
+        349,
+        495,
+        366
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        494,
+        349,
+        507,
+        366
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        534,
+        349,
+        565,
+        366
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        564,
+        349,
+        571,
+        366
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        570,
+        349,
+        587,
+        366
+      ]
+    },
+    {
+      "name": "Expand notes for M5MonthlyCheck",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        268,
+        382,
+        587,
+        411
+      ]
+    },
+    {
+      "name": "Expand subtasks for M5MonthlyCheck",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        268,
+        423,
+        587,
+        452
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        300,
+        429,
+        347,
+        446
+      ]
+    },
+    {
+      "name": "Add task to Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        253,
+        474,
+        334,
+        503
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        625,
+        199,
+        998,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        212,
+        985,
+        286
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        212,
+        713,
+        233
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        236,
+        675,
+        253
+      ]
+    },
+    {
+      "name": "0 of 0 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        261,
+        713,
+        286
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        269,
+        645,
+        286
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        644,
+        269,
+        650,
+        286
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        649,
+        269,
+        656,
+        286
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        655,
+        269,
+        688,
+        286
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        951,
+        216,
+        973,
+        233
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        973,
+        216,
+        985,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        294,
+        733,
+        323
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        789,
+        365,
+        834,
+        382
+      ]
+    },
+    {
+      "name": "Add task to This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        471,
+        719,
+        500
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1010,
+        199,
+        1383,
+        1643
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        212,
+        1370,
+        286
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        212,
+        1073,
+        233
+      ]
+    },
+    {
+      "name": "7 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        236,
+        1060,
+        253
+      ]
+    },
+    {
+      "name": "0 of 7 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        261,
+        1073,
+        286
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        269,
+        1030,
+        286
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1029,
+        269,
+        1035,
+        286
+      ]
+    },
+    {
+      "name": "7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1034,
+        269,
+        1041,
+        286
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1040,
+        269,
+        1073,
+        286
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1309,
+        216,
+        1331,
+        233
+      ]
+    },
+    {
+      "name": "3h 58m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1330,
+        216,
+        1370,
+        233
+      ]
+    },
+    {
+      "name": "Add task to top of Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        294,
+        1118,
+        323
+      ]
+    },
+    {
+      "name": "M5FocusCheckLive \u00b7 PausedEst: 25mTaken: 7mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        333,
+        1370,
+        494
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        333,
+        1370,
+        494
+      ]
+    },
+    {
+      "name": "M5FocusCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1062,
+        345,
+        1164,
+        366
+      ]
+    },
+    {
+      "name": "Live \u00b7 Paused",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        378,
+        1108,
+        395
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        378,
+        1259,
+        395
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1258,
+        378,
+        1265,
+        395
+      ]
+    },
+    {
+      "name": "25m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1264,
+        378,
+        1288,
+        395
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1304,
+        378,
+        1335,
+        395
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1334,
+        378,
+        1341,
+        395
+      ]
+    },
+    {
+      "name": "7m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1340,
+        378,
+        1357,
+        395
+      ]
+    },
+    {
+      "name": "Expand notes for M5FocusCheck",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        411,
+        1357,
+        440
+      ]
+    },
+    {
+      "name": "Expand subtasks for M5FocusCheck",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        452,
+        1357,
+        481
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1070,
+        458,
+        1117,
+        475
+      ]
+    },
+    {
+      "name": "Parser off 30 mEst: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        501,
+        1370,
+        662
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        501,
+        1370,
+        662
+      ]
+    },
+    {
+      "name": "Parser off 30 m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1062,
+        513,
+        1166,
+        534
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        546,
+        1259,
+        563
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1258,
+        546,
+        1265,
+        563
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1264,
+        546,
+        1277,
+        563
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1304,
+        546,
+        1335,
+        563
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1334,
+        546,
+        1341,
+        563
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1340,
+        546,
+        1357,
+        563
+      ]
+    },
+    {
+      "name": "Expand notes for Parser off 30 m",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        579,
+        1357,
+        608
+      ]
+    },
+    {
+      "name": "Expand subtasks for Parser off 30 m",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        620,
+        1357,
+        649
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1070,
+        626,
+        1117,
+        643
+      ]
+    },
+    {
+      "name": "Manual override 1 HREst: 30mTaken: 5mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        669,
+        1370,
+        830
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        669,
+        1370,
+        830
+      ]
+    },
+    {
+      "name": "Manual override 1 HR",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1062,
+        681,
+        1209,
+        702
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        714,
+        1259,
+        731
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1258,
+        714,
+        1265,
+        731
+      ]
+    },
+    {
+      "name": "30m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1264,
+        714,
+        1288,
+        731
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1304,
+        714,
+        1335,
+        731
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1334,
+        714,
+        1341,
+        731
+      ]
+    },
+    {
+      "name": "5m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1340,
+        714,
+        1357,
+        731
+      ]
+    },
+    {
+      "name": "Expand notes for Manual override 1 HR",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        747,
+        1357,
+        776
+      ]
+    },
+    {
+      "name": "Expand subtasks for Manual override 1 HR",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        788,
+        1357,
+        817
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1070,
+        794,
+        1117,
+        811
+      ]
+    },
+    {
+      "name": "Invalid suffix 3 bananasEst: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        837,
+        1370,
+        998
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1023,
+        837,
+        1370,
+        998
+      ]
+    },
+    {
+      "name": "Invalid suffix 3 bananas",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1062,
+        849,
+        1222,
+        870
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        882,
+        1259,
+        899
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1258,
+        882,
+        1265,
+        899
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1264,
+        882,
+        1277,
+        899
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1304,
+        882,
+        1335,
+        899
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1334,
+        882,
+        1341,
+        899
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1340,
+        882,
+        1357,
+        899
+      ]
+    },
+    {
+      "name": "Expand notes for Invalid suffix 3 bananas",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        915,
+        1357,
+        944
+      ]
+    },
+    {
+      "name": "Expand subtasks for Invalid suffix 3 bananas",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        956,
+        1357,
+        985
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1070,
+        962,
+        1117,
+        979
+      ]
+    },
+    {
+      "name": "Email campaignEst: 2h 15mTaken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1005,
+        1370,
+        1166
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1005,
+        1370,
+        1166
+      ]
+    },
+    {
+      "name": "Email campaign",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1062,
+        1017,
+        1170,
+        1038
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1227,
+        1050,
+        1243,
+        1067
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1242,
+        1050,
+        1249,
+        1067
+      ]
+    },
+    {
+      "name": "2h 15m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1248,
+        1050,
+        1289,
+        1067
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1296,
+        1050,
+        1327,
+        1067
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1326,
+        1050,
+        1333,
+        1067
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1332,
+        1050,
+        1349,
+        1067
+      ]
+    },
+    {
+      "name": "Expand notes for Email campaign",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1083,
+        1357,
+        1112
+      ]
+    },
+    {
+      "name": "Expand subtasks for Email campaign",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1124,
+        1357,
+        1153
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1070,
+        1130,
+        1117,
+        1147
+      ]
+    },
+    {
+      "name": "Write blog postEst: 1hTaken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1173,
+        1370,
+        1334
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1173,
+        1370,
+        1334
+      ]
+    },
+    {
+      "name": "Write blog post",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1062,
+        1185,
+        1169,
+        1206
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1243,
+        1218,
+        1259,
+        1235
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1258,
+        1218,
+        1265,
+        1235
+      ]
+    },
+    {
+      "name": "1h",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1264,
+        1218,
+        1278,
+        1235
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1304,
+        1218,
+        1335,
+        1235
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1334,
+        1218,
+        1341,
+        1235
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1340,
+        1218,
+        1357,
+        1235
+      ]
+    },
+    {
+      "name": "Expand notes for Write blog post",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1251,
+        1357,
+        1280
+      ]
+    },
+    {
+      "name": "Expand subtasks for Write blog post",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1292,
+        1357,
+        1321
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1070,
+        1298,
+        1117,
+        1315
+      ]
+    },
+    {
+      "name": "Prepare slidesEst: \u2014Taken: 0mAdd notesSubtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1341,
+        1370,
+        1502
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1341,
+        1370,
+        1502
+      ]
+    },
+    {
+      "name": "Prepare slides",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1062,
+        1353,
+        1157,
+        1374
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1243,
+        1386,
+        1259,
+        1403
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1258,
+        1386,
+        1265,
+        1403
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1264,
+        1386,
+        1277,
+        1403
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1304,
+        1386,
+        1335,
+        1403
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1334,
+        1386,
+        1341,
+        1403
+      ]
+    },
+    {
+      "name": "0m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1340,
+        1386,
+        1357,
+        1403
+      ]
+    },
+    {
+      "name": "Expand notes for Prepare slides",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1419,
+        1357,
+        1448
+      ]
+    },
+    {
+      "name": "Expand subtasks for Prepare slides",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1038,
+        1460,
+        1357,
+        1489
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1070,
+        1466,
+        1117,
+        1483
+      ]
+    },
+    {
+      "name": "Add task to Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1511,
+        1104,
+        1540
+      ]
+    },
+    {
+      "name": "Blitz entry",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1561,
+        1370,
+        1630
+      ]
+    },
+    {
+      "name": "Blitz now",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1561,
+        1370,
+        1606
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1613,
+        1370,
+        1630
+      ]
+    },
+    {
+      "name": "Blitz started.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1023,
+        1613,
+        1088,
+        1630
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1395,
+        199,
+        1768,
+        539
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        212,
+        1755,
+        257
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        212,
+        1535,
+        233
+      ]
+    },
+    {
+      "name": "1 completed this month",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        236,
+        1535,
+        253
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1710,
+        216,
+        1732,
+        233
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1731,
+        216,
+        1755,
+        233
+      ]
+    },
+    {
+      "name": "Oct 16, 2026 \u00b7 1 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        312,
+        1755,
+        338
+      ]
+    },
+    {
+      "name": "Call with PeteEst: 20mTaken: 1mAdd notes4/5 Subtasks",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        349,
+        1755,
+        510
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1408,
+        349,
+        1755,
+        510
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1447,
+        361,
+        1540,
+        382
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1628,
+        394,
+        1644,
+        411
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1643,
+        394,
+        1650,
+        411
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1649,
+        394,
+        1673,
+        411
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1689,
+        394,
+        1720,
+        411
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1719,
+        394,
+        1726,
+        411
+      ]
+    },
+    {
+      "name": "1m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1725,
+        394,
+        1742,
+        411
+      ]
+    },
+    {
+      "name": "Expand notes for Call with Pete",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        427,
+        1742,
+        456
+      ]
+    },
+    {
+      "name": "Expand subtasks for Call with Pete",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1423,
+        468,
+        1742,
+        497
+      ]
+    },
+    {
+      "name": "4/5 Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1455,
+        474,
+        1523,
+        491
+      ]
+    },
+    {
+      "name": "M5MonthlyCheck",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        564,
+        51,
+        1236,
+        1012
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        565,
+        52,
+        1220,
+        134
+      ]
+    },
+    {
+      "name": "SCHEDULE / REPEAT",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        585,
+        72,
+        712,
+        88
+      ]
+    },
+    {
+      "name": "M5MonthlyCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        585,
+        92,
+        714,
+        113
+      ]
+    },
+    {
+      "name": "Close scheduling editor",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1168,
+        76,
+        1200,
+        109
+      ]
+    },
+    {
+      "name": "",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        605,
+        -309,
+        1180,
+        -265
+      ]
+    },
+    {
+      "name": "Choose a valid recurrence interval, pattern, start date and optional local time.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        618,
+        -296,
+        1025,
+        -279
+      ]
+    },
+    {
+      "name": " PICK DATE",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        585,
+        -234,
+        700,
+        -198
+      ]
+    },
+    {
+      "name": "Schedule",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        585,
+        -183,
+        1200,
+        200
+      ]
+    },
+    {
+      "name": "Schedule",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        602,
+        -166,
+        803,
+        -144
+      ]
+    },
+    {
+      "name": "Nov 8, 2026, 9:00 AM \u00b7 Europe/Athens",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        602,
+        -141,
+        803,
+        -124
+      ]
+    },
+    {
+      "name": "Unscheduled",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1062,
+        -166,
+        1183,
+        -133
+      ]
+    },
+    {
+      "name": "Nov 8, 2026, 9:00 AM \u00b7 Europe/Athens",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        615,
+        -98,
+        903,
+        -76
+      ]
+    },
+    {
+      "name": "Add Time",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        602,
+        -42,
+        653,
+        -25
+      ]
+    },
+    {
+      "name": " REMOVE",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1072,
+        -50,
+        1183,
+        -17
+      ]
+    },
+    {
+      "name": "Local time in hours minutes and AM or PM",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        -2,
+        1183,
+        90
+      ]
+    },
+    {
+      "name": "Hour",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        615,
+        11,
+        642,
+        28
+      ]
+    },
+    {
+      "name": "Schedule hour",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        615,
+        35,
+        792,
+        77
+      ],
+      "value": "09"
+    },
+    {
+      "name": "Minute",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        804,
+        11,
+        842,
+        28
+      ]
+    },
+    {
+      "name": "Schedule minute",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        804,
+        35,
+        981,
+        77
+      ],
+      "value": "00"
+    },
+    {
+      "name": "AM / PM",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        993,
+        11,
+        1041,
+        28
+      ]
+    },
+    {
+      "name": "Schedule AM or PM",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        993,
+        35,
+        1170,
+        77
+      ],
+      "value": "AM"
+    },
+    {
+      "name": "Timed schedules use ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        109,
+        715,
+        126
+      ]
+    },
+    {
+      "name": "Europe/Athens",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        714,
+        109,
+        794,
+        126
+      ]
+    },
+    {
+      "name": ". Date-only schedules never round-trip through UTC.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        793,
+        109,
+        1071,
+        126
+      ]
+    },
+    {
+      "name": "Save schedule",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1047,
+        143,
+        1183,
+        183
+      ]
+    },
+    {
+      "name": "Repeat",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        585,
+        215,
+        1200,
+        924
+      ]
+    },
+    {
+      "name": "Repeat",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        232,
+        1104,
+        253
+      ]
+    },
+    {
+      "name": "Create a recurring parent. Due children are materialized by the authoritative recurrence engine.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        256,
+        1104,
+        273
+      ]
+    },
+    {
+      "name": "Pattern",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        290,
+        640,
+        307
+      ]
+    },
+    {
+      "name": "Pattern",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        314,
+        1183,
+        356
+      ],
+      "value": "Custom"
+    },
+    {
+      "name": "Starts",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        367,
+        632,
+        384
+      ]
+    },
+    {
+      "name": "Starts",
+      "type": 50004,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        391,
+        1183,
+        433
+      ],
+      "value": "2026-11-08"
+    },
+    {
+      "name": "Month Starts",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        615,
+        400,
+        630,
+        424
+      ],
+      "value": "11"
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        629,
+        401,
+        637,
+        423
+      ]
+    },
+    {
+      "name": "Day Starts",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        636,
+        400,
+        657,
+        424
+      ],
+      "value": "08"
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        656,
+        401,
+        663,
+        423
+      ]
+    },
+    {
+      "name": "Year Starts",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        662,
+        400,
+        701,
+        424
+      ],
+      "value": "2026"
+    },
+    {
+      "name": "Show date picker Starts",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1150,
+        402,
+        1170,
+        423
+      ]
+    },
+    {
+      "name": "Every",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        444,
+        631,
+        461
+      ]
+    },
+    {
+      "name": "Every",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        469,
+        887,
+        510
+      ],
+      "value": "4"
+    },
+    {
+      "name": "Unit",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        898,
+        444,
+        921,
+        461
+      ]
+    },
+    {
+      "name": "Unit",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        898,
+        468,
+        1183,
+        510
+      ],
+      "value": "Month(s)"
+    },
+    {
+      "name": "Monthly selector",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        521,
+        691,
+        538
+      ]
+    },
+    {
+      "name": "Monthly selector",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        546,
+        887,
+        588
+      ],
+      "value": "Nth weekday of month"
+    },
+    {
+      "name": "Week of month",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        898,
+        521,
+        981,
+        538
+      ]
+    },
+    {
+      "name": "Week of month",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        898,
+        546,
+        1183,
+        588
+      ],
+      "value": "2nd"
+    },
+    {
+      "name": "Weekday",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        599,
+        651,
+        616
+      ]
+    },
+    {
+      "name": "Weekday",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        623,
+        887,
+        665
+      ],
+      "value": "Sunday"
+    },
+    {
+      "name": "Use a local occurrence time",
+      "type": 50002,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        606,
+        678,
+        622,
+        695
+      ],
+      "toggle": 1,
+      "value": ""
+    },
+    {
+      "name": "Use a local occurrence time",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        633,
+        676,
+        827,
+        698
+      ]
+    },
+    {
+      "name": "Occurrence time",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        710,
+        690,
+        727
+      ]
+    },
+    {
+      "name": "Occurrence time",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        734,
+        1183,
+        777
+      ],
+      "value": ""
+    },
+    {
+      "name": "Hours Occurrence time",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        615,
+        743,
+        635,
+        767
+      ],
+      "value": "09"
+    },
+    {
+      "name": ":",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        634,
+        744,
+        639,
+        766
+      ]
+    },
+    {
+      "name": "Minutes Occurrence time",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        638,
+        743,
+        654,
+        767
+      ],
+      "value": "0"
+    },
+    {
+      "name": " ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        653,
+        744,
+        658,
+        766
+      ]
+    },
+    {
+      "name": "AM/PM Occurrence time",
+      "type": 50016,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        657,
+        743,
+        673,
+        767
+      ],
+      "value": "0"
+    },
+    {
+      "name": "Show time picker Occurrence time",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1146,
+        743,
+        1170,
+        768
+      ]
+    },
+    {
+      "name": "Timed occurrences use Europe/Athens.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        602,
+        792,
+        808,
+        809
+      ]
+    },
+    {
+      "name": "Every 4 months on the 2nd Sunday",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        615,
+        830,
+        800,
+        847
+      ]
+    },
+    {
+      "name": "Create recurrence",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        1021,
+        867,
+        1183,
+        907
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        565,
+        939,
+        1220,
+        1011
+      ]
+    },
+    {
+      "name": "Cancel",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1118,
+        952,
+        1200,
+        991
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        976,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        872,
+        985,
+        1000,
+        1025
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1008,
+        985,
+        1136,
+        1025
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        8,
+        30,
+        30
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1653,
+        1,
+        1700,
+        31
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1700,
+        1,
+        1746,
+        31
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1746,
+        1,
+        1793,
+        31
+      ]
+    }
+  ]
+}

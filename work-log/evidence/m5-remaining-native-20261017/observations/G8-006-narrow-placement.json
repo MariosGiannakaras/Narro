@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-17T02:01:28.841927+00:00",
+  "label": "G8-006-narrow",
+  "hwnd": 6819644,
+  "before": {
+    "hwnd": 6819644,
+    "title": "Narro",
+    "pid": 24412,
+    "rect": [
+      0,
+      0,
+      1800,
+      1040
+    ]
+  },
+  "requested": [
+    0,
+    0,
+    900,
+    1000
+  ],
+  "actual": [
+    0,
+    0,
+    900,
+    1000
+  ],
+  "scope": "owned Main only; no display/primary/DPI/topology change"
+}

@@ -1,0 +1,3002 @@
+{
+  "utc": "2026-10-17T01:58:15.907958+00:00",
+  "label": "G5-018-children-first",
+  "passiveOnly": true,
+  "windows": [
+    {
+      "window": {
+        "hwnd": 6819644,
+        "title": "Narro",
+        "pid": 24412,
+        "rect": [
+          0,
+          0,
+          1800,
+          1040
+        ]
+      },
+      "facts": {
+        "utc": "2026-10-17T01:58:16.547854+00:00",
+        "hwnd": 6819644,
+        "dpi": 96,
+        "outer": [
+          0,
+          0,
+          1800,
+          1040
+        ],
+        "clientSize": [
+          1784,
+          1001
+        ],
+        "clientOrigin": [
+          8,
+          31
+        ],
+        "virtualDesktop": [
+          0,
+          0,
+          2560,
+          1080
+        ]
+      },
+      "uia": {
+        "utc": "2026-10-17T01:58:16.434545+00:00",
+        "hwnd": 6819644,
+        "controls": [
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              8,
+              31,
+              1792,
+              1032
+            ]
+          },
+          {
+            "name": "List navigation",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              8,
+              31,
+              216,
+              1032
+            ]
+          },
+          {
+            "name": "Narro",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              20,
+              51,
+              203,
+              99
+            ]
+          },
+          {
+            "name": "Narro",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              68,
+              56,
+              110,
+              77
+            ]
+          },
+          {
+            "name": "Lists",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              20,
+              99,
+              203,
+              248
+            ]
+          },
+          {
+            "name": "+ Create new list",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              20,
+              99,
+              203,
+              139
+            ]
+          },
+          {
+            "name": "All my lists",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              20,
+              164,
+              203,
+              204
+            ]
+          },
+          {
+            "name": "Archived lists",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              20,
+              208,
+              203,
+              248
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              216,
+              31,
+              1792,
+              95
+            ]
+          },
+          {
+            "name": "Utilities",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1599,
+              42,
+              1772,
+              83
+            ]
+          },
+          {
+            "name": "Search",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1599,
+              42,
+              1680,
+              83
+            ]
+          },
+          {
+            "name": "Settings",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1687,
+              42,
+              1772,
+              83
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              216,
+              95,
+              1792,
+              976
+            ]
+          },
+          {
+            "name": "PA360 Board",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              240,
+              -1057,
+              1768,
+              1552
+            ]
+          },
+          {
+            "name": "Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              239,
+              119,
+              1158,
+              140
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              239,
+              118,
+              240,
+              119
+            ]
+          },
+          {
+            "name": "Task recurrence created.",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              239,
+              119,
+              409,
+              140
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              240,
+              -1057,
+              1768,
+              -996
+            ]
+          },
+          {
+            "name": "PLANNING",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              264,
+              -1046,
+              333,
+              -1029
+            ]
+          },
+          {
+            "name": "PA360 Board",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              264,
+              -1026,
+              404,
+              -996
+            ]
+          },
+          {
+            "name": "List",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1216,
+              -1057,
+              1234,
+              -1041
+            ]
+          },
+          {
+            "name": "Planning list",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1216,
+              -1037,
+              1400,
+              -996
+            ]
+          },
+          {
+            "name": "Plan this list across Backlog, This Week, Today, and Done.",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1443,
+              -1044,
+              1768,
+              -998
+            ]
+          },
+          {
+            "name": "Backlog",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              240,
+              -977,
+              613,
+              -445
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -964,
+              600,
+              -919
+            ]
+          },
+          {
+            "name": "Backlog",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -964,
+              311,
+              -943
+            ]
+          },
+          {
+            "name": "0 tasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -940,
+              290,
+              -923
+            ]
+          },
+          {
+            "name": "Est: ",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              566,
+              -960,
+              588,
+              -943
+            ]
+          },
+          {
+            "name": "\u2014",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              588,
+              -960,
+              600,
+              -943
+            ]
+          },
+          {
+            "name": "Add task to top of Backlog",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -911,
+              348,
+              -882
+            ]
+          },
+          {
+            "name": "Recurring tasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -864,
+              600,
+              -838
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckWeekdays \u00b7 EditEst:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -827,
+              600,
+              -666
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -827,
+              600,
+              -666
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              292,
+              -814,
+              479,
+              -794
+            ]
+          },
+          {
+            "name": "Weekdays \u00b7 Edit",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -786,
+              449,
+              -761
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              456,
+              -786,
+              518,
+              -761
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              525,
+              -786,
+              587,
+              -761
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -749,
+              587,
+              -720
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -708,
+              587,
+              -679
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              300,
+              -702,
+              347,
+              -685
+            ]
+          },
+          {
+            "name": "M5MonthlyCheckCustom \u00b7 EditEst:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -659,
+              600,
+              -498
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -659,
+              600,
+              -498
+            ]
+          },
+          {
+            "name": "Edit task title: M5MonthlyCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              292,
+              -646,
+              479,
+              -626
+            ]
+          },
+          {
+            "name": "Custom \u00b7 Edit",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -618,
+              449,
+              -593
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              456,
+              -618,
+              518,
+              -593
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              525,
+              -618,
+              587,
+              -593
+            ]
+          },
+          {
+            "name": "Expand notes for M5MonthlyCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -581,
+              587,
+              -552
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5MonthlyCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              268,
+              -540,
+              587,
+              -511
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              300,
+              -534,
+              347,
+              -517
+            ]
+          },
+          {
+            "name": "Add task to Backlog",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              253,
+              -489,
+              334,
+              -460
+            ]
+          },
+          {
+            "name": "This Week",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              625,
+              -977,
+              998,
+              -661
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -964,
+              985,
+              -890
+            ]
+          },
+          {
+            "name": "This Week",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -964,
+              713,
+              -943
+            ]
+          },
+          {
+            "name": "0 tasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -940,
+              675,
+              -923
+            ]
+          },
+          {
+            "name": "0 of 0 tasks done",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -915,
+              713,
+              -890
+            ]
+          },
+          {
+            "name": "0",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -907,
+              645,
+              -890
+            ]
+          },
+          {
+            "name": "/",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              644,
+              -907,
+              650,
+              -890
+            ]
+          },
+          {
+            "name": "0",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              649,
+              -907,
+              656,
+              -890
+            ]
+          },
+          {
+            "name": " Done",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              655,
+              -907,
+              688,
+              -890
+            ]
+          },
+          {
+            "name": "Est: ",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              951,
+              -960,
+              973,
+              -943
+            ]
+          },
+          {
+            "name": "\u2014",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              973,
+              -960,
+              985,
+              -943
+            ]
+          },
+          {
+            "name": "Add task to top of This Week",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -882,
+              733,
+              -853
+            ]
+          },
+          {
+            "name": "All Clear",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              789,
+              -811,
+              834,
+              -794
+            ]
+          },
+          {
+            "name": "Add task to This Week",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              638,
+              -705,
+              719,
+              -676
+            ]
+          },
+          {
+            "name": "Today",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1010,
+              -977,
+              1383,
+              1552
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -964,
+              1370,
+              -890
+            ]
+          },
+          {
+            "name": "Today",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -964,
+              1079,
+              -943
+            ]
+          },
+          {
+            "name": "12 tasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -940,
+              1066,
+              -923
+            ]
+          },
+          {
+            "name": "0 of 12 tasks done",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -915,
+              1079,
+              -890
+            ]
+          },
+          {
+            "name": "0",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -907,
+              1030,
+              -890
+            ]
+          },
+          {
+            "name": "/",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1029,
+              -907,
+              1035,
+              -890
+            ]
+          },
+          {
+            "name": "12",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1034,
+              -907,
+              1048,
+              -890
+            ]
+          },
+          {
+            "name": " Done",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1047,
+              -907,
+              1079,
+              -890
+            ]
+          },
+          {
+            "name": "Est: ",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1309,
+              -960,
+              1331,
+              -943
+            ]
+          },
+          {
+            "name": "3h 58m",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1330,
+              -960,
+              1370,
+              -943
+            ]
+          },
+          {
+            "name": "Add task to top of Today",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -882,
+              1118,
+              -853
+            ]
+          },
+          {
+            "name": "M5FocusCheckLive \u00b7 PausedEst:25mTaken:7mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -843,
+              1370,
+              -682
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -843,
+              1370,
+              -682
+            ]
+          },
+          {
+            "name": "Complete task: M5FocusCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              347,
+              1054,
+              364
+            ]
+          },
+          {
+            "name": "M5FocusCheck",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              -831,
+              1164,
+              -810
+            ]
+          },
+          {
+            "name": "Live \u00b7 Paused",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -798,
+              1108,
+              -781
+            ]
+          },
+          {
+            "name": "Edit Est: 25m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1227,
+              -802,
+              1289,
+              -777
+            ]
+          },
+          {
+            "name": "Edit Taken: 7m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1296,
+              -802,
+              1357,
+              -777
+            ]
+          },
+          {
+            "name": "Expand notes for M5FocusCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -765,
+              1357,
+              -736
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5FocusCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -724,
+              1357,
+              -695
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              -718,
+              1117,
+              -701
+            ]
+          },
+          {
+            "name": "Parser off 30 mSchedule / RepeatEst:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -675,
+              1370,
+              -514
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -675,
+              1370,
+              -514
+            ]
+          },
+          {
+            "name": "Complete task: Parser off 30 m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              515,
+              1054,
+              532
+            ]
+          },
+          {
+            "name": "Edit task title: Parser off 30 m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              -662,
+              1249,
+              -642
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -634,
+              1219,
+              -609
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              -634,
+              1288,
+              -609
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              -634,
+              1357,
+              -609
+            ]
+          },
+          {
+            "name": "Expand notes for Parser off 30 m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -597,
+              1357,
+              -568
+            ]
+          },
+          {
+            "name": "Expand subtasks for Parser off 30 m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -556,
+              1357,
+              -527
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              -550,
+              1117,
+              -533
+            ]
+          },
+          {
+            "name": "Manual override 1 HRSchedule / RepeatEst:30mTaken:5mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -507,
+              1370,
+              -346
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -507,
+              1370,
+              -346
+            ]
+          },
+          {
+            "name": "Complete task: Manual override 1 HR",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              683,
+              1054,
+              700
+            ]
+          },
+          {
+            "name": "Edit task title: Manual override 1 HR",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              -494,
+              1249,
+              -474
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -466,
+              1219,
+              -441
+            ]
+          },
+          {
+            "name": "Edit Est: 30m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              -466,
+              1288,
+              -441
+            ]
+          },
+          {
+            "name": "Edit Taken: 5m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              -466,
+              1357,
+              -441
+            ]
+          },
+          {
+            "name": "Expand notes for Manual override 1 HR",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -429,
+              1357,
+              -400
+            ]
+          },
+          {
+            "name": "Expand subtasks for Manual override 1 HR",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -388,
+              1357,
+              -359
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              -382,
+              1117,
+              -365
+            ]
+          },
+          {
+            "name": "Invalid suffix 3 bananasSchedule / RepeatEst:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -339,
+              1370,
+              -178
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -339,
+              1370,
+              -178
+            ]
+          },
+          {
+            "name": "Complete task: Invalid suffix 3 bananas",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -925,
+              1054,
+              -908
+            ]
+          },
+          {
+            "name": "Edit task title: Invalid suffix 3 bananas",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              -326,
+              1249,
+              -306
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -298,
+              1219,
+              -273
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              -298,
+              1288,
+              -273
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              -298,
+              1357,
+              -273
+            ]
+          },
+          {
+            "name": "Expand notes for Invalid suffix 3 bananas",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -261,
+              1357,
+              -232
+            ]
+          },
+          {
+            "name": "Expand subtasks for Invalid suffix 3 bananas",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -220,
+              1357,
+              -191
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              -214,
+              1117,
+              -197
+            ]
+          },
+          {
+            "name": "Email campaignSchedule / RepeatEst:2h 15mTaken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -171,
+              1370,
+              -10
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              -171,
+              1370,
+              -10
+            ]
+          },
+          {
+            "name": "Complete task: Email campaign",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              1019,
+              1054,
+              1036
+            ]
+          },
+          {
+            "name": "Edit task title: Email campaign",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              -158,
+              1249,
+              -138
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -130,
+              1202,
+              -105
+            ]
+          },
+          {
+            "name": "Edit Est: 2h 15m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1209,
+              -130,
+              1280,
+              -105
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1287,
+              -130,
+              1357,
+              -105
+            ]
+          },
+          {
+            "name": "Expand notes for Email campaign",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -93,
+              1357,
+              -64
+            ]
+          },
+          {
+            "name": "Expand subtasks for Email campaign",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              -52,
+              1357,
+              -23
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              -46,
+              1117,
+              -29
+            ]
+          },
+          {
+            "name": "Write blog postSchedule / RepeatEst:1hTaken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              -3,
+              1370,
+              158
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              -3,
+              1370,
+              158
+            ]
+          },
+          {
+            "name": "Complete task: Write blog post",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1187,
+              1054,
+              1204
+            ]
+          },
+          {
+            "name": "Edit task title: Write blog post",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              10,
+              1249,
+              30
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              38,
+              1219,
+              63
+            ]
+          },
+          {
+            "name": "Edit Est: 1h",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              38,
+              1288,
+              63
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              38,
+              1357,
+              63
+            ]
+          },
+          {
+            "name": "Expand notes for Write blog post",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              75,
+              1357,
+              104
+            ]
+          },
+          {
+            "name": "Expand subtasks for Write blog post",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              116,
+              1357,
+              145
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1070,
+              122,
+              1117,
+              139
+            ]
+          },
+          {
+            "name": "Prepare slidesSchedule / RepeatEst:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              165,
+              1370,
+              326
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              165,
+              1370,
+              326
+            ]
+          },
+          {
+            "name": "Complete task: Prepare slides",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1355,
+              1054,
+              1372
+            ]
+          },
+          {
+            "name": "Edit task title: Prepare slides",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1062,
+              178,
+              1249,
+              198
+            ]
+          },
+          {
+            "name": "Schedule / Repeat",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              206,
+              1219,
+              231
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1226,
+              206,
+              1288,
+              231
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1295,
+              206,
+              1357,
+              231
+            ]
+          },
+          {
+            "name": "Expand notes for Prepare slides",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              243,
+              1357,
+              272
+            ]
+          },
+          {
+            "name": "Expand subtasks for Prepare slides",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              284,
+              1357,
+              313
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1070,
+              290,
+              1117,
+              307
+            ]
+          },
+          {
+            "name": "5 Scheduled tasks today",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              341,
+              1370,
+              367
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckOverdue \u00b7 OccurrenceOct 12, 2026Est:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              378,
+              1370,
+              579
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              378,
+              1370,
+              579
+            ]
+          },
+          {
+            "name": "Complete task: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              392,
+              1054,
+              409
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1062,
+              391,
+              1249,
+              412
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1261,
+              387,
+              1277,
+              416
+            ]
+          },
+          {
+            "name": "Notes",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1281,
+              387,
+              1297,
+              416
+            ]
+          },
+          {
+            "name": "Task actions",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1341,
+              387,
+              1357,
+              416
+            ]
+          },
+          {
+            "name": "Edit task schedule: Oct 12, 2026, Occurrence",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              419,
+              1357,
+              452
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1226,
+              459,
+              1288,
+              484
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1295,
+              459,
+              1357,
+              484
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              496,
+              1357,
+              525
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              537,
+              1357,
+              566
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1070,
+              543,
+              1117,
+              560
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckOverdue \u00b7 OccurrenceOct 13, 2026Est:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              586,
+              1370,
+              787
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              586,
+              1370,
+              787
+            ]
+          },
+          {
+            "name": "Complete task: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1776,
+              1054,
+              1793
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1062,
+              599,
+              1249,
+              620
+            ]
+          },
+          {
+            "name": "Edit task schedule: Oct 13, 2026, Occurrence",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              627,
+              1357,
+              660
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1226,
+              667,
+              1288,
+              692
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1295,
+              667,
+              1357,
+              692
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              704,
+              1357,
+              733
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              745,
+              1357,
+              774
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1070,
+              751,
+              1117,
+              768
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckOverdue \u00b7 OccurrenceOct 14, 2026Est:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              794,
+              1370,
+              995
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1023,
+              794,
+              1370,
+              995
+            ]
+          },
+          {
+            "name": "Complete task: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1984,
+              1054,
+              2001
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1062,
+              807,
+              1249,
+              828
+            ]
+          },
+          {
+            "name": "Edit task schedule: Oct 14, 2026, Occurrence",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              835,
+              1357,
+              868
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1226,
+              875,
+              1288,
+              900
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1295,
+              875,
+              1357,
+              900
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              912,
+              1357,
+              941
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1038,
+              953,
+              1357,
+              982
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1070,
+              959,
+              1117,
+              976
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckOverdue \u00b7 OccurrenceOct 15, 2026Est:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1002,
+              1370,
+              1203
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1002,
+              1370,
+              1203
+            ]
+          },
+          {
+            "name": "Complete task: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              2192,
+              1054,
+              2209
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              1015,
+              1249,
+              1036
+            ]
+          },
+          {
+            "name": "Edit task schedule: Oct 15, 2026, Occurrence",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1043,
+              1357,
+              1076
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              1083,
+              1288,
+              1108
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              1083,
+              1357,
+              1108
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1120,
+              1357,
+              1149
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1161,
+              1357,
+              1190
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              1167,
+              1117,
+              1184
+            ]
+          },
+          {
+            "name": "M5WeekdayCheckOverdue \u00b7 OccurrenceOct 16, 2026Est:\u2014Taken:0mAdd notesSubtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1210,
+              1370,
+              1411
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1210,
+              1370,
+              1411
+            ]
+          },
+          {
+            "name": "Complete task: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              2400,
+              1054,
+              2417
+            ]
+          },
+          {
+            "name": "Edit task title: M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1062,
+              1223,
+              1249,
+              1244
+            ]
+          },
+          {
+            "name": "Edit task schedule: Oct 16, 2026, Occurrence",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1251,
+              1357,
+              1284
+            ]
+          },
+          {
+            "name": "Edit Est: \u2014",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1226,
+              1291,
+              1288,
+              1316
+            ]
+          },
+          {
+            "name": "Edit Taken: 0m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1295,
+              1291,
+              1357,
+              1316
+            ]
+          },
+          {
+            "name": "Expand notes for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1328,
+              1357,
+              1357
+            ]
+          },
+          {
+            "name": "Expand subtasks for M5WeekdayCheck",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1038,
+              1369,
+              1357,
+              1398
+            ]
+          },
+          {
+            "name": "Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1070,
+              1375,
+              1117,
+              1392
+            ]
+          },
+          {
+            "name": "Add task to Today",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1421,
+              1104,
+              1450
+            ]
+          },
+          {
+            "name": "Blitz entry",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1470,
+              1370,
+              1539
+            ]
+          },
+          {
+            "name": "Blitz now",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1470,
+              1370,
+              1515
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1522,
+              1370,
+              1539
+            ]
+          },
+          {
+            "name": "Blitz started.",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1023,
+              1522,
+              1088,
+              1539
+            ]
+          },
+          {
+            "name": "Done",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1395,
+              -977,
+              1768,
+              -637
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -964,
+              1755,
+              -919
+            ]
+          },
+          {
+            "name": "Done",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -964,
+              1535,
+              -943
+            ]
+          },
+          {
+            "name": "1 completed this month",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -940,
+              1535,
+              -923
+            ]
+          },
+          {
+            "name": "Est: ",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1710,
+              -960,
+              1732,
+              -943
+            ]
+          },
+          {
+            "name": "20m",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1731,
+              -960,
+              1755,
+              -943
+            ]
+          },
+          {
+            "name": "Oct 16, 2026 \u00b7 1 Done",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -864,
+              1755,
+              -838
+            ]
+          },
+          {
+            "name": "Call with PeteEst:20mTaken:1mAdd notes4/5 Subtasks",
+            "type": 50007,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -827,
+              1755,
+              -666
+            ]
+          },
+          {
+            "name": "",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1408,
+              -827,
+              1755,
+              -666
+            ]
+          },
+          {
+            "name": "Edit task title: Call with Pete",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1447,
+              -814,
+              1634,
+              -794
+            ]
+          },
+          {
+            "name": "Edit Est: 20m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1611,
+              -786,
+              1673,
+              -761
+            ]
+          },
+          {
+            "name": "Edit Taken: 1m",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1680,
+              -786,
+              1742,
+              -761
+            ]
+          },
+          {
+            "name": "Expand notes for Call with Pete",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1423,
+              -749,
+              1742,
+              -720
+            ]
+          },
+          {
+            "name": "Expand subtasks for Call with Pete",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1423,
+              -708,
+              1742,
+              -679
+            ]
+          },
+          {
+            "name": "4/5 Subtasks",
+            "type": 50020,
+            "enabled": true,
+            "offscreen": true,
+            "focused": false,
+            "rect": [
+              1455,
+              -702,
+              1523,
+              -685
+            ]
+          },
+          {
+            "name": "Primary",
+            "type": 50026,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              216,
+              976,
+              1792,
+              1032
+            ]
+          },
+          {
+            "name": "Home",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              872,
+              985,
+              1000,
+              1025
+            ]
+          },
+          {
+            "name": "Reports",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1008,
+              985,
+              1136,
+              1025
+            ]
+          },
+          {
+            "name": "System",
+            "type": 50011,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              8,
+              8,
+              30,
+              30
+            ]
+          },
+          {
+            "name": "Minimize",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1653,
+              1,
+              1700,
+              31
+            ]
+          },
+          {
+            "name": "Maximize",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1700,
+              1,
+              1746,
+              31
+            ]
+          },
+          {
+            "name": "Close",
+            "type": 50000,
+            "enabled": true,
+            "offscreen": false,
+            "focused": false,
+            "rect": [
+              1746,
+              1,
+              1793,
+              31
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
