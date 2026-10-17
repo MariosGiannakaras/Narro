@@ -176,7 +176,12 @@ fn prepare_patch(patch: PreferenceSettingsPatch) -> CommandResult<PreparedPatch>
     // Validate at the Rust command boundary as well as in the UI: direct typed
     // patches must never persist an unknown IANA zone. Empty/whitespace means
     // Automatic (follow Windows) and remains a supported clear operation.
-    if let Some(timezone) = patch.timezone.as_deref().map(str::trim).filter(|zone| !zone.is_empty()) {
+    if let Some(timezone) = patch
+        .timezone
+        .as_deref()
+        .map(str::trim)
+        .filter(|zone| !zone.is_empty())
+    {
         crate::scheduling::validate_timezone_identifier(timezone).map_err(|_| {
             CommandError::invalid_argument(
                 "patch.timezone",
@@ -571,7 +576,10 @@ mod tests {
         })
         .expect("unrelated patch must not invalidate a pre-existing legacy setting");
         apply_patch(&mut payload, &unrelated);
-        assert_eq!(payload.general.timezone.as_deref(), Some("Mars/PreviouslySaved"));
+        assert_eq!(
+            payload.general.timezone.as_deref(),
+            Some("Mars/PreviouslySaved")
+        );
         assert!(!payload.shortcuts.go_to_narro_enabled);
 
         for zone in ["Europe/Athens", "America/New_York", "UTC", "  Europe/Athens  "] {
