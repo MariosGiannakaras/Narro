@@ -1,0 +1,77 @@
+{
+  "referenceCI": {
+    "source": "560efeb076d2ec167232b9d86aa3354f6893214b",
+    "ci": 38894130069,
+    "artifact": 12043124219,
+    "providerSha256": "a4c7cb8e1b8ed9ed28bf4ba5520e8f916c0157713f10bfc2e30104fd0dcbf115",
+    "zipCrc": "PASS",
+    "entries": 380,
+    "m7Files": [
+      "focus-editor-m7-integration-dark-reduced.html",
+      "focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+      "focus-editor-m7-integration-dark-reduced.png",
+      "focus-editor-m7-integration-dark.html",
+      "focus-editor-m7-integration-dark.html.diagnostics.json",
+      "focus-editor-m7-integration-dark.png",
+      "focus-editor-m7-integration-light-reduced.html",
+      "focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+      "focus-editor-m7-integration-light-reduced.png",
+      "focus-editor-m7-integration-light.html",
+      "focus-editor-m7-integration-light.html.diagnostics.json",
+      "focus-editor-m7-integration-light.png"
+    ],
+    "claim": "CI acquisition evidence only; full CI/native approval still pending"
+  },
+  "candidate": "b11c80bb43e11ee438698450377beea0b31933c1",
+  "unchangedInputs": [
+    {
+      "path": "src/ArchivedDoneTasksPanel.tsx",
+      "acceptedCI560Blob": "3c8f726c544f21c0ef8a01a68f78dfc8979f4402",
+      "PR364b11Blob": "3c8f726c544f21c0ef8a01a68f78dfc8979f4402",
+      "identical": true
+    },
+    {
+      "path": "src/ArchivePanel.tsx",
+      "acceptedCI560Blob": "4d6550f37d501f6cd9a201691432245559196de3",
+      "PR364b11Blob": "4d6550f37d501f6cd9a201691432245559196de3",
+      "identical": true
+    },
+    {
+      "path": "src/archivePanel.css",
+      "acceptedCI560Blob": "a95b7ae1f5eef8895f10fd81bfad7325f10610aa",
+      "PR364b11Blob": "a95b7ae1f5eef8895f10fd81bfad7325f10610aa",
+      "identical": true
+    },
+    {
+      "path": "src/archiveVisualFixture.tsx",
+      "acceptedCI560Blob": "bbcc8ab05b94d5532fdef7337b910ba9e5fa2d84",
+      "PR364b11Blob": "bbcc8ab05b94d5532fdef7337b910ba9e5fa2d84",
+      "identical": true
+    },
+    {
+      "path": "src/listSettingsApi.ts",
+      "acceptedCI560Blob": "33cca0aa08804b458667d6e2ee5f3bfa21c90aa3",
+      "PR364b11Blob": "33cca0aa08804b458667d6e2ee5f3bfa21c90aa3",
+      "identical": true
+    },
+    {
+      "path": "src/ListMutationConfirmDialog.tsx",
+      "acceptedCI560Blob": "1f2194c48b2abde5cfad5994a2290c7c992bf534",
+      "PR364b11Blob": "1f2194c48b2abde5cfad5994a2290c7c992bf534",
+      "identical": true
+    },
+    {
+      "path": "src/listMutationConfirmDialog.css",
+      "acceptedCI560Blob": "a8eefd4eddff65e8d9cea78ba33fb19044294e03",
+      "PR364b11Blob": "a8eefd4eddff65e8d9cea78ba33fb19044294e03",
+      "identical": true
+    },
+    {
+      "path": "src/AppShell.tsx",
+      "acceptedCI560Blob": "a88ebc6c1dc386d396daff093697d2f4a0b2d99e",
+      "PR364b11Blob": "a88ebc6c1dc386d396daff093697d2f4a0b2d99e",
+      "identical": true
+    }
+  ],
+  "reusedClaim": "ArchivedDone five-column/source-visible control anatomy only; not new native physical deletion or full shell pixel equality"
+}
