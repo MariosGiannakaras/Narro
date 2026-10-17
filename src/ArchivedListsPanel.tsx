@@ -119,9 +119,11 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </header>
       )}
 
-      <p className="archived-lists-panel__scope-note">
-        Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
-      </p>
+      {lists?.length === 0 ? null : (
+        <p className="archived-lists-panel__scope-note">
+          Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
+        </p>
+      )}
 
       {loadError ? <div className="archived-lists-panel__error" role="alert">{loadError}</div> : null}
 
