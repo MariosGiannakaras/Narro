@@ -10,11 +10,13 @@ PR365 resulting-main `a76050afe69d24585611b163c667974b0f4b545f` / run `390184171
 
 M6 B50 contextual five-action row is already merged in PR299 (head `6ba29b7`, PR run `37996271400` 3/3 PASS, main merge `308c7468` / push run `37999557327` 3/3 PASS). M6 B67 negative signed overtime is already merged in PR280 (head `b3eff7a`, PR run `38004842175` 3/3 PASS, main merge `c1633c9` / push run `38028247428` 3/3 PASS). Original exact physical/source parity and Finding35 remain separate OPEN, no new implementation branch. [Evidence](work-log/2026-10-17-chatgpt-m6-b50-b67-state-reconciliation.md).
 
+M6 Finding35 existing current-code review found **NO NEW PROVEN CODE GAP**: PR302 already delivered explicit visible Floating `Time's Up` status in compact/expanded both themes, PR302 accepted full CI `38044923348` 3/3 and guarded merge `797d0580d89a3a5ef0ff5b561e941d078bb2407f`. Current Focus Panel separately renders `focusTimerStateLabel` and Floating shows zero numerals plus status; authored validator and head artifact proof exist. Historic CI1046 physical FAIL was an earlier source; no new native user acceptance has been run, no latest personal Windows PASS. [Recheck](work-log/2026-10-17-chatgpt-finding35-current-code-recheck.md).
+
 M5 narrow-title CI893 revalidation is now **SCOPED NATIVE PASS** by reuse of PR362/G8 rest/hover/focus/edit evidence and current TaskCard/title-action-CSS identity; only this M5 checkbox is closed, no new native operation or whole-M5 PASS. [Evidence](work-log/2026-10-17-chatgpt-m5-g8-narrow-title-reuse-reconciliation.md).
 
 The narrow PR365 six-step review/handoff is **6/6 complete**; scoped automation does not replace post-merge personal native acceptance. M1–M4 **4/10 mandatory milestones accepted**, M5–M9 open and M10 gated; the M10 one-time whole-app visual sweep has not started. The 41 findings are **41/41 Narro-local functional coverage** and the original nine confirmed gaps **9/9 repaired**, neither equals modern Blitzit source parity or full milestone acceptance. Optional M11/M12 dormant. Native Codex PA-01–09 **USER-PAUSED**, no new recording, install/run or personal AppData action. Sole open PR344 is other-owner work, not a ChatGPT implementation branch.
 
-**Next action:** M6 Finding35 ordinary Time's Up display invariant, bounded code+frozen-evidence reconciliation per HANDOFF. Existing M5 B23/40/43 structural and current code work retained; source-native evidence gates remain separately OPEN.
+**Next action:** bounded M5/B43 actual formatted-date plus narrow-viewport source/fixture coverage check, only if additional deterministic regression is justified; otherwise continue to next existing evidenced nonphysical M5–M9 problem. No paused PA/source-motion claims.
 
 ## Preserved project truth
 
