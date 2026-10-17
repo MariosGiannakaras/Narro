@@ -33,6 +33,8 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
    'sourceMenuCompactPlain','deleteConfirmationGeometryStable','sourceEmptyAllFourLanes','sourceCreateTitleLabel',
    'sourceBottomCreateNewestFirst','sourceCreateFormPositionStable','sourceCreateIndependentIdentities','quickClearNativeCommandAndRefresh',
    'subtaskRepeatFocusAfterNativeRefresh','subtaskFailureDraftAndFocus','subtaskExplicitFocusOwnership','subtaskStaleRefreshFailClosed','subtaskDisposedFocusSafe','boardListGlyphsAndScope','subtaskInFieldClearStable','focusSharedSubtaskInput','subtaskCrossWindowCreate','subtaskCrossWindowSameCount','subtaskCrossWindowDraftPreserved','subtaskReadOrderAndErrorSafe','subtaskOwnerAndDisposalSafe','subtaskFloatingInvalidation','subtaskCommittedErrorRetained',
+   'doneDateHeadingSourceGrammar','doneDateHeadingNarrowContainment','doneDateHeadingIdentityPreserved',
+   'archiveCardSourceComposition','archiveCardKeyboardStable','archiveCardLifecycleSafe',
    'pointerDragCrossLane','pointerDragSameLane','pointerDragIdentityPreserved','pointerDragCancellationSafe','pointerDragThresholdSafe','pointerDragInteractiveGuard','pointerDragScheduledGuard','pointerDragCleanup','keyboardReorderPreserved');
  }
  if(reducedMotion && !['board-narrow','board-metrics','shortcut-modal','m7-integration'].includes(scenario))required.push('reducedMotionRespected');

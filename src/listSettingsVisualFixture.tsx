@@ -107,4 +107,8 @@ if (mode === "archive") {
   if (!menuTrigger) throw new Error("Direct Archive fixture menu trigger is missing.");
   flushSync(() => menuTrigger.click());
 }
+if (mode === "archived") {
+  // Real keyboard focus exposes the reserved footer without moving previews.
+  document.querySelector<HTMLButtonElement>(".archived-list-row__restore")?.focus();
+}
 document.documentElement.dataset.listSettingsFixtureReady = "true";

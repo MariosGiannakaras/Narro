@@ -5,6 +5,8 @@ import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { ListBoard } from "./ListBoard";
+import { ArchivedListsPanel } from "./ArchivedListsPanel";
+import type { ArchivedListSummary } from "./listSettingsApi";
 import { AppShell } from "./AppShell";
 import { BUILTIN_LIST_ICONS } from "./BuiltinListIcon";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
@@ -95,6 +97,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   };
 
   let boardTasks = [...tasks];
+  let boardDoneTasks: ListBoardTask[] = [];
   const taskLanes = new Map<string, "backlog" | "thisWeek" | "today">();
   const laneTasks = (lane: "backlog" | "thisWeek" | "today") => boardTasks.filter(task => (taskLanes.get(task.id) ?? "today") === lane);
   const laneSnapshot = (lane: "backlog" | "thisWeek" | "today") => ({tasks: laneTasks(lane), count: laneTasks(lane).length, aggregateEstSeconds: 0});
@@ -103,9 +106,10 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       : { kind: "all_lists", id: null, title: "All Lists", color: null },
     displayTimezone: "Europe/Athens",
     backlog: laneSnapshot("backlog"), thisWeek: laneSnapshot("thisWeek"), today: laneSnapshot("today"),
-    done: { tasks: [], count: 0, aggregateEstSeconds: 0 }, todayCompletionCount: 0, thisWeekCompletionCount: 0, doneMonthCompletionCount: 0,
+    done: { tasks: boardDoneTasks, count: boardDoneTasks.length, aggregateEstSeconds: 0 }, todayCompletionCount: 0, thisWeekCompletionCount: 0, doneMonthCompletionCount: boardDoneTasks.length,
   });
   const callbacks = new Map<number, (value: unknown) => void>();
+  let archiveRestoreCalls = 0, archiveDeleteCalls = 0;
   const listeners = new Map<number, { event: string; handler: number }>();
   let callbackId = 0, homeReads = 0, emissions = 0, mutationFailure = false, deliveryFailure = false;
   let deferHome = false, deferFocusBoardReads = false, deleteFailure = false, deleteCalls = 0;
@@ -294,6 +298,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         });
       }
       if (/^(create_list_from_editor|update_list_from_editor|duplicate_list_from_home|archive_list_from_settings|restore_list_from_settings|permanently_delete_list_from_settings)$/.test(command)) {
+        if (command === "restore_list_from_settings") archiveRestoreCalls++;
+        if (command === "permanently_delete_list_from_settings") archiveDeleteCalls++;
         if (mutationFailure) throw new Error("controlled persistence failure");
         if (command === "create_list_from_editor") lists.push({ id: "new", title: "New" });
         if (command === "update_list_from_editor") lists = lists.map(list => list.id === args.listId ? { ...list, title: "Renamed" } : list);
@@ -886,6 +892,119 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   }
   container.style.zoom = "1"; taskLanes.clear();
 
+  // Reuse the actual archive component and existing controlled native boundary.
+  const savedLists = [...lists];
+  archiveRestoreCalls = 0; archiveDeleteCalls = 0;
+  const archivedCards: ArchivedListSummary[] = [0, 1].map(index => ({
+    id: `71111111-1111-4111-8111-${String(index + 1).padStart(12, "0")}`,
+    title: index === 0 ? "Long archived project title that remains identifiable" : "Archived reading",
+    color: index === 0 ? "#48d6c5" : "#b7d96d", iconAsset: null,
+    archivedAt: "2026-10-01T09:00:00Z",
+    previewTasks: [0, 1].map(child => ({id: `${index}-${child}`, title: `Saved preview ${child + 1} with long recognizable task content`})),
+  }));
+  const savedWidth = container.style.width;
+  flushSync(() => root.render(<ArchivedListsPanel fixtureLists={archivedCards} />)); await wait();
+  const archivedRows = () => Array.from(container.querySelectorAll<HTMLElement>('[data-archived-list-id]'));
+  assert(archivedRows().length === 2, "Archive lost independent list identities");
+  for (const zoom of [1, 1.25]) {
+    container.style.zoom = String(zoom);
+    for (const width of [320, 720]) {
+      container.style.width = `${width}px`; await wait();
+      for (const card of archivedRows()) {
+        const bounds = card.getBoundingClientRect();
+        const header = card.querySelector<HTMLElement>('.archived-list-row__header')!.getBoundingClientRect();
+        const previews = card.querySelector<HTMLElement>('[data-archived-list-previews]')!.getBoundingClientRect();
+        const actions = card.querySelector<HTMLElement>('.archived-list-row__actions')!.getBoundingClientRect();
+        assert(header.bottom <= previews.top + 1 && previews.bottom <= actions.top + 1
+          && actions.bottom <= bounds.bottom + 1, "Archive card no longer stacks title/previews/footer");
+        assert(card.scrollWidth <= card.clientWidth + 1 && actions.right <= bounds.right + 1,
+          "Archive card or footer overflows narrow viewport");
+        const unarchive = card.querySelector<HTMLButtonElement>('.archived-list-row__restore')!;
+        const forever = card.querySelector<HTMLButtonElement>('.archived-list-row__delete')!;
+        assert(unarchive.textContent?.trim() === "Unarchive" && forever.textContent?.trim() === "Delete Forever",
+          "Archive source footer action labels changed");
+        unarchive.focus(); await wait();
+        assert(getComputedStyle(card.querySelector('.archived-list-row__actions')!).opacity === "1"
+          && Math.abs(card.getBoundingClientRect().height - bounds.height) <= 1,
+          "Archive keyboard focus hides actions or changes card geometry");
+        unarchive.blur();
+      }
+    }
+  }
+  container.style.zoom = "1"; container.style.width = savedWidth;
+  const archiveDelete = () => archivedRows()[0].querySelector<HTMLButtonElement>('.archived-list-row__delete')!;
+  archiveDelete().click(); await wait();
+  const archiveDialog = () => document.querySelector<HTMLElement>('[data-list-confirm-action="delete"]')!;
+  assert(archiveDialog(), "Archive Delete Forever failed to open its confirmation");
+  assert(archiveDeleteCalls === 0, "Archive Delete Forever mutated before confirmation");
+  Array.from(archiveDialog().querySelectorAll<HTMLButtonElement>('button')).find(button => button.textContent?.trim() === "Cancel")!.click(); await wait();
+  assert(!archiveDialog() && archivedRows().length === 2, "Archive Cancel changed saved identities");
+  const firstUnarchive = archivedRows()[0].querySelector<HTMLButtonElement>('.archived-list-row__restore')!;
+  archiveRestoreCalls = 0; archiveDeleteCalls = 0;
+  mutationFailure = true; firstUnarchive.click(); await wait(); await wait();
+  assert(archiveRestoreCalls === 1 && archivedRows().length === 2 && container.querySelector('[role="alert"]'),
+    "Failed Unarchive lost its card/error or retried unexpectedly");
+  mutationFailure = false;
+  firstUnarchive.click(); firstUnarchive.click(); archiveDelete().click(); await wait(); await wait();
+  assert(archiveRestoreCalls === 2 && archiveDeleteCalls === 0 && !archiveDialog()
+    && archivedRows().length === 1 && archivedRows()[0].dataset.archivedListId === archivedCards[1].id,
+    "Unarchive duplicate/cross-owner click changed independent card or confirmation state");
+  archiveDelete().click(); await wait();
+  const archiveConfirm = () => Array.from(archiveDialog().querySelectorAll<HTMLButtonElement>('button'))
+    .find(button => button.textContent?.trim() === "Permanently delete")!;
+  mutationFailure = true; archiveConfirm().click(); await wait(); await wait();
+  assert(archiveDeleteCalls === 1 && archivedRows().length === 1 && archiveDialog().querySelector('[role="alert"]'),
+    "Archive delete failure dismissed context or lost retryable error");
+  mutationFailure = false;
+  const retryDelete = archiveConfirm(); retryDelete.click(); retryDelete.click(); await wait(); await wait();
+  assert(archiveDeleteCalls === 2 && archivedRows().length === 0 && !archiveDialog(),
+    "Archive delete retry duplicated commit or retained deleted card");
+  lists = savedLists;
+
+  // Exercise production Board grouping and heading styles together; header
+  // presentation must not change persisted completion instants or row identity.
+  boardTasks = [];
+  boardDoneTasks = tasks.slice(0, 3).map((task, index) => ({
+    ...task, completedAt: index === 0 ? "2026-10-17T09:00:00Z" : "2026-10-16T09:00:00Z",
+  }));
+  const originalDoneRows = JSON.stringify(boardDoneTasks);
+  renderBoard("source-done-headings"); await wait(); await wait();
+  const doneHeadings = Array.from(container.querySelectorAll<HTMLElement>("[data-board-done-date]"));
+  assert(doneHeadings.length === 2
+    && doneHeadings[0].dataset.boardDoneDate === "2026-10-17"
+    && doneHeadings[1].dataset.boardDoneDate === "2026-10-16",
+    "Done headings lost authoritative local-date grouping/order");
+  assert(doneHeadings.map(heading => heading.querySelector(".list-board-lane__done-count")?.textContent?.trim()).join("|") === "1 task|2 tasks",
+    "Done per-date counts lost singular/plural source wording");
+  const laneSlots = Array.from(container.querySelectorAll<HTMLElement>('[data-board-lane="Done"] [data-board-drag-task]'));
+  assert(laneSlots.map(slot => slot.dataset.boardDragTask).join("|") === boardDoneTasks.map(task => task.id).join("|"),
+    "Done heading presentation changed completed row identity/order");
+  const doneHeading = doneHeadings[0];
+  const dateLabel = doneHeading.querySelector<HTMLElement>(".list-board-lane__done-date")!;
+  const dateText = dateLabel.textContent;
+  // Stress the real heading with long localized text; no formatter/domain override.
+  dateLabel.textContent = "Wednesday, 30 September 2026 — LongUnbrokenLocalizedCalendarDate";
+  const savedHeadingWidth = doneHeading.style.width;
+  for (const zoom of [1, 1.25]) {
+    container.style.zoom = String(zoom); await wait();
+    for (const width of [112, 180, 320]) {
+      doneHeading.style.width = `${width}px`; await wait();
+      const headingBox = doneHeading.getBoundingClientRect();
+      const dateBox = dateLabel.getBoundingClientRect();
+      const countBox = doneHeading.querySelector<HTMLElement>(".list-board-lane__done-count")!.getBoundingClientRect();
+      assert(dateBox.right <= countBox.left + 1 && dateBox.left >= headingBox.left - 1
+        && countBox.right <= headingBox.right + 1 && Math.abs(countBox.right - headingBox.right) <= 1,
+        "Done date overlaps/displaces right count: " + JSON.stringify({width, zoom, headingBox, dateBox, countBox}));
+      assert(doneHeading.scrollWidth <= doneHeading.clientWidth + 1,
+        "Done localized date/count overflows narrow heading");
+    }
+  }
+  doneHeading.style.width = savedHeadingWidth;
+  dateLabel.textContent = dateText;
+  container.style.zoom = "1";
+  assert(JSON.stringify(boardDoneTasks) === originalDoneRows, "Done heading layout mutated authoritative rows");
+  boardDoneTasks = [];
+
   // Source bottom ADD TASK keeps the form below the rows, but creates
   // newest-first. Exercise the real handler, inputs, refresh and repeated entry.
   boardTasks = [];
@@ -1288,5 +1407,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
     boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true,
     subtaskCrossWindowCreate: true, subtaskCrossWindowSameCount: true, subtaskCrossWindowDraftPreserved: true,
-    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true, subtaskCommittedErrorRetained: true };
+    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true, subtaskCommittedErrorRetained: true,
+    doneDateHeadingSourceGrammar: true, doneDateHeadingNarrowContainment: true, doneDateHeadingIdentityPreserved: true,
+    archiveCardSourceComposition: true, archiveCardKeyboardStable: true, archiveCardLifecycleSafe: true };
 }
