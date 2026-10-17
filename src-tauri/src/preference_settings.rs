@@ -173,6 +173,17 @@ fn validate_volume_patch(field: &'static str, value: Option<u8>) -> CommandResul
 
 fn prepare_patch(patch: PreferenceSettingsPatch) -> CommandResult<PreparedPatch> {
     let side = parse_side(patch.focus_panel_side.as_deref())?;
+    // Validate at the Rust command boundary as well as in the UI: direct typed
+    // patches must never persist an unknown IANA zone. Empty/whitespace means
+    // Automatic (follow Windows) and remains a supported clear operation.
+    if let Some(timezone) = patch.timezone.as_deref().map(str::trim).filter(|zone| !zone.is_empty()) {
+        crate::scheduling::validate_timezone_identifier(timezone).map_err(|_| {
+            CommandError::invalid_argument(
+                "patch.timezone",
+                "must be a valid IANA timezone or empty for Automatic",
+            )
+        })?;
+    }
     validate_sound_patch("patch.taskAlertSound", patch.task_alert_sound.as_deref())?;
     validate_volume_patch(
         "patch.taskAlertVolumePercent",
@@ -525,6 +536,61 @@ mod tests {
         .expect("prepare patch");
         apply_patch(&mut payload, &prepared);
         assert!(payload.general.selected_monitor_key.is_none());
+        assert!(payload.general.timezone.is_none());
+    }
+
+    #[test]
+    fn direct_timezone_patch_rejects_unknown_zones_before_any_write() {
+        for invalid in [
+            "Mars/Olympus",
+            "Europe/ThisDoesNotExist",
+            "https://example.invalid",
+            "Europe/Athens\\nInjected",
+            &"X".repeat(129),
+        ] {
+            assert!(
+                prepare_patch(PreferenceSettingsPatch {
+                    timezone: Some(invalid.into()),
+                    ..PreferenceSettingsPatch::default()
+                })
+                .is_err(),
+                "direct preference patch accepted invalid timezone: {invalid:?}",
+            );
+        }
+    }
+
+    #[test]
+    fn timezone_patch_accepts_valid_iana_alias_and_automatic_without_changing_other_settings() {
+        let mut payload = PreferencesPayload::default();
+        payload.general.timezone = Some("Mars/PreviouslySaved".into());
+        payload.shortcuts.go_to_narro_enabled = false;
+        // Legacy persisted values are not rewritten by unrelated patches.
+        let unrelated = prepare_patch(PreferenceSettingsPatch {
+            scrolling_title: Some(true),
+            ..PreferenceSettingsPatch::default()
+        })
+        .expect("unrelated patch must not invalidate a pre-existing legacy setting");
+        apply_patch(&mut payload, &unrelated);
+        assert_eq!(payload.general.timezone.as_deref(), Some("Mars/PreviouslySaved"));
+        assert!(!payload.shortcuts.go_to_narro_enabled);
+
+        for zone in ["Europe/Athens", "America/New_York", "UTC", "  Europe/Athens  "] {
+            let prepared = prepare_patch(PreferenceSettingsPatch {
+                timezone: Some(zone.into()),
+                ..PreferenceSettingsPatch::default()
+            })
+            .expect("known IANA timezone");
+            apply_patch(&mut payload, &prepared);
+            assert_eq!(payload.general.timezone.as_deref(), Some(zone.trim()));
+            assert!(!payload.shortcuts.go_to_narro_enabled);
+        }
+
+        let automatic = prepare_patch(PreferenceSettingsPatch {
+            timezone: Some("   ".into()),
+            ..PreferenceSettingsPatch::default()
+        })
+        .expect("Automatic uses an empty token");
+        apply_patch(&mut payload, &automatic);
         assert!(payload.general.timezone.is_none());
     }
 
