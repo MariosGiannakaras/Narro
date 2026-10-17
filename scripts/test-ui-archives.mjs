@@ -100,6 +100,8 @@ if (ghostCount !== 2) throw new Error("Archived empty layout must have exactly t
 const hiddenGhostCount = (listPanel.match(/data-archived-empty-ghost="true" aria-hidden="true"/g) ?? []).length;
 if (hiddenGhostCount !== 2) throw new Error("Decorative archived empty cards must be ignored by assistive technology.");
 requireText(listPanelCss, "grid-template-columns: repeat(3, minmax(0, 1fr))", "three source-like card columns");
+requireText(listPanelCss, "min-height: 10rem", "calibrated source-height empty cards");
+requireText(listPanel, 'lists?.length === 0 ? null : (', "no irrelevant archive restore/delete instruction when empty");
 requireText(listPanelCss, "gap: var(--space-3)", "shared visual spacing token");
 requireText(listPanelCss, "@media (max-width: 48rem)", "existing narrow-screen breakpoint");
 requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout hides decorative side cards");
