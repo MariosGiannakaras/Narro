@@ -1,4 +1,4 @@
-# HANDOFF — current M5 source correction
+# HANDOFF — Windows recordings ready for aggregate review
 
 **Current Windows checkpoint — 2026-10-17T07:15:32.776289+00:00 / owner Codex Windows / FROZEN:** PR364fourgroups **4/4 acquired**, published5f0dcb07; additionalFocusactions/Success/Break **3/3 acquired**, full284.350000s video/28PNGs/all7logs now published. **Total7/7acquired; analysis/PASS-FAILgrading NOTRUN**, no source-parity/wholemilestone claims. ExactPR364b11/EXEd9d092bc, guardedmerge2aa03803,bothPR/mainCI3/3SUCCESS/554identicalinputs. Firstinterruptedrecordingactive170sexcerpt+complete221.1s continuation preserved; originalidle-tail keptlocal. NewFocusrecording stoppedimmediately07:14:26Z aftertrayQuit; originalsrestored exacthash13185e54. No Narro/OBSrecordingactive. Centralroots Narro-Workspace/Narro-M5-B43-20261017/native and Narro-M6-Quick-native-20261017;120sidleguard introducedforownedrecordingonly. **Next: aggregate review bothfrozennewcorpora once with independentrequirementdispositions; do not repeat completedacquisition.** Preserveearlieraccepted8groups,lockedpicker/upload/218icons; B23knownnarrowpresentationcorrection afterreconciliation. POMO/125%notrun;M1–M4remain4/10,M10blocked,M11/M12dormant. [Latestcorpus/report](work-log/2026-10-17-focus-three-group-acquisition-frozen.md).
 
@@ -16,6 +16,15 @@
 PA01–08 8/8 dispositioned within the final report scope; physicalHDMI NOTRUN/accepted unavailable, no cable request pending. Approved SpectrumCore/imageupload/218icons locked. M11/liveBlitzit dormant. U01–U41 local coverage41/41 is separate from remaining parity gates. Prior C5/performance/notifications/packaging/export acceptance retained on unchanged foundations.
 
 ## One next operation
+
+**Publication verified on 2026-10-17:** both frozen corpora are on `main`; **57/57 binary files** match their original Git bytes and **14/14 log files** match the byte-preserving ZIP entries. OBS is idle, Narro is closed and the original personal profiles are restored. No new visual analysis, PASS/FAIL grading or Narro source change was performed during this transfer.
+
+| Frozen corpus | Acquisition | Evidence | Review |
+| --- | --- | --- | --- |
+| [PR364 M5](work-log/evidence/pr364-native-20261017/README.md) | 4/4 groups | 24 screenshots, 2 useful video segments, complete 7-file logs, UIA/state/chronology | NOT RUN |
+| [Focus / Success / Break](work-log/evidence/m6-quick-native-20261017/README.md) | 3/3 groups | 28 screenshots, 1 complete video, complete 7-file logs, UIA/state/chronology | NOT RUN |
+
+Continue the normal analysis → reconciliation → confirmed corrections → regression tests → PR/CI workflow from these recordings. Do not repeat the seven acquired groups merely because this is a new chat. Review each requirement independently; capture-only counters do not establish acceptance. The manifests identify actual actions and the interrupted recording's useful boundary, so its unrelated idle tail need not be reviewed as a test scenario.
 
 **Aggregate-review the two frozen new corpora (PR3644/4 + Focus3/3) once; do not reacquire completed interactions.** Rawfullvideos/24+latestPNGs/wholelogs/UIA/ownedstate are published. Independently grade the actually exercised M5/M6 and compatibleM7/M8 claims against their canonicalrequirements and exactsource; unexercisedPOMO/125%/continuousmotionlimits stayOPEN/NOTRUN. No newPASS fromacquisitioncounter. Afterreconciliation batchonlyconfirmedcompatiblecorrections with B23preview-rowknownresidual. Personalprofilesrestored/noNarro/noOBSrecording; originalinterruptedidle-tail retainedlocal andactiveexcerptpublished. Keepunchangedprioracceptedgates andlockedapprovedcontrols, noM10/M11/M12advance.
 
