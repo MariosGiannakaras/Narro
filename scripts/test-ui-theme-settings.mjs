@@ -138,5 +138,33 @@ invariant(!preferenceSections.includes('aria-label="More information"')
   && !preferenceSections.includes('data-preference-info-trigger'),
   "SS-C07 does not establish a tooltip or clickable information action");
 
+// B34 current Blitzit Preferences: one scroll surface, separated groups, no
+// elevated sub-cards or decorative all-caps captions. Controls remain intact.
+const sectionCss = await read("src/themeSettingsPanel.css");
+const sectionRowsCss = await read("src/preferenceSettingsSections.css");
+function styleBlock(styles, selector) {
+  const offset = styles.indexOf(selector + " {");
+  invariant(offset >= 0, `Missing style rule ${selector}`);
+  const end = styles.indexOf("}", offset);
+  invariant(end > offset, `Unterminated style rule ${selector}`);
+  return styles.slice(offset, end);
+}
+const flatSection = styleBlock(sectionCss, ".theme-settings__section");
+invariant(flatSection.includes("border-top: 1px solid var(--color-border-subtle)"), "Preferences groups need a shared source-like separator");
+for (const value of ["border: 0;", "border-radius: 0;", "background: transparent;", "box-shadow: none;"]) {
+  invariant(flatSection.includes(value), `Preferences sections must remain flat: ${value}`);
+}
+const groupHeading = styleBlock(sectionCss, ".theme-settings__section-heading");
+invariant(!groupHeading.includes("border-bottom"), "Separators belong between sections, not under every heading");
+const categoryCaption = sectionCss.slice(
+  sectionCss.indexOf(".theme-settings__eyebrow,"),
+  sectionCss.indexOf("}", sectionCss.indexOf(".theme-settings__eyebrow,")),
+);
+invariant(categoryCaption.includes("display: none;"), "Decorative category captions should not add rows");
+const ordinaryRows = styleBlock(sectionRowsCss, ".preference-settings__row + .preference-settings__row");
+invariant(!ordinaryRows.includes("border-top:"), "Preferences must not render per-row card dividers");
+invariant(ordinaryRows.includes("padding-top: var(--space-3)"), "Preserve user-control spacing");
+invariant(panel.includes('role="group" aria-label="Theme"'), "Theme segmented control must remain accessible");
+
 await import("./test-ready-fixture-startup.mjs");
 console.log("Theme settings/runtime contract: PASS");
