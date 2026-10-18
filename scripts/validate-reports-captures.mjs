@@ -80,6 +80,7 @@ for (const theme of ["light", "dark"]) {
   const containmentDom = readDom(containmentLabel);
   invariant(containmentDom.includes('data-reports-chart-tooltip-bounded="true"'), containmentLabel + " actual hover/focus/scroll/resize tooltip bounds did not pass");
   invariant(containmentDom.includes('data-reports-chart-tooltip-cases="14"'), containmentLabel + " complete tooltip scenario matrix did not finish");
+  invariant(containmentDom.includes('data-reports-chart-hover-band-verified="true"'), containmentLabel + " actual hovered category band/Total emphasis render contract did not pass");
   for (const mode of ["overview", "list-filter", "date-picker", "series-toggle", "lower"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
