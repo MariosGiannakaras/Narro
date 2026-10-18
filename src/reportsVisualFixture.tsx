@@ -591,7 +591,7 @@ async function validateChartTooltipContainmentFixture() {
   // vertical category wash and brightens Total on this rendered day.
   const hoveredDay = buttons[41]!.closest<HTMLElement>(".reports-overview__chart-day");
   const totalBar = hoveredDay?.querySelector<HTMLElement>(".reports-overview__chart-bar--total");
-  requireFixture(hoveredDay && totalBar, "Chart hover visual contract requires a real populated Total bar.");
+  if (!hoveredDay || !totalBar) throw new Error("Chart hover visual contract requires a real populated Total bar.");
   const idleWashOpacity = Number(getComputedStyle(hoveredDay, "::before").opacity);
   const idleTotalFilter = getComputedStyle(totalBar).filter;
   requireFixture(hoveredDay.dataset.reportChartActive === "false" && idleWashOpacity === 0,
