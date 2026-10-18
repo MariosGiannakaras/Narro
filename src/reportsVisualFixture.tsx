@@ -586,9 +586,29 @@ async function validateChartTooltipContainmentFixture() {
   bounded("narrow viewport resize");
   scroll!.style.maxWidth = "320px";
   await focus(buttons[40]!);
+  // Check the same actual chart category used by tooltip pointer ownership.
+  // The existing test proved tooltip semantics but not that B28 paints the
+  // vertical category wash and brightens Total on this rendered day.
+  const hoveredDay = buttons[41]!.closest<HTMLElement>(".reports-overview__chart-day");
+  const totalBar = hoveredDay?.querySelector<HTMLElement>(".reports-overview__chart-bar--total");
+  requireFixture(hoveredDay && totalBar, "Chart hover visual contract requires a real populated Total bar.");
+  const idleWashOpacity = Number(getComputedStyle(hoveredDay, "::before").opacity);
+  const idleTotalFilter = getComputedStyle(totalBar).filter;
+  requireFixture(hoveredDay.dataset.reportChartActive === "false" && idleWashOpacity === 0,
+    "Nonhovered category already has an active vertical wash.");
   flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
   await settle();
   bounded("pointer takes tooltip from focused date");
+  const wash = getComputedStyle(hoveredDay, "::before");
+  const activeWashOpacity = Number(wash.opacity);
+  const activeTotalFilter = getComputedStyle(totalBar).filter;
+  requireFixture(hoveredDay.dataset.reportChartActive === "true"
+    && Number.isFinite(activeWashOpacity) && activeWashOpacity > idleWashOpacity
+    && wash.backgroundColor !== "rgba(0, 0, 0, 0)" && wash.backgroundColor !== "transparent"
+    && parseFloat(wash.height) >= hoveredDay.getBoundingClientRect().height - 2
+    && activeTotalFilter.includes("brightness(") && activeTotalFilter !== idleTotalFilter,
+    "Hovered chart category did not paint a tall translucent band and brighter Total bar.");
+  document.documentElement.dataset.reportsChartHoverBandVerified = "true";
   requireFixture(buttons[41]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-41", "Hover did not bind tooltip to hovered date.");
   flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
   await settle();
