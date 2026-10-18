@@ -57,6 +57,69 @@
 - **Home B23 preview shape** [PR365](https://github.com/MariosGiannakaras/Narro/pull/365) merged `a76050afe69d24585611b163c667974b0f4b545f`, scope auto-rendered PASS and native original/source metadata semantics separately OPEN.
 
 
+## Exhaustive queue of the 56 **unreviewed media cells** (not 56 bugs)
+
+The table enumerates every currently OPEN original v1 cell (26) and every later acquisition-ready appended cell (30) **without inventing new acceptance**. The original 44 reviewed v1 cells retain their exact statuses in the frozen [70-cell matrix](../work-log/evidence/m7-ci953-theme-20261005/visual-check-matrix.json). Original scenario names are preserved; the right column routes prior current-code evidence, **not** a completed motion/source comparison. This queue must be disposed of by direct bounded original motion/media review or recorded as `REVIEW_BLOCKED` if actual raw bytes are unavailable in the present agent tools.
+
+| Frozen review ID | Milestone | Recorded scenario / specific required media examination | Reuse accepted current work; not the same as media PASS |
+| --- | --- | --- | --- |
+| V1-01 | M5 | dark125-normal continuous drag lift/reflow/drop/settle review | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-02 | M5 | dark125-reduced continuous drag lift/reflow/drop/settle review | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-03 | M5 | recreated100-normal continuous drag lift/reflow/drop/settle review | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-04 | M5 | recreated100-reduced continuous drag lift/reflow/drop/settle review | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-05 | M5 | Canonical retained-menu VE006 18s comparison | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-06 | M5 | Canonical Main cards/metrics/hover comparison | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-07 | M5 | Canonical drag/reorder motion comparison | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| V1-08 | M6 | dark-normal continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-09 | M6 | dark-reduced continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-10 | M6 | system-dark-normal continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-11 | M6 | system-dark-reduced continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-12 | M6 | system-light-normal continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-13 | M6 | system-light-reduced continuous Notes open/large/return/queue review | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-14 | M6 | Canonical Focus hierarchy/queue comparison | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-15 | M6 | Canonical Notes editor comparison | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-16 | M6 | Canonical full-title/tooltip/queue overflow comparison | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| V1-17 | M7 | dark-normal continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-18 | M7 | dark-reduced continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-19 | M7 | system-dark-normal continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-20 | M7 | system-dark-reduced continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-21 | M7 | system-light-normal continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-22 | M7 | system-light-reduced continuous Panel/compact/expanded/hover/Notes/Find review | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-23 | M7 | Canonical Timer typography/layout/shell comparison | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-24 | M7 | Canonical Timer hover pills/hit-target/motion comparison | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| V1-25 | M8 | Live System theme propagation timing/visibility review | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| V1-26 | M8 | Canonical Preferences upper/middle/lower visual comparison | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| M5-A01 | M5 | Main populated Subtasks expansion | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M5-A02 | M5 | Main long-row title/edit/cancel | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M5-A03 | M5 | Main complete/uncomplete feedback | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M5-A04 | M5 | Main populated inline/large Notes | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M5-A05 | M5 | Main persistent Notes reopening | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M5-A06 | M5 | Main keyboard/hover controls | Reuse G1–G8, PR364 C1–C4 and PR365/367/372; motion/version parity not implied. |
+| M6-A01 | M6 | Panel populated Subtasks | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M6-A02 | M6 | Panel progress toggle/projection | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M6-A03 | M6 | Panel long inline Notes | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M6-A04 | M6 | Panel large Notes/Save/return | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M6-A05 | M6 | Notes formatting/URL/save/reopen | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M6-A06 | M6 | Long Notes keyboard/scroll containment | Reuse M5 G3, M6 D1–D3 and Focus PR301/302/374/377/378; native transitions separate. |
+| M7-A01 | M7 | Populated compact subtask summary | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A02 | M7 | Timer add/edit/cancel transient | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A03 | M7 | Expanded four populated rows | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A04 | M7 | Timer complete/uncomplete feedback | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A05 | M7 | Long row native tooltip | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A06 | M7 | Expanded Timer Notes overlay/save/return | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A07 | M7 | Populated Panel/compact/expanded changes | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M7-A08 | M7 | Populated locate/hover controls | C4/Focus↔Timer Gate7 direct continuous review; later PR236/237/239 corrections do not equal native frames. |
+| M8-A01 | M8 | Preferences upper | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| M8-A02 | M8 | Preferences middle | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| M8-A03 | M8 | Preferences lower including shortcuts | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| M8-A04 | M8 | Preferences keyboard/close, paused state | Reuse PR368 sections and PR246 modal where relevant; visual/Windows preferences/audio separate. |
+| M9-A01 | M9 | Reports Overview | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+| M9-A02 | M9 | Date/period controls | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+| M9-A03 | M9 | Overview chart hover/options | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+| M9-A04 | M9 | Sessions table/filter | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+| M9-A05 | M9 | Add/Edit session modal Cancel | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+| M9-A06 | M9 | Owned existing task session detail | Reuse Reports PR246, PR339/340, PR380; original/native Reports/PDF parity separate. |
+
 ## Newer 2026-10-17 frozen PR364 C1–C4 + Focus D1–D3 (**additional** to eight-group G1–G8)
 
 Exact CI38994951447 head `b11c80bb43e11ee438698450377beea0b31933c1`, resulting-main CI38996513400 3/3 SUCCESS, merged PR364 `2aa03803590efde8c1fab658ac92e2f0a7984e30`, physical EXE SHA256 `d9d092bc194ff4870e890390b90a5480a10be4a5403128c5a129266e62e8df29`. [Four-group raw packet](../work-log/evidence/pr364-native-20261017/README.md) acquired **4/4**, 24 native PNGs, original input/owned-state/complete useful video; [three-group Focus packet](../work-log/evidence/m6-quick-native-20261017/README.md) acquired **3/3**, 28 native PNGs and full 284.35s recording. The readmes correctly label **overall PASS/FAIL grading NOT RUN** at capture time; a [subsequent partial static/native evidence review](../work-log/2026-10-17-published-m5-m6-evidence-initial-review.md) graded directly inspected, scoped states. This does **not** mean seven full video reviews completed; source motion, compositing and same-build physical parity remain OPEN. Original first 9,238s PR364 OBS recording contains a long idle period; a lossless 170s action excerpt is published, plus full 221s continuation. Do not mistake two OBS-scene displays for two active monitors: the captured candidate had one actual 96DPI active monitor; 125% is NOT RUN for this packet.
