@@ -16,6 +16,8 @@ for (const name of ["edge", "url", "profile", "png", "html"]) {
 }
 const mode = options.mode ?? "focused";
 if (!["running", "focused"].includes(mode)) throw new Error(`Invalid B49 capture mode: ${mode}`);
+const focusedActionName = new URL(options.url).searchParams.get("scenario") === "live-actions-done-focus"
+  ? "done" : "pause-resume";
 // The legacy 420x720 Edge PNG is rendered with a 492x628 inner DOM viewport
 // on Windows. Other Focus scenarios all use that same layout. Keep the
 // identical 420x720 screenshot clip but normalize BOTH B49 CDP page layouts.
@@ -80,7 +82,7 @@ async function waitForFocusedFixture() {
   while (Date.now() < deadline) {
     const response = await evaluate(`(() => {
       const root = document.documentElement;
-      const action = document.querySelector('[data-focus-action="pause-resume"]');
+      const action = document.querySelector('[data-focus-action="${focusedActionName}"]');
       const rail = document.querySelector(".focus-panel__live-actions");
       const heading = document.querySelector(".focus-panel__live-heading");
       const contract = document.querySelector("#focus-panel-visual-contract");
