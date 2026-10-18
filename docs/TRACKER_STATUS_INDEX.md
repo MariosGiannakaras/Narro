@@ -1,6 +1,10 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## CURRENT 2026-10-15 — use one active owner for each kind of state
+## CURRENT 2026-10-19 — user-ordered last-Codex recording analysis before corrections
+
+The user explicitly requires an **analysis-first freeze on new source changes**. [Live unified recording reconciliation](CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) is the **single active analysis document**, with [HANDOFF](../HANDOFF.md) the exact owner/next task and [STATUS](../STATUS.md) the current technical boundaries. Scope: eleven CI953 frozen packets (44/100 previously reviewed visual cases; 56 remaining, **not bugs**), newer M5 G1–G8 (8/8 aggregate scoped review), newer PR364 C1–C4 plus M6 D1–D3 (7/7 acquired and partially statically reviewed). Previously dated frozen video indexes and immutable finding decisions are evidence, **not competing live trackers**; new corrections are blocked until the full evidence-to-current-code disposition is genuinely completed, or inaccessible raw-motion evidence is explicitly marked REVIEW_BLOCKED. PR344 remains another owner's work; physical PA claims stay distinct.
+
+## HISTORICAL 2026-10-15 — use one active owner for each kind of state
 
 **Start here:** [AI_START_HERE](../AI_START_HERE.md) → [HANDOFF](../HANDOFF.md) → [TODO](../TODO.md) → [STATUS](../STATUS.md). The latest explicit user direction and current GitHub source/CI override old tracker checkpoints. Do not infer a new coding task from a historical tracker or source screenshot alone.
 
