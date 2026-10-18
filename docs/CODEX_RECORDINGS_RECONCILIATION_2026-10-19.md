@@ -1,8 +1,12 @@
 # Last Codex recordings — full-analysis-first reconciliation
 
-**Codex continuation / 2026-10-19 / ANALYZING:** direct local media access is now available. Eighteen unique useful streams across all eleven CI953 packets and the later G1–G8/C1–C4/D1–D3 corpora were matched to their published Git blobs; split originals were reconstructed in a separate analysis folder with original reassembly hashes verified. A real movie frame was decoded successfully. The prior ChatGPT media-access blocker is historical for that runtime, not a blocker here. Full review is in progress; the registered 44/100 counter is unchanged until actual per-cell review is published. No Narro/source/config/test edits, app launches, physical checks or recordings are authorized in this analysis-only assignment.
+**Codex initial continuation / 2026-10-19 / HISTORICAL CHECKPOINT:** direct local media access is now available. Eighteen unique useful streams across all eleven CI953 packets and the later G1–G8/C1–C4/D1–D3 corpora were matched to their published Git blobs; split originals were reconstructed in a separate analysis folder with original reassembly hashes verified. A real movie frame was decoded successfully. The prior ChatGPT media-access blocker is historical for that runtime, not a blocker here. Full review is in progress; the registered 44/100 counter is unchanged until actual per-cell review is published. No Narro/source/config/test edits, app launches, physical checks or recordings are authorized in this analysis-only assignment.
 
 **2026-10-19, owner: ChatGPT, phase: ANALYZING; NOT COMPLETE.** Latest user order: update repo, analyze **all** latest frozen Codex recordings before making any new source/config/test fixes, then correct only substantiated current-main defects. This is the one actively maintained analysis report; raw evidence and former immutable findings remain untouched. **Not a native physical PA or a claim that all video has been viewed.**
+
+## Active Codex direct-video checkpoint
+
+Last reported UTC: 2026-10-18T23:33:54.186948+00:00. **50/100 cells dispositioned (44 inherited + 6 newly reviewed), 50 not yet dispositioned.** The six V1-08–13 Notes variants were directly inspected as timestamped 10 fps sequences. Each is `REVIEWED_SCOPE_LIMIT`, with exact-source/current-native acceptance still OPEN; this is not six new PASS. Machine-readable [cell ledger](../work-log/evidence/recordings-analysis-20261019/cell-review.json). Originals unchanged. PR349 later accepted native transition evidence and the recovered PR379/380 resulting-main CI must supersede obsolete claims of missing fixes/unverified runs when final reconciliation is published.
 
 ## Frozen candidate identity and already published review
 
