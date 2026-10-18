@@ -196,6 +196,8 @@ invariant(focusedFixture.includes('"live-actions-done-focus"')
   && focusedFixture.includes('focusDoneEdge ? \'[data-focus-action="done"]\'')
   && focusedFixture.includes('done-pill-escapes-action-rail')
   && focusedCapture.includes('Name = "live-actions-done-focus"; Suffix = "-live-actions-done-focus"; Query = "&scenario=live-actions-done-focus"')
+  && cdpCapture.includes('const focusedActionName = new URL(options.url).searchParams.get("scenario") === "live-actions-done-focus"')
+  && cdpCapture.includes('data-focus-action="${focusedActionName}"')
   && focusedValidator.includes('readCapture(theme, "live-actions-done-focus")')
   && focusedValidator.includes("doneChangedPixels"),
   "B49 right-edge Done focus must use the real production action, same-viewport Edge pixels and strict containment");
