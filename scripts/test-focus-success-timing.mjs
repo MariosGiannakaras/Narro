@@ -1,4 +1,6 @@
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { focusReactionVariant } from "../src/focusReactionVariant.ts";
 import assert from "node:assert/strict";
 import { successTimingCopy } from "../src/focusSuccessTiming.ts";
@@ -80,6 +82,10 @@ assert.ok(restStart >= 0 && restEnd > restStart
 const successFixture = read("src/focusPanelVisualFixture.tsx");
 const successCapture = read("scripts/capture-focus-panel-fixtures.ps1");
 const successValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+// Fast preflight must parse the actual Windows-only visual validator. It once
+// escaped Node preflight with duplicate lexical declarations and failed late in
+// Windows screenshot validation after successful capture.
+execFileSync(process.execPath, ["--check", fileURLToPath(new URL("./validate-focus-visual-state-captures.mjs", import.meta.url))]);
 assert.ok(successFixture.includes('"success"')
   && successFixture.includes("<FocusCompletionSuccess inline")
   && successFixture.includes('completionSuccessContent={scenario === "success"'),
@@ -88,5 +94,13 @@ assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query 
   && successValidator.includes('readCapture(theme, "success")')
   && successValidator.includes('data-focus-success-inline-card="true"'),
   "B63 screenshot must be captured and validated in light and dark themes");
+assert.ok(successFixture.includes('"success-fun-gif"')
+  && successFixture.includes('funGifEnabled: scenario === "success-fun-gif"')
+  && successFixture.includes("successReaction: (() => {")
+  && successCapture.includes('Name = "success-fun-gif"; Suffix = "-success-fun-gif"')
+  && successValidator.includes('readCapture(theme, "success-fun-gif")')
+  && successValidator.includes("reaction.svgVisible && reaction.notClipped")
+  && successValidator.includes("differentFocusPixels("),
+  "enabled Fun GIF must be captured and visibly validated against disabled preference in both themes");
 await import("./test-focus-success-actual-handler-owners.mjs");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

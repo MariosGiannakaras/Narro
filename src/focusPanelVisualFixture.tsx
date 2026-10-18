@@ -36,6 +36,7 @@ const scenarios = [
   "notes-expanded",
   "live-actions-focus",
   "success",
+  "success-fun-gif",
   "no-eligible",
   "empty",
 ] as const;
@@ -43,6 +44,7 @@ type Scenario = (typeof scenarios)[number];
 const scenario: Scenario = scenarios.includes(requestedScenario as Scenario)
   ? requestedScenario as Scenario
   : "running";
+const isSuccessScenario = scenario === "success" || scenario === "success-fun-gif";
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
@@ -112,7 +114,7 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
 const todayTasks = scenario === "no-eligible" ? [scheduledTask]
   : scenario === "empty" ? []
-  : scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]
+  : isSuccessScenario ? [overdueTask, longTitleTask, scheduledTask]
   : normalTodayTasks;
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
@@ -125,13 +127,13 @@ const board: ListBoardSnapshot = {
     tasks: todayTasks,
   },
   done: {
-    count: scenario === "success" ? 2 : 1,
-    aggregateEstSeconds: scenario === "success" ? 4800 : 1200,
-    tasks: scenario === "success"
+    count: isSuccessScenario ? 2 : 1,
+    aggregateEstSeconds: isSuccessScenario ? 4800 : 1200,
+    tasks: isSuccessScenario
       ? [doneTask, { ...liveTask, completedAt: "2026-09-13T09:20:00Z" }]
       : [doneTask],
   },
-  todayCompletionCount: scenario === "success" ? 1 : 0,
+  todayCompletionCount: isSuccessScenario ? 1 : 0,
   thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
@@ -152,7 +154,7 @@ function timerState(): TimerStateKind {
 }
 
 const state = timerState();
-const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";
+const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || isSuccessScenario;
 const timer: TimerSessionPayload | null = noLiveScenario ? null : {
   revision: scenarios.indexOf(scenario) + 7,
   runtime: {
@@ -236,11 +238,11 @@ flushSync(() => {
         endedAt: "2026-09-13T09:10:00Z",
         durationSeconds: "600",
       }] : []}
-      completionSuccessContent={scenario === "success" ? (
+      completionSuccessContent={scenario === "success" || scenario === "success-fun-gif" ? (
         <FocusCompletionSuccess inline
           state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,
             estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
-            funGifEnabled: false,
+            funGifEnabled: scenario === "success-fun-gif",
             nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
           pending={false} error={null} onNextTask={() => undefined} onTakeBreak={() => undefined} onClose={() => undefined}
         />
@@ -327,8 +329,8 @@ if (queuedRow) {
   const rowIsVisible = before[0].top >= 0 && before[0].bottom <= window.innerHeight;
   // B63 keeps the queue visible but inert until Next Task/Close. Never demand
   // its ordinary focus-triggered tooltip while completion owns interaction.
-  const successQueueInert = scenario === "success" && queuedRow.closest('[inert]') !== null;
-  if (scenario === "success") {
+  const successQueueInert = isSuccessScenario && queuedRow.closest('[inert]') !== null;
+  if (isSuccessScenario) {
     if (!successQueueInert) throw new Error('Committed success queue must remain inert');
     title.focus({preventScroll: true});
     if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus');
@@ -382,8 +384,8 @@ if (queuedRow) {
     );
   }
   queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true,
-    revealGeometryStable: scenario === "success" ? null : rowIsVisible,
-    rowContained: true, tooltipContained: scenario === "success" ? null : rowIsVisible,
+    revealGeometryStable: isSuccessScenario ? null : rowIsVisible,
+    rowContained: true, tooltipContained: isSuccessScenario ? null : rowIsVisible,
     successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
@@ -503,6 +505,30 @@ const contract = {
   topbar: box(".focus-panel__topbar"),
   summary: box(".focus-panel__summary"),
   liveCard: box(".focus-panel__live-card"),
+  // Real production celebration geometry, for enabled-preference screenshot
+  // validation; do not infer paint solely from the DOM presence marker.
+  successReaction: (() => {
+    const reaction = document.querySelector<HTMLElement>('[data-focus-success-reaction="true"]');
+    if (!reaction) return null;
+    const card = document.querySelector<HTMLElement>(".focus-panel__live-card");
+    const svg = reaction.querySelector("svg");
+    if (!card || !svg) throw new Error("Enabled Focus success reaction is not mounted in its card");
+    const rect = reaction.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    return {
+      paintRegion: {
+        x: Math.floor(rect.left), y: Math.floor(rect.top),
+        width: Math.ceil(rect.right) - Math.floor(rect.left),
+        height: Math.ceil(rect.bottom) - Math.floor(rect.top),
+      },
+      fitsCard: rect.left >= cardRect.left - 1 && rect.right <= cardRect.right + 1
+        && rect.top >= cardRect.top - 1 && rect.bottom <= cardRect.bottom + 1,
+      svgVisible: svgRect.width > 0 && svgRect.height > 0,
+      notClipped: reaction.scrollHeight <= reaction.clientHeight + 1,
+    };
+  })(),
+
   liveCardStyle: styleContract(".focus-panel__live-card"),
   liveTimer: optionalBox(".focus-panel__live-timer"),
   liveTimerStyle: styleContract(".focus-panel__live-timer"),
