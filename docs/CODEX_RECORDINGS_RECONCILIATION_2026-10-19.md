@@ -1,5 +1,7 @@
 # Last Codex recordings — full-analysis-first reconciliation
 
+**Codex continuation / 2026-10-19 / ANALYZING:** direct local media access is now available. Eighteen unique useful streams across all eleven CI953 packets and the later G1–G8/C1–C4/D1–D3 corpora were matched to their published Git blobs; split originals were reconstructed in a separate analysis folder with original reassembly hashes verified. A real movie frame was decoded successfully. The prior ChatGPT media-access blocker is historical for that runtime, not a blocker here. Full review is in progress; the registered 44/100 counter is unchanged until actual per-cell review is published. No Narro/source/config/test edits, app launches, physical checks or recordings are authorized in this analysis-only assignment.
+
 **2026-10-19, owner: ChatGPT, phase: ANALYZING; NOT COMPLETE.** Latest user order: update repo, analyze **all** latest frozen Codex recordings before making any new source/config/test fixes, then correct only substantiated current-main defects. This is the one actively maintained analysis report; raw evidence and former immutable findings remain untouched. **Not a native physical PA or a claim that all video has been viewed.**
 
 ## Frozen candidate identity and already published review
