@@ -128,6 +128,37 @@ for (const theme of ["light", "dark"]) {
   invariant(breakState.dom.includes(">07:00<"), `${breakState.label} break timer value differs`);
   invariant(breakState.dom.includes(">Resume<"), `${breakState.label} break state must expose Resume`);
 
+  // Source VE-016: POMO remains on the active card during both Pomodoro
+  // countdown and its Break, even if the task's persisted EST is zero.
+  const pomoWork = readCapture(theme, "pomodoro-work");
+  const pomoBreak = readCapture(theme, "pomodoro-break");
+  requireLiveState(pomoWork, "running");
+  requireLiveState(pomoBreak, "break");
+  invariant(!running.dom.includes('data-focus-pomodoro-badge="true"')
+    && !breakState.dom.includes('data-focus-pomodoro-badge="true"'),
+    `${theme} ordinary timers and manual Break must not advertise Pomodoro`);
+  for (const capture of [pomoWork, pomoBreak]) {
+    const badge = capture.contract.pomodoroBadge;
+    invariant(capture.dom.includes('data-focus-pomodoro-badge="true"')
+      && capture.dom.includes('aria-label="Pomodoro mode"')
+      && capture.dom.includes('data-focus-live-timer-mode="pomodoro"')
+      && badge?.text === "POMO" && badge.width > 0 && badge.height > 0
+      && badge.visible && badge.fitsCard && badge.notClipped
+      && badge.color !== "rgba(0, 0, 0, 0)"
+      && badge.borderColor !== "rgba(0, 0, 0, 0)",
+      `${capture.label} POMO chip must paint uncut in its authoritative active-card state`);
+  }
+  invariant(pomoWork.dom.includes('aria-label="Pomodoro work: 18:00 remaining"')
+    && pomoWork.dom.includes('>18:00<')
+    && pomoWork.dom.includes('Est: 1hr 10min'),
+    `${pomoWork.label} zero-EST Pomodoro must count down without replacing saved EST`);
+  invariant(pomoBreak.dom.includes('aria-label="Pomodoro break: 03:00 remaining"')
+    && pomoBreak.dom.includes('>03:00<')
+    && pomoBreak.dom.includes('data-focus-break-card="true"')
+    && pomoBreak.dom.includes('data-focus-break-suspended-work="true"')
+    && pomoBreak.dom.includes('data-focus-reorderable="false"'),
+    `${pomoBreak.label} Pomodoro Break must retain visible POMO, live Break and inert work identity`);
+
   const timeUp = readCapture(theme, "time-up");
   requireLiveState(timeUp, "time_up");
   requireDistinctCardState(timeUp, running);

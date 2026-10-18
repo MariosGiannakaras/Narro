@@ -31,6 +31,8 @@ const scenarios = [
   "selector-open",
   "paused-metrics",
   "break",
+  "pomodoro-work",
+  "pomodoro-break",
   "time-up",
   "overtime",
   "notes-expanded",
@@ -48,6 +50,8 @@ const scenario: Scenario = scenarios.includes(requestedScenario as Scenario)
   ? requestedScenario as Scenario
   : "running";
 const isSuccessScenario = scenario.startsWith("success");
+const isPomodoroScenario = scenario === "pomodoro-work" || scenario === "pomodoro-break";
+const isBreakScenario = scenario === "break" || scenario === "pomodoro-break";
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
@@ -90,7 +94,7 @@ const scheduledId = "21111111-1111-4111-8111-111111111114";
 const longTitle = ["Plan weekend errands", "and confirm the pickup route before leaving home"].join(" ");
 
 const liveTask = task(liveId, "Prepare BFCM strategy", workId, "Work", "#48d6c5", {
-  estSeconds: 3600,
+  estSeconds: isPomodoroScenario ? 0 : 3600,
   timeTakenSeconds: "1320",
   subtaskTotalCount: 4,
   subtaskCompletedCount: 1,
@@ -153,6 +157,7 @@ function timerState(): TimerStateKind {
     case "paused-metrics":
       return "paused";
     case "break":
+    case "pomodoro-break":
       return "break";
     case "time-up":
       return "time_up";
@@ -171,14 +176,17 @@ const timer: TimerSessionPayload | null = noLiveScenario ? null : {
     timer: {
       state,
       task_id: liveId,
-      mode: { kind: "est_countdown", est_ms: 3_600_000 },
-      work_elapsed_ms: 1_320_000,
-      total_break_ms: state === "break" ? 180_000 : 0,
-      countdown_remaining_ms: state === "time_up" || state.startsWith("overtime") ? 0 : 2_280_000,
+      mode: isPomodoroScenario
+        ? { kind: "pomodoro", work_ms: 1_500_000, break_ms: 300_000 }
+        : { kind: "est_countdown", est_ms: 3_600_000 },
+      work_elapsed_ms: isPomodoroScenario ? 420_000 : 1_320_000,
+      total_break_ms: isBreakScenario ? (isPomodoroScenario ? 120_000 : 180_000) : 0,
+      countdown_remaining_ms: state === "time_up" || state.startsWith("overtime") ? 0
+        : isPomodoroScenario ? 1_080_000 : 2_280_000,
       overtime_ms: state.startsWith("overtime") ? 420_000 : 0,
-      break_kind: state === "break" ? "manual" : null,
-      break_remaining_ms: state === "break" ? 420_000 : null,
-      break_planned_ms: state === "break" ? 600_000 : null,
+      break_kind: isBreakScenario ? (isPomodoroScenario ? "pomodoro" : "manual") : null,
+      break_remaining_ms: isBreakScenario ? (isPomodoroScenario ? 180_000 : 420_000) : null,
+      break_planned_ms: isBreakScenario ? (isPomodoroScenario ? 300_000 : 600_000) : null,
     },
     open_session_id: "31111111-1111-4111-8111-111111111111",
   },
@@ -560,6 +568,28 @@ const contract = {
   liveCardStyle: styleContract(".focus-panel__live-card"),
   liveTimer: optionalBox(".focus-panel__live-timer"),
   liveTimerStyle: styleContract(".focus-panel__live-timer"),
+  // Inspect the actual production chip paint/placement in both Pomodoro phases.
+  pomodoroBadge: (() => {
+    const badge = document.querySelector<HTMLElement>('[data-focus-pomodoro-badge="true"]');
+    if (!badge) return null;
+    const liveCard = document.querySelector<HTMLElement>(".focus-panel__live-card");
+    if (!liveCard) throw new Error("POMO badge has no active Focus card");
+    const badgeRect = badge.getBoundingClientRect();
+    const cardRect = liveCard.getBoundingClientRect();
+    const style = getComputedStyle(badge);
+    return {
+      text: badge.textContent?.trim() ?? "",
+      width: badgeRect.width,
+      height: badgeRect.height,
+      color: style.color,
+      borderColor: style.borderColor,
+      visible: style.visibility === "visible" && style.opacity !== "0",
+      fitsCard: badgeRect.left >= cardRect.left - 1 && badgeRect.right <= cardRect.right + 1
+        && badgeRect.top >= cardRect.top - 1 && badgeRect.bottom <= cardRect.bottom + 1,
+      notClipped: badge.scrollWidth <= badge.clientWidth + 1
+        && badge.scrollHeight <= badge.clientHeight + 1,
+    };
+  })(),
   liveStateStyle: styleContract(".focus-panel__live-state"),
   metrics: optionalBox(".focus-panel__live-metrics"),
   metricRow: optionalBox(".focus-panel__metric-row"),

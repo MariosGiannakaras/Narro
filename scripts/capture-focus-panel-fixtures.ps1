@@ -39,6 +39,8 @@ $scenarios = @(
     @{ Name = "selector-open"; Suffix = "-selector-open"; Query = "&scenario=selector-open"; VirtualTimeBudgetMs = 800 },
     @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics"; VirtualTimeBudgetMs = 0 },
     @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "pomodoro-work"; Suffix = "-pomodoro-work"; Query = "&scenario=pomodoro-work"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "pomodoro-break"; Suffix = "-pomodoro-break"; Query = "&scenario=pomodoro-break"; VirtualTimeBudgetMs = 0 },
     @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up"; VirtualTimeBudgetMs = 0 },
     @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime"; VirtualTimeBudgetMs = 0 },
     @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
