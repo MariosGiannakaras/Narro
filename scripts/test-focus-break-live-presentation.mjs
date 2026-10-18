@@ -85,7 +85,7 @@ assert(panel.includes("focusHeaderEstimateSeconds(")
   && panel.includes("Est: {formatEstimate(headerEstimateSeconds)}"),
   "header must use pure scoped Break projection without changing saved task/board estimate");
 const fixture = fs.readFileSync("src/focusPanelVisualFixture.tsx", "utf8");
-assert(fixture.includes('break_planned_ms: state === "break" ? 600_000 : null'),
-  "real dark/light Break visual fixture must project planned 10min independent of remaining 7min");
+assert(fixture.includes('break_planned_ms: isBreakScenario ? (isPomodoroScenario ? 300_000 : 600_000) : null'),
+  "real dark/light manual Break must retain the planned 10min (not remaining 7min) while Pomodoro Break uses its independent planned 5min");
 console.log("U23 Focus Break planned EST read-only projection, scope, transitions, and invalid durations passed.");
 
