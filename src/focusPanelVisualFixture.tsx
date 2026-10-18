@@ -38,6 +38,7 @@ const scenarios = [
   "overtime",
   "notes-expanded",
   "live-actions-focus",
+  "live-actions-done-focus",
   "success",
   "success-late",
   "success-equal",
@@ -429,8 +430,10 @@ if (queuedRow) {
 // a different task row and had been stealing focus AFTER the old B49 "pass"
 // marker, leaving its PNG indistinguishable from the ordinary running state.
 // No validation threshold or application behavior changes.
-if (scenario === "live-actions-focus") {
-  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+const focusDoneEdge = scenario === "live-actions-done-focus";
+if (scenario === "live-actions-focus" || focusDoneEdge) {
+  const action = document.querySelector<HTMLButtonElement>(
+    focusDoneEdge ? '[data-focus-action="done"]' : '[data-focus-action="pause-resume"]');
   const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
   const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
   const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
@@ -466,7 +469,18 @@ if (scenario === "live-actions-focus") {
   const cardAfter = liveCard.getBoundingClientRect();
   const railAfter = rail.getBoundingClientRect();
   const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
+  const actionRect = action.getBoundingClientRect();
+  const labelRect = label?.getBoundingClientRect();
+  // The rightmost Done pill uses a distinct end-alignment rule. Verify its
+  // actual focused paint stays inside the same reserved action rail/card.
   const revealProblems = [
+    focusDoneEdge && label?.textContent?.trim() !== "Done" ? "done-label-missing" : null,
+    focusDoneEdge && (actionRect.left < railAfter.left - 1 || actionRect.right > railAfter.right + 1)
+      ? "done-pill-escapes-action-rail" : null,
+    focusDoneEdge && (actionRect.left < cardAfter.left - 1 || actionRect.right > cardAfter.right + 1)
+      ? "done-pill-escapes-live-card" : null,
+    focusDoneEdge && labelRect && (labelRect.left < actionRect.left - 1 || labelRect.right > actionRect.right + 1)
+      ? "done-label-escapes-pill" : null,
     document.activeElement !== action ? "keyboard-focus-owner" : null,
     liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
     !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,

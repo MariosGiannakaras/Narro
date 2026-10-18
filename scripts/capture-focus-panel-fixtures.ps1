@@ -46,6 +46,7 @@ $scenarios = @(
     @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime"; VirtualTimeBudgetMs = 0 },
     @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
     @{ Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500 },
+    @{ Name = "live-actions-done-focus"; Suffix = "-live-actions-done-focus"; Query = "&scenario=live-actions-done-focus"; VirtualTimeBudgetMs = 2500 },
     @{ Name = "success"; Suffix = "-success"; Query = "&scenario=success"; VirtualTimeBudgetMs = 0 },
     @{ Name = "success-late"; Suffix = "-success-late"; Query = "&scenario=success-late"; VirtualTimeBudgetMs = 0 },
     @{ Name = "success-equal"; Suffix = "-success-equal"; Query = "&scenario=success-equal"; VirtualTimeBudgetMs = 0 },
@@ -81,7 +82,7 @@ try {
                 # the SAME actual 420x720 CDP viewport. Legacy --window-size
                 # yields a 492x628 inner viewport on Windows Edge even though
                 # its screenshot is 420x720. Keep every other scenario unchanged.
-                if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus") {
+                if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus" -or $scenario.Name -eq "live-actions-done-focus") {
                     $reducedValue = if ($ReducedMotion) { "true" } else { "false" }
                     $mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }
                     & node "scripts/capture-focus-action-cdp.mjs" "--edge=$edge" "--url=$url" "--profile=$profile" "--png=$screenshot" "--html=$dom" "--reducedMotion=$reducedValue" "--mode=$mode"
