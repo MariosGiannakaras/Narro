@@ -36,6 +36,9 @@ const scenarios = [
   "notes-expanded",
   "live-actions-focus",
   "success",
+  "success-late",
+  "success-equal",
+  "success-no-est",
   "success-fun-gif",
   "no-eligible",
   "empty",
@@ -44,7 +47,7 @@ type Scenario = (typeof scenarios)[number];
 const scenario: Scenario = scenarios.includes(requestedScenario as Scenario)
   ? requestedScenario as Scenario
   : "running";
-const isSuccessScenario = scenario === "success" || scenario === "success-fun-gif";
+const isSuccessScenario = scenario.startsWith("success");
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
@@ -111,6 +114,13 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
   completedAt: "2026-09-13T08:50:00Z",
 });
 
+// Exercise the actual committed-success view with authoritative metric variants.
+const successEstSeconds = scenario === "success-no-est" ? null
+  : scenario === "success-late" || scenario === "success-equal" ? 600
+    : liveTask.estSeconds;
+const successTakenSeconds = scenario === "success-late" ? "660"
+  : scenario === "success-equal" || scenario === "success-no-est" ? "600"
+    : liveTask.timeTakenSeconds;
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
 const todayTasks = scenario === "no-eligible" ? [scheduledTask]
   : scenario === "empty" ? []
@@ -128,9 +138,9 @@ const board: ListBoardSnapshot = {
   },
   done: {
     count: isSuccessScenario ? 2 : 1,
-    aggregateEstSeconds: isSuccessScenario ? 4800 : 1200,
+    aggregateEstSeconds: isSuccessScenario ? 1200 + (successEstSeconds ?? 0) : 1200,
     tasks: isSuccessScenario
-      ? [doneTask, { ...liveTask, completedAt: "2026-09-13T09:20:00Z" }]
+      ? [doneTask, { ...liveTask, estSeconds: successEstSeconds, timeTakenSeconds: successTakenSeconds, completedAt: "2026-09-13T09:20:00Z" }]
       : [doneTask],
   },
   todayCompletionCount: isSuccessScenario ? 1 : 0,
@@ -238,10 +248,10 @@ flushSync(() => {
         endedAt: "2026-09-13T09:10:00Z",
         durationSeconds: "600",
       }] : []}
-      completionSuccessContent={scenario === "success" || scenario === "success-fun-gif" ? (
+      completionSuccessContent={isSuccessScenario ? (
         <FocusCompletionSuccess inline
           state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,
-            estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
+            estSeconds: successEstSeconds, timeTakenSeconds: successTakenSeconds,
             funGifEnabled: scenario === "success-fun-gif",
             nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
           pending={false} error={null} onNextTask={() => undefined} onTakeBreak={() => undefined} onClose={() => undefined}
@@ -360,7 +370,7 @@ if (queuedRow) {
   const tooltipNode = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!;
   const tooltip = tooltipNode.getBoundingClientRect();
   const rowBounds = queuedRow.getBoundingClientRect();
-  const tooltipEscapes = scenario !== "success" && (tooltip.left < rowBounds.left
+  const tooltipEscapes = !isSuccessScenario && (tooltip.left < rowBounds.left
     || tooltip.right > rowBounds.right
     || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight)));
   if (tooltipEscapes) {
@@ -505,6 +515,24 @@ const contract = {
   topbar: box(".focus-panel__topbar"),
   summary: box(".focus-panel__summary"),
   liveCard: box(".focus-panel__live-card"),
+  // Read real rendered success-copy dimensions without duplicating its formatter.
+  successTiming: (() => {
+    const timing = document.querySelector<HTMLElement>('[data-focus-success-timing="true"]');
+    if (!timing) return null;
+    const card = timing.closest<HTMLElement>(".focus-completion-success__card");
+    if (!card) throw new Error("Visible timing has no completion card");
+    const rect = timing.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    return {
+      text: timing.textContent?.trim() ?? "",
+      width: rect.width,
+      height: rect.height,
+      fitsCard: rect.left >= cardRect.left - 1 && rect.right <= cardRect.right + 1
+        && rect.top >= cardRect.top - 1 && rect.bottom <= cardRect.bottom + 1,
+      notClipped: timing.scrollWidth <= timing.clientWidth + 1
+        && timing.scrollHeight <= timing.clientHeight + 1,
+    };
+  })(),
   // Real production celebration geometry, for enabled-preference screenshot
   // validation; do not infer paint solely from the DOM presence marker.
   successReaction: (() => {

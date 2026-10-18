@@ -88,7 +88,7 @@ const successValidator = read("scripts/validate-focus-visual-state-captures.mjs"
 execFileSync(process.execPath, ["--check", fileURLToPath(new URL("./validate-focus-visual-state-captures.mjs", import.meta.url))]);
 assert.ok(successFixture.includes('"success"')
   && successFixture.includes("<FocusCompletionSuccess inline")
-  && successFixture.includes('completionSuccessContent={scenario === "success"'),
+  && successFixture.includes('completionSuccessContent={isSuccessScenario'),
   "B63 rendered fixture must mount the real committed success inline");
 assert.ok(successCapture.includes('Name = "success"; Suffix = "-success"; Query = "&scenario=success"')
   && successValidator.includes('readCapture(theme, "success")')
@@ -102,5 +102,15 @@ assert.ok(successFixture.includes('"success-fun-gif"')
   && successValidator.includes("reaction.svgVisible && reaction.notClipped")
   && successValidator.includes("differentFocusPixels("),
   "enabled Fun GIF must be captured and visibly validated against disabled preference in both themes");
+// Require every added Windows capture to inspect the actual production success UI.
+for (const state of ["success-late", "success-equal", "success-no-est"]) {
+  assert.ok(successFixture.includes(`"${state}",`)
+    && successCapture.includes(`Name = "${state}"; Suffix = "-${state}"`)
+    && successValidator.includes(`scenario: "${state}"`),
+    `B65 ${state} rendered regression capture missing`);
+}
+assert.ok(successFixture.includes("successTiming: (() => {")
+  && successValidator.includes("captured.contract.successTiming.notClipped"),
+  "B65 Windows captures must measure true rendered timing and overflow");
 await import("./test-focus-success-actual-handler-owners.mjs");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

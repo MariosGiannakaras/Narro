@@ -44,6 +44,9 @@ $scenarios = @(
     @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
     @{ Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500 },
     @{ Name = "success"; Suffix = "-success"; Query = "&scenario=success"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-late"; Suffix = "-success-late"; Query = "&scenario=success-late"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-equal"; Suffix = "-success-equal"; Query = "&scenario=success-equal"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-no-est"; Suffix = "-success-no-est"; Query = "&scenario=success-no-est"; VirtualTimeBudgetMs = 0 },
     @{ Name = "success-fun-gif"; Suffix = "-success-fun-gif"; Query = "&scenario=success-fun-gif"; VirtualTimeBudgetMs = 2600 },
     @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible"; VirtualTimeBudgetMs = 0 },
     @{ Name = "empty"; Suffix = "-empty"; Query = "&scenario=empty"; VirtualTimeBudgetMs = 0 }
