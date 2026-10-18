@@ -1,10 +1,8 @@
 # TODO.md
 
-**Codex video-analysis checkpoint 2026-10-18T23:33:54.186948+00:00: 55/100 dispositioned (44 inherited + 11 directly reviewed), not PASS count; 45 still pending.** Read-only media/source analysis; no implementation or new native run. [Authoritative live report](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md).
+**2026-10-19 recordings-analysis gate COMPLETE for the enumerated published useful corpus:**100/100 cells dispositioned(44 inherited+56 new), not100PASS. All18 useful byte-verified streams have scoped review outcomes; source/current-native/sampling limits remain explicit. [Final analysis](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md), [56-cell detailed ledger](work-log/evidence/recordings-analysis-20261019/README.md). No original changes, source fixes, new native run, tests or CI in this task.
 
-**NEW CURRENT ORDER / 2026-10-19 — CODEX RECORDINGS ANALYSIS FIRST, FIXES SECOND:** Latest explicit user instruction freezes new source/config/test corrective PRs until the full published last-Codex-recordings assessment has been completed against current main. The [single active evidence-to-code analysis and exact 56-case review queue](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) covers **11 CI953 packets**, **newer 8/8 M5 G1–G8 already scoped analyzed**, plus separately published **PR364 C1–C4 (4/4 acquired) and M6 D1–D3 (3/3 acquired)**; later seven groups have partial static/owned-state evaluation, not complete motion verdict. Historic CI953 media matrix **44/100 reviewed, 56 OPEN FOR REVIEW**, **not** 56 defects or 56 coding tasks. Important supersession: PR364 C3 physically exercised B45 Update/Remove from parent overflow and shows scheduled headers This Week/Backlog; PR364 C4 actually applied/saved/reopened dark #111111, so earlier G5/G7 NOT RUN applies only to the earlier acquisition. Do not reset accepted native/source evidence, change user-locked Spectrum Core picker/upload/218 icons, restart Codex or treat old native failures as current application defects without current-source reconciliation. **No new source fix before completed analysis**; user permits genuinely executable physical checks but no interactive Windows desktop is connected in this session. PR344 other owner; M10 gated and optional M11/M12 inactive. This supersedes older "no new recording or physical test authorized" phrasing below insofar as the user's later personal-agent authorization applies.  
-
-**HISTORICAL 2026-10-17 source/CI status:** All documented resulting-main `push/main` workflows for PR365, PR367, PR368, PR370 and PR371 have exact merge SHA **3/3 SUCCESS**. PR369 post-merge run `39036018158` is **2/3 (Windows candidate FAIL)** from Edge headless `ERR_NO_BUFFER_SPACE` in Reports screenshot; later successor runs passed but do not retroactively change its result. [Exact run ledger](work-log/2026-10-17-chatgpt-main-push-ci-reconciliation.md). PR365 previously blocked six-step review/handoff is now **6/6 closed** because run `39018417122` verifies resulting-main CI; post-merge native Home rendering remains **OPEN/NOT RUN**. No new screen recording or physical test authorized. Mandatory M1–M4 **4/10 accepted**, M5 open, M10 holistic sweep gated, optional M11/M12 dormant. Do not alter the protected Spectrum Core controls.
+**Implementation continuation:** RA01 pending-drop presentation ownership first, then compatible RA02 automatic-completion projection. Both require production-component deferred-IPC regressions before correction and one materially affected final-build native acceptance later; do not repeat accepted unrelated physical checks. No wholesale corpus re-analysis prerequisite remains. Q18 is separate regression-first/unproven. M10 entry gate and mandatory4/10 remain unchanged; optionalM11/M12 dormant.
 
 ## Current Windows acceptance
 
@@ -199,6 +197,8 @@ Acceptance criteria:
 
 ## Milestone 5 — Design system and Main window product UI
 
+- [ ] **RA01 / confirmed recorded visual defect, current causal source retained:** keep inert pending-drop visual until committed refreshed board owns final placement; deferred move/reorder/refresh rejection regression, then final-build drop-settle acceptance. [Exact video frames/hash/plan](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md#ra01--board-drop-briefly-repaints-the-old-lane). No dataloss or duplicate F28 claim.
+
 Implement the screenshot hierarchy rather than an invented generic task manager.
 
 ### Shared visual foundation
@@ -313,6 +313,8 @@ Acceptance criteria:
 Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 / run `37161179503`; expected-head guarded squash merge `cdbe496bb995311f5dacc0527ef94072683032d1` PASSed resulting-main Windows CI #928 / run `37162873321`. This closes the five `FIX_NOW` implementation deltas only. PR #225's exact-EXE narrow-board physical check and direct canonical-source comparison remain `VALIDATION_OPEN`; Narro-owned captures do not establish `SOURCE_PARITY_PASS`.
 
 ## Milestone 6 — Blitz Mode / Focus Panel
+
+- [ ] **RA02 / confirmed recorded visual defect, current causal source retained:** coherent pending completion/next-start/board projection; prevent empty-view flash and just-completed task reappearing in pending queue; regression-first with committed failure truth preserved. [Exact video frames/hash/plan](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md#ra02--automatic-completion-advance-flashes-empty-live-view-and-stale-queue). Existing SuccessON/untimed-rest/sound contracts unchanged.
 
 - [x] Start Blitz from eligible Today tasks.
 - [x] Auto-select top eligible Today task.
@@ -847,4 +849,3 @@ Do not implement these until Milestones 1–10 and the Final Comprehensive Revie
 ## HISTORICAL 2026-10-05 03:43Z — verified CI953 and separate read-worker WIP (not current instructions)
 
 CI953 is now full PASS on frozen38219e20; artifact11324640580 ZIP7720c2de and EXEbde7646d SHA256 verified. This candidate covers pointer/menu/wrapping only. New local unpushed07 WIP uses async Home/board commands plus a shared spawn_blocking read worker, preserving DTO/errors/domain reads; Home/board contracts and Rust formatting PASS. Actual blocked-SQLite yielding/result and error-preservation tests are added but not compiled locally (MSVC linker unavailable). CI953 does not validate that WIP. Use the frozen953 candidate for affected125% physical checks, batch any substantiated findings with07 before the next exact build. Current LG only; Duplicate->Extend did not restore unavailable UltraGear. M7 remains4/5/C4 open;4/10M ||4/5 |14/19, M10 blocked/M11 dormant.
-

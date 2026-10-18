@@ -1,0 +1,46 @@
+{
+  "id": "browser-shortcut",
+  "method": "I-frame temporal navigation only; no motion or audio PASS",
+  "frames": [
+    {
+      "frame": "k0001.jpg",
+      "seconds": 0.0
+    },
+    {
+      "frame": "k0002.jpg",
+      "seconds": 12.6
+    },
+    {
+      "frame": "k0003.jpg",
+      "seconds": 25.15
+    },
+    {
+      "frame": "k0004.jpg",
+      "seconds": 37.65
+    },
+    {
+      "frame": "k0005.jpg",
+      "seconds": 50.25
+    },
+    {
+      "frame": "k0006.jpg",
+      "seconds": 62.75
+    },
+    {
+      "frame": "k0007.jpg",
+      "seconds": 75.25
+    },
+    {
+      "frame": "k0008.jpg",
+      "seconds": 87.75
+    },
+    {
+      "frame": "k0009.jpg",
+      "seconds": 100.35
+    },
+    {
+      "frame": "k0010.jpg",
+      "seconds": 113.35
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "input": "work-log/evidence/pr364-native-20261017/video/2026-10-17 10-01-01.mkv",
+  "sourceSHA256": "2ca27f2d3d93b281b32ab5d088d5e7ea13cd06613b5d353959c0c2121e623a06",
+  "plan": {
+    "id": "c1c4-2",
+    "name": "scheduled-headers",
+    "start": 169,
+    "end": 174,
+    "roi": [
+      1920,
+      0,
+      1800,
+      1080
+    ],
+    "step": 6
+  },
+  "sampledFrames": 50,
+  "retainedForContact": 5,
+  "metrics": [
+    {
+      "frame": "f00001.jpg",
+      "seconds": 169.0,
+      "meanDelta160x90": null
+    },
+    {
+      "frame": "f00002.jpg",
+      "seconds": 169.1,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00003.jpg",
+      "seconds": 169.2,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00004.jpg",
+      "seconds": 169.3,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00005.jpg",
+      "seconds": 169.4,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00006.jpg",
+      "seconds": 169.5,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00007.jpg",
+      "seconds": 169.6,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00008.jpg",
+      "seconds": 169.7,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00009.jpg",
+      "seconds": 169.8,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00010.jpg",
+      "seconds": 169.9,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00011.jpg",
+      "seconds": 170.0,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00012.jpg",
+      "seconds": 170.1,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00013.jpg",
+      "seconds": 170.2,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00014.jpg",
+      "seconds": 170.3,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00015.jpg",
+      "seconds": 170.4,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00016.jpg",
+      "seconds": 170.5,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00017.jpg",
+      "seconds": 170.6,
+      "meanDelta160x90": 0.017013888888888887
+    },
+    {
+      "frame": "f00018.jpg",
+      "seconds": 170.7,
+      "meanDelta160x90": 10.841458333333334
+    },
+    {
+      "frame": "f00019.jpg",
+      "seconds": 170.8,
+      "meanDelta160x90": 1.66
+    },
+    {
+      "frame": "f00020.jpg",
+      "seconds": 170.9,
+      "meanDelta160x90": 0.09715277777777778
+    },
+    {
+      "frame": "f00021.jpg",
+      "seconds": 171.0,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00022.jpg",
+      "seconds": 171.1,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00023.jpg",
+      "seconds": 171.2,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00024.jpg",
+      "seconds": 171.3,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00025.jpg",
+      "seconds": 171.4,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00026.jpg",
+      "seconds": 171.5,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00027.jpg",
+      "seconds": 171.6,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00028.jpg",
+      "seconds": 171.7,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00029.jpg",
+      "seconds": 171.8,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00030.jpg",
+      "seconds": 171.9,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00031.jpg",
+      "seconds": 172.0,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00032.jpg",
+      "seconds": 172.1,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00033.jpg",
+      "seconds": 172.2,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00034.jpg",
+      "seconds": 172.3,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00035.jpg",
+      "seconds": 172.4,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00036.jpg",
+      "seconds": 172.5,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00037.jpg",
+      "seconds": 172.6,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00038.jpg",
+      "seconds": 172.7,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00039.jpg",
+      "seconds": 172.8,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00040.jpg",
+      "seconds": 172.9,
+      "meanDelta160x90": 0.0973611111111111
+    },
+    {
+      "frame": "f00041.jpg",
+      "seconds": 173.0,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00042.jpg",
+      "seconds": 173.1,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00043.jpg",
+      "seconds": 173.2,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00044.jpg",
+      "seconds": 173.3,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00045.jpg",
+      "seconds": 173.4,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00046.jpg",
+      "seconds": 173.5,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00047.jpg",
+      "seconds": 173.6,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00048.jpg",
+      "seconds": 173.7,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00049.jpg",
+      "seconds": 173.8,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00050.jpg",
+      "seconds": 173.9,
+      "meanDelta160x90": 0.0
+    }
+  ]
+}

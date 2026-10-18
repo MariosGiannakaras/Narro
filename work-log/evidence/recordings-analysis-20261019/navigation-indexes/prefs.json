@@ -1,0 +1,158 @@
+{
+  "id": "prefs",
+  "method": "I-frame temporal navigation only; no motion or audio PASS",
+  "frames": [
+    {
+      "frame": "k0001.jpg",
+      "seconds": 0.0
+    },
+    {
+      "frame": "k0002.jpg",
+      "seconds": 8.333
+    },
+    {
+      "frame": "k0003.jpg",
+      "seconds": 16.667
+    },
+    {
+      "frame": "k0004.jpg",
+      "seconds": 25.0
+    },
+    {
+      "frame": "k0005.jpg",
+      "seconds": 33.333
+    },
+    {
+      "frame": "k0006.jpg",
+      "seconds": 41.667
+    },
+    {
+      "frame": "k0007.jpg",
+      "seconds": 50.0
+    },
+    {
+      "frame": "k0008.jpg",
+      "seconds": 58.333
+    },
+    {
+      "frame": "k0009.jpg",
+      "seconds": 66.667
+    },
+    {
+      "frame": "k0010.jpg",
+      "seconds": 75.0
+    },
+    {
+      "frame": "k0011.jpg",
+      "seconds": 83.333
+    },
+    {
+      "frame": "k0012.jpg",
+      "seconds": 91.667
+    },
+    {
+      "frame": "k0013.jpg",
+      "seconds": 100.0
+    },
+    {
+      "frame": "k0014.jpg",
+      "seconds": 108.333
+    },
+    {
+      "frame": "k0015.jpg",
+      "seconds": 116.667
+    },
+    {
+      "frame": "k0016.jpg",
+      "seconds": 125.0
+    },
+    {
+      "frame": "k0017.jpg",
+      "seconds": 133.333
+    },
+    {
+      "frame": "k0018.jpg",
+      "seconds": 141.667
+    },
+    {
+      "frame": "k0019.jpg",
+      "seconds": 150.0
+    },
+    {
+      "frame": "k0020.jpg",
+      "seconds": 158.333
+    },
+    {
+      "frame": "k0021.jpg",
+      "seconds": 166.667
+    },
+    {
+      "frame": "k0022.jpg",
+      "seconds": 175.0
+    },
+    {
+      "frame": "k0023.jpg",
+      "seconds": 183.333
+    },
+    {
+      "frame": "k0024.jpg",
+      "seconds": 191.667
+    },
+    {
+      "frame": "k0025.jpg",
+      "seconds": 200.0
+    },
+    {
+      "frame": "k0026.jpg",
+      "seconds": 208.333
+    },
+    {
+      "frame": "k0027.jpg",
+      "seconds": 216.667
+    },
+    {
+      "frame": "k0028.jpg",
+      "seconds": 225.0
+    },
+    {
+      "frame": "k0029.jpg",
+      "seconds": 233.333
+    },
+    {
+      "frame": "k0030.jpg",
+      "seconds": 241.667
+    },
+    {
+      "frame": "k0031.jpg",
+      "seconds": 250.0
+    },
+    {
+      "frame": "k0032.jpg",
+      "seconds": 258.333
+    },
+    {
+      "frame": "k0033.jpg",
+      "seconds": 266.667
+    },
+    {
+      "frame": "k0034.jpg",
+      "seconds": 275.0
+    },
+    {
+      "frame": "k0035.jpg",
+      "seconds": 283.333
+    },
+    {
+      "frame": "k0036.jpg",
+      "seconds": 291.667
+    },
+    {
+      "frame": "k0037.jpg",
+      "seconds": 300.0
+    },
+    {
+      "frame": "k0038.jpg",
+      "seconds": 308.333
+    }
+  ]
+}

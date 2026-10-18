@@ -6,5 +6,6 @@
   "HEAD": {
     "commitDropSHA256": "c1859984400a85f3e76330cada1eda959065484943343563db43a0d5ae9b8c28",
     "pointerDragBlob": "134fc691406c05de1b5acb2f77fd7e4b621ba711"
-  }
+  },
+  "comparedAtGitHead": "46c454fc"
 }

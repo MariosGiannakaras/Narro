@@ -1,6 +1,21 @@
 # Audit → implementation crosswalk
 
-**2026-10-17 existing M5 A2/SS-H14 FIX_NOW:** final PR362 archived-list fixture still wide rows vs source muted cards/footer actions. Batch presentation-only correction with B43; preserve lifecycle/confirmation. [Evidence/plan](../work-log/2026-10-17-archived-list-card-source-reconciliation.md).
+## Current recordings reconciliation — 2026-10-19
+
+**100/100 review dispositions complete, not100PASS**; [one active full report](CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) and [ledger](../work-log/evidence/recordings-analysis-20261019/README.md). Original evidence unchanged; no code/test/physical action in analysis-only task.
+
+| Finding | Evidence and current-source comparison | Disposition / implementation route |
+|---|---|---|
+| RA01 Board drop wrong-lane transient | Theme1 375.217/375.233s, consecutive60fps; commitDrop + pointer module identity retained | **FIX_NOW M5 / regression-first**: retain pending-drop ownership through committed board refresh; honest write/read failure state. Latest native acceptance not executed here. Separate from fixedF28. |
+| RA02 automatic-completion empty/stale projection | PR364 D1-D3 130.183–130.367s; handleDone hash unchanged, separate timer/board projection | **FIX_NOW M6 / regression-first**: coherent pending completion/next-start without completed task in pending queue; preserve committed/error/SuccessON/rest/sound semantics. No domain loss or new current-native FAIL asserted. |
+| Old C4 clipping/pale/staging | Later PR349 five files byte-identical to accepted native36changes/3024frames | **ALREADY_ACCEPTED scoped native**; historical films cannot reopen it. Source motion/pixel remains separate. |
+| Old F29/F30/F35/F36 and FocusF33 | Existing merged corrections + later PA/CI1046 accepted scopes | **HISTORICAL_FIXED / reuse exact acceptance**. MainNotesEscape, source timing and other unexercised branches not silently promoted. |
+| Source comparisons/audio/theme occlusion/cropped paths | Ledger has explicit INCONCLUSIVE/evidence limits and13silent tracks/2no-audio | **EVIDENCE_LIMIT, not automatic PASS/FAIL**. No new whole-corpus recapture prerequisite or phantom sound patch. |
+| Q18 Reports passive-effect ordering | Independent source-only pretriage; no recording proves race | **NEEDS_REGRESSION_FIRST / CURRENT_DEFECT_NOT_PROVEN**, not RA01/02; do not revive PR325. |
+
+The older acquisition/implementation checkpoints below are historical where superseded by the current report; preserve their original failures. Current mandatory4/10 and M10 hard gate unchanged. OptionalM11/M12 dormant. Locked SpectrumCore/upload/218icons unchanged.
+
+**HISTORICAL 2026-10-17 M5 A2/SS-H14 finding (already corrected by PR367; not current FIX_NOW):** final PR362 archived-list fixture still wide rows vs source muted cards/footer actions. Batch presentation-only correction with B43; preserve lifecycle/confirmation. [Evidence/plan](../work-log/2026-10-17-archived-list-card-source-reconciliation.md).
 
 **Current source candidate:** PR359 mergededcc5fc6/exact055350d6CI3/3, main553-input proof accepted. PR360916b17d2/CI38860384226 batches existing B24/B60/B12/SS-C06 fixes; frontend/rendered/actualReact PASS, native5groups0/5. Old Search visual acceptance reopened for changed composition; no old pixels validate replacement. [Exact scope/evidence](../work-log/2026-10-16-pr359-integration-and-pr360-batched-controls.md).
 

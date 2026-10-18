@@ -1,0 +1,2121 @@
+{
+  "input": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+  "sourceSHA256": "8544f62e572d5937ce80b6da9ebda02323a73f577edf31274b9f3f37b5586163",
+  "plan": {
+    "id": "theme-1",
+    "name": "drag125-reduced",
+    "start": 367,
+    "end": 374,
+    "roi": [
+      200,
+      200,
+      1250,
+      600
+    ],
+    "step": 1
+  },
+  "sampledFrames": 420,
+  "retainedForContact": 59,
+  "metrics": [
+    {
+      "frame": "f00001.jpg",
+      "seconds": 367.0,
+      "meanDelta160x90": null
+    },
+    {
+      "frame": "f00002.jpg",
+      "seconds": 367.017,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00003.jpg",
+      "seconds": 367.033,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00004.jpg",
+      "seconds": 367.05,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00005.jpg",
+      "seconds": 367.067,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00006.jpg",
+      "seconds": 367.083,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00007.jpg",
+      "seconds": 367.1,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00008.jpg",
+      "seconds": 367.117,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00009.jpg",
+      "seconds": 367.133,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00010.jpg",
+      "seconds": 367.15,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00011.jpg",
+      "seconds": 367.167,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00012.jpg",
+      "seconds": 367.183,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00013.jpg",
+      "seconds": 367.2,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00014.jpg",
+      "seconds": 367.217,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00015.jpg",
+      "seconds": 367.233,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00016.jpg",
+      "seconds": 367.25,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00017.jpg",
+      "seconds": 367.267,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00018.jpg",
+      "seconds": 367.283,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00019.jpg",
+      "seconds": 367.3,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00020.jpg",
+      "seconds": 367.317,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00021.jpg",
+      "seconds": 367.333,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00022.jpg",
+      "seconds": 367.35,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00023.jpg",
+      "seconds": 367.367,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00024.jpg",
+      "seconds": 367.383,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00025.jpg",
+      "seconds": 367.4,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00026.jpg",
+      "seconds": 367.417,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00027.jpg",
+      "seconds": 367.433,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00028.jpg",
+      "seconds": 367.45,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00029.jpg",
+      "seconds": 367.467,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00030.jpg",
+      "seconds": 367.483,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00031.jpg",
+      "seconds": 367.5,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00032.jpg",
+      "seconds": 367.517,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00033.jpg",
+      "seconds": 367.533,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00034.jpg",
+      "seconds": 367.55,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00035.jpg",
+      "seconds": 367.567,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00036.jpg",
+      "seconds": 367.583,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00037.jpg",
+      "seconds": 367.6,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00038.jpg",
+      "seconds": 367.617,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00039.jpg",
+      "seconds": 367.633,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00040.jpg",
+      "seconds": 367.65,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00041.jpg",
+      "seconds": 367.667,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00042.jpg",
+      "seconds": 367.683,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00043.jpg",
+      "seconds": 367.7,
+      "meanDelta160x90": 0.0002777777777777778
+    },
+    {
+      "frame": "f00044.jpg",
+      "seconds": 367.717,
+      "meanDelta160x90": 0.0
+    },
+    {
+      "frame": "f00045.jpg",
+      "seconds": 367.733,
+      "meanDelta160x90": 0.000625
+    },
+    {
+      "frame": "f00046.jpg",
+      "seconds": 367.75,
+      "meanDelta160x90": 0.0009027777777777777
+    },
+    {
+      "frame": "f00047.jpg",
+      "seconds": 367.767,
+      "meanDelta160x90": 0.0015277777777777779
+    },
+    {
+      "frame": "f00048.jpg",
+      "seconds": 367.783,
+      "meanDelta160x90": 0.001388888888888889
+    },
+    {
+      "frame": "f00049.jpg",
+      "seconds": 367.8,
+      "meanDelta160x90": 0.0013194444444444445
+    },
+    {
+      "frame": "f00050.jpg",
+      "seconds": 367.817,
+      "meanDelta160x90": 0.0022222222222222222
+    },
+    {
+      "frame": "f00051.jpg",
+      "seconds": 367.833,
+      "meanDelta160x90": 0.002361111111111111
+    },
+    {
+      "frame": "f00052.jpg",
+      "seconds": 367.85,
+      "meanDelta160x90": 0.0675
+    },
+    {
+      "frame": "f00053.jpg",
+      "seconds": 367.867,
+      "meanDelta160x90": 0.06715277777777778
+    },
+    {
+      "frame": "f00054.jpg",
+      "seconds": 367.883,
+      "meanDelta160x90": 0.18458333333333332
+    },
+    {
+      "frame": "f00055.jpg",
+      "seconds": 367.9,
+      "meanDelta160x90": 0.331875
+    },
+    {
+      "frame": "f00056.jpg",
+      "seconds": 367.917,
+      "meanDelta160x90": 0.4461111111111111
+    },
+    {
+      "frame": "f00057.jpg",
+      "seconds": 367.933,
+      "meanDelta160x90": 0.5123611111111112
+    },
+    {
+      "frame": "f00058.jpg",
+      "seconds": 367.95,
+      "meanDelta160x90": 0.5466666666666666
+    },
+    {
+      "frame": "f00059.jpg",
+      "seconds": 367.967,
+      "meanDelta160x90": 0.5525
+    },
+    {
+      "frame": "f00060.jpg",
+      "seconds": 367.983,
+      "meanDelta160x90": 0.5682638888888889
+    },
+    {
+      "frame": "f00061.jpg",
+      "seconds": 368.0,
+      "meanDelta160x90": 0.5661805555555556
+    },
+    {
+      "frame": "f00062.jpg",
+      "seconds": 368.017,
+      "meanDelta160x90": 0.5832638888888889
+    },
+    {
+      "frame": "f00063.jpg",
+      "seconds": 368.033,
+      "meanDelta160x90": 0.5850694444444444
+    },
+    {
+      "frame": "f00064.jpg",
+      "seconds": 368.05,
+      "meanDelta160x90": 0.5945833333333334
+    },
+    {
+      "frame": "f00065.jpg",
+      "seconds": 368.067,
+      "meanDelta160x90": 0.594375
+    },
+    {
+      "frame": "f00066.jpg",
+      "seconds": 368.083,
+      "meanDelta160x90": 0.6058333333333333
+    },
+    {
+      "frame": "f00067.jpg",
+      "seconds": 368.1,
+      "meanDelta160x90": 0.6017361111111111
+    },
+    {
+      "frame": "f00068.jpg",
+      "seconds": 368.117,
+      "meanDelta160x90": 0.6010416666666667
+    },
+    {
+      "frame": "f00069.jpg",
+      "seconds": 368.133,
+      "meanDelta160x90": 0.6053472222222223
+    },
+    {
+      "frame": "f00070.jpg",
+      "seconds": 368.15,
+      "meanDelta160x90": 0.6833333333333333
+    },
+    {
+      "frame": "f00071.jpg",
+      "seconds": 368.167,
+      "meanDelta160x90": 1.7402777777777778
+    },
+    {
+      "frame": "f00072.jpg",
+      "seconds": 368.183,
+      "meanDelta160x90": 0.1676388888888889
+    },
+    {
+      "frame": "f00073.jpg",
+      "seconds": 368.2,
+      "meanDelta160x90": 0.17166666666666666
+    },
+    {
+      "frame": "f00074.jpg",
+      "seconds": 368.217,
+      "meanDelta160x90": 0.18333333333333332
+    },
+    {
+      "frame": "f00075.jpg",
+      "seconds": 368.233,
+      "meanDelta160x90": 0.19486111111111112
+    },
+    {
+      "frame": "f00076.jpg",
+      "seconds": 368.25,
+      "meanDelta160x90": 0.21597222222222223
+    },
+    {
+      "frame": "f00077.jpg",
+      "seconds": 368.267,
+      "meanDelta160x90": 0.22659722222222223
+    },
+    {
+      "frame": "f00078.jpg",
+      "seconds": 368.283,
+      "meanDelta160x90": 0.23993055555555556
+    },
+    {
+      "frame": "f00079.jpg",
+      "seconds": 368.3,
+      "meanDelta160x90": 0.24861111111111112
+    },
+    {
+      "frame": "f00080.jpg",
+      "seconds": 368.317,
+      "meanDelta160x90": 0.265625
+    },
+    {
+      "frame": "f00081.jpg",
+      "seconds": 368.333,
+      "meanDelta160x90": 0.2652777777777778
+    },
+    {
+      "frame": "f00082.jpg",
+      "seconds": 368.35,
+      "meanDelta160x90": 0.26708333333333334
+    },
+    {
+      "frame": "f00083.jpg",
+      "seconds": 368.367,
+      "meanDelta160x90": 0.2685416666666667
+    },
+    {
+      "frame": "f00084.jpg",
+      "seconds": 368.383,
+      "meanDelta160x90": 0.27694444444444444
+    },
+    {
+      "frame": "f00085.jpg",
+      "seconds": 368.4,
+      "meanDelta160x90": 0.27729166666666666
+    },
+    {
+      "frame": "f00086.jpg",
+      "seconds": 368.417,
+      "meanDelta160x90": 0.27847222222222223
+    },
+    {
+      "frame": "f00087.jpg",
+      "seconds": 368.433,
+      "meanDelta160x90": 0.27902777777777776
+    },
+    {
+      "frame": "f00088.jpg",
+      "seconds": 368.45,
+      "meanDelta160x90": 0.28319444444444447
+    },
+    {
+      "frame": "f00089.jpg",
+      "seconds": 368.467,
+      "meanDelta160x90": 0.2836111111111111
+    },
+    {
+      "frame": "f00090.jpg",
+      "seconds": 368.483,
+      "meanDelta160x90": 0.3040277777777778
+    },
+    {
+      "frame": "f00091.jpg",
+      "seconds": 368.5,
+      "meanDelta160x90": 0.3038194444444444
+    },
+    {
+      "frame": "f00092.jpg",
+      "seconds": 368.517,
+      "meanDelta160x90": 0.3343055555555556
+    },
+    {
+      "frame": "f00093.jpg",
+      "seconds": 368.533,
+      "meanDelta160x90": 0.9363888888888889
+    },
+    {
+      "frame": "f00094.jpg",
+      "seconds": 368.55,
+      "meanDelta160x90": 1.079236111111111
+    },
+    {
+      "frame": "f00095.jpg",
+      "seconds": 368.567,
+      "meanDelta160x90": 0.09388888888888888
+    },
+    {
+      "frame": "f00096.jpg",
+      "seconds": 368.583,
+      "meanDelta160x90": 0.47152777777777777
+    },
+    {
+      "frame": "f00097.jpg",
+      "seconds": 368.6,
+      "meanDelta160x90": 1.4494444444444445
+    },
+    {
+      "frame": "f00098.jpg",
+      "seconds": 368.617,
+      "meanDelta160x90": 0.3680555555555556
+    },
+    {
+      "frame": "f00099.jpg",
+      "seconds": 368.633,
+      "meanDelta160x90": 0.6022916666666667
+    },
+    {
+      "frame": "f00100.jpg",
+      "seconds": 368.65,
+      "meanDelta160x90": 0.6319444444444444
+    },
+    {
+      "frame": "f00101.jpg",
+      "seconds": 368.667,
+      "meanDelta160x90": 0.9105555555555556
+    },
+    {
+      "frame": "f00102.jpg",
+      "seconds": 368.683,
+      "meanDelta160x90": 0.058611111111111114
+    },
+    {
+      "frame": "f00103.jpg",
+      "seconds": 368.7,
+      "meanDelta160x90": 0.4346527777777778
+    },
+    {
+      "frame": "f00104.jpg",
+      "seconds": 368.717,
+      "meanDelta160x90": 0.46902777777777777
+    },
+    {
+      "frame": "f00105.jpg",
+      "seconds": 368.733,
+      "meanDelta160x90": 0.8045833333333333
+    },
+    {
+      "frame": "f00106.jpg",
+      "seconds": 368.75,
+      "meanDelta160x90": 0.07208333333333333
+    },
+    {
+      "frame": "f00107.jpg",
+      "seconds": 368.767,
+      "meanDelta160x90": 0.48791666666666667
+    },
+    {
+      "frame": "f00108.jpg",
+      "seconds": 368.783,
+      "meanDelta160x90": 0.7981944444444444
+    },
+    {
+      "frame": "f00109.jpg",
+      "seconds": 368.8,
+      "meanDelta160x90": 0.06875
+    },
+    {
+      "frame": "f00110.jpg",
+      "seconds": 368.817,
+      "meanDelta160x90": 0.4376388888888889
+    },
+    {
+      "frame": "f00111.jpg",
+      "seconds": 368.833,
+      "meanDelta160x90": 0.476875
+    },
+    {
+      "frame": "f00112.jpg",
+      "seconds": 368.85,
+      "meanDelta160x90": 0.7085416666666666
+    },
+    {
+      "frame": "f00113.jpg",
+      "seconds": 368.867,
+      "meanDelta160x90": 0.06263888888888888
+    },
+    {
+      "frame": "f00114.jpg",
+      "seconds": 368.883,
+      "meanDelta160x90": 0.39166666666666666
+    },
+    {
+      "frame": "f00115.jpg",
+      "seconds": 368.9,
+      "meanDelta160x90": 0.4259027777777778
+    },
+    {
+      "frame": "f00116.jpg",
+      "seconds": 368.917,
+      "meanDelta160x90": 0.7685416666666667
+    },
+    {
+      "frame": "f00117.jpg",
+      "seconds": 368.933,
+      "meanDelta160x90": 0.06326388888888888
+    },
+    {
+      "frame": "f00118.jpg",
+      "seconds": 368.95,
+      "meanDelta160x90": 0.43333333333333335
+    },
+    {
+      "frame": "f00119.jpg",
+      "seconds": 368.967,
+      "meanDelta160x90": 0.4675
+    },
+    {
+      "frame": "f00120.jpg",
+      "seconds": 368.983,
+      "meanDelta160x90": 0.7809027777777777
+    },
+    {
+      "frame": "f00121.jpg",
+      "seconds": 369.0,
+      "meanDelta160x90": 0.07736111111111112
+    },
+    {
+      "frame": "f00122.jpg",
+      "seconds": 369.017,
+      "meanDelta160x90": 0.4857638888888889
+    },
+    {
+      "frame": "f00123.jpg",
+      "seconds": 369.033,
+      "meanDelta160x90": 3.9761805555555556
+    },
+    {
+      "frame": "f00124.jpg",
+      "seconds": 369.05,
+      "meanDelta160x90": 0.058541666666666665
+    },
+    {
+      "frame": "f00125.jpg",
+      "seconds": 369.067,
+      "meanDelta160x90": 0.3663194444444444
+    },
+    {
+      "frame": "f00126.jpg",
+      "seconds": 369.083,
+      "meanDelta160x90": 0.40791666666666665
+    },
+    {
+      "frame": "f00127.jpg",
+      "seconds": 369.1,
+      "meanDelta160x90": 0.6936805555555555
+    },
+    {
+      "frame": "f00128.jpg",
+      "seconds": 369.117,
+      "meanDelta160x90": 0.7192361111111111
+    },
+    {
+      "frame": "f00129.jpg",
+      "seconds": 369.133,
+      "meanDelta160x90": 0.4567361111111111
+    },
+    {
+      "frame": "f00130.jpg",
+      "seconds": 369.15,
+      "meanDelta160x90": 0.44430555555555556
+    },
+    {
+      "frame": "f00131.jpg",
+      "seconds": 369.167,
+      "meanDelta160x90": 0.7580555555555556
+    },
+    {
+      "frame": "f00132.jpg",
+      "seconds": 369.183,
+      "meanDelta160x90": 0.050555555555555555
+    },
+    {
+      "frame": "f00133.jpg",
+      "seconds": 369.2,
+      "meanDelta160x90": 0.4110416666666667
+    },
+    {
+      "frame": "f00134.jpg",
+      "seconds": 369.217,
+      "meanDelta160x90": 0.4459722222222222
+    },
+    {
+      "frame": "f00135.jpg",
+      "seconds": 369.233,
+      "meanDelta160x90": 0.7700694444444445
+    },
+    {
+      "frame": "f00136.jpg",
+      "seconds": 369.25,
+      "meanDelta160x90": 0.06381944444444444
+    },
+    {
+      "frame": "f00137.jpg",
+      "seconds": 369.267,
+      "meanDelta160x90": 0.42986111111111114
+    },
+    {
+      "frame": "f00138.jpg",
+      "seconds": 369.283,
+      "meanDelta160x90": 0.7813194444444445
+    },
+    {
+      "frame": "f00139.jpg",
+      "seconds": 369.3,
+      "meanDelta160x90": 0.029930555555555554
+    },
+    {
+      "frame": "f00140.jpg",
+      "seconds": 369.317,
+      "meanDelta160x90": 0.3634722222222222
+    },
+    {
+      "frame": "f00141.jpg",
+      "seconds": 369.333,
+      "meanDelta160x90": 0.37333333333333335
+    },
+    {
+      "frame": "f00142.jpg",
+      "seconds": 369.35,
+      "meanDelta160x90": 0.6997222222222222
+    },
+    {
+      "frame": "f00143.jpg",
+      "seconds": 369.367,
+      "meanDelta160x90": 0.7108333333333333
+    },
+    {
+      "frame": "f00144.jpg",
+      "seconds": 369.383,
+      "meanDelta160x90": 0.45479166666666665
+    },
+    {
+      "frame": "f00145.jpg",
+      "seconds": 369.4,
+      "meanDelta160x90": 0.43972222222222224
+    },
+    {
+      "frame": "f00146.jpg",
+      "seconds": 369.417,
+      "meanDelta160x90": 0.7592361111111111
+    },
+    {
+      "frame": "f00147.jpg",
+      "seconds": 369.433,
+      "meanDelta160x90": 0.05569444444444444
+    },
+    {
+      "frame": "f00148.jpg",
+      "seconds": 369.45,
+      "meanDelta160x90": 0.3859722222222222
+    },
+    {
+      "frame": "f00149.jpg",
+      "seconds": 369.467,
+      "meanDelta160x90": 0.4170138888888889
+    },
+    {
+      "frame": "f00150.jpg",
+      "seconds": 369.483,
+      "meanDelta160x90": 0.7457638888888889
+    },
+    {
+      "frame": "f00151.jpg",
+      "seconds": 369.5,
+      "meanDelta160x90": 0.05409722222222222
+    },
+    {
+      "frame": "f00152.jpg",
+      "seconds": 369.517,
+      "meanDelta160x90": 0.42277777777777775
+    },
+    {
+      "frame": "f00153.jpg",
+      "seconds": 369.533,
+      "meanDelta160x90": 0.4545138888888889
+    },
+    {
+      "frame": "f00154.jpg",
+      "seconds": 369.55,
+      "meanDelta160x90": 0.6875
+    },
+    {
+      "frame": "f00155.jpg",
+      "seconds": 369.567,
+      "meanDelta160x90": 0.7157638888888889
+    },
+    {
+      "frame": "f00156.jpg",
+      "seconds": 369.583,
+      "meanDelta160x90": 0.42715277777777777
+    },
+    {
+      "frame": "f00157.jpg",
+      "seconds": 369.6,
+      "meanDelta160x90": 0.7793055555555556
+    },
+    {
+      "frame": "f00158.jpg",
+      "seconds": 369.617,
+      "meanDelta160x90": 0.05409722222222222
+    },
+    {
+      "frame": "f00159.jpg",
+      "seconds": 369.633,
+      "meanDelta160x90": 0.41694444444444445
+    },
+    {
+      "frame": "f00160.jpg",
+      "seconds": 369.65,
+      "meanDelta160x90": 0.44722222222222224
+    },
+    {
+      "frame": "f00161.jpg",
+      "seconds": 369.667,
+      "meanDelta160x90": 0.7497222222222222
+    },
+    {
+      "frame": "f00162.jpg",
+      "seconds": 369.683,
+      "meanDelta160x90": 0.0575
+    },
+    {
+      "frame": "f00163.jpg",
+      "seconds": 369.7,
+      "meanDelta160x90": 0.38166666666666665
+    },
+    {
+      "frame": "f00164.jpg",
+      "seconds": 369.717,
+      "meanDelta160x90": 0.4114583333333333
+    },
+    {
+      "frame": "f00165.jpg",
+      "seconds": 369.733,
+      "meanDelta160x90": 0.7479166666666667
+    },
+    {
+      "frame": "f00166.jpg",
+      "seconds": 369.75,
+      "meanDelta160x90": 0.04763888888888889
+    },
+    {
+      "frame": "f00167.jpg",
+      "seconds": 369.767,
+      "meanDelta160x90": 0.4098611111111111
+    },
+    {
+      "frame": "f00168.jpg",
+      "seconds": 369.783,
+      "meanDelta160x90": 0.4403472222222222
+    },
+    {
+      "frame": "f00169.jpg",
+      "seconds": 369.8,
+      "meanDelta160x90": 0.6886805555555555
+    },
+    {
+      "frame": "f00170.jpg",
+      "seconds": 369.817,
+      "meanDelta160x90": 0.7197916666666667
+    },
+    {
+      "frame": "f00171.jpg",
+      "seconds": 369.833,
+      "meanDelta160x90": 0.4156944444444444
+    },
+    {
+      "frame": "f00172.jpg",
+      "seconds": 369.85,
+      "meanDelta160x90": 0.7722916666666667
+    },
+    {
+      "frame": "f00173.jpg",
+      "seconds": 369.867,
+      "meanDelta160x90": 0.051666666666666666
+    },
+    {
+      "frame": "f00174.jpg",
+      "seconds": 369.883,
+      "meanDelta160x90": 0.4124305555555556
+    },
+    {
+      "frame": "f00175.jpg",
+      "seconds": 369.9,
+      "meanDelta160x90": 0.44854166666666667
+    },
+    {
+      "frame": "f00176.jpg",
+      "seconds": 369.917,
+      "meanDelta160x90": 0.7709027777777778
+    },
+    {
+      "frame": "f00177.jpg",
+      "seconds": 369.933,
+      "meanDelta160x90": 0.055625
+    },
+    {
+      "frame": "f00178.jpg",
+      "seconds": 369.95,
+      "meanDelta160x90": 0.40923611111111113
+    },
+    {
+      "frame": "f00179.jpg",
+      "seconds": 369.967,
+      "meanDelta160x90": 0.4413888888888889
+    },
+    {
+      "frame": "f00180.jpg",
+      "seconds": 369.983,
+      "meanDelta160x90": 0.7164583333333333
+    },
+    {
+      "frame": "f00181.jpg",
+      "seconds": 370.0,
+      "meanDelta160x90": 0.05798611111111111
+    },
+    {
+      "frame": "f00182.jpg",
+      "seconds": 370.017,
+      "meanDelta160x90": 0.3275
+    },
+    {
+      "frame": "f00183.jpg",
+      "seconds": 370.033,
+      "meanDelta160x90": 0.3647222222222222
+    },
+    {
+      "frame": "f00184.jpg",
+      "seconds": 370.05,
+      "meanDelta160x90": 0.69
+    },
+    {
+      "frame": "f00185.jpg",
+      "seconds": 370.067,
+      "meanDelta160x90": 0.7111805555555556
+    },
+    {
+      "frame": "f00186.jpg",
+      "seconds": 370.083,
+      "meanDelta160x90": 0.43222222222222223
+    },
+    {
+      "frame": "f00187.jpg",
+      "seconds": 370.1,
+      "meanDelta160x90": 0.7569444444444444
+    },
+    {
+      "frame": "f00188.jpg",
+      "seconds": 370.117,
+      "meanDelta160x90": 0.04763888888888889
+    },
+    {
+      "frame": "f00189.jpg",
+      "seconds": 370.133,
+      "meanDelta160x90": 0.5071527777777778
+    },
+    {
+      "frame": "f00190.jpg",
+      "seconds": 370.15,
+      "meanDelta160x90": 0.5002777777777778
+    },
+    {
+      "frame": "f00191.jpg",
+      "seconds": 370.167,
+      "meanDelta160x90": 0.8825694444444444
+    },
+    {
+      "frame": "f00192.jpg",
+      "seconds": 370.183,
+      "meanDelta160x90": 0.04638888888888889
+    },
+    {
+      "frame": "f00193.jpg",
+      "seconds": 370.2,
+      "meanDelta160x90": 0.4390277777777778
+    },
+    {
+      "frame": "f00194.jpg",
+      "seconds": 370.217,
+      "meanDelta160x90": 0.4708333333333333
+    },
+    {
+      "frame": "f00195.jpg",
+      "seconds": 370.233,
+      "meanDelta160x90": 0.7775694444444444
+    },
+    {
+      "frame": "f00196.jpg",
+      "seconds": 370.25,
+      "meanDelta160x90": 0.04909722222222222
+    },
+    {
+      "frame": "f00197.jpg",
+      "seconds": 370.267,
+      "meanDelta160x90": 0.32222222222222224
+    },
+    {
+      "frame": "f00198.jpg",
+      "seconds": 370.283,
+      "meanDelta160x90": 0.3584027777777778
+    },
+    {
+      "frame": "f00199.jpg",
+      "seconds": 370.3,
+      "meanDelta160x90": 0.7036805555555555
+    },
+    {
+      "frame": "f00200.jpg",
+      "seconds": 370.317,
+      "meanDelta160x90": 0.04868055555555555
+    },
+    {
+      "frame": "f00201.jpg",
+      "seconds": 370.333,
+      "meanDelta160x90": 0.4122222222222222
+    },
+    {
+      "frame": "f00202.jpg",
+      "seconds": 370.35,
+      "meanDelta160x90": 0.44645833333333335
+    },
+    {
+      "frame": "f00203.jpg",
+      "seconds": 370.367,
+      "meanDelta160x90": 0.7700694444444445
+    },
+    {
+      "frame": "f00204.jpg",
+      "seconds": 370.383,
+      "meanDelta160x90": 0.0059722222222222225
+    },
+    {
+      "frame": "f00205.jpg",
+      "seconds": 370.4,
+      "meanDelta160x90": 0.014791666666666667
+    },
+    {
+      "frame": "f00206.jpg",
+      "seconds": 370.417,
+      "meanDelta160x90": 0.02763888888888889
+    },
+    {
+      "frame": "f00207.jpg",
+      "seconds": 370.433,
+      "meanDelta160x90": 0.03326388888888889
+    },
+    {
+      "frame": "f00208.jpg",
+      "seconds": 370.45,
+      "meanDelta160x90": 0.03875
+    },
+    {
+      "frame": "f00209.jpg",
+      "seconds": 370.467,
+      "meanDelta160x90": 0.04131944444444444
+    },
+    {
+      "frame": "f00210.jpg",
+      "seconds": 370.483,
+      "meanDelta160x90": 0.04451388888888889
+    },
+    {
+      "frame": "f00211.jpg",
+      "seconds": 370.5,
+      "meanDelta160x90": 0.04652777777777778
+    },
+    {
+      "frame": "f00212.jpg",
+      "seconds": 370.517,
+      "meanDelta160x90": 0.04777777777777778
+    },
+    {
+      "frame": "f00213.jpg",
+      "seconds": 370.533,
+      "meanDelta160x90": 0.048125
+    },
+    {
+      "frame": "f00214.jpg",
+      "seconds": 370.55,
+      "meanDelta160x90": 0.050069444444444444
+    },
+    {
+      "frame": "f00215.jpg",
+      "seconds": 370.567,
+      "meanDelta160x90": 0.04986111111111111
+    },
+    {
+      "frame": "f00216.jpg",
+      "seconds": 370.583,
+      "meanDelta160x90": 0.050208333333333334
+    },
+    {
+      "frame": "f00217.jpg",
+      "seconds": 370.6,
+      "meanDelta160x90": 0.051111111111111114
+    },
+    {
+      "frame": "f00218.jpg",
+      "seconds": 370.617,
+      "meanDelta160x90": 0.051597222222222225
+    },
+    {
+      "frame": "f00219.jpg",
+      "seconds": 370.633,
+      "meanDelta160x90": 0.05243055555555556
+    },
+    {
+      "frame": "f00220.jpg",
+      "seconds": 370.65,
+      "meanDelta160x90": 0.05277777777777778
+    },
+    {
+      "frame": "f00221.jpg",
+      "seconds": 370.667,
+      "meanDelta160x90": 0.05243055555555556
+    },
+    {
+      "frame": "f00222.jpg",
+      "seconds": 370.683,
+      "meanDelta160x90": 0.05298611111111111
+    },
+    {
+      "frame": "f00223.jpg",
+      "seconds": 370.7,
+      "meanDelta160x90": 0.05381944444444445
+    },
+    {
+      "frame": "f00224.jpg",
+      "seconds": 370.717,
+      "meanDelta160x90": 0.05340277777777778
+    },
+    {
+      "frame": "f00225.jpg",
+      "seconds": 370.733,
+      "meanDelta160x90": 0.0675
+    },
+    {
+      "frame": "f00226.jpg",
+      "seconds": 370.75,
+      "meanDelta160x90": 0.06701388888888889
+    },
+    {
+      "frame": "f00227.jpg",
+      "seconds": 370.767,
+      "meanDelta160x90": 5.072916666666667
+    },
+    {
+      "frame": "f00228.jpg",
+      "seconds": 370.783,
+      "meanDelta160x90": 0.30215277777777777
+    },
+    {
+      "frame": "f00229.jpg",
+      "seconds": 370.8,
+      "meanDelta160x90": 0.32013888888888886
+    },
+    {
+      "frame": "f00230.jpg",
+      "seconds": 370.817,
+      "meanDelta160x90": 0.36736111111111114
+    },
+    {
+      "frame": "f00231.jpg",
+      "seconds": 370.833,
+      "meanDelta160x90": 3.892638888888889
+    },
+    {
+      "frame": "f00232.jpg",
+      "seconds": 370.85,
+      "meanDelta160x90": 0.309375
+    },
+    {
+      "frame": "f00233.jpg",
+      "seconds": 370.867,
+      "meanDelta160x90": 0.3325
+    },
+    {
+      "frame": "f00234.jpg",
+      "seconds": 370.883,
+      "meanDelta160x90": 0.34270833333333334
+    },
+    {
+      "frame": "f00235.jpg",
+      "seconds": 370.9,
+      "meanDelta160x90": 0.3589583333333333
+    },
+    {
+      "frame": "f00236.jpg",
+      "seconds": 370.917,
+      "meanDelta160x90": 0.3601388888888889
+    },
+    {
+      "frame": "f00237.jpg",
+      "seconds": 370.933,
+      "meanDelta160x90": 0.36680555555555555
+    },
+    {
+      "frame": "f00238.jpg",
+      "seconds": 370.95,
+      "meanDelta160x90": 0.36819444444444444
+    },
+    {
+      "frame": "f00239.jpg",
+      "seconds": 370.967,
+      "meanDelta160x90": 0.3771527777777778
+    },
+    {
+      "frame": "f00240.jpg",
+      "seconds": 370.983,
+      "meanDelta160x90": 0.378125
+    },
+    {
+      "frame": "f00241.jpg",
+      "seconds": 371.0,
+      "meanDelta160x90": 0.38048611111111114
+    },
+    {
+      "frame": "f00242.jpg",
+      "seconds": 371.017,
+      "meanDelta160x90": 0.38131944444444443
+    },
+    {
+      "frame": "f00243.jpg",
+      "seconds": 371.033,
+      "meanDelta160x90": 0.38534722222222223
+    },
+    {
+      "frame": "f00244.jpg",
+      "seconds": 371.05,
+      "meanDelta160x90": 0.38604166666666667
+    },
+    {
+      "frame": "f00245.jpg",
+      "seconds": 371.067,
+      "meanDelta160x90": 0.3861805555555556
+    },
+    {
+      "frame": "f00246.jpg",
+      "seconds": 371.083,
+      "meanDelta160x90": 0.3869444444444444
+    },
+    {
+      "frame": "f00247.jpg",
+      "seconds": 371.1,
+      "meanDelta160x90": 0.3904166666666667
+    },
+    {
+      "frame": "f00248.jpg",
+      "seconds": 371.117,
+      "meanDelta160x90": 0.3908333333333333
+    },
+    {
+      "frame": "f00249.jpg",
+      "seconds": 371.133,
+      "meanDelta160x90": 0.39152777777777775
+    },
+    {
+      "frame": "f00250.jpg",
+      "seconds": 371.15,
+      "meanDelta160x90": 0.39243055555555556
+    },
+    {
+      "frame": "f00251.jpg",
+      "seconds": 371.167,
+      "meanDelta160x90": 0.39569444444444446
+    },
+    {
+      "frame": "f00252.jpg",
+      "seconds": 371.183,
+      "meanDelta160x90": 0.3963888888888889
+    },
+    {
+      "frame": "f00253.jpg",
+      "seconds": 371.2,
+      "meanDelta160x90": 0.39645833333333336
+    },
+    {
+      "frame": "f00254.jpg",
+      "seconds": 371.217,
+      "meanDelta160x90": 0.3957638888888889
+    },
+    {
+      "frame": "f00255.jpg",
+      "seconds": 371.233,
+      "meanDelta160x90": 0.3972222222222222
+    },
+    {
+      "frame": "f00256.jpg",
+      "seconds": 371.25,
+      "meanDelta160x90": 0.39743055555555556
+    },
+    {
+      "frame": "f00257.jpg",
+      "seconds": 371.267,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00258.jpg",
+      "seconds": 371.283,
+      "meanDelta160x90": 0.3976388888888889
+    },
+    {
+      "frame": "f00259.jpg",
+      "seconds": 371.3,
+      "meanDelta160x90": 0.39743055555555556
+    },
+    {
+      "frame": "f00260.jpg",
+      "seconds": 371.317,
+      "meanDelta160x90": 0.39791666666666664
+    },
+    {
+      "frame": "f00261.jpg",
+      "seconds": 371.333,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00262.jpg",
+      "seconds": 371.35,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00263.jpg",
+      "seconds": 371.367,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00264.jpg",
+      "seconds": 371.383,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00265.jpg",
+      "seconds": 371.4,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00266.jpg",
+      "seconds": 371.417,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00267.jpg",
+      "seconds": 371.433,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00268.jpg",
+      "seconds": 371.45,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00269.jpg",
+      "seconds": 371.467,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00270.jpg",
+      "seconds": 371.483,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00271.jpg",
+      "seconds": 371.5,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00272.jpg",
+      "seconds": 371.517,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00273.jpg",
+      "seconds": 371.533,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00274.jpg",
+      "seconds": 371.55,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00275.jpg",
+      "seconds": 371.567,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00276.jpg",
+      "seconds": 371.583,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00277.jpg",
+      "seconds": 371.6,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00278.jpg",
+      "seconds": 371.617,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00279.jpg",
+      "seconds": 371.633,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00280.jpg",
+      "seconds": 371.65,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00281.jpg",
+      "seconds": 371.667,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00282.jpg",
+      "seconds": 371.683,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00283.jpg",
+      "seconds": 371.7,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00284.jpg",
+      "seconds": 371.717,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00285.jpg",
+      "seconds": 371.733,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00286.jpg",
+      "seconds": 371.75,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00287.jpg",
+      "seconds": 371.767,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00288.jpg",
+      "seconds": 371.783,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00289.jpg",
+      "seconds": 371.8,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00290.jpg",
+      "seconds": 371.817,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00291.jpg",
+      "seconds": 371.833,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00292.jpg",
+      "seconds": 371.85,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00293.jpg",
+      "seconds": 371.867,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00294.jpg",
+      "seconds": 371.883,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00295.jpg",
+      "seconds": 371.9,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00296.jpg",
+      "seconds": 371.917,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00297.jpg",
+      "seconds": 371.933,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00298.jpg",
+      "seconds": 371.95,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00299.jpg",
+      "seconds": 371.967,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00300.jpg",
+      "seconds": 371.983,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00301.jpg",
+      "seconds": 372.0,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00302.jpg",
+      "seconds": 372.017,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00303.jpg",
+      "seconds": 372.033,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00304.jpg",
+      "seconds": 372.05,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00305.jpg",
+      "seconds": 372.067,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00306.jpg",
+      "seconds": 372.083,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00307.jpg",
+      "seconds": 372.1,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00308.jpg",
+      "seconds": 372.117,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00309.jpg",
+      "seconds": 372.133,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00310.jpg",
+      "seconds": 372.15,
+      "meanDelta160x90": 0.39770833333333333
+    },
+    {
+      "frame": "f00311.jpg",
+      "seconds": 372.167,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00312.jpg",
+      "seconds": 372.183,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00313.jpg",
+      "seconds": 372.2,
+      "meanDelta160x90": 0.3975
+    },
+    {
+      "frame": "f00314.jpg",
+      "seconds": 372.217,
+      "meanDelta160x90": 0.3977777777777778
+    },
+    {
+      "frame": "f00315.jpg",
+      "seconds": 372.233,
+      "meanDelta160x90": 0.39875
+    },
+    {
+      "frame": "f00316.jpg",
+      "seconds": 372.25,
+      "meanDelta160x90": 0.39826388888888886
+    },
+    {
+      "frame": "f00317.jpg",
+      "seconds": 372.267,
+      "meanDelta160x90": 0.39868055555555554
+    },
+    {
+      "frame": "f00318.jpg",
+      "seconds": 372.283,
+      "meanDelta160x90": 0.45861111111111114
+    },
+    {
+      "frame": "f00319.jpg",
+      "seconds": 372.3,
+      "meanDelta160x90": 0.45875
+    },
+    {
+      "frame": "f00320.jpg",
+      "seconds": 372.317,
+      "meanDelta160x90": 0.49833333333333335
+    },
+    {
+      "frame": "f00321.jpg",
+      "seconds": 372.333,
+      "meanDelta160x90": 0.6102777777777778
+    },
+    {
+      "frame": "f00322.jpg",
+      "seconds": 372.35,
+      "meanDelta160x90": 0.7735416666666667
+    },
+    {
+      "frame": "f00323.jpg",
+      "seconds": 372.367,
+      "meanDelta160x90": 0.21409722222222222
+    },
+    {
+      "frame": "f00324.jpg",
+      "seconds": 372.383,
+      "meanDelta160x90": 0.3400694444444444
+    },
+    {
+      "frame": "f00325.jpg",
+      "seconds": 372.4,
+      "meanDelta160x90": 0.4152777777777778
+    },
+    {
+      "frame": "f00326.jpg",
+      "seconds": 372.417,
+      "meanDelta160x90": 0.455
+    },
+    {
+      "frame": "f00327.jpg",
+      "seconds": 372.433,
+      "meanDelta160x90": 0.48159722222222223
+    },
+    {
+      "frame": "f00328.jpg",
+      "seconds": 372.45,
+      "meanDelta160x90": 0.49777777777777776
+    },
+    {
+      "frame": "f00329.jpg",
+      "seconds": 372.467,
+      "meanDelta160x90": 0.5120833333333333
+    },
+    {
+      "frame": "f00330.jpg",
+      "seconds": 372.483,
+      "meanDelta160x90": 0.5202777777777777
+    },
+    {
+      "frame": "f00331.jpg",
+      "seconds": 372.5,
+      "meanDelta160x90": 0.5284027777777778
+    },
+    {
+      "frame": "f00332.jpg",
+      "seconds": 372.517,
+      "meanDelta160x90": 0.5295833333333333
+    },
+    {
+      "frame": "f00333.jpg",
+      "seconds": 372.533,
+      "meanDelta160x90": 0.5355555555555556
+    },
+    {
+      "frame": "f00334.jpg",
+      "seconds": 372.55,
+      "meanDelta160x90": 0.5303472222222222
+    },
+    {
+      "frame": "f00335.jpg",
+      "seconds": 372.567,
+      "meanDelta160x90": 0.5319444444444444
+    },
+    {
+      "frame": "f00336.jpg",
+      "seconds": 372.583,
+      "meanDelta160x90": 0.5338194444444444
+    },
+    {
+      "frame": "f00337.jpg",
+      "seconds": 372.6,
+      "meanDelta160x90": 0.600625
+    },
+    {
+      "frame": "f00338.jpg",
+      "seconds": 372.617,
+      "meanDelta160x90": 1.7047916666666667
+    },
+    {
+      "frame": "f00339.jpg",
+      "seconds": 372.633,
+      "meanDelta160x90": 0.013194444444444444
+    },
+    {
+      "frame": "f00340.jpg",
+      "seconds": 372.65,
+      "meanDelta160x90": 0.02326388888888889
+    },
+    {
+      "frame": "f00341.jpg",
+      "seconds": 372.667,
+      "meanDelta160x90": 0.032916666666666664
+    },
+    {
+      "frame": "f00342.jpg",
+      "seconds": 372.683,
+      "meanDelta160x90": 0.050347222222222224
+    },
+    {
+      "frame": "f00343.jpg",
+      "seconds": 372.7,
+      "meanDelta160x90": 0.06222222222222222
+    },
+    {
+      "frame": "f00344.jpg",
+      "seconds": 372.717,
+      "meanDelta160x90": 0.08013888888888888
+    },
+    {
+      "frame": "f00345.jpg",
+      "seconds": 372.733,
+      "meanDelta160x90": 0.09354166666666666
+    },
+    {
+      "frame": "f00346.jpg",
+      "seconds": 372.75,
+      "meanDelta160x90": 0.11402777777777778
+    },
+    {
+      "frame": "f00347.jpg",
+      "seconds": 372.767,
+      "meanDelta160x90": 0.11451388888888889
+    },
+    {
+      "frame": "f00348.jpg",
+      "seconds": 372.783,
+      "meanDelta160x90": 0.11868055555555555
+    },
+    {
+      "frame": "f00349.jpg",
+      "seconds": 372.8,
+      "meanDelta160x90": 0.12034722222222222
+    },
+    {
+      "frame": "f00350.jpg",
+      "seconds": 372.817,
+      "meanDelta160x90": 0.12895833333333334
+    },
+    {
+      "frame": "f00351.jpg",
+      "seconds": 372.833,
+      "meanDelta160x90": 0.13069444444444445
+    },
+    {
+      "frame": "f00352.jpg",
+      "seconds": 372.85,
+      "meanDelta160x90": 0.13104166666666667
+    },
+    {
+      "frame": "f00353.jpg",
+      "seconds": 372.867,
+      "meanDelta160x90": 0.13069444444444445
+    },
+    {
+      "frame": "f00354.jpg",
+      "seconds": 372.883,
+      "meanDelta160x90": 0.13625
+    },
+    {
+      "frame": "f00355.jpg",
+      "seconds": 372.9,
+      "meanDelta160x90": 0.13618055555555555
+    },
+    {
+      "frame": "f00356.jpg",
+      "seconds": 372.917,
+      "meanDelta160x90": 0.13805555555555554
+    },
+    {
+      "frame": "f00357.jpg",
+      "seconds": 372.933,
+      "meanDelta160x90": 0.1675
+    },
+    {
+      "frame": "f00358.jpg",
+      "seconds": 372.95,
+      "meanDelta160x90": 0.6754861111111111
+    },
+    {
+      "frame": "f00359.jpg",
+      "seconds": 372.967,
+      "meanDelta160x90": 1.645625
+    },
+    {
+      "frame": "f00360.jpg",
+      "seconds": 372.983,
+      "meanDelta160x90": 0.6082638888888889
+    },
+    {
+      "frame": "f00361.jpg",
+      "seconds": 373.0,
+      "meanDelta160x90": 0.6453472222222222
+    },
+    {
+      "frame": "f00362.jpg",
+      "seconds": 373.017,
+      "meanDelta160x90": 0.9504861111111111
+    },
+    {
+      "frame": "f00363.jpg",
+      "seconds": 373.033,
+      "meanDelta160x90": 0.08958333333333333
+    },
+    {
+      "frame": "f00364.jpg",
+      "seconds": 373.05,
+      "meanDelta160x90": 0.6259027777777778
+    },
+    {
+      "frame": "f00365.jpg",
+      "seconds": 373.067,
+      "meanDelta160x90": 0.6705555555555556
+    },
+    {
+      "frame": "f00366.jpg",
+      "seconds": 373.083,
+      "meanDelta160x90": 0.9386805555555555
+    },
+    {
+      "frame": "f00367.jpg",
+      "seconds": 373.1,
+      "meanDelta160x90": 0.08319444444444445
+    },
+    {
+      "frame": "f00368.jpg",
+      "seconds": 373.117,
+      "meanDelta160x90": 0.6449305555555556
+    },
+    {
+      "frame": "f00369.jpg",
+      "seconds": 373.133,
+      "meanDelta160x90": 0.6963194444444445
+    },
+    {
+      "frame": "f00370.jpg",
+      "seconds": 373.15,
+      "meanDelta160x90": 0.9815277777777778
+    },
+    {
+      "frame": "f00371.jpg",
+      "seconds": 373.167,
+      "meanDelta160x90": 0.0954861111111111
+    },
+    {
+      "frame": "f00372.jpg",
+      "seconds": 373.183,
+      "meanDelta160x90": 0.7515972222222222
+    },
+    {
+      "frame": "f00373.jpg",
+      "seconds": 373.2,
+      "meanDelta160x90": 0.6223611111111111
+    },
+    {
+      "frame": "f00374.jpg",
+      "seconds": 373.217,
+      "meanDelta160x90": 0.6779166666666666
+    },
+    {
+      "frame": "f00375.jpg",
+      "seconds": 373.233,
+      "meanDelta160x90": 0.9259722222222222
+    },
+    {
+      "frame": "f00376.jpg",
+      "seconds": 373.25,
+      "meanDelta160x90": 0.12256944444444444
+    },
+    {
+      "frame": "f00377.jpg",
+      "seconds": 373.267,
+      "meanDelta160x90": 0.6546527777777778
+    },
+    {
+      "frame": "f00378.jpg",
+      "seconds": 373.283,
+      "meanDelta160x90": 0.7145138888888889
+    },
+    {
+      "frame": "f00379.jpg",
+      "seconds": 373.3,
+      "meanDelta160x90": 0.5995138888888889
+    },
+    {
+      "frame": "f00380.jpg",
+      "seconds": 373.317,
+      "meanDelta160x90": 0.621875
+    },
+    {
+      "frame": "f00381.jpg",
+      "seconds": 373.333,
+      "meanDelta160x90": 0.86875
+    },
+    {
+      "frame": "f00382.jpg",
+      "seconds": 373.35,
+      "meanDelta160x90": 0.07854166666666666
+    },
+    {
+      "frame": "f00383.jpg",
+      "seconds": 373.367,
+      "meanDelta160x90": 0.7031944444444445
+    },
+    {
+      "frame": "f00384.jpg",
+      "seconds": 373.383,
+      "meanDelta160x90": 0.08465277777777777
+    },
+    {
+      "frame": "f00385.jpg",
+      "seconds": 373.4,
+      "meanDelta160x90": 0.6691666666666667
+    },
+    {
+      "frame": "f00386.jpg",
+      "seconds": 373.417,
+      "meanDelta160x90": 0.7205555555555555
+    },
+    {
+      "frame": "f00387.jpg",
+      "seconds": 373.433,
+      "meanDelta160x90": 0.641875
+    },
+    {
+      "frame": "f00388.jpg",
+      "seconds": 373.45,
+      "meanDelta160x90": 0.6657638888888889
+    },
+    {
+      "frame": "f00389.jpg",
+      "seconds": 373.467,
+      "meanDelta160x90": 0.9385416666666667
+    },
+    {
+      "frame": "f00390.jpg",
+      "seconds": 373.483,
+      "meanDelta160x90": 0.08708333333333333
+    },
+    {
+      "frame": "f00391.jpg",
+      "seconds": 373.5,
+      "meanDelta160x90": 0.6995833333333333
+    },
+    {
+      "frame": "f00392.jpg",
+      "seconds": 373.517,
+      "meanDelta160x90": 0.7448611111111111
+    },
+    {
+      "frame": "f00393.jpg",
+      "seconds": 373.533,
+      "meanDelta160x90": 0.6271527777777778
+    },
+    {
+      "frame": "f00394.jpg",
+      "seconds": 373.55,
+      "meanDelta160x90": 0.8648611111111111
+    },
+    {
+      "frame": "f00395.jpg",
+      "seconds": 373.567,
+      "meanDelta160x90": 0.103125
+    },
+    {
+      "frame": "f00396.jpg",
+      "seconds": 373.583,
+      "meanDelta160x90": 0.6992361111111111
+    },
+    {
+      "frame": "f00397.jpg",
+      "seconds": 373.6,
+      "meanDelta160x90": 0.7625694444444444
+    },
+    {
+      "frame": "f00398.jpg",
+      "seconds": 373.617,
+      "meanDelta160x90": 0.6061111111111112
+    },
+    {
+      "frame": "f00399.jpg",
+      "seconds": 373.633,
+      "meanDelta160x90": 0.6729166666666667
+    },
+    {
+      "frame": "f00400.jpg",
+      "seconds": 373.65,
+      "meanDelta160x90": 0.9274305555555555
+    },
+    {
+      "frame": "f00401.jpg",
+      "seconds": 373.667,
+      "meanDelta160x90": 0.0770138888888889
+    },
+    {
+      "frame": "f00402.jpg",
+      "seconds": 373.683,
+      "meanDelta160x90": 0.670625
+    },
+    {
+      "frame": "f00403.jpg",
+      "seconds": 373.7,
+      "meanDelta160x90": 0.720625
+    },
+    {
+      "frame": "f00404.jpg",
+      "seconds": 373.717,
+      "meanDelta160x90": 0.6400694444444445
+    },
+    {
+      "frame": "f00405.jpg",
+      "seconds": 373.733,
+      "meanDelta160x90": 0.6681944444444444
+    },
+    {
+      "frame": "f00406.jpg",
+      "seconds": 373.75,
+      "meanDelta160x90": 0.9479166666666666
+    },
+    {
+      "frame": "f00407.jpg",
+      "seconds": 373.767,
+      "meanDelta160x90": 0.07930555555555556
+    },
+    {
+      "frame": "f00408.jpg",
+      "seconds": 373.783,
+      "meanDelta160x90": 0.6236805555555556
+    },
+    {
+      "frame": "f00409.jpg",
+      "seconds": 373.8,
+      "meanDelta160x90": 0.675
+    },
+    {
+      "frame": "f00410.jpg",
+      "seconds": 373.817,
+      "meanDelta160x90": 0.9734027777777777
+    },
+    {
+      "frame": "f00411.jpg",
+      "seconds": 373.833,
+      "meanDelta160x90": 0.5968055555555556
+    },
+    {
+      "frame": "f00412.jpg",
+      "seconds": 373.85,
+      "meanDelta160x90": 0.6522222222222223
+    },
+    {
+      "frame": "f00413.jpg",
+      "seconds": 373.867,
+      "meanDelta160x90": 0.9244444444444444
+    },
+    {
+      "frame": "f00414.jpg",
+      "seconds": 373.883,
+      "meanDelta160x90": 0.11458333333333333
+    },
+    {
+      "frame": "f00415.jpg",
+      "seconds": 373.9,
+      "meanDelta160x90": 0.7154861111111112
+    },
+    {
+      "frame": "f00416.jpg",
+      "seconds": 373.917,
+      "meanDelta160x90": 0.10486111111111111
+    },
+    {
+      "frame": "f00417.jpg",
+      "seconds": 373.933,
+      "meanDelta160x90": 0.6752777777777778
+    },
+    {
+      "frame": "f00418.jpg",
+      "seconds": 373.95,
+      "meanDelta160x90": 0.7372222222222222
+    },
+    {
+      "frame": "f00419.jpg",
+      "seconds": 373.967,
+      "meanDelta160x90": 0.6292361111111111
+    },
+    {
+      "frame": "f00420.jpg",
+      "seconds": 373.983,
+      "meanDelta160x90": 0.6588888888888889
+    }
+  ]
+}
