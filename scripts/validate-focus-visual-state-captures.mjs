@@ -83,6 +83,18 @@ for (const theme of ["light", "dark"]) {
     `${running.label} overdue row is not visually distinct from an ordinary remaining row`,
   );
 
+  // Test the true production calendar-day metadata, not the generic fixture
+  // fallback. Fixed Athens 2026-09-13 against persisted 2026-09-11 => 2d.
+  const aged = readCapture(theme, "overdue-age");
+  const age = aged.contract.overdueAge;
+  invariant(aged.dom.includes('data-focus-overdue-age="2d ago">2d ago</span>')
+    && aged.dom.includes('data-focus-overdue="true"')
+    && age?.text === "2d ago"
+    && age.width > 0 && age.height > 0
+    && age.withinRow && age.notClipped
+    && age.color !== age.ordinaryColor,
+    `${aged.label} must visibly render warm 2d overdue calendar age inside its original task row`);
+
   const paused = readCapture(theme, "paused-metrics");
   requireLiveState(paused, "paused");
   requireDistinctCardState(paused, running);
