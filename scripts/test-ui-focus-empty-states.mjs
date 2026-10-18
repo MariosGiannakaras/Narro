@@ -68,7 +68,7 @@ invariant(
   fixture.includes('scenario === "no-eligible" ? [scheduledTask]')
     && fixture.includes('scenario === "empty" ? []')
     && fixture.includes(': isSuccessScenario ? [overdueTask, longTitleTask, scheduledTask]')
-    && fixture.includes('const isSuccessScenario = scenario === "success" || scenario === "success-fun-gif";')
+    && fixture.includes('const isSuccessScenario = scenario.startsWith("success");')
     && fixture.includes(': normalTodayTasks;'),
   "fixture must distinguish future-scheduled work from genuinely empty Today work",
 );

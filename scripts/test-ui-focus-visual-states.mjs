@@ -114,7 +114,7 @@ invariant(
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
-invariant(fixture.includes('const isSuccessScenario = scenario === "success" || scenario === "success-fun-gif";')
+invariant(fixture.includes('const isSuccessScenario = scenario.startsWith("success");')
     && fixture.includes('const successQueueInert = isSuccessScenario && queuedRow.closest(\'[inert]\') !== null')
     && fixture.includes("if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus')")
     && fixture.includes('} else if (rowIsVisible) {'),

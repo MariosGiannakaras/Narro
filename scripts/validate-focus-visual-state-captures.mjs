@@ -208,6 +208,37 @@ for (const theme of ["light", "dark"]) {
     && success.contract.actions === null,
     `${success.label} must replace the active card without a stale running timer/actions`);
 
+  // B65: test true rendered success copy, not merely BigInt formatting.
+  for (const spec of [
+    { scenario: "success", text: "38 minutes early", est: "1hr", taken: "22min" },
+    { scenario: "success-late", text: "1 minute late", est: "10min", taken: "11min" },
+    { scenario: "success-equal", text: "Right on time", est: "10min", taken: "10min" },
+    { scenario: "success-no-est", text: null, est: "—", taken: "10min" },
+  ]) {
+    const captured = spec.scenario === "success" ? success : readCapture(theme, spec.scenario);
+    invariant(captured.contract.queueTitleLayout?.successQueueInert === true
+      && captured.contract.liveTimer === null
+      && captured.contract.actions === null
+      && captured.dom.includes('data-focus-success-placement="inline"'),
+      `${captured.label} must retain committed success and inactive queue`);
+    invariant(captured.dom.includes(`<span>EST <strong>${spec.est}</strong></span>`)
+      && captured.dom.includes(`<span>Taken <strong>${spec.taken}</strong></span>`),
+      `${captured.label} must show accurate EST/Taken`);
+    if (spec.text === null) {
+      invariant(captured.contract.successTiming === null
+        && !captured.dom.includes('data-focus-success-timing="true"'),
+        `${captured.label} missing EST must suppress invented delta`);
+    } else {
+      invariant(captured.dom.includes(`data-focus-success-timing="true">${spec.text}</p>`)
+        && captured.contract.successTiming?.text === spec.text
+        && captured.contract.successTiming.width > 0
+        && captured.contract.successTiming.height > 0
+        && captured.contract.successTiming.fitsCard
+        && captured.contract.successTiming.notClipped,
+        `${captured.label} timing must render and fit in the production card`);
+    }
+  }
+
   // D2 native Windows evidence shows the optional offline celebration only
   // when Fun GIF is enabled. Capture both preferences, not merely its DOM
   // component source, and reject an invisible/overflowing decorative SVG.
