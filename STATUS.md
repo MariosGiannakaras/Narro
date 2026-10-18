@@ -1,6 +1,6 @@
 # STATUS.md
 
-**Codex video-analysis checkpoint 2026-10-18T23:33:54.186948+00:00: 50/100 dispositioned (44 inherited + V1-08–13 directly reviewed), not PASS count; 50 still pending.** Read-only media/source analysis; no implementation or new native run. [Authoritative live report](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md).
+**Codex video-analysis checkpoint 2026-10-18T23:33:54.186948+00:00: 55/100 dispositioned (44 inherited + 11 directly reviewed), not PASS count; 45 still pending.** Read-only media/source analysis; no implementation or new native run. [Authoritative live report](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md).
 
 **2026-10-19 Codex analysis continuation:** actual local media access restored for eighteen useful byte-verified streams. Whole-video/per-cell review is in progress, with the existing registered review counter unchanged. Original media and Narro source remain untouched; no new physical activity. HANDOFF identifies the active analysis owner and workspace.
 

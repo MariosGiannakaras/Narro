@@ -2,8 +2,8 @@
   "schema": 1,
   "phase": "ANALYZING",
   "originalReviewed": 44,
-  "additionalDispositioned": 6,
-  "totalDispositioned": 50,
+  "additionalDispositioned": 11,
+  "totalDispositioned": 55,
   "totalCells": 100,
   "records": [
     {
@@ -83,6 +83,66 @@
       "sequence": "focus-syslight-reduced",
       "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
       "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-01",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        357,
+        369
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval."
+    },
+    {
+      "id": "V1-02",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        367,
+        378
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval."
+    },
+    {
+      "id": "V1-03",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-2",
+      "intervalSeconds": [
+        247,
+        259
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval."
+    },
+    {
+      "id": "V1-04",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-2",
+      "intervalSeconds": [
+        380,
+        392
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval."
+    },
+    {
+      "id": "V1-05",
+      "status": "REVIEWED_SCOPED_GRAMMAR",
+      "acceptance": "SCOPED_INLINE_CONFIRM_GRAMMAR_OBSERVED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        87,
+        108
+      ],
+      "finding": null,
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval."
     }
   ]
 }
