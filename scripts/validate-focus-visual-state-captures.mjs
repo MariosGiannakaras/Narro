@@ -231,6 +231,38 @@ for (const theme of ["light", "dark"]) {
   invariant(changedPixels >= minimumChanged,
     `${focusedActions.label} B49 FALSE VISUAL PASS: focused action screenshot looks like running in its actual rail (${changedPixels} changed pixels; need ${minimumChanged})`);
 
+  // B49 right-edge negative control: the last Done pill has distinct
+  // justify-self:end geometry, unlike the center Pause focus path above.
+  // Demand a separate real Edge screenshot from the same resting viewport.
+  const focusedDone = readCapture(theme, "live-actions-done-focus");
+  requireLiveState(focusedDone, "running");
+  invariant(focusedDone.dom.includes('data-focus-action-reveal-pass="true"')
+    && focusedDone.dom.includes('data-focus-action="done"')
+    && focusedDone.dom.includes('aria-label="Complete task"'),
+    `${focusedDone.label} must focus the real Done control with its accessible name`);
+  invariant(focusedDone.contract.liveCard?.height === running.contract.liveCard?.height
+    && focusedDone.contract.layoutViewport?.width === 492
+    && focusedDone.contract.layoutViewport?.height === 628,
+    `${focusedDone.label} must retain the live-card and same-viewport focus geometry`);
+  const doneRail = focusedDone.contract.focusActionPaintRegion;
+  const doneAction = focusedDone.contract.actionLabels?.find(item => item.action === "done");
+  invariant(doneRail && doneAction?.label === "Done"
+    && doneAction.labelWidth > 0 && doneAction.labelWidth <= doneAction.availableWidth + 0.01
+    && doneAction.x >= doneRail.x - 1
+    && doneAction.x + doneAction.width <= doneRail.x + doneRail.width + 1,
+    `${focusedDone.label} Done label must be visible and contained in the right-edge action rail`);
+  invariant(baselineRegion
+    && Math.abs(doneRail.x - baselineRegion.x) <= 1
+    && Math.abs(doneRail.y - baselineRegion.y) <= 1
+    && Math.abs(doneRail.width - baselineRegion.width) <= 1
+    && Math.abs(doneRail.height - baselineRegion.height) <= 1,
+    `${focusedDone.label} Done focus changed reserved action-rail bounds`);
+  const doneChangedPixels = differentFocusPixels(
+    readEdgePng(running.screenshot), readEdgePng(focusedDone.screenshot), doneRail,
+  );
+  invariant(doneChangedPixels >= Math.max(200, Math.ceil(doneRail.width * doneRail.height * 0.02)),
+    `${focusedDone.label} B49 false visual PASS: Done focus did not paint distinct action pixels (${doneChangedPixels})`);
+
   const success = readCapture(theme, "success");
   invariant(success.contract.queueTitleLayout?.successQueueInert === true,
     `focus-panel-success-${theme} must show the queued titles while blocking their focus during committed success`);
