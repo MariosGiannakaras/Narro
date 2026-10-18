@@ -31,6 +31,8 @@ eq(panel.includes('(!fixtureMode || allowFixtureOverdueAge)')
 eq(fixture.includes('fixtureOverdueNow={scenario === "overdue-age" ? new Date("2026-09-13T09:00:00.000Z") : undefined}')
   && captures.includes('Name = "overdue-age"; Suffix = "-overdue-age"')
   && visual.includes('readCapture(theme, "overdue-age")')
-  && visual.includes('age.withinRow && age.notClipped'), true,
+  && visual.includes('age.withinRow && age.withinScreenshot && age.topmostAtCenter && age.notClipped')
+  && fixture.includes('title.blur();')
+  && fixture.includes('tooltipNode.dataset.open === "true"'), true,
   "Windows screenshot must visibly validate fixed-date relative-age behavior");
 console.log("B31 Focus local-calendar overdue-age contracts passed.");

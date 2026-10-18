@@ -91,7 +91,7 @@ for (const theme of ["light", "dark"]) {
     && aged.dom.includes('data-focus-overdue="true"')
     && age?.text === "2d ago"
     && age.width > 0 && age.height > 0
-    && age.withinRow && age.notClipped
+    && age.withinRow && age.withinScreenshot && age.topmostAtCenter && age.notClipped
     && age.color !== age.ordinaryColor,
     `${aged.label} must visibly render warm 2d overdue calendar age inside its original task row`);
 
