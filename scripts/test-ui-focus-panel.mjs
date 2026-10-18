@@ -18,6 +18,20 @@ invariant(panel.includes('data-focus-success-inline-card="true"'), "B63 Focus su
 invariant(panel.includes('data-focus-pomodoro-badge="true"'), "Pomodoro live/Break chip must be projected in active Focus card");
 invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POMO chip must reflect authoritative Pomodoro mode rather than stale UI state");
 invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
+const pomoFixture = read("src/focusPanelVisualFixture.tsx");
+const captureScript = read("scripts/capture-focus-panel-fixtures.ps1");
+const captureValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+for (const state of ["pomodoro-work", "pomodoro-break"]) {
+  invariant(pomoFixture.includes(`"${state}",`)
+    && captureScript.includes(`Name = "${state}"; Suffix = "-${state}"`)
+    && captureValidator.includes(`readCapture(theme, "${state}")`),
+    `POMO ${state} must be captured and validated in both themes`);
+}
+invariant(pomoFixture.includes('estSeconds: isPomodoroScenario ? 0 : 3600')
+  && pomoFixture.includes('break_kind: isBreakScenario ? (isPomodoroScenario ? "pomodoro" : "manual") : null')
+  && pomoFixture.includes("pomodoroBadge: (() => {")
+  && captureValidator.includes("badge.visible && badge.fitsCard && badge.notClipped"),
+  "POMO capture must use real zero-EST work and genuine Pomodoro break geometry");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const picker = read("src/BoardListPicker.tsx");
