@@ -148,7 +148,7 @@ invariant(cdpCapture.includes("isRetryableDevToolsPortReadError(error)")
 
 const paintValidator = read("scripts/focus-png-pixels.mjs");
 const focusedValidator = read("scripts/validate-focus-visual-state-captures.mjs");
-invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus")')
+invariant(focusedCapture.includes('if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus" -or $scenario.Name -eq "live-actions-done-focus")')
   && focusedCapture.includes('$mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }')
   && focusedCapture.includes('"--mode=$mode"')
   && cdpCapture.includes('const mode = options.mode ?? "focused"')
@@ -191,6 +191,14 @@ invariant(focusedCapture.includes('Name = "live-actions-focus"; Suffix = "-live-
     && focusedValidator.includes('readCapture(theme, "live-actions-focus")')
     && focusedValidator.includes('data-focus-action-reveal-pass="true"'),
   "B49 focused icon actions must be captured and checked in both Windows theme screenshots");
+
+invariant(focusedFixture.includes('"live-actions-done-focus"')
+  && focusedFixture.includes('focusDoneEdge ? \'[data-focus-action="done"]\'')
+  && focusedFixture.includes('done-pill-escapes-action-rail')
+  && focusedCapture.includes('Name = "live-actions-done-focus"; Suffix = "-live-actions-done-focus"; Query = "&scenario=live-actions-done-focus"')
+  && focusedValidator.includes('readCapture(theme, "live-actions-done-focus")')
+  && focusedValidator.includes("doneChangedPixels"),
+  "B49 right-edge Done focus must use the real production action, same-viewport Edge pixels and strict containment");
 
 await import("./test-b49-actual-png-pixels.mjs");
 console.log("Focus reserved action-slot and stable hit-target contracts passed.");
