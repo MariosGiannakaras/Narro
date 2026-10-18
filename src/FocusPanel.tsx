@@ -65,6 +65,8 @@ export type FocusPanelProps = {
   fixtureTimer?: TimerSessionPayload | null;
   /** Deterministic visual-fixture rows, never real task or persisted-session writes. */
   fixtureDoneBreaks?: FocusDoneBreak[];
+  /** Fixed calendar clock for the explicitly opted-in overdue visual fixture only. */
+  fixtureOverdueNow?: Date;
   sharedTimerProjection?: {
     payload: TimerSessionPayload | null;
     settled: boolean;
@@ -88,6 +90,7 @@ type FocusTaskRowProps = {
   aggregateView: boolean;
   displayTimezone: string;
   nowForOverdueAge: Date;
+  allowFixtureOverdueAge?: boolean;
   done?: boolean;
   scheduled?: boolean;
   suspended?: boolean;
@@ -158,6 +161,7 @@ function FocusTaskRow({
   aggregateView,
   displayTimezone,
   nowForOverdueAge,
+  allowFixtureOverdueAge = false,
   done = false,
   scheduled = false,
   suspended = false,
@@ -187,7 +191,7 @@ function FocusTaskRow({
 }: FocusTaskRowProps) {
   const [moreOpen, setMoreOpen] = useState(false);
   const schedule = taskScheduleLabel(task);
-  const overdueAge = task.isOverdue && !fixtureMode && task.scheduledLocalDate
+  const overdueAge = task.isOverdue && (!fixtureMode || allowFixtureOverdueAge) && task.scheduledLocalDate
     ? focusOverdueAge(task.scheduledLocalDate, displayTimezone, nowForOverdueAge)
     : null;
   const ordinary = !done;
@@ -405,6 +409,7 @@ export function FocusPanel({
   fixtureLists,
   fixtureTimer = null,
   fixtureDoneBreaks,
+  fixtureOverdueNow,
   sharedTimerProjection,
   target: controlledTarget,
   onTargetChange,
@@ -1052,7 +1057,7 @@ export function FocusPanel({
   }
 
   const aggregateView = board.target.kind === "all_lists";
-  const nowForOverdueAge = new Date();
+  const nowForOverdueAge = fixtureMode && fixtureOverdueNow ? fixtureOverdueNow : new Date();
   const selectedValue = aggregateView ? ALL_LISTS_VALUE : board.target.id ?? ALL_LISTS_VALUE;
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
   const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
@@ -1153,6 +1158,7 @@ export function FocusPanel({
         aggregateView={aggregateView}
         displayTimezone={board.displayTimezone}
         nowForOverdueAge={nowForOverdueAge}
+        allowFixtureOverdueAge={fixtureMode && fixtureOverdueNow !== undefined}
         scheduled={scheduled}
         suspended={suspendedWork}
         disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}
@@ -1492,6 +1498,7 @@ export function FocusPanel({
               aggregateView={aggregateView}
               displayTimezone={board.displayTimezone}
               nowForOverdueAge={nowForOverdueAge}
+        allowFixtureOverdueAge={fixtureMode && fixtureOverdueNow !== undefined}
               done
               disabled
               notesExpanded={false}

@@ -28,6 +28,7 @@ const theme = params.get("theme") === "light" ? "light" : "dark";
 const requestedScenario = params.get("scenario") ?? "running";
 const scenarios = [
   "running",
+  "overdue-age",
   "selector-open",
   "paused-metrics",
   "break",
@@ -251,6 +252,7 @@ flushSync(() => {
         { id: "a1111111-1111-4111-8111-111111111111", title: "Research", color: "#48d6c5" },
       ]}
       fixtureTimer={timer}
+      fixtureOverdueNow={scenario === "overdue-age" ? new Date("2026-09-13T09:00:00.000Z") : undefined}
       fixtureDoneBreaks={scenario === "break" ? [{
         id: "41111111-1111-4111-8111-111111111111",
         endedAt: "2026-09-13T09:10:00Z",
@@ -400,6 +402,20 @@ if (queuedRow) {
         transform: style.transform,
       }),
     );
+  }
+  // The ordinary long-title tooltip overlaps the overdue metadata below it.
+  // For the age-only screenshot, retain the measured tooltip/focus contracts,
+  // then explicitly dismiss it and wait for React to remove the paint layer.
+  // Merely measuring a nonzero age rectangle gave a false visual PASS.
+  if (scenario === "overdue-age") {
+    title.blur();
+    const closeDeadline = performance.now() + 2_000;
+    while (tooltipNode.dataset.open === "true" && performance.now() < closeDeadline) {
+      await new Promise<void>(resolve => window.setTimeout(resolve, 50));
+    }
+    if (tooltipNode.dataset.open === "true") {
+      throw new Error("Overdue-age screenshot must not retain an overlapping queued-title tooltip");
+    }
   }
   queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true,
     revealGeometryStable: isSuccessScenario ? null : rowIsVisible,
@@ -631,6 +647,29 @@ const contract = {
   rowActionSlot: optionalBox('.focus-panel__task-row[data-focus-task-row="remaining"] .focus-panel__row-action-slot'),
   overdueRow: optionalBox(overdueSelector),
   overdueRowStyle: styleContract(overdueSelector),
+  overdueAge: (() => {
+    const row = document.querySelector<HTMLElement>(overdueSelector);
+    const age = row?.querySelector<HTMLElement>('[data-focus-overdue-age]');
+    const ordinaryMeta = document.querySelector<HTMLElement>(`${longRowSelector} .focus-panel__task-meta`);
+    if (!row || !age || !ordinaryMeta) return null;
+    const bounds = age.getBoundingClientRect();
+    const rowBounds = row.getBoundingClientRect();
+    return {
+      text: age.textContent?.trim() ?? "",
+      width: bounds.width,
+      height: bounds.height,
+      color: getComputedStyle(age).color,
+      ordinaryColor: getComputedStyle(ordinaryMeta).color,
+      withinRow: bounds.left >= rowBounds.left - 1 && bounds.right <= rowBounds.right + 1,
+      withinScreenshot: bounds.left >= 0 && bounds.top >= 0
+        && bounds.right <= 420 && bounds.bottom <= 720,
+      topmostAtCenter: (() => {
+        const surface = document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+        return surface === age || age.contains(surface);
+      })(),
+      notClipped: age.scrollWidth <= age.clientWidth + 1 && age.scrollHeight <= age.clientHeight + 1,
+    };
+  })(),
   longRow: optionalBox(longRowSelector),
   longRowStyle: styleContract(longRowSelector),
   longTitle: titleContract(`${longRowSelector} [data-focus-task-title="true"]`),
