@@ -201,7 +201,7 @@ for (const text of [
   'task.id !== automaticAdvance?.completedTaskId',
   'task.id !== automaticAdvance?.nextTaskId',
   'const liveTask = !automaticAdvance && liveTaskId',
-  'aria-busy={Boolean(automaticAdvance)}',
+  'aria-busy={automaticAdvance?.phase === "pending"}',
   'onAutomaticAdvance={(state, feedback) => {',
   'if (currentTargetKeyRef.current !== currentTargetKey) return;',
   'automaticAdvance !== null',
