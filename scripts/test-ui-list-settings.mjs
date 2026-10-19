@@ -74,6 +74,20 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
+// A real resulting-main Windows run previously collected an incomplete
+// archived-dark page and failed only in the downstream DOM validator. The
+// existing Capture-Theme helper already has bounded ready-marker retries; the
+// list settings call must opt in before preserving either PNG or DOM.
+const listSettingsLoop = capture.split('foreach ($listSettingsMode in @("archive", "archived", "delete"))')[1]
+  ?.split('foreach ($searchMode in @("empty", "results", "no-results", "task-create"))')[0];
+if (!listSettingsLoop) throw new Error("Real list settings capture block is missing");
+requireText(listSettingsLoop, '-ReadyMarker \'data-list-settings-fixture-ready="true"\'',
+  "list settings capture waits for actual rendered ready state");
+requireText(fixture, 'document.documentElement.dataset.listSettingsFixtureReady = "true";',
+  "the list-settings fixture publishes the same exact ready marker");
+requireText(validator, 'data-list-settings-fixture-ready="true"',
+  "the downstream DOM contract remains strict rather than relaxed");
+
 const deleteCall = rust.indexOf("permanently_delete_list(&mut connection, id)?;");
 const cleanupCall = rust.indexOf("cleanup_owned_icon_after_commit(app_dir, relative);", deleteCall);
 if (deleteCall < 0 || cleanupCall < deleteCall) {
