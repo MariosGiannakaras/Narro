@@ -1,6 +1,6 @@
 # STATUS.md
 
-**2026-10-19 latest Codex capture-only attempt:0/2 required captures, CAPTURE_BLOCKED; no analysis/fixes.** Latest resulting-main CI39242766356 at50797aae now3/3SUCCESS, original candidate ZIP/EXE identity verified. Computer Use WGC/coordinate input fails after documented recovery; diagnosticGDI1second capture is not RA01/RA02 proof. Original profile and OBS config restored, no recorder/app running. [Exact safe continuation/evidence](work-log/evidence/ra01-ra02-capture-preflight-20261019/README.md); HANDOFF owns next action. Mandatory4/10 unchanged.
+**2026-10-19 tool recovery:1/2 targets configured; RA01/RA02 captures0/2 NOT RUN.** User currently authorizes tool repair/report only, **no recording**. OBS loaded for the remaining LG at2560x1080/60fps, disconnected source hidden, originals backed up, open/idle StartRecording/00:00:00 verified. Computer Use screenshot/coordinate input remains BLOCKED after completed restart and supported recovery; updater up_to_date, matching open Windows10 reports are not local root-cause proof. [Exact recovery report](work-log/2026-10-19-codex-single-monitor-tool-recovery.md). Narro personal profile restored/untouched; exact candidate source50797aae/CI39242766356 3/3SUCCESS retained. No Narro analysis/fix/build/CI or new recording; mandatory4/10 unchanged. HANDOFF owns one next operation.
 
 ## Current phase — RA01/RA02 source fixes accepted through combined resulting-main Windows release
 
