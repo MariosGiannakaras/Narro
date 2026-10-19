@@ -41,6 +41,7 @@ function harness() {
     detailActiveTaskIdRef: { current: null },
     useCallback: (callback) => callback,
     useEffect: (callback) => effects.push(callback),
+    useLayoutEffect: (callback) => callback(), // committed before passive read
     getReportSessions: (request) => {
       const response = deferred();
       sessionCalls.push({ request, ...response });
@@ -150,6 +151,7 @@ function harness() {
       preferences: { settled: true, error: null },
       useCallback: (callback) => callback,
       useEffect: (callback) => effects.push(callback),
+      useLayoutEffect: (callback) => callback(), // newer rendered filter is committed
       getReportSessions: (request) => {
         const d = deferred();
         calls.sessions.push({ request, ...d });
@@ -208,4 +210,5 @@ function harness() {
   cleanupNewSessions(); cleanupNewDetail();
 }
 
+await import("./test-reports-commit-window.mjs");
 console.log("Actual Reports session/detail read producers reject stale filtered and post-mutation results.");
