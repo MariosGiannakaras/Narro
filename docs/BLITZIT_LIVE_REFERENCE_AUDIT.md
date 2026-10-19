@@ -16,6 +16,12 @@ This protocol defines the optional post-M10 live Blitzit audit. **Its overriding
 
 **Only after freeze, during analysis/reconciliation, classify every NEW_UNCATALOGUED item** as (a) existing covered in-scope behavior, (b) new *local-use candidate* worth a dedicated **future-addition backlog** entry, (c) excluded service, or (d) ambiguous/needs targeted evidence. Record a durable, deduplicated item with unique ID, source version, UI entry point, concise visual/functional description, evidence filename/timecodes, local relevance, dependencies, confidence and reason for disposition. **A future-addition candidate is not automatically an M11 implementation requirement or a blocker for current parity**: it requires the normal explicit scope/prioritization decision. Do not create a new bug/PR per discovery or equate such entries with U01–U41. If the newly found feature is already required for an existing in-scope user workflow, route it to current parity reconciliation instead of deferring a genuine gap.
 
+### Published future-feature statements (research only; not a new parity requirement)
+
+When M11 is explicitly activated, investigate whether Blitzit has **publicly announced functionality it has not yet shipped**. Include dated first-party roadmap/Frill posts, official Help Center “upcoming” entries, product blog/changelog/release notes, developer/founder announcements, official videos and other attributable public statements. Start from the existing historical roadmap inventory in `docs/SOURCE_AUDIT.md`; verify each claim against current dated evidence rather than assuming its old “Next”/“In Development” status is still true. Avoid speculative social rumors, scraping private/community accounts, or exploring excluded service integrations just to complete the inventory.
+
+**Phase discipline:** Phase 1 defines public sources and a dated acquisition manifest; Phase 2 collects source snapshots/URLs and publication/version metadata as neutral evidence only; Phase 3 freezes their provenance together with the other corpus; Phases 4–5 verify, compare with live observed Blitzit/current public shipped documentation, deduplicate and classify each item as `ANNOUNCED_NOT_SHIPPED`, `SHIPPED`, `CHANGED_OR_WITHDRAWN`, or `UNVERIFIABLE`. Preserve exact original wording only as a brief attributed excerpt, with source links, date of announcement, latest verified status/date, dependencies, applicability to local-only Narro and confidence. Put plausible local-use ideas in the existing post-parity candidate backlog; exclude online/account-only functionality from Narro recommendations unless a separable local-use interaction merits consideration. **No announcement authorizes immediate Narro implementation, expands M11's fidelity acceptance, or alters the hard opt-in gate.**
+
 The M11 coverage ledger must distinguish **IN_SCOPE FULL**, **NEW_DISCOVERY REGISTERED**, **EXCLUDED_SERVICE SKIPPED** and **NOT OBSERVED/UNAVAILABLE**. The goal is exhaustive *relevant* interface fidelity plus preservation of useful surprises, not exhaustive inspection of every monetized feature. This filter is applied consistently to the operator's video guide and all technical/static/REA analysis.
 
 The audit is deliberately phase-gated:
@@ -233,7 +239,8 @@ Create a frozen M11 evidence inventory:
 - capture gaps, tool failures and explicitly unobserved channels;
 - sanitization/redaction status;
 - mapping from planned scenarios to evidence files/time ranges;
-- mapping from palette/theme/state capture scenarios to original color-bearing resources, computed-style snapshots, visual samples, relevant display/color-management context and unavailable exact-source channels.
+- mapping from palette/theme/state capture scenarios to original color-bearing resources, computed-style snapshots, visual samples, relevant display/color-management context and unavailable exact-source channels;
+- timestamped public Blitzit future-feature announcement/roadmap source manifest, snapshots or stable URLs, attributed publisher, collection date and missing/unavailable evidence.
 
 Verify that recordings/logs are readable and that the intended coverage was actually captured.
 
@@ -297,7 +304,7 @@ Do not infer hidden server internals that are not observable. Distinguish:
 
 Do not begin Narro remediation merely because the first significant finding is understood.
 
-Phase 4 completes only when the entire frozen capture corpus has been reviewed, all material uncertain flows have either undergone the applicable static/dynamic/protocol/state investigation or have documented limits, the reverse-engineering traceability matrix is complete and a single M11 findings register exists.
+Phase 4 completes only when the entire frozen capture corpus has been reviewed, all material uncertain flows have either undergone the applicable static/dynamic/protocol/state investigation or have documented limits, the reverse-engineering traceability matrix is complete and a single M11 findings register exists. For public future-feature claims, complete the separate dated announcement-status inventory as research evidence; this inventory is advisory, not a parity remediation queue.
 
 # Phase 5 — Reconciliation and remediation plan
 
@@ -378,6 +385,7 @@ M11 is complete only when:
   - version-specific differences;
   - accepted Narro deviations;
   - remediation summary;
+  - dated first-party future-feature announcement/status inventory with links, confidence and post-parity dispositions (separate from observed shipped behavior and required Narro fixes);
   - exact resulting Narro SHA.
 
 Only then may the required Final Comprehensive Review use the post-M11 Narro candidate as its baseline.
