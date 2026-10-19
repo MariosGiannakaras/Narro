@@ -170,6 +170,14 @@ Acceptance criteria:
 - no renderer owns irreplaceable timer/session state
 
 **Gate C result: PASS / proceed to Milestone 4.** The timer/session engine, recovery, tracked-time durability, Pomodoro boundary effects, large-elapsed safety, and configurable Windows sleep/resume accounting are automated-validated on Windows. PR #35 exact head `a4582f5ea76737c8a5e01cb4e1c2cfb87a826159` passed Windows CI #192; squash merge `5eaf7f0eba1770112d41744377ea134ad5d41e33` passed main Windows CI #196.
+### Deferred timer crash/restart hardening — non-counting, NOT STARTED (2026-10-19)
+
+Existing M3 automated recovery and session/checkpoint durability have been implemented and validated; **do not reopen M3 or treat this as evidence of a current defect**. Rust-owned timer advancement runs approximately every 250 ms, while successful periodic SQLite runtime/session checkpoints occur at a 30,000 ms threshold during active counting states. Successful state transitions and normal Quit use transactional persistence boundaries. Unexpected process termination may lose up to roughly the last successful checkpoint interval of uncommitted elapsed work; repeated checkpoint write errors can increase that window. Task/list identity and last committed session should survive, with recovery paused/non-running and no automatic accounting of process downtime. Historical automated coverage is not physical acceptance of the latest release candidate.
+
+**Deferred acceptance, attached to the next separately authorized consolidated M10/Final Review crash-recovery coverage, not an extra PA session:** use an isolated disposable SQLite test profile only, never personal AppData. Start and work on saved tasks, force-terminate at known offsets before/after durable checkpoints, restart, then verify preserved task/list identity and completed/active statuses, task order, last committed work ledger, a single coherent open session, recovered paused/non-running state, no unintended downtime accounting, no duplicate/lost committed work, and correct resume/pause/Done afterward. Include paused, break, boundary-switch and at least one injected SQLite checkpoint-write failure/retry scenario. Record candidate SHA/package, persisted checkpoint and duration before kill, observable elapsed-time loss, and exact PASS/FAIL/NOT RUN. A force-kill result must **not** be presented as proof against power loss, filesystem/storage failure or database corruption. PA-01–09 remain USER-PAUSED absent authorization.
+
+**Future implementation decision only after those measurements:** evaluate keeping 30 seconds versus shortening to 5–10 seconds, considering SQLite write volume/contention, idle overhead, fault reporting and measured time-loss exposure. Any approved change requires deterministic fake-clock and write-failure/recovery regressions, transaction/authority invariants, actual CI and affected Windows acceptance. Do not introduce per-second writes, silently change sleep policy, or change the interval from this planning note.
+
 ## Milestone 4 — Scheduling, recurrence, reminders, eligibility
 
 - [x] Implement Monday-based week classification.
@@ -694,6 +702,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 - [ ] Record the live Blitzit reference environment: observable version/build, date/time, Windows/display/DPI context, trial/subscription limitations, theme/locale/preferences and evidence provenance.
 - [ ] Build a complete scripted capture matrix before substantive exploration starts, using current TODO/HANDOFF/crosswalk plus unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes.
 - [ ] Apply M11's explicit scope filter: **skip exhaustive capture/analysis of accounts, subscriptions, AI chat, MCP and cloud/third-party integration services**; retain a short non-invasive discovery scan for features absent from older evidence, especially potentially useful local-only capabilities.
+- [ ] Plan an evidence-only search for **publicly announced but not yet shipped Blitzit features**: official roadmap/Frill, Help Center upcoming pages, blog/changelog/release notes, attributable official videos and founder/developer statements. Start with `docs/SOURCE_AUDIT.md`, but require fresh dated status verification; collect without deciding Narro feature priorities.
 - [ ] Define synchronized capture for both streams:
   - continuous user-visible screen recording/screenshots/keyframes;
   - observable client/backend/state evidence from ordinary authorized product use: request/event shapes, timing/status/order, local storage/app-data/process/file state where legitimately observable.
@@ -706,6 +715,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 - [ ] Keep each scripted session continuous; segment only for technical reliability/size while preserving session IDs, chronological order, hashes/reassembly metadata and explicit capture gaps.
 - [ ] Preserve unexpected/failing states and repeats as evidence rather than overwriting them.
 - [ ] Collect read-only, version/hash-identified original color-bearing client resources and state-linked raw computed-style/render evidence where accessible, including gradient/alpha values and display/color-profile context. Preserve raw data only during acquisition: **no palette inference, crosswalk decisions or Narro changes before corpus freeze and analysis**.
+- [ ] Save public future-feature announcement source URLs/snapshots, authors and publication/collection dates as neutral evidence; freeze them with the M11 corpus before analysis.
 - [ ] Enforce the **analysis embargo** throughout capture:
   - no Narro source/config/test changes because of an observation;
   - no parity verdict/crosswalk disposition;
@@ -723,6 +733,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 
 - [ ] Review the **entire frozen visual corpus** systematically for layout, hierarchy, typography, icons, spacing, states, menus/dialogs/tooltips, motion, transitions, transient states and version-dependent differences.
 - [ ] Classify every previously undocumented feature captured as **current in-scope**, **future local-use candidate**, **excluded online service**, or **ambiguous**, with source/version/timecodes and durable deduplicated registration. Do not automatically implement future candidates or count excluded services as missing parity.
+- [ ] Verify each first-party Blitzit future-feature statement as **ANNOUNCED_NOT_SHIPPED**, **SHIPPED**, **CHANGED_OR_WITHDRAWN** or **UNVERIFIABLE**, with dated linked evidence and confidence; keep this reference-product research distinct from Narro's required M11 remediation and from later own-feature ideation.
 - [ ] **Extract and document the genuine Blitzit color palette** from frozen, authorized original client/theme/style/computed-render resources where possible: exact HEX/RGB(A) values, semantic roles, theme/state variants, gradient stops/directions, alpha/blending and provenance per value. Distinguish independently verified original values from screenshot pixel measurements/visual estimates; never label sampled approximations as byte-exact Blitzit tokens. Quantify representative text/non-text contrast and record genuinely inaccessible values as unknown.
 - [ ] Review the **entire frozen observable protocol/state corpus** and correlate user actions with task identity/mutations, reorder/move, timer/session accounting, Notes/subtasks, scheduling/recurrence, reports, optimistic acknowledgement/reconciliation, retries/conflicts and local-vs-remote state where supported.
 - [ ] Classify backend conclusions as directly observed contract / strong evidence-based inference / unknown-unobservable; never claim hidden server implementation from client evidence.
@@ -741,7 +752,7 @@ Do **not** analyze/fix findings opportunistically while the capture campaign is 
 - [ ] Align Narro's shared color tokens and affected UI surfaces/states with the verified original Blitzit palette, using centralized tokens rather than arbitrary component HEX values. Preserve the approved Spectrum Core Create/Edit List appearance/behavior, image upload, 218 offline icons and user-selected custom list colors; document justified accessibility/Windows exceptions and regression-test both themes.
 - [ ] Add/update regression coverage for material visual/behavior/state-contract findings.
 - [ ] Re-run affected automated/Windows/source-parity/data-integrity gates.
-- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, **extracted original palette with per-color evidence/confidence and Narro token mapping**, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA.
+- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, **extracted original palette with per-color evidence/confidence and Narro token mapping**, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA, plus a separate dated **announced/unshipped Blitzit feature register** (or evidence-backed none-found/unknown disposition). Its entries are research only, not Narro implementation commitments.
 
 **M11 completion gate (only if activated):** the capture campaign is complete and frozen, the entire corpus has been analyzed, every material finding is reconciled, the remediation plan is complete, every selected Narro correction is validated, affected prior gates are re-run as required, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin.
 
@@ -835,9 +846,15 @@ This is a required post-roadmap quality stage and is **not itself a numbered mil
 
 **Final comprehensive review gate:** remains OPEN until all tasks above are actually performed after the applicable preceding path: validated Milestone 10 when M11 is dormant/skipped, or completed Milestone 11 when M11 was explicitly activated. Planning this stage does not satisfy any checkbox.
 
-## Post-parity candidates — recorded, not scheduled
+## After the final product AND completed M12 — Narro-owned future-feature analysis (not scheduled)
 
-Do not implement these until Milestones 1–10 and the Final Comprehensive Review Stage are complete, unless the user explicitly changes scope:
+**Hard sequencing decision (2026-10-19):** No new Narro-owned feature opportunity analysis, recommendation campaign, prioritization or implementation is part of M1–M10, dormant/active M11, M12 or the mandatory Final Comprehensive Review. The dedicated **final final** product must first have all applicable release/acceptance gates completed, a successfully closed Final Comprehensive Review and a verified, documented final stable Windows release candidate. **M12 must additionally have been explicitly activated, physically executed and completed**; if M12 remains dormant/skipped, this analysis remains on hold even if the mandatory release is finished. This is a **non-milestone, post-product activity** and does not block the current release; the user may later explicitly change the sequence.
+
+**Only after both conditions pass:** prepare an independent, evidence-labeled analysis and actionable recommendations for **original Narro features proposed by ChatGPT**. Start with actual usage/workflow friction, stability, simplicity and local-only Windows value; review existing post-parity candidates, the deduplicated M11 announced/unshipped Blitzit research if M11 was activated, and verified user needs. Distinguish (a) confirmed present product capabilities, (b) publicly announced but still unshipped Blitzit plans, (c) community/user suggestions, and (d) original Narro inventions. For each recommendation provide problem/use case, user value, expected interaction/UX, dependencies, risks to fidelity/reliability/performance/privacy, estimated complexity, alternatives, priority and evidence/confidence. Include a recommended release order **for review only**. No proposal is automatically approved or implemented; obtain a separate user scope decision.
+
+### Existing post-parity idea inventory — historical candidates only, not an active roadmap
+
+Do not implement or start evaluating the candidates below before the post-final-product AND M12 gate above (unless the user explicitly overrides it):
 
 - Tags/labels
 - Calendar week/month view
