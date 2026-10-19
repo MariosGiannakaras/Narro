@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
@@ -236,6 +236,21 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     }
   }, [currentRequest]);
 
+  // A new filter is authoritative at its committed DOM boundary, *before*
+  // the passive effect starts its IPC read. Publishing this in useEffect left
+  // a frame where an old post-mutation refresh could claim the new view.
+  // Never change refs during render: an aborted concurrent render cannot
+  // invalidate the currently committed request.
+  const committedSessionsRequest = currentRequest();
+  const committedSessionsRequestKey = committedSessionsRequest
+    ? JSON.stringify(committedSessionsRequest) : null;
+  useLayoutEffect(() => {
+    if (sessionsActiveRequestKeyRef.current !== committedSessionsRequestKey) {
+      sessionsActiveRequestKeyRef.current = committedSessionsRequestKey;
+      ++sessionsReadRevisionRef.current;
+    }
+  }, [committedSessionsRequestKey]);
+
   useEffect(() => {
     if (!preferences.settled || preferences.error) return;
     let disposed = false;
@@ -276,6 +291,15 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       if (revision !== detailReadRevisionRef.current
         || detailActiveTaskIdRef.current !== taskId) return null;
       throw failure;
+    }
+  }, [detailTaskId]);
+
+  // Closing or switching task detail commits before its passive fetch runs.
+  // Invalidate an old mutation result at that committed selection boundary.
+  useLayoutEffect(() => {
+    if (detailActiveTaskIdRef.current !== detailTaskId) {
+      detailActiveTaskIdRef.current = detailTaskId;
+      ++detailReadRevisionRef.current;
     }
   }, [detailTaskId]);
 
