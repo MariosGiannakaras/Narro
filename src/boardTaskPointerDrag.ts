@@ -10,7 +10,7 @@ export function beginBoardTaskPointerDrag(options: {
   x: number; y: number; taskId: string; sourceLane: Lane;
   onLift: (height: number) => void;
   onTarget: (target: Drop | null) => void;
-  onFinish: (target: Drop | null) => void;
+  onFinish: (target: Drop | null) => void | Promise<void>;
 }): (() => void) | null {
   if (!(options.target instanceof Element) || options.target.closest(interactive)) return null;
   const { source, pointerId, taskId } = options;
@@ -67,7 +67,7 @@ export function beginBoardTaskPointerDrag(options: {
     updateTarget();
     scrollFrame = window.requestAnimationFrame(scrollAtEdge);
   };
-  const cleanup = () => {
+  const cleanup = (retainPreview = false) => {
     if (closed) return;
     closed = true;
     if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
@@ -77,12 +77,28 @@ export function beginBoardTaskPointerDrag(options: {
     window.removeEventListener('blur', cancel);
     window.removeEventListener('keydown', key);
     source.removeEventListener('lostpointercapture', cancel);
-    preview?.remove();
+    if (!retainPreview) preview?.remove();
     if (source.hasPointerCapture(pointerId)) source.releasePointerCapture(pointerId);
   };
   const finish = (drop: Drop | null) => {
     if (closed) return;
-    cleanup(); options.onFinish(drop);
+    // Preserve the inert lifted card until the board's authoritative refresh
+    // has settled. Releasing its pixels before IPC returns briefly repaints
+    // the stale source lane, even though the move ultimately persists.
+    cleanup(Boolean(drop));
+    if (drop && preview) preview.dataset.boardDropPending = "true";
+    try {
+      const settled = options.onFinish(drop);
+      if (drop && preview) {
+        void Promise.resolve(settled).then(
+          () => preview?.remove(),
+          () => preview?.remove(),
+        );
+      }
+    } catch (failure) {
+      preview?.remove();
+      throw failure;
+    }
   };
   const move = (event: PointerEvent) => {
     if (event.pointerId !== pointerId || closed) return;
@@ -123,5 +139,6 @@ export function beginBoardTaskPointerDrag(options: {
   window.addEventListener('keydown', key);
   source.addEventListener('lostpointercapture', cancel);
   try { source.setPointerCapture(pointerId); } catch { /* Window listeners cover synthetic regression input too. */ }
-  return () => finish(null);
+  // Parent unmount/target switch must also release a retained pending clone.
+  return () => { if (closed) preview?.remove(); else finish(null); };
 }
