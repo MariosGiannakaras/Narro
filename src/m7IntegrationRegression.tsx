@@ -1,3 +1,4 @@
+import { runNativeHandoffRegression } from "./nativeHandoffRegression";
 import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
 import { useState } from "react";
@@ -18,6 +19,7 @@ import type { TimerSessionPayload } from "./timerSessionApi";
 // Render production components and call production APIs; replace only native
 // IPC/storage. Assertions cover observable results and adverse response order.
 export async function runM7IntegrationRegression(container: HTMLElement) {
+  const nativeHandoff = await runNativeHandoffRegression(container);
   const assert = (value: unknown, text: string) => { if (!value) throw new Error("M7 projection: " + text); };
   const wait = () => new Promise<void>(resolve => setTimeout(resolve, 25));
   const id = "21111111-1111-4111-8111-111111111111";
@@ -1391,7 +1393,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(boardTasks.length === 1 && boardTasks[0].id === tasks[1].id, "confirmed delete did not preserve independent task identity");
   await openDelete(); // Leave the source comparison state visible in the capture.
   await new Promise<void>(resolve => setTimeout(resolve, 250));
-  return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, focusBoardStaleResponsesRejected: true, catalogEntryReconciled: true,
+  return { ...nativeHandoff, catalogCommittedCrud: true, catalogStaleResponsesRejected: true, focusBoardStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,

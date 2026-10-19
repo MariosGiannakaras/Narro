@@ -109,7 +109,10 @@ function complete(value) {
     if (contract?.scenario !== "m7-integration" || contract.theme !== fixtureUrl.searchParams.get("theme")
       || contract.reducedMotion !== (integrationMotion === "true")) throw new Error("M7 completion identity mismatch");
     for (const key of ["subtaskRepeatFocusAfterNativeRefresh", "subtaskFailureDraftAndFocus", "subtaskExplicitFocusOwnership",
-      "subtaskStaleRefreshFailClosed", "subtaskDisposedFocusSafe"]) {
+      "subtaskStaleRefreshFailClosed", "subtaskDisposedFocusSafe",
+      "nativeHandoffBoardDOMCommit", "nativeHandoffEventBeforeReply",
+      "nativeHandoffSuccessOnRestStatus", "nativeHandoffUncommittedRejection",
+      "nativeHandoffExplicitNext", "nativeHandoffPartialFailure"]) {
       if (contract[key] !== true) throw new Error(`M7 completed fixture lacks ${key}`);
     }
     return true;

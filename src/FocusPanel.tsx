@@ -447,10 +447,24 @@ export function FocusPanel({
   const [boardReadyRefreshKey, setBoardReadyRefreshKey] = useState(0);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
-  const [mutationStatus, setMutationStatus] = useState<string | null>(null);
+  const [mutationFeedback, setMutationFeedback] = useState<{
+    message: string; liveIdentity?: { taskId: string; sessionId: string | null };
+  } | null>(null);
+  const setMutationStatus = (message: string | null) => setMutationFeedback(message ? { message } : null);
+  // Live announcements may not outlive their authoritative task/session, even
+  // when another temporary status masks them until its timeout expires.
+  const liveIdentity = mutationFeedback?.liveIdentity;
+  const mutationStatus = !liveIdentity || (timer?.runtime.timer.task_id === liveIdentity.taskId
+    && timer.runtime.open_session_id === liveIdentity.sessionId)
+    ? mutationFeedback?.message ?? null : null;
   // Done unmounts the old live card before its auto-next and board IPC settle.
   // The persistent Focus Panel owns the interim, noninteractive presentation.
-  const [automaticAdvance, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
+  const [automaticAdvanceState, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
+  const completionIntentRef = useRef<FocusAutomaticAdvanceState | null>(null);
+  // Arm synchronously before dispatch, but keep the live component/drafts until
+  // authoritative idle proves the commit. Rejection must not unmount Notes.
+  const automaticAdvance = automaticAdvanceState
+    ?? (timer?.runtime.timer.task_id === null ? completionIntentRef.current : null);
   const [notesTaskId, setNotesTaskId] = useState<string | null>(null);
   const [subtasksTaskId, setSubtasksTaskId] = useState<string | null>(null);
   const [scheduleTaskId, setScheduleTaskId] = useState<string | null>(null);
@@ -631,6 +645,7 @@ export function FocusPanel({
     setDeleteError(null);
     setAddTaskOpen(false);
     setAddTaskTitle("");
+    completionIntentRef.current = null;
     setAutomaticAdvance(null);
     setMutationStatus(null);
   }, [target.kind, target.kind === "list" ? target.id : null]);
@@ -829,7 +844,9 @@ export function FocusPanel({
       setTimer((current) => applyTimerSessionProjection(current, payload));
       setNotesTaskId(null);
       setSubtasksTaskId(null);
-      setMutationStatus(`${task.title} is now live.`);
+      setMutationFeedback({ message: `${task.title} is now live.`, liveIdentity: {
+        taskId: task.id, sessionId: payload.runtime.open_session_id,
+      } });
       try {
         await refreshBoard();
       } catch (failure: unknown) {
@@ -1280,7 +1297,7 @@ export function FocusPanel({
         </div>
       </header>
 
-      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)} aria-busy={automaticAdvance?.phase === "pending"}>
+      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)} aria-busy={automaticAdvance !== null && automaticAdvance.phase !== "refresh-blocked"}>
         <div className="focus-panel__summary-row">
           {automaticAdvance ? (
             <span className="type-metadata" data-focus-advance-summary="pending">Updating Today progress…</span>
@@ -1311,11 +1328,13 @@ export function FocusPanel({
             data-focus-advance-phase={automaticAdvance.phase}
             role="status"
             aria-live="polite"
-            aria-busy={automaticAdvance.phase === "pending"}
+            aria-busy={automaticAdvance.phase !== "refresh-blocked"}
           >
             <div className="focus-panel__live-heading">
               <span className="focus-panel__live-title">{automaticAdvance.phase === "refresh-blocked"
                 ? "Focus list needs refresh"
+                : automaticAdvance.phase === "completing"
+                  ? "Completing task…"
                 : automaticAdvance.nextTaskTitle
                   ? `Starting ${automaticAdvance.nextTaskTitle}…`
                   : "Finishing completed task…"}</span>
@@ -1389,13 +1408,24 @@ export function FocusPanel({
                 onTaskMutationCommitted={async () => {
                   await refreshBoard();
                 }}
-                onAutomaticAdvance={(state, feedback) => {
+                onAutomaticAdvance={(state, feedback, failure) => {
                   // A completion from the previous list must not publish into a newer target.
                   if (currentTargetKeyRef.current !== currentTargetKey) return;
-                  setAutomaticAdvance(state);
+                  if (state?.phase === "completing") {
+                    completionIntentRef.current = state;
+                    setMutationStatus(null);
+                    setError(null);
+                  } else {
+                    completionIntentRef.current = null;
+                    setAutomaticAdvance(state);
+                  }
                   if (feedback) setMutationStatus(feedback);
+                  if (failure) setError(failure);
                 }}
-                onCompletionSuccess={onCompletionSuccess}
+                onCompletionSuccess={(state) => {
+                  if (currentTargetKeyRef.current !== currentTargetKey) return;
+                  onCompletionSuccess?.(state);
+                }}
               />
             ) : null}
           </article>

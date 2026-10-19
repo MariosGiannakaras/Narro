@@ -1,3 +1,4 @@
+import { flushSync } from "react-dom";
 import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import {
@@ -906,19 +907,32 @@ export function ListBoard({
   const settleTimer = useRef<number | null>(null);
   const externalRefreshRevisionRef = useRef(0);
   const pointerDragCleanup = useRef<(() => void) | null>(null);
+  const pointerDropInFlightRef = useRef(false);
+  const pointerDragEpochRef = useRef(0);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
 
   useEffect(() => () => {
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    pointerDragEpochRef.current++;
     pointerDragCleanup.current?.();
   }, []);
 
   useEffect(() => {
+    // An external snapshot cancels an active drag. Our own committed readback
+    // must retain the preview until the replacement DOM is committed below.
+    if (pointerDropInFlightRef.current) return;
     pointerDragCleanup.current?.();
     pointerDragCleanup.current = null;
-  }, [snapshot, target.kind, target.kind === "list" ? target.id : null, editorState,
+  }, [snapshot]);
+
+  useEffect(() => {
+    pointerDragEpochRef.current++;
+    pointerDropInFlightRef.current = false;
+    pointerDragCleanup.current?.();
+    pointerDragCleanup.current = null;
+  }, [target.kind, target.kind === "list" ? target.id : null, editorState,
     scheduleEditorTaskId, notePanelTaskId, subtaskPanel, changeListState, deleteTarget, mutationRefreshBlocked]);
 
   useEffect(() => {
@@ -2011,6 +2025,7 @@ export function ListBoard({
   ) => {
     if (!event.isPrimary || event.button !== 0 || !interactionReorderEnabled || mutationPendingTaskId) return;
     pointerDragCleanup.current?.();
+    const epoch = ++pointerDragEpochRef.current;
     pointerDragCleanup.current = beginBoardTaskPointerDrag({
       source: event.currentTarget, target: event.target, pointerId: event.pointerId,
       x: event.clientX, y: event.clientY, taskId: task.id, sourceLane: lane,
@@ -2030,12 +2045,19 @@ export function ListBoard({
         // pending. Release the source collapse only after commit+fresh board,
         // or on a rejected (uncommitted) move. A committed refresh failure
         // instead keeps the source hidden under the existing fail-closed gate.
+        pointerDropInFlightRef.current = true;
         return commitDrop(task.id, lane, drop.lane, drop.beforeTaskId).then((result) => {
+          if (pointerDragEpochRef.current !== epoch) return;
+          // Promise settlement only means data is ready. Commit the real row's
+          // unhide before the helper releases its imperative preview pixels.
+          flushSync(() => {
+            if (result !== "needs_refresh") {
+              setDragState(null);
+              setDropTarget(null);
+            }
+          });
+          pointerDropInFlightRef.current = false;
           pointerDragCleanup.current = null;
-          if (result !== "needs_refresh") {
-            setDragState(null);
-            setDropTarget(null);
-          }
         });
       },
     });
