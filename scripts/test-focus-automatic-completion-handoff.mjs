@@ -207,6 +207,8 @@ for (const text of [
   'onAutomaticAdvance={(state, feedback) => {',
   'if (currentTargetKeyRef.current !== currentTargetKey) return;',
   'automaticAdvance !== null',
+  'fixtureMode || !presentationActive || automaticAdvance !== null || addTaskPending',
+  'inert={Boolean(completionSuccessContent || automaticAdvance)}',
   'Focus list needs refresh',
 ]) {
   assert(panelSource.includes(text), "parent-owned Focus pending visual contract missing: " + text);
