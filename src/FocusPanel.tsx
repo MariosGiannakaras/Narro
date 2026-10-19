@@ -1314,7 +1314,7 @@ export function FocusPanel({
             aria-busy={automaticAdvance.phase === "pending"}
           >
             <div className="focus-panel__live-heading">
-              <span>{automaticAdvance.phase === "refresh-blocked"
+              <span className="focus-panel__live-title">{automaticAdvance.phase === "refresh-blocked"
                 ? "Focus list needs refresh"
                 : automaticAdvance.nextTaskTitle
                   ? `Starting ${automaticAdvance.nextTaskTitle}…`
