@@ -1280,7 +1280,7 @@ export function FocusPanel({
         </div>
       </header>
 
-      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)} aria-busy={Boolean(automaticAdvance)}>
+      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)} aria-busy={automaticAdvance?.phase === "pending"}>
         <div className="focus-panel__summary-row">
           {automaticAdvance ? (
             <span className="type-metadata" data-focus-advance-summary="pending">Updating Today progress…</span>
