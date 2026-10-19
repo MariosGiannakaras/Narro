@@ -1,6 +1,10 @@
 # STATUS.md
 
-## Current phase — recorded-evidence analysis complete, implementation handoff
+## Current phase — 2026-10-19 RA01 + RA02 corrections under exact-head CI
+
+Codex **DONE_SCOPED_ANALYSIS** with **100/100 registered analytical dispositions (not100PASS)** on 18 byte-verified useful films; original [report](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md). ChatGPT implementation now has two independent active source PRs: [#381 RA01 Board drag handoff](https://github.com/MariosGiannakaras/Narro/pull/381) head `da54fd7999f37bdd287ac66acbd2bda8569ceaa9`, [run39183551093](https://github.com/MariosGiannakaras/Narro/actions/runs/39183551093) validation+fast PASS / Windows candidate **RUNNING/NOT PASS at this checkpoint**; [#382 RA02 Focus committed completion→next](https://github.com/MariosGiannakaras/Narro/pull/382) head `569ae720e007919d7e1761f496445019deb69f9d`, [run39185005575](https://github.com/MariosGiannakaras/Narro/actions/runs/39185005575) validation+fast PASS / Windows candidate **RUNNING/NOT PASS at this checkpoint**. Older RA02 head/run39184382529 and run39184868637 fast FAILs remain historical, superseded by confirmed corrected current head; no gates weakened. Real production mutation callbacks tested under deferred writes/readback and parent Focus handoff; native personal UI tests and modern Blitzit motion still OPEN. Source PRs not yet merged; neither a head-fast PASS nor an in-progress Windows build completes them. [Exact active next and restrictions](HANDOFF.md). Mandatory M1–M4 formally **4/10**; M5–M10 still not accepted; M10/M11/M12 inactive and PR344 other-owned.
+
+## Historical Codex analysis handoff — completed, now implementation active
 
 **2026-10-18T23:55:37.602930+00:00:100/100 registered review dispositions (44 inherited+56 new), NOT100PASS.** Eighteen byte-verified useful streams analyzed with explicit sampling, source/current-code and native acceptance limits. [Authoritative report](docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) / [per-cell ledger](work-log/evidence/recordings-analysis-20261019/README.md). Raw media/matrices unchanged. No new physical test/capture/app launch/source/config/test edit/build/CI.
 
