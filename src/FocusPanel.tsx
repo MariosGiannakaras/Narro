@@ -459,7 +459,12 @@ export function FocusPanel({
     ? mutationFeedback?.message ?? null : null;
   // Done unmounts the old live card before its auto-next and board IPC settle.
   // The persistent Focus Panel owns the interim, noninteractive presentation.
-  const [automaticAdvance, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
+  const [automaticAdvanceState, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
+  const completionIntentRef = useRef<FocusAutomaticAdvanceState | null>(null);
+  // Arm synchronously before dispatch, but keep the live component/drafts until
+  // authoritative idle proves the commit. Rejection must not unmount Notes.
+  const automaticAdvance = automaticAdvanceState
+    ?? (timer?.runtime.timer.task_id === null ? completionIntentRef.current : null);
   const [notesTaskId, setNotesTaskId] = useState<string | null>(null);
   const [subtasksTaskId, setSubtasksTaskId] = useState<string | null>(null);
   const [scheduleTaskId, setScheduleTaskId] = useState<string | null>(null);
@@ -640,6 +645,7 @@ export function FocusPanel({
     setDeleteError(null);
     setAddTaskOpen(false);
     setAddTaskTitle("");
+    completionIntentRef.current = null;
     setAutomaticAdvance(null);
     setMutationStatus(null);
   }, [target.kind, target.kind === "list" ? target.id : null]);
@@ -1405,10 +1411,13 @@ export function FocusPanel({
                 onAutomaticAdvance={(state, feedback, failure) => {
                   // A completion from the previous list must not publish into a newer target.
                   if (currentTargetKeyRef.current !== currentTargetKey) return;
-                  setAutomaticAdvance(state);
                   if (state?.phase === "completing") {
+                    completionIntentRef.current = state;
                     setMutationStatus(null);
                     setError(null);
+                  } else {
+                    completionIntentRef.current = null;
+                    setAutomaticAdvance(state);
                   }
                   if (feedback) setMutationStatus(feedback);
                   if (failure) setError(failure);

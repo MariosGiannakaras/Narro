@@ -72,6 +72,9 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       if (command === "get_home_snapshot") return { lists: [{ id: listId, title: "RA regression" }], pendingCount: order.length, aggregateEstSeconds: 600 };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
       if (command === "get_focus_done_breaks") return [];
+      if (command === "get_list_board_task_note") return { taskId: args.taskId, listId, mutable: true,
+        note: { taskId: args.taskId, editorFormatVersion: 1, updatedAt: "2026-10-19T00:00:00Z",
+          document: { blocks: [{ kind: "paragraph", runs: [{ text: "Draft must survive rejected completion" }] }] } } };
       if (command === "get_preference_settings") return { general: { hideTaskTimes: false },
         focus: { scrollingTitle: false, defaultBreakSeconds: 300 },
         celebration: { showSuccessScreen: success, successSoundEnabled: false, funGif: false } };
@@ -161,19 +164,34 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       completed = []; timer = idle(); holdRead = false; read = deferred(); completion = deferred(); crossLane = false;
       flushSync(() => root.render(<FocusSurfaceCoordinator />));
       await until(() => query<HTMLButtonElement>('[data-focus-row-action="make-live"]')?.disabled === false, "make-live enabled");
+      const selector = query<HTMLSelectElement>('[data-focus-list-selector]')!;
+      selector.value = listId; selector.dispatchEvent(new Event("change", { bubbles: true }));
+      await wait(); await wait();
       query<HTMLButtonElement>('[data-focus-row-action="make-live"]')!.click();
       await until(() => query<HTMLButtonElement>('[data-focus-action="done"]')?.disabled === false, "Done enabled");
+      let rejectedDraft: HTMLElement | null = null;
+      if (failComplete) {
+        query<HTMLButtonElement>('[data-focus-action="notes"]')!.click();
+        await until(() => query('[data-task-note-control="editor"]'), "notes editor opened before rejection");
+        rejectedDraft = query<HTMLElement>('[data-task-note-control="editor"]')!;
+        rejectedDraft.textContent = "Unsaved rejected-completion draft";
+        rejectedDraft.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText" }));
+      }
       const initialStarts = startCalls, initialCompletes = completeCalls;
       query<HTMLButtonElement>('[data-focus-action="done"]')!.click();
       await until(() => completeCalls === initialCompletes + 1, "completion dispatched once");
       await wait(); await wait();
-      assert(query('[data-focus-advance-phase="completing"]'), variant + " intent survives event before reply");
+      if (!failComplete) assert(query('[data-focus-advance-phase="completing"]'), variant + " intent survives event before reply");
+      else assert(rejectedDraft?.isConnected && query<HTMLButtonElement>('[data-focus-action="done"]')?.disabled,
+        "before any committed event, live draft remains mounted with busy actions");
       assert(!query('[data-focus-live-card="false"]'), variant + " never generic idle during commit");
       assert(!Array.from(container.querySelectorAll('[data-focus-task-row="remaining"]')).some(row => row.textContent?.includes(tasks[0].title)), "completed task not re-offered");
       if (failComplete) {
         completion.reject(new Error("controlled uncommitted rejection"));
         await until(() => query('[role="alert"]')?.textContent?.includes("controlled uncommitted rejection"), "parent rejection feedback");
         assert(query('[data-focus-action="done"]') && startCalls === initialStarts, "rejected Done restores live task without start");
+        assert(rejectedDraft?.isConnected && query('[data-task-note-control="editor"]') === rejectedDraft
+          && rejectedDraft.textContent === "Unsaved rejected-completion draft", "uncommitted rejection must preserve the mounted notes draft");
       } else {
         completion.resolve(); await wait();
         assert(query('[data-focus-live-card="advancing"]'), "pending retained through delayed board read");

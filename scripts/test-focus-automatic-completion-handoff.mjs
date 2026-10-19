@@ -200,7 +200,7 @@ function harness({ next = true, successScreen = false } = {}) {
 // These checks guard the real parent composition, not a model with a simulated
 // timer/queue. Source task IDs are never rewritten to fabricate live state.
 for (const text of [
-  'const [automaticAdvance, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null)',
+  'const [automaticAdvanceState, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null)',
   'data-focus-live-card="advancing"',
   'className="focus-panel__live-title">{automaticAdvance.phase',
   'data-focus-advance-phase={automaticAdvance.phase}',
