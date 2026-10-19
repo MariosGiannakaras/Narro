@@ -242,6 +242,7 @@ try {
                 -Url $listSettingsUrl `
                 -ScreenshotPath $listSettingsScreenshot `
                 -DomPath $listSettingsDom `
+                -ReadyMarker 'data-list-settings-fixture-ready="true"' `
                 -VirtualTimeBudgetMs 800
         }
 
