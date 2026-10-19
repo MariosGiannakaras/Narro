@@ -948,7 +948,7 @@ export function FocusPanel({
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || !presentationActive || addTaskPending
+    if (fixtureMode || !presentationActive || automaticAdvance !== null || addTaskPending
       || focusMutationOwnerRef.current !== null || addTaskInFlightRef.current) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
@@ -1447,7 +1447,7 @@ export function FocusPanel({
             ref={addTaskEditorRef}
             className="focus-panel__add-task-editor"
             data-focus-add-task="editor"
-            inert={Boolean(completionSuccessContent)}
+            inert={Boolean(completionSuccessContent || automaticAdvance)}
             onSubmit={(event) => {
               event.preventDefault();
               void submitAddTask();
@@ -1502,7 +1502,7 @@ export function FocusPanel({
           </form>
         )}
 
-        <section className="focus-panel__group" inert={Boolean(completionSuccessContent)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
+        <section className="focus-panel__group" inert={Boolean(completionSuccessContent || automaticAdvance)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
           <h2 id="focus-scheduled-title" className="focus-panel__group-title">
             {scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}
           </h2>
