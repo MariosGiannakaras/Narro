@@ -1,0 +1,11 @@
+# RA01/RA02 corrective batch — local renderer proof, CI pending
+
+Candidate `72a411c4bf9ef8ef817b6adf22732ae9403b2b85`, [PR385](https://github.com/MariosGiannakaras/Narro/pull/385), [exact-head run39297177338](https://github.com/MariosGiannakaras/Narro/actions/runs/39297177338). This packet is automated renderer proof, not exact-executable physical PASS. Original108 evidence files plus capture README (109 total) unchanged.
+
+Four actual Edge/CDP mounted-production-component runs PASS: light/dark × normal/reduced motion. Inspect each `.html.diagnostics.json` contract: six `nativeHandoff*` receipts plus the retained full M7 integration assertions. Real Board helper/CSS row is checked at imperative preview removal through deferred write/read; actual FocusSurfaceCoordinator receives committed idle before the invoke returns while board reads remain delayed. Covers OFF eligible/no-next, ON rest/explicit Next, uncommitted rejection, failed next-start and committed refresh failure. Normal/reduced renderer preference is independently checked by the existing fixture.
+
+Full `npm run preflight:frontend` PASS, `cargo fmt --check` PASS. Rust check cannot execute successfully without MSVC `link.exe`; retained log is an environment blocker, not a source compile verdict. Windows CI supplies compile/clippy/domain test/package validation. No new dependencies/workflow changes.
+
+Regression-first early-parent-intent assertion failed on prior actual Done handler, then passed after correction. Two initial local fixture attempts failed before dispatch because synthetic pointer readiness/isPrimary was incomplete; fixed harness now waits for actual reorder eligibility and supplies isPrimary. Local preflight also exposed raw CRLF-sensitive pre-existing source checks; local worktree source normalized to Git LF without semantic/staged changes. No CI was spent on these local failures. `npm run build` regenerated icons; those generated tracked outputs were restored and excluded from the change.
+
+Native WGC smoke retry still fails `FrameArrived/window capture timed out`; OBS/GDI acquisition is separately prepared/reused later on a validated candidate. No recording/app-data change or physical PASS is represented by this packet. The immutable source report remains `docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md`; no claim that old videos validate replacement source.
