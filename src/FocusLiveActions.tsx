@@ -409,8 +409,8 @@ export function FocusLiveActions({
       let feedback = "Task completed. No other eligible task is available in this Focus view.";
       if (next && nextMode) {
         // Completion has already committed. Never turn this Done into a
-        // retryable failure if the next start fails.
-        // start fails: reconcile the real timer and report the partial result.
+        // retryable failure if the next start fails: reconcile the real timer
+        // and report the partial result without changing the saved Done.
         try {
           const started = await startTimerTask(next.id, nextMode);
           applyPayload(started);
