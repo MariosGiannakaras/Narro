@@ -1,0 +1,35 @@
+{
+  "reportedUTC": "2026-10-19T12:54:40.289331+00:00",
+  "before": [
+    {
+      "file": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\basic\\profiles\\NarroUIValidationPR234\\basic.ini",
+      "backup": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Capture-Recovery-20261019\\backup\\basic-dual-original.ini",
+      "sha256": "02b4557406d99f2c6364b7a2dd5597f7d92e5b9b3ddb8a7d5c8e26842df1c823"
+    },
+    {
+      "file": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\basic\\scenes\\NarroM7PR234.json",
+      "backup": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Capture-Recovery-20261019\\backup\\scene-dual-original.json",
+      "sha256": "47be6be358fd154ccc12a2c0df12c7391d4051453334ad034d6e8509665a2d83"
+    },
+    {
+      "file": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\user.ini",
+      "backup": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Capture-Recovery-20261019\\backup\\user-original.ini",
+      "sha256": "e51d9fa130c2d1b6db606f5ce121b8217438fd44bde6d5965f2c5fa432ea5353"
+    }
+  ],
+  "after": {
+    "canvas": [
+      2560,
+      1080
+    ],
+    "output": [
+      2560,
+      1080
+    ],
+    "fps": 60,
+    "activeDisplay": "LG ULTRAGEAR GSM773B",
+    "disconnectedSource": "retained but hidden",
+    "outputFolder": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Capture-Recovery-20261019\\video"
+  },
+  "applicationSourceChanged": false
+}

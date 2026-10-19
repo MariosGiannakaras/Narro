@@ -1,5 +1,8 @@
 # Audit → implementation crosswalk
 
+**2026-10-19 RA01/RA02 native evidence update:** [Two final-build capture groups](../work-log/evidence/ra01-ra02-native-capture-20261019/README.md) FROZEN2/2, analysis0/2/REVIEW_PENDING; no source/physical parity gate closed.6RA01 normal/reduced pointer cases and4RA02 states captured via real OBS/GDI/UIA/native input. Before/after reuse matrix preserves M1/M7/M8 incidental-only limits, M9 not exercised, M10 gated/M11 dormant. Source fixes/CI are already merged as current HANDOFF states; older regression-first rows below are not missing-code instructions.
+
+
 ## Current recordings reconciliation — 2026-10-19
 
 **100/100 review dispositions complete, not100PASS**; [one active full report](CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) and [ledger](../work-log/evidence/recordings-analysis-20261019/README.md). Original evidence unchanged; no code/test/physical action in analysis-only task.

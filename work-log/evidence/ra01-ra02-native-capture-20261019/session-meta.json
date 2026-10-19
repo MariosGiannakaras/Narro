@@ -1,0 +1,21 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "phase": "FROZEN",
+  "ci": 39242766356,
+  "head": "50797aae81c8bf4cdd05e8e29577372059a89dc6",
+  "artifactId": 12182638920,
+  "artifactZipSHA256": "e4f1200e8ac46a8ea191d812ee3c55cf5e93a2611c41bc863789447896834ac2",
+  "sha256": "87132d9add5cb831e04857f3e8b41b849929e036a3364d0f04a4dd25ce2f8361",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-RA01-RA02-Capture-20261019\\candidate\\narro.exe",
+  "scope": "Capture only RA01/RA02; defer all analysis and fixes until user effort change",
+  "recordingCurrentlyActive": false,
+  "captureGroupsCompleted": 2,
+  "captureGroupsTotal": 2,
+  "timestamp": "2026-10-19T12:16:28.031421+00:00",
+  "analysis": "NOT STARTED",
+  "fixes": "NOT STARTED",
+  "personalProfilesRestored": true,
+  "blocker": null,
+  "lastReportedUTC": "2026-10-19T14:27:33.623624+00:00",
+  "recordingMethod": "OBS60fps + GDI/UIA/native input fallback verified"
+}

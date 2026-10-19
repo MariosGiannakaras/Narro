@@ -1,0 +1,1724 @@
+{
+  "utc": "2026-10-19T14:29:14.855236+00:00",
+  "timebase": "UTC actual input/UIA receipts; map to video visually, OBS start is not asserted to be exact PTS zero",
+  "events": [
+    {
+      "utc": "2026-10-19T14:19:52.744384+00:00",
+      "label": "000-open-main",
+      "command": [
+        "key",
+        "Narro",
+        "000-open-main",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          78,
+          78,
+          1094,
+          817
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:20:05.039834+00:00",
+      "label": "001-ra01-board",
+      "command": [
+        "click-screen",
+        "Narro",
+        "001-ra01-board",
+        "880",
+        "488"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          78,
+          78,
+          1094,
+          817
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:20:16.095409+00:00",
+      "label": "002-maximize",
+      "command": [
+        "click-screen",
+        "Narro",
+        "002-maximize",
+        "1017",
+        "94"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          78,
+          78,
+          1094,
+          817
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:20:16.896488+00:00",
+      "label": "003-ra01-ready",
+      "command": [
+        "snap",
+        "Narro",
+        "003-ra01-ready"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:55.782152+00:00",
+      "hwnd": 329150,
+      "action": "Start Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Stop Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        },
+        {
+          "name": "Pause Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.pauseRecordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:56.866174+00:00",
+      "case": "RA01-N1-cross-lane",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:56.903183+00:00",
+      "case": "RA01-N2-reorder",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:56.939190+00:00",
+      "case": "RA01-N3-cancel",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:58.711844+00:00",
+      "case": "RA01-R1-cross-lane",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:58.747852+00:00",
+      "case": "RA01-R2-reorder",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:21:58.782861+00:00",
+      "case": "RA01-R3-cancel",
+      "outcome": "TOOL_OR_STATE_BLOCKER",
+      "error": "Target must remain foreground",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:01.012018+00:00",
+      "hwnd": 329150,
+      "action": "Stop Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Start Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:21.550023+00:00",
+      "hwnd": 329150,
+      "action": "Start Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Stop Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        },
+        {
+          "name": "Pause Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.pauseRecordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:22.710488+00:00",
+      "label": "RA01-N1-cross-lane-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-N1-cross-lane-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:23.286857+00:00",
+      "case": "RA01-N1-cross-lane",
+      "source": {
+        "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          325,
+          1365,
+          486
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        329
+      ],
+      "cancel": false,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:23.286857+00:00",
+      "case": "RA01-N1-cross-lane",
+      "source": {
+        "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          325,
+          1365,
+          486
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        329
+      ],
+      "cancel": false,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:26.045138+00:00",
+      "afterCards": [
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            245,
+            296,
+            786,
+            457
+          ]
+        },
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:26.178169+00:00",
+      "label": "RA01-N1-cross-lane",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-N1-cross-lane"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:26.803755+00:00",
+      "label": "RA01-N2-reorder-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-N2-reorder-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:27.201457+00:00",
+      "case": "RA01-N2-reorder",
+      "source": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        681
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": false,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:27.201457+00:00",
+      "case": "RA01-N2-reorder",
+      "source": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        681
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": false,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:29.957625+00:00",
+      "afterCards": [
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            245,
+            296,
+            786,
+            457
+          ]
+        },
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:30.094656+00:00",
+      "label": "RA01-N2-reorder",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-N2-reorder"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:30.720102+00:00",
+      "label": "RA01-N3-cancel-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-N3-cancel-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:31.119035+00:00",
+      "case": "RA01-N3-cancel",
+      "source": {
+        "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        665
+      ],
+      "cancel": true,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:31.119035+00:00",
+      "case": "RA01-N3-cancel",
+      "source": {
+        "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        665
+      ],
+      "cancel": true,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:34.078289+00:00",
+      "afterCards": [
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            245,
+            296,
+            786,
+            457
+          ]
+        },
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:34.218356+00:00",
+      "label": "RA01-N3-cancel",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-N3-cancel"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:36.136762+00:00",
+      "label": "RA01-R1-cross-lane-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-R1-cross-lane-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:36.535812+00:00",
+      "case": "RA01-R1-cross-lane",
+      "source": {
+        "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        665
+      ],
+      "cancel": false,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:36.535812+00:00",
+      "case": "RA01-R1-cross-lane",
+      "source": {
+        "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          245,
+          296,
+          786,
+          457
+        ]
+      },
+      "anchor": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          661,
+          1365,
+          822
+        ]
+      },
+      "pointerFrom": [
+        253,
+        316
+      ],
+      "pointerTo": [
+        934,
+        665
+      ],
+      "cancel": false,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:39.294724+00:00",
+      "afterCards": [
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            829,
+            1365,
+            990
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:39.427756+00:00",
+      "label": "RA01-R1-cross-lane",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-R1-cross-lane"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:40.053664+00:00",
+      "label": "RA01-R2-reorder-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-R2-reorder-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:40.451530+00:00",
+      "case": "RA01-R2-reorder",
+      "source": {
+        "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          325,
+          1365,
+          486
+        ]
+      },
+      "anchor": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        345
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": false,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:40.451530+00:00",
+      "case": "RA01-R2-reorder",
+      "source": {
+        "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          325,
+          1365,
+          486
+        ]
+      },
+      "anchor": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        345
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": false,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:43.203497+00:00",
+      "afterCards": [
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            829,
+            1365,
+            990
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:43.334534+00:00",
+      "label": "RA01-R2-reorder",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-R2-reorder"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:43.976122+00:00",
+      "label": "RA01-R3-cancel-activate",
+      "command": [
+        "key",
+        "Narro",
+        "RA01-R3-cancel-activate",
+        "0x1B"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:44.374591+00:00",
+      "case": "RA01-R3-cancel",
+      "source": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          829,
+          1365,
+          990
+        ]
+      },
+      "anchor": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        849
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": true,
+      "outcome": "INPUT_STARTED",
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:44.374591+00:00",
+      "case": "RA01-R3-cancel",
+      "source": {
+        "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          829,
+          1365,
+          990
+        ]
+      },
+      "anchor": {
+        "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+        "rect": [
+          824,
+          493,
+          1365,
+          654
+        ]
+      },
+      "pointerFrom": [
+        832,
+        849
+      ],
+      "pointerTo": [
+        934,
+        497
+      ],
+      "cancel": true,
+      "outcome": "INPUT_COMPLETED",
+      "endUTC": "2026-10-19T14:22:47.327220+00:00",
+      "afterCards": [
+        {
+          "name": "Drag AlphaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            325,
+            1365,
+            486
+          ]
+        },
+        {
+          "name": "Week SecondSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            493,
+            1365,
+            654
+          ]
+        },
+        {
+          "name": "Drag BetaSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            661,
+            1365,
+            822
+          ]
+        },
+        {
+          "name": "Week AnchorSchedule / RepeatEst:10mTaken:0mAdd notesSubtasks",
+          "rect": [
+            824,
+            829,
+            1365,
+            990
+          ]
+        }
+      ],
+      "sourceFile": "chronological-manifest.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:47.456249+00:00",
+      "label": "RA01-R3-cancel",
+      "command": [
+        "snap",
+        "Narro",
+        "RA01-R3-cancel"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:22:50.160246+00:00",
+      "hwnd": 329150,
+      "action": "Stop Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Start Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:23:04.652054+00:00",
+      "label": "010-list-selector",
+      "command": [
+        "click-screen",
+        "Narro",
+        "010-list-selector",
+        "2076",
+        "151"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:23:12.672870+00:00",
+      "label": "011-ra02-advance",
+      "command": [
+        "click-screen",
+        "Narro",
+        "011-ra02-advance",
+        "2065",
+        "274"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 525478,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:23:35.361042+00:00",
+      "hwnd": 329150,
+      "action": "Start Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Stop Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        },
+        {
+          "name": "Pause Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.pauseRecordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:23:36.222057+00:00",
+      "label": "RA02-01-enter-focus",
+      "command": [
+        "click-screen",
+        "Narro",
+        "RA02-01-enter-focus",
+        "1673",
+        "735"
+      ],
+      "window": {
+        "hwnd": 525478,
+        "title": "Narro",
+        "pid": 1764,
+        "rect": [
+          -8,
+          -8,
+          2568,
+          1088
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:23:53.260737+00:00",
+      "label": "RA02-02-scope-selector",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-02-scope-selector",
+        "2296",
+        "32"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:16.277606+00:00",
+      "label": "RA02-03-select-advance",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-03-select-advance",
+        "2356",
+        "161"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:17.553045+00:00",
+      "label": "RA02-04-hover-complete",
+      "command": [
+        "move-screen",
+        "Narro - Focus",
+        "RA02-04-hover-complete",
+        "2509",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:18.877093+00:00",
+      "label": "RA02-05-complete-first",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-05-complete-first",
+        "2504",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:19.680199+00:00",
+      "label": "RA02-06-after-first",
+      "command": [
+        "snap",
+        "Narro - Focus",
+        "RA02-06-after-first"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:28.915589+00:00",
+      "label": "RA02-07-hover-last",
+      "command": [
+        "move-screen",
+        "Narro - Focus",
+        "RA02-07-hover-last",
+        "2504",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:30.249117+00:00",
+      "label": "RA02-08-complete-no-next",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-08-complete-no-next",
+        "2504",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:31.031623+00:00",
+      "label": "RA02-09-no-next",
+      "command": [
+        "snap",
+        "Narro - Focus",
+        "RA02-09-no-next"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:32.235875+00:00",
+      "label": "RA02-10-preferences",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-10-preferences",
+        "2455",
+        "32"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:45.873298+00:00",
+      "label": "RA02-11-success-on",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-11-success-on",
+        "2524",
+        "546"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:47.170885+00:00",
+      "label": "RA02-12-back-focus",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-12-back-focus",
+        "2248",
+        "31"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:48.466368+00:00",
+      "label": "RA02-13-select-control-list",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-13-select-control-list",
+        "2296",
+        "32"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:24:53.549743+00:00",
+      "label": "RA02-14-last-scope",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-14-last-scope",
+        "2356",
+        "201"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:02.177189+00:00",
+      "label": "RA02-15-hover-make-live",
+      "command": [
+        "move-screen",
+        "Narro - Focus",
+        "RA02-15-hover-make-live",
+        "2425",
+        "227"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:03.481398+00:00",
+      "label": "RA02-16-make-live",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-16-make-live",
+        "2425",
+        "227"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:04.791843+00:00",
+      "label": "RA02-17-hover-success-on-complete",
+      "command": [
+        "move-screen",
+        "Narro - Focus",
+        "RA02-17-hover-success-on-complete",
+        "2509",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:06.113921+00:00",
+      "label": "RA02-18-success-on-complete",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-18-success-on-complete",
+        "2504",
+        "135"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:06.889866+00:00",
+      "label": "RA02-19-success-on",
+      "command": [
+        "snap",
+        "Narro - Focus",
+        "RA02-19-success-on"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:17.986702+00:00",
+      "label": "RA02-20-untimed-rest",
+      "command": [
+        "click-screen",
+        "Narro - Focus",
+        "RA02-20-untimed-rest",
+        "2303",
+        "286"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:18.772290+00:00",
+      "label": "RA02-21-untimed-rest",
+      "command": [
+        "snap",
+        "Narro - Focus",
+        "RA02-21-untimed-rest"
+      ],
+      "window": {
+        "hwnd": 197372,
+        "title": "Narro - Focus",
+        "pid": 1764,
+        "rect": [
+          2220,
+          0,
+          2560,
+          700
+        ]
+      },
+      "foreground": 197372,
+      "sourceFile": "native-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:29.843750+00:00",
+      "hwnd": 329150,
+      "action": "Stop Recording",
+      "controls": [
+        {
+          "name": "00:00:00",
+          "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+          "type": 50020
+        },
+        {
+          "name": "Start Recording",
+          "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+          "type": 50000
+        }
+      ],
+      "sourceFile": "obs-actions.jsonl"
+    },
+    {
+      "utc": "2026-10-19T14:25:54.884321+00:00",
+      "text": "RA01 RA02 capture complete normal Quit",
+      "menu": [
+        "Show Narro",
+        "Show Focus Surface",
+        "Quit Narro"
+      ],
+      "clicked_rect": [
+        2313,
+        1005,
+        2502,
+        1027
+      ],
+      "sourceFile": "actions.jsonl"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # STATUS.md
 
-**2026-10-19 acquisition path restored via verified alternative; RA01/RA02 capture0/2 PREPARED.** GDI real image/click/text/80px drag and OBS Start/Stop4.650s H264/AAC2560x1080/60fps verified; native WGC plugin still broken. User authorizes starting capture when operational. Fresh attempt/ledger prepared under Narro-Workspace/Narro-RA01-RA02-Retry-20261019; original profiles not yet isolated. Exact50797aae/CI39242766356/EXE identity retained. Capture only, no analysis/fixes until user effort change. [Current handoff](HANDOFF.md), [tool receipt](work-log/2026-10-19-codex-single-monitor-tool-recovery.md). Mandatory4/10 unchanged.
+**2026-10-19 latest native acquisition FROZEN:2/2 captured,0/2 analyzed; REVIEW_PENDING, not PASS.** Verified OBS/GDI/native-input fallback recorded RA01 six normal/reduced actions28.084s and RA02 four completion/success/rest states113.984s at2560x1080/60fps; full decode0. [Complete videos/screenshots/UIA/DB/chronology](work-log/evidence/ra01-ra02-native-capture-20261019/README.md). Owned Narro normaltrayQuit, OBS stopped, original profiles hash-identical restored and OS motion restored. Native WGC plugin remains broken but fallback works. No code/test/config/build/CI or product analysis/fix. STOP before analysis for user effort change. Mandatory4/10, M10 gate and M11/M12 dormant unchanged. [Single current continuation](HANDOFF.md).
 
 ## Current phase — RA01/RA02 source fixes accepted through combined resulting-main Windows release
 
