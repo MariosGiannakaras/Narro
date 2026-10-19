@@ -57,8 +57,8 @@ function harness({ next = true, successScreen = false } = {}) {
     DEFAULT_SUCCESS_SOUND: "none",
     playLocalSound: () => Promise.resolve(),
     onCompletionSuccess: () => events.push("success-screen"),
-    onAutomaticAdvance: (state, feedback) => {
-      pending.push({ state, feedback });
+    onAutomaticAdvance: (state, feedback, failure) => {
+      pending.push({ state, feedback, failure });
       events.push(state ? "handoff-" + state.phase : "handoff-settled");
     },
     applyPayload: payload => {
@@ -92,24 +92,25 @@ function harness({ next = true, successScreen = false } = {}) {
   const running = h.handler();
   await flush();
   assert.equal(h.completeCount, 1);
-  assert.deepEqual(h.pending, []);
+  assert(h.events.indexOf("handoff-completing") < h.events.indexOf("complete-request"));
+  assert.equal(h.pending[0]?.state.phase, "completing", "parent intent must exist BEFORE native completion can emit idle");
   h.complete.resolve(h.completed);
   await flush();
-  assert.equal(h.pending.length, 1);
+  assert.equal(h.pending.length, 2);
   assert.equal(h.pending[0].state.nextTaskId, "next-2");
-  assert.equal(h.pending[0].state.phase, "pending");
+  assert.equal(h.pending[1].state.phase, "pending");
   assert(h.events.indexOf("handoff-pending") < h.events.indexOf("timer-idle"),
     "parent handoff must precede idle timer publication");
   assert.equal(h.startCount, 1);
-  assert.equal(h.pending.length, 1, "next-start pending cannot show No live task");
+  assert.equal(h.pending.length, 2, "next-start pending cannot show No live task");
   h.start.resolve(h.started);
   await flush();
   assert.equal(h.payloads.at(-1), "running");
-  assert.equal(h.pending.length, 1, "next-start success is not enough without new queue");
+  assert.equal(h.pending.length, 2, "next-start success is not enough without new queue");
   assert(h.events.includes("board-refresh-request"));
   h.refresh.resolve();
   await running;
-  assert.equal(h.pending.length, 2);
+  assert.equal(h.pending.length, 3);
   assert.equal(h.pending.at(-1).state, null, "authoritative new board releases pending");
   assert(h.events.indexOf("board-refresh-request") < h.events.indexOf("handoff-settled"));
   assert.match(h.pending.at(-1).feedback, /Next task is now live/);
@@ -128,7 +129,7 @@ function harness({ next = true, successScreen = false } = {}) {
   await flush();
   assert.equal(h.startCount, 0);
   assert.equal(h.pending[0].state.nextTaskId, null);
-  assert.equal(h.pending[0].state.phase, "pending");
+  assert.equal(h.pending[1].state.phase, "pending");
   assert(h.events.includes("board-refresh-request"));
   h.refresh.resolve();
   await running;
@@ -136,14 +137,16 @@ function harness({ next = true, successScreen = false } = {}) {
   assert.match(h.pending.at(-1).feedback, /No other eligible task/);
 }
 
-// Completion rejection: no intermediate pending owner and no next start,
+// Completion rejection releases pre-dispatch intent with parent-owned error,
 // preserving the uncommitted task and normal error/retry semantics.
 {
   const h = harness();
   const running = h.handler(); await flush();
   h.complete.reject(new Error("completion rejected by SQLite"));
   await running;
-  assert.deepEqual(h.pending, []);
+  assert.equal(h.pending[0].state.phase, "completing");
+  assert.equal(h.pending.at(-1).state, null);
+  assert.match(h.pending.at(-1).failure, /completion rejected/);
   assert.equal(h.startCount, 0);
   assert.match(h.errors[0], /completion rejected/);
   assert.equal(h.finished, 1);
@@ -157,7 +160,7 @@ function harness({ next = true, successScreen = false } = {}) {
   h.complete.resolve(h.completed); await flush();
   h.start.reject(new Error("next timer unavailable")); await flush();
   assert.deepEqual(h.payloads, ["idle", "idle"], "recovered timer must not pretend Running");
-  assert.equal(h.pending.length, 1);
+  assert.equal(h.pending.length, 2);
   h.refresh.resolve(); await running;
   assert.equal(h.pending.at(-1).state, null);
   assert.match(h.pending.at(-1).feedback, /next task could not start automatically/);
@@ -187,7 +190,8 @@ function harness({ next = true, successScreen = false } = {}) {
   const running = h.handler(); await flush();
   h.complete.resolve(h.completed); await flush();
   assert(h.events.includes("success-screen"));
-  assert.equal(h.pending.length, 0);
+  assert.equal(h.pending[0].state.phase, "completing");
+  assert.equal(h.pending.at(-1).state, null);
   assert.equal(h.startCount, 0);
   h.refresh.resolve(); await running;
   assert.equal(h.finished, 1);
@@ -203,8 +207,6 @@ for (const text of [
   'task.id !== automaticAdvance?.completedTaskId',
   'task.id !== automaticAdvance?.nextTaskId',
   'const liveTask = !automaticAdvance && liveTaskId',
-  'aria-busy={automaticAdvance?.phase === "pending"}',
-  'onAutomaticAdvance={(state, feedback) => {',
   'if (currentTargetKeyRef.current !== currentTargetKey) return;',
   'automaticAdvance !== null',
   'fixtureMode || !presentationActive || automaticAdvance !== null || addTaskPending',

@@ -135,7 +135,8 @@ function harness({ enabled = true } = {}) {
 // them if the callback concluded with a fresh view or uncommitted rejection.
 assert(board.includes('return commitDrop(task.id, lane, drop.lane, drop.beforeTaskId).then((result) => {'));
 assert(board.includes('if (result !== "needs_refresh") {'));
-assert(board.includes("setDragState(null);\n            setDropTarget(null);"));
+// Actual React/CSS commit and preview removal are checked in the mounted
+// nativeHandoffRegression browser fixture, not by source indentation.
 
 // Execute the real pointer module with a synthetic DOM event loop. The
 // document.body clone must persist after actual pointerup while the Board's

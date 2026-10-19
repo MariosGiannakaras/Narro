@@ -47,7 +47,7 @@ export type FocusAutomaticAdvanceState = {
   completedTaskId: string;
   nextTaskId: string | null;
   nextTaskTitle: string | null;
-  phase: "pending" | "refresh-blocked";
+  phase: "completing" | "pending" | "refresh-blocked";
 };
 
 type FocusLiveActionsProps = {
@@ -64,7 +64,7 @@ type FocusLiveActionsProps = {
   presentationActive?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
-  onAutomaticAdvance?: (state: FocusAutomaticAdvanceState | null, feedback?: string) => void;
+  onAutomaticAdvance?: (state: FocusAutomaticAdvanceState | null, feedback?: string, failure?: string) => void;
 };
 
 type FocusAction = FocusMutationAction;
@@ -331,6 +331,7 @@ export function FocusLiveActions({
 
   const handleDone = async () => {
     if (!beginMutation("done")) return;
+    let ownsCompletionIntent = false;
     try {
       const [freshBoard, authoritative] = await Promise.all([
         getListBoardSnapshot(target),
@@ -343,6 +344,15 @@ export function FocusLiveActions({
 
       const next = nextEligibleTask(freshBoard, task.id);
       const nextMode = next ? focusModeForTask(authoritative.runtime.timer.mode, next) : null;
+      // Native completion emits its committed idle event before IPC resolves.
+      // Parent ownership must precede dispatch, for both Success ON and OFF.
+      onAutomaticAdvance?.({
+        completedTaskId: task.id,
+        nextTaskId: next?.id ?? null,
+        nextTaskTitle: next?.title ?? null,
+        phase: "completing",
+      });
+      ownsCompletionIntent = Boolean(onAutomaticAdvance);
       const completed = await completeTimerTask();
       // The sound switch is independent from the success-screen presentation.
       // Never play before the authoritative completion transaction commits.
@@ -379,6 +389,8 @@ export function FocusLiveActions({
             ? { id: nextAfterCompletion.id, title: nextAfterCompletion.title, mode: nextAfterCompletionMode }
             : null,
         });
+        onAutomaticAdvance?.(null);
+        ownsCompletionIntent = false;
         applyPayload(completed);
         setNotesExpanded(false);
         if (onTaskMutationCommitted) {
@@ -443,6 +455,7 @@ export function FocusLiveActions({
         setStatus(feedback);
       }
     } catch (failure: unknown) {
+      if (ownsCompletionIntent) onAutomaticAdvance?.(null, undefined, formatInvokeError(failure));
       fail(failure);
     } finally {
       finishMutation("done");
