@@ -53,7 +53,7 @@ Continue only tool recovery under the latest instruction. First reconcile the pr
 
 Original Narro profile remains restored; no new isolation attempt was made. Preserve exact candidate source `50797aae81c8bf4cdd05e8e29577372059a89dc6`, resulting-main CI39242766356 3/3 SUCCESS and EXE SHA256 `87132d9add5cb831e04857f3e8b41b849929e036a3364d0f04a4dd25ce2f8361`. Before a later authorized scenario, use a fresh isolation ledger, not the completed/restored ledger. Single-monitor OBS settings intentionally replace the former dual-monitor configuration; do not restore the old layout while the second display remains disconnected.
 
-## Verified working alternative — 2026-10-19T14:18:34.824890+00:00
+## Verified working alternative â€” 2026-10-19T14:18:34.824890+00:00
 
 The user explicitly requested alternatives and authorized starting capture when operational. The existing GDI/native-input helper was copied to the centralized recovery folder and successfully exercised on one owned blank Notepad: actual screenshot, physical editor click, Unicode SendInput text `Narro native input probe OK`, and real titlebar drag from `[359,336,1913,1087]` to `[439,256,1993,1007]` (80px right/80px up). Cropped before/after PNGs and native action receipts are retained locally. The owned probe was closed by verified exact process identity. No personal document was edited.
 

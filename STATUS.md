@@ -1,6 +1,6 @@
 # STATUS.md
 
-**2026-10-19 tool recovery:1/2 targets configured; RA01/RA02 captures0/2 NOT RUN.** User currently authorizes tool repair/report only, **no recording**. OBS loaded for the remaining LG at2560x1080/60fps, disconnected source hidden, originals backed up, open/idle StartRecording/00:00:00 verified. Computer Use screenshot/coordinate input remains BLOCKED after completed restart and supported recovery; updater up_to_date, matching open Windows10 reports are not local root-cause proof. [Exact recovery report](work-log/2026-10-19-codex-single-monitor-tool-recovery.md). Narro personal profile restored/untouched; exact candidate source50797aae/CI39242766356 3/3SUCCESS retained. No Narro analysis/fix/build/CI or new recording; mandatory4/10 unchanged. HANDOFF owns one next operation.
+**2026-10-19 acquisition path restored via verified alternative; RA01/RA02 capture0/2 PREPARED.** GDI real image/click/text/80px drag and OBS Start/Stop4.650s H264/AAC2560x1080/60fps verified; native WGC plugin still broken. User authorizes starting capture when operational. Fresh attempt/ledger prepared under Narro-Workspace/Narro-RA01-RA02-Retry-20261019; original profiles not yet isolated. Exact50797aae/CI39242766356/EXE identity retained. Capture only, no analysis/fixes until user effort change. [Current handoff](HANDOFF.md), [tool receipt](work-log/2026-10-19-codex-single-monitor-tool-recovery.md). Mandatory4/10 unchanged.
 
 ## Current phase — RA01/RA02 source fixes accepted through combined resulting-main Windows release
 

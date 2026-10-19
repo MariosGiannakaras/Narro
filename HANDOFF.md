@@ -1,4 +1,4 @@
-# HANDOFF — fallback operational; RA01/RA02 capture prepared
+# HANDOFF â€” fallback operational; RA01/RA02 capture prepared
 
 **Owner Codex / PREPARED / UTC 2026-10-19T14:18:34.824890+00:00; required captures0/2, NOT RUN.** User requested repair/alternatives and explicitly authorized starting when tools work. **GDI/native-input probe3/3 plus OBS recording/finalization verified**: real screenshot, click/text,80px/80px drag; private4.650s H264/AAC2560x1080/60fps health clip decoded. Native Computer Use WGC still fails; do not require it to recover or repeat restarts. [Tool recovery receipt](work-log/2026-10-19-codex-single-monitor-tool-recovery.md).
 
