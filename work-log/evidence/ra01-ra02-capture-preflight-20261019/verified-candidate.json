@@ -1,0 +1,28 @@
+{
+  "recordedUTC": "2026-10-19T12:23:43.137142+00:00",
+  "source": "50797aae81c8bf4cdd05e8e29577372059a89dc6",
+  "ci": 39242766356,
+  "jobs": [
+    {
+      "name": "validation-gate",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "fast-gate",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "windows-candidate",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "artifactId": 12182638920,
+  "zipSHA256": "e4f1200e8ac46a8ea191d812ee3c55cf5e93a2611c41bc863789447896834ac2",
+  "exeSHA256": "87132d9add5cb831e04857f3e8b41b849929e036a3364d0f04a4dd25ce2f8361",
+  "downloadedZIPDigestMatchesGitHub": true,
+  "zipCRC": "PASS",
+  "captureGroups": "0/2 NOT RUN"
+}

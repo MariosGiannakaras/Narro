@@ -1,4 +1,12 @@
-# HANDOFF — 2026-10-19 Q18 / CI fixture correction merged, resulting-main Windows running
+# HANDOFF — authorized RA01/RA02 capture BLOCKED, no analysis started
+
+**Owner Codex / CAPTURE_BLOCKED / last reported UTC 2026-10-19T12:23:43.137142+00:00; required captures0/2, RA01 and RA02 NOT RUN.** User resumed only recordings and requires stopping before subsequent analysis/corrections to change effort. Latest exact resulting-main **CI39242766356 at50797aae81c8bf4cdd05e8e29577372059a89dc6 is now3/3SUCCESS**, independently checked. ZIP artifact12182638920 digest/CRC verified; final narro.exe SHA256 **87132d9add5cb831e04857f3e8b41b849929e036a3364d0f04a4dd25ce2f8361**. This supersedes older RUNNING prose below. [Preflight/evidence and restoration](work-log/evidence/ra01-ra02-capture-preflight-20261019/README.md).
+
+**ONE NEXT ACTION:** recover actual Computer Use screenshot/coordinate input before a new short RA01/RA02 capture attempt. WGC timed out for OBS and Narro after window recovery + fresh node_repl; clicks fail with coordinate input geometry is unavailable. Independent1second GDI capture succeeds but is diagnostic only, not scenario proof. Some keyboard input is available; it does not replace actual pointer-release. No product defect/PASS inferred. Current active desktop has one2560x1080monitor; OBS’s existing two-display4480x1080/60fps layout was preserved.
+
+**Safe boundary:** owned Narro stopped, OBS closed, no recording running; original profile hash restored exactly, recorder output config restored byte-identical. Candidate/fixture/backup/session ledger centralized under Narro-Workspace/Narro-RA01-RA02-Capture-20261019. Existing isolation ledger is completed/restored: use a fresh attempt ledger and isolate again, do not replay it. No original evidence/source/config/test changes, no new build/CI, no analysis/corrections. Preserve prior100/100 scoped old-corpus review, accepted PA01–08 and4/10mandatory milestone status. M10 gated, M11/M12 dormant, locked picker/upload/218icons and PR344 untouched.
+
+## Historical implementation-owner checkpoint — CI_WAIT now superseded
 
 **NOW / ChatGPT / CI_WAIT:** PR383 Reports Q18 fixed source-admitted post-commit/pre-passive stale filter/detail reads. Exact PR head `6d0ebc4de2223476b2ff33ecb1ea7ba4faca540b` [CI39222357460](https://github.com/MariosGiannakaras/Narro/actions/runs/39222357460) **3/3 SUCCESS**, guarded merged `9b59d730156252553cafd49b1baecc20fc9bbd8b` with **3/3 changed Git blobs equal**. Its resulting-main [CI39225416010](https://github.com/MariosGiannakaras/Narro/actions/runs/39225416010) is **historical FAIL** on Windows List Settings archived-dark screenshot readiness, not a proven Reports product failure. Preserve the historical FAIL.
 
