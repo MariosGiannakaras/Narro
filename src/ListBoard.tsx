@@ -1476,14 +1476,14 @@ export function ListBoard({
       || target.kind !== "list"
       || mutationPendingTaskId
       || mutationRefreshBlocked
-    ) return;
+    ) return "restored";
     const task = findTask(taskId);
-    if (!task || !isManualReorderTask(task)) return;
+    if (!task || !isManualReorderTask(task)) return "restored";
 
+    // Keep the lifted source collapsed and its target gap visible until
+    // the authoritative refreshed snapshot is ready for a single handoff.
     setMutationPendingTaskId(taskId);
     setMutationError(null);
-    setDragState(null);
-    setDropTarget(null);
 
     const sameLane = sourceLane === targetLane;
     const successMessage = sameLane
@@ -1511,18 +1511,24 @@ export function ListBoard({
       setMutationError(formatInvokeError(failure));
       setMutationStatus(`${sameLane ? "Could not reorder" : "Could not move"} ${task.title}.`);
       setMutationPendingTaskId(null);
-      return;
+      return "restored";
     }
 
-    setMutationStatus(successMessage);
+    let refreshBlocked = false;
     try {
       await refreshAfterMutation(taskId);
+      setMutationStatus(successMessage);
       setMutationRefreshBlocked(false);
     } catch (failure: unknown) {
+      // The write succeeded but placement is now uncertain. Keep the old
+      // source card hidden and the target placeholder inert until reopening
+      // the board; exposing the old lane would falsely invite a second move.
+      refreshBlocked = true;
       handleCommittedRefreshFailure(failure);
     } finally {
       setMutationPendingTaskId(null);
     }
+    return refreshBlocked ? "needs_refresh" : "settled";
   };
 
   const submitCreate = async () => {
@@ -2014,9 +2020,23 @@ export function ListBoard({
       },
       onTarget: setDropTarget,
       onFinish: (drop) => {
-        pointerDragCleanup.current = null;
-        setDragState(null); setDropTarget(null);
-        if (drop) void commitDrop(task.id, lane, drop.lane, drop.beforeTaskId);
+        if (!drop) {
+          pointerDragCleanup.current = null;
+          setDragState(null);
+          setDropTarget(null);
+          return;
+        }
+        // The helper retains the inert lifted preview while this promise is
+        // pending. Release the source collapse only after commit+fresh board,
+        // or on a rejected (uncommitted) move. A committed refresh failure
+        // instead keeps the source hidden under the existing fail-closed gate.
+        return commitDrop(task.id, lane, drop.lane, drop.beforeTaskId).then((result) => {
+          pointerDragCleanup.current = null;
+          if (result !== "needs_refresh") {
+            setDragState(null);
+            setDropTarget(null);
+          }
+        });
       },
     });
     if (pointerDragCleanup.current) event.preventDefault();
