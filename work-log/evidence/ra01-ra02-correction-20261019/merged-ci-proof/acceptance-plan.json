@@ -1,0 +1,25 @@
+{
+  "phase": "PREPARED_NOT_LAUNCHED",
+  "candidateSource": "ed4d5083e1df00077df2fef2bb74a6cf90321692",
+  "PR": 385,
+  "CI": 39298395231,
+  "RA01": [
+    "normal cross-lane Alpha before Anchor",
+    "normal reorder Second before Anchor",
+    "OS reduced cross-lane Beta before Anchor",
+    "OS reduced ACTUAL reorder Alpha before Beta (moves0 to1)",
+    "Escape cancellation: reuse unchanged native N3/R3 + new mounted cancellation guards; no fabricated new cancel gesture"
+  ],
+  "RA02": [
+    "Success OFF eligible next",
+    "Success OFF no next",
+    "Success ON Only Eligible complete -> Take a Break, wait>=3s (exact old status repro)",
+    "Make ON Next live, complete -> explicit Next starts ON Third",
+    "Complete ON Third -> untimed rest, wait>=3s"
+  ],
+  "method": "Direct physical GDI60fps/H264 recording, finite180second maximum + ComputerUse native input/UIA + owned DB snapshots; OBS left stopped, no WGC dependency",
+  "requirements": "Exact green candidate, new isolation ledger, no personal profile interaction; verify before/after DB identities; separate native results and source parity; stop useful recordings before analysis",
+  "manualGate": "NOT RUN",
+  "fixtureTasks": 9,
+  "captureSafety": "No recorder running during CI/source reading; stop at useful segment;180s hard maximum prevents unbounded idle tail; no audio acceptance"
+}
