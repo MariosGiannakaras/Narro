@@ -5,6 +5,7 @@ import ts from "typescript";
 
 const actionSource = fs.readFileSync("src/FocusLiveActions.tsx", "utf8");
 const panelSource = fs.readFileSync("src/FocusPanel.tsx", "utf8");
+const panelCss = fs.readFileSync("src/focusPanel.css", "utf8");
 const start = actionSource.indexOf("  const handleDone = async () => {");
 const end = actionSource.indexOf("\n  shortcutHandlerRef.current =", start);
 assert(start >= 0 && end > start, "actual Focus completion handler unavailable");
@@ -197,6 +198,7 @@ function harness({ next = true, successScreen = false } = {}) {
 for (const text of [
   'const [automaticAdvance, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null)',
   'data-focus-live-card="advancing"',
+  'className="focus-panel__live-title">{automaticAdvance.phase',
   'data-focus-advance-phase={automaticAdvance.phase}',
   'task.id !== automaticAdvance?.completedTaskId',
   'task.id !== automaticAdvance?.nextTaskId',
@@ -211,4 +213,7 @@ for (const text of [
 }
 assert(!actionSource.includes("onAutomaticAdvance?.(advance);\n      setNotesExpanded(false);"),
   "completed timer publication must not precede the parent pending screen");
+assert(panelCss.includes(".focus-panel__live-card--advancing { min-height: 210px; pointer-events: none; }")
+  && panelCss.includes('.focus-panel__live-card[data-focus-live-card="true"]:hover .focus-panel__live-heading,'),
+  "pending card must retain full height and not hide its status heading on hover");
 console.log("RA02 real Focus Done handler: completion/next/refresh ordering and parent visual guard PASS");
