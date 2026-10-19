@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-**2026-10-19 RA01/RA02 native evidence update:** [Two final-build capture groups](../work-log/evidence/ra01-ra02-native-capture-20261019/README.md) FROZEN2/2, analysis0/2/REVIEW_PENDING; no source/physical parity gate closed.6RA01 normal/reduced pointer cases and4RA02 states captured via real OBS/GDI/UIA/native input. Before/after reuse matrix preserves M1/M7/M8 incidental-only limits, M9 not exercised, M10 gated/M11 dormant. Source fixes/CI are already merged as current HANDOFF states; older regression-first rows below are not missing-code instructions.
+**2026-10-19 DONE native-video analysis:2/2 videos,10/10 case dispositions (4 scoped PASS,5 visual/feedback FAIL,1 UNCERTAIN), not10PASS.** [Authoritative final-build report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) confirms three corrective scopes: RA01 preview-to-row gap (1/2frames), RA02 event-before-parent completion handoff (OFF3frames/ON2frames), RA02 obsolete now-live status after untimed rest. Saved identities/sessions correct; actual reduced-setting reorder not exercised. Original109-file corpus unchanged. No fixes/tests/builds/CI/new native run. Mandatory4/10 unchanged; M10 gated, M11/M12 dormant. [One next implementation action](../HANDOFF.md).
 
 
 ## Current recordings reconciliation — 2026-10-19
@@ -9,12 +9,12 @@
 
 | Finding | Evidence and current-source comparison | Disposition / implementation route |
 |---|---|---|
-| RA01 Board drop wrong-lane transient | Theme1 375.217/375.233s, consecutive60fps; commitDrop + pointer module identity retained | **FIX_NOW M5 / regression-first**: retain pending-drop ownership through committed board refresh; honest write/read failure state. Latest native acceptance not executed here. Separate from fixedF28. |
-| RA02 automatic-completion empty/stale projection | PR364 D1-D3 130.183–130.367s; handleDone hash unchanged, separate timer/board projection | **FIX_NOW M6 / regression-first**: coherent pending completion/next-start without completed task in pending queue; preserve committed/error/SuccessON/rest/sound semantics. No domain loss or new current-native FAIL asserted. |
+| RA01-A Board drop ownership | Final EXE87132d9a: f211/3.517s and f1005–1006/16.750–16.767s; prior wrong-lane bounce not observed, new card gap confirmed | **FIX_NOW M5 / native FAIL**: actual React row commit must precede preview release; data/order correct. [Current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). |
+| RA02-A completion ownership; RA02-B status fallback | Final EXE: OFF f2633–2635, ON f5466–5467 idle/stale queue; rest f6322 stale now-live | **FIX_NOW M6 / native FAIL**: parent intent before independently published idle; invalidate obsolete feedback. Persistence and untimed rest semantics correct. [Current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). |
 | Old C4 clipping/pale/staging | Later PR349 five files byte-identical to accepted native36changes/3024frames | **ALREADY_ACCEPTED scoped native**; historical films cannot reopen it. Source motion/pixel remains separate. |
 | Old F29/F30/F35/F36 and FocusF33 | Existing merged corrections + later PA/CI1046 accepted scopes | **HISTORICAL_FIXED / reuse exact acceptance**. MainNotesEscape, source timing and other unexercised branches not silently promoted. |
 | Source comparisons/audio/theme occlusion/cropped paths | Ledger has explicit INCONCLUSIVE/evidence limits and13silent tracks/2no-audio | **EVIDENCE_LIMIT, not automatic PASS/FAIL**. No new whole-corpus recapture prerequisite or phantom sound patch. |
-| Q18 Reports passive-effect ordering | Independent source-only pretriage; no recording proves race | **NEEDS_REGRESSION_FIRST / CURRENT_DEFECT_NOT_PROVEN**, not RA01/02; do not revive PR325. |
+| Q18 Reports passive-effect ordering | Historical source pretriage; later PR383 accepted correction and PR384 resulting-main CI3/3 | **HISTORICAL / superseded**; no new Q18 defect or correction from RA01/02 films. See current HANDOFF release identity. |
 
 The older acquisition/implementation checkpoints below are historical where superseded by the current report; preserve their original failures. Current mandatory4/10 and M10 hard gate unchanged. OptionalM11/M12 dormant. Locked SpectrumCore/upload/218icons unchanged.
 

@@ -110,3 +110,7 @@ Current Home/Archive/Preferences/Done/recurrence/success/chart differences alrea
 6. This is the final analysis disposition of the enumerated published useful corpus, with explicit sampling/scope limitations. Continue implementation from these findings rather than repeat full video research. If a narrowly required detail is genuinely absent, state that exact requirement and evidence limit.
 
 The original media/DB/profile were not changed. All generated work is centralized in Narro-Workspace and selected reproducible derivatives are published beside this report. Current HANDOFF/TODO/STATUS/crosswalk carry this single continuation.
+
+## Later separate final-build corpus — analysis completed 2026-10-19
+
+The original18-stream/100-cell analysis above remains historical and unchanged. The two subsequently acquired final-build RA01/RA02 videos are now **2/2 analyzed**, with [a separate authoritative report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) and [derivative frame/DB/source proof](../work-log/evidence/ra01-ra02-native-analysis-20261019/README.md). New exact EXE87132d9a confirms three corrective scopes: RA01 card ownership gap (different from old wrong-lane symptom), RA02 completion idle/stale queue in OFF and ON, and RA02 stale status after rest. No additional Narro corrections or physical runs occurred in this analysis. Do not redo these films before starting the supplied regression/fix plans.

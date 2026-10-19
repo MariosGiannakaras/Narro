@@ -1,0 +1,14 @@
+{
+  "RA01": {
+    "sha256": "ae646a0b8824b952c0557372bdd44ff0f7da4743e6e02c024c6abbb01bebe219",
+    "frames": 1685,
+    "firstPTS": 0.0,
+    "lastPTS": 28.067
+  },
+  "RA02": {
+    "sha256": "e344d36787705f28fa6733dbcc4b496d1787182319e90d5f2fe615b5c943ce56",
+    "frames": 6838,
+    "firstPTS": 0.0,
+    "lastPTS": 113.967
+  }
+}

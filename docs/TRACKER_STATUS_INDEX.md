@@ -1,6 +1,10 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## CURRENT 2026-10-19 — Codex analysis and both evidenced RA visual corrections technically complete
+## CURRENT 2026-10-19 — final-build native analysis2/2 DONE; three corrective scopes
+
+[Authoritative current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) / [HANDOFF](../HANDOFF.md): RA01 card handoff gap, RA02 early idle/stale queue in OFF and ON, RA02 obsolete status after rest. Ten case dispositions4scopedPASS/5FAIL/1UNCERTAIN. Original evidence unchanged, no fixes performed. Mandatory4/10 unchanged; native/source parity not closed.
+
+## HISTORICAL technical checkpoint — before the new final-build capture/analysis
 
 One current owner/next-action: [HANDOFF](../HANDOFF.md). Current milestone truth: [TODO](../TODO.md) and [STATUS](../STATUS.md). Codex's [18-stream final analysis](CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md) **100/100 bounded review dispositions, not 100 PASS**. The two documented transient RA01/RA02 visual defects were fixed through guarded [PR381](https://github.com/MariosGiannakaras/Narro/pull/381) and [PR382](https://github.com/MariosGiannakaras/Narro/pull/382), each exact-head Windows PR CI **3/3 SUCCESS**; RA01 exact resulting-main [run39185545730](https://github.com/MariosGiannakaras/Narro/actions/runs/39185545730) **3/3 SUCCESS** and combined RA01+RA02 resulting-main [run39210300860](https://github.com/MariosGiannakaras/Narro/actions/runs/39210300860) **3/3 SUCCESS** at exact executable head `300aa9da43e286783afc72436c4cca243b72a354`. **10/10 combined source/test Git blobs** equal validated heads even after docs-only main commits. Downloaded actual Windows Edge/packaged Focus/runtime physical-build archives verified by independent SHA256/ZIP CRC; [immutable full proof](../work-log/2026-10-19-chatgpt-ra01-ra02-combined-resulting-main-windows-3of3.md).
 

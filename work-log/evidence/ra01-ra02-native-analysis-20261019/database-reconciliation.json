@@ -1,0 +1,1167 @@
+{
+  "RA01": {
+    "N1-cross-lane": {
+      "beforeUTC": "2026-10-19T14:22:23.233846+00:00",
+      "afterUTC": "2026-10-19T14:22:26.044138+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [
+        {
+          "before": [
+            "e14efd77-45ec-5210-a579-63baa237c6a9",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Alpha",
+            "backlog",
+            0,
+            null
+          ],
+          "after": [
+            "e14efd77-45ec-5210-a579-63baa237c6a9",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Alpha",
+            "this_week",
+            0,
+            null
+          ]
+        },
+        {
+          "before": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            0,
+            null
+          ],
+          "after": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            1,
+            null
+          ]
+        },
+        {
+          "before": [
+            "05bcc000-06b6-5eda-a014-f544ae899f9e",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Beta",
+            "backlog",
+            1,
+            null
+          ],
+          "after": [
+            "05bcc000-06b6-5eda-a014-f544ae899f9e",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Beta",
+            "backlog",
+            0,
+            null
+          ]
+        },
+        {
+          "before": [
+            "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Second",
+            "this_week",
+            1,
+            null
+          ],
+          "after": [
+            "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Second",
+            "this_week",
+            2,
+            null
+          ]
+        }
+      ],
+      "beforeOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          1,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    },
+    "N2-reorder": {
+      "beforeUTC": "2026-10-19T14:22:27.165449+00:00",
+      "afterUTC": "2026-10-19T14:22:29.956624+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [
+        {
+          "before": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            1,
+            null
+          ],
+          "after": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            2,
+            null
+          ]
+        },
+        {
+          "before": [
+            "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Second",
+            "this_week",
+            2,
+            null
+          ],
+          "after": [
+            "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Second",
+            "this_week",
+            1,
+            null
+          ]
+        }
+      ],
+      "beforeOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    },
+    "N3-cancel": {
+      "beforeUTC": "2026-10-19T14:22:31.082025+00:00",
+      "afterUTC": "2026-10-19T14:22:34.077293+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [],
+      "beforeOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    },
+    "R1-cross-lane": {
+      "beforeUTC": "2026-10-19T14:22:36.499803+00:00",
+      "afterUTC": "2026-10-19T14:22:39.293728+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [
+        {
+          "before": [
+            "05bcc000-06b6-5eda-a014-f544ae899f9e",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Beta",
+            "backlog",
+            0,
+            null
+          ],
+          "after": [
+            "05bcc000-06b6-5eda-a014-f544ae899f9e",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Drag Beta",
+            "this_week",
+            2,
+            null
+          ]
+        },
+        {
+          "before": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            2,
+            null
+          ],
+          "after": [
+            "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+            "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+            "Week Anchor",
+            "this_week",
+            3,
+            null
+          ]
+        }
+      ],
+      "beforeOrder": [
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "backlog",
+          0,
+          null
+        ],
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          3,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    },
+    "R2-reorder": {
+      "beforeUTC": "2026-10-19T14:22:40.415522+00:00",
+      "afterUTC": "2026-10-19T14:22:43.201498+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [],
+      "beforeOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          3,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          3,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    },
+    "R3-cancel": {
+      "beforeUTC": "2026-10-19T14:22:44.339583+00:00",
+      "afterUTC": "2026-10-19T14:22:47.326219+00:00",
+      "sameSevenTaskIDs": true,
+      "changedRows": [],
+      "beforeOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          3,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ],
+      "afterOrder": [
+        [
+          "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Alpha",
+          "this_week",
+          0,
+          null
+        ],
+        [
+          "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Second",
+          "this_week",
+          1,
+          null
+        ],
+        [
+          "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Drag Beta",
+          "this_week",
+          2,
+          null
+        ],
+        [
+          "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "3ec4565a-61f2-5604-9c5f-1c39249c6013",
+          "Week Anchor",
+          "this_week",
+          3,
+          null
+        ],
+        [
+          "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "7572833e-48bb-5422-9053-3f67bff47f59",
+          "Only Eligible",
+          "today",
+          0,
+          null
+        ],
+        [
+          "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Complete First",
+          "today",
+          0,
+          null
+        ],
+        [
+          "75fa139c-4348-529d-a810-2f2b4d641009",
+          "f0d3d47e-d09d-5a81-b963-cf852cababd1",
+          "Next Eligible",
+          "today",
+          1,
+          null
+        ]
+      ]
+    }
+  },
+  "RA02": {
+    "before-complete": {
+      "utc": "2026-10-19T14:24:16.887402+00:00",
+      "tasks": [
+        {
+          "id": "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "title": "Drag Alpha",
+          "completed_at": null
+        },
+        {
+          "id": "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "title": "Drag Beta",
+          "completed_at": null
+        },
+        {
+          "id": "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "title": "Week Anchor",
+          "completed_at": null
+        },
+        {
+          "id": "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "title": "Week Second",
+          "completed_at": null
+        },
+        {
+          "id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "title": "Complete First",
+          "completed_at": null
+        },
+        {
+          "id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "title": "Next Eligible",
+          "completed_at": null
+        },
+        {
+          "id": "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "title": "Only Eligible",
+          "completed_at": null
+        }
+      ],
+      "sessions": [
+        {
+          "id": "8a9b31b9-11e7-41c4-a4c8-bd2e21e3e61c",
+          "task_id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "kind": "work",
+          "started_at": "2026-10-19T14:23:36.397Z",
+          "ended_at": null,
+          "duration_seconds": 30,
+          "source": "focus",
+          "created_at": "2026-10-19T14:23:36.397Z",
+          "updated_at": "2026-10-19T14:24:06.549Z",
+          "sleep_accounting_policy": "exclude"
+        }
+      ],
+      "timer_runtime_checkpoint": [
+        {
+          "singleton": 1,
+          "session_id": "8a9b31b9-11e7-41c4-a4c8-bd2e21e3e61c",
+          "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"baace337-eb84-5850-bc86-2b3b9ad8dcec\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":600000},\"phase\":\"running\",\"total_work_ms\":30152,\"interval_work_ms\":30152}}",
+          "updated_at": "2026-10-19T14:24:06.549Z"
+        }
+      ]
+    },
+    "after-first": {
+      "utc": "2026-10-19T14:24:20.266748+00:00",
+      "tasks": [
+        {
+          "id": "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "title": "Drag Alpha",
+          "completed_at": null
+        },
+        {
+          "id": "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "title": "Drag Beta",
+          "completed_at": null
+        },
+        {
+          "id": "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "title": "Week Anchor",
+          "completed_at": null
+        },
+        {
+          "id": "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "title": "Week Second",
+          "completed_at": null
+        },
+        {
+          "id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "title": "Complete First",
+          "completed_at": "2026-10-19T14:24:18.907Z"
+        },
+        {
+          "id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "title": "Next Eligible",
+          "completed_at": null
+        },
+        {
+          "id": "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "title": "Only Eligible",
+          "completed_at": null
+        }
+      ],
+      "sessions": [
+        {
+          "id": "8a9b31b9-11e7-41c4-a4c8-bd2e21e3e61c",
+          "task_id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "kind": "work",
+          "started_at": "2026-10-19T14:23:36.397Z",
+          "ended_at": "2026-10-19T14:24:18.907Z",
+          "duration_seconds": 42,
+          "source": "focus",
+          "created_at": "2026-10-19T14:23:36.397Z",
+          "updated_at": "2026-10-19T14:24:18.907Z",
+          "sleep_accounting_policy": "exclude"
+        },
+        {
+          "id": "3f295374-8b79-4d6a-8a5b-d02f577bf1f4",
+          "task_id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "kind": "work",
+          "started_at": "2026-10-19T14:24:18.945Z",
+          "ended_at": null,
+          "duration_seconds": 0,
+          "source": "focus",
+          "created_at": "2026-10-19T14:24:18.945Z",
+          "updated_at": "2026-10-19T14:24:18.945Z",
+          "sleep_accounting_policy": "exclude"
+        }
+      ],
+      "timer_runtime_checkpoint": [
+        {
+          "singleton": 1,
+          "session_id": "3f295374-8b79-4d6a-8a5b-d02f577bf1f4",
+          "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"75fa139c-4348-529d-a810-2f2b4d641009\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":600000},\"phase\":\"running\",\"total_work_ms\":0,\"interval_work_ms\":0}}",
+          "updated_at": "2026-10-19T14:24:18.945Z"
+        }
+      ]
+    },
+    "no-next": {
+      "utc": "2026-10-19T14:24:31.617046+00:00",
+      "tasks": [
+        {
+          "id": "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "title": "Drag Alpha",
+          "completed_at": null
+        },
+        {
+          "id": "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "title": "Drag Beta",
+          "completed_at": null
+        },
+        {
+          "id": "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "title": "Week Anchor",
+          "completed_at": null
+        },
+        {
+          "id": "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "title": "Week Second",
+          "completed_at": null
+        },
+        {
+          "id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "title": "Complete First",
+          "completed_at": "2026-10-19T14:24:18.907Z"
+        },
+        {
+          "id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "title": "Next Eligible",
+          "completed_at": "2026-10-19T14:24:30.278Z"
+        },
+        {
+          "id": "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "title": "Only Eligible",
+          "completed_at": null
+        }
+      ],
+      "sessions": [
+        {
+          "id": "8a9b31b9-11e7-41c4-a4c8-bd2e21e3e61c",
+          "task_id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "kind": "work",
+          "started_at": "2026-10-19T14:23:36.397Z",
+          "ended_at": "2026-10-19T14:24:18.907Z",
+          "duration_seconds": 42,
+          "source": "focus",
+          "created_at": "2026-10-19T14:23:36.397Z",
+          "updated_at": "2026-10-19T14:24:18.907Z",
+          "sleep_accounting_policy": "exclude"
+        },
+        {
+          "id": "3f295374-8b79-4d6a-8a5b-d02f577bf1f4",
+          "task_id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "kind": "work",
+          "started_at": "2026-10-19T14:24:18.945Z",
+          "ended_at": "2026-10-19T14:24:30.278Z",
+          "duration_seconds": 11,
+          "source": "focus",
+          "created_at": "2026-10-19T14:24:18.945Z",
+          "updated_at": "2026-10-19T14:24:30.278Z",
+          "sleep_accounting_policy": "exclude"
+        }
+      ],
+      "timer_runtime_checkpoint": []
+    },
+    "success-on-rest": {
+      "utc": "2026-10-19T14:25:19.357617+00:00",
+      "tasks": [
+        {
+          "id": "e14efd77-45ec-5210-a579-63baa237c6a9",
+          "title": "Drag Alpha",
+          "completed_at": null
+        },
+        {
+          "id": "05bcc000-06b6-5eda-a014-f544ae899f9e",
+          "title": "Drag Beta",
+          "completed_at": null
+        },
+        {
+          "id": "bc0189c4-f2a2-5f39-a477-fb43427708fa",
+          "title": "Week Anchor",
+          "completed_at": null
+        },
+        {
+          "id": "4f85b10b-0fce-5e8f-8f19-b83588a9a9af",
+          "title": "Week Second",
+          "completed_at": null
+        },
+        {
+          "id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "title": "Complete First",
+          "completed_at": "2026-10-19T14:24:18.907Z"
+        },
+        {
+          "id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "title": "Next Eligible",
+          "completed_at": "2026-10-19T14:24:30.278Z"
+        },
+        {
+          "id": "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "title": "Only Eligible",
+          "completed_at": "2026-10-19T14:25:06.140Z"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "8a9b31b9-11e7-41c4-a4c8-bd2e21e3e61c",
+          "task_id": "baace337-eb84-5850-bc86-2b3b9ad8dcec",
+          "kind": "work",
+          "started_at": "2026-10-19T14:23:36.397Z",
+          "ended_at": "2026-10-19T14:24:18.907Z",
+          "duration_seconds": 42,
+          "source": "focus",
+          "created_at": "2026-10-19T14:23:36.397Z",
+          "updated_at": "2026-10-19T14:24:18.907Z",
+          "sleep_accounting_policy": "exclude"
+        },
+        {
+          "id": "3f295374-8b79-4d6a-8a5b-d02f577bf1f4",
+          "task_id": "75fa139c-4348-529d-a810-2f2b4d641009",
+          "kind": "work",
+          "started_at": "2026-10-19T14:24:18.945Z",
+          "ended_at": "2026-10-19T14:24:30.278Z",
+          "duration_seconds": 11,
+          "source": "focus",
+          "created_at": "2026-10-19T14:24:18.945Z",
+          "updated_at": "2026-10-19T14:24:30.278Z",
+          "sleep_accounting_policy": "exclude"
+        },
+        {
+          "id": "ba6ccbf9-3403-4545-a49f-5eaf9bd5c550",
+          "task_id": "4e177025-1680-50c0-8d06-eae29dfd6766",
+          "kind": "work",
+          "started_at": "2026-10-19T14:25:03.503Z",
+          "ended_at": "2026-10-19T14:25:06.140Z",
+          "duration_seconds": 2,
+          "source": "focus",
+          "created_at": "2026-10-19T14:25:03.503Z",
+          "updated_at": "2026-10-19T14:25:06.140Z",
+          "sleep_accounting_policy": "exclude"
+        }
+      ],
+      "timer_runtime_checkpoint": []
+    }
+  }
+}

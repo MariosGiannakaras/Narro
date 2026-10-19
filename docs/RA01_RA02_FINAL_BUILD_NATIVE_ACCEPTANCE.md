@@ -1,7 +1,8 @@
-# RA01 + RA02 — bounded Codex final-build Windows acceptance (CAPTURED / REVIEW_PENDING)
+# RA01 + RA02 — final-build Windows acceptance (ANALYZED / SCOPED FAIL)
 
-**2026-10-19 latest acquisition:** RA01/RA02 **2/2 captured,0/2 analyzed; no physical PASS claimed**. [New exact-final-build evidence](../work-log/evidence/ra01-ra02-native-capture-20261019/README.md) includes6RA01 actions at normal/reduced motion and4RA02 states, originals/stream-copy MP4s/screenshots/UIA/DB/chronology. Alternative OBS/GDI/native input verified, WGC plugin still broken. Original personal profile and OS animation restored; OBS stopped/Narro normalQuit. Wait for user effort change before aggregate analysis/corrections. The preflight failure below is historical, not the current capture status.
+**2026-10-19 final analysis DONE2/2:** [Per-case frame/PTS verdicts and correction handoff](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). Three confirmed corrective scopes; ten cases4scopedPASS/5FAIL/1UNCERTAIN. Original corpus remains frozen. Earlier REVIEW_PENDING/NOT RUN and effort-stop statements below are historical, not current continuation. No fixes or new capture in this analysis.
 
+## Historical acquisition/preflight checkpoints — superseded status, immutable protocol below
 
 **2026-10-19 capture preflight:** newest resulting-main CI39242766356/source50797aae **3/3SUCCESS** confirmed. Physical-build ZIP artifact12182638920 GitHub digest/CRC matches; narro.exe SHA25687132d9add5cb831e04857f3e8b41b849929e036a3364d0f04a4dd25ce2f8361. User reauthorized **capture only**, then pause before analysis/corrections. Actual RA01/RA02 **0/2 NOT RUN** because Computer Use screenshot and coordinate input recovery failed. Original profiles/OBS config restored, no recording left running. [Preflight and exact continuation](../work-log/evidence/ra01-ra02-capture-preflight-20261019/README.md). Older CI_RUNNING and USER_PAUSED below are historical; authorization persists, current blocker is tool acquisition, not missing permission.
 
