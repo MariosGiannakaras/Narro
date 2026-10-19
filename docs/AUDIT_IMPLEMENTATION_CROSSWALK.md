@@ -3,7 +3,7 @@
 **2026-10-19 DONE native-video analysis:2/2 videos,10/10 case dispositions (4 scoped PASS,5 visual/feedback FAIL,1 UNCERTAIN), not10PASS.** [Authoritative final-build report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) confirms three corrective scopes: RA01 preview-to-row gap (1/2frames), RA02 event-before-parent completion handoff (OFF3frames/ON2frames), RA02 obsolete now-live status after untimed rest. Saved identities/sessions correct; actual reduced-setting reorder not exercised. Original109-file corpus unchanged. No fixes/tests/builds/CI/new native run. Mandatory4/10 unchanged; M10 gated, M11/M12 dormant. [One next implementation action](../HANDOFF.md).
 
 
-**Current source correction:** RA01-A/RA02-A/B implemented in PR385/head72a411c4, local mounted4/4 + frontend PASS; exact Windows run39297177338 pending, replacement native acceptance OPEN. FIX_NOW rows below describe the original failure and still-open acceptance, not absent correction code.
+**Current source correction:** RA01-A/RA02-A/B implemented in PR385/final headed4d5083, local mounted4/4 + frontend PASS; exact Windows run39298395231 pending (old39297177338 superseded), replacement native acceptance OPEN. FIX_NOW rows below describe the original failure and still-open acceptance, not absent correction code.
 
 ## Current recordings reconciliation — 2026-10-19
 
