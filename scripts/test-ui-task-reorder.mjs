@@ -124,4 +124,5 @@ if (!pointer.includes("preview?.remove()") || !pointer.includes("window.cancelAn
   throw new Error("Internal drag preview and edge-scroll frames require cancellation cleanup.");
 }
 
+await import("./test-board-drop-visual-handoff.mjs");
 console.log("Task reorder/move contract checks passed.");
