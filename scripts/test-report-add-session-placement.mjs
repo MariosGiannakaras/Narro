@@ -27,6 +27,15 @@ const root = new URL("../", import.meta.url);
 const view = readFileSync(new URL("src/ReportsSessionsView.tsx", root), "utf8");
 const css = readFileSync(new URL("src/reportsSessions.css", root), "utf8");
 assert.match(view, /positionReportAddSession\(/, "production Add Session uses bounded placement");
+assert.match(view, /returnFocusTarget\.closest\("\[hidden\], \[inert\]"\)/,
+  "Nested Add Session must not anchor to covered, hidden or inert parent modal");
+assert.match(view, /returnFocusTarget\.getClientRects\(\)\.length === 0/,
+  "An invisible but connected opener must fall back to centered modal");
+assert.match(view, /rect\.width <= 0 \|\| rect\.height <= 0/,
+  "Zero-size opener from native or CSS concealment is not an anchor");
+assert.match(view, /\[returnFocusTarget, draft\.taskId, pickerOpen, pending, error\]/,
+  "Placement must recalculate when save validation feedback changes the card");
+
 assert.match(view, /returnFocusTarget\?\.getBoundingClientRect\(\)/,
   "anchor is the real clicked target, not a guessed constant");
 assert.match(view, /data-report-add-anchored=\{anchorPosition \? "true" : "false"\}/,
