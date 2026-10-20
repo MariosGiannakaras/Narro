@@ -141,7 +141,7 @@ invariant(shortcutsDialogCss.includes("color-scheme: light")
 function rowHasDecorativeInfo(title) {
   const row = sections.match(new RegExp('<Row\\b[^>]*\\btitle="' + title + '"[^>]*>', 's'))?.[0];
   invariant(Boolean(row), "Preferences row missing: " + title);
-  return /\\binfoGlyph\\b/.test(row);
+  return /\binfoGlyph\b/.test(row);
 }
 for (const [title, expected] of [
   ["Panel side", true],
