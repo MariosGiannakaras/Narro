@@ -129,9 +129,9 @@ for (const snippet of [
 // SS-C07 is an inventory, not a blanket marker rule: the Monitor and Hide
 // EST rows are plain labels. Preserve exact positive AND negative evidence.
 function rowHasInfoGlyph(title) {
-  const markup = preferenceSections.match(new RegExp('<Row\\\\b[^>]*\\\\btitle="' + title + '"[^>]*>', "s"))?.[0];
+  const markup = preferenceSections.match(new RegExp('<Row\\b[^>]*\\btitle="' + title + '"[^>]*>', "s"))?.[0];
   invariant(Boolean(markup), "SS-C07 row missing: " + title);
-  return /\\binfoGlyph\\b/.test(markup);
+  return /\binfoGlyph\b/.test(markup);
 }
 for (const [title, expected] of [
   ["Panel side", true],
