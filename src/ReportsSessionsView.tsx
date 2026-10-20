@@ -6,6 +6,7 @@ import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import { orderRecentSessionTasks } from "./recentSessionTaskChoices";
+import { positionReportAddSession } from "./reportAddSessionPlacement";
 import { listIconContrast } from "./listSpectrumColor";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
@@ -425,6 +426,7 @@ export function ReportAddSessionDialog({
   const [query, setQuery] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerPlacement, setPickerPlacement] = useState({ above: false, maxHeight: 280 });
+  const [anchorPosition, setAnchorPosition] = useState<{ left: number; top: number } | null>(null);
   const orderedTasks = useMemo(() => orderRecentSessionTasks(tasks), [tasks]);
   const filtered = orderedTasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
@@ -450,6 +452,33 @@ export function ReportAddSessionDialog({
       dialogRef.current?.focus();
     }
   }, [pending]);
+
+  // The original SS-H17 Add Session is anchored beneath the actual invoking
+  // control, not centered. Measure only during a real open/resize/selection;
+  // retain a centered modal fallback if the opener has since been detached.
+  useLayoutEffect(() => {
+    const position = () => {
+      const rect = returnFocusTarget?.getBoundingClientRect();
+      const panel = dialogRef.current;
+      if (!rect || !returnFocusTarget?.isConnected || !panel) {
+        setAnchorPosition(null);
+        return;
+      }
+      const next = positionReportAddSession(rect, {
+        width: panel.offsetWidth,
+        height: panel.offsetHeight,
+      }, { width: window.innerWidth, height: window.innerHeight });
+      setAnchorPosition((current) =>
+        current?.left === next.left && current.top === next.top ? current : next);
+    };
+    position();
+    window.addEventListener("resize", position);
+    window.addEventListener("scroll", position, true);
+    return () => {
+      window.removeEventListener("resize", position);
+      window.removeEventListener("scroll", position, true);
+    };
+  }, [returnFocusTarget, draft.taskId, pickerOpen, pending]);
 
   useEffect(() => {
     if (!pickerOpen || pending) return;
@@ -547,6 +576,8 @@ export function ReportAddSessionDialog({
       <section
         ref={dialogRef}
         className="reports-sessions__add-dialog"
+        data-report-add-anchored={anchorPosition ? "true" : "false"}
+        style={anchorPosition ? { left: anchorPosition.left, top: anchorPosition.top } : undefined}
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-add-session-title"
