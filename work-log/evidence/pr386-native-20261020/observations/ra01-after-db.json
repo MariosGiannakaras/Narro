@@ -211,14 +211,6 @@
       }
     ],
     "sessions": [],
-    "preferences": [
-      {
-        "id": 1,
-        "schema_version": 5,
-        "payload_json": "{\"general\": {\"selected_monitor_key\": null, \"focus_panel_side\": \"right\", \"open_on_login\": false, \"hide_task_times\": false, \"auto_parse_est_from_title\": false, \"theme\": \"dark\", \"timezone\": null}, \"focus\": {\"pomodoro_enabled\": false, \"pomodoro_work_seconds\": 1500, \"pomodoro_break_seconds\": 300, \"default_break_seconds\": 600, \"scrolling_title\": false, \"sleep_accounting_policy\": \"exclude\"}, \"shortcuts\": {\"go_to_narro_enabled\": false, \"toggle_focus_mode_enabled\": false, \"find_focus_timer_enabled\": false}, \"alerts\": {\"timed_alerts_enabled\": false, \"task_alert_interval_seconds\": 600, \"task_alert_sound\": null, \"task_alert_volume_percent\": 100, \"animated_timer_flash\": false, \"notification_alerts_enabled\": false, \"notification_sound\": null, \"notification_volume_percent\": 100, \"schedule_reminders_enabled\": false, \"reminder_lead_seconds\": 600}, \"celebration\": {\"show_success_screen\": false, \"fun_gif\": false, \"success_sound_enabled\": false, \"success_sound\": null, \"success_sound_volume_percent\": 100}}",
-        "updated_at": "2026-10-19T12:16:28.166742+00:00"
-      }
-    ],
     "timer_runtime_checkpoint": []
   }
 }
