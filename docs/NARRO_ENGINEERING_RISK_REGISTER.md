@@ -238,3 +238,6 @@ NER-014 related confirmed current **PA360-XW-SUBTASKS**: board invalidation upda
 
 
 NER-014 PA360-XW-SUBTASKS is now physically accepted3/3 onPR362560efeb0/CI38894130069/merge5dfbede3. All detail read producers share event/owner/revision fencing; preserve synchronous committed-refresh error latch and admission guard so late successful reads cannot erase unsafe-retry feedback. Actual deferred-failure red/green + real handler regressions precede exactCI; native success dataflows separately captured. Keep WATCH for new claims, not an unresolved current child-cache failure. [Exact result](../work-log/2026-10-16-pr362-native-cross-window-acceptance.md).
+
+
+**2026-10-20 NER-009/014 first-success publication guard:** PR386 native films confirm fresh board+success can still omit the legitimate next row when an obsolete completion-intent ref survives that first commit. Later refresh/polled assertions hide this13–14ms state; no persistence corruption. Retire transient workflow intent inside the same guarded publication and assert the first observable success DOM mutation with independently held read, exact remaining IDs/count/Done plus unavailable-read fail-closed behavior. First-commit RED and production4/4GREEN precede CI; native remainsOPEN. [Evidence](../work-log/2026-10-20-focus-first-success-local-validation.md).

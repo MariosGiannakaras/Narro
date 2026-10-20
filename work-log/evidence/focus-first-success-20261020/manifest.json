@@ -1,0 +1,147 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 429,
+    "sha256": "a7f45685db4dabdf899602264557e4cb34fd0de80860a6852d1a79084ba174db"
+  },
+  {
+    "path": "frontend-preflight-lf.txt",
+    "bytes": 33343,
+    "sha256": "d2b5e2157f29274bb138d15e1300cb42742ccbec2b8bee65dfb060e9e5a6cb3c"
+  },
+  {
+    "path": "frontend-preflight.txt",
+    "bytes": 7651,
+    "sha256": "7e45e9731289a709cf5eda60cfe67818992219030889c99eb9b0dace557049cd"
+  },
+  {
+    "path": "green-dev.html",
+    "bytes": 273339,
+    "sha256": "b2b800e900c2e2a463c1f7333771eb9d6a5c5c09204f180e94986a09ff3d473e"
+  },
+  {
+    "path": "green-dev.html.diagnostics.json",
+    "bytes": 5205,
+    "sha256": "b630a3cabc40149bc90050d3f58f238ae910be92d076ce2c5bc05cc805582713"
+  },
+  {
+    "path": "green-dev.png",
+    "bytes": 56892,
+    "sha256": "f52bb5f6fd3baa21dee33d8a933af5d3f65f7d104e52031b9e797a629b55b0ba"
+  },
+  {
+    "path": "pr386-main-ci.json",
+    "bytes": 8709,
+    "sha256": "499954faa922e2a8a89bc512c13c2b9630c9cdd2e68c0791b43ff5838ed89a47"
+  },
+  {
+    "path": "pr386-main-package-proof.json",
+    "bytes": 395,
+    "sha256": "bf662985c857033a9b4da6dbc18c79b29e5e5a5397eb653e798641cf8c5449b0"
+  },
+  {
+    "path": "production-dark-false.html",
+    "bytes": 24417,
+    "sha256": "1b21c3d105c76a9506d9d652d32a538be75079d6cceaeb619d5e97aa40b43eb2"
+  },
+  {
+    "path": "production-dark-false.html.diagnostics.json",
+    "bytes": 5205,
+    "sha256": "bdc3b74db9d0ff9d8274304cfd3c3f61bb1877d4df80fec80f16a8c7af7b92d9"
+  },
+  {
+    "path": "production-dark-false.png",
+    "bytes": 57192,
+    "sha256": "3e132142bb7718dfb48432481fd20c7af242add52f5299a4adfc840d20c231bd"
+  },
+  {
+    "path": "production-dark-false.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3"
+  },
+  {
+    "path": "production-dark-true.html",
+    "bytes": 24416,
+    "sha256": "df91279eea319fbfc7f04e72d5f644974905e77421b91b5b1e91989ea4bcaffe"
+  },
+  {
+    "path": "production-dark-true.html.diagnostics.json",
+    "bytes": 5203,
+    "sha256": "bee149e2e6a8a8a96451568ac6edc64b85ffa6c1028a74851d250a7f99a435c2"
+  },
+  {
+    "path": "production-dark-true.png",
+    "bytes": 57219,
+    "sha256": "884f1c6e79c5d9c6ce3cea3bbf32ab2693c275dc710d8ea4c61ba61ef1b744aa"
+  },
+  {
+    "path": "production-dark-true.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3"
+  },
+  {
+    "path": "production-light-false.html",
+    "bytes": 24419,
+    "sha256": "bea3f2e643d9812c45b0dd2ef15ae801bf50c2eca2090ceb4ce675427d988689"
+  },
+  {
+    "path": "production-light-false.html.diagnostics.json",
+    "bytes": 5212,
+    "sha256": "1a5c1b352b65c4de3aa53e7eb442b1477e5e4e1c0edcdcd1526a49421518360c"
+  },
+  {
+    "path": "production-light-false.png",
+    "bytes": 60341,
+    "sha256": "28ed85b0c16089f0eaf4788c713ab04fc99e5bfbdbffcd3f0713d79329f5b50d"
+  },
+  {
+    "path": "production-light-false.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3"
+  },
+  {
+    "path": "production-light-true.html",
+    "bytes": 24418,
+    "sha256": "ef55b70c64459224e9fbb813ecee90df55185f543b60250ae63c5ddd961be8f7"
+  },
+  {
+    "path": "production-light-true.html.diagnostics.json",
+    "bytes": 5209,
+    "sha256": "5225d14789f9663b7c4d4cb4c4296a60db6d083e8f2e921895cd5f8c1953065e"
+  },
+  {
+    "path": "production-light-true.png",
+    "bytes": 60350,
+    "sha256": "16317b6d55761cec88883f5944fdd9a2430449c0b339c4b57e9c43c7c485ea85"
+  },
+  {
+    "path": "production-light-true.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3"
+  },
+  {
+    "path": "production-matrix.json",
+    "bytes": 297,
+    "sha256": "e7ca87fbe8816de495b1079c25cbbf9945bafa0b66275c79053fdb6d13569c25"
+  },
+  {
+    "path": "red.html",
+    "bytes": 254579,
+    "sha256": "c15ec1134a0adf5b28cac0a0a72ce6092ba124e21112d8c554c8f117a1645e45"
+  },
+  {
+    "path": "red.html.diagnostics.json",
+    "bytes": 8597,
+    "sha256": "98d173e20480aa6749c426fa1dbd058318cbdfe472f14b0802466ee6f1188860"
+  },
+  {
+    "path": "red.png",
+    "bytes": 6325,
+    "sha256": "ececc10147ed371b48dc6c55b08149e571634e9092fc0f9a1a4a4ad2b9704dab"
+  },
+  {
+    "path": "rustfmt.txt",
+    "bytes": 91,
+    "sha256": "385f90bc106fe19ac492fef9cca05c3e5c6a41907d5618f4beea0277924013fc"
+  }
+]

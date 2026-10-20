@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-**Current PR386 native review:**9/9 cases reviewed,7scopedPASS/2visualFAIL(shared SuccessON next-row omission13–14ms). RA01-A CLOSED4/4; OFF2/2 and ONlast scopedPASS; RA02-B rest/statusPASS. RA02-A remainsOPEN/FIX_NOW; old stale completed row corrected. Profiles/motionrestored; no recordingactive. [Report](PR386_NATIVE_RETEST_2026-10-20.md). PR386 merged476d95ea/PRCI3/3; mainCI39365199465running atcheckpoint. Mandatory4/10unchanged.
+**Current PR386 native review:**9/9 cases reviewed,7scopedPASS/2visualFAIL(shared SuccessON next-row omission13–14ms). RA01-A CLOSED4/4; OFF2/2 and ONlast scopedPASS; RA02-B rest/statusPASS. RA02-A remainsOPEN/FIX_NOW; old stale completed row corrected. Profiles/motionrestored; no recordingactive. [Report](PR386_NATIVE_RETEST_2026-10-20.md). PR386 merged476d95ea/PRCI3/3; mainCI39365199465now3/3SUCCESS. Mandatory4/10unchanged.
 
 **HISTORICAL PR386 pre-native checkpoint:** PR386/head0ad2fdcf fixes confirmed SuccessON board/success projection skew. ExactPRCI39363026526 3/3SUCCESS; guardedmerge476d95ea/4blobs+runtimeinputsequivalent. AutomaticmainCI39365199465RUNNING; replacementnativeOPEN. [Native evidence](PR385_NATIVE_RETEST_2026-10-20.md) / [current handoff](../HANDOFF.md). RA02-B status scopedPASS; RA02-A and RA01 acceptanceOPEN. Mandatory4/10 unchanged.
 
