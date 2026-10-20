@@ -1,3 +1,13 @@
+# HANDOFF — 57-line evidence analysis IN PROGRESS
+
+Owner Codex; branch main; phase ANALYZING; last observed UTC 2026-10-20T18:07:55.6961426Z. User explicitly continued after phase notification. Frozen capture parent8cb63f9c; source9e631952/executablebced8a9f unchanged. No active native capture/profile; no app source fixes authorized in this analysis phase. Analysis root E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Analysis-20261020.
+
+NOW: verify all26 original streams and route actions/PTS; begin Reports C47-C57 then shared Focus/Timer/Preferences/Home requirements. Acquisition55/57 is not review/acceptance. No new acceptance PASS yet. Preserve approved picker/icons/user attestation, original files, M10 gate and dormant M11/M12.
+
+ONE NEXT OPERATION: inspect actual Reports originals/static source comparisons and chronological before/after states; record per-requirement review and evidence limits in the existing57-line campaign. No new recording/build/CI/code fix. Do not repeat the old18-stream analysis or already acceptedRA01/RA02.
+
+## HISTORICAL prior capture checkpoint
+
 # HANDOFF — capture-only freeze COMPLETE; announce analysis before starting
 
 Owner Codex; branch `main`; phase **FROZEN**; last observed UTC `2026-10-20T18:04:40.904513+00:00`. Executable source9e631952158c5c6b9763e0e0d79e33b79e8c7ca3, mainCI39389033088/artifact12249543153, EXESHA256bced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909. No Narro source/config/test changes, builds or CI. Latest authorization resumed general work; current phase remained capture-only, with notification requested before analysis/effort change.
@@ -65,3 +75,4 @@ PR387 headcdd88335c920f423630f322e7ba0c25dbba7f3c0, exactPRCI39386125624 **3/3SU
 **ONE NEXT PROJECT OPERATION:** reconcile firstremainingM5acceptance group(s) against canonicalPass3/currentimplementation/already-publishednative/sourcecomparison receipts in [remaining snapshot](docs/REMAINING_ACCEPTANCE_2026-10-20.md). Identify claim-level genuinelymissing/invalidated states before any new bounded capture or confirmedsourcecorrection. Combine sharedstates/controls, validateeachrequirementseparately. Do not repeat RA01/RA02, whole18-film analysis, PA01–08 or acceptedunchanged paths. No furtherphysical/analysis/fix operation is required for this now-completeRA slice.
 
 MandatoryM1–M4 **4/10**. Literalopencheckboxlines M5=6/M6=13/M7=18/M8=9/M9=11, not missingfeature/defect/moviecounts; M10=16 gated. They include sourceparity and someunexercisedtargetedphysicalstates; do not say allphysicalworkgloballyfinished. M10hardentry remainsuntil M1–M9requirementsclear; explicitlynotifyuserthen. M11/M12dormant; approvedSpectrumCore/upload/218icons/otherownerPR344preserved. No useraction needed for RAclosure.
+
