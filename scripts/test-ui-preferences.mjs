@@ -152,6 +152,16 @@ for (const [title, expected] of [
   invariant(rowHasDecorativeInfo(title) === expected,
     "SS-C07 decorative info glyph inventory mismatch: " + title);
 }
+invariant(sections.includes("export function TimePreferenceRows(")
+    && sections.includes('onSave({ timezone }, "timezone")')
+    && sections.includes('infoGlyph title="Timezone"'),
+  "C40 must preserve existing saved timezone handler in its source Time section");
+invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
+    && themePanel.includes("data-preferences-time-section")
+    && themePanel.includes('id="theme-time-title"')
+    && fixture.includes("timeChildren={("),
+  "C40 must update production and visual fixtures without losing Time");
+
 invariant(sections.includes('detail="Show a brief celebration animation when a task is completed."'),
   "Fun GIF help must describe user-visible functionality, not internal source-parity work");
 invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
