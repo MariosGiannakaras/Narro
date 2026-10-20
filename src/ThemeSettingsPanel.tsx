@@ -3,6 +3,7 @@ import {
   BlitzPanelPreferenceSection,
   GeneralPreferenceRows,
   LowerPreferenceSections,
+  TimePreferenceRows,
 } from "./PreferenceSettingsSections";
 import {
   PreferenceSettingsRuntimeProvider,
@@ -20,6 +21,7 @@ type ThemeSettingsPanelViewProps = {
   onSelectTheme: (theme: ThemePreference) => void;
   beforeGeneral?: ReactNode;
   generalChildren?: ReactNode;
+  timeChildren?: ReactNode;
   children?: ReactNode;
 };
 
@@ -36,6 +38,7 @@ export function ThemeSettingsPanelView({
   onSelectTheme,
   beforeGeneral,
   generalChildren,
+  timeChildren,
   children,
 }: ThemeSettingsPanelViewProps) {
   return (
@@ -87,6 +90,16 @@ export function ThemeSettingsPanelView({
         {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
       </section>
 
+      {timeChildren ? (
+        <section className="theme-settings__section preference-settings__section"
+          aria-labelledby="theme-time-title" data-preferences-time-section="true">
+          <div className="theme-settings__section-heading">
+            <h2 id="theme-time-title" className="type-section-title">Time</h2>
+          </div>
+          {timeChildren}
+        </section>
+      ) : null}
+
       {children}
     </section>
   );
@@ -129,6 +142,13 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       beforeGeneral={beforeGeneral}
       generalChildren={preferences.snapshot ? (
         <GeneralPreferenceRows
+          snapshot={preferences.snapshot}
+          pendingKey={preferences.pendingKey}
+          onSave={save}
+        />
+      ) : null}
+      timeChildren={preferences.snapshot ? (
+        <TimePreferenceRows
           snapshot={preferences.snapshot}
           pendingKey={preferences.pendingKey}
           onSave={save}
