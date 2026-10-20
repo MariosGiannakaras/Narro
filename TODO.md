@@ -1,6 +1,6 @@
 # TODO.md
 
-**2026-10-20 corrective candidate:** PR386/head0ad2fdcf fixes confirmed SuccessON board/success projection skew. Local frontend+production4matrixPASS; exactCI39363026526 PENDING, not merged/nativeaccepted. [Native evidence](docs/PR385_NATIVE_RETEST_2026-10-20.md) / [current handoff](HANDOFF.md). RA02-B status scopedPASS; RA02-A and RA01 acceptanceOPEN. Mandatory4/10 unchanged.
+**2026-10-20 corrective candidate:** PR386/head0ad2fdcf fixes confirmed SuccessON board/success projection skew. ExactPRCI39363026526 3/3SUCCESS; guardedmerge476d95ea/4blobs+runtimeinputsequivalent. AutomaticmainCI39365199465RUNNING; replacementnativeOPEN. [Native evidence](docs/PR385_NATIVE_RETEST_2026-10-20.md) / [current handoff](HANDOFF.md). RA02-B status scopedPASS; RA02-A and RA01 acceptanceOPEN. Mandatory4/10 unchanged.
 
 **2026-10-20 PR385 native update:** RA02 capture5/5/review5/5:3scopedPASS/1UNCERTAIN/1FAIL; ONlast success+stale completed queue/header confirmed at107.967s. RA02-B old now-live-after-rest scopedPASS; RA02-A remainsFAIL, RA01NOTRUN(tool input). ActualGDI~34.6fps, strict60fps absence unproven. Profiles/motion restored. [Full report](docs/PR385_NATIVE_RETEST_2026-10-20.md). Next: independent-read regression + coherent success/board alternative decision before correction; no new native session. Mandatory4/10 unchanged.
 

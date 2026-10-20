@@ -160,5 +160,29 @@
     "bytes": 302,
     "sha256": "577d286c4780f1c0cfef6dbd31b402ac0715e70dc2408afb6fb505d97283b8a6",
     "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "merge-equivalence-proof.json",
+    "bytes": 3740,
+    "sha256": "7bd46e03691476ff64e0bd0dc8ba59058fa1600c0021d0fbb0e7860d233a1fa9",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "final-pr-ci-state.json",
+    "bytes": 13533,
+    "sha256": "10edfb2087beab3011816f2612999c6a55837e15d4b8c4a42a81c79e75455fc2",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "candidate-meta.json",
+    "bytes": 1025,
+    "sha256": "cc25ac89793ce155c75b240cba3c3a72443d4974b4de1f513346fd822585c0d3",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "native-acceptance-plan.json",
+    "bytes": 730,
+    "sha256": "73376100f72b6ca97dc18ca26aa3f913c81df0ab7d58771226bed80e7e1c8e18",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
   }
 ]
