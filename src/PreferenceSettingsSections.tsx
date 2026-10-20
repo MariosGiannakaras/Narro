@@ -140,7 +140,6 @@ export function BlitzPanelPreferenceSection({
         </button>
       </div>
       <Row
-        infoGlyph
         title="Monitor"
         detail={selectedStillAvailable
           ? "Choose which Windows work area owns the Focus Panel."
@@ -236,7 +235,7 @@ export function GeneralPreferenceRows({
           onChange={(openOnLogin) => onSave({ openOnLogin }, "openOnLogin")}
         />
       </Row>
-      <Row infoGlyph title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
+      <Row title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
         <Switch
           checked={snapshot.general.hideTaskTimes}
           disabled={pendingKey !== null}
@@ -252,7 +251,7 @@ export function GeneralPreferenceRows({
           onChange={(autoParseEstFromTitle) => onSave({ autoParseEstFromTitle }, "autoParseEst")}
         />
       </Row>
-      <Row title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
+      <Row infoGlyph title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
         <TimezonePreferenceSelector
           timezone={snapshot.general.timezone}
           disabled={pendingKey !== null}
@@ -468,7 +467,7 @@ export function LowerPreferenceSections({
         </Row>
         {snapshot.celebration.showSuccessScreen ? (
           <>
-        <Row title="Fun GIF" detail="Optional nested success-screen decoration; exact source visuals remain a fidelity follow-up." nested>
+        <Row title="Fun GIF" detail="Show a brief celebration animation when a task is completed." nested>
           <Switch
             checked={snapshot.celebration.funGif}
             disabled={busy || !snapshot.celebration.showSuccessScreen}
