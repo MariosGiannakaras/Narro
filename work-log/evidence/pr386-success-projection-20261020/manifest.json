@@ -130,5 +130,17 @@
     "bytes": 375,
     "sha256": "eb284ae4d42b78761b6197c7bbb111fca4e4e2143a7b96c94517304350b69c33",
     "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "cropped-source-cadence-probe.json",
+    "bytes": 378,
+    "sha256": "a9cf69c8342fac3c36924b0492cbcf3d20ba57f685ca497540416efb1c138ab2",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "dxgi-cadence-probe.json",
+    "bytes": 314,
+    "sha256": "9a633675d08301b9cf97d30d79eed82c683f1768e41b709892b10d6d5c0d1d6d",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
   }
 ]
