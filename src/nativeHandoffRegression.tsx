@@ -155,7 +155,11 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       && query('[data-focus-surface-coordinator]')?.getAttribute("data-focus-target") === (value === "__all_lists__" ? "all" : `list:${value}`), "actual target projection settled");
     await wait();
   };
-  const clear = async () => { flushSync(() => root.render(<div />)); await wait(); };
+  let activeSuccessObserver: MutationObserver | null = null;
+  const clear = async () => {
+    activeSuccessObserver?.disconnect(); activeSuccessObserver = null;
+    flushSync(() => root.render(<div />)); await wait();
+  };
   let removalChecks = 0;
   const remove = Element.prototype.remove;
   try {
@@ -205,7 +209,8 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       failNext = variant === "next-failed"; failRead = variant === "refresh-failed";
       failPrivateRead = variant === "on-read-failed";
       completionReplyDelivered = false; privateReadClaimed = false; parentReadCount = 0; privateRead = deferred(); lateRead = deferred(); captureStaleNextRead = false;
-      order = ["off-next", "on-next", "on-read-failed", "on-stale-read", "on-target-aba", "next-failed", "refresh-failed"].includes(variant) ? tasks.slice(0, 2) : tasks.slice(0, 1);
+      order = variant === "on-next" ? [...tasks]
+        : ["off-next", "on-read-failed", "on-stale-read", "on-target-aba", "next-failed", "refresh-failed"].includes(variant) ? tasks.slice(0, 2) : tasks.slice(0, 1);
       completed = []; timer = idle(); holdRead = false; read = deferred(); completion = deferred(); crossLane = false;
       flushSync(() => root.render(<FocusSurfaceCoordinator />));
       await until(() => query<HTMLButtonElement>('[data-focus-row-action="make-live"]')?.disabled === false, "make-live enabled");
@@ -226,6 +231,22 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
         rejectedDraft.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText" }));
       }
       const initialStarts = startCalls, initialCompletes = completeCalls;
+      // Observe each actual DOM mutation delivery, including the FIRST success
+      // commit. Polling after a later refresh hid the native next-row omission.
+      const successCommits: { pending: boolean; remaining: string[]; done: string; count: string }[] = [];
+      const observeSuccess = () => {
+        if (!query('[data-focus-completion-success]')) return;
+        successCommits.push({
+          pending: Boolean(query('[data-focus-advance-summary="pending"]')),
+          remaining: Array.from(container.querySelectorAll('[data-focus-task-row="remaining"]'))
+            .map(row => row.textContent ?? ""),
+          done: query('[data-focus-group="done"]')?.textContent ?? "",
+          count: query('[data-focus-done-count]')?.textContent ?? "",
+        });
+      };
+      const successObserver = new MutationObserver(observeSuccess);
+      activeSuccessObserver = successObserver;
+      successObserver.observe(container, { subtree: true, childList: true, attributes: true, characterData: true });
       query<HTMLButtonElement>('[data-focus-action="done"]')!.click();
       await until(() => completeCalls === initialCompletes + 1, "completion dispatched once");
       await wait(); await wait();
@@ -254,12 +275,23 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
           }
           if (!failPrivateRead) privateRead.resolve();
           await until(() => query('[data-focus-completion-success]'), "success private read independent of parent board read");
+          await Promise.resolve();
+          successObserver.disconnect();
+          const firstSuccess = successCommits[0];
+          assert(firstSuccess, "first success DOM commit observed");
           assert(parentReadCount > 0, "independent parent board remains held");
           if (failPrivateRead) {
+            assert(firstSuccess.pending && firstSuccess.remaining.length === 0 && firstSuccess.done === "",
+              "FIRST failed-read success commit must stay fail-closed, not expose stale board");
             assert(!query('[data-focus-task-row="remaining"]')
               && !query('[data-focus-group="done"]') && !query('[data-focus-group="scheduled"]')
               && query('[data-focus-advance-summary="pending"]'), "private read failure must hide stale queue/header/done without retrying Done");
           } else {
+            assert(!firstSuccess.pending && firstSuccess.count.startsWith("1/")
+              && firstSuccess.done.includes(tasks[0].title)
+              && firstSuccess.remaining.length === order.length
+              && order.every(task => firstSuccess.remaining.some(row => row.includes(task.title))),
+            "FIRST success commit must expose every authoritative next row and ready summary: " + JSON.stringify(firstSuccess));
             assert(!Array.from(container.querySelectorAll('[data-focus-task-row="remaining"]')).some(row => row.textContent?.includes(tasks[0].title)), "success must never re-offer completed task while parent board read is held");
             assert(query('[data-focus-done-count]')?.textContent?.startsWith("1/"), "success header must use same postcompletion board");
             assert(query('[data-focus-group="done"]')?.textContent?.includes(tasks[0].title), "success Done rows must use same postcompletion board");
@@ -303,14 +335,17 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
           assert(startCalls === initialStarts && timer.runtime.timer.task_id === null, "no phantom next start");
         }
       }
+      successObserver.disconnect();
       await clear();
     }
     assert(removalChecks === 2, "both production pointer release boundaries observed");
     return { nativeHandoffBoardDOMCommit: true, nativeHandoffEventBeforeReply: true,
       nativeHandoffSuccessOnRestStatus: true, nativeHandoffUncommittedRejection: true,
       nativeHandoffExplicitNext: true, nativeHandoffPartialFailure: true,
-      nativeHandoffSuccessBoardAtomic: true, nativeHandoffSuccessReadRecovery: true };
+      nativeHandoffSuccessBoardAtomic: true, nativeHandoffSuccessReadRecovery: true,
+      nativeHandoffFirstSuccessCommit: true };
   } finally {
+    activeSuccessObserver?.disconnect();
     Element.prototype.remove = remove;
     flushSync(() => root.unmount());
     native.__TAURI_INTERNALS__ = previousNative;

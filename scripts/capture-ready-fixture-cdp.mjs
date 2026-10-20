@@ -113,7 +113,7 @@ function complete(value) {
       "nativeHandoffBoardDOMCommit", "nativeHandoffEventBeforeReply",
       "nativeHandoffSuccessOnRestStatus", "nativeHandoffUncommittedRejection",
       "nativeHandoffExplicitNext", "nativeHandoffPartialFailure",
-      "nativeHandoffSuccessBoardAtomic", "nativeHandoffSuccessReadRecovery"]) {
+      "nativeHandoffSuccessBoardAtomic", "nativeHandoffSuccessReadRecovery", "nativeHandoffFirstSuccessCommit"]) {
       if (contract[key] !== true) throw new Error(`M7 completed fixture lacks ${key}`);
     }
     return true;

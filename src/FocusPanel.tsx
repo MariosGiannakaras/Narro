@@ -1453,6 +1453,11 @@ export function FocusPanel({
                   // a later reply cannot roll this projection back.
                   boardReadRevisionRef.current += 1;
                   flushSync(() => {
+                    // Success ends completion intent in this same DOM commit.
+                    // Otherwise idle+old intent hides the eligible next row
+                    // until an unrelated parent refresh renders the cleared ref.
+                    completionIntentRef.current = null;
+                    setAutomaticAdvance(null);
                     setCompletionBoardTaskId(state.completedTaskId);
                     if (snapshot) {
                       setBoard(snapshot);
