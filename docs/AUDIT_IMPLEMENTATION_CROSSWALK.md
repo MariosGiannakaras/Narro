@@ -1,5 +1,8 @@
 # Audit → implementation crosswalk
 
+**Current 57-line analysis18/57:** C27/C28 exact-build stale Panel pixels in Timer normal/reduced Expand/Collapse **FAIL / NEEDS_REGRESSION_FIRST**. Shared paint/raster/region freshness boundary traced; no unproven single-cause patch. C26 source finite geometry preserved; C31/C33 unexercised placement remains OPEN, C37 blocked. C51 chronology remains READY_FOR_FIX. [Evidence and regression/alternative plan](CAPTURE_57_ANALYSIS_2026-10-20.md). Prior build PASS history is unchanged.
+
+
 **Current 57-line analysis12/57 (2026-10-20):** C51/B27 recorded Done chronology discrepancy **READY_FOR_FIX**: ascending completed-history order is rendered/exported unchanged; canonical VE011/012 descending date groups. [Proof and bounded correction/regressions](CAPTURE_57_ANALYSIS_2026-10-20.md). Other reviewed Reports scopes have local observed functions but explicit source/coverage limits; C45stableflash EVIDENCE_LIMIT, not deliveryFAIL. No patch or unconfirmed acceptance PASS.
 
 **Capture acquisition only (2026-10-20):** [matrix](CAPTURE_57_ACQUISITION_2026-10-20.md) now has material55/57 including partial/attempt-only lines; [final-gap originals](../work-log/evidence/capture57-final-gaps-20261020/README.md). No acceptance/finding/source-parity disposition advanced; audio clock and unexercised placement limits explicit.

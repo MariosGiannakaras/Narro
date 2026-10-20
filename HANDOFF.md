@@ -1,3 +1,13 @@
+# HANDOFF — frozen-corpus analysis18/57 IN PROGRESS
+
+Owner Codex; main; phase ANALYZING; last observed UTC `2026-10-20T18:34:26.058354+00:00`. [Scoped report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). Capture source9e631952 / EXEbced8a9f / mainCI39389033088 / artifact12249543153 unchanged. All26original streams hashverified, not all reviewed. No owned physical capture/app/profile, source edits/tests/build/CI. Unrelated icons and dirty originalcheckout preserved.
+
+NOW: **18/57 scoped dispositions**,39remain; not18PASS. ReportsC47–57+C45 and C26–28/C31/C33/C37 reviewed. Confirmed current M7 stale Panel pixels during Timer normal/reduced expand/collapse and mode changes; C27/C28 FAIL / NEEDS_REGRESSION_FIRST, code boundary/regression/alternative plan in report. C51 Reports Done chronology READY_FOR_FIX; no fix applied. C31 moved-position/recovery unproven (empty-queue shortcut behavior expected); C33 bottom-placement NOTRUN; C37 blocked. Mandatory4/10/M10gate/dormantM11–M12 unchanged.
+
+ONE NEXT OPERATION: continue frozen footage analysis of remaining Timer/Focus scopes C07–C25/C29–30/C32/C34–36, then Home/Preferences and audio. Batch shared-state review but keep independent requirement dispositions. Do not repeat accepted RA01/RA02 or start physical recapture/source corrections in this analysis phase. Local derived interval frames remain at `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Analysis-20261020`; published m7-transitions contains all-frame indexes/selected raw proofs/geometry grids/source orientation. First-packet manual anchors still require visible correlation. Preserve originals/profile restoration, approvedpicker/icons attestation and source inference limits.
+
+## HISTORICAL preceding checkpoint
+
 # HANDOFF — frozen-corpus analysis12/57 IN PROGRESS
 
 Owner Codex; main; phase ANALYZING; last observed UTC `2026-10-20T18:23:53.461946+00:00`. [Authoritative scoped report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md) / [analysis derivatives](work-log/evidence/capture57-analysis-20261020/README.md). Exact source9e631952, EXEbced8a9f, mainCI39389033088/artifact12249543153; current production inputs identical. All26originalstreams hashverified, not26filmsreviewed. No active capture/app/profile, no source changes/tests/build/CI.
