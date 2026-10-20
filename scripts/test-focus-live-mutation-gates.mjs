@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-const subtasks = fs.readFileSync("src/FocusLiveSubtasks.tsx", "utf8");
-const metrics = fs.readFileSync("src/FocusLiveMetrics.tsx", "utf8");
+const subtasks = fs.readFileSync("src/FocusLiveSubtasks.tsx", "utf8").replace(/\r\n/g, "\n");
+const metrics = fs.readFileSync("src/FocusLiveMetrics.tsx", "utf8").replace(/\r\n/g, "\n");
 const subStart = subtasks.indexOf("  const runMutation = async (");
 const subEnd = subtasks.indexOf("  const model: TaskSubtasksModel =",subStart);
 assert(subStart>=0&&subEnd>subStart,"Real Focus subtask mutation path is required");

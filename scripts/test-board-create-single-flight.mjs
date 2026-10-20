@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const source = fs.readFileSync("src/ListBoard.tsx", "utf8");
+const source = fs.readFileSync("src/ListBoard.tsx", "utf8").replace(/\r\n/g, "\n");
 const section = (start, end) => {
   const a = source.indexOf(start);
   const b = source.indexOf(end, a + start.length);

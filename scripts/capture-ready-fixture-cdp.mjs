@@ -15,9 +15,11 @@ const options = Object.fromEntries(process.argv.slice(2).map((arg) => {
 for (const key of ["edge", "url", "profile", "png", "html", "kind"]) {
   if (!options[key]) throw new Error(`Missing --${key}`);
 }
-if (!["preferences", "print", "m7-integration"].includes(options.kind)) throw new Error("Unknown ready-fixture kind");
+if (!["preferences", "shortcuts", "print", "m7-integration"].includes(options.kind)) throw new Error("Unknown ready-fixture kind");
 const fixtureUrl = new URL(options.url);
 if (fixtureUrl.hostname !== "127.0.0.1" || fixtureUrl.protocol !== "http:") throw new Error("Fixture must be local HTTP");
+if (options.kind === "shortcuts" && (fixtureUrl.pathname !== "/theme-settings-fixture.html"
+  || fixtureUrl.searchParams.get("shortcutsDialog") !== "1")) throw new Error("Shortcut capture requires the dedicated fixture identity");
 const integration = options.kind === "m7-integration";
 const integrationMotion = fixtureUrl.searchParams.get("motion")?.toLowerCase();
 if (integration && (fixtureUrl.searchParams.get("scenario") !== "m7-integration"
@@ -27,13 +29,18 @@ if (integration && (fixtureUrl.searchParams.get("scenario") !== "m7-integration"
 // while completion is still exclusively the fixture's actual semantic result.
 const deadline = Date.now() + (integration ? 60_000 : 25_000);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const viewport = { width: 1280, height: integration ? 1080 : 720 };
+const viewport = options.kind === "shortcuts"
+  ? { width: 1000, height: 700 }
+  : { width: 1280, height: integration ? 1080 : 720 };
 const clip = { x: 0, y: 0, ...viewport, scale: 1 };
 const events = [];
 let stderr = "", socket, serial = 0, observed = null, failure = null;
 const pending = new Map();
+// Use Edge's default compositor for the new shortcut geometry check, matching
+// the native WebView2/Playwright reproduction. Keep historical capture flags
+// for existing kinds; disabled-GPU navigation timed out in the paired local run.
 const browser = spawn(options.edge, [
-  "--headless=new", "--disable-gpu", "--disable-background-networking",
+  "--headless=new", ...(options.kind === "shortcuts" ? [] : ["--disable-gpu"]), "--disable-background-networking",
   "--hide-scrollbars", "--no-first-run", "--force-device-scale-factor=1",
   `--window-size=${viewport.width},${viewport.height}`, `--user-data-dir=${options.profile}`,
   "--remote-debugging-port=0", "about:blank",
@@ -102,6 +109,12 @@ function complete(value) {
   const error = d.themeSettingsKeyboardError ?? d.reportsFixtureError;
   if (error) throw new Error(`Ready-fixture assertion: ${error}`);
   if (events.length) throw new Error("Ready-fixture renderer/network failure (see diagnostics)");
+  if (options.kind === "shortcuts") {
+    if (!d.themeSettingsShortcutsDialog) return false;
+    if (d.themeSettingsShortcutsDialog !== "true") throw new Error("Expected dedicated shortcut dialog");
+    if (d.themeSettingsShortcutsLayoutPass === "false") throw new Error("Shortcut dialog overflow");
+    return d.themeSettingsFixtureReady === "true" && d.themeSettingsShortcutsLayoutPass === "true";
+  }
   if (integration) {
     if (value.contract?.error) throw new Error(`M7 integration assertion: ${value.contract.error}`);
     if (d.focusEditorFixtureReady !== "true") return false;

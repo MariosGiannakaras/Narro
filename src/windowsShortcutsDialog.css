@@ -116,6 +116,9 @@
 }
 
 .windows-shortcuts-dialog__surface .windows-shortcuts__row {
+  /* The 44px source target includes padding/border. Content-box added 8–9px
+     per row and pushed Search below the supported 700px native viewport. */
+  box-sizing: border-box;
   min-height: 44px;
   padding: var(--space-1) 0;
   gap: var(--space-2);
