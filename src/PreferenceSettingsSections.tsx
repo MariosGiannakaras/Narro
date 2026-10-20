@@ -365,7 +365,8 @@ export function LowerPreferenceSections({
               selectedSound={snapshot.alerts.taskAlertSound}
               defaultSound={DEFAULT_TASK_ALERT_SOUND}
               volumePercent={snapshot.alerts.taskAlertVolumePercent}
-              disabled={busy || !snapshot.alerts.timedAlertsEnabled}
+              disabled={!snapshot.alerts.timedAlertsEnabled}
+                saving={busy}
               soundLabel="Task alert sound"
               volumeLabel="Task alert volume"
               onSoundChange={(taskAlertSound) => onSave({ taskAlertSound }, "taskAlertSound")}
@@ -411,7 +412,8 @@ export function LowerPreferenceSections({
               selectedSound={snapshot.alerts.notificationSound}
               defaultSound={DEFAULT_NOTIFICATION_SOUND}
               volumePercent={snapshot.alerts.notificationVolumePercent}
-              disabled={busy || !snapshot.alerts.notificationAlertsEnabled}
+              disabled={!snapshot.alerts.notificationAlertsEnabled}
+                saving={busy}
               soundLabel="Notification sound"
               volumeLabel="Notification sound volume"
               onSoundChange={(notificationSound) => onSave(
@@ -492,7 +494,8 @@ export function LowerPreferenceSections({
                 selectedSound={snapshot.celebration.successSound}
                 defaultSound={DEFAULT_SUCCESS_SOUND}
                 volumePercent={snapshot.celebration.successSoundVolumePercent}
-                disabled={busy || !snapshot.celebration.successSoundEnabled}
+                disabled={!snapshot.celebration.successSoundEnabled}
+                saving={busy}
                 soundLabel="Success sound"
                 volumeLabel="Success sound volume"
                 onSoundChange={(successSound) => onSave({ successSound }, "successSound")}
