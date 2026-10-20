@@ -11,3 +11,45 @@
 {"utc":"2026-10-20T03:43:13.560Z","action":"RA01-R1-cross-lane-beta-before-alpha-input-returned"}
 {"utc":"2026-10-20T03:43:20.531Z","action":"RA01-R2-real-reorder-alpha-before-beta","from":[449,640],"to":[520,340],"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
 {"utc":"2026-10-20T03:43:20.656Z","action":"RA01-R2-real-reorder-alpha-before-beta-input-returned"}
+{"utc":"2026-10-20T03:45:56.104Z","action":"RA02-open-planning-selector","x":530,"y":160,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:45:56.210Z","action":"RA02-open-planning-selector-input-returned"}
+{"utc":"2026-10-20T03:46:02.875Z","action":"select-ra02-advance-board","x":510,"y":282,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:46:02.976Z","action":"select-ra02-advance-board-input-returned"}
+{"utc":"2026-10-20T03:46:10.136Z","action":"scroll-to-actual-Blitz","x":700,"y":600,"scrollY":650}
+{"utc":"2026-10-20T03:46:16.700Z","action":"start-ra02-focus","x":710,"y":610,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:46:16.801Z","action":"start-ra02-focus-input-returned"}
+{"utc":"2026-10-20T03:46:36.508Z","action":"focus-open-advance-filter","x":75,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:46:36.614Z","action":"focus-open-advance-filter-input-returned"}
+{"utc":"2026-10-20T03:46:43.880Z","action":"apply-ra02-advance-focus","x":115,"y":162,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:46:43.986Z","action":"apply-ra02-advance-focus-input-returned"}
+{"utc":"2026-10-20T03:46:57.661Z","action":"move-pointer-off-live-card-before-capture","x":175,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:46:57.769Z","action":"move-pointer-off-live-card-before-capture-input-returned"}
+{"utc":"2026-10-20T03:47:27.639Z","key":"Control_L+Alt_L+f","action":"RA02-OFF-complete-first","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:47:33.421Z","key":"Control_L+Alt_L+f","action":"RA02-OFF-complete-last","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:47:42.314Z","action":"open-quick-success-preference","x":235,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:47:42.417Z","action":"open-quick-success-preference-input-returned"}
+{"utc":"2026-10-20T03:47:51.401Z","action":"enable-success-on-ordinary-preference","x":306,"y":546,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:47:51.502Z","action":"enable-success-on-ordinary-preference-input-returned"}
+{"utc":"2026-10-20T03:48:06.194Z","action":"back-to-focus-on","x":28,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:48:06.303Z","action":"back-to-focus-on-input-returned"}
+{"utc":"2026-10-20T03:48:17.733Z","action":"open-on-focus-filter","x":75,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:48:17.839Z","action":"open-on-focus-filter-input-returned"}
+{"utc":"2026-10-20T03:48:27.022Z","action":"select-on-last-task-list","x":115,"y":202,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:48:27.157Z","action":"select-on-last-task-list-input-returned"}
+{"utc":"2026-10-20T03:48:37.012Z","action":"RA02-ON-make-only-live","x":205,"y":227,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:48:37.121Z","action":"RA02-ON-make-only-live-input-returned"}
+{"utc":"2026-10-20T03:48:44.555Z","action":"on-pointer-off-card","x":175,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:48:44.665Z","action":"on-pointer-off-card-input-returned"}
+{"utc":"2026-10-20T03:49:00.773Z","key":"Control_L+Alt_L+f","action":"RA02-ON-complete-only","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:21.877Z","action":"RA02-ON-explicit-next-to-on-next","x":72,"y":286,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:21.997Z","action":"RA02-ON-explicit-next-to-on-next-input-returned"}
+{"utc":"2026-10-20T03:49:27.998Z","action":"on-next-pointer-off-card","x":175,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:28.106Z","action":"on-next-pointer-off-card-input-returned"}
+{"utc":"2026-10-20T03:49:33.942Z","key":"Control_L+Alt_L+f","action":"RA02-ON-complete-next","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:40.927Z","action":"RA02-ON-explicit-next-to-third","x":72,"y":286,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:41.031Z","action":"RA02-ON-explicit-next-to-third-input-returned"}
+{"utc":"2026-10-20T03:49:45.823Z","action":"third-pointer-off-card","x":175,"y":32,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:49:45.929Z","action":"third-pointer-off-card-input-returned"}
+{"utc":"2026-10-20T03:49:52.418Z","key":"Control_L+Alt_L+f","action":"RA02-ON-complete-final-third","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:50:02.915Z","action":"RA02-ON-final-untimed-rest","x":84,"y":286,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":658094,"title":"Narro - Focus"}}
+{"utc":"2026-10-20T03:50:03.020Z","action":"RA02-ON-final-untimed-rest-input-returned"}
