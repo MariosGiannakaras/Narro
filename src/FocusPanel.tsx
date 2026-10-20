@@ -1,4 +1,5 @@
 import { ActionIcon } from "./ActionIcon";
+import { flushSync } from "react-dom";
 import { invoke } from "@tauri-apps/api/core";
 import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
@@ -461,10 +462,23 @@ export function FocusPanel({
   // The persistent Focus Panel owns the interim, noninteractive presentation.
   const [automaticAdvanceState, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
   const completionIntentRef = useRef<FocusAutomaticAdvanceState | null>(null);
+  const [completionBoardTaskId, setCompletionBoardTaskId] = useState<string | null>(null);
+  // Success and its queue/header/Done must describe the same committed board.
+  // A failed private read keeps success available, but cannot expose stale rows.
+  const completionBoardPending = completionBoardTaskId !== null && (!board
+    || board.today.tasks.some(task => task.id === completionBoardTaskId)
+    || !board.done.tasks.some(task => task.id === completionBoardTaskId));
+  useEffect(() => {
+    if (completionBoardTaskId !== null && !completionBoardPending) setCompletionBoardTaskId(null);
+  }, [completionBoardPending, completionBoardTaskId]);
   // Arm synchronously before dispatch, but keep the live component/drafts until
   // authoritative idle proves the commit. Rejection must not unmount Notes.
   const automaticAdvance = automaticAdvanceState
-    ?? (timer?.runtime.timer.task_id === null ? completionIntentRef.current : null);
+    ?? (timer?.runtime.timer.task_id === null ? completionIntentRef.current : null)
+    ?? (completionBoardPending && completionBoardTaskId !== null ? {
+      completedTaskId: completionBoardTaskId, nextTaskId: null, nextTaskTitle: null,
+      phase: "refresh-blocked" as const,
+    } : null);
   const [notesTaskId, setNotesTaskId] = useState<string | null>(null);
   const [subtasksTaskId, setSubtasksTaskId] = useState<string | null>(null);
   const [scheduleTaskId, setScheduleTaskId] = useState<string | null>(null);
@@ -496,6 +510,11 @@ export function FocusPanel({
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
+  const completionTargetRef = useRef({ key: currentTargetKey, epoch: 0 });
+  if (completionTargetRef.current.key !== currentTargetKey) {
+    completionTargetRef.current = { key: currentTargetKey, epoch: completionTargetRef.current.epoch + 1 };
+  }
+  const completionTargetEpoch = completionTargetRef.current.epoch;
   const currentRefreshKeyRef = useRef(refreshKey);
   currentRefreshKeyRef.current = refreshKey;
   const externalBoardRefreshRevisionRef = useRef(0);
@@ -646,6 +665,7 @@ export function FocusPanel({
     setAddTaskOpen(false);
     setAddTaskTitle("");
     completionIntentRef.current = null;
+    setCompletionBoardTaskId(null);
     setAutomaticAdvance(null);
     setMutationStatus(null);
   }, [target.kind, target.kind === "list" ? target.id : null]);
@@ -1050,7 +1070,9 @@ export function FocusPanel({
     }
   };
 
-  const statusError = error ?? preferences.error ?? modeTransitionError;
+  const statusError = error ?? (completionBoardPending
+    ? "Task completion was saved, but the Focus list needs refresh. Reopen Focus to reconcile the list."
+    : preferences.error ?? modeTransitionError);
 
   if (quickPreferencesOpen) {
     return (
@@ -1411,6 +1433,7 @@ export function FocusPanel({
                 onAutomaticAdvance={(state, feedback, failure) => {
                   // A completion from the previous list must not publish into a newer target.
                   if (currentTargetKeyRef.current !== currentTargetKey) return;
+                  if (completionTargetRef.current.epoch !== completionTargetEpoch) return;
                   if (state?.phase === "completing") {
                     completionIntentRef.current = state;
                     setMutationStatus(null);
@@ -1422,9 +1445,22 @@ export function FocusPanel({
                   if (feedback) setMutationStatus(feedback);
                   if (failure) setError(failure);
                 }}
-                onCompletionSuccess={(state) => {
+                onCompletionSuccess={(state, snapshot) => {
                   if (currentTargetKeyRef.current !== currentTargetKey) return;
-                  onCompletionSuccess?.(state);
+                  if (completionTargetRef.current.epoch !== completionTargetEpoch) return;
+                  // A private postcommit read must replace the parent board in
+                  // the very commit that publishes success. Retire older reads;
+                  // a later reply cannot roll this projection back.
+                  boardReadRevisionRef.current += 1;
+                  flushSync(() => {
+                    setCompletionBoardTaskId(state.completedTaskId);
+                    if (snapshot) {
+                      setBoard(snapshot);
+                      setBoardReadyTargetKey(currentTargetKey);
+                      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+                    }
+                    onCompletionSuccess?.(state);
+                  });
                 }}
               />
             ) : null}
@@ -1453,7 +1489,7 @@ export function FocusPanel({
         )}
 
         <div className="focus-panel__remaining" inert={Boolean(completionSuccessContent || automaticAdvance)} data-focus-group="remaining" data-focus-reorder-zone="true">
-          {remainingTasks.map((task) => renderTaskRow(task))}
+          {!completionBoardPending && remainingTasks.map((task) => renderTaskRow(task))}
         </div>
 
         {!addTaskOpen ? (
@@ -1532,6 +1568,7 @@ export function FocusPanel({
           </form>
         )}
 
+        {!completionBoardPending ? (<>
         <section className="focus-panel__group" inert={Boolean(completionSuccessContent || automaticAdvance)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
           <h2 id="focus-scheduled-title" className="focus-panel__group-title">
             {scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}
@@ -1599,6 +1636,7 @@ export function FocusPanel({
             />
           ))}
         </section>
+        </>) : null}
       </section>
 
       {changeListState ? (
