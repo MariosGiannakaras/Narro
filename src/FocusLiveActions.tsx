@@ -63,7 +63,7 @@ type FocusLiveActionsProps = {
   transitionPending?: boolean;
   presentationActive?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
-  onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
+  onCompletionSuccess?: (state: FocusCompletionSuccessState, board?: ListBoardSnapshot | null) => void;
   onAutomaticAdvance?: (state: FocusAutomaticAdvanceState | null, feedback?: string, failure?: string) => void;
 };
 
@@ -388,7 +388,7 @@ export function FocusLiveActions({
           nextTask: nextAfterCompletion && nextAfterCompletionMode
             ? { id: nextAfterCompletion.id, title: nextAfterCompletion.title, mode: nextAfterCompletionMode }
             : null,
-        });
+        }, postCompletionBoard);
         onAutomaticAdvance?.(null);
         ownsCompletionIntent = false;
         applyPayload(completed);

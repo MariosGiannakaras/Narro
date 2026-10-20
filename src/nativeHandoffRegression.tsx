@@ -8,7 +8,9 @@ import type { TimerSessionPayload } from "./timerSessionApi";
 // Real mounted components/CSS, replacing only native IPC. This is automated
 // renderer proof, not physical Windows or exact-executable acceptance.
 export async function runNativeHandoffRegression(container: HTMLElement) {
-  const assert = (value: unknown, text: string) => { if (!value) throw new Error("RA handoff: " + text); };
+  const trace: unknown[] = [];
+  let currentVariant = "board";
+  const assert = (value: unknown, text: string) => { if (!value) throw new Error("RA handoff: " + text + JSON.stringify({currentVariant,trace})); };
   const wait = (ms = 30) => new Promise<void>(resolve => window.setTimeout(resolve, ms));
   const until = async (condition: () => unknown, text: string) => {
     const end = performance.now() + 4000;
@@ -36,18 +38,25 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
     today: lane(focus ? order : []), done: lane(completed),
     todayCompletionCount: completed.length, thisWeekCompletionCount: 0, doneMonthCompletionCount: completed.length,
   });
+  const requestedBoard = (args: Record<string, unknown>) => ({
+    ...board(), target: args.listId ? board().target
+      : { kind: "all_lists" as const, id: null, title: "All Lists", color: null },
+  });
   let revision = 100;
   const idle = (): TimerSessionPayload => ({ revision: ++revision, awaitingResume: false, change: null,
     runtime: { open_session_id: null, timer: { state: "idle", task_id: null, mode: null,
       work_elapsed_ms: 0, total_break_ms: 0, countdown_remaining_ms: null, overtime_ms: 0,
       break_kind: null, break_remaining_ms: null, break_planned_ms: null } } });
   let timer = idle(), success = false, failComplete = false, holdRead = false;
-  let failNext = false, failRead = false;
+  let failNext = false, failRead = false, failPrivateRead = false;
+  let completionReplyDelivered = false, privateReadClaimed = false, parentReadCount = 0;
+  let privateRead = deferred(), lateRead = deferred();
+  let captureStaleNextRead = false;
   let completeCalls = 0, startCalls = 0, breakCalls = 0, writeCalls = 0;
   let completion = deferred(), write = deferred(), read = deferred();
   const callbacks = new Map<number, (event: unknown) => void>();
   const listeners = new Map<number, { event: string; handler: number }>();
-  let serial = 0;
+  let serial = 0, dispatchingEvent = false;
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (event: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -55,9 +64,12 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
   };
   const previousNative = native.__TAURI_INTERNALS__, previousEvents = native.__TAURI_EVENT_PLUGIN_INTERNALS__;
   const emit = (event: string, payload: unknown) => {
-    for (const listener of [...listeners.values()]) if (listener.event === event) {
-      callbacks.get(listener.handler)?.({ event, id: listener.handler, payload });
-    }
+    dispatchingEvent = true;
+    try {
+      for (const listener of [...listeners.values()]) if (listener.event === event) {
+        callbacks.get(listener.handler)?.({ event, id: listener.handler, payload });
+      }
+    } finally { dispatchingEvent = false; }
   };
   native.__TAURI_EVENT_PLUGIN_INTERNALS__ = { unregisterListener: (_event, id) => { listeners.delete(id); } };
   native.__TAURI_INTERNALS__ = {
@@ -70,7 +82,19 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       if (command.startsWith("plugin:event|")) return;
       if (command === "focus_surface_presentation_snapshot") return "panel";
       if (command === "get_home_snapshot") return { lists: [{ id: listId, title: "RA regression" }], pendingCount: order.length, aggregateEstSeconds: 600 };
-      if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
+      if (command === "get_archived_lists_for_settings") {
+        // The real board API first awaits archive reconciliation. Hold reads
+        // here, where emitted-listener context is still synchronous, so the
+        // independent private read is deterministic in dev AND minified builds.
+        if (holdRead) {
+          if (success && completionReplyDelivered && !dispatchingEvent && !privateReadClaimed) {
+            privateReadClaimed = true;
+            if (failPrivateRead) throw new Error("controlled private success read failure");
+            await privateRead.promise;
+          } else { parentReadCount++; await read.promise; }
+        }
+        return { lists: [], doneTasks: [], filterLists: [] };
+      }
       if (command === "get_focus_done_breaks") return [];
       if (command === "get_list_board_task_note") return { taskId: args.taskId, listId, mutable: true,
         note: { taskId: args.taskId, editorFormatVersion: 1, updatedAt: "2026-10-19T00:00:00Z",
@@ -78,7 +102,17 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       if (command === "get_preference_settings") return { general: { hideTaskTimes: false },
         focus: { scrollingTitle: false, defaultBreakSeconds: 300 },
         celebration: { showSuccessScreen: success, successSoundEnabled: false, funGif: false } };
-      if (command === "get_list_board_snapshot") { if (holdRead) await read.promise; if (failRead && completed.length > 0) throw new Error("controlled committed refresh failure"); return board(); }
+      if (command === "get_list_board_snapshot") {
+        trace.push({currentVariant, holdRead, success, completionReplyDelivered,dispatchingEvent,privateReadClaimed});
+        if (captureStaleNextRead) {
+          captureStaleNextRead = false;
+          const oldSnapshot = requestedBoard(args);
+          await lateRead.promise;
+          return oldSnapshot;
+        }
+        if (failRead && completed.length > 0) throw new Error("controlled committed refresh failure");
+        return requestedBoard(args);
+      }
       if (command === "timer_session_snapshot") return timer;
       if (command === "timer_start_task") {
         startCalls++;
@@ -99,7 +133,7 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
         holdRead = true;
         // Event delivered BEFORE command reply and independently delayed reads.
         emit("timer-session-changed", result);
-        await completion.promise; return result;
+        await completion.promise; completionReplyDelivered = true; return result;
       }
       if (command === "timer_start_manual_break") { breakCalls++; throw new Error("untimed rest cannot start break"); }
       if (command === "move_list_board_task" || command === "reorder_list_board_task") {
@@ -113,6 +147,14 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
   };
   const root = createRoot(container);
   const query = <T extends HTMLElement>(selector: string) => container.querySelector<T>(selector);
+  const chooseTarget = async (value: string) => {
+    query<HTMLButtonElement>('[data-focus-list-selector]')!.click();
+    await until(() => query(`[data-focus-list-option="${value}"]`), "actual list picker opened");
+    query<HTMLButtonElement>(`[data-focus-list-option="${value}"]`)!.click();
+    await until(() => query<HTMLButtonElement>('[data-focus-list-selector]')?.dataset.focusSelectedTarget === value
+      && query('[data-focus-surface-coordinator]')?.getAttribute("data-focus-target") === (value === "__all_lists__" ? "all" : `list:${value}`), "actual target projection settled");
+    await wait();
+  };
   const clear = async () => { flushSync(() => root.render(<div />)); await wait(); };
   let removalChecks = 0;
   const remove = Element.prototype.remove;
@@ -157,18 +199,24 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
       await clear();
     }
     Element.prototype.remove = remove;
-    for (const variant of ["off-next", "off-last", "on-rest", "on-next", "next-failed", "refresh-failed", "rejected"]) {
+    for (const variant of ["off-next", "off-last", "on-rest", "on-next", "on-read-failed", "on-stale-read", "on-target-aba", "next-failed", "refresh-failed", "rejected"]) {
+      currentVariant = variant; trace.length = 0;
       focus = true; success = variant.startsWith("on-"); failComplete = variant === "rejected";
       failNext = variant === "next-failed"; failRead = variant === "refresh-failed";
-      order = ["off-next", "on-next", "next-failed", "refresh-failed"].includes(variant) ? tasks.slice(0, 2) : tasks.slice(0, 1);
+      failPrivateRead = variant === "on-read-failed";
+      completionReplyDelivered = false; privateReadClaimed = false; parentReadCount = 0; privateRead = deferred(); lateRead = deferred(); captureStaleNextRead = false;
+      order = ["off-next", "on-next", "on-read-failed", "on-stale-read", "on-target-aba", "next-failed", "refresh-failed"].includes(variant) ? tasks.slice(0, 2) : tasks.slice(0, 1);
       completed = []; timer = idle(); holdRead = false; read = deferred(); completion = deferred(); crossLane = false;
       flushSync(() => root.render(<FocusSurfaceCoordinator />));
       await until(() => query<HTMLButtonElement>('[data-focus-row-action="make-live"]')?.disabled === false, "make-live enabled");
-      const selector = query<HTMLSelectElement>('[data-focus-list-selector]')!;
-      selector.value = listId; selector.dispatchEvent(new Event("change", { bubbles: true }));
-      await wait(); await wait();
+      await chooseTarget(listId);
       query<HTMLButtonElement>('[data-focus-row-action="make-live"]')!.click();
       await until(() => query<HTMLButtonElement>('[data-focus-action="done"]')?.disabled === false, "Done enabled");
+      if (variant === "on-stale-read") {
+        captureStaleNextRead = true;
+        emit("board-data-invalidated", null);
+        await until(() => !captureStaleNextRead, "old parent read started before completion");
+      }
       let rejectedDraft: HTMLElement | null = null;
       if (failComplete) {
         query<HTMLButtonElement>('[data-focus-action="notes"]')!.click();
@@ -194,8 +242,37 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
           && rejectedDraft.textContent === "Unsaved rejected-completion draft", "uncommitted rejection must preserve the mounted notes draft");
       } else {
         completion.resolve(); await wait();
-        assert(query('[data-focus-live-card="advancing"]'), "pending retained through delayed board read");
+        if (success) {
+          if (variant === "on-target-aba") {
+            await until(() => privateReadClaimed, "old target private read in flight");
+            holdRead = false; read.resolve();
+            await chooseTarget("__all_lists__"); await chooseTarget(listId);
+            privateRead.resolve(); await wait(); await wait();
+            assert(!query('[data-focus-completion-success]'), "old target continuation cannot publish success after target ABA");
+            assert(query('[data-focus-group="done"]')?.textContent?.includes(tasks[0].title), "ABA retains authoritative completed task");
+            await clear(); continue;
+          }
+          if (!failPrivateRead) privateRead.resolve();
+          await until(() => query('[data-focus-completion-success]'), "success private read independent of parent board read");
+          assert(parentReadCount > 0, "independent parent board remains held");
+          if (failPrivateRead) {
+            assert(!query('[data-focus-task-row="remaining"]')
+              && !query('[data-focus-group="done"]') && !query('[data-focus-group="scheduled"]')
+              && query('[data-focus-advance-summary="pending"]'), "private read failure must hide stale queue/header/done without retrying Done");
+          } else {
+            assert(!Array.from(container.querySelectorAll('[data-focus-task-row="remaining"]')).some(row => row.textContent?.includes(tasks[0].title)), "success must never re-offer completed task while parent board read is held");
+            assert(query('[data-focus-done-count]')?.textContent?.startsWith("1/"), "success header must use same postcompletion board");
+            assert(query('[data-focus-group="done"]')?.textContent?.includes(tasks[0].title), "success Done rows must use same postcompletion board");
+            if (variant === "on-stale-read") {
+              lateRead.resolve(); await wait(); await wait();
+              assert(query('[data-focus-done-count]')?.textContent?.startsWith("1/")
+                && !Array.from(container.querySelectorAll('[data-focus-task-row="remaining"]')).some(row => row.textContent?.includes(tasks[0].title)), "late stale parent reply cannot undo adopted completion board");
+            }
+          }
+        } else assert(query('[data-focus-live-card="advancing"]'), "pending retained through delayed board read");
         holdRead = false; read.resolve();
+        if (failPrivateRead) await until(() => query('[data-focus-done-count]')?.textContent?.startsWith("1/")
+          && query('[data-focus-group="done"]'), "private-read failure recovers only on authoritative board");
         if (variant === "refresh-failed") {
           await until(() => query('[data-focus-advance-phase="refresh-blocked"]'), "committed failure stays fail-closed");
           assert(completed.length === 1 && !query('[data-focus-action="done"]'), "committed Done cannot be offered for retry");
@@ -231,7 +308,8 @@ export async function runNativeHandoffRegression(container: HTMLElement) {
     assert(removalChecks === 2, "both production pointer release boundaries observed");
     return { nativeHandoffBoardDOMCommit: true, nativeHandoffEventBeforeReply: true,
       nativeHandoffSuccessOnRestStatus: true, nativeHandoffUncommittedRejection: true,
-      nativeHandoffExplicitNext: true, nativeHandoffPartialFailure: true };
+      nativeHandoffExplicitNext: true, nativeHandoffPartialFailure: true,
+      nativeHandoffSuccessBoardAtomic: true, nativeHandoffSuccessReadRecovery: true };
   } finally {
     Element.prototype.remove = remove;
     flushSync(() => root.unmount());

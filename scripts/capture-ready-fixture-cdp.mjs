@@ -112,7 +112,8 @@ function complete(value) {
       "subtaskStaleRefreshFailClosed", "subtaskDisposedFocusSafe",
       "nativeHandoffBoardDOMCommit", "nativeHandoffEventBeforeReply",
       "nativeHandoffSuccessOnRestStatus", "nativeHandoffUncommittedRejection",
-      "nativeHandoffExplicitNext", "nativeHandoffPartialFailure"]) {
+      "nativeHandoffExplicitNext", "nativeHandoffPartialFailure",
+      "nativeHandoffSuccessBoardAtomic", "nativeHandoffSuccessReadRecovery"]) {
       if (contract[key] !== true) throw new Error(`M7 completed fixture lacks ${key}`);
     }
     return true;
