@@ -124,5 +124,11 @@
     "bytes": 9935,
     "sha256": "5582f87a5dfa80418859d1c91c47a3e6110843216abde79c681f016b134b33b7",
     "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "tool-health.json",
+    "bytes": 375,
+    "sha256": "eb284ae4d42b78761b6197c7bbb111fca4e4e2143a7b96c94517304350b69c33",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
   }
 ]

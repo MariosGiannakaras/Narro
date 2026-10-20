@@ -7,7 +7,7 @@
 **2026-10-19 DONE native-video analysis:2/2 videos,10/10 case dispositions (4 scoped PASS,5 visual/feedback FAIL,1 UNCERTAIN), not10PASS.** [Authoritative final-build report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) confirms three corrective scopes: RA01 preview-to-row gap (1/2frames), RA02 event-before-parent completion handoff (OFF3frames/ON2frames), RA02 obsolete now-live status after untimed rest. Saved identities/sessions correct; actual reduced-setting reorder not exercised. Original109-file corpus unchanged. No fixes/tests/builds/CI/new native run. Mandatory4/10 unchanged; M10 gated, M11/M12 dormant. [One next implementation action](../HANDOFF.md).
 
 
-**Current source correction:** RA01-A/RA02-A/B implemented in PR385/final headed4d5083, local mounted4/4 + frontend PASS; exact Windows run39298395231 3/3SUCCESS (old39297177338 superseded); RA02-B native statusPASS, RA02-A new ONlast stale-boardFAIL, RA01NOTRUN. FIX_NOW rows below describe the original failure and still-open acceptance, not absent correction code.
+**Historical PR385 source checkpoint (RA02-A superseded by PR386 candidate):** RA01-A/RA02-A/B implemented in PR385/final headed4d5083, local mounted4/4 + frontend PASS; exact Windows run39298395231 3/3SUCCESS (old39297177338 superseded); RA02-B native statusPASS, RA02-A new ONlast stale-boardFAIL, RA01NOTRUN. FIX_NOW rows below describe the original failure and still-open acceptance, not absent correction code.
 
 ## Current recordings reconciliation — 2026-10-19
 
@@ -16,7 +16,8 @@
 | Finding | Evidence and current-source comparison | Disposition / implementation route |
 |---|---|---|
 | RA01-A Board drop ownership | Final EXE87132d9a: f211/3.517s and f1005–1006/16.750–16.767s; prior wrong-lane bounce not observed, new card gap confirmed | **FIX_NOW M5 / native FAIL**: actual React row commit must precede preview release; data/order correct. [Current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). |
-| RA02-A completion ownership; RA02-B status fallback | Final EXE: OFF f2633–2635, ON f5466–5467 idle/stale queue; rest f6322 stale now-live | **FIX_NOW M6 / native FAIL**: parent intent before independently published idle; invalidate obsolete feedback. Persistence and untimed rest semantics correct. [Current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). |
+| RA02-A coherent completion | Original OFF/ON generic idle; PR385 new ONlast frame3753/107.967 success+completed pending row/oldcounts | **FIX_NOW M6 / native FAIL**, PR386 candidate0ad2fdcf exactCI39363026526 PENDING. One authoritative success/board projection; physical replacement OPEN. [New report](PR385_NATIVE_RETEST_2026-10-20.md). |
+| RA02-B obsolete live feedback after untimed rest | PR385 ON rest-with-queue and final rest; actual expiry receipts and videos | **PHYSICAL_PASS scoped**: old now-live status does not return;0phantombreak sessions. No M6/source-parity/motion-wide acceptance. [Native report](PR385_NATIVE_RETEST_2026-10-20.md). |
 | Old C4 clipping/pale/staging | Later PR349 five files byte-identical to accepted native36changes/3024frames | **ALREADY_ACCEPTED scoped native**; historical films cannot reopen it. Source motion/pixel remains separate. |
 | Old F29/F30/F35/F36 and FocusF33 | Existing merged corrections + later PA/CI1046 accepted scopes | **HISTORICAL_FIXED / reuse exact acceptance**. MainNotesEscape, source timing and other unexercised branches not silently promoted. |
 | Source comparisons/audio/theme occlusion/cropped paths | Ledger has explicit INCONCLUSIVE/evidence limits and13silent tracks/2no-audio | **EVIDENCE_LIMIT, not automatic PASS/FAIL**. No new whole-corpus recapture prerequisite or phantom sound patch. |
