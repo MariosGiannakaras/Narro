@@ -6,6 +6,7 @@ import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import { orderRecentSessionTasks } from "./recentSessionTaskChoices";
+import { listIconContrast } from "./listSpectrumColor";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
 
@@ -598,12 +599,13 @@ export function ReportAddSessionDialog({
                     onClick={() => chooseTask(task.id)}
                   >
                     <span>{task.title}</span>
-                    <small className="reports-sessions__task-picker-list" data-session-task-list-badge="true">
-                      <i
-                        aria-hidden="true"
-                        style={{ backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)" }}
-                      />
-                      {task.listTitle}
+                    <small className="reports-sessions__task-picker-list"
+                      data-session-task-list-badge="true" title={task.listTitle}>
+                      <i aria-hidden="true" style={{
+                        backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)",
+                        color: task.listColor && HEX_COLOR.test(task.listColor) ? listIconContrast(task.listColor) : "var(--color-text-primary)",
+                      }}>{task.listTitle.trim().charAt(0).toUpperCase() || "L"}</i>
+                      <span className="reports-sessions__task-picker-list-label">{task.listTitle}</span>
                     </small>
                   </button>
                 ))}
