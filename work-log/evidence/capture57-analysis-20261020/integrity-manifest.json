@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 1920,
-      "sha256": "d7c9435d4c2005e7d2e2693fa5e15183ab7e9a09076927a2caeb8876e1f6cff0"
+      "bytes": 2307,
+      "sha256": "25489a09cfba9a3f4db935ec2d0d1dd8b2aaa88d45cd7c81b14a9e0b91631b32"
     },
     {
       "path": "action-recording-coverage.json",
@@ -115,6 +115,221 @@
       "path": "intervals/timed-flash-allframes/sheet-006.jpg",
       "bytes": 29909,
       "sha256": "0bf542c630d85151c2e62c98d47880a10612082be0bd762142e967ef491d71ba"
+    },
+    {
+      "path": "m7-transitions/normal-collapse-00037.png",
+      "bytes": 32519,
+      "sha256": "a5ace28c7aacb0af28a88277657833a859b6f73cf0d0ecd75224911a6aa881fa"
+    },
+    {
+      "path": "m7-transitions/normal-collapse/geometry-000.jpg",
+      "bytes": 250229,
+      "sha256": "7aaba8e3f0bef710ea4e9ccd1a0052810e0d586829911896c43a4f4160778882"
+    },
+    {
+      "path": "m7-transitions/normal-collapse/geometry-selection.json",
+      "bytes": 13242,
+      "sha256": "e5f163d8fcd1aa3fb85eadc5de4811eb6c47d18531ab432a1567823529b2dc26"
+    },
+    {
+      "path": "m7-transitions/normal-collapse/index.json",
+      "bytes": 28694,
+      "sha256": "8ad99e6a02f0c3412555d60f5e216d81ede118f879fe2343579bf6f12895a49a"
+    },
+    {
+      "path": "m7-transitions/normal-expand-00034.png",
+      "bytes": 31884,
+      "sha256": "a37b001b7ca20e8afcf79d870f880d7083715d6b2f85a84cb817ff2d6d00d7c3"
+    },
+    {
+      "path": "m7-transitions/normal-expand/geometry-000.jpg",
+      "bytes": 184043,
+      "sha256": "1856124d2e34e22d9fdabcf468274cdd3dafcba877f9aa679e06a5bf32555ba2"
+    },
+    {
+      "path": "m7-transitions/normal-expand/geometry-selection.json",
+      "bytes": 13237,
+      "sha256": "76b675568fdf021f6621a6506ab282f030b3db982bc71f4e6d89f984ef082624"
+    },
+    {
+      "path": "m7-transitions/normal-expand/index.json",
+      "bytes": 28860,
+      "sha256": "64886288f20d0bc6a9a3bcd61c1ace0be084c0db3a07a810d525c2a61e87160c"
+    },
+    {
+      "path": "m7-transitions/normal-panel-to-timer-00055.png",
+      "bytes": 74781,
+      "sha256": "4c63bf840030315ce72fae8257455f995b4637cb0f16c4f3c9634dabc4c98d0d"
+    },
+    {
+      "path": "m7-transitions/normal-panel-to-timer/geometry-000.jpg",
+      "bytes": 631928,
+      "sha256": "50305142a63f77733b579df0299780e409c009afe9ab32b7f0993e0136002db7"
+    },
+    {
+      "path": "m7-transitions/normal-panel-to-timer/geometry-001.jpg",
+      "bytes": 38323,
+      "sha256": "6653f50732c6113532a65c1b01adf35434014448eb28d3baa63db0de75482776"
+    },
+    {
+      "path": "m7-transitions/normal-panel-to-timer/geometry-selection.json",
+      "bytes": 13445,
+      "sha256": "e5fe263d7e5d7fbfd875c0886c4597077dc84f4219b9839786788a110efd6747"
+    },
+    {
+      "path": "m7-transitions/normal-panel-to-timer/index.json",
+      "bytes": 28898,
+      "sha256": "3d5596544bf148ee99e7d12f28916a5500882a0dc5127a8092cd9097b5d1a70f"
+    },
+    {
+      "path": "m7-transitions/normal-timer-to-panel/geometry-000.jpg",
+      "bytes": 680681,
+      "sha256": "beb81aeb955ef3c6d4598e75dd2229de32ca331a33f869b785bc26cd0ab2711d"
+    },
+    {
+      "path": "m7-transitions/normal-timer-to-panel/geometry-001.jpg",
+      "bytes": 88467,
+      "sha256": "c7f1e9afb4d114a8c9a675ce6082221ccfb2f1b99d764b54ad001e0ad237ab1e"
+    },
+    {
+      "path": "m7-transitions/normal-timer-to-panel/geometry-selection.json",
+      "bytes": 15652,
+      "sha256": "059a66e5eda68ec1e549bd95be3497b87f257f0883d2132221a9db5ebe07076b"
+    },
+    {
+      "path": "m7-transitions/normal-timer-to-panel/index.json",
+      "bytes": 34272,
+      "sha256": "159f23978dff8aeb8347a160720ab6e8dee5f4afb149c341e29e9a1ad3666589"
+    },
+    {
+      "path": "m7-transitions/proof-index.json",
+      "bytes": 4396,
+      "sha256": "bb36d59e62d47867e631214e94b274d5af68948ffda5ea4035396026f8af1a41"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse-00031.png",
+      "bytes": 25580,
+      "sha256": "bc658d10b5d5e18933c0b705f5d75252228faa232a19477bb3b3414a56117a12"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse-00032.png",
+      "bytes": 43493,
+      "sha256": "5f1d37c22ff2d547234f38ec4a03e49a4d0e5c793e3719276766905b1900f2bf"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse-00035.png",
+      "bytes": 41497,
+      "sha256": "667ab9d4c82a6a84398c14e64111fa61f8ccd9e7559925f84c1013d99caf5bee"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse/geometry-000.jpg",
+      "bytes": 156250,
+      "sha256": "391edf83900b3b33f9670c619c64084e5343f12a119d59e4a67c4039b90fb070"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse/geometry-selection.json",
+      "bytes": 10825,
+      "sha256": "5dce5f593dc2e8cee387396b3b495a8bea2cff484f9b49fd771d7fe77a61cb53"
+    },
+    {
+      "path": "m7-transitions/reduced-collapse/index.json",
+      "bytes": 23118,
+      "sha256": "7d2cb6f45ad67ed740579ca9b33226ac16d2fd8b2200ddd626491223cd7c5bc7"
+    },
+    {
+      "path": "m7-transitions/reduced-expand-00035.png",
+      "bytes": 40405,
+      "sha256": "9839b624201ca14095df54186a6b9cd572a41ecb286199452ed1019123138176"
+    },
+    {
+      "path": "m7-transitions/reduced-expand-00038.png",
+      "bytes": 44008,
+      "sha256": "2495a244aea26e5a844e7ccbf07994f3e6924ffc7e200953a70c1cff28e1dd80"
+    },
+    {
+      "path": "m7-transitions/reduced-expand-00040.png",
+      "bytes": 27715,
+      "sha256": "7a615e526fead10ca51771e1be19e5a02ff8374e2459b714b5337fea91f8fa25"
+    },
+    {
+      "path": "m7-transitions/reduced-expand/geometry-000.jpg",
+      "bytes": 198914,
+      "sha256": "862cff0700ab27582ca6b12629e12cf814551004649db03ddb0686abe3fa11dc"
+    },
+    {
+      "path": "m7-transitions/reduced-expand/geometry-selection.json",
+      "bytes": 10484,
+      "sha256": "c42ab93338dc526cd3f844c4774782131a9e74e23d406e1f4dd1461b541de8d7"
+    },
+    {
+      "path": "m7-transitions/reduced-expand/index.json",
+      "bytes": 22966,
+      "sha256": "534a0f58af1402588d09320332c4bbcf695c66540a5c1e0c0009f640e148ce99"
+    },
+    {
+      "path": "m7-transitions/reduced-panel-to-timer/geometry-000.jpg",
+      "bytes": 406571,
+      "sha256": "057cc9bfcd418ca4b4b28e0acfa5f673e677314511df51d3ed550ddc30233220"
+    },
+    {
+      "path": "m7-transitions/reduced-panel-to-timer/geometry-selection.json",
+      "bytes": 10752,
+      "sha256": "2b15dde79a351451f401cd5624acf91d6b3997b9fe21e6371e0c1594eee26793"
+    },
+    {
+      "path": "m7-transitions/reduced-panel-to-timer/index.json",
+      "bytes": 23216,
+      "sha256": "067d0f631b220db4e2718773259d268c05577b07ed6736cd3b318764d4a51e98"
+    },
+    {
+      "path": "m7-transitions/reduced-timer-to-panel/geometry-000.jpg",
+      "bytes": 502254,
+      "sha256": "26a1c702b795a86ffa269eda635ba864c412460e42168d9f8c28557ccb6f163c"
+    },
+    {
+      "path": "m7-transitions/reduced-timer-to-panel/geometry-selection.json",
+      "bytes": 10816,
+      "sha256": "64b0898e55a61f7be12defc2b3db47a7e2686e32cb04bc92613e280a202c0e5c"
+    },
+    {
+      "path": "m7-transitions/reduced-timer-to-panel/index.json",
+      "bytes": 23245,
+      "sha256": "2148fbf9153d3f392aad913cf1d34284f81e415f67392f38cf38f81c1c0fa6a8"
+    },
+    {
+      "path": "m7-transitions/source-VE003/provenance.json",
+      "bytes": 472,
+      "sha256": "655b982f3a2ec294eb7ddf0ac3d667328310af3d4ed7414b04bcf63d3170f23e"
+    },
+    {
+      "path": "m7-transitions/source-VE003/sheet-00.jpg",
+      "bytes": 412334,
+      "sha256": "de35de18ecb1f158943fbb6770c917d3f29cb5cbe1d586b6c178322dd8a78ef9"
+    },
+    {
+      "path": "m7-transitions/source-VE003/sheet-01.jpg",
+      "bytes": 410043,
+      "sha256": "1429423359325c2f69c9bb4f22619df2fe405477919e9ded7080586fdcc56bdc"
+    },
+    {
+      "path": "m7-transitions/source-VE003/sheet-02.jpg",
+      "bytes": 376189,
+      "sha256": "4714eeef19474f492b4d5fb52fc8863f6d7a3cd70cc8f4ae9b641a1af849e971"
+    },
+    {
+      "path": "m7-transitions/source-VE003/sheet-03.jpg",
+      "bytes": 410048,
+      "sha256": "7ced8202d219802d2270b86e3357b8b32cb2c24138fe2d6841499435d6100d93"
+    },
+    {
+      "path": "m7-transitions/source-VE003/sheet-04.jpg",
+      "bytes": 206717,
+      "sha256": "7067e0265fd9659ba958c5c3f494c522b072309f84c9f7fa989a290cef37a011"
+    },
+    {
+      "path": "m7-transitions/stale-panel-proof.jpg",
+      "bytes": 202069,
+      "sha256": "9d1fcc99c47574519842bd8a55624b582b72bafdba0520d72688660b17b21a8e"
     },
     {
       "path": "verified-originals.json",
