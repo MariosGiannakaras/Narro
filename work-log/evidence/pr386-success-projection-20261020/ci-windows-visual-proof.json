@@ -1,0 +1,72 @@
+{
+  "source": "0ad2fdcfa47b68f51244c680cf755c8b63406402",
+  "CI": 39363026526,
+  "artifact": 12238632134,
+  "sha256": "93326c03b0ef4bc43cd503cb92387f6900eb4ee62b5b0658f816d381857bf52d",
+  "CRC": "PASS",
+  "zipEntries": 416,
+  "actualWindowsMountedMatrix": "4/4 PASS, eight required receipts each",
+  "nativeAcceptance": "OPEN",
+  "receipts": [
+    {
+      "path": "focus-editor-m7-integration-dark-reduced.html",
+      "theme": "dark",
+      "reducedMotion": true,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "path": "focus-editor-m7-integration-dark.html",
+      "theme": "dark",
+      "reducedMotion": false,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "path": "focus-editor-m7-integration-light-reduced.html",
+      "theme": "light",
+      "reducedMotion": true,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "path": "focus-editor-m7-integration-light.html",
+      "theme": "light",
+      "reducedMotion": false,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    }
+  ]
+}

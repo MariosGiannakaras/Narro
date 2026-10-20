@@ -142,5 +142,23 @@
     "bytes": 314,
     "sha256": "9a633675d08301b9cf97d30d79eed82c683f1768e41b709892b10d6d5c0d1d6d",
     "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "ci-windows-visual-proof.json",
+    "bytes": 2478,
+    "sha256": "9d3afd3d1399ea8c2cb3f8ce7cbe00859ffd5910b00ae8ec88acec1aea94c580",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "ci-fast-dist-proof.json",
+    "bytes": 15076,
+    "sha256": "9d34f76ea3e0c89ca8619eb7964a9a8d1916fade0bf6fac6d89f884e6f6531d8",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "dxgi-oversampling-probe.json",
+    "bytes": 302,
+    "sha256": "577d286c4780f1c0cfef6dbd31b402ac0715e70dc2408afb6fb505d97283b8a6",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
   }
 ]

@@ -1,0 +1,11 @@
+{
+  "method": "DXGI acquisition ceiling240, dup_frames=0, image frames discarded; actual desktop updates only",
+  "scope": "acquisition-only probe, not Narro acceptance",
+  "frames": 431,
+  "timebase": [
+    "#tb 0: 1/240"
+  ],
+  "maxPTSStride": 3,
+  "wallSeconds": 3.25,
+  "synthesizedFrames": false
+}
