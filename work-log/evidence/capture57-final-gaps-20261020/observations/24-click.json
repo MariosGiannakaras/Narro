@@ -1,0 +1,2586 @@
+{
+  "utc": "2026-10-20T17:55:23.780Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 787786,
+    "title": "Narro"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "RootWebArea",
+      "focused": false,
+      "type": 50030,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "List navigation",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 112,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        372,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": false,
+      "type": 50006,
+      "x": 111,
+      "y": 83,
+      "bounds": [
+        176,
+        207,
+        359,
+        271
+      ]
+    },
+    {
+      "name": "Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 111,
+      "y": 189,
+      "bounds": [
+        176,
+        271,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 135,
+      "bounds": [
+        176,
+        271,
+        359,
+        311
+      ]
+    },
+    {
+      "name": "All my lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 200,
+      "bounds": [
+        176,
+        336,
+        359,
+        376
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 244,
+      "bounds": [
+        176,
+        380,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 63,
+      "bounds": [
+        372,
+        187,
+        1164,
+        251
+      ]
+    },
+    {
+      "name": "Utilities",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 901,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "Search",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 855,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1052,
+        239
+      ]
+    },
+    {
+      "name": "Settings",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 945,
+      "y": 62,
+      "bounds": [
+        1059,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "main-content",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 385,
+      "bounds": [
+        372,
+        251,
+        1164,
+        831
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50017,
+      "x": 612,
+      "y": 140,
+      "bounds": [
+        396,
+        275,
+        1140,
+        317
+      ]
+    },
+    {
+      "name": "Saved PDF to F:\\narro-overview-2026-10-13-to-2026-10-20.pdf",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 476,
+      "y": 139,
+      "bounds": [
+        409,
+        285,
+        856,
+        306
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        396,
+        329,
+        1140,
+        1390
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 214,
+      "bounds": [
+        420,
+        351,
+        1116,
+        389
+      ]
+    },
+    {
+      "name": " BACK",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 294,
+      "y": 214,
+      "bounds": [
+        420,
+        351,
+        481,
+        389
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "reports-overview-title",
+      "focused": false,
+      "type": 50020,
+      "x": 381,
+      "y": 214,
+      "bounds": [
+        494,
+        355,
+        580,
+        385
+      ]
+    },
+    {
+      "name": " Export PDF",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 896,
+      "y": 214,
+      "bounds": [
+        988,
+        353,
+        1116,
+        387
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50018,
+      "x": 383,
+      "y": 274,
+      "bounds": [
+        420,
+        409,
+        659,
+        451
+      ]
+    },
+    {
+      "name": "Overview",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 317,
+      "y": 274,
+      "bounds": [
+        425,
+        414,
+        521,
+        446
+      ]
+    },
+    {
+      "name": "Sessions BETA",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 433,
+      "y": 274,
+      "bounds": [
+        525,
+        414,
+        654,
+        446
+      ]
+    },
+    {
+      "name": "All Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 353,
+      "y": 330,
+      "bounds": [
+        420,
+        467,
+        598,
+        505
+      ]
+    },
+    {
+      "name": "Oct 13, 2026 – Oct 20, 2026",
+      "automationId": "",
+      "focused": true,
+      "type": 50000,
+      "x": 834,
+      "y": 330,
+      "bounds": [
+        864,
+        467,
+        1116,
+        505
+      ]
+    },
+    {
+      "name": "Choose report date range",
+      "automationId": "",
+      "focused": false,
+      "type": 50032,
+      "x": 635,
+      "y": 517,
+      "bounds": [
+        466,
+        513,
+        1116,
+        833
+      ]
+    },
+    {
+      "name": "Date presets",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 385,
+      "y": 517,
+      "bounds": [
+        467,
+        514,
+        615,
+        832
+      ]
+    },
+    {
+      "name": "Today",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 387,
+      "bounds": [
+        475,
+        524,
+        606,
+        563
+      ]
+    },
+    {
+      "name": "Yesterday",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 428,
+      "bounds": [
+        475,
+        565,
+        606,
+        604
+      ]
+    },
+    {
+      "name": "This week",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 469,
+      "bounds": [
+        475,
+        606,
+        606,
+        645
+      ]
+    },
+    {
+      "name": "Last 30 days",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 510,
+      "bounds": [
+        475,
+        647,
+        606,
+        686
+      ]
+    },
+    {
+      "name": "Last 60 days",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 551,
+      "bounds": [
+        475,
+        688,
+        606,
+        727
+      ]
+    },
+    {
+      "name": "Last 90 days",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 384,
+      "y": 592,
+      "bounds": [
+        475,
+        729,
+        606,
+        768
+      ]
+    },
+    {
+      "name": "Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 584,
+      "y": 485,
+      "bounds": [
+        615,
+        514,
+        865,
+        769
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 584,
+      "y": 391,
+      "bounds": [
+        627,
+        526,
+        853,
+        568
+      ]
+    },
+    {
+      "name": "Previous year from Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 484,
+      "y": 391,
+      "bounds": [
+        627,
+        526,
+        653,
+        568
+      ]
+    },
+    {
+      "name": "Previous month from Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 508,
+      "y": 391,
+      "bounds": [
+        651,
+        526,
+        677,
+        568
+      ]
+    },
+    {
+      "name": "Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 584,
+      "y": 390,
+      "bounds": [
+        706,
+        536,
+        774,
+        557
+      ]
+    },
+    {
+      "name": "Next month from Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 664,
+      "y": 391,
+      "bounds": [
+        807,
+        526,
+        833,
+        568
+      ]
+    },
+    {
+      "name": "Next year from Oct 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 688,
+      "y": 391,
+      "bounds": [
+        831,
+        526,
+        857,
+        568
+      ]
+    },
+    {
+      "name": "27",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 452,
+      "bounds": [
+        627,
+        595,
+        660,
+        622
+      ]
+    },
+    {
+      "name": "28",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 452,
+      "bounds": [
+        659,
+        595,
+        692,
+        622
+      ]
+    },
+    {
+      "name": "29",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 452,
+      "bounds": [
+        691,
+        595,
+        724,
+        622
+      ]
+    },
+    {
+      "name": "30",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 452,
+      "bounds": [
+        723,
+        595,
+        757,
+        622
+      ]
+    },
+    {
+      "name": "1",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 452,
+      "bounds": [
+        756,
+        595,
+        789,
+        622
+      ]
+    },
+    {
+      "name": "2",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 452,
+      "bounds": [
+        788,
+        595,
+        821,
+        622
+      ]
+    },
+    {
+      "name": "3",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 452,
+      "bounds": [
+        820,
+        595,
+        853,
+        622
+      ]
+    },
+    {
+      "name": "4",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 479,
+      "bounds": [
+        627,
+        622,
+        660,
+        649
+      ]
+    },
+    {
+      "name": "5",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 479,
+      "bounds": [
+        659,
+        622,
+        692,
+        649
+      ]
+    },
+    {
+      "name": "6",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 479,
+      "bounds": [
+        691,
+        622,
+        724,
+        649
+      ]
+    },
+    {
+      "name": "7",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 479,
+      "bounds": [
+        723,
+        622,
+        757,
+        649
+      ]
+    },
+    {
+      "name": "8",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 479,
+      "bounds": [
+        756,
+        622,
+        789,
+        649
+      ]
+    },
+    {
+      "name": "9",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 479,
+      "bounds": [
+        788,
+        622,
+        821,
+        649
+      ]
+    },
+    {
+      "name": "10",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 479,
+      "bounds": [
+        820,
+        622,
+        853,
+        649
+      ]
+    },
+    {
+      "name": "11",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 506,
+      "bounds": [
+        627,
+        649,
+        660,
+        676
+      ]
+    },
+    {
+      "name": "12",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 506,
+      "bounds": [
+        659,
+        649,
+        692,
+        676
+      ]
+    },
+    {
+      "name": "13",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 506,
+      "bounds": [
+        691,
+        649,
+        724,
+        676
+      ]
+    },
+    {
+      "name": "14",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 506,
+      "bounds": [
+        723,
+        649,
+        757,
+        676
+      ]
+    },
+    {
+      "name": "15",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 506,
+      "bounds": [
+        756,
+        649,
+        789,
+        676
+      ]
+    },
+    {
+      "name": "16",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 506,
+      "bounds": [
+        788,
+        649,
+        821,
+        676
+      ]
+    },
+    {
+      "name": "17",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 506,
+      "bounds": [
+        820,
+        649,
+        853,
+        676
+      ]
+    },
+    {
+      "name": "18",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 533,
+      "bounds": [
+        627,
+        676,
+        660,
+        703
+      ]
+    },
+    {
+      "name": "19",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 533,
+      "bounds": [
+        659,
+        676,
+        692,
+        703
+      ]
+    },
+    {
+      "name": "20",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 533,
+      "bounds": [
+        691,
+        676,
+        724,
+        703
+      ]
+    },
+    {
+      "name": "21",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 533,
+      "bounds": [
+        723,
+        676,
+        757,
+        703
+      ]
+    },
+    {
+      "name": "22",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 533,
+      "bounds": [
+        756,
+        676,
+        789,
+        703
+      ]
+    },
+    {
+      "name": "23",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 533,
+      "bounds": [
+        788,
+        676,
+        821,
+        703
+      ]
+    },
+    {
+      "name": "24",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 533,
+      "bounds": [
+        820,
+        676,
+        853,
+        703
+      ]
+    },
+    {
+      "name": "25",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 560,
+      "bounds": [
+        627,
+        703,
+        660,
+        730
+      ]
+    },
+    {
+      "name": "26",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 560,
+      "bounds": [
+        659,
+        703,
+        692,
+        730
+      ]
+    },
+    {
+      "name": "27",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 560,
+      "bounds": [
+        691,
+        703,
+        724,
+        730
+      ]
+    },
+    {
+      "name": "28",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 560,
+      "bounds": [
+        723,
+        703,
+        757,
+        730
+      ]
+    },
+    {
+      "name": "29",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 560,
+      "bounds": [
+        756,
+        703,
+        789,
+        730
+      ]
+    },
+    {
+      "name": "30",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 560,
+      "bounds": [
+        788,
+        703,
+        821,
+        730
+      ]
+    },
+    {
+      "name": "31",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 560,
+      "bounds": [
+        820,
+        703,
+        853,
+        730
+      ]
+    },
+    {
+      "name": "1",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 487,
+      "y": 587,
+      "bounds": [
+        627,
+        730,
+        660,
+        757
+      ]
+    },
+    {
+      "name": "2",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 519,
+      "y": 587,
+      "bounds": [
+        659,
+        730,
+        692,
+        757
+      ]
+    },
+    {
+      "name": "3",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 551,
+      "y": 587,
+      "bounds": [
+        691,
+        730,
+        724,
+        757
+      ]
+    },
+    {
+      "name": "4",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 584,
+      "y": 587,
+      "bounds": [
+        723,
+        730,
+        757,
+        757
+      ]
+    },
+    {
+      "name": "5",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 616,
+      "y": 587,
+      "bounds": [
+        756,
+        730,
+        789,
+        757
+      ]
+    },
+    {
+      "name": "6",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 648,
+      "y": 587,
+      "bounds": [
+        788,
+        730,
+        821,
+        757
+      ]
+    },
+    {
+      "name": "7",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 587,
+      "bounds": [
+        820,
+        730,
+        853,
+        757
+      ]
+    },
+    {
+      "name": "Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 834,
+      "y": 485,
+      "bounds": [
+        865,
+        514,
+        1115,
+        769
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 834,
+      "y": 391,
+      "bounds": [
+        878,
+        526,
+        1103,
+        568
+      ]
+    },
+    {
+      "name": "Previous year from Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 735,
+      "y": 391,
+      "bounds": [
+        878,
+        526,
+        904,
+        568
+      ]
+    },
+    {
+      "name": "Previous month from Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 759,
+      "y": 391,
+      "bounds": [
+        902,
+        526,
+        928,
+        568
+      ]
+    },
+    {
+      "name": "Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 834,
+      "y": 390,
+      "bounds": [
+        954,
+        536,
+        1027,
+        557
+      ]
+    },
+    {
+      "name": "Next month from Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 914,
+      "y": 391,
+      "bounds": [
+        1057,
+        526,
+        1083,
+        568
+      ]
+    },
+    {
+      "name": "Next year from Nov 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 938,
+      "y": 391,
+      "bounds": [
+        1081,
+        526,
+        1107,
+        568
+      ]
+    },
+    {
+      "name": "1",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 452,
+      "bounds": [
+        878,
+        595,
+        911,
+        622
+      ]
+    },
+    {
+      "name": "2",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 452,
+      "bounds": [
+        910,
+        595,
+        943,
+        622
+      ]
+    },
+    {
+      "name": "3",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 452,
+      "bounds": [
+        942,
+        595,
+        975,
+        622
+      ]
+    },
+    {
+      "name": "4",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 452,
+      "bounds": [
+        974,
+        595,
+        1007,
+        622
+      ]
+    },
+    {
+      "name": "5",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 452,
+      "bounds": [
+        1006,
+        595,
+        1039,
+        622
+      ]
+    },
+    {
+      "name": "6",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 452,
+      "bounds": [
+        1038,
+        595,
+        1071,
+        622
+      ]
+    },
+    {
+      "name": "7",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 452,
+      "bounds": [
+        1070,
+        595,
+        1103,
+        622
+      ]
+    },
+    {
+      "name": "8",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 479,
+      "bounds": [
+        878,
+        622,
+        911,
+        649
+      ]
+    },
+    {
+      "name": "9",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 479,
+      "bounds": [
+        910,
+        622,
+        943,
+        649
+      ]
+    },
+    {
+      "name": "10",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 479,
+      "bounds": [
+        942,
+        622,
+        975,
+        649
+      ]
+    },
+    {
+      "name": "11",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 479,
+      "bounds": [
+        974,
+        622,
+        1007,
+        649
+      ]
+    },
+    {
+      "name": "12",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 479,
+      "bounds": [
+        1006,
+        622,
+        1039,
+        649
+      ]
+    },
+    {
+      "name": "13",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 479,
+      "bounds": [
+        1038,
+        622,
+        1071,
+        649
+      ]
+    },
+    {
+      "name": "14",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 479,
+      "bounds": [
+        1070,
+        622,
+        1103,
+        649
+      ]
+    },
+    {
+      "name": "15",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 506,
+      "bounds": [
+        878,
+        649,
+        911,
+        676
+      ]
+    },
+    {
+      "name": "16",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 506,
+      "bounds": [
+        910,
+        649,
+        943,
+        676
+      ]
+    },
+    {
+      "name": "17",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 506,
+      "bounds": [
+        942,
+        649,
+        975,
+        676
+      ]
+    },
+    {
+      "name": "18",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 506,
+      "bounds": [
+        974,
+        649,
+        1007,
+        676
+      ]
+    },
+    {
+      "name": "19",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 506,
+      "bounds": [
+        1006,
+        649,
+        1039,
+        676
+      ]
+    },
+    {
+      "name": "20",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 506,
+      "bounds": [
+        1038,
+        649,
+        1071,
+        676
+      ]
+    },
+    {
+      "name": "21",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 506,
+      "bounds": [
+        1070,
+        649,
+        1103,
+        676
+      ]
+    },
+    {
+      "name": "22",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 533,
+      "bounds": [
+        878,
+        676,
+        911,
+        703
+      ]
+    },
+    {
+      "name": "23",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 533,
+      "bounds": [
+        910,
+        676,
+        943,
+        703
+      ]
+    },
+    {
+      "name": "24",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 533,
+      "bounds": [
+        942,
+        676,
+        975,
+        703
+      ]
+    },
+    {
+      "name": "25",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 533,
+      "bounds": [
+        974,
+        676,
+        1007,
+        703
+      ]
+    },
+    {
+      "name": "26",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 533,
+      "bounds": [
+        1006,
+        676,
+        1039,
+        703
+      ]
+    },
+    {
+      "name": "27",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 533,
+      "bounds": [
+        1038,
+        676,
+        1071,
+        703
+      ]
+    },
+    {
+      "name": "28",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 533,
+      "bounds": [
+        1070,
+        676,
+        1103,
+        703
+      ]
+    },
+    {
+      "name": "29",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 560,
+      "bounds": [
+        878,
+        703,
+        911,
+        730
+      ]
+    },
+    {
+      "name": "30",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 560,
+      "bounds": [
+        910,
+        703,
+        943,
+        730
+      ]
+    },
+    {
+      "name": "1",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 560,
+      "bounds": [
+        942,
+        703,
+        975,
+        730
+      ]
+    },
+    {
+      "name": "2",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 560,
+      "bounds": [
+        974,
+        703,
+        1007,
+        730
+      ]
+    },
+    {
+      "name": "3",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 560,
+      "bounds": [
+        1006,
+        703,
+        1039,
+        730
+      ]
+    },
+    {
+      "name": "4",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 560,
+      "bounds": [
+        1038,
+        703,
+        1071,
+        730
+      ]
+    },
+    {
+      "name": "5",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 560,
+      "bounds": [
+        1070,
+        703,
+        1103,
+        730
+      ]
+    },
+    {
+      "name": "6",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 738,
+      "y": 587,
+      "bounds": [
+        878,
+        730,
+        911,
+        757
+      ]
+    },
+    {
+      "name": "7",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 770,
+      "y": 587,
+      "bounds": [
+        910,
+        730,
+        943,
+        757
+      ]
+    },
+    {
+      "name": "8",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 587,
+      "bounds": [
+        942,
+        730,
+        975,
+        757
+      ]
+    },
+    {
+      "name": "9",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 587,
+      "bounds": [
+        974,
+        730,
+        1007,
+        757
+      ]
+    },
+    {
+      "name": "10",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 866,
+      "y": 587,
+      "bounds": [
+        1006,
+        730,
+        1039,
+        757
+      ]
+    },
+    {
+      "name": "11",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 587,
+      "bounds": [
+        1038,
+        730,
+        1071,
+        757
+      ]
+    },
+    {
+      "name": "12",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 930,
+      "y": 587,
+      "bounds": [
+        1070,
+        730,
+        1103,
+        757
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 709,
+      "y": 644,
+      "bounds": [
+        615,
+        769,
+        1115,
+        832
+      ]
+    },
+    {
+      "name": "Cancel",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 657,
+      "y": 645,
+      "bounds": [
+        627,
+        780,
+        999,
+        822
+      ]
+    },
+    {
+      "name": "Apply",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 901,
+      "y": 645,
+      "bounds": [
+        1011,
+        780,
+        1103,
+        822
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 346,
+      "y": 412,
+      "bounds": [
+        420,
+        519,
+        585,
+        617
+      ]
+    },
+    {
+      "name": "Total work days",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 316,
+      "y": 391,
+      "bounds": [
+        435,
+        540,
+        510,
+        555
+      ]
+    },
+    {
+      "name": "6",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 284,
+      "y": 418,
+      "bounds": [
+        435,
+        562,
+        446,
+        586
+      ]
+    },
+    {
+      "name": "6 active days",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 307,
+      "y": 437,
+      "bounds": [
+        435,
+        586,
+        492,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 523,
+      "y": 412,
+      "bounds": [
+        597,
+        519,
+        762,
+        617
+      ]
+    },
+    {
+      "name": "Total tasks done",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 495,
+      "y": 391,
+      "bounds": [
+        612,
+        540,
+        691,
+        555
+      ]
+    },
+    {
+      "name": "32",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 466,
+      "y": 418,
+      "bounds": [
+        612,
+        562,
+        633,
+        586
+      ]
+    },
+    {
+      "name": "5.3 avg / active day",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 498,
+      "y": 437,
+      "bounds": [
+        612,
+        586,
+        697,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 700,
+      "y": 412,
+      "bounds": [
+        774,
+        519,
+        939,
+        617
+      ]
+    },
+    {
+      "name": "Total time worked",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 676,
+      "y": 391,
+      "bounds": [
+        789,
+        540,
+        876,
+        555
+      ]
+    },
+    {
+      "name": "7hr 39min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 676,
+      "y": 418,
+      "bounds": [
+        789,
+        562,
+        876,
+        586
+      ]
+    },
+    {
+      "name": "1hr 17min avg / active day",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 691,
+      "y": 437,
+      "bounds": [
+        789,
+        586,
+        906,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 877,
+      "y": 412,
+      "bounds": [
+        951,
+        519,
+        1116,
+        617
+      ]
+    },
+    {
+      "name": "Avg. Time per task",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 855,
+      "y": 391,
+      "bounds": [
+        966,
+        540,
+        1056,
+        555
+      ]
+    },
+    {
+      "name": "14min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 837,
+      "y": 418,
+      "bounds": [
+        966,
+        562,
+        1020,
+        586
+      ]
+    },
+    {
+      "name": "includes partial tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 856,
+      "y": 437,
+      "bounds": [
+        966,
+        586,
+        1058,
+        601
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 623,
+      "bounds": [
+        420,
+        630,
+        1116,
+        929
+      ]
+    },
+    {
+      "name": "PRODUCTIVITY",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 320,
+      "y": 497,
+      "bounds": [
+        435,
+        645,
+        517,
+        661
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "automationId": "reports-productivity-title",
+      "focused": false,
+      "type": 50020,
+      "x": 320,
+      "y": 518,
+      "bounds": [
+        435,
+        665,
+        517,
+        683
+      ]
+    },
+    {
+      "name": "Chart options",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 929,
+      "y": 507,
+      "bounds": [
+        1069,
+        649,
+        1101,
+        678
+      ]
+    },
+    {
+      "name": "Daily Tasks, Breaks and Total session time",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 627,
+      "bounds": [
+        435,
+        682,
+        1101,
+        885
+      ]
+    },
+    {
+      "name": "Tue, Oct 13: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 326,
+      "y": 638,
+      "bounds": [
+        441,
+        704,
+        523,
+        884
+      ]
+    },
+    {
+      "name": "Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 407,
+      "y": 638,
+      "bounds": [
+        522,
+        704,
+        605,
+        884
+      ]
+    },
+    {
+      "name": "Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 489,
+      "y": 638,
+      "bounds": [
+        604,
+        704,
+        687,
+        884
+      ]
+    },
+    {
+      "name": "Fri, Oct 16: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 571,
+      "y": 638,
+      "bounds": [
+        686,
+        704,
+        768,
+        884
+      ]
+    },
+    {
+      "name": "Sat, Oct 17: Tasks 1hr, Breaks 0min, Total 1hr",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 653,
+      "y": 638,
+      "bounds": [
+        768,
+        704,
+        850,
+        884
+      ]
+    },
+    {
+      "name": "Sun, Oct 18: Tasks 1hr, Breaks 0min, Total 1hr",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 734,
+      "y": 638,
+      "bounds": [
+        849,
+        704,
+        932,
+        884
+      ]
+    },
+    {
+      "name": "Mon, Oct 19: Tasks 1hr 20min, Breaks 5min, Total 1hr 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 816,
+      "y": 638,
+      "bounds": [
+        931,
+        704,
+        1014,
+        884
+      ]
+    },
+    {
+      "name": "Tue, Oct 20: Tasks 3hr 19min, Breaks 6min, Total 3hr 24min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 898,
+      "y": 638,
+      "bounds": [
+        1013,
+        704,
+        1095,
+        884
+      ]
+    },
+    {
+      "name": "Primary",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        372,
+        831,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 704,
+      "bounds": [
+        636,
+        840,
+        764,
+        880
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 704,
+      "bounds": [
+        772,
+        840,
+        900,
+        880
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": null,
+      "automationId": "",
+      "focused": false,
+      "type": 50037,
+      "x": 516,
+      "y": 17,
+      "bounds": [
+        180,
+        159,
+        1164,
+        187
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "MenuBar",
+      "focused": false,
+      "type": 50010,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "",
+      "focused": false,
+      "type": 50011,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "Minimize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 892,
+      "y": 16,
+      "bounds": [
+        1025,
+        157,
+        1072,
+        187
+      ]
+    },
+    {
+      "name": "Maximize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 939,
+      "y": 16,
+      "bounds": [
+        1072,
+        157,
+        1118,
+        187
+      ]
+    },
+    {
+      "name": "Close",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 985,
+      "y": 16,
+      "bounds": [
+        1118,
+        157,
+        1165,
+        187
+      ]
+    }
+  ]
+}

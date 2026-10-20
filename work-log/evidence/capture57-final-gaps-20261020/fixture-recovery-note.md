@@ -1,0 +1,1 @@
+Initial seeded launch exited without a targetable window or captured error. Retried with exact retained owned DB, preserving interrupted checkpoint. No product FAIL inferred; first fixture retained locally.

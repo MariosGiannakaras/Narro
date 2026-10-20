@@ -1,0 +1,408 @@
+{
+  "scope": "acquisition metadata only, no video/audio acceptance analysis",
+  "media": [
+    {
+      "file": "system-loopback-original.wav",
+      "bytes": 5771308,
+      "sha256": "1017d8d4ca1a6c97774661e0306efbca0faf0a605aed1086dc0cbd6eed9e7a99",
+      "probeExit": 0,
+      "probeWarnings": "",
+      "metadata": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "pcm_s16le",
+            "codec_long_name": "PCM signed 16-bit little-endian",
+            "codec_type": "audio",
+            "codec_tag_string": "[1][0][0][0]",
+            "codec_tag": "0x0001",
+            "sample_fmt": "s16",
+            "sample_rate": "48000",
+            "channels": 2,
+            "bits_per_sample": 16,
+            "initial_padding": 0,
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "duration_ts": 1442816,
+            "duration": "30.058667",
+            "bit_rate": "1536000",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\MariosG\\.codex\\worktrees\\m7-native-paint\\NarroUpload\\work-log\\evidence\\capture57-final-gaps-20261020\\system-loopback-original.wav",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "wav",
+          "format_long_name": "WAV / WAVE (Waveform Audio)",
+          "duration": "30.058667",
+          "size": "5771308",
+          "bit_rate": "1536011",
+          "probe_score": 99
+        }
+      }
+    },
+    {
+      "file": "video/segment-001-original.mkv",
+      "bytes": 10827546,
+      "sha256": "f2d9b3c4e5e8f6a9c99cff59138bd5a575e3bee30c168ec79bbf252ceb42448d",
+      "probeExit": 0,
+      "probeWarnings": "",
+      "metadata": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "avc1.640033",
+            "width": 2560,
+            "height": 1080,
+            "coded_width": 2560,
+            "coded_height": 1080,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "64:27",
+            "pix_fmt": "yuv420p",
+            "level": 51,
+            "color_range": "tv",
+            "color_transfer": "iec61966-2-1",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "bits_per_raw_sample": "8",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "ENCODER": "Lavc63.1.102 libx264",
+              "DURATION": "00:03:00.002000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\MariosG\\.codex\\worktrees\\m7-native-paint\\NarroUpload\\work-log\\evidence\\capture57-final-gaps-20261020\\video\\segment-001-original.mkv",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "180.002000",
+          "size": "10827546",
+          "bit_rate": "481218",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.102"
+          }
+        }
+      }
+    },
+    {
+      "file": "video/segment-002-original.mkv",
+      "bytes": 11169390,
+      "sha256": "b30a8209adfb88506e980947c7c279662d309f7dcaeef6d3c543b8ac56c69d98",
+      "probeExit": 0,
+      "probeWarnings": "",
+      "metadata": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "avc1.640033",
+            "width": 2560,
+            "height": 1080,
+            "coded_width": 2560,
+            "coded_height": 1080,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "64:27",
+            "pix_fmt": "yuv420p",
+            "level": 51,
+            "color_range": "tv",
+            "color_transfer": "iec61966-2-1",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "bits_per_raw_sample": "8",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "ENCODER": "Lavc63.1.102 libx264",
+              "DURATION": "00:03:00.015000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\MariosG\\.codex\\worktrees\\m7-native-paint\\NarroUpload\\work-log\\evidence\\capture57-final-gaps-20261020\\video\\segment-002-original.mkv",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "180.015000",
+          "size": "11169390",
+          "bit_rate": "496375",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.102"
+          }
+        }
+      }
+    },
+    {
+      "file": "video/segment-003-original.mkv",
+      "bytes": 11461070,
+      "sha256": "550da693997deb36d330d6f8400d34033a41d8da10c0f86d3a15de8e51521ac8",
+      "probeExit": 0,
+      "probeWarnings": "",
+      "metadata": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "avc1.640033",
+            "width": 2560,
+            "height": 1080,
+            "coded_width": 2560,
+            "coded_height": 1080,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "64:27",
+            "pix_fmt": "yuv420p",
+            "level": 51,
+            "color_range": "tv",
+            "color_transfer": "iec61966-2-1",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "bits_per_raw_sample": "8",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "ENCODER": "Lavc63.1.102 libx264",
+              "DURATION": "00:03:00.012000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\MariosG\\.codex\\worktrees\\m7-native-paint\\NarroUpload\\work-log\\evidence\\capture57-final-gaps-20261020\\video\\segment-003-original.mkv",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "180.012000",
+          "size": "11461070",
+          "bit_rate": "509346",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.102"
+          }
+        }
+      }
+    },
+    {
+      "file": "video/segment-004-original.mkv",
+      "bytes": 5975232,
+      "sha256": "35dc8c49bc60f2dc82226111923b848836e8ce0af6a1335c053a5149ae13d295",
+      "probeExit": 0,
+      "probeWarnings": "",
+      "metadata": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "avc1.640033",
+            "width": 2560,
+            "height": 1080,
+            "coded_width": 2560,
+            "coded_height": 1080,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "64:27",
+            "pix_fmt": "yuv420p",
+            "level": 51,
+            "color_range": "tv",
+            "color_transfer": "iec61966-2-1",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "bits_per_raw_sample": "8",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "ENCODER": "Lavc63.1.102 libx264",
+              "DURATION": "00:01:29.748000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\MariosG\\.codex\\worktrees\\m7-native-paint\\NarroUpload\\work-log\\evidence\\capture57-final-gaps-20261020\\video\\segment-004-original.mkv",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "89.748000",
+          "size": "5975232",
+          "bit_rate": "532623",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.102"
+          }
+        }
+      }
+    }
+  ]
+}

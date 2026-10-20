@@ -1,0 +1,1424 @@
+{
+  "utc": "2026-10-20T17:57:27.284Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 787786,
+    "title": "Narro"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "RootWebArea",
+      "focused": false,
+      "type": 50030,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "List navigation",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 112,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        372,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": false,
+      "type": 50006,
+      "x": 111,
+      "y": 83,
+      "bounds": [
+        176,
+        207,
+        359,
+        271
+      ]
+    },
+    {
+      "name": "Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 111,
+      "y": 189,
+      "bounds": [
+        176,
+        271,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 135,
+      "bounds": [
+        176,
+        271,
+        359,
+        311
+      ]
+    },
+    {
+      "name": "All my lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 200,
+      "bounds": [
+        176,
+        336,
+        359,
+        376
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 244,
+      "bounds": [
+        176,
+        380,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 63,
+      "bounds": [
+        372,
+        187,
+        1164,
+        251
+      ]
+    },
+    {
+      "name": "Utilities",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 901,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "Search",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 855,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1052,
+        239
+      ]
+    },
+    {
+      "name": "Settings",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 945,
+      "y": 62,
+      "bounds": [
+        1059,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "main-content",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 385,
+      "bounds": [
+        372,
+        251,
+        1164,
+        831
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 160,
+      "bounds": [
+        420,
+        297,
+        1116,
+        335
+      ]
+    },
+    {
+      "name": " BACK",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 294,
+      "y": 160,
+      "bounds": [
+        420,
+        297,
+        481,
+        335
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 381,
+      "y": 160,
+      "bounds": [
+        494,
+        301,
+        580,
+        331
+      ]
+    },
+    {
+      "name": "+ Add Session",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 780,
+      "y": 160,
+      "bounds": [
+        869,
+        299,
+        1004,
+        333
+      ]
+    },
+    {
+      "name": "Export .csv",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 907,
+      "y": 160,
+      "bounds": [
+        1011,
+        299,
+        1116,
+        333
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50018,
+      "x": 383,
+      "y": 220,
+      "bounds": [
+        420,
+        355,
+        659,
+        397
+      ]
+    },
+    {
+      "name": "Overview",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 317,
+      "y": 220,
+      "bounds": [
+        425,
+        360,
+        521,
+        392
+      ]
+    },
+    {
+      "name": "Sessions BETA",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 433,
+      "y": 220,
+      "bounds": [
+        525,
+        360,
+        654,
+        392
+      ]
+    },
+    {
+      "name": "Selected 2 lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 358,
+      "y": 278,
+      "bounds": [
+        420,
+        415,
+        608,
+        453
+      ]
+    },
+    {
+      "name": "Filter Sessions by list",
+      "automationId": "",
+      "focused": false,
+      "type": 50008,
+      "x": 369,
+      "y": 431,
+      "bounds": [
+        420,
+        459,
+        630,
+        715
+      ]
+    },
+    {
+      "name": "All Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50007,
+      "x": 369,
+      "y": 327,
+      "bounds": [
+        427,
+        466,
+        623,
+        500
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50007,
+      "x": 369,
+      "y": 361,
+      "bounds": [
+        427,
+        500,
+        623,
+        534
+      ]
+    },
+    {
+      "name": "Reading & research",
+      "automationId": "",
+      "focused": true,
+      "type": 50007,
+      "x": 369,
+      "y": 403,
+      "bounds": [
+        427,
+        534,
+        623,
+        584
+      ]
+    },
+    {
+      "name": "Long project name for list badge and title wrapping",
+      "automationId": "",
+      "focused": false,
+      "type": 50007,
+      "x": 369,
+      "y": 465,
+      "bounds": [
+        427,
+        584,
+        623,
+        658
+      ]
+    },
+    {
+      "name": "Uploaded image capture list",
+      "automationId": "",
+      "focused": false,
+      "type": 50007,
+      "x": 369,
+      "y": 527,
+      "bounds": [
+        427,
+        658,
+        623,
+        708
+      ]
+    },
+    {
+      "name": "Hide Break sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 554,
+      "y": 278,
+      "bounds": [
+        619,
+        413,
+        801,
+        455
+      ]
+    },
+    {
+      "name": "Sep 20, 2026 – Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 278,
+      "bounds": [
+        864,
+        415,
+        1116,
+        453
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 376,
+      "y": 361,
+      "bounds": [
+        420,
+        471,
+        644,
+        564
+      ]
+    },
+    {
+      "name": "Total Time",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 306,
+      "y": 345,
+      "bounds": [
+        437,
+        494,
+        487,
+        509
+      ]
+    },
+    {
+      "name": "9hr 39min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 324,
+      "y": 377,
+      "bounds": [
+        437,
+        521,
+        524,
+        545
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 361,
+      "bounds": [
+        656,
+        471,
+        880,
+        564
+      ]
+    },
+    {
+      "name": "Total Tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 543,
+      "y": 345,
+      "bounds": [
+        673,
+        494,
+        725,
+        509
+      ]
+    },
+    {
+      "name": "39",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 527,
+      "y": 377,
+      "bounds": [
+        673,
+        521,
+        694,
+        545
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 848,
+      "y": 361,
+      "bounds": [
+        892,
+        471,
+        1116,
+        564
+      ]
+    },
+    {
+      "name": "Total Sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 787,
+      "y": 345,
+      "bounds": [
+        909,
+        494,
+        977,
+        509
+      ]
+    },
+    {
+      "name": "50",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 763,
+      "y": 377,
+      "bounds": [
+        909,
+        521,
+        930,
+        545
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 445,
+      "bounds": [
+        421,
+        581,
+        1131,
+        621
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 313,
+      "y": 444,
+      "bounds": [
+        437,
+        592,
+        502,
+        608
+      ]
+    },
+    {
+      "name": "22",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 910,
+      "y": 444,
+      "bounds": [
+        1060,
+        592,
+        1073,
+        608
+      ]
+    },
+    {
+      "name": " ",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 918,
+      "y": 444,
+      "bounds": [
+        1072,
+        592,
+        1076,
+        608
+      ]
+    },
+    {
+      "name": "sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 939,
+      "y": 444,
+      "bounds": [
+        1075,
+        592,
+        1115,
+        608
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 494,
+      "bounds": [
+        421,
+        621,
+        1131,
+        679
+      ]
+    },
+    {
+      "name": "Overdue task with age label",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 355,
+      "y": 484,
+      "bounds": [
+        433,
+        632,
+        590,
+        649
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 505,
+      "bounds": [
+        447,
+        654,
+        516,
+        669
+      ]
+    },
+    {
+      "name": "Session 03",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 494,
+      "bounds": [
+        611,
+        642,
+        663,
+        658
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 494,
+      "bounds": [
+        695,
+        642,
+        757,
+        658
+      ]
+    },
+    {
+      "name": "8:53 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 494,
+      "bounds": [
+        795,
+        642,
+        835,
+        658
+      ]
+    },
+    {
+      "name": "8:53 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 494,
+      "bounds": [
+        903,
+        635,
+        957,
+        666
+      ]
+    },
+    {
+      "name": "0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 494,
+      "bounds": [
+        1048,
+        642,
+        1075,
+        658
+      ]
+    },
+    {
+      "name": "Session actions for Overdue task with age label",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 494,
+      "bounds": [
+        1083,
+        633,
+        1115,
+        668
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 552,
+      "bounds": [
+        421,
+        679,
+        1131,
+        737
+      ]
+    },
+    {
+      "name": "Weekly recurring parent",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 345,
+      "y": 542,
+      "bounds": [
+        433,
+        690,
+        570,
+        707
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 563,
+      "bounds": [
+        447,
+        712,
+        516,
+        727
+      ]
+    },
+    {
+      "name": "Session 03",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 552,
+      "bounds": [
+        611,
+        700,
+        663,
+        716
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 552,
+      "bounds": [
+        695,
+        700,
+        757,
+        716
+      ]
+    },
+    {
+      "name": "8:51 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 552,
+      "bounds": [
+        795,
+        700,
+        835,
+        716
+      ]
+    },
+    {
+      "name": "8:52 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 552,
+      "bounds": [
+        903,
+        693,
+        957,
+        724
+      ]
+    },
+    {
+      "name": "1min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 552,
+      "bounds": [
+        1048,
+        700,
+        1075,
+        716
+      ]
+    },
+    {
+      "name": "Session actions for Weekly recurring parent",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 552,
+      "bounds": [
+        1083,
+        691,
+        1115,
+        726
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 610,
+      "bounds": [
+        421,
+        737,
+        1131,
+        795
+      ]
+    },
+    {
+      "name": "Overdue task with age label",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 355,
+      "y": 600,
+      "bounds": [
+        433,
+        748,
+        590,
+        765
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 621,
+      "bounds": [
+        447,
+        770,
+        516,
+        785
+      ]
+    },
+    {
+      "name": "Session 02",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 610,
+      "bounds": [
+        611,
+        758,
+        663,
+        774
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 610,
+      "bounds": [
+        695,
+        758,
+        757,
+        774
+      ]
+    },
+    {
+      "name": "8:51 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 610,
+      "bounds": [
+        795,
+        758,
+        835,
+        774
+      ]
+    },
+    {
+      "name": "8:51 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 610,
+      "bounds": [
+        903,
+        751,
+        957,
+        782
+      ]
+    },
+    {
+      "name": "0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 610,
+      "bounds": [
+        1048,
+        758,
+        1075,
+        774
+      ]
+    },
+    {
+      "name": "Session actions for Overdue task with age label",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 610,
+      "bounds": [
+        1083,
+        749,
+        1115,
+        784
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 668,
+      "bounds": [
+        421,
+        795,
+        1131,
+        853
+      ]
+    },
+    {
+      "name": "Weekly recurring parent",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 345,
+      "y": 658,
+      "bounds": [
+        433,
+        806,
+        570,
+        823
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 679,
+      "bounds": [
+        447,
+        828,
+        516,
+        843
+      ]
+    },
+    {
+      "name": "Session 02",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 668,
+      "bounds": [
+        611,
+        816,
+        663,
+        832
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 668,
+      "bounds": [
+        695,
+        816,
+        757,
+        832
+      ]
+    },
+    {
+      "name": "4:55 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 668,
+      "bounds": [
+        795,
+        816,
+        835,
+        832
+      ]
+    },
+    {
+      "name": "8:51 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 668,
+      "bounds": [
+        903,
+        809,
+        957,
+        840
+      ]
+    },
+    {
+      "name": "0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 668,
+      "bounds": [
+        1048,
+        816,
+        1075,
+        832
+      ]
+    },
+    {
+      "name": "Session actions for Weekly recurring parent",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 668,
+      "bounds": [
+        1083,
+        807,
+        1115,
+        842
+      ]
+    },
+    {
+      "name": "Primary",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        372,
+        831,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 704,
+      "bounds": [
+        636,
+        840,
+        764,
+        880
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 704,
+      "bounds": [
+        772,
+        840,
+        900,
+        880
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": null,
+      "automationId": "",
+      "focused": false,
+      "type": 50037,
+      "x": 516,
+      "y": 17,
+      "bounds": [
+        180,
+        159,
+        1164,
+        187
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "MenuBar",
+      "focused": false,
+      "type": 50010,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "",
+      "focused": false,
+      "type": 50011,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "Minimize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 892,
+      "y": 16,
+      "bounds": [
+        1025,
+        157,
+        1072,
+        187
+      ]
+    },
+    {
+      "name": "Maximize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 939,
+      "y": 16,
+      "bounds": [
+        1072,
+        157,
+        1118,
+        187
+      ]
+    },
+    {
+      "name": "Close",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 985,
+      "y": 16,
+      "bounds": [
+        1118,
+        157,
+        1165,
+        187
+      ]
+    }
+  ]
+}

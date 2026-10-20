@@ -1,0 +1,12 @@
+{
+  "sourceOwnedSession": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Resume-20261020",
+  "sourceRetainedDbSha256": "8bfc8eb911bac220c0dc087d3389f420e5d40f598489228d0a1b3d9134e21abd",
+  "syntheticOnly": true,
+  "setupChanges": [
+    "POMO disabled",
+    "supported300s alert enabled",
+    "animated flash enabled",
+    "interrupted synthetic checkpoint removed before launch"
+  ],
+  "noAcceptanceClaim": true
+}

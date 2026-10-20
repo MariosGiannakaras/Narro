@@ -1,0 +1,55 @@
+{"utc":"2026-10-20T17:51:23.969Z","action":"Enter Focus through registered alternate shortcut","requirements":["C45"]}
+{"utc":"2026-10-20T17:51:37.972Z","action":"click Expand Floating Timer","requirements":["C45"],"point":[311,75],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:51:45.386Z","action":"click Skip task","requirements":["C45"],"point":[198,59],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:51:57.923Z","action":"click Skip task","requirements":["C45"],"point":[198,59],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:52:23.877Z","action":"click Return to Focus Panel","requirements":["C45"],"point":[310,59],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:52:56.070Z","action":"click Complete task","requirements":["C45","C46"],"point":[289,135],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:53:06.575Z","action":"click Next Task","requirements":["C45"],"point":[73,286],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:53:17.097Z","action":"click Complete task","requirements":["C45"],"point":[289,135],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:53:27.389Z","action":"click Close","requirements":["C45"],"point":[182,286],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:53:38.657Z","action":"click Add task in Focus Panel","requirements":["C45"],"point":[170,210],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:53:47.245Z","action":"Type synthetic timed alert task","requirements":["C45"]}
+{"utc":"2026-10-20T17:53:53.956Z","action":"click Add task","requirements":["C45"],"point":[274,338],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:54:06.077Z","action":"click Task title: Timed alert capture — uninterrupted work","requirements":["C45"],"point":[138,197],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:54:12.900Z","action":"click Make live: Timed alert capture — uninterrupted work","requirements":["C45"],"point":[205,239],"hwnd":1704410,"capturePid":13648}
+{"utc":"2026-10-20T17:54:27.994Z","action":"click Reports","requirements":["C48"],"point":[680,704],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:54:36.270Z","action":"click Sep 20, 2026 – Oct 20, 2026","requirements":["C48"],"point":[834,276],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:54:51.528Z","action":"Overview custom range start Oct13","requirements":["C48"]}
+{"utc":"2026-10-20T17:54:57.567Z","action":"Overview custom range end Oct20","requirements":["C48"]}
+{"utc":"2026-10-20T17:55:01.758Z","action":"click Apply","requirements":["C48"],"point":[901,591],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:09.403Z","action":"click  Export PDF","requirements":["C48"],"point":[896,160],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:22.779Z","action":"click Oct 13, 2026 – Oct 20, 2026","requirements":["C48"],"point":[834,330],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:27.123Z","action":"click Last 30 days","requirements":["C48"],"point":[384,510],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:32.247Z","action":"click Apply","requirements":["C48"],"point":[901,645],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:36.873Z","action":"click  Export PDF","requirements":["C48"],"point":[896,214],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:50.359Z","action":"click Sep 20, 2026 – Oct 20, 2026","requirements":["C48"],"point":[834,330],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:55:56.561Z","action":"click Last 60 days","requirements":["C48"],"point":[384,551],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:01.463Z","action":"click Apply","requirements":["C48"],"point":[901,645],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:05.348Z","action":"click  Export PDF","requirements":["C48"],"point":[896,214],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:12.810Z","action":"click Aug 21, 2026 – Oct 20, 2026","requirements":["C48"],"point":[833,330],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:19.020Z","action":"click Last 90 days","requirements":["C48"],"point":[384,592],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:25.198Z","action":"click Apply","requirements":["C48"],"point":[901,645],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:29.762Z","action":"click  Export PDF","requirements":["C48"],"point":[896,214],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:37.494Z","action":"click Sessions BETA","requirements":["C47","C52"],"point":[433,274],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:41.898Z","action":"click All Lists","requirements":["C47"],"point":[353,278],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:46.767Z","action":"click Capture Project","requirements":["C47"],"point":[369,361],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:56:55.135Z","action":"click Capture Project","requirements":["C47"],"point":[361,278],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:57:19.769Z","action":"Open Sessions filter through focused Space","requirements":["C47"]}
+{"utc":"2026-10-20T17:57:26.283Z","action":"click Reading & research","requirements":["C47"],"point":[369,403],"hwnd":787786,"capturePid":19036}
+{"utc":"2026-10-20T17:57:43.749Z","action":"click Sep 20, 2026 – Oct 20, 2026","requirements":["C52"],"point":[834,278],"hwnd":787786,"capturePid":20572}
+{"utc":"2026-10-20T17:57:50.798Z","action":"Sessions left Previous year","requirements":["C52"]}
+{"utc":"2026-10-20T17:58:11.895Z","action":"Sessions left Next year","requirements":["C52"]}
+{"utc":"2026-10-20T17:58:35.097Z","action":"Sessions left Previous month","requirements":["C52"]}
+{"utc":"2026-10-20T17:58:50.292Z","action":"Sessions left Next month","requirements":["C52"]}
+{"utc":"2026-10-20T17:58:59.470Z","action":"click Cancel","requirements":["C52"],"point":[583,602],"hwnd":787786,"capturePid":20572}
+{"utc":"2026-10-20T17:59:12.354Z","action":"click Compact view","requirements":["C45"],"point":[311,32],"hwnd":1704410,"capturePid":20572}
+{"utc":"2026-10-20T17:59:22.918Z","action":"click Sessions BETA","requirements":["C45"],"point":[433,220],"hwnd":787786,"capturePid":20572}
+{"utc":"2026-10-20T17:59:23.944Z","action":"Real five-minute timed-alert interval elapsed while compact Timer visible","requirements":["C45"]}
+{"utc":"2026-10-20T18:00:42.143Z","action":"click Expand Floating Timer","requirements":["C46"],"point":[311,75],"hwnd":1704410,"capturePid":20572}
+{"utc":"2026-10-20T18:00:48.426Z","action":"click Complete task","requirements":["C46"],"point":[254,59],"hwnd":1704410,"capturePid":38488}
+{"utc":"2026-10-20T18:00:56.131Z","action":"Success completion during loopback callback capture","requirements":["C46"]}
+{"utc":"2026-10-20T18:01:08.955Z","action":"click Close","requirements":["C31"],"point":[182,278],"hwnd":1704410,"capturePid":38488}
+{"utc":"2026-10-20T18:01:22.838Z","action":"click Compact view","requirements":["C31"],"point":[311,32],"hwnd":1704410,"capturePid":38488}
+{"utc":"2026-10-20T18:01:24.064Z","action":"Before owned-process restart; no actual placement drag established","requirements":["C31"]}
+{"utc":"2026-10-20T18:01:42.313Z","action":"Reopen Focus presentation after same-profile same-EXE restart","requirements":["C31"]}
+{"utc":"2026-10-20T18:02:16.936Z","action":"Freeze final-gap acquisition; no further scenario input","requirements":[]}

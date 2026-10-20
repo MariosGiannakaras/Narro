@@ -1,3 +1,15 @@
+# HANDOFF — capture-only freeze COMPLETE; announce analysis before starting
+
+Owner Codex; branch `main`; phase **FROZEN**; last observed UTC `2026-10-20T18:04:40.904513+00:00`. Executable source9e631952158c5c6b9763e0e0d79e33b79e8c7ca3, mainCI39389033088/artifact12249543153, EXESHA256bced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909. No Narro source/config/test changes, builds or CI. Latest authorization resumed general work; current phase remained capture-only, with notification requested before analysis/effort change.
+
+**NOW:** inventory57/57; material55/57 including partial/attempt-only lines, not55acceptedgates. [Matrix](docs/CAPTURE_57_ACQUISITION_2026-10-20.md). [First packet](work-log/evidence/capture57-20261020/README.md), [resume10originals](work-log/evidence/capture57-resume-20261020/README.md) published0624c071, [final-gap4originals](work-log/evidence/capture57-final-gaps-20261020/README.md). New event300s at17:59:13.206Z in segment003~90s; all four ReportsPDF ranges/multi-filter/calendar controls acquired. C31same-profile restart partial: Main returns, shortcut no Focus in emptyqueue; no actual saved-moved-position/topology/trayQuitPASS. C33bottomedge NOTEXERCISED; C37reconciliation deferred. Audio raw callbacks include Success but WAV89.748s vs30.125wall mismatch, no audioPASS. No substantive film/source analysis begun. All acceptance counters unchanged, mandatory4/10/M10gate, dormantM11/M12 and approvedpicker/upload/218icons preserved.
+
+**SAFE STATE:** final root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-FinalGaps-20261020`; all three campaign ledgers ORIGINAL_PROFILES_RESTORED, originalDBhash13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d identical, OS motion0/false restored. No owned Narro/ffmpeg/audio helper active; OBS left untouched. Never replay completed ledgers or stale HWND/PID. Dirty original checkout/untracked icons preserved.
+
+**ONE NEXT OPERATION:** announce consolidated analysis/effort-change boundary, then on authorized analysis reconcile the three frozen packets against canonical Pass3/accepted existing receipts/current source per requirement; do not repeat already acquired material or assert uncovered states PASS. Targeted native gaps remain OPEN and may need reliable movement/audio capability or user action. Do not start source corrections before evidence-backed findings/plan; no optionalM11/M12.
+
+## HISTORICAL checkpoints (superseded)
+
 # HANDOFF — capture continuation FROZEN / originals published
 
 Owner Codex; branch `main`; phase **FROZEN**; last observed UTC `2026-10-20T17:47:42.761824+00:00`. Source `9e631952158c5c6b9763e0e0d79e33b79e8c7ca3`, resulting-main CI39389033088/artifact12249543153, EXE SHA256`bced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909`. No source/test/build/CI changes. Latest user reauthorized continuation after stop; scope remains capture-only until phase change is requested.
