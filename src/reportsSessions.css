@@ -544,3 +544,16 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* SS-H17 Add Session floats beside its activating control. Keep one semantic
+   modal/focus trap while avoiding an unrelated full-screen centered card.
+   Other Sessions detail dialogs retain their existing modal treatment. */
+.reports-sessions__backdrop[data-report-add-session="true"] {
+  background: transparent;
+}
+
+.reports-sessions__backdrop[data-report-add-session="true"]
+  .reports-sessions__add-dialog[data-report-add-anchored="true"] {
+  position: absolute;
+  max-height: calc(100dvh - 2 * var(--space-4));
+}
