@@ -1,6 +1,6 @@
 # 57-line corpus analysis evidence — partial checkpoint
 
-Analysis report: [current18/57 scoped dispositions](../../../docs/CAPTURE_57_ANALYSIS_2026-10-20.md). Not complete review of26films or18PASS. No source edits/new physical run/build/CI. Existing RA01/RA02 accepted corrections unchanged.
+Analysis report: [current36/57 scoped dispositions](../../../docs/CAPTURE_57_ANALYSIS_2026-10-20.md). Not complete review of26films or36PASS. No source edits/new physical run/build/CI. Existing RA01/RA02 accepted corrections unchanged.
 
 `verified-originals.json` byte-verifies all26 original video files against the three frozen capture packets. This is integrity, not visual review. `action-recording-coverage.json` maps147 journal entries in the two new packets to approximate clip intervals, finding three entries outside video. Its2s anchor uncertainty is explicit; no calibrated input-to-paint latency is claimed.
 
@@ -14,3 +14,5 @@ Interval methods:
 Review progress and remaining work live in HANDOFF/report. Native normal/reduced/source-motion derivatives currently local are not yet accepted/reviewed merely because extraction occurred. No fabricated full57 completion.
 
 M7 update: `m7-transitions/` holds eight all-frame interval indexes (1,099 decoded native frames), orientation-only geometry grids, raw decisive stale-Panel crops/provenance and directly reopened VE003 full-desktop orientation sheets. Current normal/reduced stale pixels are visual FAIL; these derivatives are not an absence proof for unreviewed frames/substates. No original modified.
+
+Second batch: first-focus/board orientation are explicitly sampled; automatic-pomo-boundary and volume-keyboard-commit-boundary decode every frame in their indexed intervals. All consecutive pixel-distinct contacts reviewed; raw POMO Panel and volume before/pending/settled proofs included. Source image hashes are in reopened-source-images.json; originals stay at canonical repository paths. 36/57 scopes dispositioned, not complete film/motion acceptance.

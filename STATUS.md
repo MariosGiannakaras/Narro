@@ -1,5 +1,8 @@
 # STATUS.md
 
+**Analysis checkpoint 2026-10-20T18:44:55.089596+00:00: 36/57 scopes dispositioned**,21remain; not36PASS. Added M5/Preferences/POMO/sharedM7 review. Confirmed C44keyboard volume-save closes popover/loses focus **READY_FOR_FIX**, separate from C27/C28stalePanel FAIL and C51Done chronology. C38shortcut density/C39info inventory and other appearance differences/source limits explicit. Image upload asset observed in chooser/Home; picker/icons userattestation preserved. [Report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). No source changes/new native run/tests/build/CI/milestone closure.
+
+
 **Analysis checkpoint 2026-10-20T18:34:26.058354+00:00:** **18/57 scopes dispositioned**,39remain, not18PASS. Added C26–C28/C31/C33/C37. Current exact-build normal/reduced Timer transitions have confirmed stale Panel pixels; C27/C28 **FAIL / NEEDS_REGRESSION_FIRST**, joint raster/region/freshness boundary traced, alternative/regression plan documented. C51 chronology READY_FOR_FIX remains separate; C31 placement EVIDENCE_LIMIT/C33 NOTRUN. [Report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). No source edits/new capture/tests/build/CI or milestone closure.
 
 

@@ -1,5 +1,8 @@
 # Audit → implementation crosswalk
 
+**Current analysis36/57:** C44keyboard volume adjustment closes its own popover on pending save and loses range focus, **READY_FOR_FIX** in shared SoundPreferenceControl; actual278frame interval +freshUIA/code corroborate. FollowingEscape closes parent only after child already gone. C39info-glyph inventory confirmed visual discrepancy; C38shortcuts density/other source appearance gaps distinguished from function. C27/C28stalePanel and C51chronology findings remain. [Causal plans and individual scopes](CAPTURE_57_ANALYSIS_2026-10-20.md). No code patch/whole-milestone PASS.
+
+
 **Current 57-line analysis18/57:** C27/C28 exact-build stale Panel pixels in Timer normal/reduced Expand/Collapse **FAIL / NEEDS_REGRESSION_FIRST**. Shared paint/raster/region freshness boundary traced; no unproven single-cause patch. C26 source finite geometry preserved; C31/C33 unexercised placement remains OPEN, C37 blocked. C51 chronology remains READY_FOR_FIX. [Evidence and regression/alternative plan](CAPTURE_57_ANALYSIS_2026-10-20.md). Prior build PASS history is unchanged.
 
 

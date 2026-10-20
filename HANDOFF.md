@@ -1,3 +1,13 @@
+# HANDOFF — frozen-corpus analysis36/57 IN PROGRESS
+
+Owner Codex; main; phase ANALYZING; last observed UTC `2026-10-20T18:44:55.089596+00:00`. [Report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). Exact source9e631952/EXEbced8a9f/mainCI39389033088/artifact12249543153 unchanged. No physical session/source edits/tests/build/CI. Profiles restored; original dirty checkout/unrelated icons preserved. Original26streams integrity verified, not full26film acceptance.
+
+NOW: **36/57 scoped dispositions**,21remain, not36PASS. Reviewed C01–06/C09/C14–15/C26–28/C31/C33/C35/C37–57. Confirmed fixes to plan only: C44shared volume keyboard pending-save closes child/loses focus; C27/C28stalePanel native pixels; C51Done chronology. C39decorativeinfo inventory/sourceShortcutdensity presentation discrepancies explicit; no arbitrary redesign. Imageupload four-color icon actually observed Home, not an openedBoard despiteA05filename; picker/icons USER_ATTESTED_PASS. POMO300s→Break/badge/25→30header scopedNO_FIX. M5Done footage scrolls sharedMain, not independentDone; do not import Reportsinternal-scroll contract intoBoard. Audio remains uncertain. No checkbox/milestone advanced;4/10/M10gate/dormantM11–M12 unchanged.
+
+ONE NEXT OPERATION: finish remaining21 Focus/Timer scopes C07–08/C10–13/C16–25/C29–30/C32/C34/C36, starting the already-derived first-focus-orientation source-indexed frames, then actual Success/audio/shortcut/idle intervals. Local analysis root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Analysis-20261020`. Persist per-requirement limits; no new recording/source correction in this analysis phase. FirstmanualCjournal start31s after file-created anchor; use actual visible states. Valid POMO boundary inside resume009~161s even though later observation timestamp falls in a gap. Original invalid Notes fixture is plain text with editor_format_version1, so NOTE_FORMAT error is setup contamination; later clean-note path is independent.
+
+## HISTORICAL preceding checkpoint
+
 # HANDOFF — frozen-corpus analysis18/57 IN PROGRESS
 
 Owner Codex; main; phase ANALYZING; last observed UTC `2026-10-20T18:34:26.058354+00:00`. [Scoped report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). Capture source9e631952 / EXEbced8a9f / mainCI39389033088 / artifact12249543153 unchanged. All26original streams hashverified, not all reviewed. No owned physical capture/app/profile, source edits/tests/build/CI. Unrelated icons and dirty originalcheckout preserved.
