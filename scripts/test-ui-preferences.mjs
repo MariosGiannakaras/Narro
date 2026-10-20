@@ -153,6 +153,9 @@ for (const [title, expected] of [
   invariant(rowHasDecorativeInfo(title) === expected,
     "SS-C07 decorative info glyph inventory mismatch: " + title);
 }
+invariant(themePanel.includes("preferences.save(patch, key);")
+    && !themePanel.includes("void preferences.save(patch, key);"),
+  "C44 must propagate the native success/failure Promise through ThemeSettingsPanel to the focused SoundPreferenceControl");
 invariant(sections.includes("export function TimePreferenceRows(")
     && sections.includes('onSave({ timezone }, "timezone")')
     && sections.includes('infoGlyph title="Timezone"'),
