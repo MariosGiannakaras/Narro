@@ -1,0 +1,66 @@
+{
+  "source": "0ad2fdcfa47b68f51244c680cf755c8b63406402",
+  "matrix": "4/4 PASS, production minified Vite preview, full M7 integration corpus",
+  "variants": [
+    {
+      "file": "production-final-dark-false.html.diagnostics.json",
+      "theme": "dark",
+      "reducedMotion": false,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "file": "production-final-dark-true.html.diagnostics.json",
+      "theme": "dark",
+      "reducedMotion": true,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "file": "production-final-light-false.html.diagnostics.json",
+      "theme": "light",
+      "reducedMotion": false,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    },
+    {
+      "file": "production-final-light-true.html.diagnostics.json",
+      "theme": "light",
+      "reducedMotion": true,
+      "receipts": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true,
+        "nativeHandoffSuccessBoardAtomic": true,
+        "nativeHandoffSuccessReadRecovery": true
+      }
+    }
+  ]
+}
