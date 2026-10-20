@@ -1,0 +1,3 @@
+# PR387 native corpus FROZEN / analysis pending
+
+All3ONcorecases captured in2finite originalROI clips; no case repeated. First120s cap ended at stable second-success screen, subsequent clip covers explicitNext/finalDone/rest. Originalbytes preserved; original-video-hashes.json. Profiles hash-identically restored, originalOSmotion restored, no owned app/recorder running. Ledger/backups/personal data excluded. UIA/screenshots/filteredsyntheticDB/actionlogs included. No nativePASS before frame review. ExactgreenPRartifact/sourcecdd88335 equivalentmergedmain9e631952; mainCI39389033088 independentRUNNING.

@@ -1,0 +1,28 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "source": "cdd88335c920f423630f322e7ba0c25dbba7f3c0",
+  "CI": 39386125624,
+  "artifact": 12248223263,
+  "artifactSHA256": "a330ba6697872a41e61bcbc3c8ae3d257dad39c15955623be3371f7dc20af4cd",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR387-Native-20261020\\candidate\\narro.exe",
+  "sha256": "ef9cdb9f2d9d62ce14d3b4a8b295403fef420b82ab0aaab133725b5eca8778e4",
+  "files": [
+    {
+      "path": "narro.exe",
+      "bytes": 16201728,
+      "sha256": "ef9cdb9f2d9d62ce14d3b4a8b295403fef420b82ab0aaab133725b5eca8778e4"
+    },
+    {
+      "path": "bundle\\msi\\Narro_0.1.0_x64_en-US.msi",
+      "bytes": 5922816,
+      "sha256": "c033e877634cf78a364ea78363d3677d61a0489d90f7d84bb40fb7b8c498d7bd"
+    },
+    {
+      "path": "bundle\\nsis\\Narro_0.1.0_x64-setup.exe",
+      "bytes": 4199659,
+      "sha256": "41498a348af903aab16e584ec4c5dea50319421da3251e1b87e16c1348562811"
+    }
+  ],
+  "CIStatus": "3/3 SUCCESS",
+  "equivalentMain": "9e631952158c5c6b9763e0e0d79e33b79e8c7ca3"
+}

@@ -1,0 +1,17 @@
+{
+  "OS": {
+    "Caption": "Microsoft Windows 10 Pro",
+    "Version": "10.0.19045",
+    "BuildNumber": "19045"
+  },
+  "Video": [
+    {
+      "Name": "Radeon RX 570 Series",
+      "CurrentHorizontalResolution": 2560,
+      "CurrentVerticalResolution": 1080,
+      "CurrentRefreshRate": 144
+    }
+  ],
+  "utc": "2026-10-20T07:40:07.899742+00:00",
+  "captureMethod": "DXGI DesktopDuplication/dup_frames0/passthrough; native Sky input + read-only UIA/GDI snapshots"
+}
