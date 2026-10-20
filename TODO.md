@@ -1,5 +1,7 @@
 # TODO.md
 
+**2026-10-21 PR388 independent review:** changed-scope acquisition/review **7/7**, six narrow PR-EXE checks PASS and C38 native overflow FAIL. Correction uploaded to existing unPR'd staging **5a86d342**; full frontend preflight exit0/104 script invocations, exact1000x700 dark/light real-browser geometry PASS, small/conflict scroll PASS. Original PR3882d99bec3/exactCI39502657787 remain3/3SUCCESS, OPEN/unmerged; no new CI. Corrected native acceptance NOT RUN; Timer C26–28/C35/affectedC19 FAIL/OPEN, no Timer patch. Actual CDP/native WebView recording163.100s/full PNGs/logs published; WGC/OS input unavailable, crop limitation explicit; profiles restored/hash identical, no owned capture active. Mandatory4/10/M10gate unchanged. [Report](docs/PR388_REVIEW_2026-10-21.md), HANDOFF current; prior paragraphs are historical checkpoints.
+
 **Codex resumption 2026-10-20T22:58:41.847800+00:00:** actualPR388head2d99bec3/exactCI39502657787 **3/3SUCCESS**, OPEN/unmerged. Seven scoped corrections now under local/source/native review; stagedTimer test is RED/no runtimefix. Existing captures finished/restored; no repeat acquisition. Local correction review continues on existing staging branch; later no-new-CI restriction clarification pending. Acceptance4/10/M10gate unchanged. See HANDOFF.
 
 
