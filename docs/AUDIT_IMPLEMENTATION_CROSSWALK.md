@@ -1,5 +1,8 @@
 # Audit → implementation crosswalk
 
+**Current frozen analysis57/57 scoped dispositions:** [authoritative report/correction dependencies](CAPTURE_57_ANALYSIS_2026-10-20.md) / [per-C-ID matrix](../work-log/evidence/capture57-analysis-20261020/scope-dispositions.json). Three confirmed behavior causes (Timer stalePanel, volume keyboard focus/popover, Reports Done chronology); C39source-info inventory and C38density/source presentation separate. Current WAV clock warning withdrawn after exact header/callback/PCM verification;89.748s belongs to video, no original file edited. No code changes or unconfirmed milestone/source-parity PASS.
+
+
 **Current analysis36/57:** C44keyboard volume adjustment closes its own popover on pending save and loses range focus, **READY_FOR_FIX** in shared SoundPreferenceControl; actual278frame interval +freshUIA/code corroborate. FollowingEscape closes parent only after child already gone. C39info-glyph inventory confirmed visual discrepancy; C38shortcuts density/other source appearance gaps distinguished from function. C27/C28stalePanel and C51chronology findings remain. [Causal plans and individual scopes](CAPTURE_57_ANALYSIS_2026-10-20.md). No code patch/whole-milestone PASS.
 
 

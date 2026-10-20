@@ -3,13 +3,23 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 2766,
-      "sha256": "144d453293a1eb1a17c56dd20d7f3f29d091dd0a08e52b4ee1a4154c00c48db7"
+      "bytes": 3379,
+      "sha256": "a307ae4d94a114a33a738f30d3c9aab5909153b0533723ec8a88ca24799a1006"
     },
     {
       "path": "action-recording-coverage.json",
       "bytes": 83319,
       "sha256": "1f0aa1acf6519fae62bfa23f9e1da47b69886b5dbc37199a79cc29fcbef95f7a"
+    },
+    {
+      "path": "audio-reconciliation/audio-analysis.json",
+      "bytes": 2006,
+      "sha256": "a7a53171bf62c8ed67b878e55657510e44ca22e22dce670794beaefe7ebb3852"
+    },
+    {
+      "path": "audio-reconciliation/output-envelope.png",
+      "bytes": 13183,
+      "sha256": "8c22625130c95154681e43228cc05c8fec1a659e06b4702effb0d70329e941da"
     },
     {
       "path": "automatic-pomo-boundary/index.json",
@@ -60,6 +70,16 @@
       "path": "figures/reports-source-contact.jpg",
       "bytes": 248407,
       "sha256": "72af0761bb9fa7b0512914c6b14c3f3d260551d0fa9e7756eba043a971cedf1a"
+    },
+    {
+      "path": "final-success-orientation/index.json",
+      "bytes": 1798,
+      "sha256": "f53e0239711a2556617022083f7ab7f76d6f373caf6897a627f0dc4351ec4f71"
+    },
+    {
+      "path": "final-success-orientation/sheet-000.jpg",
+      "bytes": 72048,
+      "sha256": "7746e71fb719851c4fea18fd1f08bc9dc740c9671ee1a0a1e492e786e55ad306"
     },
     {
       "path": "first-board-scroll/index.json",
@@ -195,6 +215,21 @@
       "path": "intervals/timed-flash-allframes/sheet-006.jpg",
       "bytes": 29909,
       "sha256": "0bf542c630d85151c2e62c98d47880a10612082be0bd762142e967ef491d71ba"
+    },
+    {
+      "path": "locate-over-notepad/index.json",
+      "bytes": 135337,
+      "sha256": "2ea77ff40edae3674582bdb91ce2aef82233878e7f42c5156480ce1e492ebf89"
+    },
+    {
+      "path": "locate-over-notepad/sheet-000.jpg",
+      "bytes": 270858,
+      "sha256": "724e29ccedd6275ca0bafde70ca186701dbb1e34df3758a8be2393d0e771a649"
+    },
+    {
+      "path": "locate-over-notepad/sheet-001.jpg",
+      "bytes": 142167,
+      "sha256": "a9f5df99ecf388e7c0918a0636a125e1c548b6012e3182ecccbaffe4e71e2c1b"
     },
     {
       "path": "m7-transitions/normal-collapse-00037.png",
@@ -415,6 +450,11 @@
       "path": "reopened-source-images.json",
       "bytes": 3770,
       "sha256": "57279f0dd02dc00ecaf760694ea220b281afc3d6cbe806f591615fd2585c7b22"
+    },
+    {
+      "path": "scope-dispositions.json",
+      "bytes": 35882,
+      "sha256": "5f7f395501dbe70a440691b87ede88325e1be648b2318fad86a7820873305033"
     },
     {
       "path": "verified-originals.json",
