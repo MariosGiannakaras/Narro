@@ -221,7 +221,7 @@ Acceptance criteria:
 
 ## Milestone 5 — Design system and Main window product UI
 
-- [ ] **RA01-A / final-build native FAIL:** PR381 removed observed old-lane bounce, but f211 and f1005–1006 show preview-to-real-row gaps. Regression-first actual React/CSS commit ownership, then narrow correction and targeted native retest including genuinely changed reduced-setting reorder. [Exact proof/plan](docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md#ra01-a--onetwo-frame-gap-between-pending-preview-and-destination-card). No data-loss/duplicate claim.
+- [x] **RA01-A / scoped native CLOSED4/4:** exactPR386 EXE7f10f66a normal/reduced cross-lane plus genuinely changed reorder; consecutive preview→row boundary frames continuous, persisted9IDs/ordercorrect. Old87132d9a gap evidence remains historical. [Exact review and cadence bounds](docs/PR386_NATIVE_RETEST_2026-10-20.md). No wholeM5/source-parity closure.
 
 Implement the screenshot hierarchy rather than an invented generic task manager.
 
@@ -338,7 +338,7 @@ Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe
 
 ## Milestone 6 — Blitz Mode / Focus Panel
 
-- [ ] **RA02-A/B / final-build native FAIL:** PR382 still exposes generic idle/stale completed queue before parent intent (OFF f2633–2635, ON f5466–5467); rest status expiry exposes obsolete now-live at f6322. Regression-first independent event-before-reply parent ownership and status invalidation; preserve committed failure/success/untimed-rest/sound contracts. [Exact proof/plan](docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md).
+- [ ] **RA02-A / residual first-success native acceptance:** PR386 OFFnext/last and ONlast scopedPASS; old genericidle/stalecompleted row corrected. ONfirst/ONnext omit legitimate nextrow13–14ms. PR387 exactheadcdd88335/CI39386125624 running, firstsuccess regressionRED→GREEN+production4/4PASS. Narrow newcandidate ONfirst/next/last batch0/3NOTRUN. **RA02-B obsolete-now-live after untimedrest CLOSED/scopedPASS**, no phantomBreak. [Native proof](docs/PR386_NATIVE_RETEST_2026-10-20.md).
 
 - [x] Start Blitz from eligible Today tasks.
 - [x] Auto-select top eligible Today task.

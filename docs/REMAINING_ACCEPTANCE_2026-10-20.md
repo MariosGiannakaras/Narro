@@ -1,0 +1,16 @@
+# Remaining mandatory acceptance snapshot — 2026-10-20
+
+Current truth remains TODO/HANDOFF, not this snapshot. **4/10 mandatory milestones formally accepted (M1–M4).** The current narrow correction is PR387 SuccessON first-commit queue visibility; its exact CI and corrected native batch are separate pending gates. RA01 native4/4 is closed and its actual TODO checkbox reconciled; no repetition of unaffected Board/OFF/rest checks.
+
+| Milestone | Remaining acceptance groups, not assumed missing code |
+|---|---|
+| M5 |6 open checkbox lines: Home preview static source acceptance; approved Create/Edit List rendered acceptance; scheduled subgroup/header comparison; Done date/count grouping comparison; recurring parent menu source states; archived list composition. Existing implementation/accepted native scopes must be reused. SpectrumCore/imageupload/218icons locked.|
+| M6 |14 open lines at this checkpoint: current RA02-A residual+13 existing gates covering list selector, hover actions, Pomodoro badge, Break rows/identity/header estimate, success inline/media/numeric feedback, overdue/time-up/age, integrated Focus reconciliation. PR387's affected native batch is3cases, not14 new recordings.|
+| M7 |18 open checkbox lines including overlapping implementation/validation wrappers: compact/expanded composition/actions/subtasks, hit-targets, same-host transitions, shortcuts, position/topology/restart, topmost/bottom-edge/idlework, remaining observation/source comparison and reconciliation. They do not mean18 absent features or18 mandatory new videos. Reuse current CI/native corpus and reopen only invalidated claims.|
+| M8 |9 existing source/rendered/audio acceptance lines: shortcuts dialog, info glyphs, flat Preferences composition, monitor/timezone selection, parent-child disclosure, sound popover, timer flash and success sound. Already integrated code is not to be implemented again.|
+| M9 |11 source/rendered acceptance lines: report filter badges, full calendar/date-range charts, hover band, chart menu, Done rows/date navigation, TotalTasks inferred semantics, Break icon, AddSession selector/badges and detail lifecycle. Existing accepted PDF/native/correctness evidence retained.|
+| M10 |16 open release/integration/checklist lines; **entry remains blocked until M1–M9 requirements clear**. These cannot advance from reused pre-entry evidence alone.|
+
+These are literal open TODO checkbox-line counts, **not a percentage of product implementation, distinct defect counts, estimated recordings, or an estimate of remaining time**. M1's one optional/deferred standalone harness checkbox is explicitly nonblocking and does not reopen accepted M1. The final comprehensive review remains separate after M10; optional M11 liveBlitzit/M12 have not been activated. No wholesale19-video/46-image Pass3 re-analysis, physicalPA01–08 replay, hardwareHDMI request or new optional campaign is implied.
+
+Efficient continuation after current PR387 acceptance: reconcile each open line against already published current-source/native/source-comparison receipts; close only adequately evidenced claims. Batch only genuinely missing comparable states by surface. Fix only confirmed discrepancies; retain explicit evidence limits and documented Narro decisions. Do not mistake Narro-only fixture success for source-parity acceptance.
