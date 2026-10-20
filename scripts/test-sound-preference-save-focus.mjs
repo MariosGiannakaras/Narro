@@ -118,7 +118,10 @@ range(tree).props.onKeyUp({ key: "ArrowUp" });
 assert.equal(commits, 1, "Pending save must not send overlapping persistence writes");
 releaseCommit(true);
 await pendingCommit;
-await Promise.resolve();
+// The returned native Promise settles before the component's awaiting
+// commitVolume() finally clears its in-flight ref. Yield one event-loop turn;
+// never force the next write through a still-owned synchronous guard.
+await new Promise((resolve) => setImmediate(resolve));
 tree = render({ saving: false });
 assert.ok(popover(tree), "Successful save must preserve popover until explicit dismissal");
 refs[1].current = { focus() { this.focused = true; } };
@@ -130,27 +133,32 @@ assert.equal(popover(tree), null, "Escape must dismiss the child popover");
 assert.ok(refs[1].current.focused, "Escape must restore focus to the speaker trigger");
 // Rejecting a native save must restore the last committed volume without
 // accidentally closing the still-open child dialog or admitting an extra write.
-props.onVolumeCommit = async () => false;
+let rejectedCalls = 0;
+props.onVolumeCommit = async () => { rejectedCalls++; return false; };
 trigger(render()).props.onClick();
 tree = render();
 range(tree).props.onChange({ target: { value: "75" } });
 tree = render();
 range(tree).props.onKeyUp({ key: "End" });
-await Promise.resolve();
-await Promise.resolve();
+await new Promise((resolve) => setImmediate(resolve));
 tree = render();
+assert.equal(rejectedCalls, 1, "One rejected native save must have actually run");
 assert.ok(popover(tree), "A failed native save must retain the volume surface");
 assert.equal(range(tree).props.value, 50, "Rejected save must restore the committed value");
 
 // A thrown/typed native error follows the other error path, preserving the
 // original input value and presenting localized control feedback.
-props.onVolumeCommit = async () => { throw Error("native backend refused save"); };
+let thrownCalls = 0;
+props.onVolumeCommit = async () => {
+  thrownCalls++;
+  throw Error("native backend refused save");
+};
 range(tree).props.onChange({ target: { value: "90" } });
 tree = render();
 range(tree).props.onKeyUp({ key: "Home" });
-await Promise.resolve();
-await Promise.resolve();
+await new Promise((resolve) => setImmediate(resolve));
 tree = render();
+assert.equal(thrownCalls, 1, "One throwing native save must have actually run");
 assert.equal(range(tree).props.value, 50, "Thrown save must roll back the draft");
 assert.ok(find(tree, n => n.props.role === "status"),
   "Thrown save must show visible error feedback");
