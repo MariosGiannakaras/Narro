@@ -108,9 +108,11 @@ export function ThemeSettingsPanelView({
 function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () => void }) {
   const { theme, pending, error: themeError, saveTheme } = useThemeRuntime();
   const preferences = usePreferenceSettingsRuntime();
-  const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) => {
-    void preferences.save(patch, key);
-  };
+  // Preserve the native save outcome for SoundPreferenceControl's rollback
+  // and single-flight lifecycle. Void-discarding this Promise made rejected
+  // writes indistinguishable from a successfully committed volume.
+  const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) =>
+    preferences.save(patch, key);
 
   const beforeGeneral = preferences.snapshot ? (
     <>
