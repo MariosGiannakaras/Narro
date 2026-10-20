@@ -1,8 +1,8 @@
 [
   {
     "path": "README.md",
-    "bytes": 429,
-    "sha256": "a7f45685db4dabdf899602264557e4cb34fd0de80860a6852d1a79084ba174db"
+    "bytes": 765,
+    "sha256": "5df5320c9b7ae9ddb54bca93afab8b5f122d79ab8370543e38ec5c8550625240"
   },
   {
     "path": "frontend-preflight-lf.txt",
@@ -35,6 +35,31 @@
     "sha256": "c69c6f4ada571d42cb8fc3369c3ea9d739dc26dc769d69769cbe3674039b8855"
   },
   {
+    "path": "live-pr387-main-ci.json",
+    "bytes": 13176,
+    "sha256": "aeb67a5de63c8e66dcaad680bbd17418f232cd102fdef5a9b23a61c00a522bd2"
+  },
+  {
+    "path": "main-windows-focus-editor-m7-integration-dark-reduced.html",
+    "bytes": 24416,
+    "sha256": "1e93577c36f3ec467691c2b5a833f81285870033a969128286f68c670ee6eeec"
+  },
+  {
+    "path": "main-windows-focus-editor-m7-integration-dark.html",
+    "bytes": 24417,
+    "sha256": "eac2a0e6c6b6f3afb926a17c75f1ab3241f8870018dc1c57e359d91c9b1cf965"
+  },
+  {
+    "path": "main-windows-focus-editor-m7-integration-light-reduced.html",
+    "bytes": 24418,
+    "sha256": "92ec3eb29185e5acb540f937b693270a00caae68113bed96e5fecfd3b162b940"
+  },
+  {
+    "path": "main-windows-focus-editor-m7-integration-light.html",
+    "bytes": 24419,
+    "sha256": "cb3701f82d7e690613decd821cffdee739ac1a831b691857e76d857220970eaf"
+  },
+  {
     "path": "merge-equivalence-proof.json",
     "bytes": 893,
     "sha256": "af1ceb5ae503201309e7861891c19c5b940b25e3faca9931f363dc3d8379e2be"
@@ -53,6 +78,16 @@
     "path": "pr386-main-package-proof.json",
     "bytes": 395,
     "sha256": "bf662985c857033a9b4da6dbc18c79b29e5e5a5397eb653e798641cf8c5449b0"
+  },
+  {
+    "path": "pr387-main-package-proof.json",
+    "bytes": 888,
+    "sha256": "4ddcf964b71deb992112b5e4c9d2717549984e12e02c6eb238ea12c90d9a2e1a"
+  },
+  {
+    "path": "pr387-main-visual-proof.json",
+    "bytes": 2181,
+    "sha256": "1dc6417adaaac547b49030d617fd9d630770098312c7a3567c810f0a73ee4969"
   },
   {
     "path": "pr387-windows-visual-proof.json",

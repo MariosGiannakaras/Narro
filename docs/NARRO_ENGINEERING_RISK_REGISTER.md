@@ -241,3 +241,6 @@ NER-014 PA360-XW-SUBTASKS is now physically accepted3/3 onPR362560efeb0/CI388941
 
 
 **2026-10-20 NER-009/014 first-success publication guard:** PR386 native films confirm fresh board+success can still omit the legitimate next row when an obsolete completion-intent ref survives that first commit. Later refresh/polled assertions hide this13–14ms state; no persistence corruption. Retire transient workflow intent inside the same guarded publication and assert the first observable success DOM mutation with independently held read, exact remaining IDs/count/Done plus unavailable-read fail-closed behavior. First-commit RED and production4/4GREEN precede CI; native remainsOPEN. [Evidence](../work-log/2026-10-20-focus-first-success-local-validation.md).
+
+
+**PR387 later native guard validation:** first/next/last SuccessON3/3PASS on exactEXEef9cdb9f after guardedmerge9e631952; firstobservable summary+remaining+Done consistent, no newread/IPC/style/nativewindowchange. This validates the scoped NER009/014 firstcommit guard, not all unrelated state/sourceparity gates. [Exact frame proof](PR387_NATIVE_ACCEPTANCE_2026-10-20.md).

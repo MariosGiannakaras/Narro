@@ -1,6 +1,8 @@
-# RA01 + RA02 — final-build Windows acceptance (ANALYZED / SCOPED FAIL)
+# RA01 + RA02 — scoped corrective acceptance COMPLETE
 
-**2026-10-19 final analysis DONE2/2:** [Per-case frame/PTS verdicts and correction handoff](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). Three confirmed corrective scopes; ten cases4scopedPASS/5FAIL/1UNCERTAIN. Original corpus remains frozen. Earlier REVIEW_PENDING/NOT RUN and effort-stop statements below are historical, not current continuation. No fixes or new capture in this analysis.
+**Current closure2026-10-20:** RA01-A/RA02-A/B corrective native scopes CLOSED. [Final PR387 report](PR387_NATIVE_ACCEPTANCE_2026-10-20.md) ONfirst/next/last3/3PASS, reused unaffected[PR386 Board4/4/OFF2/2](PR386_NATIVE_RETEST_2026-10-20.md), rest/persistencePASS. ExactPR/mainCI3/3, equivalentinputproof and actualmainpackage accepted. Old2-film analysis/failedbuild checkpoints below are historical, not a request to repeat. WholeM5/M6/sourceparity and M10entry remain separate.
+
+**HISTORICAL 2026-10-19 final analysis DONE2/2:** [Per-case frame/PTS verdicts and correction handoff](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md). Three confirmed corrective scopes; ten cases4scopedPASS/5FAIL/1UNCERTAIN. Original corpus remains frozen. Earlier REVIEW_PENDING/NOT RUN and effort-stop statements below are historical, not current continuation. No fixes or new capture in this analysis.
 
 ## Historical acquisition/preflight checkpoints — superseded status, immutable protocol below
 
