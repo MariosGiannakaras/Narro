@@ -1,0 +1,5 @@
+# PR386 exact-green native capture — RA01 frozen, review pending
+
+RA01 actual4/4moves captured on exactgreen/head0ad2fdcf, equivalentmain476d95ea, EXE7f10f66a...87fd82. Video is ORIGINAL bounded DXGI240ceiling/dup0/VFR ROI[360,320,480,486], not a resized/retimed desktop extract. ActualPointerSendInput via ComputerUse directXY works with separately observed ownedGDI geometry, while UIAelement-index clicks/WGC fail. First normalreorderSecond→beforeAnchor, then normalAlpha crosslane→beforeSecond; OSreducedBeta→beforeAlpha, actualreducedAlpha rank1→0beforeBeta. No newEscapegesture; unchanged earliercancel evidence retained. Capturecompleted is NOTPASS. Encoder emitted non-strictly-monotonicPTS warnings; inspect actualcriticalframes/PTS beforeverdict, do not silently smooth/interpolate. LaterRA02 plannedsourceenc_time_base=-1 preserves source precision.
+
+Ownedprofile stillACTIVE at this checkpoint; originalbackup protected, notyetrestored. No privateDB/ledger/retainedAppData included. OnlysyntheticDB subsets. RA02notyetrecorded. Handoff has exactsafecontinuation; never rerunseed/isolation onactiveledger.

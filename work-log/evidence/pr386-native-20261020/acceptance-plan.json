@@ -1,0 +1,21 @@
+{
+  "state": "WAIT_GREEN_CI_NO_PROFILE_CHANGE",
+  "source": "0ad2fdcfa47b68f51244c680cf755c8b63406402",
+  "CI": 39363026526,
+  "RA01": "one explicit XY click fallback using fresh owned GDI observation; if supported, four normal/reduced drag/reorder cases; otherwise NOTRUN and keyboard RA02 only",
+  "RA02": "native SuccessON next/final then SuccessOFF automatic next/final; reused valid untimed-rest status retained",
+  "capture": "DXGI240 ceiling/dup_frames0, actual-frame VFR no interpolation; inspect critical PTS; finite120s; crop active owned surface",
+  "safety": "NEW ledger only after verified green artifact/no running Narro; current personal profile backed up before isolation; no existing completed ledgers replayed",
+  "RA01_actual_order": [
+    "N2 Week Second before Week Anchor (rank1->0)",
+    "N1 Drag Alpha Backlog->ThisWeek before Week Second",
+    "R1 Drag Beta Backlog->ThisWeek before Drag Alpha",
+    "R2 Drag Alpha before Drag Beta (rank1->0; genuinely changed)"
+  ],
+  "RA01_ROI": [
+    360,
+    320,
+    480,
+    486
+  ]
+}

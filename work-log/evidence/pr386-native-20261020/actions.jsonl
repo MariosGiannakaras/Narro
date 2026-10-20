@@ -1,0 +1,13 @@
+{"utc":"2026-10-20T03:40:45.069Z","action":"one-direct-XY-fallback","window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"},"x":100,"y":200,"grounding":"initial-coordinate-grounding.png; actual owned GetWindowRect"}
+{"utc":"2026-10-20T03:41:11.450Z","action":"open-ra01-selector","x":530,"y":160,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:41:11.557Z","action":"open-ra01-selector-input-returned"}
+{"utc":"2026-10-20T03:41:19.032Z","action":"select-ra01-capture","x":510,"y":245,"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:41:19.136Z","action":"select-ra01-capture-input-returned"}
+{"utc":"2026-10-20T03:42:45.267Z","action":"RA01-N2-real-reorder-second-before-anchor","from":[449,640],"to":[520,340],"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:42:45.389Z","action":"RA01-N2-real-reorder-second-before-anchor-input-returned"}
+{"utc":"2026-10-20T03:42:54.155Z","action":"RA01-N1-cross-lane-alpha-before-second","from":[260,355],"to":[520,340],"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:42:54.282Z","action":"RA01-N1-cross-lane-alpha-before-second-input-returned"}
+{"utc":"2026-10-20T03:43:13.449Z","action":"RA01-R1-cross-lane-beta-before-alpha","from":[260,355],"to":[520,340],"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:43:13.560Z","action":"RA01-R1-cross-lane-beta-before-alpha-input-returned"}
+{"utc":"2026-10-20T03:43:20.531Z","action":"RA01-R2-real-reorder-alpha-before-beta","from":[449,640],"to":[520,340],"window":{"app":"process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe","id":17435472,"title":"Narro"}}
+{"utc":"2026-10-20T03:43:20.656Z","action":"RA01-R2-real-reorder-alpha-before-beta-input-returned"}
