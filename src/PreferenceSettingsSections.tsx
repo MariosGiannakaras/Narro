@@ -251,14 +251,25 @@ export function GeneralPreferenceRows({
           onChange={(autoParseEstFromTitle) => onSave({ autoParseEstFromTitle }, "autoParseEst")}
         />
       </Row>
-      <Row infoGlyph title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
-        <TimezonePreferenceSelector
-          timezone={snapshot.general.timezone}
-          disabled={pendingKey !== null}
-          onChange={(timezone) => onSave({ timezone }, "timezone")}
-        />
-      </Row>
     </>
+  );
+}
+
+// SS-C07 presents Time as a separate section. Preserve the saved value and
+// existing selector/validation authority while regrouping its presentation.
+export function TimePreferenceRows({
+  snapshot,
+  pendingKey,
+  onSave,
+}: Pick<CommonProps, "snapshot" | "pendingKey" | "onSave">) {
+  return (
+    <Row infoGlyph title="Timezone" detail="Select a time zone for reports and scheduled tasks, or follow your Windows time zone.">
+      <TimezonePreferenceSelector
+        timezone={snapshot.general.timezone}
+        disabled={pendingKey !== null}
+        onChange={(timezone) => onSave({ timezone }, "timezone")}
+      />
+    </Row>
   );
 }
 
