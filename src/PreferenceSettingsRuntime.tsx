@@ -1,5 +1,5 @@
 import { listen } from "@tauri-apps/api/event";
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { formatInvokeError, type MonitorDescriptor } from "./diagnosticApi";
 import {
   getPreferenceSettings,
@@ -56,6 +56,8 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const [loading, setLoading] = useState(true);
   const [pendingKey, setPendingKey] = useState<PreferencePendingKey | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Synchronous admission owner: React pendingKey only publishes on a later render.
+  const saveInFlightRef = useRef(false);
 
   const refreshMonitors = async () => {
     try {
@@ -106,7 +108,8 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   }, []);
 
   const save = async (patch: PreferenceSettingsPatch, key: PreferencePendingKey) => {
-    if (pendingKey) return false;
+    if (saveInFlightRef.current) return false;
+    saveInFlightRef.current = true;
     setPendingKey(key);
     setError(null);
     try {
@@ -124,6 +127,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
       }
       return false;
     } finally {
+      saveInFlightRef.current = false;
       setPendingKey(null);
     }
   };
