@@ -1,4 +1,16 @@
-# HANDOFF — frozen57-scope analysis DONE; corrections NOT STARTED
+# HANDOFF — ChatGPT corrections C44/C51 proposed; PR #388 CI pending verification
+
+Owner: ChatGPT implementation track. Phase **CI_WAIT** (not CI PASS); last reported UTC `2026-10-20T20:15:48.859Z`. Latest directly observed application source was `9e631952158c5c6b9763e0e0d79e33b79e8c7ca3`; later `main` commits through `f9a4362e173db9d9068452a9f1c8be9d18de91c3` are docs-only. Branch `fix/capture57-batched-volume-done-freshness`, [PR #388](https://github.com/MariosGiannakaras/Narro/pull/388), submitted head `08c2070bfcb64784ea7edf26f2aeb000da75bf83`. **No PR-head CI result was checked; pending/UNKNOWN, not PASS; NOT MERGED.**
+
+NOW: C44 shared sound-volume keyboard-save popover/focus retention and C51 Done Reports/PDF newest-first presentation were patched together; new behavior and ordering regression tests wired into `preflight:frontend`. This is **code proposed**, not automated or physical acceptance; full local dependency-tree preflight NOT RUN because this GitHub connector environment has no checkout. No changes to persistence/Timer/Spectrum Core/image-upload/218 icons. PR #344 belongs to other work and remains untouched.
+
+Independent Timer C26–28/C35 stale Panel pixels remain confirmed physical **FAIL / NEEDS_REGRESSION_FIRST**, not resolved by #388. The root cause spans WebView renderer freshness, native region/raster ownership and mode/expand cycles; original bounded report in [capture57 analysis](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). No blind animation delay or duplicate code. All original 57/57 scoped dispositions remain valid, not 57 PASS. Mandatory milestones 4/10; M10 gated; M11/M12 dormant; physical PA-01–09 remain USER-PAUSED / NOT RUN.
+
+ONE NEXT OPERATION: obtain the **one actual exact-head CI result for PR #388 only when needed**, diagnose first failed step and correct it on the same branch if FAIL, or after 3/3 SUCCESS verify head/merge preconditions, expected-head guarded merge and resulting-main validation. In parallel, continue **non-overlapping Timer freshness regression design/implementation** only when an evidence-backed source/native correction can be established; otherwise keep the physical visual gate OPEN until explicit permission. Do not initiate user AppData/native PA, poll idly, activate M11/M12 or change approved picker/icons.
+
+## HISTORICAL — frozen 57-scope analysis (2026-10-20)
+
+### HISTORICAL — frozen57-scope analysis DONE; corrections NOT STARTED
 
 Owner Codex; main; phase DONE (analysis-only); last observed UTC `2026-10-20T18:54:55.178076+00:00`. [Authoritative report and causal plan](docs/CAPTURE_57_ANALYSIS_2026-10-20.md) / [57-ID matrix](work-log/evidence/capture57-analysis-20261020/scope-dispositions.json). Exact source9e631952158c5c6b9763e0e0d79e33b79e8c7ca3, EXEbced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909, resultingmainCI39389033088/artifact12249543153. No new PR/build/CI/native session/source change. Original26streams hashverified and unchanged; selected raw proofs/all-frame indexes/contact derivatives published. Not every original frame reviewed or57PASS.
 
