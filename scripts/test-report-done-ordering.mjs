@@ -47,6 +47,10 @@ const root = new URL("../", import.meta.url);
 const overview = readFileSync(new URL("src/ReportsOverview.tsx", root), "utf8");
 const view = readFileSync(new URL("src/ReportsOverviewView.tsx", root), "utf8");
 const css = readFileSync(new URL("src/reportsOverview.css", root), "utf8");
+assert.match(overview, /Number\.isFinite\(Date\.parse\(task\.completedAt\)\)/,
+  "Legacy malformed completion timestamps must not throw during label rendering");
+assert.match(overview, /"Completion date unavailable"/,
+  "Invalid historical date rows remain visible under a safe explicit label");
 assert.match(overview, /orderReportDoneTasks\(overview\.doneTasks\)\.map/,
   "The production Overview must order before formatting the localized date label");
 assert.match(overview, /doneTaskPresentation\(overview, locale, timeZone, listColors\)/,
