@@ -30,6 +30,21 @@
     "sha256": "f52bb5f6fd3baa21dee33d8a933af5d3f65f7d104e52031b9e797a629b55b0ba"
   },
   {
+    "path": "live-pr387-ci.json",
+    "bytes": 13176,
+    "sha256": "c69c6f4ada571d42cb8fc3369c3ea9d739dc26dc769d69769cbe3674039b8855"
+  },
+  {
+    "path": "merge-equivalence-proof.json",
+    "bytes": 893,
+    "sha256": "af1ceb5ae503201309e7861891c19c5b940b25e3faca9931f363dc3d8379e2be"
+  },
+  {
+    "path": "merge-response.json",
+    "bytes": 109,
+    "sha256": "b941bacfb8b0d0f6b37cae6b80e8d65af31b7b614368c2a116930e7729022707"
+  },
+  {
     "path": "pr386-main-ci.json",
     "bytes": 8709,
     "sha256": "499954faa922e2a8a89bc512c13c2b9630c9cdd2e68c0791b43ff5838ed89a47"
@@ -38,6 +53,11 @@
     "path": "pr386-main-package-proof.json",
     "bytes": 395,
     "sha256": "bf662985c857033a9b4da6dbc18c79b29e5e5a5397eb653e798641cf8c5449b0"
+  },
+  {
+    "path": "pr387-windows-visual-proof.json",
+    "bytes": 2179,
+    "sha256": "2fdffff83bdef78a23b52b8d118cb615a363339a9859ea170bc84bd0d4627a42"
   },
   {
     "path": "production-dark-false.html",
@@ -143,5 +163,25 @@
     "path": "rustfmt.txt",
     "bytes": 91,
     "sha256": "385f90bc106fe19ac492fef9cca05c3e5c6a41907d5618f4beea0277924013fc"
+  },
+  {
+    "path": "windows-focus-editor-m7-integration-dark-reduced.html",
+    "bytes": 24416,
+    "sha256": "1e93577c36f3ec467691c2b5a833f81285870033a969128286f68c670ee6eeec"
+  },
+  {
+    "path": "windows-focus-editor-m7-integration-dark.html",
+    "bytes": 24417,
+    "sha256": "eac2a0e6c6b6f3afb926a17c75f1ab3241f8870018dc1c57e359d91c9b1cf965"
+  },
+  {
+    "path": "windows-focus-editor-m7-integration-light-reduced.html",
+    "bytes": 24418,
+    "sha256": "92ec3eb29185e5acb540f937b693270a00caae68113bed96e5fecfd3b162b940"
+  },
+  {
+    "path": "windows-focus-editor-m7-integration-light.html",
+    "bytes": 24419,
+    "sha256": "cb3701f82d7e690613decd821cffdee739ac1a831b691857e76d857220970eaf"
   }
 ]

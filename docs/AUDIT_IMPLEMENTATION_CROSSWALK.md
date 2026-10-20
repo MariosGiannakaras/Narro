@@ -1,6 +1,6 @@
 # Audit → implementation crosswalk
 
-**PR387 current correction:** exactheadcdd88335/run39386125624 RUNNING; firstsuccess regressionRED→GREEN, production4/4×9receipts and fullfrontend/RustfmtPASS. Corrected nativeONbatch0/3NOTRUN; RA01/OFF/rest scopedPASS preserved. [Current continuation](../HANDOFF.md).
+**PR387 current correction:** exactheadcdd88335/run39386125624 3/3SUCCESS, guardedmerge9e631952; mainCI39389033088RUNNING; firstsuccess regressionRED→GREEN, production4/4×9receipts and fullfrontend/RustfmtPASS. Corrected nativeONbatch0/3NOTRUN; RA01/OFF/rest scopedPASS preserved. [Current continuation](../HANDOFF.md).
 
 **Current PR386 native review:**9/9 cases reviewed,7scopedPASS/2visualFAIL(shared SuccessON next-row omission13–14ms). RA01-A CLOSED4/4; OFF2/2 and ONlast scopedPASS; RA02-B rest/statusPASS. RA02-A remainsOPEN/FIX_NOW; old stale completed row corrected. Profiles/motionrestored; no recordingactive. [Report](PR386_NATIVE_RETEST_2026-10-20.md). PR386 merged476d95ea/PRCI3/3; mainCI39365199465now3/3SUCCESS. Mandatory4/10unchanged.
 
