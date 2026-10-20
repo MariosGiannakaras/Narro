@@ -53,6 +53,11 @@ for (const [haystack, needle, label] of [
   [searchApi, 'getListBoardSnapshot({ kind: "all" })', "existing All Lists task index reuse"],
   [searchApi, "listColor: task.listColor", "persisted list-color projection for Recent Tasks badges"],
   [view, 'data-session-task-list-badge="true"', "Recent Tasks list badge UI"],
+  [view, 'listIconContrast(task.listColor)', "C56 list initial chip readable on actual saved colour"],
+  [view, 'task.listTitle.trim().charAt(0).toUpperCase() || "L"', "C56 list initial instead of source-divergent full badge"],
+  [view, 'className="reports-sessions__task-picker-list-label"', "C56 full list name stays accessible"],
+  [styles, ".reports-sessions__task-picker-list-label", "C56 visually hidden full list title"],
+
   [view, "HEX_COLOR.test(task.listColor)", "validated list-color UI treatment"],
   [styles, ".reports-sessions__task-picker-list i", "compact source list color marker"],
   [fixture, 'listColor: "#55c2d0"', "list-badge fixture grounded persisted-color shape"],
