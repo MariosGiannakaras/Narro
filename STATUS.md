@@ -1,5 +1,8 @@
 # STATUS.md
 
+**CURRENT ChatGPT correction proposal 2026-10-20T20:15:48.859Z:** [PR #388](https://github.com/MariosGiannakaras/Narro/pull/388) submitted head `08c2070bfcb64784ea7edf26f2aeb000da75bf83` batches C44 sound-volume keyboard-save popover/focus and C51 Reports Done chronological presentation with dedicated tests. **CODE PROPOSED; PR CI NOT VERIFIED / NOT MERGED; native acceptance NOT RUN.** Timer C26–28/C35 stale Panel pixels remain FAIL/NEEDS_REGRESSION_FIRST; no change to 57/57 analytical dispositions, mandatory 4/10, paused PA-01–09, dormant M11/M12 or Spectrum Core/218-icon approval. See [HANDOFF](HANDOFF.md) for exact next action. Earlier dated analysis-only statements below are historical checkpoints.
+
+
 **Frozen analysis completed 2026-10-20T18:54:55.178076+00:00:57/57 C-ID scopes dispositioned, not57PASS.** Three confirmed behavior causes: C27/C28/C35Timer stalePanel pixels (NEEDS_REGRESSION_FIRST), C44volume keyboard-save popover/focus loss (READY_FOR_FIX), C51Done chronology (READY_FOR_FIX). Source presentation differences and all unexercised physical paths separated. Audio warning corrected:89.748s was video duration; original WAV30.058667s has one completion cue matching localVictoryBell. [Report/plan](docs/CAPTURE_57_ANALYSIS_2026-10-20.md). No source changes/new capture/tests/build/CI/milestone closure;4/10/M10gate unchanged.
 
 
