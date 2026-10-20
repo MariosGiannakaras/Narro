@@ -1,0 +1,11 @@
+{
+  "run": 39365199465,
+  "source": "476d95ea8053ec1b83158e26dd8317f6891a486f",
+  "CI": "3/3 SUCCESS",
+  "artifact": 12240200805,
+  "zipSHA256": "337232cc3178edac474c450ff5c3b3eb61b712c91ca6621ab262c37eb2b2b8df",
+  "executableSHA256": "8806ac62b1efedc3c4306f832f92a4ec247926ee4696b1768c2410f3adba14c2",
+  "bytes": 16201728,
+  "CRC": "PASS",
+  "physicalRunUsedEquivalentPRArtifact": 12239187254
+}
