@@ -176,7 +176,11 @@ export function WindowsShortcutSettingsPanelView({
                 </div>
 
                 <div className="windows-shortcuts__controls">
-                  <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+                  <span className="windows-shortcuts__keycaps" aria-label={row.chord}>
+                    {row.chord.split(" + ").map((key, index) => (
+                      <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
+                    ))}
+                  </span>
                   <label className="windows-shortcuts__toggle">
                     <span className="sr-only">Enable {row.label}</span>
                     <input
@@ -222,7 +226,11 @@ export function WindowsShortcutSettingsPanelView({
                 <strong>{row.label}</strong>
               </div>
               <div className="windows-shortcuts__controls windows-shortcuts__controls--app">
-                <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+                <span className="windows-shortcuts__keycaps" aria-label={row.chord}>
+                  {row.chord.split(" + ").map((key, index) => (
+                    <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
+                  ))}
+                </span>
               </div>
             </div>
           ))}
