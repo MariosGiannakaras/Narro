@@ -1,3 +1,13 @@
+# HANDOFF — 57-line capture campaign PREPARED
+
+Owner Codex / phase PREPARED / last observed UTC 2026-10-20T08:31:55.872333+00:00. Latest explicit user scope: phases1+2 only, inventory/reuse and consolidated acquisition for all57 remaining M5–M9 checkbox lines; no substantive analysis or source corrections.
+
+Inventory57/57; new acquisition0/57. [Requirement matrix](docs/CAPTURE_57_ACQUISITION_2026-10-20.md). Root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Capture-20261020`; new ledger not yet started. Verified resulting-main EXE bced8a9f... / source9e631952 / CI39389033088 / artifact12249543153. No Narro/ffmpeg active; OBS stopped, one-monitor2560x1080 profile. Prior RA385/386/387 completed ledgers NEVER replay.
+
+NEXT: protect original profiles with SQLite backup and fresh owned namespace, seed explicitly synthetic disposable data before launch, then execute prepared Home/Board -> Preferences -> Focus/Timer -> Reports acquisition groups. Before resuming after interruption check actual OBS/processes/partial clips and new ledger first. Stop at FROZEN upload/handoff; analysis/fixes are outside this phase. No acceptance checkbox advanced. M10 gated/M11-M12 dormant; preserve approved picker/upload/218icons.
+
+## Historical completed RA01/RA02 handoff
+
 # HANDOFF — RA01/RA02 correction DONE; main CI and all evidence verified
 
 Owner Codex / phase DONE / lastobservedUTC 2026-10-20T08:19:17.909279+00:00. **Current scoped RA correction COMPLETE:**3/3newONnativePASS, unchanged accepted RA01Board4/4 and OFF2/2 reused, explicitNext/untimedrest/expiry/persistencePASS. Both correctiveTODOcheckboxes CLOSED. [Authoritative report](docs/PR387_NATIVE_ACCEPTANCE_2026-10-20.md). No wholeM5/M6/sourceparityPASS.
