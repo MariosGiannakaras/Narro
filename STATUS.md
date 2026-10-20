@@ -1,5 +1,7 @@
 # STATUS.md
 
+**Current capture-only checkpoint 2026-10-20T13:00:56.014447+00:00:** inventory57/57; raw material42/57(25surface+17partial),3not-exercised/1analysis-wrapper/Reports11NOTRUN. Computer Use imposed mandatory browser-URL verification stop; no further UI input. All12originalvideo bytechunks/screenshots/UIA/logs published; original profiles restored/hash identical. Audio discontinuous3.264s, no audioPASS. No substantive analysis/fix/sourceCI. [Matrix](docs/CAPTURE_57_ACQUISITION_2026-10-20.md). Existing scoped RA closure and mandatory4/10 unchanged.
+
 **Current scoped closure:** RA01-A + RA02-A/B corrective native scopes CLOSED. PR387 ONfirst/next/last3/3PASS; unchanged PR386 Board4/4/OFF2/2 retained, explicitNext/rest/persistencePASS. ExactPRCI39386125624 3/3SUCCESS, guardedmerge9e631952; resultingmainCI39389033088 3/3SUCCESS and actualWindows4/4x9/packageverified. Alloriginals/screenshots/frameproofs published, profiles/motionrestored/no ownedrecorderactive. [Final report](docs/PR387_NATIVE_ACCEPTANCE_2026-10-20.md). Mandatory4/10unchanged; wholeM5–M9/sourceparity andM10gate remain.
 
 **HISTORICAL PR386 native review:**9/9 cases reviewed,7scopedPASS/2visualFAIL(shared SuccessON next-row omission13–14ms). RA01-A CLOSED4/4; OFF2/2 and ONlast scopedPASS; RA02-B rest/statusPASS. RA02-A remainsOPEN/FIX_NOW; old stale completed row corrected. Profiles/motionrestored; no recordingactive. [Report](docs/PR386_NATIVE_RETEST_2026-10-20.md). PR386 merged476d95ea/PRCI3/3; mainCI39365199465now3/3SUCCESS. Mandatory4/10unchanged.

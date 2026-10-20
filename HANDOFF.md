@@ -1,3 +1,17 @@
+# HANDOFF — 57-line capture FROZEN PARTIAL / Computer Use mandatory stop
+
+Owner Codex / phase BLOCKED / last observed UTC 2026-10-20T13:00:56.014447+00:00. User scope phases1+2 only: inventory/reuse and recording, then upload; no substantive analysis or corrections. **Inventory57/57; acquisition material42/57 (25surface+17partial),3not-exercised,1analysis-wrapper deferred,Reports11NOTRUN. These are acquisition statuses, not PASS.**
+
+[57-line matrix](docs/CAPTURE_57_ACQUISITION_2026-10-20.md) / [complete raw packet](work-log/evidence/capture57-20261020/README.md). Twelve original MKVs657285796bytes are published as exact <=40MiB chunks with SHA256/reassembly instructions; originals never altered. Screenshots/UIA/logs/synthetic final state included. Audio only3.264s/discontinuous, no audioPASS. Approved picker+icons USER_ATTESTED_PASS per latest explicit user message; upload/list appearance excluded from that attestation.
+
+**Mandatory blocker:** Computer Use stopped this turn because isolated Edge URL could not be verified for policy enforcement. F11/borderlessNOTRUN; no further app input after that stop. Cleanup only: owned Narro/recorders/browser stopped, original Roaming/Local profiles restored; originalDB SHA25613185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d identical. Root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Capture-20261020`. Its ledger is **ORIGINAL_PROFILES_RESTORED**; NEVER replay or use dead HWNDs/PIDs. No app source/config/test change or CI.
+
+**ONE NEXT SAFE OPERATION:** in a newly authorized Computer Use turn, verify current source/package and no unexpected live recorder; create NEW protected session and resume ReportsC47–C57 first, without the blocked browser action. Reuse frozen prior material. Then only missing/partial acquisition: actual Timer movement/bottom/restart, automaticPOMO Break, actualtimedflash, Skip, reduced-motion coverage and reliable continuousaudio. See per-line limits. Stop at capture/freeze/upload; do not begin analysis/fixes unless user requests that phase.
+
+Validated source9e631952/CI39389033088/artifact12249543153/EXEbced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909 retained. RA01/RA02 closed scoped native acceptance unchanged. MandatoryM1–M4=4/10; all acceptance checkboxes unchanged; M10gated/M11-M12dormant; SpectrumCore/upload/218icons/otherownerPR344preserved.
+
+## Historical prepared capture handoff (superseded by frozen checkpoint above)
+
 # HANDOFF — 57-line capture campaign PREPARED
 
 Owner Codex / phase PREPARED / last observed UTC 2026-10-20T08:31:55.872333+00:00. Latest explicit user scope: phases1+2 only, inventory/reuse and consolidated acquisition for all57 remaining M5–M9 checkbox lines; no substantive analysis or source corrections.

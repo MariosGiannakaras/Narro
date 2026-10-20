@@ -858,3 +858,8 @@ B42 ordinary scheduled-task date/circularX and preserved-task removal outcome **
 ## 2026-10-16 PR362 exact native correction acceptance
 
 PA360-XW-SUBTASKS **CLOSED3/3scopedPASS** on560efeb0/CI38894130069/merge5dfbede3: actual cross-window create/title/order/completion/count/IDs/retaineddraft; rawcompletevideo/logs published. B26 BoardClose/save/dirty existingpolicyPASS, FocusNotes stillOPEN. B62 empty native policy/subduedintentPASS, sourceclickunknown preserved. **B43 SOURCE_VISUAL_FAIL/FIX_NOW M5**: grouping/count data and lastrow scroll work, but canonical date-left/task-count-right differs from inline date·nDone. Correct that header only unless stronger state-specific evidence supports a compatible correction. No unrelated/nativefoundation/M10/M11 advance. [Full report](../work-log/2026-10-16-pr362-native-cross-window-acceptance.md).
+
+
+## 2026-10-20 capture-only checkpoint, no new parity verdict
+
+[57-line acquisition matrix](CAPTURE_57_ACQUISITION_2026-10-20.md): inventory57/57; material42/57 with17partial; Reports11NOTRUN and native limits explicit. Computer Use mandatory URL-policy stop; original profiles restored. Picker/built-in icons USER_ATTESTED_PASS only; upload/list rendering excluded from user attestation and newly captured/unreviewed. No new FIX_NOW/source-parity/physical PASS from this packet; no milestone or M10 advancement.
