@@ -460,7 +460,14 @@ export function ReportAddSessionDialog({
     const position = () => {
       const rect = returnFocusTarget?.getBoundingClientRect();
       const panel = dialogRef.current;
-      if (!rect || !returnFocusTarget?.isConnected || !panel) {
+      // In the nested Task Sessions → Add flow the parent detail dialog is
+      // intentionally hidden/inert, yet its opener remains isConnected. A
+      // detached OR visually suppressed opener has no meaningful anchor.
+      // Falling back to the centered accessible modal protects this path.
+      if (!rect || !returnFocusTarget?.isConnected || !panel
+        || returnFocusTarget.closest("[hidden], [inert]")
+        || returnFocusTarget.getClientRects().length === 0
+        || rect.width <= 0 || rect.height <= 0) {
         setAnchorPosition(null);
         return;
       }
@@ -478,7 +485,7 @@ export function ReportAddSessionDialog({
       window.removeEventListener("resize", position);
       window.removeEventListener("scroll", position, true);
     };
-  }, [returnFocusTarget, draft.taskId, pickerOpen, pending]);
+  }, [returnFocusTarget, draft.taskId, pickerOpen, pending, error]);
 
   useEffect(() => {
     if (!pickerOpen || pending) return;
