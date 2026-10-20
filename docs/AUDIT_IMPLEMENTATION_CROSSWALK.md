@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**Current 57-line analysis12/57 (2026-10-20):** C51/B27 recorded Done chronology discrepancy **READY_FOR_FIX**: ascending completed-history order is rendered/exported unchanged; canonical VE011/012 descending date groups. [Proof and bounded correction/regressions](CAPTURE_57_ANALYSIS_2026-10-20.md). Other reviewed Reports scopes have local observed functions but explicit source/coverage limits; C45stableflash EVIDENCE_LIMIT, not deliveryFAIL. No patch or unconfirmed acceptance PASS.
+
 **Capture acquisition only (2026-10-20):** [matrix](CAPTURE_57_ACQUISITION_2026-10-20.md) now has material55/57 including partial/attempt-only lines; [final-gap originals](../work-log/evidence/capture57-final-gaps-20261020/README.md). No acceptance/finding/source-parity disposition advanced; audio clock and unexercised placement limits explicit.
 
 **Current scoped closure:** RA01-A + RA02-A/B corrective native scopes CLOSED. PR387 ONfirst/next/last3/3PASS; unchanged PR386 Board4/4/OFF2/2 retained, explicitNext/rest/persistencePASS. ExactPRCI39386125624 3/3SUCCESS, guardedmerge9e631952; resultingmainCI39389033088 3/3SUCCESS and actualWindows4/4x9/packageverified. Alloriginals/screenshots/frameproofs published, profiles/motionrestored/no ownedrecorderactive. [Final report](PR387_NATIVE_ACCEPTANCE_2026-10-20.md). Mandatory4/10unchanged; wholeM5–M9/sourceparity andM10gate remain.

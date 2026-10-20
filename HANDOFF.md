@@ -1,3 +1,13 @@
+# HANDOFF — frozen-corpus analysis12/57 IN PROGRESS
+
+Owner Codex; main; phase ANALYZING; last observed UTC `2026-10-20T18:23:53.461946+00:00`. [Authoritative scoped report](docs/CAPTURE_57_ANALYSIS_2026-10-20.md) / [analysis derivatives](work-log/evidence/capture57-analysis-20261020/README.md). Exact source9e631952, EXEbced8a9f, mainCI39389033088/artifact12249543153; current production inputs identical. All26originalstreams hashverified, not26filmsreviewed. No active capture/app/profile, no source changes/tests/build/CI.
+
+NOW: ReportsC47–C57 and C45 dispositions **12/57**,45scopesremain; not12PASS/no milestone checkbox advanced. One confirmed discrepancy C51/B27 older-firstDone groups in UI/PDF vs source new-first; code cause traced, narrow correction planREADY_FOR_FIX. C45event300s succeeded but simultaneous Panel→Timer/hover prevents stable sourceflash acceptance. ChartTab action falls in video gap. Existing inferred U06/U09 behavior is not missing implementation; unknown original details remain evidence limits, not invented defects. Preserve approvedpicker/icons/userattestation/RAclosure/M10gate/dormantM11-M12.
+
+ONE NEXT OPERATION: finish actual normal/reduced Panel↔Timer/expand-collapse frame comparison against sourceVE003 and raw proofs for remainingM7 scopes. Local analysis root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Analysis-20261020` has normal-timer-to-panel extraction (NOT yet reviewed) and sourceVE003-original.mp4 hashc11372729df837f378c4a80162e621bc35492140b87d7cfff5c211990f6392bd. Then remainingFocus/Preferences/Home and first-packet manual-anchor/audio analysis. Do not repeat the earlier18film analysis or acceptedRA01/RA02; no new physical capture/source patch during this analysis phase. Freeze each evidence-backed result; do not mark all57 complete prematurely.
+
+## HISTORICAL previous checkpoint
+
 # HANDOFF — 57-line evidence analysis IN PROGRESS
 
 Owner Codex; branch main; phase ANALYZING; last observed UTC 2026-10-20T18:07:55.6961426Z. User explicitly continued after phase notification. Frozen capture parent8cb63f9c; source9e631952/executablebced8a9f unchanged. No active native capture/profile; no app source fixes authorized in this analysis phase. Analysis root E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Analysis-20261020.

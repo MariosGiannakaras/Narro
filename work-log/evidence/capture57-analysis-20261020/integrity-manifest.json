@@ -1,0 +1,125 @@
+{
+  "basis": "canonical staged Git blob bytes",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1920,
+      "sha256": "d7c9435d4c2005e7d2e2693fa5e15183ab7e9a09076927a2caeb8876e1f6cff0"
+    },
+    {
+      "path": "action-recording-coverage.json",
+      "bytes": 83319,
+      "sha256": "1f0aa1acf6519fae62bfa23f9e1da47b69886b5dbc37199a79cc29fcbef95f7a"
+    },
+    {
+      "path": "figures/done-ascending.png",
+      "bytes": 159947,
+      "sha256": "d6cb07ef25c731a9de604d28e0c8448fb536fecdaffce4e5010af8752869918f"
+    },
+    {
+      "path": "figures/reports-functional-keyframes.jpg",
+      "bytes": 338415,
+      "sha256": "095a5d05feedf32d63928b0376db3a34f75689ff9e24a618750088dae9def2de"
+    },
+    {
+      "path": "figures/reports-narro-contact.jpg",
+      "bytes": 245393,
+      "sha256": "453b5e2804a6b6e0813b41bb600dae0a3e044b5c4c93104fea7f053c0688c0ba"
+    },
+    {
+      "path": "figures/reports-source-contact.jpg",
+      "bytes": 248407,
+      "sha256": "72af0761bb9fa7b0512914c6b14c3f3d260551d0fa9e7756eba043a971cedf1a"
+    },
+    {
+      "path": "intervals/reports-add-picker/index.json",
+      "bytes": 9666,
+      "sha256": "2642780c4e6055281c388a4af75a3736a87a78a2749e6edbf23ce6dc506d19b6"
+    },
+    {
+      "path": "intervals/reports-add-picker/sheet-000.jpg",
+      "bytes": 173174,
+      "sha256": "8ab8827136bfe6b4fbb99510757547f8ab227815a8fa6853ff425afd26f39920"
+    },
+    {
+      "path": "intervals/reports-add-picker/sheet-001.jpg",
+      "bytes": 183286,
+      "sha256": "8b14cf1ff32119c28644b9d310f429968edbf6953e05a0d8219d4e756f1e4930"
+    },
+    {
+      "path": "intervals/reports-add-picker/sheet-002.jpg",
+      "bytes": 183339,
+      "sha256": "07c422c00546ec4742817ab43061f2776ab47e826c786a509d741dfd5601e02d"
+    },
+    {
+      "path": "intervals/reports-add-picker/sheet-003.jpg",
+      "bytes": 151438,
+      "sha256": "ef7e48a35338b764b2f2ce12053e5e3d11a02934b0e3df1a969f40bd05aa41d9"
+    },
+    {
+      "path": "intervals/reports-detail-lifecycle/index.json",
+      "bytes": 9128,
+      "sha256": "f0fcc21363dde94e8a13b7d16d6eb4082acde5ff48b5dcabbf78ef3c492a17a1"
+    },
+    {
+      "path": "intervals/reports-detail-lifecycle/sheet-000.jpg",
+      "bytes": 179848,
+      "sha256": "b8e7c189d23104be3e4b75258baee3020597d4fcfc03d8df055206b4a11a5d3c"
+    },
+    {
+      "path": "intervals/reports-detail-lifecycle/sheet-001.jpg",
+      "bytes": 178164,
+      "sha256": "9dfc8d5ed0d6d10cc50180d9f043fb2de1c5df88fab76adee91b097b195806f2"
+    },
+    {
+      "path": "intervals/reports-detail-lifecycle/sheet-002.jpg",
+      "bytes": 158844,
+      "sha256": "e7219080ea9d3291925fcbbac206cc6db13ebc5534d846f0553b97a6b4291d52"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/index.json",
+      "bytes": 56514,
+      "sha256": "1074a742da6fe581a6064e3d523c7b2bc3d0e73a663ec92521f271671ccb5dd8"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-000.jpg",
+      "bytes": 341637,
+      "sha256": "cfde9507b3cef210e27a832bb88ca1a53034864569656b79057bba6abb429737"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-001.jpg",
+      "bytes": 337075,
+      "sha256": "3c6dbe1d74d19df7661e19f373e9c6164180e2db4596f2a09f54663b3de131af"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-002.jpg",
+      "bytes": 206790,
+      "sha256": "ef27c68d5fb478cb6bb9ceb4ed52f3df5a1be6f01cd02c0a70b7a2304efe08b1"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-003.jpg",
+      "bytes": 176276,
+      "sha256": "ce7a133abc2c4b2e60c9f748ae5a1d4d88b1810e620517443ee62f2b2318f79a"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-004.jpg",
+      "bytes": 183005,
+      "sha256": "b45916bfc47674d6ce1346e7a92f2c2676f3984c5555cee0a9564b3899cb078d"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-005.jpg",
+      "bytes": 185024,
+      "sha256": "d2b2a69093cc114d4ef8218a6bbfbc0f4801b5492116e779b6443b50a9306604"
+    },
+    {
+      "path": "intervals/timed-flash-allframes/sheet-006.jpg",
+      "bytes": 29909,
+      "sha256": "0bf542c630d85151c2e62c98d47880a10612082be0bd762142e967ef491d71ba"
+    },
+    {
+      "path": "verified-originals.json",
+      "bytes": 73362,
+      "sha256": "0bd559d4a2d72c870b1b853d15b7ddaa9eb078a92b37a304e03bf6e889354a02"
+    }
+  ]
+}

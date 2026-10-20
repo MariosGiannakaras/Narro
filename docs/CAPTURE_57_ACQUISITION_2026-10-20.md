@@ -1,5 +1,7 @@
 # Consolidated 57-line capture acquisition — three frozen packets
 
+**Analysis has begun:** [current12/57 scoped dispositions](CAPTURE_57_ANALYSIS_2026-10-20.md). Acquisition labels below remain historical acquisition truth, not the current analysis phase or acceptance.
+
 Phase: **FROZEN_PARTIAL**, last observed UTC `2026-10-20T18:04:40.904513+00:00`.
 
 **Inventory57/57; acquisition material55/57 (including partial/attempt-only lines). C33 remains not exercised; C37 is an analysis wrapper. No physical acceptance checkbox or milestone count advanced.** All11Reports lines now have some acquired material; partial limits remain explicit below.
