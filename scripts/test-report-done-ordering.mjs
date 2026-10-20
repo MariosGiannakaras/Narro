@@ -23,9 +23,9 @@ assert.deepEqual(original.map(({ task }) => task.taskId),
   "Sorting may not mutate the shared history input");
 
 const timezoneRows = orderReportDoneTasks([
-  row("athens-next-day", "2026-03-29T00:30:00+03:00"),
-  row("athens-previous-day", "2026-03-28T23:30:00+02:00"),
-  row("later-utc", "2026-03-28T22:00:00Z"),
+  row("athens-next-day", "2026-03-29T01:30:00+02:00"),
+  row("athens-previous-day", "2026-03-28T22:30:00+02:00"),
+  row("later-utc", "2026-03-29T00:15:00Z"),
 ]);
 assert.deepEqual(timezoneRows.map(({ task }) => task.taskId),
   ["later-utc", "athens-next-day", "athens-previous-day"],
