@@ -183,4 +183,5 @@ invariant(ordinaryRows.includes("padding-top: var(--space-3)"), "Preserve user-c
 invariant(panel.includes('role="group" aria-label="Theme"'), "Theme segmented control must remain accessible");
 
 await import("./test-ready-fixture-startup.mjs");
+await import("./test-shortcut-fixture-readiness.mjs");
 console.log("Theme settings/runtime contract: PASS");

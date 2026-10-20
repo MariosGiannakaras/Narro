@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const panel = fs.readFileSync("src/ArchivedListsPanel.tsx", "utf8");
+const panel = fs.readFileSync("src/ArchivedListsPanel.tsx", "utf8").replace(/\r\n/g, "\n");
 assert(panel.includes("const archiveMutationInFlightRef = useRef(false);"),
   "Archived list destructive/restoration actions require an immediate per-mounted owner");
 function handler(a,b) {

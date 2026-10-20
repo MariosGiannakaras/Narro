@@ -3,7 +3,7 @@ import fs from "node:fs";
 
 // Regression must inspect the real production handler and its actual mount
 // ownership. The previous test asserted failure-path cleanup only.
-const palette = fs.readFileSync("src/SearchPalette.tsx", "utf8");
+const palette = fs.readFileSync("src/SearchPalette.tsx", "utf8").replace(/\r\n/g, "\n");
 const shell = fs.readFileSync("src/AppShell.tsx", "utf8");
 const boardTest = fs.readFileSync("scripts/test-board-create-single-flight.mjs", "utf8");
 const start = palette.indexOf("  const submitQuickTask = async (");

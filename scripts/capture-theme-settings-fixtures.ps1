@@ -51,6 +51,11 @@ function Capture-ThemeSettingsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "theme-settings-shortcuts-dialog-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=shortcuts"
+            if ($LASTEXITCODE -ne 0) { throw "Shortcuts actual-viewport layout capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         if ($Label -like "theme-settings-preferences-dialog-*") {
             & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=preferences"
             if ($LASTEXITCODE -ne 0) { throw "Preferences actual-readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
