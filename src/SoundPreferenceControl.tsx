@@ -7,6 +7,7 @@ type SoundPreferenceControlProps = {
   defaultSound: LocalSoundId;
   volumePercent: number;
   disabled: boolean;
+  saving?: boolean;
   soundLabel: string;
   volumeLabel: string;
   onSoundChange: (sound: LocalSoundId) => void | Promise<boolean>;
@@ -22,12 +23,14 @@ export function SoundPreferenceControl({
   defaultSound,
   volumePercent,
   disabled,
+  saving = false,
   soundLabel,
   volumeLabel,
   onSoundChange,
   onVolumeCommit,
 }: SoundPreferenceControlProps) {
   const selected = selectedSound ?? defaultSound;
+  const interactionLocked = disabled || saving;
   const [draftVolume, setDraftVolume] = useState(clampVolume(volumePercent));
   const [volumeOpen, setVolumeOpen] = useState(false);
   const [previewError, setPreviewError] = useState<string | null>(null);
@@ -61,7 +64,7 @@ export function SoundPreferenceControl({
 
   const commitVolume = async () => {
     const next = clampVolume(draftVolume);
-    if (disabled || next === volumePercent || next === submittedVolume.current || volumeCommitInFlight.current) return;
+    if (interactionLocked || next === volumePercent || next === submittedVolume.current || volumeCommitInFlight.current) return;
     submittedVolume.current = next;
     volumeCommitInFlight.current = true;
     try {
@@ -103,7 +106,7 @@ export function SoundPreferenceControl({
           aria-controls={popoverId}
           aria-expanded={volumeOpen}
           aria-haspopup="dialog"
-          disabled={disabled}
+          disabled={interactionLocked}
           onClick={() => setVolumeOpen((current) => !current)}
           onKeyDown={(event) => {
             if (event.key === "Escape" && volumeOpen) {
@@ -142,9 +145,17 @@ export function SoundPreferenceControl({
                 step="5"
                 aria-orientation="vertical"
                 aria-label={volumeLabel}
+                aria-disabled={saving || undefined}
                 value={draftVolume}
                 disabled={disabled}
-                onChange={(event) => setDraftVolume(clampVolume(Number(event.target.value)))}
+                onChange={(event) => {
+                  if (!saving) setDraftVolume(clampVolume(Number(event.target.value)));
+                }}
+                onKeyDown={(event) => {
+                  if (saving && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "PageUp", "PageDown"].includes(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 onPointerUp={() => void commitVolume()}
                 onBlur={() => void commitVolume()}
                 onKeyUp={(event) => {
@@ -162,7 +173,7 @@ export function SoundPreferenceControl({
         className="preference-settings__sound-preview motion-interactive"
         aria-label={"Preview " + (LOCAL_SOUND_OPTIONS.find((sound) => sound.id === selected)?.label ?? "sound")}
         title="Preview sound"
-        disabled={disabled}
+        disabled={interactionLocked}
         onClick={preview}
       >
         <ActionIcon name="play" />
@@ -170,7 +181,7 @@ export function SoundPreferenceControl({
       <select
         aria-label={soundLabel}
         value={selected}
-        disabled={disabled}
+        disabled={interactionLocked}
         onChange={(event) => {
           setPreviewError(null);
           void onSoundChange(event.target.value as LocalSoundId);
