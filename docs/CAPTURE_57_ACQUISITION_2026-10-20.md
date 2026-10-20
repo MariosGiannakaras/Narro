@@ -1,14 +1,12 @@
-# Consolidated 57-line capture acquisition — frozen partial checkpoint
+# Consolidated 57-line capture acquisition — two frozen packets
 
-Phase: **FROZEN_PARTIAL_BLOCKED**, last observed UTC `2026-10-20T13:00:56.014447+00:00`.
+Phase: **FROZEN_PARTIAL**, last observed UTC `2026-10-20T17:47:42.761824+00:00`.
 
-**Inventory 57/57. New material for 42/57 lines: 25 surface packets +17 partial packets. Three scenarios not exercised, one reconciliation wrapper deferred, Reports11/11 NOT RUN. No physical acceptance counts advanced.**
+**Inventory57/57; acquisition material53/57 (including partial lines). Three native scenarios remain not exercised (C31/C33/C45); C37 is an analysis wrapper. No physical acceptance checkbox or milestone count advanced.** All11Reports lines now have some acquired material; partial limits remain explicit below.
 
-Mandatory Computer Use stop: isolated Edge URL could not be determined confidently enough for policy enforcement. No further desktop input was issued. Original profiles restored with identical DB hash. Only safe cleanup and publication followed.
+[First frozen packet](../work-log/evidence/capture57-20261020/README.md) and [resume packet:10originalvideos/24screenshots/103observations](../work-log/evidence/capture57-resume-20261020/README.md). Exact source9e631952/executablebced8a9f retained. Original profiles and OS motion restored. No current recorder/app active at freeze recovery.
 
-[Complete raw evidence, original-video reconstruction and limitations](../work-log/evidence/capture57-20261020/README.md).
-
-No source changes, new tests/build/CI, substantive analysis or corrections. Existing RA01/RA02 closure retained; M10 hard entry and dormant optionals unchanged.
+Scope remains capture-only; no substantive analysis, source changes, tests/builds/CI or acceptance/source-parity claims. Approved picker/icons USER_ATTESTED_PASS retained; image upload/list rendering still require evidence analysis. RA01/RA02 accepted scopes and M10 hard entry unchanged.
 
 | ID | M | Requirement | Acquisition / exact limit |
 |---|---|---|---|
@@ -20,7 +18,7 @@ No source changes, new tests/build/CI, substantive analysis or corrections. Exis
 | C06 | 5 | Evidence-to-code audit A2 / SS-H14 + VE-006 archived list preview — IMPLEMENTED PREVIEWS / REMAINING COMPOSITION GAP: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C07 | 6 | A3 / SS-H04 + VE-003 Focus list selector parity — CURRENT CODE INTEGRATED: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C08 | 6 | A18/B49, VE-010 00:21–00:25 and VE-003 live-card hover grammar — CURRENT CODE INTEGRATED: | **PARTIAL_CAPTURE_UNREVIEWED** Break/Notes/Pause/Resume/Done state actions acquired; Skip not clicked. |
-| C09 | 6 | A14/B37, VE-016 ~01:32–01:44 Pomodoro timer badge: | **PARTIAL_CAPTURE_UNREVIEWED** POMO work and manual Break acquired; automatic work-boundary Break NOT RUN. |
+| C09 | 6 | A14/B37, VE-016 ~01:32–01:44 Pomodoro timer badge: | **SURFACE_CAPTURED_UNREVIEWED** POMO work and real five-minute automatic Break boundary acquired in resume clips008–010/UIA/owned DB; source/continuous acceptance not analyzed. |
 | C10 | 6 | A14/B36, VE-016 ~01:36–01:40 + VE-018 ~02:24–02:40 Break Done history — CURRENT CODE + NATIVE OBSERVED: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C11 | 6 | Video-to-code V01/B63, VE-003 repeated Done→success + VE-005 ~02:45–03:20 — CURRENT CODE + NATIVE OBSERVED: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C12 | 6 | Video-to-code V01/B64, VE-003 multiple success transitions + VE-005 ~02:45–03:20: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
@@ -34,19 +32,19 @@ No source changes, new tests/build/CI, substantive analysis or corrections. Exis
 | C20 | 7 | Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C21 | 7 | Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate. | **PARTIAL_CAPTURE_UNREVIEWED** Drag gestures issued; sampled HWND bounds stayed [2220,0,2560,700]. Do not infer actual movement PASS. Normal maximized Notepad acquired. |
 | C22 | 7 | Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
-| C23 | 7 | Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel. | **PARTIAL_CAPTURE_UNREVIEWED** Expanded actions and clean-task Notes acquired; Skip not clicked, larger-editor outcome unreviewed. |
+| C23 | 7 | Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel. | **PARTIAL_CAPTURE_UNREVIEWED** Skip now clicked on exact executable; earlier expanded actions/clean-task Notes retained. Larger-editor outcome remains unreviewed. |
 | C24 | 7 | Implement expanded subtask rows with completion, title editing, reorder, delete and progress. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C25 | 7 | Keep icon hit targets stable and show tooltips without changing window width. | **PARTIAL_CAPTURE_UNREVIEWED** Controls/labels captured in exercised states; no source timing or all-target stability acceptance. |
 | C26 | 7 | Implemented replacement direction: | **PARTIAL_CAPTURE_UNREVIEWED** Normal same-host Panel/Timer and expand/collapse inputs acquired. Continuous coverage must be mapped to clip intervals; some older finite segments ended before later actions. |
-| C27 | 7 | Validate the completed replacement on its exact executable against the continuous Panel↔Timer and Timer Expand/Collapse Gate 7 criterion at the approp | **PARTIAL_CAPTURE_UNREVIEWED** No new reduced-motion capture. Gate analysis remains deferred. |
-| C28 | 7 | Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collap | **PARTIAL_CAPTURE_UNREVIEWED** Normal transitions and clean-note editor acquired; first synthetic note had invalid plain-text JSON and is a fixture limitation, not product defect. |
+| C27 | 7 | Validate the completed replacement on its exact executable against the continuous Panel↔Timer and Timer Expand/Collapse Gate 7 criterion at the approp | **PARTIAL_CAPTURE_UNREVIEWED** Resume clip009 includes explicitly established normal/reduced OS settings and paired Panel/Timer + expand/collapse actions. Exact continuous/source acceptance remains deferred. |
+| C28 | 7 | Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collap | **PARTIAL_CAPTURE_UNREVIEWED** Resume normal/reduced paired transitions supplement older footage. No flash/scrollbar/stale-pixel acceptance analysis performed; synthetic invalid-note limitation retained. |
 | C29 | 7 | Implement shortcut to alternate Focus Panel/Floating Timer. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C30 | 7 | Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
 | C31 | 7 | Persist a safe last position and recover after monitor changes/restart. | **NOT_EXERCISED_REUSE_OR_TARGETED_CAPTURE_PENDING** No actual saved-position restart in this campaign; historical accepted C5 evidence retained as reuse candidate. |
 | C32 | 7 | Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any. | **PARTIAL_CAPTURE_UNREVIEWED** Normal maximized Notepad acquired; F11 browser NOT RUN because Computer Use mandatory URL-verification stop occurred before fullscreen input. |
 | C33 | 7 | Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably. | **NOT_EXERCISED_REUSE_OR_TARGETED_CAPTURE_PENDING** Attempted drag did not establish bottom-edge placement; bottom-edge expand NOT RUN. |
 | C34 | 7 | Verify no decorative animation runs continuously while idle. | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
-| C35 | 7 | VALIDATION_OPEN `M7-OBS-20261003-01`: later CI953 recordings supersede PR225 as the current observation corpus, but detailed normal/reduced continuous | **PARTIAL_CAPTURE_UNREVIEWED** Current normal-motion footage only; historical observation reconciliation deferred. |
+| C35 | 7 | VALIDATION_OPEN `M7-OBS-20261003-01`: later CI953 recordings supersede PR225 as the current observation corpus, but detailed normal/reduced continuous | **PARTIAL_CAPTURE_UNREVIEWED** Resume paired normal/reduced footage acquired; historical observation/source/frame reconciliation remains deferred. |
 | C36 | 7 | VALIDATION_OPEN `M7-OBS-20261003-02`: action-label behavior has later CI953 native evidence, including true Windows 100% acquisition, but only the spe | **PARTIAL_CAPTURE_UNREVIEWED** Current action states only; exact source/hit-target/timing review deferred. |
 | C37 | 7 | Complete the remaining M7 milestone/physical reconciliation only after the exact PR #225 observations are dispositioned. Keep M1 Candidate B physical/ | **ANALYSIS_RECONCILIATION_WRAPPER_DEFERRED** This is a reconciliation wrapper, not a distinct recordable action. Defer acceptance until analysis. |
 | C38 | 8 | A9/B29, SS-C17 dedicated Windows Shortcuts dialog: | **SURFACE_CAPTURED_UNREVIEWED** Named scenario/surface actions and snapshots acquired; coverage and acceptance NOT ANALYZED. |
@@ -58,20 +56,18 @@ No source changes, new tests/build/CI, substantive analysis or corrections. Exis
 | C44 | 8 | A4/B18, VE-014 anchored volume speaker popover — CURRENT CODE + EXACT-HEAD CI 3/3 OBSERVED: | **PARTIAL_CAPTURE_UNREVIEWED** Vertical popover/keyboard volume/preview acquired; Escape bookmark from early recorder period needs clip coverage check. No defect verdict. |
 | C45 | 8 | Video-to-code V10/B69, VE-014 ~01:32–01:56 timed-alert flash composition — SOURCE-CONTROL GAP ALREADY FIXED / NATIVE VISUAL OPEN: | **NOT_EXERCISED_REUSE_OR_TARGETED_CAPTURE_PENDING** Animated flash enabled and shortest supported interval selected through UI; live runtime flash not confirmed exercised before mandatory stop. |
 | C46 | 8 | A2/B9 independent Success sound effect: | **PARTIAL_CAPTURE_UNREVIEWED** Success preview and committed completion exercised. WASAPI loopback raw file is short/discontinuous; exact sound-event/time correspondence unreviewed; no audio PASS. |
-| C47 | 9 | A6/B25 SS-C15 + VE-015 Reports filter trigger: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C48 | 9 | A10/B30 VE-011/VE-012 Reports date completeness: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C49 | 9 | A7/B28, VE-011 chart hover category band: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C50 | 9 | A3 / SS-C12 Reports Chart options — IMPLEMENTED / ORIGINAL MENU PARITY OPEN: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C51 | 9 | A7/B27, VE-011 populated Reports Done rows: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C52 | 9 | A2 / SS-C02 Reports date navigation — IMPLEMENTED / EXACT ORIGINAL EFFECT OPEN: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C53 | 9 | B56 / SS-C14 + VE-015 Sessions Total Tasks: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C54 | 9 | A19/B51 VE-015 Sessions Break icon: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C55 | 9 | Video-to-code V06/B68, VE-015 02:05–02:20 + SS-H17 Add Session task-selector open/closed state: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C56 | 9 | A28/B59, SS-H17 Add Session Recent Tasks badges: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
-| C57 | 9 | A11/B32 Sessions detail modal focus/lifecycle: | **NOT_RUN** Reports not reached before mandatory Computer Use stop. |
+| C47 | 9 | A6/B25 SS-C15 + VE-015 Reports filter trigger: | **PARTIAL_CAPTURE_UNREVIEWED** Overview single/multiple list filters and Sessions single-list filter/badges acquired. Sessions multi-select not newly exercised. |
+| C48 | 9 | A10/B30 VE-011/VE-012 Reports date completeness: | **PARTIAL_CAPTURE_UNREVIEWED** Overview30/60/90-day ranges/chart scrolling and Sessions customOct13–20 acquired. Overview8-day/PDF export not newly acquired; requirement-specific evidence reconciliation pending. |
+| C49 | 9 | A7/B28, VE-011 chart hover category band: | **SURFACE_CAPTURED_UNREVIEWED** Populated daily category pointer and keyboard focus acquired; source category-band/tooltip analysis deferred. |
+| C50 | 9 | A3 / SS-C12 Reports Chart options — IMPLEMENTED / ORIGINAL MENU PARITY OPEN: | **SURFACE_CAPTURED_UNREVIEWED** Chart options opened; Breaks-only and Show-all-series selections acquired; source comparison deferred. |
+| C51 | 9 | A7/B27, VE-011 populated Reports Done rows: | **SURFACE_CAPTURED_UNREVIEWED** Populated Done dates/rows/badges plus internal card scrolling acquired; source/layout analysis deferred. |
+| C52 | 9 | A2 / SS-C02 Reports date navigation — IMPLEMENTED / EXACT ORIGINAL EFFECT OPEN: | **PARTIAL_CAPTURE_UNREVIEWED** Overview previous/next year/month acquired; Sessions calendar/range selection acquired, Sessions month/year controls not newly exercised. |
+| C53 | 9 | B56 / SS-C14 + VE-015 Sessions Total Tasks: | **SURFACE_CAPTURED_UNREVIEWED** Sessions counters before/after list filtering and synthetic session creation acquired; unknown original TotalTasks formula not inferred as confirmed. |
+| C54 | 9 | A19/B51 VE-015 Sessions Break icon: | **SURFACE_CAPTURED_UNREVIEWED** Real Break row and hide/show Break toggle acquired; source icon/behavior analysis deferred. |
+| C55 | 9 | Video-to-code V06/B68, VE-015 02:05–02:20 + SS-H17 Add Session task-selector open/closed state: | **SURFACE_CAPTURED_UNREVIEWED** Collapsed/open task picker, selected-task expanded fields, native Start-time popup and committed session acquired. Tool timeout preserved separately. |
+| C56 | 9 | A28/B59, SS-H17 Add Session Recent Tasks badges: | **SURFACE_CAPTURED_UNREVIEWED** Open Recent Tasks selector/list badges and task selection acquired; static source comparison deferred. |
+| C57 | 9 | A11/B32 Sessions detail modal focus/lifecycle: | **SURFACE_CAPTURED_UNREVIEWED** Actions→Edit detail; nested Add→Cancel→focus restoration; Enter→nested Add→commit→detail and Escape acquired. Source keyboard parity not analyzed. |
 
 ## Next operation
 
-Resume C47–C57 Reports in a fresh authorized Windows turn; avoid the unsupported browser operation. Check current executable/main and actual processes first. Use a NEW profile ledger: the captured session is already restored. Then collect the explicitly missing/partial native states. Analysis/fixes remain a later phase.
-
-The source-original comparison and acceptance of each requirement are separate from these acquisition labels.
+Continue only genuinely missing capture states, starting with actual timed-alert runtime in one NEW protected session. Never replay either completed profile ledger. Reuse acquired Reports/Skip/normal+reduced transitions/POMO boundary. Actual movement/bottom-edge/saved-position, second-display/borderless and reliable continuous audio remain limited; do not invent PASS. Remaining partial source/keyboard/range requirements are listed above. Freeze and publish before substantive analysis/fixes, which remain a separate phase.

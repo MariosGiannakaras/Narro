@@ -1,0 +1,1340 @@
+{
+  "utc": "2026-10-20T13:39:14.904Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 3015400,
+    "title": "Narro"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "Narro - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "RootWebArea",
+      "focused": false,
+      "type": 50030,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "List navigation",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 112,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        294,
+        809
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": false,
+      "type": 50006,
+      "x": 111,
+      "y": 83,
+      "bounds": [
+        98,
+        129,
+        281,
+        193
+      ]
+    },
+    {
+      "name": "Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 111,
+      "y": 189,
+      "bounds": [
+        98,
+        193,
+        281,
+        342
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 135,
+      "bounds": [
+        98,
+        193,
+        281,
+        233
+      ]
+    },
+    {
+      "name": "All my lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 200,
+      "bounds": [
+        98,
+        258,
+        281,
+        298
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 244,
+      "bounds": [
+        98,
+        302,
+        281,
+        342
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 63,
+      "bounds": [
+        294,
+        109,
+        1086,
+        173
+      ]
+    },
+    {
+      "name": "Utilities",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 901,
+      "y": 62,
+      "bounds": [
+        893,
+        120,
+        1066,
+        161
+      ]
+    },
+    {
+      "name": "Search",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 855,
+      "y": 62,
+      "bounds": [
+        893,
+        120,
+        974,
+        161
+      ]
+    },
+    {
+      "name": "Settings",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 945,
+      "y": 62,
+      "bounds": [
+        981,
+        120,
+        1066,
+        161
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "main-content",
+      "focused": true,
+      "type": 50026,
+      "x": 612,
+      "y": 385,
+      "bounds": [
+        294,
+        173,
+        1086,
+        753
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 160,
+      "bounds": [
+        342,
+        219,
+        1038,
+        257
+      ]
+    },
+    {
+      "name": " BACK",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 294,
+      "y": 160,
+      "bounds": [
+        342,
+        219,
+        403,
+        257
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 381,
+      "y": 160,
+      "bounds": [
+        416,
+        223,
+        502,
+        253
+      ]
+    },
+    {
+      "name": "+ Add Session",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 780,
+      "y": 160,
+      "bounds": [
+        791,
+        221,
+        926,
+        255
+      ]
+    },
+    {
+      "name": "Export .csv",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 907,
+      "y": 160,
+      "bounds": [
+        933,
+        221,
+        1038,
+        255
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50018,
+      "x": 383,
+      "y": 220,
+      "bounds": [
+        342,
+        277,
+        581,
+        319
+      ]
+    },
+    {
+      "name": "Overview",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 317,
+      "y": 220,
+      "bounds": [
+        347,
+        282,
+        443,
+        314
+      ]
+    },
+    {
+      "name": "Sessions BETA",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 433,
+      "y": 220,
+      "bounds": [
+        447,
+        282,
+        576,
+        314
+      ]
+    },
+    {
+      "name": "All Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 353,
+      "y": 278,
+      "bounds": [
+        342,
+        337,
+        520,
+        375
+      ]
+    },
+    {
+      "name": "Hide Break sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 278,
+      "bounds": [
+        532,
+        335,
+        713,
+        377
+      ]
+    },
+    {
+      "name": "Sep 20, 2026 – Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 278,
+      "bounds": [
+        786,
+        337,
+        1038,
+        375
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 376,
+      "y": 361,
+      "bounds": [
+        342,
+        393,
+        566,
+        486
+      ]
+    },
+    {
+      "name": "Total Time",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 306,
+      "y": 345,
+      "bounds": [
+        359,
+        416,
+        409,
+        431
+      ]
+    },
+    {
+      "name": "8hr 29min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 324,
+      "y": 377,
+      "bounds": [
+        359,
+        443,
+        446,
+        467
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 361,
+      "bounds": [
+        578,
+        393,
+        802,
+        486
+      ]
+    },
+    {
+      "name": "Total Tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 543,
+      "y": 345,
+      "bounds": [
+        595,
+        416,
+        647,
+        431
+      ]
+    },
+    {
+      "name": "37",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 527,
+      "y": 377,
+      "bounds": [
+        595,
+        443,
+        616,
+        467
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 848,
+      "y": 361,
+      "bounds": [
+        814,
+        393,
+        1038,
+        486
+      ]
+    },
+    {
+      "name": "Total Sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 787,
+      "y": 345,
+      "bounds": [
+        831,
+        416,
+        899,
+        431
+      ]
+    },
+    {
+      "name": "52",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 763,
+      "y": 377,
+      "bounds": [
+        831,
+        443,
+        852,
+        467
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 445,
+      "bounds": [
+        343,
+        503,
+        1053,
+        543
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 313,
+      "y": 444,
+      "bounds": [
+        359,
+        514,
+        424,
+        530
+      ]
+    },
+    {
+      "name": "14",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 910,
+      "y": 444,
+      "bounds": [
+        982,
+        514,
+        995,
+        530
+      ]
+    },
+    {
+      "name": " ",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 918,
+      "y": 444,
+      "bounds": [
+        994,
+        514,
+        998,
+        530
+      ]
+    },
+    {
+      "name": "sessions",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 939,
+      "y": 444,
+      "bounds": [
+        997,
+        514,
+        1037,
+        530
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 494,
+      "bounds": [
+        343,
+        543,
+        1053,
+        601
+      ]
+    },
+    {
+      "name": "Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 355,
+      "y": 484,
+      "bounds": [
+        355,
+        554,
+        511,
+        571
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 505,
+      "bounds": [
+        369,
+        576,
+        438,
+        591
+      ]
+    },
+    {
+      "name": "Session 03",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 494,
+      "bounds": [
+        533,
+        564,
+        585,
+        580
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 494,
+      "bounds": [
+        617,
+        564,
+        679,
+        580
+      ]
+    },
+    {
+      "name": "4:35 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 494,
+      "bounds": [
+        717,
+        564,
+        757,
+        580
+      ]
+    },
+    {
+      "name": "5:35 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 494,
+      "bounds": [
+        825,
+        557,
+        879,
+        588
+      ]
+    },
+    {
+      "name": "1hr",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 910,
+      "y": 494,
+      "bounds": [
+        979,
+        564,
+        997,
+        580
+      ]
+    },
+    {
+      "name": "Session actions for Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 494,
+      "bounds": [
+        1005,
+        555,
+        1037,
+        590
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 552,
+      "bounds": [
+        343,
+        601,
+        1053,
+        659
+      ]
+    },
+    {
+      "name": "Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 355,
+      "y": 542,
+      "bounds": [
+        355,
+        612,
+        511,
+        629
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 563,
+      "bounds": [
+        369,
+        634,
+        438,
+        649
+      ]
+    },
+    {
+      "name": "Session 02",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 552,
+      "bounds": [
+        533,
+        622,
+        585,
+        638
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 552,
+      "bounds": [
+        617,
+        622,
+        679,
+        638
+      ]
+    },
+    {
+      "name": "3:42 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 552,
+      "bounds": [
+        717,
+        622,
+        757,
+        638
+      ]
+    },
+    {
+      "name": "3:45 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 552,
+      "bounds": [
+        825,
+        615,
+        879,
+        646
+      ]
+    },
+    {
+      "name": "0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 552,
+      "bounds": [
+        970,
+        622,
+        997,
+        638
+      ]
+    },
+    {
+      "name": "Session actions for Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 552,
+      "bounds": [
+        1005,
+        613,
+        1037,
+        648
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 610,
+      "bounds": [
+        343,
+        659,
+        1053,
+        717
+      ]
+    },
+    {
+      "name": "Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 293,
+      "y": 600,
+      "bounds": [
+        355,
+        670,
+        388,
+        687
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 621,
+      "bounds": [
+        369,
+        692,
+        438,
+        707
+      ]
+    },
+    {
+      "name": "Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 468,
+      "y": 610,
+      "bounds": [
+        533,
+        680,
+        560,
+        696
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 610,
+      "bounds": [
+        617,
+        680,
+        679,
+        696
+      ]
+    },
+    {
+      "name": "3:42 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 610,
+      "bounds": [
+        717,
+        680,
+        757,
+        696
+      ]
+    },
+    {
+      "name": "3:42 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 610,
+      "bounds": [
+        825,
+        673,
+        879,
+        704
+      ]
+    },
+    {
+      "name": "0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 610,
+      "bounds": [
+        970,
+        680,
+        997,
+        696
+      ]
+    },
+    {
+      "name": "Session actions for Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 610,
+      "bounds": [
+        1005,
+        671,
+        1037,
+        706
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 620,
+      "y": 668,
+      "bounds": [
+        343,
+        717,
+        1053,
+        775
+      ]
+    },
+    {
+      "name": "Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 355,
+      "y": 658,
+      "bounds": [
+        355,
+        728,
+        511,
+        745
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 325,
+      "y": 679,
+      "bounds": [
+        369,
+        750,
+        438,
+        765
+      ]
+    },
+    {
+      "name": "Session 01",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 481,
+      "y": 668,
+      "bounds": [
+        533,
+        738,
+        585,
+        754
+      ]
+    },
+    {
+      "name": "Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 668,
+      "bounds": [
+        617,
+        738,
+        679,
+        754
+      ]
+    },
+    {
+      "name": "3:40 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 659,
+      "y": 668,
+      "bounds": [
+        717,
+        738,
+        757,
+        754
+      ]
+    },
+    {
+      "name": "3:42 PM",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 774,
+      "y": 668,
+      "bounds": [
+        825,
+        731,
+        879,
+        762
+      ]
+    },
+    {
+      "name": "2min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 905,
+      "y": 668,
+      "bounds": [
+        970,
+        738,
+        997,
+        754
+      ]
+    },
+    {
+      "name": "Session actions for Third task without estimate",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 943,
+      "y": 668,
+      "bounds": [
+        1005,
+        729,
+        1037,
+        764
+      ]
+    },
+    {
+      "name": "Primary",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        294,
+        753,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 704,
+      "bounds": [
+        558,
+        762,
+        686,
+        802
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 704,
+      "bounds": [
+        694,
+        762,
+        822,
+        802
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        86,
+        109,
+        1086,
+        809
+      ]
+    },
+    {
+      "name": null,
+      "automationId": "",
+      "focused": false,
+      "type": 50037,
+      "x": 516,
+      "y": 17,
+      "bounds": [
+        102,
+        81,
+        1086,
+        109
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "MenuBar",
+      "focused": false,
+      "type": 50010,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        86,
+        86,
+        108,
+        108
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "",
+      "focused": false,
+      "type": 50011,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        86,
+        86,
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Minimize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 892,
+      "y": 16,
+      "bounds": [
+        947,
+        79,
+        994,
+        109
+      ]
+    },
+    {
+      "name": "Maximize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 939,
+      "y": 16,
+      "bounds": [
+        994,
+        79,
+        1040,
+        109
+      ]
+    },
+    {
+      "name": "Close",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 985,
+      "y": 16,
+      "bounds": [
+        1040,
+        79,
+        1087,
+        109
+      ]
+    }
+  ]
+}

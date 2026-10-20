@@ -1,3 +1,15 @@
+# HANDOFF — capture continuation FROZEN / originals published
+
+Owner Codex; branch `main`; phase **FROZEN**; last observed UTC `2026-10-20T17:47:42.761824+00:00`. Source `9e631952158c5c6b9763e0e0d79e33b79e8c7ca3`, resulting-main CI39389033088/artifact12249543153, EXE SHA256`bced8a9f533fedb726bedc7fa2d90eec98324b2f9b15db77b8f1ad1c79b5f909`. No source/test/build/CI changes. Latest user reauthorized continuation after stop; scope remains capture-only until phase change is requested.
+
+**NOW:** inventory57/57; material53/57 including partial coverage, not53PASS. All11Reports lines have acquired material. Resume10originalMKVs46325880bytes/24screenshots/103observations, plus raw actions/UIA/owned DB and restoration receipts are in [resume packet](work-log/evidence/capture57-resume-20261020/README.md). Earlier packet remains unchanged. [Per-line matrix](docs/CAPTURE_57_ACQUISITION_2026-10-20.md). Skip and actual five-minute automaticPOMO Break acquired; explicit normal/reduced transition blocks acquired. Preserve advertised60fps ceiling vs actualPTS distinction and clip gaps. Actual movement still not established; timedflash/audio not acquired. No acceptance checkbox advanced; mandatory4/10/M10gate unchanged, optionalM11/M12 dormant.
+
+**Safety checkpoint:** root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Resume-20261020` ledger **ORIGINAL_PROFILES_RESTORED**, originalDB SHA256`13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d` identical. Original OS motion0/false restored. No owned Narro/ffmpeg active at recovery. Never replay either completed ledger/dead HWND/PID. Initial dirty `E:\SystemFiles\Desktop\NarroUpload` and untracked icons in managed checkout are preserved.
+
+**ONE NEXT OPERATION:** after confirming publication/currentmain, prepare one NEW protected capture session for actual timed-alert runtime first, then only genuinely missing/partial states in matrix. Do not repeat captured Reports/Skip/motion/POMO work. Keep movement/bottom/restart, physical topology/borderless and continuousaudio limitations truthful. Do not begin substantive analysis or source corrections during this capture phase; user wanted notification before that phase. Freeze/upload at safe boundary.
+
+## HISTORICAL checkpoints (superseded)
+
 # HANDOFF — capture continuation PREPARED
 
 Owner Codex / phase PREPARED / last observed UTC 2026-10-20T13:19:19.568180+00:00. User asks to continue remaining capture, not analysis/fixes. Native Computer Use works in this fresh turn; no app/recorder active. Verified main5d5dd789 / unchanged accepted executablebced8a9f... / source9e631952. New session root `E:\SystemFiles\Desktop\Narro-Workspace\Narro-57-Resume-20261020`.

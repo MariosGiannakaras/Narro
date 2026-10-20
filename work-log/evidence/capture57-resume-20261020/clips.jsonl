@@ -1,0 +1,10 @@
+{"utc":"2026-10-20T13:20:20.393Z","file":"resume-segment-001-original.mkv","pid":203216,"maxSeconds":180,"ROI":{"x":78,"y":78,"width":1016,"height":738},"method":"physical DXGI 60fps ceiling, no duplication, focused ROI encoded once at acquisition"}
+{"utc":"2026-10-20T13:23:30.470Z","file":"resume-segment-002-original.mkv","pid":190776,"maxSeconds":180,"ROI":{"x":78,"y":78,"width":1016,"height":738},"method":"physical DXGI 60fps ceiling, no duplication, focused ROI encoded once at acquisition"}
+{"utc":"2026-10-20T13:27:00.172Z","file":"resume-segment-003-original.mkv","pid":188468,"maxSeconds":180,"ROI":{"x":78,"y":78,"width":1016,"height":738},"method":"physical DXGI 60fps ceiling, no duplication, focused ROI encoded once at acquisition"}
+{"utc":"2026-10-20T13:30:33.601Z","file":"resume-segment-004-original.mkv","pid":216728,"maxSeconds":180,"ROI":{"x":78,"y":78,"width":1016,"height":738},"method":"physical DXGI 60fps ceiling, no duplication, focused ROI encoded once at acquisition"}
+{"utc":"2026-10-20T13:34:41.402Z","file":"resume-segment-005-original.mkv","pid":184944,"maxSeconds":180,"ROI":{"x":78,"y":78,"width":1016,"height":738},"method":"physical DXGI 60fps ceiling, no duplication, focused ROI encoded once at acquisition"}
+{"utc":"2026-10-20T13:38:37.193Z","file":"resume-segment-006-original.mkv","pid":187656,"maxSeconds":180,"method":"DXGI physical frames dup_frames=0","roi":[78,78,1016,738]}
+{"utc":"2026-10-20T13:41:53.665Z","file":"resume-segment-007-original.mkv","pid":198200,"maxSeconds":180,"method":"DXGI physical frames dup_frames=0","roi":[78,78,1016,738]}
+{"utc":"2026-10-20T13:44:50.792Z","file":"resume-segment-008-original.mkv","pid":138204,"maxSeconds":180,"method":"DXGI physical frames dup_frames=0","roi":"full desktop 2560x1080"}
+{"utc":"2026-10-20T13:47:52.987Z","file":"resume-segment-009-original.mkv","pid":182784,"maxSeconds":180,"method":"DXGI physical frames dup_frames=0","roi":"full desktop 2560x1080"}
+{"utc":"2026-10-20T13:51:11.131Z","file":"resume-segment-010-original.mkv","pid":193432,"maxSeconds":180,"method":"DXGI physical frames dup_frames=0","roi":"full desktop 2560x1080"}

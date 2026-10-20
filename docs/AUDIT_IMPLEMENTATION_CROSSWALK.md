@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**Capture acquisition only (2026-10-20):** [current matrix](CAPTURE_57_ACQUISITION_2026-10-20.md) now has material53/57 including partial lines; [resume originals](../work-log/evidence/capture57-resume-20261020/README.md). No finding disposition/acceptance/source-parity PASS changed. Capture review and canonical comparisons remain pending.
+
 **Current scoped closure:** RA01-A + RA02-A/B corrective native scopes CLOSED. PR387 ONfirst/next/last3/3PASS; unchanged PR386 Board4/4/OFF2/2 retained, explicitNext/rest/persistencePASS. ExactPRCI39386125624 3/3SUCCESS, guardedmerge9e631952; resultingmainCI39389033088 3/3SUCCESS and actualWindows4/4x9/packageverified. Alloriginals/screenshots/frameproofs published, profiles/motionrestored/no ownedrecorderactive. [Final report](PR387_NATIVE_ACCEPTANCE_2026-10-20.md). Mandatory4/10unchanged; wholeM5–M9/sourceparity andM10gate remain.
 
 **HISTORICAL PR386 native review:**9/9 cases reviewed,7scopedPASS/2visualFAIL(shared SuccessON next-row omission13–14ms). RA01-A CLOSED4/4; OFF2/2 and ONlast scopedPASS; RA02-B rest/statusPASS. RA02-A remainsOPEN/FIX_NOW; old stale completed row corrected. Profiles/motionrestored; no recordingactive. [Report](PR386_NATIVE_RETEST_2026-10-20.md). PR386 merged476d95ea/PRCI3/3; mainCI39365199465now3/3SUCCESS. Mandatory4/10unchanged.
