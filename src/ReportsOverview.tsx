@@ -120,7 +120,9 @@ function doneTaskPresentation(
       title: task.taskTitle,
       listTitle: task.listTitle,
       listColor: reportListAccent(task.listId, listColors),
-      completionLabel: formatReportCompletionDate(task.completedAt, locale, timeZone),
+      completionLabel: Number.isFinite(Date.parse(task.completedAt))
+        ? formatReportCompletionDate(task.completedAt, locale, timeZone)
+        : "Completion date unavailable",
       timeTakenLabel: formatReportDuration(task.timeTakenSeconds),
       punctuality,
       varianceLabel: timing === null
