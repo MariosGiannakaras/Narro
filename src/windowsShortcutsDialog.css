@@ -152,3 +152,17 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Keep source-shortcut instructional copy available to assistive technology
+   without spending visible row height on explanations absent from SS-C17. */
+.windows-shortcuts-dialog__surface .windows-shortcuts__intro,
+.windows-shortcuts-dialog__surface .windows-shortcuts__status:not(.windows-shortcuts__status--error) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
