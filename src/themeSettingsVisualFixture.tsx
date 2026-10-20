@@ -6,6 +6,7 @@ import {
   BlitzPanelPreferenceSection,
   GeneralPreferenceRows,
   LowerPreferenceSections,
+  TimePreferenceRows,
 } from "./PreferenceSettingsSections";
 import type { PreferenceSettingsSnapshot } from "./preferencesApi";
 import { ThemeSettingsPanelView } from "./ThemeSettingsPanel";
@@ -178,6 +179,13 @@ flushSync(() => {
       )}
       generalChildren={(
         <GeneralPreferenceRows
+          snapshot={preferenceSnapshot}
+          pendingKey={null}
+          onSave={() => undefined}
+        />
+      )}
+      timeChildren={(
+        <TimePreferenceRows
           snapshot={preferenceSnapshot}
           pendingKey={null}
           onSave={() => undefined}
