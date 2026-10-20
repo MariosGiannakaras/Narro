@@ -100,6 +100,7 @@ invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module
 const shortcutsDialogSource = await read("src/WindowsShortcutsDialog.tsx");
 const shortcutsDialogCss = await read("src/windowsShortcutsDialog.css");
 const shortcutSettingsSource = await read("src/WindowsShortcutSettingsPanel.tsx");
+const shortcutSettingsCss = await read("src/windowsShortcutSettingsPanel.css");
 const modalSource = await read("src/PreferencesDialog.tsx");
 const modalCss = await read("src/preferencesDialog.css");
 const shellSource = await read("src/AppShell.tsx");
@@ -169,6 +170,11 @@ invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windo
     && shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__rows")
     && shortcutsDialogCss.includes("gap: 0;"),
   "SS-C17 ten-row dedicated modal must have scoped compact rows without changing reused control semantics");
+invariant(shortcutSettingsSource.includes('row.chord.split(" + ").map(')
+    && shortcutSettingsSource.includes('className="windows-shortcuts__keycaps"')
+    && shortcutSettingsCss.includes(".windows-shortcuts__keycaps")
+    && shortcutsDialogCss.includes(".windows-shortcuts__intro"),
+  "C38 source shortcut keys must be individually rendered and dense descriptions remain accessible");
 invariant(shortcutsDialogCss.includes(".windows-shortcuts__copy > .type-metadata:not(.windows-shortcuts__status)")
     && shortcutsDialogCss.includes(".windows-shortcuts__status--error")
     && shortcutsDialogCss.includes("flex-basis: 100%"),
