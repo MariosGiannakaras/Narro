@@ -128,4 +128,39 @@ popover(tree).props.onKeyDown({
 tree = render({ saving: false });
 assert.equal(popover(tree), null, "Escape must dismiss the child popover");
 assert.ok(refs[1].current.focused, "Escape must restore focus to the speaker trigger");
-console.log("Production sound slider open, keyboard commit, pending-save focus, dedupe and Escape: PASS");
+// Rejecting a native save must restore the last committed volume without
+// accidentally closing the still-open child dialog or admitting an extra write.
+props.onVolumeCommit = async () => false;
+trigger(render()).props.onClick();
+tree = render();
+range(tree).props.onChange({ target: { value: "75" } });
+tree = render();
+range(tree).props.onKeyUp({ key: "End" });
+await Promise.resolve();
+await Promise.resolve();
+tree = render();
+assert.ok(popover(tree), "A failed native save must retain the volume surface");
+assert.equal(range(tree).props.value, 50, "Rejected save must restore the committed value");
+
+// A thrown/typed native error follows the other error path, preserving the
+// original input value and presenting localized control feedback.
+props.onVolumeCommit = async () => { throw Error("native backend refused save"); };
+range(tree).props.onChange({ target: { value: "90" } });
+tree = render();
+range(tree).props.onKeyUp({ key: "Home" });
+await Promise.resolve();
+await Promise.resolve();
+tree = render();
+assert.equal(range(tree).props.value, 50, "Thrown save must roll back the draft");
+assert.ok(find(tree, n => n.props.role === "status"),
+  "Thrown save must show visible error feedback");
+assert.ok(popover(tree), "Rejected volume save may not silently dismiss its popover");
+
+// An actual disabled parent differs from a temporary save: its volume
+// popover must not be exposed, and no new native write may be admitted.
+tree = render({ disabled: true, saving: false });
+assert.equal(popover(tree), null, "Parent-OFF suppresses the child popup");
+assert.equal(trigger(tree).props.disabled, true, "Parent-OFF disables speaker trigger");
+assert.equal(find(tree, n => n.type === "select").props.disabled, true,
+  "Parent-OFF disables sound selector");
+console.log("Production sound volume keyboard, pending save, focus, rollback, disabled owner and Escape: PASS");
