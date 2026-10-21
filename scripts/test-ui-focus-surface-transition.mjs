@@ -172,11 +172,13 @@ invariant(
     && prepareRaster.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
     && coordinator.indexOf("await prepareFocusSurfaceModeRaster(targetPresentation)")
       < coordinator.indexOf("await prepareGeometryMotion(previousPresentation, targetPresentation)")
-    && raster.includes("source_offset(outgoing, visible, x, y)")
-    && raster.includes("source_offset(incoming, visible, x, y)")
+    && raster.includes("source_offset(image, visible, x, y)")
+    && raster.includes("let growing =")
+    && raster.includes("visible.height) > scaled_height")
+    && !raster.includes("incoming_weight")
     && !coordinatorCss.includes("inset(0 0 590px")
     && !coordinatorCss.includes("inset(0 0 400px"),
-  "outgoing CapturePreview protection precedes target promotion; every intermediate image resamples the complete hierarchy instead of cropping incoming Panel rows",
+  "outgoing protection precedes target promotion; one hierarchy is clipped at natural row spacing with uniform DPI scale and no crossblend",
 );
 invariant(
   coordinator.includes("afterRendererCommit: async () =>")
