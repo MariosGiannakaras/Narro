@@ -63,6 +63,10 @@ for (const button of [detail, add]) {
 const quick = singleRule(focusCss, ".focus-panel__quick-controls button");
 property(quick, "display", "inline-grid");
 property(quick, "place-items", "center");
+property(quick, "box-sizing", "border-box");
+property(quick, "width", "32px");
+property(quick, "height", "32px");
+property(quick, "padding", "0");
 assert.match(focus, /className="focus-panel__quick-controls"/);
 assert.ok(icon.includes('width: size') && icon.includes('height: size')
   && icon.includes('viewBox: "0 0 24 24"'),
