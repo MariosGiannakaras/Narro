@@ -11,7 +11,7 @@ export function selectImpactedTests(changed, bodies, npmScripts) {
   const runnable = new Map();
   for (const [label, cmd] of Object.entries(npmScripts)) {
     if (!label.startsWith("test:") || typeof cmd !== "string") continue;
-    const name = cmd.match(/\\bscripts\\/(test-[\\w-]+\\.mjs)\\b/)?.[1];
+    const name = cmd.match(/\bscripts\/(test-[\w-]+\.mjs)\b/)?.[1];
     if (name) runnable.set(`scripts/${name}`, label);
   }
 
@@ -21,12 +21,12 @@ export function selectImpactedTests(changed, bodies, npmScripts) {
   // falsely reports such changes as uncovered (NER-003).
   const references = (body, relative) => {
     const basename = path.posix.basename(relative);
-    const stem = basename.replace(/\\.(tsx|ts|jsx|js|mjs|css|json)$/, "");
+    const stem = basename.replace(/\.(tsx|ts|jsx|js|mjs|css|json)$/, "");
     return body.includes(relative) || body.includes(basename)
       || (stem.length >= 7 && body.includes(stem));
   };
   const knownBodies = [...bodies.entries()];
-  const frontier = [...new Set(changed.map(name => name.replaceAll("\\\\", "/")))];
+  const frontier = [...new Set(changed.map(name => name.replaceAll("\\", "/")))];
   const seen = new Set(frontier), mapped = new Set(), consumers = new Map();
   for (let index = 0; index < frontier.length; index++) {
     const relative = frontier[index];
@@ -60,7 +60,7 @@ export function selectImpactedTests(changed, bodies, npmScripts) {
     return false;
   }
   const unmapped = frontier.slice(0, new Set(changed).size).filter(file =>
-    /^(src\\/|src-tauri\\/|scripts\\/)/.test(file) && !reachesRunnable(file));
+    /^(src\/|src-tauri\/|scripts\/)/.test(file) && !reachesRunnable(file));
 
   return {
     tests: [...mapped].sort(),
@@ -102,9 +102,9 @@ function main() {
   // generated build artifacts or executable imports).
   const visit = (directory) => {
     for (const entry of readdirSync(path.join(root, directory), { withFileTypes: true })) {
-      const relative = path.posix.join(directory.replaceAll("\\\\", "/"), entry.name);
+      const relative = path.posix.join(directory.replaceAll("\\", "/"), entry.name);
       if (entry.isDirectory()) visit(relative);
-      else if (entry.isFile() && /\\.(tsx?|jsx?|css)$/.test(entry.name)) {
+      else if (entry.isFile() && /\.(tsx?|jsx?|css)$/.test(entry.name)) {
         bodies.set(relative, readFileSync(path.join(root, relative), "utf8"));
       }
     }
