@@ -26,15 +26,15 @@ function singleRule(source, selector) {
   assert.ok(match.length, "Missing production rule for " + selector);
   return match.join("\n");
 }
-function property(body, property, expected) {
-  const escaped = property.replace(/[.*+?^${}()|[]\\]/g, "\\$&");
-  assert.match(body, new RegExp("(?:^|\\n)\\s*" + escaped + "\\s*:\\s*"
-      + expected.replace(/[.*+?^${}()|[]\\]/g, "\\$&") + "\\s*;"),
-    property + " must equal " + expected + " in actual scoped CSS");
+function property(body, key, expected) {
+  assert.ok(body.split(";").some(declaration =>
+    declaration.trim() === key + ": " + expected),
+    key + " must equal " + expected + " in actual scoped CSS");
 }
 
-assert.match(app, /button\s*\{[\s\S]*?padding: var\(--space-2\) var\(--space-3\);/,
-  "Base buttons have padding that must be explicitly reset for tiny icon-only grid tracks");
+assert.ok(app.includes("input,\\nbutton,\\nselect") &&
+  app.includes("padding: var(--space-2) var(--space-3);"),
+  "Shared button padding must be reset in tiny calendar-icon grid tracks");
 assert.match(reportsCss, /grid-template-columns: 22px 22px minmax\(0, 1fr\) 22px 22px;/,
   "Both Reports calendars reserve exactly 22px for each chevron track");
 const calendar = singleRule(reportsCss, ".reports-overview__calendar header button");
