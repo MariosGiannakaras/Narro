@@ -221,7 +221,7 @@ function TaskActionButton({
         onPointerDown={(event) => event.stopPropagation()}
         onClick={action}
       >
-        <ActionIcon name={glyph} />
+        <ActionIcon name={glyph} size={14} />
       </button>
     </Tooltip>
   );
@@ -266,7 +266,7 @@ function TaskOverflowMenu({
       <Menu
         triggerLabel="Task actions"
         align="end"
-        trigger={<ActionIcon name="more" />}
+        trigger={<ActionIcon name="more" size={14} />}
         onDismiss={confirmation?.onCancel}
         dismissDisabled={confirmation?.pending}
       >
