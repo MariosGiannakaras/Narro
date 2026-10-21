@@ -140,7 +140,7 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </header>
       )}
 
-      {lists?.length === 0 ? null : (
+      {lists && lists.length > 0 ? (
         <p className="archived-lists-panel__scope-note">
           Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
         </p>
