@@ -202,3 +202,18 @@
   gap: var(--space-1);
   min-width: 132px;
 }
+
+/* The individual keycaps are visual only (aria-hidden). The complete chord
+   must remain real text in the accessibility tree; aria-label on a generic
+   span is not a reliable substitute for readable content. */
+.windows-shortcuts__accessible-chord {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
