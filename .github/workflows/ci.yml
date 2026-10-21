@@ -3,12 +3,23 @@ name: Windows CI
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - "**/*.md"
+    # Keep tracking Markdown cheap, but rebuild when bundled validation docs change.
+    paths:
+      - "**"
+      - "!**/*.md"
+      - "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md"
+      - "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"
+      - "docs/M1_WINDOWS_RUNTIME_VALIDATION.md"
+      - "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md"
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-      - "**/*.md"
+    paths:
+      - "**"
+      - "!**/*.md"
+      - "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md"
+      - "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"
+      - "docs/M1_WINDOWS_RUNTIME_VALIDATION.md"
+      - "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md"
   workflow_dispatch:
 
 permissions:
@@ -276,12 +287,23 @@ jobs:
       run: npm run test:focus-runtime-visual:windows
 
     - name: Upload Packaged Focus Runtime Visual Artifact
-      if: always()
+      # A successful runtime capture must produce its required artifact.
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: narro-m7-focus-runtime-visual
         path: artifacts/focus-runtime-visual/**
         if-no-files-found: error
+
+    - name: Preserve Partial Focus Runtime Diagnostics After Failure
+      # An upstream failure may occur before any Focus capture exists.
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-focus-runtime-failure-diagnostics
+        path: artifacts/focus-runtime-visual/**
+        if-no-files-found: warn
+        retention-days: 1
 
     - name: Build Physical Validation Release
       shell: pwsh
