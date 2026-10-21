@@ -36,6 +36,16 @@ const actions = read("src/FocusLiveActions.tsx");
 const notes = read("src/TaskNotes.tsx");
 const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
+const overviewView = read("src/ReportsOverviewView.tsx");
+assert(overviewView.includes('triggerLabel="Chart options"')
+  && overviewView.includes('trigger={<ActionIcon name="more" />}')
+  && reports.includes('triggerLabel={`Session actions for ${row.taskTitle}`}')
+  && reports.includes('trigger={<ActionIcon name="more" />}'),
+  "Reports Overview and Sessions menus must use shared SVG More with preserved semantic trigger names");
+assert(!overviewView.includes('trigger={<span aria-hidden="true">•••</span>}')
+  && !reports.includes('trigger={<span aria-hidden="true">•••</span>}'),
+  "font-dependent triple-dot glyphs must not return to Reports action menus");
+
 const homeDashboard = read("src/HomeDashboard.tsx");
 const homeCss = read("src/homeDashboard.css");
 assert(homeDashboard.includes('trigger={<ActionIcon name="more" />}')
