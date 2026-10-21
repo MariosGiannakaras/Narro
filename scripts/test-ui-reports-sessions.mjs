@@ -14,6 +14,7 @@ invariant(view.includes('<ReportListBadges options={listOptions} selectedListIds
 invariant(badges.includes('data-report-list-badges="true"'), "Report badge component missing");
 invariant(view.includes('className="reports-sessions__break-icon"'), "source Break filter icon missing");
 const styles = fs.readFileSync("src/reportsSessions.css", "utf8");
+const boardListStyles = fs.readFileSync("src/boardListPicker.css", "utf8");
 const fixture = fs.readFileSync("src/reportsVisualFixture.tsx", "utf8");
 const captureValidator = fs.readFileSync("scripts/validate-reports-captures.mjs", "utf8");
 const api = fs.readFileSync("src/reportsApi.ts", "utf8");
@@ -126,6 +127,36 @@ for (const [haystack, needle, label] of [
 ]) {
   invariant(haystack.includes(needle), label);
 }
+
+// A 0.6rem colored swatch cannot display a real initial; the pixel geometry
+// must use the existing centered Board list-picker initial badge contract.
+function scopedDeclarations(sheet, selector) {
+  const start = sheet.indexOf(selector + " {");
+  invariant(start >= 0, "Missing UI selector: " + selector);
+  return sheet.slice(start + selector.length + 2, sheet.indexOf("}", start))
+    .split(";").map(part => part.trim()).filter(Boolean);
+}
+const badgeDeclarations = scopedDeclarations(styles, ".reports-sessions__task-picker-list i");
+const boardBadgeDeclarations = scopedDeclarations(boardListStyles, ".board-list-picker__badge--board-icon");
+for (const declaration of [
+  "display: inline-grid", "place-items: center",
+  "flex: 0 0 1.35rem", "width: 1.35rem", "height: 1.35rem",
+  "font-size: var(--font-size-metadata)", "font-weight: var(--font-weight-semibold)",
+]) {
+  invariant(badgeDeclarations.includes(declaration), "Recent Task list initials not centered: " + declaration);
+  invariant(boardBadgeDeclarations.includes(declaration),
+    "Recent Task badge must reuse the already-approved Board list badge size/typography: " + declaration);
+}
+const taskRow = scopedDeclarations(styles, ".reports-sessions__task-picker button");
+invariant(taskRow.includes("align-items: center") && taskRow.includes("min-height: 42px"),
+  "Recent-task title and list initial must share the existing 42px row's vertical center");
+invariant(view.includes('className="reports-sessions__task-picker-list"')
+  && view.includes('data-session-task-list-badge="true" title={task.listTitle}')
+  && view.includes('task.listTitle.trim().charAt(0).toUpperCase() || "L"')
+  && view.includes('color: task.listColor && HEX_COLOR.test(task.listColor) ? listIconContrast(task.listColor)'),
+  "Badge geometry may not remove the source list initial, tooltip, contrast or color");
+invariant(view.includes('<i aria-hidden="true" style={{'),
+  "Decorative badge initial must not add an unexpected screen reader focus/announcement");
 
 invariant(
   !sessions.includes("setInterval("),
