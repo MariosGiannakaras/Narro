@@ -41,6 +41,7 @@ for (const theme of ["light", "dark"]) {
   const doneEmpty = read(`archive-done-empty-${theme}`);
   common(doneEmpty, `${theme} archived-done empty`);
   invariant(doneEmpty.includes('data-archive-tab="done"'), `${theme} done segment marker is missing`);
+  invariant(doneEmpty.includes('data-archive-tabs-keyboard-pass="true"'), `${theme} archive done tab must retain Arrow-key focus switching`);
   invariant(doneEmpty.includes('data-archived-done-panel="true"'), `${theme} archived done panel is missing`);
   invariant(doneEmpty.includes('placeholder="Search archived tasks"'), `${theme} archived task search is missing`);
   invariant(doneEmpty.includes('data-archive-list-filter="true"'), `${theme} archived task list filter is missing`);
