@@ -1,5 +1,7 @@
 # TODO.md
 
+**Current PR389head77a6b139/CI39560130498:**2/3SUCCESS, WindowsRUNNING;85141282ClippyFAIL retained,958947ca superseded. Runtime unchanged by unit-test-only lint/format follow-up; exact77WASM61scalar+6Rust unit bodiesPASS, nativeWindowsNOTRUN locally. Live quiet baseline PID98608/owned protected profile and3run collector active; HANDOFF gives cleanup/restart protection. No recording/native candidate acceptance or milestone advancement.
+
 **Current candidate PR389:** exact85141282/CI39559126923RUNNING, unmerged. Protected Timer resize+pixel-preserving composition and scoped tooltip fix; local frontend/build/fmtPASS,14/14 orchestration,61Rust/WASMarithmetic, real Edge M7matrix4/4 and tooltipRED→GREEN. Native candidate acceptance NOT RUN; Timer still FAIL/OPEN, mandatory4/10/M10blocked. [Proof](work-log/evidence/timer-protected-candidate-20261021/README.md), HANDOFF next action. Earlier checkpoints below are historical.
 
 **Current 2026-10-21 paired diagnostic:**2/2actual native variants reviewed; stale Panel pixels on Timer expansion in both default and GPU-compositing-disabled runs, so GPU flag is not a fix. Tooltip intercepts Expand in both; scoped FIX_NOW. Main CI3/3SUCCESS and all4actual EXE/MSI/NSIS file identities verified. Profiles restored/hash identical/no capture active. [Full evidence](work-log/evidence/timer-compositor-ab-20261021/README.md). Native Timer FAIL/OPEN, arithmetic-only prototype609e pending; mandatory4/10 unchanged. Older checkpoints below are historical.
