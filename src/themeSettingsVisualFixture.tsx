@@ -151,11 +151,12 @@ document.body.dataset.themeSettingsPreference = theme;
 const root = document.getElementById("root");
 if (!root) throw new Error("Theme settings fixture root is missing.");
 
+let shortcutsCloseRequests = 0;
 flushSync(() => {
   const content = (
     shortcutsDialog ? (
       <WindowsShortcutsDialog
-        onRequestClose={() => undefined}
+        onRequestClose={() => { shortcutsCloseRequests++; }}
         settingsContent={(
           <WindowsShortcutSettingsPanelView
             snapshot={shortcutSnapshot}
@@ -276,6 +277,23 @@ window.requestAnimationFrame(async () => {
         document.documentElement.dataset.themeSettingsShortcutsLayoutPass = String(fits);
         if (!fits) throw new Error("C38: ten shortcut rows must fit the supported dialog viewport");
       }
+    }
+    if (shortcutsDialog && !shortcutConflict) {
+      // Simulate browser focus loss during a native shortcut-save without
+      // changing actual shortcut preferences or registration.
+      const closeButton = document.querySelector<HTMLButtonElement>('[data-windows-shortcuts-close="true"]');
+      if (!closeButton) throw new Error("Shortcuts close button is missing");
+      closeButton.blur();
+      if (document.activeElement !== document.body) throw new Error("Shortcuts orphaned focus setup failed");
+      const tab = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
+      window.dispatchEvent(tab);
+      const tabRecovered = tab.defaultPrevented && document.activeElement === closeButton;
+      closeButton.blur();
+      const escape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+      window.dispatchEvent(escape);
+      const passed = tabRecovered && escape.defaultPrevented && shortcutsCloseRequests === 1;
+      document.documentElement.dataset.themeSettingsShortcutsKeyboardRecoveryPass = String(passed);
+      if (!passed) throw new Error("Shortcuts must recover Tab and Escape when pending save orphans focus");
     }
     // Verify *rendered* icon-only modal controls, not just source CSS text.
     // Both dialogs reuse 2rem hitboxes around the same 16px ActionIcon close.
