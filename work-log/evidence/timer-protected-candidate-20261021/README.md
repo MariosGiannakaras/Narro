@@ -1,0 +1,13 @@
+# Protected Timer candidate local proof
+
+Source851412829438545580e92d263ce2695c79eb0475, PR389, first exact-headCI39559126923. This packet is local browser/source verification, **not native candidate acceptance**.
+
+Full frontend preflight exit0 (including strict TypeScript/build), protected resize14/14, Rust formatting PASS. Production compose function baselineRED/candidate61 actual Rust WASM assertions retained in ../timer-composition-probe-20261021. Native Rust compilation/unit tests/Clippy NOT RUN locally because MSVC/SDK are absent; exact Windows CI owns them.
+
+Real Edge regression: baseline production CSS plus same test instrumentation shows open Return-to-Focus tooltip intercepting **both Add and Expand**; validator exits1 with actual elementFromPoint target=tooltip. Candidate both themes pass, resting geometry/lifecycle/keyboard-focus and other existing Timer contracts pass. Timer-local explanatory tooltip hit-testing changes only; interactive popovers/menus unchanged. M7 integration4/4 real-browser dark/light×normal/reduced-motion completion markers and results pass. Those fixture inputs/mock-native callbacks cannot prove real HWND/OS paint freshness.
+
+React review: no new subscriptions, data authority, polling or runtime dependencies; critical waits are causally sequential, independent matrix runs use different preview ports. Input/accessibility exclusion remains active during raster preparation. Existing controlled-prop effect excludes an in-flight resize; synchronous re-entry ref and coordinator transition gate remain. Failure paths preserve original+recovery causes and leave native watchdog responsible for a lease whose rollback/release fails. Native failure-injection/physical acceptance remains required; no claim from function tests alone.
+
+The finite same-host raster alternative and source reconstruction decision were documented on main before implementation. Stable pixels clip at natural scale, no whole-image crossblend; same existing HWND/WebView/region/lifecycle. Timer-only origin uses current safe clamp and avoids saved-position snapback. Canonical source parity and native M7 C26–28/C35/affectedC19 remain OPEN until exact-build continuous verification. Approved picker/upload/218icons and unrelated generated branding files excluded.
+
+Source/evidence dependency map: current main4/10 remains accepted for its existing implementation. Candidate pre-merge validation must cover affected M1 single-host/geometry/idle footprint invariants and M7 finite motion/freshness/interaction. No previously accepted historical capture validates the changed implementation. Other M5–M9 surfaces are unchanged and reused only for matching source claims.
