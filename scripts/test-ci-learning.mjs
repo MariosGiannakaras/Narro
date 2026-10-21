@@ -11,6 +11,51 @@ test("a failed Rust test dominates a later artifact error", () => {
   assert.deepEqual(signalFromLog("test a::b::c ... FAILED\n##[error]No files were found"),
     { kind: "rust-test", value: "a::b::c" });
 });
+test("anonymized Node syntax errors are grouped by real frontend script and stable message", () => {
+  const first = "2026-10-21T18:32:14.3056497Z SyntaxError: Unexpected token ','\n" +
+    "2026-10-21T18:32:14.3057673Z     at harness (file:///home/runner/work/Narro/Narro/scripts/test-archive-read-retry.mjs:49:6)\n" +
+    "2026-10-21T18:32:14.3058161Z     at file:///home/runner/work/Narro/Narro/scripts/test-archive-read-retry.mjs:123:19";
+  const second = "2026-10-21T19:00:15.0000000Z SyntaxError: Unexpected token ','\n" +
+    "2026-10-21T19:00:15.0001000Z     at harness (file:///home/runner/work/Narro/Narro/scripts/test-archive-read-retry.mjs:64:3)";
+  const a = signalFromLog(first);
+  assert.equal(a.kind, "node-syntax");
+  assert.deepEqual(a, signalFromLog(second));
+  assert.ok(a.value.startsWith("scripts/test-archive-read-retry.mjs:"));
+  assert.ok(!a.value.includes("Unexpected token"));
+  assert.ok(!a.value.includes("/home/"));
+  assert.notEqual(a.value, signalFromLog(first.replace("Unexpected token ','", "Unexpected token '}'")).value);
+});
+
+test("a Node frontend contract failure is recognized without publishing assertion content", () => {
+  const message = "Missing real archive fixture keyboard arrow/focus coverage: data-archive-tabs-keyboard-pass";
+  const log = "2026-10-21T18:36:43.8262048Z Error: " + message + "\n" +
+    "2026-10-21T18:36:43.8262693Z     at requireText (file:///home/runner/work/Narro/Narro/scripts/test-ui-archives.mjs:7:41)";
+  const observed = signalFromLog(log);
+  assert.equal(observed.kind, "node-contract");
+  assert.match(observed.value, /^scripts\/test-ui-archives\.mjs:[0-9a-f]{12}$/);
+  assert.ok(!observed.value.includes("archive-tabs"));
+  assert.equal(observed.value, signalFromLog(log.replace(":7:41", ":30:4")).value);
+});
+
+test("Node AssertionError is distinct from generic contract failure", () => {
+  const observed = signalFromLog("AssertionError [ERR_ASSERTION]: expected redacted value\n" +
+    "    at file:///home/runner/work/Narro/Narro/scripts/test-shortcut-accessibility-and-admission.mjs:82:8");
+  assert.equal(observed.kind, "node-assertion");
+  assert.ok(!observed.value.includes("redacted"));
+});
+
+test("bare Node-style errors and downstream uploads are not treated as reliable families", () => {
+  assert.equal(signalFromLog("Error: Missing fixture\n##[error]Process completed with exit code 1"), null);
+  assert.equal(signalFromLog("SyntaxError: Unexpected token ','\n at node:vm:117:7"), null);
+  assert.equal(signalFromLog("##[error]No files were found with the provided path"), null);
+});
+
+test("explicit Rust diagnostics remain preferred over incidental Node stack lines", () => {
+  const mixed = "error[E0308]: mismatched types\nError: secondary error\n" +
+    "    at file:///home/runner/work/Narro/Narro/scripts/test-ui-archives.mjs:2:2";
+  assert.deepEqual(signalFromLog(mixed), { kind: "rust-compiler", value: "E0308" });
+});
+
 test("generic exit failures are not sufficient evidence", () => {
   assert.equal(signalFromLog("test a::b ... ok\n##[error]Process completed with exit code 1"), null);
   assert.equal(makeFingerprint("windows-candidate", "Run Rust Tests", null), null);
