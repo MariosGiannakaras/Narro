@@ -12,6 +12,7 @@ const css = read("src/taskNotes.css");
 const fixture = read("src/taskNotesVisualFixture.tsx");
 const capture = read("scripts/capture-visual-fixtures.ps1");
 const finding33Driver = read("scripts/test-finding33-large-notes-escape.mjs");
+const finding33Ack = read("scripts/finding33NavigationAck.mjs");
 const finding33Runner = read("scripts/run-finding33-large-notes-escape.mjs");
 const validator = read("scripts/validate-task-note-captures.mjs");
 const packageJson = read("package.json");
@@ -65,7 +66,25 @@ for (const [haystack, needle, label] of [
 
 // Finding33 must observe the entire actual browser bootstrap before the
 // interactive Escape test: a 200 HTML response does not prove JS/React loaded.
-const observedNavigation = finding33Driver.indexOf('await client.send("Page.navigate", { url: pageUrl })');
+const observedNavigation = finding33Driver.indexOf('await navigateOrConfirmFinding33Document({');
+requireText(finding33Driver,
+  'import { navigateOrConfirmFinding33Document } from "./finding33NavigationAck.mjs"',
+  "Finding33 uses strict shared navigation acknowledgment");
+requireText(finding33Driver, 'send: (method, params) => client.send(method, params)',
+  "Finding33 forwards commands to the real Edge CDP connection");
+requireText(finding33Driver, 'observe: () => evaluate(client,', 
+  "Finding33 must observe real Edge document identity after a missing acknowledgment");
+for (const required of [
+  'const navigation = await send("Page.navigate", { url });',
+  'Finding33 Edge navigation failed:',
+  'Finding33 CDP command timed out: Page',
+  'state?.url !== url',
+  'state.documentPresent !== true',
+  '["loading", "interactive", "complete"].includes(state.readyState)',
+  'throw error;',
+]) {
+  requireText(finding33Ack, required, "Finding33 navigation helper fail-closed behavior");
+}
 for (const required of [
   'const modules = [...previewHtml.matchAll(',
   'Finding33 entry module returned HTTP',
