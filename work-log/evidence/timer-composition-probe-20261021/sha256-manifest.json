@@ -1,0 +1,37 @@
+[
+  {
+    "path": "baseline-result.json",
+    "bytes": 618,
+    "sha256": "6ae78c8ccab207afec44aa60075946d6765b34cca03dcc85b38c189ee1525f73"
+  },
+  {
+    "path": "candidate-result.json",
+    "bytes": 289,
+    "sha256": "5c2bcfa2305c6f75d9dee5c0d735f04f063456a2b968e5f1c9460841c5fb2bc7"
+  },
+  {
+    "path": "direction-result.json",
+    "bytes": 59,
+    "sha256": "f745e513683c5ee5c732ae7bb01311bf46e85a5ec60b8b2217f03a06e41c7cd0"
+  },
+  {
+    "path": "dpi-result.json",
+    "bytes": 157,
+    "sha256": "afa58261f66683c0f657137870e2a14275fc11f62216acc90e36a1ade590ff2d"
+  },
+  {
+    "path": "provenance.json",
+    "bytes": 818,
+    "sha256": "b88c8a1a25a25dc88fb032d54698ec4335fd3cdbc9763503c2e71f6050799464"
+  },
+  {
+    "path": "README.md",
+    "bytes": 1828,
+    "sha256": "7b7c75bdeb041726b01e42613d58de944f42337fad50f476983ca0f3e2ebef1f"
+  },
+  {
+    "path": "reproducible-probe.zip",
+    "bytes": 691269,
+    "sha256": "c697b30efa9f207762cb3ee0c9e1b9570e3d1dff4eb383d561a4a9ddc76d4e93"
+  }
+]
