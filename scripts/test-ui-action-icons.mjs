@@ -36,6 +36,19 @@ const actions = read("src/FocusLiveActions.tsx");
 const notes = read("src/TaskNotes.tsx");
 const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
+const railCss = read("src/listBoard.css");
+const actionButton = board.slice(board.indexOf("function TaskActionButton("), board.indexOf("function TaskOverflowMenu("));
+assert(railCss.includes(".list-board,\n.list-board * {\n  box-sizing: border-box;")
+  && railCss.includes("width: 1rem;\n  height: 1.75rem;\n  min-width: 1rem;")
+  && railCss.includes("border: 1px solid var(--color-border-subtle)"),
+  "planning task action rail uses a bordered 16px border-box, not 16px of content");
+assert(actionButton.includes('<ActionIcon name={glyph} size={14} />')
+  && board.includes('trigger={<ActionIcon name="more" size={14} />}'),
+  "planning task hover and overflow icons must fit inside the actual 14px content width");
+assert(actionButton.includes("onClick={action}") && actionButton.includes("aria-label={label}")
+  && board.includes('data-task-action="overflow"'),
+  "icon optical sizing must preserve click handlers, labels and overflow interaction");
+
 for (const [source, needle, reason] of [
   [panel, 'data-focus-compact-control="true"', "Panel compact action identity"],
   [panel, '<ActionIcon name="panel-to-timer" />', "Panel to compact Timer direction"],

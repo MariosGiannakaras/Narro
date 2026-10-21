@@ -19,4 +19,41 @@ assert.equal(complete({ url, dataset: measured }), false);
 assert.equal(complete({ url, dataset: { ...measured, themeSettingsFixtureReady: "true" } }), true);
 assert.throws(() => complete({ url, dataset: { ...measured, themeSettingsShortcutsLayoutPass: "false" } }), /overflow/);
 assert.equal(complete({ url, dataset: { themeSettingsShortcutsDialog: "true", themeSettingsFixtureReady: "true" } }), false);
+// Regression for the exact failed Windows run 39582866897: immediately
+// following CDP Page.navigate the interim document may have NO root <html>.
+// The capture must observe NOT READY, then keep all existing geometry gates.
+const stateStart = source.indexOf("async function state() {");
+const stateEnd = source.indexOf("\nfunction complete(value) {", stateStart);
+assert.ok(stateStart >= 0 && stateEnd > stateStart);
+const observationSource = source.slice(stateStart, stateEnd);
+const expression = observationSource.match(/return evaluate\(`([\s\S]*?)`\);/)?.[1];
+assert.ok(expression, "capture must retain an inspectable real document state expression");
+const observe = (doc, href) =>
+  new Function("document", "location", "innerWidth", "innerHeight",
+    "return " + expression)(doc, { href }, 1000, 700);
+const preHtml = observe({
+  documentElement: null,
+  getElementById: () => null,
+  activeElement: null,
+  readyState: "loading",
+}, url);
+assert.deepEqual(preHtml.dataset, {}, "navigation before root creation must be safe");
+assert.equal(preHtml.rootChildren, undefined);
+assert.equal(complete(preHtml), false, "no HTML element can NEVER count as ready");
+const realDoc = observe({
+  documentElement: { dataset: {
+    ...measured, themeSettingsFixtureReady: "true",
+  } },
+  getElementById: (id) => id === "root" ? { childElementCount: 1 } : null,
+  activeElement: { outerHTML: "<button>Close</button>" },
+  readyState: "complete",
+}, url);
+assert.equal(complete(realDoc), true,
+  "valid real 10-row fixture must still complete once the DOM exists");
+const overflowDoc = { ...realDoc, dataset: {
+  ...realDoc.dataset, themeSettingsShortcutsLayoutPass: "false",
+}};
+assert.throws(() => complete(overflowDoc), /overflow/,
+  "root navigation race fix cannot bypass an actual overflowing dialog");
+
 console.log("Shortcut capture actual completion: loading, identity, missing geometry and overflow rejection PASS.");

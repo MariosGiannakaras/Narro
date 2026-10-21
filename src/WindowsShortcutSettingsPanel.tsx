@@ -1,5 +1,5 @@
 import { listen } from "@tauri-apps/api/event";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { InAppShortcut } from "./inAppShortcuts";
 import {
   applyNewerShortcutDiagnostics,
@@ -176,7 +176,8 @@ export function WindowsShortcutSettingsPanelView({
                 </div>
 
                 <div className="windows-shortcuts__controls">
-                  <span className="windows-shortcuts__keycaps" aria-label={row.chord}>
+                  <span className="windows-shortcuts__keycaps">
+                  <span className="windows-shortcuts__accessible-chord">{row.chord}</span>
                     {row.chord.split(" + ").map((key, index) => (
                       <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
                     ))}
@@ -226,7 +227,8 @@ export function WindowsShortcutSettingsPanelView({
                 <strong>{row.label}</strong>
               </div>
               <div className="windows-shortcuts__controls windows-shortcuts__controls--app">
-                <span className="windows-shortcuts__keycaps" aria-label={row.chord}>
+                <span className="windows-shortcuts__keycaps">
+                  <span className="windows-shortcuts__accessible-chord">{row.chord}</span>
                   {row.chord.split(" + ").map((key, index) => (
                     <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
                   ))}
@@ -245,6 +247,9 @@ export function WindowsShortcutSettingsPanel() {
   const [snapshot, setSnapshot] = useState<GlobalShortcutSettingsSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [pendingKind, setPendingKind] = useState<GlobalShortcutKind | null>(null);
+  // React pending state is published on a later render. Guard native shortcut
+  // registration synchronously, including two callbacks in one event turn.
+  const shortcutWriteInFlightRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
 
   async function refresh() {
@@ -296,7 +301,8 @@ export function WindowsShortcutSettingsPanel() {
   }, []);
 
   async function change(kind: GlobalShortcutKind, enabled: boolean) {
-    if (pendingKind) return;
+    if (shortcutWriteInFlightRef.current) return;
+    shortcutWriteInFlightRef.current = true;
     setPendingKind(kind);
     setError(null);
     try {
@@ -311,6 +317,7 @@ export function WindowsShortcutSettingsPanel() {
         setError(primary + " | Shortcut status refresh failed: " + formatInvokeError(refreshFailure));
       }
     } finally {
+      shortcutWriteInFlightRef.current = false;
       setPendingKind(null);
     }
   }

@@ -99,7 +99,10 @@ async function connect() {
   });
 }
 async function state() {
-  return evaluate(`({dataset:{...document.documentElement.dataset},rootChildren:document.getElementById('root')?.childElementCount,
+  // Page.navigate can expose an intermediate document with no documentElement.
+  // Observe it as NOT READY; never mistake it for fixture success or swallow
+  // real exceptions once the document/strict completion markers are present.
+  return evaluate(`({dataset:{...(document.documentElement?.dataset ?? {})},rootChildren:document.getElementById('root')?.childElementCount,
     readyState:document.readyState,url:location.href,viewport:[innerWidth,innerHeight],focus:document.activeElement?.outerHTML.slice(0,300),
     contract:document.getElementById('focus-editor-contract') ? JSON.parse(document.getElementById('focus-editor-contract').textContent) : null})`);
 }
