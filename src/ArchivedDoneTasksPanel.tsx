@@ -60,8 +60,7 @@ export function ArchivedDoneTasksPanel({
 }: ArchivedDoneTasksPanelProps) {
   const [snapshot, setSnapshot] = useState<ArchiveSnapshot | null>(fixtureSnapshot ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const readInFlightRef = useRef(false);
-  const mountedRef = useRef(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [query, setQuery] = useState("");
   const [selectedListId, setSelectedListId] = useState(ALL_LISTS);
   const [filterOpen, setFilterOpen] = useState(fixtureFilterOpen);
@@ -73,8 +72,7 @@ export function ArchivedDoneTasksPanel({
   const deleteInFlightRef = useRef(false);
 
   useEffect(() => {
-    mountedRef.current = true;
-    if (fixtureSnapshot) return () => { mountedRef.current = false; };
+    if (fixtureSnapshot) return;
     let disposed = false;
     void getArchiveSnapshot()
       .then((payload) => {
@@ -91,26 +89,8 @@ export function ArchivedDoneTasksPanel({
       });
     return () => {
       disposed = true;
-      mountedRef.current = false;
     };
-  }, [fixtureSnapshot]);
-
-  async function retryArchiveRead() {
-    if (fixtureSnapshot || snapshot !== null || !loadError || readInFlightRef.current) return;
-    readInFlightRef.current = true;
-    setLoadError(null);
-    try {
-      const payload = await getArchiveSnapshot();
-      if (mountedRef.current) {
-        setSnapshot(payload);
-        setLoadError(null);
-      }
-    } catch (failure: unknown) {
-      if (mountedRef.current) setLoadError(formatInvokeError(failure));
-    } finally {
-      readInFlightRef.current = false;
-    }
-  }
+  }, [fixtureSnapshot, loadAttempt]);
 
   useEffect(() => {
     if (!filterOpen) return;
@@ -138,6 +118,12 @@ export function ArchivedDoneTasksPanel({
   }, [normalizedQuery, selectedListId, snapshot]);
 
   const selectedList = snapshot?.filterLists.find((list) => list.id === selectedListId) ?? null;
+
+  function retryLoad() {
+    if (fixtureSnapshot || deleteInFlightRef.current) return;
+    setLoadError(null);
+    setLoadAttempt((attempt) => attempt + 1);
+  }
 
   function requestDelete(task: ArchivedDoneTaskSummary) {
     if (deleteInFlightRef.current || deletePending || deleteTarget) return;
@@ -250,19 +236,19 @@ export function ArchivedDoneTasksPanel({
 
       {loadError ? (
         <div className="archive-panel__error" role="alert">
-          <span>{loadError}</span>
+          {loadError}
           {snapshot === null ? (
             <button type="button" className="archive-panel__retry motion-interactive"
-              data-archived-done-retry="true" onClick={() => void retryArchiveRead()}>
-              Retry loading archived tasks
+              onClick={retryLoad} data-archive-retry="done">
+              Retry loading completed tasks
             </button>
           ) : null}
         </div>
       ) : null}
 
-      {snapshot === null ? (
-        loadError ? null : <div className="archive-panel__loading" role="status">Loading archived tasks…</div>
-      ) : visibleTasks.length === 0 ? (
+      {snapshot === null ? (loadError ? null : (
+        <div className="archive-panel__loading" role="status">Loading archived tasks…</div>
+      )) : visibleTasks.length === 0 ? (
         <div className="archive-panel__empty" data-archived-done-empty="true">
           <span className="archive-panel__empty-icon"><ActionIcon name="check" size={24} /></span>
           <strong>No Archived tasks found</strong>
