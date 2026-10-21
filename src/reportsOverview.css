@@ -746,6 +746,20 @@
   background: transparent;
 }
 
+/* The month/year arrow controls occupy 22px grid tracks. Default App button
+   padding otherwise gives their 16px icons a wider intrinsic box and shifts
+   arrows into neighbouring cells. Keep icons centered inside the track. */
+.reports-overview__calendar header button {
+  box-sizing: border-box;
+  width: 22px;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+}
+
 .reports-overview__weekdays,
 .reports-overview__calendar-days {
   display: grid;
