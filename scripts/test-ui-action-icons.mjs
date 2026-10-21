@@ -38,8 +38,8 @@ const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
 const railCss = read("src/listBoard.css");
 const actionButton = board.slice(board.indexOf("function TaskActionButton("), board.indexOf("function TaskOverflowMenu("));
-assert(railCss.includes(".list-board,\\n.list-board * {\\n  box-sizing: border-box;")
-  && railCss.includes("width: 1rem;\\n  height: 1.75rem;\\n  min-width: 1rem;")
+assert(railCss.includes(".list-board,\n.list-board * {\n  box-sizing: border-box;")
+  && railCss.includes("width: 1rem;\n  height: 1.75rem;\n  min-width: 1rem;")
   && railCss.includes("border: 1px solid var(--color-border-subtle)"),
   "planning task action rail uses a bordered 16px border-box, not 16px of content");
 assert(actionButton.includes('<ActionIcon name={glyph} size={14} />')
