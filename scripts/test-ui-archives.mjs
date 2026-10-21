@@ -156,4 +156,24 @@ if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
   throw new Error("Archived note visual correction must not add arbitrary size/offset");
 }
 
+for (const [panel, marker, loader, operation, label] of [
+  [listPanel, 'data-archived-lists-retry="true"', "Loading archived lists", "getArchivedListsForSettings", "archived lists"],
+  [donePanel, 'data-archived-done-retry="true"', "Loading archived tasks", "getArchiveSnapshot", "archived done tasks"],
+]) {
+  requireText(panel, marker, label + " retry button exists");
+  requireText(panel, "async function retryArchiveRead()", label + " retries from the real owner");
+  requireText(panel, "readInFlightRef.current = true;", label + " synchronous duplicate-request exclusion");
+  requireText(panel, "readInFlightRef.current = false;", label + " reopens retries on failure");
+  requireText(panel, "if (mountedRef.current)", label + " ignores obsolete reads after unmount");
+  requireText(panel, "setLoadError(formatInvokeError(failure))", label + " exposes retryable errors");
+  requireText(panel, "await " + operation + "()", label + " reloads persisted authority");
+  requireText(panel, loader, label + " has distinct loading state");
+  requireText(panel, 'role="alert"', label + " error is announced");
+}
+requireText(donePanel, "snapshot === null ? (\n        loadError ? null", "failed done-task reads never display a false empty archive");
+requireText(listPanelCss, ".archived-lists-panel__retry {", "list archive retry uses current theme tokens");
+requireText(donePanelCss, ".archive-panel__retry {", "done archive retry uses current theme tokens");
+requireText(listPanel, "if (fixtureLists || lists !== null || !loadError", "list retry not exposed for fixture or populated data");
+requireText(donePanel, "if (fixtureSnapshot || snapshot !== null || !loadError", "done retry not exposed for fixture or populated data");
+
 console.log("Archive lists/done-task surface contract checks passed.");
