@@ -30,6 +30,8 @@ function listAccent(color: string | null): CSSProperties | undefined {
 export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedListsPanelProps) {
   const [lists, setLists] = useState<ArchivedListSummary[] | null>(fixtureLists ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const readInFlightRef = useRef(false);
+  const mountedRef = useRef(false);
   const [pendingRestoreId, setPendingRestoreId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ArchivedListSummary | null>(null);
   const [deletePending, setDeletePending] = useState(false);
@@ -39,7 +41,8 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (fixtureLists) return;
+    mountedRef.current = true;
+    if (fixtureLists) return () => { mountedRef.current = false; };
     let disposed = false;
     void getArchivedListsForSettings()
       .then((payload) => {
@@ -56,8 +59,26 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
       });
     return () => {
       disposed = true;
+      mountedRef.current = false;
     };
   }, [fixtureLists]);
+
+  async function retryArchiveRead() {
+    if (fixtureLists || lists !== null || !loadError || readInFlightRef.current) return;
+    readInFlightRef.current = true;
+    setLoadError(null);
+    try {
+      const payload = await getArchivedListsForSettings();
+      if (mountedRef.current) {
+        setLists(payload);
+        setLoadError(null);
+      }
+    } catch (failure: unknown) {
+      if (mountedRef.current) setLoadError(formatInvokeError(failure));
+    } finally {
+      readInFlightRef.current = false;
+    }
+  }
 
   async function restoreList(list: ArchivedListSummary) {
     if (pendingRestoreId || deletePending || archiveMutationInFlightRef.current) return;
@@ -125,7 +146,17 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </p>
       )}
 
-      {loadError ? <div className="archived-lists-panel__error" role="alert">{loadError}</div> : null}
+      {loadError ? (
+        <div className="archived-lists-panel__error" role="alert">
+          <span>{loadError}</span>
+          {lists === null ? (
+            <button type="button" className="archived-lists-panel__retry motion-interactive"
+              data-archived-lists-retry="true" onClick={() => void retryArchiveRead()}>
+              Retry loading archived lists
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       {lists === null && !loadError ? (
         <div className="archived-lists-panel__loading" role="status">Loading archived lists…</div>
