@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import "./test-archive-read-retry.mjs";
 
 const root = new URL("../", import.meta.url);
 const read = (relative) => fs.readFileSync(new URL(relative, root), "utf8").replace(/\r\n/g, "\n");
