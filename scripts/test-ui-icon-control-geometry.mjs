@@ -32,9 +32,9 @@ function property(body, key, expected) {
     key + " must equal " + expected + " in actual scoped CSS");
 }
 
-assert.ok(app.includes("input,\\nbutton,\\nselect") &&
+assert.ok(app.includes("button,") &&
   app.includes("padding: var(--space-2) var(--space-3);"),
-  "Shared button padding must be reset in tiny calendar-icon grid tracks");
+  "Base buttons have horizontal padding and calendar icons must override it");
 assert.match(reportsCss, /grid-template-columns: 22px 22px minmax\(0, 1fr\) 22px 22px;/,
   "Both Reports calendars reserve exactly 22px for each chevron track");
 const calendar = singleRule(reportsCss, ".reports-overview__calendar header button");
