@@ -13,7 +13,8 @@ function invariant(condition, message) {
 // GitHub evaluates ordered positive/negative path patterns. Tracking-only
 // Markdown must not launch expensive Windows CI; the docs actually shipped in
 // validation artifacts must not be silently excluded.
-const triggerBlock = workflow.slice(0, workflow.indexOf("\npermissions:"));
+const triggerBlock = workflow.slice(0, workflow.indexOf("\npermissions:"))
+  .split("\n").filter(line => !line.trimStart().startsWith("#")).join("\n");
 const requiredBundledDocs = [
   "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md",
   "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md",
