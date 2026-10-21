@@ -496,7 +496,7 @@ export function TaskScheduleDialog({
         </header>
 
         {loadError ? <div className="task-schedule-dialog__error type-metadata" role="alert">{loadError}</div> : null}
-        {!snapshot && !loadError ? <div className="task-schedule-dialog__loading type-metadata">Loading authoritative schedule…</div> : null}
+        {!snapshot && !loadError ? <div className="task-schedule-dialog__loading type-metadata">Loading schedule…</div> : null}
 
         {snapshot ? (
           <div className="task-schedule-dialog__content">
@@ -632,7 +632,7 @@ export function TaskScheduleDialog({
                 </div>
               ) : null}
               <p className="task-schedule-dialog__timezone type-metadata">
-                Timed schedules use {scheduleTimezone || displayTimezone}. Date-only schedules never round-trip through UTC.
+                Tasks with a time use {scheduleTimezone || displayTimezone}. Tasks without a time stay on the calendar day you select.
               </p>
 
               <div className="task-schedule-dialog__section-actions">
@@ -654,10 +654,10 @@ export function TaskScheduleDialog({
                   <h3 id="task-recurrence-section-title">Repeat</h3>
                   <p className="type-metadata">
                     {generatedOccurrence
-                      ? "This is a generated recurrence occurrence. Edit its individual schedule without creating a nested rule."
+                      ? "This date is part of a repeating task. You can reschedule this occurrence without changing the repeat rule."
                       : existingRule
-                        ? "Edit the recurring parent rule. Historical/modified children remain protected."
-                        : "Create a recurring parent. Due children are materialized by the authoritative recurrence engine."}
+                        ? "Update how this task repeats. Previously edited tasks and tasks with recorded history are kept."
+                        : "Choose how often to repeat this task. Upcoming copies will be added as their dates approach."}
                   </p>
                 </div>
               </div>

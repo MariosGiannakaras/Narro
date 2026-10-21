@@ -166,7 +166,7 @@ invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
     && fixture.includes("timeChildren={("),
   "C40 must update production and visual fixtures without losing Time");
 
-invariant(sections.includes('detail="Show a brief celebration animation when a task is completed."'),
+invariant(sections.includes('detail="Show a brief offline celebration animation on the success screen."'),
   "Fun GIF help must describe user-visible functionality, not internal source-parity work");
 invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
     && shortcutsDialogCss.includes("min-height: 44px")
@@ -269,6 +269,9 @@ for (const label of [
 ]) {
   invariant(sections.includes(label), `Preferences surface is missing ${label}`);
 }
+invariant(sections.includes("Briefly highlight the active task and timer when a timed alert occurs."), "Timed-alert helper must explain the visual effect without implementation jargon");
+invariant(sections.includes("Show a completion message with options for what to do next."), "Success-screen helper must explain the user action");
+invariant(sections.includes("Show a brief offline celebration animation on the success screen."), "Celebration helper must accurately describe bundled offline behavior");
 invariant(sections.includes("SoundPreferenceControl"), "sound rows must use the shared local preview/volume control");
 for (const field of [
   "taskAlertSound",
