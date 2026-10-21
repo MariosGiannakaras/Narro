@@ -112,11 +112,15 @@ function complete(value) {
   const error = d.themeSettingsKeyboardError ?? d.reportsFixtureError;
   if (error) throw new Error(`Ready-fixture assertion: ${error}`);
   if (events.length) throw new Error("Ready-fixture renderer/network failure (see diagnostics)");
+  if (d.themeSettingsModalCloseGeometryPass === "false") {
+    throw new Error("Rendered modal close icon is not centered in its actual 2rem hitbox");
+  }
   if (options.kind === "shortcuts") {
     if (!d.themeSettingsShortcutsDialog) return false;
     if (d.themeSettingsShortcutsDialog !== "true") throw new Error("Expected dedicated shortcut dialog");
     if (d.themeSettingsShortcutsLayoutPass === "false") throw new Error("Shortcut dialog overflow");
-    return d.themeSettingsFixtureReady === "true" && d.themeSettingsShortcutsLayoutPass === "true";
+    return d.themeSettingsFixtureReady === "true" && d.themeSettingsShortcutsLayoutPass === "true"
+      && d.themeSettingsModalCloseGeometryPass === "true";
   }
   if (integration) {
     if (value.contract?.error) throw new Error(`M7 integration assertion: ${value.contract.error}`);
@@ -136,6 +140,7 @@ function complete(value) {
   }
   return options.kind === "preferences"
     ? d.themeSettingsFixtureReady === "true" && d.themeSettingsKeyboardPass === "true" && d.themeSettingsDialogContainmentPass === "true"
+      && (fixtureUrl.searchParams.get("preferencesDialog") !== "1" || d.themeSettingsModalCloseGeometryPass === "true")
     : d.reportsFixtureReady === "true" && d.reportsPrintLayoutPass === "true";
 }
 try {
