@@ -166,7 +166,7 @@ invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
     && fixture.includes("timeChildren={("),
   "C40 must update production and visual fixtures without losing Time");
 
-invariant(sections.includes('detail="Show a brief celebration animation when a task is completed."'),
+invariant(sections.includes('detail="Show a brief offline celebration animation on the success screen."'),
   "Fun GIF help must describe user-visible functionality, not internal source-parity work");
 invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
     && shortcutsDialogCss.includes("min-height: 44px")
