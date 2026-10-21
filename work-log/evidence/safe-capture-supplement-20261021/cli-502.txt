@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async (page) => { const b=page.getByRole("button",{name:"Home",exact:true}); await b.focus(); await b.press("Space"); })(page);
+```
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+- Console: 0 errors, 1 warnings
+### Events
+- New console entries: .playwright-cli\console-2026-10-21T12-02-23-771Z.log#L1
