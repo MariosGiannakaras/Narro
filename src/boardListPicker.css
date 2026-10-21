@@ -124,8 +124,18 @@
   padding: 0 var(--space-1);
 }
 
+/* Focus keeps the selection visually compact, but its selected title must
+   remain readable as the trigger's aria-describedby relationship. */
 .board-list-picker--focus .board-list-picker__current {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .board-list-picker__badge--focus,
