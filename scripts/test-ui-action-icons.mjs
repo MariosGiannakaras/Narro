@@ -16,7 +16,7 @@ assert(!icons.includes("<img") && !icons.includes("fetch("), "action icons must 
 const sourceFiles = [
   "FocusPanel", "FloatingTimerFoundation", "FocusLiveSubtasks", "FocusLiveActions",
   "TaskSubtasks", "TaskNotes", "FocusQuickPreferences", "FocusLiveMetrics",
-  "TaskCard", "ListBoard", "BoardListPicker", "ArchivedDoneTasksPanel",
+  "TaskCard", "ListBoard", "BoardListPicker", "ArchivedDoneTasksPanel", "HomeDashboard",
   "ReportsOverviewView", "ReportsSessionsView", "ScheduleCalendarStep",
   "TaskScheduleDialog", "SearchPalette", "BlitzEntryButton",
   "PreferencesDialog", "WindowsShortcutsDialog",
@@ -36,6 +36,20 @@ const actions = read("src/FocusLiveActions.tsx");
 const notes = read("src/TaskNotes.tsx");
 const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
+const homeDashboard = read("src/HomeDashboard.tsx");
+const homeCss = read("src/homeDashboard.css");
+assert(homeDashboard.includes('trigger={<ActionIcon name="more" />}')
+  && homeDashboard.includes('triggerLabel={`More actions for ${card.title}`}')
+  && homeDashboard.includes('data-home-list-card'),
+  "Home list action must use centered offline More SVG with the unchanged named menu");
+assert(!homeDashboard.includes('trigger={<span aria-hidden="true">…</span>}'),
+  "font-dependent ellipsis must not return to the Home action control");
+assert(homeCss.includes(".home-list-card__action-slot .overlay-trigger {")
+  && homeCss.includes("width: 2rem;")
+  && homeCss.includes("height: 2rem;")
+  && homeCss.includes("padding: 0;"),
+  "Home menu icon must retain existing hitbox and central SVG alignment");
+
 const completionRingCss = read("src/listBoard.css");
 const markCount = (board.match(/className="list-board-task__completion-mark"/g) ?? []).length;
 assert(markCount === 5, "all five task-card completion mark variants must share the same ring");
