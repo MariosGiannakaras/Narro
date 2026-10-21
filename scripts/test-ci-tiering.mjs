@@ -10,6 +10,34 @@ function invariant(condition, message) {
   if (!condition) throw new Error(`CI tiering contract failed: ${message}`);
 }
 
+// GitHub evaluates ordered positive/negative path patterns. Tracking-only
+// Markdown must not launch expensive Windows CI; the docs actually shipped in
+// validation artifacts must not be silently excluded.
+const triggerBlock = workflow.slice(0, workflow.indexOf("\npermissions:"))
+  .split("\n").filter(line => !line.trimStart().startsWith("#")).join("\n");
+const requiredBundledDocs = [
+  "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md",
+  "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md",
+  "docs/M1_WINDOWS_RUNTIME_VALIDATION.md",
+  "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md",
+];
+for (const event of ["push", "pull_request"]) {
+  const prefix = "  " + event + ":\n    branches: [ \"main\" ]\n    paths:\n"
+    + '      - "**"\n      - "!**/*.md"\n';
+  invariant(triggerBlock.includes(prefix), event + " must include source but exclude tracking Markdown");
+  const start = triggerBlock.indexOf(prefix) + prefix.length;
+  const nextEvent = event === "push" ? "pull_request" : "workflow_dispatch";
+  const next = triggerBlock.indexOf("\n  " + nextEvent + ":", start);
+  invariant(next >= 0, event + " trigger section is incomplete");
+  const rules = triggerBlock.slice(start, next)
+    .split("\n").map(line => line.trim()).filter(Boolean);
+  invariant(rules.length === requiredBundledDocs.length,
+    event + " must explicitly reinclude only bundled artifact Markdown");
+  invariant(JSON.stringify(rules) === JSON.stringify(requiredBundledDocs.map(path => '- "' + path + '"')),
+    event + " must reinclude every bundled artifact Markdown after the exclusion");
+}
+invariant(!triggerBlock.includes("paths-ignore:"), "CI triggers cannot blanket-ignore packaged Markdown");
+
 const validationIndex = workflow.indexOf("  validation-gate:");
 const fastIndex = workflow.indexOf("  fast-gate:");
 const candidateIndex = workflow.indexOf("  windows-candidate:");
@@ -119,6 +147,16 @@ invariant(
     && !candidateBlock.includes("npm run preflight:frontend"),
   "windows-candidate must reuse the fast gate instead of repeating the full frontend/static suite",
 );
+
+const focusUpload = candidateBlock.slice(
+  candidateBlock.indexOf("    - name: Upload Packaged Focus Runtime Visual Artifact"),
+  candidateBlock.indexOf("    - name: Build Physical Validation Release"),
+);
+invariant(focusUpload.includes("if: success()") && focusUpload.includes("if-no-files-found: error"),
+  "successful packaged Focus captures must fail if the required artifact is missing");
+invariant(focusUpload.includes("if: failure()") && focusUpload.includes("if-no-files-found: warn")
+  && focusUpload.includes("narro-m7-focus-runtime-failure-diagnostics"),
+  "upstream Focus failures must not create a secondary missing-file failure");
 
 invariant(
   packageJson.scripts?.["preflight:frontend"]?.includes("npm run test:ci-tiering"),
