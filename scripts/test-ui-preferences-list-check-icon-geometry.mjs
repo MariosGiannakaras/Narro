@@ -70,11 +70,11 @@ verify(shortcutClose, {
 });
 assert.match(shortcutDialog, /data-windows-shortcuts-close="true"/);
 assert.match(shortcutDialog, /aria-label="Close Windows Shortcuts"/);
-assert.match(shortcutDialog, /<ActionIcon name="close" \\/>/);
-assert.match(shortcutDialog, /onClick=\\{onRequestClose\\}/);
+assert.match(shortcutDialog, /<ActionIcon name="close" \/>/);
+assert.match(shortcutDialog, /onClick=\{onRequestClose\}/);
 assert.match(shortcutDialog, /aria-modal="true"/);
 assert.ok(!["transform", "translate", "scale"].some(key => shortcutClose.has(key)));
-assert.match(fixture, /<WindowsShortcutsDialog\\b/,
+assert.match(fixture, /<WindowsShortcutsDialog\b/,
   "Both production modal icon close controls must have a visual fixture");
 
 const check = declarations(pickerCss, ".board-list-picker__check");
