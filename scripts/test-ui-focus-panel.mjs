@@ -305,7 +305,7 @@ invariant(!timerApi.includes("window.setInterval"), "live timer projection must 
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer numerals must be tabular to prevent second-by-second layout jitter");
 // Keep the actual 32x32px hit target, not the older padded shorthand
 // whose intrinsic content width exceeded 32px around a 16px SVG.
-const quickControlsCss = css.match(/\\.focus-panel__quick-controls button\\s*\\{([^}]+)\\}/)?.[1] ?? "";
+const quickControlsCss = css.match(/\.focus-panel__quick-controls button\s*\{([^}]+)\}/)?.[1] ?? "";
 for (const declaration of [
   "box-sizing: border-box", "display: inline-grid", "place-items: center",
   "width: 32px", "min-width: 32px", "height: 32px",
