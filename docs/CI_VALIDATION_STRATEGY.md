@@ -66,6 +66,12 @@ Runs only after the fast gate passes and is authoritative for Windows-sensitive 
 
 Do not discover rustfmt/static-contract failures after spending time on release/artifact work when they can be caught in the fast gate.
 
+### Candidate pre-push dependency closure
+
+Use the current `git diff main...HEAD` as an impact set, not the agent's remembered files. A reusable `scripts/preflight-impact.mjs` helper can identify direct/transitive Node regression consumers through actual source references, but misses dynamic runtime imports, native behavior, and CSS selectors encoded indirectly: always review unmapped entries manually. Execute affected tests and the **full frontend preflight locally** before spending another CI run when checkout/dependencies allow it. If they do not, mark local preflight NOT RUN and use CI to obtain evidence rather than representing static reading as execution.
+
+Three PR390 lessons are distinct: (1) updated 32px Focus CSS left a stale exact-substring test (cheap deterministic miss); (2) a real Windows CDP navigation transient had no absent-root guard (readiness/lifecycle miss); (3) a replaced navigation call left an unrelated Notes source contract stale (transitive consumer miss). The repaired contracts must test their behavioral/semantic owner and fail closed, not silently match an obsolete method. Preserve negative test cases for wrong/empty document/navigation, and keep validated earlier SHA outcomes separate from later failed or pending heads.
+
 ## 4. Static-contract testing rule
 
 Static source-text tests are appropriate only for durable architecture/build invariants that cannot be expressed more directly, for example:
