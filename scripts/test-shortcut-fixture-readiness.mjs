@@ -14,10 +14,34 @@ assert.equal(complete(null), false);
 assert.equal(complete({ url: "about:blank", dataset: {} }), false);
 assert.equal(complete({ url, dataset: {} }), false);
 assert.throws(() => complete({ url, dataset: { themeSettingsShortcutsDialog: "false" } }), /dedicated shortcut dialog/);
-const measured = { themeSettingsShortcutsDialog: "true", themeSettingsShortcutsLayoutPass: "true" };
+const measured = { themeSettingsShortcutsDialog: "true",
+  themeSettingsShortcutsLayoutPass: "true", themeSettingsModalCloseGeometryPass: "true" };
 assert.equal(complete({ url, dataset: measured }), false);
 assert.equal(complete({ url, dataset: { ...measured, themeSettingsFixtureReady: "true" } }), true);
 assert.throws(() => complete({ url, dataset: { ...measured, themeSettingsShortcutsLayoutPass: "false" } }), /overflow/);
+assert.equal(complete({ url, dataset: {
+  ...measured, themeSettingsModalCloseGeometryPass: undefined, themeSettingsFixtureReady: "true",
+}}), false, "Shortcuts must not capture until real modal SVG geometry is confirmed");
+assert.throws(() => complete({ url, dataset: {
+  ...measured, themeSettingsModalCloseGeometryPass: "false", themeSettingsFixtureReady: "true",
+}}), /modal close icon/, "misaligned modal icon fails before capture, not after screenshot");
+const preferencesUrl = "http://127.0.0.1:4173/theme-settings-fixture.html?preferencesDialog=1";
+const completePreferences = new Function("options", "fixtureUrl", "integration", "events",
+  source.slice(from, to) + "\nreturn complete;")(
+    { kind: "preferences", url: preferencesUrl }, new URL(preferencesUrl), false, []);
+const prefsReady = {
+  themeSettingsFixtureReady: "true", themeSettingsKeyboardPass: "true",
+  themeSettingsDialogContainmentPass: "true",
+};
+assert.equal(completePreferences({ url: preferencesUrl, dataset: prefsReady }), false,
+  "Preferences with its real modal must also prove close icon geometry");
+assert.equal(completePreferences({ url: preferencesUrl, dataset: {
+  ...prefsReady, themeSettingsModalCloseGeometryPass: "true",
+}}), true);
+assert.throws(() => completePreferences({ url: preferencesUrl, dataset: {
+  ...prefsReady, themeSettingsModalCloseGeometryPass: "false",
+}}), /modal close icon/);
+
 assert.equal(complete({ url, dataset: { themeSettingsShortcutsDialog: "true", themeSettingsFixtureReady: "true" } }), false);
 // Regression for the exact failed Windows run 39582866897: immediately
 // following CDP Page.navigate the interim document may have NO root <html>.
