@@ -113,6 +113,22 @@ requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout 
 requireText(listPanelCss, "display: none", "narrow layout removes ghost cards");
 requireText(validator, "data-archived-empty-ghost", "captured Windows DOM validates ghost-card count");
 
+// Hover-disclosed archive actions must also be discoverable without a mouse.
+// Keep the source-like hover/focus behavior on desktops and restrict the
+// always-visible override to devices whose primary pointer cannot hover.
+requireText(listPanelCss, ".archived-list-row:hover .archived-list-row__actions", "desktop archive action hover reveal");
+requireText(listPanelCss, ".archived-list-row:focus-within .archived-list-row__actions", "keyboard archive action focus reveal");
+const touchArchiveActions = listPanelCss.match(/@media\s*\(hover:\s*none\)\s*\{\s*\.archived-list-row__actions\s*\{([^}]+)\}/)?.[1] ?? "";
+for (const property of ["opacity: 1", "pointer-events: auto"]) {
+  if (!touchArchiveActions.split(";").some((value) => value.trim() === property)) {
+    throw new Error("Touch-only archive list cards must visibly expose functional actions: " + property);
+  }
+}
+requireText(listPanel, 'aria-label={`Unarchive ${list.title}`}', "touch action retains restore accessibility");
+requireText(listPanel, 'aria-label={`Delete Forever ${list.title}`}', "touch action retains destructive accessibility");
+requireText(listPanel, "onClick={() => requestDelete(list)}", "touch uses existing delete confirmation");
+requireText(listPanel, "onClick={() => void restoreList(list)}", "touch uses existing restore owner");
+
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
