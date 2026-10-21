@@ -189,4 +189,6 @@ if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
   throw new Error("Archived note visual correction must not add arbitrary size/offset");
 }
 
+await import("./test-archive-read-retry.mjs");
+
 console.log("Archive lists/done-task surface contract checks passed.");
