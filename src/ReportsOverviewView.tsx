@@ -218,7 +218,7 @@ function ReportChart({
           <h2 id="reports-productivity-title">Time by day</h2>
         </div>
         <span className="reports-overview__chart-options" data-report-chart-options="available">
-          <Menu triggerLabel="Chart options" trigger={<span aria-hidden="true">•••</span>} align="end">
+          <Menu triggerLabel="Chart options" trigger={<ActionIcon name="more" />} align="end">
             <MenuItem onSelect={() => onSelectPreset?.("all")}>Show all series</MenuItem>
             <MenuItem onSelect={() => onSelectPreset?.("tasks")}>Tasks only</MenuItem>
             <MenuItem onSelect={() => onSelectPreset?.("breaks")}>Breaks only</MenuItem>
