@@ -6,8 +6,10 @@ const read = (file) => readFileSync(new URL(file, root), "utf8").replace(/\r\n/g
 const app = read("src/App.css");
 const modalCss = read("src/preferencesDialog.css");
 const pickerCss = read("src/boardListPicker.css");
+const shortcutDialogCss = read("src/windowsShortcutsDialog.css");
 const modal = read("src/PreferencesDialog.tsx");
 const picker = read("src/BoardListPicker.tsx");
+const shortcutDialog = read("src/WindowsShortcutsDialog.tsx");
 const icons = read("src/ActionIcon.tsx");
 const fixture = read("src/themeSettingsVisualFixture.tsx");
 const board = read("src/ListBoard.tsx");
@@ -53,6 +55,28 @@ assert.match(modal, /aria-modal="true"/);
 assert.match(fixture, /<PreferencesDialog\b/,
   "The actual Settings fixture must exercise the production Preferences Dialog");
 
+// The dedicated light-appearance shortcut dialog is a second modal close
+// owner, not a special-case padded 32px icon. Guard the same 16px SVG fit.
+const shortcutClose = declarations(shortcutDialogCss, ".windows-shortcuts-dialog__close");
+verify(shortcutClose, {
+  "box-sizing": "border-box",
+  "display": "grid",
+  "place-items": "center",
+  "flex": "0 0 2rem",
+  "width": "2rem", "min-width": "2rem",
+  "height": "2rem", "min-height": "2rem",
+  "padding": "0",
+  "border": "1px solid var(--color-border-subtle)",
+});
+assert.match(shortcutDialog, /data-windows-shortcuts-close="true"/);
+assert.match(shortcutDialog, /aria-label="Close Windows Shortcuts"/);
+assert.match(shortcutDialog, /<ActionIcon name="close" \\/>/);
+assert.match(shortcutDialog, /onClick=\\{onRequestClose\\}/);
+assert.match(shortcutDialog, /aria-modal="true"/);
+assert.ok(!["transform", "translate", "scale"].some(key => shortcutClose.has(key)));
+assert.match(fixture, /<WindowsShortcutsDialog\\b/,
+  "Both production modal icon close controls must have a visual fixture");
+
 const check = declarations(pickerCss, ".board-list-picker__check");
 verify(check, {
   "display": "inline-grid", "place-items": "center",
@@ -74,4 +98,4 @@ assert.ok(board.includes("BoardListPicker") && focus.includes("BoardListPicker")
 assert.ok(icons.includes("width: size") && icons.includes("height: size")
   && icons.includes('viewBox: "0 0 24 24"'),
   "Decorative shared SVG and the locked offline List Editor icon catalog must remain unchanged");
-console.log("Preferences 32px close, Board/Focus picker 16px selected check, behavior and fixture geometry PASS");
+console.log("Preferences + Windows Shortcuts 32px close and Board/Focus picker 16px check geometry PASS");
