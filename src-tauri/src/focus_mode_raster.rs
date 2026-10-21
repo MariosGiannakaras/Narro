@@ -192,7 +192,7 @@ mod tests {
             ],
         };
         let frame = compose(&image, &image, tauri::PhysicalSize::new(4, 4), 0.5).unwrap();
-        let gray: Vec<_> = frame.chunks_exact(4).map(|pixel| pixel[0]).collect();
+        let gray: Vec<_> = frame.as_chunks::<4>().0.iter().map(|pixel| pixel[0]).collect();
         assert_eq!(
             gray,
             [10, 10, 20, 20, 10, 10, 20, 20, 30, 30, 40, 40, 30, 30, 40, 40]
