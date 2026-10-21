@@ -222,6 +222,16 @@
   pointer-events: auto;
 }
 
+/* Mouse-hover actions are intentionally subdued in the desktop source design.
+   Touch-only Windows devices cannot hover; expose both destructive and
+   restorative actions there without changing pointer/keyboard desktop UI. */
+@media (hover: none) {
+  .archived-list-row__actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .archived-list-row__restore,
 .archived-list-row__delete {
   min-height: 2.25rem;
