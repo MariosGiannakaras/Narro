@@ -1,0 +1,13 @@
+# 2026-10-21 — Shared modal close SVG padding failure family: Windows Shortcuts
+
+**Owner:** ChatGPT independent frontend staging only, `fix/post-pr393-related-modal-close-stage`, based on proposed PR393 head `b55d30adfb4bd00c89e5f8320eac0519d2dac95c`. This branch is **not a PR** and this correction has **no full CI/Windows acceptance**. PR393 is running its own mandatory CI; do not amend its SHA merely to inject one more micro-fix.
+
+## Cross-component causal audit
+
+`src/App.css` gives `button` inherited padding `var(--space-2) var(--space-3)`: 12px horizontally on both sides. The dedicated light `WindowsShortcutsDialog.tsx` close is 32px with border and `<ActionIcon name="close" />` 16px. Existing `windowsShortcutsDialog.css` centered via grid but inherited full global padding. Its 16px SVG plus 24px horizontal padding and 2px borders cannot fit the intended 32px border box. This is the **same failure mechanism** independently discovered for `PreferencesDialog` and a continuation of the user's cross-page icon appearance audit. It does not imply an OS keyboard/global hotkey bug.
+
+**Targeted fix:** `box-sizing:border-box`, width/min-width/height/min-height `2rem`, `padding:0`, retain existing `flex:0 0 2rem`, `display:grid;place-items:center`, original border/palette/keyboard/focus. No new visual sizes, offsets, theme tokens, menu handlers, dialog-focus policy, source Blitzit claims, Spectrum Core List Editor icons or native Timer changes.
+
+`scripts/test-ui-preferences-list-check-icon-geometry.mjs` (already introduced in PR393) has been **extended** on this staging branch to guard both actual modal close owners, semantic accessible label, exact SVG, click handler, existing Settings fixture, and the selected Board/Focus List Picker check. Existing global base-padding assertion remains; this does not weaken an older test. A first staged test had accidental double regex escapes, detected by V8 source evaluation and corrected before PR/CI; afterward exact staged program ran with eleven GitHub-fetched real source/CSS files, all claimed structural assertions **PASS** in isolated V8. Full checked-out Node/npm preflight/browser computed CSS and Windows physical screenshot **NOT RUN** for this independent stage.
+
+**Next integration:** Await PR393 exact-head 3/3 Windows CI and expected-head merge. Create a fresh branch from accepted latest `main` and selectively port only `windowsShortcutsDialog.css`, changed test and this immutable new log; do not merge this older stage wholesale. Batch with other independently evidenced UI fixes where safe before one new candidate. Only later merge after its own exact source CI, and compare resulting-main app tree.
