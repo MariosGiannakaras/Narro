@@ -1563,6 +1563,15 @@ fn animate_focus_surface_presentation_internal(
             target_scale,
         )?;
         focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?
+    } else if lease.snapshot.presentation.mode() == FocusSurfaceMode::Timer {
+        // Timer-only changes retain the current safe origin. Saved placement
+        // restoration belongs to entering Timer from Panel, not every resize.
+        floating_placement::safe_position_for_timer_region(
+            app_handle,
+            &window,
+            target.expanded(),
+            None,
+        )?
     } else {
         planned_focus_presentation_position(app_handle, &window, target)?
     };
@@ -1614,7 +1623,7 @@ fn animate_focus_surface_presentation_internal(
             final_position,
             "finish protected Panel DPI placement",
         )?;
-    } else {
+    } else if lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer {
         floating_placement::restore_for_timer(app_handle, &window, target.expanded())?;
     }
     render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
@@ -1854,10 +1863,10 @@ async fn focus_surface_prepare_mode_raster(
     }
     let target = parse_focus_surface_presentation(&presentation)?;
     let snapshot = capture_focus_native_snapshot(&window)?;
-    if snapshot.presentation.mode() == target.mode() {
+    if snapshot.presentation == target {
         return Err(CommandError::invalid_argument(
             "presentation",
-            "mode raster requires Panel/Timer transition",
+            "raster requires a distinct Focus presentation",
         ));
     }
     let visible = timer_region::visible_size(&window, snapshot.presentation.region())?;

@@ -23,6 +23,7 @@ import {
 } from "./focusSurfaceModeApi";
 import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
+import { commitProtectedTimerResize } from "./protectedTimerResize";
 import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
@@ -361,23 +362,30 @@ export function FocusSurfaceCoordinator() {
     }
   }, []);
 
-  const requestTimerExpanded = useCallback(async (expanded: boolean, compactFrame?: number[]) => {
+  const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
 
     const previous = presentationRef.current;
-    const target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact";
+    const target = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
+    if (previous === "panel") throw new Error("Timer resize requires a committed Timer presentation.");
 
     transitionGateRef.current = true;
     try {
-      await commitPreparedFocusPresentation({
-        previousPresentation: previous,
-        targetPresentation: target,
-        waitForTargetReady: async () => {},
-        applyNativePresentation: (presentation) => applyFocusSurfacePresentation(presentation, compactFrame),
-        commitRendererPresentation: publishPresentation,
+      const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 1 : FOCUS_GEOMETRY_MOTION_MS;
+      await commitProtectedTimerResize({
+        previous,
+        target,
+        protectOutgoing: prepareFocusSurfaceModeRaster,
+        prepareRenderer: (next) => prepareRenderer(next === "timerExpanded"),
+        waitForPaint: waitForPresentedFrame,
+        animate: (next, token) => animateFocusSurfacePresentation(next, duration, token),
+        publish: (next) => flushSync(() => publishPresentation(next)),
+        restoreNative: (token) => finishFocusSurfaceModeRaster(token, true),
+        release: (token) => finishFocusSurfaceModeRaster(token),
       });
     } finally {
       transitionGateRef.current = false;

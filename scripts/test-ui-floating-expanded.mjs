@@ -81,8 +81,8 @@ invariant(
 );
 invariant(
   coordinator.includes("const requestTimerExpanded = useCallback")
-    && coordinator.includes("commitPreparedFocusPresentation({")
-    && coordinator.includes('target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact"'),
+    && coordinator.includes("commitProtectedTimerResize({")
+    && coordinator.includes('target = expanded ? "timerExpanded" : "timerCompact"'),
   "coordinator must serialize compact/expanded commits through the same recovery helper",
 );
 
@@ -91,11 +91,11 @@ const expandBranch = slice(requestExpanded, "if (nextExpanded) {", "} else {");
 const collapseBranch = slice(requestExpanded, "} else {", "return true;");
 invariant(
   expandBranch.indexOf("setExpanded(true)") < expandBranch.indexOf("await waitForPresentedFrame()")
-    && expandBranch.indexOf("await waitForPresentedFrame()") < expandBranch.indexOf("onRequestExpanded"),
+    && expandBranch.indexOf("await waitForPresentedFrame()") < expandBranch.indexOf("setFloatingTimerExpanded"),
   "expanded React content must prepaint before native region exposure",
 );
 invariant(
-  expandBranch.indexOf("onRequestExpanded") < expandBranch.indexOf('setResizePhase("revealing-start")')
+  expandBranch.indexOf("setFloatingTimerExpanded") < expandBranch.indexOf('setResizePhase("revealing-start")')
     && expandBranch.indexOf('setResizePhase("revealing-start")') < expandBranch.indexOf('setResizePhase("revealing")')
     && expandBranch.indexOf('setResizePhase("revealing")') < expandBranch.indexOf("waitForFloatingTimerGeometryMotion"),
   "expanded Timer must reveal finite painted geometry only after native region exposure",
@@ -108,12 +108,12 @@ invariant(
     && collapseBranch.indexOf("waitForFloatingTimerGeometryMotion")
       < collapseBranch.indexOf('setResizePhase("clipping")')
     && collapseBranch.indexOf('setResizePhase("clipping")')
-      < collapseBranch.indexOf("onRequestExpanded"),
+      < collapseBranch.indexOf("setFloatingTimerExpanded"),
   "collapse must finish finite same-WebView geometry contraction before native clipping",
 );
 const collapseClip = collapseBranch.indexOf('setResizePhase("clipping")');
 const collapsePresented = collapseBranch.indexOf("await waitForPresentedFrame()", collapseClip);
-const collapseNativeCommit = collapseBranch.indexOf("onRequestExpanded", collapseClip);
+const collapseNativeCommit = collapseBranch.indexOf("setFloatingTimerExpanded", collapseClip);
 invariant(
   collapseClip >= 0
     && collapsePresented > collapseClip

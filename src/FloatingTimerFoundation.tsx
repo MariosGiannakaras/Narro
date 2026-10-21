@@ -42,7 +42,7 @@ export type FloatingTimerFoundationProps = {
   focusTarget?: ListBoardRequestTarget;
   presentationActive?: boolean;
   controlledExpanded?: boolean;
-  onRequestExpanded?: (expanded: boolean, compactFrame?: number[]) => Promise<void>;
+  onRequestExpanded?: (expanded: boolean, prepareRenderer: (expanded: boolean) => void) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
@@ -107,7 +107,7 @@ export function FloatingTimerFoundation({
   const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<
-    "idle" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
+    "idle" | "raster-preparing" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
   >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
@@ -273,6 +273,20 @@ export function FloatingTimerFoundation({
     setResizeError(null);
     let nativeRegionCommitted = false;
     try {
+      if (onRequestExpanded) {
+        // The coordinator acquires the outgoing native raster before invoking
+        // this callback. Never expose an intermediate clipped React hierarchy.
+        await onRequestExpanded(nextExpanded, (preparedExpanded) => {
+          flushSync(() => {
+            setExpanded(preparedExpanded);
+            setRegionExpanded(preparedExpanded);
+            setResizePhase("raster-preparing");
+          });
+        });
+        nativeRegionCommitted = true;
+        return true;
+      }
+      // Standalone native fallback; the application uses the coordinator above.
       if (nextExpanded) {
         // Prepaint the full 300px hierarchy while Win32 still clips the host to
         // 110px. After the native region expands, reveal those already-painted
@@ -282,8 +296,7 @@ export function FloatingTimerFoundation({
           setResizePhase("prepainting");
         });
         await waitForPresentedFrame();
-        if (onRequestExpanded) await onRequestExpanded(true);
-        else await setFloatingTimerExpanded(true);
+        await setFloatingTimerExpanded(true);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(true);
@@ -309,8 +322,7 @@ export function FloatingTimerFoundation({
         });
         await waitForPresentedFrame();
         const compactFrame = await captureCompactTimerFrame();
-        if (onRequestExpanded) await onRequestExpanded(false, compactFrame);
-        else await setFloatingTimerExpanded(false, compactFrame);
+        await setFloatingTimerExpanded(false, compactFrame);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(false);
