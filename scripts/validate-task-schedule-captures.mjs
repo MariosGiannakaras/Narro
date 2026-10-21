@@ -53,7 +53,7 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-recurrence-control="preset"'), `${label} recurrence preset selector is missing`);
   invariant(dom.includes('data-task-recurrence-control="replace-existing"'), `${label} Replace Existing Tasks control is missing`);
   invariant(dom.includes('data-task-recurrence-weekday="monday"'), `${label} custom recurrence weekday controls are missing`);
-  invariant(dom.includes('Date-only schedules never round-trip through UTC.'), `${label} date-only semantic explanation is missing`);
+  invariant(dom.includes('Tasks without a time stay on the calendar day you select.'), `${label} date-only semantic explanation is missing`);
   invariant(dom.includes("Replace existing tasks (3)"), `${label} authoritative replace-existing count is missing`);
   invariant(dom.includes("customized or history-bearing tasks are preserved"), `${label} replace-existing preservation guidance is missing`);
 
