@@ -1,7 +1,14 @@
 # STATUS.md
 
 <!-- CURRENT-CORRECTIVE-STATE -->
-**Current 2026-10-21 — PR389 native review complete:** mandatory acceptance **4/10 (M1–M4)** unchanged; M5–M9/source gates OPEN, M10entryblocked; M11/M12dormant.
+**CURRENT 2026-10-21 — PR390 independent frontend UI/UX batch, CI_WAIT:** mandatory acceptance **4/10** remains unchanged. Source PR390 head `a2a87a2fb587bd11e7e011826a6ebbcb2e695b74` OPEN, [run39585388511](https://github.com/MariosGiannakaras/Narro/actions/runs/39585388511) validation+fast **PASS**, Windows candidate **RUNNING / NOT VERIFIED**. Code: Reports/Focus/Search geometric SVG alignment, Shortcuts accessible 10 chords and native single-flight, Planning task action SVGs scaled to existing 14px content area. Earlier heads: run39572897277 fast FAIL (obsolete CSS assertion corrected); run39573232909 exact historical 3/3 PASS; run39582866897 candidate FAIL only at CDP pre-HTML navigation `document.documentElement.dataset` on light fixture (dark 10/10 visible PASS). New head handles absent root as **NOT READY** while preserving strict URL/rows/overflow readiness. Current main accepted PR388 unchanged. [Detailed immutable log](work-log/2026-10-21-chatgpt-pr390-ui-geometry-shortcuts-ci-recovery.md); [one next step](HANDOFF.md).
+
+**Independent following batch:** unPR'd `fix/post-pr390-task-completion-ring-ui-stage`: Tasks duplicate circle border/SVG overlap plus Home/Reports font-dependent overflow dots replaced with shared SVG More; tests code-proposed, full Windows preflight **NOT RUN**. Do not merge old stage onto newer main without reconciliation.
+
+**Native blocker still FAIL:** PR389 draft head `77a6b139...`, source 3/3 CI PASS but **4/8 physical transitions FAIL**; proposed different composition ownership + physical retest outstanding. User-paused PA-01–09 NOT RUN, optional M11 inactive. No acceptance/milestone promotion.
+
+## HISTORICAL PR389-only Codex review checkpoint
+**Historical 2026-10-21 — PR389 native review complete:** mandatory acceptance **4/10 (M1–M4)** unchanged; M5–M9/source gates OPEN, M10entryblocked; M11/M12dormant.
 
 - **Accepted main:** PR388merge4786bbea, resulting-mainCI39553189123 **3/3SUCCESS**, actual EXE/validation/MSI/NSIS identities verified; narrow changed-scope native **7/7**. No whole-C/M8/source parity certification.
 - **Active unmerged candidate:** PR389/branchfix/m7-pixel-preserving-composition/head77a6b139/CI39560130498 **3/3SUCCESS**, EXE31cc0db9... Physical acquisition/review **8/8** -> **4scoped visualPASS/4FAIL**. Panel→compact and expanded→compact mix incoming compact Timer with old outgoing content in both normal/reduced. Expansion old-Panel symptom and tooltip access improve; overall M7 C26–28/C35/affectedC19 **FAIL/OPEN**. [Full report/originals](docs/PR389_NATIVE_REVIEW_2026-10-21.md).
