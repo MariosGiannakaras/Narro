@@ -14,11 +14,10 @@ const actionIcon = read("src/ActionIcon.tsx");
 // properties elsewhere in the stylesheet. Existing rem values are preserved.
 function declarations(selector) {
   const cleaned = css.replace(/\/\*[\s\S]*?\*\//g, "");
-  const start = cleaned.indexOf(selector + " {");
-  assert.notEqual(start, -1, "Production Schedule CSS selector missing: " + selector);
-  const open = cleaned.indexOf("{", start);
-  return cleaned.slice(open + 1, cleaned.indexOf("}", open))
-    .split(";").map((line) => line.trim()).filter(Boolean);
+  const rule = [...cleaned.matchAll(/([^{}]+)\\{([^{}]*)\\}/g)].find((match) =>
+    match[1].split(",").map((part) => part.trim()).includes(selector));
+  assert.ok(rule, "Production Schedule CSS selector missing: " + selector);
+  return rule[2].split(";").map((line) => line.trim()).filter(Boolean);
 }
 function expectDeclarations(selector, entries) {
   const actual = declarations(selector);
