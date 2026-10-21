@@ -1,0 +1,17 @@
+{"utc": "2026-10-21T12:12:02.574933+00:00", "action": "BEGIN button + Create new list", "input": "CDP keyboard", "ref": "e8"}
+{"utc": "2026-10-21T12:12:04.661485+00:00", "action": "RETURN button + Create new list"}
+{"utc": "2026-10-21T12:12:30.681048+00:00", "action": "BEGIN button Create", "input": "CDP keyboard", "ref": "e74"}
+{"utc": "2026-10-21T12:12:33.270660+00:00", "action": "RETURN button Create"}
+{"utc": "2026-10-21T12:12:34.770387+00:00", "action": "BEGIN button Settings", "input": "CDP keyboard", "ref": "e16"}
+{"utc": "2026-10-21T12:12:37.456986+00:00", "action": "RETURN button Settings"}
+{"utc": "2026-10-21T12:13:13.435392+00:00", "action": "UI enable Timed task alerts", "ref": "e222"}
+{"utc": "2026-10-21T12:13:17.857459+00:00", "action": "UI enable Animated timer flash", "ref": "e299"}
+{"utc": "2026-10-21T12:13:24.892690+00:00", "action": "UI minimum5min alert configured; Pomodoros observed unchecked; no SQL override"}
+{"utc": "2026-10-21T12:13:34.089423+00:00", "action": "BEGIN button Add task in Focus Panel", "input": "CDP keyboard", "ref": "e37"}
+{"utc": "2026-10-21T12:13:36.148010+00:00", "action": "RETURN button Add task in Focus Panel"}
+{"utc": "2026-10-21T12:13:40.893534+00:00", "action": "BEGIN button Add task", "input": "CDP keyboard", "ref": "e53"}
+{"utc": "2026-10-21T12:13:43.468305+00:00", "action": "RETURN button Add task"}
+{"utc": "2026-10-21T12:14:43.399952+00:00", "action": "START clean no-estimate task through actual Make live", "ref": "e74", "watcherPid": 82800}
+{"utc": "2026-10-21T12:18:54.127272+00:00", "action": "RECORD_START", "segment": "R4-isolated-alert", "pid": 90668}
+{"utc": "2026-10-21T12:18:54.127272+00:00", "action": "Isolated alert observation: no input, hover, task or presentation switch during80s capture"}
+{"utc": "2026-10-21T12:20:15.679059+00:00", "action": "RECORD_STOP", "segment": "R4-isolated-alert", "exitCode": 0}

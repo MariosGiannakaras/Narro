@@ -1,0 +1,615 @@
+### Open tabs
+- 0: (current) [Narro](http://tauri.localhost/)
+- 1: [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+### Page
+- Page URL: http://tauri.localhost/
+- Page Title: Narro
+### Snapshot
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - complementary "List navigation" [ref=e4]:
+      - img "Narro" [ref=e5]
+      - navigation "Lists" [ref=e7]:
+        - button "+ Create new list" [ref=e8] [cursor=pointer]
+        - button "All my lists" [ref=e10] [cursor=pointer]
+        - button "Archived lists" [ref=e11] [cursor=pointer]
+    - generic [ref=e12]:
+      - generic "Utilities" [ref=e14]:
+        - button "Search" [ref=e15] [cursor=pointer]
+        - button "Settings" [ref=e16] [cursor=pointer]
+      - main [ref=e17]:
+        - region [ref=e18]:
+          - generic [ref=e19]:
+            - paragraph [ref=e20]: Home
+            - heading "Good afternoon" [level=1] [ref=e21]
+            - paragraph [ref=e22]: Plan the next work that deserves your attention.
+          - region [ref=e23]:
+            - generic [ref=e24]:
+              - heading "Your Lists" [level=2] [ref=e25]
+              - paragraph [ref=e26]: Lists with your upcoming tasks
+            - generic [ref=e27]:
+              - article [ref=e75]:
+                - generic [ref=e76]:
+                  - generic [aria-hidden] [ref=e77]: A
+                  - heading "All Lists" [level=3] [ref=e78]
+                - generic "All Lists task preview" [ref=e80]:
+                  - paragraph [ref=e81]: No pending task previews
+                  - button "Open"
+                - generic [ref=e82]:
+                  - generic [ref=e83]: 0 pending tasks
+                  - generic [ref=e84]: "Est: —"
+              - article [ref=e85]:
+                - generic [ref=e86]:
+                  - generic [aria-hidden] [ref=e87]: I
+                  - heading "Isolated alert capture" [level=3] [ref=e88]
+                  - button "More actions for Isolated alert capture" [ref=e91] [cursor=pointer]:
+                    - generic [aria-hidden] [ref=e92]: …
+                - generic "Isolated alert capture task preview" [ref=e93]:
+                  - paragraph [ref=e94]: No pending task previews
+                  - button "Open"
+                - generic [ref=e95]:
+                  - generic [ref=e96]: 0 pending tasks
+                  - generic [ref=e97]: "Est: —"
+              - button "CREATE LIST" [ref=e98] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e99]: +
+      - navigation "Primary" [ref=e31]:
+        - button "Home" [ref=e32] [cursor=pointer]
+        - button "Reports" [ref=e33] [cursor=pointer]
+  - dialog [ref=e102]:
+    - button "Close Preferences" [active] [ref=e104] [cursor=pointer]
+    - region [ref=e108]:
+      - generic [ref=e109]:
+        - heading "Preferences" [level=1] [ref=e110]
+        - paragraph [ref=e111]: Manage Narro's local Windows appearance and shortcuts.
+      - region [ref=e112]:
+        - generic [ref=e113]:
+          - heading "Blitz Panel" [level=2] [ref=e115]
+          - button "Refresh displays" [ref=e116] [cursor=pointer]
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - strong [ref=e119]: Monitor
+            - generic [ref=e120]: Choose which Windows work area owns the Focus Panel.
+          - group "Focus Panel monitor" [ref=e123]:
+            - button "Automatic Primary display" [pressed] [ref=e124] [cursor=pointer]:
+              - strong [ref=e127]: Automatic
+              - generic [ref=e128]: Primary display
+            - 'button "Screen 1: \\\\.\\DISPLAY1 · 2560×1080 · 100%" [ref=e129] [cursor=pointer]':
+              - generic [ref=e131]: 2560×1080
+              - strong [ref=e133]: Screen 1
+              - generic [ref=e134]: \\.\DISPLAY1
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - strong [ref=e137]:
+              - generic [aria-hidden] [ref=e138]: i
+              - text: Panel side
+            - generic [ref=e139]: Anchor the Focus Panel to the selected monitor's work-area edge.
+          - group "Blitz Panel Side" [ref=e141]:
+            - button "Left" [ref=e142] [cursor=pointer]
+            - button "Right" [pressed] [ref=e143] [cursor=pointer]
+      - region [ref=e144]:
+        - heading "General" [level=2] [ref=e147]
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - strong [ref=e150]: Theme
+            - generic [ref=e151]: System follows your current Windows light or dark preference.
+          - group "Theme" [ref=e152]:
+            - button "System theme — Follow your Windows color mode" [pressed] [ref=e153] [cursor=pointer]: System
+            - button "Dark theme — Use Narro's dark surfaces" [ref=e154] [cursor=pointer]: Dark
+            - button "Light theme — Use Narro's light surfaces" [ref=e155] [cursor=pointer]: Light
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - strong [ref=e158]: Start with Windows
+            - generic [ref=e159]: Start Narro automatically when Windows starts.
+          - switch "Start Narro with Windows" [ref=e161] [cursor=pointer]
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - strong [ref=e165]: Hide EST / Time Taken
+            - generic [ref=e166]: Keep task timing quieter until you hover or focus a task.
+          - switch "Hide task EST and Time Taken" [ref=e168] [cursor=pointer]
+        - generic [ref=e170]:
+          - generic [ref=e171]:
+            - strong [ref=e172]:
+              - generic [aria-hidden] [ref=e173]: i
+              - text: Auto-parse EST from title
+            - generic [ref=e174]: Recognize a supported estimate suffix when creating a task.
+          - switch "Auto-parse EST from task title" [ref=e176] [cursor=pointer]
+      - region [ref=e178]:
+        - heading "Time" [level=2] [ref=e180]
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - strong [ref=e183]:
+              - generic [aria-hidden] [ref=e184]: i
+              - text: Timezone
+            - generic [ref=e185]: Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+          - combobox "Display timezone" [ref=e188]:
+            - 'option "Automatic (Windows: (GMT+03:00) Europe/Athens)" [selected]'
+            - option "(GMT+00:00) Africa/Abidjan"
+            - option "(GMT+00:00) Africa/Accra"
+            - option "(GMT+03:00) Africa/Addis_Ababa"
+            - option "(GMT+01:00) Africa/Algiers"
+            - option "(GMT+03:00) Africa/Asmera"
+            - option "(GMT+00:00) Africa/Bamako"
+            - option "(GMT+01:00) Africa/Bangui"
+            - option "(GMT+00:00) Africa/Banjul"
+            - option "(GMT+00:00) Africa/Bissau"
+            - option "(GMT+02:00) Africa/Blantyre"
+            - option "(GMT+01:00) Africa/Brazzaville"
+            - option "(GMT+02:00) Africa/Bujumbura"
+            - option "(GMT+03:00) Africa/Cairo"
+            - option "(GMT+00:00) Africa/Casablanca"
+            - option "(GMT+02:00) Africa/Ceuta"
+            - option "(GMT+00:00) Africa/Conakry"
+            - option "(GMT+00:00) Africa/Dakar"
+            - option "(GMT+03:00) Africa/Dar_es_Salaam"
+            - option "(GMT+03:00) Africa/Djibouti"
+            - option "(GMT+01:00) Africa/Douala"
+            - option "(GMT+00:00) Africa/El_Aaiun"
+            - option "(GMT+00:00) Africa/Freetown"
+            - option "(GMT+02:00) Africa/Gaborone"
+            - option "(GMT+02:00) Africa/Harare"
+            - option "(GMT+02:00) Africa/Johannesburg"
+            - option "(GMT+02:00) Africa/Juba"
+            - option "(GMT+03:00) Africa/Kampala"
+            - option "(GMT+02:00) Africa/Khartoum"
+            - option "(GMT+02:00) Africa/Kigali"
+            - option "(GMT+01:00) Africa/Kinshasa"
+            - option "(GMT+01:00) Africa/Lagos"
+            - option "(GMT+01:00) Africa/Libreville"
+            - option "(GMT+00:00) Africa/Lome"
+            - option "(GMT+01:00) Africa/Luanda"
+            - option "(GMT+02:00) Africa/Lubumbashi"
+            - option "(GMT+02:00) Africa/Lusaka"
+            - option "(GMT+01:00) Africa/Malabo"
+            - option "(GMT+02:00) Africa/Maputo"
+            - option "(GMT+02:00) Africa/Maseru"
+            - option "(GMT+02:00) Africa/Mbabane"
+            - option "(GMT+03:00) Africa/Mogadishu"
+            - option "(GMT+00:00) Africa/Monrovia"
+            - option "(GMT+03:00) Africa/Nairobi"
+            - option "(GMT+01:00) Africa/Ndjamena"
+            - option "(GMT+01:00) Africa/Niamey"
+            - option "(GMT+00:00) Africa/Nouakchott"
+            - option "(GMT+00:00) Africa/Ouagadougou"
+            - option "(GMT+01:00) Africa/Porto-Novo"
+            - option "(GMT+00:00) Africa/Sao_Tome"
+            - option "(GMT+02:00) Africa/Tripoli"
+            - option "(GMT+01:00) Africa/Tunis"
+            - option "(GMT+02:00) Africa/Windhoek"
+            - option "(GMT-09:00) America/Adak"
+            - option "(GMT-08:00) America/Anchorage"
+            - option "(GMT-04:00) America/Anguilla"
+            - option "(GMT-04:00) America/Antigua"
+            - option "(GMT-03:00) America/Araguaina"
+            - option "(GMT-03:00) America/Argentina/La_Rioja"
+            - option "(GMT-03:00) America/Argentina/Rio_Gallegos"
+            - option "(GMT-03:00) America/Argentina/Salta"
+            - option "(GMT-03:00) America/Argentina/San_Juan"
+            - option "(GMT-03:00) America/Argentina/San_Luis"
+            - option "(GMT-03:00) America/Argentina/Tucuman"
+            - option "(GMT-03:00) America/Argentina/Ushuaia"
+            - option "(GMT-04:00) America/Aruba"
+            - option "(GMT-03:00) America/Asuncion"
+            - option "(GMT-03:00) America/Bahia"
+            - option "(GMT-06:00) America/Bahia_Banderas"
+            - option "(GMT-04:00) America/Barbados"
+            - option "(GMT-03:00) America/Belem"
+            - option "(GMT-06:00) America/Belize"
+            - option "(GMT-04:00) America/Blanc-Sablon"
+            - option "(GMT-04:00) America/Boa_Vista"
+            - option "(GMT-05:00) America/Bogota"
+            - option "(GMT-06:00) America/Boise"
+            - option "(GMT-03:00) America/Buenos_Aires"
+            - option "(GMT-06:00) America/Cambridge_Bay"
+            - option "(GMT-04:00) America/Campo_Grande"
+            - option "(GMT-05:00) America/Cancun"
+            - option "(GMT-04:00) America/Caracas"
+            - option "(GMT-03:00) America/Catamarca"
+            - option "(GMT-03:00) America/Cayenne"
+            - option "(GMT-05:00) America/Cayman"
+            - option "(GMT-05:00) America/Chicago"
+            - option "(GMT-06:00) America/Chihuahua"
+            - option "(GMT-06:00) America/Ciudad_Juarez"
+            - option "(GMT-05:00) America/Coral_Harbour"
+            - option "(GMT-03:00) America/Cordoba"
+            - option "(GMT-06:00) America/Costa_Rica"
+            - option "(GMT-03:00) America/Coyhaique"
+            - option "(GMT-07:00) America/Creston"
+            - option "(GMT-04:00) America/Cuiaba"
+            - option "(GMT-04:00) America/Curacao"
+            - option "(GMT+00:00) America/Danmarkshavn"
+            - option "(GMT-07:00) America/Dawson"
+            - option "(GMT-07:00) America/Dawson_Creek"
+            - option "(GMT-06:00) America/Denver"
+            - option "(GMT-04:00) America/Detroit"
+            - option "(GMT-04:00) America/Dominica"
+            - option "(GMT-06:00) America/Edmonton"
+            - option "(GMT-05:00) America/Eirunepe"
+            - option "(GMT-06:00) America/El_Salvador"
+            - option "(GMT-07:00) America/Fort_Nelson"
+            - option "(GMT-03:00) America/Fortaleza"
+            - option "(GMT-03:00) America/Glace_Bay"
+            - option "(GMT-01:00) America/Godthab"
+            - option "(GMT-03:00) America/Goose_Bay"
+            - option "(GMT-04:00) America/Grand_Turk"
+            - option "(GMT-04:00) America/Grenada"
+            - option "(GMT-04:00) America/Guadeloupe"
+            - option "(GMT-06:00) America/Guatemala"
+            - option "(GMT-05:00) America/Guayaquil"
+            - option "(GMT-04:00) America/Guyana"
+            - option "(GMT-03:00) America/Halifax"
+            - option "(GMT-04:00) America/Havana"
+            - option "(GMT-07:00) America/Hermosillo"
+            - option "(GMT-05:00) America/Indiana/Knox"
+            - option "(GMT-04:00) America/Indiana/Marengo"
+            - option "(GMT-04:00) America/Indiana/Petersburg"
+            - option "(GMT-05:00) America/Indiana/Tell_City"
+            - option "(GMT-04:00) America/Indiana/Vevay"
+            - option "(GMT-04:00) America/Indiana/Vincennes"
+            - option "(GMT-04:00) America/Indiana/Winamac"
+            - option "(GMT-04:00) America/Indianapolis"
+            - option "(GMT-06:00) America/Inuvik"
+            - option "(GMT-04:00) America/Iqaluit"
+            - option "(GMT-05:00) America/Jamaica"
+            - option "(GMT-03:00) America/Jujuy"
+            - option "(GMT-08:00) America/Juneau"
+            - option "(GMT-04:00) America/Kentucky/Monticello"
+            - option "(GMT-04:00) America/Kralendijk"
+            - option "(GMT-04:00) America/La_Paz"
+            - option "(GMT-05:00) America/Lima"
+            - option "(GMT-07:00) America/Los_Angeles"
+            - option "(GMT-04:00) America/Louisville"
+            - option "(GMT-04:00) America/Lower_Princes"
+            - option "(GMT-03:00) America/Maceio"
+            - option "(GMT-06:00) America/Managua"
+            - option "(GMT-04:00) America/Manaus"
+            - option "(GMT-04:00) America/Marigot"
+            - option "(GMT-04:00) America/Martinique"
+            - option "(GMT-05:00) America/Matamoros"
+            - option "(GMT-07:00) America/Mazatlan"
+            - option "(GMT-03:00) America/Mendoza"
+            - option "(GMT-05:00) America/Menominee"
+            - option "(GMT-06:00) America/Merida"
+            - option "(GMT-08:00) America/Metlakatla"
+            - option "(GMT-06:00) America/Mexico_City"
+            - option "(GMT-02:00) America/Miquelon"
+            - option "(GMT-03:00) America/Moncton"
+            - option "(GMT-06:00) America/Monterrey"
+            - option "(GMT-03:00) America/Montevideo"
+            - option "(GMT-04:00) America/Montserrat"
+            - option "(GMT-04:00) America/Nassau"
+            - option "(GMT-04:00) America/New_York"
+            - option "(GMT-08:00) America/Nome"
+            - option "(GMT-02:00) America/Noronha"
+            - option "(GMT-05:00) America/North_Dakota/Beulah"
+            - option "(GMT-05:00) America/North_Dakota/Center"
+            - option "(GMT-05:00) America/North_Dakota/New_Salem"
+            - option "(GMT-05:00) America/Ojinaga"
+            - option "(GMT-05:00) America/Panama"
+            - option "(GMT-03:00) America/Paramaribo"
+            - option "(GMT-07:00) America/Phoenix"
+            - option "(GMT-04:00) America/Port_of_Spain"
+            - option "(GMT-04:00) America/Port-au-Prince"
+            - option "(GMT-04:00) America/Porto_Velho"
+            - option "(GMT-04:00) America/Puerto_Rico"
+            - option "(GMT-03:00) America/Punta_Arenas"
+            - option "(GMT-05:00) America/Rankin_Inlet"
+            - option "(GMT-03:00) America/Recife"
+            - option "(GMT-06:00) America/Regina"
+            - option "(GMT-05:00) America/Resolute"
+            - option "(GMT-05:00) America/Rio_Branco"
+            - option "(GMT-03:00) America/Santarem"
+            - option "(GMT-03:00) America/Santiago"
+            - option "(GMT-04:00) America/Santo_Domingo"
+            - option "(GMT-03:00) America/Sao_Paulo"
+            - option "(GMT-01:00) America/Scoresbysund"
+            - option "(GMT-08:00) America/Sitka"
+            - option "(GMT-04:00) America/St_Barthelemy"
+            - option "(GMT-02:30) America/St_Johns"
+            - option "(GMT-04:00) America/St_Kitts"
+            - option "(GMT-04:00) America/St_Lucia"
+            - option "(GMT-04:00) America/St_Thomas"
+            - option "(GMT-04:00) America/St_Vincent"
+            - option "(GMT-06:00) America/Swift_Current"
+            - option "(GMT-06:00) America/Tegucigalpa"
+            - option "(GMT-03:00) America/Thule"
+            - option "(GMT-07:00) America/Tijuana"
+            - option "(GMT-04:00) America/Toronto"
+            - option "(GMT-04:00) America/Tortola"
+            - option "(GMT-07:00) America/Vancouver"
+            - option "(GMT-07:00) America/Whitehorse"
+            - option "(GMT-05:00) America/Winnipeg"
+            - option "(GMT-08:00) America/Yakutat"
+            - option "(GMT+08:00) Antarctica/Casey"
+            - option "(GMT+07:00) Antarctica/Davis"
+            - option "(GMT+10:00) Antarctica/DumontDUrville"
+            - option "(GMT+11:00) Antarctica/Macquarie"
+            - option "(GMT+05:00) Antarctica/Mawson"
+            - option "(GMT+13:00) Antarctica/McMurdo"
+            - option "(GMT-03:00) Antarctica/Palmer"
+            - option "(GMT-03:00) Antarctica/Rothera"
+            - option "(GMT+03:00) Antarctica/Syowa"
+            - option "(GMT+02:00) Antarctica/Troll"
+            - option "(GMT+05:00) Antarctica/Vostok"
+            - option "(GMT+02:00) Arctic/Longyearbyen"
+            - option "(GMT+03:00) Asia/Aden"
+            - option "(GMT+05:00) Asia/Almaty"
+            - option "(GMT+03:00) Asia/Amman"
+            - option "(GMT+12:00) Asia/Anadyr"
+            - option "(GMT+05:00) Asia/Aqtau"
+            - option "(GMT+05:00) Asia/Aqtobe"
+            - option "(GMT+05:00) Asia/Ashgabat"
+            - option "(GMT+05:00) Asia/Atyrau"
+            - option "(GMT+03:00) Asia/Baghdad"
+            - option "(GMT+03:00) Asia/Bahrain"
+            - option "(GMT+04:00) Asia/Baku"
+            - option "(GMT+07:00) Asia/Bangkok"
+            - option "(GMT+07:00) Asia/Barnaul"
+            - option "(GMT+03:00) Asia/Beirut"
+            - option "(GMT+06:00) Asia/Bishkek"
+            - option "(GMT+08:00) Asia/Brunei"
+            - option "(GMT+05:30) Asia/Calcutta"
+            - option "(GMT+09:00) Asia/Chita"
+            - option "(GMT+05:30) Asia/Colombo"
+            - option "(GMT+03:00) Asia/Damascus"
+            - option "(GMT+06:00) Asia/Dhaka"
+            - option "(GMT+09:00) Asia/Dili"
+            - option "(GMT+04:00) Asia/Dubai"
+            - option "(GMT+05:00) Asia/Dushanbe"
+            - option "(GMT+03:00) Asia/Famagusta"
+            - option "(GMT+03:00) Asia/Gaza"
+            - option "(GMT+03:00) Asia/Hebron"
+            - option "(GMT+08:00) Asia/Hong_Kong"
+            - option "(GMT+07:00) Asia/Hovd"
+            - option "(GMT+08:00) Asia/Irkutsk"
+            - option "(GMT+07:00) Asia/Jakarta"
+            - option "(GMT+09:00) Asia/Jayapura"
+            - option "(GMT+03:00) Asia/Jerusalem"
+            - option "(GMT+04:30) Asia/Kabul"
+            - option "(GMT+12:00) Asia/Kamchatka"
+            - option "(GMT+05:00) Asia/Karachi"
+            - option "(GMT+05:45) Asia/Katmandu"
+            - option "(GMT+09:00) Asia/Khandyga"
+            - option "(GMT+07:00) Asia/Krasnoyarsk"
+            - option "(GMT+08:00) Asia/Kuala_Lumpur"
+            - option "(GMT+08:00) Asia/Kuching"
+            - option "(GMT+03:00) Asia/Kuwait"
+            - option "(GMT+08:00) Asia/Macau"
+            - option "(GMT+11:00) Asia/Magadan"
+            - option "(GMT+08:00) Asia/Makassar"
+            - option "(GMT+08:00) Asia/Manila"
+            - option "(GMT+04:00) Asia/Muscat"
+            - option "(GMT+03:00) Asia/Nicosia"
+            - option "(GMT+07:00) Asia/Novokuznetsk"
+            - option "(GMT+07:00) Asia/Novosibirsk"
+            - option "(GMT+06:00) Asia/Omsk"
+            - option "(GMT+05:00) Asia/Oral"
+            - option "(GMT+07:00) Asia/Phnom_Penh"
+            - option "(GMT+07:00) Asia/Pontianak"
+            - option "(GMT+09:00) Asia/Pyongyang"
+            - option "(GMT+03:00) Asia/Qatar"
+            - option "(GMT+05:00) Asia/Qostanay"
+            - option "(GMT+05:00) Asia/Qyzylorda"
+            - option "(GMT+06:30) Asia/Rangoon"
+            - option "(GMT+03:00) Asia/Riyadh"
+            - option "(GMT+07:00) Asia/Saigon"
+            - option "(GMT+11:00) Asia/Sakhalin"
+            - option "(GMT+05:00) Asia/Samarkand"
+            - option "(GMT+09:00) Asia/Seoul"
+            - option "(GMT+08:00) Asia/Shanghai"
+            - option "(GMT+08:00) Asia/Singapore"
+            - option "(GMT+11:00) Asia/Srednekolymsk"
+            - option "(GMT+08:00) Asia/Taipei"
+            - option "(GMT+05:00) Asia/Tashkent"
+            - option "(GMT+04:00) Asia/Tbilisi"
+            - option "(GMT+03:30) Asia/Tehran"
+            - option "(GMT+06:00) Asia/Thimphu"
+            - option "(GMT+09:00) Asia/Tokyo"
+            - option "(GMT+07:00) Asia/Tomsk"
+            - option "(GMT+08:00) Asia/Ulaanbaatar"
+            - option "(GMT+06:00) Asia/Urumqi"
+            - option "(GMT+10:00) Asia/Ust-Nera"
+            - option "(GMT+07:00) Asia/Vientiane"
+            - option "(GMT+10:00) Asia/Vladivostok"
+            - option "(GMT+09:00) Asia/Yakutsk"
+            - option "(GMT+05:00) Asia/Yekaterinburg"
+            - option "(GMT+04:00) Asia/Yerevan"
+            - option "(GMT+00:00) Atlantic/Azores"
+            - option "(GMT-03:00) Atlantic/Bermuda"
+            - option "(GMT+01:00) Atlantic/Canary"
+            - option "(GMT-01:00) Atlantic/Cape_Verde"
+            - option "(GMT+01:00) Atlantic/Faeroe"
+            - option "(GMT+01:00) Atlantic/Madeira"
+            - option "(GMT+00:00) Atlantic/Reykjavik"
+            - option "(GMT-02:00) Atlantic/South_Georgia"
+            - option "(GMT+00:00) Atlantic/St_Helena"
+            - option "(GMT-03:00) Atlantic/Stanley"
+            - option "(GMT+10:30) Australia/Adelaide"
+            - option "(GMT+10:00) Australia/Brisbane"
+            - option "(GMT+10:30) Australia/Broken_Hill"
+            - option "(GMT+09:30) Australia/Darwin"
+            - option "(GMT+08:45) Australia/Eucla"
+            - option "(GMT+11:00) Australia/Hobart"
+            - option "(GMT+10:00) Australia/Lindeman"
+            - option "(GMT+11:00) Australia/Lord_Howe"
+            - option "(GMT+11:00) Australia/Melbourne"
+            - option "(GMT+08:00) Australia/Perth"
+            - option "(GMT+11:00) Australia/Sydney"
+            - option "(GMT+02:00) Europe/Amsterdam"
+            - option "(GMT+02:00) Europe/Andorra"
+            - option "(GMT+04:00) Europe/Astrakhan"
+            - option "(GMT+03:00) Europe/Athens"
+            - option "(GMT+02:00) Europe/Belgrade"
+            - option "(GMT+02:00) Europe/Berlin"
+            - option "(GMT+02:00) Europe/Bratislava"
+            - option "(GMT+02:00) Europe/Brussels"
+            - option "(GMT+03:00) Europe/Bucharest"
+            - option "(GMT+02:00) Europe/Budapest"
+            - option "(GMT+02:00) Europe/Busingen"
+            - option "(GMT+03:00) Europe/Chisinau"
+            - option "(GMT+02:00) Europe/Copenhagen"
+            - option "(GMT+01:00) Europe/Dublin"
+            - option "(GMT+02:00) Europe/Gibraltar"
+            - option "(GMT+01:00) Europe/Guernsey"
+            - option "(GMT+03:00) Europe/Helsinki"
+            - option "(GMT+01:00) Europe/Isle_of_Man"
+            - option "(GMT+03:00) Europe/Istanbul"
+            - option "(GMT+01:00) Europe/Jersey"
+            - option "(GMT+02:00) Europe/Kaliningrad"
+            - option "(GMT+03:00) Europe/Kiev"
+            - option "(GMT+03:00) Europe/Kirov"
+            - option "(GMT+01:00) Europe/Lisbon"
+            - option "(GMT+02:00) Europe/Ljubljana"
+            - option "(GMT+01:00) Europe/London"
+            - option "(GMT+02:00) Europe/Luxembourg"
+            - option "(GMT+02:00) Europe/Madrid"
+            - option "(GMT+02:00) Europe/Malta"
+            - option "(GMT+03:00) Europe/Mariehamn"
+            - option "(GMT+03:00) Europe/Minsk"
+            - option "(GMT+02:00) Europe/Monaco"
+            - option "(GMT+03:00) Europe/Moscow"
+            - option "(GMT+02:00) Europe/Oslo"
+            - option "(GMT+02:00) Europe/Paris"
+            - option "(GMT+02:00) Europe/Podgorica"
+            - option "(GMT+02:00) Europe/Prague"
+            - option "(GMT+03:00) Europe/Riga"
+            - option "(GMT+02:00) Europe/Rome"
+            - option "(GMT+04:00) Europe/Samara"
+            - option "(GMT+02:00) Europe/San_Marino"
+            - option "(GMT+02:00) Europe/Sarajevo"
+            - option "(GMT+04:00) Europe/Saratov"
+            - option "(GMT+03:00) Europe/Simferopol"
+            - option "(GMT+02:00) Europe/Skopje"
+            - option "(GMT+03:00) Europe/Sofia"
+            - option "(GMT+02:00) Europe/Stockholm"
+            - option "(GMT+03:00) Europe/Tallinn"
+            - option "(GMT+02:00) Europe/Tirane"
+            - option "(GMT+04:00) Europe/Ulyanovsk"
+            - option "(GMT+02:00) Europe/Vaduz"
+            - option "(GMT+02:00) Europe/Vatican"
+            - option "(GMT+02:00) Europe/Vienna"
+            - option "(GMT+03:00) Europe/Vilnius"
+            - option "(GMT+03:00) Europe/Volgograd"
+            - option "(GMT+02:00) Europe/Warsaw"
+            - option "(GMT+02:00) Europe/Zagreb"
+            - option "(GMT+02:00) Europe/Zurich"
+            - option "(GMT+03:00) Indian/Antananarivo"
+            - option "(GMT+06:00) Indian/Chagos"
+            - option "(GMT+07:00) Indian/Christmas"
+            - option "(GMT+06:30) Indian/Cocos"
+            - option "(GMT+03:00) Indian/Comoro"
+            - option "(GMT+05:00) Indian/Kerguelen"
+            - option "(GMT+04:00) Indian/Mahe"
+            - option "(GMT+05:00) Indian/Maldives"
+            - option "(GMT+04:00) Indian/Mauritius"
+            - option "(GMT+03:00) Indian/Mayotte"
+            - option "(GMT+04:00) Indian/Reunion"
+            - option "(GMT+13:00) Pacific/Apia"
+            - option "(GMT+13:00) Pacific/Auckland"
+            - option "(GMT+11:00) Pacific/Bougainville"
+            - option "(GMT+13:45) Pacific/Chatham"
+            - option "(GMT-05:00) Pacific/Easter"
+            - option "(GMT+11:00) Pacific/Efate"
+            - option "(GMT+13:00) Pacific/Enderbury"
+            - option "(GMT+13:00) Pacific/Fakaofo"
+            - option "(GMT+12:00) Pacific/Fiji"
+            - option "(GMT+12:00) Pacific/Funafuti"
+            - option "(GMT-06:00) Pacific/Galapagos"
+            - option "(GMT-09:00) Pacific/Gambier"
+            - option "(GMT+11:00) Pacific/Guadalcanal"
+            - option "(GMT+10:00) Pacific/Guam"
+            - option "(GMT-10:00) Pacific/Honolulu"
+            - option "(GMT+14:00) Pacific/Kiritimati"
+            - option "(GMT+11:00) Pacific/Kosrae"
+            - option "(GMT+12:00) Pacific/Kwajalein"
+            - option "(GMT+12:00) Pacific/Majuro"
+            - option "(GMT-09:30) Pacific/Marquesas"
+            - option "(GMT-11:00) Pacific/Midway"
+            - option "(GMT+12:00) Pacific/Nauru"
+            - option "(GMT-11:00) Pacific/Niue"
+            - option "(GMT+12:00) Pacific/Norfolk"
+            - option "(GMT+11:00) Pacific/Noumea"
+            - option "(GMT-11:00) Pacific/Pago_Pago"
+            - option "(GMT+09:00) Pacific/Palau"
+            - option "(GMT-08:00) Pacific/Pitcairn"
+            - option "(GMT+11:00) Pacific/Ponape"
+            - option "(GMT+10:00) Pacific/Port_Moresby"
+            - option "(GMT-10:00) Pacific/Rarotonga"
+            - option "(GMT+10:00) Pacific/Saipan"
+            - option "(GMT-10:00) Pacific/Tahiti"
+            - option "(GMT+12:00) Pacific/Tarawa"
+            - option "(GMT+13:00) Pacific/Tongatapu"
+            - option "(GMT+10:00) Pacific/Truk"
+            - option "(GMT+12:00) Pacific/Wake"
+            - option "(GMT+12:00) Pacific/Wallis"
+            - option "(GMT+00:00) UTC"
+            - option "Other IANA timezone…"
+      - region [ref=e189]:
+        - heading "Blitz mode settings" [level=2] [ref=e192]
+        - generic [ref=e193]:
+          - generic [ref=e194]:
+            - strong [ref=e195]: Pomodoros
+            - generic [ref=e196]: Use sprint and break durations instead of task EST for new Focus starts.
+          - switch "Enable Pomodoros" [ref=e198] [cursor=pointer]
+        - generic [ref=e200]:
+          - generic [ref=e201]:
+            - strong [ref=e202]: Default break length
+            - generic [ref=e203]: Used by Start Break in Focus and the in-app shortcut.
+          - combobox "Default manual break duration" [ref=e205]:
+            - option "5 mins"
+            - option "10 mins" [selected]
+            - option "15 mins"
+            - option "20 mins"
+            - option "25 mins"
+            - option "30 mins"
+            - option "45 mins"
+            - option "60 mins"
+        - generic [ref=e206]:
+          - generic [ref=e207]:
+            - strong [ref=e208]: Scrolling title on live timer
+            - generic [ref=e209]: Scroll long live-task titles instead of keeping them truncated.
+          - switch "Scrolling title on live timer" [ref=e211] [cursor=pointer]
+      - region [ref=e213]:
+        - heading "Alerts" [level=2] [ref=e216]
+        - generic [ref=e217]:
+          - generic [ref=e218]:
+            - strong [ref=e219]: Timed alerts during a task
+            - generic [ref=e220]: Enable periodic local reminders while focused.
+          - switch "Timed task alerts" [ref=e222] [cursor=pointer]
+        - generic [ref=e224]:
+          - generic [ref=e225]:
+            - strong [ref=e226]: Notification alerts
+            - generic [ref=e227]: Allow local Windows notification alerts for relevant timer events.
+          - switch "Notification alerts" [ref=e229] [cursor=pointer]
+        - generic [ref=e231]:
+          - generic [ref=e232]:
+            - strong [ref=e233]: Schedule reminders
+            - generic [ref=e234]: Enable local reminders for scheduled tasks.
+          - switch "Schedule reminders" [ref=e236] [cursor=pointer]
+      - region [ref=e238]:
+        - heading "Celebrate task completion" [level=2] [ref=e241]
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - strong [ref=e244]: Show success screen
+            - generic [ref=e245]: Enable a local completion moment after a successful task transition.
+          - switch "Show success screen" [ref=e247] [cursor=pointer]
+        - generic [ref=e249]:
+          - generic [ref=e250]:
+            - strong [ref=e251]: Success sound effect
+            - generic [ref=e252]: Control the bundled completion sound independently of the success screen.
+          - generic [ref=e254]:
+            - generic [ref=e255]:
+              - button "Adjust Success sound volume" [ref=e257] [cursor=pointer]
+              - button "Preview Victory Bell" [ref=e261] [cursor=pointer]
+              - combobox "Success sound" [ref=e264]:
+                - option "Futuristic Ding"
+                - option "Melodic Bell"
+                - option "Quick Chime"
+                - option "Victory Bell" [selected]
+            - switch "Success sound effect" [checked] [ref=e265] [cursor=pointer]
+      - region [ref=e267]:
+        - generic [ref=e268]:
+          - heading "Shortcuts" [level=2] [ref=e270]
+          - button "View shortcuts" [ref=e271] [cursor=pointer]
+        - paragraph [ref=e272]: Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+```

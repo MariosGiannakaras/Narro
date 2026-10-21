@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async(page)=>{await page.getByRole("combobox",{name:"Task alert interval",exact:true}).selectOption({label:"5 mins"});})(page);
+```

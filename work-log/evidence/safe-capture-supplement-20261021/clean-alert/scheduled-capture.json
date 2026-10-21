@@ -1,0 +1,8 @@
+{
+  "utc": "2026-10-21T12:14:50.077513+00:00",
+  "watcherPid": 82800,
+  "recordAtSecondsAfterClick": 250,
+  "recordDurationSeconds": 80,
+  "actualAlertIntervalSeconds": 300,
+  "purpose": "No desktop video during initial4min quiet task; no source/product changes"
+}
