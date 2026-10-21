@@ -149,7 +149,7 @@ for (const [haystack, needle, label] of [
   [dialog, "snapshot.protectedExistingCount", "protected child disclosure"],
   [dialog, "customized or history-bearing tasks are preserved", "replace child-preservation guidance"],
   [dialog, "This date is part of a repeating task.", "repeating occurrence user-facing guidance"],
-  [dialog, "without creating a nested rule", "nested recurrence UI guard"],
+  [dialog, "reschedule this occurrence without changing the repeat rule", "generated-child edit cannot imply a nested recurrence rule"],
   [dialog, "await updateTaskSchedule({", "schedule save boundary"],
   [dialog, "await saveTaskRecurrence({", "recurrence save boundary"],
   [dialog, "await removeTaskRecurrence({", "recurrence removal boundary"],
