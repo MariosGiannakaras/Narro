@@ -26,8 +26,10 @@ for (const event of ["push", "pull_request"]) {
     + '      - "**"\n      - "!**/*.md"\n';
   invariant(triggerBlock.includes(prefix), event + " must include source but exclude tracking Markdown");
   const start = triggerBlock.indexOf(prefix) + prefix.length;
-  const next = triggerBlock.indexOf("\n  ", start);
-  const rules = triggerBlock.slice(start, next < 0 ? undefined : next)
+  const nextEvent = event === "push" ? "pull_request" : "workflow_dispatch";
+  const next = triggerBlock.indexOf("\n  " + nextEvent + ":", start);
+  invariant(next >= 0, event + " trigger section is incomplete");
+  const rules = triggerBlock.slice(start, next)
     .split("\n").map(line => line.trim()).filter(Boolean);
   invariant(rules.length === requiredBundledDocs.length,
     event + " must explicitly reinclude only bundled artifact Markdown");
