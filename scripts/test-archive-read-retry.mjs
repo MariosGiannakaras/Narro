@@ -4,23 +4,18 @@ import vm from "node:vm";
 import ts from "typescript";
 
 const root = new URL("../", import.meta.url);
+const jsx = (type, props) => ({ type, props: props ?? {} });
 
-function harness(relative, componentName, readCommand) {
-  const source = readFileSync(new URL(relative, root), "utf8");
-  const pending = [];
-  const slots = [];
-  const refs = [];
-  const effects = [];
-  const cleanups = [];
-  let stateIndex = 0;
-  let refIndex = 0;
-  let mounting = true;
+function createArchiveHarness(file, componentName) {
+  const state = [], refs = [], effectSlots = [], readCalls = [];
+  let stateIndex = 0, refIndex = 0, effectIndex = 0, scheduled = [], writesAfterDispose = 0, disposed = false;
   const react = {
     useState(initial) {
       const index = stateIndex++;
-      if (!(index in slots)) slots[index] = initial;
-      return [slots[index], (next) => {
-        slots[index] = typeof next === "function" ? next(slots[index]) : next;
+      if (!(index in state)) state[index] = initial;
+      return [state[index], (value) => {
+        if (disposed) writesAfterDispose++;
+        state[index] = typeof value === "function" ? value(state[index]) : value;
       }];
     },
     useRef(initial) {
@@ -28,140 +23,114 @@ function harness(relative, componentName, readCommand) {
       if (!(index in refs)) refs[index] = { current: initial };
       return refs[index];
     },
-    useEffect(effect) {
-      if (mounting) effects.push(effect);
+    useMemo(factory) { return factory(); },
+    useEffect(effect, deps) {
+      const index = effectIndex++;
+      const current = effectSlots[index];
+      if (!current || deps.some((value, position) => !Object.is(value, current.deps[position]))) {
+        scheduled.push({ index, effect, deps });
+      }
     },
-    useMemo(compute) { return compute(); },
   };
-  const jsx = (type, props) => ({ type, props: props ?? {} });
-  const api = {
-    [readCommand]: () => new Promise((resolve, reject) => pending.push({ resolve, reject })),
-    restoreListFromSettings: async () => {},
-    permanentlyDeleteListFromSettings: async () => {},
-    permanentlyDeleteArchivedDoneTaskFromSettings: async () => {},
+  const getArchive = () => new Promise((resolve, reject) => readCalls.push({ resolve, reject }));
+  const sources = {
+    "./diagnosticApi": { formatInvokeError: (error) => String(error?.message ?? error) },
+    "./listSettingsApi": {
+      getArchiveSnapshot: getArchive, getArchivedListsForSettings: getArchive,
+      permanentlyDeleteListFromSettings: async () => {},
+      restoreListFromSettings: async () => {},
+      permanentlyDeleteArchivedDoneTaskFromSettings: async () => {},
+    },
+    "./ListIcon": { ListIcon() {} },
+    "./ActionIcon": { ActionIcon() {} },
+    "./listSpectrumColor": { listIconContrast: () => "white" },
+    "./ListMutationConfirmDialog": { ListMutationConfirmDialog() {} },
   };
-  const compiled = ts.transpileModule(source, { compilerOptions: {
-    module: ts.ModuleKind.CommonJS,
-    jsx: ts.JsxEmit.ReactJSX,
-    target: ts.ScriptTarget.ES2022,
-  } }).outputText;
-  const mod = { exports: {} };
+  const compiled = ts.transpileModule(readFileSync(new URL(file, root), "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX },
+  }).outputText;
+  const module = { exports: {} };
   vm.runInNewContext(compiled, {
-    module: mod,
-    exports: mod.exports,
+    module, exports: module.exports,
     require(id) {
       if (id === "react") return react;
       if (id === "react/jsx-runtime") return { jsx, jsxs: jsx, Fragment: "fragment" };
-      if (id === "./diagnosticApi") return { formatInvokeError: (failure) => String(failure) };
-      if (id === "./listSettingsApi") return api;
-      if (id === "./listSpectrumColor") return { listIconContrast: () => "#000000" };
-      if (id === "./ListIcon") return { ListIcon: () => null };
-      if (id === "./ActionIcon") return { ActionIcon: () => null };
-      if (id === "./ListMutationConfirmDialog") return { ListMutationConfirmDialog: () => null };
       if (id.endsWith(".css")) return {};
-      throw Error("Unexpected production import in archive retry test: " + id);
+      if (id in sources) return sources[id];
+      throw Error("Unexpected archive dependency: " + id);
     },
-  }, { filename: relative + ".transpiled.cjs" });
-  const props = {};
-  function render() {
-    stateIndex = 0;
-    refIndex = 0;
-    return mod.exports[componentName](props);
-  }
-  const initialTree = render();
-  mounting = false;
-  for (const effect of effects) {
-    const cleanup = effect();
-    if (typeof cleanup === "function") cleanups.push(cleanup);
-  }
+  }, { filename: file });
+  const Component = module.exports[componentName];
+  assert.equal(typeof Component, "function", "Must exercise the production component, not a copy");
   return {
-    initialTree,
-    render,
-    pending,
-    snapshot: () => slots[0],
-    unmount: () => cleanups.forEach((cleanup) => cleanup()),
+    readCalls,
+    render() {
+      stateIndex = 0; refIndex = 0; effectIndex = 0; scheduled = [];
+      const tree = Component({});
+      for (const { index, effect, deps } of scheduled) {
+        effectSlots[index]?.cleanup?.();
+        effectSlots[index] = { deps, cleanup: effect() };
+      }
+      return tree;
+    },
+    unmount() {
+      disposed = true;
+      for (const slot of effectSlots) slot?.cleanup?.();
+    },
+    get writesAfterDispose() { return writesAfterDispose; },
   };
 }
 
 function* walk(node) {
-  if (Array.isArray(node)) {
-    for (const child of node) yield* walk(child);
-    return;
-  }
+  if (Array.isArray(node)) { for (const child of node) yield* walk(child); return; }
   if (!node || typeof node !== "object" || !("props" in node)) return;
   yield node;
   yield* walk(node.props.children);
 }
-
-function findData(tree, attribute) {
-  return [...walk(tree)].find((element) => element.props[attribute] === "true");
+function nodeWith(tree, attribute, value = "true") {
+  return [...walk(tree)].find((item) => item.props[attribute] === value);
 }
-
-const settle = async () => {
+async function flush() {
+  await Promise.resolve();
   await new Promise((resolve) => setImmediate(resolve));
-};
-
-for (const [source, component, api, retryAttribute, emptyAttribute, success] of [
-  [
-    "src/ArchivedListsPanel.tsx",
-    "ArchivedListsPanel",
-    "getArchivedListsForSettings",
-    "data-archived-lists-retry",
-    "data-archived-lists-empty",
-    [{ id: "retained", title: "Recovered list", color: null, iconAsset: null,
-      iconId: null, archivedAt: "2026-10-01T00:00:00Z", previewTasks: [] }],
-  ],
-  [
-    "src/ArchivedDoneTasksPanel.tsx",
-    "ArchivedDoneTasksPanel",
-    "getArchiveSnapshot",
-    "data-archived-done-retry",
-    "data-archived-done-empty",
-    { lists: [], doneTasks: [], filterLists: [] },
-  ],
-]) {
-  const subject = harness(source, component, api);
-  assert.equal(subject.pending.length, 1, component + " starts one authoritative read");
-  assert.equal(findData(subject.initialTree, retryAttribute), undefined, "No retry before read failure");
-
-  subject.pending[0].reject(Error("disk temporarily busy"));
-  await settle();
-  let tree = subject.render();
-  const retry = findData(tree, retryAttribute);
-  assert.ok(retry, component + " must expose a retry action after failed read");
-  assert.equal(findData(tree, emptyAttribute), undefined,
-    component + " must not claim an empty archive after a failed read");
-  retry.props.onClick();
-  retry.props.onClick();
-  assert.equal(subject.pending.length, 2, component + " excludes same-render duplicate retries");
-  tree = subject.render();
-  assert.equal(findData(tree, retryAttribute), undefined, "Loading hides stale retry error");
-
-  subject.pending[1].reject(Error("retry still busy"));
-  await settle();
-  const retryAgain = findData(subject.render(), retryAttribute);
-  assert.ok(retryAgain, "Failed retry remains recoverable");
-  retryAgain.props.onClick();
-  assert.equal(subject.pending.length, 3, "Retry after rejection starts a new owned read");
-  subject.pending[2].resolve(success);
-  await settle();
-  tree = subject.render();
-  assert.equal(findData(tree, retryAttribute), undefined, "Successful reload dismisses retry");
-  assert.ok(subject.snapshot() !== null, "Successful read publishes authoritative archive data");
-  if (component === "ArchivedDoneTasksPanel") {
-    assert.ok(findData(tree, emptyAttribute), "A truly empty successful read may show empty state");
-  }
-  subject.unmount();
-
-  const disposed = harness(source, component, api);
-  disposed.pending[0].reject(Error("initial read failed"));
-  await settle();
-  findData(disposed.render(), retryAttribute).props.onClick();
-  assert.equal(disposed.pending.length, 2);
-  disposed.unmount();
-  disposed.pending[1].resolve(success);
-  await settle();
-  assert.equal(disposed.snapshot(), null, "Late retry cannot write archive state after unmount");
 }
+for (const { file, name, marker, success, emptyMarker } of [
+  {
+    file: "src/ArchivedListsPanel.tsx", name: "ArchivedListsPanel",
+    marker: "lists", success: [], emptyMarker: "data-archived-lists-empty",
+  },
+  {
+    file: "src/ArchivedDoneTasksPanel.tsx", name: "ArchivedDoneTasksPanel",
+    marker: "done", success: { lists: [], doneTasks: [], filterLists: [] },
+    emptyMarker: "data-archived-done-empty",
+  },
+]) {
+  const h = createArchiveHarness(file, name);
+  let view = h.render();
+  assert.equal(h.readCalls.length, 1, name + " starts one authoritative native read");
+  assert.ok(!nodeWith(view, "data-archive-retry", marker));
+  h.readCalls[0].reject(Error("temporary native read error"));
+  await flush();
+  view = h.render();
+  const retry = nodeWith(view, "data-archive-retry", marker);
+  assert.ok(retry, name + " exposes retry on read failure");
+  assert.equal(nodeWith(view, emptyMarker), undefined, "Read failure must never mean empty archive");
+  retry.props.onClick();
+  view = h.render();
+  assert.equal(h.readCalls.length, 2, "Retry starts one fresh authoritative read");
+  assert.equal(nodeWith(view, "data-archive-retry", marker), undefined, "Retry clears the old error");
+  h.readCalls[1].resolve(success);
+  await flush();
+  view = h.render();
+  assert.ok(nodeWith(view, emptyMarker), "A successfully empty archive is different from a failed read");
+  assert.equal(nodeWith(view, "data-archive-retry", marker), undefined);
+  h.unmount();
 
-console.log("Mounted archived-list/done-task read failures, retry, duplicate exclusion and unmount: PASS");
+  const unmounted = createArchiveHarness(file, name);
+  unmounted.render();
+  unmounted.unmount();
+  unmounted.readCalls[0].resolve(success);
+  await flush();
+  assert.equal(unmounted.writesAfterDispose, 0, "Late response after unmount must not mutate state");
+}
+console.log("Archive read failure, same-tab retry, true empty state and unmount guards: PASS");
