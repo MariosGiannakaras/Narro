@@ -81,6 +81,16 @@
   text-align: center;
 }
 
+.archive-panel__retry {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+}
+
 .archive-panel__empty > span:last-child {
   max-width: 32rem;
   color: var(--color-text-secondary);
