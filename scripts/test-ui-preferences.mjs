@@ -128,6 +128,12 @@ invariant(shortcutsDialogSource.includes('event.key === "Escape"')
 invariant(shortcutsDialogSource.includes("closeRef.current?.focus({ preventScroll: true })")
   && shortcutsDialogSource.includes("openerRef.current?.isConnected"),
   "Shortcuts initial focus and focus-return recovery");
+invariant(shortcutsDialogSource.includes('window.addEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('window.removeEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('event.defaultPrevented')
+  && shortcutsDialogSource.includes('activeDialogs[activeDialogs.length - 1] !== dialog')
+  && shortcutsDialogSource.includes('event.target instanceof Node && dialog.contains(event.target)'),
+  "Shortcuts must recover orphaned pending-save Tab/Escape only while the topmost modal owns input");
 invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
   && shortcutSettingsSource.includes("APP_SHORTCUT_ROWS")
   && shortcutSettingsSource.includes("SHORTCUT_ROWS"),
