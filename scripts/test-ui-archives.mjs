@@ -114,6 +114,24 @@ requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout 
 requireText(listPanelCss, "display: none", "narrow layout removes ghost cards");
 requireText(validator, "data-archived-empty-ghost", "captured Windows DOM validates ghost-card count");
 
+for (const needle of [
+  "function handleTabKeyDown(",
+  'event.key === "Home"',
+  'event.key === "End"',
+  'event.key === "ArrowLeft"',
+  'event.key === "ArrowRight"',
+  'onKeyDown={(event) => handleTabKeyDown(event, "lists")}',
+  'onKeyDown={(event) => handleTabKeyDown(event, "done")}',
+  'id="archive-lists-tabpanel" role="tabpanel" aria-labelledby="archive-lists-tab"',
+  'id="archive-done-tabpanel" role="tabpanel" aria-labelledby="archive-done-tab"',
+  'hidden={activeTab !== "lists"}',
+  'hidden={activeTab !== "done"}',
+  'tabIndex={activeTab === "lists" ? 0 : -1}',
+  'tabIndex={activeTab === "done" ? 0 : -1}',
+]) requireText(archivePanel, needle, "Archive tab/tabpanel keyboard and focus invariants");
+requireText(fixture, "data-archive-tabs-keyboard-pass", "real archive fixture keyboard arrow/focus coverage");
+requireText(validator, "data-archive-tabs-keyboard-pass", "Windows archive capture validates keyboard recovery");
+
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
