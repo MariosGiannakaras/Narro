@@ -1,0 +1,10 @@
+{
+  "runId": 39550468133,
+  "utc": "2026-10-21T06:05:58.3932887Z",
+  "state": "ARTIFACT_VERIFIED",
+  "source": "9d2e897d97c6c86896bdb8be3992164cfd8e590b",
+  "artifactId": 12324283362,
+  "sha256": "fc27f73098036e657f9559087435617ca7832d227278e5ac2064c54716687e45",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR388-Acceptance-20261021\\artifact\\narro-m7-validation.exe",
+  "equivalentMain": "4786bbea382289d3458c7357138df491e80e11ea"
+}
