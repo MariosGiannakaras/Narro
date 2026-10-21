@@ -113,6 +113,39 @@ requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout 
 requireText(listPanelCss, "display: none", "narrow layout removes ghost cards");
 requireText(validator, "data-archived-empty-ghost", "captured Windows DOM validates ghost-card count");
 
+// Hover-disclosed archive actions must also be discoverable without a mouse.
+// Keep the source-like hover/focus behavior on desktops and restrict the
+// always-visible override to devices whose primary pointer cannot hover.
+requireText(listPanelCss, ".archived-list-row:hover .archived-list-row__actions", "desktop archive action hover reveal");
+requireText(listPanelCss, ".archived-list-row:focus-within .archived-list-row__actions", "keyboard archive action focus reveal");
+const touchArchiveActions = listPanelCss.match(/@media\s*\(hover:\s*none\)\s*\{\s*\.archived-list-row__actions\s*\{([^}]+)\}/)?.[1] ?? "";
+for (const property of ["opacity: 1", "pointer-events: auto"]) {
+  if (!touchArchiveActions.split(";").some((value) => value.trim() === property)) {
+    throw new Error("Touch-only archive list cards must visibly expose functional actions: " + property);
+  }
+}
+requireText(listPanel, 'aria-label={`Unarchive ${list.title}`}', "touch action retains restore accessibility");
+requireText(listPanel, 'aria-label={`Delete Forever ${list.title}`}', "touch action retains destructive accessibility");
+requireText(listPanel, "onClick={() => requestDelete(list)}", "touch uses existing delete confirmation");
+requireText(listPanel, "onClick={() => void restoreList(list)}", "touch uses existing restore owner");
+
+// A failed native read must be recoverable without navigating away, while
+// never misrepresenting the absence of a snapshot as an empty archive.
+for (const [source, name, fixtureName, marker] of [
+  [listPanel, "archived lists", "fixtureLists", "lists"],
+  [donePanel, "archived done", "fixtureSnapshot", "done"],
+]) {
+  requireText(source, "const [loadAttempt, setLoadAttempt] = useState(0);", name + " reload generation");
+  requireText(source, "setLoadAttempt((attempt) => attempt + 1);", name + " retry triggers a fresh read");
+  requireText(source, "disposed = true;", name + " stale responses must not commit after cleanup");
+  requireText(source, fixtureName + ", loadAttempt", name + " retry effect dependencies");
+  requireText(source, 'data-archive-retry="' + marker + '"', name + " same-screen retry button");
+  requireText(source, 'role="alert"', name + " accessible error");
+}
+requireText(donePanel, "snapshot === null ? (loadError ? null : (", "failed archived-done read cannot show false empty state");
+requireText(listPanel, "lists === null ? (", "archive-list load-only recovery");
+requireText(listPanelCss, ".archived-lists-panel__retry", "archive-list retry styling");
+requireText(donePanelCss, ".archive-panel__retry", "archived-done retry styling");
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
@@ -155,5 +188,7 @@ for (const required of [
 if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
   throw new Error("Archived note visual correction must not add arbitrary size/offset");
 }
+
+await import("./test-archive-read-retry.mjs");
 
 console.log("Archive lists/done-task surface contract checks passed.");
