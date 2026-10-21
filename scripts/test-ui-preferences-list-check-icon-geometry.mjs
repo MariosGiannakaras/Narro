@@ -76,6 +76,20 @@ assert.match(shortcutDialog, /aria-modal="true"/);
 assert.ok(!["transform", "translate", "scale"].some(key => shortcutClose.has(key)));
 assert.match(fixture, /<WindowsShortcutsDialog\b/,
   "Both production modal icon close controls must have a visual fixture");
+for (const runtimeInvariant of [
+  "themeSettingsModalCloseGeometryPass",
+  "const rect = close.getBoundingClientRect();",
+  "const glyph = svg.getBoundingClientRect();",
+  "const rootRem = parseFloat(getComputedStyle(document.documentElement).fontSize);",
+  "const computed = getComputedStyle(close);",
+  "near((glyph.left + glyph.right) / 2, (rect.left + rect.right) / 2)",
+  "near((glyph.top + glyph.bottom) / 2, (rect.top + rect.bottom) / 2)",
+  "near(parseFloat(computed.paddingLeft), 0)",
+  "near(parseFloat(computed.paddingRight), 0)",
+]) {
+  assert.ok(fixture.includes(runtimeInvariant), "Actual Edge fixture needs computed modal SVG geometry: " + runtimeInvariant);
+}
+
 
 const check = declarations(pickerCss, ".board-list-picker__check");
 verify(check, {
