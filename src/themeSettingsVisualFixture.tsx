@@ -277,6 +277,32 @@ window.requestAnimationFrame(async () => {
         if (!fits) throw new Error("C38: ten shortcut rows must fit the supported dialog viewport");
       }
     }
+    // Verify *rendered* icon-only modal controls, not just source CSS text.
+    // Both dialogs reuse 2rem hitboxes around the same 16px ActionIcon close.
+    // A browser line box or inherited global button padding can otherwise
+    // displace/squeeze the SVG even if the class declares place-items:center.
+    const modalCloseSelector = shortcutsDialog
+      ? '[data-windows-shortcuts-close="true"]'
+      : preferencesDialog ? '[data-preferences-close="true"]' : null;
+    if (modalCloseSelector) {
+      const close = document.querySelector<HTMLButtonElement>(modalCloseSelector);
+      const svg = close?.querySelector("svg");
+      if (!close || !svg) throw new Error("Modal close icon control is missing");
+      const rect = close.getBoundingClientRect();
+      const glyph = svg.getBoundingClientRect();
+      const rootRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const computed = getComputedStyle(close);
+      const near = (actual: number, expected: number) =>
+        Number.isFinite(actual) && Number.isFinite(expected) && Math.abs(actual - expected) <= 0.75;
+      const centered = near(rect.width, 2 * rootRem) && near(rect.height, 2 * rootRem)
+        && near(glyph.width, 16) && near(glyph.height, 16)
+        && near((glyph.left + glyph.right) / 2, (rect.left + rect.right) / 2)
+        && near((glyph.top + glyph.bottom) / 2, (rect.top + rect.bottom) / 2)
+        && near(parseFloat(computed.paddingLeft), 0)
+        && near(parseFloat(computed.paddingRight), 0);
+      document.documentElement.dataset.themeSettingsModalCloseGeometryPass = String(centered);
+      if (!centered) throw new Error("Rendered 2rem modal close: 16px SVG must be centered, no inherited padding");
+    }
     // Check actual layout: these three readable accessibility names must not
     // occupy visible space in a standalone renderer without unrelated CSS.
     const labels = Array.from(document.querySelectorAll<HTMLElement>(".windows-shortcuts__toggle .sr-only"));
