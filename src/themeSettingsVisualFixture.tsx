@@ -152,6 +152,7 @@ const root = document.getElementById("root");
 if (!root) throw new Error("Theme settings fixture root is missing.");
 
 let shortcutsCloseRequests = 0;
+const readShortcutCloseRequests = () => shortcutsCloseRequests;
 flushSync(() => {
   const content = (
     shortcutsDialog ? (
@@ -292,7 +293,7 @@ window.requestAnimationFrame(async () => {
       const newerEscape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
       window.dispatchEvent(newerEscape);
       newerDialog.remove();
-      if (newerEscape.defaultPrevented || shortcutsCloseRequests !== 0) {
+      if (newerEscape.defaultPrevented || readShortcutCloseRequests() !== 0) {
         throw new Error("Shortcuts recovery stole input from a newer modal");
       }
       closeButton.blur();
@@ -303,7 +304,7 @@ window.requestAnimationFrame(async () => {
       closeButton.blur();
       const escape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
       window.dispatchEvent(escape);
-      const passed = tabRecovered && escape.defaultPrevented && shortcutsCloseRequests === 1;
+      const passed = tabRecovered && escape.defaultPrevented && readShortcutCloseRequests() === 1;
       document.documentElement.dataset.themeSettingsShortcutsKeyboardRecoveryPass = String(passed);
       if (!passed) throw new Error("Shortcuts must recover Tab and Escape when pending save orphans focus");
     }
