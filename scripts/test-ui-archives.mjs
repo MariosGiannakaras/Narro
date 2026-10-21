@@ -129,6 +129,23 @@ requireText(listPanel, 'aria-label={`Delete Forever ${list.title}`}', "touch act
 requireText(listPanel, "onClick={() => requestDelete(list)}", "touch uses existing delete confirmation");
 requireText(listPanel, "onClick={() => void restoreList(list)}", "touch uses existing restore owner");
 
+// A failed native read must be recoverable without navigating away, while
+// never misrepresenting the absence of a snapshot as an empty archive.
+for (const [source, name, fixtureName, marker] of [
+  [listPanel, "archived lists", "fixtureLists", "lists"],
+  [donePanel, "archived done", "fixtureSnapshot", "done"],
+]) {
+  requireText(source, "const [loadAttempt, setLoadAttempt] = useState(0);", name + " reload generation");
+  requireText(source, "setLoadAttempt((attempt) => attempt + 1);", name + " retry triggers a fresh read");
+  requireText(source, "disposed = true;", name + " stale responses must not commit after cleanup");
+  requireText(source, fixtureName + ", loadAttempt", name + " retry effect dependencies");
+  requireText(source, 'data-archive-retry="' + marker + '"', name + " same-screen retry button");
+  requireText(source, 'role="alert"', name + " accessible error");
+}
+requireText(donePanel, "snapshot === null ? (loadError ? null : (", "failed archived-done read cannot show false empty state");
+requireText(listPanel, "lists === null ? (", "archive-list load-only recovery");
+requireText(listPanelCss, ".archived-lists-panel__retry", "archive-list retry styling");
+requireText(donePanelCss, ".archive-panel__retry", "archived-done retry styling");
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
