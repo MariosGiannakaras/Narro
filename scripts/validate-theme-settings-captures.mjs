@@ -131,6 +131,7 @@ for (const theme of ["dark", "light"]) {
   invariant(dom.includes(`data-theme="${theme}"`), `${label} source theme is missing`);
   invariant(dom.includes('data-theme-settings-shortcuts-dialog="true"'), `${label} fixture did not select the dedicated dialog`);
   invariant(dom.includes('data-theme-settings-shortcuts-layout-pass="true"'), `${label} ten shortcut rows must fit without overflow`);
+  invariant(dom.includes('data-theme-settings-shortcuts-keyboard-recovery-pass="true"'), `${label} pending shortcut-save orphaned-focus Tab/Escape recovery failed`);
   invariant(dom.includes('data-windows-shortcuts-dialog="true"'), `${label} must capture the actual WindowsShortcutsDialog wrapper`);
   invariant(dom.includes('role="dialog"') && dom.includes('aria-modal="true"'), `${label} accessible modal semantics missing`);
   invariant(dom.includes('data-windows-shortcuts-close="true"'), `${label} close control missing`);
