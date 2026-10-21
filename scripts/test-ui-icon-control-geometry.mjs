@@ -14,7 +14,7 @@ const focus = read("src/FocusPanel.tsx");
 const icon = read("src/ActionIcon.tsx");
 
 function rules(source, selector) {
-  return source.split("}").filter(rule => {
+  return source.replace(/\/\*[\s\S]*?\*\//g, "").split("}").filter(rule => {
     const start = rule.lastIndexOf("{");
     const lead = rule.slice(0, start);
     const lastSelector = lead.slice(Math.max(lead.lastIndexOf("}"), lead.lastIndexOf("{")) + 1);
