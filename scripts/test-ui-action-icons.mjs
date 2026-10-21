@@ -40,7 +40,7 @@ const homeDashboard = read("src/HomeDashboard.tsx");
 const homeCss = read("src/homeDashboard.css");
 assert(homeDashboard.includes('trigger={<ActionIcon name="more" />}')
   && homeDashboard.includes('triggerLabel={`More actions for ${card.title}`}')
-  && homeDashboard.includes('data-home-list-card'),
+  && homeDashboard.includes('className="home-list-card__action-slot"'),
   "Home list action must use centered offline More SVG with the unchanged named menu");
 assert(!homeDashboard.includes('trigger={<span aria-hidden="true">…</span>}'),
   "font-dependent ellipsis must not return to the Home action control");
