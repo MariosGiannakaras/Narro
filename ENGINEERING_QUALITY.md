@@ -54,6 +54,18 @@ Before publishing a frontend/native/test-harness candidate that can trigger Wind
 
 Do **not** modify the Windows workflow or add new expensive gates merely to compensate for pre-push omissions. Existing `validation → fast → windows-candidate` ordering is correct. A prior green SHA does not validate later source/test edits.
 
+### Pre-CI impacted-contract admission (2026-10-21)
+
+For a frontend, fixture, or CDP/harness change, **before pushing the candidate that triggers expensive Windows CI**:
+
+1. Construct a changed-file-to-consumer map: production imports/call sites, shared CSS selectors, visual fixtures, scripts that read the changed source as text, and every preflight/test referencing renamed commands or selectors. Search for both the old and replacement symbol. Include downstream tests outside the directly edited module.
+2. Consult matching NER-003 (cheap failures) and NER-004 (readiness/transport) examples. Run the narrow tests first, then the strongest locally available aggregate frontend preflight; if a checked-out environment is unavailable, record `NOT RUN` and do not misrepresent isolated source-text/V8 assertions as a full preflight.
+3. For browser/CDP navigation, test the observable document/DOM-ready acknowledgment, retries and failure path with a deterministic delayed/missing-acknowledgment harness. Do not rely on fixed sleeps or brittle assertions that a helper must call a command inline.
+4. For CSS geometry, verify border-box, padding, SVG size, shared selectors and fixture consumers together. Update contract tests to assert behavioral/layout invariants, not an obsolete literal string.
+5. Keep one reviewable batch per expensive CI candidate. On FAIL inspect the first causally failing job/step and log, repair the same PR with a targeted regression, then revalidate the replacement SHA. Do not restart a run on an unchanged known-failing SHA.
+
+This is an **admission checklist, not an extra CI gate**. The Windows candidate remains mandatory and physical pixel/motion acceptance remains separate. Record any unexecutable local checks explicitly before CI.
+
 ### CI failure-learning obligation
 
 The lightweight CI recurrence scanner (see `.github/workflows/ci-learning.yml` and `scripts/ci-learning.mjs`) reports **candidate patterns**, not proven causal equivalence. A repeated job/step or a green rerun alone must not be called the same defect or “flaky”.
