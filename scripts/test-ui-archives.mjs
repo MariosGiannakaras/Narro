@@ -143,7 +143,7 @@ if (archivePanel.includes("System/Dark/Light") || archivePanel.includes("Reports
 requireText(donePanel,
   '<span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><ActionIcon name="notes" /></span>',
   "Saved-note status has a semantic label and one shared ActionIcon");
-const archivedNoteRule = donePanelCss.match(/\\.archived-done-row__has-note\\s*\\{([^}]*)\\}/)?.[1] ?? "";
+const archivedNoteRule = donePanelCss.match(/\.archived-done-row__has-note\s*\{([^}]*)\}/)?.[1] ?? "";
 for (const required of [
   "display: inline-grid", "place-items: center", "vertical-align: middle",
   "color: var(--color-text-secondary)",
@@ -152,7 +152,7 @@ for (const required of [
     throw new Error("Archived note icon must remain baseline-independent: " + required);
   }
 }
-if (/\\b(?:width|height|transform)\\s*:/.test(archivedNoteRule)) {
+if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
   throw new Error("Archived note visual correction must not add arbitrary size/offset");
 }
 
