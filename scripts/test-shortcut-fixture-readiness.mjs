@@ -44,7 +44,7 @@ const realDoc = observe({
   documentElement: { dataset: {
     ...measured, themeSettingsFixtureReady: "true",
   } },
-  getElementById: () => ({ childElementCount: 1 }),
+  getElementById: (id) => id === "root" ? { childElementCount: 1 } : null,
   activeElement: { outerHTML: "<button>Close</button>" },
   readyState: "complete",
 }, url);
