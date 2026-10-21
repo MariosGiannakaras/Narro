@@ -128,6 +128,13 @@
   background: var(--color-surface-interactive);
 }
 
+.task-schedule-dialog__text-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
 .task-schedule-dialog__shortcuts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -160,7 +167,12 @@
 }
 
 .task-schedule-dialog__calendar-navigation button {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
   width: 2.25rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
   min-height: 2.25rem;
   padding: 0;
   border: 1px solid var(--color-border-subtle);
@@ -229,6 +241,9 @@
 }
 
 .task-schedule-dialog__pick-date {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   justify-self: start;
   min-height: 2.2rem;
   padding: 0 var(--space-2);
