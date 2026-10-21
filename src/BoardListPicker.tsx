@@ -62,6 +62,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
   const focus = variant === "focus";
   const [open, setOpen] = useState(false);
   const id = useId();
+  const selectedDescriptionId = `${id}-selection`;
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -133,6 +134,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
         data-focus-list-selector={focus ? "true" : undefined}
         data-focus-selected-target={focus ? selectedTarget : undefined}
         aria-haspopup="listbox"
+        aria-describedby={selectedDescriptionId}
         aria-controls={id}
         aria-expanded={open}
         disabled={disabled}
@@ -148,7 +150,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
         }}
       >
         {selected ? <ListBadge option={selected} focus={focus} /> : <ListBadges options={options} focus={focus} />}
-        <span className="board-list-picker__current">{selected?.title ?? "All Lists"}</span>
+        <span className="board-list-picker__current" id={selectedDescriptionId}>{selected?.title ?? "All Lists"}</span>
         <ActionIcon name={open ? "chevron-up" : "chevron-down"} />
       </button>
       {open && !disabled ? (
