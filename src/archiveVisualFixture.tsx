@@ -102,9 +102,28 @@ if (mode === "lists-empty" || mode === "done-empty") {
   })));
   const restored = first.getAttribute("aria-selected") === "true"
     && first.tabIndex === 0 && second.tabIndex === -1 && document.activeElement === first;
+  const listsButton = document.querySelector<HTMLButtonElement>('[data-archive-tab="lists"]');
+  const doneButton = document.querySelector<HTMLButtonElement>('[data-archive-tab="done"]');
+  if (!listsButton || !doneButton) throw new Error("Archive keyboard Home/End fixture tabs missing");
+  flushSync(() => first.dispatchEvent(new KeyboardEvent("keydown", {
+    key: "Home", bubbles: true, cancelable: true,
+  })));
+  const homeSelected = listsButton.getAttribute("aria-selected") === "true"
+    && document.activeElement === listsButton;
+  flushSync(() => listsButton.dispatchEvent(new KeyboardEvent("keydown", {
+    key: "End", bubbles: true, cancelable: true,
+  })));
+  const endSelected = doneButton.getAttribute("aria-selected") === "true"
+    && document.activeElement === doneButton;
+  flushSync(() => doneButton.dispatchEvent(new KeyboardEvent("keydown", {
+    key: from === "lists" ? "Home" : "End", bubbles: true, cancelable: true,
+  })));
+  const endpointRestored = first.getAttribute("aria-selected") === "true"
+    && document.activeElement === first;
   const activePanel = document.getElementById("archive-" + from + "-tabpanel");
   const inactivePanel = document.getElementById("archive-" + to + "-tabpanel");
-  const passed = advanced && restored && activePanel !== null && inactivePanel !== null
+  const passed = advanced && restored && homeSelected && endSelected && endpointRestored
+    && activePanel !== null && inactivePanel !== null
     && !activePanel.hidden && inactivePanel.hidden;
   document.documentElement.dataset.archiveTabsKeyboardPass = String(passed);
   if (!passed) throw new Error("Archive tabs must wrap keyboard arrows and retain focus/panel identity");
