@@ -72,6 +72,17 @@
   background: var(--color-destructive-surface);
 }
 
+.archive-panel__retry {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
 .archive-panel__empty {
   display: grid;
   justify-items: center;
