@@ -43,6 +43,32 @@ export function WindowsShortcutsDialog({ onRequestClose, settingsContent }: Wind
     };
   }, []);
 
+  // Async shortcut saves disable the focused checkbox. When Chromium moves
+  // focus outside this modal, recover Escape/Tab without stealing input from
+  // a newer modal or handling events already owned by an inner control.
+  useEffect(() => {
+    const recoverOrphanedKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || (event.key !== "Escape" && event.key !== "Tab")) return;
+      const dialog = dialogRef.current;
+      if (!dialog || (event.target instanceof Node && dialog.contains(event.target))) return;
+      const activeDialogs = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]'))
+        .filter((element) => !element.closest('[hidden], [inert], [aria-hidden="true"]')
+          && element.getClientRects().length > 0);
+      if (activeDialogs[activeDialogs.length - 1] !== dialog) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.key === "Escape") {
+        onRequestClose();
+        return;
+      }
+      const elements = tabbableWithin(dialog);
+      (event.shiftKey ? elements[elements.length - 1] : elements[0] ?? closeRef.current)
+        ?.focus({ preventScroll: true });
+    };
+    window.addEventListener("keydown", recoverOrphanedKey);
+    return () => window.removeEventListener("keydown", recoverOrphanedKey);
+  }, [onRequestClose]);
+
   function handleKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.key === "Escape") {
       event.preventDefault();
