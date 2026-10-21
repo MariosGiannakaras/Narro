@@ -8,6 +8,7 @@ const app = read("src/App.css");
 const reportsCss = read("src/reportsOverview.css");
 const sessionsCss = read("src/reportsSessions.css");
 const focusCss = read("src/focusPanel.css");
+const searchCss = read("src/searchPalette.css");
 const overview = read("src/ReportsOverviewView.tsx");
 const sessions = read("src/ReportsSessionsView.tsx");
 const focus = read("src/FocusPanel.tsx");
@@ -60,6 +61,17 @@ for (const button of [detail, add]) {
   property(button, "place-items", "center");
   property(button, "padding", "0");
 }
+for (const selector of [".reports-overview__back", ".reports-overview__export"]) {
+  const action = singleRule(reportsCss, selector);
+  property(action, "display", "inline-flex");
+  property(action, "align-items", "center");
+  property(action, "gap", selector.endsWith("__back") ? "var(--space-1)" : "var(--space-2)");
+}
+const searchBack = singleRule(searchCss, ".search-palette__back");
+property(searchBack, "display", "inline-flex");
+property(searchBack, "align-items", "center");
+property(searchBack, "gap", "var(--space-1)");
+
 const quick = singleRule(focusCss, ".focus-panel__quick-controls button");
 property(quick, "display", "inline-grid");
 property(quick, "place-items", "center");
