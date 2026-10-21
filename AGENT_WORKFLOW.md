@@ -110,6 +110,8 @@ The user should never have to relay one agent's explanation to another.
 
 ### User-directed autonomy / validation timing
 
+Ordinary source pushes, proportionate CI and safe merges after the required exact-head checks are authorized without renewed user permission. While CI runs, continue useful dependency-safe work. Interpret a request to avoid spending time waiting for CI as a sequencing preference; apply any later explicit user deferral to its stated scope. Do not invent a general CI prohibition from that preference.
+
 Current user direction delegates ordinary implementation and validation sequencing to the agent. Do not stop merely because a routine validation boundary was reached. Batch compatible checks when later work is independent; run targeted automated validation before dependent work when a failure could invalidate the next slice or materially worsen failure isolation. Apply the claim/invalidation protocol in `docs/CI_VALIDATION_STRATEGY.md`: preserve unaffected evidence, batch dependency-safe source fixes before expensive candidate CI/builds, and reuse an unchanged exact-head artifact for compatible deferred manual checks instead of rebuilding by habit. Manual Windows checks may remain open for a later consolidated session when safe.
 
 Do **not** spend the session repeatedly polling the same active build/candidate with no state change. Record the exact head/run once, continue dependency-safe implementation/analysis/documentation, and re-check only after substantive progress, when the CI result is required to choose the next safe action, or when new evidence/user input indicates completion. A long-running build is not a reason to idle.

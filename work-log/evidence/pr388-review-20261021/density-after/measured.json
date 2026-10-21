@@ -1,0 +1,24 @@
+{
+  "dataset": {
+    "theme": "dark",
+    "themeSettingsShortcutConflict": "false",
+    "themeSettingsShortcutsDialog": "true",
+    "themeSettingsSection": "upper",
+    "themeSettingsShortcutsLayout": "{\"viewport\":[1000,700],\"rows\":10,\"client\":[720,594],\"content\":[720,594]}",
+    "themeSettingsShortcutsLayoutPass": "true",
+    "themeSettingsShortcutLabelsHidden": "true",
+    "themeSettingsFixtureReady": "true"
+  },
+  "rowHeights": [
+    44,
+    44,
+    44,
+    44,
+    44,
+    44,
+    44,
+    44,
+    44,
+    44
+  ]
+}

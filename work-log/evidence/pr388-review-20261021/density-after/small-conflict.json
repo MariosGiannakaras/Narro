@@ -1,0 +1,17 @@
+{
+  "viewport": [
+    480,
+    500
+  ],
+  "rows": 10,
+  "scroll": [
+    427,
+    889
+  ],
+  "horizontal": [
+    464,
+    464
+  ],
+  "errorVisible": true,
+  "pass": true
+}
