@@ -15,6 +15,7 @@ const archivePanel = read("src/ArchivePanel.tsx");
 const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
 const listPanelCss = read("src/archivedListsPanel.css");
+const donePanelCss = read("src/archivePanel.css");
 const fixture = read("src/archiveVisualFixture.tsx");
 const listSettingsFixture = read("src/listSettingsVisualFixture.tsx");
 const vite = read("vite.config.ts");
@@ -134,6 +135,25 @@ for (const forbidden of [
 
 if (archivePanel.includes("System/Dark/Light") || archivePanel.includes("Reports")) {
   throw new Error("Archive slice must not absorb later theme or Reports implementation scope.");
+}
+
+// The Info column has one decorative Saved-note SVG. Keep its accessible
+// status and intrinsic icon dimensions; center the SVG in the table's
+// inline formatting context instead of letting text-baseline metrics shift it.
+requireText(donePanel,
+  '<span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><ActionIcon name="notes" /></span>',
+  "Saved-note status has a semantic label and one shared ActionIcon");
+const archivedNoteRule = donePanelCss.match(/\.archived-done-row__has-note\s*\{([^}]*)\}/)?.[1] ?? "";
+for (const required of [
+  "display: inline-grid", "place-items: center", "vertical-align: middle",
+  "color: var(--color-text-secondary)",
+]) {
+  if (!archivedNoteRule.split(";").some((part) => part.trim() === required)) {
+    throw new Error("Archived note icon must remain baseline-independent: " + required);
+  }
+}
+if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
+  throw new Error("Archived note visual correction must not add arbitrary size/offset");
 }
 
 console.log("Archive lists/done-task surface contract checks passed.");
