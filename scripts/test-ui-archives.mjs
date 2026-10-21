@@ -161,7 +161,7 @@ for (const needle of [
   'tabIndex={activeTab === "lists" ? 0 : -1}',
   'tabIndex={activeTab === "done" ? 0 : -1}',
 ]) requireText(archivePanel, needle, "Archive tab/tabpanel keyboard and focus invariants");
-requireText(fixture, "data-archive-tabs-keyboard-pass", "real archive fixture keyboard arrow/focus coverage");
+requireText(fixture, "dataset.archiveTabsKeyboardPass", "real archive fixture keyboard arrow/focus coverage");
 requireText(validator, "data-archive-tabs-keyboard-pass", "Windows archive capture validates keyboard recovery");
 
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
