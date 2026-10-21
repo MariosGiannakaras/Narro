@@ -1,0 +1,847 @@
+### Open tabs
+- 0: [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: (current) [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/
+- Page Title: Narro
+### Snapshot
+```yaml
+- generic [ref=e3]:
+  - complementary "List navigation" [ref=e4]:
+    - img "Narro" [ref=e5]
+    - navigation "Lists" [ref=e7]:
+      - button "+ Create new list" [ref=e8] [cursor=pointer]
+      - button "All my lists" [ref=e10] [cursor=pointer]
+      - button "Archived lists" [ref=e11] [cursor=pointer]
+  - generic [ref=e12]:
+    - generic "Utilities" [ref=e14]:
+      - button "Search" [ref=e15] [cursor=pointer]
+      - button "Settings" [ref=e16] [cursor=pointer]
+    - main [ref=e17]:
+      - generic [ref=e1664]:
+        - generic [ref=e1665]:
+          - generic [ref=e1666]:
+            - button "Back" [ref=e1667] [cursor=pointer]
+            - heading "Reports" [level=1] [ref=e1670]
+          - generic [ref=e1671]:
+            - button "+ Add Session" [ref=e1672] [cursor=pointer]
+            - button "Export .csv" [ref=e1673] [cursor=pointer]
+        - tablist "Reports" [ref=e1674]:
+          - tab "Overview" [ref=e1675] [cursor=pointer]
+          - tab "Sessions Beta" [selected] [ref=e1676] [cursor=pointer]
+        - generic [ref=e1677]:
+          - button "All Lists" [ref=e1679] [cursor=pointer]
+          - button "Hide Break sessions" [ref=e1686] [cursor=pointer]
+          - generic [ref=e1690]:
+            - button "Sep 21, 2026 – Oct 21, 2026" [expanded] [ref=e1691] [cursor=pointer]
+            - dialog "Choose report date range" [ref=e2707]:
+              - generic [ref=e2708]:
+                - button "Today" [ref=e2709] [cursor=pointer]
+                - button "Yesterday" [ref=e2710] [cursor=pointer]
+                - button "This week" [ref=e2711] [cursor=pointer]
+                - button "Last 30 days" [ref=e2712] [cursor=pointer]
+                - button "Last 60 days" [ref=e2713] [cursor=pointer]
+                - button "Last 90 days" [ref=e2714] [cursor=pointer]
+              - generic [ref=e2715]:
+                - generic [ref=e3115]:
+                  - generic [ref=e3116]:
+                    - button "Previous year" [ref=e3117] [cursor=pointer]
+                    - button "Previous month" [ref=e3120] [cursor=pointer]
+                    - strong [ref=e3123]: Aug 2026
+                    - button "Next month" [disabled] [ref=e3124]
+                    - button "Next year" [disabled] [ref=e3127]
+                  - generic [aria-hidden] [ref=e3130]:
+                    - generic [ref=e3131]: S
+                    - generic [ref=e3132]: M
+                    - generic [ref=e3133]: T
+                    - generic [ref=e3134]: W
+                    - generic [ref=e3135]: T
+                    - generic [ref=e3136]: F
+                    - generic [ref=e3137]: S
+                  - generic [ref=e3138]:
+                    - button "26" [ref=e3139] [cursor=pointer]
+                    - button "27" [ref=e3140] [cursor=pointer]
+                    - button "28" [ref=e3141] [cursor=pointer]
+                    - button "29" [ref=e3142] [cursor=pointer]
+                    - button "30" [ref=e3143] [cursor=pointer]
+                    - button "31" [ref=e3144] [cursor=pointer]
+                    - button "1" [ref=e3145] [cursor=pointer]
+                    - button "2" [ref=e3146] [cursor=pointer]
+                    - button "3" [ref=e3147] [cursor=pointer]
+                    - button "4" [ref=e3148] [cursor=pointer]
+                    - button "5" [ref=e3149] [cursor=pointer]
+                    - button "6" [ref=e3150] [cursor=pointer]
+                    - button "7" [ref=e3151] [cursor=pointer]
+                    - button "8" [ref=e3152] [cursor=pointer]
+                    - button "9" [ref=e3153] [cursor=pointer]
+                    - button "10" [ref=e3154] [cursor=pointer]
+                    - button "11" [ref=e3155] [cursor=pointer]
+                    - button "12" [ref=e3156] [cursor=pointer]
+                    - button "13" [ref=e3157] [cursor=pointer]
+                    - button "14" [ref=e3158] [cursor=pointer]
+                    - button "15" [ref=e3159] [cursor=pointer]
+                    - button "16" [ref=e3160] [cursor=pointer]
+                    - button "17" [ref=e3161] [cursor=pointer]
+                    - button "18" [ref=e3162] [cursor=pointer]
+                    - button "19" [ref=e3163] [cursor=pointer]
+                    - button "20" [ref=e3164] [cursor=pointer]
+                    - button "21" [ref=e3165] [cursor=pointer]
+                    - button "22" [ref=e3166] [cursor=pointer]
+                    - button "23" [ref=e3167] [cursor=pointer]
+                    - button "24" [ref=e3168] [cursor=pointer]
+                    - button "25" [ref=e3169] [cursor=pointer]
+                    - button "26" [ref=e3170] [cursor=pointer]
+                    - button "27" [ref=e3171] [cursor=pointer]
+                    - button "28" [ref=e3172] [cursor=pointer]
+                    - button "29" [ref=e3173] [cursor=pointer]
+                    - button "30" [ref=e3174] [cursor=pointer]
+                    - button "31" [ref=e3175] [cursor=pointer]
+                    - button "1" [ref=e3176] [cursor=pointer]
+                    - button "2" [ref=e3177] [cursor=pointer]
+                    - button "3" [ref=e3178] [cursor=pointer]
+                    - button "4" [ref=e3179] [cursor=pointer]
+                    - button "5" [ref=e3180] [cursor=pointer]
+                - generic [ref=e2983]:
+                  - generic [ref=e2984]:
+                    - button "Previous year" [disabled] [ref=e2985]
+                    - button "Previous month" [disabled] [ref=e2988]
+                    - strong [ref=e2991]: Sep 2026
+                    - button "Next month" [ref=e2992] [cursor=pointer]
+                    - button "Next year" [ref=e2995] [cursor=pointer]
+                  - generic [aria-hidden] [ref=e2998]:
+                    - generic [ref=e2999]: S
+                    - generic [ref=e3000]: M
+                    - generic [ref=e3001]: T
+                    - generic [ref=e3002]: W
+                    - generic [ref=e3003]: T
+                    - generic [ref=e3004]: F
+                    - generic [ref=e3005]: S
+                  - generic [ref=e3006]:
+                    - button "30" [ref=e3007] [cursor=pointer]
+                    - button "31" [ref=e3008] [cursor=pointer]
+                    - button "1" [ref=e3009] [cursor=pointer]
+                    - button "2" [ref=e3010] [cursor=pointer]
+                    - button "3" [ref=e3011] [cursor=pointer]
+                    - button "4" [ref=e3012] [cursor=pointer]
+                    - button "5" [ref=e3013] [cursor=pointer]
+                    - button "6" [ref=e3014] [cursor=pointer]
+                    - button "7" [ref=e3015] [cursor=pointer]
+                    - button "8" [ref=e3016] [cursor=pointer]
+                    - button "9" [ref=e3017] [cursor=pointer]
+                    - button "10" [ref=e3018] [cursor=pointer]
+                    - button "11" [ref=e3019] [cursor=pointer]
+                    - button "12" [ref=e3020] [cursor=pointer]
+                    - button "13" [ref=e3021] [cursor=pointer]
+                    - button "14" [ref=e3022] [cursor=pointer]
+                    - button "15" [ref=e3023] [cursor=pointer]
+                    - button "16" [ref=e3024] [cursor=pointer]
+                    - button "17" [ref=e3025] [cursor=pointer]
+                    - button "18" [ref=e3026] [cursor=pointer]
+                    - button "19" [ref=e3027] [cursor=pointer]
+                    - button "20" [ref=e3028] [cursor=pointer]
+                    - button "21" [ref=e3029] [cursor=pointer]
+                    - button "22" [ref=e3030] [cursor=pointer]
+                    - button "23" [ref=e3031] [cursor=pointer]
+                    - button "24" [ref=e3032] [cursor=pointer]
+                    - button "25" [ref=e3033] [cursor=pointer]
+                    - button "26" [ref=e3034] [cursor=pointer]
+                    - button "27" [ref=e3035] [cursor=pointer]
+                    - button "28" [ref=e3036] [cursor=pointer]
+                    - button "29" [ref=e3037] [cursor=pointer]
+                    - button "30" [ref=e3038] [cursor=pointer]
+                    - button "1" [ref=e3039] [cursor=pointer]
+                    - button "2" [ref=e3040] [cursor=pointer]
+                    - button "3" [ref=e3041] [cursor=pointer]
+                    - button "4" [ref=e3042] [cursor=pointer]
+                    - button "5" [ref=e3043] [cursor=pointer]
+                    - button "6" [ref=e3044] [cursor=pointer]
+                    - button "7" [ref=e3045] [cursor=pointer]
+                    - button "8" [ref=e3046] [cursor=pointer]
+                    - button "9" [ref=e3047] [cursor=pointer]
+                    - button "10" [ref=e3048] [cursor=pointer]
+              - generic [ref=e2848]:
+                - button "Cancel" [ref=e2849] [cursor=pointer]
+                - button "Apply" [ref=e2850] [cursor=pointer]
+        - generic [ref=e1695]:
+          - article [ref=e1696]:
+            - text: Total Time
+            - strong [ref=e1697]: 9hr 37min
+          - article [ref=e1698]:
+            - text: Total Tasks
+            - strong [ref=e1699]: "39"
+          - article [ref=e1700]:
+            - text: Total Sessions
+            - strong [ref=e1701]: "56"
+        - generic [ref=e1702]:
+          - generic [ref=e1703]:
+            - generic [ref=e1704]:
+              - strong [ref=e1705]: Oct 20, 2026
+              - generic [ref=e1706]: 18 sessions
+            - article [ref=e1707]:
+              - generic [ref=e1708]:
+                - strong [ref=e1709]: Break
+                - generic [ref=e1710]: Capture Project
+              - generic [ref=e1712]: Break
+              - generic [ref=e1713]: Oct 20, 2026
+              - generic [ref=e1714]: 4:50 PM
+              - button "4:55 PM" [ref=e1719] [cursor=pointer]
+              - strong [ref=e1720]: 5min
+              - button "Session actions for Break" [ref=e1722] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1723]: •••
+            - article [ref=e1724]:
+              - generic [ref=e1725]:
+                - strong [ref=e1726]: Weekly recurring parent
+                - generic [ref=e1727]: Capture Project
+              - generic [ref=e1729]: Session 01
+              - generic [ref=e1730]: Oct 20, 2026
+              - generic [ref=e1731]: 4:45 PM
+              - button "4:50 PM" [ref=e1736] [cursor=pointer]
+              - strong [ref=e1737]: 5min
+              - button "Session actions for Weekly recurring parent" [ref=e1739] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1740]: •••
+            - article [ref=e1741]:
+              - generic [ref=e1742]:
+                - strong [ref=e1743]: Third task without estimate
+                - generic [ref=e1744]: Capture Project
+              - generic [ref=e1746]: Session 04
+              - generic [ref=e1747]: Oct 20, 2026
+              - generic [ref=e1748]: 4:43 PM
+              - button "5:43 PM" [ref=e1753] [cursor=pointer]
+              - strong [ref=e1754]: 1hr
+              - button "Session actions for Third task without estimate" [ref=e1756] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1757]: •••
+            - article [ref=e1758]:
+              - generic [ref=e1759]:
+                - strong [ref=e1760]: Third task without estimate
+                - generic [ref=e1761]: Capture Project
+              - generic [ref=e1763]: Session 03
+              - generic [ref=e1764]: Oct 20, 2026
+              - generic [ref=e1765]: 4:35 PM
+              - button "5:35 PM" [ref=e1770] [cursor=pointer]
+              - strong [ref=e1771]: 1hr
+              - button "Session actions for Third task without estimate" [ref=e1773] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1774]: •••
+            - article [ref=e1775]:
+              - generic [ref=e1776]:
+                - strong [ref=e1777]: Overdue task with age label
+                - generic [ref=e1778]: Capture Project
+              - generic [ref=e1780]: Session 01
+              - generic [ref=e1781]: Oct 20, 2026
+              - generic [ref=e1782]: 3:54 PM
+              - button "4:45 PM" [ref=e1787] [cursor=pointer]
+              - strong [ref=e1788]: 3min
+              - button "Session actions for Overdue task with age label" [ref=e1790] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1791]: •••
+            - article [ref=e1792]:
+              - generic [ref=e1793]:
+                - strong [ref=e1794]: Third task without estimate
+                - generic [ref=e1795]: Capture Project
+              - generic [ref=e1797]: Session 02
+              - generic [ref=e1798]: Oct 20, 2026
+              - generic [ref=e1799]: 3:42 PM
+              - button "3:45 PM" [ref=e1804] [cursor=pointer]
+              - strong [ref=e1805]: 0min
+              - button "Session actions for Third task without estimate" [ref=e1807] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1808]: •••
+            - article [ref=e1809]:
+              - generic [ref=e1810]:
+                - strong [ref=e1811]: Break
+                - generic [ref=e1812]: Capture Project
+              - generic [ref=e1814]: Break
+              - generic [ref=e1815]: Oct 20, 2026
+              - generic [ref=e1816]: 3:42 PM
+              - button "3:42 PM" [ref=e1821] [cursor=pointer]
+              - strong [ref=e1822]: 0min
+              - button "Session actions for Break" [ref=e1824] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1825]: •••
+            - article [ref=e1826]:
+              - generic [ref=e1827]:
+                - strong [ref=e1828]: Third task without estimate
+                - generic [ref=e1829]: Capture Project
+              - generic [ref=e1831]: Session 01
+              - generic [ref=e1832]: Oct 20, 2026
+              - generic [ref=e1833]: 3:40 PM
+              - button "3:42 PM" [ref=e1838] [cursor=pointer]
+              - strong [ref=e1839]: 2min
+              - button "Session actions for Third task without estimate" [ref=e1841] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1842]: •••
+            - article [ref=e1843]:
+              - generic [ref=e1844]:
+                - strong [ref=e1845]: Second task — notes and success feedback
+                - generic [ref=e1846]: Capture Project
+              - generic [ref=e1848]: Session 01
+              - generic [ref=e1849]: Oct 20, 2026
+              - generic [ref=e1850]: 3:38 PM
+              - button "3:40 PM" [ref=e1855] [cursor=pointer]
+              - strong [ref=e1856]: 2min
+              - button "Session actions for Second task — notes and success feedback" [ref=e1858] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1859]: •••
+            - article [ref=e1860]:
+              - generic [ref=e1861]:
+                - strong [ref=e1862]: Capture live task — long title for compact wrapping and hover actions
+                - generic [ref=e1863]: Capture Project
+              - generic [ref=e1865]: Session 02
+              - generic [ref=e1866]: Oct 20, 2026
+              - generic [ref=e1867]: 3:37 PM
+              - button "3:37 PM" [ref=e1872] [cursor=pointer]
+              - strong [ref=e1873]: 0min
+              - button "Session actions for Capture live task — long title for compact wrapping and hover actions" [ref=e1875] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1876]: •••
+            - article [ref=e1877]:
+              - generic [ref=e1878]:
+                - strong [ref=e1879]: Break
+                - generic [ref=e1880]: Capture Project
+              - generic [ref=e1882]: Break
+              - generic [ref=e1883]: Oct 20, 2026
+              - generic [ref=e1884]: 3:37 PM
+              - button "3:37 PM" [ref=e1889] [cursor=pointer]
+              - strong [ref=e1890]: 1min
+              - button "Session actions for Break" [ref=e1892] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1893]: •••
+            - article [ref=e1894]:
+              - generic [ref=e1895]:
+                - strong [ref=e1896]: Capture live task — long title for compact wrapping and hover actions
+                - generic [ref=e1897]: Capture Project
+              - generic [ref=e1899]: Session 01
+              - generic [ref=e1900]: Oct 20, 2026
+              - generic [ref=e1901]: 3:25 PM
+              - button "3:37 PM" [ref=e1906] [cursor=pointer]
+              - strong [ref=e1907]: 5min
+              - button "Session actions for Capture live task — long title for compact wrapping and hover actions" [ref=e1909] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1910]: •••
+            - article [ref=e1911]:
+              - generic [ref=e1912]:
+                - strong [ref=e1913]: Done history 01 — long title for scroll
+                - generic [ref=e1914]: Capture Project
+              - generic [ref=e1916]: Session 01
+              - generic [ref=e1917]: Oct 20, 2026
+              - generic [ref=e1918]: 12:00 PM
+              - button "12:10 PM" [ref=e1923] [cursor=pointer]
+              - strong [ref=e1924]: 10min
+              - button "Session actions for Done history 01 — long title for scroll" [ref=e1926] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1927]: •••
+            - article [ref=e1928]:
+              - generic [ref=e1929]:
+                - strong [ref=e1930]: Done history 03 — long title for scroll
+                - generic [ref=e1931]: Capture Project
+              - generic [ref=e1933]: Session 01
+              - generic [ref=e1934]: Oct 20, 2026
+              - generic [ref=e1935]: 12:00 PM
+              - button "12:10 PM" [ref=e1940] [cursor=pointer]
+              - strong [ref=e1941]: 10min
+              - button "Session actions for Done history 03 — long title for scroll" [ref=e1943] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1944]: •••
+            - article [ref=e1945]:
+              - generic [ref=e1946]:
+                - strong [ref=e1947]: Done history 06 — long title for scroll
+                - generic [ref=e1948]: Capture Project
+              - generic [ref=e1950]: Session 01
+              - generic [ref=e1951]: Oct 20, 2026
+              - generic [ref=e1952]: 12:00 PM
+              - button "12:10 PM" [ref=e1957] [cursor=pointer]
+              - strong [ref=e1958]: 10min
+              - button "Session actions for Done history 06 — long title for scroll" [ref=e1960] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1961]: •••
+            - article [ref=e1962]:
+              - generic [ref=e1963]:
+                - strong [ref=e1964]: Done history 05 — long title for scroll
+                - generic [ref=e1965]: Capture Project
+              - generic [ref=e1967]: Session 01
+              - generic [ref=e1968]: Oct 20, 2026
+              - generic [ref=e1969]: 12:00 PM
+              - button "12:10 PM" [ref=e1974] [cursor=pointer]
+              - strong [ref=e1975]: 10min
+              - button "Session actions for Done history 05 — long title for scroll" [ref=e1977] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1978]: •••
+            - article [ref=e1979]:
+              - generic [ref=e1980]:
+                - strong [ref=e1981]: Done history 02 — long title for scroll
+                - generic [ref=e1982]: Capture Project
+              - generic [ref=e1984]: Session 01
+              - generic [ref=e1985]: Oct 20, 2026
+              - generic [ref=e1986]: 12:00 PM
+              - button "12:10 PM" [ref=e1991] [cursor=pointer]
+              - strong [ref=e1992]: 10min
+              - button "Session actions for Done history 02 — long title for scroll" [ref=e1994] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e1995]: •••
+            - article [ref=e1996]:
+              - generic [ref=e1997]:
+                - strong [ref=e1998]: Done history 04 — long title for scroll
+                - generic [ref=e1999]: Capture Project
+              - generic [ref=e2001]: Session 01
+              - generic [ref=e2002]: Oct 20, 2026
+              - generic [ref=e2003]: 12:00 PM
+              - button "12:10 PM" [ref=e2008] [cursor=pointer]
+              - strong [ref=e2009]: 10min
+              - button "Session actions for Done history 04 — long title for scroll" [ref=e2011] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2012]: •••
+          - generic [ref=e2013]:
+            - generic [ref=e2014]:
+              - strong [ref=e2015]: Oct 19, 2026
+              - generic [ref=e2016]: 8 sessions
+            - article [ref=e2017]:
+              - generic [ref=e2018]:
+                - strong [ref=e2019]: Break
+                - generic [ref=e2020]: Break
+              - generic [ref=e2022]: Break
+              - generic [ref=e2023]: Oct 19, 2026
+              - generic [ref=e2024]: 1:20 PM
+              - button "1:25 PM" [ref=e2029] [cursor=pointer]
+              - strong [ref=e2030]: 5min
+              - button "Session actions for Break" [ref=e2032] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2033]: •••
+            - article [ref=e2034]:
+              - generic [ref=e2035]:
+                - strong [ref=e2036]: Report sample day 1
+                - generic [ref=e2037]: Reading & research
+              - generic [ref=e2039]: Session 01
+              - generic [ref=e2040]: Oct 19, 2026
+              - generic [ref=e2041]: 1:00 PM
+              - button "1:20 PM" [ref=e2046] [cursor=pointer]
+              - strong [ref=e2047]: 20min
+              - button "Session actions for Report sample day 1" [ref=e2049] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2050]: •••
+            - article [ref=e2051]:
+              - generic [ref=e2052]:
+                - strong [ref=e2053]: Done history 09 — long title for scroll
+                - generic [ref=e2054]: Capture Project
+              - generic [ref=e2056]: Session 01
+              - generic [ref=e2057]: Oct 19, 2026
+              - generic [ref=e2058]: 12:00 PM
+              - button "12:10 PM" [ref=e2063] [cursor=pointer]
+              - strong [ref=e2064]: 10min
+              - button "Session actions for Done history 09 — long title for scroll" [ref=e2066] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2067]: •••
+            - article [ref=e2068]:
+              - generic [ref=e2069]:
+                - strong [ref=e2070]: Done history 07 — long title for scroll
+                - generic [ref=e2071]: Capture Project
+              - generic [ref=e2073]: Session 01
+              - generic [ref=e2074]: Oct 19, 2026
+              - generic [ref=e2075]: 12:00 PM
+              - button "12:10 PM" [ref=e2080] [cursor=pointer]
+              - strong [ref=e2081]: 10min
+              - button "Session actions for Done history 07 — long title for scroll" [ref=e2083] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2084]: •••
+            - article [ref=e2085]:
+              - generic [ref=e2086]:
+                - strong [ref=e2087]: Done history 10 — long title for scroll
+                - generic [ref=e2088]: Capture Project
+              - generic [ref=e2090]: Session 01
+              - generic [ref=e2091]: Oct 19, 2026
+              - generic [ref=e2092]: 12:00 PM
+              - button "12:10 PM" [ref=e2097] [cursor=pointer]
+              - strong [ref=e2098]: 10min
+              - button "Session actions for Done history 10 — long title for scroll" [ref=e2100] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2101]: •••
+            - article [ref=e2102]:
+              - generic [ref=e2103]:
+                - strong [ref=e2104]: Done history 12 — long title for scroll
+                - generic [ref=e2105]: Capture Project
+              - generic [ref=e2107]: Session 01
+              - generic [ref=e2108]: Oct 19, 2026
+              - generic [ref=e2109]: 12:00 PM
+              - button "12:10 PM" [ref=e2114] [cursor=pointer]
+              - strong [ref=e2115]: 10min
+              - button "Session actions for Done history 12 — long title for scroll" [ref=e2117] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2118]: •••
+            - article [ref=e2119]:
+              - generic [ref=e2120]:
+                - strong [ref=e2121]: Done history 11 — long title for scroll
+                - generic [ref=e2122]: Capture Project
+              - generic [ref=e2124]: Session 01
+              - generic [ref=e2125]: Oct 19, 2026
+              - generic [ref=e2126]: 12:00 PM
+              - button "12:10 PM" [ref=e2131] [cursor=pointer]
+              - strong [ref=e2132]: 10min
+              - button "Session actions for Done history 11 — long title for scroll" [ref=e2134] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2135]: •••
+            - article [ref=e2136]:
+              - generic [ref=e2137]:
+                - strong [ref=e2138]: Done history 08 — long title for scroll
+                - generic [ref=e2139]: Capture Project
+              - generic [ref=e2141]: Session 01
+              - generic [ref=e2142]: Oct 19, 2026
+              - generic [ref=e2143]: 12:00 PM
+              - button "12:10 PM" [ref=e2148] [cursor=pointer]
+              - strong [ref=e2149]: 10min
+              - button "Session actions for Done history 08 — long title for scroll" [ref=e2151] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2152]: •••
+          - generic [ref=e2153]:
+            - generic [ref=e2154]:
+              - strong [ref=e2155]: Oct 18, 2026
+              - generic [ref=e2156]: 6 sessions
+            - article [ref=e2157]:
+              - generic [ref=e2158]:
+                - strong [ref=e2159]: Done history 13 — long title for scroll
+                - generic [ref=e2160]: Capture Project
+              - generic [ref=e2162]: Session 01
+              - generic [ref=e2163]: Oct 18, 2026
+              - generic [ref=e2164]: 12:00 PM
+              - button "12:10 PM" [ref=e2169] [cursor=pointer]
+              - strong [ref=e2170]: 10min
+              - button "Session actions for Done history 13 — long title for scroll" [ref=e2172] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2173]: •••
+            - article [ref=e2174]:
+              - generic [ref=e2175]:
+                - strong [ref=e2176]: Done history 18 — long title for scroll
+                - generic [ref=e2177]: Capture Project
+              - generic [ref=e2179]: Session 01
+              - generic [ref=e2180]: Oct 18, 2026
+              - generic [ref=e2181]: 12:00 PM
+              - button "12:10 PM" [ref=e2186] [cursor=pointer]
+              - strong [ref=e2187]: 10min
+              - button "Session actions for Done history 18 — long title for scroll" [ref=e2189] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2190]: •••
+            - article [ref=e2191]:
+              - generic [ref=e2192]:
+                - strong [ref=e2193]: Done history 15 — long title for scroll
+                - generic [ref=e2194]: Capture Project
+              - generic [ref=e2196]: Session 01
+              - generic [ref=e2197]: Oct 18, 2026
+              - generic [ref=e2198]: 12:00 PM
+              - button "12:10 PM" [ref=e2203] [cursor=pointer]
+              - strong [ref=e2204]: 10min
+              - button "Session actions for Done history 15 — long title for scroll" [ref=e2206] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2207]: •••
+            - article [ref=e2208]:
+              - generic [ref=e2209]:
+                - strong [ref=e2210]: Done history 16 — long title for scroll
+                - generic [ref=e2211]: Capture Project
+              - generic [ref=e2213]: Session 01
+              - generic [ref=e2214]: Oct 18, 2026
+              - generic [ref=e2215]: 12:00 PM
+              - button "12:10 PM" [ref=e2220] [cursor=pointer]
+              - strong [ref=e2221]: 10min
+              - button "Session actions for Done history 16 — long title for scroll" [ref=e2223] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2224]: •••
+            - article [ref=e2225]:
+              - generic [ref=e2226]:
+                - strong [ref=e2227]: Done history 17 — long title for scroll
+                - generic [ref=e2228]: Capture Project
+              - generic [ref=e2230]: Session 01
+              - generic [ref=e2231]: Oct 18, 2026
+              - generic [ref=e2232]: 12:00 PM
+              - button "12:10 PM" [ref=e2237] [cursor=pointer]
+              - strong [ref=e2238]: 10min
+              - button "Session actions for Done history 17 — long title for scroll" [ref=e2240] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2241]: •••
+            - article [ref=e2242]:
+              - generic [ref=e2243]:
+                - strong [ref=e2244]: Done history 14 — long title for scroll
+                - generic [ref=e2245]: Capture Project
+              - generic [ref=e2247]: Session 01
+              - generic [ref=e2248]: Oct 18, 2026
+              - generic [ref=e2249]: 12:00 PM
+              - button "12:10 PM" [ref=e2254] [cursor=pointer]
+              - strong [ref=e2255]: 10min
+              - button "Session actions for Done history 14 — long title for scroll" [ref=e2257] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2258]: •••
+          - generic [ref=e2259]:
+            - generic [ref=e2260]:
+              - strong [ref=e2261]: Oct 17, 2026
+              - generic [ref=e2262]: 6 sessions
+            - article [ref=e2263]:
+              - generic [ref=e2264]:
+                - strong [ref=e2265]: Done history 20 — long title for scroll
+                - generic [ref=e2266]: Capture Project
+              - generic [ref=e2268]: Session 01
+              - generic [ref=e2269]: Oct 17, 2026
+              - generic [ref=e2270]: 12:00 PM
+              - button "12:10 PM" [ref=e2275] [cursor=pointer]
+              - strong [ref=e2276]: 10min
+              - button "Session actions for Done history 20 — long title for scroll" [ref=e2278] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2279]: •••
+            - article [ref=e2280]:
+              - generic [ref=e2281]:
+                - strong [ref=e2282]: Done history 21 — long title for scroll
+                - generic [ref=e2283]: Capture Project
+              - generic [ref=e2285]: Session 01
+              - generic [ref=e2286]: Oct 17, 2026
+              - generic [ref=e2287]: 12:00 PM
+              - button "12:10 PM" [ref=e2292] [cursor=pointer]
+              - strong [ref=e2293]: 10min
+              - button "Session actions for Done history 21 — long title for scroll" [ref=e2295] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2296]: •••
+            - article [ref=e2297]:
+              - generic [ref=e2298]:
+                - strong [ref=e2299]: Done history 22 — long title for scroll
+                - generic [ref=e2300]: Capture Project
+              - generic [ref=e2302]: Session 01
+              - generic [ref=e2303]: Oct 17, 2026
+              - generic [ref=e2304]: 12:00 PM
+              - button "12:10 PM" [ref=e2309] [cursor=pointer]
+              - strong [ref=e2310]: 10min
+              - button "Session actions for Done history 22 — long title for scroll" [ref=e2312] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2313]: •••
+            - article [ref=e2314]:
+              - generic [ref=e2315]:
+                - strong [ref=e2316]: Done history 19 — long title for scroll
+                - generic [ref=e2317]: Capture Project
+              - generic [ref=e2319]: Session 01
+              - generic [ref=e2320]: Oct 17, 2026
+              - generic [ref=e2321]: 12:00 PM
+              - button "12:10 PM" [ref=e2326] [cursor=pointer]
+              - strong [ref=e2327]: 10min
+              - button "Session actions for Done history 19 — long title for scroll" [ref=e2329] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2330]: •••
+            - article [ref=e2331]:
+              - generic [ref=e2332]:
+                - strong [ref=e2333]: Done history 24 — long title for scroll
+                - generic [ref=e2334]: Capture Project
+              - generic [ref=e2336]: Session 01
+              - generic [ref=e2337]: Oct 17, 2026
+              - generic [ref=e2338]: 12:00 PM
+              - button "12:10 PM" [ref=e2343] [cursor=pointer]
+              - strong [ref=e2344]: 10min
+              - button "Session actions for Done history 24 — long title for scroll" [ref=e2346] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2347]: •••
+            - article [ref=e2348]:
+              - generic [ref=e2349]:
+                - strong [ref=e2350]: Done history 23 — long title for scroll
+                - generic [ref=e2351]: Capture Project
+              - generic [ref=e2353]: Session 01
+              - generic [ref=e2354]: Oct 17, 2026
+              - generic [ref=e2355]: 12:00 PM
+              - button "12:10 PM" [ref=e2360] [cursor=pointer]
+              - strong [ref=e2361]: 10min
+              - button "Session actions for Done history 23 — long title for scroll" [ref=e2363] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2364]: •••
+          - generic [ref=e2365]:
+            - generic [ref=e2366]:
+              - strong [ref=e2367]: Oct 16, 2026
+              - generic [ref=e2368]: 2 sessions
+            - article [ref=e2369]:
+              - generic [ref=e2370]:
+                - strong [ref=e2371]: Break
+                - generic [ref=e2372]: Break
+              - generic [ref=e2374]: Break
+              - generic [ref=e2375]: Oct 16, 2026
+              - generic [ref=e2376]: 1:20 PM
+              - button "1:25 PM" [ref=e2381] [cursor=pointer]
+              - strong [ref=e2382]: 5min
+              - button "Session actions for Break" [ref=e2384] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2385]: •••
+            - article [ref=e2386]:
+              - generic [ref=e2387]:
+                - strong [ref=e2388]: Report sample day 4
+                - generic [ref=e2389]: Reading & research
+              - generic [ref=e2391]: Session 01
+              - generic [ref=e2392]: Oct 16, 2026
+              - generic [ref=e2393]: 1:00 PM
+              - button "1:20 PM" [ref=e2398] [cursor=pointer]
+              - strong [ref=e2399]: 20min
+              - button "Session actions for Report sample day 4" [ref=e2401] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2402]: •••
+          - generic [ref=e2403]:
+            - generic [ref=e2404]:
+              - strong [ref=e2405]: Oct 13, 2026
+              - generic [ref=e2406]: 2 sessions
+            - article [ref=e2407]:
+              - generic [ref=e2408]:
+                - strong [ref=e2409]: Break
+                - generic [ref=e2410]: Break
+              - generic [ref=e2412]: Break
+              - generic [ref=e2413]: Oct 13, 2026
+              - generic [ref=e2414]: 1:20 PM
+              - button "1:25 PM" [ref=e2419] [cursor=pointer]
+              - strong [ref=e2420]: 5min
+              - button "Session actions for Break" [ref=e2422] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2423]: •••
+            - article [ref=e2424]:
+              - generic [ref=e2425]:
+                - strong [ref=e2426]: Report sample day 7
+                - generic [ref=e2427]: Reading & research
+              - generic [ref=e2429]: Session 01
+              - generic [ref=e2430]: Oct 13, 2026
+              - generic [ref=e2431]: 1:00 PM
+              - button "1:20 PM" [ref=e2436] [cursor=pointer]
+              - strong [ref=e2437]: 20min
+              - button "Session actions for Report sample day 7" [ref=e2439] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2440]: •••
+          - generic [ref=e2441]:
+            - generic [ref=e2442]:
+              - strong [ref=e2443]: Oct 10, 2026
+              - generic [ref=e2444]: 2 sessions
+            - article [ref=e2445]:
+              - generic [ref=e2446]:
+                - strong [ref=e2447]: Break
+                - generic [ref=e2448]: Break
+              - generic [ref=e2450]: Break
+              - generic [ref=e2451]: Oct 10, 2026
+              - generic [ref=e2452]: 1:20 PM
+              - button "1:25 PM" [ref=e2457] [cursor=pointer]
+              - strong [ref=e2458]: 5min
+              - button "Session actions for Break" [ref=e2460] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2461]: •••
+            - article [ref=e2462]:
+              - generic [ref=e2463]:
+                - strong [ref=e2464]: Report sample day 10
+                - generic [ref=e2465]: Reading & research
+              - generic [ref=e2467]: Session 01
+              - generic [ref=e2468]: Oct 10, 2026
+              - generic [ref=e2469]: 1:00 PM
+              - button "1:20 PM" [ref=e2474] [cursor=pointer]
+              - strong [ref=e2475]: 20min
+              - button "Session actions for Report sample day 10" [ref=e2477] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2478]: •••
+          - generic [ref=e2479]:
+            - generic [ref=e2480]:
+              - strong [ref=e2481]: Oct 07, 2026
+              - generic [ref=e2482]: 2 sessions
+            - article [ref=e2483]:
+              - generic [ref=e2484]:
+                - strong [ref=e2485]: Break
+                - generic [ref=e2486]: Break
+              - generic [ref=e2488]: Break
+              - generic [ref=e2489]: Oct 07, 2026
+              - generic [ref=e2490]: 1:20 PM
+              - button "1:25 PM" [ref=e2495] [cursor=pointer]
+              - strong [ref=e2496]: 5min
+              - button "Session actions for Break" [ref=e2498] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2499]: •••
+            - article [ref=e2500]:
+              - generic [ref=e2501]:
+                - strong [ref=e2502]: Report sample day 13
+                - generic [ref=e2503]: Reading & research
+              - generic [ref=e2505]: Session 01
+              - generic [ref=e2506]: Oct 07, 2026
+              - generic [ref=e2507]: 1:00 PM
+              - button "1:20 PM" [ref=e2512] [cursor=pointer]
+              - strong [ref=e2513]: 20min
+              - button "Session actions for Report sample day 13" [ref=e2515] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2516]: •••
+          - generic [ref=e2517]:
+            - generic [ref=e2518]:
+              - strong [ref=e2519]: Oct 04, 2026
+              - generic [ref=e2520]: 2 sessions
+            - article [ref=e2521]:
+              - generic [ref=e2522]:
+                - strong [ref=e2523]: Break
+                - generic [ref=e2524]: Break
+              - generic [ref=e2526]: Break
+              - generic [ref=e2527]: Oct 04, 2026
+              - generic [ref=e2528]: 1:20 PM
+              - button "1:25 PM" [ref=e2533] [cursor=pointer]
+              - strong [ref=e2534]: 5min
+              - button "Session actions for Break" [ref=e2536] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2537]: •••
+            - article [ref=e2538]:
+              - generic [ref=e2539]:
+                - strong [ref=e2540]: Report sample day 16
+                - generic [ref=e2541]: Reading & research
+              - generic [ref=e2543]: Session 01
+              - generic [ref=e2544]: Oct 04, 2026
+              - generic [ref=e2545]: 1:00 PM
+              - button "1:20 PM" [ref=e2550] [cursor=pointer]
+              - strong [ref=e2551]: 20min
+              - button "Session actions for Report sample day 16" [ref=e2553] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2554]: •••
+          - generic [ref=e2555]:
+            - generic [ref=e2556]:
+              - strong [ref=e2557]: Oct 01, 2026
+              - generic [ref=e2558]: 2 sessions
+            - article [ref=e2559]:
+              - generic [ref=e2560]:
+                - strong [ref=e2561]: Break
+                - generic [ref=e2562]: Break
+              - generic [ref=e2564]: Break
+              - generic [ref=e2565]: Oct 01, 2026
+              - generic [ref=e2566]: 1:20 PM
+              - button "1:25 PM" [ref=e2571] [cursor=pointer]
+              - strong [ref=e2572]: 5min
+              - button "Session actions for Break" [ref=e2574] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2575]: •••
+            - article [ref=e2576]:
+              - generic [ref=e2577]:
+                - strong [ref=e2578]: Report sample day 19
+                - generic [ref=e2579]: Reading & research
+              - generic [ref=e2581]: Session 01
+              - generic [ref=e2582]: Oct 01, 2026
+              - generic [ref=e2583]: 1:00 PM
+              - button "1:20 PM" [ref=e2588] [cursor=pointer]
+              - strong [ref=e2589]: 20min
+              - button "Session actions for Report sample day 19" [ref=e2591] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2592]: •••
+          - generic [ref=e2593]:
+            - generic [ref=e2594]:
+              - strong [ref=e2595]: Sep 28, 2026
+              - generic [ref=e2596]: 2 sessions
+            - article [ref=e2597]:
+              - generic [ref=e2598]:
+                - strong [ref=e2599]: Break
+                - generic [ref=e2600]: Break
+              - generic [ref=e2602]: Break
+              - generic [ref=e2603]: Sep 28, 2026
+              - generic [ref=e2604]: 1:20 PM
+              - button "1:25 PM" [ref=e2609] [cursor=pointer]
+              - strong [ref=e2610]: 5min
+              - button "Session actions for Break" [ref=e2612] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2613]: •••
+            - article [ref=e2614]:
+              - generic [ref=e2615]:
+                - strong [ref=e2616]: Report sample day 22
+                - generic [ref=e2617]: Reading & research
+              - generic [ref=e2619]: Session 01
+              - generic [ref=e2620]: Sep 28, 2026
+              - generic [ref=e2621]: 1:00 PM
+              - button "1:20 PM" [ref=e2626] [cursor=pointer]
+              - strong [ref=e2627]: 20min
+              - button "Session actions for Report sample day 22" [ref=e2629] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2630]: •••
+          - generic [ref=e2631]:
+            - generic [ref=e2632]:
+              - strong [ref=e2633]: Sep 25, 2026
+              - generic [ref=e2634]: 2 sessions
+            - article [ref=e2635]:
+              - generic [ref=e2636]:
+                - strong [ref=e2637]: Break
+                - generic [ref=e2638]: Break
+              - generic [ref=e2640]: Break
+              - generic [ref=e2641]: Sep 25, 2026
+              - generic [ref=e2642]: 1:20 PM
+              - button "1:25 PM" [ref=e2647] [cursor=pointer]
+              - strong [ref=e2648]: 5min
+              - button "Session actions for Break" [ref=e2650] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2651]: •••
+            - article [ref=e2652]:
+              - generic [ref=e2653]:
+                - strong [ref=e2654]: Report sample day 25
+                - generic [ref=e2655]: Reading & research
+              - generic [ref=e2657]: Session 01
+              - generic [ref=e2658]: Sep 25, 2026
+              - generic [ref=e2659]: 1:00 PM
+              - button "1:20 PM" [ref=e2664] [cursor=pointer]
+              - strong [ref=e2665]: 20min
+              - button "Session actions for Report sample day 25" [ref=e2667] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2668]: •••
+          - generic [ref=e2669]:
+            - generic [ref=e2670]:
+              - strong [ref=e2671]: Sep 22, 2026
+              - generic [ref=e2672]: 2 sessions
+            - article [ref=e2673]:
+              - generic [ref=e2674]:
+                - strong [ref=e2675]: Break
+                - generic [ref=e2676]: Break
+              - generic [ref=e2678]: Break
+              - generic [ref=e2679]: Sep 22, 2026
+              - generic [ref=e2680]: 1:20 PM
+              - button "1:25 PM" [ref=e2685] [cursor=pointer]
+              - strong [ref=e2686]: 5min
+              - button "Session actions for Break" [ref=e2688] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2689]: •••
+            - article [ref=e2690]:
+              - generic [ref=e2691]:
+                - strong [ref=e2692]: Report sample day 28
+                - generic [ref=e2693]: Reading & research
+              - generic [ref=e2695]: Session 01
+              - generic [ref=e2696]: Sep 22, 2026
+              - generic [ref=e2697]: 1:00 PM
+              - button "1:20 PM" [ref=e2702] [cursor=pointer]
+              - strong [ref=e2703]: 20min
+              - button "Session actions for Report sample day 28" [ref=e2705] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e2706]: •••
+    - navigation "Primary" [ref=e146]:
+      - button "Home" [ref=e147] [cursor=pointer]
+      - button "Reports" [ref=e148] [cursor=pointer]
+```
