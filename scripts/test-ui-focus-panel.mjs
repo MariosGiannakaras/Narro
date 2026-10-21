@@ -303,7 +303,17 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
 invariant(!timerApi.includes("window.setInterval"), "live timer projection must not use overlapping interval sampling");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer numerals must be tabular to prevent second-by-second layout jitter");
-invariant(css.includes("min-width: 32px; min-height: 32px"), "quick-control hit areas must stay stable");
+// Keep the actual 32x32px hit target, not the older padded shorthand
+// whose intrinsic content width exceeded 32px around a 16px SVG.
+const quickControlsCss = css.match(/\\.focus-panel__quick-controls button\\s*\\{([^}]+)\\}/)?.[1] ?? "";
+for (const declaration of [
+  "box-sizing: border-box", "display: inline-grid", "place-items: center",
+  "width: 32px", "min-width: 32px", "height: 32px",
+  "min-height: 32px", "padding: 0",
+]) {
+  invariant(quickControlsCss.split(";").some((part) => part.trim() === declaration),
+    "quick-control must preserve centered 32px hit area: " + declaration);
+}
 invariant(css.includes("min-height: 54px"), "task rows must reserve stable compact geometry");
 invariant(css.includes("min-height: 82px"), "live card must retain emphasis geometry");
 invariant(css.includes("@media (prefers-reduced-motion: reduce)"), "Focus Panel must suppress transitions under reduced motion");
