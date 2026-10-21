@@ -885,3 +885,8 @@ PA360-XW-SUBTASKS **CLOSED3/3scopedPASS** on560efeb0/CI38894130069/merge5dfbede3
 ## 2026-10-20 capture-only checkpoint, no new parity verdict
 
 [57-line acquisition matrix](CAPTURE_57_ACQUISITION_2026-10-20.md): inventory57/57; material42/57 with17partial; Reports11NOTRUN and native limits explicit. Computer Use mandatory URL-policy stop; original profiles restored. Picker/built-in icons USER_ATTESTED_PASS only; upload/list rendering excluded from user attestation and newly captured/unreviewed. No new FIX_NOW/source-parity/physical PASS from this packet; no milestone or M10 advancement.
+
+### 2026-10-21 paired Timer compositor diagnostic
+
+- M7 C26–28/C35/affectedC19 remain FAIL/OPEN: same verified PR388 EXE has stale orange Panel pixels under incoming Timer both default and actual process-local GPU-compositing-disabled runtime; the upstream5574 lead does not supply a successful Narro remedy. [Exact frames/PTS and original videos/logs](../work-log/evidence/timer-compositor-ab-20261021/README.md). Prototype609e0b65 is arithmetic-only validated, native acceptance NOT RUN.
+- **M7-OBS-20261021-tooltip / FIX_NOW:** compact Timer Return-to-Focus tooltip overlaps Expand's hit target; actual CDP pointer action times out in both variants, keyboard recovery works. Scope correction to noninteractive Timer tooltip hit-testing while preserving visuals/placement/descriptions/hover and all interactive popovers/menus; add a real-browser overlap/pointer regression, then exact-build native validation. This new finding is not source redesign or a milestone closure.

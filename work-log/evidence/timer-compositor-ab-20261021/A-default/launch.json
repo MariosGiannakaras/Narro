@@ -1,0 +1,6 @@
+{
+  "arguments": "--remote-debugging-port=9240 --remote-debugging-address=127.0.0.1",
+  "utc": "2026-10-21T06:35:14.2591716Z",
+  "pid": 93012,
+  "variant": "A-default"
+}

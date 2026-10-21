@@ -1,0 +1,8 @@
+2026-10-21T06:36:19.4055306Z Panel→compact begin
+2026-10-21T06:36:22.5865274Z compact settled
+2026-10-21T06:36:43.3713343Z compact→expanded begin
+2026-10-21T06:36:50.1938368Z expanded settled
+2026-10-21T06:37:05.6754971Z CORRECTION: expand click timed out, Return-to-Focus tooltip intercepted input; previous settled label is not state proof. Escape recovery follows.
+2026-10-21T06:38:09.5161798Z expanded via Shift+Tab to observed Expand + Space; native screen follows
+2026-10-21T06:38:14.3589662Z collapse command returned; inspect receipt for success
+2026-10-21T06:38:17.1336685Z return Panel command returned; inspect receipt for success
