@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
@@ -124,7 +125,7 @@ function ListCard({
           {hasMenu ? (
             <Menu
               triggerLabel={`More actions for ${card.title}`}
-              trigger={<span aria-hidden="true">…</span>}
+              trigger={<ActionIcon name="more" />}
               align="end"
             >
               {actions?.onEdit ? <MenuItem onSelect={actions.onEdit}>Edit List</MenuItem> : null}
