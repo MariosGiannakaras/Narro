@@ -36,6 +36,22 @@ const actions = read("src/FocusLiveActions.tsx");
 const notes = read("src/TaskNotes.tsx");
 const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
+const completionRingCss = read("src/listBoard.css");
+const markCount = (board.match(/className="list-board-task__completion-mark"/g) ?? []).length;
+assert(markCount === 5, "all five task-card completion mark variants must share the same ring");
+assert(completionRingCss.includes(".list-board-task__completion-mark {")
+  && completionRingCss.includes("border: 1px solid currentColor;")
+  && completionRingCss.includes("border-radius: 999px;"),
+  "the existing 16px CSS completion ring is the one actual circle owner");
+assert(!board.includes('<span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>')
+  && !board.includes('"check" : "circle"'),
+  "a second SVG circle inside the CSS ring creates the visibly doubled turquoise outline");
+assert((board.match(/<span className="list-board-task__completion-mark" \\/>/g) ?? []).length === 3,
+  "all three non-completed buttons/previews must use exactly one CSS ring");
+assert(board.includes('{done ? <ActionIcon name="check" /> : null}')
+  && board.includes('{state === "done" ? <ActionIcon name="check" /> : null}'),
+  "Done cards and inline title editor must keep the original centered check SVG");
+
 const railCss = read("src/listBoard.css");
 const actionButton = board.slice(board.indexOf("function TaskActionButton("), board.indexOf("function TaskOverflowMenu("));
 assert(railCss.includes(".list-board,\n.list-board * {\n  box-sizing: border-box;")
