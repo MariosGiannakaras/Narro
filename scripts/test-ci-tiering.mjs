@@ -158,6 +158,28 @@ invariant(focusUpload.includes("if: failure()") && focusUpload.includes("if-no-f
   && focusUpload.includes("narro-m7-focus-runtime-failure-diagnostics"),
   "upstream Focus failures must not create a secondary missing-file failure");
 
+// Every package uploaded for physical/native acceptance must carry a
+// source SHA, GitHub run identity and content hash manifest. Never accept
+// an empty required binary or a missing MSI/NSIS bundle as a green upload.
+for (const [kind, artifactName, manifest] of [
+  ["physical", "narro-m7-physical-windows-x64", "physical.json"],
+  ["validation", "narro-m7-validation-windows-x64", "validation.json"],
+  ["diagnostic", "narro-m1-diagnostic-windows-x64", "diagnostic.json"],
+]) {
+  const generate = candidateBlock.indexOf("node scripts/write-ci-artifact-manifest.mjs " + kind);
+  const upload = candidateBlock.indexOf("name: " + artifactName);
+  const path = candidateBlock.indexOf("artifacts/ci-provenance/" + manifest);
+  invariant(generate >= 0 && path > generate && upload > generate,
+    kind + " must generate identity before its artifact upload");
+  invariant(path > upload, kind + " upload must include its own provenance manifest");
+}
+invariant(candidateBlock.includes("NARRO_CI_SOURCE_SHA:")
+  && candidateBlock.includes("if ($LASTEXITCODE -ne 0) { throw"),
+  "CI must pass an exact source SHA and fail immediately for manifest errors");
+invariant(packageJson.scripts?.["test:ci-artifact-manifest"] === "node scripts/test-ci-artifact-manifest.mjs"
+  && packageJson.scripts?.["preflight:frontend"]?.includes("npm run test:ci-artifact-manifest"),
+  "CI artifact manifest positive/negative tests must run in the fast gate");
+
 invariant(
   packageJson.scripts?.["preflight:frontend"]?.includes("npm run test:ci-tiering"),
   "CI tiering contract must run in the fast frontend preflight",
