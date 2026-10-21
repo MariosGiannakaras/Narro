@@ -107,7 +107,7 @@ requireText(listPanel, 'className="archived-lists-panel__empty-icon" aria-hidden
 requireText(listPanel, 'viewBox="0 0 24 24"', "offline source-like archive box icon");
 requireText(listPanelCss, "font-size: var(--font-size-metadata)", "compact source-like empty copy");
 requireText(listPanelCss, "width: var(--space-5)", "source-like compact archive icon size");
-requireText(listPanel, 'lists?.length === 0 ? null : (', "no irrelevant archive restore/delete instruction when empty");
+requireText(listPanel, 'lists && lists.length > 0 ? (', "archive restore/delete instruction only after a successful nonempty read");
 requireText(listPanelCss, "gap: var(--space-3)", "shared visual spacing token");
 requireText(listPanelCss, "@media (max-width: 48rem)", "existing narrow-screen breakpoint");
 requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout hides decorative side cards");
