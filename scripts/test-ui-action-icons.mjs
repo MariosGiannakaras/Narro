@@ -46,7 +46,7 @@ assert(completionRingCss.includes(".list-board-task__completion-mark {")
 assert(!board.includes('<span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>')
   && !board.includes('"check" : "circle"'),
   "a second SVG circle inside the CSS ring creates the visibly doubled turquoise outline");
-assert((board.match(/<span className="list-board-task__completion-mark" \\/>/g) ?? []).length === 3,
+assert(board.split('<span className="list-board-task__completion-mark" />').length - 1 === 3,
   "all three non-completed buttons/previews must use exactly one CSS ring");
 assert(board.includes('{done ? <ActionIcon name="check" /> : null}')
   && board.includes('{state === "done" ? <ActionIcon name="check" /> : null}'),
