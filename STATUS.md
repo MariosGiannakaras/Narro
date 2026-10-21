@@ -1,5 +1,7 @@
 # STATUS.md
 
+**Current quiet baseline completed:**3/3valid native collector runs on main4786/EXE08f289a5, zero churn; original profiles restored/hash identical/no app or recorder active. Candidate performance comparison and native8transition matrix NOT RUN. PR389head77a6b139/CI39560130498 Windows still required; mandatory4/10 unchanged. [Raw baseline](work-log/evidence/pr389-quiet-baseline-20261021/README.md). HANDOFF current; earlier checkpoints historical.
+
 **Current PR389head77a6b139/CI39560130498:**2/3SUCCESS, WindowsRUNNING;85141282ClippyFAIL retained,958947ca superseded. Runtime unchanged by unit-test-only lint/format follow-up; exact77WASM61scalar+6Rust unit bodiesPASS, nativeWindowsNOTRUN locally. Live quiet baseline PID98608/owned protected profile and3run collector active; HANDOFF gives cleanup/restart protection. No recording/native candidate acceptance or milestone advancement.
 
 **Current candidate PR389:** exact85141282/CI39559126923RUNNING, unmerged. Protected Timer resize+pixel-preserving composition and scoped tooltip fix; local frontend/build/fmtPASS,14/14 orchestration,61Rust/WASMarithmetic, real Edge M7matrix4/4 and tooltipRED→GREEN. Native candidate acceptance NOT RUN; Timer still FAIL/OPEN, mandatory4/10/M10blocked. [Proof](work-log/evidence/timer-protected-candidate-20261021/README.md), HANDOFF next action. Earlier checkpoints below are historical.

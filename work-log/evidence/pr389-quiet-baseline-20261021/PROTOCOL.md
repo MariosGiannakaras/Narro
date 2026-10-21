@@ -1,0 +1,3 @@
+# Quiet baseline for protected Timer candidate
+
+Isolated copied paused fixture; protect and restore personal profiles. Actual main4786 EXE vs later exact green PR389 EXE, default compositor, same runtime/monitor and compact Timer. Use purpose-built diagnostic main destruction and verify actual HWND/region with existing scenario validator; this is setup, not UI input acceptance. Detach CDP before sampling. Existing run-m1-floating-performance-batch: three runs,30s warmup/60s sample/1s interval, exact EXE digest, no recorder. Do not invent acceptance from scenario labels; actual native preflight/process churn checks required. Restore original profile/hash after baseline.
