@@ -392,6 +392,7 @@
 
 .reports-sessions__task-picker button {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
@@ -431,11 +432,14 @@
 }
 
 .reports-sessions__task-picker-list i {
-  display: inline-block;
-  flex: 0 0 0.6rem;
-  width: 0.6rem;
-  height: 0.6rem;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 1.35rem;
+  width: 1.35rem;
+  height: 1.35rem;
   border-radius: var(--radius-control);
+  font-size: var(--font-size-metadata);
+  font-weight: var(--font-weight-semibold);
 }
 
 .reports-sessions__add-fields {
