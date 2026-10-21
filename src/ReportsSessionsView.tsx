@@ -248,7 +248,7 @@ function SessionRow({
       <Menu
         triggerLabel={`Session actions for ${row.taskTitle}`}
         align="end"
-        trigger={<span aria-hidden="true">•••</span>}
+        trigger={<ActionIcon name="more" />}
       >
         {showDetailAction ? (
           <MenuItem
