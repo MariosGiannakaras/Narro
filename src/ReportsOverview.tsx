@@ -39,6 +39,7 @@ import {
 } from "./reportOverviewPresentation";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { reportListAccent } from "./reportListAccent";
+import { orderReportDoneTasks } from "./reportDoneOrdering";
 
 type ReportsOverviewProps = {
   onBack?: () => void;
@@ -106,7 +107,7 @@ function doneTaskPresentation(
   timeZone: string,
   listColors: ReadonlyMap<string, string | null>,
 ): ReportsDoneTask[] {
-  return overview.doneTasks.map(({ task, timing }) => {
+  return orderReportDoneTasks(overview.doneTasks).map(({ task, timing }) => {
     const punctuality = timing?.kind === "early"
       ? "early"
       : timing?.kind === "late"
@@ -119,7 +120,9 @@ function doneTaskPresentation(
       title: task.taskTitle,
       listTitle: task.listTitle,
       listColor: reportListAccent(task.listId, listColors),
-      completionLabel: formatReportCompletionDate(task.completedAt, locale, timeZone),
+      completionLabel: Number.isFinite(Date.parse(task.completedAt))
+        ? formatReportCompletionDate(task.completedAt, locale, timeZone)
+        : "Completion date unavailable",
       timeTakenLabel: formatReportDuration(task.timeTakenSeconds),
       punctuality,
       varianceLabel: timing === null

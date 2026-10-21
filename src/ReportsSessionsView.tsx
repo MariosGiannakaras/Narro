@@ -6,6 +6,8 @@ import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import { orderRecentSessionTasks } from "./recentSessionTaskChoices";
+import { positionReportAddSession } from "./reportAddSessionPlacement";
+import { listIconContrast } from "./listSpectrumColor";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
 
@@ -424,6 +426,7 @@ export function ReportAddSessionDialog({
   const [query, setQuery] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerPlacement, setPickerPlacement] = useState({ above: false, maxHeight: 280 });
+  const [anchorPosition, setAnchorPosition] = useState<{ left: number; top: number } | null>(null);
   const orderedTasks = useMemo(() => orderRecentSessionTasks(tasks), [tasks]);
   const filtered = orderedTasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
@@ -449,6 +452,40 @@ export function ReportAddSessionDialog({
       dialogRef.current?.focus();
     }
   }, [pending]);
+
+  // The original SS-H17 Add Session is anchored beneath the actual invoking
+  // control, not centered. Measure only during a real open/resize/selection;
+  // retain a centered modal fallback if the opener has since been detached.
+  useLayoutEffect(() => {
+    const position = () => {
+      const rect = returnFocusTarget?.getBoundingClientRect();
+      const panel = dialogRef.current;
+      // In the nested Task Sessions → Add flow the parent detail dialog is
+      // intentionally hidden/inert, yet its opener remains isConnected. A
+      // detached OR visually suppressed opener has no meaningful anchor.
+      // Falling back to the centered accessible modal protects this path.
+      if (!rect || !returnFocusTarget?.isConnected || !panel
+        || returnFocusTarget.closest("[hidden], [inert]")
+        || returnFocusTarget.getClientRects().length === 0
+        || rect.width <= 0 || rect.height <= 0) {
+        setAnchorPosition(null);
+        return;
+      }
+      const next = positionReportAddSession(rect, {
+        width: panel.offsetWidth,
+        height: panel.offsetHeight,
+      }, { width: window.innerWidth, height: window.innerHeight });
+      setAnchorPosition((current) =>
+        current?.left === next.left && current.top === next.top ? current : next);
+    };
+    position();
+    window.addEventListener("resize", position);
+    window.addEventListener("scroll", position, true);
+    return () => {
+      window.removeEventListener("resize", position);
+      window.removeEventListener("scroll", position, true);
+    };
+  }, [returnFocusTarget, draft.taskId, pickerOpen, pending, error]);
 
   useEffect(() => {
     if (!pickerOpen || pending) return;
@@ -546,6 +583,8 @@ export function ReportAddSessionDialog({
       <section
         ref={dialogRef}
         className="reports-sessions__add-dialog"
+        data-report-add-anchored={anchorPosition ? "true" : "false"}
+        style={anchorPosition ? { left: anchorPosition.left, top: anchorPosition.top } : undefined}
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-add-session-title"
@@ -598,12 +637,13 @@ export function ReportAddSessionDialog({
                     onClick={() => chooseTask(task.id)}
                   >
                     <span>{task.title}</span>
-                    <small className="reports-sessions__task-picker-list" data-session-task-list-badge="true">
-                      <i
-                        aria-hidden="true"
-                        style={{ backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)" }}
-                      />
-                      {task.listTitle}
+                    <small className="reports-sessions__task-picker-list"
+                      data-session-task-list-badge="true" title={task.listTitle}>
+                      <i aria-hidden="true" style={{
+                        backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)",
+                        color: task.listColor && HEX_COLOR.test(task.listColor) ? listIconContrast(task.listColor) : "var(--color-text-primary)",
+                      }}>{task.listTitle.trim().charAt(0).toUpperCase() || "L"}</i>
+                      <span className="reports-sessions__task-picker-list-label">{task.listTitle}</span>
                     </small>
                   </button>
                 ))}

@@ -140,7 +140,6 @@ export function BlitzPanelPreferenceSection({
         </button>
       </div>
       <Row
-        infoGlyph
         title="Monitor"
         detail={selectedStillAvailable
           ? "Choose which Windows work area owns the Focus Panel."
@@ -236,7 +235,7 @@ export function GeneralPreferenceRows({
           onChange={(openOnLogin) => onSave({ openOnLogin }, "openOnLogin")}
         />
       </Row>
-      <Row infoGlyph title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
+      <Row title="Hide EST / Time Taken" detail="Keep task timing quieter until you hover or focus a task.">
         <Switch
           checked={snapshot.general.hideTaskTimes}
           disabled={pendingKey !== null}
@@ -252,14 +251,25 @@ export function GeneralPreferenceRows({
           onChange={(autoParseEstFromTitle) => onSave({ autoParseEstFromTitle }, "autoParseEst")}
         />
       </Row>
-      <Row title="Timezone" detail="Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.">
-        <TimezonePreferenceSelector
-          timezone={snapshot.general.timezone}
-          disabled={pendingKey !== null}
-          onChange={(timezone) => onSave({ timezone }, "timezone")}
-        />
-      </Row>
     </>
+  );
+}
+
+// SS-C07 presents Time as a separate section. Preserve the saved value and
+// existing selector/validation authority while regrouping its presentation.
+export function TimePreferenceRows({
+  snapshot,
+  pendingKey,
+  onSave,
+}: Pick<CommonProps, "snapshot" | "pendingKey" | "onSave">) {
+  return (
+    <Row infoGlyph title="Timezone" detail="Select a time zone for reports and scheduled tasks, or follow your Windows time zone.">
+      <TimezonePreferenceSelector
+        timezone={snapshot.general.timezone}
+        disabled={pendingKey !== null}
+        onChange={(timezone) => onSave({ timezone }, "timezone")}
+      />
+    </Row>
   );
 }
 
@@ -365,7 +375,8 @@ export function LowerPreferenceSections({
               selectedSound={snapshot.alerts.taskAlertSound}
               defaultSound={DEFAULT_TASK_ALERT_SOUND}
               volumePercent={snapshot.alerts.taskAlertVolumePercent}
-              disabled={busy || !snapshot.alerts.timedAlertsEnabled}
+              disabled={!snapshot.alerts.timedAlertsEnabled}
+                saving={busy}
               soundLabel="Task alert sound"
               volumeLabel="Task alert volume"
               onSoundChange={(taskAlertSound) => onSave({ taskAlertSound }, "taskAlertSound")}
@@ -411,7 +422,8 @@ export function LowerPreferenceSections({
               selectedSound={snapshot.alerts.notificationSound}
               defaultSound={DEFAULT_NOTIFICATION_SOUND}
               volumePercent={snapshot.alerts.notificationVolumePercent}
-              disabled={busy || !snapshot.alerts.notificationAlertsEnabled}
+              disabled={!snapshot.alerts.notificationAlertsEnabled}
+                saving={busy}
               soundLabel="Notification sound"
               volumeLabel="Notification sound volume"
               onSoundChange={(notificationSound) => onSave(
@@ -466,7 +478,7 @@ export function LowerPreferenceSections({
         </Row>
         {snapshot.celebration.showSuccessScreen ? (
           <>
-        <Row title="Fun GIF" detail="Optional nested success-screen decoration; exact source visuals remain a fidelity follow-up." nested>
+        <Row title="Fun GIF" detail="Show a brief celebration animation when a task is completed." nested>
           <Switch
             checked={snapshot.celebration.funGif}
             disabled={busy || !snapshot.celebration.showSuccessScreen}
@@ -492,7 +504,8 @@ export function LowerPreferenceSections({
                 selectedSound={snapshot.celebration.successSound}
                 defaultSound={DEFAULT_SUCCESS_SOUND}
                 volumePercent={snapshot.celebration.successSoundVolumePercent}
-                disabled={busy || !snapshot.celebration.successSoundEnabled}
+                disabled={!snapshot.celebration.successSoundEnabled}
+                saving={busy}
                 soundLabel="Success sound"
                 volumeLabel="Success sound volume"
                 onSoundChange={(successSound) => onSave({ successSound }, "successSound")}

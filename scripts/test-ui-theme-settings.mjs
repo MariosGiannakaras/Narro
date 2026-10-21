@@ -121,15 +121,31 @@ for (const snippet of [
   'infoGlyph?: boolean;',
   'className="preference-settings__info-glyph" aria-hidden="true"',
   '<Row infoGlyph title="Panel side"',
-  '<Row infoGlyph title="Hide EST / Time Taken"',
+  '<Row infoGlyph title="Timezone"',
   '<Row infoGlyph title="Auto-parse EST from title"',
 ]) {
   invariant(preferenceSections.includes(snippet), `SS-C07 information-marker contract missing ${snippet}`);
 }
-const preferenceLines = preferenceSections.split(String.fromCharCode(10));
-const monitorGlyphLine = preferenceLines.findIndex((line) => line.trim() === "infoGlyph");
-invariant(monitorGlyphLine >= 0 && preferenceLines[monitorGlyphLine + 1]?.trim() === 'title="Monitor"',
-  "SS-C07 monitor label must carry a decorative information marker");
+// SS-C07 is an inventory, not a blanket marker rule: the Monitor and Hide
+// EST rows are plain labels. Preserve exact positive AND negative evidence.
+function rowHasInfoGlyph(title) {
+  const markup = preferenceSections.match(new RegExp('<Row\\b[^>]*\\btitle="' + title + '"[^>]*>', "s"))?.[0];
+  invariant(Boolean(markup), "SS-C07 row missing: " + title);
+  return /\binfoGlyph\b/.test(markup);
+}
+for (const [title, expected] of [
+  ["Panel side", true],
+  ["Auto-parse EST from title", true],
+  ["Timezone", true],
+  ["Monitor", false],
+  ["Hide EST / Time Taken", false],
+]) {
+  invariant(rowHasInfoGlyph(title) === expected,
+    "SS-C07 marker inventory diverges for " + title);
+}
+invariant(panel.includes("data-preferences-time-section")
+    && preferenceSections.includes("export function TimePreferenceRows("),
+  "SS-C07 Time remains a separate visible section without changing the timezone selector");
 invariant(preferenceCss.includes(".preference-settings__copy .preference-settings__info-glyph")
   && preferenceCss.includes("border-radius: 50%")
   && preferenceCss.includes("margin-inline-end: var(--space-2)"),
@@ -167,4 +183,5 @@ invariant(ordinaryRows.includes("padding-top: var(--space-3)"), "Preserve user-c
 invariant(panel.includes('role="group" aria-label="Theme"'), "Theme segmented control must remain accessible");
 
 await import("./test-ready-fixture-startup.mjs");
+await import("./test-shortcut-fixture-readiness.mjs");
 console.log("Theme settings/runtime contract: PASS");

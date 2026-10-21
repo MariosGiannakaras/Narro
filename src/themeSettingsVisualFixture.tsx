@@ -6,6 +6,7 @@ import {
   BlitzPanelPreferenceSection,
   GeneralPreferenceRows,
   LowerPreferenceSections,
+  TimePreferenceRows,
 } from "./PreferenceSettingsSections";
 import type { PreferenceSettingsSnapshot } from "./preferencesApi";
 import { ThemeSettingsPanelView } from "./ThemeSettingsPanel";
@@ -183,6 +184,13 @@ flushSync(() => {
           onSave={() => undefined}
         />
       )}
+      timeChildren={(
+        <TimePreferenceRows
+          snapshot={preferenceSnapshot}
+          pendingKey={null}
+          onSave={() => undefined}
+        />
+      )}
     >
       <LowerPreferenceSections
         snapshot={preferenceSnapshot}
@@ -243,6 +251,32 @@ window.requestAnimationFrame(async () => {
     surface.style.transform = `translateY(-${Math.max(0, Math.round(relativeTop) - 72)}px)`;
   }
   window.requestAnimationFrame(() => {
+    if (shortcutsDialog && !shortcutConflict) {
+      // C38: ten rows existed in the DOM while the final Search row was
+      // below the visible native 1000x700 dialog. Check painted bounds,
+      // not just row presence or a screenshot with scrollbars hidden.
+      const scroll = document.querySelector<HTMLElement>(".windows-shortcuts-dialog__scroll");
+      const rows = Array.from(document.querySelectorAll<HTMLElement>(".windows-shortcuts__row"));
+      const bounds = scroll?.getBoundingClientRect();
+      const fits = Boolean(scroll && bounds && rows.length === 10
+        && scroll.scrollHeight <= scroll.clientHeight + 1
+        && scroll.scrollWidth <= scroll.clientWidth + 1
+        && rows.every((row) => {
+          const rect = row.getBoundingClientRect();
+          return rect.top >= bounds.top - 1 && rect.bottom <= bounds.bottom + 1;
+        }));
+      document.documentElement.dataset.themeSettingsShortcutsLayout = JSON.stringify({
+        viewport: [innerWidth, innerHeight], rows: rows.length,
+        client: scroll ? [scroll.clientWidth, scroll.clientHeight] : null,
+        content: scroll ? [scroll.scrollWidth, scroll.scrollHeight] : null,
+      });
+      // Smaller windows retain accessible scrolling; do not crop content to
+      // make a no-scroll assertion pass outside the supported dense layout.
+      if (innerWidth >= 1000 && innerHeight >= 700) {
+        document.documentElement.dataset.themeSettingsShortcutsLayoutPass = String(fits);
+        if (!fits) throw new Error("C38: ten shortcut rows must fit the supported dialog viewport");
+      }
+    }
     // Check actual layout: these three readable accessibility names must not
     // occupy visible space in a standalone renderer without unrelated CSS.
     const labels = Array.from(document.querySelectorAll<HTMLElement>(".windows-shortcuts__toggle .sr-only"));

@@ -68,8 +68,8 @@
 }
 
 .windows-shortcuts__keycap {
-  min-width: 132px;
-  padding: 5px 8px;
+  min-width: 2rem;
+  padding: 5px 7px;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-control);
   color: var(--color-text-primary);
@@ -192,4 +192,13 @@
   .windows-shortcuts__toggle > span::after {
     transition-duration: var(--motion-duration-reduced);
   }
+}
+
+/* Source SS-C17 shows a separate rounded keycap per chord key. */
+.windows-shortcuts__keycaps {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  min-width: 132px;
 }

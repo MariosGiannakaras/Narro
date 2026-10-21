@@ -100,6 +100,7 @@ invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module
 const shortcutsDialogSource = await read("src/WindowsShortcutsDialog.tsx");
 const shortcutsDialogCss = await read("src/windowsShortcutsDialog.css");
 const shortcutSettingsSource = await read("src/WindowsShortcutSettingsPanel.tsx");
+const shortcutSettingsCss = await read("src/windowsShortcutSettingsPanel.css");
 const modalSource = await read("src/PreferencesDialog.tsx");
 const modalCss = await read("src/preferencesDialog.css");
 const shellSource = await read("src/AppShell.tsx");
@@ -134,6 +135,55 @@ invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
 invariant(shortcutsDialogCss.includes("color-scheme: light")
   && shortcutsDialogCss.includes("overflow-y: auto"),
   "the dedicated source light modal preserves bounded scrolling");
+
+// Frozen C38/C39/C40: only directly evidenced source-visual alignment is
+// applied; registration/error behavior and all saved preferences stay intact.
+function rowHasDecorativeInfo(title) {
+  const row = sections.match(new RegExp('<Row\\b[^>]*\\btitle="' + title + '"[^>]*>', 's'))?.[0];
+  invariant(Boolean(row), "Preferences row missing: " + title);
+  return /\binfoGlyph\b/.test(row);
+}
+for (const [title, expected] of [
+  ["Panel side", true],
+  ["Auto-parse EST from title", true],
+  ["Timezone", true],
+  ["Monitor", false],
+  ["Hide EST / Time Taken", false],
+]) {
+  invariant(rowHasDecorativeInfo(title) === expected,
+    "SS-C07 decorative info glyph inventory mismatch: " + title);
+}
+invariant(themePanel.includes("preferences.save(patch, key);")
+    && !themePanel.includes("void preferences.save(patch, key);"),
+  "C44 must propagate the native success/failure Promise through ThemeSettingsPanel to the focused SoundPreferenceControl");
+invariant(sections.includes("export function TimePreferenceRows(")
+    && sections.includes('onSave({ timezone }, "timezone")')
+    && sections.includes('infoGlyph title="Timezone"'),
+  "C40 must preserve existing saved timezone handler in its source Time section");
+invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
+    && themePanel.includes("data-preferences-time-section")
+    && themePanel.includes('id="theme-time-title"')
+    && fixture.includes("timeChildren={("),
+  "C40 must update production and visual fixtures without losing Time");
+
+invariant(sections.includes('detail="Show a brief celebration animation when a task is completed."'),
+  "Fun GIF help must describe user-visible functionality, not internal source-parity work");
+invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
+    && shortcutsDialogCss.includes("min-height: 44px")
+    && shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__rows")
+    && shortcutsDialogCss.includes("gap: 0;"),
+  "SS-C17 ten-row dedicated modal must have scoped compact rows without changing reused control semantics");
+invariant(shortcutSettingsSource.includes('row.chord.split(" + ").map(')
+    && shortcutSettingsSource.includes('className="windows-shortcuts__keycaps"')
+    && shortcutSettingsCss.includes(".windows-shortcuts__keycaps")
+    && shortcutsDialogCss.includes(".windows-shortcuts__intro"),
+  "C38 source shortcut keys must be individually rendered and dense descriptions remain accessible");
+invariant(shortcutsDialogCss.includes(".windows-shortcuts__copy > .type-metadata:not(.windows-shortcuts__status)")
+    && shortcutsDialogCss.includes(".windows-shortcuts__status--error")
+    && shortcutsDialogCss.includes("flex-basis: 100%"),
+  "Compact shortcut layout must retain accessible descriptions and visible conflict/error feedback");
+invariant(shortcutsDialogCss.includes("@media (max-width: 35rem)"),
+  "Narrow Windows Shortcuts dialog must remain able to stack its controls");
 
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
