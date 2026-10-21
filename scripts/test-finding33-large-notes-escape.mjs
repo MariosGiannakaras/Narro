@@ -4,6 +4,7 @@ import fs from "node:fs";
 import net from "node:net";
 import os from "node:os";
 import path from "node:path";
+import { navigateOrConfirmFinding33Document } from "./finding33NavigationAck.mjs";
 
 const root = process.cwd();
 const outputDirectory = path.join(root, "artifacts", "visual-regression");
@@ -234,9 +235,16 @@ try {
   await client.send("Log.enable");
   await client.send("Page.bringToFront");
   phase = "navigating";
-  const navigation = await client.send("Page.navigate", { url: pageUrl });
+  await navigateOrConfirmFinding33Document({
+    url: pageUrl,
+    send: (method, params) => client.send(method, params),
+    observe: () => evaluate(client, `({
+      url: location.href,
+      readyState: document.readyState,
+      documentPresent: Boolean(document.documentElement),
+    })`),
+  });
   phase = "navigated";
-  if (navigation.errorText) throw new Error(`Finding33 Edge navigation failed: ${navigation.errorText}`);
 
   await waitFor(
     () => evaluate(client, 'document.documentElement.dataset.taskNotesFixtureReady === "true"'),
