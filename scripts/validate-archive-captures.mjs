@@ -28,6 +28,7 @@ for (const theme of ["light", "dark"]) {
   const listsEmpty = read(`archive-lists-empty-${theme}`);
   common(listsEmpty, `${theme} archived-lists empty`);
   invariant(listsEmpty.includes('data-archive-tab="lists"'), `${theme} lists segment marker is missing`);
+  invariant(listsEmpty.includes('data-archive-tabs-keyboard-pass="true"'), `${theme} archive lists must retain keyboard Tab/Arrow/focus switching`);
   invariant(listsEmpty.includes('aria-selected="true"'), `${theme} lists segment is not selected`);
   invariant(listsEmpty.includes('data-archived-lists-panel="true"'), `${theme} embedded list archive panel is missing`);
   invariant(listsEmpty.includes('data-archived-lists-empty="true"'), `${theme} archived-list empty state is missing`);
