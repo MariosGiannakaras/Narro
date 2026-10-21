@@ -55,7 +55,9 @@ export function parseChangedPaths(argv, git) {
   if (diff.status !== 0) throw Error("Cannot derive branch impact from " + base + ": " + diff.stderr);
   const pending = git(["diff", "--name-only", "-z", "HEAD"]);
   if (pending.status !== 0) throw Error("Cannot inspect working-tree changes: " + pending.stderr);
-  return { changed: [...new Set((diff.stdout + pending.stdout).split("\0").filter(Boolean))], run, base, explicit: false };
+  const untracked = git(["ls-files", "--others", "--exclude-standard", "-z"]);
+  if (untracked.status !== 0) throw Error("Cannot inspect untracked worktree files: " + untracked.stderr);
+  return { changed: [...new Set((diff.stdout + pending.stdout + untracked.stdout).split("\0").filter(Boolean))], run, base, explicit: false };
 }
 
 function main() {
