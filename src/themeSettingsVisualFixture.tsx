@@ -283,6 +283,18 @@ window.requestAnimationFrame(async () => {
       // changing actual shortcut preferences or registration.
       const closeButton = document.querySelector<HTMLButtonElement>('[data-windows-shortcuts-close="true"]');
       if (!closeButton) throw new Error("Shortcuts close button is missing");
+      // A later topmost modal owns input; do not steal its Escape.
+      const newerDialog = document.createElement("section");
+      newerDialog.setAttribute("role", "dialog");
+      newerDialog.setAttribute("aria-modal", "true");
+      newerDialog.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px";
+      document.body.appendChild(newerDialog);
+      const newerEscape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+      window.dispatchEvent(newerEscape);
+      newerDialog.remove();
+      if (newerEscape.defaultPrevented || shortcutsCloseRequests !== 0) {
+        throw new Error("Shortcuts recovery stole input from a newer modal");
+      }
       closeButton.blur();
       if (document.activeElement !== document.body) throw new Error("Shortcuts orphaned focus setup failed");
       const tab = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
