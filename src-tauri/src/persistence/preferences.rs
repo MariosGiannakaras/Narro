@@ -268,6 +268,13 @@ pub fn initialize_preferences(
     now: &str,
 ) -> Result<PreferencesRecord, PreferenceStoreError> {
     validate_timestamp(now)?;
+    // Established preferences are a read-only path: do not reserve SQLite's
+    // single writer merely to display Theme, Shortcuts or Preferences.
+    if let Some(existing) = get_preferences(conn)? {
+        return Ok(existing);
+    }
+    // If two windows initialize an empty database together, reserve the writer
+    // first and check again before the INSERT to prevent a duplicate creation.
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     if let Some(existing) = get_preferences(&tx)? {
         tx.commit()?;
@@ -585,6 +592,37 @@ mod tests {
         patched.expect("patch waits instead of failing a read-to-write lock upgrade");
         assert!(saved.payload.celebration.show_success_screen);
         assert!(saved.payload.general.hide_task_times);
+    }
+
+    #[test]
+    fn existing_preferences_read_does_not_request_writer_reservation() {
+        use std::time::Duration;
+
+        let path = std::env::temp_dir().join(format!(
+            "narro-preference-reader-{}.sqlite",
+            uuid::Uuid::new_v4()
+        ));
+        let mut writer = Connection::open(&path).expect("open writer database");
+        run_migrations(&mut writer).expect("migrate database");
+        let initial = initialize_preferences(&mut writer, NOW).expect("initialize once");
+        let tx = writer
+            .transaction_with_behavior(TransactionBehavior::Immediate)
+            .expect("hold write reservation");
+        tx.execute(
+            "UPDATE preferences SET updated_at = ?1 WHERE id = 1",
+            ["2026-09-05T14:01:00Z"],
+        )
+        .expect("hold uncommitted update");
+
+        let mut reader = Connection::open(&path).expect("open independent reader");
+        reader.busy_timeout(Duration::ZERO).expect("fail immediately if a write lock is requested");
+        let observed = initialize_preferences(&mut reader, NOW)
+            .expect("reading established preferences must not acquire a writer lock");
+        assert_eq!(observed, initial);
+        drop(reader);
+        tx.rollback().expect("discard competing update");
+        drop(writer);
+        std::fs::remove_file(path).expect("remove isolated test database");
     }
 
     #[test]
