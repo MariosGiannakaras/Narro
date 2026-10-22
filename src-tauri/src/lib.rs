@@ -1599,6 +1599,7 @@ fn animate_focus_surface_presentation_internal(
             }
             Ok(value.round() as i32)
         };
+        render_mode_raster_frame(&window, lease, &incoming, progress)?;
         set_focus_position(
             &window,
             GeometryPoint {
@@ -1607,7 +1608,6 @@ fn animate_focus_surface_presentation_internal(
             },
             "move protected Focus host",
         )?;
-        render_mode_raster_frame(&window, lease, &incoming, progress)?;
         if progress >= 1.0 {
             break;
         }

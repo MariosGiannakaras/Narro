@@ -376,12 +376,22 @@ export function FocusSurfaceCoordinator() {
     try {
       const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
         ? 1 : FOCUS_GEOMETRY_MOTION_MS;
+      const waitForTimerTargetPaint = async () => {
+        for (
+          let attempt = 0;
+          attempt < 16 && document.querySelector('[data-floating-subtasks-loading="true"]') !== null;
+          attempt += 1
+        ) {
+          await waitForPresentedFrame();
+        }
+        await waitForPresentedFrame();
+      };
       await commitProtectedTimerResize({
         previous,
         target,
         protectOutgoing: prepareFocusSurfaceModeRaster,
         prepareRenderer: (next) => prepareRenderer(next === "timerExpanded"),
-        waitForPaint: waitForPresentedFrame,
+        waitForPaint: waitForTimerTargetPaint,
         animate: (next, token) => animateFocusSurfacePresentation(next, duration, token),
         publish: (next) => flushSync(() => publishPresentation(next)),
         restoreNative: (token) => finishFocusSurfaceModeRaster(token, true),

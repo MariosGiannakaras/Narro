@@ -268,7 +268,7 @@ pub fn initialize_preferences(
     now: &str,
 ) -> Result<PreferencesRecord, PreferenceStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     if let Some(existing) = get_preferences(&tx)? {
         tx.commit()?;
         return Ok(existing);
@@ -325,7 +325,7 @@ pub fn save_preferences(
     validate_timestamp(now)?;
     validate_preferences_for_write(&payload)?;
     let payload_json = serde_json::to_string(&payload)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     tx.execute(
         "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
          VALUES (1, ?1, ?2, ?3)
@@ -562,7 +562,7 @@ mod tests {
         let patch_path = path.clone();
         let patch = std::thread::spawn(move || {
             let mut conn = Connection::open(patch_path).expect("open patch database");
-            conn.busy_timeout(Duration::from_secs(2))
+            conn.busy_timeout(Duration::from_secs(10))
                 .expect("bounded writer wait");
             started_tx.send(()).unwrap();
             mutate_preferences(&mut conn, NOW, |payload| {

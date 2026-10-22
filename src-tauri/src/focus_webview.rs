@@ -12,6 +12,7 @@ pub(crate) fn set_physical_position(window: &WebviewWindow, x: i32, y: i32) -> R
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }))
         .map_err(|error| format!("set Focus parent position: {error}"))?;
 
+    crate::focus_layered_raster::sync_owner_position(window);
     notify_parent_position_changed(window)
 }
 

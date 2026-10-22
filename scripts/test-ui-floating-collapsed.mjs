@@ -119,8 +119,10 @@ invariant(css.includes("grid-template-columns: minmax(0, 1fr) 10ch"), "fixed com
 invariant(css.includes('data-floating-timer-overtime="true"'), "B67 Floating warning-state CSS");
 invariant(css.includes('.floating-timer-foundation__timer[data-floating-timer-overtime="true"] {\n  color: var(--color-warning);\n}'),
   "B67 overtime warning color must apply in ordinary Floating state, not just clipping");
-invariant(css.includes('.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {\n  transition: none;\n}'),
-  "M7 native clipping must suppress transient action crossfade without changing ordinary hover");
+invariant(css.includes('.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__heading,')
+  && css.includes('.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__actions-wrap,')
+  && css.includes('.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {\n  transition: none;\n}'),
+  "M7 native raster-preparing and clipping must suppress transient heading/action crossfade without changing ordinary hover");
 invariant(!/^\.floating-timer-foundation__actions-wrap \{\n  transition: none;\n\}/m.test(css),
   "Global no-transition on Floating actions would erase normal hover crossfade");
 invariant(css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"), "collapsed subtask row geometry differs");

@@ -164,6 +164,9 @@ invariant(
     && animatedNativeCommit.includes("deadline.checked_sub(started.elapsed())")
     && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
     && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && animatedNativeCommit.indexOf("render_mode_raster_frame(&window, lease, &incoming, progress)")
+      < animatedNativeCommit.indexOf("set_focus_position(")
+    && focusWebview.includes("crate::focus_layered_raster::sync_owner_position(window);")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",

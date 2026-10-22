@@ -69,9 +69,12 @@ test("delayed target paint cannot start animation early", async () => {
 test("application wiring uses the protected path rather than the standalone fallback", () => {
   const coordinator = fs.readFileSync(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8");
   const foundation = fs.readFileSync(new URL("../src/FloatingTimerFoundation.tsx", import.meta.url), "utf8");
+  const subtasks = fs.readFileSync(new URL("../src/FocusLiveSubtasks.tsx", import.meta.url), "utf8");
   const native = fs.readFileSync(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8");
   assert.ok(coordinator.includes("commitProtectedTimerResize({"));
   assert.ok(coordinator.includes("protectOutgoing: prepareFocusSurfaceModeRaster"));
+  assert.ok(coordinator.includes('document.querySelector(\'[data-floating-subtasks-loading="true"]\')'));
+  assert.ok(subtasks.includes("data-floating-subtasks-loading="));
   assert.ok(coordinator.includes("restoreNative: (token) => finishFocusSurfaceModeRaster(token, true)"));
   assert.ok(coordinator.includes("onRequestExpanded={requestTimerExpanded}"));
   const body = foundation.slice(foundation.indexOf("const requestExpanded = async"));

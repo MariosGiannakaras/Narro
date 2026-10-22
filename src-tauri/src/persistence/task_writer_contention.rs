@@ -288,3 +288,112 @@ fn deferred_read_upgrade_reproduces_busy_without_waiting_for_reserved_writer() {
         matches!(error, rusqlite::Error::SqliteFailure(code, _) if code.code == ErrorCode::DatabaseBusy)
     );
 }
+
+#[test]
+fn related_mutations_wait_for_competing_writer_instead_of_failing_read_upgrade() {
+    use super::notes::set_task_note;
+    use super::sleep_accounting::set_task_sleep_accounting_override;
+    use super::subtasks::create_subtask;
+    use crate::domain::notes::{NoteBlock, NoteDocument, NoteTextRun};
+    use crate::domain::preferences::TaskSleepAccountingOverride;
+    use crate::domain::subtasks::NewSubtaskInput;
+
+    let path = std::env::temp_dir().join(format!(
+        "narro-related-contention-{}.sqlite",
+        uuid::Uuid::new_v4()
+    ));
+    let mut writer = Connection::open(&path).expect("open isolated writer");
+    run_migrations(&mut writer).expect("migrate isolated database");
+    let list = create_list(
+        &mut writer,
+        NewListInput {
+            title: "Contention".into(),
+            color: None,
+            icon_asset: None,
+        },
+        NOW,
+    )
+    .unwrap()
+    .id;
+    let task = create_task(
+        &mut writer,
+        NewTaskInput {
+            list_id: list,
+            title: "Parent".into(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: Some(600),
+        },
+        NOW,
+    )
+    .unwrap()
+    .id;
+
+    let tx = writer
+        .transaction_with_behavior(TransactionBehavior::Immediate)
+        .expect("hold competing writer");
+    tx.execute(
+        "UPDATE tasks SET est_seconds = 1200 WHERE id = ?1",
+        [task.to_string()],
+    )
+    .unwrap();
+
+    let (started_tx, started_rx) = mpsc::channel();
+    let (finished_tx, finished_rx) = mpsc::channel();
+    let worker_path = path.clone();
+    let worker = std::thread::spawn(move || {
+        let mut conn = Connection::open(worker_path).expect("open worker connection");
+        configure_connection(&conn).unwrap();
+        conn.busy_timeout(Duration::from_secs(10)).unwrap();
+        started_tx.send(()).unwrap();
+        let subtask = create_subtask(
+            &mut conn,
+            NewSubtaskInput {
+                task_id: task,
+                title: "Child".into(),
+            },
+            NOW,
+        )
+        .map_err(|e| e.to_string());
+        let note = set_task_note(
+            &mut conn,
+            task,
+            NoteDocument {
+                blocks: vec![NoteBlock::Paragraph {
+                    runs: vec![NoteTextRun {
+                        text: "Note".into(),
+                        bold: false,
+                        italic: false,
+                        strikethrough: false,
+                        link: None,
+                    }],
+                }],
+            },
+            NOW,
+        )
+        .map_err(|e| e.to_string());
+        let sleep_override = set_task_sleep_accounting_override(
+            &mut conn,
+            task,
+            TaskSleepAccountingOverride::Count,
+            NOW,
+        )
+        .map_err(|e| e.to_string());
+        finished_tx
+            .send(subtask.and(note).and(sleep_override).map(|_| ()))
+            .unwrap();
+    });
+
+    started_rx
+        .recv_timeout(Duration::from_secs(10))
+        .expect("worker started");
+    let early = finished_rx.recv_timeout(Duration::from_millis(100));
+    assert!(matches!(early, Err(mpsc::RecvTimeoutError::Timeout)));
+    tx.commit().expect("release competing writer");
+    let result = finished_rx
+        .recv_timeout(Duration::from_secs(10))
+        .expect("worker finished after writer release");
+    worker.join().expect("worker joined");
+    drop(writer);
+    std::fs::remove_file(path).expect("remove isolated database");
+    result.expect("subtask, note, and sleep-accounting mutations must wait for competing writer");
+}
