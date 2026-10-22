@@ -187,6 +187,17 @@ invariant(
     && coordinator.includes("revision === presentationReconcileRevisionRef.current"),
   "out-of-order native presentation snapshots must not overwrite a newer renderer reconciliation",
 );
+const listenerFailure = coordinator.slice(
+  coordinator.indexOf("void listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT"),
+  coordinator.indexOf("return () => {", presentationListenerStart),
+);
+invariant(
+  listenerFailure.includes(".catch((failure: unknown) =>")
+    && listenerFailure.includes("setTransitionError(formatInvokeError(failure));")
+    && listenerFailure.lastIndexOf("void reconcileAuthoritativePresentation();")
+      > listenerFailure.indexOf(".catch((failure: unknown) =>"),
+  "failed native event subscription must still attempt one authoritative presentation hydration",
+);
 invariant(
   coordinator.includes("presentationHydrated")
     && coordinator.includes('data-focus-presentation-hydrated={presentationHydrated ? "true" : "false"}')
