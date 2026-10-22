@@ -229,7 +229,10 @@ export function FocusLiveSubtasks({
       <section
         className="floating-timer-foundation__subtasks"
         data-floating-subtasks={expanded ? "expanded" : "collapsed"}
-        data-floating-subtasks-loading={loading || (!fixtureMode && expanded && !refreshBlocked && snapshot === null && error === null) ? "true" : "false"}
+        data-floating-subtasks-loading={expanded && (
+          loading || (!fixtureMode && !refreshBlocked && error === null
+            && (snapshot?.taskId !== task.id || snapshot?.listId !== task.listId))
+        ) ? "true" : "false"}
         data-floating-subtask-refresh-blocked={refreshBlocked ? "true" : "false"}
         data-task-id={task.id}
         aria-label={`Subtasks for ${task.title}`}
