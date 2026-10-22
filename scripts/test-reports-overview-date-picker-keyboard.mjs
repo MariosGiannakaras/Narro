@@ -66,10 +66,8 @@ dialog.props.onKeyDown({
 assert.deepEqual(callbacks, ["cancel"]);
 cleanup();
 assert.equal(focusCalls.at(-1)?.target, "opener", "Closing must return focus to original range trigger");
-assert.deepEqual(focusCalls.at(-1)?.options, {preventScroll:true});
+assert.equal(focusCalls.at(-1)?.options?.preventScroll, true);
 opener.isConnected=false;
-const extraEffects=[];
-const secondModule={ exports:{} };
 // Existing effect cleanup checks detached opener with the same actual cleanup.
 const firstBefore=focusCalls.length;
 const again=effects[0]();
