@@ -2,6 +2,7 @@ import { ActionIcon } from "./ActionIcon";
 import { reportChartPrintLabelIndices } from "./reportChartPrintLabels";
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ReportListBadges } from "./ReportListBadges";
+import { handleReportListFilterKeyDown } from "./reportListFilterKeyboard";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportChartPreset } from "./reportChartSeriesPreset";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
@@ -455,6 +456,12 @@ export function ReportsOverviewView({
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
   const rangeTriggerRef = useRef<HTMLButtonElement>(null);
+  const listFilterTriggerRef = useRef<HTMLButtonElement>(null);
+  const listFilterMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (listFilterOpen) listFilterMenuRef.current?.querySelector<HTMLButtonElement>('button[role="option"]:not([disabled])')?.focus({ preventScroll: true });
+  }, [listFilterOpen]);
   let listCursor = 0;
   const listSegments = timeByList.map((item) => {
     const start = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : 0;
@@ -525,6 +532,7 @@ export function ReportsOverviewView({
             aria-expanded={listFilterOpen}
             onClick={onToggleListFilter}
             data-report-list-filter="true"
+            ref={listFilterTriggerRef}
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
@@ -537,6 +545,9 @@ export function ReportsOverviewView({
               aria-multiselectable="true"
               aria-label="Filter reports by list"
               data-report-list-menu="true"
+              ref={listFilterMenuRef}
+              onKeyDown={(event) => handleReportListFilterKeyDown(event, listFilterMenuRef.current,
+                document.activeElement, listFilterTriggerRef.current, () => onToggleListFilter?.())}
             >
               {listOptions.map((option) => {
                 const selected = option.id === null
