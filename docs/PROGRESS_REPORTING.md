@@ -1,15 +1,9 @@
-# User-facing progress — canonical current interpretation (2026-10-23)
+# Narro reporting contract — current task, evidence and next action
 
-Use the single current reporting rule in [AI_START_HERE](../AI_START_HERE.md) and current [HANDOFF](../HANDOFF.md); this file **does not create another independent active denominator or work queue**.
+Use [AI_START_HERE.md](../AI_START_HERE.md) as the **single current reporting rule** and [HANDOFF.md](../HANDOFF.md) for the last verified current state. This file is not a separate work queue, historical progress dashboard or alternative denominator policy.
 
-When reporting substantive Narro implementation progress, use this precisely scoped compact order:
-
-1. **Γενική υλοποίηση U01–U41: 41/41 λειτουργικά καλυμμένα, 0/41 συγκεκριμένες ελλείψεις** — local functional uncertainty register, **not** exact modern Blitzit fidelity or all product features.
-2. **Επιμέρους επιβεβαιωμένα λειτουργικά κενά: 9/9 διορθωμένα και επικυρωμένα, 0/9 εκκρεμή** — originally proven local code/UI gaps, guarded source/automated validation accepted.
-3. **Υποχρεωτικά milestones: 4/10 αποδεκτά, 6/10 εκκρεμούν** — native Windows/source-parity physical acceptance is distinct; optional M11/M12 dormant.
-
-For the **active bounded task** (when relevant) also give real `PR / head SHA / CI run / PASS-FAIL-PENDING / real physical cases / next action`. Do not present small slice counts (`0/1`, `4/8`) or all-owner checklist totals as the global ChatGPT coding-progress denominator. No fixed globally inventoried ChatGPT-only denominator is established; say so if that exact metric is requested.
-
-As of this validated checkpoint, corrected PR389 source `15c0649f9c4b9865bec7f74c82cc8cd7373decaa` has exact-head [CI39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) **3/3 PASS** with independently checked binaries, but corrected native transitions **0/8 NOT RUN**. The draft [PR389](https://github.com/MariosGiannakaras/Narro/pull/389) must **not be merged** before real 8/8 acceptance. PA01–08 were dispositioned in an earlier limited native campaign; HDMI actual hotplug remained NOT RUN. Do not infer any new-case physical PASS from those historical receipts.
-
-Former PR357 active-candidate and prior progress-policy paragraphs are preserved **verbatim** in [2026-10-23 pre-cleanup reporting snapshot](../work-log/tracker-archives/2026-10-23-docs-PROGRESS_REPORTING-before-active-documentation-cleanup.md), not maintained as a competing active instruction.
+- Report **what was actually changed or checked**, the affected task/PR/head SHA, and exact CI/tests/native Windows status as **PASS / FAIL / PENDING / NOT RUN**. Finish with the real blocker and one next safe action.
+- Use short, **scope-labeled** fractions only when they answer the user's question (e.g. an actual bounded 8-case acceptance suite). Never turn completed historical audit/corrective totals, past PR batches, or roadmap counts into routine status boilerplate.
+- Historical U-item uncertainty and original local-gap remediation are **closed ledger entries**, not active features to implement or repeat. They are consulted only on a user-requested historical review or a newly evidenced related regression. The original evidence is preserved in [dated implementation ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
+- If asked for whole-roadmap progress, use **10 mandatory milestone gates** with independently evidenced completion; distinguish source, CI, merge, physical Windows and confirmed original-source parity. M11 and M12 are separately opt-in; neither is activated by general continuation.
+- When a current PR has a **specific documented physical-before-merge restriction**, name it as a task-specific gate, not a general rule forbidding merge of other green slices. Historical versions of this reporting file live in [immutable pre-cleanup snapshot](../work-log/tracker-archives/2026-10-23-docs-PROGRESS_REPORTING-before-active-documentation-cleanup.md).
