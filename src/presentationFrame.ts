@@ -29,6 +29,13 @@ export function waitForPresentedFrameWithin(timeoutMs: number): Promise<boolean>
   });
 }
 
+/** Critical Focus/Timer transactions must not wait forever for a suspended WebView. */
+export async function waitForPresentedFrameOrThrow(timeoutMs = 1_500): Promise<void> {
+  if (!(await waitForPresentedFrameWithin(timeoutMs))) {
+    throw new Error("Focus presentation did not paint within the recovery deadline.");
+  }
+}
+
 /** Prevent CapturePreview from freezing "Loading subtasks…" into a Timer raster.
  * Only expansion needs authoritative subtask hydration; compact recovery does not.
  */
