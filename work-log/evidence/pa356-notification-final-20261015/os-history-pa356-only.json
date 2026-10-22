@@ -1,0 +1,12 @@
+[
+  {
+    "Xml": "<toast duration=\"short\">\r\n                <visual>\r\n                    <binding template=\"ToastGeneric\">\r\n                        \r\n                        <text id=\"1\">Task reminder</text><text id=\"2\"></text><text id=\"3\">PA356 OS enabled-background</text>\r\n                        \r\n                    </binding>\r\n                </visual>\r\n                <audio silent=\"true\"/>\r\n                \r\n            </toast>",
+    "Tag": "",
+    "Group": ""
+  },
+  {
+    "Xml": "<toast duration=\"short\">\r\n                <visual>\r\n                    <binding template=\"ToastGeneric\">\r\n                        \r\n                        <text id=\"1\">Task reminder</text><text id=\"2\"></text><text id=\"3\">PA356 OS enabled-foreground</text>\r\n                        \r\n                    </binding>\r\n                </visual>\r\n                <audio silent=\"true\"/>\r\n                \r\n            </toast>",
+    "Tag": "",
+    "Group": ""
+  }
+]

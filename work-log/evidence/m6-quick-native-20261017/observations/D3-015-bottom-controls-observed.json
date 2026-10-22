@@ -1,0 +1,1501 @@
+{
+  "utc": "2026-10-17T07:14:23.699758+00:00",
+  "hwnd": 3211866,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        12,
+        2548,
+        52
+      ]
+    },
+    {
+      "name": "Focus list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        16,
+        2361,
+        48
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2368,
+        21,
+        2412,
+        43
+      ]
+    },
+    {
+      "name": "Focus Panel quick controls",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2419,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Preferences",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2438,
+        16,
+        2472,
+        48
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2476,
+        16,
+        2510,
+        48
+      ]
+    },
+    {
+      "name": "Compact view",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2514,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Today progress",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        64,
+        2548,
+        93
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        64,
+        2254,
+        80
+      ]
+    },
+    {
+      "name": "3hr 45min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2253,
+        64,
+        2307,
+        80
+      ]
+    },
+    {
+      "name": "4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2492,
+        64,
+        2499,
+        80
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2498,
+        64,
+        2504,
+        80
+      ]
+    },
+    {
+      "name": "14",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2503,
+        64,
+        2517,
+        80
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2516,
+        64,
+        2548,
+        80
+      ]
+    },
+    {
+      "name": "Focus queue",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        104,
+        2548,
+        660
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -868,
+        2548,
+        -615
+      ]
+    },
+    {
+      "name": "Email campaign",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -848,
+        2353,
+        -827
+      ]
+    },
+    {
+      "name": "Running: 2:14:54 remaining",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2441,
+        -846,
+        2535,
+        -828
+      ]
+    },
+    {
+      "name": "2:14:54",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2480,
+        -849,
+        2535,
+        -826
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2254,
+        -809,
+        2322,
+        -792
+      ]
+    },
+    {
+      "name": "Running",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2490,
+        -809,
+        2535,
+        -792
+      ]
+    },
+    {
+      "name": "Live task time details",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -783,
+        2535,
+        -705
+      ]
+    },
+    {
+      "name": "EST",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -766,
+        2264,
+        -749
+      ]
+    },
+    {
+      "name": "2:15:00",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2342,
+        -766,
+        2380,
+        -749
+      ]
+    },
+    {
+      "name": "Time Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -730,
+        2305,
+        -713
+      ]
+    },
+    {
+      "name": "0:00:02",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2342,
+        -730,
+        2380,
+        -713
+      ]
+    },
+    {
+      "name": "Subtasks for Email campaign",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -698,
+        2535,
+        -652
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2289,
+        -687,
+        2495,
+        -654
+      ]
+    },
+    {
+      "name": "Add subtask for Email campaign",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2503,
+        -687,
+        2535,
+        -654
+      ]
+    },
+    {
+      "name": "Live task actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -855,
+        2535,
+        -818
+      ]
+    },
+    {
+      "name": "Start break",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -853,
+        2297,
+        -820
+      ]
+    },
+    {
+      "name": "Notes",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2300,
+        -853,
+        2355,
+        -820
+      ]
+    },
+    {
+      "name": "Pause",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2358,
+        -853,
+        2432,
+        -820
+      ]
+    },
+    {
+      "name": "Skip task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2435,
+        -853,
+        2480,
+        -820
+      ]
+    },
+    {
+      "name": "Complete task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2483,
+        -853,
+        2535,
+        -820
+      ]
+    },
+    {
+      "name": "Task resumed.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2245,
+        -645,
+        2319,
+        -628
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -608,
+        2548,
+        -525
+      ]
+    },
+    {
+      "name": "Task title: Manual override 1 HR",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -595,
+        2442,
+        -574
+      ]
+    },
+    {
+      "name": "Manual override 1 HR",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -595,
+        2425,
+        -574
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -593,
+        2526,
+        -576
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -522,
+        2548,
+        -439
+      ]
+    },
+    {
+      "name": "Task title: Invalid suffix 3 bananas",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -509,
+        2442,
+        -488
+      ]
+    },
+    {
+      "name": "Invalid suffix 3 bananas",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -509,
+        2435,
+        -488
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -507,
+        2526,
+        -490
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -436,
+        2548,
+        -353
+      ]
+    },
+    {
+      "name": "Task title: M5WeekdayCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -423,
+        2442,
+        -402
+      ]
+    },
+    {
+      "name": "M5WeekdayCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -423,
+        2403,
+        -402
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -421,
+        2526,
+        -404
+      ]
+    },
+    {
+      "name": "5d ago",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -385,
+        2319,
+        -368
+      ]
+    },
+    {
+      "name": "Oct 12, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2326,
+        -385,
+        2394,
+        -368
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -350,
+        2548,
+        -267
+      ]
+    },
+    {
+      "name": "Task title: Write blog post",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -337,
+        2442,
+        -316
+      ]
+    },
+    {
+      "name": "Write blog post",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -337,
+        2385,
+        -316
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -335,
+        2526,
+        -318
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -264,
+        2548,
+        -181
+      ]
+    },
+    {
+      "name": "Task title: M5WeekdayCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -251,
+        2442,
+        -230
+      ]
+    },
+    {
+      "name": "M5WeekdayCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -251,
+        2403,
+        -230
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -249,
+        2526,
+        -232
+      ]
+    },
+    {
+      "name": "4d ago",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -213,
+        2319,
+        -196
+      ]
+    },
+    {
+      "name": "Oct 13, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2326,
+        -213,
+        2394,
+        -196
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -178,
+        2548,
+        -95
+      ]
+    },
+    {
+      "name": "Task title: Prepare slides",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -165,
+        2442,
+        -144
+      ]
+    },
+    {
+      "name": "Prepare slides",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -165,
+        2373,
+        -144
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -163,
+        2526,
+        -146
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -92,
+        2548,
+        -9
+      ]
+    },
+    {
+      "name": "Task title: M5WeekdayCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -79,
+        2442,
+        -58
+      ]
+    },
+    {
+      "name": "M5WeekdayCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -79,
+        2403,
+        -58
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        -77,
+        2526,
+        -60
+      ]
+    },
+    {
+      "name": "3d ago",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        -41,
+        2319,
+        -24
+      ]
+    },
+    {
+      "name": "Oct 14, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2326,
+        -41,
+        2394,
+        -24
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        -6,
+        2548,
+        77
+      ]
+    },
+    {
+      "name": "Task title: M5WeekdayCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        7,
+        2442,
+        28
+      ]
+    },
+    {
+      "name": "M5WeekdayCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        7,
+        2403,
+        28
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        9,
+        2526,
+        26
+      ]
+    },
+    {
+      "name": "2d ago",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        45,
+        2319,
+        62
+      ]
+    },
+    {
+      "name": "Oct 15, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2326,
+        45,
+        2394,
+        62
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        80,
+        2548,
+        163
+      ]
+    },
+    {
+      "name": "Task title: M5WeekdayCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        93,
+        2442,
+        114
+      ]
+    },
+    {
+      "name": "M5WeekdayCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        93,
+        2403,
+        114
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        95,
+        2526,
+        112
+      ]
+    },
+    {
+      "name": "1d ago",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        131,
+        2319,
+        148
+      ]
+    },
+    {
+      "name": "Oct 16, 2026",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2326,
+        131,
+        2394,
+        148
+      ]
+    },
+    {
+      "name": "Add task in Focus Panel",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        174,
+        2548,
+        211
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        222,
+        2548,
+        252
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        231,
+        2548,
+        248
+      ]
+    },
+    {
+      "name": "5 Done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        259,
+        2548,
+        660
+      ]
+    },
+    {
+      "name": "5 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        268,
+        2548,
+        285
+      ]
+    },
+    {
+      "name": "Completed Break, 1min",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        292,
+        2548,
+        364
+      ]
+    },
+    {
+      "name": "Break",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        305,
+        2320,
+        326
+      ]
+    },
+    {
+      "name": "1min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        337,
+        2535,
+        354
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        367,
+        2548,
+        438
+      ]
+    },
+    {
+      "name": "Task title: Parser off 30 m",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        380,
+        2442,
+        401
+      ]
+    },
+    {
+      "name": "Parser off 30 m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        380,
+        2381,
+        400
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        382,
+        2526,
+        399
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        412,
+        2535,
+        429
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        441,
+        2548,
+        512
+      ]
+    },
+    {
+      "name": "Task title: M5WeekProgressB",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        454,
+        2442,
+        475
+      ]
+    },
+    {
+      "name": "M5WeekProgressB",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        454,
+        2405,
+        475
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        456,
+        2526,
+        473
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        486,
+        2535,
+        503
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        515,
+        2548,
+        586
+      ]
+    },
+    {
+      "name": "Task title: M5FocusCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        528,
+        2442,
+        549
+      ]
+    },
+    {
+      "name": "M5FocusCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        528,
+        2381,
+        549
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        530,
+        2526,
+        547
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        560,
+        2535,
+        577
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        589,
+        2548,
+        660
+      ]
+    },
+    {
+      "name": "Task title: Call with Pete",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        602,
+        2442,
+        623
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        602,
+        2371,
+        623
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        604,
+        2526,
+        621
+      ]
+    },
+    {
+      "name": "4/5 subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        634,
+        2348,
+        651
+      ]
+    },
+    {
+      "name": "1min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        634,
+        2535,
+        651
+      ]
+    },
+    {
+      "name": "Email campaign is now live.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        671,
+        2377,
+        688
+      ]
+    }
+  ]
+}

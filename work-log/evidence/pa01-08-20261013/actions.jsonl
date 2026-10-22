@@ -1,0 +1,184 @@
+{"utc":"2026-10-12T22:28:59.509Z","text":"START continuous gdigrab 60 requested fps; full desktop; no audio track; audio remains unverified without loopback/ear witness"}
+{"utc":"2026-10-12T22:29:20.786Z","text":"WGC initial screenshot FrameArrived timeout; UIA-only recovery; primary continuous gdigrab evidence"}
+{"utc":"2026-10-12T22:29:27.506Z","text":"Fixture setup: Create owned list"}
+{"utc":"2026-10-12T22:29:35.622Z","text":"Create list fixture"}
+{"utc":"2026-10-12T22:29:43.017Z","text":"UIA cached element action unavailable twice; use actual keyboard navigation"}
+{"utc":"2026-10-12T22:31:42.384Z","text":"User steers to prior-chat recovery and OBS full animation/interactions recording; ffmpeg diagnostic segment finalized"}
+{"utc":"2026-10-12T22:40:27.868Z","text":"Capture recovery: OBS/Narro WGC timeout; OBS coordinate input geometry unavailable. Keyboard injection works."}
+{"utc":"2026-10-12T22:40:27.869Z","text":"obs-keyboard-navigation-01 key=Tab"}
+{"utc":"2026-10-12T22:40:56.418Z","text":"OBS keyboard navigation Tab 2"}
+{"utc":"2026-10-12T22:40:56.872Z","text":"OBS keyboard navigation Tab 3"}
+{"utc":"2026-10-12T22:40:57.199Z","text":"OBS keyboard navigation Tab 4"}
+{"utc":"2026-10-12T22:40:57.661Z","text":"OBS keyboard navigation Tab 5"}
+{"utc":"2026-10-12T22:40:57.998Z","text":"OBS keyboard navigation Tab 6"}
+{"utc":"2026-10-12T22:40:58.439Z","text":"OBS keyboard navigation Tab 7"}
+{"utc":"2026-10-12T22:40:58.895Z","text":"OBS keyboard navigation Tab 8"}
+{"utc":"2026-10-12T22:40:59.223Z","text":"OBS keyboard navigation Tab 9"}
+{"utc":"2026-10-12T22:40:59.676Z","text":"OBS keyboard navigation Tab 10"}
+{"utc":"2026-10-12T22:41:11.469Z","text":"obs-file-menu key=Alt_L+f"}
+{"utc":"2026-10-12T22:41:50.643Z","text":"obs-menu-navigation-cancel key=Escape"}
+{"utc":"2026-10-12T22:42:23.230Z","text":"Recorder setup recovery: OBS window has display affinity17 (excluded from capture); WGC/indexed pointer unavailable. Existing OBS is idle. Request normal OBS close before CLI recording startup."}
+{"utc":"2026-10-12T22:44:18.215Z","text":"User confirms both monitors side-by-side OBS layout. Preserve4480x1080/60fps. OBS startup recovered with its required working directory, unchanged profile/collection."}
+{"utc":"2026-10-12T22:45:23.815Z","text":"OBS startup has unclean-shutdown prompt; opening interactive recorder visibly to resolve it, preserving the same dual-monitor profile."}
+{"utc":"2026-10-12T22:45:43.329Z","text":"OBS recovery dialog: focused Run in Normal Mode; real Return accepted."}
+{"utc":"2026-10-12T22:46:21.521Z","text":"START OBS continuous acquisition: 2026-10-12T22:45:45.449Z, 4480x1080/60fps, stereo AAC320kbps. Original filename2026-10-13 01-45-45.mkv."}
+{"utc":"2026-10-12T22:46:21.522Z","text":"Fixture-only list title entry; approved picker/upload/icons untouched."}
+{"utc":"2026-10-12T22:46:37.434Z","text":"Fixture title via fresh observed edit79"}
+{"utc":"2026-10-12T22:46:45.330Z","text":"fixture-list-create-submit key=Return"}
+{"utc":"2026-10-12T22:48:17.916Z","text":"Native real input/capture fixture-owned-list-hover move 790 360"}
+{"utc":"2026-10-12T22:48:28.965Z","text":"Native real input/capture fixture-owned-board-open click 783 361"}
+{"utc":"2026-10-12T22:48:40.525Z","text":"fixture-add-task-one key=Control_L+Alt_L+t"}
+{"utc":"2026-10-12T22:49:30.939Z","text":"Native real input/capture fixture-today-task-add click 662 472"}
+{"utc":"2026-10-12T22:49:46.456Z","text":"Fixture first untimed Today task title"}
+{"utc":"2026-10-12T22:49:51.982Z","text":"fixture-task-one-commit key=Return"}
+{"utc":"2026-10-12T22:50:11.069Z","text":"fixture-task-two-title value=PA-03 actual one minute countdown"}
+{"utc":"2026-10-12T22:50:18.633Z","text":"fixture-task-two-est value=00:01"}
+{"utc":"2026-10-12T22:50:24.114Z","text":"fixture-task-two-commit key=Return"}
+{"utc":"2026-10-12T22:50:28.000Z","text":"fixture-task-three-title value=PA-04 manual session owned fixture"}
+{"utc":"2026-10-12T22:50:33.407Z","text":"fixture-task-three-commit key=Return"}
+{"utc":"2026-10-12T22:50:34.030Z","text":"fixture-batch-editor-close key=Escape"}
+{"utc":"2026-10-12T22:51:18.857Z","text":"Native real input/capture PA02-blitz-entry-visible scroll 751 573 -1440"}
+{"utc":"2026-10-12T22:52:18.265Z","text":"Native real input/capture PA02-blitz-hover move 687 577"}
+{"utc":"2026-10-12T22:52:19.744Z","text":"PA-02 ordinary Blitz entry, normal Windows animations; start high-frequency read-only HWND trace."}
+{"utc":"2026-10-12T22:52:19.753Z","text":"Native real input/capture PA02-ordinary-blitz-entry click 687 577"}
+{"utc":"2026-10-12T22:52:35.939Z","text":"PA02 input completed; Main became hidden before UIA refresh (expected target lifecycle). No second entry attempt."}
+{"utc":"2026-10-12T22:53:48.927Z","text":"PA01-owned-session-pause key=Control_L+Alt_L+p"}
+{"utc":"2026-10-12T22:53:49.577Z","text":"PA native PA01-first-compact-entry click 312 33"}
+{"utc":"2026-10-12T22:54:29.457Z","text":"Bookmark PA01: keyboard pause attempt projection still showed Running; use observed physical Pause button as recovery, no retry loop."}
+{"utc":"2026-10-12T22:54:29.457Z","text":"PA native PA01-physical-pause click 144 36"}
+{"utc":"2026-10-12T22:54:30.692Z","text":"PA native PA01-timer-cross-display-position drag 7 36 -3320 320"}
+{"utc":"2026-10-12T22:55:26.820Z","text":"PA native PA01-cycle1-controls move 174 45"}
+{"utc":"2026-10-12T22:55:28.065Z","text":"PA native PA01-cycle1-timer-to-panel click 373 45"}
+{"utc":"2026-10-12T22:56:27.134Z","text":"PA native PA01-cycle1-panel-to-timer click 312 33"}
+{"utc":"2026-10-12T22:56:28.917Z","text":"PA native PA01-cycle2-controls move 174 45"}
+{"utc":"2026-10-12T22:56:30.175Z","text":"PA native PA01-cycle2-timer-to-panel click 373 45"}
+{"utc":"2026-10-12T22:56:31.439Z","text":"PA native PA01-cycle2-panel-to-timer click 312 33"}
+{"utc":"2026-10-12T22:56:33.189Z","text":"PA native PA01-cycle3-controls move 174 45"}
+{"utc":"2026-10-12T22:56:34.420Z","text":"PA native PA01-cycle3-timer-to-panel click 373 45"}
+{"utc":"2026-10-12T22:56:35.662Z","text":"PA native PA01-cycle3-panel-to-timer click 312 33"}
+{"utc":"2026-10-12T22:56:37.419Z","text":"PA01 planned3 cross-display Panel/Timer pairs acquired; no acceptance verdict."}
+{"utc":"2026-10-12T22:56:51.086Z","text":"PA native PA01-expand-1 click 388 102"}
+{"utc":"2026-10-12T22:56:52.880Z","text":"PA native PA01-collapse-1 click 388 132"}
+{"utc":"2026-10-12T22:56:54.629Z","text":"PA native PA01-expand-2 click 388 102"}
+{"utc":"2026-10-12T22:56:56.375Z","text":"PA native PA01-collapse-2 click 388 132"}
+{"utc":"2026-10-12T22:56:58.128Z","text":"PA native PA01-expand-3 click 388 102"}
+{"utc":"2026-10-12T22:56:59.893Z","text":"PA native PA01-collapse-3 click 388 132"}
+{"utc":"2026-10-12T22:57:01.672Z","text":"PA01 planned3 compact/expanded pairs acquired; no verdict."}
+{"utc":"2026-10-12T22:57:23.274Z","text":"PA03 switching from owned paused untimed task via ordinary Skip; no clock edits."}
+{"utc":"2026-10-12T22:57:23.275Z","text":"PA native PA03-switch-controls move 174 45"}
+{"utc":"2026-10-12T22:57:24.500Z","text":"PA native PA03-skip-to-timed-task click 245 45"}
+{"utc":"2026-10-12T22:58:22.486Z","text":"PA native PA03-countdown-title-visible move 420 150"}
+{"utc":"2026-10-12T22:58:23.703Z","text":"PA03 waiting actual60s deadline from22:57:24.608Z; no time manipulation."}
+{"utc":"2026-10-12T22:58:37.729Z","text":"PA native PA03-expired-compact-visible snap "}
+{"utc":"2026-10-12T22:58:38.968Z","text":"PA native PA03-expired-compact-contextual-actions move 174 45"}
+{"utc":"2026-10-12T22:58:40.199Z","text":"PA native PA03-expired-expanded-visible click 388 102"}
+{"utc":"2026-10-12T22:59:15.690Z","text":"PA native PA03-real-extend-to-overtime click 177 88"}
+{"utc":"2026-10-12T22:59:16.923Z","text":"PA native PA03-overtime-pause click 177 73"}
+{"utc":"2026-10-12T22:59:18.167Z","text":"PA native PA03-return-panel-after-expiry click 390 73"}
+{"utc":"2026-10-12T23:04:44.844Z","text":"PA04 next: Home from intentionally paused owned overtime session, preserveMain rect/checkpoint."}
+{"utc":"2026-10-12T23:04:44.844Z","text":"PA native PA04-home-exit click 266 32"}
+{"utc":"2026-10-12T23:04:46.279Z","text":"PA04 Home input completed; hiddenFocus UIA refresh: window is not a usable app window"}
+{"utc":"2026-10-12T23:05:00.085Z","text":"Native real input/capture PA04-reports-navigation click 664 674"}
+{"utc":"2026-10-12T23:05:01.538Z","text":"Native real input/capture PA04-sessions-navigation click 410 190"}
+{"utc":"2026-10-12T23:05:41.558Z","text":"PA04 navigation recovery: footer below viewport after restored Board; no domain action occurred. Scroll to physical footer."}
+{"utc":"2026-10-12T23:05:41.559Z","text":"Native real input/capture PA04-footer-recovery scroll 950 597 -720"}
+{"utc":"2026-10-12T23:05:51.737Z","text":"Native real input/capture PA04-reports-visible-footer click 665 674"}
+{"utc":"2026-10-12T23:06:36.769Z","text":"Native real input/capture PA04-sessions-tab-visible click 410 190"}
+{"utc":"2026-10-12T23:06:43.043Z","text":"Native real input/capture PA04-open-add-session click 739 130"}
+{"utc":"2026-10-12T23:06:57.191Z","text":"Native real input/capture PA04-task-picker-open click 492 365"}
+{"utc":"2026-10-12T23:07:07.944Z","text":"PA04-picker-owned-task-search value=PA-04"}
+{"utc":"2026-10-12T23:07:21.945Z","text":"PA04-picker-keyboard-select key=Down"}
+{"utc":"2026-10-12T23:07:22.558Z","text":"PA04-owned-task-selected key=Return"}
+{"utc":"2026-10-12T23:09:33.930Z","text":"PA04 bookmark: owned picker option UIA offscreen, clipped by current modal viewport; scroll actual modal for scenario recovery, no acceptance analysis."}
+{"utc":"2026-10-12T23:09:33.931Z","text":"Native real input/capture PA04-picker-modal-scroll scroll 686 419 -480"}
+{"utc":"2026-10-12T23:10:04.145Z","text":"Native real input/capture PA04-owned-task-option click 485 426"}
+{"utc":"2026-10-12T23:10:23.914Z","text":"PA04-owned-start-time value=00:03"}
+{"utc":"2026-10-12T23:11:25.158Z","text":"Native real input/capture PA04-start-hour-focus click 280 461"}
+{"utc":"2026-10-12T23:11:26.631Z","text":"Native real input/capture PA04-start-midnight-hour keys 0x28 2"}
+{"utc":"2026-10-12T23:11:28.357Z","text":"Native real input/capture PA04-end-hour-focus click 469 461"}
+{"utc":"2026-10-12T23:11:29.790Z","text":"Native real input/capture PA04-end-midnight-hour keys 0x28 3"}
+{"utc":"2026-10-12T23:11:31.647Z","text":"Native real input/capture PA04-end-minute-focus click 494 461"}
+{"utc":"2026-10-12T23:11:33.096Z","text":"Native real input/capture PA04-owned-one-minute-interval key 0x26"}
+{"utc":"2026-10-12T23:16:06.006Z","text":"Native real input/capture PA06-open-settings click 135 548"}
+{"utc":"2026-10-12T23:16:13.577Z","text":"PA06 Settings via observed UIA bounds"}
+{"utc":"2026-10-12T23:16:25.180Z","text":"PA06-scroll-alerts"}
+{"utc":"2026-10-12T23:16:31.492Z","text":"PA06-enable-notification-alerts"}
+{"utc":"2026-10-12T23:16:32.185Z","text":"PA06-scroll-sound"}
+{"utc":"2026-10-12T23:16:43.373Z","text":"PA06-notification-volume"}
+{"utc":"2026-10-12T23:16:51.720Z","text":"PA06-preview-normal"}
+{"utc":"2026-10-12T23:17:07.691Z","text":"PA06-mute-slider"}
+{"utc":"2026-10-12T23:17:08.382Z","text":"PA06-mute-home"}
+{"utc":"2026-10-12T23:17:09.035Z","text":"PA06-muted-preview"}
+{"utc":"2026-10-12T23:17:09.714Z","text":"PA06-volume-slider-restore"}
+{"utc":"2026-10-12T23:17:10.414Z","text":"PA06-volume-end"}
+{"utc":"2026-10-12T23:17:11.059Z","text":"PA06-restored-preview"}
+{"utc":"2026-10-12T23:17:11.722Z","text":"PA06-close-preferences"}
+{"utc":"2026-10-12T23:17:18.225Z","text":"PA06-return-board"}
+{"utc":"2026-10-12T23:17:30.429Z","text":"PA06-open-owned-list"}
+{"utc":"2026-10-12T23:17:37.725Z","text":"PA06-global-focus-open"}
+{"utc":"2026-10-12T23:17:49.578Z","text":"PA06-hover-timer-actions"}
+{"utc":"2026-10-12T23:17:56.773Z","text":"PA06-real-start-break"}
+{"utc":"2026-10-12T23:18:02.408Z","text":"PA06-break-panel"}
+{"utc":"2026-10-12T23:18:12.544Z","text":"PA06-break-panel-control"}
+{"utc":"2026-10-12T23:18:29.215Z","text":"Acquisition sequence adaptation: default real break is 10min; exercise PA05 monitor while actual timer elapses, preserve PA06 completion event before PA07 restart."}
+{"utc":"2026-10-12T23:18:29.215Z","text":"PA05-panel-preferences"}
+{"utc":"2026-10-12T23:18:47.184Z","text":"PA05-main-preferences"}
+{"utc":"2026-10-12T23:18:55.160Z","text":"PA05-select-named-LG-125"}
+{"utc":"2026-10-12T23:18:55.963Z","text":"PA05-select-left-side"}
+{"utc":"2026-10-12T23:18:56.676Z","text":"PA05-close-preferences"}
+{"utc":"2026-10-12T23:18:57.357Z","text":"PA05-show-panel-for-monitor"}
+{"utc":"2026-10-12T23:19:30.010Z","text":"PA05 DPI environment blocker: ms-settings:display has no registered handler; SystemSettings.exe launch did not expose a usable Settings window. Leave DPI mutation branch unexercised rather than synthesizing it."}
+{"utc":"2026-10-12T23:19:30.010Z","text":"PA05-named-LG-panel-125"}
+{"utc":"2026-10-12T23:19:49.582Z","text":"PA05 actual Windows DisplaySwitch /internal; OS logical topology disconnect, not a physical HDMI unplug."}
+{"utc":"2026-10-12T23:19:49.583Z","text":"PA05-topology-internal-focus"}
+{"utc":"2026-10-12T23:19:50.239Z","text":"PA05-unavailable-preferences"}
+{"utc":"2026-10-12T23:20:04.578Z","text":"PA05-unavailable-preferences-recovery"}
+{"utc":"2026-10-12T23:20:11.612Z","text":"PA05-unavailable-refresh"}
+{"utc":"2026-10-12T23:20:12.815Z","text":"PA05-explicit-automatic"}
+{"utc":"2026-10-12T23:20:22.797Z","text":"PA05 recovery uses user supplied duplicate then extend sequence. Keep UltraGear primary."}
+{"utc":"2026-10-12T23:20:51.155Z","text":"PA05-close-restored-preferences"}
+{"utc":"2026-10-12T23:21:06.331Z","text":"PA06-break-unobstructed"}
+{"utc":"2026-10-12T23:22:07.378Z","text":"PA06-break-native-wait"}
+{"utc":"2026-10-12T23:22:21.951Z","text":"PA08 real exact NSIS installer launched, no prior Narro installed entry found in HKCU/HKLM uninstall inventory."}
+{"utc":"2026-10-12T23:22:48.739Z","text":"PA08 prior launch path was missing package prefix; no installer ran then. Actual exact installer launch now."}
+{"utc":"2026-10-12T23:23:03.364Z","text":"PA08 NSIS Next via actual Enter"}
+{"utc":"2026-10-12T23:23:18.337Z","text":"PA08-nsis-complete"}
+{"utc":"2026-10-12T23:23:28.781Z","text":"PA08 NSIS UIA reported Installation Complete; installed EXE SHA884a7926b3ee86db9cd3aff2df62d2abf89cb48fdd965410be5b8a4a20d0b72d differs from standalone candidate, record separate identity; do not substitute PA01–07 binary."}
+{"utc":"2026-10-12T23:23:35.609Z","text":"PA08-nsis-finish"}
+{"utc":"2026-10-12T23:23:44.253Z","text":"PA08-nsis-launch-choices"}
+{"utc":"2026-10-12T23:23:52.364Z","text":"PA08-disable-auto-launch"}
+{"utc":"2026-10-12T23:23:53.091Z","text":"PA08-no-desktop-shortcut"}
+{"utc":"2026-10-12T23:23:53.804Z","text":"PA08-nsis-finish-click"}
+{"utc":"2026-10-12T23:23:54.661Z","text":"PA08 fresh NSIS install complete; auto launch and desktop shortcut unchecked to preserve exact current PA candidate; installed binary will launch only after PA07."}
+{"utc":"2026-10-12T23:24:25.385Z","text":"PA06-real-break-background"}
+{"utc":"2026-10-12T23:24:36.798Z","text":"PA08 actual MSI UI started with verbose local log; all-users package metadata recorded, isolated destination required before install."}
+{"utc":"2026-10-12T23:24:52.726Z","text":"PA08 MSI NOT RUN beyond welcome: Computer Use product policy blocks msiexec.exe; do not bypass restriction with alternate native input. Closed only spawned wizard process before any installation action."}
+{"utc":"2026-10-12T23:25:18.406Z","text":"PA06-break-near-end"}
+{"utc":"2026-10-12T23:25:28.359Z","text":"PA07-tray-reveal"}
+{"utc": "2026-10-12T23:26:32.813412+00:00", "text": "PA07 preparation: minimized main; actual Shell Notification Chevron InvokePattern (taskbar auto-hide bounds outside visible screen after topology recovery)"}
+{"utc":"2026-10-12T23:26:40.780Z","text":"PA06-break-final-minute"}
+{"utc":"2026-10-12T23:27:18.510Z","text":"PA06-break-boundary-setup"}
+{"utc":"2026-10-12T23:27:19.739Z","text":"PA06 environment: actual Shell Action Center reports Focus assist on; OS toast suppression is recorded separately from Narro notification behavior."}
+{"utc":"2026-10-12T23:27:45.822Z","text":"Capture health bookmark: Sky UIA countdown text is cached (01:26) while desktop crop shows actual 00:39; native video/pixel evidence and read-only domain ledger take precedence for timer observations."}
+{"utc":"2026-10-12T23:27:45.823Z","text":"PA06-background-OBS-foreground"}
+{"utc":"2026-10-12T23:28:28.769Z","text":"PA06 actual default break boundary captured in continuous OBS with background app focus; no intermediate acceptance disposition. Now PA07 active overtime normal Quit/relaunch."}
+{"utc":"2026-10-12T23:28:28.770Z","text":"PA07-enter-compact-before-quit"}
+{"utc":"2026-10-12T23:28:29.765Z","text":"PA07-stable-topology-qualifying-drag"}
+{"utc": "2026-10-12T23:28:52.941321+00:00", "text": "PA07 actual right click observed Narro tray icon bounds [2330,1010,2370,1050]"}
+{"utc": "2026-10-12T23:29:06.842635+00:00", "text": "PA07 reopened real Shell overflow, right clicked current UIA Narro icon", "bounds": [2330, 1010, 2370, 1050]}
+{"utc": "2026-10-12T23:29:32.393375+00:00", "text": "PA07 actual observed Quit Narro native tray menu click [2410,1015]"}
+{"utc":"2026-10-12T23:29:46.031Z","text":"PA07 original PID33412 exited normally via observed tray Quit, same exact validation EXE relaunched after downtime; no process kill."}
+{"utc":"2026-10-12T23:29:56.899Z","text":"PA07-reveal-restored-timer"}
+{"utc":"2026-10-12T23:30:05.344Z","text":"PA07-restored-timer-visible"}
+{"utc":"2026-10-12T23:30:06.568Z","text":"PA07-recovery-paused-actions"}
+{"utc":"2026-10-12T23:30:34.577Z","text":"PA01 additional state branch: original Windows motion preferences restored (minimize0/clientfalse); acquired reduced OS motion path, not a source parity assertion."}
+{"utc":"2026-10-12T23:30:34.578Z","text":"PA01-reduced-to-panel"}
+{"utc":"2026-10-12T23:30:35.281Z","text":"PA01-reduced-to-timer"}
+{"utc":"2026-10-12T23:30:35.939Z","text":"PA01-reduced-expanded"}
+{"utc":"2026-10-12T23:30:36.652Z","text":"PA01-reduced-compact"}
+{"utc": "2026-10-12T23:31:05.342627+00:00", "text": "PA08 preparation: validation candidate normal tray Quit before installed NSIS binary launch", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1005, 2542, 1027]}
+{"utc":"2026-10-12T23:31:15.290Z","text":"PA08 launch installed NSIS binary separately after validation candidate normal exit; disposable existing fixture DB provides persistence carry-forward, not older-version upgrade certification."}
+{"utc":"2026-10-12T23:31:31.735Z","text":"PA08-installed-nsis-launch"}
+{"utc": "2026-10-12T23:31:34.309243+00:00", "text": "PA08 installed NSIS binary normal exit before cleanup", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1005, 2542, 1027]}
+{"utc":"2026-10-12T23:31:55.030Z","text":"Phase1 acquisition ending: available PA01–08 branches captured; MSI blocked and DPI Settings unavailable explicitly unexercised. Actual Stop Recording now, not a pause."}
+{"utc":"2026-10-12T23:31:55.031Z","text":"OBS-recording-stop"}

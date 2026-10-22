@@ -1,0 +1,32 @@
+[
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003eTask reminder\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003ePA356 OS enabled-background\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    },
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003eTask reminder\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003ePA356 OS enabled-foreground\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    },
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003ePomodoro break finished\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003eYour break is complete. Resume when you\u0027re ready.\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    },
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003ePomodoro break started\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003eYour work sprint is complete. Take a break.\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    },
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003ePomodoro break finished\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003eYour break is complete. Resume when you\u0027re ready.\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    },
+    {
+        "Xml":  "\u003ctoast duration=\"short\"\u003e\r\n                \u003cvisual\u003e\r\n                    \u003cbinding template=\"ToastGeneric\"\u003e\r\n                        \r\n                        \u003ctext id=\"1\"\u003ePomodoro break started\u003c/text\u003e\u003ctext id=\"2\"\u003e\u003c/text\u003e\u003ctext id=\"3\"\u003eYour work sprint is complete. Take a break.\u003c/text\u003e\r\n                        \r\n                    \u003c/binding\u003e\r\n                \u003c/visual\u003e\r\n                \u003caudio silent=\"true\"/\u003e\r\n                \r\n            \u003c/toast\u003e",
+        "Tag":  "",
+        "Group":  ""
+    }
+]

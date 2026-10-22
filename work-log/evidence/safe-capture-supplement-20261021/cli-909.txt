@@ -1,0 +1,51 @@
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+- Console: 0 errors, 4 warnings
+### Snapshot
+```yaml
+- main [ref=e3]:
+  - main [ref=e846]:
+    - region [ref=e2490]:
+      - generic [ref=e2491]:
+        - button "Back to Focus" [ref=e2492] [cursor=pointer]
+        - generic [ref=e2495]:
+          - generic [ref=e2496]: Menu
+          - heading "Quick Preferences" [level=1] [ref=e2497]
+      - generic [ref=e2498]:
+        - generic [ref=e2499]:
+          - generic [ref=e2500]: Hide est/done times
+          - switch "Hide est/done times on tasks" [ref=e2501] [cursor=pointer]
+        - region [ref=e2503]:
+          - heading "Screen" [level=2] [ref=e2504]
+          - radiogroup "Focus Panel screen" [ref=e2505]:
+            - radio "Automatic Primary display" [checked] [ref=e2506] [cursor=pointer]:
+              - strong [ref=e2509]: Automatic
+              - generic [ref=e2510]: Primary display
+            - radio "\\\\.\\DISPLAY1 2560×1080" [ref=e2511] [cursor=pointer]:
+              - strong [ref=e2514]: \\.\DISPLAY1
+              - generic [ref=e2515]: 2560×1080
+        - generic [ref=e2516]:
+          - generic [ref=e2517]: Blitz Panel Side
+          - group "Blitz Panel Side" [ref=e2518]:
+            - button "Left" [ref=e2519] [cursor=pointer]
+            - button "Right" [pressed] [ref=e2520] [cursor=pointer]
+        - generic [ref=e2521]:
+          - generic [ref=e2522]: Pomodoros
+          - switch "Pomodoros" [ref=e2523] [cursor=pointer]
+        - generic [ref=e2525]:
+          - generic [ref=e2526]: Timed alerts during a task
+          - switch "Timed alerts during a task" [checked] [ref=e2527] [cursor=pointer]
+        - generic [ref=e2529]:
+          - generic [ref=e2530]: Notification Alerts
+          - switch "Notification Alerts" [ref=e2531] [cursor=pointer]
+        - generic [ref=e2533]:
+          - generic [ref=e2534]: Show success screen
+          - switch "Show success screen" [checked] [ref=e2535] [cursor=pointer]
+        - generic [ref=e2537]:
+          - generic [ref=e2538]: Fun gif on success screen
+          - switch "Fun gif on success screen" [checked] [ref=e2539] [cursor=pointer]
+```

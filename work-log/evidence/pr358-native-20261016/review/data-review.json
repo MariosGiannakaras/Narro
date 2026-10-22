@@ -1,0 +1,86 @@
+{
+  "quickClear": "PASS: same task/list/metadata/notes/subtasks, former ThisWeek/future scheduled Backlog -> ordinary Backlog rank1; same state after normal Quit/relaunch",
+  "estReset": "PASS: Pete900seconds, next Keep weekly null; screenshot17 cleared fields",
+  "subtaskCreateFocus": [
+    {
+      "file": "04-list-create-after.json",
+      "utc": "2026-10-16T00:20:18.983240+00:00",
+      "focused": [
+        "+ Create new list"
+      ]
+    },
+    {
+      "file": "10-copywriter-create-after.json",
+      "utc": "2026-10-16T00:20:55.363265+00:00",
+      "focused": [
+        "New Backlog task title"
+      ]
+    },
+    {
+      "file": "16-pete-create-after.json",
+      "utc": "2026-10-16T00:21:19.435747+00:00",
+      "focused": [
+        "New This Week task title"
+      ]
+    },
+    {
+      "file": "19-week-sibling-create-after.json",
+      "utc": "2026-10-16T00:21:23.195309+00:00",
+      "focused": [
+        "New This Week task title"
+      ]
+    },
+    {
+      "file": "32-subtask1-create-after.json",
+      "utc": "2026-10-16T00:22:49.273618+00:00",
+      "focused": []
+    },
+    {
+      "file": "34-subtask2-create-after.json",
+      "utc": "2026-10-16T00:22:51.502098+00:00",
+      "focused": []
+    },
+    {
+      "file": "36-subtask3-create-after.json",
+      "utc": "2026-10-16T00:22:53.729232+00:00",
+      "focused": []
+    },
+    {
+      "file": "38-subtask4-create-after.json",
+      "utc": "2026-10-16T00:22:55.970441+00:00",
+      "focused": []
+    },
+    {
+      "file": "40-subtask5-create-after.json",
+      "utc": "2026-10-16T00:22:58.281870+00:00",
+      "focused": []
+    },
+    {
+      "file": "45-subtask2-create-after.json",
+      "utc": "2026-10-16T00:23:58.365324+00:00",
+      "focused": []
+    },
+    {
+      "file": "48-subtask3-create-after.json",
+      "utc": "2026-10-16T00:24:03.458190+00:00",
+      "focused": []
+    },
+    {
+      "file": "51-subtask4-create-after.json",
+      "utc": "2026-10-16T00:24:08.498280+00:00",
+      "focused": []
+    },
+    {
+      "file": "54-subtask5-create-after.json",
+      "utc": "2026-10-16T00:24:13.181372+00:00",
+      "focused": []
+    }
+  ],
+  "subtaskRing": "4/5 authoritative counts; native circular treatment exists, full SS-H12 header grammar NOT PASS",
+  "originalProfileRestored": {
+    "state": "ORIGINAL_PROFILES_RESTORED",
+    "utc": "2026-10-16T00:38:03.804403+00:00",
+    "originalDbSha256": "13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d",
+    "hashIdentical": true
+  }
+}

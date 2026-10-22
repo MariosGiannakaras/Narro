@@ -1,0 +1,153 @@
+{
+  "source": "164a33e2af363293ebc0c64200bab02f4b77de90",
+  "pr": 357,
+  "ci": 38794604453,
+  "provenance": "local production build, not downloaded CI executable",
+  "files": [
+    {
+      "path": "m5-batch-frontend-preflight.log",
+      "bytes": 7737,
+      "sha256": "185b9977070924677b53b60c7f31fdc08aeb16203735bca285fb635ed5082c06"
+    },
+    {
+      "path": "m5-batch-frontend-preflight-lf.log",
+      "bytes": 19834,
+      "sha256": "278988c59a746fd4ad16c5e801704d19c21216be92833393839d40020343c157"
+    },
+    {
+      "path": "m5-batch-frontend-preflight-final.log",
+      "bytes": 33288,
+      "sha256": "70983d8a68076f42e4df977b4ba0323e4acf8b4ae3c1692c49f60799f492d085"
+    },
+    {
+      "path": "m5-final-build.log",
+      "bytes": 7739,
+      "sha256": "850736af361013474486404ee4f2fa5cc9a09da0611d66011e22bd814bfbff30"
+    },
+    {
+      "path": "m5-final-production-capture.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "m5-final-production-capture-corrected.log",
+      "bytes": 123,
+      "sha256": "4e0de813da73d6008645faf40616abd5f0422f43a8d401b081f99c235a19913d"
+    },
+    {
+      "path": "m5-production-browser-open.log",
+      "bytes": 402,
+      "sha256": "46f843ec18844bc14f887ec3ec64c93234061647c465107b5cf7aea954eea9b5"
+    },
+    {
+      "path": "real-clock/m5-dark-confirm.png",
+      "bytes": 56614,
+      "sha256": "d5404be46338f386360418f87864640a00e009f22133eaf8b1a9a9a26c011645"
+    },
+    {
+      "path": "real-clock/m5-dark-delete.png",
+      "bytes": 55392,
+      "sha256": "8f57215cb4b29f21d872e56d6882b236a7b08a3698a4d34e25bae46267e28762"
+    },
+    {
+      "path": "real-clock/m5-dark-reduced-confirm.png",
+      "bytes": 56575,
+      "sha256": "23fc1973de2d938a9bdb7e975e61011d3ba1f2a2930a676a74f643f594c5943c"
+    },
+    {
+      "path": "real-clock/m5-dark-reduced-delete.png",
+      "bytes": 55392,
+      "sha256": "8f57215cb4b29f21d872e56d6882b236a7b08a3698a4d34e25bae46267e28762"
+    },
+    {
+      "path": "real-clock/m5-dark-reduced-repeat-create.png",
+      "bytes": 69948,
+      "sha256": "497378f447e79f6731d42f7c684a093ded1b57144e884eac9bdc37b2aa5797ea"
+    },
+    {
+      "path": "real-clock/m5-dark-repeat-create.png",
+      "bytes": 69948,
+      "sha256": "497378f447e79f6731d42f7c684a093ded1b57144e884eac9bdc37b2aa5797ea"
+    },
+    {
+      "path": "real-clock/m5-light-confirm.png",
+      "bytes": 61164,
+      "sha256": "c91383a484c4cf3eb6973446e668f0519450e93e9adf62d18b5e857d969e9273"
+    },
+    {
+      "path": "real-clock/m5-light-delete.png",
+      "bytes": 60206,
+      "sha256": "ab572c1f22aab1c446ccd51e5a585032b374225ea257683583533f32df6da2d2"
+    },
+    {
+      "path": "real-clock/m5-light-reduced-confirm.png",
+      "bytes": 61164,
+      "sha256": "c91383a484c4cf3eb6973446e668f0519450e93e9adf62d18b5e857d969e9273"
+    },
+    {
+      "path": "real-clock/m5-light-reduced-delete.png",
+      "bytes": 60206,
+      "sha256": "ab572c1f22aab1c446ccd51e5a585032b374225ea257683583533f32df6da2d2"
+    },
+    {
+      "path": "real-clock/m5-light-reduced-repeat-create.png",
+      "bytes": 73862,
+      "sha256": "ce130e78a183c669757fc1b1a0dfcc31452edd5aab0d5325d91ae9d08edbf49a"
+    },
+    {
+      "path": "real-clock/m5-light-repeat-create.png",
+      "bytes": 73862,
+      "sha256": "ce130e78a183c669757fc1b1a0dfcc31452edd5aab0d5325d91ae9d08edbf49a"
+    },
+    {
+      "path": "real-clock/receipt.json",
+      "bytes": 231277,
+      "sha256": "bcda06d89c89afadd7c7ceb24b3e4b327eb6bbb7ca5ef4b5acb323d315955026"
+    },
+    {
+      "path": "real-clock/summary.json",
+      "bytes": 665,
+      "sha256": "24c4b255c7ab9a0880e24f1c835346ac27d5c279f32ac3467545a0a5ad3c8f8d"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-dark-reduced.html",
+      "bytes": 22745,
+      "sha256": "0fcaee29ac9f2ba09eeff3577e60c81d4aa0852f0add2ba28b980f33a02adf50"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-dark-reduced.png",
+      "bytes": 56306,
+      "sha256": "ed4252557d3822e4e00fef4b2f01f8177b4fb3e4c6a0b5682ab14e4a8572b1e7"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-dark.html",
+      "bytes": 22746,
+      "sha256": "39d2d13b27fdbb44b9dc4fdd851a6be09e1bca576f5b513a77e06bc65c61ae76"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-dark.png",
+      "bytes": 57949,
+      "sha256": "de4476430b6a965575a08103bab9edd3ec47937e5ab89382bc545333a54c0c13"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-light-reduced.html",
+      "bytes": 22747,
+      "sha256": "deb5f849028e51126b8e73242f53f96a9d3690d9a73d81cd99a560b16c249706"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-light-reduced.png",
+      "bytes": 59497,
+      "sha256": "043653717294a6e5aec783dbfbce939c7b5d7f56c7069e66e898321d17d574d0"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-light.html",
+      "bytes": 22748,
+      "sha256": "884f17d8e088a11fbe544febe39fe0ebf9c3126c24c629c41ca4086955642539"
+    },
+    {
+      "path": "m5-final-production-captures/focus-editor-m7-integration-light.png",
+      "bytes": 61309,
+      "sha256": "d85a4198d2b590fcffb9aa6355635029d0ed9bd9bddbe041cdcd1880a38844db"
+    }
+  ]
+}

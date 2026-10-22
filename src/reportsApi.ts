@@ -195,6 +195,7 @@ export type ReportPdfExportResult = {
 export type ExportReportOverviewPdfRequest = {
   startAt: string;
   endAt: string;
+  displayTimezone: string;
 };
 
 export function getReportHistory(request: GetReportHistoryRequest): Promise<ReportHistory> {

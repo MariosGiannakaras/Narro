@@ -1,0 +1,11 @@
+{
+  "utcStart": "2026-10-17T02:25:06.111899+00:00",
+  "utcEnd": "2026-10-17T02:26:20.609956+00:00",
+  "command": "npm run preflight:frontend",
+  "exitCode": 0,
+  "sourceBranch": "fix/m5-done-date-count-headers",
+  "textFilesCanonicalizedTemporarily": 499,
+  "trackedIconsPreserved": 17,
+  "localNativeCompile": "NOT RUN; previously verified missing MSVC linker; no Rust source touched",
+  "originalWorkingBytesRestored": true
+}

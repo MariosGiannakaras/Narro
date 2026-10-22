@@ -1,0 +1,6 @@
+{
+  "pid": 97916,
+  "variant": "B-software",
+  "arguments": "--remote-debugging-port=9241 --remote-debugging-address=127.0.0.1 --disable-gpu-compositing",
+  "utc": "2026-10-21T06:38:39.5414900Z"
+}

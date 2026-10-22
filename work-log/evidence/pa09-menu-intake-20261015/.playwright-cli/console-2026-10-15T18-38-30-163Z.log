@@ -1,0 +1,4 @@
+[    1734ms] Error: M7 projection: scroll moved fixed header
+    at t (http://127.0.0.1:4173/assets/m7IntegrationRegression-CIOjD2BM.js:1:1311)
+    at ri (http://127.0.0.1:4173/assets/m7IntegrationRegression-CIOjD2BM.js:1:14826)
+    at async http://127.0.0.1:4173/assets/focusEditorFixture-Cv-S65jJ.js:2:9006

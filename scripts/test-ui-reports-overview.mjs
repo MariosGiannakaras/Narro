@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import "./test-reports-overview-date-picker-keyboard.mjs";
 
 const root = new URL("../", import.meta.url);
 const read = (relative) => fs.readFileSync(new URL(relative, root), "utf8").replace(/\r\n/g, "\n");
@@ -57,11 +58,13 @@ for (const [haystack, needle, label] of [
   [view, 'days.length <= 14 || index % 7 === 0', "long-range label density"],
   [view, "day.taskSeconds > 0", "zero activity draws no false task bar"],
   [css, ".reports-overview__chart-scroll", "scrollable 30/60/90-day chart surface"],
+  [view, 'className="reports-overview__done-list" role="region" aria-label="Done Tasks" tabIndex={0}', "keyboard reachable Done Tasks scroll region"],
+  [css, ".reports-overview__done-list:focus-visible", "visible focus for hidden-scrollbar Done Tasks region"],
   [css, "repeat(var(--report-chart-day-count, 8)", "dynamic date grid rather than fixed eight bins"],
   [css, 'html[data-report-pdf-export="true"] .reports-overview__chart-scroll', "PDF owns full date chart without clipped scroll"],
   [view, 'role="tooltip"', "keyboard-readable chart tooltip"],
-  [view, "onMouseEnter={() => setInteractiveTooltipDayId(day.id)}", "pointer chart tooltip activation"],
-  [view, "onFocus={() => setInteractiveTooltipDayId(day.id)}", "keyboard chart tooltip activation"],
+  [view, "onMouseEnter={() => setHoveredDayId(day.id)}", "pointer chart tooltip activation"],
+  [view, "setFocusedDayId(day.id)", "keyboard chart tooltip activation"],
   [view, 'data-report-chart-active={tooltipOpen ? "true" : "false"}', "same day identity for hover and keyboard band"],
   [css, '.reports-overview__chart-day[data-report-chart-active="true"]::before', "entire active date category wash"],
   [css, '.reports-overview__chart-day:focus-within::before', "keyboard active date category wash"],
@@ -92,6 +95,14 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
+for (const selector of [".reports-overview__chart-scroll", ".reports-overview__done-list"]) {
+  const declaration = css.match(new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + String.raw`\s*\{([^}]*)\}`))?.[1];
+  if (!declaration || !/overflow-[xy]:\s*auto/.test(declaration) || !/scrollbar-width:\s*none/.test(declaration)) {
+    throw new Error(`${selector} must remain scrollable without native scrollbar chrome`);
+  }
+  requireText(css, `${selector}::-webkit-scrollbar { display: none; }`, `${selector} WebView2 scrollbar suppression`);
+}
+
 for (const forbidden of [
   'from "@tauri-apps/api',
   "invoke(",
@@ -109,4 +120,6 @@ if ((view.match(/className="reports-overview__metric"/g) ?? []).length !== 1) {
   throw new Error("Summary metric cards must stay data-driven rather than four duplicated component blocks.");
 }
 
+await import("./test-report-chart-tooltip-placement.mjs");
+await import("./test-report-chart-print-labels.mjs");
 console.log("Reports Overview presentational/fixture contract checks passed.");

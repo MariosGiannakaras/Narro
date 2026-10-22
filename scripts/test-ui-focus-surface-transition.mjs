@@ -41,14 +41,10 @@ const nativeCommit = slice(
   "fn apply_focus_surface_presentation_internal(",
   "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
 );
-// Scope ordering checks to the corrective helper itself; global lib.rs ordering
-// is unrelated because other presentation paths also apply native regions.
-// This keeps the contract strict without treating unrelated earlier calls as ordering failures.
-const crossDpiPanelHelper = slice(
-  lib,
-  "fn apply_panel_native_after_animated_cross_dpi_move(",
-  "fn apply_timer_native(",
-);
+const frameHold = read("src-tauri/src/focus_frame_hold.rs");
+const raster = read("src-tauri/src/focus_mode_raster.rs");
+const prepareRaster = slice(lib, "async fn focus_surface_prepare_mode_raster(", "async fn focus_surface_animate_presentation(");
+const finishRaster = slice(lib, "async fn focus_surface_finish_mode_raster(", "fn position_focus_panel(");
 
 invariant(
   nativeCommit.includes("let _presentation_guard = presentation_guard()?"),
@@ -105,7 +101,7 @@ invariant(
 invariant(
   coordinator.includes("commitPreparedFocusPresentation({")
     && coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
-    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation"),
+    && coordinator.includes("await applyFocusSurfacePresentation(next)"),
   "production coordinator must use the tested transition helper",
 );
 invariant(
@@ -119,8 +115,8 @@ invariant(
   "B63 inline success must block new global quick-task shortcuts until next/close",
 );
 invariant(
-  coordinator.includes("inert={!panelActive}")
-    && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
+  coordinator.includes("inert={!panelActive || transitionPending}")
+    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
@@ -128,7 +124,7 @@ invariant(
 );
 invariant(
   coordinator.includes("animateNativePresentation: (next) =>")
-    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs)")
+    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
     && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
     && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
@@ -136,7 +132,7 @@ invariant(
     && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
     && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
-    && coordinatorCss.includes('data-focus-geometry-motion-to="panel"'),
+    && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)"),
   "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
 );
 invariant(
@@ -163,28 +159,38 @@ invariant(
 
 invariant(
   animatedNativeCommit.includes("planned_focus_presentation_position")
-    && animatedNativeCommit.includes("animate_focus_position")
-    && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
-    && lib.includes("FLUENT_POINT_TO_POINT_Y1: f64 = 0.55")
-    && lib.includes("FLUENT_POINT_TO_POINT_X2: f64 = 0.0")
-    && lib.includes("FLUENT_POINT_TO_POINT_Y2: f64 = 1.0")
-    && lib.includes("fluent_point_to_point_easing")
-    && animatedNativeCommit.includes("timer_region::apply(&window, target.region())")
-    && animatedNativeCommit.indexOf("timer_region::apply(&window, target.region())")
-      < animatedNativeCommit.indexOf("animate_focus_position")
-    && animatedNativeCommit.includes("apply_panel_native_after_animated_cross_dpi_move")
-    && animatedNativeCommit.includes("windows::suspend_focus_display_recovery()")
-    && animatedNativeCommit.includes("restore_focus_native_snapshot"),
-  "animated native transition must use finite eased point-to-point motion, clip Panel-to-Timer before movement, defer cross-DPI Panel reveal and retain rollback",
+    && animatedNativeCommit.includes("std::time::Instant::now()")
+    && animatedNativeCommit.includes("deadline.checked_sub(started.elapsed())")
+    && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
+    && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && !animatedNativeCommit.includes("focus_frame_hold::clear")
+    && !animatedNativeCommit.includes("apply_focus_native_target"),
+  "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
 );
 invariant(
-  crossDpiPanelHelper.includes("timer_region::apply(window, previous.region())?")
-    && crossDpiPanelHelper.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS")
-    && crossDpiPanelHelper.indexOf("timer_region::apply(window, previous.region())?")
-      < crossDpiPanelHelper.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
-    && crossDpiPanelHelper.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
-      < crossDpiPanelHelper.indexOf("timer_region::apply_full_host(window)?"),
-  "cross-DPI Timer-to-Panel must keep the previous clipped region through target-size viewport settlement before full Panel reveal",
+  prepareRaster.includes("focus_frame_capture::capture(window.clone()).await")
+    && prepareRaster.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && coordinator.indexOf("await prepareFocusSurfaceModeRaster(targetPresentation)")
+      < coordinator.indexOf("await prepareGeometryMotion(previousPresentation, targetPresentation)")
+    && raster.includes("source_offset(outgoing, visible, x, y)")
+    && raster.includes("source_offset(incoming, visible, x, y)")
+    && !coordinatorCss.includes("inset(0 0 590px")
+    && !coordinatorCss.includes("inset(0 0 400px"),
+  "outgoing CapturePreview protection precedes target promotion; every intermediate image resamples the complete hierarchy instead of cropping incoming Panel rows",
+);
+invariant(
+  coordinator.includes("afterRendererCommit: async () =>")
+    && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
+    && transition.includes("await afterRendererCommit?.()")
+    && finishRaster.includes("focus_frame_capture::capture(window.clone()).await")
+    && finishRaster.includes("focus_mode_raster::decode(")
+    && finishRaster.indexOf("focus_mode_raster::decode(") < finishRaster.indexOf("lease.hold.release()?")
+    && finishRaster.includes("restore_focus_native_snapshot_protected")
+    && finishRaster.includes("lease.token != raster_token")
+    && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
+    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
+    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
+  "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
@@ -201,7 +207,7 @@ invariant(
 
 invariant(
   modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation, compactFrame })')
-    && modeApi.includes('invoke<void>("focus_surface_animate_presentation", { presentation, durationMs })')
+    && modeApi.includes('invoke<void>("focus_surface_animate_presentation", { presentation, durationMs, rasterToken })')
     && !modeApi.includes("prepare_floating_timer")
     && !modeApi.includes("reveal_floating_timer"),
   "renderer bridge must expose ordinary and finite animated single-host presentation commands only",

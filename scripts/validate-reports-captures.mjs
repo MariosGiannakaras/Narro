@@ -56,6 +56,7 @@ function common(dom, label) {
 }
 
 function sessionsCommon(dom, label) {
+  invariant(dom.includes('data-reports-summary-single-row="true"'), label + " three desktop summary cards did not remain in one row");
   invariant(dom.includes('data-reports-sessions="true"'), label + " Sessions surface is missing");
   invariant(dom.includes(">Reports<"), label + " Reports title is missing");
   invariant(dom.includes('role="tablist"'), label + " Reports tablist is missing");
@@ -74,6 +75,12 @@ function sessionsCommon(dom, label) {
 }
 
 for (const theme of ["light", "dark"]) {
+  const containmentLabel = `reports-chart-containment-${theme}`;
+  validatePng(containmentLabel);
+  const containmentDom = readDom(containmentLabel);
+  invariant(containmentDom.includes('data-reports-chart-tooltip-bounded="true"'), containmentLabel + " actual hover/focus/scroll/resize tooltip bounds did not pass");
+  invariant(containmentDom.includes('data-reports-chart-tooltip-cases="14"'), containmentLabel + " complete tooltip scenario matrix did not finish");
+  invariant(containmentDom.includes('data-reports-chart-hover-band-verified="true"'), containmentLabel + " actual hovered category band/Total emphasis render contract did not pass");
   for (const mode of ["overview", "list-filter", "date-picker", "series-toggle", "lower"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
@@ -149,11 +156,14 @@ for (const theme of ["light", "dark"]) {
       continue;
     }
     if (mode === "sessions-add-keyboard") {
+      invariant(dom.includes('data-reports-add-picker-interaction-pass="true"'), label + " real picker hit testing/Arrow/Enter/selection draft regression did not pass");
       invariant(dom.includes('data-reports-add-keyboard-pass="true"'), label + " keyboard modal regression did not pass");
       invariant(dom.includes('data-reports-add-initial-focus="true"'), label + " initial focus regression did not pass");
       invariant(dom.includes('data-reports-add-tab-contained="true"'), label + " Tab containment regression did not pass");
       invariant(dom.includes('data-reports-add-escape-dismissed="true"'), label + " Escape dismissal regression did not pass");
       invariant(dom.includes('data-reports-add-focus-restored="true"'), label + " focus restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-commit-focus-restored="true"'), label + " successful-submit opener restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-long-title-contained="true"'), label + " selected long task caused horizontal dialog overflow");
       invariant(dom.includes('data-reports-add-pending-guard="true"'), label + " pending dismissal/containment regression did not pass");
       continue;
     }
@@ -194,4 +204,12 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
+for (const theme of ["dark", "light"]) {
+  for (const days of [8, 31, 61, 91]) {
+    const label = `reports-print-${days}-${theme}`;
+    const dom = readDom(label);
+    invariant(dom.includes('data-reports-fixture-ready="true"'), `${label} never reached actual rendered readiness`);
+    invariant(dom.includes('data-reports-print-layout-pass="true"'), `${label} date text bounds/endpoint regression failed`);
+  }
+}
 console.log("Reports Overview + Sessions captured visual contracts: PASS");

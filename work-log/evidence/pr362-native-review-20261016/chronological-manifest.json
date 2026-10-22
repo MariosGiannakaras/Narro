@@ -1,0 +1,1091 @@
+{
+  "video": "2026-10-16 14-55-36.mkv",
+  "obsStartUtc": "2026-10-16T11:55:36.349836+00:00",
+  "offsetPrecision": "Approximate; original UTC actions authoritative; no claimed subframe wall-clock alignment",
+  "actions": [
+    {
+      "label": "001-initial",
+      "utc": "2026-10-16T11:55:53.896363+00:00",
+      "videoSecondsApprox": 17.547,
+      "action": [
+        "snap",
+        "Narro",
+        "001-initial"
+      ]
+    },
+    {
+      "label": "002-open-owned-board",
+      "utc": "2026-10-16T11:56:12.297855+00:00",
+      "videoSecondsApprox": 35.948,
+      "action": [
+        "click-screen",
+        "Narro",
+        "002-open-owned-board",
+        "866",
+        "392"
+      ]
+    },
+    {
+      "label": "003-empty-today-cta",
+      "utc": "2026-10-16T11:56:23.482874+00:00",
+      "videoSecondsApprox": 47.133,
+      "action": [
+        "click-screen",
+        "Narro",
+        "003-empty-today-cta",
+        "1196",
+        "543"
+      ]
+    },
+    {
+      "label": "004-empty-today-done-top-main",
+      "utc": "2026-10-16T11:56:25.385348+00:00",
+      "videoSecondsApprox": 49.036,
+      "action": [
+        "snap",
+        "Narro",
+        "004-empty-today-done-top-main"
+      ]
+    },
+    {
+      "label": "005-add-today",
+      "utc": "2026-10-16T11:56:26.916854+00:00",
+      "videoSecondsApprox": 50.567,
+      "action": [
+        "click-screen",
+        "Narro",
+        "005-add-today",
+        "1063",
+        "485"
+      ]
+    },
+    {
+      "label": "006-live-title",
+      "utc": "2026-10-16T11:56:40.272559+00:00",
+      "videoSecondsApprox": 63.923,
+      "action": [
+        "text",
+        "Narro",
+        "006-live-title",
+        "PA362Live"
+      ]
+    },
+    {
+      "label": "007-est-tab",
+      "utc": "2026-10-16T11:56:42.311596+00:00",
+      "videoSecondsApprox": 65.962,
+      "action": [
+        "key",
+        "Narro",
+        "007-est-tab",
+        "0x09"
+      ]
+    },
+    {
+      "label": "008-live-est",
+      "utc": "2026-10-16T11:56:49.883867+00:00",
+      "videoSecondsApprox": 73.534,
+      "action": [
+        "text",
+        "Narro",
+        "008-live-est",
+        "00:20"
+      ]
+    },
+    {
+      "label": "009-create-live",
+      "utc": "2026-10-16T11:56:51.842868+00:00",
+      "videoSecondsApprox": 75.493,
+      "action": [
+        "key",
+        "Narro",
+        "009-create-live",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "010-close-create",
+      "utc": "2026-10-16T11:57:05.470836+00:00",
+      "videoSecondsApprox": 89.121,
+      "action": [
+        "click-screen",
+        "Narro",
+        "010-close-create",
+        "1074",
+        "529"
+      ]
+    },
+    {
+      "label": "011-expand-board-subtasks",
+      "utc": "2026-10-16T11:57:07.261875+00:00",
+      "videoSecondsApprox": 90.912,
+      "action": [
+        "click-screen",
+        "Narro",
+        "011-expand-board-subtasks",
+        "1343",
+        "466"
+      ]
+    },
+    {
+      "label": "012-board-child-field",
+      "utc": "2026-10-16T11:57:22.117762+00:00",
+      "videoSecondsApprox": 105.768,
+      "action": [
+        "click-screen",
+        "Narro",
+        "012-board-child-field",
+        "1197",
+        "516"
+      ]
+    },
+    {
+      "label": "013-board-child",
+      "utc": "2026-10-16T11:57:24.112898+00:00",
+      "videoSecondsApprox": 107.763,
+      "action": [
+        "text",
+        "Narro",
+        "013-board-child",
+        "BoardAlpha"
+      ]
+    },
+    {
+      "label": "014-board-child-save",
+      "utc": "2026-10-16T11:57:26.099911+00:00",
+      "videoSecondsApprox": 109.75,
+      "action": [
+        "key",
+        "Narro",
+        "014-board-child-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "016-board-retained-draft",
+      "utc": "2026-10-16T11:57:28.931909+00:00",
+      "videoSecondsApprox": 112.582,
+      "action": [
+        "text",
+        "Narro",
+        "016-board-retained-draft",
+        "Board draft retained"
+      ]
+    },
+    {
+      "label": "017-enter-focus",
+      "utc": "2026-10-16T11:57:30.980068+00:00",
+      "videoSecondsApprox": 114.63,
+      "action": [
+        "click-screen",
+        "Narro",
+        "017-enter-focus",
+        "1196",
+        "663"
+      ]
+    },
+    {
+      "label": "018-pause",
+      "utc": "2026-10-16T11:57:53.693224+00:00",
+      "videoSecondsApprox": 137.343,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "018-pause",
+        "2395",
+        "135"
+      ]
+    },
+    {
+      "label": "019-focus-detail",
+      "utc": "2026-10-16T11:57:55.245367+00:00",
+      "videoSecondsApprox": 138.896,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "019-focus-detail",
+        "2519",
+        "301"
+      ]
+    },
+    {
+      "label": "020-show-main",
+      "utc": "2026-10-16T11:58:08.804933+00:00",
+      "videoSecondsApprox": 152.455,
+      "action": [
+        "key",
+        "Narro - Focus",
+        "020-show-main",
+        "0x11+0x10+0x42"
+      ]
+    },
+    {
+      "label": "021-both-open-baseline-main",
+      "utc": "2026-10-16T11:58:10.661934+00:00",
+      "videoSecondsApprox": 154.312,
+      "action": [
+        "snap",
+        "Narro",
+        "021-both-open-baseline-main"
+      ]
+    },
+    {
+      "label": "021-both-open-baseline-focus",
+      "utc": "2026-10-16T11:58:11.840933+00:00",
+      "videoSecondsApprox": 155.491,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "021-both-open-baseline-focus"
+      ]
+    },
+    {
+      "label": "022-focus-field",
+      "utc": "2026-10-16T11:58:13.230935+00:00",
+      "videoSecondsApprox": 156.881,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "022-focus-field",
+        "2390",
+        "387"
+      ]
+    },
+    {
+      "label": "023-focus-create",
+      "utc": "2026-10-16T11:58:14.961386+00:00",
+      "videoSecondsApprox": 158.612,
+      "action": [
+        "text",
+        "Narro - Focus",
+        "023-focus-create",
+        "FocusBeta"
+      ]
+    },
+    {
+      "label": "024-focus-save",
+      "utc": "2026-10-16T11:58:16.510149+00:00",
+      "videoSecondsApprox": 160.16,
+      "action": [
+        "key",
+        "Narro - Focus",
+        "024-focus-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "026-focus-to-board-created-focus",
+      "utc": "2026-10-16T11:58:35.790080+00:00",
+      "videoSecondsApprox": 179.44,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "026-focus-to-board-created-focus"
+      ]
+    },
+    {
+      "label": "026-focus-to-board-created-main",
+      "utc": "2026-10-16T11:58:37.189788+00:00",
+      "videoSecondsApprox": 180.84,
+      "action": [
+        "snap",
+        "Narro",
+        "026-focus-to-board-created-main"
+      ]
+    },
+    {
+      "label": "027b-focus-rename-title",
+      "utc": "2026-10-16T11:58:47.175302+00:00",
+      "videoSecondsApprox": 190.825,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "027b-focus-rename-title",
+        "2358",
+        "345"
+      ]
+    },
+    {
+      "label": "028-select-title",
+      "utc": "2026-10-16T11:58:57.367047+00:00",
+      "videoSecondsApprox": 201.017,
+      "action": [
+        "key",
+        "Narro - Focus",
+        "028-select-title",
+        "0x11+0x41"
+      ]
+    },
+    {
+      "label": "029-focus-title",
+      "utc": "2026-10-16T11:58:58.905393+00:00",
+      "videoSecondsApprox": 202.556,
+      "action": [
+        "text",
+        "Narro - Focus",
+        "029-focus-title",
+        "FocusRenamedAlpha"
+      ]
+    },
+    {
+      "label": "030-focus-title-save",
+      "utc": "2026-10-16T11:59:00.480913+00:00",
+      "videoSecondsApprox": 204.131,
+      "action": [
+        "key",
+        "Narro - Focus",
+        "030-focus-title-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "031-focus-reorder",
+      "utc": "2026-10-16T11:59:02.024131+00:00",
+      "videoSecondsApprox": 205.674,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "031-focus-reorder",
+        "2453",
+        "385"
+      ]
+    },
+    {
+      "label": "032-focus-complete",
+      "utc": "2026-10-16T11:59:03.592878+00:00",
+      "videoSecondsApprox": 207.243,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "032-focus-complete",
+        "2263",
+        "345"
+      ]
+    },
+    {
+      "label": "033-direction1-final-focus",
+      "utc": "2026-10-16T11:59:05.245174+00:00",
+      "videoSecondsApprox": 208.895,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "033-direction1-final-focus"
+      ]
+    },
+    {
+      "label": "033-direction1-final-main",
+      "utc": "2026-10-16T11:59:06.661800+00:00",
+      "videoSecondsApprox": 210.312,
+      "action": [
+        "snap",
+        "Narro",
+        "033-direction1-final-main"
+      ]
+    },
+    {
+      "label": "034-focus-draft-field",
+      "utc": "2026-10-16T11:59:16.276174+00:00",
+      "videoSecondsApprox": 219.926,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "034-focus-draft-field",
+        "2390",
+        "427"
+      ]
+    },
+    {
+      "label": "035-focus-retained-draft",
+      "utc": "2026-10-16T11:59:17.851392+00:00",
+      "videoSecondsApprox": 221.502,
+      "action": [
+        "text",
+        "Narro - Focus",
+        "035-focus-retained-draft",
+        "Focus draft retained"
+      ]
+    },
+    {
+      "label": "036-board-child-field",
+      "utc": "2026-10-16T11:59:19.690397+00:00",
+      "videoSecondsApprox": 223.341,
+      "action": [
+        "click-screen",
+        "Narro",
+        "036-board-child-field",
+        "1197",
+        "592"
+      ]
+    },
+    {
+      "label": "037-select-board-draft",
+      "utc": "2026-10-16T11:59:38.079451+00:00",
+      "videoSecondsApprox": 241.73,
+      "action": [
+        "key",
+        "Narro",
+        "037-select-board-draft",
+        "0x11+0x41"
+      ]
+    },
+    {
+      "label": "038-board-create",
+      "utc": "2026-10-16T11:59:40.300303+00:00",
+      "videoSecondsApprox": 243.95,
+      "action": [
+        "text",
+        "Narro",
+        "038-board-create",
+        "BoardGamma"
+      ]
+    },
+    {
+      "label": "039-board-create-save",
+      "utc": "2026-10-16T11:59:42.311591+00:00",
+      "videoSecondsApprox": 245.962,
+      "action": [
+        "key",
+        "Narro",
+        "039-board-create-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "041-board-to-focus-create-main",
+      "utc": "2026-10-16T11:59:45.318404+00:00",
+      "videoSecondsApprox": 248.969,
+      "action": [
+        "snap",
+        "Narro",
+        "041-board-to-focus-create-main"
+      ]
+    },
+    {
+      "label": "041-board-to-focus-create-focus",
+      "utc": "2026-10-16T11:59:46.525235+00:00",
+      "videoSecondsApprox": 250.175,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "041-board-to-focus-create-focus"
+      ]
+    },
+    {
+      "label": "042-board-rename",
+      "utc": "2026-10-16T11:59:55.177393+00:00",
+      "videoSecondsApprox": 258.828,
+      "action": [
+        "click-screen",
+        "Narro",
+        "042-board-rename",
+        "1165",
+        "510"
+      ]
+    },
+    {
+      "label": "043-select-title",
+      "utc": "2026-10-16T12:00:04.132442+00:00",
+      "videoSecondsApprox": 267.783,
+      "action": [
+        "key",
+        "Narro",
+        "043-select-title",
+        "0x11+0x41"
+      ]
+    },
+    {
+      "label": "044-board-rename-value",
+      "utc": "2026-10-16T12:00:06.153858+00:00",
+      "videoSecondsApprox": 269.804,
+      "action": [
+        "text",
+        "Narro",
+        "044-board-rename-value",
+        "BoardRenamedBeta"
+      ]
+    },
+    {
+      "label": "045-board-rename-save",
+      "utc": "2026-10-16T12:00:08.171857+00:00",
+      "videoSecondsApprox": 271.822,
+      "action": [
+        "key",
+        "Narro",
+        "045-board-rename-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "046-board-reorder",
+      "utc": "2026-10-16T12:00:10.191930+00:00",
+      "videoSecondsApprox": 273.842,
+      "action": [
+        "click-screen",
+        "Narro",
+        "046-board-reorder",
+        "1275",
+        "590"
+      ]
+    },
+    {
+      "label": "047-board-complete",
+      "utc": "2026-10-16T12:00:12.217897+00:00",
+      "videoSecondsApprox": 275.868,
+      "action": [
+        "click-screen",
+        "Narro",
+        "047-board-complete",
+        "1056",
+        "590"
+      ]
+    },
+    {
+      "label": "048-direction2-final-main",
+      "utc": "2026-10-16T12:00:14.345409+00:00",
+      "videoSecondsApprox": 277.996,
+      "action": [
+        "snap",
+        "Narro",
+        "048-direction2-final-main"
+      ]
+    },
+    {
+      "label": "048-direction2-final-focus",
+      "utc": "2026-10-16T12:00:15.509927+00:00",
+      "videoSecondsApprox": 279.16,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "048-direction2-final-focus"
+      ]
+    },
+    {
+      "label": "049-compact-mode",
+      "utc": "2026-10-16T12:00:31.027179+00:00",
+      "videoSecondsApprox": 294.677,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "049-compact-mode",
+        "2531",
+        "32"
+      ]
+    },
+    {
+      "label": "050-expand-timer",
+      "utc": "2026-10-16T12:00:40.870942+00:00",
+      "videoSecondsApprox": 304.521,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "050-expand-timer",
+        "2531",
+        "75"
+      ]
+    },
+    {
+      "label": "051-timer-draft-open",
+      "utc": "2026-10-16T12:00:51.428945+00:00",
+      "videoSecondsApprox": 315.079,
+      "action": [
+        "click-screen",
+        "Narro - Focus",
+        "051-timer-draft-open",
+        "2493",
+        "108"
+      ]
+    },
+    {
+      "label": "052-timer-retained-draft",
+      "utc": "2026-10-16T12:01:05.163446+00:00",
+      "videoSecondsApprox": 328.814,
+      "action": [
+        "text",
+        "Narro - Focus",
+        "052-timer-retained-draft",
+        "Timer draft retained"
+      ]
+    },
+    {
+      "label": "053-board-field",
+      "utc": "2026-10-16T12:01:06.899006+00:00",
+      "videoSecondsApprox": 330.549,
+      "action": [
+        "click-screen",
+        "Narro",
+        "053-board-field",
+        "1197",
+        "632"
+      ]
+    },
+    {
+      "label": "054-board-delta",
+      "utc": "2026-10-16T12:01:09.107003+00:00",
+      "videoSecondsApprox": 332.757,
+      "action": [
+        "text",
+        "Narro",
+        "054-board-delta",
+        "TimerDelta"
+      ]
+    },
+    {
+      "label": "055-board-delta-save",
+      "utc": "2026-10-16T12:01:11.158005+00:00",
+      "videoSecondsApprox": 334.808,
+      "action": [
+        "key",
+        "Narro",
+        "055-board-delta-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "056-board-to-timer-create-focus",
+      "utc": "2026-10-16T12:01:12.933005+00:00",
+      "videoSecondsApprox": 336.583,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "056-board-to-timer-create-focus"
+      ]
+    },
+    {
+      "label": "056-board-to-timer-create-main",
+      "utc": "2026-10-16T12:01:14.371184+00:00",
+      "videoSecondsApprox": 338.021,
+      "action": [
+        "snap",
+        "Narro",
+        "056-board-to-timer-create-main"
+      ]
+    },
+    {
+      "label": "057-board-rename-for-timer",
+      "utc": "2026-10-16T12:01:31.379964+00:00",
+      "videoSecondsApprox": 355.03,
+      "action": [
+        "click-screen",
+        "Narro",
+        "057-board-rename-for-timer",
+        "1165",
+        "550"
+      ]
+    },
+    {
+      "label": "058-select-gamma",
+      "utc": "2026-10-16T12:01:42.568813+00:00",
+      "videoSecondsApprox": 366.219,
+      "action": [
+        "key",
+        "Narro",
+        "058-select-gamma",
+        "0x11+0x41"
+      ]
+    },
+    {
+      "label": "059-timer-rename",
+      "utc": "2026-10-16T12:01:44.621235+00:00",
+      "videoSecondsApprox": 368.271,
+      "action": [
+        "text",
+        "Narro",
+        "059-timer-rename",
+        "TimerRenamedGamma"
+      ]
+    },
+    {
+      "label": "060-timer-rename-save",
+      "utc": "2026-10-16T12:01:46.657752+00:00",
+      "videoSecondsApprox": 370.308,
+      "action": [
+        "key",
+        "Narro",
+        "060-timer-rename-save",
+        "0x0D"
+      ]
+    },
+    {
+      "label": "061-timer-order-on-board",
+      "utc": "2026-10-16T12:01:48.681357+00:00",
+      "videoSecondsApprox": 372.332,
+      "action": [
+        "click-screen",
+        "Narro",
+        "061-timer-order-on-board",
+        "1275",
+        "630"
+      ]
+    },
+    {
+      "label": "062-timer-order-again",
+      "utc": "2026-10-16T12:01:50.720873+00:00",
+      "videoSecondsApprox": 374.371,
+      "action": [
+        "click-screen",
+        "Narro",
+        "062-timer-order-again",
+        "1275",
+        "590"
+      ]
+    },
+    {
+      "label": "063-timer-complete-on-board",
+      "utc": "2026-10-16T12:01:52.784891+00:00",
+      "videoSecondsApprox": 376.435,
+      "action": [
+        "click-screen",
+        "Narro",
+        "063-timer-complete-on-board",
+        "1056",
+        "590"
+      ]
+    },
+    {
+      "label": "064-direction3-final-focus",
+      "utc": "2026-10-16T12:01:54.531987+00:00",
+      "videoSecondsApprox": 378.182,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "064-direction3-final-focus"
+      ]
+    },
+    {
+      "label": "064-direction3-final-main",
+      "utc": "2026-10-16T12:01:55.935522+00:00",
+      "videoSecondsApprox": 379.586,
+      "action": [
+        "snap",
+        "Narro",
+        "064-direction3-final-main"
+      ]
+    },
+    {
+      "label": "065-expanded-timer-list-scroll",
+      "utc": "2026-10-16T12:02:13.455553+00:00",
+      "videoSecondsApprox": 397.106,
+      "action": [
+        "scroll",
+        "Narro - Focus",
+        "065-expanded-timer-list-scroll",
+        "130",
+        "205",
+        "-480"
+      ]
+    },
+    {
+      "label": "066-expanded-timer-last-row-focus",
+      "utc": "2026-10-16T12:02:14.708004+00:00",
+      "videoSecondsApprox": 398.358,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "066-expanded-timer-last-row-focus"
+      ]
+    },
+    {
+      "label": "066-expanded-timer-last-row-main",
+      "utc": "2026-10-16T12:02:15.946009+00:00",
+      "videoSecondsApprox": 399.596,
+      "action": [
+        "snap",
+        "Narro",
+        "066-expanded-timer-last-row-main"
+      ]
+    },
+    {
+      "label": "067-done-scroll-bottom",
+      "utc": "2026-10-16T12:02:29.424495+00:00",
+      "videoSecondsApprox": 413.075,
+      "action": [
+        "scroll",
+        "Narro",
+        "067-done-scroll-bottom",
+        "1540",
+        "650",
+        "-18000"
+      ]
+    },
+    {
+      "label": "068-done-bottom-focus",
+      "utc": "2026-10-16T12:02:30.688559+00:00",
+      "videoSecondsApprox": 414.339,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "068-done-bottom-focus"
+      ]
+    },
+    {
+      "label": "068-done-bottom-main",
+      "utc": "2026-10-16T12:02:31.913397+00:00",
+      "videoSecondsApprox": 415.564,
+      "action": [
+        "snap",
+        "Narro",
+        "068-done-bottom-main"
+      ]
+    },
+    {
+      "label": "069-done-scroll-top",
+      "utc": "2026-10-16T12:02:32.492537+00:00",
+      "videoSecondsApprox": 416.143,
+      "action": [
+        "scroll",
+        "Narro",
+        "069-done-scroll-top",
+        "1540",
+        "650",
+        "18000"
+      ]
+    },
+    {
+      "label": "070-close-board-subtasks",
+      "utc": "2026-10-16T12:02:33.843749+00:00",
+      "videoSecondsApprox": 417.494,
+      "action": [
+        "click-screen",
+        "Narro",
+        "070-close-board-subtasks",
+        "1343",
+        "466"
+      ]
+    },
+    {
+      "label": "071-open-notes",
+      "utc": "2026-10-16T12:02:35.669015+00:00",
+      "videoSecondsApprox": 419.319,
+      "action": [
+        "click-screen",
+        "Narro",
+        "071-open-notes",
+        "1197",
+        "425"
+      ]
+    },
+    {
+      "label": "072-note-field",
+      "utc": "2026-10-16T12:02:51.900435+00:00",
+      "videoSecondsApprox": 435.551,
+      "action": [
+        "click-screen",
+        "Narro",
+        "072-note-field",
+        "1197",
+        "523"
+      ]
+    },
+    {
+      "label": "073-note-text",
+      "utc": "2026-10-16T12:02:53.911507+00:00",
+      "videoSecondsApprox": 437.562,
+      "action": [
+        "text",
+        "Narro",
+        "073-note-text",
+        "PA362 saved note"
+      ]
+    },
+    {
+      "label": "074-save-note",
+      "utc": "2026-10-16T12:02:55.909486+00:00",
+      "videoSecondsApprox": 439.56,
+      "action": [
+        "click-screen",
+        "Narro",
+        "074-save-note",
+        "1322",
+        "586"
+      ]
+    },
+    {
+      "label": "075-notes-saved-focus",
+      "utc": "2026-10-16T12:02:57.644489+00:00",
+      "videoSecondsApprox": 441.295,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "075-notes-saved-focus"
+      ]
+    },
+    {
+      "label": "075-notes-saved-main",
+      "utc": "2026-10-16T12:02:59.042689+00:00",
+      "videoSecondsApprox": 442.693,
+      "action": [
+        "snap",
+        "Narro",
+        "075-notes-saved-main"
+      ]
+    },
+    {
+      "label": "076-close-note",
+      "utc": "2026-10-16T12:03:00.689357+00:00",
+      "videoSecondsApprox": 444.34,
+      "action": [
+        "click-screen",
+        "Narro",
+        "076-close-note",
+        "1323",
+        "628"
+      ]
+    },
+    {
+      "label": "077-reopen-note",
+      "utc": "2026-10-16T12:03:02.483378+00:00",
+      "videoSecondsApprox": 446.134,
+      "action": [
+        "click-screen",
+        "Narro",
+        "077-reopen-note",
+        "1197",
+        "425"
+      ]
+    },
+    {
+      "label": "078-dirty-note-field",
+      "utc": "2026-10-16T12:03:26.970525+00:00",
+      "videoSecondsApprox": 470.621,
+      "action": [
+        "click-screen",
+        "Narro",
+        "078-dirty-note-field",
+        "1197",
+        "523"
+      ]
+    },
+    {
+      "label": "079-select-note",
+      "utc": "2026-10-16T12:03:28.965033+00:00",
+      "videoSecondsApprox": 472.615,
+      "action": [
+        "key",
+        "Narro",
+        "079-select-note",
+        "0x11+0x41"
+      ]
+    },
+    {
+      "label": "080-unsaved-note",
+      "utc": "2026-10-16T12:03:30.972036+00:00",
+      "videoSecondsApprox": 474.622,
+      "action": [
+        "text",
+        "Narro",
+        "080-unsaved-note",
+        "PA362 unsaved draft"
+      ]
+    },
+    {
+      "label": "081-notes-dirty-focus",
+      "utc": "2026-10-16T12:03:32.739035+00:00",
+      "videoSecondsApprox": 476.389,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "081-notes-dirty-focus"
+      ]
+    },
+    {
+      "label": "081-notes-dirty-main",
+      "utc": "2026-10-16T12:03:34.128503+00:00",
+      "videoSecondsApprox": 477.779,
+      "action": [
+        "snap",
+        "Narro",
+        "081-notes-dirty-main"
+      ]
+    },
+    {
+      "label": "082-dirty-close",
+      "utc": "2026-10-16T12:03:35.783279+00:00",
+      "videoSecondsApprox": 479.433,
+      "action": [
+        "click-screen",
+        "Narro",
+        "082-dirty-close",
+        "1323",
+        "628"
+      ]
+    },
+    {
+      "label": "083-dirty-reopen",
+      "utc": "2026-10-16T12:03:37.577865+00:00",
+      "videoSecondsApprox": 481.228,
+      "action": [
+        "click-screen",
+        "Narro",
+        "083-dirty-reopen",
+        "1197",
+        "425"
+      ]
+    },
+    {
+      "label": "084-notes-reopened-focus",
+      "utc": "2026-10-16T12:03:39.476401+00:00",
+      "videoSecondsApprox": 483.127,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "084-notes-reopened-focus"
+      ]
+    },
+    {
+      "label": "084-notes-reopened-main",
+      "utc": "2026-10-16T12:03:40.873401+00:00",
+      "videoSecondsApprox": 484.524,
+      "action": [
+        "snap",
+        "Narro",
+        "084-notes-reopened-main"
+      ]
+    },
+    {
+      "label": "085-open-large-note",
+      "utc": "2026-10-16T12:03:46.201223+00:00",
+      "videoSecondsApprox": 489.851,
+      "action": [
+        "click-screen",
+        "Narro",
+        "085-open-large-note",
+        "1276",
+        "461"
+      ]
+    },
+    {
+      "label": "086-large-notes-focus",
+      "utc": "2026-10-16T12:03:48.020224+00:00",
+      "videoSecondsApprox": 491.67,
+      "action": [
+        "snap",
+        "Narro - Focus",
+        "086-large-notes-focus"
+      ]
+    },
+    {
+      "label": "086-large-notes-main",
+      "utc": "2026-10-16T12:03:49.392059+00:00",
+      "videoSecondsApprox": 493.042,
+      "action": [
+        "snap",
+        "Narro",
+        "086-large-notes-main"
+      ]
+    }
+  ],
+  "derivedFrames": [
+    {
+      "label": "066-expanded-timer-last-row",
+      "file": "066-expanded-timer-last-row-video-frame.png",
+      "videoSeconds": 398.160026,
+      "derivation": "Whole dual-screen OBS frame; native PNG absent because no-snapshot flag inherited. UIA/raw video remain original proof."
+    },
+    {
+      "label": "068-done-bottom",
+      "file": "068-done-bottom-video-frame.png",
+      "videoSeconds": 414.123678,
+      "derivation": "Whole dual-screen OBS frame; native PNG absent because no-snapshot flag inherited. UIA/raw video remain original proof."
+    }
+  ]
+}

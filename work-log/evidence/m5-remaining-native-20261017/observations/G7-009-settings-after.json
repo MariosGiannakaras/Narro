@@ -1,0 +1,2246 @@
+{
+  "utc": "2026-10-17T02:00:03.132085+00:00",
+  "hwnd": 6819644,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        31,
+        216,
+        1032
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        51,
+        203,
+        99
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        68,
+        56,
+        110,
+        77
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        99,
+        203,
+        139
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        164,
+        203,
+        204
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        20,
+        208,
+        203,
+        248
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        31,
+        1792,
+        95
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1599,
+        42,
+        1680,
+        83
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1687,
+        42,
+        1772,
+        83
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        95,
+        1792,
+        976
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        119,
+        1548,
+        763
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        119,
+        1548,
+        204
+      ]
+    },
+    {
+      "name": "HOME",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        119,
+        500,
+        135
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        143,
+        1548,
+        172
+      ]
+    },
+    {
+      "name": "Plan the next work that deserves your attention.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        180,
+        797,
+        202
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        227,
+        1548,
+        763
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        231,
+        529,
+        252
+      ]
+    },
+    {
+      "name": "Lists with your upcoming tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1331,
+        228,
+        1548,
+        250
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        267,
+        720,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        461,
+        268,
+        719,
+        326
+      ]
+    },
+    {
+      "name": "All Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        517,
+        286,
+        663,
+        308
+      ]
+    },
+    {
+      "name": "All Lists task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        461,
+        325,
+        719,
+        470
+      ]
+    },
+    {
+      "name": "M5FocusCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        505,
+        338,
+        612,
+        360
+      ]
+    },
+    {
+      "name": "25m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        679,
+        341,
+        703,
+        358
+      ]
+    },
+    {
+      "name": "Parser off 30 m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        505,
+        370,
+        612,
+        392
+      ]
+    },
+    {
+      "name": "Manual override 1 HR",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        505,
+        402,
+        659,
+        424
+      ]
+    },
+    {
+      "name": "30m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        679,
+        405,
+        703,
+        422
+      ]
+    },
+    {
+      "name": "Invalid suffix 3 bananas",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        505,
+        434,
+        669,
+        456
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        538,
+        378,
+        642,
+        418
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        461,
+        469,
+        719,
+        514
+      ]
+    },
+    {
+      "name": "14 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        477,
+        484,
+        567,
+        501
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        642,
+        484,
+        664,
+        501
+      ]
+    },
+    {
+      "name": "4h 10m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        663,
+        484,
+        703,
+        501
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        736,
+        267,
+        996,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        737,
+        268,
+        995,
+        326
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        793,
+        286,
+        939,
+        308
+      ]
+    },
+    {
+      "name": "More actions for PA360 Board",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        947,
+        280,
+        979,
+        313
+      ]
+    },
+    {
+      "name": "PA360 Board task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        737,
+        325,
+        995,
+        470
+      ]
+    },
+    {
+      "name": "M5FocusCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        781,
+        338,
+        888,
+        360
+      ]
+    },
+    {
+      "name": "25m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        955,
+        341,
+        979,
+        358
+      ]
+    },
+    {
+      "name": "Parser off 30 m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        781,
+        370,
+        888,
+        392
+      ]
+    },
+    {
+      "name": "Manual override 1 HR",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        781,
+        402,
+        935,
+        424
+      ]
+    },
+    {
+      "name": "30m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        955,
+        405,
+        979,
+        422
+      ]
+    },
+    {
+      "name": "Invalid suffix 3 bananas",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        781,
+        434,
+        945,
+        456
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        814,
+        378,
+        918,
+        418
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        737,
+        469,
+        995,
+        514
+      ]
+    },
+    {
+      "name": "14 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        753,
+        484,
+        843,
+        501
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        918,
+        484,
+        940,
+        501
+      ]
+    },
+    {
+      "name": "4h 10m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        939,
+        484,
+        979,
+        501
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1012,
+        267,
+        1272,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1013,
+        268,
+        1271,
+        326
+      ]
+    },
+    {
+      "name": "PA360 Builtin",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1069,
+        286,
+        1215,
+        308
+      ]
+    },
+    {
+      "name": "More actions for PA360 Builtin",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1223,
+        280,
+        1255,
+        313
+      ]
+    },
+    {
+      "name": "PA360 Builtin task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1013,
+        325,
+        1271,
+        470
+      ]
+    },
+    {
+      "name": "No pending task previews",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1029,
+        346,
+        1212,
+        368
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1090,
+        378,
+        1194,
+        418
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1013,
+        469,
+        1271,
+        514
+      ]
+    },
+    {
+      "name": "0 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1029,
+        484,
+        1113,
+        501
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1221,
+        484,
+        1243,
+        501
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1243,
+        484,
+        1255,
+        501
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1288,
+        267,
+        1548,
+        515
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1289,
+        268,
+        1547,
+        326
+      ]
+    },
+    {
+      "name": "PA360 Image",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1345,
+        286,
+        1491,
+        308
+      ]
+    },
+    {
+      "name": "More actions for PA360 Image",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1499,
+        280,
+        1531,
+        313
+      ]
+    },
+    {
+      "name": "PA360 Image task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1289,
+        325,
+        1547,
+        470
+      ]
+    },
+    {
+      "name": "No pending task previews",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1305,
+        346,
+        1488,
+        368
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1366,
+        378,
+        1470,
+        418
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1289,
+        469,
+        1547,
+        514
+      ]
+    },
+    {
+      "name": "0 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1305,
+        484,
+        1389,
+        501
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1497,
+        484,
+        1519,
+        501
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1519,
+        484,
+        1531,
+        501
+      ]
+    },
+    {
+      "name": "CREATE LIST",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        460,
+        530,
+        720,
+        763
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        216,
+        976,
+        1792,
+        1032
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        872,
+        985,
+        1000,
+        1025
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1008,
+        985,
+        1136,
+        1025
+      ]
+    },
+    {
+      "name": "Preferences",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        523,
+        46,
+        1277,
+        1017
+      ]
+    },
+    {
+      "name": "Close Preferences",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        1232,
+        55,
+        1264,
+        87
+      ]
+    },
+    {
+      "name": "Preferences",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        524,
+        87,
+        1261,
+        2211
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        99,
+        1237,
+        184
+      ]
+    },
+    {
+      "name": "SETTINGS",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        99,
+        608,
+        115
+      ]
+    },
+    {
+      "name": "Preferences",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        123,
+        1237,
+        152
+      ]
+    },
+    {
+      "name": "Manage Narro's local Windows appearance and shortcuts.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        160,
+        958,
+        182
+      ]
+    },
+    {
+      "name": "Blitz Panel",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        207,
+        1237,
+        558
+      ]
+    },
+    {
+      "name": "WINDOW PLACEMENT",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        228,
+        706,
+        245
+      ]
+    },
+    {
+      "name": "Blitz Panel",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        249,
+        706,
+        270
+      ]
+    },
+    {
+      "name": "Refresh displays",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1105,
+        228,
+        1216,
+        261
+      ]
+    },
+    {
+      "name": "Monitor",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        593,
+        353,
+        653,
+        375
+      ]
+    },
+    {
+      "name": "Choose which Windows work area owns the Focus Panel.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        380,
+        802,
+        413
+      ]
+    },
+    {
+      "name": "Focus Panel monitor",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        832,
+        302,
+        1216,
+        462
+      ]
+    },
+    {
+      "name": "Automatic Primary display",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        832,
+        302,
+        1020,
+        462
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "Automatic",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        842,
+        415,
+        901,
+        432
+      ]
+    },
+    {
+      "name": "Primary display",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        842,
+        435,
+        923,
+        452
+      ]
+    },
+    {
+      "name": "Screen 1: \\\\.\\DISPLAY1 \u00b7 2560\u00d71080 \u00b7 100%",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1028,
+        302,
+        1216,
+        462
+      ],
+      "toggle": 0
+    },
+    {
+      "name": "Screen ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        415,
+        1079,
+        432
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1078,
+        415,
+        1086,
+        432
+      ]
+    },
+    {
+      "name": "\\\\.\\DISPLAY1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1038,
+        435,
+        1105,
+        452
+      ]
+    },
+    {
+      "name": "Panel side",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        593,
+        492,
+        666,
+        514
+      ]
+    },
+    {
+      "name": "Anchor the Focus Panel to the selected monitor's work-area edge.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        519,
+        917,
+        536
+      ]
+    },
+    {
+      "name": "Blitz Panel Side",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1046,
+        490,
+        1216,
+        537
+      ]
+    },
+    {
+      "name": "Left",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1051,
+        495,
+        1129,
+        532
+      ],
+      "toggle": 0
+    },
+    {
+      "name": "Right",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1133,
+        495,
+        1211,
+        532
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "General",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        548,
+        573,
+        1237,
+        1048
+      ]
+    },
+    {
+      "name": "APPEARANCE",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        594,
+        651,
+        611
+      ]
+    },
+    {
+      "name": "General",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        614,
+        651,
+        636
+      ]
+    },
+    {
+      "name": "Theme",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        670,
+        619,
+        692
+      ]
+    },
+    {
+      "name": "System follows your current Windows light or dark preference.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        697,
+        899,
+        714
+      ]
+    },
+    {
+      "name": "Theme",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        964,
+        668,
+        1216,
+        715
+      ]
+    },
+    {
+      "name": "System theme \u2014 Follow your Windows color mode",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        969,
+        673,
+        1047,
+        710
+      ],
+      "toggle": 0
+    },
+    {
+      "name": "Dark theme \u2014 Use Narro's dark surfaces",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1051,
+        673,
+        1129,
+        710
+      ],
+      "toggle": 0
+    },
+    {
+      "name": "Light theme \u2014 Use Narro's light surfaces",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1133,
+        673,
+        1211,
+        710
+      ],
+      "toggle": 1
+    },
+    {
+      "name": "Start with Windows",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        731,
+        711,
+        753
+      ]
+    },
+    {
+      "name": "Start Narro automatically when Windows starts.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        758,
+        820,
+        775
+      ]
+    },
+    {
+      "name": "Start Narro with Windows",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1174,
+        740,
+        1216,
+        765
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Hide EST / Time Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        593,
+        804,
+        755,
+        826
+      ]
+    },
+    {
+      "name": "Keep task timing quieter until you hover or focus a task.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        831,
+        864,
+        848
+      ]
+    },
+    {
+      "name": "Hide task EST and Time Taken",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1174,
+        813,
+        1216,
+        838
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Auto-parse EST from title",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        593,
+        878,
+        777,
+        900
+      ]
+    },
+    {
+      "name": "Recognize a supported estimate suffix when creating a task.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        905,
+        885,
+        922
+      ]
+    },
+    {
+      "name": "Auto-parse EST from task title",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1174,
+        887,
+        1216,
+        912
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Timezone",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        951,
+        640,
+        973
+      ]
+    },
+    {
+      "name": "Choose an IANA timezone, or follow the current Windows timezone automatically. Offsets follow daylight-saving time.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        569,
+        978,
+        823,
+        1027
+      ]
+    },
+    {
+      "name": "Display timezone",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        886,
+        971,
+        1166,
+        1006
+      ],
+      "value": "Automatic (Windows: (GMT+03:00) Europe/Athens)"
+    },
+    {
+      "name": "Blitz mode settings",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        548,
+        1063,
+        1237,
+        1371
+      ]
+    },
+    {
+      "name": "FOCUS TIMING",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1084,
+        662,
+        1101
+      ]
+    },
+    {
+      "name": "Blitz mode settings",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1104,
+        708,
+        1126
+      ]
+    },
+    {
+      "name": "Pomodoros",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1159,
+        653,
+        1181
+      ]
+    },
+    {
+      "name": "Use sprint and break durations instead of task EST for new Focus starts.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1186,
+        945,
+        1203
+      ]
+    },
+    {
+      "name": "Enable Pomodoros",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1168,
+        1216,
+        1193
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Default break length",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1232,
+        719,
+        1254
+      ]
+    },
+    {
+      "name": "Used by Start Break in Focus and the in-app shortcut.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1259,
+        850,
+        1276
+      ]
+    },
+    {
+      "name": "Default manual break duration",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1056,
+        1237,
+        1216,
+        1272
+      ],
+      "value": "10 mins"
+    },
+    {
+      "name": "Scrolling title on live timer",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1306,
+        761,
+        1328
+      ]
+    },
+    {
+      "name": "Scroll long live-task titles instead of keeping them truncated.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1333,
+        890,
+        1350
+      ]
+    },
+    {
+      "name": "Scrolling title on live timer",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1315,
+        1216,
+        1340
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Alerts",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        548,
+        1386,
+        1237,
+        1693
+      ]
+    },
+    {
+      "name": "ATTENTION",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1407,
+        640,
+        1424
+      ]
+    },
+    {
+      "name": "Alerts",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1427,
+        640,
+        1449
+      ]
+    },
+    {
+      "name": "Timed alerts during a task",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1482,
+        758,
+        1504
+      ]
+    },
+    {
+      "name": "Enable periodic local reminders while focused.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1509,
+        813,
+        1526
+      ]
+    },
+    {
+      "name": "Timed task alerts",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1491,
+        1216,
+        1516
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Notification alerts",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1555,
+        700,
+        1577
+      ]
+    },
+    {
+      "name": "Allow local Windows notification alerts for relevant timer events.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1582,
+        909,
+        1599
+      ]
+    },
+    {
+      "name": "Notification alerts",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1564,
+        1216,
+        1589
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Schedule reminders",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1628,
+        713,
+        1650
+      ]
+    },
+    {
+      "name": "Enable local reminders for scheduled tasks.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1655,
+        796,
+        1672
+      ]
+    },
+    {
+      "name": "Schedule reminders",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1637,
+        1216,
+        1662
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Celebrate task completion",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        548,
+        1708,
+        1237,
+        1959
+      ]
+    },
+    {
+      "name": "COMPLETION",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1729,
+        652,
+        1746
+      ]
+    },
+    {
+      "name": "Celebrate task completion",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1750,
+        759,
+        1771
+      ]
+    },
+    {
+      "name": "Show success screen",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1804,
+        718,
+        1826
+      ]
+    },
+    {
+      "name": "Enable a local completion moment after a successful task transition.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1831,
+        927,
+        1848
+      ]
+    },
+    {
+      "name": "Show success screen",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1813,
+        1216,
+        1838
+      ],
+      "toggle": 0,
+      "value": ""
+    },
+    {
+      "name": "Success sound effect",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        599,
+        1878,
+        750,
+        1900
+      ]
+    },
+    {
+      "name": "Control the bundled completion sound independently of the success screen.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        599,
+        1905,
+        806,
+        1938
+      ]
+    },
+    {
+      "name": "Adjust Success sound volume",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        862,
+        1890,
+        896,
+        1925
+      ]
+    },
+    {
+      "name": "Preview Victory Bell",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        904,
+        1890,
+        938,
+        1925
+      ]
+    },
+    {
+      "name": "Success sound",
+      "type": 50003,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        946,
+        1890,
+        1162,
+        1925
+      ],
+      "value": "Victory Bell"
+    },
+    {
+      "name": "Success sound effect",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1174,
+        1895,
+        1216,
+        1920
+      ],
+      "toggle": 1,
+      "value": ""
+    },
+    {
+      "name": "Shortcuts",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        548,
+        1974,
+        1237,
+        2131
+      ]
+    },
+    {
+      "name": "WINDOWS",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        1995,
+        634,
+        2012
+      ]
+    },
+    {
+      "name": "Shortcuts",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        2015,
+        639,
+        2037
+      ]
+    },
+    {
+      "name": "View shortcuts",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        1087,
+        1995,
+        1216,
+        2030
+      ]
+    },
+    {
+      "name": "Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        569,
+        2081,
+        1043,
+        2098
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        8,
+        8,
+        30,
+        30
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1653,
+        1,
+        1700,
+        31
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1700,
+        1,
+        1746,
+        31
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1746,
+        1,
+        1793,
+        31
+      ]
+    }
+  ]
+}

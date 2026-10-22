@@ -35,12 +35,14 @@ function harness() {
     currentRequest: () => ({ listIds: ["old"] }),
     detailTaskId: "old-task",
     preferences: { settled: true, error: null },
+    sessionsReadAttempt: 0,
     sessionsReadRevisionRef: { current: 0 },
     detailReadRevisionRef: { current: 0 },
     sessionsActiveRequestKeyRef: { current: null },
     detailActiveTaskIdRef: { current: null },
     useCallback: (callback) => callback,
     useEffect: (callback) => effects.push(callback),
+    useLayoutEffect: (callback) => callback(), // committed before passive read
     getReportSessions: (request) => {
       const response = deferred();
       sessionCalls.push({ request, ...response });
@@ -84,6 +86,24 @@ function harness() {
   assert.equal(h.state.sessions.rows[0], "new",
     "old initial/mutation refresh must not overwrite the newly filtered report");
   cleanupNew();
+}
+
+// An explicit retry of an unchanged filter must claim a newer read generation,
+// ignoring late success or failure from the first attempt.
+{
+  const h = harness();
+  const firstCleanup = h.effects[0]();
+  h.ctx.sessionsReadAttempt = 1;
+  firstCleanup();
+  const retryCleanup = h.effects[0]();
+  assert.equal(h.sessionCalls.length, 2, "retry reissues authoritative session read");
+  h.sessionCalls[1].resolve({ rows: ["retried"] });
+  await settle();
+  h.sessionCalls[0].reject(new Error("obsolete pre-retry read failed"));
+  await settle();
+  assert.equal(h.state.sessions.rows[0], "retried");
+  assert(!h.state.errors.some(error => typeof error === "string" && error.includes("obsolete")));
+  retryCleanup();
 }
 
 // A superseded *failed* post-write refresh must not present a misleading
@@ -148,8 +168,10 @@ function harness() {
       currentRequest: () => ({ listIds: [list] }),
       detailTaskId: task,
       preferences: { settled: true, error: null },
+      sessionsReadAttempt: 0,
       useCallback: (callback) => callback,
       useEffect: (callback) => effects.push(callback),
+      useLayoutEffect: (callback) => callback(), // newer rendered filter is committed
       getReportSessions: (request) => {
         const d = deferred();
         calls.sessions.push({ request, ...d });
@@ -208,4 +230,5 @@ function harness() {
   cleanupNewSessions(); cleanupNewDetail();
 }
 
+await import("./test-reports-commit-window.mjs");
 console.log("Actual Reports session/detail read producers reject stale filtered and post-mutation results.");

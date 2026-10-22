@@ -1,0 +1,34 @@
+{
+  "label": "R-G1-042-ready",
+  "expectedField": "New Today task title",
+  "passiveOnly": true,
+  "elapsedSeconds": 0.625,
+  "clearedEnabledVisibleFocusObserved": true,
+  "samples": [
+    {
+      "utc": "2026-10-17T01:49:02.699235+00:00",
+      "field": [
+        {
+          "name": "New Today task title",
+          "type": 50004,
+          "enabled": true,
+          "offscreen": false,
+          "focused": true,
+          "rect": [
+            1038,
+            404,
+            1237,
+            437
+          ],
+          "value": ""
+        }
+      ],
+      "focused": [
+        {
+          "name": "New Today task title",
+          "type": 50004
+        }
+      ]
+    }
+  ]
+}

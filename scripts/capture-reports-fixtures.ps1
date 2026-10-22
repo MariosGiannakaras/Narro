@@ -51,7 +51,15 @@ function Capture-ReportsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "reports-print-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=print"
+            if ($LASTEXITCODE -ne 0) { throw "Reports actual-print readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         for ($attempt = 1; $attempt -le 2; $attempt++) {
+            # Allow the sequential chart interaction matrix to finish; ordinary
+            # static fixtures keep their existing budget.
+            $virtualBudget = if ($Label -like "reports-chart-containment-*") { 2000 } else { 1200 }
             $arguments = @(
                 "--headless=new",
                 "--disable-gpu",
@@ -60,7 +68,7 @@ function Capture-ReportsState {
                 "--no-first-run",
                 "--force-device-scale-factor=1",
                 "--window-size=1280,720",
-                "--virtual-time-budget=1200",
+                "--virtual-time-budget=$virtualBudget",
                 "--user-data-dir=$profilePath",
                 "--screenshot=$ScreenshotPath",
                 "--dump-dom",
@@ -80,6 +88,10 @@ function Capture-ReportsState {
             if ([string]::IsNullOrWhiteSpace($domText)) {
                 throw "Edge did not return Reports DOM for '$Label'. $stderrText"
             }
+
+            # Retain the failing DOM (including sampled geometry/error data)
+            # alongside its PNG before temporary stdout cleanup runs.
+            [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
             if (-not $domText.Contains('data-reports-fixture-ready="true"')) {
                 if ($attempt -lt 2) {
                     Write-Warning "Reports fixture '$Label' was captured before ready; recapturing."
@@ -93,7 +105,6 @@ function Capture-ReportsState {
                 throw "Reports fixture '$Label' did not report ready after 2 captures. $stderrText"
             }
 
-            [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
             break
         }
     } finally {
@@ -118,9 +129,14 @@ try {
     Wait-ForPreview -Url "$baseUrl/reports-fixture.html?theme=dark&mode=overview"
 
     foreach ($theme in @("light", "dark")) {
-        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard")) {
+        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "chart-containment", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard", "sessions-detail-keyboard")) {
             $label = "reports-$reportsMode-$theme"
             $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=$reportsMode"
+            Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
+        }
+        foreach ($days in @(8, 31, 61, 91)) {
+            $label = "reports-print-$days-$theme"
+            $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=overview&pdfDays=$days"
             Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
         }
     }

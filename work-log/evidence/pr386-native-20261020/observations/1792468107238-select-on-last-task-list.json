@@ -1,0 +1,13 @@
+{
+  "accessibility": {
+    "document_text": "Loading Focus Panel…",
+    "focused_element": "14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea",
+    "tree": "Window: \"Narro - Focus\", App: narro.exe.\n\t0 window Narro - Focus Secondary Actions: Raise\n\t\t1 pane\n\t\t\t2 pane Narro Diagnostic - Focus\n\t\t\t\t3 pane (disabled)\n\t\t\t\t4 region Narro Diagnostic - Focus - Web content\n\t\t\t\t\t5 region\n\t\t\t\t\t\t6 region\n\t\t\t\t\t\t\t7 region\n\t\t\t\t\t\t\t\t8 region\n\t\t\t\t\t\t\t\t9 region\n\t\t\t\t\t\t\t\t\t10 region\n\t\t\t\t\t\t\t\t\t\t11 region\n\t\t\t\t\t\t\t\t\t\t\t12 region\n\t\t\t\t\t\t\t\t\t\t\t\t13 region\n\t\t\t\t\t\t\t\t\t\t\t\t14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea\n\t\t\t\t\t\t\t\t\t\t\t\t\t15 group ID: root\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t16 main\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t17 status\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t249 text Loading Focus Panel…\n\t\t\t\t\t\t\t\t75 region\n\t\t\t\t\t\t76 region\n\t\t\t\t\t\t77 region\n\nDocument text: ```\nLoading Focus Panel…\n```"
+  },
+  "screenshots": [],
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+    "id": 658094,
+    "title": "Narro - Focus"
+  }
+}

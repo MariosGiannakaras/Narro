@@ -1,0 +1,336 @@
+{
+  "utc": "2026-10-14T11:04:13.153057+00:00",
+  "sourceExeSha256": "40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3",
+  "ownedProfileBackupLocalOnly": "E:\\SystemFiles\\Desktop\\Narro-PA351-native-20261014\\private-owned-profile-after-capture.db",
+  "ownedProfileBackupSha256": "c311cef3dfeaeaac048ca8aaa4d010ef062d0ac149859e0a23560f25477a1f43",
+  "files": {
+    "actions.jsonl": {
+      "bytes": 393,
+      "sha256": "2458a4ca5c930cea29b22c569d3de53db41899d12b26a84b0acddbd811604de6"
+    },
+    "board-scroll-focus-entry.png": {
+      "bytes": 34283,
+      "sha256": "bd580f0f7736e3088b2435204c067619127ead2f25a1e458b969e1b0cc426148"
+    },
+    "board-scroll-up-to-blitz.png": {
+      "bytes": 47791,
+      "sha256": "f50f7ade59aaa7eec045bb06fff0cca41fd8f614c63a9655c8d2227a9482db9d"
+    },
+    "break-countdown-after-audio-setup.png": {
+      "bytes": 228375,
+      "sha256": "5934e624df4b0871094f584a8be0f716c9b77c8812ea40f8cd792016437e8a37"
+    },
+    "c5-drag-152px-secondary.png": {
+      "bytes": 275647,
+      "sha256": "51160f4cfc900f2ca9da5b8b32550297c2cd3f615707b64a1940908e382e9be5"
+    },
+    "c5-enter-compact-normal.png": {
+      "bytes": 262526,
+      "sha256": "3f3e8633bfb31c0eb8a7203f8724f9139a414ef2377c06a3abc9065539b50283"
+    },
+    "c5-relaunch-timer-restored.png": {
+      "bytes": 278293,
+      "sha256": "7adc8ef58e53b684290c64f0305dc7fb97d04b01e51826a577ae8a0f9074e30c"
+    },
+    "CAPTURE_ORDER.md": {
+      "bytes": 1922,
+      "sha256": "4f38e7789ee1f7043322f9fe7253df8bf4fd3b4e66ecc9052259240e41aba9eb"
+    },
+    "compact-drag-to-secondary.png": {
+      "bytes": 226865,
+      "sha256": "28ebf94c6b71e69939580d1b83a7598f0f4aba6d5d941f6b291b2c7935197bf4"
+    },
+    "focus-assist-off-for-audible-toast.png": {
+      "bytes": 44332,
+      "sha256": "9bea8d4b7f9a459748f8c4f03489d5fca2632fec472b251c7ce7e475d4c4d353"
+    },
+    "focus-initial-entry.png": {
+      "bytes": 43562,
+      "sha256": "0e0f77efea51da026521be94a77179b9896ec5790f37ad1f8c90d54f0c5e0d00"
+    },
+    "focus-to-compact.png": {
+      "bytes": 22026,
+      "sha256": "e7c0cc9bacada99202ebbd6ef8e27c453007a5d99e94079e3460053f689b4d03"
+    },
+    "key-dispatch.jsonl": {
+      "bytes": 1215,
+      "sha256": "ba1d7e5bdd70241ebb5054efc5a58408572a5005c45f24e16d640d0c24c9f953"
+    },
+    "main-board-pagedown.png": {
+      "bytes": 35992,
+      "sha256": "bbd761ea0d28d43ec7d54190257f793861f86b4b7590663bbc56a2418e64eb75"
+    },
+    "main-board-wheel-scroll.png": {
+      "bytes": 36682,
+      "sha256": "01a8b178c90f0381c8b31b090d5d50e95469dd2dc74b847a4de164e781be8601"
+    },
+    "main-focus-normal-animations-entry.jsonl": {
+      "bytes": 145701,
+      "sha256": "7a13d7533e4d1ca2ebac2b8ab8f55cdab10f89773050974f6137c4d21a8482b0"
+    },
+    "main-focus-normal-entry-real.jsonl": {
+      "bytes": 151788,
+      "sha256": "efd55d71f5097059d038339b2260fb87901235ab10e11a1e39a1f86c14c54a0b"
+    },
+    "main-focus-normal-entry-visible.jsonl": {
+      "bytes": 149836,
+      "sha256": "7f4594227ff25441379688c89fc2f3f22231dd28ecf33ce8bfefafa9ddc19426"
+    },
+    "main-focus-normal-entry.jsonl": {
+      "bytes": 150954,
+      "sha256": "a7444a3f5ecdf4913c95395ff203c1106a829820b1c613be1c2517683205aa03"
+    },
+    "main-focus-reduced-animations-entry.jsonl": {
+      "bytes": 152412,
+      "sha256": "b3f667ba8dc22ffe3aa8866e25a02c3dc6bcd9e867d80ee83e4303de87ae9060"
+    },
+    "motion-normal.json": {
+      "bytes": 227,
+      "sha256": "2dca6e2ff90c0a5f9f8584b01f296748cd56881609499c5ca453d05d94d4cbb0"
+    },
+    "motion-original.json": {
+      "bytes": 61,
+      "sha256": "71594aecb47838d79835047e3f0efbaefd4f705aa2dbec125bd1ecca830cf32c"
+    },
+    "motion-reduced.json": {
+      "bytes": 227,
+      "sha256": "f61e805857996b53b3983f9a974bf9a55083c01ad1010e304cf55ebb591f3398"
+    },
+    "motion-repeat-normal.json": {
+      "bytes": 227,
+      "sha256": "676e97ad7eb8ab2924f2b5a3b4888d5b177ff9827cdfda211f57afc76bba2f9a"
+    },
+    "Narro-M7-Logs/LATEST.txt": {
+      "bytes": 36,
+      "sha256": "82450f5511f1491cecd5f29ad046897ea67eafb7c888071dc14feb7902fdf327"
+    },
+    "Narro-M7-Logs/m7-c5-last-pass.json": {
+      "bytes": 1856,
+      "sha256": "326fdc479c8971eed35625d1d80c444c490ea066fbc1c131209b75e8b7f1de86"
+    },
+    "Narro-M7-Logs/m7-c5-last-terminal-result.json": {
+      "bytes": 1856,
+      "sha256": "326fdc479c8971eed35625d1d80c444c490ea066fbc1c131209b75e8b7f1de86"
+    },
+    "Narro-M7-Logs/m7-c5-latest-result.json": {
+      "bytes": 521,
+      "sha256": "8996c6194bfec4fdab96abdaef7b0f27ec7c95ee0e10e84a23596c6173faa250"
+    },
+    "Narro-M7-Logs/pending-c5.json": {
+      "bytes": 832,
+      "sha256": "1791ea1684e5ae21aeb90a60361b5592eb85085fe9029fe9a8639bf9ca687484"
+    },
+    "Narro-M7-Logs/README.txt": {
+      "bytes": 765,
+      "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+    },
+    "Narro-M7-Logs/session-20261014-065952.225Z-65352/events.jsonl": {
+      "bytes": 72627,
+      "sha256": "0dba98f8fe07311d5bb04a8f32303ad6eac979e9955ae09857a216090efb465b"
+    },
+    "Narro-M7-Logs/session-20261014-065952.225Z-65352/m7-c5-result.json": {
+      "bytes": 518,
+      "sha256": "21c9b43a0659963707e8aef9d98952a3a8f4e6a3894a68deda42da31b3b1d73e"
+    },
+    "Narro-M7-Logs/session-20261014-065952.225Z-65352/session.json": {
+      "bytes": 489,
+      "sha256": "59836212f18d9cdbf4ae9945f2e36479470e8735338eed42796324dd8ca22fc2"
+    },
+    "Narro-M7-Logs/session-20261014-105937.767Z-28960/events.jsonl": {
+      "bytes": 7288,
+      "sha256": "9f3eca0eee6c602afcb1e16ceb315bd39b7bdf9e561fc705fecf79ae2d5573c8"
+    },
+    "Narro-M7-Logs/session-20261014-105937.767Z-28960/m7-c5-result.json": {
+      "bytes": 521,
+      "sha256": "8996c6194bfec4fdab96abdaef7b0f27ec7c95ee0e10e84a23596c6173faa250"
+    },
+    "Narro-M7-Logs/session-20261014-105937.767Z-28960/session.json": {
+      "bytes": 489,
+      "sha256": "422d1bed3786a156d034340313c160cefe8950d1199ce91e5f1fde81bbd572d0"
+    },
+    "native-actions.jsonl": {
+      "bytes": 18109,
+      "sha256": "8016143764b06b13156a49c85eb790a48211e4bb865b80dff2e9b3345dcd417d"
+    },
+    "normal-entry-scroll-blitz-visible.png": {
+      "bytes": 66874,
+      "sha256": "dc675346c2a733b77448d3fc7f0e4b92b468d4e55c2e05689713080cb9da7640"
+    },
+    "normal-motion-expand-timer.png": {
+      "bytes": 171140,
+      "sha256": "9099d0179282d71d4dc75e5eb942756af2d2cf9c2ab5bdf64ae83867c77d6cb3"
+    },
+    "normal-motion-focus-entry-settled.png": {
+      "bytes": 40782,
+      "sha256": "ed92365ae40bf6cd05371d6796331455ea480e7c1c31853f07eb8a9c61e8275b"
+    },
+    "normal-motion-focus-home.png": {
+      "bytes": 2710198,
+      "sha256": "5222458bc33fb52e494fa18cc787bcc8e6448c52d44291b7bfb3c7f00626fa57"
+    },
+    "normal-motion-return-panel.png": {
+      "bytes": 168004,
+      "sha256": "affbad614f2c04190c953dabf9549f8291e51b7c1a34bac7fe280cee55e05cab"
+    },
+    "notification-sound-dropdown.png": {
+      "bytes": 63460,
+      "sha256": "d51e64e081065558994ad0702cf5d5b2c5b954fdebe6e8af57cdd990e86534fb"
+    },
+    "notification-volume-control-open.png": {
+      "bytes": 60897,
+      "sha256": "d1a0a0bd8564ef1cf4c09151d12547ebfb2ff37a84f49f0923e94ba0f7797ded"
+    },
+    "notification-volume-home-zero.png": {
+      "bytes": 58929,
+      "sha256": "971ecb5fe04192a2b8b5691c6c48bf0d30ad52e970c054b805027a662d6fbb1d"
+    },
+    "obs-foreground-health.png": {
+      "bytes": 1102707,
+      "sha256": "9b4822d37ff73456e26924c58cd6644bb84bf3779c849b5ea116b56db301835e"
+    },
+    "obs-health-0711.png": {
+      "bytes": 1750190,
+      "sha256": "c28ab224f8eb9413df51429bcc807ea8a1f51d7ddcb7f86ebb62d3b686d6dbfa"
+    },
+    "observations/after-audible-boundary.json": {
+      "bytes": 19177,
+      "sha256": "41b5ca82f6f498c82085984070a11505ac78b3ee8e804a61d9389449aecc84ae"
+    },
+    "observations/audio-runtime-source-check.json": {
+      "bytes": 222,
+      "sha256": "98eae0a57c0c950379951106c4abfaab542fbf075e07d6d64d2f0b71c779f863"
+    },
+    "observations/c5-after-tray-quit.json": {
+      "bytes": 19177,
+      "sha256": "5c1b52cd23842519cea4f30546d25c7ced67f36d9188a5cbe562dc20bd3fc660"
+    },
+    "observations/c5-before-tray-quit.json": {
+      "bytes": 19177,
+      "sha256": "dfe410f833a904fcf314ead705ae5f10903b8e1253c99d29ab1c34b0fdfc7584"
+    },
+    "observations/c5-final-after-quit.json": {
+      "bytes": 19177,
+      "sha256": "0ce12d5e3240c08bef5fcc79cf0c871e17e84e687135f5331a5e8153993c539a"
+    },
+    "observations/dual-display-fallback.mkv": {
+      "bytes": 5505024,
+      "sha256": "3ec6a5259b8652cedd243ffe1704040019ee0c1eb5f7daf49f994cb3f451a731"
+    },
+    "observations/during-work-boundary.json": {
+      "bytes": 18581,
+      "sha256": "fb5dbaecd11ed70edac3ebb227d9635a975b56f1b9915f4ee45423140f9a8be8"
+    },
+    "observations/held-ctrl-alt-p-pause.json": {
+      "bytes": 1090,
+      "sha256": "3d06e6b56626029d680914e1a183f152e7181dbc97bad117a215309ffea95faa"
+    },
+    "observations/held-ctrl-alt-p-resume.json": {
+      "bytes": 1090,
+      "sha256": "96c21e016e0bdf3c96bc465dbaa5b1f8492fc57d02d26ae09798d04644e34a30"
+    },
+    "observations/mute-work-resume-actual.json": {
+      "bytes": 1090,
+      "sha256": "102488d33c3d923c6b7e9d1d77f90a444d48f57bd51a03d6b916133c4b75a3c0"
+    },
+    "observations/prepared-audio-endpoints.json": {
+      "bytes": 778,
+      "sha256": "9d8f7aa9a8cd3a7b3354f1c4864afba1c4aee1bb0daf19c2c9ac4cb689c88dc0"
+    },
+    "observations/prepared-obs-record-state.json": {
+      "bytes": 218,
+      "sha256": "94fb05e0a00461f9091f35c492079f00f02a58fabe9ef9bf6252826c8c0205f1"
+    },
+    "observations/prepared-obs-scenes.json": {
+      "bytes": 3517,
+      "sha256": "6c6ed1402c85b1c6f4f7eb22e08aae4ee1eb6382d0df4d01aa7e78442a369bfa"
+    },
+    "observations/prepared-owned-preferences.json": {
+      "bytes": 848,
+      "sha256": "ea44ec14a1a618f16d6e5db543f4aaa6db64374a78fde86a5c69e541e3bf9755"
+    },
+    "observations/prepared-system.json": {
+      "bytes": 348,
+      "sha256": "cb8a91bc33e7102a3f05a7031579bb89246defaa96cfd6ab2b3e11563092441f"
+    },
+    "observations/prepared-topology.json": {
+      "bytes": 702,
+      "sha256": "4791a5c17251c167afd6948af3cba6d6e6d6e9ed7f0768dc8fe9dc017a444cac"
+    },
+    "open-isolated-list.png": {
+      "bytes": 75962,
+      "sha256": "426dfaece5e85d41ba8ce293a92993f24519ba3dd745f17ca78f3c5117353dc5"
+    },
+    "open-preferences-for-notification.png": {
+      "bytes": 51887,
+      "sha256": "c0108cc3d160ce97b20d84e068cecd5b228752a4f6df70db4c2b163c6e4e0040"
+    },
+    "picker-enter-first.png": {
+      "bytes": 62149,
+      "sha256": "179ad7ac394183155c885d7017a36ce0c8a8f2817175674c413e6f7d01740f25"
+    },
+    "positive-melodic-bell-preview-100.png": {
+      "bytes": 60846,
+      "sha256": "102bf70bee1ce45291086a122e39d754d7784c40d001db078d1d7d97417361c0"
+    },
+    "prefs-scroll-alerts-visible.png": {
+      "bytes": 58538,
+      "sha256": "9f829095f27d90a73fc372098b158669afabfc99e4dabdefdee213da3578ae74"
+    },
+    "prefs-scroll-alerts.png": {
+      "bytes": 61597,
+      "sha256": "4037c28fd9f6e25b9f7a2eb03391d5f3e702dcb9f0b90aafcdb078b28111b793"
+    },
+    "reduced-focus-add-task-form.png": {
+      "bytes": 47058,
+      "sha256": "328466c0372633fe356788d35c8b596346e09fd9b627900280c13e64a7da7b83"
+    },
+    "reduced-focus-form-escape.png": {
+      "bytes": 47052,
+      "sha256": "806fb30a73d6c2bfb1774dd95b1f6aa64feb608a3f1d2dc2a1be4aa502338d82"
+    },
+    "reduced-motion-focus-entry-settled.png": {
+      "bytes": 40782,
+      "sha256": "ed92365ae40bf6cd05371d6796331455ea480e7c1c31853f07eb8a9c61e8275b"
+    },
+    "reports-add-picker-open.png": {
+      "bytes": 62162,
+      "sha256": "65ff7a0ee69c2843b0bc98a69b1e0613f2ab1ec99d00226e033df1c932c1c9c0"
+    },
+    "reports-add-session-open.png": {
+      "bytes": 63704,
+      "sha256": "b2225642dcde3b30ffd4c2ea81519743ef433f6ca1f4fd6c11c5934e441ad394"
+    },
+    "reports-overview-open.png": {
+      "bytes": 41969,
+      "sha256": "c64b0fec02ed7688bb75ad99a8d4b911c29a7ad8a6a6e8d6a15b27ab1f2284d7"
+    },
+    "reports-overview-page-down.png": {
+      "bytes": 58060,
+      "sha256": "444599a3ec52d1c2b7cac1a4b02ac8610eef0442d9a90c1f30b19373e8d95eed"
+    },
+    "reports-overview-wheel.png": {
+      "bytes": 57301,
+      "sha256": "aa30b59e9d6c6b5d5b2703a69280cac125d0b80aa84516785a89c17ffb2e99d8"
+    },
+    "reports-return-tab.png": {
+      "bytes": 42739,
+      "sha256": "ca1ab882e5b0c52a34b0b5437854701f84bf9d95a8f95210d77b6aeaaef99a4c"
+    },
+    "reports-sessions-tab.png": {
+      "bytes": 59781,
+      "sha256": "702d15642c475a20f43712d5fa97f0e755db96f2b16d3931ea698c2ac43a2deb"
+    },
+    "select-melodic-bell-muted.png": {
+      "bytes": 58481,
+      "sha256": "ba44ce5d982956a3cb7eac08d041e2d69ece12a3bb202fb6aab4031f5b5812ba"
+    },
+    "session-meta.json": {
+      "bytes": 454,
+      "sha256": "0515cf84cf4f50501dffef0df59ddbb2d336e2f53d45579463d670d9936a68f2"
+    },
+    "timer-current-0715.png": {
+      "bytes": 228433,
+      "sha256": "cbaa8cfe53876d19dda600a8520647b76808120a20a17821ef5a16c9bef13ac1"
+    }
+  }
+}

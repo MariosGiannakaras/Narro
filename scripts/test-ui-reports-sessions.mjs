@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import "./test-reports-add-session-single-flight.mjs";
+import "./test-reports-recent-task-picker-keyboard.mjs";
 
 function invariant(condition, message) {
   if (!condition) throw new Error("Reports Sessions production contract failed: " + message);
@@ -14,6 +15,7 @@ invariant(view.includes('<ReportListBadges options={listOptions} selectedListIds
 invariant(badges.includes('data-report-list-badges="true"'), "Report badge component missing");
 invariant(view.includes('className="reports-sessions__break-icon"'), "source Break filter icon missing");
 const styles = fs.readFileSync("src/reportsSessions.css", "utf8");
+invariant(styles.includes(".reports-sessions__task-picker-empty"), "Recent Tasks missing-result feedback must retain readable theme styling");
 const fixture = fs.readFileSync("src/reportsVisualFixture.tsx", "utf8");
 const captureValidator = fs.readFileSync("scripts/validate-reports-captures.mjs", "utf8");
 const api = fs.readFileSync("src/reportsApi.ts", "utf8");
@@ -53,6 +55,11 @@ for (const [haystack, needle, label] of [
   [searchApi, 'getListBoardSnapshot({ kind: "all" })', "existing All Lists task index reuse"],
   [searchApi, "listColor: task.listColor", "persisted list-color projection for Recent Tasks badges"],
   [view, 'data-session-task-list-badge="true"', "Recent Tasks list badge UI"],
+  [view, 'listIconContrast(task.listColor)', "C56 list initial chip readable on actual saved colour"],
+  [view, 'task.listTitle.trim().charAt(0).toUpperCase() || "L"', "C56 list initial instead of source-divergent full badge"],
+  [view, 'className="reports-sessions__task-picker-list-label"', "C56 full list name stays accessible"],
+  [styles, ".reports-sessions__task-picker-list-label", "C56 visually hidden full list title"],
+
   [view, "HEX_COLOR.test(task.listColor)", "validated list-color UI treatment"],
   [styles, ".reports-sessions__task-picker-list i", "compact source list color marker"],
   [fixture, 'listColor: "#55c2d0"', "list-badge fixture grounded persisted-color shape"],
@@ -73,7 +80,11 @@ for (const [haystack, needle, label] of [
   [view, "searchInputRef.current?.focus()", "Add Session initial-focus ownership"],
   [view, 'event.key === "Escape"', "Add Session Escape handling"],
   [view, 'event.key !== "Tab"', "Add Session Tab containment"],
-  [view, "openerRef.current?.focus()", "Add Session focus restoration"],
+  [view, "if (openerRef.current?.isConnected) openerRef.current.focus()", "connected actual opener focus restoration"],
+  [sessions, "returnFocusTarget={addOpenerRef.current}", "actual Add Session opener ownership"],
+  [view, "onOpenAddSession(event.currentTarget)", "pointer opener identity instead of stale activeElement"],
+  [fixture, "unrelatedRef.current?.focus()", "previous Back focus regression"],
+  [fixture, "reportsAddCommitFocusRestored", "actual successful-submit focus regression"],
   [view, "if (!pending) onClose()", "Add Session pending dismissal guard"],
   [view, "dialogRef.current?.focus()", "Add Session pending focus ownership"],
   [view, "setPickerOpen(false);", "pending mutation closes nested selector before modal focus"],
@@ -99,8 +110,12 @@ for (const [haystack, needle, label] of [
   [fixture, "focusableDialogElements(detail!)", "fixture uses production tabbable collector"],
   [fixture, "Last detail tab stop could not receive actual focus.", "fixture verifies real browser focusability"],
   [view, "if (!pending) onClose()", "detail Escape guard while mutation is in flight"],
-  [view, "if (pending) dialogRef.current?.focus()", "pending detail focus ownership"],
-  [sessions, "detailView && !addOpen", "only one nested Reports modal is mounted"],
+  [view, "if (pending && !covered) dialogRef.current?.focus()", "pending detail cannot steal the nested modal focus"],
+  [view, "nestedReturnPendingRef.current && !covered && !pending", "return focus waits for its actual opener to become enabled"],
+  [sessions, "covered={addOpen}", "nested Add covers the retained task-detail opener"],
+  [view, "hidden={covered} inert={covered}", "covered detail is hidden and cannot receive interaction"],
+  [view, "aria-modal={covered ? undefined : true}", "covered parent is not a second modal owner"],
+  [styles, ".reports-sessions__backdrop[hidden] { display: none; }", "component backdrop styles preserve hidden semantics"],
   [fixture, '"sessions-detail-keyboard"', "detail transfer and keyboard fixture entry"],
   [fixture, "document.documentElement.dataset.reportsDetailKeyboardPass", "rendered detail modal keyboard test"],
   [fixture, "document.documentElement.dataset.reportsDetailKeyboardVisualReady", "reopen dialog after keyboard Escape for screenshot"],

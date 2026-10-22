@@ -1,0 +1,74 @@
+{
+  "utc": "2026-10-13T21:19:28.442726+00:00",
+  "pr": 350,
+  "head": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "ci": 38464889855,
+  "gates": {
+    "validation": "PASS",
+    "fast": "PASS",
+    "windows": "IN_PROGRESS"
+  },
+  "native_new_candidate": "NOT RUN",
+  "files": [
+    {
+      "path": "CAPTURE_ORDER.md",
+      "bytes": 3082,
+      "sha256": "b1281dedda5af208653a54dbf2b6e4df3578f07abf3855d6185244294ce2d238"
+    },
+    {
+      "path": "fast-frontend-dist.verification.json",
+      "bytes": 351,
+      "sha256": "6efd1c651e800bfea4d33bf77da54abf96e0d955190cf3c93431af263d5b6cdd"
+    },
+    {
+      "path": "fast-frontend-dist.zip",
+      "bytes": 347042,
+      "sha256": "3496f790be51069628de80c1c6039f86c39ba3832c1e687289a4f72a79991206"
+    },
+    {
+      "path": "focus-runtime.verification.json",
+      "bytes": 252,
+      "sha256": "dba5f6f028d86086ef2aa98fe81bcd61321b915965b87fbabbfb259c19db65b5"
+    },
+    {
+      "path": "focus-runtime.zip",
+      "bytes": 2493063,
+      "sha256": "7d9b42ae9988c1ca309a83343bd4b3347fd32fea6d4ee030d609acd095779e0a"
+    },
+    {
+      "path": "new-rendered-regressions-verification.json",
+      "bytes": 491,
+      "sha256": "dd03edcfd6641c4fe96a791c29abafc47a7c1d204863e3a766601f201e234020"
+    },
+    {
+      "path": "physical.verification.json",
+      "bytes": 635,
+      "sha256": "92f291fe7eea1e83918c98869940d52c762a10d3a0d0b00c000372b75a409989"
+    },
+    {
+      "path": "physical.zip",
+      "bytes": 15507217,
+      "sha256": "6d5a12fbc2a973c56673d34c88843560b88392d4b7f6ddee0b623c16dfa10579"
+    },
+    {
+      "path": "validation.verification.json",
+      "bytes": 446,
+      "sha256": "f9786fa99f94ea26dfcfdc41811e03956167c3a1202e6d6f19c988f51ec20250"
+    },
+    {
+      "path": "validation.zip",
+      "bytes": 5732459,
+      "sha256": "a9d1b20f4492df3f4057e57e41302dc4ecae7ec7a9ab780221adf4a8439299c5"
+    },
+    {
+      "path": "visual.verification.json",
+      "bytes": 378,
+      "sha256": "4156f8b28f844fa12e4991f2418347125e7f3c49af60279e8c3ca72237d0f95b"
+    },
+    {
+      "path": "visual.zip",
+      "bytes": 5649052,
+      "sha256": "5c2d15d7b2c8bca39a75ce15d0de57c0b1611e4f214ddc05dac33d99261c29d6"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Narro evidence routing map
 
+**User-directed cross-version continuity:** an observed older state/behavior remains the current reconstruction target unless newer evidence actually contradicts it. Newer material being silent is not a source gap for that already demonstrated claim. Keep direct historical provenance separate from assumed present continuity; reserve UNKNOWN for genuinely unobserved/ambiguous details. U01-U41 local coverage is41/41, not41 wholly absent sources. See [current clarification](BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md) and AGENTS.md.
+
 Status: **BINDING DISCOVERY MAP**
 
 Last updated: 2026-10-06

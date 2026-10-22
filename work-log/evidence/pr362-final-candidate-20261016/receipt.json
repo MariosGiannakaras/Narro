@@ -1,0 +1,14 @@
+{
+  "source": "560efeb076d2ec167232b9d86aa3354f6893214b",
+  "pr": 362,
+  "ci": 38894130069,
+  "ciStatus": "IN_PROGRESS",
+  "frontendPreflight": "PASS",
+  "actualMountedCases": "4/4 PASS",
+  "requiredNewSemanticField": "subtaskCommittedErrorRetained",
+  "native": "NOT RUN / 0 of 3 directions",
+  "scope": "Board, Focus and expanded Timer child projections; committed-refresh error retention and same-render unsafe-retry guard",
+  "unchanged": "Rust, windows, CSS, Search, approved picker/upload/218 icons",
+  "localNative": "NOT RUN; no MSVC linker; exact Windows CI required",
+  "normalization": "572 tracked text files temporarily LF-normalized for literal-source contracts, original bytes restored; generated tracked icons restored; unrelated untracked icons preserved"
+}

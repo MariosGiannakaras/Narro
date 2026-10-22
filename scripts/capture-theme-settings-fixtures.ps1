@@ -51,6 +51,16 @@ function Capture-ThemeSettingsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Label -like "theme-settings-shortcuts-dialog-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=shortcuts"
+            if ($LASTEXITCODE -ne 0) { throw "Shortcuts actual-viewport layout capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
+        if ($Label -like "theme-settings-preferences-dialog-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=preferences"
+            if ($LASTEXITCODE -ne 0) { throw "Preferences actual-readiness capture failed for '$Label'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         $readyMarker = 'data-theme-settings-fixture-ready="true"'
         $maxAttempts = 4
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
@@ -86,6 +96,7 @@ function Capture-ThemeSettingsState {
             if ([string]::IsNullOrWhiteSpace($domText)) {
                 throw "Edge did not return theme-settings DOM for '$Label'. $stderrText"
             }
+            [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
             if (-not $domText.Contains($readyMarker)) {
                 if ($attempt -lt $maxAttempts) {
                     Write-Warning "Theme-settings fixture '$Label' was captured before it reported ready; retrying capture ($attempt/$maxAttempts)."
@@ -131,7 +142,11 @@ try {
         @{ Label = "shortcut-conflict"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&shortcutConflict=1" },
         @{ Label = "preferences-upper"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=upper" },
         @{ Label = "preferences-middle"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=middle" },
-        @{ Label = "preferences-lower"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=lower" }
+        @{ Label = "preferences-lower"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&section=lower" },
+        @{ Label = "shortcuts-dialog-dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark&shortcutsDialog=1" },
+        @{ Label = "shortcuts-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&shortcutsDialog=1" },
+        @{ Label = "preferences-dialog-dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark&preferencesDialog=1" },
+        @{ Label = "preferences-dialog-light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light&preferencesDialog=1" }
     )
 
     foreach ($state in $states) {

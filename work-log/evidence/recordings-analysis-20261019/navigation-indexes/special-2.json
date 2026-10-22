@@ -1,0 +1,54 @@
+{
+  "id": "special-2",
+  "method": "I-frame temporal navigation only; no motion or audio PASS",
+  "frames": [
+    {
+      "frame": "k0001.jpg",
+      "seconds": 0.0
+    },
+    {
+      "frame": "k0002.jpg",
+      "seconds": 12.65
+    },
+    {
+      "frame": "k0003.jpg",
+      "seconds": 25.15
+    },
+    {
+      "frame": "k0004.jpg",
+      "seconds": 38.0
+    },
+    {
+      "frame": "k0005.jpg",
+      "seconds": 50.5
+    },
+    {
+      "frame": "k0006.jpg",
+      "seconds": 63.0
+    },
+    {
+      "frame": "k0007.jpg",
+      "seconds": 75.5
+    },
+    {
+      "frame": "k0008.jpg",
+      "seconds": 88.0
+    },
+    {
+      "frame": "k0009.jpg",
+      "seconds": 100.5
+    },
+    {
+      "frame": "k0010.jpg",
+      "seconds": 113.0
+    },
+    {
+      "frame": "k0011.jpg",
+      "seconds": 125.5
+    },
+    {
+      "frame": "k0012.jpg",
+      "seconds": 138.0
+    }
+  ]
+}

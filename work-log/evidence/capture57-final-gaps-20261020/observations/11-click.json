@@ -1,0 +1,822 @@
+{
+  "utc": "2026-10-20T17:53:28.280Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 1704410,
+    "title": "Narro - Focus"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "Narro Diagnostic - Focus - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "automationId": "RootWebArea",
+      "focused": false,
+      "type": 50030,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 32,
+      "bounds": [
+        2232,
+        12,
+        2548,
+        52
+      ]
+    },
+    {
+      "name": "Focus list",
+      "automationId": "",
+      "focused": true,
+      "type": 50000,
+      "x": 76,
+      "y": 32,
+      "bounds": [
+        2232,
+        16,
+        2361,
+        48
+      ]
+    },
+    {
+      "name": "Today",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 170,
+      "y": 32,
+      "bounds": [
+        2368,
+        21,
+        2412,
+        43
+      ]
+    },
+    {
+      "name": "Focus Panel quick controls",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 263,
+      "y": 32,
+      "bounds": [
+        2419,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Preferences",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 235,
+      "y": 32,
+      "bounds": [
+        2438,
+        16,
+        2472,
+        48
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 273,
+      "y": 32,
+      "bounds": [
+        2476,
+        16,
+        2510,
+        48
+      ]
+    },
+    {
+      "name": "Compact view",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 311,
+      "y": 32,
+      "bounds": [
+        2514,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Today progress",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 78,
+      "bounds": [
+        2232,
+        64,
+        2548,
+        93
+      ]
+    },
+    {
+      "name": "Est: ",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 23,
+      "y": 72,
+      "bounds": [
+        2232,
+        64,
+        2254,
+        80
+      ]
+    },
+    {
+      "name": "—",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 39,
+      "y": 72,
+      "bounds": [
+        2253,
+        64,
+        2266,
+        80
+      ]
+    },
+    {
+      "name": "49",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 272,
+      "y": 72,
+      "bounds": [
+        2485,
+        64,
+        2499,
+        80
+      ]
+    },
+    {
+      "name": "/",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 281,
+      "y": 72,
+      "bounds": [
+        2498,
+        64,
+        2504,
+        80
+      ]
+    },
+    {
+      "name": "49",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 290,
+      "y": 72,
+      "bounds": [
+        2503,
+        64,
+        2517,
+        80
+      ]
+    },
+    {
+      "name": " Done",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 312,
+      "y": 72,
+      "bounds": [
+        2516,
+        64,
+        2548,
+        80
+      ]
+    },
+    {
+      "name": "Focus queue",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 396,
+      "bounds": [
+        2232,
+        104,
+        2548,
+        688
+      ]
+    },
+    {
+      "name": "All Clear",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 53,
+      "y": 128,
+      "bounds": [
+        2245,
+        118,
+        2302,
+        139
+      ]
+    },
+    {
+      "name": "No Today tasks left to focus on.",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 108,
+      "y": 151,
+      "bounds": [
+        2245,
+        143,
+        2411,
+        160
+      ]
+    },
+    {
+      "name": "Add task in Focus Panel",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 170,
+      "y": 210,
+      "bounds": [
+        2232,
+        192,
+        2548,
+        229
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 255,
+      "bounds": [
+        2232,
+        240,
+        2548,
+        271
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "automationId": "focus-scheduled-title",
+      "focused": false,
+      "type": 50020,
+      "x": 170,
+      "y": 258,
+      "bounds": [
+        2232,
+        249,
+        2548,
+        267
+      ]
+    },
+    {
+      "name": "52 Done",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 2403,
+      "bounds": [
+        2232,
+        278,
+        2548,
+        4528
+      ]
+    },
+    {
+      "name": "52 Done",
+      "automationId": "focus-done-title",
+      "focused": false,
+      "type": 50020,
+      "x": 170,
+      "y": 295,
+      "bounds": [
+        2232,
+        287,
+        2548,
+        304
+      ]
+    },
+    {
+      "name": "Completed Break, 5min",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 346,
+      "bounds": [
+        2232,
+        311,
+        2548,
+        382
+      ]
+    },
+    {
+      "name": "Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 80,
+      "y": 334,
+      "bounds": [
+        2281,
+        324,
+        2320,
+        344
+      ]
+    },
+    {
+      "name": "5min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 301,
+      "y": 364,
+      "bounds": [
+        2508,
+        356,
+        2535,
+        373
+      ]
+    },
+    {
+      "name": "Completed Break, 1min",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 420,
+      "bounds": [
+        2232,
+        385,
+        2548,
+        456
+      ]
+    },
+    {
+      "name": "Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 80,
+      "y": 408,
+      "bounds": [
+        2281,
+        398,
+        2320,
+        419
+      ]
+    },
+    {
+      "name": "1min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 301,
+      "y": 438,
+      "bounds": [
+        2508,
+        430,
+        2535,
+        447
+      ]
+    },
+    {
+      "name": "Completed Break, 1min",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 494,
+      "bounds": [
+        2232,
+        459,
+        2548,
+        530
+      ]
+    },
+    {
+      "name": "Break",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 80,
+      "y": 482,
+      "bounds": [
+        2281,
+        472,
+        2320,
+        493
+      ]
+    },
+    {
+      "name": "1min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 301,
+      "y": 512,
+      "bounds": [
+        2508,
+        504,
+        2535,
+        521
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 575,
+      "bounds": [
+        2232,
+        533,
+        2548,
+        617
+      ]
+    },
+    {
+      "name": "Task title: Capture live task — long title for compact wrapping and hover actions",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 138,
+      "y": 563,
+      "bounds": [
+        2281,
+        542,
+        2435,
+        584
+      ]
+    },
+    {
+      "name": "Capture live task — long title for compact wrapping and hover actions",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 136,
+      "y": 583,
+      "bounds": [
+        2281,
+        542,
+        2431,
+        624
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 268,
+      "y": 563,
+      "bounds": [
+        2452,
+        555,
+        2524,
+        572
+      ]
+    },
+    {
+      "name": "2/4 subtasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 94,
+      "y": 599,
+      "bounds": [
+        2281,
+        591,
+        2348,
+        608
+      ]
+    },
+    {
+      "name": "5min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 301,
+      "y": 599,
+      "bounds": [
+        2508,
+        591,
+        2535,
+        608
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 170,
+      "y": 662,
+      "bounds": [
+        2232,
+        620,
+        2548,
+        704
+      ]
+    },
+    {
+      "name": "Task title: Second task — notes and success feedback",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 138,
+      "y": 649,
+      "bounds": [
+        2281,
+        629,
+        2435,
+        670
+      ]
+    },
+    {
+      "name": "Second task — notes and success feedback",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 132,
+      "y": 649,
+      "bounds": [
+        2281,
+        629,
+        2424,
+        670
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 268,
+      "y": 649,
+      "bounds": [
+        2452,
+        641,
+        2524,
+        658
+      ]
+    },
+    {
+      "name": "2min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 301,
+      "y": 686,
+      "bounds": [
+        2508,
+        678,
+        2535,
+        694
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 170,
+      "y": 350,
+      "bounds": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    }
+  ]
+}

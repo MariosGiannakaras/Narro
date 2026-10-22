@@ -31,8 +31,17 @@ export async function captureCompactTimerFrame(): Promise<number[]> {
 export async function animateFocusSurfacePresentation(
   presentation: FocusSurfacePresentation,
   durationMs: number,
+  rasterToken: number,
 ): Promise<void> {
-  await invoke<void>("focus_surface_animate_presentation", { presentation, durationMs });
+  await invoke<void>("focus_surface_animate_presentation", { presentation, durationMs, rasterToken });
+}
+
+export async function prepareFocusSurfaceModeRaster(presentation: FocusSurfacePresentation): Promise<number> {
+  return invoke<number>("focus_surface_prepare_mode_raster", { presentation });
+}
+
+export async function finishFocusSurfaceModeRaster(rasterToken: number, rollback = false): Promise<void> {
+  await invoke<void>("focus_surface_finish_mode_raster", { rasterToken, rollback });
 }
 
 export async function presentFocusPanel(): Promise<void> {

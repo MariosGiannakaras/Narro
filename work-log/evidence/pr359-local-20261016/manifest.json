@@ -1,0 +1,57 @@
+{
+  "source": "7ee33be734f12ff970b822842ebd574857d92c3b",
+  "ci": 38856507685,
+  "nativeAcceptance": "OPEN",
+  "files": [
+    {
+      "path": "final-runtime-dark-false.png",
+      "bytes": 56614,
+      "sha256": "d5404be46338f386360418f87864640a00e009f22133eaf8b1a9a9a26c011645"
+    },
+    {
+      "path": "final-runtime-dark-true.png",
+      "bytes": 56575,
+      "sha256": "23fc1973de2d938a9bdb7e975e61011d3ba1f2a2930a676a74f643f594c5943c"
+    },
+    {
+      "path": "final-runtime-light-false.png",
+      "bytes": 61194,
+      "sha256": "3bf07924dc6d97ce39070a67c44e78134c9bd0521e0ecd9f4b36fe6dff0e3c54"
+    },
+    {
+      "path": "final-runtime-light-true.png",
+      "bytes": 61164,
+      "sha256": "c91383a484c4cf3eb6973446e668f0519450e93e9adf62d18b5e857d969e9273"
+    },
+    {
+      "path": "frontend-preflight-final.log",
+      "bytes": 32725,
+      "sha256": "f122fe600fc5047b4551021ffa365e761b3dc02988c85a9686e399b868c8503b"
+    },
+    {
+      "path": "green-build.log",
+      "bytes": 7647,
+      "sha256": "db0a471a8fc090d08fb59a2d5c8dfbd45eaa5393d6982d15698da044478942cc"
+    },
+    {
+      "path": "green-runtime.log",
+      "bytes": 8486,
+      "sha256": "a2a219f9a00172f328ce06889cb0188741570a6b5fb87a2b38bff54ba6881e1e"
+    },
+    {
+      "path": "red-build.log",
+      "bytes": 7647,
+      "sha256": "460283ef788a5ed01c6029f2847c6e9efa0dc7ec8acc9833752d5f458fc1bb5c"
+    },
+    {
+      "path": "red-runtime.log",
+      "bytes": 143,
+      "sha256": "00e5eaf955b2ab94b7534fb604ff82764dc4a7d2c78382b1b91dc9560f501017"
+    },
+    {
+      "path": "runtime-receipt.json",
+      "bytes": 9631,
+      "sha256": "95a046b2a43787481a1dbb8bb3e9fcc4cc2a397b6fd972800a1c773e31113a91"
+    }
+  ]
+}

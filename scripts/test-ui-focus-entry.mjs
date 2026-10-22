@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator, morph, capture, startBlitzNative] = await Promise.all([
+const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator, morph, pixels, capture, startBlitzNative] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -13,12 +13,20 @@ const [rust, lib, api, button, main, board, preferences, windows, topology, regi
   readFile(new URL("../src-tauri/src/timer_region.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/main_focus_morph.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/main_focus_raster.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/focus_frame_capture.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
   if (!haystack.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
+}
+
+requireText(morph, "run_on_main_thread", "opaque reveal executes on the HWND owner");
+requireText(morph, "recv_timeout(Duration::from_secs(2))", "native reveal acknowledgement is bounded");
+requireText(morph, "reveal_opaque_on_window_thread(&target)", "acknowledgement follows the actual reveal");
+if (/\.0\s+as\s+\*mut\s+(?:std::ffi::)?c_void/.test(morph)) {
+  throw new Error("The Windows HWND already contains a c_void pointer; do not add same-type casts rejected by Clippy.");
 }
 
 for (const [haystack, needle, label] of [
@@ -94,12 +102,14 @@ for (const [haystack, needle, label] of [
   [button, "await presentFocusForBlitz(reducedMotion);", "post-commit native Focus presentation"],
   [lib, "const BLITZ_MAIN_MORPH_MS: u64 = 220;", "source-calibrated finite Board-to-Focus duration"],
   [lib, "focus_frame_capture::capture(main.clone()).await", "Main WebView CapturePreview path"],
-  [lib, "focus_frame_hold::begin(&main, visible, &frame)", "finite frozen Main raster hold"],
-  [lib, "animate_main_focus_rect(", "native Main rect morph"],
-  [lib, "restore_main_after_blitz_morph(&main, main_snapshot)", "Main geometry rollback/restoration"],
+  [lib, "main_focus_raster::Raster::begin(&main, main_snapshot, visible, &frame)", "separate bounded Board pixel raster"],
+  [lib, "animate_main_focus_rect(", "native pixel-only geometry morph"],
+  [lib, "recover_after_blitz_raster_failure(", "cleanup and visible rollback after raster failure"],
+  [pixels, '"initial pixel popup frame did not paint"', "paint confirmation before Main hides"],
   [lib, "main_focus_morph::safe_restored_state(&main)?", "unsafe Main state direct-handoff guard"],
-  [morph, "SetWindowPos(", "native top-level rect authority"],
-  [morph, "DwmFlush()", "finite compositor-step flush"],
+  [pixels, "SetWindowPos(", "separate native top-level raster rect authority"],
+  [pixels, "DwmFlush()", "finite pixel compositor-step flush"],
+  [pixels, "// Unowned WS_POPUP", "unowned popup survives Main hide"],
   [morph, ".is_maximized()", "maximized Main morph bypass"],
   [morph, ".is_fullscreen()", "fullscreen Main morph bypass"],
   [capture, "MAX_CAPTURE_PNG_BYTES", "bounded large Main WebView capture limit"],
@@ -232,13 +242,11 @@ if (
   throw new Error("Blitz Focus entry must preserve the visible coordinator path and use the bounded native morph only for hidden Focus.");
 }
 
-const sourceHandoffComment = hiddenBranch.indexOf("// Match the source-backed handoff:");
-const successHide = hiddenBranch.lastIndexOf("if let Err(error) = main.hide()", sourceHandoffComment);
-const successRestore = hiddenBranch.indexOf(
-  "restore_main_after_blitz_morph(&main, main_snapshot)",
-  sourceHandoffComment,
-);
-const successFocusReveal = hiddenBranch.indexOf("show_and_focus(&focus)", successRestore);
+const rasterBegin = hiddenBranch.indexOf("main_focus_raster::Raster::begin(&main, main_snapshot, visible, &frame)");
+const successHide = hiddenBranch.indexOf("if let Err(error) = main.hide()", rasterBegin);
+const morphStart = hiddenBranch.indexOf("animate_main_focus_rect(", successHide);
+const successFocusReveal = hiddenBranch.indexOf("main_focus_morph::reveal_opaque(&focus)");
+const successRelease = hiddenBranch.indexOf(".release()\n        .map_err(|error| recover_main_after_blitz_reveal_failure(&main, &focus, error))?", successFocusReveal);
 const successPanelRequest = hiddenBranch.indexOf(
   "request_blitz_panel_after_reveal(&app_handle)",
   successFocusReveal,
@@ -248,17 +256,32 @@ const successRevealRecovery = hiddenBranch.indexOf(
   successFocusReveal,
 );
 if (
-  sourceHandoffComment < 0
-  || successHide < 0
-  || successHide > sourceHandoffComment
-  || successRestore < sourceHandoffComment
-  || successFocusReveal < successRestore
+  rasterBegin < 0
+  || successHide < rasterBegin
+  || morphStart < successHide
+  || successFocusReveal < 0
+  || successFocusReveal < morphStart
+  || successRelease < successFocusReveal
   || successPanelRequest < successFocusReveal
   || successRevealRecovery < successFocusReveal
+  || hiddenBranch.includes("main_focus_morph::set_outer_rect(&main")
+  || hiddenBranch.includes("main.set_size(")
 ) {
   throw new Error(
-    "P3-M6-01/06 success handoff must hide Main, restore while hidden, reveal Focus, then request the Blitz Panel handshake.",
+    "P3-M6-01/06 must morph separate pixels without Main HWND resizing, reveal opaque Focus, release raster and request the Panel handshake.",
   );
+}
+
+const rasterRecoveryStart = lib.indexOf("fn recover_after_blitz_raster_failure(");
+const rasterRecoveryEnd = lib.indexOf("fn show_focus_after_blitz_entry(", rasterRecoveryStart);
+const rasterRecovery = lib.slice(rasterRecoveryStart, rasterRecoveryEnd);
+if (
+  rasterRecoveryStart < 0
+  || rasterRecoveryEnd < rasterRecoveryStart
+  || rasterRecovery.indexOf("raster.release().err()") < 0
+  || rasterRecovery.indexOf("recover_main_after_blitz_reveal_failure(main, focus, primary)") < rasterRecovery.indexOf("raster.release().err()")
+) {
+  throw new Error("Raster cleanup failure must still attempt Main/Focus rollback before returning.");
 }
 
 const revealRecoveryStart = lib.indexOf("fn recover_main_after_blitz_reveal_failure(");
@@ -275,7 +298,7 @@ if (
 }
 
 const directHandoffStart = lib.indexOf("fn show_focus_after_blitz_entry(");
-const directHandoffEnd = lib.indexOf("fn restore_main_after_blitz_morph(", directHandoffStart);
+const directHandoffEnd = lib.indexOf("async fn present_focus_for_blitz(", directHandoffStart);
 const directHandoff = lib.slice(directHandoffStart, directHandoffEnd);
 if (
   directHandoffStart < 0

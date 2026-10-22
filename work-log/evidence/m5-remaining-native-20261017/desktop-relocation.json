@@ -1,0 +1,170 @@
+[
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-Evidence-Tools",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Evidence-Tools",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-M5-Remaining-native-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5-Remaining-native-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-M5B70-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5B70-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-M5Residuals-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5Residuals-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-M5Subtasks-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5Subtasks-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-M5XW-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5XW-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA-20261013",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA-20261013",
+    "state": "MOVED",
+    "method": "git worktree move"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA-postfix-20261013",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA-postfix-20261013",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA-session-20261013",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA-session-20261013",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA09-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA09-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA350-native-20261013",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA350-native-20261013",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA351-native-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA351-native-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA352",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA352",
+    "state": "MOVED",
+    "method": "git worktree move"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA353-msi-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA353-msi-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA353-native-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA353-native-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA353-nsis-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA353-nsis-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA354-native-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA354-native-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA355-native-20261014",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA355-native-20261014",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA356-native-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA356-native-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA356-notification-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA356-notification-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA356-notification-background-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA356-notification-background-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA356-notification-banner-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA356-notification-banner-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA356-residuals-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA356-residuals-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA357-native-20261015",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA357-native-20261015",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA358-native-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA358-native-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA359-native-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA359-native-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA360-native-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA360-native-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  },
+  {
+    "old": "E:\\SystemFiles\\Desktop\\Narro-PA362-native-20261016",
+    "current": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PA362-native-20261016",
+    "state": "MOVED",
+    "method": "Move-Item"
+  }
+]

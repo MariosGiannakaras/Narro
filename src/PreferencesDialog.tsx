@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, useRef } from "react";
 import "./preferencesDialog.css";
 
@@ -28,7 +29,7 @@ export function PreferencesDialog({ onRequestClose, children }: PreferencesDialo
     };
   }, []);
 
-  const handleKeyDown = (event: ReactKeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = (event: ReactKeyboardEvent<HTMLElement> | KeyboardEvent) => {
     if (event.key === "Escape") {
       event.preventDefault();
       event.stopPropagation();
@@ -56,6 +57,24 @@ export function PreferencesDialog({ onRequestClose, children }: PreferencesDialo
     }
   };
 
+  useEffect(() => {
+    // Disabling a focused preference while its async save commits can leave
+    // Chromium focus on body. Such keys never bubble through this section.
+    // Recover only this active modal's orphaned input; child popovers keep
+    // their own Escape/Tab behavior and a newer modal must never be dismissed.
+    const recoverOrphanedKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" && event.key !== "Tab") return;
+      const dialog = dialogRef.current;
+      if (event.defaultPrevented || !dialog || (event.target instanceof Node && dialog.contains(event.target))) return;
+      const activeDialogs = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]'))
+        .filter((element) => !element.closest('[hidden], [inert], [aria-hidden="true"]') && element.getClientRects().length > 0);
+      if (activeDialogs[activeDialogs.length - 1] !== dialog) return;
+      handleKeyDown(event);
+    };
+    window.addEventListener("keydown", recoverOrphanedKey);
+    return () => window.removeEventListener("keydown", recoverOrphanedKey);
+  }, [onRequestClose]);
+
   return (
     <div
       className="preferences-dialog__backdrop motion-modal"
@@ -81,7 +100,7 @@ export function PreferencesDialog({ onRequestClose, children }: PreferencesDialo
             data-preferences-close="true"
             onClick={onRequestClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </div>
         <div className="preferences-dialog__scroll">{children}</div>

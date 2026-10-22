@@ -1,0 +1,1 @@
+Reports C47-C57: Overview list badges/multiselect, month/year navigation, daily category hover/options/series; date range8/30/60/90 if UI supports; Done rows. Sessions break toggle/TotalTasks, nested Add picker badges/select/cancel/commit, detail/keyboard/focus return. Then only independently missing native states. No browser action, original evidence unchanged. No PASS verdicts.

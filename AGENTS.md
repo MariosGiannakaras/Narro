@@ -34,9 +34,11 @@ Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROS
 - if it is an intentional Narro deviation, preserve the documented reliability/accessibility/agency improvement;
 - when new material evidence is discovered, update the crosswalk and roadmap before continuing implementation based on older assumptions.
 
-This prevents repeated implementation/rework while preserving the ordered **mandatory** 10-milestone roadmap. Optional Milestone 11 is a separately user-activated extension defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`; while dormant/skipped it does not alter the mandatory roadmap, progress denominator, or continuation order.
+This prevents repeated implementation/rework while preserving the ordered **mandatory** 10-milestone roadmap. Optional M11 (live Blitzit evidence and parity) and optional M12 (professional **in-app-only** user QA) are **independent, separately user-activated extensions** defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md` and `docs/NARRO_OPTIONAL_USER_QA.md` respectively. Creating a plan, general `continue`, completing M10 or activating one optional stage never activates the other. When dormant/skipped, neither changes the mandatory roadmap or its progress denominator. If explicitly activated, order after validated M10 is M11 if active, then M12 if active, then required Final Comprehensive Review; report the 10 mandatory milestones separately and count only activated optionals in any expanded denominator.
 
 If M11 is explicitly activated, its live Blitzit work is evidence acquisition first, not implementation. The full planned user-visible + observable protocol/state corpus must be captured and frozen before substantive analysis; the full corpus must then be analyzed/reconciled and a remediation plan frozen before Narro source/config/test changes begin. Do not convert an interesting live observation directly into a patch during capture.
+
+**M12's hard scope is only actual user-visible actions within Narro:** normal navigation, input, list/task workflows, Focus/Timer, reports, in-app preferences, user-facing error/confirmation flows and ordinary relaunch. Explicitly exclude multi-monitor/displays/hotplug/cables, Windows settings and notifications configuration, OS time/power/driver changes, installation/migration, AppData/DB changes, internal debugging, injected failures and external service integrations. M12 neither substitutes for nor closes separate physical Windows acceptance. M12 cannot begin without separate explicit user activation and a validated relevant release candidate. See `docs/NARRO_OPTIONAL_USER_QA.md` for exact QA coverage, defect/retest evidence and completion gates.
 
 ## Source-forensics consumption rule
 
@@ -86,6 +88,12 @@ For supplied recordings, distinguish what is directly visible/audible from trans
 This precedence does **not** mean higher-ranked sources are automatically correct implementations for Narro. Current Blitzit can contain bugs and documentation can lag the product. Resolve meaningful conflicts using the evidence, the project goals and implementation validation.
 
 Never silently convert inference into confirmed behavior. When exact source behavior cannot be established, make a reasoned professional decision rather than an arbitrary guess: prefer consistency with adjacent evidenced Blitzit behavior, established desktop UX patterns, accessibility, reliability and Narro's existing design system. Record material implementation choices that are not confirmed Blitzit behavior as Narro design decisions in `STATUS.md`.
+
+### Continuity of evidenced behavior across Blitzit versions
+
+When an older supplied screenshot/video or its canonical Pass-3 record directly demonstrates a behavior or visible treatment, and newer evidence does not cover that state, use the demonstrated behavior as the current reconstruction target. The absence of a new recording is not evidence of a change and must not, by itself, keep that claim UNKNOWN, CURRENT_VERSION_EVIDENCE_LIMIT or blocked until M11. Reopen the question only for actual contradictory evidence or a material ambiguity in what the source demonstrates.
+
+Keep provenance accurate: record the version/time of the direct observation and identify current-version continuity as the explicit user-directed assumption, rather than claiming a new live observation. This rule does not invent unobserved click outcomes, formulas, persistence, hidden backend contracts or animation details. Explicitly approved Narro deviations and local-only/data-integrity/accessibility requirements remain binding. Optional M11, if separately activated, examines the live application and observable frontend/backend behavior under its capture/freeze workflow; it is not required to use existing evidence now.
 
 ### Tracking unobserved Blitzit behavior before implementation
 

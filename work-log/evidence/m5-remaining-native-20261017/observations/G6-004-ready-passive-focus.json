@@ -1,0 +1,34 @@
+{
+  "label": "G6-004-ready",
+  "expectedField": "New This Week task title",
+  "passiveOnly": true,
+  "elapsedSeconds": 0.625,
+  "clearedEnabledVisibleFocusObserved": true,
+  "samples": [
+    {
+      "utc": "2026-10-17T01:59:14.094139+00:00",
+      "field": [
+        {
+          "name": "New This Week task title",
+          "type": 50004,
+          "enabled": true,
+          "offscreen": false,
+          "focused": true,
+          "rect": [
+            653,
+            404,
+            852,
+            437
+          ],
+          "value": ""
+        }
+      ],
+      "focused": [
+        {
+          "name": "New This Week task title",
+          "type": 50004
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-17T01:46:03.617324+00:00",
+  "oldRoot": "E:\\SystemFiles\\Desktop\\Narro-M5-Remaining-native-20261016",
+  "currentRoot": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5-Remaining-native-20261016",
+  "foldersMoved": 28,
+  "exeSha256": "434b7182266086dca541d85c229f1cc4c2db413e5812551501ad1ab2f380da48",
+  "liveHelperPathsUpdated": [
+    "obs-control.py",
+    "seed-prior-owned-fixture.py",
+    "tray_quit.py",
+    "uia-focus.py",
+    "uia_controls.py"
+  ],
+  "protectedOriginalNamespacesMoved": false,
+  "frozenEvidenceRewritten": false,
+  "rawPriorLogsRewritten": false,
+  "observedBeforeMove": "No Narro/OBS/python/ffmpeg process; computer-use list_windows confirms no Narro/OBS. Last actual action G1-030. External closure time/cause unknown; OBS file mtime is not an observed Stop action."
+}

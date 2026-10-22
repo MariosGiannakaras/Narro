@@ -1,0 +1,68 @@
+{
+  "utc": "2026-10-19T14:26:46.891117+00:00",
+  "videos": [
+    {
+      "file": "RA01-original.mkv",
+      "sha256": "ae646a0b8824b952c0557372bdd44ff0f7da4743e6e02c024c6abbb01bebe219",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 2560,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "start_time": "0.000000"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "start_time": "0.000000"
+          }
+        ],
+        "format": {
+          "start_time": "0.000000",
+          "duration": "28.084000",
+          "size": "998885"
+        }
+      },
+      "fullDecodeExit": 0,
+      "decodeStderr": ""
+    },
+    {
+      "file": "RA02-original.mkv",
+      "sha256": "e344d36787705f28fa6733dbcc4b496d1787182319e90d5f2fe615b5c943ce56",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 2560,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "start_time": "0.000000"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "start_time": "0.000000"
+          }
+        ],
+        "format": {
+          "start_time": "0.000000",
+          "duration": "113.984000",
+          "size": "10064488"
+        }
+      },
+      "fullDecodeExit": 0,
+      "decodeStderr": ""
+    }
+  ],
+  "claim": "Integrity only; no product analysis/PASS"
+}

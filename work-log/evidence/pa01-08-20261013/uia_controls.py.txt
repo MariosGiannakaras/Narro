@@ -1,0 +1,15 @@
+import sys,pathlib,json,ctypes as c,ctypes.wintypes as w,datetime
+r=pathlib.Path(__file__).parent;sys.path.insert(0,str(r/'probe-deps'));sys.coinit_flags=0
+import comtypes.client
+mod=comtypes.client.GetModule('UIAutomationCore.dll');a=comtypes.client.CreateObject(mod.CUIAutomation,interface=mod.IUIAutomation)
+h=int(sys.argv[1]);root=a.ElementFromHandle(h);nodes=root.FindAll(4,a.CreateTrueCondition());out=[]
+for i in range(nodes.Length):
+ e=nodes.GetElement(i)
+ try:
+  name=e.CurrentName;typ=e.CurrentControlType
+  if len(sys.argv)>2 and sys.argv[2].casefold() not in name.casefold():continue
+  if typ not in [50000,50003,50004,50007,50009,50013,50015,50016,50032,50025]:continue
+  q=e.CurrentBoundingRectangle
+  out.append({'name':name,'type':typ,'enabled':bool(e.CurrentIsEnabled),'offscreen':bool(e.CurrentIsOffscreen),'focused':bool(e.CurrentHasKeyboardFocus),'rect':[q.left,q.top,q.right,q.bottom]})
+ except Exception:pass
+print(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'hwnd':h,'controls':out}))

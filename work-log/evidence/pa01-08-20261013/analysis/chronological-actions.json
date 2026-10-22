@@ -1,0 +1,3735 @@
+[
+  {
+    "utc": "2026-10-12T22:28:59.509Z",
+    "text": "START continuous gdigrab 60 requested fps; full desktop; no audio track; audio remains unverified without loopback/ear witness",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:29:20.786Z",
+    "text": "WGC initial screenshot FrameArrived timeout; UIA-only recovery; primary continuous gdigrab evidence",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:29:27.506Z",
+    "text": "Fixture setup: Create owned list",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:29:35.622Z",
+    "text": "Create list fixture",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:29:43.017Z",
+    "text": "UIA cached element action unavailable twice; use actual keyboard navigation",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:31:42.384Z",
+    "text": "User steers to prior-chat recovery and OBS full animation/interactions recording; ffmpeg diagnostic segment finalized",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:39:51.204054+00:00",
+    "label": "obs-physical-ready",
+    "command": [
+      "snap",
+      "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "obs-physical-ready"
+    ],
+    "window": {
+      "hwnd": 1510604,
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "pid": 4236,
+      "rect": [
+        -1924,
+        1,
+        -301,
+        1101
+      ]
+    },
+    "foreground": 1510604,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:27.868Z",
+    "text": "Capture recovery: OBS/Narro WGC timeout; OBS coordinate input geometry unavailable. Keyboard injection works.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:27.869Z",
+    "text": "obs-keyboard-navigation-01 key=Tab",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:56.418Z",
+    "text": "OBS keyboard navigation Tab 2",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:56.872Z",
+    "text": "OBS keyboard navigation Tab 3",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:57.199Z",
+    "text": "OBS keyboard navigation Tab 4",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:57.661Z",
+    "text": "OBS keyboard navigation Tab 5",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:57.998Z",
+    "text": "OBS keyboard navigation Tab 6",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:58.439Z",
+    "text": "OBS keyboard navigation Tab 7",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:58.895Z",
+    "text": "OBS keyboard navigation Tab 8",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:59.223Z",
+    "text": "OBS keyboard navigation Tab 9",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:40:59.676Z",
+    "text": "OBS keyboard navigation Tab 10",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:41:11.469Z",
+    "text": "obs-file-menu key=Alt_L+f",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:41:50.643Z",
+    "text": "obs-menu-navigation-cancel key=Escape",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:42:23.230Z",
+    "text": "Recorder setup recovery: OBS window has display affinity17 (excluded from capture); WGC/indexed pointer unavailable. Existing OBS is idle. Request normal OBS close before CLI recording startup.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:44:18.215Z",
+    "text": "User confirms both monitors side-by-side OBS layout. Preserve4480x1080/60fps. OBS startup recovered with its required working directory, unchanged profile/collection.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:45:23.815Z",
+    "text": "OBS startup has unclean-shutdown prompt; opening interactive recorder visibly to resolve it, preserving the same dual-monitor profile.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:45:43.329Z",
+    "text": "OBS recovery dialog: focused Run in Normal Mode; real Return accepted.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:46:21.521Z",
+    "text": "START OBS continuous acquisition: 2026-10-12T22:45:45.449Z, 4480x1080/60fps, stereo AAC320kbps. Original filename2026-10-13 01-45-45.mkv.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:46:21.522Z",
+    "text": "Fixture-only list title entry; approved picker/upload/icons untouched.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:46:37.434Z",
+    "text": "Fixture title via fresh observed edit79",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:46:45.330Z",
+    "text": "fixture-list-create-submit key=Return",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:47:12.169785+00:00",
+    "label": "fixture-current-dialog",
+    "command": [
+      "snap",
+      "Narro",
+      "fixture-current-dialog"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:48:17.916Z",
+    "text": "Native real input/capture fixture-owned-list-hover move 790 360",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:48:18.071879+00:00",
+    "label": "fixture-owned-list-hover",
+    "command": [
+      "move",
+      "Narro",
+      "fixture-owned-list-hover",
+      "790",
+      "360"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:48:28.965Z",
+    "text": "Native real input/capture fixture-owned-board-open click 783 361",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:48:29.084400+00:00",
+    "label": "fixture-owned-board-open",
+    "command": [
+      "click",
+      "Narro",
+      "fixture-owned-board-open",
+      "783",
+      "361"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:48:40.525Z",
+    "text": "fixture-add-task-one key=Control_L+Alt_L+t",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:49:30.939Z",
+    "text": "Native real input/capture fixture-today-task-add click 662 472",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:49:31.074629+00:00",
+    "label": "fixture-today-task-add",
+    "command": [
+      "click",
+      "Narro",
+      "fixture-today-task-add",
+      "662",
+      "472"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:49:46.456Z",
+    "text": "Fixture first untimed Today task title",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:49:51.982Z",
+    "text": "fixture-task-one-commit key=Return",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:11.069Z",
+    "text": "fixture-task-two-title value=PA-03 actual one minute countdown",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:18.633Z",
+    "text": "fixture-task-two-est value=00:01",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:24.114Z",
+    "text": "fixture-task-two-commit key=Return",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:28.000Z",
+    "text": "fixture-task-three-title value=PA-04 manual session owned fixture",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:33.407Z",
+    "text": "fixture-task-three-commit key=Return",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:50:34.030Z",
+    "text": "fixture-batch-editor-close key=Escape",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:51:18.857Z",
+    "text": "Native real input/capture PA02-blitz-entry-visible scroll 751 573 -1440",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:51:19.023459+00:00",
+    "label": "PA02-blitz-entry-visible",
+    "command": [
+      "scroll",
+      "Narro",
+      "PA02-blitz-entry-visible",
+      "751",
+      "573",
+      "-1440"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:18.265Z",
+    "text": "Native real input/capture PA02-blitz-hover move 687 577",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:18.413345+00:00",
+    "label": "PA02-blitz-hover",
+    "command": [
+      "move",
+      "Narro",
+      "PA02-blitz-hover",
+      "687",
+      "577"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:19.744Z",
+    "text": "PA-02 ordinary Blitz entry, normal Windows animations; start high-frequency read-only HWND trace.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:19.753Z",
+    "text": "Native real input/capture PA02-ordinary-blitz-entry click 687 577",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:19.903589+00:00",
+    "label": "PA02-ordinary-blitz-entry",
+    "command": [
+      "click",
+      "Narro",
+      "PA02-ordinary-blitz-entry",
+      "687",
+      "577"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:35.939Z",
+    "text": "PA02 input completed; Main became hidden before UIA refresh (expected target lifecycle). No second entry attempt.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:52:37.539470+00:00",
+    "label": "PA02-focus-presented",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA02-focus-presented"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:53:48.927Z",
+    "text": "PA01-owned-session-pause key=Control_L+Alt_L+p",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:53:49.577Z",
+    "text": "PA native PA01-first-compact-entry click 312 33",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:53:49.688498+00:00",
+    "label": "PA01-first-compact-entry",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-first-compact-entry",
+      "312",
+      "33"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:54:29.457Z",
+    "text": "Bookmark PA01: keyboard pause attempt projection still showed Running; use observed physical Pause button as recovery, no retry loop.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:54:29.457Z",
+    "text": "PA native PA01-physical-pause click 144 36",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:54:29.589786+00:00",
+    "label": "PA01-physical-pause",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-physical-pause",
+      "144",
+      "36"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:54:30.692Z",
+    "text": "PA native PA01-timer-cross-display-position drag 7 36 -3320 320",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:54:30.807162+00:00",
+    "label": "PA01-timer-cross-display-position",
+    "command": [
+      "drag",
+      "Narro - Focus",
+      "PA01-timer-cross-display-position",
+      "7",
+      "36",
+      "-3320",
+      "320"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:55:26.820Z",
+    "text": "PA native PA01-cycle1-controls move 174 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:55:26.944950+00:00",
+    "label": "PA01-cycle1-controls",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA01-cycle1-controls",
+      "174",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:55:28.065Z",
+    "text": "PA native PA01-cycle1-timer-to-panel click 373 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:55:28.180486+00:00",
+    "label": "PA01-cycle1-timer-to-panel",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle1-timer-to-panel",
+      "373",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:27.134Z",
+    "text": "PA native PA01-cycle1-panel-to-timer click 312 33",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:27.252512+00:00",
+    "label": "PA01-cycle1-panel-to-timer",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle1-panel-to-timer",
+      "312",
+      "33"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:28.917Z",
+    "text": "PA native PA01-cycle2-controls move 174 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:29.035550+00:00",
+    "label": "PA01-cycle2-controls",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA01-cycle2-controls",
+      "174",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:30.175Z",
+    "text": "PA native PA01-cycle2-timer-to-panel click 373 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:30.289558+00:00",
+    "label": "PA01-cycle2-timer-to-panel",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle2-timer-to-panel",
+      "373",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:31.439Z",
+    "text": "PA native PA01-cycle2-panel-to-timer click 312 33",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:31.550284+00:00",
+    "label": "PA01-cycle2-panel-to-timer",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle2-panel-to-timer",
+      "312",
+      "33"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:33.189Z",
+    "text": "PA native PA01-cycle3-controls move 174 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:33.305941+00:00",
+    "label": "PA01-cycle3-controls",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA01-cycle3-controls",
+      "174",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:34.420Z",
+    "text": "PA native PA01-cycle3-timer-to-panel click 373 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:34.525988+00:00",
+    "label": "PA01-cycle3-timer-to-panel",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle3-timer-to-panel",
+      "373",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:35.662Z",
+    "text": "PA native PA01-cycle3-panel-to-timer click 312 33",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:35.775052+00:00",
+    "label": "PA01-cycle3-panel-to-timer",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-cycle3-panel-to-timer",
+      "312",
+      "33"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:37.419Z",
+    "text": "PA01 planned3 cross-display Panel/Timer pairs acquired; no acceptance verdict.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:51.086Z",
+    "text": "PA native PA01-expand-1 click 388 102",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:51.234570+00:00",
+    "label": "PA01-expand-1",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-expand-1",
+      "388",
+      "102"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:52.880Z",
+    "text": "PA native PA01-collapse-1 click 388 132",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:52.996578+00:00",
+    "label": "PA01-collapse-1",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-collapse-1",
+      "388",
+      "132"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:54.629Z",
+    "text": "PA native PA01-expand-2 click 388 102",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:54.740375+00:00",
+    "label": "PA01-expand-2",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-expand-2",
+      "388",
+      "102"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:56.375Z",
+    "text": "PA native PA01-collapse-2 click 388 132",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:56.492132+00:00",
+    "label": "PA01-collapse-2",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-collapse-2",
+      "388",
+      "132"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:58.128Z",
+    "text": "PA native PA01-expand-3 click 388 102",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:58.252445+00:00",
+    "label": "PA01-expand-3",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-expand-3",
+      "388",
+      "102"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:56:59.893Z",
+    "text": "PA native PA01-collapse-3 click 388 132",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:00.003132+00:00",
+    "label": "PA01-collapse-3",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-collapse-3",
+      "388",
+      "132"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:01.672Z",
+    "text": "PA01 planned3 compact/expanded pairs acquired; no verdict.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:23.274Z",
+    "text": "PA03 switching from owned paused untimed task via ordinary Skip; no clock edits.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:23.275Z",
+    "text": "PA native PA03-switch-controls move 174 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:23.394189+00:00",
+    "label": "PA03-switch-controls",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA03-switch-controls",
+      "174",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:24.500Z",
+    "text": "PA native PA03-skip-to-timed-task click 245 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:57:24.608182+00:00",
+    "label": "PA03-skip-to-timed-task",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA03-skip-to-timed-task",
+      "245",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:22.486Z",
+    "text": "PA native PA03-countdown-title-visible move 420 150",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:22.612259+00:00",
+    "label": "PA03-countdown-title-visible",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA03-countdown-title-visible",
+      "420",
+      "150"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:23.703Z",
+    "text": "PA03 waiting actual60s deadline from22:57:24.608Z; no time manipulation.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:37.729Z",
+    "text": "PA native PA03-expired-compact-visible snap ",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:37.866110+00:00",
+    "label": "PA03-expired-compact-visible",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA03-expired-compact-visible"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:38.968Z",
+    "text": "PA native PA03-expired-compact-contextual-actions move 174 45",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:39.088757+00:00",
+    "label": "PA03-expired-compact-contextual-actions",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA03-expired-compact-contextual-actions",
+      "174",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:40.199Z",
+    "text": "PA native PA03-expired-expanded-visible click 388 102",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:58:40.316190+00:00",
+    "label": "PA03-expired-expanded-visible",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA03-expired-expanded-visible",
+      "388",
+      "102"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:15.690Z",
+    "text": "PA native PA03-real-extend-to-overtime click 177 88",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:15.827774+00:00",
+    "label": "PA03-real-extend-to-overtime",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA03-real-extend-to-overtime",
+      "177",
+      "88"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:16.923Z",
+    "text": "PA native PA03-overtime-pause click 177 73",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:17.034316+00:00",
+    "label": "PA03-overtime-pause",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA03-overtime-pause",
+      "177",
+      "73"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:18.167Z",
+    "text": "PA native PA03-return-panel-after-expiry click 390 73",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T22:59:18.282815+00:00",
+    "label": "PA03-return-panel-after-expiry",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA03-return-panel-after-expiry",
+      "390",
+      "73"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:04:44.844Z",
+    "text": "PA04 next: Home from intentionally paused owned overtime session, preserveMain rect/checkpoint.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:04:44.844Z",
+    "text": "PA native PA04-home-exit click 266 32",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:04:44.981324+00:00",
+    "label": "PA04-home-exit",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA04-home-exit",
+      "266",
+      "32"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:04:46.279Z",
+    "text": "PA04 Home input completed; hiddenFocus UIA refresh: window is not a usable app window",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:00.085Z",
+    "text": "Native real input/capture PA04-reports-navigation click 664 674",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:00.215933+00:00",
+    "label": "PA04-reports-navigation",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-reports-navigation",
+      "664",
+      "674"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:01.538Z",
+    "text": "Native real input/capture PA04-sessions-navigation click 410 190",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:01.657764+00:00",
+    "label": "PA04-sessions-navigation",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-sessions-navigation",
+      "410",
+      "190"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:41.558Z",
+    "text": "PA04 navigation recovery: footer below viewport after restored Board; no domain action occurred. Scroll to physical footer.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:41.559Z",
+    "text": "Native real input/capture PA04-footer-recovery scroll 950 597 -720",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:41.680976+00:00",
+    "label": "PA04-footer-recovery",
+    "command": [
+      "scroll",
+      "Narro",
+      "PA04-footer-recovery",
+      "950",
+      "597",
+      "-720"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:51.737Z",
+    "text": "Native real input/capture PA04-reports-visible-footer click 665 674",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:05:52.009701+00:00",
+    "label": "PA04-reports-visible-footer",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-reports-visible-footer",
+      "665",
+      "674"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:36.769Z",
+    "text": "Native real input/capture PA04-sessions-tab-visible click 410 190",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:36.947632+00:00",
+    "label": "PA04-sessions-tab-visible",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-sessions-tab-visible",
+      "410",
+      "190"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:43.043Z",
+    "text": "Native real input/capture PA04-open-add-session click 739 130",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:43.172041+00:00",
+    "label": "PA04-open-add-session",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-open-add-session",
+      "739",
+      "130"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:57.191Z",
+    "text": "Native real input/capture PA04-task-picker-open click 492 365",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:06:57.313637+00:00",
+    "label": "PA04-task-picker-open",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-task-picker-open",
+      "492",
+      "365"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:07:07.944Z",
+    "text": "PA04-picker-owned-task-search value=PA-04",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:07:21.945Z",
+    "text": "PA04-picker-keyboard-select key=Down",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:07:22.558Z",
+    "text": "PA04-owned-task-selected key=Return",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:08:47.191308+00:00",
+    "label": "PA04-owned-option-visible",
+    "command": [
+      "snap",
+      "Narro",
+      "PA04-owned-option-visible"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:09:33.930Z",
+    "text": "PA04 bookmark: owned picker option UIA offscreen, clipped by current modal viewport; scroll actual modal for scenario recovery, no acceptance analysis.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:09:33.931Z",
+    "text": "Native real input/capture PA04-picker-modal-scroll scroll 686 419 -480",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:09:34.057427+00:00",
+    "label": "PA04-picker-modal-scroll",
+    "command": [
+      "scroll",
+      "Narro",
+      "PA04-picker-modal-scroll",
+      "686",
+      "419",
+      "-480"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:10:04.145Z",
+    "text": "Native real input/capture PA04-owned-task-option click 485 426",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:10:04.272210+00:00",
+    "label": "PA04-owned-task-option",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-owned-task-option",
+      "485",
+      "426"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:10:23.914Z",
+    "text": "PA04-owned-start-time value=00:03",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:25.158Z",
+    "text": "Native real input/capture PA04-start-hour-focus click 280 461",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:25.284661+00:00",
+    "label": "PA04-start-hour-focus",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-start-hour-focus",
+      "280",
+      "461"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:26.631Z",
+    "text": "Native real input/capture PA04-start-midnight-hour keys 0x28 2",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:26.754340+00:00",
+    "label": "PA04-start-midnight-hour",
+    "command": [
+      "keys",
+      "Narro",
+      "PA04-start-midnight-hour",
+      "0x28",
+      "2"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:28.357Z",
+    "text": "Native real input/capture PA04-end-hour-focus click 469 461",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:28.475945+00:00",
+    "label": "PA04-end-hour-focus",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-end-hour-focus",
+      "469",
+      "461"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:29.790Z",
+    "text": "Native real input/capture PA04-end-midnight-hour keys 0x28 3",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:29.906534+00:00",
+    "label": "PA04-end-midnight-hour",
+    "command": [
+      "keys",
+      "Narro",
+      "PA04-end-midnight-hour",
+      "0x28",
+      "3"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:31.647Z",
+    "text": "Native real input/capture PA04-end-minute-focus click 494 461",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:31.767560+00:00",
+    "label": "PA04-end-minute-focus",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-end-minute-focus",
+      "494",
+      "461"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:33.096Z",
+    "text": "Native real input/capture PA04-owned-one-minute-interval key 0x26",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:33.203639+00:00",
+    "label": "PA04-owned-one-minute-interval",
+    "command": [
+      "key",
+      "Narro",
+      "PA04-owned-one-minute-interval",
+      "0x26"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:11:33.205636+00:00",
+    "label": "PA04-owned-one-minute-interval",
+    "foreground": 3868734,
+    "keys": "0x26",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:48.573142+00:00",
+    "label": "PA04-real-pending-add",
+    "command": [
+      "click",
+      "Narro",
+      "PA04-real-pending-add",
+      "668",
+      "553"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:49.224140+00:00",
+    "label": "PA04-real-pending-escape",
+    "command": [
+      "key",
+      "Narro",
+      "PA04-real-pending-escape",
+      "0x1b"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:49.225140+00:00",
+    "label": "PA04-real-pending-escape",
+    "foreground": 3868734,
+    "keys": "0x1b",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:49.856661+00:00",
+    "label": "PA04-real-pending-tab",
+    "command": [
+      "key",
+      "Narro",
+      "PA04-real-pending-tab",
+      "0x09"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:49.857660+00:00",
+    "label": "PA04-real-pending-tab",
+    "foreground": 3868734,
+    "keys": "0x09",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:50.478176+00:00",
+    "label": "PA04-real-pending-shift-tab",
+    "command": [
+      "key",
+      "Narro",
+      "PA04-real-pending-shift-tab",
+      "0x10+0x09"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:15:50.480176+00:00",
+    "label": "PA04-real-pending-shift-tab",
+    "foreground": 3868734,
+    "keys": "0x10+0x09",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:06.006Z",
+    "text": "Native real input/capture PA06-open-settings click 135 548",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:06.128953+00:00",
+    "label": "PA06-open-settings",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-open-settings",
+      "135",
+      "548"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:13.577Z",
+    "text": "PA06 Settings via observed UIA bounds",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:13.701836+00:00",
+    "label": "PA06-settings-open",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-settings-open",
+      "922",
+      "31"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:25.180Z",
+    "text": "PA06-scroll-alerts",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:25.304109+00:00",
+    "label": "PA06-scroll-alerts",
+    "command": [
+      "scroll",
+      "Narro",
+      "PA06-scroll-alerts",
+      "725",
+      "450",
+      "-1440"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:31.492Z",
+    "text": "PA06-enable-notification-alerts",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:31.619010+00:00",
+    "label": "PA06-enable-notification-alerts",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-enable-notification-alerts",
+      "843",
+      "496"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:32.185Z",
+    "text": "PA06-scroll-sound",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:32.299048+00:00",
+    "label": "PA06-scroll-sound",
+    "command": [
+      "scroll",
+      "Narro",
+      "PA06-scroll-sound",
+      "725",
+      "450",
+      "-360"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:43.373Z",
+    "text": "PA06-notification-volume",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:43.494467+00:00",
+    "label": "PA06-notification-volume",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-notification-volume",
+      "541",
+      "277"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:51.720Z",
+    "text": "PA06-preview-normal",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:16:51.842901+00:00",
+    "label": "PA06-preview-normal",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-preview-normal",
+      "583",
+      "277"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:07.691Z",
+    "text": "PA06-mute-slider",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:07.817087+00:00",
+    "label": "PA06-mute-slider",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-mute-slider",
+      "564",
+      "230"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:08.382Z",
+    "text": "PA06-mute-home",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:08.489085+00:00",
+    "label": "PA06-mute-home",
+    "command": [
+      "key",
+      "Narro",
+      "PA06-mute-home",
+      "0x24"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:08.492085+00:00",
+    "label": "PA06-mute-home",
+    "foreground": 3868734,
+    "keys": "0x24",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:09.035Z",
+    "text": "PA06-muted-preview",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:09.147127+00:00",
+    "label": "PA06-muted-preview",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-muted-preview",
+      "583",
+      "277"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:09.714Z",
+    "text": "PA06-volume-slider-restore",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:09.829181+00:00",
+    "label": "PA06-volume-slider-restore",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-volume-slider-restore",
+      "564",
+      "140"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:10.414Z",
+    "text": "PA06-volume-end",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:10.524179+00:00",
+    "label": "PA06-volume-end",
+    "command": [
+      "key",
+      "Narro",
+      "PA06-volume-end",
+      "0x23"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:10.526179+00:00",
+    "label": "PA06-volume-end",
+    "foreground": 3868734,
+    "keys": "0x23",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:11.059Z",
+    "text": "PA06-restored-preview",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:11.175012+00:00",
+    "label": "PA06-restored-preview",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-restored-preview",
+      "583",
+      "277"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:11.722Z",
+    "text": "PA06-close-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:11.846010+00:00",
+    "label": "PA06-close-preferences",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-close-preferences",
+      "848",
+      "40"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:18.225Z",
+    "text": "PA06-return-board",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:18.349715+00:00",
+    "label": "PA06-return-board",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-return-board",
+      "285",
+      "129"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:30.429Z",
+    "text": "PA06-open-owned-list",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:30.556561+00:00",
+    "label": "PA06-open-owned-list",
+    "command": [
+      "click",
+      "Narro",
+      "PA06-open-owned-list",
+      "782",
+      "362"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:37.725Z",
+    "text": "PA06-global-focus-open",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:37.856011+00:00",
+    "label": "PA06-global-focus-open",
+    "command": [
+      "key",
+      "Narro",
+      "PA06-global-focus-open",
+      "0x11+0x10+0x54"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:37.858007+00:00",
+    "label": "PA06-global-focus-open",
+    "foreground": 3868734,
+    "keys": "0x11+0x10+0x54",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:49.578Z",
+    "text": "PA06-hover-timer-actions",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:49.704633+00:00",
+    "label": "PA06-hover-timer-actions",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA06-hover-timer-actions",
+      "177",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:56.773Z",
+    "text": "PA06-real-start-break",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:17:56.899113+00:00",
+    "label": "PA06-real-start-break",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA06-real-start-break",
+      "42",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:02.408Z",
+    "text": "PA06-break-panel",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:02.528981+00:00",
+    "label": "PA06-break-panel",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA06-break-panel",
+      "350",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:12.544Z",
+    "text": "PA06-break-panel-control",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:12.673385+00:00",
+    "label": "PA06-break-panel-control",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA06-break-panel-control",
+      "374",
+      "45"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:29.215Z",
+    "text": "Acquisition sequence adaptation: default real break is 10min; exercise PA05 monitor while actual timer elapses, preserve PA06 completion event before PA07 restart.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:29.215Z",
+    "text": "PA05-panel-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:29.347670+00:00",
+    "label": "PA05-panel-preferences",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA05-panel-preferences",
+      "306",
+      "32"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:47.184Z",
+    "text": "PA05-main-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:47.312170+00:00",
+    "label": "PA05-main-preferences",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-main-preferences",
+      "937",
+      "31"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:55.160Z",
+    "text": "PA05-select-named-LG-125",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:55.393175+00:00",
+    "label": "PA05-select-named-LG-125",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-select-named-LG-125",
+      "574",
+      "518"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:55.963Z",
+    "text": "PA05-select-left-side",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:56.081222+00:00",
+    "label": "PA05-select-left-side",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-select-left-side",
+      "738",
+      "649"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:56.676Z",
+    "text": "PA05-close-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:56.808220+00:00",
+    "label": "PA05-close-preferences",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-close-preferences",
+      "848",
+      "40"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:57.357Z",
+    "text": "PA05-show-panel-for-monitor",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:57.476221+00:00",
+    "label": "PA05-show-panel-for-monitor",
+    "command": [
+      "key",
+      "Narro",
+      "PA05-show-panel-for-monitor",
+      "0x11+0x10+0x54"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:18:57.478224+00:00",
+    "label": "PA05-show-panel-for-monitor",
+    "foreground": 3868734,
+    "keys": "0x11+0x10+0x54",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:30.010Z",
+    "text": "PA05 DPI environment blocker: ms-settings:display has no registered handler; SystemSettings.exe launch did not expose a usable Settings window. Leave DPI mutation branch unexercised rather than synthesizing it.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:30.010Z",
+    "text": "PA05-named-LG-panel-125",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:30.139712+00:00",
+    "label": "PA05-named-LG-panel-125",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA05-named-LG-panel-125"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1920,
+        0,
+        -1495,
+        875
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:49.582Z",
+    "text": "PA05 actual Windows DisplaySwitch /internal; OS logical topology disconnect, not a physical HDMI unplug.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:49.583Z",
+    "text": "PA05-topology-internal-focus",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:49.704456+00:00",
+    "label": "PA05-topology-internal-focus",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA05-topology-internal-focus"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1920,
+        0,
+        -1495,
+        875
+      ]
+    },
+    "foreground": 8652100,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:19:50.239Z",
+    "text": "PA05-unavailable-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:04.578Z",
+    "text": "PA05-unavailable-preferences-recovery",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:04.700520+00:00",
+    "label": "PA05-unavailable-preferences-recovery",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-unavailable-preferences-recovery",
+      "937",
+      "31"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:11.612Z",
+    "text": "PA05-unavailable-refresh",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:11.737890+00:00",
+    "label": "PA05-unavailable-refresh",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-unavailable-refresh",
+      "808",
+      "213"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:12.815Z",
+    "text": "PA05-explicit-automatic",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:12.938304+00:00",
+    "label": "PA05-explicit-automatic",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-explicit-automatic",
+      "574",
+      "351"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:22.797Z",
+    "text": "PA05 recovery uses user supplied duplicate then extend sequence. Keep UltraGear primary.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:51.155Z",
+    "text": "PA05-close-restored-preferences",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:20:51.286526+00:00",
+    "label": "PA05-close-restored-preferences",
+    "command": [
+      "click",
+      "Narro",
+      "PA05-close-restored-preferences",
+      "848",
+      "40"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:21:06.331Z",
+    "text": "PA06-break-unobstructed",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:21:06.480524+00:00",
+    "label": "PA06-break-unobstructed",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA06-break-unobstructed",
+      "240",
+      "240"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:22:07.378Z",
+    "text": "PA06-break-native-wait",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:22:07.506693+00:00",
+    "label": "PA06-break-native-wait",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA06-break-native-wait"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:22:21.951Z",
+    "text": "PA08 real exact NSIS installer launched, no prior Narro installed entry found in HKCU/HKLM uninstall inventory.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:22:48.739Z",
+    "text": "PA08 prior launch path was missing package prefix; no installer ran then. Actual exact installer launch now.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:03.364Z",
+    "text": "PA08 NSIS Next via actual Enter",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:18.337Z",
+    "text": "PA08-nsis-complete",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:28.781Z",
+    "text": "PA08 NSIS UIA reported Installation Complete; installed EXE SHA884a7926b3ee86db9cd3aff2df62d2abf89cb48fdd965410be5b8a4a20d0b72d differs from standalone candidate, record separate identity; do not substitute PA01–07 binary.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:35.609Z",
+    "text": "PA08-nsis-finish",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:35.729955+00:00",
+    "label": "PA08-nsis-finish",
+    "command": [
+      "snap",
+      "Narro Setup ",
+      "PA08-nsis-finish"
+    ],
+    "window": {
+      "hwnd": 2689994,
+      "title": "Narro Setup ",
+      "pid": 64628,
+      "rect": [
+        1028,
+        345,
+        1531,
+        735
+      ]
+    },
+    "foreground": 2689994,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:44.253Z",
+    "text": "PA08-nsis-launch-choices",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:44.406998+00:00",
+    "label": "PA08-nsis-launch-choices",
+    "command": [
+      "snap",
+      "Narro Setup ",
+      "PA08-nsis-launch-choices"
+    ],
+    "window": {
+      "hwnd": 2689994,
+      "title": "Narro Setup ",
+      "pid": 64628,
+      "rect": [
+        1028,
+        345,
+        1531,
+        735
+      ]
+    },
+    "foreground": 2689994,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:52.364Z",
+    "text": "PA08-disable-auto-launch",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:52.516071+00:00",
+    "label": "PA08-disable-auto-launch",
+    "command": [
+      "click",
+      "Narro Setup ",
+      "PA08-disable-auto-launch",
+      "182",
+      "149"
+    ],
+    "window": {
+      "hwnd": 2689994,
+      "title": "Narro Setup ",
+      "pid": 64628,
+      "rect": [
+        1028,
+        345,
+        1531,
+        735
+      ]
+    },
+    "foreground": 2689994,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:53.091Z",
+    "text": "PA08-no-desktop-shortcut",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:53.219640+00:00",
+    "label": "PA08-no-desktop-shortcut",
+    "command": [
+      "click",
+      "Narro Setup ",
+      "PA08-no-desktop-shortcut",
+      "182",
+      "182"
+    ],
+    "window": {
+      "hwnd": 2689994,
+      "title": "Narro Setup ",
+      "pid": 64628,
+      "rect": [
+        1028,
+        345,
+        1531,
+        735
+      ]
+    },
+    "foreground": 2689994,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:53.804Z",
+    "text": "PA08-nsis-finish-click",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:53.939679+00:00",
+    "label": "PA08-nsis-finish-click",
+    "command": [
+      "click",
+      "Narro Setup ",
+      "PA08-nsis-finish-click",
+      "355",
+      "333"
+    ],
+    "window": {
+      "hwnd": 2689994,
+      "title": "Narro Setup ",
+      "pid": 64628,
+      "rect": [
+        1028,
+        345,
+        1531,
+        735
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:23:54.661Z",
+    "text": "PA08 fresh NSIS install complete; auto launch and desktop shortcut unchecked to preserve exact current PA candidate; installed binary will launch only after PA07.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:24:25.385Z",
+    "text": "PA06-real-break-background",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:24:25.535810+00:00",
+    "label": "PA06-real-break-background",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA06-real-break-background"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:24:36.798Z",
+    "text": "PA08 actual MSI UI started with verbose local log; all-users package metadata recorded, isolated destination required before install.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:24:52.726Z",
+    "text": "PA08 MSI NOT RUN beyond welcome: Computer Use product policy blocks msiexec.exe; do not bypass restriction with alternate native input. Closed only spawned wizard process before any installation action.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:25:18.406Z",
+    "text": "PA06-break-near-end",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:25:18.533066+00:00",
+    "label": "PA06-break-near-end",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA06-break-near-end"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:25:28.359Z",
+    "text": "PA07-tray-reveal",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:25:28.517864+00:00",
+    "label": "PA07-tray-reveal",
+    "command": [
+      "move",
+      "Narro",
+      "PA07-tray-reveal",
+      "2244",
+      "969"
+    ],
+    "window": {
+      "hwnd": 3868734,
+      "title": "Narro",
+      "pid": 33412,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 3868734,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:26:32.813412+00:00",
+    "text": "PA07 preparation: minimized main; actual Shell Notification Chevron InvokePattern (taskbar auto-hide bounds outside visible screen after topology recovery)",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:26:40.780Z",
+    "text": "PA06-break-final-minute",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:26:40.898362+00:00",
+    "label": "PA06-break-final-minute",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA06-break-final-minute"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 65840,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:18.510Z",
+    "text": "PA06-break-boundary-setup",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:18.641178+00:00",
+    "label": "PA06-break-boundary-setup",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA06-break-boundary-setup"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 65840,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:19.739Z",
+    "text": "PA06 environment: actual Shell Action Center reports Focus assist on; OS toast suppression is recorded separately from Narro notification behavior.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:45.822Z",
+    "text": "Capture health bookmark: Sky UIA countdown text is cached (01:26) while desktop crop shows actual 00:39; native video/pixel evidence and read-only domain ledger take precedence for timer observations.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:45.823Z",
+    "text": "PA06-background-OBS-foreground",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:45.943796+00:00",
+    "label": "PA06-background-OBS-foreground",
+    "command": [
+      "key",
+      "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "PA06-background-OBS-foreground",
+      "0x11"
+    ],
+    "window": {
+      "hwnd": 1377882,
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "pid": 47196,
+      "rect": [
+        -7,
+        1,
+        1291,
+        869
+      ]
+    },
+    "foreground": 1377882,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:27:46.116372+00:00",
+    "label": "PA06-background-OBS-foreground",
+    "foreground": 1377882,
+    "keys": "0x11",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:28.769Z",
+    "text": "PA06 actual default break boundary captured in continuous OBS with background app focus; no intermediate acceptance disposition. Now PA07 active overtime normal Quit/relaunch.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:28.770Z",
+    "text": "PA07-enter-compact-before-quit",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:28.950046+00:00",
+    "label": "PA07-enter-compact-before-quit",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA07-enter-compact-before-quit",
+      "312",
+      "32"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:29.765Z",
+    "text": "PA07-stable-topology-qualifying-drag",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:29.889417+00:00",
+    "label": "PA07-stable-topology-qualifying-drag",
+    "command": [
+      "drag",
+      "Narro - Focus",
+      "PA07-stable-topology-qualifying-drag",
+      "7",
+      "36",
+      "107",
+      "100"
+    ],
+    "window": {
+      "hwnd": 7276692,
+      "title": "Narro - Focus",
+      "pid": 33412,
+      "rect": [
+        -1109,
+        284,
+        -684,
+        1159
+      ]
+    },
+    "foreground": 7276692,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:28:52.941321+00:00",
+    "text": "PA07 actual right click observed Narro tray icon bounds [2330,1010,2370,1050]",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:06.842635+00:00",
+    "text": "PA07 reopened real Shell overflow, right clicked current UIA Narro icon",
+    "bounds": [
+      2330,
+      1010,
+      2370,
+      1050
+    ],
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:32.393375+00:00",
+    "text": "PA07 actual observed Quit Narro native tray menu click [2410,1015]",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:46.031Z",
+    "text": "PA07 original PID33412 exited normally via observed tray Quit, same exact validation EXE relaunched after downtime; no process kill.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:56.899Z",
+    "text": "PA07-reveal-restored-timer",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:57.011127+00:00",
+    "label": "PA07-reveal-restored-timer",
+    "command": [
+      "key",
+      "Narro",
+      "PA07-reveal-restored-timer",
+      "0x11+0x10+0x54"
+    ],
+    "window": {
+      "hwnd": 658562,
+      "title": "Narro",
+      "pid": 41708,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:29:57.204645+00:00",
+    "label": "PA07-reveal-restored-timer",
+    "foreground": 658562,
+    "keys": "0x11+0x10+0x54",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:05.344Z",
+    "text": "PA07-restored-timer-visible",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:05.475770+00:00",
+    "label": "PA07-restored-timer-visible",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "PA07-restored-timer-visible"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        -1009,
+        348,
+        -584,
+        1223
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:06.568Z",
+    "text": "PA07-recovery-paused-actions",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:06.672785+00:00",
+    "label": "PA07-recovery-paused-actions",
+    "command": [
+      "move",
+      "Narro - Focus",
+      "PA07-recovery-paused-actions",
+      "180",
+      "45"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        -1009,
+        348,
+        -584,
+        1223
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:34.577Z",
+    "text": "PA01 additional state branch: original Windows motion preferences restored (minimize0/clientfalse); acquired reduced OS motion path, not a source parity assertion.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:34.578Z",
+    "text": "PA01-reduced-to-panel",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:34.734470+00:00",
+    "label": "PA01-reduced-to-panel",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "PA01-reduced-to-panel",
+      "0x11+0x10+0x54"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        -1009,
+        348,
+        -584,
+        1223
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:34.736474+00:00",
+    "label": "PA01-reduced-to-panel",
+    "foreground": 5047890,
+    "keys": "0x11+0x10+0x54",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:35.281Z",
+    "text": "PA01-reduced-to-timer",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:35.390740+00:00",
+    "label": "PA01-reduced-to-timer",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "PA01-reduced-to-timer",
+      "0x11+0x10+0x54"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:35.392740+00:00",
+    "label": "PA01-reduced-to-timer",
+    "foreground": 5047890,
+    "keys": "0x11+0x10+0x54",
+    "origin": "key-dispatch.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:35.939Z",
+    "text": "PA01-reduced-expanded",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:36.071739+00:00",
+    "label": "PA01-reduced-expanded",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-reduced-expanded",
+      "388",
+      "102"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        -1009,
+        348,
+        -584,
+        1223
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:36.652Z",
+    "text": "PA01-reduced-compact",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:30:36.765118+00:00",
+    "label": "PA01-reduced-compact",
+    "command": [
+      "click",
+      "Narro - Focus",
+      "PA01-reduced-compact",
+      "388",
+      "132"
+    ],
+    "window": {
+      "hwnd": 5047890,
+      "title": "Narro - Focus",
+      "pid": 41708,
+      "rect": [
+        -1009,
+        348,
+        -584,
+        1223
+      ]
+    },
+    "foreground": 5047890,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:05.342627+00:00",
+    "text": "PA08 preparation: validation candidate normal tray Quit before installed NSIS binary launch",
+    "menu": [
+      "Show Narro",
+      "Show Focus Surface",
+      "Quit Narro"
+    ],
+    "clicked_rect": [
+      2353,
+      1005,
+      2542,
+      1027
+    ],
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:15.290Z",
+    "text": "PA08 launch installed NSIS binary separately after validation candidate normal exit; disposable existing fixture DB provides persistence carry-forward, not older-version upgrade certification.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:31.735Z",
+    "text": "PA08-installed-nsis-launch",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:31.842911+00:00",
+    "label": "PA08-installed-nsis-launch",
+    "command": [
+      "snap",
+      "Narro",
+      "PA08-installed-nsis-launch"
+    ],
+    "window": {
+      "hwnd": 4131056,
+      "title": "Narro",
+      "pid": 52808,
+      "rect": [
+        234,
+        234,
+        1250,
+        973
+      ]
+    },
+    "foreground": 1837980,
+    "origin": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:34.309243+00:00",
+    "text": "PA08 installed NSIS binary normal exit before cleanup",
+    "menu": [
+      "Show Narro",
+      "Show Focus Surface",
+      "Quit Narro"
+    ],
+    "clicked_rect": [
+      2353,
+      1005,
+      2542,
+      1027
+    ],
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:55.030Z",
+    "text": "Phase1 acquisition ending: available PA01–08 branches captured; MSI blocked and DPI Settings unavailable explicitly unexercised. Actual Stop Recording now, not a pause.",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:55.031Z",
+    "text": "OBS-recording-stop",
+    "origin": "actions.jsonl"
+  },
+  {
+    "utc": "2026-10-12T23:31:55.154002+00:00",
+    "label": "OBS-recording-stop",
+    "command": [
+      "click",
+      "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "OBS-recording-stop",
+      "1144",
+      "617"
+    ],
+    "window": {
+      "hwnd": 1377882,
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "pid": 47196,
+      "rect": [
+        -7,
+        1,
+        1291,
+        869
+      ]
+    },
+    "foreground": 1377882,
+    "origin": "native-actions.jsonl"
+  }
+]

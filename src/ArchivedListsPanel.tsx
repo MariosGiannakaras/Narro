@@ -1,6 +1,7 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListIcon } from "./ListIcon";
+import { ActionIcon } from "./ActionIcon";
 import { listIconContrast } from "./listSpectrumColor";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
@@ -29,6 +30,7 @@ function listAccent(color: string | null): CSSProperties | undefined {
 export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedListsPanelProps) {
   const [lists, setLists] = useState<ArchivedListSummary[] | null>(fixtureLists ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [pendingRestoreId, setPendingRestoreId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ArchivedListSummary | null>(null);
   const [deletePending, setDeletePending] = useState(false);
@@ -56,7 +58,13 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
     return () => {
       disposed = true;
     };
-  }, [fixtureLists]);
+  }, [fixtureLists, loadAttempt]);
+
+  function retryLoad() {
+    if (fixtureLists || archiveMutationInFlightRef.current) return;
+    setLoadError(null);
+    setLoadAttempt((attempt) => attempt + 1);
+  }
 
   async function restoreList(list: ArchivedListSummary) {
     if (pendingRestoreId || deletePending || archiveMutationInFlightRef.current) return;
@@ -118,19 +126,40 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </header>
       )}
 
-      <p className="archived-lists-panel__scope-note">
-        Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
-      </p>
+      {!lists?.length ? null : (
+        <p className="archived-lists-panel__scope-note">
+          Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
+        </p>
+      )}
 
-      {loadError ? <div className="archived-lists-panel__error" role="alert">{loadError}</div> : null}
+      {loadError ? (
+        <div className="archived-lists-panel__error" role="alert">
+          {loadError}
+          {lists === null ? (
+            <button type="button" className="archived-lists-panel__retry motion-interactive"
+              onClick={retryLoad} data-archive-retry="lists">
+              Retry loading lists
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       {lists === null && !loadError ? (
         <div className="archived-lists-panel__loading" role="status">Loading archived lists…</div>
       ) : lists?.length === 0 ? (
-        <div className="archived-lists-panel__empty" data-archived-lists-empty="true">
-          <span className="archived-lists-panel__empty-icon" aria-hidden="true">⌁</span>
-          <strong>No archived lists found</strong>
-          <span>Lists you archive from Home will appear here and can be restored later.</span>
+        <div className="archived-lists-panel__empty-grid" data-archived-lists-empty="true">
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
+          <div className="archived-lists-panel__empty" data-archived-lists-empty-message="true">
+            <span className="archived-lists-panel__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+                <rect x="3" y="4" width="18" height="4" rx="1" />
+                <path d="M5 8v11h14V8M10 12h4" />
+              </svg>
+            </span>
+            <strong>No archived lists found</strong>
+            <span>Looks like you do not have any archived lists at this moment.</span>
+          </div>
+          <div className="archived-lists-panel__empty archived-lists-panel__empty--ghost" data-archived-empty-ghost="true" aria-hidden="true" />
         </div>
       ) : (
         <div className="archived-lists-panel__items">
@@ -144,18 +173,19 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                 data-archived-list-id={list.id}
                 style={listAccent(list.color)}
               >
-                <span className="archived-list-row__icon" aria-hidden="true">
-                  <ListIcon
-                    listId={list.id}
-                    iconAsset={list.iconAsset}
-                    iconId={list.iconId}
-                    fallback={initial}
-                    imageClassName="archived-list-row__icon-image"
-                  />
-                </span>
+                <header className="archived-list-row__header">
+                  <span className="archived-list-row__icon" aria-hidden="true">
+                    <ListIcon
+                      listId={list.id}
+                      iconAsset={list.iconAsset}
+                      iconId={list.iconId}
+                      fallback={initial}
+                      imageClassName="archived-list-row__icon-image"
+                    />
+                  </span>
+                  <h2 className="archived-list-row__title type-section-title" title={list.title}>{list.title}</h2>
+                </header>
                 <div className="archived-list-row__copy">
-                  <h2 className="archived-list-row__title type-section-title">{list.title}</h2>
-                  <span className="type-metadata">Archived · history preserved</span>
                   {list.previewTasks.length > 0 ? (
                     <div className="archived-list-row__previews" aria-label={`Task previews for ${list.title}`} data-archived-list-previews="true">
                       {list.previewTasks.map((task, index) => (
@@ -171,18 +201,22 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                   <button
                     type="button"
                     className="archived-list-row__restore motion-interactive"
+                    aria-label={`Unarchive ${list.title}`}
                     disabled={Boolean(pendingRestoreId) || deletePending}
                     onClick={() => void restoreList(list)}
                   >
-                    {restoring ? "Restoring…" : "Restore"}
+                    <ActionIcon name="undo" size={14} />
+                    {restoring ? "Unarchiving…" : "Unarchive"}
                   </button>
                   <button
                     type="button"
                     className="archived-list-row__delete motion-interactive"
+                    aria-label={`Delete Forever ${list.title}`}
                     disabled={Boolean(pendingRestoreId) || deletePending}
                     onClick={() => requestDelete(list)}
                   >
-                    Permanently delete
+                    <ActionIcon name="trash" size={14} />
+                    Delete Forever
                   </button>
                 </div>
               </article>

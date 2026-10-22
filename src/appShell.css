@@ -8,7 +8,8 @@
   grid-template-columns: 13rem minmax(0, 1fr);
   width: 100%;
   min-width: 0;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
   color: var(--color-text-primary);
   background: var(--color-canvas);
 }
@@ -40,22 +41,39 @@
   padding: 0 var(--space-2) var(--space-4);
 }
 
-.app-shell__brand-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  flex: 0 0 2rem;
-  border-radius: var(--radius-control);
-  color: var(--color-accent-contrast);
-  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
-  font-weight: var(--font-weight-semibold);
+/* Display the owner-provided PureVector logo, not the temporary lettermark.
+   The in-app theme can override the Windows color scheme independently. */
+.app-shell__brand-logo {
+  display: block;
+  width: min(100%, 8rem);
+  height: 3rem;
+  object-fit: contain;
+  object-position: left center;
 }
 
-.app-shell__brand-name {
-  font-size: var(--font-size-section-title);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: -0.01em;
+.app-shell__brand-logo--dark,
+.app-shell__brand-symbol {
+  display: none;
+}
+
+:root[data-theme="dark"] .app-shell__brand-logo--light {
+  display: none;
+}
+
+:root[data-theme="dark"] .app-shell__brand-logo--dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .app-shell__brand-logo--light,
+  :root[data-theme="system"] .app-shell__brand-logo--light {
+    display: none;
+  }
+
+  :root:not([data-theme]) .app-shell__brand-logo--dark,
+  :root[data-theme="system"] .app-shell__brand-logo--dark {
+    display: block;
+  }
 }
 
 .app-shell__list-nav {
@@ -148,9 +166,12 @@
   min-width: 0;
   min-height: 0;
   overflow: auto;
+  scrollbar-width: none;
   padding: var(--space-6);
   outline: none;
 }
+
+.app-shell__content::-webkit-scrollbar { display: none; }
 
 .app-shell__placeholder {
   width: min(40rem, 100%);
@@ -279,8 +300,15 @@
     grid-template-columns: 8.5rem minmax(0, 1fr);
   }
 
-  .app-shell__brand-name {
+  :root .app-shell__brand .app-shell__brand-logo {
     display: none;
+  }
+
+  .app-shell__brand-symbol {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
   }
 
   .app-shell__utilities {

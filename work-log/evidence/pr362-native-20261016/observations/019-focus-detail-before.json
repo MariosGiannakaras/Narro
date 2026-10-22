@@ -1,0 +1,2021 @@
+{
+  "utc": "2026-10-16T11:57:55.098365+00:00",
+  "hwnd": 6099850,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        12,
+        2548,
+        52
+      ]
+    },
+    {
+      "name": "Focus list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        16,
+        2361,
+        48
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2368,
+        21,
+        2412,
+        43
+      ]
+    },
+    {
+      "name": "Focus Panel quick controls",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2419,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Preferences",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2438,
+        16,
+        2472,
+        48
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2476,
+        16,
+        2510,
+        48
+      ]
+    },
+    {
+      "name": "Compact view",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2514,
+        16,
+        2548,
+        48
+      ]
+    },
+    {
+      "name": "Today progress",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        64,
+        2548,
+        93
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        64,
+        2254,
+        80
+      ]
+    },
+    {
+      "name": "20min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2253,
+        64,
+        2287,
+        80
+      ]
+    },
+    {
+      "name": "22",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2485,
+        64,
+        2499,
+        80
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2498,
+        64,
+        2504,
+        80
+      ]
+    },
+    {
+      "name": "23",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2503,
+        64,
+        2517,
+        80
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2516,
+        64,
+        2548,
+        80
+      ]
+    },
+    {
+      "name": "Focus queue",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        104,
+        2548,
+        688
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        104,
+        2548,
+        357
+      ]
+    },
+    {
+      "name": "PA362Live",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        124,
+        2315,
+        145
+      ]
+    },
+    {
+      "name": "Paused: 19:38 remaining",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2441,
+        126,
+        2535,
+        144
+      ]
+    },
+    {
+      "name": "19:38",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2493,
+        123,
+        2535,
+        146
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2254,
+        163,
+        2322,
+        180
+      ]
+    },
+    {
+      "name": "Paused",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2497,
+        163,
+        2535,
+        180
+      ]
+    },
+    {
+      "name": "Live task time details",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        189,
+        2535,
+        267
+      ]
+    },
+    {
+      "name": "EST",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        206,
+        2264,
+        223
+      ]
+    },
+    {
+      "name": "Edit EST: 0:20:00",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2333,
+        198,
+        2535,
+        231
+      ]
+    },
+    {
+      "name": "Time Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        242,
+        2305,
+        259
+      ]
+    },
+    {
+      "name": "Edit Time Taken: 0:00:22",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2333,
+        234,
+        2535,
+        267
+      ]
+    },
+    {
+      "name": "Subtasks for PA362Live",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        274,
+        2535,
+        320
+      ]
+    },
+    {
+      "name": "0/1 Subtasks",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2289,
+        285,
+        2495,
+        318
+      ]
+    },
+    {
+      "name": "Add subtask for PA362Live",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2503,
+        285,
+        2535,
+        318
+      ]
+    },
+    {
+      "name": "Live task actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        117,
+        2535,
+        154
+      ]
+    },
+    {
+      "name": "Start break",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        119,
+        2297,
+        152
+      ]
+    },
+    {
+      "name": "Notes",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2300,
+        119,
+        2355,
+        152
+      ]
+    },
+    {
+      "name": "Resume",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2358,
+        119,
+        2434,
+        152
+      ]
+    },
+    {
+      "name": "Skip task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2435,
+        119,
+        2480,
+        152
+      ]
+    },
+    {
+      "name": "Complete task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2483,
+        119,
+        2535,
+        152
+      ]
+    },
+    {
+      "name": "Task paused.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2245,
+        327,
+        2312,
+        344
+      ]
+    },
+    {
+      "name": "Add task in Focus Panel",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        376,
+        2548,
+        413
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        424,
+        2548,
+        454
+      ]
+    },
+    {
+      "name": "0 Scheduled tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        433,
+        2548,
+        450
+      ]
+    },
+    {
+      "name": "22 Done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        461,
+        2548,
+        2124
+      ]
+    },
+    {
+      "name": "22 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        470,
+        2548,
+        487
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        494,
+        2548,
+        566
+      ]
+    },
+    {
+      "name": "Task title: Call with Pete",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        507,
+        2442,
+        529
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        507,
+        2371,
+        528
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        509,
+        2526,
+        526
+      ]
+    },
+    {
+      "name": "4/5 subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        539,
+        2348,
+        556
+      ]
+    },
+    {
+      "name": "1min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        539,
+        2535,
+        556
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        569,
+        2548,
+        640
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 1",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        582,
+        2442,
+        603
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        582,
+        2433,
+        602
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        584,
+        2526,
+        601
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2508,
+        614,
+        2535,
+        631
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2232,
+        643,
+        2548,
+        714
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 2",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        656,
+        2442,
+        677
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2281,
+        656,
+        2433,
+        677
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2458,
+        658,
+        2526,
+        675
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        688,
+        2535,
+        705
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        717,
+        2548,
+        788
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 3",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        730,
+        2442,
+        751
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        730,
+        2433,
+        751
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        732,
+        2526,
+        749
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        762,
+        2535,
+        779
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        791,
+        2548,
+        862
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 4",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        804,
+        2442,
+        825
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        804,
+        2433,
+        825
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        806,
+        2526,
+        823
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        836,
+        2535,
+        853
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        865,
+        2548,
+        937
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 5",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        878,
+        2442,
+        899
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        878,
+        2433,
+        899
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        880,
+        2526,
+        897
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        910,
+        2535,
+        927
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        940,
+        2548,
+        1011
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 6",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        952,
+        2442,
+        974
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        952,
+        2433,
+        973
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        955,
+        2526,
+        972
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        985,
+        2535,
+        1002
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1014,
+        2548,
+        1085
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 12 row 7",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1027,
+        2442,
+        1048
+      ]
+    },
+    {
+      "name": "PA362 history 12 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1027,
+        2433,
+        1048
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1029,
+        2526,
+        1046
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1059,
+        2535,
+        1076
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1088,
+        2548,
+        1159
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 1",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1101,
+        2442,
+        1122
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1101,
+        2433,
+        1122
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1103,
+        2526,
+        1120
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1133,
+        2535,
+        1150
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1162,
+        2548,
+        1233
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 2",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1175,
+        2442,
+        1196
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1175,
+        2433,
+        1196
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1177,
+        2526,
+        1194
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1207,
+        2535,
+        1224
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1236,
+        2548,
+        1307
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 3",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1249,
+        2442,
+        1270
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1249,
+        2433,
+        1270
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1251,
+        2526,
+        1268
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1281,
+        2535,
+        1298
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1311,
+        2548,
+        1382
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 4",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1323,
+        2442,
+        1345
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1323,
+        2433,
+        1344
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1326,
+        2526,
+        1342
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1356,
+        2535,
+        1372
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1385,
+        2548,
+        1456
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 5",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1398,
+        2442,
+        1419
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1398,
+        2433,
+        1419
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1400,
+        2526,
+        1417
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1430,
+        2535,
+        1447
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1459,
+        2548,
+        1530
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 6",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1472,
+        2442,
+        1493
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1472,
+        2433,
+        1493
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1474,
+        2526,
+        1491
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1504,
+        2535,
+        1521
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1533,
+        2548,
+        1604
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 13 row 7",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1546,
+        2442,
+        1567
+      ]
+    },
+    {
+      "name": "PA362 history 13 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1546,
+        2433,
+        1567
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1548,
+        2526,
+        1565
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1578,
+        2535,
+        1595
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1607,
+        2548,
+        1678
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 1",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1620,
+        2442,
+        1641
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1620,
+        2433,
+        1641
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1622,
+        2526,
+        1639
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1652,
+        2535,
+        1669
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1681,
+        2548,
+        1753
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 2",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1694,
+        2442,
+        1716
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 2",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1694,
+        2433,
+        1715
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1696,
+        2526,
+        1713
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1726,
+        2535,
+        1743
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1756,
+        2548,
+        1827
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 3",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1769,
+        2442,
+        1790
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 3",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1769,
+        2433,
+        1789
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1771,
+        2526,
+        1788
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1801,
+        2535,
+        1818
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1830,
+        2548,
+        1901
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 4",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1843,
+        2442,
+        1864
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 4",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1843,
+        2433,
+        1864
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1845,
+        2526,
+        1862
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1875,
+        2535,
+        1892
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1904,
+        2548,
+        1975
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 5",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1917,
+        2442,
+        1938
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 5",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1917,
+        2433,
+        1938
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1919,
+        2526,
+        1936
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        1949,
+        2535,
+        1966
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        1978,
+        2548,
+        2049
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 6",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1991,
+        2442,
+        2012
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 6",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        1991,
+        2433,
+        2012
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        1993,
+        2526,
+        2010
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        2023,
+        2535,
+        2040
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2232,
+        2052,
+        2548,
+        2124
+      ]
+    },
+    {
+      "name": "Task title: PA362 history 14 row 7",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        2065,
+        2442,
+        2086
+      ]
+    },
+    {
+      "name": "PA362 history 14 row 7",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2281,
+        2065,
+        2433,
+        2086
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2458,
+        2067,
+        2526,
+        2084
+      ]
+    },
+    {
+      "name": "0min",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        2508,
+        2097,
+        2535,
+        2114
+      ]
+    }
+  ]
+}

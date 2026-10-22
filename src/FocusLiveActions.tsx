@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { listen } from "@tauri-apps/api/event";
 import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
@@ -42,6 +43,13 @@ import {
   type TimerSnapshot,
 } from "./timerSessionApi";
 
+export type FocusAutomaticAdvanceState = {
+  completedTaskId: string;
+  nextTaskId: string | null;
+  nextTaskTitle: string | null;
+  phase: "completing" | "pending" | "refresh-blocked";
+};
+
 type FocusLiveActionsProps = {
   task: ListBoardTask;
   target: ListBoardRequestTarget;
@@ -55,7 +63,8 @@ type FocusLiveActionsProps = {
   transitionPending?: boolean;
   presentationActive?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
-  onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
+  onCompletionSuccess?: (state: FocusCompletionSuccessState, board?: ListBoardSnapshot | null) => void;
+  onAutomaticAdvance?: (state: FocusAutomaticAdvanceState | null, feedback?: string, failure?: string) => void;
 };
 
 type FocusAction = FocusMutationAction;
@@ -142,7 +151,7 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
     case "done":
       return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>;
     case "return":
-      return <svg {...common}><path d="M8 5H5v3M16 19h3v-3M5 8l5-5M19 16l-5 5" /></svg>;
+      return <ActionIcon name="timer-to-panel" size={18} />;
   }
 }
 
@@ -199,6 +208,7 @@ export function FocusLiveActions({
   presentationActive = true,
   onEnsureNotesVisible,
   onCompletionSuccess,
+  onAutomaticAdvance,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
   const actionGateRef = useRef<ReturnType<typeof createFocusActionGate> | null>(null);
@@ -321,6 +331,7 @@ export function FocusLiveActions({
 
   const handleDone = async () => {
     if (!beginMutation("done")) return;
+    let ownsCompletionIntent = false;
     try {
       const [freshBoard, authoritative] = await Promise.all([
         getListBoardSnapshot(target),
@@ -333,6 +344,15 @@ export function FocusLiveActions({
 
       const next = nextEligibleTask(freshBoard, task.id);
       const nextMode = next ? focusModeForTask(authoritative.runtime.timer.mode, next) : null;
+      // Native completion emits its committed idle event before IPC resolves.
+      // Parent ownership must precede dispatch, for both Success ON and OFF.
+      onAutomaticAdvance?.({
+        completedTaskId: task.id,
+        nextTaskId: next?.id ?? null,
+        nextTaskTitle: next?.title ?? null,
+        phase: "completing",
+      });
+      ownsCompletionIntent = Boolean(onAutomaticAdvance);
       const completed = await completeTimerTask();
       // The sound switch is independent from the success-screen presentation.
       // Never play before the authoritative completion transaction commits.
@@ -368,7 +388,9 @@ export function FocusLiveActions({
           nextTask: nextAfterCompletion && nextAfterCompletionMode
             ? { id: nextAfterCompletion.id, title: nextAfterCompletion.title, mode: nextAfterCompletionMode }
             : null,
-        });
+        }, postCompletionBoard);
+        onAutomaticAdvance?.(null);
+        ownsCompletionIntent = false;
         applyPayload(completed);
         setNotesExpanded(false);
         if (onTaskMutationCommitted) {
@@ -381,31 +403,59 @@ export function FocusLiveActions({
         return;
       }
 
+      // Completion is committed. The old live-card component can unmount as
+      // soon as the idle timer payload publishes. Keep the visual handoff in
+      // the parent FocusPanel until both the next timer and the refreshed
+      // queue are authoritative, so it cannot flash "No live task" or re-offer
+      // the completed row between two independently arriving projections.
+      const advance: FocusAutomaticAdvanceState = {
+        completedTaskId: task.id,
+        nextTaskId: next?.id ?? null,
+        nextTaskTitle: next?.title ?? null,
+        phase: "pending",
+      };
+      onAutomaticAdvance?.(advance);
       applyPayload(completed);
       setNotesExpanded(false);
 
-      if (!next || !nextMode) {
-        setStatus("Task completed. No other eligible task is available in this Focus view.");
-        return;
-      }
-
-      // Completion has already committed. A failure to start the next task must not turn that
-      // successful completion into a reported failure or encourage an unsafe retry.
-      try {
-        const started = await startTimerTask(next.id, nextMode);
-        applyPayload(started);
-        setStatus(`Task completed. ${next.title} is now live.`);
-      } catch (nextFailure: unknown) {
-        const detail = formatInvokeError(nextFailure);
+      let feedback = "Task completed. No other eligible task is available in this Focus view.";
+      if (next && nextMode) {
+        // Completion has already committed. Never turn this Done into a
+        // retryable failure if the next start fails: reconcile the real timer
+        // and report the partial result without changing the saved Done.
         try {
-          const latest = await snapshotTimerSession();
-          applyPayload(latest);
-        } catch {
-          // Keep the committed completion projection when even the secondary refresh fails.
+          const started = await startTimerTask(next.id, nextMode);
+          applyPayload(started);
+          feedback = `Task completed. ${next.title} is now live.`;
+        } catch (nextFailure: unknown) {
+          const detail = formatInvokeError(nextFailure);
+          try {
+            const latest = await snapshotTimerSession();
+            applyPayload(latest);
+          } catch {
+            // Keep committed idle payload if even the recovery read fails.
+          }
+          feedback = `Task completed, but the next task could not start automatically. ${detail}`;
         }
-        setStatus(`Task completed, but the next task could not start automatically. ${detail}`);
+      }
+      if (onAutomaticAdvance) {
+        try {
+          // The timer and board are distinct IPC projections. Do not release
+          // the parent-owned pending state before the fresh board is installed.
+          if (!onTaskMutationCommitted) throw new Error("Focus board refresh is unavailable.");
+          await onTaskMutationCommitted();
+          onAutomaticAdvance(null, feedback);
+        } catch (refreshFailure: unknown) {
+          onAutomaticAdvance(
+            { ...advance, phase: "refresh-blocked" },
+            `${feedback} Focus could not refresh its task list. ${formatInvokeError(refreshFailure)} Reopen Focus to reconcile it.`,
+          );
+        }
+      } else {
+        setStatus(feedback);
       }
     } catch (failure: unknown) {
+      if (ownsCompletionIntent) onAutomaticAdvance?.(null, undefined, formatInvokeError(failure));
       fail(failure);
     } finally {
       finishMutation("done");

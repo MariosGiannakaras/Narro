@@ -3,6 +3,7 @@ import {
   BlitzPanelPreferenceSection,
   GeneralPreferenceRows,
   LowerPreferenceSections,
+  TimePreferenceRows,
 } from "./PreferenceSettingsSections";
 import {
   PreferenceSettingsRuntimeProvider,
@@ -20,6 +21,7 @@ type ThemeSettingsPanelViewProps = {
   onSelectTheme: (theme: ThemePreference) => void;
   beforeGeneral?: ReactNode;
   generalChildren?: ReactNode;
+  timeChildren?: ReactNode;
   children?: ReactNode;
 };
 
@@ -36,6 +38,7 @@ export function ThemeSettingsPanelView({
   onSelectTheme,
   beforeGeneral,
   generalChildren,
+  timeChildren,
   children,
 }: ThemeSettingsPanelViewProps) {
   return (
@@ -87,6 +90,16 @@ export function ThemeSettingsPanelView({
         {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
       </section>
 
+      {timeChildren ? (
+        <section className="theme-settings__section preference-settings__section"
+          aria-labelledby="theme-time-title" data-preferences-time-section="true">
+          <div className="theme-settings__section-heading">
+            <h2 id="theme-time-title" className="type-section-title">Time</h2>
+          </div>
+          {timeChildren}
+        </section>
+      ) : null}
+
       {children}
     </section>
   );
@@ -95,9 +108,11 @@ export function ThemeSettingsPanelView({
 function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () => void }) {
   const { theme, pending, error: themeError, saveTheme } = useThemeRuntime();
   const preferences = usePreferenceSettingsRuntime();
-  const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) => {
-    void preferences.save(patch, key);
-  };
+  // Preserve the native save outcome for SoundPreferenceControl's rollback
+  // and single-flight lifecycle. Void-discarding this Promise made rejected
+  // writes indistinguishable from a successfully committed volume.
+  const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) =>
+    preferences.save(patch, key);
 
   const beforeGeneral = preferences.snapshot ? (
     <>
@@ -115,8 +130,15 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       />
     </>
   ) : (
-    <div className="preference-settings__loading" role="status">
+    <div className="preference-settings__loading"
+      role={preferences.loading ? "status" : "alert"}>
       {preferences.loading ? "Loading Preferences…" : "Preferences could not be loaded."}
+      {!preferences.loading && preferences.error ? (
+        <button type="button" className="motion-interactive" data-preferences-retry="true"
+          onClick={preferences.retryInitialLoad}>
+          Retry loading Preferences
+        </button>
+      ) : null}
     </div>
   );
 
@@ -129,6 +151,13 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       beforeGeneral={beforeGeneral}
       generalChildren={preferences.snapshot ? (
         <GeneralPreferenceRows
+          snapshot={preferences.snapshot}
+          pendingKey={preferences.pendingKey}
+          onSave={save}
+        />
+      ) : null}
+      timeChildren={preferences.snapshot ? (
+        <TimePreferenceRows
           snapshot={preferences.snapshot}
           pendingKey={preferences.pendingKey}
           onSave={save}

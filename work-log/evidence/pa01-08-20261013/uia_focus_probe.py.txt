@@ -1,0 +1,36 @@
+import sys,pathlib,ctypes,datetime,json,time
+r=pathlib.Path(__file__).parent;sys.path.insert(0,str(r/'probe-deps'));sys.coinit_flags=0
+import comtypes.client
+mod=comtypes.client.GetModule('UIAutomationCore.dll');a=comtypes.client.CreateObject(mod.CUIAutomation,interface=mod.IUIAutomation)
+def focus():
+ e=a.GetFocusedElement();parents=[]
+ for _ in range(12):
+  if not e:break
+  try:
+   rect=e.CurrentBoundingRectangle
+   parents.append({'name':e.CurrentName,'id':e.CurrentAutomationId,'pid':e.CurrentProcessId,'type':e.CurrentControlType,'focused':bool(e.CurrentHasKeyboardFocus),'rect':[rect.left,rect.top,rect.right,rect.bottom]})
+   e=a.ControlViewWalker.GetParentElement(e)
+  except Exception as error:parents.append({'error':str(error)});break
+ inner=[]
+ for h in [3868734]:
+  try:
+   root=a.ElementFromHandle(h);nodes=root.FindAll(4,a.CreateTrueCondition())
+   for i in range(nodes.Length):
+    node=nodes.GetElement(i)
+    if not node.CurrentHasKeyboardFocus:continue
+    chain=[];e=node
+    for _ in range(15):
+     if not e:break
+     chain.append({'name':e.CurrentName,'type':e.CurrentControlType,'id':e.CurrentAutomationId})
+     e=a.ControlViewWalker.GetParentElement(e)
+    inner.append({'name':node.CurrentName,'type':node.CurrentControlType,'id':node.CurrentAutomationId,'ancestors':chain})
+  except Exception as error:inner.append({'error':str(error)})
+ return {'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'parents':parents,'focused_descendants':inner}
+if len(sys.argv)>2:
+ end=time.monotonic()+float(sys.argv[2]);out=[]
+ while time.monotonic()<end:
+  try:out.append(focus())
+  except Exception as error:out.append({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'error':str(error)})
+  time.sleep(.1)
+ (r/'observations'/(sys.argv[1]+'.json')).write_bytes((json.dumps(out,indent=2)+'\n').encode())
+else:print(json.dumps(focus()))

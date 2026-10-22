@@ -1,0 +1,8 @@
+{
+  "failure": "Error: Ready-fixture CDP timeout: Page.navigate",
+  "observed": null,
+  "events": [],
+  "stderr": "\r\nDevTools listening on ws://127.0.0.1:65312/devtools/browser/7625ff76-3bd7-4de1-941a-65044f3226f6\r\n[2560:23520:1021/021411.380:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[2560:46040:1021/021414.247:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n[2560:23520:1021/021415.797:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[2560:23520:1021/021418.196:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n",
+  "kind": "shortcuts",
+  "url": "http://127.0.0.1:4189/theme-settings-fixture.html?preference=dark&shortcutsDialog=1"
+}

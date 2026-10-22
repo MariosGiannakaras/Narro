@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-20T07:55:59.014602+00:00",
+  "ROI": [
+    2220,
+    0,
+    340,
+    700
+  ],
+  "hwnd": 789904,
+  "method": "ddagrab240 ceiling/dup_frames0/passthrough/encoderTimebase1:1000000",
+  "maxSeconds": 120
+}

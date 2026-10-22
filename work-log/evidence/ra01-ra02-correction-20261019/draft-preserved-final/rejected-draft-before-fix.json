@@ -1,0 +1,83 @@
+{
+  "failure": "Error: Ready-fixture renderer/network failure (see diagnostics)",
+  "observed": {
+    "dataset": {
+      "theme": "light",
+      "focusEditorFixtureReady": "true"
+    },
+    "rootChildren": 0,
+    "readyState": "complete",
+    "url": "http://127.0.0.1:4173/focus-editor-fixture.html?theme=light&scenario=m7-integration&motion=False",
+    "viewport": [
+      1280,
+      1080
+    ],
+    "focus": "<body><div id=\"root\"></div>\n<script id=\"focus-editor-contract\" type=\"application/json\">{\"error\":\"Uncaught Error: RA handoff: uncommitted rejection must preserve the mounted notes draft\"}</script></body>",
+    "contract": {
+      "error": "Uncaught Error: RA handoff: uncommitted rejection must preserve the mounted notes draft"
+    }
+  },
+  "events": [
+    {
+      "method": "Runtime.exceptionThrown",
+      "params": {
+        "timestamp": 1792432388207.159,
+        "exceptionDetails": {
+          "exceptionId": 1,
+          "text": "Uncaught",
+          "lineNumber": 0,
+          "columnNumber": 1434,
+          "scriptId": "21",
+          "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "S",
+                "scriptId": "21",
+                "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js",
+                "lineNumber": 0,
+                "columnNumber": 1434
+              },
+              {
+                "functionName": "Wa",
+                "scriptId": "21",
+                "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js",
+                "lineNumber": 0,
+                "columnNumber": 9144
+              }
+            ]
+          },
+          "exception": {
+            "type": "object",
+            "subtype": "error",
+            "className": "Error",
+            "description": "Error: RA handoff: uncommitted rejection must preserve the mounted notes draft\n    at S (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:1435)\n    at Wa (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:9145)\n    at async yi (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:11477)\n    at async http://127.0.0.1:4173/assets/focusEditorFixture-KLhCXfTg.js:2:9007",
+            "objectId": "-6862865143181650197.2.1",
+            "preview": {
+              "type": "object",
+              "subtype": "error",
+              "description": "Error: RA handoff: uncommitted rejection must preserve the mounted notes draft\n    at S (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:1435)\n    at Wa (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:9145)\n    at async yi (http://127.0.0.1:4173/assets/m7IntegrationRegression-7ZUEPu0W.js:1:11477)\n    at async http://127.0.0.1:4173/assets/focusEditorFixture-KLhCXfTg.js:2:9007",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "Error: RA handoff: uncommitted rejection must pres…4173/assets/focusEditorFixture-KLhCXfTg.js:2:9007"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "RA handoff: uncommitted rejection must preserve the mounted notes draft"
+                }
+              ]
+            }
+          },
+          "executionContextId": 2
+        }
+      }
+    }
+  ],
+  "stderr": "\r\nDevTools listening on ws://127.0.0.1:52731/devtools/browser/75952573-8618-409b-b31d-7f87d432d673\r\n[36432:60240:1019/205304.443:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[36432:42540:1019/205304.785:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n",
+  "kind": "m7-integration",
+  "url": "http://127.0.0.1:4173/focus-editor-fixture.html?theme=light&scenario=m7-integration&motion=False"
+}

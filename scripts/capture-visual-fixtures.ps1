@@ -66,6 +66,11 @@ function Capture-Theme {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
+        if ($Theme -like "focus-editor-m7-integration-*") {
+            & node (Join-Path $PSScriptRoot "capture-ready-fixture-cdp.mjs") "--edge=$EdgePath" "--url=$Url" "--profile=$profilePath" "--png=$ScreenshotPath" "--html=$DomPath" "--kind=m7-integration"
+            if ($LASTEXITCODE -ne 0) { throw "M7 integration actual-readiness capture failed for '$Theme'; retained DOM/PNG/diagnostics identify the first failure." }
+            return
+        }
         $arguments = @(
             "--headless=new",
             "--disable-gpu",
@@ -209,7 +214,8 @@ try {
             "list-editor-edit",
             "list-board",
             "list-board-all",
-            "task-card-states"
+            "task-card-states",
+            "task-recurring-menu"
         )
 
         foreach ($fixture in $fixtures) {
@@ -236,6 +242,7 @@ try {
                 -Url $listSettingsUrl `
                 -ScreenshotPath $listSettingsScreenshot `
                 -DomPath $listSettingsDom `
+                -ReadyMarker 'data-list-settings-fixture-ready="true"' `
                 -VirtualTimeBudgetMs 800
         }
 

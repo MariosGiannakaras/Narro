@@ -71,6 +71,29 @@
   background: var(--color-destructive-surface);
 }
 
+.archived-lists-panel__empty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.archived-lists-panel__retry {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+}
+
+.archived-lists-panel__empty-grid > .archived-lists-panel__empty {
+  min-width: 0;
+  min-height: 10rem; /* calibrated to source v2.6.69 empty card height */
+  margin-top: 0;
+}
+
 .archived-lists-panel__empty {
   display: grid;
   justify-items: center;
@@ -83,21 +106,26 @@
 .archived-lists-panel__empty > span:last-child {
   max-width: 30rem;
   color: var(--color-text-secondary);
+  font-size: var(--font-size-metadata);
 }
 
 .archived-lists-panel__empty-icon {
   display: grid;
   place-items: center;
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
-  color: var(--color-accent-solid);
-  font-size: 1.4rem;
+  width: var(--space-5);
+  height: var(--space-5);
+  color: var(--color-text-secondary);
+}
+
+.archived-lists-panel__empty-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .archived-lists-panel__items {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.25rem), 1fr));
   gap: var(--space-3);
   margin-top: var(--space-5);
 }
@@ -105,22 +133,31 @@
 .archived-list-row {
   --archived-list-accent: var(--color-accent-solid);
   display: grid;
-  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
-  align-items: center;
+  grid-template-rows: auto 1fr auto;
   gap: var(--space-4);
-  min-height: 5rem;
+  min-width: 0;
+  min-height: 17rem;
   padding: var(--space-4);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-panel);
   background: var(--color-surface-raised);
-  box-shadow: inset 3px 0 0 var(--archived-list-accent);
+}
+
+.archived-list-row__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--color-text-secondary);
 }
 
 .archived-list-row__icon {
   display: grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  opacity: 0.7;
   overflow: hidden;
   border-radius: var(--radius-control);
   color: var(--archived-list-icon-contrast, var(--color-accent-contrast));
@@ -139,7 +176,8 @@
 }
 
 .archived-list-row__title {
-  margin: 0 0 var(--space-1);
+  min-width: 0;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -148,7 +186,7 @@
 .archived-list-row__previews {
   display: grid;
   gap: var(--space-1);
-  margin-top: var(--space-3);
+  margin-top: 0;
   min-width: 0;
 }
 
@@ -158,12 +196,16 @@
   align-items: center;
   gap: var(--space-2);
   min-width: 0;
+  min-height: 2rem;
+  padding: var(--space-2);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
   color: var(--color-text-secondary);
   font-size: var(--font-size-metadata);
 }
 
 .archived-list-row__preview-ordinal {
-  color: var(--archived-list-accent);
+  color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
@@ -178,11 +220,39 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  justify-content: space-between;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.archived-list-row:hover .archived-list-row__actions,
+.archived-list-row:focus-within .archived-list-row__actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mouse-hover actions are intentionally subdued in the desktop source design.
+   Touch-only Windows devices cannot hover; expose both destructive and
+   restorative actions there without changing pointer/keyboard desktop UI. */
+@media (hover: none) {
+  .archived-list-row__actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .archived-list-row__restore,
 .archived-list-row__delete {
   min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-1);
+  border-color: transparent;
+  font-size: var(--font-size-metadata);
   white-space: nowrap;
 }
 
@@ -191,7 +261,6 @@
 }
 
 .archived-list-row__delete {
-  border-color: var(--color-destructive);
   color: var(--color-destructive);
   background: transparent;
 }
@@ -218,12 +287,11 @@
     padding: 0;
   }
 
-  .archived-list-row {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
+  .archived-lists-panel__empty-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .archived-list-row__actions {
-    grid-column: 1 / -1;
-    justify-content: flex-end;
+  .archived-lists-panel__empty--ghost {
+    display: none;
   }
 }

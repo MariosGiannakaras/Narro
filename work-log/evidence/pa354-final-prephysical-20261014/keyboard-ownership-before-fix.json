@@ -1,0 +1,13 @@
+{
+  "productionHead": "09c35bb093423c0a8240667c1f79514b46fdf6d0",
+  "fixture": "Uncommitted 14-case matrix extending the 12-case fixture; actual React/DOM, 1280x720, light theme, viewport resize driver",
+  "sequence": "Focus day40; hover day41; mouse leave restores day40; hover day41 again; focus day42 without moving pointer",
+  "ready": false,
+  "error": "New keyboard focus did not take tooltip ownership from stationary pointer hover.",
+  "describedButton": {
+    "focused": false,
+    "name": "Day 42, September 2026: Tasks 1hr 1min, Breaks 5min, Total 1hr 6min",
+    "tooltip": "report-tooltip-containment-day-41"
+  },
+  "disposition": "Confirmed regression versus prior single-state onFocus behavior; clear stale hover when new focus owns tooltip, retain mouse-leave focus fallback. No physical PASS inferred."
+}

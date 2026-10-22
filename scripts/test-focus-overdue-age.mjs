@@ -18,4 +18,21 @@ for (const date of ["2026-02-30", "2026-13-01", "2026-2-08", "invalid", ""]) {
 }
 eq(focusOverdueAge("2026-10-08", "not/a_timezone", at("2026-10-09T08:00:00Z")), null, "invalid timezone");
 eq(focusOverdueAge("2026-10-08", "Europe/Athens", new Date(NaN)), null, "invalid time");
+// The existing Focus Windows regression now exercises actual rendered age
+// with a frozen fixture-only clock, keeping ordinary fixtures and real time intact.
+import fs from "node:fs";
+const panel = fs.readFileSync("src/FocusPanel.tsx", "utf8");
+const fixture = fs.readFileSync("src/focusPanelVisualFixture.tsx", "utf8");
+const captures = fs.readFileSync("scripts/capture-focus-panel-fixtures.ps1", "utf8");
+const visual = fs.readFileSync("scripts/validate-focus-visual-state-captures.mjs", "utf8");
+eq(panel.includes('(!fixtureMode || allowFixtureOverdueAge)')
+  && panel.includes('fixtureMode && fixtureOverdueNow ? fixtureOverdueNow : new Date()'), true,
+  "read-only source age may use a fixed clock only in an explicit fixture");
+eq(fixture.includes('fixtureOverdueNow={scenario === "overdue-age" ? new Date("2026-09-13T09:00:00.000Z") : undefined}')
+  && captures.includes('Name = "overdue-age"; Suffix = "-overdue-age"')
+  && visual.includes('readCapture(theme, "overdue-age")')
+  && visual.includes('age.withinRow && age.withinScreenshot && age.topmostAtCenter && age.notClipped')
+  && fixture.includes('title.blur();')
+  && fixture.includes('tooltipNode.dataset.open === "true"'), true,
+  "Windows screenshot must visibly validate fixed-date relative-age behavior");
 console.log("B31 Focus local-calendar overdue-age contracts passed.");

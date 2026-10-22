@@ -1,0 +1,9 @@
+{
+  "state": "SESSION_COMPLETE_ORIGINAL_PROFILE_RESTORED",
+  "head": "8bda5cc40be905c4a91506e0708d39e2770b4cde",
+  "ci": 38558587191,
+  "pr": 353,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA353-nsis-20261014\\installed-nsis\\narro.exe",
+  "sha256": "5a27c860d21376265b5a0c198aa5c6d95f8a171f23b9ef5eca340ef3e5ab1ad5",
+  "scope": "PA08 exact verified NSIS installation/installed Main+Reports launch/normal Quit/removal-restoration; packaging unchanged by PR354"
+}

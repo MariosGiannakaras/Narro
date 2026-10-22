@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-16T00:20:13.577263+00:00",
+  "hwnd": 5573518,
+  "controls": [
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        242,
+        242,
+        264,
+        264
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1103,
+        235,
+        1150,
+        265
+      ]
+    },
+    {
+      "name": "Maximize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1150,
+        235,
+        1196,
+        265
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1196,
+        235,
+        1243,
+        265
+      ]
+    }
+  ]
+}

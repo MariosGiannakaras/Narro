@@ -109,7 +109,7 @@ for (const [haystack, needle, label] of [
   [archive, '"--archived-list-icon-contrast": listIconContrast(color)', "Archive per-list accessible dark/light icon contrast"],
   [homeCss, 'var(--home-list-icon-contrast, var(--color-accent-contrast))', "Home custom-color icon paint without changing empty/default fallback"],
   [archiveCss, 'var(--archived-list-icon-contrast, var(--color-accent-contrast))', "Archive custom-color icon paint without changing empty/default fallback"],
-  [home, "[fixtureSnapshot, refreshKey]", "Home snapshot reload dependency"],
+  [home, "[fixtureSnapshot, refreshKey, retryKey]", "Home snapshot reload covers external mutations and explicit read-error retry"],
   [fixtures, 'fixture === "list-editor-create"', "Create modal fixture route"],
   [fixtures, 'fixture === "list-editor-edit"', "Edit modal fixture route"],
   [capture, '"list-editor-create"', "Create modal Edge capture"],

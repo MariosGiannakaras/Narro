@@ -1,0 +1,181 @@
+{
+  "retainedSixScopeSourcePaths": [
+    {
+      "path": "src/PreferenceSettingsSections.tsx",
+      "originalPrBlob": "d1f8cefd0c1299532caf581b8574d719ffd4b812",
+      "correctedPrBlob": "d1f8cefd0c1299532caf581b8574d719ffd4b812",
+      "mergedMainBlob": "d1f8cefd0c1299532caf581b8574d719ffd4b812"
+    },
+    {
+      "path": "src/ThemeSettingsPanel.tsx",
+      "originalPrBlob": "28a93fc40cc15882295def5e5928fcecf6150a74",
+      "correctedPrBlob": "28a93fc40cc15882295def5e5928fcecf6150a74",
+      "mergedMainBlob": "28a93fc40cc15882295def5e5928fcecf6150a74"
+    },
+    {
+      "path": "src/SoundPreferenceControl.tsx",
+      "originalPrBlob": "4f5cb9d80fa0b0a36f9d67757546f959fd82a759",
+      "correctedPrBlob": "4f5cb9d80fa0b0a36f9d67757546f959fd82a759",
+      "mergedMainBlob": "4f5cb9d80fa0b0a36f9d67757546f959fd82a759"
+    },
+    {
+      "path": "src/PreferenceSettingsRuntime.tsx",
+      "originalPrBlob": "7042780a1879a76ea5d6b8c256767448c1da1a8d",
+      "correctedPrBlob": "7042780a1879a76ea5d6b8c256767448c1da1a8d",
+      "mergedMainBlob": "7042780a1879a76ea5d6b8c256767448c1da1a8d"
+    },
+    {
+      "path": "src/ReportsOverview.tsx",
+      "originalPrBlob": "8c27e56982b161a115570ead1079903ef3ffc41b",
+      "correctedPrBlob": "8c27e56982b161a115570ead1079903ef3ffc41b",
+      "mergedMainBlob": "8c27e56982b161a115570ead1079903ef3ffc41b"
+    },
+    {
+      "path": "src/reportDoneOrdering.ts",
+      "originalPrBlob": "619b950ab96f45f9a410371024b16bd61dfc7790",
+      "correctedPrBlob": "619b950ab96f45f9a410371024b16bd61dfc7790",
+      "mergedMainBlob": "619b950ab96f45f9a410371024b16bd61dfc7790"
+    },
+    {
+      "path": "src/ReportsSessionsView.tsx",
+      "originalPrBlob": "4721c833a2ff3ca6a0917245ab4579da5c0a0bf1",
+      "correctedPrBlob": "4721c833a2ff3ca6a0917245ab4579da5c0a0bf1",
+      "mergedMainBlob": "4721c833a2ff3ca6a0917245ab4579da5c0a0bf1"
+    },
+    {
+      "path": "src/reportAddSessionPlacement.ts",
+      "originalPrBlob": "12b281bcfd724e78e2139333f60f4255a06523ea",
+      "correctedPrBlob": "12b281bcfd724e78e2139333f60f4255a06523ea",
+      "mergedMainBlob": "12b281bcfd724e78e2139333f60f4255a06523ea"
+    },
+    {
+      "path": "src/reportsSessions.css",
+      "originalPrBlob": "1e7a1e4deba49733e6e7f8427fbaa53b809c81c4",
+      "correctedPrBlob": "1e7a1e4deba49733e6e7f8427fbaa53b809c81c4",
+      "mergedMainBlob": "1e7a1e4deba49733e6e7f8427fbaa53b809c81c4"
+    }
+  ],
+  "mergedChangedFiles": [
+    {
+      "path": "package.json",
+      "blob": "fec62af20c047b5987fe5e6cb18038bd208590e8"
+    },
+    {
+      "path": "scripts/capture-ready-fixture-cdp.mjs",
+      "blob": "eb33028bed7729b0568cbe1188069f6c67c4805a"
+    },
+    {
+      "path": "scripts/capture-theme-settings-fixtures.ps1",
+      "blob": "1f22288c4ba6f7e66135950c862fc8ce799d2f21"
+    },
+    {
+      "path": "scripts/test-archived-list-mutation-gate.mjs",
+      "blob": "90f7bf09c027dd43e3a1f3807cf301d5fb7f056c"
+    },
+    {
+      "path": "scripts/test-board-create-single-flight.mjs",
+      "blob": "58cab777d187a06aa01df13f6d7dce66a20e14c9"
+    },
+    {
+      "path": "scripts/test-focus-live-mutation-gates.mjs",
+      "blob": "7d8f16f7f9e0b46afb03171653f87a7eddd0645a"
+    },
+    {
+      "path": "scripts/test-focus-panel-single-flight.mjs",
+      "blob": "69f2f7615370ba7454429f05974cbcd4f0407767"
+    },
+    {
+      "path": "scripts/test-preference-save-admission.mjs",
+      "blob": "6a0ffc972f1fbc19f60690cfa97de36b9881c769"
+    },
+    {
+      "path": "scripts/test-report-add-session-placement.mjs",
+      "blob": "7f4d04e3089ee67316d2ca5ad6a142d1fcbd9b92"
+    },
+    {
+      "path": "scripts/test-report-done-ordering.mjs",
+      "blob": "d561e529cad3b11e332ae3c6960902d3ae2c7a48"
+    },
+    {
+      "path": "scripts/test-search-quick-task-reopen.mjs",
+      "blob": "cfaa00e36935ef83bf228516852e851e6781b3e3"
+    },
+    {
+      "path": "scripts/test-shortcut-fixture-readiness.mjs",
+      "blob": "05522822840d6732ca98c8eef6d0f1c0136ee177"
+    },
+    {
+      "path": "scripts/test-sound-preference-save-focus.mjs",
+      "blob": "d1240207c21fdadb6a9c0af5b0297d0182f533ba"
+    },
+    {
+      "path": "scripts/test-ui-preferences.mjs",
+      "blob": "486764d42974982832b955af6cae1758ae14a203"
+    },
+    {
+      "path": "scripts/test-ui-reports-sessions.mjs",
+      "blob": "dae1e4e2f69144128c4a310c455a0a058f134fc4"
+    },
+    {
+      "path": "scripts/test-ui-theme-settings.mjs",
+      "blob": "18315b8ecf90bc1daefc515281d3e0f92e9018bc"
+    },
+    {
+      "path": "scripts/validate-theme-settings-captures.mjs",
+      "blob": "eaa78a1a8a7f7709f85dc8db461a442225d6ff81"
+    },
+    {
+      "path": "src/PreferenceSettingsRuntime.tsx",
+      "blob": "7042780a1879a76ea5d6b8c256767448c1da1a8d"
+    },
+    {
+      "path": "src/PreferenceSettingsSections.tsx",
+      "blob": "d1f8cefd0c1299532caf581b8574d719ffd4b812"
+    },
+    {
+      "path": "src/ReportsOverview.tsx",
+      "blob": "8c27e56982b161a115570ead1079903ef3ffc41b"
+    },
+    {
+      "path": "src/ReportsSessionsView.tsx",
+      "blob": "4721c833a2ff3ca6a0917245ab4579da5c0a0bf1"
+    },
+    {
+      "path": "src/SoundPreferenceControl.tsx",
+      "blob": "4f5cb9d80fa0b0a36f9d67757546f959fd82a759"
+    },
+    {
+      "path": "src/ThemeSettingsPanel.tsx",
+      "blob": "28a93fc40cc15882295def5e5928fcecf6150a74"
+    },
+    {
+      "path": "src/WindowsShortcutSettingsPanel.tsx",
+      "blob": "1a157a01a44c962cf1e587c3e05bd4eea6976351"
+    },
+    {
+      "path": "src/reportAddSessionPlacement.ts",
+      "blob": "12b281bcfd724e78e2139333f60f4255a06523ea"
+    },
+    {
+      "path": "src/reportDoneOrdering.ts",
+      "blob": "619b950ab96f45f9a410371024b16bd61dfc7790"
+    },
+    {
+      "path": "src/reportsSessions.css",
+      "blob": "1e7a1e4deba49733e6e7f8427fbaa53b809c81c4"
+    },
+    {
+      "path": "src/themeSettingsVisualFixture.tsx",
+      "blob": "f82d0a0227ef9d5862e9ad67509f503949787494"
+    },
+    {
+      "path": "src/windowsShortcutSettingsPanel.css",
+      "blob": "8405743e512d70e30291df958b5f49bb9ba0200a"
+    },
+    {
+      "path": "src/windowsShortcutsDialog.css",
+      "blob": "dd4750b33498bbcada3ab687429338e7e6849218"
+    }
+  ],
+  "count": 30
+}

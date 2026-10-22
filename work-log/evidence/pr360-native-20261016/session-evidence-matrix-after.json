@@ -1,0 +1,1218 @@
+{
+  "utc": "2026-10-16T06:51:06.956078+00:00",
+  "main": "4dbf72e839196799d790aae6825eb088080d5076",
+  "plannedGroups": 5,
+  "sources": {
+    "TODO.md": [
+      {
+        "line": 71,
+        "text": "  - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 219,
+        "text": "  - [ ] **A6/B23, SS-C03 current Home task-preview grammar:** current source shows numbered task previews with right-aligned task-level time metadata; `HomeDashboard.tsx` uses fixed decorative dots and an `estSeconds`-only preview DTO. Replace generic dots with source-backed ordinal presentation and reconcile what each trailing time actually represents before altering metrics. **M5 SOURCE_CONTROL_PARITY_OPEN**; do not infer that a visible historical duration is necessarily EST/Time Taken without direct reference. **PR261 source integrated: head `05ac44cc7aa3d7fa679af274f796f5dbcdc921e8`, Windows CI `37830600012` PASS, merge `e3f510d1`; task trailing-time source semantics and rendered parity remain OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 221,
+        "text": "  - [ ] **A22/B54, SS-C04 current Create List tile border:** Blitzit v2.6.69 shows the large dashed tile perimeter transitioning **cyan/teal\u2192lime across the border**. Narro `homeDashboard.css` renders `.home-create-list-tile { border: 1px dashed var(--color-accent-solid) }` with a **single flat color**; gradient exists only inside the plus circle. **M5 DISTINCTIVE_SOURCE_VISUAL_PARITY_OPEN**, reuse calibrated accent/pattern system and verify actual dashed gradient on Windows dark/light and focus, without interfering with the full-tile click target/reduced motion. **PR261 source integrated: head `05ac44cc7aa3d7fa679af274f796f5dbcdc921e8`, Windows CI `37830600012` PASS, merge `e3f510d1`; actual dark/light Blitzit visual/source parity OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 223,
+        "text": "  - [ ] **SS-C01 Create/Edit List \u2014 approved Narro design preservation / remaining rendered acceptance:** Spectrum Core picker, image upload and218 offline icons are user-approved Narro behavior/appearance and LOCKED. PR282 integrated the accepted replacement; do not reopen provisional picker implementation or replace it to match unknown Blitzit internals. B3 exact-source hex/interactions remain an evidence limit, not a missing Narro feature. **PR285 MERGED / CI3/3 SUCCESS**: exact head`c2de5400a9e14d9c29ab6887b6026aa0dc5c0f95`, CI37917252663, merge`b68942aa4149941742e646be3e1c028485c9440f` is an ancestor of currentmain. Its shared pure contrast correction already covers dark custom colors in Home/Archived as well as modal identity; no new source fix inferred. Keep the applicable approved-reference/native rendered acceptance and B8 copy comparison OPEN until actually verified; no wholeM5/source-parity PASS from CI. [Verified tracking correction](work-log/2026-10-15-completed-pr-tracking-reconciliation.md).",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 226,
+        "text": "  - [ ] **B62 / VE-005 empty Today CTA:** **PR287 CODE INTEGRATED** head `4d1efd9f10b933382b1d328a935af27274979ba3`, CI `37922643387` full Windows SUCCESS, guarded merge `67faf5aa523da019af84de6f4c45266b063adac7`. Subdued empty visual presentation, excludes linked recurring parents; retains click path and authoritative Rust eligibility response. **BLITZIT EMPTY CLICK SEMANTICS / RENDERED/NATIVE PARITY OPEN** (U31/U40).",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 227,
+        "text": "  - [ ] **A15/B39, SS-H01 + VE-008/017 recurring parent Backlog subgroup:** source groups active recurring parents under a dedicated `Recurring tasks` subsection with recurrence icon, rather than interleaving them with normal Backlog task rows. Current `BoardLane` maps a single flat `lane.tasks` array with no subgroup. **Code integrated PR249**: Board now separately groups linked Recurring parents while keeping persistent IDs/manageability, and excludes them from actionable counts; exact-head CI + resulting-main CI PASS. **Rendered/current-source parity OPEN**, including rank/interaction after regrouping.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 228,
+        "text": "  - [ ] **A15/B40, SS-H01 + VE-008/017 scheduled occurrences group:** source Backlog/This Week/Today support scheduled-task subgroups and e.g. `4 Scheduled tasks this week`, changing 4\u21923 as children are completed. Current `BoardLane` has a single flat task mapping; it shows per-card schedule metadata but no subsection header/count. **Code integrated PR249**: scheduled task subsections and section-count headings now render for pending lanes; exact-head and resulting-main CI PASS. **Rendered/Windows interaction parity OPEN**; no synthetic tasks created.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 229,
+        "text": "  - [ ] **Video-to-code V12/B71, VE-008 01:16\u201301:33 recurring-parent pending arithmetic:** source 9 pending\u22121 ordinary+5 materialized weekday children=13, with linked recurring parent visible in Backlog group but excluded from actionable pending. After Remove Recurring it becomes countable (+1). Current Rust `active_tasks_in_bucket` includes linked parent and `LaneAccumulator.finish` uses `tasks.len` for counts, so a source-matched fixture yields one spurious pending count during active recurrence. **Code integrated PR249**: linked parent count and EST exclusion in Board and Home, with persisted five-child/detach identity regression; PR/head and resulting-main CI PASS. **Final source/native parity OPEN**; do not confuse this with completion of all M5 gates.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 230,
+        "text": "  - [ ] **A15/B43, SS-H01 + VE-008 Done date grouping:** source Done column groups tasks by completion date with per-day task count; pre-PR277 `BoardLane` mapped all Done tasks flat (and has only overall `completed this month` count). **M5 SOURCE_PARITY_OPEN; PR #277 **CODE INTEGRATED** head `f9a2dcab17201f26c0c9d37211050bf80e04b5ca`, full Windows CI `37866832265` SUCCESS, guarded merge `cca9c52fb02d03938697647e1c92d3909e7a1be9`; native/source visual acceptance and internal scroll gate remain OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 231,
+        "text": "  - [ ] **A15/B44, SS-H01 This Week completion progress bar:** source Help board shows progress/fraction in both This Week and Today; the pre-correction `BoardLane` rendered progress only for Today. **M5 SOURCE CODE INTEGRATED / NARRO FORMULA INFERRED / NATIVE-SOURCE PARITY OPEN**, branch `implementation/m5-b44-week-lane-progress-20261009` validated head `ef092b549e6791f6aa70c4db6dbafc5bff23db95`, #296: Rust current display-local ISO-week completed **This Week lane-at-completion** count, independent current pending This Week count, shared existing progress UI and typed visual/Rust regression coverage. This is an **inferred Narro-local formula**, *not* established Blitzit semantics; source weekly-superset/current-version ambiguity U24 OPEN. Full exact-head Windows CI 37964404603 SUCCESS and guarded merge `c3eff12da7c17a4172cbef7c0d1e42689043cba3`; resulting-main/native check NOT VERIFIED; physical/source-rendered acceptance OPEN. Do not count as validated or introduce formula/source parity PASS.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 232,
+        "text": "  - [ ] **A6/B24, VE-005 01:09\u201301:23 source Board list selector:** source opens a small anchored All Lists/named-list menu that preserves colored list badges; pre-PR260 `ListBoard.tsx` used an OS-native `<select>` with text-only options. **M5 SOURCE_CONTROL_PARITY_OPEN**; preserve validated list-target switching, All Lists read-only/identity behavior, keyboard/focus and non-blocking board safety. **PR260 CODE INTEGRATED**, guarded merge `906b35678c608e678231f5e554a68dba13dabc76`; actual source/native visual parity OPEN. Original CI-pending wording is historical. **PA358 final comparison confirms residual Board dots vs source colored initial/icon badges; keyboard selector works but badge fidelity OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 235,
+        "text": "  - [ ] Revalidate CI893 narrow-title failure after PR #225: visible title/edit input, reserved action row, no hover/focus geometry change on the actual Windows board. Unrelated historical Gate E acceptance is retained.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 239,
+        "text": "  - [ ] **Video-to-code V03/B66, VE-002 ~00:18\u201300:48 live title\u2192EST preview:** the source changes the **visible inline EST field before Confirm** (`Prepare slides 28 m`\u2192`00:28`, `Write blog post 1 HR`\u2192`01:00`, `Email campaign 2 HR 15 m`\u2192`02:15`) while preserving suffix text in the draft title. Pre-PR278 source only invoked `parseEstimateSuffix` at commit and lacked a display-only EST preview. **M5 FIX_NOW SOURCE_INTERACTION/FEEDBACK_PARITY_OPEN**: derive a non-destructive visual preview only with auto-parse enabled, respect manually typed EST precedence and caret/title, preserve commit-time stripped title plus transactional semantics; test three source examples, pref OFF, invalid suffix, manual override and repeated Enter. Historical VE-F001 scoped committed-parser PASS is unchanged. B53 HH:MM input field grammar and B46 repeat-ready form are independent. **PR278 CODE INTEGRATED** head `e219ee2684888bffcbda8555148bbfc01b1fd2c2`, full Windows CI `37866583136` SUCCESS, guarded merge `1a153303fb49f3095662b077ca707cc33455bd3f`; source/native visual acceptance remains OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 241,
+        "text": "  - [ ] **A20/B53, VE-005 + VE-016 HH:MM metric input compatibility:** source inline task EST and paused live EST/Taken accept hour:minute entries such as `00:30`. Pre-PR269 `src/ListBoard.tsx::parseMetricDuration` used only `^(\\\\d+):([0-5]\\\\d):([0-5]\\\\d)$` (H:MM:SS), and Board create and EST/Taken metric edits share it. **M5 SOURCE INPUT CODE INTEGRATED / NATIVE PARITY OPEN**; support documented HH:MM alongside existing H:MM:SS unambiguously with typed bounds/negative/overflow errors, preserve authoritative seconds persistence, exact minute interpretation (00:30 = 30min in VE-016), and add deterministic create/edit/Taken/keyboard/blank-EST regressions. Focus live editing shares UX source but verify its own parser before claiming the same code defect. **PR269 exact head `fc96cc2455d187cec10f419ac03df318ae2da584` Windows CI `37856294726` SUCCESS, guarded merge `e2f852abb709575c7f5957ae0dfb77f63cda9c86`**; Board and Focus parser/test integration proven by automated CI, physical/source parity OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 246,
+        "text": "  - [ ] **A16/B45, VE-017 ~00:34\u201300:40 parent recurring overflow and VE-008 ~02:22:** source linked recurring parent uses its own menu, with `Update Recurring` and `Remove Recurring` lifecycle actions (VE-017), not simply task `Update Schedule`; older VE-008 directly corroborates `Remove Recurring` but has version-specific shorter menu. Current `TaskCard::TaskOverflowMenu` exposes a single `Update Schedule` for every scheduled/recurring task and has no `Remove Recurring` action. **M5 FIX_NOW SOURCE_INTERACTION_CONTROL_GAP**; `TaskScheduleDialog` No Repeat and Rust recurrence detachment already implement underlying lifecycle at a different path. Reconcile label/menu from newer VE-017 with version caveat, wire direct safe detachment without deleting existing children, preserve required No Repeat+DeleteExisting explicitly separate, pending/failure/keyboard and task identity tests. **Implementation PR255 guarded merge `0d2a49ec` / exact-head Windows CI PASS; source rendered/native interaction acceptance OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 247,
+        "text": "  - [ ] **A15/B41, VE-008 + VE-017 recurring-parent cadence badge:** source Backlog parent task visibly displays `Weekdays`, `Daily` or `Custom` according to its actual rule; `pre-PR276 TaskCard::recurrenceLabel` showed generic `Repeats`. **M5 SOURCE_CONTROL_PARITY_OPEN**; **PR276 CODE INTEGRATED** head `59b2f01fd7d45750058ea9065c6d27452eca757a`, full Windows CI `37867084110` SUCCESS, guarded merge `1c158f1bf0e61e838fb5df621c3455ef100561e8`; authoritative stored-rule cadence projection and typed UI labels integrated, rendered/native acceptance OPEN. B20 ordinal domain is already integrated, no inferred rule-label substitutions.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 248,
+        "text": "  - [ ] **A15/B42, VE-008/017 scheduled-task overflow quick-remove control:** source scheduled child overflow shows `Update Schedule` plus current date text and a small X that immediately removes the child's schedule without deleting it. Pre-PR279 `TaskOverflowMenu` had no inline date/X row; removal existed only inside `TaskScheduleDialog`. **M5 SOURCE_CONTROL_PARITY_OPEN**, retain safe task identity, custom children/detachment, zone correctness, keyboard focus and mutation failure recovery; do not infer raw instantaneous persistence from source frame. **PR279 CODE INTEGRATED**, original head `406e4df` CI `37890312005` CANCELLED after refining date-only informative/X-only actionable control; replacement head `024db8c892181d21ef6b55cd8afb414b67693622`, CI `37892048979` SUCCESS; guarded merge `8fa8a69abb931bbfc6c3a6d83e19c9665fb9b895`: menu date+X, authoritative fresh-read expected-schedule CAS, non-parent generated child safe handling and deterministic contract tests. B70 dedicated correction is PR358 candidate; currentmain generic behavior retained until guarded merge; native/reference visual parity OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 250,
+        "text": "  - [ ] **A12/B33, VE-009 + VE-017 recurrence live readable summary and selected-date presets:** Blitzit dynamically labels presets from the chosen date (`Every Monday`, `Every month on 22nd`) and visibly previews Custom changes with a plain-language summary such as `every week on Friday, Saturday, Sunday` / `every 4 months on the 2nd Sunday`. Narro `TaskScheduleDialog.tsx` uses static `Weekly on start weekday` / `Monthly on start date`, weekday controls without a recurrence summary, and its `scheduleDescription` describes only the ordinary schedule date/time. **M5 SOURCE_CONTROL_PARITY_OPEN / FIX_NOW natural-language feedback**, paired with B19 wizard correction and B20 required ordinal-rule domain extension; render valid selected rule exactly, signal invalid combinations without claiming an unimplemented ordinal branch, support Windows locale/timezone, preserve existing recurrence safety. Tests: switch selected date/day-of-week/month end, custom interval/unit/chips, parent update/no repeat/replace and validation. **PR254 merged `e68d9c4b`, exact-head CI PASS; date-derived and supported Custom summaries now exist. B20 ordinal month and B19 wizard remain OPEN; source visual/native acceptance OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 251,
+        "text": "  - [ ] **A4/B19, SS-H07 + VE-007 scheduling flow:** Blitzit opens a centered **two-step calendar \u2192 date summary/Add Time/Recurring schedule** modal, with selected/current date markers, `Next` then `< PICK DATE`, and an inline `+ ADD` / `\u00d7 REMOVE` hour/minute/AM-PM time editor. Before PR275 `TaskScheduleDialog.tsx` placed Schedule/Repeat in one uninterrupted form without source-style step transition/calendar. **M5 SOURCE UI CODE INTEGRATED / RENDERED PARITY OPEN**; preserve validated schedule persistence, DST, locale and recurrence safety. Use original video only for fine interaction/motion uncertainty. **PR275 CODE INTEGRATED:** corrected head `31b9f6e44913572398903b690ec46ac6a45d7027`, exact-head full Windows CI `37864364507` SUCCESS, expected-head guarded merge `62fef2edd8ca8bbdfb014bf9e79518f0b6daceeb`. Calendar + Next/Back and Add/Remove time with AM/PM and deterministic tests integrated; resulting-main run `37866706719` PENDING. Direct source/physical acceptance remains OPEN; no feature acceptance without CI merge.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 252,
+        "text": "  - [ ] **A4/B20, VE-009 custom monthly nth-weekday recurrence:** source selects `Monthly on the 2nd Sunday` vs `Monthly on day 14` and shows `every 4 months on the 2nd Sunday`. Narro `TaskScheduleDialog.tsx` offers calendar-day or *selected weekday mask*; `src-tauri/src/recurrence/mod.rs` materializes every selected weekday in a matching month, not its nth occurrence. **M5 FIX_NOW with M4 recurrence-domain/migration dependency; SOURCE_BEHAVIOR_GAP**. **PR266 DOMAIN/MIGRATION CODE INTEGRATED**: exact head `2d6711c115dd613a9a015774e506211aafd83ffe`, Windows CI `37838146574` SUCCESS, guarded squash merge `3e5a4a9d3ef7e115abd22599f7b0da7588bf0831`; UI/monthly ordinal selector integrated PR #273 (head `24a38624dc9f2d6903d4baf28eba88254bfbd8fa`, exact-head Windows CI `37857212033` SUCCESS, guarded merge `43e9604f5906aa585ebbe411c7bdc4aadfafc643`); B19 wizard remains OPEN; no feature PASS until CI/merge/physical-source gates. The earlier scoped M4 interval/weekday CI result remains historical evidence; this unimplemented **additional source rule** must have its own model/persistence/migration/backward-compatibility/DST/leap-calendar validation before any new PASS. Do not assume that weekdays-mask recurrence is equivalent to the ordinal rule.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 254,
+        "text": "  - [ ] **A28/B60, SS-H12 Board subtask progress ring:** source has a small circular 4/5 Subtasks progress ring; Board before PR270 `TaskSubtasks::Progress` drew a horizontal 4rem\u00d7.3rem bar (`listBoard.css`), unlike the existing Focus/Floating rings. **M5 SOURCE_VISUAL_PARITY_OPEN / HELP_VERSION_LIMIT**; preserve authoritative counts, reorder/delete and accessibility. Distinct from B12 create controls. **PR270 CODE INTEGRATED**, guarded merge `b849f3a9c535cff82ea861374db86c695cb6d87a`; actual rendered/source visual parity OPEN. **PA358 real4/5 circular/count treatment present; remaining source discrepancy is one-header ring/count/plus/chevron vs current duplicate inner heading/summary.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 255,
+        "text": "  - [ ] **A2/B12 source subtask create:** PR270 CODE INTEGRATED, head db65536d15bc0009bf7f554cf80a6ea4249dfe2f, full Windows CI 37840192741 SUCCESS, merge b849f3a9c535cff82ea861374db86c695cb6d87a. Live TaskSubtasks already renders header plus, precise Enter Subtask task title* placeholder, in-field X/clear and focus recovery with authoritative async create. Old FIX_NOW prose describes pre-PR270 code. **CURRENT BLITZIT RENDERED / NATIVE KEYBOARD PARITY OPEN**; do not recreate existing UI. **PA358 native FAIL:** successful commit disables/re-enables input and loses focus; correction on `fix/m5-subtask-create-focus`, real-Board regression/CI/affected physical recheck pending.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 257,
+        "text": "  - [ ] **A6/B26, SS-C21/SS-H10 Focus/board Notes inline editor:** source exposes an explicit lower-right `\u00d7 Close` / `Close` control inside expanded Notes. The shared `RichNoteEditor` save footer still shows status and `Save note`; however **current `TaskNotes.tsx` already has a dedicated lower-right `\u00d7 Close` inside the expanded Notes panel (lines near `task-notes__inline-close`), and `scripts/test-ui-task-notes.mjs` checks the close affordance/accessibility/pending semantics. CODE PRESENT on main, do not duplicate**. **M5/M6 SOURCE_CONTROL_PARITY_OPEN** for native location and dirty/save/cancel behavior; do not infer autosave or a silent discard guarantee from source pixels.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 263,
+        "text": "  - [ ] **SS-C06 horizontal quick-action row:** PR358 source/CI and native dark100/light125, keyboard focus plus three actual action routes PASS. WholeSearch vertical layout/icons/motion remain separate scope. **Current visual acceptance REOPENED by PR360 composition/glyph/placement changes; old PA358 PASS remains historical, latest-build combined run required.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 264,
+        "text": "  - [ ] **SS-C06 whole-palette residuals:** accepted horizontal row is retained; final direct comparison confirms upper-third placement vs current vertical-center, title-case Quick actions vs forced uppercase, compact boxed/report action glyph treatment. Batch with B24/B60, preserve result/navigation/actions/containment and existing normal/reduced behavior. [Evidence and batch](work-log/2026-10-16-m5-three-residuals-and-batched-recapture-plan.md).",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 266,
+        "text": "  - [ ] **Evidence-to-code audit A2 / SS-H14 + VE-006 archived list preview:** the source's muted archived-list card retains recognizable task previews; current `ArchivedListSummary` and `ArchivedListsPanel` do not project or render previews and use compact rows. **M5 FIX_NOW / SOURCE_PARITY_OPEN**; retain safe archive/restore/permanent-delete handling. **PR252 merged `595f7b92`, exact-head CI PASS; bounded read-only persisted task previews and identity regression added; source rendered parity OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 267,
+        "text": "  - [ ] **Evidence-to-code audit A2 / SS-H15 + VE-006 archived Done table/action:** source has `Task Name/List/Info/Date/Action` table, relative dates and trash icon; current `ArchivedDoneTasksPanel` renders plain read-only rows, without info/action, with existing capture test explicitly enforcing read-only presentation. **M5 FIX_NOW for source-visible control/layout; EVIDENCE_LIMIT for unobserved trash post-click behavior**. Preserve destructive confirmation and report integrity. **PR259 source integrated with five-column rows, saved-note Info and disabled trash: head `2dd7d0b13fb7fc55df73090b619884dad1ba5196`, Windows CI `37830087139` PASS, merge `ae4139ef`; destructive post-click semantics EVIDENCE_LIMIT, rendered parity OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 311,
+        "text": "Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 / run `37161179503`; expected-head guarded squash merge `cdbe496bb995311f5dacc0527ef94072683032d1` PASSed resulting-main Windows CI #928 / run `37162873321`. This closes the five `FIX_NOW` implementation deltas only. PR #225's exact-EXE narrow-board physical check and direct canonical-source comparison remain `VALIDATION_OPEN`; Narro-owned captures do not establish `SOURCE_PARITY_PASS`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 317,
+        "text": "  - [ ] **A3 / SS-H04 + VE-003 Focus list selector parity:** current `FocusPanel.tsx` uses a plain native `<select>` with only `All`/list-title options; source shows an anchored popup with `All Lists` stacked color badges/overflow count and per-list colored square badges. Preserve validated selected-list/task/timer scope, but reconcile the visible picker/keyboard/overlay grammar. **M6 SOURCE_PARITY_OPEN; functional scoped selection already implemented.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 320,
+        "text": "  - [ ] **A18/B49, VE-010 00:21\u201300:25 and VE-003 live-card hover grammar:** source Focus live card swaps resting title+timer to a compact action icon row on pointer entry/focus, with a single targeted action expanding into a labeled rounded pill (`Notes`, `Done`) without changing panel width. Current `FocusPanel.tsx` renders permanent title/time, metrics and a separate row of six text buttons; `focusPanel.css` has no hover/focus swap or targeted pill styles. **M6 HIGH-VISIBILITY SOURCE_CONTROL_PARITY_OPEN**; preserve one live timer, keyboard/focus equivalence, hit targets, limited width, and avoid changing data/timer semantics. M7 physical motion and C4 host-region gate remain separate; no new timing PASS.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 321,
+        "text": "  - [ ] **A14/B37, VE-016 ~01:32\u201301:44 Pomodoro timer badge:** source has a compact green `POMO` badge beside/above Focus countdown both during Pomodoro work and the following Break; Before PR267, `FocusPanel` omitted the `POMO` chip despite having timer-mode projection. **M6 SOURCE_CONTROL_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**; preserve timer numerals and no-EST Pomodoro path; compare against modern capture when available. **PR267 CODE INTEGRATED**, guarded merge `86300adafacf3b5d45372e17eda4fdd5d16a49ad`; native/source visual gate OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 323,
+        "text": "  - [ ] **A14/B36, VE-016 ~01:36\u201301:40 + VE-018 ~02:24\u201302:40 Break Done history:** source shows a completed Break row with icon/time in the Focus Done section, while task-completion denominator excludes it. Current `FocusPanel.tsx` maps only `board.done.tasks` to Done rows; break sessions have no corresponding Focus Done presentation. **M6 SOURCE_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**: two historical direct-video sources corroborate this, but no v2.6.69 Break-completed Focus capture confirms it. Before implementing, reconcile chronology/current-version behavior; project persisted break sessions as presentation only, never synthesize task IDs, alter task completion ratios or conflate break time with Time Taken.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 325,
+        "text": "  - [ ] **Video-to-code V01/B63, VE-003 repeated Done\u2192success + VE-005 ~02:45\u201303:20:** source success occupies the **active Focus card in place**, retaining Focus header/progress and remaining task queue below; `FocusCompletionSuccess.tsx` with `focusCompletionSuccess.css` instead draws `role=dialog` as an absolute full-height opaque Focus-sized overlay that masks all queue/context. **M6 HIGH-VISIBILITY SOURCE_SHELL_PARITY_OPEN**; preserve durable completed task/session state, explicit next-task sequencing, separate modal/keyboard owner safety and current physical success/DPI validations; direct current-native comparison required.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 326,
+        "text": "  - [ ] **Video-to-code V01/B64, VE-003 multiple success transitions + VE-005 ~02:45\u201303:20:** source has a prominent changing animated reaction GIF/media area. **M6 CODE INTEGRATED / SOURCE MEDIA PARITY OPEN:** #297 exact head `1dd5ad816108238865a911fe2002273fa71147d1` implements an offline **Narro-owned vector reaction** (three deterministic task-ID variants, finite CSS motion, reduced-motion disabled animation) rendered only when existing persisted `celebration.funGif` is ON at committed Done. This is a safe local media fallback, **not binary source GIF** or an observed rotation algorithm. Actual source/media appearance and B63 success placement remain OPEN; merged #297 `338c248f646c4c28bc13933d23fedf3c62b232f8`; native/source-media acceptance remains OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 327,
+        "text": "  - [ ] **Video-to-code V01/B65, VE-005 ~02:45\u201302:51 numeric completion feedback:** Record voice EST `8hr45 = 525min`, Taken effectively `0min`, source success text reports **`525 minutes early`**. Before PR267, `FocusCompletionSuccess.tsx` rendered EST/Taken without any early/late delta. **M6 SOURCE_BEHAVIOR/COPY_PARITY_OPEN**; compute from authoritative numeric data with explicit missing-EST/Taken rules, early/late/equal and rounding tests, no invented late/null copy, and keep existing Done/Next Task transaction history unchanged. **PR267 CODE INTEGRATED**, guarded merge `86300adafacf3b5d45372e17eda4fdd5d16a49ad`; BigInt-safe tests/early-late projection automated, native/source parity OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 328,
+        "text": "  - [ ] **A14/B35, VE-016 ~01:35 + VE-018 ~02:24 Break active-card identity:** source Break becomes its own top live row, and the paused/previous task returns to the queue. Narro keeps the original task as Focus live-card title (derived from `timer.task_id`) and shows Break only in `focusTimerStateLabel`. **M6 SOURCE_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**; match current canonical source/version before any visible change, preserve one authoritative timer and original task/session identity.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 329,
+        "text": "  - [ ] **A14/B38, VE-018 ~02:24\u201302:40 Break temporary header EST:** source visibly changes Focus EST 1hr54\u21922hr4 during a 10min manual Break and restores 1hr54 after; completion fraction stays 0/7. Current `FocusPanel` always displays `board.today.aggregateEstSeconds`, with no break-remaining/estimate contribution. **M6 SOURCE_BEHAVIOR_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**; model only presentation, not persisted task EST/domain mutation. Do not claim v2.6.69 identical until direct corroboration.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 332,
+        "text": "  - [ ] **A21/B53 expanded Focus metric-input compatibility:** VE-016 ~00:38\u201300:41 / 02:11\u201302:16 source paused Focus accepts `00:30` as HH:MM (30min Taken). `src/FocusLiveMetrics.tsx` independently duplicates Board's strict H:MM:SS regex and rejects HH:MM; field aria-label/placeholder also insist on H:MM:SS. **M6 FIX_NOW / shared B53 INPUT_COMPATIBILITY_GAP** with M5; preserve authoritative paused-only mutation gate, expected snapshot/revision safety, max seconds, live timer identity, optimistic refresh failure, and no partial write; regression must cover Board and Focus separately. This is not a new B ID. **PR269 B53 Focus code proposed**, shared parser and paused mutation guard retained, CI 37839958380 pending; no physical PASS.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 340,
+        "text": "  - [ ] **Video-to-code V05/B67, VE-016 00:53\u201300:56 post-Extend overdue-clock parity:** source `Extend` removes `TIME'S UP` and shows a **negative warm orange overdue timer** (e.g. `-00:01:01`, `-00:01:02`) counting farther into the past. Pre-PR280 `focusTimerPresentation.ts` prefixed overtime with **`+`** and Focus/Floating lacked the source warm numeric treatment. **M6 SOURCE_NUMERIC/VISUAL_PARITY_OPEN / M7 SHARED_FORMATTER**; preserve accumulated elapsed ledger, `overtime_ms` nonnegative domain semantics, paused-overtime continuity and locale/keyboard/reduced-motion. Do not force the source's initial ~-1min amount as elapsed truth: VE-016 jump/staging makes that magnitude untrustworthy. **Finding35** ordinary `TIME'S UP` vs `00:00` native failure is separate and must remain OPEN. **PR280 CODE OPEN**: old head `94f392b6d73972f8c51369bc7f5d912e71ecc807`, CI `37891408784` attempt 1 Rust contention FAIL; attempt 2 visual validator stale expected positive `+07:00` FAIL. B31-reconciled new head `19c95930a9e3da3f92ba54a71a725763066e6d81`, new exact-head CI `37902450730` IN PROGRESS/NOT PASS (original 5a088 has no validated run). B31/B42 code + tests preserved, no guarded merge yet. Shared signed HH:MM:SS formatter, state-gated warning tint and fixed Floating 10ch reserve proposed; Rust ledger unchanged, visual/native acceptance OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 341,
+        "text": "  - [ ] **A18/B50, VE-016 00:42\u201300:53 Time's Up action-set disclosure:** source ordinary live action row is Break/Notes/Pause/Skip/Done; `Extend` is exposed contextually once timer reaches Time's Up. Narro `FocusLiveActions.tsx` always renders an `Extend` button on the Focus Panel, merely disabled outside the eligible state (six labeled cells vs source five). **M6 SOURCE_CONTROL_PARITY_OPEN**; reuse selected-context action slot composition while preserving M7 Finding35 Time's Up visibility separate; do not remove authoritative `extendTimer` runtime access or make hidden disabled action keyboard-focusable.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 342,
+        "text": "  - [ ] **A10/B31, SS-C19 Focus overdue relative-age metadata:** source queue shows warm/orange overdue age such as `2d ago`; pre-PR281 `FocusTaskRow` renders generic `Overdue` and an absolute local date/time label with no relative age. **M6 SOURCE_CONTROL_PARITY_OPEN**; retain authoritative `isOverdue` and task identity; implement locale/timezone-aware local-calendar relative-day display and test 1/2/many days, DST, compact width, focus/keyboard. Do not change overdue eligibility merely for visual copy. **PR281 CODE INTEGRATED:** B42-reconciled head `6e053f234f07019cb52e82088a96e648b95a0087` full CI `37897535845` SUCCESS, guarded squash `0ab774008ab8f4a330edb25df924d7d459156080`; stable local-calendar-day helper/amber projection/tests added, no eligibility/domain change, #280 shared-source reconciliation required, direct native/source parity OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 371,
+        "text": "- [ ] Revalidate the complete M6 Focus Panel end to end inside the replacement single-`focusSurface` coordinator: entry/selection, hierarchy, authoritative timer projection, every existing action/state, keyboard/focus/reduced-motion behavior, quick task/Home flows, selected-monitor/edge placement, topology recovery, and immediate consistency with Main. Reuse the existing validated domain commands; do not reimplement unrelated M6 behavior.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 382,
+        "text": "- **P3-M6-04 \u2014 AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN:** canonical SS-H05 + full Pass-3 VE-003 establish Focus-local `Menu \u2192 Quick Preferences`. PR241/CI985 integrates the evidenced subset through the existing preference authority and is merged on current `main`; direct current-candidate source/physical acceptance remains OPEN. CI1046 physical Quick Preferences composition/reversible persistence PASS. Direct canonical source comparison remains OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 383,
+        "text": "- **P3-M6-05 \u2014 INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN:** full Pass-3 VE-003 ordinary Focus rows expose `Complete \u2192 Make Live \u2192 Subtasks \u2192 Notes \u2192 overflow`, with overflow `Schedule \u2192 Change list \u2192 Duplicate \u2192 Delete`. PR242 exact head `5623e7340d15f53d8fedecdf0286e9fa58913163` passed full Windows CI999/run `37532811582` and was expected-head-guarded squash-merged as `6b4f8cfa8a1ff107fa95d4248e61dba176059493`; all 11 changed source/test blobs were verified byte-identical on resulting `main`. Resulting-main CI1000/run `37545545505` also completed successfully through the full candidate workflow. Direct physical/source-parity acceptance remains OPEN, so this does not close whole M6. CI1046 physical queue rail/overflow/keyboard/stable geometry PASS. Direct canonical source comparison remains OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 384,
+        "text": "- **P3-M6-06 \u2014 INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN:** VE-003 visibly shows Home producing `PAUSED` before Focus exits and a paused transient on later re-entry before running resumes. PR244 exact head `ae69acd71ef15d91c87a3d935e4df40479a1ae2b` implements the bounded one-shot Home pause provenance design: exact revision/task/session lease in TimerService, authoritative PAUSED projection + presented-frame barrier before exit, lease-only rollback, paused-first `start_blitz`, and Panel-reveal/frame-before guarded exact-match resume. Exact-head CI1013/run `37594066892` passed the full workflow; expected-head-guarded squash merge `8c9a1a181c51e9119ef2e04a5de742027ed845ea` is 9/9 source/test blob-identical on resulting `main`. Resulting-main CI1014/run `37602323133` completed successfully through the full candidate workflow. Direct physical/canonical source acceptance remains OPEN. CI1046 continuous physical Home PAUSED before exit, initial paused re-entry/guarded resume and intentional pause retention PASS. Direct canonical source comparison remains OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 386,
+        "text": "Validation: PR #229 exact head `0b02beef8bd26757913a9c2a008d24a0cd3e8fb3` PASSed Windows CI #939 / run `37187036246`; expected-head guarded squash merge `120c8b6c1aae54452b4369fe16f8c71ae98585ba` PASSed resulting-main CI #940 / run `37188953409` through identical-tree validation. The coherent source/test diff is `+327/-29` across 13 files. These Pass-3 corrections are not new M6 top-level checklist items and do not change the existing 15/18 replacement-host milestone denominator. Gate F remains reopened exactly as stated above, and direct canonical Blitzit comparison remains `VALIDATION_OPEN`; Narro-owned CI/fixtures do not establish `SOURCE_PARITY_PASS`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 408,
+        "text": "- [ ] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 409,
+        "text": "- [ ] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 412,
+        "text": "- [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 413,
+        "text": "- [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 414,
+        "text": "- [ ] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 417,
+        "text": "- [ ] Keep icon hit targets stable and show tooltips without changing window width.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 418,
+        "text": "- [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop. **Implemented replacement direction:** one fixed-maximum-size `focusSurface` WebView, conditional React presentation and DPI-aware native visible-region clipping; `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` remains the architecture record. The replacement is implemented and automated-validated; this item remains open only for the still-routed affected physical/source acceptance.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 449,
+        "text": "  - [ ] Validate the completed replacement on its exact executable against the continuous Panel\u2194Timer and Timer Expand/Collapse Gate 7 criterion at the appropriate physical-validation checkpoint. No source/CI result alone may close the physical gate.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 450,
+        "text": "  - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 451,
+        "text": "- [ ] Implement shortcut to alternate Focus Panel/Floating Timer.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 458,
+        "text": "- [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 465,
+        "text": "- [ ] Persist a safe last position and recover after monitor changes/restart.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 470,
+        "text": "- [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 474,
+        "text": "- [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 481,
+        "text": "- [ ] Verify no decorative animation runs continuously while idle.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 500,
+        "text": "- [ ] VALIDATION_OPEN `M7-OBS-20261003-01`: later CI953 recordings supersede PR225 as the current observation corpus, but detailed normal/reduced continuous-motion and canonical comparison remain required. Preserve finite geometry movement without doubled text, staging flashes or a traveling old Panel header.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 501,
+        "text": "- [ ] VALIDATION_OPEN `M7-OBS-20261003-02`: action-label behavior has later CI953 native evidence, including true Windows 100% acquisition, but only the specifically reviewed cells may be claimed PASS; retain any routed source/timing/hit-target comparison still OPEN.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 502,
+        "text": "- [ ] Complete the remaining M7 milestone/physical reconciliation only after the exact PR #225 observations are dispositioned. Keep M1 Candidate B physical/performance acceptance separate.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 520,
+        "text": "- **M5 FIX_NOW:** Today `done/total Done` progress; resting ordinal \u2192 hover completion; exact board hover rail (Subtasks / Notes / lane-left / lane-right / overflow); source drag lift/live-reflow/settle presentation; inline task-delete Confirm+X presentation while preserving explicit confirmation; direct list Archive without Narro's extra archive-confirmation dialog.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 522,
+        "text": "- **M7 FIX_NOW:** collapsed Floating Timer hover must replace title/time with the compact icon strip and expand only the hovered action label; calibrate the compact rounded shell to the source family. These are source-parity corrections and do not invalidate unrelated PR #225 Windows-correctness automation evidence.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 523,
+        "text": "- **M8 VALIDATION_OPEN only:** PREF-R05/PREF-R06 are already validated. PR #225's concurrent Preferences persistence correction PASSed CI #911; exact-build physical save/restart remains open.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 525,
+        "text": "- **M10 VALIDATION_OPEN:** canonical side-by-side/overlay source comparison, the dedicated fresh-launch/no-implicit-start regression, running-session Notes/title continuity regression, and final release-candidate anti-regressions remain required. M10 is a revalidation gate, not a place to hide implementation gaps found above.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 537,
+        "text": "- [x] Resolve every current `FIX_NOW` discrepancy affecting an already-built/current surface before unrelated forward work.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 544,
+        "text": "**Historical execution priority (superseded):** this paragraph originally routed work to M8 `PREF-R05`; that slice is now validated. Current priority is defined by the 2026-10-04 reconciliation: preserve the independent PR #225 exact-EXE physical gate, and start the earliest implementation correction from the M5 `FIX_NOW` parity batch on current `main`. M9 Sessions is merged/validated; Overview PDF remains open after earlier routed corrections.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 551,
+        "text": "  - [ ] **A9/B29, SS-C17 dedicated Windows Shortcuts dialog:** Current source shows a separate light modal with 3 global-toggle rows and 7 fixed in-app rows. Earlier #271 **CODE INTEGRATED** fixed the 7-row discoverability subset. **ADDITIONAL DEDICATED DIALOG CODE PROPOSED** in #294 branch `implementation/m8-b29-shortcuts-dedicated-dialog-20261009` exact head `0a8b596d8e90451aafefc09d6fb3a963c1ab07a5`: Preferences View shortcuts entry swaps full Preferences for light scrollable accessible modal, reuses existing 3+7 keyboard/registration/persistence controls; existing shell tests updated for new prop. Local tests NOT RUN; CI NOT CHECKED per current user direction; no merge or Windows/native/source parity PASS. Returning to Preferences on close is explicit Narro-local fallback, exact Blitzit modal-return behavior remains unobserved. Reconcile #295 shared `scripts/test-ui-preferences.mjs` after whichever merges first.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 556,
+        "text": "  - [ ] **A23/B57, SS-C07 General/Blitz Panel label info icons:** **CODE INTEGRATED** via PR300 finalhead`b621f14e26afb3cbec0acbe42a93e6c5b66eb6e5`, merge`561331f5be49b6db4e1c6b0b47af68609c4ac99b` present oncurrentmain. Decorative accessible-safe glyphs already implemented; do not repeat the old submission. Exact canonical per-label inventory/hidden tooltip mechanics remain SOURCE_PARITY_OPEN; no newly invented commands. Original submission evidence remains immutable in work-log.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 557,
+        "text": "  - [ ] **A23/B58, SS-C08/C09 full Preferences section headings:** source uses `Blitz mode settings` and `Celebrate task completion` while full Narro `LowerPreferenceSections` titles are `Blitz Mode` and `Celebration`. **M8 SOURCE COPY INTEGRATED / RENDERED ACCEPTANCE OPEN**; PR288 exact-head CI 37922790771 SUCCESS, guarded merge `1b8c895bf72638727d703219debe229abc8fbd76`.; reconcile section-level visible copy within existing calibrated hierarchy; do not alter validated preference keys/state or change the modern Focus-local Quick Preferences section.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 558,
+        "text": "  - [ ] **A13/B34, SS-C07/C08/C09 + VE-014 full Preferences overlay/modal root:** **CODE ALREADY PRESENT ON MAIN / historical pre-fix description superseded**. `src/AppShell.tsx` maintains `preferencesOpen` separately from `activeDestination`/Board state, renders `<PreferencesDialog>` around `<ThemeSettingsPanel />`; `src/PreferencesDialog.tsx` supplies dimmed fixed backdrop, X close, modal dialog role/label, Escape + Tab/Shift+Tab containment, opener focus return and internal bounded scroll. `scripts/test-ui-preferences.mjs` already asserts that architecture. Do **not** recreate it in another PR. **Actual source/native rendered and keyboard parity OPEN** and independent B21/B22/B29 controls retain separate source gaps; Focus Quick Preferences remains a distinct surface. No new implementation or milestone PASS claimed from this tracking correction.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 559,
+        "text": "  - [ ] **A5/B21, SS-C07+VE-014 full Preferences monitor thumbnail selection:** **PR295 MERGED / CI3/3 SUCCESS**, final head`3b11e37c88c4e51c1f062391a8ce85fc73e65964`, CI37988686663, merge`ab763cb247b380fb587261ff760988d780a83daf` is an ancestor of currentmain. The former cb68f1b2 proposal/local-not-run/overlap checkpoint is historical. Integrated screen-card previews retain actual WxH, ScreenN, selected border, persisted monitor identity, Automatic, pending save and refresh. **NATIVE/SOURCE-RENDERED ACCEPTANCE OPEN for this control itself**; scoped PA05 placement/DPI recovery does not automatically prove this thumbnail control\u2019s appearance or interaction. Focus Quick Preferences remains separate.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 560,
+        "text": "  - [ ] **A5/B22, SS-C07 Timezone selector:** source displays a `Timezone` selector with human-readable `(GMT+03:00) Europe/Athens` presentation; current full Preferences renders a raw optional freeform IANA timezone text box without source-style selector/offset label. **M8 SOURCE_CONTROL_PARITY_OPEN**; exact source timezone menu/search mechanics remain unobserved. Preserve user-configured IANA timezone and Windows locale/DST behavior; do not infer a fixed timezone option set. **B22 CODE SUBMITTED, NOT VALIDATED:** branch `implementation/m8-b22-timezone-qualified-selector-20261009` head `000e7d50d34a2e7a4c04f581582f717f9d46ddc2`, #298. A native offset-qualified IANA dropdown with explicit Automatic and validated Other IANA fallback replaces text-only, retaining existing Rust timezone persistence and DST rules. Node isolated helpers 11 PASS, TypeScript isolated PASS; full repo/Windows CI NOT RUN/NOT CHECKED and physical/source menu parity OPEN. Soft overlap with B21/B58 in `PreferenceSettingsSections.tsx` and existing other package.json test changes requires preserving/reconciling newer main before guarded merge.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 561,
+        "text": "  - [ ] **A4/B17 VE-014 parent child disclosure:** PR258 CODE INTEGRATED; exact head 2ea3f31226c61a54cdf670b4dcd29c2324571225, Windows CI 37827228218 SUCCESS all three jobs, merge 017b32eaa6f183ef1084f2eca8da18530383fa3a. Current Preferences conditionally mounts Pomodoro/Timed alerts/Notification/Reminder/Fun GIF children rather than always rendering them disabled. **NATIVE/BLITZIT SOURCE-RENDERED PARITY OPEN**; preserve saved child preferences and do not redo validated logic.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 562,
+        "text": "  - [ ] **A4/B18, VE-014 anchored volume speaker popover:** source speaker/volume button opens a short vertical green-accent volume slider popover, while `SoundPreferenceControl.tsx` renders a permanently exposed horizontal range below select/preview. **M8 SOURCE_CONTROL_PARITY_OPEN**; keep validated common single-preview owner, persisted volume, keyboard accessibility and avoid changing audio authority merely for presentation. **PR262 latest main-reconciled head 21e2dd9e, exact-head CI 37838808626 ongoing; prior CI success was for older source only. Physical/source visual gates OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 563,
+        "text": "  - [ ] **Video-to-code V10/B69, VE-014 ~01:32\u201301:56 timed-alert flash composition:** Blitzit displays a finite violet/pink active Focus card wash; Narro's TimedAlertFlashRuntime + timedAlertFlash.css only animate timer text color/shadow for 560ms. **M8 SOURCE_VISUAL_PARITY_OPEN; M6 Focus card styling dependency.** Maintain historical PREF-R02 timing/reduced-motion/runtime PASS; apply calibrated card-level effect without altering event scheduling, work time, audio or other accepted behavior. Rendered canonical comparison and native acceptance separately OPEN; edited video cuts do not establish transition timing. **PR257 exact-head Windows CI `37826987126` SUCCESS and guarded merge `b36bce94` integrated; finite card-level wash present, native/source visual acceptance OPEN.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 564,
+        "text": "  - [ ] **A2/B9 independent Success sound effect:** CODE PRESENT on main, despite historical pre-fix claim. PreferenceSettingsSections has an independent successSoundEnabled switch and preview/volume guard; typed frontend+Rust domain/persistence accept the saved flag, FocusLiveActions checks it after committed completion. Existing test-ui-preferences contracts cover the flag; **NATIVE/SOURCE AUDIO AND EXACT PARENT INTERACTION PARITY OPEN**, not a new code change.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 595,
+        "text": "  - [ ] **A6/B25 SS-C15 + VE-015 Reports filter trigger:** PR272 CODE INTEGRATED, head c755677d922d15080d707c0da5065c164fa95174, full Windows CI 37841515249 SUCCESS, guarded merge 06ac3f1a5d0ea232a995389fa97b4056f0199d33. Both Overview and Sessions now render `ReportListBadges` with list colors rather than prior N placeholder; functional multiselection retained. **DIRECT SOURCE/NATIVE RENDERED PARITY OPEN**, not missing implementation.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 598,
+        "text": "  - [ ] **A10/B30 VE-011/VE-012 Reports date completeness:** PR256 CODE INTEGRATED head c8399ceea248aae253dac812ff8cb10647d8d20e, exact-head full Windows CI 37827413688 SUCCESS, merge 0dc10c462b6ce6d2dec633ffab4af663de606e05. Rust `fill_daily_calendar_dates` emits bounded consecutive selected local dates including zeroes, timezone/DST tests; Overview chart uses dynamic CSS day count and scroll for >14 days rather than fixed repeat(8). **DIRECT 8/30/60/90-DAY NATIVE/SOURCE RENDERED/PDF PARITY OPEN**; no new backend fix needed.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 599,
+        "text": "  - [ ] **A7/B28, VE-011 chart hover category band:** source pointer hover highlights the active date category in a translucent vertical band and brightens its Total bar. Pre-PR268 Narro lacked this treatment. **PR268 CODE INTEGRATED** with hover/focus category wash and Total emphasis, exact head `b900fa5955a6315f0d5e10ce4b467d7904f15890`, full Windows CI `37841229293` SUCCESS, guarded merge `ddce48d36b1554e8ec61f209ab8b8521645ce0e7`. **M9 SOURCE_RENDERED_PARITY_OPEN**: direct fixture/canonical comparison and physical hover remain unproven; preserve accessible tooltip, series toggles and reduced-motion.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 600,
+        "text": "  - [ ] **A3 / SS-C12 Reports Chart options dead control:** Current SS-C12 shows an options icon, but does not establish menu contents or actions. Pre-PR265 Narro rendered an inert focusable `Chart options` button; PR265 replaced that unsafe control with a disabled, explicitly unavailable affordance without inventing source commands. **PR265 CODE INTEGRATED**, exact head `b804c3e81c052ef55cc440f9b26b4c47b3d3efb4`, all three Windows CI jobs `37837474958` SUCCESS, guarded merge `d09aa0dec4e11b08ca6582612b621a713b49b819`; **SOURCE_INTERACTION_EVIDENCE_LIMIT / RENDERED_PARITY_OPEN**. Keep chart/legend interactions unaffected.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 603,
+        "text": "  - [ ] **A7/B27, VE-011 populated Reports Done rows:** **CODE INTEGRATED** via PR293 head`e1431a47f04d4366b1f0f8eef0199b12d9c716ab`, merge`ca4bc15afaff7b178e0a2575686b96edf36b28d1` present oncurrentmain. Existing list-color badge/status/TimeTaken projection is implemented; source/canonical rendered comparison remains OPEN. Do not resurrect the merged proposal branch or infer source parity from Narro-owned fixtures.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 605,
+        "text": "  - [ ] **Evidence-to-code audit A2 / SS-C02 date navigation:** source screenshot shows single and double chevrons; both current Overview/Sessions implementations expose only previous/next month. **M9 SOURCE_CONTROL_PARITY_OPEN**; double-chevron effect is unobserved, so do not infer year jump without supporting evidence.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 607,
+        "text": "  - [ ] **B56 / SS-C14 + VE-015 Sessions Total Tasks:** source displays 2 tasks/0 sessions and 39 tasks/22 sessions, disproving a summary derived solely from distinct tasks with work sessions. **PR290 NARRO_INFERRED CODE INTEGRATED** head `b21078edd16545627be569681e966b0e800a29af`, exact head `b21078edd16545627be569681e966b0e800a29af` guarded merged as `b81280f99155b17700c68c6bd9a683b1aa37b707` (PR-head validation evidence must remain separately auditable); previous `37929345017` FAILED rustfmt, intermediate `37930290282` CANCELLED: Total Tasks becomes unique completed-or-worked tasks from the existing filtered report-history snapshot, independent of session count/break inclusion, with Rust and SQLite no-session, de-dup, date/list tests. **BLITZIT SOURCE_METRIC_DEFINITION/DATE/ARCHIVE_SEMANTICS OPEN**, never claim exact formula or physical parity.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 608,
+        "text": "  - [ ] **A19/B51 VE-015 Sessions Break icon:** PR272 CODE INTEGRATED head c755677d922d15080d707c0da5065c164fa95174, full CI 37841515249 SUCCESS, merge 06ac3f1a5d0ea232a995389fa97b4056f0199d33. Source-related SVG icon replaces earlier generic glyph; existing `aria-pressed`/filter behavior preserved. **DIRECT VISUAL SOURCE PARITY OPEN / HISTORICAL VIDEO LIMIT**.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 610,
+        "text": "  - [ ] **Video-to-code V06/B68, VE-015 02:05\u201302:20 + SS-H17 Add Session task-selector open/closed state:** source opens an anchored `Select tasks...` / `Recent Tasks` picker from a collapsed selector. Pre-PR265 Narro mounted both input and choices unconditionally. **PR265 SELECTOR CODE INTEGRATED**, exact head `b804c3e81c052ef55cc440f9b26b4c47b3d3efb4`, full Windows CI `37837474958` SUCCESS, guarded merge `d09aa0dec4e11b08ca6582612b621a713b49b819`: explicit trigger/open state, dismissible bounded picker and selection; **SOURCE_INTERACTION/RENDERED_PARITY_OPEN / HELP-VIDEO_VERSION_LIMIT**. Preserve Finding30 overflow, focus ownership and task identity; source does not prove exact postselection motion or recency sorting. B59 badges and B32 detail-modal lifecycle remain distinct.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 611,
+        "text": "  - [ ] **A28/B59, SS-H17 Add Session Recent Tasks badges:** source picker rows carry a colored list badge beside title. Pre-PR265 Narro showed plain list titles; **PR265 BADGE PROJECTION CODE INTEGRATED**, exact head `b804c3e81c052ef55cc440f9b26b4c47b3d3efb4`, full Windows CI `37837474958` SUCCESS, guarded merge `d09aa0dec4e11b08ca6582612b621a713b49b819`: list-color-backed row badge, task identity preserved. **SOURCE_RENDERED_PARITY_OPEN / HELP_VERSION_LIMIT**; direct canonical appearance and physical dropdown remain to be compared. Do not infer recency sorting from the heading.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 612,
+        "text": "  - [ ] **A11/B32 Sessions detail modal focus/lifecycle:** **CODE INTEGRATED** via PR286 finalhead`bbc6d0ac50678a0e6590801e8169bc7ee4a6c4d7`, merge`af11f115803bbd6d6ad5a2b94b61aaa185a1a0d5` present oncurrentmain. PA350/PA355 native nested Add/Cancel/commit and focus-return scopes are accepted where exercised. Direct source keyboard-detail parity remains OPEN; old failed intermediate heads are historical, not current unmerged work.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 628,
+        "text": "- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are `SOURCE_COMPLETE`. Overview production wiring PASSed PR #224 CI #906 and resulting-main CI #907. Sessions/Add/Edit/detail plus local Sessions CSV are now present on current `main` with all 22 PR #226 changed blobs identical to exact head `106d3447c6614d830b59e5464fe71b70e5552eda`, which PASSed Windows CI #915; resulting-main Windows CI #917 / run `37157907335` also PASSed all gates. The Sessions implementation slice is **5/5 checkpoints complete**. Historical CI1046 closed12/12; PA356 exact-build actualPDF acceptance recloses the affected export item, so **current M9 top-level coverage is12/12**. WholeM9 still requires the separate direct source-parity gate. Unaffected item acceptance is retained. Direct canonical Blitzit comparison is still `VALIDATION_OPEN` and Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 632,
+        "text": "**HARD ENTRY GATE \u2014 DO NOT START M10 YET:** Milestone 10 may begin only after every required M1\u2013M9 implementation and acceptance gate is closed on resulting `main`. This includes reopened earlier-milestone items, all M1\u2013M9 `FIX_NOW` routes, required physical/manual Windows checks, milestone-level direct source-parity comparison/correction gates, and any earlier-milestone PR whose result can still change the application. Preparatory release tooling may exist earlier, but it does not satisfy or advance any M10 checkbox. Immediately before M10 starts, perform a live reconciliation proving the gate is clear and record the exact release-candidate starting SHA.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 634,
+        "text": "**M10 evidence-reuse rule (2026-10-16 user decision; non-counting, applies only after hard entry):** M10 is final **evidence reconciliation + release-candidate delta validation**, not a blanket repetition of M1\u2013M9. For each M10 checklist item below, prepare a claim-level matrix identifying the existing accepted evidence (source SHA, CI run, binary/artifact, exact exercised Windows/visual/source state and environment), later code/build/dependency changes, validity of that evidence for the M10 claim, remaining gap and disposition (`REUSED_VALID`, `NEW_CHECK_REQUIRED`, `LIMITATION_ACCEPTED`, `OPEN`). Reuse still-valid M1\u2013M9 PASS without repeating its test; newly execute **only** missing or invalidated checks, narrowly necessary cross-feature integration smoke and checks inherently specific to the final release-candidate installer/build/upgrade/sign-in. Explicitly distinguish reused evidence from fresh execution. A changed shared foundation requires rerunning its *affected* earlier criteria, not the entire milestone. Preserve the hard M10 entry gate, full required final candidate CI/build gates, real Windows/source parity where actually necessary and the existing [ ] items/denominator; no checkbox becomes PASS merely because an earlier build once passed. See `AGENT_WORKFLOW.md` and `docs/CI_VALIDATION_STRATEGY.md`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 638,
+        "text": "- [ ] Validate clean first launch and database creation.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 639,
+        "text": "- [ ] Validate upgrade across at least one migration change.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 640,
+        "text": "- [ ] Validate main-window destroy/recreate plus tray/focus runtime.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 641,
+        "text": "- [ ] Validate explicit Quit.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 642,
+        "text": "- [ ] Validate multi-monitor behavior and monitor disconnect/reconnect recovery without restart.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 643,
+        "text": "- [ ] Validate Windows display scaling at 100%, 125%, 150%, and 200%.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 644,
+        "text": "- [ ] Validate Windows locale variants including 12-hour and 24-hour time formats.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 645,
+        "text": "- [ ] Validate Windows installer packaging.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 646,
+        "text": "- [ ] Re-validate autostart launch after Windows restart/sign-in on the release-candidate build.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 647,
+        "text": "- [ ] Add Narro-owned application icon/branding.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 649,
+        "text": "- [ ] Reconcile and complete regression coverage for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion; reuse still-valid M1\u2013M9 tests/results and execute missing/invalidated checks plus mandatory integrated release-candidate test gates.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 651,
+        "text": "- [ ] Reconcile the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable, reusing already accepted direct-source/native comparisons and recapturing only missing or invalidated states.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 653,
+        "text": "- [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work, reusing valid existing geometry/performance captures and rerunning only affected or missing conditions.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 654,
+        "text": "- [ ] Reconcile evidence for source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`, executing only invalidated/missing coverage and required integrated release checks: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, no post-pause/manual-edit timer-vs-ledger divergence, no implicit timer/task start on a fresh app launch, and no live-session reset/desynchronisation from Notes/title metadata edits.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 655,
+        "text": "- [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 684,
+        "text": "- [ ] Record the live Blitzit reference environment: observable version/build, date/time, Windows/display/DPI context, trial/subscription limitations, theme/locale/preferences and evidence provenance.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 685,
+        "text": "- [ ] Build a complete scripted capture matrix before substantive exploration starts, using current TODO/HANDOFF/crosswalk plus unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 686,
+        "text": "- [ ] Define synchronized capture for both streams:",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 689,
+        "text": "- [ ] Define the privacy/security filter before capture: no credentials/tokens/cookies/payment/private unrelated data in repo evidence; no endpoint fuzzing, auth/access-control bypass, certificate-pinning bypass or secret replay.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 693,
+        "text": "- [ ] Execute the full scripted product journey and branch scenarios with visual + protocol/state streams synchronized on one timeline.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 694,
+        "text": "- [ ] Keep each scripted session continuous; segment only for technical reliability/size while preserving session IDs, chronological order, hashes/reassembly metadata and explicit capture gaps.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 695,
+        "text": "- [ ] Preserve unexpected/failing states and repeats as evidence rather than overwriting them.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 696,
+        "text": "- [ ] Enforce the **analysis embargo** throughout capture:",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 705,
+        "text": "- [ ] Stop acquisition and create the immutable M11 corpus inventory: session chronology, raw/sanitized file mapping, hashes, provenance, scenario coverage, capture gaps and unobserved channels.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 706,
+        "text": "- [ ] Verify all intended recordings/logs are readable and coverage is complete. If something required is missing/corrupt, run a capture-completion session and refreeze before analysis.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 707,
+        "text": "- [ ] Keep sensitive raw network/state captures local; repository evidence contains only sanitized derivatives, manifests, hashes and redacted structural summaries.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 711,
+        "text": "- [ ] Review the **entire frozen visual corpus** systematically for layout, hierarchy, typography, icons, spacing, states, menus/dialogs/tooltips, motion, transitions, transient states and version-dependent differences.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 712,
+        "text": "- [ ] Review the **entire frozen observable protocol/state corpus** and correlate user actions with task identity/mutations, reorder/move, timer/session accounting, Notes/subtasks, scheduling/recurrence, reports, optimistic acknowledgement/reconciliation, retries/conflicts and local-vs-remote state where supported.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 713,
+        "text": "- [ ] Classify backend conclusions as directly observed contract / strong evidence-based inference / unknown-unobservable; never claim hidden server implementation from client evidence.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 714,
+        "text": "- [ ] Produce one complete M11 findings register. **Do not begin Narro fixes before the planned corpus has been analyzed to completion.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 718,
+        "text": "- [ ] Reconcile every material live finding against canonical Pass-3/static-calibration evidence and the final M10 Narro implementation; record version conflicts and ambiguity explicitly.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 719,
+        "text": "- [ ] Disposition every finding before implementation: no difference, source-version difference, intentional Narro deviation, insufficient evidence/accepted ambiguity, or Narro correction required.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 720,
+        "text": "- [ ] Freeze a dependency-aware remediation plan grouping required fixes into coherent validation batches. **No M11 implementation begins before this plan is complete.**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 724,
+        "text": "- [ ] Implement only the evidence-backed corrections selected by the frozen remediation plan; preserve Narro's local-only architecture and reproduce observable semantics rather than Blitzit's private cloud architecture.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 725,
+        "text": "- [ ] Add/update regression coverage for material visual/behavior/state-contract findings.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 726,
+        "text": "- [ ] Re-run affected automated/Windows/source-parity/data-integrity gates.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 727,
+        "text": "- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 737,
+        "text": "- [ ] Freeze the final review baseline at the validated Milestone 10 source SHA when M11 was dormant/skipped, or at the validated post-M11 source SHA when M11 was explicitly activated; record the complete application/version/environment under review.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 738,
+        "text": "- [ ] Inventory all relevant Narro specifications, validated work logs, screenshots, visual fixtures, and current product states that define expected behavior.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 739,
+        "text": "- [ ] Record M11 disposition explicitly for the review: `NOT ACTIVATED / SKIPPED BY DESIGN`, or `ACTIVATED / COMPLETE` with the live-source audit report and post-M11 SHA. Never perform M11 implicitly as part of Final Review.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 740,
+        "text": "- [ ] Inventory **all available Blitzit screenshots, images, videos, transcripts/captions, and visual references**, including the supplied reference screenshots, `reference/original-blitzit-videos/inbox/`, and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 741,
+        "text": "- [ ] Verify the already-complete canonical Pass-3 corpus inventory remains intact and traceable: 19/19 MP4 records, 46/46 canonical screenshot records/dispositions and 8/8 calibrated visual-system families. Do **not** re-ingest or broadly re-analyze the corpus merely because Final Review has started.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 742,
+        "text": "- [ ] Consume the completed canonical timestamped Pass-3 recording analysis for interaction flow, UI states, motion, transition/resize ordering and transient states. Re-open raw media only for a concrete ambiguity/conflict, an implementation-exposed uncaptured detail, or direct final source verification of a comparable release-candidate state; never substitute a fresh broad forensic pass for the canonical records.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 743,
+        "text": "- [ ] Route every material video-derived discrepancy, missing transfer, source conflict, reliability issue, or UX finding into the final findings register and any affected specification/tracking document; confirm no uploaded video/transcript was silently skipped.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 744,
+        "text": "- [ ] Build a complete screen/state/interaction matrix so every relevant application surface has an explicit final-review entry rather than relying on spot checks.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 745,
+        "text": "- [ ] Re-verify the existing **46/46 canonical Blitzit image coverage ledger** against the release candidate. Preserve each image's current canonical/calibration disposition, and add a final release-candidate comparison result where the image represents a reproducible Narro state. Do not redo already-closed static calibration unless release-candidate evidence exposes a real conflict.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 746,
+        "text": "- [ ] Reconcile the final screen/state matrix against the Help Center evidence inventory as well as the image/video corpus: preserve the existing 34/34 visible legacy-page classification and 15/15 Narro-relevant deep-review coverage, and verify that every still-relevant behavior/state has a final implementation or explicit disposition.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 750,
+        "text": "- [ ] Review the application end to end against `ENGINEERING_QUALITY.md`, established Rust/TypeScript/Tauri/SQLite engineering practices, and the repository's validated architecture/invariants.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 752,
+        "text": "- [ ] Perform a final local-desktop security/privacy surface review: Tauri capabilities/permissions and IPC exposure, command/input validation boundaries, external-URL activation, filesystem scope, SQLite/query boundaries, absence of unintended remote/network/telemetry paths, secret/token handling, dependency advisories, and release configuration. Any material risk must enter the final findings register with remediation or an explicit accepted limitation.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 753,
+        "text": "- [ ] Review state ownership, persistence boundaries, identity integrity, timer/session accounting, scheduling/timezone/recurrence behavior, lifecycle/window coordination, local-only/privacy boundaries, failure semantics, recovery paths, concurrency/stale-state handling, dependency/configuration hygiene, and release behavior for correctness and maintainability.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 754,
+        "text": "- [ ] Review code structure for unnecessary duplication, brittle coupling, dead/obsolete paths, unsafe assumptions, unclear ownership, weak typing/error models, and avoidable complexity without performing broad rewrites merely for style.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 755,
+        "text": "- [ ] Review performance-sensitive paths for unnecessary polling, idle work, excess renderer/native churn, avoidable persistence writes, memory/CPU regressions, and animation/transition overhead.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 756,
+        "text": "- [ ] Re-run the complete regression/anti-regression matrix appropriate to the release candidate, including the source-product reliability risks recorded in `docs/BLITZIT_HISTORY_RISK_INDEX.md`.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 757,
+        "text": "- [ ] Verify that meaningful edge cases and user-facing failure/loading/unavailable/recovery states have clear feedback throughout the application; record any missing state handling as a final-review finding.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 761,
+        "text": "- [ ] Review usability, discoverability, interaction consistency, information architecture, visual hierarchy, alignment, spacing rhythm, density, typography, readability, iconography, control affordance, feedback, and overall cross-surface consistency using established professional desktop-product design principles.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 762,
+        "text": "- [ ] Use explicit professional evaluation lenses rather than taste alone: Nielsen's usability heuristics; Gestalt principles such as proximity, similarity, common region and continuity; Fitts's Law for target acquisition; Hick-Hyman/choice-complexity considerations where menus or option sets are involved; progressive disclosure; recognition over recall; visibility of system status; error prevention/recovery; and Windows desktop conventions. These are evaluation/fallback lenses and must not override confirmed Blitzit parity unless an already-documented accessibility/reliability/Windows exception applies or source evidence is genuinely missing.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 763,
+        "text": "- [ ] Review keyboard operation, focus order/visibility, accessible names, target sizes, reduced-motion behavior, semantic state communication, and color/contrast against applicable accessibility standards, targeting WCAG 2.2 AA where relevant to the desktop UI. Record contrast evidence for normal text (4.5:1 target), large text (3:1), and meaningful non-text UI/state boundaries (3:1) where the criterion applies; do not rely on visual inspection alone.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 764,
+        "text": "- [ ] Review the final color palette and semantic color usage for contrast, state distinction, consistency, dark/light behavior, destructive/warning/success communication, and legibility.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 765,
+        "text": "- [ ] Review responsive/adaptive behavior across supported window sizes, Focus Panel/Floating Timer modes, Windows DPI/scaling levels, monitor configurations, long content, locale/time-format variation, and other layout-pressure states.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 766,
+        "text": "- [ ] Review hover, focus, pressed, selected, disabled, pending, loading, empty, error, unavailable, confirmation, success, notification, overlay, dialog, menu, tooltip, and transition states for consistent behavior and visual treatment.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 772,
+        "text": "- [ ] Compare every relevant Narro screen, state, component, and interaction against the available Blitzit screenshot, video, transcript, and source evidence; do not limit this pass to screens already covered by automated fixtures. Use direct video evidence specifically for motion, sequencing, transient states, and interaction behavior where the sequence is visible.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 773,
+        "text": "- [ ] Verify layout structure, dimensions, proportions, alignment, spacing, typography, wrapping/truncation, icons, colors, borders, radii, shadows/elevation, dividers, progress/timer presentation, states, overlays, dialogs, menus, empty states, error states, loading/waiting states, and interaction details.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 774,
+        "text": "- [ ] Compare light/dark variants and any state-specific references separately when source evidence exists.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 775,
+        "text": "- [ ] Verify that functionality shown or documented in the source product was not silently omitted during implementation. Any apparent missing transfer must be traced to implementation, an intentional Narro deviation, superseded/ambiguous source evidence, or an explicit product decision.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 776,
+        "text": "- [ ] Where stable comparable screenshots exist, use repeatable screenshot/capture comparison with recorded viewport/DPI/theme/state; where exact pixel comparison is not meaningful, record the design-system/behavioral comparison and rationale instead. For stable references, record key comparable measurements where useful (surface/component bounds, spacing/gaps, alignment offsets, typography size/weight/line-height, radii/borders, and representative color samples) so the result is not based only on subjective eyeballing.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 777,
+        "text": "- [ ] Explicitly revisit deferred audit/fidelity questions such as B1/B2/B3/B4 and resolve or disposition them from the strongest final evidence rather than silently carrying them into release.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 778,
+        "text": "- [ ] For any final evidence gap that remains genuinely unrecoverable after the relevant audit/reference pass, make and record the strongest professional product/design/engineering decision consistent with adjacent Blitzit evidence, Narro's established design system, Windows desktop conventions, accessibility and reliability; do not leave ordinary product behavior unfinished solely because an exact source detail is unavailable, and do not present the inferred choice as confirmed Blitzit behavior.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 782,
+        "text": "- [ ] Create a single final-review findings register covering engineering, correctness, usability, accessibility, visual fidelity, missing functionality, state coverage, and reliability findings with severity/evidence/owner/disposition.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 783,
+        "text": "- [ ] For every finding, record one explicit disposition: fixed and validated; intentional Narro deviation; source ambiguity requiring a documented product decision; or accepted limitation with rationale. No finding may disappear without disposition.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 784,
+        "text": "- [ ] Implement remediation in narrow evidence-backed slices only after the review finding exists; do not use the final review as justification for an unrelated architecture rewrite.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 785,
+        "text": "- [ ] Re-run affected automated, Windows, visual, accessibility, and regression evidence after remediation and confirm fixes did not regress previously validated behavior.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 786,
+        "text": "- [ ] Perform a final end-to-end release-candidate pass after all review findings are dispositioned.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 787,
+        "text": "- [ ] Publish the final comprehensive review report with the reviewed source SHA, evidence matrix, unresolved/accepted limitations, final validation evidence, and aggregate final-review remediation diff.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      }
+    ],
+    "HANDOFF.md": [],
+    "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md": [
+      {
+        "line": 42,
+        "text": "**Historical PA355 aggregate disposition:** acquisition3/3/full evidence published and originals restored. Picker/manual60s commit/cancel, Preferences width, tooltip containment/ownership, actual PDF/default viewer/non-overwrite/local filename **PASS scoped**. Remaining **FIX_NOW2**: Preferences Escape after theme-save focus loss; actual90day PDF adjacent final labels overlap. [Authoritative report](WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md). NEXT new narrow branch from latestmain, reproduce/fix these two with behavioral regressions, one CI and affected native recheck. HDMI manualNOTRUN, mandatory3/10/M10blocked; PA09/M11excluded.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 54,
+        "text": "**Historical PA continuation:** PA354 acquisition4/4/review4/4, tooltip1/1 scopedPASS; PA04 remainsFAIL for picker/PDF, M8 widthFIX_NOW. [PR355](https://github.com/MariosGiannakaras/Narro/pull/355) head7b54e62f/CI38630226135 in progress; preflight/build/rustfmt and actual DOM12/12 + print8/8PASS. New corrected physical0/3. Original profiles/motion restored/no app or recorder. [Exact continuation and evidence](../work-log/2026-10-14-pa354-review-pr355-ci.md). Mandatory3/10/M10blocked; HDMI manualNOTRUN, PA09/M11excluded.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 66,
+        "text": "**PA353 tooltip FIX_NOW implementation:** [PR354](https://github.com/MariosGiannakaras/Narro/pull/354) headf28c6e95 / CI38571856805 running; bounds/ownership/scroll/resize/PDF correction, geometry2052/2052 and DOM24/24/local preflight PASS. **PHYSICAL_OPEN0/1**, PA04 remains FAIL; no rendered/canonical source parity claim. [Exact continuation](../work-log/2026-10-14-pa354-tooltip-candidate-checkpoint.md).",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 68,
+        "text": "**PA353 physical disposition (2026-10-14):** [Report](WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md), exact8e2f9080/maina8d7c905. PA02 retained outgoing Board/opaque Focus reliability **PHYSICAL_PASS scoped**, canonical motion parity OPEN. PA04 scrollbar suppression plus actual wheel/keyboard reachability **PHYSICAL_PASS scoped**, but new chart tooltip clipped at left boundary after horizontal scroll in30/90-day ranges **FIX_NOW / PHYSICAL_FAIL**. Route only this tooltip containment/hover/focus/scroll discrepancy to PA04/M9 correction; preserve other Reports semantics and source-parity distinctions. Capture2/2/review2/2, mandatory3/10/M10 blocked. Older checkpoints below are historical.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 72,
+        "text": "**PA351 findings implementation in flight (2026-10-14):** [PR353](https://github.com/MariosGiannakaras/Narro/pull/353) head `8bda5cc40be905c4a91506e0708d39e2770b4cde` addresses only PA02 normal Board-entry paint and PA04 Reports scrollbar visibility, including keyboard scroll reachability. Exact Windows CI38558587191 running; **FIX_NOW remains OPEN / physical corrected acceptance 0/2** until merged-main exact-executable continuous dual-screen capture. Earlier PA351 failures and evidence remain immutable. M1\u2013M9 unaffected gates retain their own dispositions; M10 blocked.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 74,
+        "text": "**2026-10-14 PA351 exact-main physical review:** [Report](WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md) and [full evidence](../work-log/evidence/pa351-native-20261014). Actual selected notification sound/volume 0/100 boundary **PHYSICAL_PASS scoped**. Normal Main\u2192Focus outgoing Board disappearance **FIX_NOW / PHYSICAL_FAIL** despite removal of pale flash; reduced-motion entry scoped PASS. Production Reports wheel/PageDown works but chart/detail scrollbar chrome persists: **FIX_NOW / PHYSICAL_FAIL**. C5 same EXE/152px/normal tray Quit/relaunch saved Timer PASS. Capture5/5; PA dispositions8/8 reviewed; new correction families1/3 PASS/2/3 FAIL. Personal profile restored. M1\u2013M9 existing gates only close where their exact behavior was exercised; mandatory3/10 and M10 blocked. Older candidate lines below are historical.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 82,
+        "text": "[Authoritative exact report](WINDOWS_PA350_NATIVE_REPORT_2026-10-14.md): nested F29 and full Focus form PASS, C5 new-executable restart PASS; repaired original families3/3. New M6 initial-entry paint/timing, actual notification audio100 and Reports visible-scrollbar findings FIX_NOW in next narrow batch. Native toast delivery PASS, source parity/hardware/MSI/listener failure OPEN/NOT RUN. Virtual-key tool failures do not authorize a shortcut patch: held physical scancodes succeed. Mandatory3/10/M10 blocked; historical results below remain immutable.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 147,
+        "text": "- **Functional internals not observable:** implement the best deterministic, reliable local-first Narro contract, with validation and provenance. The fact that Blitzit's private rule is not documented does **not** make an otherwise safe, implemented functional choice permanently `FIX_NOW` or `PRODUCT_DECISION_REQUIRED`. Never claim that an inferred Narro rule is confirmed Blitzit behavior.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 342,
+        "text": "|09/21/23 full title/queue|Unbroken tooltips wrap inside native Panel100/125 normal/reduced, full accessible names retained. Vertical/end/menu evidence reused/exercised. Horizontal provider assertion remains inconsistent (true/85.31% view, SetScrollPercent100 leaves0 and no movement); VALIDATION_OPEN, no demonstrated visible horizontal overflow.|",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 353,
+        "text": "[CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md): real1.8s/4s read-latency exercises show loading feedback and ready title focus, but Escape/Tab remain queued until the database lock releases on Main and Focus.07 remains **FAIL / FIX_NOW** for native read responsiveness; synchronous Home/board commands are the scoped path to investigate/correct. All sampled identities/sessions/time/notes/checkpoint/preferences are unchanged. Whole three originals, four clips,190 reviewed unique crops/12atlases and whole six-file current Narro-M7-Logs/verified ZIP are published. Only LG1920x1080/125% currently active; UltraGear unavailable, no deliberate display change in this session. OBS stopped; PID133416 remains paused. Native24/26/23/20 and whole source gates stay open. **4/10M ||4/5 |14/19**; M10 blocked/M11 dormant.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 363,
+        "text": "|23 queue|Wheel/Ctrl+End/last-row menu and Tab access100%/125% **SCOPED PHYSICAL_PASS**. Horizontal-provider metric and actual unbroken-title bounds **VALIDATION_OPEN**; no whole source claim.|",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 366,
+        "text": "|M7-OBS-20261005-26 menu paint|Disabled underlying metadata paints above transformed menu rail in native footage, unlike opaque/unobscured VE00618s. **FAIL / FIX_NOW M5**: rendered top-hit assertions and scoped explicit stacking ownership; portal alternative considered if scoped correction is insufficient.|",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 397,
+        "text": "3. if a known finding for an already-built/current surface is `FIX_NOW`, correct and validate it before unrelated forward feature work;",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 405,
+        "text": "- **FIX_NOW**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 407,
+        "text": "- **VALIDATION_OPEN**",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 435,
+        "text": "| Planning board + archive | SS-C10, SS-C11, SS-H01, SS-H02, SS-H11, SS-H12, SS-H13, SS-H14, SS-H15; VE-005 empty Board | Scoped Board/archives domain accepted only for original contracts; B10/B11/B12/B14/B24/B39\u2013B48/B52/B53/B60 plus **B61** source empty-lane copy and **B62** visually subdued no-runnable Today CTA route separately. | **M5 B10/B11/B12/B45/B53 FIX_NOW; B60 ring/B61 copy/B62 CTA source presentation OPEN; older-video version caveat** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 436,
+        "text": "| Focus / Floating / Notes / subtasks | SS-C18\u2013C21, SS-H03\u2013H05, SS-H09\u2013H12, VE-003/005 | Prior Focus/Floating scoped runtime/physical gates coexist with B15/B26/B31/B35\u2013B38/B49/B50 and NEW **B63 success entire opaque Focus overlay instead of in-place live-card**, **B64 no animated media despite Fun GIF setting**, **B65 no EST\u2212Taken early/late verdict**. Existing CI1046 C4/35 native FAIL and pending success physical reviews remain separate. | **M6 B63/B64/B65 HIGH-VISIBILITY SOURCE_PARITY_OPEN**, preserve validated transaction and explicit Next Task; M7 physical C4 OPEN |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 437,
+        "text": "| Preferences / Windows shortcuts | SS-C07, SS-C08, SS-C09, SS-C17, SS-H06 | Full Preferences modal B34 plus B9/B17/B18/B21/B22/B29 remain substantive known source-control gaps. A23 current-image per-control review adds **B57** label info glyphs (per-label mechanics evidence-limited) and **B58** exact section heading copy; runtime shortcut/audio/persistence PASS scoped. | **M8 B34/B9/B17/B29 FIX_NOW; B18/B21/B22/B57 SOURCE_CONTROL_PARITY_OPEN; B58 LOW COPY_PARITY_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 438,
+        "text": "| Scheduling / recurrence | SS-H07, SS-H08 | Historical M4 date/DST/recurrence/No Repeat domain safety remains scoped validated, but B19 two-step wizard is absent, B20 ordinal monthly recurrence is missing from model/materialization, and B33 date-derived presets/Custom live natural-language summary are absent. | **M5 B19/B20/B33 FIX_NOW; M4 domain extension required for B20; historical scoped M4 PASS retained** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 439,
+        "text": "| Reports / Sessions | SS-C02, SS-C12, SS-C13, SS-C14, SS-C15, SS-C22, SS-H16, SS-H17 | Historic scoped Rust/Windows Reports validations coexist with B13/B16/B25/B27/B28/B30/B32/B51 and **B56 current-source Sessions Total Tasks metric incompatible with session-only distinct-task projection**. `reportsVisualFixture` matches source 2/0 only via hardcoded fixture values. | **M9 B56 HIGH-PRIORITY METRIC-DEFINITION RECONCILIATION; B16/B30 FIX_NOW; B32 accessibility; other source controls OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 447,
+        "text": "| VE-002 | Video-to-code V03: current `taskEstimateParser` handles source minute/hour/combined suffix grammar and validated committed title normalization, but `ListBoard::InlineCreateEditor` does **not** update the EST field reactively during title typing; it parses only on `submitCreate`. B66 records this missed intermediate source state. Full-word `hours` was narration, not an executed source demonstration, though Narro grammar/test supports it. | **VIDEO_CODE_REVIEWED V03 / M5 B66 FIX_NOW / VE-F001 COMMIT VALIDATED** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 448,
+        "text": "| VE-003 | Focus queue/live actions, success gate and Panel/Floating foundation exist. The compact rest/hover/selected-pill grammar and rounded silhouette now have exact CI936 direct source comparison, with the exterior shadow deviation documented. Other Focus/source gates retain their detailed routes. | **SCOPED PHYSICAL_PASS / SOURCE_COMPARISON_PASS grammar/silhouette; exterior shadow INTENTIONAL_DEVIATION; remaining VALIDATION_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 452,
+        "text": "| VE-005 | Earlier source-video code gap IDs B3/B7/B8/B23/B24/B46/B47/B48/B52/B53 retained. **V01 fine-grained pass** adds B61 empty pending lane `All Clear` vs `No tasks`, B62 empty Today subdued CTA vs vivid always-enabled rendering, and cross-video-confirmed B63\u2013B65 Focus success card/animated GIF/525-minutes-early projection omissions. Source time cuts cannot prove native handoff latency or disabled CTA click. | **VIDEO_CODE_REVIEWED 1/19; M5 B61/B62 SOURCE_VERSION_LIMIT; M6 B63/B64/B65 SOURCE_PARITY_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 458,
+        "text": "| VE-011 | Overview data aggregation and legend are scoped-validated, but source filter badges B25, Done pills B27, chart hover band B28 and consecutive eight-day category dates B30 are not matched. Historic numeric ambiguity remains separate. | **M9 B25/B27/B28/B30 SOURCE_PARITY_OPEN, scoped aggregation PASS retained** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 459,
+        "text": "| VE-012 | Source 30-day report chart includes zero-activity calendar dates; current Rust `daily_series` omits them and fixed eight-column layout requires long-range verification (B30). Other session-derived aggregation and known rounding ambiguity retain their scoped status. | **M9 B30 FIX_NOW + long-range RENDERED_TEST_REQUIRED, previous scoped semantic validation retained** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 460,
+        "text": "| VE-013 | Durable subtask add/edit/complete/reorder/delete and progress are implemented; source board-inline first-add header-plus/input-placeholder/in-field-X composition differs (B12). Focus/Floating live subtask behavior otherwise retains scoped validations. | **M5 B12 FIX_NOW for source control grammar / domain implementation validated** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 463,
+        "text": "| VE-016 | **V05 full-video-to-code reviewed.** Original scoped EST/Pomodoro/count-up domain remains, with existing B35\u2013B38 Break/POMO, B50 context Extend and B53 HH:MM edit-source mismatches. **New B67:** source post-Extend warm negative `-00:01:xx` vs Narro positive `+...` default-color formatter. Exact Time's Up presentation remains independently physically FAILED as Finding35; no source-time-jump metrics inferred. | **VIDEO_CODE_REVIEWED V05 / M6 B67 SOURCE_PARITY_OPEN; M7 Finding35 native FAIL unchanged** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 472,
+        "text": "| VS-01 Shells / surface hierarchy | Main/Focus/Floating/modal/Preferences shells exist. Compact16px rounded treatment and cyan\u2192mint/lime live edge are implemented in PR228/229. CI936 directly accepts the compact silhouette; native exterior shadow deviation is explicit. Other calibrated shells require their source comparison. | **IMPLEMENTED / scoped compact PHYSICAL_PASS; VALIDATION_OPEN M5\u2013M9** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 473,
+        "text": "| VS-02 Spacing / density / alignment | Shared spacing tokens and dense card/row foundations exist; PR #225 corrects narrow-card/readability regressions. Cross-surface direct source comparison is not yet certified. | **IMPLEMENTED foundation / VALIDATION_OPEN M5\u2013M9** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 474,
+        "text": "| VS-03 Typography / truncation | Shared hierarchy/ellipsis exists. Exact Blitzit font identity is not established by source evidence and must not be invented. | **IMPLEMENTED / AMBIGUOUS exact font / VALIDATION_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 475,
+        "text": "| VS-04 Controls / inputs | Shared compact controls exist, but source-calibrated focus/selected treatment must be consumed per affected surface rather than replaced by arbitrary one-off styling. | **ROUTED_M5/M6/M8/M9; VALIDATION_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 476,
+        "text": "| VS-05 Cards / rows | Planning ordinal\u2192completion and five-action hover rail are implemented and automated-validated by PR227/CI927. P3-M5-02 retains direct source/physical acceptance; PR233 separately corrects narrow metric and queued-title allocation. | **AUTOMATED_VALIDATED / VALIDATION_OPEN M5/M6** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 477,
+        "text": "| VS-06 Accent / glow / progress | Today done/total progress and calibrated Focus live edge/glow are implemented and automated-validated in PR227/229. Today progress source comparison remains under P3-M5-01; P3-M6-03 signature edge has scoped direct CI942 comparison PASS, whole Focus parity remains open. | **AUTOMATED_VALIDATED M5/M6 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 478,
+        "text": "| VS-07 Menus / popovers / dialogs | Shared overlay primitives exist. Inline task-delete and direct active-list Archive presentation are implemented by PR227/CI927; source/state verification remains under P3-M5-04/05. Other overlays require their direct parity checks. | **AUTOMATED_VALIDATED M5; VALIDATION_OPEN affected overlays** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 487,
+        "text": "| P3-M5-01 | Today must expose source `done/total Done` progress treatment while retaining persistent accent/CTA structure. | Merged `ListBoard.tsx`/Rust projection renders typed Today completion numerator + pending denominator with calibrated progress while preserving Today accent/CTA. PR #227 CI #927 and resulting-main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 488,
+        "text": "| P3-M5-02 | Resting planning card uses ordinal; hover replaces/reveals completion at left and exposes Subtasks / Notes / lane-left / lane-right / overflow at right without geometry reflow. | Merged `TaskCard.tsx` reserves ordinal/completion and exact five-action rail; narrow-card reserved-row readability remains intact. PR #227 CI #927 and main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 489,
+        "text": "| P3-M5-03 | Cross-lane drag must preserve the observed lifted-card/live-reflow/settle grammar in addition to positional insertion. | Merged drag presentation adds lifted preview, card-height placeholder/live reflow and finite settle; authoritative mutation still persists positional `beforeTaskId`. PR #227 CI #927 and main CI #928 PASS. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 491,
+        "text": "| P3-M5-05 | List Archive applies directly from the list menu; permanent archived-list delete remains destructive. | CI948 actual owned empty-list archive/restore and VE00636s direct-action comparison pass the no-second-dialog grammar. Whole shell/nonempty aggregate count remains open. | **SCOPED_SOURCE_PARITY_PASS / PHYSICAL_PASS; wider VALIDATION_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 495,
+        "text": "| P3-M6-04 | Focus-local `Menu \u2192 Quick Preferences` exposes the source-evidenced compact preference subset and reuses the existing persisted Preferences authority rather than a second settings system. | Canonical SS-H05 + full Pass-3 VE-003 establish the surface. PR241 exact head `57445875f7b04eae4d8b7e35fc8c0d5012899619` passed CI985 and merged as `3a06f1003a513f1af942ec076a9f50617f2abfe2`; 7/7 source/test blobs match resulting `main`. Direct current-candidate source/physical acceptance is not claimed. | **AUTOMATED_VALIDATED M6 / SOURCE_PARITY_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 496,
+        "text": "| P3-M6-05 | Ordinary Focus queue hover/focus rail is `Complete \u2192 Make Live \u2192 Subtasks \u2192 Notes \u2192 overflow`; overflow is `Schedule \u2192 Change list \u2192 Duplicate \u2192 Delete`. | PR242 exact head `5623e7340d15f53d8fedecdf0286e9fa58913163` implements the evidenced rail/menu grammar while preserving reorder through source-compatible pointer/Alt+Arrow behavior and reusing existing Notes/Subtasks/Change List/Duplicate authorities. Exact-head CI999/run `37532811582` PASSed, guarded squash merge `6b4f8cfa8a1ff107fa95d4248e61dba176059493` is 11/11 source/test blob-identical, and resulting-main CI1000/run `37545545505` PASSed. | **INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN \u2014 direct current-candidate canonical acceptance remains OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 497,
+        "text": "| P3-M6-06 | Focus Home visibly produces `PAUSED` before exit and a paused transient on later re-entry before running resumes, without corrupting intentional user pause. | VE-003 establishes the visible sequence. PR244 exact head `ae69acd71ef15d91c87a3d935e4df40479a1ae2b` implements the bounded one-shot Home pause lease from `work-log/2026-10-07-chatgpt-m6-p3-m6-06-home-pause-origin-design.md`: exact revision/task/session provenance inside TimerService, paused-frame-before-exit, paused-first `start_blitz`, and Panel-reveal/frame-before-guarded-resume. Exact-head CI1013/run `37594066892` passed the full workflow; guarded squash merge `8c9a1a181c51e9119ef2e04a5de742027ed845ea` is 9/9 source/test blob-identical. Resulting-main CI1014/run `37602323133` also completed successfully through the full candidate workflow. | **INTEGRATED / AUTOMATED_VALIDATED / SOURCE_PARITY_OPEN \u2014 physical/direct canonical acceptance remains OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 500,
+        "text": "| P3-M9-01 | Overview export generates a fully local PDF; Sessions export follows the current-source CSV control. | PR238 exact head `e584b5d5d40623a9e14b7180ecb5b117ad73ae03` passed Windows CI971 and merged as `c8d1b67f74d5c2347877da410a4584fb6625a74c`; all 10 changed source/test blobs match resulting `main`. Physical Windows PDF creation/open/rendering remains OPEN, and direct Reports source comparison remains separate. | **AUTOMATED_VALIDATED M9 / PHYSICAL_WINDOWS_OPEN / SOURCE_PARITY_OPEN** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 501,
+        "text": "| P3-VAL-01 | Affected Notes/tooltip/expansion/narrow-card/Preferences correction acceptance must follow current exact-source evidence. | CI936/942 close large-Notes and changed-host transition paths; CI944 closes modal action routing17; CI948 closes wrapped-tooltip09 and native modal-default18 in their bounded scopes; CI950 closes writer19 and catalog22 plus queue vertical/end/menu/Tab access; CI953 closes native drag24 function, menu paint26 and reduced125 metric20 while title21/source-detail and finding07 physical responsiveness remain open. | **PARTIAL PHYSICAL_PASS / remaining VALIDATION_OPEN M5/M6/M7/M8** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 502,
+        "text": "| P3-VAL-02 | Reports/Sessions and all stable calibrated surfaces still require actual canonical-source comparison before any `SOURCE_PARITY_PASS`. | Narro-owned fixture/capture PASS exists but is not source-side comparison evidence. | **VALIDATION_OPEN affected milestone; M10 release recheck** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 503,
+        "text": "| P3-RISK-01 | Fresh-launch no-implicit-start and running-session Notes/title continuity still lack the dedicated integrated regressions required by the history risk index. | Current architecture is aligned, but dedicated regressions are not located. | **VALIDATION_OPEN M10** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 510,
+        "text": "- no PR #225 correction left as stale `FIX_NOW` merely because physical validation is still open;",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 568,
+        "text": "| B21 | SS-C07 / VE-014 source full Preferences shows selected Screen N preview with actual WxH overlay and cyan\u2192lime outline. Older Narro full Preferences only had native text dropdown; Focus Quick Preferences already had adjacent thumbnail composition. | M8 full Preferences monitor selector; PR295 finalhead`3b11e37c88c4e51c1f062391a8ce85fc73e65964`/CI37988686663 **3/3 SUCCESS**, identity/stale+Automatic/refresh retained; old cb68f1b2/overlap proposal is historical | **PR295 MERGED** as `ab763cb247b380fb587261ff760988d780a83daf` / **NATIVE_SOURCE_PARITY_OPEN**; original proposal checkpoint LOCAL TESTS NOT RUN is historical; no Codex monitor/DPI physical gate changed |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 581,
+        "text": "| B34 | Current SS-C07\u2013C09 and VE-014 show tall scrollable Preferences modal over dimmed previous Home/Board context with explicit X. Earlier audit claimed current AppShell routed Settings as replacement main body. **That code claim is superseded**: live `AppShell.tsx` already uses `preferencesOpen` separately from destination/board and renders `PreferencesDialog` around ThemeSettingsPanel; `PreferencesDialog.tsx` owns backdrop, close/Escape/Tab focus containment, opener return and scroll clipping, with existing regression guards in test-ui-preferences. | M8 full Preferences modal shell already CODE PRESENT on main; no duplicate PR required | **CODE PRESENT / RENDERED_CURRENT_SOURCE_PARITY_OPEN / PHYSICAL_WINDOWS_OPEN**, independent B21/B22/B29 remain; do not assume exact animation/opening timing or source parity from DOM contracts |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 583,
+        "text": "| B36 | VE-016 01:36\u201301:40 and VE-018 02:24\u201302:40 show completed Break in Focus Done list, separate from task-completion numerator/denominator. Narro `doneTasks=board.done.tasks` and renders only task rows; no break history projection. | M6 Focus Done break-session row projection | **SOURCE_PARITY_OPEN / CURRENT_VERSION_EVIDENCE_LIMIT**; never synthesize a completed task for a Break or miscount task completions |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 640,
+        "text": "| VE-F012 | Today shows completion progress `done/total Done` and highlighted lane treatment | PR227/CI927 implements Today done/total Done progress in addition to the existing accent/CTA. P3-M5-01 awaits direct current-source visual comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 641,
+        "text": "| VE-F013 | Task ordinal is visible at rest and remains attached to moved cards during demonstrated planning sequence | PR227/CI927 implements the task ordinal at rest and hover/focus completion substitution. P3-M5-02 awaits direct source/interaction comparison; unsupported source persistence claims remain unasserted. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 642,
+        "text": "| VE-F014 | Planning hover grammar is ordinal\u2192completion at left plus Notes/lane-left/lane-right/overflow at right | PR227/CI927 implements reserved ordinal/completion and Subtasks/Notes/lane-left/lane-right/overflow targets. P3-M5-02 awaits direct physical/source hover/focus geometry comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 655,
+        "text": "| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **IMPLEMENTED / VALIDATION_OPEN M9** \u2014 current-source Sessions CSV is integrated/validated from PR226/CI915; Overview PDF is integrated/automated-validated from PR238/CI971. Physical PDF creation/open/rendering and direct canonical Reports comparison remain OPEN. |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 676,
+        "text": "| UX-F007 | Task hover keeps geometry; completion left/actions right; anchored overflow | PR227/CI927 implements stable reserved ordinal/completion and five-action hover rail. Direct physical/source validation remains under P3-M5-02; narrow card/metric containment20 remains separately reopened. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison and affected containment** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 681,
+        "text": "| UX-F012 | Reports hierarchy: four metrics \u2192 main chart \u2192 secondary panels | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 production Overview PASSed CI #906/#907; direct canonical source comparison remains open. |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 682,
+        "text": "| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 production Sessions/Add/Edit/detail is on current main with PR #226 changed-blob identity to exact-head CI #915 and resulting-main CI #917 PASS; direct canonical source comparison remains open. |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 685,
+        "text": "| UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | PR227/CI927 implements lifted drag preview, card-height placeholder/live reflow, positional persistence and finite settle. P3-M5-03 awaits direct physical/source comparison; exact source drag duration remains unmeasured. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 687,
+        "text": "| UX-F018 | Today progress is a done/total progress treatment, corroborated by current help-v2.x screenshot | Typed Today numerator/denominator and progress are implemented in PR227/CI927. P3-M5-01 awaits direct calibrated source comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 688,
+        "text": "| UX-F019 | Resting task-left affordance is ordinal; completion replaces/reveals on hover without geometry shift | Resting ordinal and hover/focus completion substitution are implemented in PR227/CI927 with reserved geometry. P3-M5-02 awaits direct source/physical comparison. | **AUTOMATED_VALIDATED M5 / VALIDATION_OPEN source comparison** |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 701,
+        "text": "| RISK-F007 | Surprise implicit timer start on fresh app launch | Fresh startup must not create/start a focus session without explicit user action; recovery may only restore an existing durable checkpoint under the validated M3 recovery policy | **VALIDATION_OPEN** \u2014 current startup/Focus/shortcut contracts expose no intended implicit-start path, but no dedicated fresh-start regression was located; close before final M10 reliability acceptance |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 702,
+        "text": "| RISK-F008 | Live-task Notes/title metadata edit disturbs timer/session | Opening, editing and saving Notes/title must preserve live task/session identity and authoritative elapsed/accounting; EST/Time Taken edits remain restricted to the validated paused-runtime boundaries | **VALIDATION_OPEN** \u2014 functional Notes/title editing and paused metric safety are validated, but no dedicated integrated running-session continuity regression was located; close before final M10 reliability acceptance |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 773,
+        "text": "- `FIX_NOW` findings are fixed+validated or reclassified with evidence;",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 777,
+        "text": "- M10/final review rechecks all `ROUTED_M10`, `VALIDATION_OPEN` and remaining `AMBIGUOUS` rows.",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 796,
+        "text": "| M7-OBS-20261004-21 | CI944 long All Lists badge + reserved actions reduce ordinary title to about28 physical pixels at125%; SS-C19 retains readable narrow queued titles | Affected M6 queue / M7 integration | **SCOPED PHYSICAL_PASS / SOURCE_PARITY_OPEN** \u2014 PR233 title-first allocation is automated-validated; CI953 confirms full-title tooltip containment/wrapping at real100%/125% normal/reduced. Exact ordinary-row source allocation remains part of the active M6 queue/source reconciliation rather than a physical-retest omission. |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 797,
+        "text": "| M5-OBS-20261003-10 | CI893 default small planning lanes reserve all title width for action slots, making titles invisible | M5 narrow desktop card layout, exposed during M7 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 PR #225 implements the narrow-card second-row correction and exact-head CI #911 PASSed; exact-EXE title/edit/hover/focus physical retest remains open. This does not close the separate source ordinal/hover-rail gaps. |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 805,
+        "text": "| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **AUTOMATED_VALIDATED / VALIDATION_OPEN** \u2014 PR #222 bounds box sizing and horizontal content, collapses closed tooltip geometry while preserving its opacity/transform opening state, and aligns the edge tooltip inward. Real rendered keyboard-open/transition/Escape and reduced-motion regressions PASS; preserve intentional vertical editor scroll. Exact-EXE retest remains OPEN |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      },
+      {
+        "line": 808,
+        "text": "| M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **PARTIAL PHYSICAL_PASS / FAIL native pending responsiveness / FIX_NOW** \u2014 CI950 actual controlled SQLite latency shows loading shell and ready title focus, but Tab/Escape wait for release in Main and Focus. Existing rendered coverage does not expose the native synchronous read path. Preserve07 OPEN; scoped command-thread correction and exact-build retest required. [Whole addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) |",
+        "postSessionDisposition": "OPEN unless explicitly scoped by linked group result"
+      }
+    ]
+  },
+  "disposition": "OPEN until exercised and aggregate reviewed; M10 blocked, M11 dormant",
+  "afterUtc": "2026-10-16T07:03:33.419762+00:00",
+  "currentTrackingMain": "4dbf72e839196799d790aae6825eb088080d5076",
+  "groups": [
+    {
+      "id": 1,
+      "name": "Board repeated native create / clear",
+      "status": "PASS",
+      "scope": "Two Enter creates without refocus; cleared enabled focused; clear and empty Enter do not create extra IDs"
+    },
+    {
+      "id": 2,
+      "name": "Focus repeated native create / cross-window projection",
+      "status": "FAIL",
+      "scope": "Repeat entry itself PASS; existing expanded detail snapshots remain stale across other-window creates/completions. Main count0/4 with two rows; returning Focus0/4 with four old uncompleted rows while DB has five/fourcomplete."
+    },
+    {
+      "id": 3,
+      "name": "Selector icon consumers / keyboard / scope",
+      "status": "PASS",
+      "scope": "Actual initial/code/localimage lists, All2badges+1, End/Home/arrows/Enter, named-All-named and readonly; no identity clone"
+    },
+    {
+      "id": 4,
+      "name": "Subtasks source header / field",
+      "status": "PASS",
+      "scope": "Scoped static one header/ring4/5/plus/chevron/infieldX/placeholder, expand/collapse/hover/focus, dark100 and light125; cross-window detail correctness is group2FAIL"
+    },
+    {
+      "id": 5,
+      "name": "Search affected residual composition/actions",
+      "status": "PASS",
+      "scope": "Upper placement/titlecase/boxed plus-chart/horizontal actions; all3 real routes, result/noresult/Tab/Escape; dark100/light125; exhaustive source motion/reduced native not claimed"
+    }
+  ],
+  "otherGateDisposition": "All other open M1-M9 gates remain OPEN: no new full M6/M7/M8/M9 source/native acceptance from merely appearing. M1 topology/DPI/normal tray observations reusable only; no quiet performance/HDMI/installer/notifications replay. M10 counters unchanged."
+}

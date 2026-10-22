@@ -1,0 +1,4 @@
+{"utc": "2026-10-17T01:59:49.495922+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 6819644, "name": "CREATE LIST", "focused": true, "rect": [460, 530, 720, 763]}
+{"utc": "2026-10-17T02:00:19.907312+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 6819644, "name": "CREATE LIST", "focused": true, "rect": [460, 530, 720, 763]}
+{"utc": "2026-10-17T02:01:48.607847+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 6819644, "name": "Edit task title: M5 Narrow title with a deliberately long description - preserve the complete task identity, metrics, schedule and action controls without overlap", "focused": true, "rect": [292, 334, 362, 355]}
+{"utc": "2026-10-17T02:02:06.367022+00:00", "text": "M5 G1-G8 capture complete; ordinary tray Quit", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1005, 2542, 1027]}

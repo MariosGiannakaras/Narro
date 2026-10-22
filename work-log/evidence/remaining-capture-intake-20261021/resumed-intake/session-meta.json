@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "utc": "2026-10-21T11:51:28.093738+00:00",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR388-Main-Packages-20261021\\narro-m7-physical-windows-x64\\narro.exe",
+  "sha256": "08f289a556cc21065eb76ceee1fc0c27c61d626033e316f01b4017b86e55735c",
+  "source": "4786bbea382289d3458c7357138df491e80e11ea",
+  "run": 39553189123,
+  "purpose": "Remaining independent capture only; PR390 latest has no successful Windows artifact"
+}

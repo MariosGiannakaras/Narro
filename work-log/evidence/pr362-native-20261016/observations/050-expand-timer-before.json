@@ -1,0 +1,266 @@
+{
+  "utc": "2026-10-16T12:00:40.751946+00:00",
+  "hwnd": 6099850,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "Floating Timer",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        110
+      ]
+    },
+    {
+      "name": "Show Floating Timer actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        11,
+        2547,
+        51
+      ]
+    },
+    {
+      "name": "PA362Live",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        20,
+        2311,
+        42
+      ]
+    },
+    {
+      "name": "Paused: 19:38 remaining",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2454,
+        19,
+        2547,
+        43
+      ]
+    },
+    {
+      "name": "19:38",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2505,
+        20,
+        2547,
+        41
+      ]
+    },
+    {
+      "name": "Floating Timer actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        20,
+        2547,
+        52
+      ]
+    },
+    {
+      "name": "Start break",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2243,
+        20,
+        2276,
+        52
+      ]
+    },
+    {
+      "name": "Notes",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2295,
+        20,
+        2328,
+        52
+      ]
+    },
+    {
+      "name": "Resume",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2347,
+        20,
+        2380,
+        52
+      ]
+    },
+    {
+      "name": "Skip task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2400,
+        20,
+        2433,
+        52
+      ]
+    },
+    {
+      "name": "Complete task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2452,
+        20,
+        2485,
+        52
+      ]
+    },
+    {
+      "name": "Return to Focus Panel",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2486,
+        20,
+        2556,
+        52
+      ]
+    },
+    {
+      "name": "Return to Focus Panel",
+      "type": 50022,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2403,
+        60,
+        2537,
+        87
+      ]
+    },
+    {
+      "name": "Subtasks for PA362Live",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        59,
+        2547,
+        99
+      ]
+    },
+    {
+      "name": "Floating Timer subtask summary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        59,
+        2547,
+        91
+      ]
+    },
+    {
+      "name": "2/3 Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2267,
+        66,
+        2335,
+        83
+      ]
+    },
+    {
+      "name": "Add subtask for PA362Live",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2477,
+        59,
+        2509,
+        91
+      ]
+    },
+    {
+      "name": "Expand Floating Timer",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2515,
+        59,
+        2547,
+        91
+      ]
+    }
+  ]
+}

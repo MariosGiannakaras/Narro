@@ -3,12 +3,23 @@ name: Windows CI
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - "**/*.md"
+    # Keep tracking Markdown cheap, but rebuild when bundled validation docs change.
+    paths:
+      - "**"
+      - "!**/*.md"
+      - "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md"
+      - "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"
+      - "docs/M1_WINDOWS_RUNTIME_VALIDATION.md"
+      - "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md"
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-      - "**/*.md"
+    paths:
+      - "**"
+      - "!**/*.md"
+      - "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md"
+      - "docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"
+      - "docs/M1_WINDOWS_RUNTIME_VALIDATION.md"
+      - "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md"
   workflow_dispatch:
 
 permissions:
@@ -139,6 +150,12 @@ jobs:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        # Raw acceptance media is retained in Git, not consumed by build/tests.
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /*
+          !/work-log/
+          !/reference/
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -178,6 +195,11 @@ jobs:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /*
+          !/work-log/
+          !/reference/
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -265,12 +287,23 @@ jobs:
       run: npm run test:focus-runtime-visual:windows
 
     - name: Upload Packaged Focus Runtime Visual Artifact
-      if: always()
+      # A successful runtime capture must produce its required artifact.
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: narro-m7-focus-runtime-visual
         path: artifacts/focus-runtime-visual/**
         if-no-files-found: error
+
+    - name: Preserve Partial Focus Runtime Diagnostics After Failure
+      # An upstream failure may occur before any Focus capture exists.
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-focus-runtime-failure-diagnostics
+        path: artifacts/focus-runtime-visual/**
+        if-no-files-found: warn
+        retention-days: 1
 
     - name: Build Physical Validation Release
       shell: pwsh
@@ -297,6 +330,16 @@ jobs:
       run: |
         powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m7-validation-logging.ps1 -Executable artifacts/m7-validation/narro-m7-validation.exe
 
+    - name: Record Physical and M7 Validation Artifact Identity
+      shell: pwsh
+      env:
+        NARRO_CI_SOURCE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      run: |
+        node scripts/write-ci-artifact-manifest.mjs physical
+        if ($LASTEXITCODE -ne 0) { throw "Physical validation artifact manifest generation failed" }
+        node scripts/write-ci-artifact-manifest.mjs validation
+        if ($LASTEXITCODE -ne 0) { throw "M7 validation artifact manifest generation failed" }
+
     - name: Upload Physical Validation Build Artifact
       uses: actions/upload-artifact@v4
       with:
@@ -305,6 +348,7 @@ jobs:
           src-tauri/target-physical/release/narro.exe
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
+          artifacts/ci-provenance/physical.json
         if-no-files-found: error
 
     - name: Upload M7 Automatic Validation Artifact
@@ -314,6 +358,7 @@ jobs:
         path: |
           artifacts/m7-validation/narro-m7-validation.exe
           artifacts/m7-validation/README-M7-VALIDATION.md
+          artifacts/ci-provenance/validation.json
         if-no-files-found: error
 
     - name: Build M1 Diagnostic Validation Release
@@ -323,6 +368,14 @@ jobs:
       shell: pwsh
       run: |
         powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m1-diagnostic-storage-isolation.ps1 -Executable src-tauri/target/release/narro.exe -ResetDiagnosticData
+
+    - name: Record M1 Diagnostic Artifact Identity
+      shell: pwsh
+      env:
+        NARRO_CI_SOURCE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      run: |
+        node scripts/write-ci-artifact-manifest.mjs diagnostic
+        if ($LASTEXITCODE -ne 0) { throw "M1 diagnostic artifact manifest generation failed" }
 
     - name: Upload M1 Diagnostic Validation Artifact
       uses: actions/upload-artifact@v4
@@ -336,4 +389,5 @@ jobs:
           docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md
           docs/M1_WINDOWS_RUNTIME_VALIDATION.md
           docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
+          artifacts/ci-provenance/diagnostic.json
         if-no-files-found: error

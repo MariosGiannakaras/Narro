@@ -1,0 +1,11 @@
+{
+  "head": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "ci": 38464889855,
+  "artifact": 11847499690,
+  "zip_sha256": "3496f790be51069628de80c1c6039f86c39ba3832c1e687289a4f72a79991206",
+  "crc_members": 86,
+  "compiled_new_geometry_contract_files": [
+    "assets/m7IntegrationRegression-BCG8OZ_h.js"
+  ],
+  "native_acceptance": "NOT RUN"
+}

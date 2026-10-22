@@ -1,0 +1,101 @@
+.windows-shortcuts-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-canvas) 78%, transparent);
+}
+
+/* SS-C17 is a deliberately light modal even when Main uses the dark theme.
+   These are the existing theme.css light-system tokens, not a new palette. */
+.windows-shortcuts-dialog__surface {
+  color-scheme: light;
+  --color-canvas: #ececec;
+  --color-surface-raised: #ffffff;
+  --color-surface-deep: #f5f4f4;
+  --color-surface-interactive: #f0f1f0;
+  --color-surface-interactive-hover: #e4e6e5;
+  --color-border-subtle: rgba(24, 26, 25, 0.08);
+  --color-border-strong: rgba(24, 26, 25, 0.18);
+  --color-text-primary: #181a19;
+  --color-text-secondary: #626765;
+  --color-accent-solid: #16756d;
+  --color-success: #1b725f;
+  --color-success-surface: #dff4ec;
+  --color-destructive: #b54340;
+  --color-destructive-surface: #fde5e3;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(45rem, 100%);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-panel);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
+.windows-shortcuts-dialog__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.windows-shortcuts-dialog__heading h2 {
+  margin: 0;
+}
+
+.windows-shortcuts-dialog__close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+  cursor: pointer;
+}
+
+.windows-shortcuts-dialog__close:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.windows-shortcuts-dialog__scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+.windows-shortcuts-dialog__surface .windows-shortcuts {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.windows-shortcuts-dialog__surface .windows-shortcuts__keycap {
+  background: var(--color-surface-interactive);
+}
+
+@media (max-width: 48rem) {
+  .windows-shortcuts-dialog__backdrop { padding: var(--space-2); }
+  .windows-shortcuts-dialog__surface {
+    max-height: calc(100dvh - 2 * var(--space-2));
+  }
+  .windows-shortcuts-dialog__heading {
+    padding: var(--space-3);
+  }
+  .windows-shortcuts-dialog__scroll {
+    padding: 0 var(--space-3) var(--space-3);
+  }
+}

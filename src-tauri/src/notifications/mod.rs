@@ -2,6 +2,7 @@
 
 use crate::error::{CommandError, CommandResult};
 use serde::Serialize;
+pub mod sound;
 
 pub const TEST_NOTIFICATION_TITLE: &str = "Narro notification test";
 pub const TEST_NOTIFICATION_BODY: &str =
@@ -37,6 +38,10 @@ fn submit(app_handle: &tauri::AppHandle, title: &str, body: &str) -> CommandResu
             .body(body)
             .show()
             .map_err(CommandError::notification_delivery)?;
+        if let Err(error) = sound::enqueue(app_handle) {
+            // The toast/domain decision already succeeded; never retry it for audio failure.
+            eprintln!("Notification sound could not be queued: {error}");
+        }
         Ok(())
     }
 

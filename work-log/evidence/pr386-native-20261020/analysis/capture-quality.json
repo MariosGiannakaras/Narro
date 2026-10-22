@@ -1,0 +1,1937 @@
+{
+  "RA01-original": {
+    "sha256": "562539e9a97dc7036233ca3b9b0542f8fac7224a247e637541a2bd9b97e79097",
+    "frames": 7504,
+    "lastPTS": 52.163,
+    "firstPTS": 0.0,
+    "actualFramesPerPTSSecond": 143.838,
+    "maxGapMs": 29.0,
+    "nonIncreasingPTS": 19,
+    "allGapsOrDuplicatePTS": [
+      {
+        "frame": 775,
+        "before": 5.392,
+        "after": 5.421,
+        "ms": 29.0
+      },
+      {
+        "frame": 2355,
+        "before": 16.396,
+        "after": 16.396,
+        "ms": 0.0
+      },
+      {
+        "frame": 2369,
+        "before": 16.479,
+        "after": 16.479,
+        "ms": 0.0
+      },
+      {
+        "frame": 2382,
+        "before": 16.571,
+        "after": 16.571,
+        "ms": 0.0
+      },
+      {
+        "frame": 2523,
+        "before": 17.55,
+        "after": 17.55,
+        "ms": 0.0
+      },
+      {
+        "frame": 3465,
+        "before": 24.113,
+        "after": 24.113,
+        "ms": 0.0
+      },
+      {
+        "frame": 3703,
+        "before": 25.746,
+        "after": 25.746,
+        "ms": 0.0
+      },
+      {
+        "frame": 3804,
+        "before": 26.438,
+        "after": 26.438,
+        "ms": 0.0
+      },
+      {
+        "frame": 3808,
+        "before": 26.471,
+        "after": 26.471,
+        "ms": 0.0
+      },
+      {
+        "frame": 3810,
+        "before": 26.475,
+        "after": 26.475,
+        "ms": 0.0
+      },
+      {
+        "frame": 5599,
+        "before": 38.933,
+        "after": 38.933,
+        "ms": 0.0
+      },
+      {
+        "frame": 5604,
+        "before": 38.967,
+        "after": 38.967,
+        "ms": 0.0
+      },
+      {
+        "frame": 5606,
+        "before": 38.971,
+        "after": 38.971,
+        "ms": 0.0
+      },
+      {
+        "frame": 6421,
+        "before": 44.638,
+        "after": 44.638,
+        "ms": 0.0
+      },
+      {
+        "frame": 6436,
+        "before": 44.746,
+        "after": 44.746,
+        "ms": 0.0
+      },
+      {
+        "frame": 6474,
+        "before": 45.008,
+        "after": 45.029,
+        "ms": 21.0
+      },
+      {
+        "frame": 6575,
+        "before": 45.725,
+        "after": 45.725,
+        "ms": 0.0
+      },
+      {
+        "frame": 7430,
+        "before": 51.658,
+        "after": 51.658,
+        "ms": 0.0
+      },
+      {
+        "frame": 7434,
+        "before": 51.683,
+        "after": 51.683,
+        "ms": 0.0
+      },
+      {
+        "frame": 7446,
+        "before": 51.763,
+        "after": 51.763,
+        "ms": 0.0
+      },
+      {
+        "frame": 7455,
+        "before": 51.821,
+        "after": 51.821,
+        "ms": 0.0
+      }
+    ],
+    "actions": [
+      {
+        "utc": "2026-10-20T03:42:45.267Z",
+        "action": "RA01-N2-real-reorder-second-before-anchor",
+        "from": [
+          449,
+          640
+        ],
+        "to": [
+          520,
+          340
+        ],
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 17435472,
+          "title": "Narro"
+        },
+        "approxPTS": 16.32424
+      },
+      {
+        "utc": "2026-10-20T03:42:54.155Z",
+        "action": "RA01-N1-cross-lane-alpha-before-second",
+        "from": [
+          260,
+          355
+        ],
+        "to": [
+          520,
+          340
+        ],
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 17435472,
+          "title": "Narro"
+        },
+        "approxPTS": 25.21224
+      },
+      {
+        "utc": "2026-10-20T03:43:13.449Z",
+        "action": "RA01-R1-cross-lane-beta-before-alpha",
+        "from": [
+          260,
+          355
+        ],
+        "to": [
+          520,
+          340
+        ],
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 17435472,
+          "title": "Narro"
+        },
+        "approxPTS": 44.50624
+      },
+      {
+        "utc": "2026-10-20T03:43:20.531Z",
+        "action": "RA01-R2-real-reorder-alpha-before-beta",
+        "from": [
+          449,
+          640
+        ],
+        "to": [
+          520,
+          340
+        ],
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 17435472,
+          "title": "Narro"
+        },
+        "approxPTS": 51.58824
+      }
+    ],
+    "criticalChanges": [
+      {
+        "frame": 2357,
+        "PTS": 16.421,
+        "meanChange": 0.608
+      },
+      {
+        "frame": 2358,
+        "PTS": 16.425,
+        "meanChange": 0.632
+      },
+      {
+        "frame": 2360,
+        "PTS": 16.433,
+        "meanChange": 0.416
+      },
+      {
+        "frame": 2361,
+        "PTS": 16.438,
+        "meanChange": 1.18
+      },
+      {
+        "frame": 2363,
+        "PTS": 16.446,
+        "meanChange": 0.716
+      },
+      {
+        "frame": 2364,
+        "PTS": 16.454,
+        "meanChange": 0.348
+      },
+      {
+        "frame": 2365,
+        "PTS": 16.458,
+        "meanChange": 0.356
+      },
+      {
+        "frame": 2366,
+        "PTS": 16.467,
+        "meanChange": 0.208
+      },
+      {
+        "frame": 2367,
+        "PTS": 16.475,
+        "meanChange": 3.447
+      },
+      {
+        "frame": 2369,
+        "PTS": 16.479,
+        "meanChange": 0.251
+      },
+      {
+        "frame": 2370,
+        "PTS": 16.488,
+        "meanChange": 3.396
+      },
+      {
+        "frame": 2372,
+        "PTS": 16.5,
+        "meanChange": 0.724
+      },
+      {
+        "frame": 2373,
+        "PTS": 16.508,
+        "meanChange": 0.17
+      },
+      {
+        "frame": 2374,
+        "PTS": 16.517,
+        "meanChange": 0.157
+      },
+      {
+        "frame": 2375,
+        "PTS": 16.521,
+        "meanChange": 0.153
+      },
+      {
+        "frame": 2376,
+        "PTS": 16.533,
+        "meanChange": 0.188
+      },
+      {
+        "frame": 2378,
+        "PTS": 16.542,
+        "meanChange": 0.389
+      },
+      {
+        "frame": 2379,
+        "PTS": 16.55,
+        "meanChange": 0.3
+      },
+      {
+        "frame": 2380,
+        "PTS": 16.563,
+        "meanChange": 0.294
+      },
+      {
+        "frame": 2381,
+        "PTS": 16.571,
+        "meanChange": 0.694
+      },
+      {
+        "frame": 2383,
+        "PTS": 16.579,
+        "meanChange": 0.742
+      },
+      {
+        "frame": 2384,
+        "PTS": 16.583,
+        "meanChange": 0.238
+      },
+      {
+        "frame": 2385,
+        "PTS": 16.592,
+        "meanChange": 6.762
+      },
+      {
+        "frame": 2386,
+        "PTS": 16.6,
+        "meanChange": 0.602
+      },
+      {
+        "frame": 2387,
+        "PTS": 16.604,
+        "meanChange": 1.56
+      },
+      {
+        "frame": 2388,
+        "PTS": 16.613,
+        "meanChange": 1.606
+      },
+      {
+        "frame": 2389,
+        "PTS": 16.621,
+        "meanChange": 1.082
+      },
+      {
+        "frame": 2390,
+        "PTS": 16.625,
+        "meanChange": 1.114
+      },
+      {
+        "frame": 2391,
+        "PTS": 16.633,
+        "meanChange": 0.479
+      },
+      {
+        "frame": 2392,
+        "PTS": 16.642,
+        "meanChange": 0.613
+      },
+      {
+        "frame": 2393,
+        "PTS": 16.646,
+        "meanChange": 0.755
+      },
+      {
+        "frame": 2394,
+        "PTS": 16.654,
+        "meanChange": 0.339
+      },
+      {
+        "frame": 2395,
+        "PTS": 16.663,
+        "meanChange": 0.726
+      },
+      {
+        "frame": 2396,
+        "PTS": 16.667,
+        "meanChange": 0.269
+      },
+      {
+        "frame": 2397,
+        "PTS": 16.675,
+        "meanChange": 0.468
+      },
+      {
+        "frame": 2398,
+        "PTS": 16.683,
+        "meanChange": 0.275
+      },
+      {
+        "frame": 2399,
+        "PTS": 16.688,
+        "meanChange": 0.255
+      },
+      {
+        "frame": 2400,
+        "PTS": 16.696,
+        "meanChange": 0.489
+      },
+      {
+        "frame": 2401,
+        "PTS": 16.704,
+        "meanChange": 0.132
+      },
+      {
+        "frame": 2402,
+        "PTS": 16.713,
+        "meanChange": 0.3
+      },
+      {
+        "frame": 2403,
+        "PTS": 16.717,
+        "meanChange": 0.142
+      },
+      {
+        "frame": 2404,
+        "PTS": 16.721,
+        "meanChange": 0.26
+      },
+      {
+        "frame": 2405,
+        "PTS": 16.729,
+        "meanChange": 0.198
+      },
+      {
+        "frame": 2406,
+        "PTS": 16.742,
+        "meanChange": 0.164
+      },
+      {
+        "frame": 2407,
+        "PTS": 16.746,
+        "meanChange": 0.234
+      },
+      {
+        "frame": 2409,
+        "PTS": 16.758,
+        "meanChange": 0.184
+      },
+      {
+        "frame": 2410,
+        "PTS": 16.767,
+        "meanChange": 0.203
+      },
+      {
+        "frame": 2412,
+        "PTS": 16.779,
+        "meanChange": 0.125
+      },
+      {
+        "frame": 2413,
+        "PTS": 16.788,
+        "meanChange": 0.141
+      },
+      {
+        "frame": 2414,
+        "PTS": 16.792,
+        "meanChange": 0.138
+      },
+      {
+        "frame": 2419,
+        "PTS": 16.829,
+        "meanChange": 0.155
+      },
+      {
+        "frame": 2421,
+        "PTS": 16.842,
+        "meanChange": 0.149
+      },
+      {
+        "frame": 2424,
+        "PTS": 16.863,
+        "meanChange": 0.127
+      },
+      {
+        "frame": 2426,
+        "PTS": 16.875,
+        "meanChange": 0.163
+      },
+      {
+        "frame": 2428,
+        "PTS": 16.888,
+        "meanChange": 0.127
+      },
+      {
+        "frame": 2433,
+        "PTS": 16.925,
+        "meanChange": 0.122
+      },
+      {
+        "frame": 3637,
+        "PTS": 25.313,
+        "meanChange": 0.364
+      },
+      {
+        "frame": 3640,
+        "PTS": 25.325,
+        "meanChange": 0.417
+      },
+      {
+        "frame": 3642,
+        "PTS": 25.333,
+        "meanChange": 1.4
+      },
+      {
+        "frame": 3643,
+        "PTS": 25.338,
+        "meanChange": 1.521
+      },
+      {
+        "frame": 3644,
+        "PTS": 25.346,
+        "meanChange": 1.865
+      },
+      {
+        "frame": 3645,
+        "PTS": 25.354,
+        "meanChange": 4.283
+      },
+      {
+        "frame": 3646,
+        "PTS": 25.358,
+        "meanChange": 0.413
+      },
+      {
+        "frame": 3647,
+        "PTS": 25.367,
+        "meanChange": 6.879
+      },
+      {
+        "frame": 3648,
+        "PTS": 25.371,
+        "meanChange": 0.135
+      },
+      {
+        "frame": 3649,
+        "PTS": 25.375,
+        "meanChange": 0.543
+      },
+      {
+        "frame": 3650,
+        "PTS": 25.383,
+        "meanChange": 0.146
+      },
+      {
+        "frame": 3651,
+        "PTS": 25.396,
+        "meanChange": 0.954
+      },
+      {
+        "frame": 3652,
+        "PTS": 25.4,
+        "meanChange": 0.315
+      },
+      {
+        "frame": 3653,
+        "PTS": 25.408,
+        "meanChange": 0.224
+      },
+      {
+        "frame": 3654,
+        "PTS": 25.417,
+        "meanChange": 0.405
+      },
+      {
+        "frame": 3655,
+        "PTS": 25.421,
+        "meanChange": 0.187
+      },
+      {
+        "frame": 3656,
+        "PTS": 25.429,
+        "meanChange": 0.497
+      },
+      {
+        "frame": 3657,
+        "PTS": 25.433,
+        "meanChange": 0.31
+      },
+      {
+        "frame": 3659,
+        "PTS": 25.442,
+        "meanChange": 0.297
+      },
+      {
+        "frame": 3660,
+        "PTS": 25.45,
+        "meanChange": 0.569
+      },
+      {
+        "frame": 3661,
+        "PTS": 25.454,
+        "meanChange": 7.839
+      },
+      {
+        "frame": 3662,
+        "PTS": 25.463,
+        "meanChange": 1.215
+      },
+      {
+        "frame": 3663,
+        "PTS": 25.471,
+        "meanChange": 1.092
+      },
+      {
+        "frame": 3664,
+        "PTS": 25.475,
+        "meanChange": 1.238
+      },
+      {
+        "frame": 3665,
+        "PTS": 25.483,
+        "meanChange": 1.147
+      },
+      {
+        "frame": 3666,
+        "PTS": 25.492,
+        "meanChange": 0.677
+      },
+      {
+        "frame": 3667,
+        "PTS": 25.5,
+        "meanChange": 1.208
+      },
+      {
+        "frame": 3668,
+        "PTS": 25.508,
+        "meanChange": 0.393
+      },
+      {
+        "frame": 3669,
+        "PTS": 25.513,
+        "meanChange": 0.791
+      },
+      {
+        "frame": 3670,
+        "PTS": 25.517,
+        "meanChange": 0.521
+      },
+      {
+        "frame": 3671,
+        "PTS": 25.525,
+        "meanChange": 0.435
+      },
+      {
+        "frame": 3672,
+        "PTS": 25.533,
+        "meanChange": 0.642
+      },
+      {
+        "frame": 3673,
+        "PTS": 25.542,
+        "meanChange": 0.259
+      },
+      {
+        "frame": 3674,
+        "PTS": 25.546,
+        "meanChange": 0.539
+      },
+      {
+        "frame": 3675,
+        "PTS": 25.554,
+        "meanChange": 0.357
+      },
+      {
+        "frame": 3676,
+        "PTS": 25.563,
+        "meanChange": 0.409
+      },
+      {
+        "frame": 3677,
+        "PTS": 25.567,
+        "meanChange": 0.236
+      },
+      {
+        "frame": 3678,
+        "PTS": 25.575,
+        "meanChange": 0.251
+      },
+      {
+        "frame": 3679,
+        "PTS": 25.583,
+        "meanChange": 0.338
+      },
+      {
+        "frame": 3680,
+        "PTS": 25.588,
+        "meanChange": 0.121
+      },
+      {
+        "frame": 3681,
+        "PTS": 25.596,
+        "meanChange": 0.322
+      },
+      {
+        "frame": 3682,
+        "PTS": 25.6,
+        "meanChange": 0.131
+      },
+      {
+        "frame": 3683,
+        "PTS": 25.608,
+        "meanChange": 0.232
+      },
+      {
+        "frame": 3684,
+        "PTS": 25.617,
+        "meanChange": 0.19
+      },
+      {
+        "frame": 3685,
+        "PTS": 25.621,
+        "meanChange": 0.183
+      },
+      {
+        "frame": 3686,
+        "PTS": 25.629,
+        "meanChange": 0.237
+      },
+      {
+        "frame": 3687,
+        "PTS": 25.638,
+        "meanChange": 0.205
+      },
+      {
+        "frame": 3688,
+        "PTS": 25.642,
+        "meanChange": 0.212
+      },
+      {
+        "frame": 3690,
+        "PTS": 25.658,
+        "meanChange": 0.143
+      },
+      {
+        "frame": 3691,
+        "PTS": 25.663,
+        "meanChange": 0.162
+      },
+      {
+        "frame": 3693,
+        "PTS": 25.679,
+        "meanChange": 0.169
+      },
+      {
+        "frame": 3699,
+        "PTS": 25.721,
+        "meanChange": 0.173
+      },
+      {
+        "frame": 3723,
+        "PTS": 25.888,
+        "meanChange": 0.135
+      },
+      {
+        "frame": 3750,
+        "PTS": 26.075,
+        "meanChange": 0.391
+      },
+      {
+        "frame": 6414,
+        "PTS": 44.592,
+        "meanChange": 0.358
+      },
+      {
+        "frame": 6415,
+        "PTS": 44.604,
+        "meanChange": 0.512
+      },
+      {
+        "frame": 6417,
+        "PTS": 44.617,
+        "meanChange": 5.26
+      },
+      {
+        "frame": 6418,
+        "PTS": 44.625,
+        "meanChange": 3.358
+      },
+      {
+        "frame": 6419,
+        "PTS": 44.629,
+        "meanChange": 0.373
+      },
+      {
+        "frame": 6420,
+        "PTS": 44.638,
+        "meanChange": 7.902
+      },
+      {
+        "frame": 6422,
+        "PTS": 44.646,
+        "meanChange": 0.303
+      },
+      {
+        "frame": 6423,
+        "PTS": 44.65,
+        "meanChange": 0.33
+      },
+      {
+        "frame": 6424,
+        "PTS": 44.658,
+        "meanChange": 0.477
+      },
+      {
+        "frame": 6425,
+        "PTS": 44.667,
+        "meanChange": 0.297
+      },
+      {
+        "frame": 6426,
+        "PTS": 44.671,
+        "meanChange": 0.175
+      },
+      {
+        "frame": 6427,
+        "PTS": 44.679,
+        "meanChange": 0.182
+      },
+      {
+        "frame": 6428,
+        "PTS": 44.683,
+        "meanChange": 0.154
+      },
+      {
+        "frame": 6430,
+        "PTS": 44.7,
+        "meanChange": 1.638
+      },
+      {
+        "frame": 6431,
+        "PTS": 44.713,
+        "meanChange": 6.929
+      },
+      {
+        "frame": 6432,
+        "PTS": 44.721,
+        "meanChange": 2.847
+      },
+      {
+        "frame": 6433,
+        "PTS": 44.725,
+        "meanChange": 0.376
+      },
+      {
+        "frame": 6434,
+        "PTS": 44.738,
+        "meanChange": 0.601
+      },
+      {
+        "frame": 6435,
+        "PTS": 44.746,
+        "meanChange": 0.323
+      },
+      {
+        "frame": 6436,
+        "PTS": 44.746,
+        "meanChange": 0.6
+      },
+      {
+        "frame": 6437,
+        "PTS": 44.754,
+        "meanChange": 0.228
+      },
+      {
+        "frame": 6438,
+        "PTS": 44.763,
+        "meanChange": 0.481
+      },
+      {
+        "frame": 6439,
+        "PTS": 44.771,
+        "meanChange": 0.422
+      },
+      {
+        "frame": 6440,
+        "PTS": 44.779,
+        "meanChange": 0.267
+      },
+      {
+        "frame": 6441,
+        "PTS": 44.783,
+        "meanChange": 0.587
+      },
+      {
+        "frame": 6442,
+        "PTS": 44.792,
+        "meanChange": 0.145
+      },
+      {
+        "frame": 6443,
+        "PTS": 44.796,
+        "meanChange": 0.527
+      },
+      {
+        "frame": 6444,
+        "PTS": 44.804,
+        "meanChange": 0.192
+      },
+      {
+        "frame": 6445,
+        "PTS": 44.813,
+        "meanChange": 0.274
+      },
+      {
+        "frame": 6446,
+        "PTS": 44.817,
+        "meanChange": 0.384
+      },
+      {
+        "frame": 6448,
+        "PTS": 44.833,
+        "meanChange": 0.439
+      },
+      {
+        "frame": 6449,
+        "PTS": 44.838,
+        "meanChange": 0.126
+      },
+      {
+        "frame": 6450,
+        "PTS": 44.846,
+        "meanChange": 0.346
+      },
+      {
+        "frame": 6451,
+        "PTS": 44.85,
+        "meanChange": 0.177
+      },
+      {
+        "frame": 6452,
+        "PTS": 44.858,
+        "meanChange": 0.158
+      },
+      {
+        "frame": 6453,
+        "PTS": 44.867,
+        "meanChange": 0.303
+      },
+      {
+        "frame": 6455,
+        "PTS": 44.879,
+        "meanChange": 0.292
+      },
+      {
+        "frame": 6457,
+        "PTS": 44.892,
+        "meanChange": 0.23
+      },
+      {
+        "frame": 6458,
+        "PTS": 44.904,
+        "meanChange": 0.18
+      },
+      {
+        "frame": 6460,
+        "PTS": 44.917,
+        "meanChange": 0.235
+      },
+      {
+        "frame": 6462,
+        "PTS": 44.929,
+        "meanChange": 0.206
+      },
+      {
+        "frame": 6465,
+        "PTS": 44.95,
+        "meanChange": 0.157
+      },
+      {
+        "frame": 6467,
+        "PTS": 44.963,
+        "meanChange": 0.172
+      },
+      {
+        "frame": 6473,
+        "PTS": 45.008,
+        "meanChange": 0.221
+      },
+      {
+        "frame": 6474,
+        "PTS": 45.029,
+        "meanChange": 0.127
+      },
+      {
+        "frame": 6500,
+        "PTS": 45.208,
+        "meanChange": 0.342
+      },
+      {
+        "frame": 7432,
+        "PTS": 51.675,
+        "meanChange": 0.496
+      },
+      {
+        "frame": 7433,
+        "PTS": 51.683,
+        "meanChange": 0.157
+      },
+      {
+        "frame": 7435,
+        "PTS": 51.688,
+        "meanChange": 0.927
+      },
+      {
+        "frame": 7437,
+        "PTS": 51.708,
+        "meanChange": 3.593
+      },
+      {
+        "frame": 7438,
+        "PTS": 51.717,
+        "meanChange": 3.407
+      },
+      {
+        "frame": 7439,
+        "PTS": 51.725,
+        "meanChange": 3.953
+      },
+      {
+        "frame": 7441,
+        "PTS": 51.733,
+        "meanChange": 0.229
+      },
+      {
+        "frame": 7442,
+        "PTS": 51.738,
+        "meanChange": 0.575
+      },
+      {
+        "frame": 7444,
+        "PTS": 51.754,
+        "meanChange": 0.122
+      },
+      {
+        "frame": 7449,
+        "PTS": 51.788,
+        "meanChange": 0.161
+      },
+      {
+        "frame": 7451,
+        "PTS": 51.8,
+        "meanChange": 1.311
+      },
+      {
+        "frame": 7452,
+        "PTS": 51.808,
+        "meanChange": 0.287
+      },
+      {
+        "frame": 7453,
+        "PTS": 51.813,
+        "meanChange": 0.275
+      },
+      {
+        "frame": 7454,
+        "PTS": 51.821,
+        "meanChange": 0.683
+      },
+      {
+        "frame": 7456,
+        "PTS": 51.833,
+        "meanChange": 6.762
+      },
+      {
+        "frame": 7457,
+        "PTS": 51.842,
+        "meanChange": 2.435
+      },
+      {
+        "frame": 7458,
+        "PTS": 51.85,
+        "meanChange": 1.128
+      },
+      {
+        "frame": 7459,
+        "PTS": 51.854,
+        "meanChange": 0.615
+      },
+      {
+        "frame": 7460,
+        "PTS": 51.863,
+        "meanChange": 0.376
+      },
+      {
+        "frame": 7461,
+        "PTS": 51.867,
+        "meanChange": 0.81
+      },
+      {
+        "frame": 7462,
+        "PTS": 51.875,
+        "meanChange": 0.233
+      },
+      {
+        "frame": 7463,
+        "PTS": 51.883,
+        "meanChange": 0.647
+      },
+      {
+        "frame": 7464,
+        "PTS": 51.888,
+        "meanChange": 0.238
+      },
+      {
+        "frame": 7465,
+        "PTS": 51.896,
+        "meanChange": 0.42
+      },
+      {
+        "frame": 7466,
+        "PTS": 51.904,
+        "meanChange": 0.463
+      },
+      {
+        "frame": 7468,
+        "PTS": 51.917,
+        "meanChange": 0.513
+      },
+      {
+        "frame": 7469,
+        "PTS": 51.925,
+        "meanChange": 0.155
+      },
+      {
+        "frame": 7470,
+        "PTS": 51.933,
+        "meanChange": 0.391
+      },
+      {
+        "frame": 7471,
+        "PTS": 51.938,
+        "meanChange": 0.205
+      },
+      {
+        "frame": 7472,
+        "PTS": 51.946,
+        "meanChange": 0.17
+      },
+      {
+        "frame": 7473,
+        "PTS": 51.95,
+        "meanChange": 0.33
+      },
+      {
+        "frame": 7475,
+        "PTS": 51.967,
+        "meanChange": 0.298
+      },
+      {
+        "frame": 7477,
+        "PTS": 51.979,
+        "meanChange": 0.211
+      },
+      {
+        "frame": 7478,
+        "PTS": 51.988,
+        "meanChange": 0.174
+      },
+      {
+        "frame": 7480,
+        "PTS": 52.0,
+        "meanChange": 0.228
+      },
+      {
+        "frame": 7482,
+        "PTS": 52.013,
+        "meanChange": 0.178
+      },
+      {
+        "frame": 7487,
+        "PTS": 52.05,
+        "meanChange": 0.141
+      },
+      {
+        "frame": 7492,
+        "PTS": 52.083,
+        "meanChange": 0.157
+      },
+      {
+        "frame": 7494,
+        "PTS": 52.1,
+        "meanChange": 0.15
+      },
+      {
+        "frame": 7497,
+        "PTS": 52.117,
+        "meanChange": 0.126
+      },
+      {
+        "frame": 7499,
+        "PTS": 52.133,
+        "meanChange": 0.155
+      },
+      {
+        "frame": 7500,
+        "PTS": 52.138,
+        "meanChange": 0.391
+      }
+    ]
+  },
+  "RA02-OFF-sourceTB": {
+    "sha256": "b8f89e6948403309c465bef048fb12f75c23d3065d1e3f54b3c88fed545f6da6",
+    "frames": 2889,
+    "lastPTS": 20.131,
+    "firstPTS": 0.0,
+    "actualFramesPerPTSSecond": 143.46,
+    "maxGapMs": 20.0,
+    "nonIncreasingPTS": 0,
+    "allGapsOrDuplicatePTS": [],
+    "actions": [
+      {
+        "utc": "2026-10-20T03:47:27.639Z",
+        "key": "Control_L+Alt_L+f",
+        "action": "RA02-OFF-complete-first",
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 12.745401
+      },
+      {
+        "utc": "2026-10-20T03:47:33.421Z",
+        "key": "Control_L+Alt_L+f",
+        "action": "RA02-OFF-complete-last",
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 18.527401
+      }
+    ],
+    "criticalChanges": [
+      {
+        "frame": 1863,
+        "PTS": 12.982,
+        "meanChange": 4.925
+      },
+      {
+        "frame": 1864,
+        "PTS": 12.99,
+        "meanChange": 0.642
+      },
+      {
+        "frame": 1874,
+        "PTS": 13.058,
+        "meanChange": 5.318
+      },
+      {
+        "frame": 1885,
+        "PTS": 13.135,
+        "meanChange": 0.157
+      },
+      {
+        "frame": 1886,
+        "PTS": 13.142,
+        "meanChange": 0.178
+      },
+      {
+        "frame": 2681,
+        "PTS": 18.665,
+        "meanChange": 0.32
+      },
+      {
+        "frame": 2685,
+        "PTS": 18.693,
+        "meanChange": 4.76
+      },
+      {
+        "frame": 2686,
+        "PTS": 18.7,
+        "meanChange": 0.715
+      },
+      {
+        "frame": 2689,
+        "PTS": 18.721,
+        "meanChange": 7.429
+      },
+      {
+        "frame": 2702,
+        "PTS": 18.811,
+        "meanChange": 0.211
+      },
+      {
+        "frame": 2750,
+        "PTS": 19.144,
+        "meanChange": 0.127
+      }
+    ]
+  },
+  "RA02-ON-sourceTB": {
+    "sha256": "6793bc8a09ebd632ba5b1e315f9846b757965419935867de790a4120803b8832",
+    "frames": 12542,
+    "lastPTS": 87.21,
+    "firstPTS": 0.0,
+    "actualFramesPerPTSSecond": 143.802,
+    "maxGapMs": 27.0,
+    "nonIncreasingPTS": 2,
+    "allGapsOrDuplicatePTS": [
+      {
+        "frame": 7989,
+        "before": 55.524,
+        "after": 55.549,
+        "ms": 25.0
+      },
+      {
+        "frame": 8000,
+        "before": 55.608,
+        "after": 55.608,
+        "ms": 0.0
+      },
+      {
+        "frame": 8139,
+        "before": 56.566,
+        "after": 56.566,
+        "ms": 0.0
+      },
+      {
+        "frame": 8140,
+        "before": 56.566,
+        "after": 56.593,
+        "ms": 27.0
+      },
+      {
+        "frame": 8145,
+        "before": 56.603,
+        "after": 56.624,
+        "ms": 21.0
+      },
+      {
+        "frame": 9786,
+        "before": 68.035,
+        "after": 68.055,
+        "ms": 20.0
+      },
+      {
+        "frame": 9793,
+        "before": 68.09,
+        "after": 68.111,
+        "ms": 21.0
+      }
+    ],
+    "actions": [
+      {
+        "utc": "2026-10-20T03:49:00.773Z",
+        "key": "Control_L+Alt_L+f",
+        "action": "RA02-ON-complete-only",
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 15.302849
+      },
+      {
+        "utc": "2026-10-20T03:49:21.877Z",
+        "action": "RA02-ON-explicit-next-to-on-next",
+        "x": 72,
+        "y": 286,
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 36.406849
+      },
+      {
+        "utc": "2026-10-20T03:49:33.942Z",
+        "key": "Control_L+Alt_L+f",
+        "action": "RA02-ON-complete-next",
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 48.471849
+      },
+      {
+        "utc": "2026-10-20T03:49:40.927Z",
+        "action": "RA02-ON-explicit-next-to-third",
+        "x": 72,
+        "y": 286,
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 55.456849
+      },
+      {
+        "utc": "2026-10-20T03:49:52.418Z",
+        "key": "Control_L+Alt_L+f",
+        "action": "RA02-ON-complete-final-third",
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 66.947849
+      },
+      {
+        "utc": "2026-10-20T03:50:02.915Z",
+        "action": "RA02-ON-final-untimed-rest",
+        "x": 84,
+        "y": 286,
+        "window": {
+          "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR386-Native-20261020\\candidate\\narro.exe",
+          "id": 658094,
+          "title": "Narro - Focus"
+        },
+        "approxPTS": 77.444849
+      }
+    ],
+    "criticalChanges": [
+      {
+        "frame": 2221,
+        "PTS": 15.441,
+        "meanChange": 0.193
+      },
+      {
+        "frame": 2224,
+        "PTS": 15.468,
+        "meanChange": 5.396
+      },
+      {
+        "frame": 2226,
+        "PTS": 15.49,
+        "meanChange": 0.958
+      },
+      {
+        "frame": 2227,
+        "PTS": 15.496,
+        "meanChange": 0.13
+      },
+      {
+        "frame": 2234,
+        "PTS": 15.537,
+        "meanChange": 8.126
+      },
+      {
+        "frame": 2236,
+        "PTS": 15.55,
+        "meanChange": 3.008
+      },
+      {
+        "frame": 2237,
+        "PTS": 15.557,
+        "meanChange": 0.14
+      },
+      {
+        "frame": 2238,
+        "PTS": 15.565,
+        "meanChange": 0.17
+      },
+      {
+        "frame": 2250,
+        "PTS": 15.651,
+        "meanChange": 0.206
+      },
+      {
+        "frame": 5252,
+        "PTS": 36.495,
+        "meanChange": 0.751
+      },
+      {
+        "frame": 5253,
+        "PTS": 36.502,
+        "meanChange": 0.164
+      },
+      {
+        "frame": 5254,
+        "PTS": 36.509,
+        "meanChange": 0.499
+      },
+      {
+        "frame": 5255,
+        "PTS": 36.516,
+        "meanChange": 0.392
+      },
+      {
+        "frame": 5256,
+        "PTS": 36.523,
+        "meanChange": 0.442
+      },
+      {
+        "frame": 5257,
+        "PTS": 36.531,
+        "meanChange": 0.657
+      },
+      {
+        "frame": 5259,
+        "PTS": 36.544,
+        "meanChange": 1.722
+      },
+      {
+        "frame": 5260,
+        "PTS": 36.551,
+        "meanChange": 0.268
+      },
+      {
+        "frame": 5261,
+        "PTS": 36.559,
+        "meanChange": 0.392
+      },
+      {
+        "frame": 5262,
+        "PTS": 36.565,
+        "meanChange": 0.519
+      },
+      {
+        "frame": 5263,
+        "PTS": 36.572,
+        "meanChange": 2.849
+      },
+      {
+        "frame": 5264,
+        "PTS": 36.579,
+        "meanChange": 0.562
+      },
+      {
+        "frame": 5266,
+        "PTS": 36.586,
+        "meanChange": 0.17
+      },
+      {
+        "frame": 5267,
+        "PTS": 36.592,
+        "meanChange": 7.508
+      },
+      {
+        "frame": 5268,
+        "PTS": 36.599,
+        "meanChange": 0.45
+      },
+      {
+        "frame": 5269,
+        "PTS": 36.607,
+        "meanChange": 0.289
+      },
+      {
+        "frame": 5270,
+        "PTS": 36.616,
+        "meanChange": 0.588
+      },
+      {
+        "frame": 5271,
+        "PTS": 36.62,
+        "meanChange": 0.171
+      },
+      {
+        "frame": 5272,
+        "PTS": 36.627,
+        "meanChange": 0.409
+      },
+      {
+        "frame": 5273,
+        "PTS": 36.634,
+        "meanChange": 0.207
+      },
+      {
+        "frame": 5274,
+        "PTS": 36.642,
+        "meanChange": 0.253
+      },
+      {
+        "frame": 5275,
+        "PTS": 36.65,
+        "meanChange": 0.203
+      },
+      {
+        "frame": 5276,
+        "PTS": 36.655,
+        "meanChange": 0.164
+      },
+      {
+        "frame": 5277,
+        "PTS": 36.662,
+        "meanChange": 0.256
+      },
+      {
+        "frame": 5279,
+        "PTS": 36.679,
+        "meanChange": 0.223
+      },
+      {
+        "frame": 5280,
+        "PTS": 36.69,
+        "meanChange": 0.159
+      },
+      {
+        "frame": 5281,
+        "PTS": 36.698,
+        "meanChange": 0.155
+      },
+      {
+        "frame": 5283,
+        "PTS": 36.711,
+        "meanChange": 0.168
+      },
+      {
+        "frame": 5285,
+        "PTS": 36.724,
+        "meanChange": 0.124
+      },
+      {
+        "frame": 5287,
+        "PTS": 36.738,
+        "meanChange": 0.121
+      },
+      {
+        "frame": 7001,
+        "PTS": 48.667,
+        "meanChange": 6.256
+      },
+      {
+        "frame": 7010,
+        "PTS": 48.73,
+        "meanChange": 8.107
+      },
+      {
+        "frame": 7012,
+        "PTS": 48.744,
+        "meanChange": 3.702
+      },
+      {
+        "frame": 7013,
+        "PTS": 48.751,
+        "meanChange": 0.208
+      },
+      {
+        "frame": 7014,
+        "PTS": 48.758,
+        "meanChange": 0.195
+      },
+      {
+        "frame": 7989,
+        "PTS": 55.549,
+        "meanChange": 0.805
+      },
+      {
+        "frame": 7990,
+        "PTS": 55.552,
+        "meanChange": 0.502
+      },
+      {
+        "frame": 7991,
+        "PTS": 55.559,
+        "meanChange": 0.509
+      },
+      {
+        "frame": 7992,
+        "PTS": 55.566,
+        "meanChange": 0.296
+      },
+      {
+        "frame": 7994,
+        "PTS": 55.573,
+        "meanChange": 0.636
+      },
+      {
+        "frame": 7995,
+        "PTS": 55.58,
+        "meanChange": 1.197
+      },
+      {
+        "frame": 7996,
+        "PTS": 55.586,
+        "meanChange": 0.656
+      },
+      {
+        "frame": 7997,
+        "PTS": 55.593,
+        "meanChange": 0.261
+      },
+      {
+        "frame": 7998,
+        "PTS": 55.601,
+        "meanChange": 0.391
+      },
+      {
+        "frame": 7999,
+        "PTS": 55.608,
+        "meanChange": 3.877
+      },
+      {
+        "frame": 8000,
+        "PTS": 55.608,
+        "meanChange": 0.283
+      },
+      {
+        "frame": 8001,
+        "PTS": 55.615,
+        "meanChange": 0.169
+      },
+      {
+        "frame": 8002,
+        "PTS": 55.622,
+        "meanChange": 7.304
+      },
+      {
+        "frame": 8003,
+        "PTS": 55.628,
+        "meanChange": 0.277
+      },
+      {
+        "frame": 8004,
+        "PTS": 55.635,
+        "meanChange": 0.658
+      },
+      {
+        "frame": 8005,
+        "PTS": 55.643,
+        "meanChange": 0.45
+      },
+      {
+        "frame": 8006,
+        "PTS": 55.649,
+        "meanChange": 0.32
+      },
+      {
+        "frame": 8007,
+        "PTS": 55.657,
+        "meanChange": 0.499
+      },
+      {
+        "frame": 8008,
+        "PTS": 55.666,
+        "meanChange": 0.15
+      },
+      {
+        "frame": 8009,
+        "PTS": 55.672,
+        "meanChange": 0.466
+      },
+      {
+        "frame": 8010,
+        "PTS": 55.678,
+        "meanChange": 0.124
+      },
+      {
+        "frame": 8011,
+        "PTS": 55.684,
+        "meanChange": 0.25
+      },
+      {
+        "frame": 8012,
+        "PTS": 55.691,
+        "meanChange": 0.21
+      },
+      {
+        "frame": 8013,
+        "PTS": 55.698,
+        "meanChange": 0.145
+      },
+      {
+        "frame": 8014,
+        "PTS": 55.706,
+        "meanChange": 0.258
+      },
+      {
+        "frame": 8016,
+        "PTS": 55.719,
+        "meanChange": 0.228
+      },
+      {
+        "frame": 8019,
+        "PTS": 55.74,
+        "meanChange": 0.162
+      },
+      {
+        "frame": 8021,
+        "PTS": 55.753,
+        "meanChange": 0.166
+      },
+      {
+        "frame": 8023,
+        "PTS": 55.767,
+        "meanChange": 0.127
+      },
+      {
+        "frame": 9651,
+        "PTS": 67.098,
+        "meanChange": 5.134
+      },
+      {
+        "frame": 9656,
+        "PTS": 67.133,
+        "meanChange": 7.052
+      },
+      {
+        "frame": 9658,
+        "PTS": 67.146,
+        "meanChange": 0.125
+      },
+      {
+        "frame": 9659,
+        "PTS": 67.153,
+        "meanChange": 0.12
+      },
+      {
+        "frame": 9750,
+        "PTS": 67.793,
+        "meanChange": 0.173
+      },
+      {
+        "frame": 11149,
+        "PTS": 77.525,
+        "meanChange": 0.798
+      },
+      {
+        "frame": 11150,
+        "PTS": 77.532,
+        "meanChange": 0.16
+      },
+      {
+        "frame": 11151,
+        "PTS": 77.541,
+        "meanChange": 0.492
+      },
+      {
+        "frame": 11152,
+        "PTS": 77.549,
+        "meanChange": 0.364
+      },
+      {
+        "frame": 11153,
+        "PTS": 77.553,
+        "meanChange": 0.442
+      },
+      {
+        "frame": 11155,
+        "PTS": 77.567,
+        "meanChange": 1.366
+      },
+      {
+        "frame": 11156,
+        "PTS": 77.575,
+        "meanChange": 0.644
+      },
+      {
+        "frame": 11157,
+        "PTS": 77.581,
+        "meanChange": 9.317
+      },
+      {
+        "frame": 11158,
+        "PTS": 77.59,
+        "meanChange": 0.391
+      },
+      {
+        "frame": 11159,
+        "PTS": 77.598,
+        "meanChange": 0.572
+      },
+      {
+        "frame": 11160,
+        "PTS": 77.602,
+        "meanChange": 0.247
+      },
+      {
+        "frame": 11161,
+        "PTS": 77.609,
+        "meanChange": 0.611
+      },
+      {
+        "frame": 11162,
+        "PTS": 77.615,
+        "meanChange": 0.194
+      },
+      {
+        "frame": 11163,
+        "PTS": 77.623,
+        "meanChange": 0.471
+      },
+      {
+        "frame": 11164,
+        "PTS": 77.629,
+        "meanChange": 0.229
+      },
+      {
+        "frame": 11165,
+        "PTS": 77.636,
+        "meanChange": 0.231
+      },
+      {
+        "frame": 11166,
+        "PTS": 77.643,
+        "meanChange": 0.389
+      },
+      {
+        "frame": 11168,
+        "PTS": 77.657,
+        "meanChange": 0.369
+      },
+      {
+        "frame": 11170,
+        "PTS": 77.671,
+        "meanChange": 0.245
+      },
+      {
+        "frame": 11171,
+        "PTS": 77.677,
+        "meanChange": 0.199
+      },
+      {
+        "frame": 11173,
+        "PTS": 77.691,
+        "meanChange": 0.261
+      },
+      {
+        "frame": 11175,
+        "PTS": 77.705,
+        "meanChange": 0.218
+      },
+      {
+        "frame": 11178,
+        "PTS": 77.726,
+        "meanChange": 0.16
+      },
+      {
+        "frame": 11180,
+        "PTS": 77.741,
+        "meanChange": 0.168
+      },
+      {
+        "frame": 11250,
+        "PTS": 78.227,
+        "meanChange": 0.194
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "916b17d247c62c5ccc31353b657119b61981b409",
+  "ci": 38860384226,
+  "pr": 360,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA360-native-20261016\\analysis\\validation\\narro-m7-validation.exe",
+  "sha256": "2efffecfbec6462185548042a3b1d1dabbc70181c96c5001400b145f9ba6162a",
+  "scope": "PR360 combined Board/Focus repeat entry, selector glyphs, Subtasks header/clear, Search; five native groups, historical unrelated gates retained."
+}

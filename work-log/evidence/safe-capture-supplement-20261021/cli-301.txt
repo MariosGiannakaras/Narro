@@ -1,0 +1,61 @@
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+### Snapshot
+```yaml
+- main [ref=e3]:
+  - main "Floating Timer" [ref=e697]:
+    - generic [ref=e698]:
+      - generic [ref=e745]:
+        - strong [ref=e746]: Weekly recurring parent
+        - 'generic "Pomodoro paused: 05:00 remaining" [ref=e748]': 05:00
+      - generic [ref=e700]:
+        - group "Floating Timer actions" [ref=e701]:
+          - button "Start break" [ref=e703] [cursor=pointer]
+          - button "Notes" [expanded] [ref=e710] [cursor=pointer]
+          - button "Resume" [ref=e715] [cursor=pointer]
+          - button "Skip task" [ref=e719] [cursor=pointer]
+          - button "Complete task" [ref=e723] [cursor=pointer]
+          - button "Return to Focus Panel" [ref=e728] [cursor=pointer]
+        - generic [ref=e762]:
+          - generic [ref=e806]:
+            - toolbar "Note formatting" [ref=e807]:
+              - button "Bold" [ref=e809] [cursor=pointer]:
+                - strong [ref=e810]: B
+              - button "Italic" [ref=e812] [cursor=pointer]:
+                - emphasis [ref=e813]: I
+              - button "Strikethrough" [ref=e815] [cursor=pointer]:
+                - generic [ref=e816]: S
+              - button "Bulleted list" [ref=e818] [cursor=pointer]: •
+              - button "Numbered list" [ref=e820] [cursor=pointer]: "1."
+              - button "Undo" [ref=e822] [cursor=pointer]
+              - button "Redo" [ref=e826] [cursor=pointer]
+              - button "Open larger notes editor" [ref=e830] [cursor=pointer]
+            - textbox "Task note" [ref=e833]:
+              - paragraph [ref=e834]: "Remaining acquisition: larger Notes editor, keyboard return, saved content."
+              - paragraph
+            - generic [ref=e835]:
+              - generic [ref=e836]: Saved content loaded
+              - button "Save note" [ref=e837] [cursor=pointer]
+          - button "Close notes for Weekly recurring parent" [ref=e795] [cursor=pointer]: Close
+          - generic [ref=e838]:
+            - generic [ref=e839]:
+              - generic [ref=e840]: Saved note
+              - button "Delete" [ref=e841] [cursor=pointer]
+            - generic [ref=e842]:
+              - paragraph [ref=e843]: "Remaining acquisition: larger Notes editor, keyboard return, saved content."
+              - paragraph
+        - status [ref=e844]: Task note saved.
+      - region "Subtasks for Weekly recurring parent" [ref=e733]:
+        - generic "Floating Timer subtask summary" [ref=e734]:
+          - progressbar "0 of 0 subtasks complete" [ref=e735]:
+            - generic [aria-hidden] [ref=e736]: 0/0
+          - generic [ref=e737]: Subtasks
+          - button "Add subtask for Weekly recurring parent" [ref=e739] [cursor=pointer]: +
+          - button "Collapse Floating Timer" [expanded] [ref=e755] [cursor=pointer]
+        - list "Subtasks for Weekly recurring parent" [ref=e757]:
+          - generic [ref=e758]: No subtasks yet.
+```

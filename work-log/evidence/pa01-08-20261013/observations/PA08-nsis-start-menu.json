@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-12T23:23:12.769Z",
+  "accessibility": {
+    "focused_element": "0 dialog Narro Setup Secondary Actions: Raise",
+    "tree": "Window: \"Narro Setup\", App: Narro_0.1.0_x64-setup.exe.\n\t0 dialog Narro Setup Secondary Actions: Raise\n\t\t15 button < Back ID: 3\n\t\t1 button Next > ID: 1\n\t\t2 button Cancel ID: 2\n\t\t16 image ID: 1035\n\t\t3 image ID: 1036\n\t\t17 text Nullsoft Install System v3.11 ID: 1256\n\t\t18 text Nullsoft Install System v3.11 ID: 1028\n\t\t5 text Nullsoft Install System v3.11 ID: 1034\n\t\t19 text Installing ID: 1037\n\t\t20 text Please wait while Narro is being installed. ID: 1038\n\t\t21 image Please wait while Narro is being installed. ID: 1039\n\t\t29 button Show details ID: 1027\n\t\t30 progress bar Value: 9812 ID: 1004\n\t\t31 text Extract: narro.exe ID: 1006\n\t\t9 title bar (settable, string) Value: Narro Setup\n\t\t\t10 menu bar System ID: MenuBar\n\t\t\t\t28 menu item System\n\t\t\t12 button Minimize\n\t\t\t13 button (disabled) Maximize\n\t\t\t14 button (disabled) Close\n\nThe focused UI element is 0 dialog Narro Setup Secondary Actions: Raise."
+  },
+  "screenshots": [],
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-PA-session-20261013\\package\\bundle\\nsis\\Narro_0.1.0_x64-setup.exe",
+    "id": 2689994,
+    "title": "Narro Setup "
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "utc": "2026-10-13T22:07:17.559724+00:00",
+  "source": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "analysis": "5/5 targeted groups dispositioned",
+  "native_original_corrections": "3/3 accepted; new findings separate",
+  "bundles": [
+    {
+      "path": "aggregate-frames-audio-ledgers.zip",
+      "bytes": 3009269,
+      "sha256": "790ec8d15432b4aba399e5baa2bc59b3c5fc97c936ec85cc218f64e7e692ccff"
+    },
+    {
+      "path": "supplement-audio-keyboard-restart-all-logs.zip",
+      "bytes": 10817540,
+      "sha256": "8bdfbe2865205fd4bf03a0ade8d21ef8a876ceb194670567e8072598e8ca5bb1"
+    }
+  ],
+  "audio_positive_control": {
+    "video": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr234-native-20261005\\video\\2026-10-14 00-55-55.mkv",
+    "audio_positive_control": "actual Futuristic Ding preview100",
+    "rms_dbfs": -38.427615388514546,
+    "peak_dbfs": -8.937860797747096
+  },
+  "C5": {
+    "currentSessionId": "0034d7bb-8acb-4916-924e-75f7cd010de9",
+    "generatedUtc": "2026-10-13T21:56:23.803Z",
+    "metrics": {
+      "actualPosition": {
+        "x": 276,
+        "y": 333
+      },
+      "executableFingerprintUnchanged": true,
+      "expectedPosition": {
+        "x": 276,
+        "y": 333
+      },
+      "loadedSavedPlacement": {
+        "monitorName": "\\\\.\\DISPLAY1",
+        "outerSize": {
+          "height": 110,
+          "width": 340
+        },
+        "position": {
+          "x": 276,
+          "y": 333
+        },
+        "version": 1,
+        "workArea": {
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "height": 1080,
+            "width": 2560
+          }
+        }
+      },
+      "maxMoveDistancePx": 152,
+      "positionTolerancePx": 2,
+      "restoreSessionId": "0034d7bb-8acb-4916-924e-75f7cd010de9",
+      "savedPlacement": {
+        "monitorName": "\\\\.\\DISPLAY1",
+        "outerSize": {
+          "height": 110,
+          "width": 340
+        },
+        "position": {
+          "x": 276,
+          "y": 333
+        },
+        "version": 1,
+        "workArea": {
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "height": 1080,
+            "width": 2560
+          }
+        }
+      },
+      "sourceSessionId": "a25b41ad-954d-440e-8d04-9e03be6ad6fc",
+      "sourceShaUnchanged": true,
+      "targetWorkArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "height": 1080,
+          "width": 2560
+        }
+      },
+      "topologyUnchanged": true
+    },
+    "pendingSourceSessionId": "a25b41ad-954d-440e-8d04-9e03be6ad6fc",
+    "reason": "qualifying-drag-normal-tray-quit-new-process-and-safe-saved-placement-restore-all-recorded",
+    "schemaVersion": 1,
+    "sourceSha": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+    "status": "PASS",
+    "test": "M7-C5-saved-placement-restart"
+  },
+  "restoration": {
+    "state": "ORIGINAL_PROFILES_RESTORED",
+    "utc": "2026-10-13T21:58:32.850459+00:00",
+    "originalDbSha256": "13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d",
+    "hashIdentical": true
+  }
+}

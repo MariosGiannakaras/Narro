@@ -1,0 +1,1270 @@
+{
+  "utc": "2026-10-20T18:01:54.456Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 591164,
+    "title": "Narro"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 648,
+      "y": 571,
+      "bounds": [
+        60,
+        83,
+        1341,
+        1163
+      ]
+    },
+    {
+      "name": "Narro - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "RootWebArea",
+      "focused": true,
+      "type": 50030,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "List navigation",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 112,
+      "y": 381,
+      "bounds": [
+        60,
+        83,
+        268,
+        783
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": false,
+      "type": 50006,
+      "x": 111,
+      "y": 83,
+      "bounds": [
+        72,
+        103,
+        255,
+        167
+      ]
+    },
+    {
+      "name": "Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 111,
+      "y": 189,
+      "bounds": [
+        72,
+        167,
+        255,
+        316
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 135,
+      "bounds": [
+        72,
+        167,
+        255,
+        207
+      ]
+    },
+    {
+      "name": "All my lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 200,
+      "bounds": [
+        72,
+        232,
+        255,
+        272
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 244,
+      "bounds": [
+        72,
+        276,
+        255,
+        316
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 63,
+      "bounds": [
+        268,
+        83,
+        1060,
+        147
+      ]
+    },
+    {
+      "name": "Utilities",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 901,
+      "y": 62,
+      "bounds": [
+        867,
+        94,
+        1040,
+        135
+      ]
+    },
+    {
+      "name": "Search",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 855,
+      "y": 62,
+      "bounds": [
+        867,
+        94,
+        948,
+        135
+      ]
+    },
+    {
+      "name": "Settings",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 945,
+      "y": 62,
+      "bounds": [
+        955,
+        94,
+        1040,
+        135
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "main-content",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 385,
+      "bounds": [
+        268,
+        147,
+        1060,
+        727
+      ]
+    },
+    {
+      "name": "Good evening",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 580,
+      "bounds": [
+        292,
+        171,
+        1036,
+        1093
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 161,
+      "bounds": [
+        292,
+        171,
+        1036,
+        256
+      ]
+    },
+    {
+      "name": "HOME",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 260,
+      "y": 127,
+      "bounds": [
+        292,
+        171,
+        332,
+        187
+      ]
+    },
+    {
+      "name": "Good evening",
+      "automationId": "home-title",
+      "focused": false,
+      "type": 50020,
+      "x": 612,
+      "y": 157,
+      "bounds": [
+        292,
+        195,
+        1036,
+        224
+      ]
+    },
+    {
+      "name": "Plan the next work that deserves your attention.",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 408,
+      "y": 191,
+      "bounds": [
+        292,
+        232,
+        629,
+        254
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 634,
+      "bounds": [
+        292,
+        279,
+        1036,
+        1093
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "automationId": "home-lists-title",
+      "focused": false,
+      "type": 50020,
+      "x": 274,
+      "y": 241,
+      "bounds": [
+        292,
+        283,
+        361,
+        304
+      ]
+    },
+    {
+      "name": "Lists with your upcoming tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 875,
+      "y": 239,
+      "bounds": [
+        819,
+        280,
+        1036,
+        302
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 403,
+      "bounds": [
+        292,
+        319,
+        656,
+        591
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 297,
+      "bounds": [
+        293,
+        320,
+        655,
+        378
+      ]
+    },
+    {
+      "name": "All Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 422,
+      "y": 297,
+      "bounds": [
+        349,
+        338,
+        599,
+        360
+      ]
+    },
+    {
+      "name": "All Lists task preview",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 409,
+      "bounds": [
+        293,
+        377,
+        655,
+        546
+      ]
+    },
+    {
+      "name": "Scheduled later this week",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 383,
+      "y": 349,
+      "bounds": [
+        345,
+        390,
+        525,
+        412
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 567,
+      "y": 349,
+      "bounds": [
+        607,
+        393,
+        631,
+        410
+      ]
+    },
+    {
+      "name": "Scheduled future backlog",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 383,
+      "y": 389,
+      "bounds": [
+        345,
+        430,
+        526,
+        452
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 567,
+      "y": 389,
+      "bounds": [
+        607,
+        433,
+        631,
+        450
+      ]
+    },
+    {
+      "name": "Ordinary backlog item",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 372,
+      "y": 429,
+      "bounds": [
+        345,
+        470,
+        503,
+        492
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 567,
+      "y": 429,
+      "bounds": [
+        607,
+        473,
+        631,
+        490
+      ]
+    },
+    {
+      "name": "Reading & research task 1",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 385,
+      "y": 469,
+      "bounds": [
+        345,
+        510,
+        529,
+        532
+      ]
+    },
+    {
+      "name": "5m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 469,
+      "bounds": [
+        614,
+        513,
+        631,
+        530
+      ]
+    },
+    {
+      "name": "Open",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 422,
+      "y": 411,
+      "bounds": [
+        422,
+        443,
+        526,
+        483
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 515,
+      "bounds": [
+        293,
+        545,
+        655,
+        590
+      ]
+    },
+    {
+      "name": "9 pending tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 299,
+      "y": 516,
+      "bounds": [
+        309,
+        560,
+        393,
+        577
+      ]
+    },
+    {
+      "name": "Est: ",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 537,
+      "y": 516,
+      "bounds": [
+        578,
+        560,
+        600,
+        577
+      ]
+    },
+    {
+      "name": "1h 30m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 567,
+      "y": 516,
+      "bounds": [
+        599,
+        560,
+        639,
+        577
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 403,
+      "bounds": [
+        672,
+        319,
+        1036,
+        591
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 297,
+      "bounds": [
+        673,
+        320,
+        1035,
+        378
+      ]
+    },
+    {
+      "name": "Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 802,
+      "y": 297,
+      "bounds": [
+        729,
+        338,
+        979,
+        360
+      ]
+    },
+    {
+      "name": "More actions for Capture Project",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 951,
+      "y": 296,
+      "bounds": [
+        987,
+        332,
+        1019,
+        365
+      ]
+    },
+    {
+      "name": "Capture Project task preview",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 409,
+      "bounds": [
+        673,
+        377,
+        1035,
+        546
+      ]
+    },
+    {
+      "name": "Scheduled later this week",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 763,
+      "y": 349,
+      "bounds": [
+        725,
+        390,
+        905,
+        412
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 947,
+      "y": 349,
+      "bounds": [
+        987,
+        393,
+        1011,
+        410
+      ]
+    },
+    {
+      "name": "Scheduled future backlog",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 763,
+      "y": 389,
+      "bounds": [
+        725,
+        430,
+        906,
+        452
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 947,
+      "y": 389,
+      "bounds": [
+        987,
+        433,
+        1011,
+        450
+      ]
+    },
+    {
+      "name": "Ordinary backlog item",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 752,
+      "y": 429,
+      "bounds": [
+        725,
+        470,
+        883,
+        492
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 947,
+      "y": 429,
+      "bounds": [
+        987,
+        473,
+        1011,
+        490
+      ]
+    },
+    {
+      "name": "Open",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 411,
+      "bounds": [
+        802,
+        443,
+        906,
+        483
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 515,
+      "bounds": [
+        673,
+        545,
+        1035,
+        590
+      ]
+    },
+    {
+      "name": "3 pending tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 679,
+      "y": 516,
+      "bounds": [
+        689,
+        560,
+        773,
+        577
+      ]
+    },
+    {
+      "name": "Est: ",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 933,
+      "y": 516,
+      "bounds": [
+        974,
+        560,
+        996,
+        577
+      ]
+    },
+    {
+      "name": "30m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 955,
+      "y": 516,
+      "bounds": [
+        995,
+        560,
+        1019,
+        577
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 672,
+      "bounds": [
+        292,
+        606,
+        656,
+        842
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 584,
+      "bounds": [
+        293,
+        607,
+        655,
+        665
+      ]
+    },
+    {
+      "name": "Reading & research",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 422,
+      "y": 584,
+      "bounds": [
+        349,
+        625,
+        599,
+        647
+      ]
+    },
+    {
+      "name": "More actions for Reading & research",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 571,
+      "y": 583,
+      "bounds": [
+        607,
+        619,
+        639,
+        652
+      ]
+    },
+    {
+      "name": "Reading & research task preview",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 422,
+      "y": 678,
+      "bounds": [
+        293,
+        664,
+        655,
+        797
+      ]
+    },
+    {
+      "name": "Reading & research task 1",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 385,
+      "y": 636,
+      "bounds": [
+        345,
+        677,
+        529,
+        699
+      ]
+    },
+    {
+      "name": "5m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 570,
+      "y": 636,
+      "bounds": [
+        614,
+        680,
+        631,
+        697
+      ]
+    },
+    {
+      "name": "Reading & research task 2",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 385,
+      "y": 676,
+      "bounds": [
+        345,
+        717,
+        529,
+        739
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 567,
+      "y": 676,
+      "bounds": [
+        607,
+        720,
+        631,
+        737
+      ]
+    },
+    {
+      "name": "Open",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 422,
+      "y": 680,
+      "bounds": [
+        422,
+        712,
+        526,
+        752
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 672,
+      "bounds": [
+        672,
+        606,
+        1036,
+        842
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 584,
+      "bounds": [
+        673,
+        607,
+        1035,
+        665
+      ]
+    },
+    {
+      "name": "Long project name for list badge and title wrapping",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 802,
+      "y": 584,
+      "bounds": [
+        729,
+        625,
+        979,
+        647
+      ]
+    },
+    {
+      "name": "More actions for Long project name for list badge and title wrapping",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 951,
+      "y": 583,
+      "bounds": [
+        987,
+        619,
+        1019,
+        652
+      ]
+    },
+    {
+      "name": "Long project name for list badge and title wrapping task preview",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 802,
+      "y": 678,
+      "bounds": [
+        673,
+        664,
+        1035,
+        797
+      ]
+    },
+    {
+      "name": "Long project name for list badge and title wrapping task 1",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 800,
+      "y": 636,
+      "bounds": [
+        725,
+        677,
+        980,
+        699
+      ]
+    },
+    {
+      "name": "5m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 950,
+      "y": 636,
+      "bounds": [
+        994,
+        680,
+        1011,
+        697
+      ]
+    },
+    {
+      "name": "Long project name for list badge and title wrapping task 2",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 796,
+      "y": 676,
+      "bounds": [
+        725,
+        717,
+        972,
+        739
+      ]
+    },
+    {
+      "name": "10m",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 947,
+      "y": 676,
+      "bounds": [
+        987,
+        720,
+        1011,
+        737
+      ]
+    },
+    {
+      "name": "Open",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 802,
+      "y": 680,
+      "bounds": [
+        802,
+        712,
+        906,
+        752
+      ]
+    },
+    {
+      "name": "Primary",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        268,
+        727,
+        1060,
+        783
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 704,
+      "bounds": [
+        532,
+        736,
+        660,
+        776
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 704,
+      "bounds": [
+        668,
+        736,
+        796,
+        776
+      ]
+    },
+    {
+      "name": null,
+      "automationId": "",
+      "focused": false,
+      "type": 50037,
+      "x": 516,
+      "y": 17,
+      "bounds": [
+        76,
+        55,
+        1060,
+        83
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "MenuBar",
+      "focused": false,
+      "type": 50010,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        60,
+        60,
+        82,
+        82
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "",
+      "focused": false,
+      "type": 50011,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        60,
+        60,
+        82,
+        82
+      ]
+    },
+    {
+      "name": "Minimize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 892,
+      "y": 16,
+      "bounds": [
+        921,
+        53,
+        968,
+        83
+      ]
+    },
+    {
+      "name": "Maximize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 939,
+      "y": 16,
+      "bounds": [
+        968,
+        53,
+        1014,
+        83
+      ]
+    },
+    {
+      "name": "Close",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 985,
+      "y": 16,
+      "bounds": [
+        1014,
+        53,
+        1061,
+        83
+      ]
+    }
+  ]
+}

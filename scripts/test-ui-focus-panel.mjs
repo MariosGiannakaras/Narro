@@ -18,6 +18,20 @@ invariant(panel.includes('data-focus-success-inline-card="true"'), "B63 Focus su
 invariant(panel.includes('data-focus-pomodoro-badge="true"'), "Pomodoro live/Break chip must be projected in active Focus card");
 invariant(panel.includes('timer?.runtime.timer.mode?.kind === "pomodoro"'), "POMO chip must reflect authoritative Pomodoro mode rather than stale UI state");
 invariant(read("src/focusPanel.css").includes(".focus-panel__pomodoro-badge"), "Pomodoro chip must use calibrated Focus styling");
+const pomoFixture = read("src/focusPanelVisualFixture.tsx");
+const captureScript = read("scripts/capture-focus-panel-fixtures.ps1");
+const captureValidator = read("scripts/validate-focus-visual-state-captures.mjs");
+for (const state of ["pomodoro-work", "pomodoro-break"]) {
+  invariant(pomoFixture.includes(`"${state}",`)
+    && captureScript.includes(`Name = "${state}"; Suffix = "-${state}"`)
+    && captureValidator.includes(`readCapture(theme, "${state}")`),
+    `POMO ${state} must be captured and validated in both themes`);
+}
+invariant(pomoFixture.includes('estSeconds: isPomodoroScenario ? 0 : 3600')
+  && pomoFixture.includes('break_kind: isBreakScenario ? (isPomodoroScenario ? "pomodoro" : "manual") : null')
+  && pomoFixture.includes("pomodoroBadge: (() => {")
+  && captureValidator.includes("badge.visible && badge.fitsCard && badge.notClipped"),
+  "POMO capture must use real zero-EST work and genuine Pomodoro break geometry");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const picker = read("src/BoardListPicker.tsx");
@@ -51,6 +65,7 @@ invariant(m7Integration.includes("panelPause === null")
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
+const subtaskProjection = read("src/useSubtaskProjection.ts");
 const taskSubtasks = read("src/TaskSubtasks.tsx");
 const timerApi = read("src/timerSessionApi.ts");
 const timerPresentation = read("src/focusTimerPresentation.ts");
@@ -189,7 +204,9 @@ for (const [haystack, needle, label] of [
   [read("src/metricDurationInput.ts"), "MAX_EDITABLE_SECONDS = 4_294_967_295n", "Rust u32 metric range mirror"],
   [metricsCss, "grid-template-columns: 5rem minmax(0, 1fr) 4.75rem", "stable Focus metric row geometry"],
   [metricsCss, "grid-template-columns: repeat(2, 2.25rem)", "stable metric action geometry"],
-  [subtasks, "getListBoardTaskSubtasks(task.id, task.listId)", "authoritative live-task subtask read"],
+  [subtasks, "useSubtaskProjection({", "shared live-task detail projection"],
+  [subtaskProjection, "await getListBoardTaskSubtasks(taskId, listId)", "authoritative owner-bound subtask read"],
+  [subtaskProjection, "listenForBoardInvalidation", "cross-window detail invalidation"],
   [subtasks, "Promise.all([", "combined authoritative subtask/board refresh"],
   [subtasks, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
   [subtasks, "projectedTotal !== subtasksPayload.subtasks.length || projectedCompleted !== actualCompleted", "subtask/list-board progress reconciliation"],
@@ -234,7 +251,7 @@ for (const [haystack, needle, label] of [
   [css, ".focus-panel__live-meta > span:not([class]) { display: none; }", "legacy live subtask text hidden in favor of authoritative Focus progress surface"],
   [css, "conic-gradient(", "Focus subtask progress ring"],
   [css, "grid-template-columns: 2.25rem minmax(0, 1fr) 2rem", "stable Focus subtask toolbar geometry"],
-  [css, ".focus-panel__subtasks .list-board-task__subtask-trigger { display: none; }", "single Focus subtask toggle without duplicate Main trigger"],
+  [css, ".focus-panel__subtasks .list-board-task__subtask-header { display: none; }", "single Focus subtask toolbar without duplicate Main header controls"],
   [css, "prefers-reduced-motion", "reduced-motion coverage"],
   [fixture, "fixtureBoard={board}", "deterministic production-component fixture"],
   [fixture, '"paused-metrics"', "paused metric visual scenario"],
@@ -286,7 +303,17 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
 invariant(!timerApi.includes("window.setInterval"), "live timer projection must not use overlapping interval sampling");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer numerals must be tabular to prevent second-by-second layout jitter");
-invariant(css.includes("min-width: 32px; min-height: 32px"), "quick-control hit areas must stay stable");
+// Keep the actual 32x32px hit target, not the older padded shorthand
+// whose intrinsic content width exceeded 32px around a 16px SVG.
+const quickControlsCss = css.match(/\.focus-panel__quick-controls button\s*\{([^}]+)\}/)?.[1] ?? "";
+for (const declaration of [
+  "box-sizing: border-box", "display: inline-grid", "place-items: center",
+  "width: 32px", "min-width: 32px", "height: 32px",
+  "min-height: 32px", "padding: 0",
+]) {
+  invariant(quickControlsCss.split(";").some((part) => part.trim() === declaration),
+    "quick-control must preserve centered 32px hit area: " + declaration);
+}
 invariant(css.includes("min-height: 54px"), "task rows must reserve stable compact geometry");
 invariant(css.includes("min-height: 82px"), "live card must retain emphasis geometry");
 invariant(css.includes("@media (prefers-reduced-motion: reduce)"), "Focus Panel must suppress transitions under reduced motion");
@@ -375,4 +402,5 @@ invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus
 
 await import("./test-focus-panel-single-flight.mjs");
 await import("./test-focus-panel-shared-mutation-owners.mjs");
+await import("./test-focus-automatic-completion-handoff.mjs");
 console.log("Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.");

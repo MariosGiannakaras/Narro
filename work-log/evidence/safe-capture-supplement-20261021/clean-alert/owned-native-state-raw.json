@@ -1,0 +1,38 @@
+{
+  "timed_alert_runs": [
+    {
+      "task_id": "61475e92-4c1d-4c7e-ac6c-560b8ac3717f",
+      "run_id": "133c7c5d-b808-4eae-9267-aba9e1acfde4",
+      "interval_seconds": 300,
+      "next_boundary_seconds": 600,
+      "last_observed_work_seconds": 371,
+      "was_enabled": 1,
+      "updated_at": "2026-10-21T12:20:56.113Z"
+    }
+  ],
+  "timed_alert_effects": [
+    {
+      "run_id": "133c7c5d-b808-4eae-9267-aba9e1acfde4",
+      "task_id": "61475e92-4c1d-4c7e-ac6c-560b8ac3717f",
+      "boundary_seconds": 300,
+      "decided_at": "2026-10-21T12:19:44.947Z",
+      "claimed_at": "2026-10-21T12:19:44.947Z"
+    }
+  ],
+  "timer_runtime_checkpoint": [
+    {
+      "singleton": 1,
+      "session_id": "133c7c5d-b808-4eae-9267-aba9e1acfde4",
+      "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"61475e92-4c1d-4c7e-ac6c-560b8ac3717f\",\"mode\":{\"kind\":\"count_up\"},\"phase\":\"running\",\"total_work_ms\":360654,\"interval_work_ms\":360654}}",
+      "updated_at": "2026-10-21T12:20:45.584Z"
+    }
+  ],
+  "preferences": [
+    {
+      "id": 1,
+      "schema_version": 5,
+      "payload_json": "{\"general\":{\"selected_monitor_key\":null,\"focus_panel_side\":\"right\",\"open_on_login\":false,\"hide_task_times\":false,\"auto_parse_est_from_title\":false,\"theme\":\"system\",\"timezone\":null},\"focus\":{\"pomodoro_enabled\":false,\"pomodoro_work_seconds\":1500,\"pomodoro_break_seconds\":300,\"default_break_seconds\":600,\"scrolling_title\":false,\"sleep_accounting_policy\":\"exclude\"},\"shortcuts\":{\"go_to_narro_enabled\":true,\"toggle_focus_mode_enabled\":true,\"find_focus_timer_enabled\":true},\"alerts\":{\"timed_alerts_enabled\":true,\"task_alert_interval_seconds\":300,\"task_alert_sound\":null,\"task_alert_volume_percent\":100,\"animated_timer_flash\":true,\"notification_alerts_enabled\":false,\"notification_sound\":null,\"notification_volume_percent\":100,\"schedule_reminders_enabled\":false,\"reminder_lead_seconds\":600},\"celebration\":{\"show_success_screen\":false,\"fun_gif\":false,\"success_sound_enabled\":true,\"success_sound\":null,\"success_sound_volume_percent\":100}}",
+      "updated_at": "2026-10-21T12:13:23.750165600+00:00"
+    }
+  ]
+}

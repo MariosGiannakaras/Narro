@@ -4,6 +4,7 @@ import fs from "node:fs";
 import net from "node:net";
 import os from "node:os";
 import path from "node:path";
+import { navigateOrConfirmFinding33Document } from "./finding33NavigationAck.mjs";
 
 const root = process.cwd();
 const outputDirectory = path.join(root, "artifacts", "visual-regression");
@@ -150,6 +151,7 @@ const pageUrl = `${baseUrl}/task-notes-fixture.html?theme=dark&presentation=larg
 let edge;
 let client;
 let edgeStderr = "";
+let phase = "before-navigation";
 const requestUrls = new Map();
 const browserEvents = [];
 const record = (entry) => {
@@ -232,14 +234,24 @@ try {
   await client.send("Network.enable");
   await client.send("Log.enable");
   await client.send("Page.bringToFront");
-  const navigation = await client.send("Page.navigate", { url: pageUrl });
-  if (navigation.errorText) throw new Error(`Finding33 Edge navigation failed: ${navigation.errorText}`);
+  phase = "navigating";
+  await navigateOrConfirmFinding33Document({
+    url: pageUrl,
+    send: (method, params) => client.send(method, params),
+    observe: () => evaluate(client, `({
+      url: location.href,
+      readyState: document.readyState,
+      documentPresent: Boolean(document.documentElement),
+    })`),
+  });
+  phase = "navigated";
 
   await waitFor(
     () => evaluate(client, 'document.documentElement.dataset.taskNotesFixtureReady === "true"'),
     "Finding33 large Notes fixture readiness",
   );
 
+  phase = "fixture-ready";
   const initial = await evaluate(client, `(() => {
     const shell = document.querySelector('[data-task-notes-visual="editable"] [data-task-note-presentation="large"]');
     const editor = shell?.querySelector('[data-task-note-control="editor"]');
@@ -273,7 +285,9 @@ try {
   assert.equal(initial.role, "dialog", "Finding33 large Notes lost dialog semantics.");
   assert.equal(initial.ariaModal, "true", "Finding33 large Notes lost modal semantics.");
 
+  phase = "keyboard-input";
   await key(client, "Escape", "Escape", 27);
+  phase = "keyboard-dispatched";
 
   await waitFor(
     () => evaluate(client, `(() => {
@@ -370,6 +384,7 @@ try {
     category: "finding33-real-edge-bootstrap-or-keyboard-failure",
     pageUrl,
     reason: String(error),
+    phase,
     pageState,
     browserEvents,
     browserStderrTail: edgeStderr,

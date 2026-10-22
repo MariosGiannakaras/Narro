@@ -1,0 +1,46 @@
+{
+  "state": "PREPARED_WAITING_FOR_VERIFIED_CANDIDATE",
+  "scope": "PR364 affected M5 presentation plus missing compatible direct claims, accepted8groups retained",
+  "acquisition": "0/4",
+  "groups": [
+    {
+      "id": "C1",
+      "name": "Done date/count singular/plural and narrow containment",
+      "requirements": [
+        "B43"
+      ],
+      "sequence": "Same owned fixture: complete remaining WeekProgressA to produce plural same-day group, inspect date-left/count-right and stable task IDs/order, narrow Main100%;125%onlyifalreadyavailable."
+    },
+    {
+      "id": "C2",
+      "name": "Archived list cards and real restore/confirmation Cancel",
+      "requirements": [
+        "A2 SS-H14",
+        "approved darkcolor shared contrast"
+      ],
+      "sequence": "Two owned lists with saved previews; archive through actual Home menu, inspect rest/hover/keyboard footer/preview containment; actual Unarchive/rearchive and DeleteForever modal Cancel. No irreversible deletion needed."
+    },
+    {
+      "id": "C3",
+      "name": "Missing recurring-menu routes and other scheduled lane group labels",
+      "requirements": [
+        "B45",
+        "B40 Backlog/ThisWeek"
+      ],
+      "sequence": "Actual owned recurring parent Taskactions: UpdateRecurring, then safe RemoveRecurring; preserve same generated children/IDs/counts. On two retained detached occurrences use actual scheduling to tomorrow within current week and nextweek, observe ThisWeek/Backlog scheduled sections. Do not replay full alreadyaccepted calendar/parser cases."
+    },
+    {
+      "id": "C4",
+      "name": "Actually apply approved dark custom color",
+      "requirements": [
+        "approved List modal contrast"
+      ],
+      "sequence": "Open owned list Edit, HEX111111 then click outside popover (not Escape, which cancels to original color); capture selected dark modal preview and commit owned-list color so Home/archive same helper can be observed; separate reopened modal Cancel remains non-mutating. No upload/catalog replay."
+    }
+  ],
+  "profileIsolated": false,
+  "recordingStarted": false,
+  "source": "b11c80bb43e11ee438698450377beea0b31933c1",
+  "ci": 38994951447,
+  "orderNote": "Reorder compatible Home/Edit/Archive journeys at safe transitions to minimize setup; independent results per requirement. C4 applied color may precede C2 archive observation."
+}

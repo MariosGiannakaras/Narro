@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-15T08:34:36.829755+00:00",
+  "ownedMain": 4590738,
+  "thread": 69940,
+  "active": {
+    "hwnd": 4590738,
+    "class": "Tauri Window",
+    "pid": 71356
+  },
+  "focus": {
+    "hwnd": 1447014,
+    "class": "Chrome_WidgetWin_1",
+    "pid": 8468
+  },
+  "capture": null,
+  "flags": 0
+}

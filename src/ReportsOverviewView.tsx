@@ -1,8 +1,11 @@
-import { useState, type CSSProperties } from "react";
+import { ActionIcon } from "./ActionIcon";
+import { reportChartPrintLabelIndices } from "./reportChartPrintLabels";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportChartPreset } from "./reportChartSeriesPreset";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
+import { placeReportChartTooltip } from "./reportChartTooltipPlacement";
 import "./reportsOverview.css";
 
 export type ReportsMetric = {
@@ -140,10 +143,73 @@ function ReportChart({
   onToggleSeries?: (series: ReportsChartSeries) => void;
   onSelectPreset?: (preset: ReportChartPreset) => void;
 }) {
-  const [interactiveTooltipDayId, setInteractiveTooltipDayId] = useState<string | null>(null);
-  const activeTooltipDayId = tooltipDayId ?? interactiveTooltipDayId;
+  const [hoveredDayId, setHoveredDayId] = useState<string | null>(null);
+  const [focusedDayId, setFocusedDayId] = useState<string | null>(null);
+  const activeTooltipDayId = tooltipDayId ?? hoveredDayId ?? focusedDayId;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const maximum = Math.max(1, ...days.map((day) => day.taskSeconds + day.breakSeconds));
 
+  useLayoutEffect(() => {
+    const anchor = anchorRef.current;
+    const tooltip = tooltipRef.current;
+    const scroll = scrollRef.current;
+    if (!anchor || !tooltip || !scroll) return;
+    const ancestors: HTMLElement[] = [];
+    for (let node: HTMLElement | null = scroll; node; node = node.parentElement) ancestors.push(node);
+    const print = window.matchMedia("print");
+    const place = () => {
+      // Print/export CSS owns its hidden state. Do not turn that temporary
+      // zero-sized box into a persistent inline display:none after export.
+      if (document.documentElement.dataset.reportPdfExport === "true" || print.matches) return;
+      tooltip.style.display = "grid";
+      const origin = anchor.getBoundingClientRect();
+      const scale = anchor.offsetWidth > 0 ? origin.width / anchor.offsetWidth : 1;
+      if (!Number.isFinite(scale) || scale <= 0) {
+        tooltip.style.display = "none";
+        return;
+      }
+      const clip = { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
+      // A horizontally scrolling chart also clips vertically; Main's scroll
+      // viewport can further trim it. Bound to every actual clipping ancestor.
+      for (const node of ancestors) {
+        const style = window.getComputedStyle(node);
+        const box = node.getBoundingClientRect();
+        const ratio = node.offsetWidth > 0 ? box.width / node.offsetWidth : 1;
+        if (style.overflowX !== "visible") {
+          clip.left = Math.max(clip.left, box.left + node.clientLeft * ratio);
+          clip.right = Math.min(clip.right, box.left + (node.clientLeft + node.clientWidth) * ratio);
+        }
+        if (style.overflowY !== "visible") {
+          clip.top = Math.max(clip.top, box.top + node.clientTop * ratio);
+          clip.bottom = Math.min(clip.bottom, box.top + (node.clientTop + node.clientHeight) * ratio);
+        }
+      }
+      tooltip.style.maxWidth = `${Math.max(0, (clip.right - clip.left) / scale - 8)}px`;
+      const placement = placeReportChartTooltip(origin, clip, tooltip.offsetWidth * scale, tooltip.offsetHeight * scale, scale);
+      tooltip.style.display = placement ? "grid" : "none";
+      if (placement) {
+        tooltip.style.left = `${placement.left}px`;
+        tooltip.style.top = `${placement.top}px`;
+        tooltip.style.maxWidth = `${placement.maxWidth}px`;
+      }
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    for (const node of [...ancestors, anchor, tooltip]) observer.observe(node);
+    window.addEventListener("scroll", place, true);
+    window.addEventListener("resize", place);
+    print.addEventListener("change", place);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", place, true);
+      window.removeEventListener("resize", place);
+      print.removeEventListener("change", place);
+    };
+  }, [activeTooltipDayId, days]);
+
+  const printLabelIndices = reportChartPrintLabelIndices(days.length);
   return (
     <section className="reports-overview__chart-card" aria-labelledby="reports-productivity-title">
       <div className="reports-overview__section-heading">
@@ -152,7 +218,7 @@ function ReportChart({
           <h2 id="reports-productivity-title">Time by day</h2>
         </div>
         <span className="reports-overview__chart-options" data-report-chart-options="available">
-          <Menu triggerLabel="Chart options" trigger={<span aria-hidden="true">•••</span>} align="end">
+          <Menu triggerLabel="Chart options" trigger={<ActionIcon name="more" />} align="end">
             <MenuItem onSelect={() => onSelectPreset?.("all")}>Show all series</MenuItem>
             <MenuItem onSelect={() => onSelectPreset?.("tasks")}>Tasks only</MenuItem>
             <MenuItem onSelect={() => onSelectPreset?.("breaks")}>Breaks only</MenuItem>
@@ -162,6 +228,7 @@ function ReportChart({
       </div>
 
       <div
+        ref={scrollRef}
         className="reports-overview__chart-scroll"
         role="region"
         aria-label="Daily Tasks, Breaks and Total session time"
@@ -170,12 +237,14 @@ function ReportChart({
       <div
         className="reports-overview__chart"
         style={{ "--report-chart-day-count": Math.max(1, days.length) } as CSSProperties}
+        data-report-sparse-labels={days.length > 14 ? "true" : "false"}
       >
         {days.map((day, index) => {
           const total = day.taskSeconds + day.breakSeconds;
           const tooltipOpen = activeTooltipDayId === day.id;
           return (
             <div
+              ref={tooltipOpen ? anchorRef : undefined}
               key={day.id}
               className="reports-overview__chart-day"
               style={chartStyle(day, maximum)}
@@ -187,10 +256,13 @@ function ReportChart({
                 className="reports-overview__chart-hit"
                 aria-label={`${day.label}: Tasks ${formatDuration(day.taskSeconds)}, Breaks ${formatDuration(day.breakSeconds)}, Total ${formatDuration(total)}`}
                 aria-describedby={tooltipOpen ? `report-tooltip-${day.id}` : undefined}
-                onMouseEnter={() => setInteractiveTooltipDayId(day.id)}
-                onMouseLeave={() => setInteractiveTooltipDayId(null)}
-                onFocus={() => setInteractiveTooltipDayId(day.id)}
-                onBlur={() => setInteractiveTooltipDayId(null)}
+                onMouseEnter={() => setHoveredDayId(day.id)}
+                onMouseLeave={() => setHoveredDayId(null)}
+                onFocus={() => {
+                  setHoveredDayId(null);
+                  setFocusedDayId(day.id);
+                }}
+                onBlur={() => setFocusedDayId(null)}
               >
                 <span
                   className="reports-overview__chart-bars"
@@ -201,13 +273,14 @@ function ReportChart({
                   {visibleSeries.breaks && day.breakSeconds > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" /> : null}
                   {visibleSeries.total && total > 0 ? <span className="reports-overview__chart-bar reports-overview__chart-bar--total" /> : null}
                 </span>
-                <span className="reports-overview__chart-label">
+                <span className="reports-overview__chart-label" data-report-print-label={printLabelIndices.has(index) ? "true" : "false"}>
                   {days.length <= 14 || index % 7 === 0 || index === days.length - 1 ? day.label : ""}
                 </span>
               </button>
 
               {tooltipOpen ? (
                 <div
+                  ref={tooltipRef}
                   id={`report-tooltip-${day.id}`}
                   className="reports-overview__chart-tooltip"
                   role="tooltip"
@@ -256,6 +329,7 @@ function DateRangePicker({
   onNextYear,
   onCancel,
   onApply,
+  returnFocusTarget,
 }: {
   months: ReportsCalendarMonth[];
   onSelectPreset?: (preset: ReportDatePreset) => void;
@@ -266,17 +340,35 @@ function DateRangePicker({
   onNextYear?: () => void;
   onCancel?: () => void;
   onApply?: () => void;
+  returnFocusTarget?: HTMLElement | null;
 }) {
+  const firstPresetRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    firstPresetRef.current?.focus({ preventScroll: true });
+    return () => {
+      if (returnFocusTarget?.isConnected) returnFocusTarget.focus({ preventScroll: true });
+    };
+  }, [returnFocusTarget]);
+
+  function handleDatePickerKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    event.stopPropagation();
+    onCancel?.();
+  }
+
   return (
     <div
       className="reports-overview__date-popover"
       role="dialog"
       aria-label="Choose report date range"
       data-report-date-picker="true"
+      onKeyDown={handleDatePickerKeyDown}
     >
       <div className="reports-overview__date-presets" aria-label="Date presets">
-        {(["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"] as ReportDatePreset[]).map((preset) => (
-          <button type="button" key={preset} onClick={() => onSelectPreset?.(preset)}>{preset}</button>
+        {(["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"] as ReportDatePreset[]).map((preset, index) => (
+          <button type="button" key={preset} ref={index === 0 ? firstPresetRef : undefined}
+            onClick={() => onSelectPreset?.(preset)}>{preset}</button>
         ))}
       </div>
 
@@ -284,11 +376,11 @@ function DateRangePicker({
         {months.slice(0, 2).map((month) => (
           <section className="reports-overview__calendar" key={month.label} aria-label={month.label}>
             <header>
-              <button type="button" aria-label={`Previous year from ${month.label}`} onClick={onPreviousYear} disabled={!onPreviousYear}>«</button>
-              <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}>‹</button>
+              <button type="button" aria-label={`Previous year from ${month.label}`} onClick={onPreviousYear} disabled={!onPreviousYear}><ActionIcon name="chevrons-left" /></button>
+              <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}><ActionIcon name="chevron-left" /></button>
               <strong>{month.label}</strong>
-              <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}>›</button>
-              <button type="button" aria-label={`Next year from ${month.label}`} onClick={onNextYear} disabled={!onNextYear}>»</button>
+              <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}><ActionIcon name="chevron-right" /></button>
+              <button type="button" aria-label={`Next year from ${month.label}`} onClick={onNextYear} disabled={!onNextYear}><ActionIcon name="chevrons-right" /></button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => <span key={day}>{day}</span>)}
@@ -362,6 +454,7 @@ export function ReportsOverviewView({
   interactionLocked = false,
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
+  const rangeTriggerRef = useRef<HTMLButtonElement>(null);
   let listCursor = 0;
   const listSegments = timeByList.map((item) => {
     const start = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : 0;
@@ -394,7 +487,7 @@ export function ReportsOverviewView({
     >
       <header className="reports-overview__header">
         <div className="reports-overview__title-row">
-          <button type="button" className="reports-overview__back" onClick={onBack}>‹ Back</button>
+          <button type="button" className="reports-overview__back" onClick={onBack}><ActionIcon name="arrow-left" /> Back</button>
           <h1 id="reports-overview-title">Reports</h1>
         </div>
         <button
@@ -405,7 +498,7 @@ export function ReportsOverviewView({
           aria-busy={exportPending || undefined}
           title={exportPending ? "Exporting the current Overview to PDF…" : undefined}
         >
-          {exportPending ? "Exporting…" : "⇩ Export PDF"}
+          {exportPending ? "Exporting…" : <><ActionIcon name="download" /> Export PDF</>}
         </button>
       </header>
 
@@ -435,7 +528,7 @@ export function ReportsOverviewView({
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={listFilterOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {listFilterOpen ? (
             <div
@@ -457,7 +550,7 @@ export function ReportsOverviewView({
                     key={option.id ?? "all"}
                     onClick={() => onToggleListSelection?.(option.id)}
                   >
-                    <span className="reports-overview__list-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+                    <span className="reports-overview__list-check">{selected ? <ActionIcon name="check" /> : null}</span>
                     <i style={{ backgroundColor: option.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
                     {option.title}
                   </button>
@@ -471,12 +564,13 @@ export function ReportsOverviewView({
           <button
             type="button"
             className="reports-overview__range-button"
+            ref={rangeTriggerRef}
             aria-haspopup="dialog"
             aria-expanded={datePickerOpen}
             onClick={onToggleDatePicker}
             data-report-date-range="true"
           >
-            <span aria-hidden="true">▣</span>
+            <ActionIcon name="calendar" />
             {rangeLabel}
           </button>
           {datePickerOpen ? (
@@ -490,6 +584,7 @@ export function ReportsOverviewView({
               onNextYear={onNextCalendarYear}
               onCancel={onCancelDateRange}
               onApply={onApplyDateRange}
+              returnFocusTarget={rangeTriggerRef.current}
             />
           ) : null}
         </div>
@@ -571,7 +666,7 @@ export function ReportsOverviewView({
             <i className="is-late" style={{ width: `${Math.max(0, Math.min(100, punctuality.latePercent))}%` }} />
           </div>
           {doneTasks.length ? (
-            <div className="reports-overview__done-list">
+            <div className="reports-overview__done-list" role="region" aria-label="Done Tasks" tabIndex={0}>
               {doneGroups.map(([completionLabel, tasks]) => (
                 <section className="reports-overview__done-group" key={completionLabel} data-report-done-group="true">
                   <header>

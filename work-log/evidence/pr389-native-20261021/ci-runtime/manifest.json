@@ -1,0 +1,11 @@
+{
+  "executable": "D:\\a\\Narro\\Narro\\src-tauri\\target\\release\\narro.exe",
+  "captureTransport": "win32-screen-plus-environment-gated-renderer-checkpoints",
+  "captures": {
+    "panel": "focus-panel-runtime",
+    "compact": "floating-timer-runtime",
+    "expanded": "floating-timer-expanded-runtime",
+    "panelToTimer": "panel-to-timer-runtime",
+    "timerToPanel": "timer-to-panel-runtime"
+  }
+}

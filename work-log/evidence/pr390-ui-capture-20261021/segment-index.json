@@ -1,0 +1,56 @@
+{
+  "acquisitionGroups": 5,
+  "groupsAcquired": 5,
+  "visualAnalysis": "NOT RUN by this capture-only operation",
+  "segments": [
+    {
+      "segment": "P1-overview-calendar",
+      "durationSeconds": 8.784,
+      "frames": "520",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P1-overview-calendar-navigation",
+      "durationSeconds": 40.734,
+      "frames": "2434",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P2-sessions-calendar-controls",
+      "durationSeconds": 7.217,
+      "frames": "429",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P2-sessions-navigation-dialog",
+      "durationSeconds": 44.85,
+      "frames": "2683",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P3-shortcuts-accessible-ui",
+      "durationSeconds": 31.95,
+      "frames": "1905",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P4-focus-header-hover-keyboard",
+      "durationSeconds": 22.684,
+      "frames": "1355",
+      "width": 2560,
+      "height": 1080
+    },
+    {
+      "segment": "P5-task-actions-search",
+      "durationSeconds": 34.067,
+      "frames": "2032",
+      "width": 2560,
+      "height": 1080
+    }
+  ]
+}

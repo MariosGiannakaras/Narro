@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { validateReportPrintLayout } from "./reportPrintLayoutRegression";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import {
@@ -28,6 +29,7 @@ const mode = [
   "list-filter",
   "date-picker",
   "series-toggle",
+  "chart-containment",
   "lower",
   "sessions-empty",
   "sessions-populated",
@@ -41,6 +43,8 @@ const mode = [
 
 document.documentElement.dataset.theme = theme;
 document.documentElement.dataset.reportsFixtureMode = mode;
+const pdfDayCount = Number(params.get("pdfDays"));
+if ([8, 31, 61, 91].includes(pdfDayCount)) document.documentElement.dataset.reportPdfExport = "true";
 document.body.classList.add("visual-fixture-body");
 
 const metrics: ReportsMetric[] = [
@@ -60,6 +64,13 @@ const chartDays: ReportsChartDay[] = [
   { id: "aug-13", label: "Thu 13, Aug", taskSeconds: 4800, breakSeconds: 600 },
   { id: "aug-14", label: "Fri 14, Aug", taskSeconds: 2700, breakSeconds: 600 },
 ];
+
+const containmentDays: ReportsChartDay[] = Array.from({ length: 90 }, (_, index) => ({
+  id: `containment-day-${index}`,
+  label: `Day ${index + 1}, September 2026`,
+  taskSeconds: 1200 + index * 60,
+  breakSeconds: 300,
+}));
 
 const listOptions: ReportsListOption[] = [
   { id: null, title: "All Lists", color: "#48d6c5" },
@@ -266,15 +277,20 @@ const addDraft = {
 function ReportsAddSessionKeyboardFixture() {
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
+  const [draft, setDraft] = useState(addDraft);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const unrelatedRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    triggerRef.current?.focus();
+    // A pointer/programmatic click need not focus its opener. The modal must
+    // return to the actual Add Session trigger, not the previous Back control.
+    unrelatedRef.current?.focus();
     setOpen(true);
   }, []);
 
   return (
     <>
+      <button ref={unrelatedRef} type="button" data-report-add-keyboard-unrelated="true">← Back</button>
       <button ref={triggerRef} type="button" data-report-add-keyboard-trigger="true" onClick={() => setOpen(true)}>
         + Add Session
       </button>
@@ -289,13 +305,14 @@ function ReportsAddSessionKeyboardFixture() {
       </button>
       {open ? (
         <ReportAddSessionDialog
+          returnFocusTarget={triggerRef.current}
           tasks={addTasks}
-          draft={addDraft}
+          draft={draft}
           pending={pending}
           error={null}
-          onDraftChange={() => undefined}
+          onDraftChange={(next) => setDraft(next)}
           onClose={() => setOpen(false)}
-          onCommit={() => undefined}
+          onCommit={() => setOpen(false)}
         />
       ) : null}
     </>
@@ -308,6 +325,7 @@ function ReportsDetailKeyboardFixture() {
   const [addOpen, setAddOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const nestedOpenerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     triggerRef.current?.focus();
@@ -320,19 +338,24 @@ function ReportsDetailKeyboardFixture() {
         onClick={() => setDetailOpen(true)}>Open task session detail</button>
       <button hidden type="button" aria-pressed={pending} data-report-detail-keyboard-pending="true"
         onClick={() => setPending((previous) => !previous)}>Toggle pending</button>
-      {detailOpen && !addOpen ? (
+      {detailOpen ? (
         <ReportTaskSessionsDialog
           detail={taskDetail}
+          covered={addOpen}
           returnFocusTarget={triggerRef.current}
           pendingSessionId={pending ? "session-01" : null}
           onClose={() => setDetailOpen(false)}
-          onAddSession={() => setAddOpen(true)}
+          onAddSession={(_taskId, opener) => {
+            nestedOpenerRef.current = opener ?? null;
+            setAddOpen(true);
+          }}
           onCommitEndTime={async () => true}
           onDelete={() => undefined}
         />
       ) : null}
       {addOpen ? (
         <ReportAddSessionDialog
+          returnFocusTarget={nestedOpenerRef.current}
           tasks={[...addTasks, {
             id: "task-email", listId: "blitzit", listTitle: "Blitzit",
             listColor: "#48d6c5", title: "Email newsletter", lane: "Today" as const,
@@ -342,7 +365,13 @@ function ReportsDetailKeyboardFixture() {
           error={null}
           onDraftChange={() => undefined}
           onClose={() => setAddOpen(false)}
-          onCommit={() => setAddOpen(false)}
+          onCommit={() => {
+            setPending(true);
+            setAddOpen(false);
+            // The real durable write closes Add before its fallible refresh.
+            // Its parent must return focus only when controls are enabled again.
+            window.setTimeout(() => setPending(false), 80);
+          }}
         />
       ) : null}
     </>
@@ -421,14 +450,23 @@ flushSync(() => {
     ) : (
       <ReportsOverviewView
         metrics={metrics}
-        chartDays={chartDays}
+        chartDays={mode === "chart-containment" ? containmentDays : [8, 31, 61, 91].includes(pdfDayCount)
+          ? Array.from({ length: pdfDayCount }, (_, index) => ({
+            id: `pdf-${index}`, label: new Intl.DateTimeFormat("en-US", {
+              weekday: "short", month: "short", day: "2-digit", timeZone: "UTC",
+            }).format(new Date(Date.UTC(2026, 9, 15 - (pdfDayCount - 1) + index))),
+            taskSeconds: 1200, breakSeconds: 300,
+          })) : chartDays}
         productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
         timeByList={timeByList}
         doneTasks={doneTasks}
         listLabel="All Lists"
         selectedListIds={[]}
         listOptions={listOptions}
-        rangeLabel="Aug 07, 2026  –  Aug 14, 2026"
+        rangeLabel={[8, 31, 61, 91].includes(pdfDayCount)
+          ? `${new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit", year: "numeric", timeZone: "UTC" })
+            .format(new Date(Date.UTC(2026, 9, 15 - (pdfDayCount - 1))))} – Oct 15, 2026`
+          : "Aug 07, 2026  –  Aug 14, 2026"}
         calendarMonths={[august, september]}
         listFilterOpen={mode === "list-filter"}
         datePickerOpen={mode === "date-picker"}
@@ -441,6 +479,13 @@ flushSync(() => {
 });
 
 const markReady = () => {
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".reports-sessions__summary article"));
+  if (cards.length) {
+    const firstTop = cards[0].getBoundingClientRect().top;
+    requireFixture(cards.length === 3 && cards.every((card) => Math.abs(card.getBoundingClientRect().top - firstTop) <= 1),
+      "Reports Sessions desktop summary must retain three cards in one row.");
+    document.documentElement.dataset.reportsSummarySingleRow = "true";
+  }
   document.documentElement.dataset.reportsFixtureReady = "true";
 };
 
@@ -467,6 +512,158 @@ function dispatchFixtureKey(target: HTMLElement, key: string, shiftKey = false) 
   }));
 }
 
+async function validateChartTooltipContainmentFixture() {
+  // Interactive browsers exercise natural ResizeObserver/frame delivery. The
+  // headless virtual clock can advance without producing those frames, so its
+  // fixture explicitly exercises the production viewport-resize listener before
+  // asserting actual DOM bounds; it never assigns tooltip placement itself.
+  const naturalFrames = new URLSearchParams(window.location.search).get("renderFrames") === "true";
+  document.documentElement.dataset.reportsChartLayoutDriver = naturalFrames ? "natural-frames" : "viewport-resize-event";
+  const settle = async () => {
+    if (naturalFrames) {
+      await new Promise<void>((resolve) => window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve())));
+    } else {
+      await wait(40);
+      window.dispatchEvent(new Event("resize"));
+    }
+  };
+  const scroll = await waitForElement<HTMLDivElement>(".reports-overview__chart-scroll");
+  requireFixture(scroll, "Chart scroll viewport missing.");
+  scroll!.style.maxWidth = "320px";
+  scroll!.scrollIntoView({ block: "center" });
+  await settle();
+  const buttons = Array.from(scroll!.querySelectorAll<HTMLButtonElement>(".reports-overview__chart-hit"));
+  requireFixture(buttons.length === 90, "Containment fixture must exercise actual long-range overflow.");
+  const originalScrollWidth = scroll!.scrollWidth;
+  let cases = 0;
+  const bounded = (label: string) => {
+    const tooltip = scroll!.querySelector<HTMLElement>('[role="tooltip"]');
+    requireFixture(tooltip && window.getComputedStyle(tooltip).display !== "none", `${label}: tooltip did not remain visible.`);
+    const b = scroll!.getBoundingClientRect();
+    const t = tooltip!.getBoundingClientRect();
+    requireFixture(t.left >= Math.max(0, b.left) + 3 && t.right <= Math.min(window.innerWidth, b.right) - 3,
+      `${label}: tooltip clipped horizontally (${t.left},${t.right} vs ${b.left},${b.right}).`);
+    requireFixture(t.top >= Math.max(0, b.top) + 3 && t.bottom <= Math.min(window.innerHeight, b.bottom) - 3,
+      `${label}: tooltip clipped vertically.`);
+    requireFixture(scroll!.scrollWidth === originalScrollWidth, `${label}: tooltip enlarged chart scroll extent.`);
+    cases++;
+  };
+  const focus = async (button: HTMLButtonElement) => {
+    flushSync(() => button.focus());
+    await settle();
+  };
+  await focus(buttons[0]!);
+  bounded("first date keyboard focus");
+  scroll!.scrollLeft = 12;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await settle();
+  bounded("partly visible left date");
+  await focus(buttons[89]!);
+  bounded("last date keyboard focus");
+  scroll!.style.maxWidth = "180px";
+  await settle();
+  const resizedViewport = scroll!.getBoundingClientRect();
+  const resizedDate = buttons[89]!.getBoundingClientRect();
+  const resizedTooltip = scroll!.querySelector<HTMLElement>('[role="tooltip"]')!;
+  const tooltipBox = resizedTooltip.getBoundingClientRect();
+  document.documentElement.dataset.reportsChartResizeObservation = JSON.stringify({
+    chart: { left: resizedViewport.left, right: resizedViewport.right },
+    date: { left: resizedDate.left, right: resizedDate.right },
+    tooltip: { left: tooltipBox.left, right: tooltipBox.right, display: window.getComputedStyle(resizedTooltip).display },
+    scrollLeft: scroll!.scrollLeft,
+  });
+  if (resizedDate.left >= resizedViewport.right || resizedDate.right <= resizedViewport.left) {
+    requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Resize left an offscreen date tooltip visible.");
+    cases++;
+  } else {
+    // Browsers may keep the focused date visible during resize. Both outcomes
+    // are valid, but any visible tooltip must satisfy the complete bounds.
+    bounded("resize retains visible focused date");
+  }
+  scroll!.scrollLeft = scroll!.scrollWidth;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await settle();
+  bounded("narrow viewport resize");
+  scroll!.style.maxWidth = "320px";
+  await focus(buttons[40]!);
+  // Check the same actual chart category used by tooltip pointer ownership.
+  // The existing test proved tooltip semantics but not that B28 paints the
+  // vertical category wash and brightens Total on this rendered day.
+  const hoveredDay = buttons[41]!.closest<HTMLElement>(".reports-overview__chart-day");
+  const totalBar = hoveredDay?.querySelector<HTMLElement>(".reports-overview__chart-bar--total");
+  if (!hoveredDay || !totalBar) throw new Error("Chart hover visual contract requires a real populated Total bar.");
+  const idleWashOpacity = Number(getComputedStyle(hoveredDay, "::before").opacity);
+  const idleTotalFilter = getComputedStyle(totalBar).filter;
+  requireFixture(hoveredDay.dataset.reportChartActive === "false" && idleWashOpacity === 0,
+    "Nonhovered category already has an active vertical wash.");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
+  await settle();
+  bounded("pointer takes tooltip from focused date");
+  // Edge headless virtual time advances timers without guaranteeing that CSS
+  // opacity/filter animations reach their painted end frames. Complete only
+  // the transitions initiated by the actual production hover state, just as
+  // the existing Focus B49 visual fixture does; never set inline paint values.
+  for (const animation of hoveredDay.getAnimations({ subtree: true })) {
+    if (animation instanceof CSSTransition
+      && (animation.transitionProperty === "opacity" || animation.transitionProperty === "filter")
+      && animation.playState !== "finished") {
+      animation.finish();
+    }
+  }
+  const wash = getComputedStyle(hoveredDay, "::before");
+  const activeWashOpacity = Number(wash.opacity);
+  const activeTotalFilter = getComputedStyle(totalBar).filter;
+  requireFixture(hoveredDay.dataset.reportChartActive === "true"
+    && Number.isFinite(activeWashOpacity) && activeWashOpacity > idleWashOpacity
+    && wash.backgroundColor !== "rgba(0, 0, 0, 0)" && wash.backgroundColor !== "transparent"
+    && parseFloat(wash.height) >= hoveredDay.getBoundingClientRect().height - 2
+    && activeTotalFilter.includes("brightness(") && activeTotalFilter !== idleTotalFilter,
+    "Hovered chart category did not paint a tall translucent band and brighter Total bar: "
+      + JSON.stringify({ active: hoveredDay.dataset.reportChartActive, idleWashOpacity,
+        activeWashOpacity, washColor: wash.backgroundColor, washHeight: wash.height,
+        dayHeight: hoveredDay.getBoundingClientRect().height,
+        idleTotalFilter, activeTotalFilter }));
+  document.documentElement.dataset.reportsChartHoverBandVerified = "true";
+  requireFixture(buttons[41]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-41", "Hover did not bind tooltip to hovered date.");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
+  await settle();
+  requireFixture(buttons[40]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-40", "Pointer leave lost the still-focused date tooltip.");
+  bounded("pointer leave restores focused date");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, relatedTarget: null })));
+  await settle();
+  await focus(buttons[42]!);
+  requireFixture(buttons[42]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-42", "New keyboard focus did not take tooltip ownership from stationary pointer hover.");
+  bounded("new keyboard focus takes tooltip from stationary pointer");
+  flushSync(() => buttons[41]!.dispatchEvent(new MouseEvent("mouseout", { bubbles: true, relatedTarget: scroll })));
+  await settle();
+  requireFixture(buttons[42]!.getAttribute("aria-describedby") === "report-tooltip-containment-day-42", "Old pointer leave cleared the newer focused date tooltip.");
+  bounded("old pointer leave preserves newer keyboard owner");
+  scroll!.scrollLeft = 0;
+  scroll!.dispatchEvent(new Event("scroll"));
+  await settle();
+  const hidden = scroll!.querySelector<HTMLElement>('[role="tooltip"]');
+  requireFixture(hidden && window.getComputedStyle(hidden).display === "none", "Fully scrolled-out date retained a stale tooltip.");
+  requireFixture(scroll!.scrollWidth === originalScrollWidth, "Hidden tooltip enlarged scroll extent.");
+  cases++;
+  await focus(buttons[0]!);
+  scroll!.style.height = "60px";
+  await settle();
+  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "Vertically clipped chart exposed a cut tooltip.");
+  cases++;
+  scroll!.style.height = "";
+  await settle();
+  bounded("visible viewport restores tooltip after resize");
+  document.documentElement.dataset.reportPdfExport = "true";
+  await settle();
+  requireFixture(window.getComputedStyle(scroll!.querySelector<HTMLElement>('[role="tooltip"]')!).display === "none", "PDF export did not hide chart tooltip.");
+  cases++;
+  delete document.documentElement.dataset.reportPdfExport;
+  await settle();
+  bounded("PDF state restoration preserves interactive tooltip");
+  document.documentElement.dataset.reportsChartTooltipBounded = "true";
+  document.documentElement.dataset.reportsChartTooltipCases = String(cases);
+}
+
 async function validateAddSessionKeyboardFixture() {
   const dialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
   requireFixture(dialog, "Add Session keyboard fixture did not open.");
@@ -480,7 +677,42 @@ async function validateAddSessionKeyboardFixture() {
   const search = dialog!.querySelector<HTMLInputElement>('input[type="search"]');
   requireFixture(document.activeElement === search, "Opening the Add Session task picker did not focus its search.");
   requireFixture(pickerTrigger!.getAttribute("aria-expanded") === "true", "Add Session task picker did not disclose.");
-  dispatchFixtureKey(search!, "Escape");
+  const options = Array.from(dialog!.querySelectorAll<HTMLButtonElement>('[role="option"]'));
+  requireFixture(options.length > 1, "Picker regression needs multiple actual task options.");
+  const optionBounds = options[0].getBoundingClientRect();
+  requireFixture(document.elementFromPoint(optionBounds.left + optionBounds.width / 2,
+    optionBounds.top + optionBounds.height / 2)?.closest('[role="option"]') === options[0],
+    "Task option is clipped or covered by its modal/footer/backdrop.");
+  dispatchFixtureKey(search!, "ArrowDown");
+  requireFixture(document.activeElement === options[0], "Search ArrowDown did not focus the first task.");
+  dispatchFixtureKey(options[0], "End");
+  requireFixture(document.activeElement === options[options.length - 1], "Picker End did not reach the last task.");
+  dispatchFixtureKey(options[options.length - 1], "ArrowDown");
+  requireFixture(document.activeElement === options[0], "Picker ArrowDown did not wrap.");
+  dispatchFixtureKey(options[0], "Enter");
+  await wait(30);
+  requireFixture(pickerTrigger!.textContent?.includes(options[0].querySelector('span')!.textContent!),
+    "Keyboard selection did not commit the task draft.");
+  requireFixture(document.activeElement === pickerTrigger, "Selection lost picker trigger focus.");
+  pickerTrigger!.click();
+  await wait(30);
+  const mouseOption = dialog!.querySelectorAll<HTMLButtonElement>('[role="option"]')[1];
+  const mouseBounds = mouseOption.getBoundingClientRect();
+  requireFixture(document.elementFromPoint(mouseBounds.left + mouseBounds.width / 2,
+    mouseBounds.top + mouseBounds.height / 2)?.closest('[role="option"]') === mouseOption,
+    "Selected-task form clips/obscures its picker option.");
+  mouseOption.click();
+  await wait(30);
+  requireFixture(pickerTrigger!.textContent?.includes(mouseOption.querySelector('span')!.textContent!),
+    "Pointer selection did not replace the previously selected task draft.");
+  requireFixture(!dialog!.querySelector('[data-report-task-picker-open="true"]'), "Pointer selection did not close picker.");
+  requireFixture(!dialog!.querySelector<HTMLButtonElement>('footer .reports-sessions__primary')!.disabled,
+    "Selected task did not enable Add Session.");
+  document.documentElement.dataset.reportsAddPickerInteractionPass = "true";
+  pickerTrigger!.click();
+  await wait(30);
+  const reopenedSearch = dialog!.querySelector<HTMLInputElement>('input[type="search"]')!;
+  dispatchFixtureKey(reopenedSearch, "Escape");
   await wait(30);
   requireFixture(document.querySelector(".reports-sessions__add-dialog"), "Picker Escape dismissed the whole Add Session modal.");
   requireFixture(document.activeElement === pickerTrigger, "Picker Escape did not restore trigger focus.");
@@ -550,6 +782,29 @@ async function validateAddSessionKeyboardFixture() {
   );
 
   document.documentElement.dataset.reportsAddPendingGuard = "true";
+
+  // Submission uses the same production cleanup as successful persistence.
+  // Reproduce a pointer opener whose previous focus belongs to Back.
+  const activePickerTrigger = pendingDialog!.querySelector<HTMLButtonElement>('[data-report-task-selector-trigger="true"]');
+  activePickerTrigger!.click();
+  const choice = await waitForElement<HTMLButtonElement>('.reports-sessions__task-picker button[role="option"]');
+  requireFixture(choice, "Submission focus fixture has no owned task choice.");
+  choice!.click();
+  await wait(30);
+  document.documentElement.dataset.reportsAddClientWidth = String(pendingDialog!.clientWidth);
+  document.documentElement.dataset.reportsAddScrollWidth = String(pendingDialog!.scrollWidth);
+  requireFixture(pendingDialog!.scrollWidth <= pendingDialog!.clientWidth + 1,
+    "Selected long task creates horizontal overflow in Add Session.");
+  document.documentElement.dataset.reportsAddLongTitleContained = "true";
+  const addButton = pendingDialog!.querySelector<HTMLButtonElement>('footer .reports-sessions__primary');
+  requireFixture(addButton && !addButton.disabled, "Submission focus fixture must enable Add Session.");
+  addButton!.click();
+  await waitForElement('.reports-sessions__add-dialog', false);
+  await wait(30);
+  requireFixture(document.activeElement === trigger, "Successful Add Session did not restore its actual opener.");
+  document.documentElement.dataset.reportsAddCommitFocusRestored = "true";
+  trigger!.click();
+  await waitForElement('.reports-sessions__add-dialog');
   document.documentElement.dataset.reportsAddKeyboardPass = "true";
 }
 
@@ -577,8 +832,9 @@ async function validateDetailSessionKeyboardFixture() {
   add!.click();
   const nested = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
   requireFixture(nested, "Detail to Add Session transfer did not open.");
-  requireFixture(!document.querySelector('[data-report-session-detail-dialog="true"]'),
-    "Detail remained mounted as a second aria-modal during Add Session.");
+  requireFixture(detail!.closest<HTMLElement>('[data-report-session-detail="true"]')?.hidden
+      && !detail!.hasAttribute("aria-modal") && add!.isConnected,
+    "Nested Add must retain its opener in a hidden, inactive parent without a second modal owner.");
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Add Session transfer has competing modal owners.");
   await wait(30);
@@ -588,13 +844,15 @@ async function validateDetailSessionKeyboardFixture() {
   const cancel = nested!.querySelector<HTMLButtonElement>("footer button");
   requireFixture(cancel, "Add Session Cancel control is missing.");
   cancel!.click();
-  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await waitForElement(".reports-sessions__add-dialog", false);
+  requireFixture(detail === document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Nested Cancel replaced its parent or disconnected the actual opener.");
   await wait(30);
   close = detail!.querySelector<HTMLButtonElement>('button[aria-label="Close task session detail"]');
   add = detail!.querySelector<HTMLButtonElement>(".reports-sessions__detail-actions button");
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Detail was not restored as the sole owner after Add Session Cancel.");
-  requireFixture(document.activeElement === close, "Detail did not reacquire focus after nested Cancel.");
+  requireFixture(document.activeElement === add, "Nested Add Session Cancel did not restore its actual Add Session opener.");
 
   add!.click();
   const commitDialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
@@ -603,10 +861,14 @@ async function validateDetailSessionKeyboardFixture() {
   const commit = commitDialog!.querySelector<HTMLButtonElement>("footer .reports-sessions__primary");
   requireFixture(commit && !commit.disabled, "Preselected Add Session is not commit-ready.");
   commit!.click();
-  detail = await waitForElement<HTMLElement>('[data-report-session-detail-dialog="true"]');
+  await waitForElement(".reports-sessions__add-dialog", false);
+  requireFixture(detail === document.querySelector('[data-report-session-detail-dialog="true"]'),
+    "Nested Commit replaced its parent or disconnected the actual opener.");
+  await waitForElement('.reports-sessions__detail-actions button:not([disabled])');
   await wait(30);
   requireFixture(document.querySelectorAll('[aria-modal="true"]').length === 1,
     "Detail was not restored as the sole owner after Add Session Commit.");
+  requireFixture(document.activeElement === add, "Nested Add Session Commit did not restore its actual Add Session opener.");
 
   const pendingToggle = document.querySelector<HTMLButtonElement>('[data-report-detail-keyboard-pending="true"]');
   requireFixture(pendingToggle, "Detail pending fixture control is missing.");
@@ -644,7 +906,17 @@ async function validateDetailSessionKeyboardFixture() {
   document.documentElement.dataset.reportsDetailKeyboardPass = "true";
 }
 
-if (mode === "sessions-detail-keyboard") {
+if ([8, 31, 61, 91].includes(pdfDayCount)) {
+  void validateReportPrintLayout().then(markReady).catch((error: unknown) => {
+    document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+    throw error;
+  });
+} else if (mode === "chart-containment") {
+  void validateChartTooltipContainmentFixture().then(markReady).catch((error: unknown) => {
+    document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+    throw error;
+  });
+} else if (mode === "sessions-detail-keyboard") {
   void validateDetailSessionKeyboardFixture()
     .then(markReady)
     .catch((error: unknown) => {

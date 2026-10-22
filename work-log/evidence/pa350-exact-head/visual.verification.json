@@ -1,0 +1,13 @@
+{
+  "source": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "artifact": 11850815582,
+  "kind": "visual",
+  "zip_sha256": "5c2d15d7b2c8bca39a75ce15d0de57c0b1611e4f214ddc05dac33d99261c29d6",
+  "crc_entries": 341,
+  "files": [],
+  "native_acceptance": "NOT RUN",
+  "decoded_png": 168,
+  "uniform_png": [],
+  "add_focus_overflow_themes": 2,
+  "summary_row_themes": 2
+}

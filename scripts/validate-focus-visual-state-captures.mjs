@@ -83,6 +83,18 @@ for (const theme of ["light", "dark"]) {
     `${running.label} overdue row is not visually distinct from an ordinary remaining row`,
   );
 
+  // Test the true production calendar-day metadata, not the generic fixture
+  // fallback. Fixed Athens 2026-09-13 against persisted 2026-09-11 => 2d.
+  const aged = readCapture(theme, "overdue-age");
+  const age = aged.contract.overdueAge;
+  invariant(aged.dom.includes('data-focus-overdue-age="2d ago">2d ago</span>')
+    && aged.dom.includes('data-focus-overdue="true"')
+    && age?.text === "2d ago"
+    && age.width > 0 && age.height > 0
+    && age.withinRow && age.withinScreenshot && age.topmostAtCenter && age.notClipped
+    && age.color !== age.ordinaryColor,
+    `${aged.label} must visibly render warm 2d overdue calendar age inside its original task row`);
+
   const paused = readCapture(theme, "paused-metrics");
   requireLiveState(paused, "paused");
   requireDistinctCardState(paused, running);
@@ -127,6 +139,37 @@ for (const theme of ["light", "dark"]) {
   invariant(breakState.dom.includes('aria-label="Break: 07:00 remaining"'), `${breakState.label} break timer label differs`);
   invariant(breakState.dom.includes(">07:00<"), `${breakState.label} break timer value differs`);
   invariant(breakState.dom.includes(">Resume<"), `${breakState.label} break state must expose Resume`);
+
+  // Source VE-016: POMO remains on the active card during both Pomodoro
+  // countdown and its Break, even if the task's persisted EST is zero.
+  const pomoWork = readCapture(theme, "pomodoro-work");
+  const pomoBreak = readCapture(theme, "pomodoro-break");
+  requireLiveState(pomoWork, "running");
+  requireLiveState(pomoBreak, "break");
+  invariant(!running.dom.includes('data-focus-pomodoro-badge="true"')
+    && !breakState.dom.includes('data-focus-pomodoro-badge="true"'),
+    `${theme} ordinary timers and manual Break must not advertise Pomodoro`);
+  for (const capture of [pomoWork, pomoBreak]) {
+    const badge = capture.contract.pomodoroBadge;
+    invariant(capture.dom.includes('data-focus-pomodoro-badge="true"')
+      && capture.dom.includes('aria-label="Pomodoro mode"')
+      && capture.dom.includes('data-focus-live-timer-mode="pomodoro"')
+      && badge?.text === "POMO" && badge.width > 0 && badge.height > 0
+      && badge.visible && badge.fitsCard && badge.notClipped
+      && badge.color !== "rgba(0, 0, 0, 0)"
+      && badge.borderColor !== "rgba(0, 0, 0, 0)",
+      `${capture.label} POMO chip must paint uncut in its authoritative active-card state`);
+  }
+  invariant(pomoWork.dom.includes('aria-label="Pomodoro work: 18:00 remaining"')
+    && pomoWork.dom.includes('>18:00<')
+    && pomoWork.dom.includes('Est: 1hr 10min'),
+    `${pomoWork.label} zero-EST Pomodoro must count down without replacing saved EST`);
+  invariant(pomoBreak.dom.includes('aria-label="Pomodoro break: 03:00 remaining"')
+    && pomoBreak.dom.includes('>03:00<')
+    && pomoBreak.dom.includes('data-focus-break-card="true"')
+    && pomoBreak.dom.includes('data-focus-break-suspended-work="true"')
+    && pomoBreak.dom.includes('data-focus-reorderable="false"'),
+    `${pomoBreak.label} Pomodoro Break must retain visible POMO, live Break and inert work identity`);
 
   const timeUp = readCapture(theme, "time-up");
   requireLiveState(timeUp, "time_up");
@@ -188,6 +231,38 @@ for (const theme of ["light", "dark"]) {
   invariant(changedPixels >= minimumChanged,
     `${focusedActions.label} B49 FALSE VISUAL PASS: focused action screenshot looks like running in its actual rail (${changedPixels} changed pixels; need ${minimumChanged})`);
 
+  // B49 right-edge negative control: the last Done pill has distinct
+  // justify-self:end geometry, unlike the center Pause focus path above.
+  // Demand a separate real Edge screenshot from the same resting viewport.
+  const focusedDone = readCapture(theme, "live-actions-done-focus");
+  requireLiveState(focusedDone, "running");
+  invariant(focusedDone.dom.includes('data-focus-action-reveal-pass="true"')
+    && focusedDone.dom.includes('data-focus-action="done"')
+    && focusedDone.dom.includes('aria-label="Complete task"'),
+    `${focusedDone.label} must focus the real Done control with its accessible name`);
+  invariant(focusedDone.contract.liveCard?.height === running.contract.liveCard?.height
+    && focusedDone.contract.layoutViewport?.width === 492
+    && focusedDone.contract.layoutViewport?.height === 628,
+    `${focusedDone.label} must retain the live-card and same-viewport focus geometry`);
+  const doneRail = focusedDone.contract.focusActionPaintRegion;
+  const doneAction = focusedDone.contract.actionLabels?.find(item => item.action === "done");
+  invariant(doneRail && doneAction?.label === "Done"
+    && doneAction.labelWidth > 0 && doneAction.labelWidth <= doneAction.availableWidth + 0.01
+    && doneAction.x >= doneRail.x - 1
+    && doneAction.x + doneAction.width <= doneRail.x + doneRail.width + 1,
+    `${focusedDone.label} Done label must be visible and contained in the right-edge action rail`);
+  invariant(baselineRegion
+    && Math.abs(doneRail.x - baselineRegion.x) <= 1
+    && Math.abs(doneRail.y - baselineRegion.y) <= 1
+    && Math.abs(doneRail.width - baselineRegion.width) <= 1
+    && Math.abs(doneRail.height - baselineRegion.height) <= 1,
+    `${focusedDone.label} Done focus changed reserved action-rail bounds`);
+  const doneChangedPixels = differentFocusPixels(
+    readEdgePng(running.screenshot), readEdgePng(focusedDone.screenshot), doneRail,
+  );
+  invariant(doneChangedPixels >= Math.max(200, Math.ceil(doneRail.width * doneRail.height * 0.02)),
+    `${focusedDone.label} B49 false visual PASS: Done focus did not paint distinct action pixels (${doneChangedPixels})`);
+
   const success = readCapture(theme, "success");
   invariant(success.contract.queueTitleLayout?.successQueueInert === true,
     `focus-panel-success-${theme} must show the queued titles while blocking their focus during committed success`);
@@ -207,6 +282,69 @@ for (const theme of ["light", "dark"]) {
     && success.contract.liveTimer === null
     && success.contract.actions === null,
     `${success.label} must replace the active card without a stale running timer/actions`);
+
+  // B65: test true rendered success copy, not merely BigInt formatting.
+  for (const spec of [
+    { scenario: "success", text: "38 minutes early", est: "1hr", taken: "22min" },
+    { scenario: "success-late", text: "1 minute late", est: "10min", taken: "11min" },
+    { scenario: "success-equal", text: "Right on time", est: "10min", taken: "10min" },
+    { scenario: "success-no-est", text: null, est: "—", taken: "10min" },
+  ]) {
+    const captured = spec.scenario === "success" ? success : readCapture(theme, spec.scenario);
+    invariant(captured.contract.queueTitleLayout?.successQueueInert === true
+      && captured.contract.liveTimer === null
+      && captured.contract.actions === null
+      && captured.dom.includes('data-focus-success-placement="inline"'),
+      `${captured.label} must retain committed success and inactive queue`);
+    invariant(captured.dom.includes(`<span>EST <strong>${spec.est}</strong></span>`)
+      && captured.dom.includes(`<span>Taken <strong>${spec.taken}</strong></span>`),
+      `${captured.label} must show accurate EST/Taken`);
+    if (spec.text === null) {
+      invariant(captured.contract.successTiming === null
+        && !captured.dom.includes('data-focus-success-timing="true"'),
+        `${captured.label} missing EST must suppress invented delta`);
+    } else {
+      invariant(captured.dom.includes(`data-focus-success-timing="true">${spec.text}</p>`)
+        && captured.contract.successTiming?.text === spec.text
+        && captured.contract.successTiming.width > 0
+        && captured.contract.successTiming.height > 0
+        && captured.contract.successTiming.fitsCard
+        && captured.contract.successTiming.notClipped,
+        `${captured.label} timing must render and fit in the production card`);
+    }
+  }
+
+  // D2 native Windows evidence shows the optional offline celebration only
+  // when Fun GIF is enabled. Capture both preferences, not merely its DOM
+  // component source, and reject an invisible/overflowing decorative SVG.
+  const funGif = readCapture(theme, "success-fun-gif");
+  invariant(!success.dom.includes('data-focus-success-reaction="true"'),
+    `${success.label} disabled Fun GIF must not leak the decoration`);
+  invariant(funGif.dom.includes('data-focus-success-reaction="true"')
+    && funGif.dom.includes('data-focus-success-placement="inline"')
+    && !funGif.dom.includes('aria-modal="true"'),
+    `${funGif.label} enabled Fun GIF must appear inside production inline success`);
+  invariant(funGif.contract.queueTitleLayout?.successQueueInert === true
+    && funGif.contract.liveTimer === null
+    && funGif.contract.actions === null
+    && funGif.dom.includes('data-focus-success-action="next-task"')
+    && funGif.dom.includes('data-focus-success-action="take-break"')
+    && funGif.dom.includes('data-focus-success-action="close"'),
+    `${funGif.label} reaction must retain safe committed state and actions`);
+  const reaction = funGif.contract.successReaction;
+  invariant(reaction?.fitsCard && reaction.svgVisible && reaction.notClipped,
+    `${funGif.label} enabled decorative vector is missing or clipped`);
+  const reactionRegion = reaction.paintRegion;
+  invariant(reactionRegion.width > 80 && reactionRegion.height >= 90
+    && reactionRegion.x >= 0 && reactionRegion.y >= 0
+    && reactionRegion.x + reactionRegion.width <= 420
+    && reactionRegion.y + reactionRegion.height <= 720,
+    `${funGif.label} reaction must be visibly inside actual screenshot dimensions`);
+  const changed = differentFocusPixels(
+    readEdgePng(success.screenshot), readEdgePng(funGif.screenshot), reactionRegion,
+  );
+  invariant(changed >= 200,
+    `${funGif.label} enabled reaction screenshot was indistinguishable from disabled state (${changed} changed pixels)`);
 
   const noEligible = readCapture(theme, "no-eligible");
   invariant(noEligible.dom.includes('data-focus-live-card="false"'), `${noEligible.label} must not fabricate a live card`);

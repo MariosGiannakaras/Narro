@@ -15,6 +15,7 @@ document.body.classList.add("visual-fixture-body");
 const taskId = "91111111-1111-4111-8111-111111111111";
 const listId = "11111111-1111-4111-8111-111111111111";
 const snapshot: TaskScheduleEditorSnapshot = {
+  updatedAt: "2026-09-09T16:00:00Z",
   taskId,
   listId,
   schedule: {

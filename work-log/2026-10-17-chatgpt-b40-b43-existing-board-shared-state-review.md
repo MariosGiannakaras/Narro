@@ -1,0 +1,11 @@
+# 2026-10-17 — reuse one original/native board pair for M5 B40 and B43
+
+**Owner:** ChatGPT implementation. **Scope:** one bounded existing-evidence comparison for two requirements sharing the same board component/state; no new Windows execution, recording, source/test/config change, or PA activation.
+
+**Original:** `reference/original-blitzit-screenshots/help-v2x-board-four-columns-dark.png`, blob `1297e79f4ea9234633d79e4d6cbe9a161cf22730`. In Backlog, the Scheduled subgroup appears after ordinary cards and ADD TASK, followed by a separate Recurring group; in This Week the Scheduled subgroup follows ordinary cards. Done groups use the date heading on the left and number of tasks on the right with horizontal dividers.
+
+**Narro:** Frozen original `work-log/evidence/pr364-native-20261017/C3-037-final-lanes-main.png`, blob `dbc30639ebd46d4d8b5524b52a7924c91c265bea`, previously accepted [native follow-up](2026-10-17-c3-final-lanes-visual-followup.md). Backlog visibly includes `1 Scheduled task in backlog` with Oct 24, 2026 task; This Week `1 Scheduled task this week` with Oct 18, 2026 task; each follows ordinary planning rows, and Done has Oct 17/Oct 16 grouped date-left and count-right headings. No new actual recording. Existing UIA and owned-state receipts corroborate native presence/stable IDs but not source animation.
+
+**Disposition:** B40 scheduled subgroup **SCOPED SOURCE STRUCTURE + NATIVE PRESENCE OBSERVED**, B43 Done group date-left/count-right **SCOPED SOURCE STRUCTURE + NATIVE PRESENCE OBSERVED**. This pair alone cannot establish like-state pixel geometry, exact wording in a different data/locale, unexercised recurrence, comprehensive narrow/singular/plural scroll variants or continuous motion. Both existing [ ] TODO subgates appropriately remain OPEN; no code defect was newly established. Do not open speculative correction PRs or request new recording to re-prove subgroup presence. Do not treat this as M10 whole-app audit.
+
+**Next:** review the next distinct evidence-backed M5 A2 archived populated-list composition against already available original/current artifacts and actual current code, retaining previous implemented task-preview projection and any user-approved features. PA-01–09 paused, M11/M12 dormant.

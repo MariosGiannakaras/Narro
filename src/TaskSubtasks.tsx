@@ -1,4 +1,5 @@
-import { useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import { ActionIcon } from "./ActionIcon";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 
@@ -86,9 +87,64 @@ export function TaskSubtasks({
 }: TaskSubtasksProps) {
   const expanded = Boolean(model?.expanded);
   const newSubtaskInputRef = useRef<HTMLInputElement>(null);
+  const createFocusRef = useRef<{
+    input: HTMLInputElement;
+    taskId: string | undefined;
+    value: string;
+    count: number;
+    sawPending: boolean;
+  } | null>(null);
+  // Disabling a focused input during native commit moves focus to the body.
+  // Restore the initiating field only after authoritative refresh re-enables it.
+  // Explicit navigation elsewhere cancels that intent, including outside clicks
+  // on non-focusable content and focus moves that subsequently return to body.
+  useEffect(() => {
+    if (!expanded) return;
+    const cancelForOtherTarget = (event: Event) => {
+      const request = createFocusRef.current;
+      if (request && event.target !== request.input
+        && !request.input.form?.contains(event.target as Node)) createFocusRef.current = null;
+    };
+    document.addEventListener("focusin", cancelForOtherTarget);
+    document.addEventListener("pointerdown", cancelForOtherTarget, true);
+    return () => {
+      createFocusRef.current = null;
+      document.removeEventListener("focusin", cancelForOtherTarget);
+      document.removeEventListener("pointerdown", cancelForOtherTarget, true);
+    };
+  }, [expanded]);
+  useLayoutEffect(() => {
+    const request = createFocusRef.current;
+    if (!request) return;
+    if (!expanded || !model?.mutable || model.loading || model.error
+      || request.input !== newSubtaskInputRef.current
+      || request.taskId !== request.input.closest<HTMLElement>("[data-task-id]")?.dataset.taskId) {
+      createFocusRef.current = null;
+      return;
+    }
+    if (model.pending) {
+      request.sawPending = true;
+      return;
+    }
+    if (!request.sawPending && model.createValue === request.value
+      && model.subtasks.length === request.count) return;
+    createFocusRef.current = null;
+    if (request.input.isConnected && !request.input.disabled
+      && (document.activeElement === document.body || document.activeElement === request.input)) {
+      request.input.focus({ preventScroll: true });
+    }
+  });
   const handleCreate = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (model?.pending || !model?.mutable) return;
+    if (model?.pending || !model?.mutable || !model.createValue.trim() || createFocusRef.current) return;
+    const input = newSubtaskInputRef.current;
+    if (input) createFocusRef.current = {
+      input,
+      taskId: input.closest<HTMLElement>("[data-task-id]")?.dataset.taskId,
+      value: model.createValue,
+      count: model.subtasks.length,
+      sawPending: false,
+    };
     onCreate();
   };
 
@@ -98,6 +154,7 @@ export function TaskSubtasks({
       data-task-subtasks={expanded ? "expanded" : "collapsed"}
       onPointerDown={(event) => event.stopPropagation()}
     >
+      <div className="list-board-task__subtask-header" data-task-subtask-header="true" data-can-expand={canExpand}>
       <button
         type="button"
         className="list-board-task__subtask-trigger motion-interactive"
@@ -108,10 +165,19 @@ export function TaskSubtasks({
         draggable={false}
         onClick={onToggleExpanded}
       >
-        <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} subtasks`}</span>
-        {totalCount > 0 ? <Progress completed={completedCount} total={totalCount} /> : null}
-        <span aria-hidden="true" className="list-board-task__subtask-chevron">{expanded ? "⌃" : "⌄"}</span>
+        <span className="list-board-task__subtask-chevron"><ActionIcon name={expanded ? "chevron-up" : "chevron-down"} /></span>
       </button>
+      <span className="list-board-task__subtask-header-copy">
+        <Progress completed={completedCount} total={totalCount} />
+        <span>{totalCount === 0 ? "Subtasks" : `${completedCount}/${totalCount} Subtasks`}</span>
+      </span>
+      {expanded && model?.mutable && !model.loading && !model.error ? (
+        <button type="button" className="list-board-task__subtask-add-trigger motion-interactive"
+          data-task-subtask-control="add-focus" aria-label={`Add a subtask to ${taskTitle}`}
+          disabled={model.pending} onClick={() => newSubtaskInputRef.current?.focus()}
+        ><ActionIcon name="plus" /></button>
+      ) : null}
+      </div>
 
       {expanded && model ? (
         <div className="list-board-task__subtask-panel" data-task-subtask-panel="true">
@@ -121,35 +187,8 @@ export function TaskSubtasks({
             <span className="list-board-task__subtask-error type-metadata" role="alert">{model.error}</span>
           ) : (
             <>
-              <div className="list-board-task__subtask-header">
-                <strong className="type-metadata">Subtasks</strong>
-                {model.mutable ? (
-                  <button
-                    type="button"
-                    className="list-board-task__subtask-add-trigger motion-interactive"
-                    data-task-subtask-control="add-focus"
-                    aria-label={`Add a subtask to ${taskTitle}`}
-                    disabled={model.pending}
-                    onClick={() => newSubtaskInputRef.current?.focus()}
-                  >+</button>
-                ) : null}
-              </div>
-              <div className="list-board-task__subtask-summary">
-                <span className="type-metadata">
-                  {model.subtasks.filter((subtask) => subtask.completedAt !== null).length}/{model.subtasks.length} complete
-                </span>
-                {model.subtasks.length > 0 ? (
-                  <Progress
-                    completed={model.subtasks.filter((subtask) => subtask.completedAt !== null).length}
-                    total={model.subtasks.length}
-                  />
-                ) : null}
-              </div>
-
               <div className="list-board-task__subtask-list" role="list" aria-label={`Subtasks for ${taskTitle}`}>
-                {model.subtasks.length === 0 ? (
-                  <span className="list-board-task__subtask-empty type-metadata">No subtasks yet.</span>
-                ) : model.subtasks.map((subtask, index) => {
+                {model.subtasks.map((subtask, index) => {
                   const editing = model.editor?.id === subtask.id;
                   const completed = subtask.completedAt !== null;
                   return (
@@ -172,7 +211,7 @@ export function TaskSubtasks({
                             if (belongsToRenderedTask(event, subtask)) onToggleCompleted(subtask);
                           }}
                         >
-                          <span aria-hidden="true">{completed ? "✓" : "○"}</span>
+                          <ActionIcon name={completed ? "circle-check" : "circle"} />
                         </button>
                       </Tooltip>
 
@@ -222,7 +261,7 @@ export function TaskSubtasks({
                                 aria-label="Cancel subtask edit"
                                 disabled={model.pending}
                                 onClick={onCancelEdit}
-                              >×</button>
+                              ><ActionIcon name="close" /></button>
                             </Tooltip>
                             <Tooltip content="Save subtask title">
                               <button
@@ -232,7 +271,7 @@ export function TaskSubtasks({
                                 aria-label="Save subtask title"
                                 disabled={model.pending || !model.editor?.value.trim()}
                                 onClick={onSaveEdit}
-                              >✓</button>
+                              ><ActionIcon name="check" /></button>
                             </Tooltip>
                           </>
                         ) : (
@@ -247,7 +286,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "up");
                                 }}
-                              >↑</button>
+                              ><ActionIcon name="arrow-up" /></button>
                             </Tooltip>
                             <Tooltip content="Move subtask down">
                               <button
@@ -259,7 +298,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onMove(subtask, "down");
                                 }}
-                              >↓</button>
+                              ><ActionIcon name="arrow-down" /></button>
                             </Tooltip>
                             <Tooltip content="Delete subtask">
                               <button
@@ -271,7 +310,7 @@ export function TaskSubtasks({
                                 onClick={(event) => {
                                   if (belongsToRenderedTask(event, subtask)) onDelete(subtask);
                                 }}
-                              >×</button>
+                              ><ActionIcon name="trash" /></button>
                             </Tooltip>
                           </>
                         )}
@@ -282,35 +321,29 @@ export function TaskSubtasks({
               </div>
 
               {model.mutable ? (
-                <form className="list-board-task__subtask-create" onSubmit={handleCreate}>
+                <form className="list-board-task__subtask-create" data-task-subtask-control="create" onSubmit={handleCreate}>
+                  <div className="list-board-task__subtask-create-field">
                   <input
                     ref={newSubtaskInputRef}
                     value={model.createValue}
                     data-task-subtask-control="create-input"
                     aria-label={`New subtask for ${taskTitle}`}
-                    placeholder="Enter Subtask task title*"
+                    placeholder="Enter subtask task title*"
                     disabled={model.pending}
                     onChange={(event) => onCreateValueChange(event.target.value)}
                   />
-                  {model.createValue.trim() ? (
                     <button
                       type="button"
                       className="list-board-task__subtask-clear motion-interactive"
                       aria-label="Clear new subtask draft"
                       data-task-subtask-control="cancel-create"
-                      disabled={model.pending}
+                      disabled={model.pending || !model.createValue}
                       onClick={() => {
                         onCreateValueChange("");
                         newSubtaskInputRef.current?.focus();
                       }}
-                    >×</button>
-                  ) : null}
-                  <button
-                    type="submit"
-                    className="motion-interactive"
-                    data-task-subtask-control="create"
-                    disabled={model.pending || !model.createValue.trim()}
-                  >Add</button>
+                    ><ActionIcon name="close" /></button>
+                  </div>
                 </form>
               ) : (
                 <span className="list-board-task__subtask-readonly type-metadata">Completed tasks keep subtasks as read-only history.</span>

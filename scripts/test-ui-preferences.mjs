@@ -80,10 +80,27 @@ invariant(
   rust.indexOf("let saved = mutate_preferences") < rust.indexOf("app_handle.emit(PREFERENCES_CHANGED_EVENT"),
   "Preferences event must be emitted only after persistence commits",
 );
+invariant(
+  rust.includes("crate::scheduling::validate_timezone_identifier(timezone)"),
+  "Rust must validate direct preference timezone patches using the authoritative IANA parser",
+);
+invariant(
+  rust.includes('CommandError::invalid_argument(\n                "patch.timezone"'),
+  "invalid direct timezone patches must return a typed argument error",
+);
+invariant(
+  rust.includes("direct_timezone_patch_rejects_unknown_zones_before_any_write"),
+  "unknown IANA timezone regression is missing",
+);
+invariant(
+  rust.includes("timezone_patch_accepts_valid_iana_alias_and_automatic_without_changing_other_settings"),
+  "valid/Automatic/legacy timezone preservation regression is missing",
+);
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
 const shortcutsDialogSource = await read("src/WindowsShortcutsDialog.tsx");
 const shortcutsDialogCss = await read("src/windowsShortcutsDialog.css");
 const shortcutSettingsSource = await read("src/WindowsShortcutSettingsPanel.tsx");
+const shortcutSettingsCss = await read("src/windowsShortcutSettingsPanel.css");
 const modalSource = await read("src/PreferencesDialog.tsx");
 const modalCss = await read("src/preferencesDialog.css");
 const shellSource = await read("src/AppShell.tsx");
@@ -111,6 +128,12 @@ invariant(shortcutsDialogSource.includes('event.key === "Escape"')
 invariant(shortcutsDialogSource.includes("closeRef.current?.focus({ preventScroll: true })")
   && shortcutsDialogSource.includes("openerRef.current?.isConnected"),
   "Shortcuts initial focus and focus-return recovery");
+invariant(shortcutsDialogSource.includes('window.addEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('window.removeEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('event.defaultPrevented')
+  && shortcutsDialogSource.includes('activeDialogs[activeDialogs.length - 1] !== dialog')
+  && shortcutsDialogSource.includes('event.target instanceof Node && dialog.contains(event.target)'),
+  "Shortcuts must recover orphaned pending-save Tab/Escape only while the topmost modal owns input");
 invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
   && shortcutSettingsSource.includes("APP_SHORTCUT_ROWS")
   && shortcutSettingsSource.includes("SHORTCUT_ROWS"),
@@ -118,6 +141,55 @@ invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
 invariant(shortcutsDialogCss.includes("color-scheme: light")
   && shortcutsDialogCss.includes("overflow-y: auto"),
   "the dedicated source light modal preserves bounded scrolling");
+
+// Frozen C38/C39/C40: only directly evidenced source-visual alignment is
+// applied; registration/error behavior and all saved preferences stay intact.
+function rowHasDecorativeInfo(title) {
+  const row = sections.match(new RegExp('<Row\\b[^>]*\\btitle="' + title + '"[^>]*>', 's'))?.[0];
+  invariant(Boolean(row), "Preferences row missing: " + title);
+  return /\binfoGlyph\b/.test(row);
+}
+for (const [title, expected] of [
+  ["Panel side", true],
+  ["Auto-parse EST from title", true],
+  ["Timezone", true],
+  ["Monitor", false],
+  ["Hide EST / Time Taken", false],
+]) {
+  invariant(rowHasDecorativeInfo(title) === expected,
+    "SS-C07 decorative info glyph inventory mismatch: " + title);
+}
+invariant(themePanel.includes("preferences.save(patch, key);")
+    && !themePanel.includes("void preferences.save(patch, key);"),
+  "C44 must propagate the native success/failure Promise through ThemeSettingsPanel to the focused SoundPreferenceControl");
+invariant(sections.includes("export function TimePreferenceRows(")
+    && sections.includes('onSave({ timezone }, "timezone")')
+    && sections.includes('infoGlyph title="Timezone"'),
+  "C40 must preserve existing saved timezone handler in its source Time section");
+invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
+    && themePanel.includes("data-preferences-time-section")
+    && themePanel.includes('id="theme-time-title"')
+    && fixture.includes("timeChildren={("),
+  "C40 must update production and visual fixtures without losing Time");
+
+invariant(sections.includes('detail="Show a brief offline celebration animation on the success screen."'),
+  "Fun GIF help must describe user-visible functionality, not internal source-parity work");
+invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
+    && shortcutsDialogCss.includes("min-height: 44px")
+    && shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__rows")
+    && shortcutsDialogCss.includes("gap: 0;"),
+  "SS-C17 ten-row dedicated modal must have scoped compact rows without changing reused control semantics");
+invariant(shortcutSettingsSource.includes('row.chord.split(" + ").map(')
+    && shortcutSettingsSource.includes('className="windows-shortcuts__keycaps"')
+    && shortcutSettingsCss.includes(".windows-shortcuts__keycaps")
+    && shortcutsDialogCss.includes(".windows-shortcuts__intro"),
+  "C38 source shortcut keys must be individually rendered and dense descriptions remain accessible");
+invariant(shortcutsDialogCss.includes(".windows-shortcuts__copy > .type-metadata:not(.windows-shortcuts__status)")
+    && shortcutsDialogCss.includes(".windows-shortcuts__status--error")
+    && shortcutsDialogCss.includes("flex-basis: 100%"),
+  "Compact shortcut layout must retain accessible descriptions and visible conflict/error feedback");
+invariant(shortcutsDialogCss.includes("@media (max-width: 35rem)"),
+  "Narrow Windows Shortcuts dialog must remain able to stack its controls");
 
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
@@ -203,6 +275,9 @@ for (const label of [
 ]) {
   invariant(sections.includes(label), `Preferences surface is missing ${label}`);
 }
+invariant(sections.includes("Briefly highlight the active task and timer when a timed alert occurs."), "Timed-alert helper must explain the visual effect without implementation jargon");
+invariant(sections.includes("Show a completion message with options for what to do next."), "Success-screen helper must explain the user action");
+invariant(sections.includes("Show a brief offline celebration animation on the success screen."), "Celebration helper must accurately describe bundled offline behavior");
 invariant(sections.includes("SoundPreferenceControl"), "sound rows must use the shared local preview/volume control");
 for (const field of [
   "taskAlertSound",
@@ -306,4 +381,6 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preference
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
 
+await import("./test-sound-volume-escape-cancel.mjs");
+await import("./test-settings-initial-read-retry.mjs");
 console.log("M8 Preferences contracts passed.");

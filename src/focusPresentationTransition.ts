@@ -17,6 +17,8 @@ export type PreparedFocusPresentationTransition<TPresentation extends string> = 
   beforeNativeCommit?: () => Promise<void>;
   applyNativePresentation: (presentation: TPresentation) => Promise<void>;
   afterNativeCommit?: () => Promise<void>;
+  afterRendererCommit?: () => Promise<void>;
+  beforeNativeRollback?: () => Promise<void>;
   animateNativePresentation?: (presentation: TPresentation) => Promise<void>;
   runConcurrentMotion?: () => Promise<void>;
   commitRendererPresentation: (presentation: TPresentation) => void;
@@ -27,8 +29,10 @@ async function restorePreviousPresentation<TPresentation extends string>(
   transitionFailure: unknown,
   applyNativePresentation: (presentation: TPresentation) => Promise<void>,
   commitRendererPresentation: (presentation: TPresentation) => void,
+  beforeNativeRollback?: () => Promise<void>,
 ): Promise<never> {
   try {
+    await beforeNativeRollback?.();
     await applyNativePresentation(previousPresentation);
     commitRendererPresentation(previousPresentation);
   } catch (recoveryFailure) {
@@ -62,6 +66,8 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
   beforeNativeCommit,
   applyNativePresentation,
   afterNativeCommit,
+  afterRendererCommit,
+  beforeNativeRollback,
   animateNativePresentation,
   runConcurrentMotion,
   commitRendererPresentation,
@@ -69,7 +75,13 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
   if (previousPresentation === targetPresentation) return false;
 
   await waitForTargetReady();
-  await beforeNativeCommit?.();
+  try {
+    await beforeNativeCommit?.();
+  } catch (transitionFailure) {
+    if (!beforeNativeRollback) throw transitionFailure;
+    return restorePreviousPresentation(previousPresentation, transitionFailure,
+      applyNativePresentation, commitRendererPresentation, beforeNativeRollback);
+  }
 
   if (animateNativePresentation && runConcurrentMotion) {
     try {
@@ -88,11 +100,13 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
         transitionFailure,
         applyNativePresentation,
         commitRendererPresentation,
+        beforeNativeRollback,
       );
     }
 
     try {
       commitRendererPresentation(targetPresentation);
+      await afterRendererCommit?.();
       return true;
     } catch (transitionFailure) {
       return restorePreviousPresentation(
@@ -100,6 +114,7 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
         transitionFailure,
         applyNativePresentation,
         commitRendererPresentation,
+        beforeNativeRollback,
       );
     }
   }
@@ -109,6 +124,7 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
   try {
     await afterNativeCommit?.();
     commitRendererPresentation(targetPresentation);
+    await afterRendererCommit?.();
     return true;
   } catch (transitionFailure) {
     return restorePreviousPresentation(
@@ -116,6 +132,7 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
       transitionFailure,
       applyNativePresentation,
       commitRendererPresentation,
+      beforeNativeRollback,
     );
   }
 }

@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
@@ -59,6 +60,7 @@ export function ArchivedDoneTasksPanel({
 }: ArchivedDoneTasksPanelProps) {
   const [snapshot, setSnapshot] = useState<ArchiveSnapshot | null>(fixtureSnapshot ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [query, setQuery] = useState("");
   const [selectedListId, setSelectedListId] = useState(ALL_LISTS);
   const [filterOpen, setFilterOpen] = useState(fixtureFilterOpen);
@@ -88,7 +90,7 @@ export function ArchivedDoneTasksPanel({
     return () => {
       disposed = true;
     };
-  }, [fixtureSnapshot]);
+  }, [fixtureSnapshot, loadAttempt]);
 
   useEffect(() => {
     if (!filterOpen) return;
@@ -116,6 +118,12 @@ export function ArchivedDoneTasksPanel({
   }, [normalizedQuery, selectedListId, snapshot]);
 
   const selectedList = snapshot?.filterLists.find((list) => list.id === selectedListId) ?? null;
+
+  function retryLoad() {
+    if (fixtureSnapshot || deleteInFlightRef.current) return;
+    setLoadError(null);
+    setLoadAttempt((attempt) => attempt + 1);
+  }
 
   function requestDelete(task: ArchivedDoneTaskSummary) {
     if (deleteInFlightRef.current || deletePending || deleteTarget) return;
@@ -188,7 +196,7 @@ export function ArchivedDoneTasksPanel({
             data-archive-list-filter="true"
           >
             <span>{selectedList?.title ?? "All Lists"}</span>
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={filterOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {filterOpen ? (
             <div
@@ -226,13 +234,23 @@ export function ArchivedDoneTasksPanel({
         </div>
       </div>
 
-      {loadError ? <div className="archive-panel__error" role="alert">{loadError}</div> : null}
+      {loadError ? (
+        <div className="archive-panel__error" role="alert">
+          {loadError}
+          {snapshot === null ? (
+            <button type="button" className="archive-panel__retry motion-interactive"
+              onClick={retryLoad} data-archive-retry="done">
+              Retry loading completed tasks
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
-      {snapshot === null && !loadError ? (
+      {snapshot === null ? (loadError ? null : (
         <div className="archive-panel__loading" role="status">Loading archived tasks…</div>
-      ) : visibleTasks.length === 0 ? (
+      )) : visibleTasks.length === 0 ? (
         <div className="archive-panel__empty" data-archived-done-empty="true">
-          <span className="archive-panel__empty-icon" aria-hidden="true">✓</span>
+          <span className="archive-panel__empty-icon"><ActionIcon name="check" size={24} /></span>
           <strong>No Archived tasks found</strong>
           <span>
             {normalizedQuery || selectedListId !== ALL_LISTS
@@ -259,7 +277,7 @@ export function ArchivedDoneTasksPanel({
                   <td>
                     <div className="archived-done-row__task">
                       <span className="archived-done-row__ordinal type-metadata" aria-hidden="true">{index + 1}</span>
-                      <span className="archived-done-row__status" aria-label="Completed" role="img">✓</span>
+                      <span className="archived-done-row__status" aria-label="Completed" role="img"><ActionIcon name="check" /></span>
                       <span className="archived-done-row__title">{task.title}</span>
                     </div>
                   </td>
@@ -271,7 +289,7 @@ export function ArchivedDoneTasksPanel({
                   </td>
                   <td>
                     {task.hasNote ? (
-                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note">▤</span>
+                      <span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><ActionIcon name="notes" /></span>
                     ) : <span className="type-metadata">No Info</span>}
                   </td>
                   <td>

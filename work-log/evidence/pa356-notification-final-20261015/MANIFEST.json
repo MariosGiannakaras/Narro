@@ -1,0 +1,587 @@
+[
+  {
+    "path": "background-complete.mkv",
+    "bytes": 7325688,
+    "sha256": "7203ab50565bdf3f94a79f1d60439c25347e3a7e00c53b8fc70f2494c3fd3912"
+  },
+  {
+    "path": "background-setup-invalid.mkv",
+    "bytes": 594643,
+    "sha256": "4839beb74b2aa026bb2a77fad2576877263a94d6b74b582e42632d0389de3576"
+  },
+  {
+    "path": "foreground-and-repeated-foreground-complete-active-interval.mkv",
+    "bytes": 24099547,
+    "sha256": "d13e8bbb4fe6d13359ced9649722c7280bef5b8cb08a783a6ef06461dc353de2"
+  },
+  {
+    "path": "Narro-M7-Logs/LATEST.txt",
+    "bytes": 36,
+    "sha256": "64fbce362326d10ce0078423b7d17b6da4ac7f4e6a8a7fc0c19a66ff4d006bc3"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+    "bytes": 438,
+    "sha256": "86eed6588ef2e005ae1400960310830b9e8e9e865779f2bce66f3ffcf742024b"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+    "bytes": 396,
+    "sha256": "e7a1a10faaab79d0d7b31f962eb06e1043414efb209e318df713390ea355ee1e"
+  },
+  {
+    "path": "Narro-M7-Logs/README.txt",
+    "bytes": 765,
+    "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-083250.049Z-71356/events.jsonl",
+    "bytes": 3376,
+    "sha256": "285356771e22401323f5c61ea64dca1255bedecd07791236fd4a146dd1a49764"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-083250.049Z-71356/m7-c5-result.json",
+    "bytes": 438,
+    "sha256": "d5478b5e10c5b82f312aac1da9c76469ced298a05b1dbba34aaa90ede2d3afb8"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-083250.049Z-71356/session.json",
+    "bytes": 489,
+    "sha256": "7f8720ffb4860b0c94d05efa84c0f75a7f324691f00b1323a181c64db3af0fbe"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-085058.786Z-54592/events.jsonl",
+    "bytes": 3376,
+    "sha256": "052ae9420ffcdd777321b26c7fd5a815b0db724a068b41a21ec55d99819d176d"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-085058.786Z-54592/m7-c5-result.json",
+    "bytes": 438,
+    "sha256": "31bf57a9cb6611ab27ddccf4c39fd152950edb6c8a8f771c320106d62f15a554"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-085058.786Z-54592/session.json",
+    "bytes": 489,
+    "sha256": "fd80f18d2e499383c999c74f72f38ba7a69c0a4ca4095e3dbca47454a4bc436d"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-100845.037Z-3948/events.jsonl",
+    "bytes": 3364,
+    "sha256": "ab04afe54cc223badd4f1366e9b6f4495e55e05160dc7ee5021c650247f50a1d"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-100845.037Z-3948/m7-c5-result.json",
+    "bytes": 438,
+    "sha256": "fe3d88188c176ffeb7cf5c7ab995c65aefeb9c52877c566a118b4d4c0a89e2de"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-100845.037Z-3948/session.json",
+    "bytes": 488,
+    "sha256": "759e1cf4f92e285cd9c55527c8ad2fe36d0ef1e30b2cfc804d9ac9cf35bb4e24"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-101907.987Z-35528/events.jsonl",
+    "bytes": 3382,
+    "sha256": "5d9f05972fabf9be157aaefef59b1b4e49daf23bf61cb403a6534df4cebb5d47"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-101907.987Z-35528/m7-c5-result.json",
+    "bytes": 438,
+    "sha256": "86eed6588ef2e005ae1400960310830b9e8e9e865779f2bce66f3ffcf742024b"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-101907.987Z-35528/session.json",
+    "bytes": 489,
+    "sha256": "0d5aced644ed054ba8b4cd90b2e7e76739970806750007521cf776aaf7fb8e9c"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-170450.139Z-68644/events.jsonl",
+    "bytes": 812,
+    "sha256": "d0e7973278e3bdfb68c180a1157d31cb628ea5b7cda5ca51aedbec31d5cfd9d1"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-170450.139Z-68644/m7-c5-result.json",
+    "bytes": 396,
+    "sha256": "e7a1a10faaab79d0d7b31f962eb06e1043414efb209e318df713390ea355ee1e"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261015-170450.139Z-68644/session.json",
+    "bytes": 489,
+    "sha256": "2dbbf5c258cc11ea37a32d8a0853a064c3e649d04814a26807523bb26880c073"
+  },
+  {
+    "path": "Narro-M7-Logs-original-bytes.zip",
+    "bytes": 10525,
+    "sha256": "c7524386cd237640e5fc393acb3a15932a13d63b4e18031a575d503bced04ee5"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/actions.jsonl",
+    "bytes": 175,
+    "sha256": "08715f6f15b80b62d929ec46d0d953e6f6406df992b65a589c160f28701bdc80"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/assert-launch-safe.py",
+    "bytes": 715,
+    "sha256": "3ab8eeeeddc218b649da8e84d6c8f9df3fce7e4e302584b447ab707a14af6266"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/focus-assist-scope.py",
+    "bytes": 1958,
+    "sha256": "7d28f72a7a2a68c80e25e3330d73d5f994fcf6b637e503cd8cef95f4b16b8c56"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/freeze.py",
+    "bytes": 2684,
+    "sha256": "7c5d1a4dd5091c0cadb22cfb9ce7a717b83e63b5731bcf0955b09a6f1b385dcd"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/isolate-profile.py",
+    "bytes": 2982,
+    "sha256": "dbb28db432f7206820a738f8ca72e2b89ed305b486aed1507a844ddb36d78640"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/launch.json",
+    "bytes": 267,
+    "sha256": "e687c9a140e94df0f8ff51e16e2d92da6b340246deedcd64b514df363f6affa6"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/monitor-facts.py",
+    "bytes": 1451,
+    "sha256": "1045940b025adb19f09510363eeee666d6b165119ef4557a54b152cb614abe86"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/native-input.py",
+    "bytes": 5600,
+    "sha256": "d6186762b869c640f025cda95152d63adf5be5f4924f28b926c5230e8cf27648"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/native-window-watch.jsonl",
+    "bytes": 1075588,
+    "sha256": "f40d29396f4cadb8279a11168d1bbc50836d0432762ca84ffcde61786d6c324e"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/notification-history.json",
+    "bytes": 4107,
+    "sha256": "669e14cb686628cc5bc93e5e3c81a4c10344f41f3142d271755cfa1b4c21eb82"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/notifier-state.json",
+    "bytes": 233,
+    "sha256": "5d3b01b5b1196fd71d97c9650389df48a23e1d06a35bad92cd7377033541e700"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/obs-actions.jsonl",
+    "bytes": 811,
+    "sha256": "c31be651a648acfed549f3ced3940cc134a8c804bf35a653c53782f330f3af03"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/obs-control.py",
+    "bytes": 1832,
+    "sha256": "48383934e2fa033555fe79d1df6a85c9b18f2b600353e3b6f45aab0370455db7"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/original-profile-restoration-proof.json",
+    "bytes": 208,
+    "sha256": "5c4d67a2638bbd8cb8d9c268c5b8c3a6910a2d2cf43285ea0772a3c0d7bb2d95"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/os-notification-actions.jsonl",
+    "bytes": 818,
+    "sha256": "792366028abfc95ee80505ab4dc01e761cb0de6f2ffb28fe6a5648d0df39c155"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/os-notification-original.json",
+    "bytes": 183,
+    "sha256": "b9b2c0be8a7e036f223c60660275ce0cddfff13c649dea039e666f197a769d8a"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/physical-key.py",
+    "bytes": 1274,
+    "sha256": "fc15f54a7cb791e14aabf8eb0bf1a930cc19086b8a21df8b2c385d258eb014e2"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/probe-plan.json",
+    "bytes": 976,
+    "sha256": "82a7d4321c2bd82b0ffa9efbd95df47e2fae7b15166769d58347dd42aba8f0fb"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/raw-observations.zip",
+    "bytes": 16088025,
+    "sha256": "136136fa27df668a860b8d2672dadccf96377c2c3ddab5c8bb1cc98a00d15bb5"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/read-history.ps1",
+    "bytes": 393,
+    "sha256": "bb730f61d527f255f4976f048b0e8b762898ccab9113da54edeef40ad114230c"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/read-notifier-state.ps1",
+    "bytes": 637,
+    "sha256": "b0cbc537c0d20081bee46bf8553041d86e27b69e47fe55c4c4164e2c43a92599"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/reminder-delivery.json",
+    "bytes": 2170,
+    "sha256": "27ec6724b60251ac024bdc039e2d52be5a5eddf68717c6f60b45a28b2933ca36"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/restore-profile.py",
+    "bytes": 2432,
+    "sha256": "4d555c6e47acd98630c97a037e171eb20358bfdaf347e61f3a9e4b7295f60b7a"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/seed-and-launch.py",
+    "bytes": 2528,
+    "sha256": "c8255908170c25c327acc20665efa82b3af1f34e8cbe8cb7f2809a0d00c1e06e"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/session-meta.json",
+    "bytes": 477,
+    "sha256": "7c76bd1ab5b63dc63babf25fb10deda7fb96155816a41ebebf1915b972de5f28"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/settings-action.py",
+    "bytes": 1434,
+    "sha256": "5675be439208af644dff6f182c6ad14c34363e29be29c18d6f124d8776239c98"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/settings-actions.jsonl",
+    "bytes": 111,
+    "sha256": "edb175939ac13ea95824297e1c31b9730953a0fa52f4ac9450180253a4eb06f4"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/tray_quit.py",
+    "bytes": 2299,
+    "sha256": "3831101c910282c455c7de3ee57431f17431cc3e2a2ee3806615d34b9e0d9dac"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/uia_controls.py",
+    "bytes": 1583,
+    "sha256": "1ecbe3d75444c729bde4d103165e4871f53b7f302835bcd9574ceadbcdb64b2d"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/watch-deadlines.py",
+    "bytes": 2232,
+    "sha256": "f5dfbe8d23867b71bb9e62538b024317166e9bee983f5225d08a3e2d35ba4966"
+  },
+  {
+    "path": "Narro-PA356-notification-20261015/windows-notification-toggle.py",
+    "bytes": 1676,
+    "sha256": "13f696917d137c0a626613cd778ffd0ae69d36d9acd4c6e82df79993f135818e"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/actions.jsonl",
+    "bytes": 147,
+    "sha256": "f14ff3a4caab1a2713cd60cf7b794fc2468adda98330005b85f7a2a593e8e77b"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/arm-existing.py",
+    "bytes": 2152,
+    "sha256": "df4e5f3af29c1d381e962a0240a5d426dddf0afa28d7343eb4856c2ff0807b6a"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/assert-launch-safe.py",
+    "bytes": 715,
+    "sha256": "3ab8eeeeddc218b649da8e84d6c8f9df3fce7e4e302584b447ab707a14af6266"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/background-precondition.json",
+    "bytes": 143,
+    "sha256": "b426c25d24b28054595310877331bf69e583002e40a1c22ae272dc341b6d5d4f"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/bounded-runner.jsonl",
+    "bytes": 7369,
+    "sha256": "a15375e1fa4987955052b3e976d0c7f07c919729e261735213803c55b0978ab3"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/cleanup-process-termination.json",
+    "bytes": 338,
+    "sha256": "1c11e7b3cc5216504156e0bd7f43489e4f9a044fd03f419be63c0b6531a78215"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/cleanup-result.json",
+    "bytes": 641,
+    "sha256": "c37c2074bb3513f216f4ea923424ac71bd6a162de13b133d076f221fc2900e80"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/first-invalid-probe-plan.json",
+    "bytes": 437,
+    "sha256": "614166e500faceca036ec03445df6f834de17097d1604f85df1c1a149a5cd662"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/focus-assist-actions.jsonl",
+    "bytes": 1542,
+    "sha256": "a837c64467884379e260cb4eaa6227567c24179abcae831887e46ab33fffc67d"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/focus-assist-original.json",
+    "bytes": 179,
+    "sha256": "454f585d41a2153e3ebdbed311d83835d9155511b06240bf3c68959d0d88e0eb"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/focus-assist-scope.py",
+    "bytes": 2029,
+    "sha256": "23db71e635777e5cac5bab8dbdd47367e6698e834fd336662b034707a51b0958"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/freeze-final.py",
+    "bytes": 4551,
+    "sha256": "9f85af2001ee4260f09a232084cd71689f8de9778469d9979367cd01dc16bd0b"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/freeze.py",
+    "bytes": 2684,
+    "sha256": "7c5d1a4dd5091c0cadb22cfb9ce7a717b83e63b5731bcf0955b09a6f1b385dcd"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/isolate-profile.py",
+    "bytes": 2982,
+    "sha256": "dbb28db432f7206820a738f8ca72e2b89ed305b486aed1507a844ddb36d78640"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/launch.json",
+    "bytes": 268,
+    "sha256": "0177fb8c1b025c567162ff140954d8765fefb87fe15644f8408a6b954d1b7017"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/monitor-facts.py",
+    "bytes": 1451,
+    "sha256": "1045940b025adb19f09510363eeee666d6b165119ef4557a54b152cb614abe86"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/native-input.py",
+    "bytes": 5600,
+    "sha256": "d6186762b869c640f025cda95152d63adf5be5f4924f28b926c5230e8cf27648"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/native-window-watch.jsonl",
+    "bytes": 342551,
+    "sha256": "11345952cd33798bda6c0d685b6a0de522777fbcbed4c1bd6a17e09be171d1e0"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/obs-actions.jsonl",
+    "bytes": 1622,
+    "sha256": "add8002d33b0638b70917f494cefb97f16fa755f8993b96fbc56162cd2e2345b"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/obs-control.py",
+    "bytes": 1832,
+    "sha256": "48383934e2fa033555fe79d1df6a85c9b18f2b600353e3b6f45aab0370455db7"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/original-profile-restoration-proof.json",
+    "bytes": 208,
+    "sha256": "c3b1a83dba79855239b0f33c863efe0451f0ee7cc3801e276a400e985fad679c"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/physical-key.py",
+    "bytes": 1274,
+    "sha256": "fc15f54a7cb791e14aabf8eb0bf1a930cc19086b8a21df8b2c385d258eb014e2"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/probe-plan.json",
+    "bytes": 477,
+    "sha256": "f9ce6c111cd501f7b0d80f26b342f28503de3f4926752f71b580b41627ddbdc4"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/raw-observations.zip",
+    "bytes": 6457441,
+    "sha256": "692ac625ce1e35ce62dc608c04832d2f95c107bb9c992d98bf1e6403f10f18d0"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/reminder-delivery.json",
+    "bytes": 725,
+    "sha256": "45c6c324f1bb553fab52d7f983cccfbea0f63221505023a87286a9fae2981f9c"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/restore-profile.py",
+    "bytes": 2432,
+    "sha256": "4d555c6e47acd98630c97a037e171eb20358bfdaf347e61f3a9e4b7295f60b7a"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/run-bounded.py",
+    "bytes": 2207,
+    "sha256": "5b631f41c34c7c0e729ded83fec09707214c69cf54a2f2bd3334125e5772b18d"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/run-existing-bounded.py",
+    "bytes": 1951,
+    "sha256": "b17b39fb68e3c4ea3d0ad5e3a1e5092f43b77ab340b9fb6a1b786e64860d8b5c"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/seed-and-launch.py",
+    "bytes": 2488,
+    "sha256": "0939ae218adcb823f93661ddac3d52ee316a1601d3c64556ae1aa31d89b2a722"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/session-meta.json",
+    "bytes": 477,
+    "sha256": "7c76bd1ab5b63dc63babf25fb10deda7fb96155816a41ebebf1915b972de5f28"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/settings-action.py",
+    "bytes": 1434,
+    "sha256": "5675be439208af644dff6f182c6ad14c34363e29be29c18d6f124d8776239c98"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/tray_quit.py",
+    "bytes": 2527,
+    "sha256": "fbe97e4fd417abeab3ab851391d092fa2653b903ae1c3cd126cf50e932c20589"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/uia_controls.py",
+    "bytes": 1583,
+    "sha256": "1ecbe3d75444c729bde4d103165e4871f53b7f302835bcd9574ceadbcdb64b2d"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/watch-deadlines.py",
+    "bytes": 2232,
+    "sha256": "f5dfbe8d23867b71bb9e62538b024317166e9bee983f5225d08a3e2d35ba4966"
+  },
+  {
+    "path": "Narro-PA356-notification-background-20261015/windows-notification-toggle.py",
+    "bytes": 1676,
+    "sha256": "13f696917d137c0a626613cd778ffd0ae69d36d9acd4c6e82df79993f135818e"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/actions.jsonl",
+    "bytes": 322,
+    "sha256": "c44528723e257c77df388ac8d1c1f8f55d1b51327a14881c786f44c6b4535e43"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/assert-launch-safe.py",
+    "bytes": 715,
+    "sha256": "3ab8eeeeddc218b649da8e84d6c8f9df3fce7e4e302584b447ab707a14af6266"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/focus-assist-actions.jsonl",
+    "bytes": 771,
+    "sha256": "eaddde9071182ece576e97e4ca98ca2d161207cbc5e5eedbb16ce875789b9018"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/focus-assist-original.json",
+    "bytes": 179,
+    "sha256": "454f585d41a2153e3ebdbed311d83835d9155511b06240bf3c68959d0d88e0eb"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/focus-assist-scope.py",
+    "bytes": 2029,
+    "sha256": "23db71e635777e5cac5bab8dbdd47367e6698e834fd336662b034707a51b0958"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/freeze.py",
+    "bytes": 2684,
+    "sha256": "7c5d1a4dd5091c0cadb22cfb9ce7a717b83e63b5731bcf0955b09a6f1b385dcd"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/isolate-profile.py",
+    "bytes": 2982,
+    "sha256": "dbb28db432f7206820a738f8ca72e2b89ed305b486aed1507a844ddb36d78640"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/launch.json",
+    "bytes": 268,
+    "sha256": "d7c084e3019c5e485789b3691a0d492ba7a8a46be61b03e58dfbbdc952c7a55c"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/monitor-facts.py",
+    "bytes": 1451,
+    "sha256": "1045940b025adb19f09510363eeee666d6b165119ef4557a54b152cb614abe86"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/native-input.py",
+    "bytes": 5600,
+    "sha256": "d6186762b869c640f025cda95152d63adf5be5f4924f28b926c5230e8cf27648"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/native-window-watch.jsonl",
+    "bytes": 1004496,
+    "sha256": "2c14cdb9e517750c4ebe4d7341c8d78d431cb3977c491126c94e9e70f046127d"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/obs-actions.jsonl",
+    "bytes": 811,
+    "sha256": "0bb2a20cbdbb6f2dd573646cf7a86e66a499431a2382e56023c713cfd35b76ca"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/obs-control.py",
+    "bytes": 1832,
+    "sha256": "48383934e2fa033555fe79d1df6a85c9b18f2b600353e3b6f45aab0370455db7"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/original-profile-restoration-proof.json",
+    "bytes": 208,
+    "sha256": "44c97c53d9e009b86db5e2d35ad7c90c1587ea9b1445dc388d4c2789fdd2b4f8"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/physical-key.py",
+    "bytes": 1274,
+    "sha256": "fc15f54a7cb791e14aabf8eb0bf1a930cc19086b8a21df8b2c385d258eb014e2"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/probe-plan.json",
+    "bytes": 706,
+    "sha256": "3017c54e751b23f9fd508168f1ac555d3300b21070569a7499e6878aeb268d73"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/raw-observations.zip",
+    "bytes": 8061340,
+    "sha256": "90e222e41c87b180ff3b4d6bb5e01b34b367247b590dea783db3904741aa1217"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/reminder-delivery.json",
+    "bytes": 1447,
+    "sha256": "e1b0121756dec43ac3365f04ca26d680c6368e63f858b025ee13675f8966a4e7"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/restore-profile.py",
+    "bytes": 2432,
+    "sha256": "4d555c6e47acd98630c97a037e171eb20358bfdaf347e61f3a9e4b7295f60b7a"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/seed-and-launch.py",
+    "bytes": 2510,
+    "sha256": "ea56b130187f42c28da0da95919308ebb80546b9de8afd89caf1d4691b7a1c78"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/session-meta.json",
+    "bytes": 477,
+    "sha256": "7c76bd1ab5b63dc63babf25fb10deda7fb96155816a41ebebf1915b972de5f28"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/settings-action.py",
+    "bytes": 1434,
+    "sha256": "5675be439208af644dff6f182c6ad14c34363e29be29c18d6f124d8776239c98"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/tray_quit.py",
+    "bytes": 2299,
+    "sha256": "3831101c910282c455c7de3ee57431f17431cc3e2a2ee3806615d34b9e0d9dac"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/uia_controls.py",
+    "bytes": 1583,
+    "sha256": "1ecbe3d75444c729bde4d103165e4871f53b7f302835bcd9574ceadbcdb64b2d"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/watch-deadlines.py",
+    "bytes": 2232,
+    "sha256": "f5dfbe8d23867b71bb9e62538b024317166e9bee983f5225d08a3e2d35ba4966"
+  },
+  {
+    "path": "Narro-PA356-notification-banner-20261015/windows-notification-toggle.py",
+    "bytes": 1676,
+    "sha256": "13f696917d137c0a626613cd778ffd0ae69d36d9acd4c6e82df79993f135818e"
+  },
+  {
+    "path": "os-history-pa356-only.json",
+    "bytes": 1031,
+    "sha256": "3fd30d399960b342481d556f96bf2640b417176515969decf2fd2e0528d7d727"
+  },
+  {
+    "path": "video-receipts.json",
+    "bytes": 13565,
+    "sha256": "1a7080941091c76aa5aad00417a0fcfafcd31d0b503f9fec0262cdd63a105314"
+  }
+]

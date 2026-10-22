@@ -1,0 +1,1343 @@
+- generic [ref=e3]:
+  - complementary "List navigation" [ref=e4]:
+    - img "Narro" [ref=e5]
+    - navigation "Lists" [ref=e7]:
+      - button "+ Create new list" [ref=e8] [cursor=pointer]
+      - button "All my lists" [active] [ref=e10] [cursor=pointer]
+      - button "Archived lists" [ref=e11] [cursor=pointer]
+  - generic [ref=e12]:
+    - generic "Utilities" [ref=e14]:
+      - button "Search" [ref=e15] [cursor=pointer]
+      - button "Settings" [ref=e16] [cursor=pointer]
+    - main [ref=e17]:
+      - region [ref=e148]:
+        - paragraph [ref=e149]: Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+        - generic [ref=e151]:
+          - generic [ref=e154]:
+            - paragraph [ref=e155]: Planning
+            - heading "All Lists" [level=1] [ref=e156]
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e159]: List
+              - button "Planning list" [ref=e160] [cursor=pointer]:
+                - generic [aria-hidden] [ref=e161]:
+                  - generic [aria-hidden] [ref=e162]: C
+                  - generic [aria-hidden] [ref=e163]: R
+                  - generic [ref=e164]: "+2"
+                - generic [ref=e165]: All Lists
+            - paragraph [ref=e168]: Tasks from your active lists, organized into one planning view.
+        - generic [ref=e169]:
+          - region [ref=e170]:
+            - generic [ref=e171]:
+              - generic [ref=e172]:
+                - heading "Backlog" [level=2] [ref=e173]
+                - generic [ref=e174]: 8 tasks
+              - generic [ref=e175]: "Est: 1h 20m"
+            - list "Backlog tasks" [ref=e177]:
+              - listitem [ref=e179]:
+                - article [ref=e180]:
+                  - generic [ref=e181]:
+                    - generic [ref=e182]:
+                      - generic [aria-hidden] [ref=e183]: "1"
+                      - 'button "Complete task: Ordinary backlog item"'
+                    - 'button "Edit task title: Ordinary backlog item" [ref=e184]': Ordinary backlog item
+                  - generic [ref=e186]:
+                    - generic "Capture Project" [ref=e187]
+                    - generic [ref=e188]:
+                      - 'button "Edit Est: 10m" [ref=e189]':
+                        - generic [ref=e190]: "Est:"
+                        - strong [ref=e191]: 10m
+                      - 'button "Edit Taken: 0m" [ref=e192]':
+                        - generic [ref=e193]: "Taken:"
+                        - strong [ref=e194]: 0m
+                  - button "Expand notes for Ordinary backlog item" [ref=e196] [cursor=pointer]:
+                    - generic [ref=e197]: Add notes
+                  - generic [ref=e201]:
+                    - button "Expand subtasks for Ordinary backlog item" [ref=e202] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e207]:
+                - article [ref=e208]:
+                  - generic [ref=e209]:
+                    - generic [ref=e210]:
+                      - generic [aria-hidden] [ref=e211]: "2"
+                      - 'button "Complete task: Reading & research task 1"'
+                    - 'button "Edit task title: Reading & research task 1" [ref=e212]': Reading & research task 1
+                  - generic [ref=e214]:
+                    - generic "Reading & research" [ref=e215]
+                    - generic [ref=e216]:
+                      - 'button "Edit Est: 5m" [ref=e217]':
+                        - generic [ref=e218]: "Est:"
+                        - strong [ref=e219]: 5m
+                      - 'button "Edit Taken: 0m" [ref=e220]':
+                        - generic [ref=e221]: "Taken:"
+                        - strong [ref=e222]: 0m
+                  - button "Expand notes for Reading & research task 1" [ref=e224] [cursor=pointer]:
+                    - generic [ref=e225]: Add notes
+                  - generic [ref=e229]:
+                    - button "Expand subtasks for Reading & research task 1" [ref=e230] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e235]:
+                - article [ref=e236]:
+                  - generic [ref=e237]:
+                    - generic [ref=e238]:
+                      - generic [aria-hidden] [ref=e239]: "3"
+                      - 'button "Complete task: Reading & research task 2"'
+                    - 'button "Edit task title: Reading & research task 2" [ref=e240]': Reading & research task 2
+                  - generic [ref=e242]:
+                    - generic "Reading & research" [ref=e243]
+                    - generic [ref=e244]:
+                      - 'button "Edit Est: 10m" [ref=e245]':
+                        - generic [ref=e246]: "Est:"
+                        - strong [ref=e247]: 10m
+                      - 'button "Edit Taken: 0m" [ref=e248]':
+                        - generic [ref=e249]: "Taken:"
+                        - strong [ref=e250]: 0m
+                  - button "Expand notes for Reading & research task 2" [ref=e252] [cursor=pointer]:
+                    - generic [ref=e253]: Add notes
+                  - generic [ref=e257]:
+                    - button "Expand subtasks for Reading & research task 2" [ref=e258] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e263]:
+                - article [ref=e264]:
+                  - generic [ref=e265]:
+                    - generic [ref=e266]:
+                      - generic [aria-hidden] [ref=e267]: "4"
+                      - 'button "Complete task: Reading & research task 3"'
+                    - 'button "Edit task title: Reading & research task 3" [ref=e268]': Reading & research task 3
+                  - generic [ref=e270]:
+                    - generic "Reading & research" [ref=e271]
+                    - generic [ref=e272]:
+                      - 'button "Edit Est: 15m" [ref=e273]':
+                        - generic [ref=e274]: "Est:"
+                        - strong [ref=e275]: 15m
+                      - 'button "Edit Taken: 0m" [ref=e276]':
+                        - generic [ref=e277]: "Taken:"
+                        - strong [ref=e278]: 0m
+                  - button "Expand notes for Reading & research task 3" [ref=e280] [cursor=pointer]:
+                    - generic [ref=e281]: Add notes
+                  - generic [ref=e285]:
+                    - button "Expand subtasks for Reading & research task 3" [ref=e286] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e291]:
+                - article [ref=e292]:
+                  - generic [ref=e293]:
+                    - generic [ref=e294]:
+                      - generic [aria-hidden] [ref=e295]: "5"
+                      - 'button "Complete task: Long project name for list badge and title wrapping task 1"'
+                    - 'button "Edit task title: Long project name for list badge and title wrapping task 1" [ref=e296]': Long project name for list badge and title wrapping task 1
+                  - generic [ref=e298]:
+                    - generic "Long project name for list badge and title wrapping" [ref=e299]
+                    - generic [ref=e300]:
+                      - 'button "Edit Est: 5m" [ref=e301]':
+                        - generic [ref=e302]: "Est:"
+                        - strong [ref=e303]: 5m
+                      - 'button "Edit Taken: 0m" [ref=e304]':
+                        - generic [ref=e305]: "Taken:"
+                        - strong [ref=e306]: 0m
+                  - button "Expand notes for Long project name for list badge and title wrapping task 1" [ref=e308] [cursor=pointer]:
+                    - generic [ref=e309]: Add notes
+                  - generic [ref=e313]:
+                    - button "Expand subtasks for Long project name for list badge and title wrapping task 1" [ref=e314] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e319]:
+                - article [ref=e320]:
+                  - generic [ref=e321]:
+                    - generic [ref=e322]:
+                      - generic [aria-hidden] [ref=e323]: "6"
+                      - 'button "Complete task: Long project name for list badge and title wrapping task 2"'
+                    - 'button "Edit task title: Long project name for list badge and title wrapping task 2" [ref=e324]': Long project name for list badge and title wrapping task 2
+                  - generic [ref=e326]:
+                    - generic "Long project name for list badge and title wrapping" [ref=e327]
+                    - generic [ref=e328]:
+                      - 'button "Edit Est: 10m" [ref=e329]':
+                        - generic [ref=e330]: "Est:"
+                        - strong [ref=e331]: 10m
+                      - 'button "Edit Taken: 0m" [ref=e332]':
+                        - generic [ref=e333]: "Taken:"
+                        - strong [ref=e334]: 0m
+                  - button "Expand notes for Long project name for list badge and title wrapping task 2" [ref=e336] [cursor=pointer]:
+                    - generic [ref=e337]: Add notes
+                  - generic [ref=e341]:
+                    - button "Expand subtasks for Long project name for list badge and title wrapping task 2" [ref=e342] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e347]:
+                - article [ref=e348]:
+                  - generic [ref=e349]:
+                    - generic [ref=e350]:
+                      - generic [aria-hidden] [ref=e351]: "7"
+                      - 'button "Complete task: Long project name for list badge and title wrapping task 3"'
+                    - 'button "Edit task title: Long project name for list badge and title wrapping task 3" [ref=e352]': Long project name for list badge and title wrapping task 3
+                  - generic [ref=e354]:
+                    - generic "Long project name for list badge and title wrapping" [ref=e355]
+                    - generic [ref=e356]:
+                      - 'button "Edit Est: 15m" [ref=e357]':
+                        - generic [ref=e358]: "Est:"
+                        - strong [ref=e359]: 15m
+                      - 'button "Edit Taken: 0m" [ref=e360]':
+                        - generic [ref=e361]: "Taken:"
+                        - strong [ref=e362]: 0m
+                  - button "Expand notes for Long project name for list badge and title wrapping task 3" [ref=e364] [cursor=pointer]:
+                    - generic [ref=e365]: Add notes
+                  - generic [ref=e369]:
+                    - button "Expand subtasks for Long project name for list badge and title wrapping task 3" [ref=e370] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - generic [ref=e374]:
+                - heading "Recurring tasks" [level=3] [ref=e375]
+                - listitem [ref=e376]:
+                  - article [ref=e377]:
+                    - generic [ref=e378]:
+                      - generic [aria-hidden] [ref=e380]: "8"
+                      - 'button "Edit task title: Weekly recurring parent" [ref=e381]': Weekly recurring parent
+                    - generic [ref=e383]:
+                      - generic "Capture Project" [ref=e384]: Capture Project · Custom
+                      - generic [ref=e385]:
+                        - 'button "Edit Est: 20m" [ref=e386]':
+                          - generic [ref=e387]: "Est:"
+                          - strong [ref=e388]: 20m
+                        - 'button "Edit Taken: 0m" [ref=e389]':
+                          - generic [ref=e390]: "Taken:"
+                          - strong [ref=e391]: 0m
+                    - button "Expand notes for Weekly recurring parent" [ref=e393] [cursor=pointer]:
+                      - generic [ref=e394]: Add notes
+                    - generic [ref=e398]:
+                      - button "Expand subtasks for Weekly recurring parent" [ref=e399] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e403]:
+                - heading "1 Scheduled task in backlog" [level=3] [ref=e404]
+                - listitem [ref=e405]:
+                  - article [ref=e406]:
+                    - generic [ref=e407]:
+                      - generic [ref=e408]:
+                        - generic [aria-hidden] [ref=e409]: "9"
+                        - 'button "Complete task: Scheduled future backlog"'
+                      - 'button "Edit task title: Scheduled future backlog" [ref=e410]': Scheduled future backlog
+                    - 'button "Edit task schedule: Nov 4, 2026" [ref=e412] [cursor=pointer]':
+                      - generic [ref=e413]: Scheduled
+                      - generic [ref=e414]: Nov 4, 2026
+                    - generic [ref=e415]:
+                      - generic "Capture Project" [ref=e416]
+                      - generic [ref=e417]:
+                        - 'button "Edit Est: 10m" [ref=e418]':
+                          - generic [ref=e419]: "Est:"
+                          - strong [ref=e420]: 10m
+                        - 'button "Edit Taken: 0m" [ref=e421]':
+                          - generic [ref=e422]: "Taken:"
+                          - strong [ref=e423]: 0m
+                    - button "Expand notes for Scheduled future backlog" [ref=e425] [cursor=pointer]:
+                      - generic [ref=e426]: Add notes
+                    - generic [ref=e430]:
+                      - button "Expand subtasks for Scheduled future backlog" [ref=e431] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+          - region [ref=e436]:
+            - generic [ref=e437]:
+              - generic [ref=e438]:
+                - heading "This Week" [level=2] [ref=e439]
+                - generic [ref=e440]: 1 task
+                - generic "0 of 1 tasks done" [ref=e441]: 0/1 Done
+              - generic [ref=e444]: "Est: 10m"
+            - list "This Week tasks" [ref=e446]:
+              - generic [ref=e447]:
+                - heading "1 Scheduled task this week" [level=3] [ref=e448]
+                - listitem [ref=e449]:
+                  - article [ref=e450]:
+                    - generic [ref=e451]:
+                      - generic [ref=e452]:
+                        - generic [aria-hidden] [ref=e453]: "1"
+                        - 'button "Complete task: Scheduled later this week"'
+                      - 'button "Edit task title: Scheduled later this week" [ref=e454]': Scheduled later this week
+                    - 'button "Edit task schedule: Oct 22, 2026" [ref=e456] [cursor=pointer]':
+                      - generic [ref=e457]: Scheduled
+                      - generic [ref=e458]: Oct 22, 2026
+                    - generic [ref=e459]:
+                      - generic "Capture Project" [ref=e460]
+                      - generic [ref=e461]:
+                        - 'button "Edit Est: 10m" [ref=e462]':
+                          - generic [ref=e463]: "Est:"
+                          - strong [ref=e464]: 10m
+                        - 'button "Edit Taken: 0m" [ref=e465]':
+                          - generic [ref=e466]: "Taken:"
+                          - strong [ref=e467]: 0m
+                    - button "Expand notes for Scheduled later this week" [ref=e469] [cursor=pointer]:
+                      - generic [ref=e470]: Add notes
+                    - generic [ref=e474]:
+                      - button "Expand subtasks for Scheduled later this week" [ref=e475] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+          - region [ref=e480]:
+            - generic [ref=e481]:
+              - generic [ref=e482]:
+                - heading "Today" [level=2] [ref=e483]
+                - generic [ref=e484]: 2 tasks
+                - generic "0 of 2 tasks done" [ref=e485]: 0/2 Done
+              - generic [ref=e488]: "Est: 17m"
+            - list "Today tasks" [ref=e490]:
+              - generic [ref=e491]:
+                - heading "2 Scheduled tasks today" [level=3] [ref=e492]
+                - listitem [ref=e493]:
+                  - article [ref=e494]:
+                    - generic [ref=e495]:
+                      - generic [ref=e496]:
+                        - generic [aria-hidden] [ref=e497]: "1"
+                        - 'button "Complete task: Overdue task with age label"'
+                      - 'button "Edit task title: Overdue task with age label" [ref=e498]': Overdue task with age label
+                    - 'button "Edit task schedule: Oct 18, 2026" [ref=e500] [cursor=pointer]':
+                      - generic [ref=e501]: Overdue
+                      - generic [ref=e502]: Oct 18, 2026
+                    - generic [ref=e503]:
+                      - generic "Capture Project" [ref=e504]
+                      - generic [ref=e505]:
+                        - 'button "Edit Est: 5m" [ref=e506]':
+                          - generic [ref=e507]: "Est:"
+                          - strong [ref=e508]: 5m
+                        - 'button "Edit Taken: 3m" [ref=e509]':
+                          - generic [ref=e510]: "Taken:"
+                          - strong [ref=e511]: 3m
+                    - button "Expand notes for Overdue task with age label" [ref=e513] [cursor=pointer]:
+                      - generic [ref=e514]: Add notes
+                    - generic [ref=e518]:
+                      - button "Expand subtasks for Overdue task with age label" [ref=e519] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - listitem [ref=e524]:
+                - article [ref=e525]:
+                  - generic [ref=e526]:
+                    - generic [ref=e527]:
+                      - generic [aria-hidden] [ref=e528]: "2"
+                      - 'button "Complete task: Weekly recurring parent"'
+                    - generic "Weekly recurring parent" [ref=e529]
+                  - generic [ref=e531]:
+                    - generic [ref=e532]: Overdue · Occurrence
+                    - generic [ref=e533]: Oct 20, 2026
+                  - generic [ref=e534]:
+                    - generic "Capture Project" [ref=e535]: Capture Project · Occurrence
+                    - generic [ref=e536]:
+                      - 'button "Edit Est: 20m" [ref=e537]':
+                        - generic [ref=e538]: "Est:"
+                        - strong [ref=e539]: 20m
+                      - 'button "Edit Taken: 5m" [ref=e540]':
+                        - generic [ref=e541]: "Taken:"
+                        - strong [ref=e542]: 5m
+                  - button "Expand notes for Weekly recurring parent" [ref=e544] [cursor=pointer]:
+                    - generic [ref=e545]: Add notes
+                  - generic [ref=e549]:
+                    - button "Expand subtasks for Weekly recurring parent" [ref=e550] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+            - region "Blitz entry" [ref=e555]:
+              - button "Blitz now" [ref=e556] [cursor=pointer]
+          - region [ref=e560]:
+            - generic [ref=e561]:
+              - generic [ref=e562]:
+                - heading "Done" [level=2] [ref=e563]
+                - generic [ref=e564]: 34 completed this month
+              - generic [ref=e565]: "Est: 24h 46m"
+            - list "Done tasks" [ref=e567]:
+              - generic [ref=e568]:
+                - heading "Oct 20, 2026, 9 tasks" [level=3] [ref=e569]:
+                  - generic [ref=e570]: Oct 20, 2026
+                  - generic [ref=e571]: 9 tasks
+                - listitem [ref=e572]:
+                  - article [ref=e573]:
+                    - 'button "Edit task title: Capture live task — long title for compact wrapping and hover actions" [ref=e579]': Capture live task — long title for compact wrapping and hover actions
+                    - generic [ref=e581]:
+                      - generic "Capture Project" [ref=e582]
+                      - generic [ref=e583]:
+                        - 'button "Edit Est: 1m" [ref=e584]':
+                          - generic [ref=e585]: "Est:"
+                          - strong [ref=e586]: 1m
+                        - 'button "Edit Taken: 5m" [ref=e587]':
+                          - generic [ref=e588]: "Taken:"
+                          - strong [ref=e589]: 5m
+                    - button "Expand notes for Capture live task — long title for compact wrapping and hover actions" [ref=e591] [cursor=pointer]:
+                      - generic [ref=e592]: Add notes
+                    - generic [ref=e596]:
+                      - button "Expand subtasks for Capture live task — long title for compact wrapping and hover actions" [ref=e597] [cursor=pointer]
+                      - generic:
+                        - progressbar "2 of 4 subtasks complete"
+                        - generic: 2/4 Subtasks
+              - listitem [ref=e602]:
+                - article [ref=e603]:
+                  - 'button "Edit task title: Second task — notes and success feedback" [ref=e609]': Second task — notes and success feedback
+                  - generic [ref=e611]:
+                    - generic "Capture Project" [ref=e612]
+                    - generic [ref=e613]:
+                      - 'button "Edit Est: 8h 45m" [ref=e614]':
+                        - generic [ref=e615]: "Est:"
+                        - strong [ref=e616]: 8h 45m
+                      - 'button "Edit Taken: 3m" [ref=e617]':
+                        - generic [ref=e618]: "Taken:"
+                        - strong [ref=e619]: 3m
+                  - button "Expand notes for Second task — notes and success feedback" [ref=e621] [cursor=pointer]:
+                    - generic [ref=e622]: Add notes
+                  - generic [ref=e626]:
+                    - button "Expand subtasks for Second task — notes and success feedback" [ref=e627] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e632]:
+                - article [ref=e633]:
+                  - 'button "Edit task title: Third task without estimate" [ref=e639]': Third task without estimate
+                  - generic [ref=e641]:
+                    - generic "Capture Project" [ref=e642]
+                    - generic [ref=e643]:
+                      - 'button "Edit Est: —" [ref=e644]':
+                        - generic [ref=e645]: "Est:"
+                        - strong [ref=e646]: —
+                      - 'button "Edit Taken: 2h 3m" [ref=e647]':
+                        - generic [ref=e648]: "Taken:"
+                        - strong [ref=e649]: 2h 3m
+                  - button "Expand notes for Third task without estimate" [ref=e651] [cursor=pointer]:
+                    - generic [ref=e652]: Add notes
+                  - generic [ref=e656]:
+                    - button "Expand subtasks for Third task without estimate" [ref=e657] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e662]:
+                - article [ref=e663]:
+                  - 'button "Edit task title: Done history 01 — long title for scroll" [ref=e669]': Done history 01 — long title for scroll
+                  - generic [ref=e671]:
+                    - generic "Capture Project" [ref=e672]
+                    - generic [ref=e673]:
+                      - 'button "Edit Est: 15m" [ref=e674]':
+                        - generic [ref=e675]: "Est:"
+                        - strong [ref=e676]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e677]':
+                        - generic [ref=e678]: "Taken:"
+                        - strong [ref=e679]: 10m
+                  - button "Expand notes for Done history 01 — long title for scroll" [ref=e681] [cursor=pointer]:
+                    - generic [ref=e682]: Add notes
+                  - generic [ref=e686]:
+                    - button "Expand subtasks for Done history 01 — long title for scroll" [ref=e687] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e692]:
+                - article [ref=e693]:
+                  - 'button "Edit task title: Done history 02 — long title for scroll" [ref=e699]': Done history 02 — long title for scroll
+                  - generic [ref=e701]:
+                    - generic "Capture Project" [ref=e702]
+                    - generic [ref=e703]:
+                      - 'button "Edit Est: 15m" [ref=e704]':
+                        - generic [ref=e705]: "Est:"
+                        - strong [ref=e706]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e707]':
+                        - generic [ref=e708]: "Taken:"
+                        - strong [ref=e709]: 10m
+                  - button "Expand notes for Done history 02 — long title for scroll" [ref=e711] [cursor=pointer]:
+                    - generic [ref=e712]: Add notes
+                  - generic [ref=e716]:
+                    - button "Expand subtasks for Done history 02 — long title for scroll" [ref=e717] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e722]:
+                - article [ref=e723]:
+                  - 'button "Edit task title: Done history 03 — long title for scroll" [ref=e729]': Done history 03 — long title for scroll
+                  - generic [ref=e731]:
+                    - generic "Capture Project" [ref=e732]
+                    - generic [ref=e733]:
+                      - 'button "Edit Est: 15m" [ref=e734]':
+                        - generic [ref=e735]: "Est:"
+                        - strong [ref=e736]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e737]':
+                        - generic [ref=e738]: "Taken:"
+                        - strong [ref=e739]: 10m
+                  - button "Expand notes for Done history 03 — long title for scroll" [ref=e741] [cursor=pointer]:
+                    - generic [ref=e742]: Add notes
+                  - generic [ref=e746]:
+                    - button "Expand subtasks for Done history 03 — long title for scroll" [ref=e747] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e752]:
+                - article [ref=e753]:
+                  - 'button "Edit task title: Done history 04 — long title for scroll" [ref=e759]': Done history 04 — long title for scroll
+                  - generic [ref=e761]:
+                    - generic "Capture Project" [ref=e762]
+                    - generic [ref=e763]:
+                      - 'button "Edit Est: 15m" [ref=e764]':
+                        - generic [ref=e765]: "Est:"
+                        - strong [ref=e766]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e767]':
+                        - generic [ref=e768]: "Taken:"
+                        - strong [ref=e769]: 10m
+                  - button "Expand notes for Done history 04 — long title for scroll" [ref=e771] [cursor=pointer]:
+                    - generic [ref=e772]: Add notes
+                  - generic [ref=e776]:
+                    - button "Expand subtasks for Done history 04 — long title for scroll" [ref=e777] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e782]:
+                - article [ref=e783]:
+                  - 'button "Edit task title: Done history 05 — long title for scroll" [ref=e789]': Done history 05 — long title for scroll
+                  - generic [ref=e791]:
+                    - generic "Capture Project" [ref=e792]
+                    - generic [ref=e793]:
+                      - 'button "Edit Est: 15m" [ref=e794]':
+                        - generic [ref=e795]: "Est:"
+                        - strong [ref=e796]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e797]':
+                        - generic [ref=e798]: "Taken:"
+                        - strong [ref=e799]: 10m
+                  - button "Expand notes for Done history 05 — long title for scroll" [ref=e801] [cursor=pointer]:
+                    - generic [ref=e802]: Add notes
+                  - generic [ref=e806]:
+                    - button "Expand subtasks for Done history 05 — long title for scroll" [ref=e807] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e812]:
+                - article [ref=e813]:
+                  - 'button "Edit task title: Done history 06 — long title for scroll" [ref=e819]': Done history 06 — long title for scroll
+                  - generic [ref=e821]:
+                    - generic "Capture Project" [ref=e822]
+                    - generic [ref=e823]:
+                      - 'button "Edit Est: 15m" [ref=e824]':
+                        - generic [ref=e825]: "Est:"
+                        - strong [ref=e826]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e827]':
+                        - generic [ref=e828]: "Taken:"
+                        - strong [ref=e829]: 10m
+                  - button "Expand notes for Done history 06 — long title for scroll" [ref=e831] [cursor=pointer]:
+                    - generic [ref=e832]: Add notes
+                  - generic [ref=e836]:
+                    - button "Expand subtasks for Done history 06 — long title for scroll" [ref=e837] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - generic [ref=e841]:
+                - heading "Oct 19, 2026, 7 tasks" [level=3] [ref=e842]:
+                  - generic [ref=e843]: Oct 19, 2026
+                  - generic [ref=e844]: 7 tasks
+                - listitem [ref=e845]:
+                  - article [ref=e846]:
+                    - 'button "Edit task title: Done history 07 — long title for scroll" [ref=e852]': Done history 07 — long title for scroll
+                    - generic [ref=e854]:
+                      - generic "Capture Project" [ref=e855]
+                      - generic [ref=e856]:
+                        - 'button "Edit Est: 15m" [ref=e857]':
+                          - generic [ref=e858]: "Est:"
+                          - strong [ref=e859]: 15m
+                        - 'button "Edit Taken: 10m" [ref=e860]':
+                          - generic [ref=e861]: "Taken:"
+                          - strong [ref=e862]: 10m
+                    - button "Expand notes for Done history 07 — long title for scroll" [ref=e864] [cursor=pointer]:
+                      - generic [ref=e865]: Add notes
+                    - generic [ref=e869]:
+                      - button "Expand subtasks for Done history 07 — long title for scroll" [ref=e870] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - listitem [ref=e875]:
+                - article [ref=e876]:
+                  - 'button "Edit task title: Done history 08 — long title for scroll" [ref=e882]': Done history 08 — long title for scroll
+                  - generic [ref=e884]:
+                    - generic "Capture Project" [ref=e885]
+                    - generic [ref=e886]:
+                      - 'button "Edit Est: 15m" [ref=e887]':
+                        - generic [ref=e888]: "Est:"
+                        - strong [ref=e889]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e890]':
+                        - generic [ref=e891]: "Taken:"
+                        - strong [ref=e892]: 10m
+                  - button "Expand notes for Done history 08 — long title for scroll" [ref=e894] [cursor=pointer]:
+                    - generic [ref=e895]: Add notes
+                  - generic [ref=e899]:
+                    - button "Expand subtasks for Done history 08 — long title for scroll" [ref=e900] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e905]:
+                - article [ref=e906]:
+                  - 'button "Edit task title: Done history 09 — long title for scroll" [ref=e912]': Done history 09 — long title for scroll
+                  - generic [ref=e914]:
+                    - generic "Capture Project" [ref=e915]
+                    - generic [ref=e916]:
+                      - 'button "Edit Est: 15m" [ref=e917]':
+                        - generic [ref=e918]: "Est:"
+                        - strong [ref=e919]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e920]':
+                        - generic [ref=e921]: "Taken:"
+                        - strong [ref=e922]: 10m
+                  - button "Expand notes for Done history 09 — long title for scroll" [ref=e924] [cursor=pointer]:
+                    - generic [ref=e925]: Add notes
+                  - generic [ref=e929]:
+                    - button "Expand subtasks for Done history 09 — long title for scroll" [ref=e930] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e935]:
+                - article [ref=e936]:
+                  - 'button "Edit task title: Done history 10 — long title for scroll" [ref=e942]': Done history 10 — long title for scroll
+                  - generic [ref=e944]:
+                    - generic "Capture Project" [ref=e945]
+                    - generic [ref=e946]:
+                      - 'button "Edit Est: 15m" [ref=e947]':
+                        - generic [ref=e948]: "Est:"
+                        - strong [ref=e949]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e950]':
+                        - generic [ref=e951]: "Taken:"
+                        - strong [ref=e952]: 10m
+                  - button "Expand notes for Done history 10 — long title for scroll" [ref=e954] [cursor=pointer]:
+                    - generic [ref=e955]: Add notes
+                  - generic [ref=e959]:
+                    - button "Expand subtasks for Done history 10 — long title for scroll" [ref=e960] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e965]:
+                - article [ref=e966]:
+                  - 'button "Edit task title: Done history 11 — long title for scroll" [ref=e972]': Done history 11 — long title for scroll
+                  - generic [ref=e974]:
+                    - generic "Capture Project" [ref=e975]
+                    - generic [ref=e976]:
+                      - 'button "Edit Est: 15m" [ref=e977]':
+                        - generic [ref=e978]: "Est:"
+                        - strong [ref=e979]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e980]':
+                        - generic [ref=e981]: "Taken:"
+                        - strong [ref=e982]: 10m
+                  - button "Expand notes for Done history 11 — long title for scroll" [ref=e984] [cursor=pointer]:
+                    - generic [ref=e985]: Add notes
+                  - generic [ref=e989]:
+                    - button "Expand subtasks for Done history 11 — long title for scroll" [ref=e990] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e995]:
+                - article [ref=e996]:
+                  - 'button "Edit task title: Done history 12 — long title for scroll" [ref=e1002]': Done history 12 — long title for scroll
+                  - generic [ref=e1004]:
+                    - generic "Capture Project" [ref=e1005]
+                    - generic [ref=e1006]:
+                      - 'button "Edit Est: 15m" [ref=e1007]':
+                        - generic [ref=e1008]: "Est:"
+                        - strong [ref=e1009]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1010]':
+                        - generic [ref=e1011]: "Taken:"
+                        - strong [ref=e1012]: 10m
+                  - button "Expand notes for Done history 12 — long title for scroll" [ref=e1014] [cursor=pointer]:
+                    - generic [ref=e1015]: Add notes
+                  - generic [ref=e1019]:
+                    - button "Expand subtasks for Done history 12 — long title for scroll" [ref=e1020] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1025]:
+                - article [ref=e1026]:
+                  - 'button "Edit task title: Report sample day 1" [ref=e1032]': Report sample day 1
+                  - generic [ref=e1034]:
+                    - generic "Reading & research" [ref=e1035]
+                    - generic [ref=e1036]:
+                      - 'button "Edit Est: 30m" [ref=e1037]':
+                        - generic [ref=e1038]: "Est:"
+                        - strong [ref=e1039]: 30m
+                      - 'button "Edit Taken: 20m" [ref=e1040]':
+                        - generic [ref=e1041]: "Taken:"
+                        - strong [ref=e1042]: 20m
+                  - button "Expand notes for Report sample day 1" [ref=e1044] [cursor=pointer]:
+                    - generic [ref=e1045]: Add notes
+                  - generic [ref=e1049]:
+                    - button "Expand subtasks for Report sample day 1" [ref=e1050] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - generic [ref=e1054]:
+                - heading "Oct 18, 2026, 6 tasks" [level=3] [ref=e1055]:
+                  - generic [ref=e1056]: Oct 18, 2026
+                  - generic [ref=e1057]: 6 tasks
+                - listitem [ref=e1058]:
+                  - article [ref=e1059]:
+                    - 'button "Edit task title: Done history 13 — long title for scroll" [ref=e1065]': Done history 13 — long title for scroll
+                    - generic [ref=e1067]:
+                      - generic "Capture Project" [ref=e1068]
+                      - generic [ref=e1069]:
+                        - 'button "Edit Est: 15m" [ref=e1070]':
+                          - generic [ref=e1071]: "Est:"
+                          - strong [ref=e1072]: 15m
+                        - 'button "Edit Taken: 10m" [ref=e1073]':
+                          - generic [ref=e1074]: "Taken:"
+                          - strong [ref=e1075]: 10m
+                    - button "Expand notes for Done history 13 — long title for scroll" [ref=e1077] [cursor=pointer]:
+                      - generic [ref=e1078]: Add notes
+                    - generic [ref=e1082]:
+                      - button "Expand subtasks for Done history 13 — long title for scroll" [ref=e1083] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - listitem [ref=e1088]:
+                - article [ref=e1089]:
+                  - 'button "Edit task title: Done history 14 — long title for scroll" [ref=e1095]': Done history 14 — long title for scroll
+                  - generic [ref=e1097]:
+                    - generic "Capture Project" [ref=e1098]
+                    - generic [ref=e1099]:
+                      - 'button "Edit Est: 15m" [ref=e1100]':
+                        - generic [ref=e1101]: "Est:"
+                        - strong [ref=e1102]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1103]':
+                        - generic [ref=e1104]: "Taken:"
+                        - strong [ref=e1105]: 10m
+                  - button "Expand notes for Done history 14 — long title for scroll" [ref=e1107] [cursor=pointer]:
+                    - generic [ref=e1108]: Add notes
+                  - generic [ref=e1112]:
+                    - button "Expand subtasks for Done history 14 — long title for scroll" [ref=e1113] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1118]:
+                - article [ref=e1119]:
+                  - 'button "Edit task title: Done history 15 — long title for scroll" [ref=e1125]': Done history 15 — long title for scroll
+                  - generic [ref=e1127]:
+                    - generic "Capture Project" [ref=e1128]
+                    - generic [ref=e1129]:
+                      - 'button "Edit Est: 15m" [ref=e1130]':
+                        - generic [ref=e1131]: "Est:"
+                        - strong [ref=e1132]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1133]':
+                        - generic [ref=e1134]: "Taken:"
+                        - strong [ref=e1135]: 10m
+                  - button "Expand notes for Done history 15 — long title for scroll" [ref=e1137] [cursor=pointer]:
+                    - generic [ref=e1138]: Add notes
+                  - generic [ref=e1142]:
+                    - button "Expand subtasks for Done history 15 — long title for scroll" [ref=e1143] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1148]:
+                - article [ref=e1149]:
+                  - 'button "Edit task title: Done history 16 — long title for scroll" [ref=e1155]': Done history 16 — long title for scroll
+                  - generic [ref=e1157]:
+                    - generic "Capture Project" [ref=e1158]
+                    - generic [ref=e1159]:
+                      - 'button "Edit Est: 15m" [ref=e1160]':
+                        - generic [ref=e1161]: "Est:"
+                        - strong [ref=e1162]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1163]':
+                        - generic [ref=e1164]: "Taken:"
+                        - strong [ref=e1165]: 10m
+                  - button "Expand notes for Done history 16 — long title for scroll" [ref=e1167] [cursor=pointer]:
+                    - generic [ref=e1168]: Add notes
+                  - generic [ref=e1172]:
+                    - button "Expand subtasks for Done history 16 — long title for scroll" [ref=e1173] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1178]:
+                - article [ref=e1179]:
+                  - 'button "Edit task title: Done history 17 — long title for scroll" [ref=e1185]': Done history 17 — long title for scroll
+                  - generic [ref=e1187]:
+                    - generic "Capture Project" [ref=e1188]
+                    - generic [ref=e1189]:
+                      - 'button "Edit Est: 15m" [ref=e1190]':
+                        - generic [ref=e1191]: "Est:"
+                        - strong [ref=e1192]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1193]':
+                        - generic [ref=e1194]: "Taken:"
+                        - strong [ref=e1195]: 10m
+                  - button "Expand notes for Done history 17 — long title for scroll" [ref=e1197] [cursor=pointer]:
+                    - generic [ref=e1198]: Add notes
+                  - generic [ref=e1202]:
+                    - button "Expand subtasks for Done history 17 — long title for scroll" [ref=e1203] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1208]:
+                - article [ref=e1209]:
+                  - 'button "Edit task title: Done history 18 — long title for scroll" [ref=e1215]': Done history 18 — long title for scroll
+                  - generic [ref=e1217]:
+                    - generic "Capture Project" [ref=e1218]
+                    - generic [ref=e1219]:
+                      - 'button "Edit Est: 15m" [ref=e1220]':
+                        - generic [ref=e1221]: "Est:"
+                        - strong [ref=e1222]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1223]':
+                        - generic [ref=e1224]: "Taken:"
+                        - strong [ref=e1225]: 10m
+                  - button "Expand notes for Done history 18 — long title for scroll" [ref=e1227] [cursor=pointer]:
+                    - generic [ref=e1228]: Add notes
+                  - generic [ref=e1232]:
+                    - button "Expand subtasks for Done history 18 — long title for scroll" [ref=e1233] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - generic [ref=e1237]:
+                - heading "Oct 17, 2026, 6 tasks" [level=3] [ref=e1238]:
+                  - generic [ref=e1239]: Oct 17, 2026
+                  - generic [ref=e1240]: 6 tasks
+                - listitem [ref=e1241]:
+                  - article [ref=e1242]:
+                    - 'button "Edit task title: Done history 19 — long title for scroll" [ref=e1248]': Done history 19 — long title for scroll
+                    - generic [ref=e1250]:
+                      - generic "Capture Project" [ref=e1251]
+                      - generic [ref=e1252]:
+                        - 'button "Edit Est: 15m" [ref=e1253]':
+                          - generic [ref=e1254]: "Est:"
+                          - strong [ref=e1255]: 15m
+                        - 'button "Edit Taken: 10m" [ref=e1256]':
+                          - generic [ref=e1257]: "Taken:"
+                          - strong [ref=e1258]: 10m
+                    - button "Expand notes for Done history 19 — long title for scroll" [ref=e1260] [cursor=pointer]:
+                      - generic [ref=e1261]: Add notes
+                    - generic [ref=e1265]:
+                      - button "Expand subtasks for Done history 19 — long title for scroll" [ref=e1266] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - listitem [ref=e1271]:
+                - article [ref=e1272]:
+                  - 'button "Edit task title: Done history 20 — long title for scroll" [ref=e1278]': Done history 20 — long title for scroll
+                  - generic [ref=e1280]:
+                    - generic "Capture Project" [ref=e1281]
+                    - generic [ref=e1282]:
+                      - 'button "Edit Est: 15m" [ref=e1283]':
+                        - generic [ref=e1284]: "Est:"
+                        - strong [ref=e1285]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1286]':
+                        - generic [ref=e1287]: "Taken:"
+                        - strong [ref=e1288]: 10m
+                  - button "Expand notes for Done history 20 — long title for scroll" [ref=e1290] [cursor=pointer]:
+                    - generic [ref=e1291]: Add notes
+                  - generic [ref=e1295]:
+                    - button "Expand subtasks for Done history 20 — long title for scroll" [ref=e1296] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1301]:
+                - article [ref=e1302]:
+                  - 'button "Edit task title: Done history 21 — long title for scroll" [ref=e1308]': Done history 21 — long title for scroll
+                  - generic [ref=e1310]:
+                    - generic "Capture Project" [ref=e1311]
+                    - generic [ref=e1312]:
+                      - 'button "Edit Est: 15m" [ref=e1313]':
+                        - generic [ref=e1314]: "Est:"
+                        - strong [ref=e1315]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1316]':
+                        - generic [ref=e1317]: "Taken:"
+                        - strong [ref=e1318]: 10m
+                  - button "Expand notes for Done history 21 — long title for scroll" [ref=e1320] [cursor=pointer]:
+                    - generic [ref=e1321]: Add notes
+                  - generic [ref=e1325]:
+                    - button "Expand subtasks for Done history 21 — long title for scroll" [ref=e1326] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1331]:
+                - article [ref=e1332]:
+                  - 'button "Edit task title: Done history 22 — long title for scroll" [ref=e1338]': Done history 22 — long title for scroll
+                  - generic [ref=e1340]:
+                    - generic "Capture Project" [ref=e1341]
+                    - generic [ref=e1342]:
+                      - 'button "Edit Est: 15m" [ref=e1343]':
+                        - generic [ref=e1344]: "Est:"
+                        - strong [ref=e1345]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1346]':
+                        - generic [ref=e1347]: "Taken:"
+                        - strong [ref=e1348]: 10m
+                  - button "Expand notes for Done history 22 — long title for scroll" [ref=e1350] [cursor=pointer]:
+                    - generic [ref=e1351]: Add notes
+                  - generic [ref=e1355]:
+                    - button "Expand subtasks for Done history 22 — long title for scroll" [ref=e1356] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1361]:
+                - article [ref=e1362]:
+                  - 'button "Edit task title: Done history 23 — long title for scroll" [ref=e1368]': Done history 23 — long title for scroll
+                  - generic [ref=e1370]:
+                    - generic "Capture Project" [ref=e1371]
+                    - generic [ref=e1372]:
+                      - 'button "Edit Est: 15m" [ref=e1373]':
+                        - generic [ref=e1374]: "Est:"
+                        - strong [ref=e1375]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1376]':
+                        - generic [ref=e1377]: "Taken:"
+                        - strong [ref=e1378]: 10m
+                  - button "Expand notes for Done history 23 — long title for scroll" [ref=e1380] [cursor=pointer]:
+                    - generic [ref=e1381]: Add notes
+                  - generic [ref=e1385]:
+                    - button "Expand subtasks for Done history 23 — long title for scroll" [ref=e1386] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - listitem [ref=e1391]:
+                - article [ref=e1392]:
+                  - 'button "Edit task title: Done history 24 — long title for scroll" [ref=e1398]': Done history 24 — long title for scroll
+                  - generic [ref=e1400]:
+                    - generic "Capture Project" [ref=e1401]
+                    - generic [ref=e1402]:
+                      - 'button "Edit Est: 15m" [ref=e1403]':
+                        - generic [ref=e1404]: "Est:"
+                        - strong [ref=e1405]: 15m
+                      - 'button "Edit Taken: 10m" [ref=e1406]':
+                        - generic [ref=e1407]: "Taken:"
+                        - strong [ref=e1408]: 10m
+                  - button "Expand notes for Done history 24 — long title for scroll" [ref=e1410] [cursor=pointer]:
+                    - generic [ref=e1411]: Add notes
+                  - generic [ref=e1415]:
+                    - button "Expand subtasks for Done history 24 — long title for scroll" [ref=e1416] [cursor=pointer]
+                    - generic:
+                      - progressbar "0 of 0 subtasks complete"
+                      - generic: Subtasks
+              - generic [ref=e1420]:
+                - heading "Oct 16, 2026, 1 task" [level=3] [ref=e1421]:
+                  - generic [ref=e1422]: Oct 16, 2026
+                  - generic [ref=e1423]: 1 task
+                - listitem [ref=e1424]:
+                  - article [ref=e1425]:
+                    - 'button "Edit task title: Report sample day 4" [ref=e1431]': Report sample day 4
+                    - generic [ref=e1433]:
+                      - generic "Reading & research" [ref=e1434]
+                      - generic [ref=e1435]:
+                        - 'button "Edit Est: 30m" [ref=e1436]':
+                          - generic [ref=e1437]: "Est:"
+                          - strong [ref=e1438]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1439]':
+                          - generic [ref=e1440]: "Taken:"
+                          - strong [ref=e1441]: 20m
+                    - button "Expand notes for Report sample day 4" [ref=e1443] [cursor=pointer]:
+                      - generic [ref=e1444]: Add notes
+                    - generic [ref=e1448]:
+                      - button "Expand subtasks for Report sample day 4" [ref=e1449] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1453]:
+                - heading "Oct 13, 2026, 1 task" [level=3] [ref=e1454]:
+                  - generic [ref=e1455]: Oct 13, 2026
+                  - generic [ref=e1456]: 1 task
+                - listitem [ref=e1457]:
+                  - article [ref=e1458]:
+                    - 'button "Edit task title: Report sample day 7" [ref=e1464]': Report sample day 7
+                    - generic [ref=e1466]:
+                      - generic "Reading & research" [ref=e1467]
+                      - generic [ref=e1468]:
+                        - 'button "Edit Est: 30m" [ref=e1469]':
+                          - generic [ref=e1470]: "Est:"
+                          - strong [ref=e1471]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1472]':
+                          - generic [ref=e1473]: "Taken:"
+                          - strong [ref=e1474]: 20m
+                    - button "Expand notes for Report sample day 7" [ref=e1476] [cursor=pointer]:
+                      - generic [ref=e1477]: Add notes
+                    - generic [ref=e1481]:
+                      - button "Expand subtasks for Report sample day 7" [ref=e1482] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1486]:
+                - heading "Oct 10, 2026, 1 task" [level=3] [ref=e1487]:
+                  - generic [ref=e1488]: Oct 10, 2026
+                  - generic [ref=e1489]: 1 task
+                - listitem [ref=e1490]:
+                  - article [ref=e1491]:
+                    - 'button "Edit task title: Report sample day 10" [ref=e1497]': Report sample day 10
+                    - generic [ref=e1499]:
+                      - generic "Reading & research" [ref=e1500]
+                      - generic [ref=e1501]:
+                        - 'button "Edit Est: 30m" [ref=e1502]':
+                          - generic [ref=e1503]: "Est:"
+                          - strong [ref=e1504]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1505]':
+                          - generic [ref=e1506]: "Taken:"
+                          - strong [ref=e1507]: 20m
+                    - button "Expand notes for Report sample day 10" [ref=e1509] [cursor=pointer]:
+                      - generic [ref=e1510]: Add notes
+                    - generic [ref=e1514]:
+                      - button "Expand subtasks for Report sample day 10" [ref=e1515] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1519]:
+                - heading "Oct 7, 2026, 1 task" [level=3] [ref=e1520]:
+                  - generic [ref=e1521]: Oct 7, 2026
+                  - generic [ref=e1522]: 1 task
+                - listitem [ref=e1523]:
+                  - article [ref=e1524]:
+                    - 'button "Edit task title: Report sample day 13" [ref=e1530]': Report sample day 13
+                    - generic [ref=e1532]:
+                      - generic "Reading & research" [ref=e1533]
+                      - generic [ref=e1534]:
+                        - 'button "Edit Est: 30m" [ref=e1535]':
+                          - generic [ref=e1536]: "Est:"
+                          - strong [ref=e1537]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1538]':
+                          - generic [ref=e1539]: "Taken:"
+                          - strong [ref=e1540]: 20m
+                    - button "Expand notes for Report sample day 13" [ref=e1542] [cursor=pointer]:
+                      - generic [ref=e1543]: Add notes
+                    - generic [ref=e1547]:
+                      - button "Expand subtasks for Report sample day 13" [ref=e1548] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1552]:
+                - heading "Oct 4, 2026, 1 task" [level=3] [ref=e1553]:
+                  - generic [ref=e1554]: Oct 4, 2026
+                  - generic [ref=e1555]: 1 task
+                - listitem [ref=e1556]:
+                  - article [ref=e1557]:
+                    - 'button "Edit task title: Report sample day 16" [ref=e1563]': Report sample day 16
+                    - generic [ref=e1565]:
+                      - generic "Reading & research" [ref=e1566]
+                      - generic [ref=e1567]:
+                        - 'button "Edit Est: 30m" [ref=e1568]':
+                          - generic [ref=e1569]: "Est:"
+                          - strong [ref=e1570]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1571]':
+                          - generic [ref=e1572]: "Taken:"
+                          - strong [ref=e1573]: 20m
+                    - button "Expand notes for Report sample day 16" [ref=e1575] [cursor=pointer]:
+                      - generic [ref=e1576]: Add notes
+                    - generic [ref=e1580]:
+                      - button "Expand subtasks for Report sample day 16" [ref=e1581] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1585]:
+                - heading "Oct 1, 2026, 1 task" [level=3] [ref=e1586]:
+                  - generic [ref=e1587]: Oct 1, 2026
+                  - generic [ref=e1588]: 1 task
+                - listitem [ref=e1589]:
+                  - article [ref=e1590]:
+                    - 'button "Edit task title: Report sample day 19" [ref=e1596]': Report sample day 19
+                    - generic [ref=e1598]:
+                      - generic "Reading & research" [ref=e1599]
+                      - generic [ref=e1600]:
+                        - 'button "Edit Est: 30m" [ref=e1601]':
+                          - generic [ref=e1602]: "Est:"
+                          - strong [ref=e1603]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1604]':
+                          - generic [ref=e1605]: "Taken:"
+                          - strong [ref=e1606]: 20m
+                    - button "Expand notes for Report sample day 19" [ref=e1608] [cursor=pointer]:
+                      - generic [ref=e1609]: Add notes
+                    - generic [ref=e1613]:
+                      - button "Expand subtasks for Report sample day 19" [ref=e1614] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1618]:
+                - heading "Sep 28, 2026, 1 task" [level=3] [ref=e1619]:
+                  - generic [ref=e1620]: Sep 28, 2026
+                  - generic [ref=e1621]: 1 task
+                - listitem [ref=e1622]:
+                  - article [ref=e1623]:
+                    - 'button "Edit task title: Report sample day 22" [ref=e1629]': Report sample day 22
+                    - generic [ref=e1631]:
+                      - generic "Reading & research" [ref=e1632]
+                      - generic [ref=e1633]:
+                        - 'button "Edit Est: 30m" [ref=e1634]':
+                          - generic [ref=e1635]: "Est:"
+                          - strong [ref=e1636]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1637]':
+                          - generic [ref=e1638]: "Taken:"
+                          - strong [ref=e1639]: 20m
+                    - button "Expand notes for Report sample day 22" [ref=e1641] [cursor=pointer]:
+                      - generic [ref=e1642]: Add notes
+                    - generic [ref=e1646]:
+                      - button "Expand subtasks for Report sample day 22" [ref=e1647] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1651]:
+                - heading "Sep 25, 2026, 1 task" [level=3] [ref=e1652]:
+                  - generic [ref=e1653]: Sep 25, 2026
+                  - generic [ref=e1654]: 1 task
+                - listitem [ref=e1655]:
+                  - article [ref=e1656]:
+                    - 'button "Edit task title: Report sample day 25" [ref=e1662]': Report sample day 25
+                    - generic [ref=e1664]:
+                      - generic "Reading & research" [ref=e1665]
+                      - generic [ref=e1666]:
+                        - 'button "Edit Est: 30m" [ref=e1667]':
+                          - generic [ref=e1668]: "Est:"
+                          - strong [ref=e1669]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1670]':
+                          - generic [ref=e1671]: "Taken:"
+                          - strong [ref=e1672]: 20m
+                    - button "Expand notes for Report sample day 25" [ref=e1674] [cursor=pointer]:
+                      - generic [ref=e1675]: Add notes
+                    - generic [ref=e1679]:
+                      - button "Expand subtasks for Report sample day 25" [ref=e1680] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1684]:
+                - heading "Sep 22, 2026, 1 task" [level=3] [ref=e1685]:
+                  - generic [ref=e1686]: Sep 22, 2026
+                  - generic [ref=e1687]: 1 task
+                - listitem [ref=e1688]:
+                  - article [ref=e1689]:
+                    - 'button "Edit task title: Report sample day 28" [ref=e1695]': Report sample day 28
+                    - generic [ref=e1697]:
+                      - generic "Reading & research" [ref=e1698]
+                      - generic [ref=e1699]:
+                        - 'button "Edit Est: 30m" [ref=e1700]':
+                          - generic [ref=e1701]: "Est:"
+                          - strong [ref=e1702]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1703]':
+                          - generic [ref=e1704]: "Taken:"
+                          - strong [ref=e1705]: 20m
+                    - button "Expand notes for Report sample day 28" [ref=e1707] [cursor=pointer]:
+                      - generic [ref=e1708]: Add notes
+                    - generic [ref=e1712]:
+                      - button "Expand subtasks for Report sample day 28" [ref=e1713] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1717]:
+                - heading "Sep 19, 2026, 1 task" [level=3] [ref=e1718]:
+                  - generic [ref=e1719]: Sep 19, 2026
+                  - generic [ref=e1720]: 1 task
+                - listitem [ref=e1721]:
+                  - article [ref=e1722]:
+                    - 'button "Edit task title: Report sample day 31" [ref=e1728]': Report sample day 31
+                    - generic [ref=e1730]:
+                      - generic "Reading & research" [ref=e1731]
+                      - generic [ref=e1732]:
+                        - 'button "Edit Est: 30m" [ref=e1733]':
+                          - generic [ref=e1734]: "Est:"
+                          - strong [ref=e1735]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1736]':
+                          - generic [ref=e1737]: "Taken:"
+                          - strong [ref=e1738]: 20m
+                    - button "Expand notes for Report sample day 31" [ref=e1740] [cursor=pointer]:
+                      - generic [ref=e1741]: Add notes
+                    - generic [ref=e1745]:
+                      - button "Expand subtasks for Report sample day 31" [ref=e1746] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1750]:
+                - heading "Sep 16, 2026, 1 task" [level=3] [ref=e1751]:
+                  - generic [ref=e1752]: Sep 16, 2026
+                  - generic [ref=e1753]: 1 task
+                - listitem [ref=e1754]:
+                  - article [ref=e1755]:
+                    - 'button "Edit task title: Report sample day 34" [ref=e1761]': Report sample day 34
+                    - generic [ref=e1763]:
+                      - generic "Reading & research" [ref=e1764]
+                      - generic [ref=e1765]:
+                        - 'button "Edit Est: 30m" [ref=e1766]':
+                          - generic [ref=e1767]: "Est:"
+                          - strong [ref=e1768]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1769]':
+                          - generic [ref=e1770]: "Taken:"
+                          - strong [ref=e1771]: 20m
+                    - button "Expand notes for Report sample day 34" [ref=e1773] [cursor=pointer]:
+                      - generic [ref=e1774]: Add notes
+                    - generic [ref=e1778]:
+                      - button "Expand subtasks for Report sample day 34" [ref=e1779] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1783]:
+                - heading "Sep 13, 2026, 1 task" [level=3] [ref=e1784]:
+                  - generic [ref=e1785]: Sep 13, 2026
+                  - generic [ref=e1786]: 1 task
+                - listitem [ref=e1787]:
+                  - article [ref=e1788]:
+                    - 'button "Edit task title: Report sample day 37" [ref=e1794]': Report sample day 37
+                    - generic [ref=e1796]:
+                      - generic "Reading & research" [ref=e1797]
+                      - generic [ref=e1798]:
+                        - 'button "Edit Est: 30m" [ref=e1799]':
+                          - generic [ref=e1800]: "Est:"
+                          - strong [ref=e1801]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1802]':
+                          - generic [ref=e1803]: "Taken:"
+                          - strong [ref=e1804]: 20m
+                    - button "Expand notes for Report sample day 37" [ref=e1806] [cursor=pointer]:
+                      - generic [ref=e1807]: Add notes
+                    - generic [ref=e1811]:
+                      - button "Expand subtasks for Report sample day 37" [ref=e1812] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1816]:
+                - heading "Sep 10, 2026, 1 task" [level=3] [ref=e1817]:
+                  - generic [ref=e1818]: Sep 10, 2026
+                  - generic [ref=e1819]: 1 task
+                - listitem [ref=e1820]:
+                  - article [ref=e1821]:
+                    - 'button "Edit task title: Report sample day 40" [ref=e1827]': Report sample day 40
+                    - generic [ref=e1829]:
+                      - generic "Reading & research" [ref=e1830]
+                      - generic [ref=e1831]:
+                        - 'button "Edit Est: 30m" [ref=e1832]':
+                          - generic [ref=e1833]: "Est:"
+                          - strong [ref=e1834]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1835]':
+                          - generic [ref=e1836]: "Taken:"
+                          - strong [ref=e1837]: 20m
+                    - button "Expand notes for Report sample day 40" [ref=e1839] [cursor=pointer]:
+                      - generic [ref=e1840]: Add notes
+                    - generic [ref=e1844]:
+                      - button "Expand subtasks for Report sample day 40" [ref=e1845] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1849]:
+                - heading "Sep 7, 2026, 1 task" [level=3] [ref=e1850]:
+                  - generic [ref=e1851]: Sep 7, 2026
+                  - generic [ref=e1852]: 1 task
+                - listitem [ref=e1853]:
+                  - article [ref=e1854]:
+                    - 'button "Edit task title: Report sample day 43" [ref=e1860]': Report sample day 43
+                    - generic [ref=e1862]:
+                      - generic "Reading & research" [ref=e1863]
+                      - generic [ref=e1864]:
+                        - 'button "Edit Est: 30m" [ref=e1865]':
+                          - generic [ref=e1866]: "Est:"
+                          - strong [ref=e1867]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1868]':
+                          - generic [ref=e1869]: "Taken:"
+                          - strong [ref=e1870]: 20m
+                    - button "Expand notes for Report sample day 43" [ref=e1872] [cursor=pointer]:
+                      - generic [ref=e1873]: Add notes
+                    - generic [ref=e1877]:
+                      - button "Expand subtasks for Report sample day 43" [ref=e1878] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1882]:
+                - heading "Sep 4, 2026, 1 task" [level=3] [ref=e1883]:
+                  - generic [ref=e1884]: Sep 4, 2026
+                  - generic [ref=e1885]: 1 task
+                - listitem [ref=e1886]:
+                  - article [ref=e1887]:
+                    - 'button "Edit task title: Report sample day 46" [ref=e1893]': Report sample day 46
+                    - generic [ref=e1895]:
+                      - generic "Reading & research" [ref=e1896]
+                      - generic [ref=e1897]:
+                        - 'button "Edit Est: 30m" [ref=e1898]':
+                          - generic [ref=e1899]: "Est:"
+                          - strong [ref=e1900]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1901]':
+                          - generic [ref=e1902]: "Taken:"
+                          - strong [ref=e1903]: 20m
+                    - button "Expand notes for Report sample day 46" [ref=e1905] [cursor=pointer]:
+                      - generic [ref=e1906]: Add notes
+                    - generic [ref=e1910]:
+                      - button "Expand subtasks for Report sample day 46" [ref=e1911] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1915]:
+                - heading "Sep 1, 2026, 1 task" [level=3] [ref=e1916]:
+                  - generic [ref=e1917]: Sep 1, 2026
+                  - generic [ref=e1918]: 1 task
+                - listitem [ref=e1919]:
+                  - article [ref=e1920]:
+                    - 'button "Edit task title: Report sample day 49" [ref=e1926]': Report sample day 49
+                    - generic [ref=e1928]:
+                      - generic "Reading & research" [ref=e1929]
+                      - generic [ref=e1930]:
+                        - 'button "Edit Est: 30m" [ref=e1931]':
+                          - generic [ref=e1932]: "Est:"
+                          - strong [ref=e1933]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1934]':
+                          - generic [ref=e1935]: "Taken:"
+                          - strong [ref=e1936]: 20m
+                    - button "Expand notes for Report sample day 49" [ref=e1938] [cursor=pointer]:
+                      - generic [ref=e1939]: Add notes
+                    - generic [ref=e1943]:
+                      - button "Expand subtasks for Report sample day 49" [ref=e1944] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1948]:
+                - heading "Aug 29, 2026, 1 task" [level=3] [ref=e1949]:
+                  - generic [ref=e1950]: Aug 29, 2026
+                  - generic [ref=e1951]: 1 task
+                - listitem [ref=e1952]:
+                  - article [ref=e1953]:
+                    - 'button "Edit task title: Report sample day 52" [ref=e1959]': Report sample day 52
+                    - generic [ref=e1961]:
+                      - generic "Reading & research" [ref=e1962]
+                      - generic [ref=e1963]:
+                        - 'button "Edit Est: 30m" [ref=e1964]':
+                          - generic [ref=e1965]: "Est:"
+                          - strong [ref=e1966]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e1967]':
+                          - generic [ref=e1968]: "Taken:"
+                          - strong [ref=e1969]: 20m
+                    - button "Expand notes for Report sample day 52" [ref=e1971] [cursor=pointer]:
+                      - generic [ref=e1972]: Add notes
+                    - generic [ref=e1976]:
+                      - button "Expand subtasks for Report sample day 52" [ref=e1977] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e1981]:
+                - heading "Aug 26, 2026, 1 task" [level=3] [ref=e1982]:
+                  - generic [ref=e1983]: Aug 26, 2026
+                  - generic [ref=e1984]: 1 task
+                - listitem [ref=e1985]:
+                  - article [ref=e1986]:
+                    - 'button "Edit task title: Report sample day 55" [ref=e1992]': Report sample day 55
+                    - generic [ref=e1994]:
+                      - generic "Reading & research" [ref=e1995]
+                      - generic [ref=e1996]:
+                        - 'button "Edit Est: 30m" [ref=e1997]':
+                          - generic [ref=e1998]: "Est:"
+                          - strong [ref=e1999]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e2000]':
+                          - generic [ref=e2001]: "Taken:"
+                          - strong [ref=e2002]: 20m
+                    - button "Expand notes for Report sample day 55" [ref=e2004] [cursor=pointer]:
+                      - generic [ref=e2005]: Add notes
+                    - generic [ref=e2009]:
+                      - button "Expand subtasks for Report sample day 55" [ref=e2010] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+              - generic [ref=e2014]:
+                - heading "Aug 23, 2026, 1 task" [level=3] [ref=e2015]:
+                  - generic [ref=e2016]: Aug 23, 2026
+                  - generic [ref=e2017]: 1 task
+                - listitem [ref=e2018]:
+                  - article [ref=e2019]:
+                    - 'button "Edit task title: Report sample day 58" [ref=e2025]': Report sample day 58
+                    - generic [ref=e2027]:
+                      - generic "Reading & research" [ref=e2028]
+                      - generic [ref=e2029]:
+                        - 'button "Edit Est: 30m" [ref=e2030]':
+                          - generic [ref=e2031]: "Est:"
+                          - strong [ref=e2032]: 30m
+                        - 'button "Edit Taken: 20m" [ref=e2033]':
+                          - generic [ref=e2034]: "Taken:"
+                          - strong [ref=e2035]: 20m
+                    - button "Expand notes for Report sample day 58" [ref=e2037] [cursor=pointer]:
+                      - generic [ref=e2038]: Add notes
+                    - generic [ref=e2042]:
+                      - button "Expand subtasks for Report sample day 58" [ref=e2043] [cursor=pointer]
+                      - generic:
+                        - progressbar "0 of 0 subtasks complete"
+                        - generic: Subtasks
+    - navigation "Primary" [ref=e145]:
+      - button "Home" [ref=e146] [cursor=pointer]
+      - button "Reports" [ref=e147] [cursor=pointer]

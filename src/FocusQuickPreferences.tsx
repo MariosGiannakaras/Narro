@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import type { ReactNode } from "react";
 import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
 import {
@@ -81,7 +82,7 @@ function QuickHeader({ onBack, saving = false }: FocusQuickPreferencesProps & { 
         autoFocus
         onClick={onBack}
       >
-        ←
+        <ActionIcon name="arrow-left" />
       </button>
       <div className="focus-quick-preferences__heading">
         <span className="type-metadata">Menu</span>

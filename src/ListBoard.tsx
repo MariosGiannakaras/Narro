@@ -1,3 +1,5 @@
+import { flushSync } from "react-dom";
+import { ActionIcon } from "./ActionIcon";
 import { invoke } from "@tauri-apps/api/core";
 import {
   type CSSProperties,
@@ -11,6 +13,7 @@ import {
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { listenForBoardInvalidation } from "./boardInvalidation";
+import { useSubtaskProjection } from "./useSubtaskProjection";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   changeListBoardTask,
@@ -20,7 +23,6 @@ import {
   deleteListBoardSubtask,
   duplicateListBoardTask,
   getListBoardSnapshot,
-  getListBoardTaskSubtasks,
   moveListBoardTask,
   permanentlyDeleteListBoardTask,
   reorderListBoardSubtasks,
@@ -49,7 +51,7 @@ import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { inlineEstimateSuffixPreview, parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
-import { getTaskScheduleEditor, removeTaskRecurrence, updateTaskSchedule } from "./taskScheduleApi";
+import { getTaskScheduleEditor, quickClearTaskSchedule, removeTaskRecurrence } from "./taskScheduleApi";
 import { canQuickRemoveSchedule, expectedQuickRemoveSchedule } from "./taskScheduleQuickRemove";
 import {
   applyTimerSessionProjection,
@@ -79,6 +81,8 @@ type ListBoardOption = {
   id: string;
   title: string;
   color: string | null;
+  iconAsset?: string | null;
+  iconId?: string | null;
 };
 
 type DragState = {
@@ -98,6 +102,7 @@ type TaskEditorState =
       lane: PendingLaneKey;
       title: string;
       est: string;
+      // Form location only; both entry points create newest-first.
       insertAtTop: boolean;
       resetOrdinal: number;
     }
@@ -302,11 +307,11 @@ function InlineCreateEditor({
           disabled={pending}
           aria-label={`Cancel adding task to ${laneTitle}`}
           data-task-create-cancel="true"
-        ><span aria-hidden="true">×</span> CANCEL</button>
+        ><ActionIcon name="close" /> CANCEL</button>
       </div>
       <div className="list-board-task-create__inputs">
         <label className="list-board-task-create__field list-board-task-create__field--title">
-          <span className="type-metadata">Task</span>
+          <span className="type-metadata">Title</span>
           <input
             ref={titleRef}
             value={title}
@@ -699,11 +704,15 @@ function BoardLane({
               <div key={task.id} className="list-board-task-slot">
                 {doneHeading ? (
                   <h3
-                    className="list-board-lane__subgroup-heading type-metadata"
+                    className="list-board-lane__subgroup-heading list-board-lane__done-heading type-metadata"
                     data-board-done-date={doneHeading.dayKey}
                     data-board-done-date-count={doneHeading.tasks.length}
+                    aria-label={`${doneHeading.label}, ${doneHeading.tasks.length} ${doneHeading.tasks.length === 1 ? "task" : "tasks"}`}
                   >
-                    {doneHeading.label} · {doneHeading.tasks.length} Done
+                    <span className="list-board-lane__done-date">{doneHeading.label}</span>
+                    <span className="list-board-lane__done-count">
+                      {doneHeading.tasks.length} {doneHeading.tasks.length === 1 ? "task" : "tasks"}
+                    </span>
                   </h3>
                 ) : subgroupHeading ? (
                   <h3 className="list-board-lane__subgroup-heading type-metadata" data-board-task-subgroup={group}>
@@ -789,7 +798,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">{pendingLane !== null ? "All Clear" : "No tasks"}</div>
+          <div className="list-board-lane__empty type-metadata">All Clear</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -865,6 +874,22 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const committedSubtaskRefreshBlockedRef = useRef(false);
+  const subtaskProjection = useSubtaskProjection({
+    taskId: subtaskPanel?.taskId, listId: subtaskPanel?.listId,
+    enabled: !fixtureSnapshot && Boolean(subtaskPanel) && !mutationRefreshBlocked,
+    onLoad: () => setSubtaskPanel(current => current ? { ...current, loading: true } : current),
+    onSnapshot: payload => {
+      if (committedSubtaskRefreshBlockedRef.current) return;
+      setSubtaskPanel(current => current?.taskId === payload.taskId && current.listId === payload.listId
+        ? { ...current, loading: false, snapshot: payload, error: null } : current);
+    },
+    onError: failure => {
+      if (committedSubtaskRefreshBlockedRef.current) return;
+      setSubtaskPanel(current => current
+        ? { ...current, loading: false, error: formatInvokeError(failure) } : current);
+    },
+  });
   const [changeListState, setChangeListState] = useState<ChangeListState | null>(null);
   const [changeListPending, setChangeListPending] = useState(false);
   const [changeListError, setChangeListError] = useState<string | null>(null);
@@ -882,19 +907,32 @@ export function ListBoard({
   const settleTimer = useRef<number | null>(null);
   const externalRefreshRevisionRef = useRef(0);
   const pointerDragCleanup = useRef<(() => void) | null>(null);
+  const pointerDropInFlightRef = useRef(false);
+  const pointerDragEpochRef = useRef(0);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
 
   useEffect(() => () => {
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    pointerDragEpochRef.current++;
     pointerDragCleanup.current?.();
   }, []);
 
   useEffect(() => {
+    // An external snapshot cancels an active drag. Our own committed readback
+    // must retain the preview until the replacement DOM is committed below.
+    if (pointerDropInFlightRef.current) return;
     pointerDragCleanup.current?.();
     pointerDragCleanup.current = null;
-  }, [snapshot, target.kind, target.kind === "list" ? target.id : null, editorState,
+  }, [snapshot]);
+
+  useEffect(() => {
+    pointerDragEpochRef.current++;
+    pointerDropInFlightRef.current = false;
+    pointerDragCleanup.current?.();
+    pointerDragCleanup.current = null;
+  }, [target.kind, target.kind === "list" ? target.id : null, editorState,
     scheduleEditorTaskId, notePanelTaskId, subtaskPanel, changeListState, deleteTarget, mutationRefreshBlocked]);
 
   useEffect(() => {
@@ -908,6 +946,7 @@ export function ListBoard({
       setEditorMutationPending(false);
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
+      committedSubtaskRefreshBlockedRef.current = false;
       setSubtaskPanel(null);
       setChangeListState(null);
       setChangeListPending(false);
@@ -929,6 +968,7 @@ export function ListBoard({
     setEditorMutationPending(false);
     setScheduleEditorTaskId(null);
     setNotePanelTaskId(null);
+    committedSubtaskRefreshBlockedRef.current = false;
     setSubtaskPanel(null);
     setChangeListState(null);
     setChangeListPending(false);
@@ -1039,7 +1079,7 @@ export function ListBoard({
     void invoke<HomeSnapshot>("get_home_snapshot")
       .then((home) => {
         if (!disposed) {
-          setListOptions(home.lists.map((list) => ({ id: list.id, title: list.title, color: list.color })));
+          setListOptions(home.lists.map(({ id, title, color, iconAsset, iconId }) => ({ id, title, color, iconAsset, iconId })));
         }
       })
       .catch(() => {
@@ -1270,6 +1310,9 @@ export function ListBoard({
   };
 
   const handleCommittedSubtaskRefreshFailure = (failure: unknown) => {
+    // Latch before React renders: an already in-flight successful detail read
+    // must not clear the unsafe-retry error after the paired board read fails.
+    committedSubtaskRefreshBlockedRef.current = true;
     setMutationRefreshBlocked(true);
     setMutationError(
       `Subtask change was saved, but authoritative task details could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
@@ -1285,20 +1328,14 @@ export function ListBoard({
   };
 
   const refreshSubtasksAndBoard = async (taskId: string, listId: string) => {
-    const [subtasksPayload, boardPayload] = await Promise.all([
-      getListBoardTaskSubtasks(taskId, listId),
+    const revision = ++externalRefreshRevisionRef.current;
+    const [, boardPayload] = await Promise.all([
+      subtaskProjection.refresh(),
       getListBoardSnapshot(target),
     ]);
-    setSnapshot(boardPayload);
-    setSubtaskPanel((current) => current?.taskId === taskId
-      ? {
-          ...current,
-          loading: false,
-          snapshot: subtasksPayload,
-          error: null,
-          pending: false,
-        }
-      : current);
+    if (revision === externalRefreshRevisionRef.current) setSnapshot(boardPayload);
+    setSubtaskPanel(current => current?.taskId === taskId && current.listId === listId
+      ? { ...current, pending: false } : current);
     markSettling(taskId);
   };
 
@@ -1340,12 +1377,16 @@ export function ListBoard({
     // Verify the identity, linked-child relation and visible date against a
     // fresh authoritative read. The persisted timezone remains untouched.
     let expectedSchedule;
+    let expectedUpdatedAt;
+    let expectedRecurrenceParentTaskId;
     try {
       const latest = await getTaskScheduleEditor(task.id, task.listId);
       expectedSchedule = expectedQuickRemoveSchedule(task, latest);
-      if (!expectedSchedule) {
+      if (!expectedSchedule || !latest.updatedAt) {
         throw new Error("This task schedule changed. Refresh the board before trying again.");
       }
+      expectedUpdatedAt = latest.updatedAt;
+      expectedRecurrenceParentTaskId = latest.recurrenceParentTaskId;
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
       setMutationStatus("Could not verify the current schedule.");
@@ -1355,11 +1396,12 @@ export function ListBoard({
     }
 
     try {
-      await updateTaskSchedule({
+      await quickClearTaskSchedule({
         taskId: task.id,
         listId: task.listId,
         expectedSchedule,
-        schedule: { kind: "none" },
+        expectedUpdatedAt,
+        expectedRecurrenceParentTaskId,
       });
       await handleScheduleCommitted(task.id, "Removed schedule from task.");
     } catch (failure: unknown) {
@@ -1400,6 +1442,7 @@ export function ListBoard({
         || current.recurrenceParentTaskId !== null
         || !current.recurrence
         || current.recurrence.id !== task.recurrenceRuleId
+        || !current.recurrence.updatedAt?.trim()
       ) {
         throw new Error("This recurring task changed. Refresh the board before trying again.");
       }
@@ -1447,14 +1490,14 @@ export function ListBoard({
       || target.kind !== "list"
       || mutationPendingTaskId
       || mutationRefreshBlocked
-    ) return;
+    ) return "restored";
     const task = findTask(taskId);
-    if (!task || !isManualReorderTask(task)) return;
+    if (!task || !isManualReorderTask(task)) return "restored";
 
+    // Keep the lifted source collapsed and its target gap visible until
+    // the authoritative refreshed snapshot is ready for a single handoff.
     setMutationPendingTaskId(taskId);
     setMutationError(null);
-    setDragState(null);
-    setDropTarget(null);
 
     const sameLane = sourceLane === targetLane;
     const successMessage = sameLane
@@ -1482,18 +1525,24 @@ export function ListBoard({
       setMutationError(formatInvokeError(failure));
       setMutationStatus(`${sameLane ? "Could not reorder" : "Could not move"} ${task.title}.`);
       setMutationPendingTaskId(null);
-      return;
+      return "restored";
     }
 
-    setMutationStatus(successMessage);
+    let refreshBlocked = false;
     try {
       await refreshAfterMutation(taskId);
+      setMutationStatus(successMessage);
       setMutationRefreshBlocked(false);
     } catch (failure: unknown) {
+      // The write succeeded but placement is now uncertain. Keep the old
+      // source card hidden and the target placeholder inert until reopening
+      // the board; exposing the old lane would falsely invite a second move.
+      refreshBlocked = true;
       handleCommittedRefreshFailure(failure);
     } finally {
       setMutationPendingTaskId(null);
     }
+    return refreshBlocked ? "needs_refresh" : "settled";
   };
 
   const submitCreate = async () => {
@@ -1534,7 +1583,9 @@ export function ListBoard({
         lane: LANE_TOKEN[editorState.lane],
         title: persistedTitle,
         estSeconds,
-        insertAtTop: editorState.insertAtTop,
+        // The source bottom form stays below the list while each new task
+        // prepends. Reuse atomic rank allocation; never reorder existing IDs.
+        insertAtTop: true,
       });
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
@@ -1544,8 +1595,7 @@ export function ListBoard({
       return;
     }
 
-    const createdAtTop = editorState.insertAtTop;
-    setMutationStatus(createdAtTop ? `Added ${persistedTitle} to the top.` : `Added ${persistedTitle}.`);
+    setMutationStatus(`Added ${persistedTitle} to the top.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
@@ -1812,22 +1862,13 @@ export function ListBoard({
       editor: null,
       pending: false,
     });
-    void getListBoardTaskSubtasks(task.id, task.listId)
-      .then((payload) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, snapshot: payload, error: null }
-          : current);
-      })
-      .catch((failure: unknown) => {
-        setSubtaskPanel((current) => current?.taskId === task.id
-          ? { ...current, loading: false, error: formatInvokeError(failure) }
-          : current);
-      });
+
   };
 
   const beginSubtaskMutation = (): SubtaskPanelState | null => {
     if (
       !interactionBoardEnabled
+      || committedSubtaskRefreshBlockedRef.current
       || !subtaskPanel
       || subtaskPanel.loading
       || subtaskPanel.error
@@ -1984,6 +2025,7 @@ export function ListBoard({
   ) => {
     if (!event.isPrimary || event.button !== 0 || !interactionReorderEnabled || mutationPendingTaskId) return;
     pointerDragCleanup.current?.();
+    const epoch = ++pointerDragEpochRef.current;
     pointerDragCleanup.current = beginBoardTaskPointerDrag({
       source: event.currentTarget, target: event.target, pointerId: event.pointerId,
       x: event.clientX, y: event.clientY, taskId: task.id, sourceLane: lane,
@@ -1993,9 +2035,30 @@ export function ListBoard({
       },
       onTarget: setDropTarget,
       onFinish: (drop) => {
-        pointerDragCleanup.current = null;
-        setDragState(null); setDropTarget(null);
-        if (drop) void commitDrop(task.id, lane, drop.lane, drop.beforeTaskId);
+        if (!drop) {
+          pointerDragCleanup.current = null;
+          setDragState(null);
+          setDropTarget(null);
+          return;
+        }
+        // The helper retains the inert lifted preview while this promise is
+        // pending. Release the source collapse only after commit+fresh board,
+        // or on a rejected (uncommitted) move. A committed refresh failure
+        // instead keeps the source hidden under the existing fail-closed gate.
+        pointerDropInFlightRef.current = true;
+        return commitDrop(task.id, lane, drop.lane, drop.beforeTaskId).then((result) => {
+          if (pointerDragEpochRef.current !== epoch) return;
+          // Promise settlement only means data is ready. Commit the real row's
+          // unhide before the helper releases its imperative preview pixels.
+          flushSync(() => {
+            if (result !== "needs_refresh") {
+              setDragState(null);
+              setDropTarget(null);
+            }
+          });
+          pointerDropInFlightRef.current = false;
+          pointerDragCleanup.current = null;
+        });
       },
     });
     if (pointerDragCleanup.current) event.preventDefault();

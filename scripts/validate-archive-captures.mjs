@@ -28,14 +28,20 @@ for (const theme of ["light", "dark"]) {
   const listsEmpty = read(`archive-lists-empty-${theme}`);
   common(listsEmpty, `${theme} archived-lists empty`);
   invariant(listsEmpty.includes('data-archive-tab="lists"'), `${theme} lists segment marker is missing`);
+  invariant(listsEmpty.includes('data-archive-tabs-keyboard-pass="true"'), `${theme} archive lists must retain keyboard Tab/Arrow/focus switching`);
   invariant(listsEmpty.includes('aria-selected="true"'), `${theme} lists segment is not selected`);
   invariant(listsEmpty.includes('data-archived-lists-panel="true"'), `${theme} embedded list archive panel is missing`);
   invariant(listsEmpty.includes('data-archived-lists-empty="true"'), `${theme} archived-list empty state is missing`);
+  invariant(listsEmpty.includes('data-archived-lists-empty-message="true"'), `${theme} centered archived empty message is missing`);
+  invariant(!listsEmpty.includes('class="archived-lists-panel__scope-note"'), `${theme} empty state must not reserve height for irrelevant archive action instructions`);
+  invariant((listsEmpty.match(/data-archived-empty-ghost="true"/g) ?? []).length === 2,
+    `${theme} archived-list empty screen must have exactly two decorative side cards`);
   invariant(listsEmpty.includes("No archived lists found"), `${theme} archived-list empty copy is missing`);
 
   const doneEmpty = read(`archive-done-empty-${theme}`);
   common(doneEmpty, `${theme} archived-done empty`);
   invariant(doneEmpty.includes('data-archive-tab="done"'), `${theme} done segment marker is missing`);
+  invariant(doneEmpty.includes('data-archive-tabs-keyboard-pass="true"'), `${theme} archive done tab must retain Arrow-key focus switching`);
   invariant(doneEmpty.includes('data-archived-done-panel="true"'), `${theme} archived done panel is missing`);
   invariant(doneEmpty.includes('placeholder="Search archived tasks"'), `${theme} archived task search is missing`);
   invariant(doneEmpty.includes('data-archive-list-filter="true"'), `${theme} archived task list filter is missing`);

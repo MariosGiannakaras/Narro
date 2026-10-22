@@ -14,6 +14,8 @@ const shell = read("src/AppShell.tsx");
 const archivePanel = read("src/ArchivePanel.tsx");
 const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
+const listPanelCss = read("src/archivedListsPanel.css");
+const donePanelCss = read("src/archivePanel.css");
 const fixture = read("src/archiveVisualFixture.tsx");
 const listSettingsFixture = read("src/listSettingsVisualFixture.tsx");
 const vite = read("vite.config.ts");
@@ -88,6 +90,80 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
+// The Blitzit v2.6.69 archived-empty reference shows three equal card slots
+// with the sole readable empty message in the center. Ghost cards must remain
+// presentation-only and vanish on the existing narrow-screen breakpoint.
+requireText(listPanel, 'className="archived-lists-panel__empty-grid"', "source-composition empty grid");
+requireText(listPanel, 'data-archived-lists-empty="true"', "existing empty-state capture contract");
+requireText(listPanel, 'data-archived-lists-empty-message="true"', "center empty-message marker");
+const ghostCount = (listPanel.match(/data-archived-empty-ghost="true"/g) ?? []).length;
+if (ghostCount !== 2) throw new Error("Archived empty layout must have exactly two decorative side cards.");
+const hiddenGhostCount = (listPanel.match(/data-archived-empty-ghost="true" aria-hidden="true"/g) ?? []).length;
+if (hiddenGhostCount !== 2) throw new Error("Decorative archived empty cards must be ignored by assistive technology.");
+requireText(listPanelCss, "grid-template-columns: repeat(3, minmax(0, 1fr))", "three source-like card columns");
+requireText(listPanelCss, "min-height: 10rem", "calibrated source-height empty cards");
+requireText(listPanel, 'className="archived-lists-panel__empty-icon" aria-hidden="true"', "noninteractive archived empty icon");
+requireText(listPanel, 'viewBox="0 0 24 24"', "offline source-like archive box icon");
+requireText(listPanelCss, "font-size: var(--font-size-metadata)", "compact source-like empty copy");
+requireText(listPanelCss, "width: var(--space-5)", "source-like compact archive icon size");
+requireText(listPanel, '!lists?.length ? null : (', "no irrelevant archive restore/delete instruction when empty");
+requireText(listPanelCss, "gap: var(--space-3)", "shared visual spacing token");
+requireText(listPanelCss, "@media (max-width: 48rem)", "existing narrow-screen breakpoint");
+requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout hides decorative side cards");
+requireText(listPanelCss, "display: none", "narrow layout removes ghost cards");
+requireText(validator, "data-archived-empty-ghost", "captured Windows DOM validates ghost-card count");
+
+// Hover-disclosed archive actions must also be discoverable without a mouse.
+// Keep the source-like hover/focus behavior on desktops and restrict the
+// always-visible override to devices whose primary pointer cannot hover.
+requireText(listPanelCss, ".archived-list-row:hover .archived-list-row__actions", "desktop archive action hover reveal");
+requireText(listPanelCss, ".archived-list-row:focus-within .archived-list-row__actions", "keyboard archive action focus reveal");
+const touchArchiveActions = listPanelCss.match(/@media\s*\(hover:\s*none\)\s*\{\s*\.archived-list-row__actions\s*\{([^}]+)\}/)?.[1] ?? "";
+for (const property of ["opacity: 1", "pointer-events: auto"]) {
+  if (!touchArchiveActions.split(";").some((value) => value.trim() === property)) {
+    throw new Error("Touch-only archive list cards must visibly expose functional actions: " + property);
+  }
+}
+requireText(listPanel, 'aria-label={`Unarchive ${list.title}`}', "touch action retains restore accessibility");
+requireText(listPanel, 'aria-label={`Delete Forever ${list.title}`}', "touch action retains destructive accessibility");
+requireText(listPanel, "onClick={() => requestDelete(list)}", "touch uses existing delete confirmation");
+requireText(listPanel, "onClick={() => void restoreList(list)}", "touch uses existing restore owner");
+
+// A failed native read must be recoverable without navigating away, while
+// never misrepresenting the absence of a snapshot as an empty archive.
+for (const [source, name, fixtureName, marker] of [
+  [listPanel, "archived lists", "fixtureLists", "lists"],
+  [donePanel, "archived done", "fixtureSnapshot", "done"],
+]) {
+  requireText(source, "const [loadAttempt, setLoadAttempt] = useState(0);", name + " reload generation");
+  requireText(source, "setLoadAttempt((attempt) => attempt + 1);", name + " retry triggers a fresh read");
+  requireText(source, "disposed = true;", name + " stale responses must not commit after cleanup");
+  requireText(source, fixtureName + ", loadAttempt", name + " retry effect dependencies");
+  requireText(source, 'data-archive-retry="' + marker + '"', name + " same-screen retry button");
+  requireText(source, 'role="alert"', name + " accessible error");
+}
+requireText(donePanel, "snapshot === null ? (loadError ? null : (", "failed archived-done read cannot show false empty state");
+requireText(listPanel, "lists === null ? (", "archive-list load-only recovery");
+requireText(listPanelCss, ".archived-lists-panel__retry", "archive-list retry styling");
+requireText(donePanelCss, ".archive-panel__retry", "archived-done retry styling");
+for (const needle of [
+  "function handleTabKeyDown(",
+  'event.key === "Home"',
+  'event.key === "End"',
+  'event.key === "ArrowLeft"',
+  'event.key === "ArrowRight"',
+  'onKeyDown={(event) => handleTabKeyDown(event, "lists")}',
+  'onKeyDown={(event) => handleTabKeyDown(event, "done")}',
+  'id="archive-lists-tabpanel" role="tabpanel" aria-labelledby="archive-lists-tab"',
+  'id="archive-done-tabpanel" role="tabpanel" aria-labelledby="archive-done-tab"',
+  'hidden={activeTab !== "lists"}',
+  'hidden={activeTab !== "done"}',
+  'tabIndex={activeTab === "lists" ? 0 : -1}',
+  'tabIndex={activeTab === "done" ? 0 : -1}',
+]) requireText(archivePanel, needle, "Archive tab/tabpanel keyboard and focus invariants");
+requireText(fixture, "dataset.archiveTabsKeyboardPass", "real archive fixture keyboard arrow/focus coverage");
+requireText(validator, "data-archive-tabs-keyboard-pass", "Windows archive capture validates keyboard recovery");
+
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
@@ -111,5 +187,26 @@ for (const forbidden of [
 if (archivePanel.includes("System/Dark/Light") || archivePanel.includes("Reports")) {
   throw new Error("Archive slice must not absorb later theme or Reports implementation scope.");
 }
+
+// The Info column has one decorative Saved-note SVG. Keep its accessible
+// status and intrinsic icon dimensions; center the SVG in the table's
+// inline formatting context instead of letting text-baseline metrics shift it.
+requireText(donePanel,
+  '<span className="archived-done-row__has-note" role="img" aria-label="Saved note" title="Saved note"><ActionIcon name="notes" /></span>',
+  "Saved-note status has a semantic label and one shared ActionIcon");
+const archivedNoteRule = donePanelCss.match(/\.archived-done-row__has-note\s*\{([^}]*)\}/)?.[1] ?? "";
+for (const required of [
+  "display: inline-grid", "place-items: center", "vertical-align: middle",
+  "color: var(--color-text-secondary)",
+]) {
+  if (!archivedNoteRule.split(";").some((part) => part.trim() === required)) {
+    throw new Error("Archived note icon must remain baseline-independent: " + required);
+  }
+}
+if (/\b(?:width|height|transform)\s*:/.test(archivedNoteRule)) {
+  throw new Error("Archived note visual correction must not add arbitrary size/offset");
+}
+
+await import("./test-archive-read-retry.mjs");
 
 console.log("Archive lists/done-task surface contract checks passed.");

@@ -1,0 +1,15 @@
+{
+  "artifact": 11851037169,
+  "source": "4b183470b6e90abfb8f2cb717e931e17531a0d0d",
+  "zip_sha256": "a9d1b20f4492df3f4057e57e41302dc4ecae7ec7a9ab780221adf4a8439299c5",
+  "crc_entries": 2,
+  "executables": [
+    {
+      "path": "narro-m7-validation.exe",
+      "bytes": 16116224,
+      "sha256": "6c780f13e564c11251c56f516f01fbb59727e83294a09868ae2617376babb964",
+      "machine": 34404
+    }
+  ],
+  "native_acceptance": "NOT RUN"
+}

@@ -1,0 +1,30 @@
+{
+  "phase": "FROZEN_PARTIAL_BLOCKED",
+  "utc": "2026-10-20T13:00:56.014447+00:00",
+  "inventory": {
+    "done": 57,
+    "total": 57
+  },
+  "acquisitionCounts": {
+    "SURFACE_CAPTURED_UNREVIEWED": 25,
+    "PARTIAL_CAPTURE_UNREVIEWED": 17,
+    "NOT_EXERCISED_REUSE_OR_TARGETED_CAPTURE_PENDING": 3,
+    "ANALYSIS_RECONCILIATION_WRAPPER_DEFERRED": 1,
+    "NOT_RUN": 11
+  },
+  "analysis": "NOT STARTED",
+  "fixes": "NONE",
+  "sourceChanges": "NONE",
+  "blockingReason": "Computer Use mandatory stop: could not determine current browser URL with enough confidence to enforce policy. No further UI input issued.",
+  "originalProfilesRestored": true,
+  "originalDbHashIdentical": true,
+  "videos": 12,
+  "videoBytes": 657285796,
+  "audio": {
+    "frames": 156672,
+    "rate": 48000,
+    "channels": 2,
+    "durationSeconds": 3.264,
+    "warning": "Raw WASAPI acquisition was discontinuous/short; no continuous AV synchronization or audio PASS claimed."
+  }
+}

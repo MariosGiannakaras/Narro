@@ -1,0 +1,1 @@
+PR388 exact-head native review. Order: General Preferences C39/C40 -> sound C44 keyboard -> Shortcut C38 -> Reports Done C51 -> Add Session C55 -> Recent Tasks C56 -> cancel and quit. No Timer repeat; no approved picker/upload/icon changes. Original profiles protected. Capture watchdog 600s. No physical PASS until reviewed.

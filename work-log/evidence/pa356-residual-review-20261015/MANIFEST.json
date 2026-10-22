@@ -1,0 +1,237 @@
+[
+  {
+    "path": "owned-reminder-domain.json",
+    "bytes": 1671,
+    "sha256": "779159de0cf2916d2bd3f2141a92d681334a20db603af44278fc851c81db8820"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/package.json",
+    "bytes": 16396,
+    "sha256": "e3c23614ae49ee358ebbb4899e2355db0a21b02c56be0f7d9dea8a267ac9d46e"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/scripts/capture-theme-settings-fixtures.ps1",
+    "bytes": 7544,
+    "sha256": "4cda7ba558a51bb0ccf6402321df63d3a339af99bb35f6848fe4c191806db21a"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/scripts/test-ui-preferences.mjs",
+    "bytes": 17041,
+    "sha256": "218e9431e9f51b8c03f407757c381b58ad301042ceb65adb1d43b8f072e2964f"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/scripts/validate-theme-settings-captures.mjs",
+    "bytes": 10844,
+    "sha256": "6c5110016ddc1c6c4723d24dbf9a9fd3047245318ea508facd2520ba8b1eb281"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/AppShell.tsx",
+    "bytes": 15659,
+    "sha256": "793a34c1fc20bd036850f209be3266da79ea31713347e60abb1ebf5902982c26"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/diagnosticApi.ts",
+    "bytes": 6502,
+    "sha256": "5c5dde35d69bcc430c5451412e59c65e94b240187052753a7df89b3f436fc2c7"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/FocusCompletionSuccess.tsx",
+    "bytes": 3663,
+    "sha256": "d35f68402016b3f4da85d400d9faa9886e743d5c050774cb9e874b8bc4d00355"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/FocusLiveActions.tsx",
+    "bytes": 25319,
+    "sha256": "8389f1546043f53f04965e8b5a5535dc374b5786e0d362e616bc78d6e715383b"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/FocusLiveMetrics.tsx",
+    "bytes": 11464,
+    "sha256": "dac0f5f617eeb7600b79c9955327377722eed35aabd2e2f4041cd86a2e516b4d"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/FocusPanel.tsx",
+    "bytes": 61894,
+    "sha256": "829beb55a2ad3bd4393f791ddd48a778ab268890b9e66f49593ed2b518886e7d"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/FocusSurfaceCoordinator.tsx",
+    "bytes": 31983,
+    "sha256": "b58f73beddbe5dc7a9cc38ff5ce628c625c8eed23c351c21cd703761ee579bd1"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/ListBoard.tsx",
+    "bytes": 86831,
+    "sha256": "98ff5c689631be45e5ff75020da851df9afbf22daacb0d433479b63fa6ff7c8b"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/localSoundCatalog.ts",
+    "bytes": 5268,
+    "sha256": "9f7e545968f8d4a4d621731b202364284f581e6e27d0a53a9fa285327cbdd381"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/preferencesApi.ts",
+    "bytes": 2959,
+    "sha256": "d5af0a0e6d5bcc83d5baf785f0bdece40e6618a33c6038e28cb92157d711371b"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/preferencesDialog.css",
+    "bytes": 1691,
+    "sha256": "630d66cfaaf23c92c1345aa8b736133c0e84eebb777982410b7d5234074681b1"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/PreferencesDialog.tsx",
+    "bytes": 4315,
+    "sha256": "0d6eb9a551b6e8d73a5147b49a000c426d359ce73f059dc066c80607bf520460"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/PreferenceSettingsRuntime.tsx",
+    "bytes": 4295,
+    "sha256": "905f066029a3cc2ad8e31955a22cc82ba37c88905d9715a54c7da86efbe5815d"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/preferenceSettingsSections.css",
+    "bytes": 9151,
+    "sha256": "da9dfb119e51fe2b162005fb63655cf35399f60b0f87c36310006005cdc57d51"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/PreferenceSettingsSections.tsx",
+    "bytes": 21416,
+    "sha256": "81accc5831e33f9db72105101663e0fb18e7862908b1284ba8f7163feef1a62c"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/SearchPalette.tsx",
+    "bytes": 21965,
+    "sha256": "43d1b9a620a928eb4136a6c712066ac2e48a270f213bd16ee7390669bd2f50d8"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/SoundPreferenceControl.tsx",
+    "bytes": 6672,
+    "sha256": "707ca60a11379123192fa65f724161a62e83a02c3d66cc67dac368041fccbbbf"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/TaskCard.tsx",
+    "bytes": 35378,
+    "sha256": "83925b0cd1743a0909807a7154e43aa96ea8e9dce92442352b6c2467352d41f1"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/taskEstimateParser.ts",
+    "bytes": 1734,
+    "sha256": "e96dc16279b3ecae4ea403ef3225f103947138db249214aaac7f3a81040f7d4c"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/ThemeSettingsPanel.tsx",
+    "bytes": 6388,
+    "sha256": "40ce68ada9e758ee1141a78cd5dfd0c34121f054153fb650d73774ed4cd530a1"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/themeSettingsVisualFixture.tsx",
+    "bytes": 10099,
+    "sha256": "ae01b40db26d326b2e674973436fb98be123b26e213521adfa4cf29d359b18c8"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/windowsShortcutsDialog.css",
+    "bytes": 2788,
+    "sha256": "80bd5f07652439b37a4413958673622cd056d0e9f22ee6d75834b94a35487b6e"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/WindowsShortcutsDialog.tsx",
+    "bytes": 4061,
+    "sha256": "6d688775886fbbb2f8cddda959a2ee2dfbdb050f6adddd8cc5c95f07363dde82"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src/WindowsShortcutSettingsPanel.tsx",
+    "bytes": 11323,
+    "sha256": "fee97111dad4e02693c0ce478c51a2514ed8c27e3fe4f305bbcca9ffc9e39e53"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src-tauri/src/domain/preferences.rs",
+    "bytes": 12025,
+    "sha256": "064797c4ead7509de12287672c94b682b20da61643a09520b722ad2abd370cda"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src-tauri/src/lib.rs",
+    "bytes": 105379,
+    "sha256": "277bf5a6e447e2f142e28a081cbe458cd258cf42db96955eef39dafa68e6fd44"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src-tauri/src/persistence/schedule_reminder_effects.rs",
+    "bytes": 11073,
+    "sha256": "c03d658335b61aec96644535650981978de7c35a70ca7e247f868466f5361ce4"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src-tauri/src/preference_settings.rs",
+    "bytes": 20522,
+    "sha256": "022d791b378768c9a336a151acc5b3f10d9983704deb3fb2c2982488418e51dd"
+  },
+  {
+    "path": "pa05-automated/canonical-git-bytes/src-tauri/src/reminder_service.rs",
+    "bytes": 25012,
+    "sha256": "b9103a411d928ed629d4731906b643af3802a627231d3fea30ff1651c9cb4f0c"
+  },
+  {
+    "path": "pa05-automated/exact-windows-ci-selected-tests.txt",
+    "bytes": 6365,
+    "sha256": "a9ad98e0c19efe6d4a6a348f99ef3674e6537c8a35d17f3e5dbe5db6433ba0e8"
+  },
+  {
+    "path": "pa05-automated/source-and-validation-proof.json",
+    "bytes": 8537,
+    "sha256": "8a8ca8bf1d4cd33862dd6ede4d896fd84ddd720b96032a8465b1bbe99cd19f01"
+  },
+  {
+    "path": "pa05-automated/test-diagnostic-placement.txt",
+    "bytes": 201,
+    "sha256": "bc340a43c22fb2907e076d18ad647e596676eda5f8d703b03d77260109e4f1f3"
+  },
+  {
+    "path": "pa05-automated/test-monitor-selection-identity.txt",
+    "bytes": 178,
+    "sha256": "32513bfad7fad873b90b6b7b54a398359dd74fc444a90d7a8ba1a8854aa73672"
+  },
+  {
+    "path": "pa05-automated/test-single-focus-architecture.txt",
+    "bytes": 147,
+    "sha256": "e82a634e44de4f48fb6787cdfee1f837c3d9c9bf49522cbe74cc13a4427ec0df"
+  },
+  {
+    "path": "pa05-automated/test-ui-floating-movability.txt",
+    "bytes": 168,
+    "sha256": "cde4ea9c8d04b8463cc5f09f87d4ce952a80afb1c5a254d30d52e22a19ad1f0b"
+  },
+  {
+    "path": "pa05-automated/test-ui-preferences-canonical-git-bytes.txt",
+    "bytes": 34,
+    "sha256": "f19b638b0b96d26d1f398a52853a32fd987c56421db1db2a174f91d34469d362"
+  },
+  {
+    "path": "pa05-automated/test-ui-preferences.txt",
+    "bytes": 592,
+    "sha256": "f5f3203051e18635be62cef284635512c2f30ff8236da3933f43663b6a93cc5f"
+  },
+  {
+    "path": "pa356-ci-complete.log",
+    "bytes": 393042,
+    "sha256": "b5b10e16cb557582b97cab5d9a5cc49a221a564e96f7ad12ef50c3bc564e8cec"
+  },
+  {
+    "path": "performance-comparison.json",
+    "bytes": 14184,
+    "sha256": "fc39b74ed9c64d5c77e019f77545a17d57de6d040455b0c7d853259675dc237b"
+  },
+  {
+    "path": "reconcile-pa05.py",
+    "bytes": 3912,
+    "sha256": "246607ef91a301fd01c7c0a22ba5c2476b9fe7699a7e64f33e56dcb2a866ad6d"
+  },
+  {
+    "path": "registered-narro-identity.json",
+    "bytes": 46,
+    "sha256": "ce98b7ca655f91b5c5cdb256f9358c95dadea1fedbe0d811fe5ce16b254603fa"
+  },
+  {
+    "path": "toast-roi-sequence.jpg",
+    "bytes": 352596,
+    "sha256": "ad1bb1b4ba86b881431e9e61d806a9080bd79fa75ccee27c9e67abcb30a26f0b"
+  }
+]

@@ -2,13 +2,35 @@
 
 Status: **DORMANT / STRICTLY OPT-IN**.
 
-This protocol defines the optional post-M10 live Blitzit audit. Its purpose is to observe the actual product interactively and capture both the user-visible experience and the **observable client/backend/state contract** that cannot be recovered reliably from curated screenshots, tutorials and recordings.
+This protocol defines the optional post-M10 live Blitzit audit. **Its overriding product goal is to make Narro reproduce the real Blitzit as faithfully as evidence permits—visually, interactively and functionally across every in-scope interface, state and transition.** This includes exact user-visible content, layouts, original palette, animation and micro-animation, micro-interactions, modal/menu/message behavior, state changes and persistence, rather than mere screenshot similarity. Where Blitzit's internal source code is unavailable, reconstruct the complete observable behavior through sound Narro-local engineering with meaningful validation.
+
+**Evidence acquisition is a means to that product goal, not a separate objective that displaces it.** Use the user-guided continuous recording, synchronized observable client/protocol/state capture, authentic client assets/theme evidence and proportionate static/dynamic investigation to resolve what the application actually does. Do not require knowledge of hidden server code to reproduce demonstrated behavior. Do not substitute invented Blitzit specifics for missing evidence; record bounded unknowns and defensible Narro-local choices.
+
+## Fidelity scope filter and discovery of previously undocumented features
+
+**Apply a product-scope filter before spending observation/analysis time.** This is a personal, local-only Windows reconstruction, **not** a replication of Blitzit's online business, identity or service platform.
+
+- **EXCLUDED_SERVICE — skip deep capture, reverse engineering, functional parity and Narro implementation:** accounts, login/profile management, billing, subscription/upgrade/trial purchase flows, AI chat/Blitzy, MCP/AI agents, cloud sync as a service, third-party integrations/connectors (including external calendars/Notion), commercial onboarding, marketing, support/community/help and other cloud/account-only features. Do **not** click through these workflows, instrument their service-specific API calls or inspect private implementation simply for completeness. Incidental appearance of a menu label, badge or navigation item in an in-scope screenshot is sufficient; it is **not** a missing Narro feature. Do not collect secrets or enter paid/third-party flows.
+- **IN_SCOPE — fully capture and analyze:** the local-use planning, lists, tasks, scheduling, recurrence, notes, subtasks, Focus/Timer, preferences needed locally, notifications, archives, history, reporting, visual system, interactions, persistence and related functionality. If an ostensibly excluded cloud feature reveals a **separable local-use action or shared UI pattern** that materially affects these surfaces, inspect only that separable, relevant behavior; never reproduce the excluded service infrastructure.
+- **NEW_DISCOVERY — never silently discard an unfamiliar feature because old screenshots, Pass-3 or U01–U41 do not mention it.** During a brief, non-invasive scan of actual navigation and reachable in-scope menus, record an unfamiliar label/icon/location, observed purpose only if directly visible, entry path, version/build, theme, video timecode and a short safe overview of accessible states. Preserve it as **NEW_UNCATALOGUED** during collection, without a speculative product verdict. For an obviously locally relevant feature, capture its safely reachable interaction branches at full Pass-3+ depth within the campaign. For an ambiguous item, capture only sufficient harmless context to enable later classification; no account/service exploration or scope creep.
+
+**Only after freeze, during analysis/reconciliation, classify every NEW_UNCATALOGUED item** as (a) existing covered in-scope behavior, (b) new *local-use candidate* worth a dedicated **future-addition backlog** entry, (c) excluded service, or (d) ambiguous/needs targeted evidence. Record a durable, deduplicated item with unique ID, source version, UI entry point, concise visual/functional description, evidence filename/timecodes, local relevance, dependencies, confidence and reason for disposition. **A future-addition candidate is not automatically an M11 implementation requirement or a blocker for current parity**: it requires the normal explicit scope/prioritization decision. Do not create a new bug/PR per discovery or equate such entries with U01–U41. If the newly found feature is already required for an existing in-scope user workflow, route it to current parity reconciliation instead of deferring a genuine gap.
+
+### Published future-feature statements (research only; not a new parity requirement)
+
+When M11 is explicitly activated, investigate whether Blitzit has **publicly announced functionality it has not yet shipped**. Include dated first-party roadmap/Frill posts, official Help Center “upcoming” entries, product blog/changelog/release notes, developer/founder announcements, official videos and other attributable public statements. Start from the existing historical roadmap inventory in `docs/SOURCE_AUDIT.md`; verify each claim against current dated evidence rather than assuming its old “Next”/“In Development” status is still true. Avoid speculative social rumors, scraping private/community accounts, or exploring excluded service integrations just to complete the inventory.
+
+**Phase discipline:** Phase 1 defines public sources and a dated acquisition manifest; Phase 2 collects source snapshots/URLs and publication/version metadata as neutral evidence only; Phase 3 freezes their provenance together with the other corpus; Phases 4–5 verify, compare with live observed Blitzit/current public shipped documentation, deduplicate and classify each item as `ANNOUNCED_NOT_SHIPPED`, `SHIPPED`, `CHANGED_OR_WITHDRAWN`, or `UNVERIFIABLE`. Preserve exact original wording only as a brief attributed excerpt, with source links, date of announcement, latest verified status/date, dependencies, applicability to local-only Narro and confidence. Record plausible local-use announcements only as categorized **Blitzit-source evidence** for later reference; do not perform independent Narro ideation, feature recommendation, ranking or implementation during M11. Such separate Narro-owned work is strictly deferred until M12 has been explicitly activated and completed **and** the entire final product/Final Comprehensive Review and release-candidate acceptance have been completed, as gated in `TODO.md`. Exclude online/account-only functionality from later Narro recommendations unless a separable local-use interaction merits consideration. **No announcement authorizes immediate Narro implementation, expands M11's fidelity acceptance, or alters the hard opt-in gate.**
+
+The M11 coverage ledger must distinguish **IN_SCOPE FULL**, **NEW_DISCOVERY REGISTERED**, **EXCLUDED_SERVICE SKIPPED** and **NOT OBSERVED/UNAVAILABLE**. The goal is exhaustive *relevant* interface fidelity plus preservation of useful surprises, not exhaustive inspection of every monetized feature. This filter is applied consistently to the operator's video guide and all technical/static/REA analysis.
 
 The audit is deliberately phase-gated:
 
 `PLAN -> CAPTURE EVERYTHING -> FREEZE CORPUS -> ANALYZE -> RECONCILE/PLAN -> IMPLEMENT -> REVALIDATE`
 
 **Do not collapse these phases. In particular, do not discover a difference during capture and immediately analyze or fix Narro.**
+
+**Binding future palette deliverable:** M11 must recover Blitzit's **actual original color values**, rather than choose visually similar alternatives, and use the provenance-verified palette as the primary source for Narro's general semantic color system and affected dark/light UI. This includes surfaces, text, borders, statuses, list presets, states and gradient/alpha specifications. Preserve verified source values, unavailable values, screenshot-derived approximations and justified Narro-specific exceptions as distinct categories. This is a **future opt-in M11 requirement**, not permission to start its audit or recolor Narro now.
 
 ## Mandatory deep reverse-engineering protocol (REA + alternative tools)
 
@@ -86,7 +108,7 @@ Start from:
 - known `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes;
 - the final M10 Narro state.
 
-The plan should cover all material in-scope product surfaces and transitions, not only known gaps. At minimum consider:
+The plan should cover all material in-scope product surfaces and transitions, not only known gaps. **Include a short discovery scan of navigation/menus for previously unknown local-use features, and list excluded service areas as SKIPPED, not as pending full capture.** At minimum consider:
 - fresh launch and normal navigation;
 - list/lane/task create, edit, duplicate, move, reorder, complete, archive and delete;
 - hover/focus/pressed/selected/disabled/pending states;
@@ -97,9 +119,28 @@ The plan should cover all material in-scope product surfaces and transitions, no
 - Preferences and conditional settings;
 - Reports/Overview/Sessions/export flows;
 - loading/empty/error/unavailable/recovery/transient states that can be reached through ordinary use;
-- representative Windows/DPI/monitor behavior where useful for source observation.
+- representative Windows/DPI/monitor behavior where useful for source observation;
+- an explicit **palette coverage matrix** for dark/light/system themes and representative default, hover, focus, selected, pressed, disabled, error and success states, spanning neutral surfaces, text, dividers/borders, accent/CTA, list presets, status colors, gradients/stops and alpha overlays. Plan evidence retrieval from accessible original client resources (bundled CSS/styles, theme constants/variables, SVG/assets, runtime computed styles or equivalent), with state/selector/surface identifiers and exact client version. Screen pixels are a separate measurement channel, not proof of byte-exact original color tokens.
 
 Prefer one comprehensive scripted journey plus explicitly listed branch scenarios over ad-hoc exploration.
+
+
+## Default M11 capture arrangement — Codex technical telemetry + user continuous video
+
+When the user elects to operate the reference UI, **Codex owns the preparation, technical capture, correlation and forensic analysis; the user owns one guided, continuous screen recording of the real Blitzit application**. This is the preferred evidence-acquisition arrangement when automated direct UI control is unavailable or less reliable. Do not substitute a narrated tutorial for the original screen recording or assume that a user video alone proves hidden application logic.
+
+Before the user records, Codex must:
+1. Derive a complete, ordered and explicit **user-action guide** from the current product-surface/state matrix, canonical Pass-3, palette requirements and known gaps. Provide actual actions, expected visible checkpoints, deliberate hover/hold/idle intervals, deliberate branch scenarios and a coverage checklist; do not leave interface discovery to the user. Include a recovery/continuation route for any blocked feature without pretending it was observed.
+2. Verify which technical capture channels are truly available for the user's authorized installation and environment. Start a **read-only**, privacy-filtered technical logger first, with a unique session ID, local clock/timezone, UTC timestamp and monotonic-time source where available. Verify actual events reach persistent files; an unverified running command, unavailable privileged instrumentation or a disconnected Codex session is **not** a working logger. Preserve start/stop/health/gap metadata.
+3. Give the user a clear **recording-ready signal only after verified logging**. Record a distinctive permitted UI synchronization action at the beginning (for example, open/close a particular dialog), and repeat recognizable synchronization anchors midway and at the end where feasible. Record their observed technical timestamps without inventing missing event matches.
+4. Have the user capture the **entire unedited journey** with cursor, application window and relevant transient UI visible. Prefer a true 60-fps source recording where available for fine motion (record the actual FPS; 30 fps may miss fast micro-animations). Keep theme, scaling and display conditions known, and avoid exposing credentials/private content. Hold on transitions and hover states long enough to observe them; include idle intervals revealing delayed messages/reconciliation. The video may be technically segmented only with documented contiguous chronology, session mapping and integrity hashes.
+5. Stop and verify the technical recording **after** the user's video ends, not when the first action appears. Preserve original media, capture metadata, raw trace hashes and sanitized indexes. If live collection stops or fails, label the exact uncovered interval; do not silently fill gaps.
+
+The actual video and logger do **not** need to share a raw clock or millisecond-perfect event time. In Phase 4, Codex estimates video-to-log offset and any measurable drift from multiple uniquely identifiable anchors, pairs UI actions with their plausible client events/state changes, and records matching confidence. Distinguish action onset, client request time, server response, UI commit and rendered-animation completion. A network request is not automatically the direct cause of the closest video frame; preserve ambiguous, missing, delayed or repeated matches as such.
+
+**The user should not need to annotate every click manually.** Codex creates the per-action timeline, timestamps, coverage disposition and evidence links after the corpus freeze. The user only follows the prepared guide and supplies recordings or unobtainable observations. Scenarios requiring controlled restart, theme changes, multi-monitor behavior or other incompatible setup can use clearly linked auxiliary sessions; a single video is preferred, not a reason to omit such cases.
+
+**This section defines a future execution method only.** It does not start loggers, access the live reference, create a capture campaign or activate dormant M11.
 
 ## Three complementary evidence streams
 
@@ -134,6 +175,8 @@ This is a Mimic-like **behavioral/protocol observation method**, not evidence of
 ### C. Local client artifacts and runtime execution
 
 Record hash-identified read-only inventories of available installer/executables/DLLs, ASAR resources, source maps, .NET assemblies and other client files, plus factual process/module starts, normal filesystem/registry/cache/database changes, ETW/debugger/profiler observations and state snapshots where appropriate. Correlate timestamps with the same scripted UI actions and preserve before/after/restart results. Collection is factual only: REA static analysis, decompilation, code-path inference and parity conclusions belong exclusively to Phase 4 after the capture corpus is frozen.
+
+**Color-source acquisition:** preserve read-only, hash-identified copies or factual exports of accessible color-bearing style/theme/client/asset resources (including raw CSS variable declarations or runtime computed-style values where available), paired with screenshots and theme/state/selector/monitor/DPI/color-profile metadata. Record timestamps, artifact identity and gaps. Do not interpret the palette, classify token equivalence or modify Narro during acquisition. If exact source values are not exposed, preserve screenshot samples as raw measurements for later qualified analysis.
 
 ## Security/privacy boundary for protocol capture
 
@@ -195,7 +238,9 @@ Create a frozen M11 evidence inventory:
 - environment/provenance metadata;
 - capture gaps, tool failures and explicitly unobserved channels;
 - sanitization/redaction status;
-- mapping from planned scenarios to evidence files/time ranges.
+- mapping from planned scenarios to evidence files/time ranges;
+- mapping from palette/theme/state capture scenarios to original color-bearing resources, computed-style snapshots, visual samples, relevant display/color-management context and unavailable exact-source channels;
+- timestamped public Blitzit future-feature announcement/roadmap source manifest, snapshots or stable URLs, attributed publisher, collection date and missing/unavailable evidence.
 
 Verify that recordings/logs are readable and that the intended coverage was actually captured.
 
@@ -209,6 +254,20 @@ Only after Phase 3 is complete may substantive analysis begin.
 
 Analyze the corpus systematically rather than in discovery order. Apply the mandatory REA/alternative-tool static, dynamic, protocol and state evidence ladder above to material uncertain flows, produce the reverse-engineering traceability matrix, and distinguish recovered client behavior from inferred or inaccessible backend details.
 
+## Mandatory exhaustive per-interface forensic matrix (Pass-3+)
+
+M11 must **exceed the completed source-only Pass-3 inspection depth**: cover every discovered in-scope Blitzit interface and reachable state/transition, not just representative screenshots or the 41 previously uncertain items. Use Pass-3's frame-by-frame/dense motion scrutiny, arithmetic/identity tracing and version-aware source discrimination as the **minimum evidence standard**, not its historical asset counters as M11 completion credit.
+
+Create and close one coverage ledger keyed by **surface -> component -> state -> transition -> scenario**. Include the complete actual UI inventory across main board/list/task views, editor flows, focus/panel/timer, settings, reports/sessions, window and OS integrations, search, keyboard interactions, alerts and conditional/rare states. Check all applicable, actually reachable combinations:
+
+- **Structure and visual styling:** geometry, alignment, dimensions, layout/reflow, spacing, typography/font weight/line-height, icon sizes/strokes/placement, backgrounds, borders/radii, shadows/elevation, translucency, gradients, precise theme tokens, text/non-text contrast, visual hierarchy, light/dark/system themes and DPI/layout variants.
+- **Complete interaction-state sets:** initial/rest, hover (including hover-exposed controls), mouse-down/pressed, keyboard focus and focus-visible, selected/active, expanded/collapsed, enabled/disabled, loading/pending, success, empty, validation/error, warning, destructive/confirmation, dismissal, cancel, outside-click, Escape, retry, interruption and restart/recovery where meaningful. Capture exact strings, labels, notifications, tooltips, toasts, banners and every modal/popover/menu's placement and dismissal behavior.
+- **Animation and micro-animation:** reveal/hide, fade, scale, slide, translation, bounce, hover and focus transitions, shadows, gradients, icon morphs, drag lift/reorder/drop/settle, counter/progress changes, scroll and board-to-focus/window transitions. Record real media FPS, start/end frames/timecodes, observed duration, sequencing/overlap, opacity/transform/geometry checkpoints, interruption/cancellation and perceptible easing **only to the precision supported by actual frames**. Do not infer implementation easing curves or millisecond precision from low-FPS footage.
+- **Micro-interactions and behavior:** click/press-and-hold, hover delays, keyboard shortcuts, tab/focus order, Enter/Escape, pointer targeting, drag/drop threshold/insertion/reflow, scroll/focus retention, conditional controls, input edits/validation, saved-versus-optimistic UI feedback, async waits, repeated actions, navigation away/back and window focus changes.
+- **Semantic correctness:** exact task identity, order, date/time, recurrence, timer/sessions and counters/aggregates before/after actions; persistence/restart; error/retry/duplicate/timeout paths only when safe and legitimately testable, with observable protocol/local-state correlation where available.
+
+Each inspected scenario must produce a traceable evidence row: interface/component/state, intended action, actual before/action/after, video start/end timecodes plus relevant frame references, technical log event(s) and time offset/confidence (or **NOT OBSERVED**), Blitzit version/theme/display context, source-derived styling/motion/behavior measurements, corresponding Narro state, confidence, mismatch classification and test/remediation disposition. **Document each uncovered/missing state explicitly; a recorded walkthrough is not evidence of exhaustive coverage merely because it is continuous.** The capture matrix must be coverage-audited before the frozen corpus is analyzed, and the per-interface ledger reconciled before any Narro code corrections.
+
 ## Visual/interaction analysis
 
 For every relevant surface/state:
@@ -217,6 +276,12 @@ For every relevant surface/state:
 - measure meaningful motion/transition sequencing/timing where useful;
 - inspect transient states and interaction ordering;
 - compare against the canonical older Blitzit evidence and record version-dependent differences.
+
+## Authentic palette extraction and color-system analysis
+
+From the **frozen** authorized original client/style/theme/assets and rendered-state evidence, produce a version-identified **Blitzit palette inventory**. For each material color record its semantic role, UI surface/component/state, theme, exact source HEX/RGB(A)/HSL value where recovered, gradients with stops/positions/direction, alpha and compositing backgrounds, extraction method, artifact hash or selector/property reference, corroborating frame/time and evidence-confidence tier. Prefer verifiable packaged theme/CSS/asset values or actual computed runtime styles; where values are generated dynamically, trace the original client logic if accessible. Avoid claiming byte-exact source values solely from screenshot pixels, which may differ because of compression, antialiasing, opacity, DPI, ICC/color management or capture pipelines.
+
+Keep **VERIFIED ORIGINAL VALUE**, **RENDERED PIXEL MEASUREMENT**, **INFERRED APPROXIMATION** and **UNAVAILABLE** clearly separate. Compare the source palette with Narro's current semantic tokens and usage (including color hierarchy, light/dark mapping, disabled/selected/focus states and signature gradients). Measure representative actual foreground/background contrast against applicable WCAG 2.2 AA criteria (normal text 4.5:1; large text and meaningful non-text UI 3:1 where applicable), reporting violations or justified deviations rather than silently 'correcting' or misrepresenting original Blitzit colors.
 
 ## Protocol/state analysis
 
@@ -239,7 +304,7 @@ Do not infer hidden server internals that are not observable. Distinguish:
 
 Do not begin Narro remediation merely because the first significant finding is understood.
 
-Phase 4 completes only when the entire frozen capture corpus has been reviewed, all material uncertain flows have either undergone the applicable static/dynamic/protocol/state investigation or have documented limits, the reverse-engineering traceability matrix is complete and a single M11 findings register exists.
+Phase 4 completes only when the entire frozen capture corpus has been reviewed, all material uncertain flows have either undergone the applicable static/dynamic/protocol/state investigation or have documented limits, the reverse-engineering traceability matrix is complete and a single M11 findings register exists. For public future-feature claims, complete the separate dated announcement-status inventory as research evidence; this inventory is advisory, not a parity remediation queue.
 
 # Phase 5 — Reconciliation and remediation plan
 
@@ -255,7 +320,8 @@ After full-corpus analysis:
    - evidence insufficient / accepted ambiguity;
    - Narro correction required;
 6. group required corrections into coherent, dependency-aware remediation batches;
-7. define the validation required for each batch.
+7. define the validation required for each batch;
+8. freeze a **source-to-Narro palette crosswalk** mapping every verified Blitzit semantic color/gradient/theme/state to Narro's existing or required centralized design tokens and affected UI consumers. The intended outcome is a Narro theme **grounded in the actual Blitzit palette**, not arbitrary similar shades. Flag unverified entries and differences required by accessibility/Windows/local-only constraints; preserve the explicitly approved Spectrum Core Create/Edit List picker, upload and 218-icon library appearance/behavior without interpreting this palette request as approval to restyle that locked component.
 
 **No Narro implementation begins until this reconciliation/remediation plan is complete.**
 
@@ -270,6 +336,17 @@ A live-source observation does not automatically override:
 
 Only after Phase 5 is frozen may M11 change Narro.
 
+## Reconstruct observable behavior, not hidden source code
+
+**Black-box functional reconstruction is a first-class M11 outcome, even when the original application's implementation is inaccessible.** The Codex agent must synthesize the actual user-facing behavior established by the synchronized video, accessible client events, observable state and controlled repeat/restart trials into a complete, robust Narro-local implementation. Not knowing Blitzit's private functions, server database or framework does **not** justify leaving a demonstrated feature missing, inert, generic, superficially animated or behaviorally incorrect.
+
+For each interaction reconstruct the observable contract: triggering input; exact visible before/pending/confirmation/success/cancel/error states; message wording; positioning; animation and timing; affected UI entities and reflow; permitted dismissal paths; navigation/focus effects; state mutation and persistence; relevant interdependencies; and safe failure/retry/re-entrancy semantics. Separate **directly demonstrated effects**, **strongly inferred behavior**, **unobserved branches** and **Narro-local engineering choices**. Video proves only what appears in its frames; use accessible logs, state snapshots, ordinary UI probes and restart tests to investigate persistent or hidden effects, never claim them from pixels alone.
+
+**Deletion reference scenario:** capture opening the relevant delete control; whether/how a confirmation modal appears, its precise copy, position, style and entrance/exit animation; confirm versus cancel, Escape and outside-click; whether a toast/banner appears; element disappearance, sibling reflow, counters and selection/focus changes; and post-navigation/restart state where observable. Apply the same depth to every other destructive, reversible and non-destructive action. When some branch was not observed despite proportionate attempts, implement a deterministic and safe Narro-local path consistent with established evidence, label it as such, and test it; do not fabricate a Blitzit-specific modal, message, timing, backend guarantee or source-code match.
+
+**Acceptance is functional + visual + state parity against evidence, not internal implementation parity.** Deliver working interaction paths with regression tests; never accept merely screenshot-similar UI with disabled controls or unproven persistence. Preserve Narro's existing data-integrity safeguards and explicitly approved design exceptions.
+
+
 Implementation rules:
 - use narrow evidence-backed corrections;
 - batch compatible findings where validation can remain clear;
@@ -277,7 +354,8 @@ Implementation rules:
 - preserve Narro's local-only architecture unless an explicit user product decision changes it;
 - reproduce **observable semantics**, not Blitzit's cloud implementation for its own sake;
 - add regression coverage for material behavior discovered during M11;
-- keep source changes and evidence/tracking changes clearly attributable to the relevant M11 finding IDs.
+- keep source changes and evidence/tracking changes clearly attributable to the relevant M11 finding IDs;
+- apply the frozen original-to-Narro palette mapping primarily through shared `src/theme.css` semantic tokens and coherent affected component state/gradient usage, not scattered hardcoded replacements. Retain user-configurable list colors and the locked approved Spectrum Core design; add dark/light and representative contrast/regression coverage. Where actual original values cannot be verified, keep evidence-limited fallbacks explicitly labeled rather than claiming exact source parity.
 
 # Phase 7 — Revalidation and M11 closure
 
@@ -290,19 +368,24 @@ Re-run:
 M11 is complete only when:
 - the planned capture campaign is complete and frozen;
 - the entire frozen corpus has been analyzed;
+- the per-interface/component/state/transition coverage ledger accounts for all planned and discovered in-scope scenarios, with source evidence or an explicit unavailable/not-observed disposition rather than assumed coverage;
+- any newly encountered feature is represented in the deduplicated discovery register with an explicit in-scope / future-local-candidate / excluded-service / ambiguous disposition; excluded service branches were not exhaustively audited;
 - all material findings are reconciled;
 - every selected Narro correction is implemented and validated;
+- the corrected Narro surfaces and interactions have **source-to-Narro side-by-side visual/motion/behavior acceptance evidence** at relevant before/action/transient/after states, with measured differences where the source permits and explicitly documented exceptions. Validate real outcomes and persistence where applicable, not merely visual resemblance;
 - affected prior parity/physical gates are re-run where necessary;
 - a final M11 report records:
   - live Blitzit provenance/version;
   - capture inventory and integrity;
   - visual findings;
+  - **Blitzit authentic palette inventory with per-value provenance/confidence, theme/state, exact-vs-estimated status, measured contrast, source-to-Narro token crosswalk, validated Narro palette changes and exceptions**;
   - observable protocol/state findings;
   - installed artifact/static/REA/runtime evidence, tool versions, confidence and provider limits;
   - unknown/unobservable backend limits;
   - version-specific differences;
   - accepted Narro deviations;
   - remediation summary;
+  - dated first-party future-feature announcement/status inventory with links, confidence and post-parity dispositions (separate from observed shipped behavior and required Narro fixes);
   - exact resulting Narro SHA.
 
 Only then may the required Final Comprehensive Review use the post-M11 Narro candidate as its baseline.

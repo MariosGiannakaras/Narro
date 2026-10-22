@@ -1,11 +1,13 @@
+import { ActionIcon } from "./ActionIcon";
+import { flushSync } from "react-dom";
 import { invoke } from "@tauri-apps/api/core";
-import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { focusOverdueAge } from "./focusOverdueAge";
 import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
-import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
+import { FocusLiveActions, focusModeForTask, type FocusAutomaticAdvanceState } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveTitle } from "./FocusLiveTitle";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
@@ -64,6 +66,8 @@ export type FocusPanelProps = {
   fixtureTimer?: TimerSessionPayload | null;
   /** Deterministic visual-fixture rows, never real task or persisted-session writes. */
   fixtureDoneBreaks?: FocusDoneBreak[];
+  /** Fixed calendar clock for the explicitly opted-in overdue visual fixture only. */
+  fixtureOverdueNow?: Date;
   sharedTimerProjection?: {
     payload: TimerSessionPayload | null;
     settled: boolean;
@@ -87,6 +91,7 @@ type FocusTaskRowProps = {
   aggregateView: boolean;
   displayTimezone: string;
   nowForOverdueAge: Date;
+  allowFixtureOverdueAge?: boolean;
   done?: boolean;
   scheduled?: boolean;
   suspended?: boolean;
@@ -157,6 +162,7 @@ function FocusTaskRow({
   aggregateView,
   displayTimezone,
   nowForOverdueAge,
+  allowFixtureOverdueAge = false,
   done = false,
   scheduled = false,
   suspended = false,
@@ -186,7 +192,7 @@ function FocusTaskRow({
 }: FocusTaskRowProps) {
   const [moreOpen, setMoreOpen] = useState(false);
   const schedule = taskScheduleLabel(task);
-  const overdueAge = task.isOverdue && !fixtureMode && task.scheduledLocalDate
+  const overdueAge = task.isOverdue && (!fixtureMode || allowFixtureOverdueAge) && task.scheduledLocalDate
     ? focusOverdueAge(task.scheduledLocalDate, displayTimezone, nowForOverdueAge)
     : null;
   const ordinary = !done;
@@ -232,11 +238,11 @@ function FocusTaskRow({
                 disabled={disabled}
                 onClick={onComplete}
               >
-                ○
+                <ActionIcon name="circle" />
               </button>
             </Tooltip>
           ) : (
-            <span className="focus-panel__done-mark" aria-hidden="true">✓</span>
+            <span className="focus-panel__done-mark"><ActionIcon name="check" /></span>
           )}
         </span>
 
@@ -285,7 +291,7 @@ function FocusTaskRow({
                   disabled={disabled || !canMakeLive}
                   onClick={onMakeLive}
                 >
-                  🚀
+                  <ActionIcon name="rocket" />
                 </button>
               </Tooltip>
               <Tooltip content="Subtasks" boundarySelector=".focus-panel__task-row">
@@ -298,7 +304,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleSubtasks}
                 >
-                  ≡
+                  <ActionIcon name="list" />
                 </button>
               </Tooltip>
               <Tooltip content="Notes" boundarySelector=".focus-panel__task-row">
@@ -311,7 +317,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={onToggleNotes}
                 >
-                  ▤
+                  <ActionIcon name="notes" />
                 </button>
               </Tooltip>
               <Tooltip content="More task actions" boundarySelector=".focus-panel__task-row">
@@ -324,7 +330,7 @@ function FocusTaskRow({
                   disabled={disabled}
                   onClick={() => setMoreOpen((open) => !open)}
                 >
-                  ⋯
+                  <ActionIcon name="more" />
                 </button>
               </Tooltip>
             </div>
@@ -404,6 +410,7 @@ export function FocusPanel({
   fixtureLists,
   fixtureTimer = null,
   fixtureDoneBreaks,
+  fixtureOverdueNow,
   sharedTimerProjection,
   target: controlledTarget,
   onTargetChange,
@@ -441,7 +448,37 @@ export function FocusPanel({
   const [boardReadyRefreshKey, setBoardReadyRefreshKey] = useState(0);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
-  const [mutationStatus, setMutationStatus] = useState<string | null>(null);
+  const [mutationFeedback, setMutationFeedback] = useState<{
+    message: string; liveIdentity?: { taskId: string; sessionId: string | null };
+  } | null>(null);
+  const setMutationStatus = (message: string | null) => setMutationFeedback(message ? { message } : null);
+  // Live announcements may not outlive their authoritative task/session, even
+  // when another temporary status masks them until its timeout expires.
+  const liveIdentity = mutationFeedback?.liveIdentity;
+  const mutationStatus = !liveIdentity || (timer?.runtime.timer.task_id === liveIdentity.taskId
+    && timer.runtime.open_session_id === liveIdentity.sessionId)
+    ? mutationFeedback?.message ?? null : null;
+  // Done unmounts the old live card before its auto-next and board IPC settle.
+  // The persistent Focus Panel owns the interim, noninteractive presentation.
+  const [automaticAdvanceState, setAutomaticAdvance] = useState<FocusAutomaticAdvanceState | null>(null);
+  const completionIntentRef = useRef<FocusAutomaticAdvanceState | null>(null);
+  const [completionBoardTaskId, setCompletionBoardTaskId] = useState<string | null>(null);
+  // Success and its queue/header/Done must describe the same committed board.
+  // A failed private read keeps success available, but cannot expose stale rows.
+  const completionBoardPending = completionBoardTaskId !== null && (!board
+    || board.today.tasks.some(task => task.id === completionBoardTaskId)
+    || !board.done.tasks.some(task => task.id === completionBoardTaskId));
+  useEffect(() => {
+    if (completionBoardTaskId !== null && !completionBoardPending) setCompletionBoardTaskId(null);
+  }, [completionBoardPending, completionBoardTaskId]);
+  // Arm synchronously before dispatch, but keep the live component/drafts until
+  // authoritative idle proves the commit. Rejection must not unmount Notes.
+  const automaticAdvance = automaticAdvanceState
+    ?? (timer?.runtime.timer.task_id === null ? completionIntentRef.current : null)
+    ?? (completionBoardPending && completionBoardTaskId !== null ? {
+      completedTaskId: completionBoardTaskId, nextTaskId: null, nextTaskTitle: null,
+      phase: "refresh-blocked" as const,
+    } : null);
   const [notesTaskId, setNotesTaskId] = useState<string | null>(null);
   const [subtasksTaskId, setSubtasksTaskId] = useState<string | null>(null);
   const [scheduleTaskId, setScheduleTaskId] = useState<string | null>(null);
@@ -455,6 +492,13 @@ export function FocusPanel({
   const [addTaskTitle, setAddTaskTitle] = useState("");
   const [addTaskListId, setAddTaskListId] = useState("");
   const [addTaskPending, setAddTaskPending] = useState(false);
+  const addTaskEditorRef = useRef<HTMLFormElement>(null);
+  useLayoutEffect(() => {
+    if (addTaskOpen && presentationActive) {
+      // Input autofocus alone may leave the action row below the compact queue.
+      addTaskEditorRef.current?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+    }
+  }, [addTaskOpen, presentationActive]);
   // Synchronous per-mounted ownership; React pending state updates after event handlers.
   const rowMutationInFlightRef = useRef(false);
   const addTaskInFlightRef = useRef(false);
@@ -466,6 +510,11 @@ export function FocusPanel({
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
+  const completionTargetRef = useRef({ key: currentTargetKey, epoch: 0 });
+  if (completionTargetRef.current.key !== currentTargetKey) {
+    completionTargetRef.current = { key: currentTargetKey, epoch: completionTargetRef.current.epoch + 1 };
+  }
+  const completionTargetEpoch = completionTargetRef.current.epoch;
   const currentRefreshKeyRef = useRef(refreshKey);
   currentRefreshKeyRef.current = refreshKey;
   const externalBoardRefreshRevisionRef = useRef(0);
@@ -615,6 +664,9 @@ export function FocusPanel({
     setDeleteError(null);
     setAddTaskOpen(false);
     setAddTaskTitle("");
+    completionIntentRef.current = null;
+    setCompletionBoardTaskId(null);
+    setAutomaticAdvance(null);
     setMutationStatus(null);
   }, [target.kind, target.kind === "list" ? target.id : null]);
 
@@ -812,7 +864,9 @@ export function FocusPanel({
       setTimer((current) => applyTimerSessionProjection(current, payload));
       setNotesTaskId(null);
       setSubtasksTaskId(null);
-      setMutationStatus(`${task.title} is now live.`);
+      setMutationFeedback({ message: `${task.title} is now live.`, liveIdentity: {
+        taskId: task.id, sessionId: payload.runtime.open_session_id,
+      } });
       try {
         await refreshBoard();
       } catch (failure: unknown) {
@@ -931,7 +985,7 @@ export function FocusPanel({
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || !presentationActive || addTaskPending
+    if (fixtureMode || !presentationActive || automaticAdvance !== null || addTaskPending
       || focusMutationOwnerRef.current !== null || addTaskInFlightRef.current) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
@@ -1016,7 +1070,9 @@ export function FocusPanel({
     }
   };
 
-  const statusError = error ?? preferences.error ?? modeTransitionError;
+  const statusError = error ?? (completionBoardPending
+    ? "Task completion was saved, but the Focus list needs refresh. Reopen Focus to reconcile the list."
+    : preferences.error ?? modeTransitionError);
 
   if (quickPreferencesOpen) {
     return (
@@ -1044,10 +1100,12 @@ export function FocusPanel({
   }
 
   const aggregateView = board.target.kind === "all_lists";
-  const nowForOverdueAge = new Date();
+  const nowForOverdueAge = fixtureMode && fixtureOverdueNow ? fixtureOverdueNow : new Date();
   const selectedValue = aggregateView ? ALL_LISTS_VALUE : board.target.id ?? ALL_LISTS_VALUE;
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
-  const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
+  const liveTask = !automaticAdvance && liveTaskId
+    ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null
+    : null;
   const headerEstimateSeconds = focusHeaderEstimateSeconds(
     board.today.aggregateEstSeconds,
     timer?.runtime.timer ?? null,
@@ -1060,7 +1118,9 @@ export function FocusPanel({
     liveTask?.title ?? null,
   );
   const remainingCandidates = board.today.tasks.filter((task) => (
-    task.id !== liveTaskId || breakView.suspendedTaskId === task.id
+    (task.id !== liveTaskId || breakView.suspendedTaskId === task.id)
+    && task.id !== automaticAdvance?.completedTaskId
+    && task.id !== automaticAdvance?.nextTaskId
   ));
   const scheduledTasks = remainingCandidates.filter(
     (task) => task.id !== breakView.suspendedTaskId && task.scheduledLocalTime !== null && !task.isOverdue,
@@ -1079,6 +1139,7 @@ export function FocusPanel({
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
   const rowInteractionDisabled = fixtureMode
+    || automaticAdvance !== null
     || !presentationActive
     || mutationPendingTaskId !== null
     || scheduleTaskId !== null
@@ -1145,6 +1206,7 @@ export function FocusPanel({
         aggregateView={aggregateView}
         displayTimezone={board.displayTimezone}
         nowForOverdueAge={nowForOverdueAge}
+        allowFixtureOverdueAge={fixtureMode && fixtureOverdueNow !== undefined}
         scheduled={scheduled}
         suspended={suspendedWork}
         disabled={rowInteractionDisabled || mutationPendingTaskId === task.id || suspendedWork}
@@ -1229,7 +1291,7 @@ export function FocusPanel({
               disabled={!presentationActive}
               onClick={() => setQuickPreferencesOpen(true)}
             >
-              ⚙
+              <ActionIcon name="settings" />
             </button>
           </Tooltip>
           <Tooltip content="Home">
@@ -1240,7 +1302,7 @@ export function FocusPanel({
               disabled={fixtureMode || homePending}
               onClick={() => void exitFocusHome()}
             >
-              Home
+              <ActionIcon name="home" />
             </button>
           </Tooltip>
           <Tooltip content="Compact view">
@@ -1251,16 +1313,22 @@ export function FocusPanel({
               disabled={!onRequestCompact || compactTransitionPending}
               onClick={onRequestCompact}
             >
-              ↙
+              <ActionIcon name="panel-to-timer" />
             </button>
           </Tooltip>
         </div>
       </header>
 
-      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)}>
+      <section className="focus-panel__summary" aria-label="Today progress" inert={Boolean(completionSuccessContent)} aria-busy={automaticAdvance !== null && automaticAdvance.phase !== "refresh-blocked"}>
         <div className="focus-panel__summary-row">
-          <span className="type-metadata">Est: {formatEstimate(headerEstimateSeconds)}</span>
-          <span className="type-metadata" data-focus-done-count="true">{board.done.count}/{totalCount} Done</span>
+          {automaticAdvance ? (
+            <span className="type-metadata" data-focus-advance-summary="pending">Updating Today progress…</span>
+          ) : (
+            <>
+              <span className="type-metadata">Est: {formatEstimate(headerEstimateSeconds)}</span>
+              <span className="type-metadata" data-focus-done-count="true">{board.done.count}/{totalCount} Done</span>
+            </>
+          )}
         </div>
         <div className="focus-panel__progress" aria-hidden="true">
           <span style={{ width: `${donePercent}%` }} />
@@ -1274,6 +1342,30 @@ export function FocusPanel({
             data-focus-live-card="success" data-focus-success-inline-card="true"
             aria-label="Completed Focus task">
             {completionSuccessContent}
+          </article>
+        ) : automaticAdvance ? (
+          <article
+            className="focus-panel__live-card focus-panel__live-card--advancing"
+            data-focus-live-card="advancing"
+            data-focus-advance-phase={automaticAdvance.phase}
+            role="status"
+            aria-live="polite"
+            aria-busy={automaticAdvance.phase !== "refresh-blocked"}
+          >
+            <div className="focus-panel__live-heading">
+              <span className="focus-panel__live-title">{automaticAdvance.phase === "refresh-blocked"
+                ? "Focus list needs refresh"
+                : automaticAdvance.phase === "completing"
+                  ? "Completing task…"
+                : automaticAdvance.nextTaskTitle
+                  ? `Starting ${automaticAdvance.nextTaskTitle}…`
+                  : "Finishing completed task…"}</span>
+            </div>
+            <div className="focus-panel__live-meta type-metadata">
+              {automaticAdvance.phase === "refresh-blocked"
+                ? "The task was saved. Reopen Focus to reconcile the list."
+                : "Updating the next task and Today queue…"}
+            </div>
           </article>
         ) : liveTask ? (
           <article
@@ -1338,7 +1430,43 @@ export function FocusPanel({
                 onTaskMutationCommitted={async () => {
                   await refreshBoard();
                 }}
-                onCompletionSuccess={onCompletionSuccess}
+                onAutomaticAdvance={(state, feedback, failure) => {
+                  // A completion from the previous list must not publish into a newer target.
+                  if (currentTargetKeyRef.current !== currentTargetKey) return;
+                  if (completionTargetRef.current.epoch !== completionTargetEpoch) return;
+                  if (state?.phase === "completing") {
+                    completionIntentRef.current = state;
+                    setMutationStatus(null);
+                    setError(null);
+                  } else {
+                    completionIntentRef.current = null;
+                    setAutomaticAdvance(state);
+                  }
+                  if (feedback) setMutationStatus(feedback);
+                  if (failure) setError(failure);
+                }}
+                onCompletionSuccess={(state, snapshot) => {
+                  if (currentTargetKeyRef.current !== currentTargetKey) return;
+                  if (completionTargetRef.current.epoch !== completionTargetEpoch) return;
+                  // A private postcommit read must replace the parent board in
+                  // the very commit that publishes success. Retire older reads;
+                  // a later reply cannot roll this projection back.
+                  boardReadRevisionRef.current += 1;
+                  flushSync(() => {
+                    // Success ends completion intent in this same DOM commit.
+                    // Otherwise idle+old intent hides the eligible next row
+                    // until an unrelated parent refresh renders the cleared ref.
+                    completionIntentRef.current = null;
+                    setAutomaticAdvance(null);
+                    setCompletionBoardTaskId(state.completedTaskId);
+                    if (snapshot) {
+                      setBoard(snapshot);
+                      setBoardReadyTargetKey(currentTargetKey);
+                      setBoardReadyRefreshKey(currentRefreshKeyRef.current);
+                    }
+                    onCompletionSuccess?.(state);
+                  });
+                }}
               />
             ) : null}
           </article>
@@ -1365,8 +1493,8 @@ export function FocusPanel({
           </div>
         )}
 
-        <div className="focus-panel__remaining" inert={Boolean(completionSuccessContent)} data-focus-group="remaining" data-focus-reorder-zone="true">
-          {remainingTasks.map((task) => renderTaskRow(task))}
+        <div className="focus-panel__remaining" inert={Boolean(completionSuccessContent || automaticAdvance)} data-focus-group="remaining" data-focus-reorder-zone="true">
+          {!completionBoardPending && remainingTasks.map((task) => renderTaskRow(task))}
         </div>
 
         {!addTaskOpen ? (
@@ -1374,7 +1502,7 @@ export function FocusPanel({
             className="focus-panel__add-task"
             type="button"
             data-focus-add-task="open"
-            disabled={fixtureMode || !presentationActive || Boolean(completionSuccessContent) || addTaskPending || mutationPendingTaskId !== null}
+            disabled={fixtureMode || !presentationActive || Boolean(completionSuccessContent || automaticAdvance) || addTaskPending || mutationPendingTaskId !== null}
             aria-label="Add task in Focus Panel"
             onClick={() => {
               setAddTaskOpen(true);
@@ -1387,9 +1515,10 @@ export function FocusPanel({
           </button>
         ) : (
           <form
+            ref={addTaskEditorRef}
             className="focus-panel__add-task-editor"
             data-focus-add-task="editor"
-            inert={Boolean(completionSuccessContent)}
+            inert={Boolean(completionSuccessContent || automaticAdvance)}
             onSubmit={(event) => {
               event.preventDefault();
               void submitAddTask();
@@ -1444,7 +1573,8 @@ export function FocusPanel({
           </form>
         )}
 
-        <section className="focus-panel__group" inert={Boolean(completionSuccessContent)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
+        {!completionBoardPending ? (<>
+        <section className="focus-panel__group" inert={Boolean(completionSuccessContent || automaticAdvance)} data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
           <h2 id="focus-scheduled-title" className="focus-panel__group-title">
             {scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}
           </h2>
@@ -1466,7 +1596,7 @@ export function FocusPanel({
               aria-label={`Completed Break, ${formatDuration(session.durationSeconds)}`}
             >
               <div className="focus-panel__task-row-mainline">
-                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark" aria-hidden="true">✓</span></span>
+                <span className="focus-panel__task-completion-slot"><span className="focus-panel__done-mark"><ActionIcon name="check" /></span></span>
                 <div className="focus-panel__task-main">
                   <div className="focus-panel__task-title-row">
                     <span className="focus-panel__break-done-title">Break</span>
@@ -1483,6 +1613,7 @@ export function FocusPanel({
               aggregateView={aggregateView}
               displayTimezone={board.displayTimezone}
               nowForOverdueAge={nowForOverdueAge}
+        allowFixtureOverdueAge={fixtureMode && fixtureOverdueNow !== undefined}
               done
               disabled
               notesExpanded={false}
@@ -1510,6 +1641,7 @@ export function FocusPanel({
             />
           ))}
         </section>
+        </>) : null}
       </section>
 
       {changeListState ? (

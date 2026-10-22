@@ -4,18 +4,22 @@
 }
 
 .search-palette-backdrop {
+  --search-palette-top: clamp(var(--space-6), 22vh, 16rem);
   position: fixed;
   inset: 0;
   z-index: 2100;
   display: grid;
-  place-items: center;
+  place-items: start center;
   padding: var(--space-6);
+  padding-top: var(--search-palette-top);
   background: rgba(0, 0, 0, 0.56);
 }
 
 .search-palette {
+  display: flex;
+  flex-direction: column;
   width: min(36rem, calc(100vw - 2 * var(--space-6)));
-  max-height: min(38rem, calc(100vh - 2 * var(--space-6)));
+  max-height: min(38rem, calc(100vh - var(--search-palette-top) - var(--space-6)));
   overflow: hidden;
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-modal);
@@ -82,6 +86,8 @@
 }
 
 .search-palette__body {
+  flex: 1 1 auto;
+  min-height: 0;
   max-height: min(30rem, calc(100vh - 8rem));
   overflow: auto;
   padding: var(--space-4);
@@ -101,6 +107,11 @@
   letter-spacing: 0.08em;
 }
 
+#search-palette-actions-title {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .search-palette__eyebrow {
   color: var(--color-accent-solid);
 }
@@ -109,6 +120,40 @@
   display: grid;
   gap: var(--space-1);
 }
+
+
+/* The canonical empty-search palette shows its three quick actions as compact
+   adjacent controls, not vertically stacked result rows. Keep result lists
+   unchanged and allow wrapping only if the available modal width requires it. */
+.search-palette__option-list[data-search-palette-actions="true"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option {
+  display: flex;
+  width: auto;
+  min-height: 2.5rem;
+  padding: var(--space-1) var(--space-2);
+  gap: var(--space-2);
+  background: var(--color-surface-interactive);
+}
+
+.search-palette__option-list[data-search-palette-actions="true"] .search-palette__option-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: calc(var(--radius-control) / 3);
+  color: var(--color-text-secondary);
+  background: color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+}
+
+.search-palette__option-list[data-search-palette-actions="true"] .search-palette__option-icon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
 
 .search-palette__option {
   display: grid;
@@ -216,6 +261,9 @@
 }
 
 .search-palette__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   min-height: 2.25rem;
   padding-inline: var(--space-3);
   background: transparent;
@@ -227,6 +275,8 @@
 }
 
 .search-palette__task-form {
+  min-height: 0;
+  overflow-y: auto;
   display: grid;
   gap: var(--space-4);
   padding: var(--space-4);
@@ -283,6 +333,7 @@
 
 @media (max-width: 36rem) {
   .search-palette-backdrop {
+    --search-palette-top: var(--space-3);
     padding: var(--space-3);
   }
 
@@ -293,6 +344,18 @@
 
   .search-palette__query-row {
     padding-inline: var(--space-3);
+  }
+}
+
+
+@media (max-width: 32rem) {
+  .search-palette__option-list[data-search-palette-actions="true"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option {
+    width: 100%;
   }
 }
 

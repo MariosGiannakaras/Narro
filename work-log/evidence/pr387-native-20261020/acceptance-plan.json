@@ -1,0 +1,24 @@
+{
+  "state": "PREPARED_NOT_LAUNCHED",
+  "source": "cdd88335c920f423630f322e7ba0c25dbba7f3c0",
+  "PR": 387,
+  "CI": 39386125624,
+  "coreCases": [
+    "ONfirst with2remaining",
+    "ONnext with1remaining",
+    "ONlast with0remaining"
+  ],
+  "adjuncts": [
+    "two explicitNext starts",
+    "final untimedrest expiry",
+    "persistentIDs/work sessions"
+  ],
+  "reuse": [
+    "RA01normal/reduced4cases",
+    "OFF2cases",
+    "older unaffected native/source scopes"
+  ],
+  "capture": "one focused ownedFocusROI DXGI240/dup0/source timebase1:1000000,finite120s,no syntheticframes",
+  "safety": "NEWroot/ledger only after green exactartifact; originalprofile SQLitebackup+hash; retain andrestore originalprofile andmotion; neverreplaycompletedPR386ledger",
+  "setup": "Disposable9-task fixture preconfigured SuccessON, allglobalshortcuts/autostart/alerts disabled; select RA02LastTask using ordinary UI. No personal preference change."
+}

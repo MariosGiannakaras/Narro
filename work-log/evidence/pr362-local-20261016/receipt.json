@@ -1,0 +1,12 @@
+{
+  "head": "0e9cdae1835caad37baaef402b8faca46b591cff",
+  "pr": 362,
+  "ci": 38889617175,
+  "frontendPreflight": "PASS",
+  "actualMountedCases": "4/4 PASS",
+  "redRegression": "Board expanded detail missed cross-window create despite board invalidation",
+  "redProductSource": "916b17d2 (prior product code, added failing test only)",
+  "nativeAfterCorrection": "OPEN / NOT RUN",
+  "localRust": "NOT RUN: no MSVC linker; Rust untouched, exact WindowsCI required",
+  "transportAttempts": "First parallel Page.navigate timeouts; later reused-profile retry owned blank binding timeout. No product assertion failed in those transport attempts. Fresh owned profiles/sequential driver4/4PASS; original transport cause not established. No CI harness source changes."
+}

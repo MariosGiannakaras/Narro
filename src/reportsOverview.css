@@ -75,6 +75,9 @@
 }
 
 .reports-overview__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   border-color: transparent;
   padding: 6px 0;
   color: var(--color-text-secondary);
@@ -84,6 +87,10 @@
 }
 
 .reports-overview__export {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   min-height: 34px;
   padding: 0 14px;
   border-radius: 18px;
@@ -289,7 +296,10 @@
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  scrollbar-width: none;
 }
+
+.reports-overview__chart-scroll::-webkit-scrollbar { display: none; }
 
 .reports-overview__chart {
   display: grid;
@@ -382,13 +392,14 @@
 .reports-overview__chart-tooltip {
   position: absolute;
   z-index: 10;
-  left: 50%;
-  bottom: 45px;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
   display: grid;
   gap: 6px;
   width: 146px;
   padding: 10px;
-  transform: translateX(-50%);
+  overflow-wrap: anywhere;
   border: 1px solid var(--color-border-strong);
   border-radius: 7px;
   color: var(--color-text-primary);
@@ -569,6 +580,14 @@
   max-height: 224px;
   margin-top: 12px;
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.reports-overview__done-list::-webkit-scrollbar { display: none; }
+
+.reports-overview__done-list:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
 }
 
 .reports-overview__done-group { display: grid; }
@@ -734,6 +753,20 @@
   background: transparent;
 }
 
+/* The month/year arrow controls occupy 22px grid tracks. Default App button
+   padding otherwise gives their 16px icons a wider intrinsic box and shifts
+   arrows into neighbouring cells. Keep icons centered inside the track. */
+.reports-overview__calendar header button {
+  box-sizing: border-box;
+  width: 22px;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+}
+
 .reports-overview__weekdays,
 .reports-overview__calendar-days {
   display: grid;
@@ -835,6 +868,10 @@ html[data-report-pdf-export="true"] .reports-overview__chart-day::before {
   display: none;
 }
 
+html[data-report-pdf-export="true"] .reports-overview__chart-tooltip {
+  display: none !important;
+}
+
 html[data-report-pdf-export="true"] .reports-overview__chart {
   width: 100%;
 }
@@ -907,6 +944,7 @@ html[data-report-pdf-export="true"] .reports-overview__chart {
   html[data-report-pdf-export="true"] .reports-overview__export,
   html[data-report-pdf-export="true"] .reports-overview__tabs,
   html[data-report-pdf-export="true"] .reports-overview__chart-menu,
+  html[data-report-pdf-export="true"] .reports-overview__chart-options,
   html[data-report-pdf-export="true"] .reports-overview__list-menu,
   html[data-report-pdf-export="true"] .reports-overview__date-popover,
   html[data-report-pdf-export="true"] .reports-overview__chart-tooltip,
@@ -942,6 +980,14 @@ html[data-report-pdf-export="true"] .reports-overview__chart {
     max-height: none;
     overflow: visible;
   }
+
+  html[data-report-pdf-export="true"] .reports-overview__chart-scroll { overflow: visible; }
+  html[data-report-pdf-export="true"] .reports-overview__chart { width: 100%; box-sizing: border-box; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day { min-width: 0; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-hit { min-width: 0; box-sizing: border-box; grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day:last-child .reports-overview__chart-label { justify-self: end; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-day:first-child .reports-overview__chart-label { justify-self: start; }
+  html[data-report-pdf-export="true"] .reports-overview__chart-label[data-report-print-label="false"] { visibility: hidden; }
 
   html[data-report-pdf-export="true"] .reports-overview__metric,
   html[data-report-pdf-export="true"] .reports-overview__chart-card,

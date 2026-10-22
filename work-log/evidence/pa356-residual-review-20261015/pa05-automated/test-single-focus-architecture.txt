@@ -1,0 +1,5 @@
+
+> narro@0.1.0 test:single-focus-architecture
+> node scripts/test-single-focus-architecture.mjs
+
+Single-Focus architecture invariants passed.

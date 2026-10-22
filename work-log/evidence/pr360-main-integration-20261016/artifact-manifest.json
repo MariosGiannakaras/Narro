@@ -1,0 +1,715 @@
+{
+  "run": {
+    "id": 38860384226,
+    "name": "Windows CI",
+    "node_id": "WFR_kwLOT4vbVs8AAAAJDEJn4g",
+    "head_branch": "fix/m5-source-control-residuals",
+    "head_sha": "916b17d247c62c5ccc31353b657119b61981b409",
+    "path": ".github/workflows/ci.yml",
+    "display_title": "fix(m5): complete evidenced selector, subtask and Search controls",
+    "run_number": 1424,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 348518527,
+    "check_suite_id": 105311685723,
+    "check_suite_node_id": "CS_kwDOT4vbVs8AAAAYhRDMWw",
+    "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226",
+    "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38860384226",
+    "pull_requests": [],
+    "created_at": "2026-10-16T06:17:35Z",
+    "updated_at": "2026-10-16T06:41:12Z",
+    "actor": {
+      "login": "MariosGiannakaras",
+      "id": 28479056,
+      "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/MariosGiannakaras",
+      "html_url": "https://github.com/MariosGiannakaras",
+      "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+      "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+      "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+      "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+      "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+      "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-10-16T06:17:35Z",
+    "triggering_actor": {
+      "login": "MariosGiannakaras",
+      "id": 28479056,
+      "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/MariosGiannakaras",
+      "html_url": "https://github.com/MariosGiannakaras",
+      "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+      "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+      "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+      "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+      "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+      "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226/jobs",
+    "logs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226/logs",
+    "check_suite_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-suites/105311685723",
+    "artifacts_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226/artifacts",
+    "cancel_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226/cancel",
+    "rerun_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/workflows/348518527",
+    "head_commit": {
+      "id": "916b17d247c62c5ccc31353b657119b61981b409",
+      "tree_id": "54405816255fda8c8dc93996c1a25ce7a0ed17b6",
+      "message": "fix(m5): preserve isolated Focus styling for shared subtask input",
+      "timestamp": "2026-10-16T06:17:03Z",
+      "author": {
+        "name": "Marios Giannakaras",
+        "email": "mariosgiannakaras@gmail.com"
+      },
+      "committer": {
+        "name": "Marios Giannakaras",
+        "email": "mariosgiannakaras@gmail.com"
+      }
+    },
+    "repository": {
+      "id": 1334565718,
+      "node_id": "R_kgDOT4vbVg",
+      "name": "Narro",
+      "full_name": "MariosGiannakaras/Narro",
+      "private": false,
+      "owner": {
+        "login": "MariosGiannakaras",
+        "id": 28479056,
+        "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MariosGiannakaras",
+        "html_url": "https://github.com/MariosGiannakaras",
+        "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+        "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+        "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+        "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+        "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+        "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/MariosGiannakaras/Narro",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+      "forks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/forks",
+      "keys_url": "https://api.github.com/repos/MariosGiannakaras/Narro/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/MariosGiannakaras/Narro/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/MariosGiannakaras/Narro/teams",
+      "hooks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/hooks",
+      "issue_events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/events",
+      "assignees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/MariosGiannakaras/Narro/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/tags",
+      "blobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/MariosGiannakaras/Narro/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/MariosGiannakaras/Narro/languages",
+      "stargazers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/stargazers",
+      "contributors_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contributors",
+      "subscribers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscribers",
+      "subscription_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscription",
+      "commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/MariosGiannakaras/Narro/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/MariosGiannakaras/Narro/merges",
+      "archive_url": "https://api.github.com/repos/MariosGiannakaras/Narro/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/MariosGiannakaras/Narro/downloads",
+      "issues_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/MariosGiannakaras/Narro/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/MariosGiannakaras/Narro/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/MariosGiannakaras/Narro/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/MariosGiannakaras/Narro/labels{/name}",
+      "releases_url": "https://api.github.com/repos/MariosGiannakaras/Narro/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/deployments"
+    },
+    "head_repository": {
+      "id": 1334565718,
+      "node_id": "R_kgDOT4vbVg",
+      "name": "Narro",
+      "full_name": "MariosGiannakaras/Narro",
+      "private": false,
+      "owner": {
+        "login": "MariosGiannakaras",
+        "id": 28479056,
+        "node_id": "MDQ6VXNlcjI4NDc5MDU2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/28479056?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MariosGiannakaras",
+        "html_url": "https://github.com/MariosGiannakaras",
+        "followers_url": "https://api.github.com/users/MariosGiannakaras/followers",
+        "following_url": "https://api.github.com/users/MariosGiannakaras/following{/other_user}",
+        "gists_url": "https://api.github.com/users/MariosGiannakaras/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/MariosGiannakaras/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/MariosGiannakaras/subscriptions",
+        "organizations_url": "https://api.github.com/users/MariosGiannakaras/orgs",
+        "repos_url": "https://api.github.com/users/MariosGiannakaras/repos",
+        "events_url": "https://api.github.com/users/MariosGiannakaras/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/MariosGiannakaras/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/MariosGiannakaras/Narro",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro",
+      "forks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/forks",
+      "keys_url": "https://api.github.com/repos/MariosGiannakaras/Narro/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/MariosGiannakaras/Narro/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/MariosGiannakaras/Narro/teams",
+      "hooks_url": "https://api.github.com/repos/MariosGiannakaras/Narro/hooks",
+      "issue_events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/MariosGiannakaras/Narro/events",
+      "assignees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/MariosGiannakaras/Narro/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/tags",
+      "blobs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/MariosGiannakaras/Narro/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/MariosGiannakaras/Narro/languages",
+      "stargazers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/stargazers",
+      "contributors_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contributors",
+      "subscribers_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscribers",
+      "subscription_url": "https://api.github.com/repos/MariosGiannakaras/Narro/subscription",
+      "commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/MariosGiannakaras/Narro/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/MariosGiannakaras/Narro/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/MariosGiannakaras/Narro/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/MariosGiannakaras/Narro/merges",
+      "archive_url": "https://api.github.com/repos/MariosGiannakaras/Narro/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/MariosGiannakaras/Narro/downloads",
+      "issues_url": "https://api.github.com/repos/MariosGiannakaras/Narro/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/MariosGiannakaras/Narro/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/MariosGiannakaras/Narro/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/MariosGiannakaras/Narro/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/MariosGiannakaras/Narro/labels{/name}",
+      "releases_url": "https://api.github.com/repos/MariosGiannakaras/Narro/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/MariosGiannakaras/Narro/deployments"
+    }
+  },
+  "jobs": [
+    {
+      "id": 116841084603,
+      "run_id": 38860384226,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/m5-source-control-residuals",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbNEV2uw",
+      "head_sha": "916b17d247c62c5ccc31353b657119b61981b409",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116841084603",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38860384226/job/116841084603",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-16T06:17:36Z",
+      "started_at": "2026-10-16T06:17:37Z",
+      "completed_at": "2026-10-16T06:17:41Z",
+      "name": "validation-gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-16T06:17:38Z",
+          "completed_at": "2026-10-16T06:17:39Z"
+        },
+        {
+          "name": "Check for already validated identical PR tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-16T06:17:39Z",
+          "completed_at": "2026-10-16T06:17:39Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-16T06:17:39Z",
+          "completed_at": "2026-10-16T06:17:39Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116841084603",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000039121,
+      "runner_name": "GitHub Actions 1000039121",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 116841112218,
+      "run_id": 38860384226,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/m5-source-control-residuals",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbNEXimg",
+      "head_sha": "916b17d247c62c5ccc31353b657119b61981b409",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116841112218",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38860384226/job/116841112218",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-16T06:17:42Z",
+      "started_at": "2026-10-16T06:17:43Z",
+      "completed_at": "2026-10-16T06:18:43Z",
+      "name": "fast-gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-16T06:17:44Z",
+          "completed_at": "2026-10-16T06:17:45Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-16T06:17:45Z",
+          "completed_at": "2026-10-16T06:17:46Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-16T06:17:46Z",
+          "completed_at": "2026-10-16T06:17:47Z"
+        },
+        {
+          "name": "Setup Rustfmt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-16T06:17:47Z",
+          "completed_at": "2026-10-16T06:17:57Z"
+        },
+        {
+          "name": "Install Frontend Dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-16T06:17:57Z",
+          "completed_at": "2026-10-16T06:17:59Z"
+        },
+        {
+          "name": "Run Fast Frontend and Contract Gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-16T06:17:59Z",
+          "completed_at": "2026-10-16T06:18:39Z"
+        },
+        {
+          "name": "Check Rust Formatting",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-16T06:18:39Z",
+          "completed_at": "2026-10-16T06:18:40Z"
+        },
+        {
+          "name": "Upload Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-16T06:18:40Z",
+          "completed_at": "2026-10-16T06:18:40Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-16T06:18:40Z",
+          "completed_at": "2026-10-16T06:18:41Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-16T06:18:41Z",
+          "completed_at": "2026-10-16T06:18:41Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-16T06:18:41Z",
+          "completed_at": "2026-10-16T06:18:41Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116841112218",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000039122,
+      "runner_name": "GitHub Actions 1000039122",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 116841409775,
+      "run_id": 38860384226,
+      "workflow_name": "Windows CI",
+      "head_branch": "fix/m5-source-control-residuals",
+      "run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/runs/38860384226",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT4vbVs8AAAAbNEps7w",
+      "head_sha": "916b17d247c62c5ccc31353b657119b61981b409",
+      "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/jobs/116841409775",
+      "html_url": "https://github.com/MariosGiannakaras/Narro/actions/runs/38860384226/job/116841409775",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-16T06:18:43Z",
+      "started_at": "2026-10-16T06:18:44Z",
+      "completed_at": "2026-10-16T06:41:11Z",
+      "name": "windows-candidate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-16T06:18:45Z",
+          "completed_at": "2026-10-16T06:18:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-16T06:18:47Z",
+          "completed_at": "2026-10-16T06:18:53Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-16T06:18:53Z",
+          "completed_at": "2026-10-16T06:19:00Z"
+        },
+        {
+          "name": "Setup Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-16T06:19:00Z",
+          "completed_at": "2026-10-16T06:19:21Z"
+        },
+        {
+          "name": "Restore Rust cache",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-16T06:19:21Z",
+          "completed_at": "2026-10-16T06:19:49Z"
+        },
+        {
+          "name": "Install Frontend Dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-16T06:19:49Z",
+          "completed_at": "2026-10-16T06:19:57Z"
+        },
+        {
+          "name": "Download Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-16T06:19:57Z",
+          "completed_at": "2026-10-16T06:19:57Z"
+        },
+        {
+          "name": "Verify Fast Gate Frontend Dist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-16T06:19:57Z",
+          "completed_at": "2026-10-16T06:19:58Z"
+        },
+        {
+          "name": "Print Versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-16T06:19:58Z",
+          "completed_at": "2026-10-16T06:20:00Z"
+        },
+        {
+          "name": "Prepare Packaging Icons",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-16T06:20:00Z",
+          "completed_at": "2026-10-16T06:20:07Z"
+        },
+        {
+          "name": "Check Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-16T06:20:07Z",
+          "completed_at": "2026-10-16T06:20:34Z"
+        },
+        {
+          "name": "Run Clippy",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-16T06:20:34Z",
+          "completed_at": "2026-10-16T06:20:48Z"
+        },
+        {
+          "name": "Run Rust Tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-16T06:20:48Z",
+          "completed_at": "2026-10-16T06:22:12Z"
+        },
+        {
+          "name": "Validate Performance Harness",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-16T06:22:12Z",
+          "completed_at": "2026-10-16T06:22:17Z"
+        },
+        {
+          "name": "Capture Visual Regression Fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-16T06:22:17Z",
+          "completed_at": "2026-10-16T06:30:14Z"
+        },
+        {
+          "name": "Upload Visual Regression Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-16T06:30:14Z",
+          "completed_at": "2026-10-16T06:30:16Z"
+        },
+        {
+          "name": "Retain Visual Regression Diagnostics After Capture Failure",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 17,
+          "started_at": "2026-10-16T06:30:16Z",
+          "completed_at": "2026-10-16T06:30:16Z"
+        },
+        {
+          "name": "Build Tauri Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-16T06:30:16Z",
+          "completed_at": "2026-10-16T06:32:31Z"
+        },
+        {
+          "name": "Capture Packaged Focus Runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-16T06:32:31Z",
+          "completed_at": "2026-10-16T06:32:48Z"
+        },
+        {
+          "name": "Upload Packaged Focus Runtime Visual Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-16T06:32:48Z",
+          "completed_at": "2026-10-16T06:32:49Z"
+        },
+        {
+          "name": "Build Physical Validation Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-16T06:32:49Z",
+          "completed_at": "2026-10-16T06:38:52Z"
+        },
+        {
+          "name": "Verify Physical Validation Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-16T06:38:52Z",
+          "completed_at": "2026-10-16T06:39:01Z"
+        },
+        {
+          "name": "Prepare M7 Automatic Validation Executable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-16T06:39:01Z",
+          "completed_at": "2026-10-16T06:39:02Z"
+        },
+        {
+          "name": "Verify M7 Automatic Validation Logging",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-16T06:39:02Z",
+          "completed_at": "2026-10-16T06:39:04Z"
+        },
+        {
+          "name": "Upload Physical Validation Build Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-16T06:39:04Z",
+          "completed_at": "2026-10-16T06:39:06Z"
+        },
+        {
+          "name": "Upload M7 Automatic Validation Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-16T06:39:06Z",
+          "completed_at": "2026-10-16T06:39:08Z"
+        },
+        {
+          "name": "Build M1 Diagnostic Validation Release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-16T06:39:08Z",
+          "completed_at": "2026-10-16T06:41:02Z"
+        },
+        {
+          "name": "Verify M1 Diagnostic Storage Isolation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-16T06:41:02Z",
+          "completed_at": "2026-10-16T06:41:05Z"
+        },
+        {
+          "name": "Upload M1 Diagnostic Validation Artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-16T06:41:05Z",
+          "completed_at": "2026-10-16T06:41:07Z"
+        },
+        {
+          "name": "Post Restore Rust cache",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 56,
+          "started_at": "2026-10-16T06:41:07Z",
+          "completed_at": "2026-10-16T06:41:07Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 57,
+          "started_at": "2026-10-16T06:41:07Z",
+          "completed_at": "2026-10-16T06:41:08Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 58,
+          "started_at": "2026-10-16T06:41:08Z",
+          "completed_at": "2026-10-16T06:41:10Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 59,
+          "started_at": "2026-10-16T06:41:10Z",
+          "completed_at": "2026-10-16T06:41:10Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/MariosGiannakaras/Narro/check-runs/116841409775",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000039123,
+      "runner_name": "GitHub Actions 1000039123",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact": 12029807019,
+      "name": "narro-m7-validation-windows-x64",
+      "source": "916b17d247c62c5ccc31353b657119b61981b409",
+      "ci": 38860384226,
+      "sha256": "3d54bbfff77dc8ec9229cc43c9c3751a15baa7c15f4efbd4f38185944cb8fd6b",
+      "entries": 2,
+      "exe_sha256": "2efffecfbec6462185548042a3b1d1dabbc70181c96c5001400b145f9ba6162a"
+    },
+    {
+      "artifact": 12028319910,
+      "name": "narro-m5-visual-regression",
+      "source": "916b17d247c62c5ccc31353b657119b61981b409",
+      "ci": 38860384226,
+      "sha256": "f35b17ae1672fd11e86598170d3dcc1fbfe228870b03ca6a54c1de02ff093b48",
+      "entries": 379
+    },
+    {
+      "artifact": 12028393302,
+      "name": "narro-fast-frontend-dist",
+      "source": "916b17d247c62c5ccc31353b657119b61981b409",
+      "ci": 38860384226,
+      "sha256": "738c31b07b2055b99ffca2dc7afc11cd000c45f5c4f6a961759994633b94ba96",
+      "entries": 86
+    }
+  ]
+}

@@ -1,0 +1,3398 @@
+{
+  "utcAnchorUncertaintySeconds": 2,
+  "scope": "metadata interval mapping, not proof of a visible result",
+  "actions": [
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:20:21.300Z",
+      "action": "click Reports",
+      "requirements": [
+        "C47",
+        "C48",
+        "C49",
+        "C50",
+        "C51",
+        "C52",
+        "C53",
+        "C54",
+        "C55",
+        "C56",
+        "C57"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Reports",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 680,
+        "y": 704,
+        "bounds": [
+          694,
+          762,
+          822,
+          802
+        ]
+      },
+      "capturePid": 203216,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-001-original.mkv",
+          "approxOffsetSeconds": 0.907,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:21:17.449Z",
+      "action": "click All Lists",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "All Lists",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 353,
+        "y": 276,
+        "bounds": [
+          342,
+          335,
+          520,
+          373
+        ]
+      },
+      "capturePid": 203216,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-001-original.mkv",
+          "approxOffsetSeconds": 57.056,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:21:55.008Z",
+      "action": "click Capture Project",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Capture Project",
+        "automationId": "",
+        "focused": false,
+        "type": 50007,
+        "x": 369,
+        "y": 359,
+        "bounds": [
+          349,
+          420,
+          545,
+          454
+        ]
+      },
+      "capturePid": 203216,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-001-original.mkv",
+          "approxOffsetSeconds": 94.615,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:22:11.220Z",
+      "action": "click Capture Project",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Capture Project",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 361,
+        "y": 276,
+        "bounds": [
+          342,
+          335,
+          536,
+          373
+        ]
+      },
+      "capturePid": 203216,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-001-original.mkv",
+          "approxOffsetSeconds": 110.827,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:23:11.660Z",
+      "action": "click Reading & research",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Reading & research",
+        "automationId": "",
+        "focused": false,
+        "type": 50007,
+        "x": 369,
+        "y": 401,
+        "bounds": [
+          349,
+          454,
+          545,
+          504
+        ]
+      },
+      "capturePid": 203216,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-001-original.mkv",
+          "approxOffsetSeconds": 171.267,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:23:31.385Z",
+      "action": "click Chart options",
+      "requirements": [
+        "C50"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Chart options",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 929,
+        "y": 453,
+        "bounds": [
+          991,
+          517,
+          1023,
+          546
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 0.915,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:23:48.112Z",
+      "action": "click Breaks only",
+      "requirements": [
+        "C50"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Breaks only",
+        "automationId": "",
+        "focused": false,
+        "type": 50011,
+        "x": 849,
+        "y": 585,
+        "bounds": [
+          836,
+          642,
+          1018,
+          685
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 17.642,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:24:28.627Z",
+      "action": "click Selected 2 lists",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Selected 2 lists",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 358,
+        "y": 276,
+        "bounds": [
+          342,
+          335,
+          530,
+          373
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 58.157,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:25:29.113Z",
+      "action": "click All Lists",
+      "requirements": [
+        "C47"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "All Lists",
+        "automationId": "",
+        "focused": false,
+        "type": 50007,
+        "x": 369,
+        "y": 325,
+        "bounds": [
+          349,
+          386,
+          545,
+          420
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 118.643,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:25:48.977Z",
+      "action": "click Chart options",
+      "requirements": [
+        "C50"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Chart options",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 929,
+        "y": 453,
+        "bounds": [
+          991,
+          517,
+          1023,
+          546
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 138.507,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:26:05.372Z",
+      "action": "click Show all series",
+      "requirements": [
+        "C50"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Show all series",
+        "automationId": "",
+        "focused": true,
+        "type": 50011,
+        "x": 849,
+        "y": 501,
+        "bounds": [
+          836,
+          558,
+          1018,
+          601
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 154.902,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:26:18.296Z",
+      "action": "click Tue, Sep 22: Tasks 20min, Breaks 5min, Total 25min",
+      "requirements": [
+        "C49"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Tue, Sep 22: Tasks 20min, Breaks 5min, Total 25min",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 344,
+        "y": 584,
+        "bounds": [
+          410,
+          572,
+          434,
+          752
+        ]
+      },
+      "capturePid": 190776,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 167.826,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:26:19.247Z",
+      "action": "Pointer enters populated daily category; click/focus and tooltip hold",
+      "requirements": [
+        "C49"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-002-original.mkv",
+          "approxOffsetSeconds": 168.777,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:26:39.911Z",
+      "action": "Chart category Tab navigation and focus-visible state",
+      "requirements": [
+        "C49"
+      ],
+      "approxRecordingCoverage": [],
+      "coverage": "VIDEO_GAP_OR_NONRECORDED_OBSERVATION"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:27:01.082Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48",
+        "C52"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 834,
+        "y": 276,
+        "bounds": [
+          786,
+          335,
+          1038,
+          373
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 0.91,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:27:41.898Z",
+      "action": "click Previous year from Sep 2026",
+      "requirements": [
+        "C52"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Previous year from Sep 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 484,
+        "y": 337,
+        "bounds": [
+          549,
+          394,
+          575,
+          436
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 41.726,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:27:56.157Z",
+      "action": "click Next year from Sep 2025",
+      "requirements": [
+        "C52"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Next year from Sep 2025",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 688,
+        "y": 337,
+        "bounds": [
+          753,
+          394,
+          779,
+          436
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 55.985,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:28:08.349Z",
+      "action": "click Previous month from Sep 2026",
+      "requirements": [
+        "C52"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Previous month from Sep 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 508,
+        "y": 337,
+        "bounds": [
+          573,
+          394,
+          599,
+          436
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 68.177,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:28:20.295Z",
+      "action": "click Next month from Aug 2026",
+      "requirements": [
+        "C52"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Next month from Aug 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 664,
+        "y": 337,
+        "bounds": [
+          729,
+          394,
+          755,
+          436
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 80.123,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:28:31.503Z",
+      "action": "click Last 30 days",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Last 30 days",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 384,
+        "y": 456,
+        "bounds": [
+          397,
+          515,
+          528,
+          554
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 91.331,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:28:45.369Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Apply",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 901,
+        "y": 591,
+        "bounds": [
+          933,
+          648,
+          1025,
+          690
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 105.197,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:29:03.944Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 834,
+        "y": 276,
+        "bounds": [
+          786,
+          335,
+          1038,
+          373
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 123.772,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:29:16.864Z",
+      "action": "click Last 60 days",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Last 60 days",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 384,
+        "y": 497,
+        "bounds": [
+          397,
+          556,
+          528,
+          595
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 136.692,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:29:29.377Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Apply",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 901,
+        "y": 591,
+        "bounds": [
+          933,
+          648,
+          1025,
+          690
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 149.205,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:29:45.166Z",
+      "action": "click Aug 21, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Aug 21, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 833,
+        "y": 276,
+        "bounds": [
+          784,
+          335,
+          1038,
+          373
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-003-original.mkv",
+          "approxOffsetSeconds": 164.994,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:30:00.313Z",
+      "action": "click Last 90 days",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Last 90 days",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 384,
+        "y": 538,
+        "bounds": [
+          397,
+          597,
+          528,
+          636
+        ]
+      },
+      "capturePid": 188468,
+      "approxRecordingCoverage": [],
+      "coverage": "VIDEO_GAP_OR_NONRECORDED_OBSERVATION"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:30:34.505Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Apply",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 901,
+        "y": 591,
+        "bounds": [
+          933,
+          648,
+          1025,
+          690
+        ]
+      },
+      "capturePid": 216728,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-004-original.mkv",
+          "approxOffsetSeconds": 0.904,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:30:57.135Z",
+      "action": "90-day chart horizontal scroll toward later dates",
+      "requirements": [
+        "C48",
+        "C49"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-004-original.mkv",
+          "approxOffsetSeconds": 23.534,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:31:11.581Z",
+      "action": "Scroll Overview to populated Done rows",
+      "requirements": [
+        "C51"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-004-original.mkv",
+          "approxOffsetSeconds": 37.98,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:31:53.596Z",
+      "action": "Scroll inside Reports Done Tasks card",
+      "requirements": [
+        "C51"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-004-original.mkv",
+          "approxOffsetSeconds": 79.995,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:34:53.579Z",
+      "action": "click Sessions BETA",
+      "requirements": [
+        "C53",
+        "C54",
+        "C55",
+        "C56",
+        "C57"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Sessions BETA",
+        "automationId": "",
+        "focused": false,
+        "type": 50019,
+        "x": 433,
+        "y": 220,
+        "bounds": [
+          447,
+          282,
+          576,
+          314
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 12.177,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:35:05.679Z",
+      "action": "click Hide Break sessions",
+      "requirements": [
+        "C54"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Hide Break sessions",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 544,
+        "y": 278,
+        "bounds": [
+          532,
+          335,
+          713,
+          377
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 24.277,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:35:15.357Z",
+      "action": "click Show Break sessions",
+      "requirements": [
+        "C54"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Show Break sessions",
+        "automationId": "",
+        "focused": true,
+        "type": 50000,
+        "x": 547,
+        "y": 278,
+        "bounds": [
+          532,
+          335,
+          719,
+          377
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 33.955,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:35:28.199Z",
+      "action": "click + Add Session",
+      "requirements": [
+        "C55",
+        "C56",
+        "C57"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "+ Add Session",
+        "automationId": "",
+        "focused": false,
+        "type": 50000,
+        "x": 780,
+        "y": 160,
+        "bounds": [
+          791,
+          221,
+          926,
+          255
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 46.797,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:35:54.764Z",
+      "action": "click Select task for session",
+      "requirements": [
+        "C55",
+        "C56"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Select task for session",
+        "automationId": "",
+        "focused": true,
+        "type": 50000,
+        "x": 508,
+        "y": 395,
+        "bounds": [
+          351,
+          452,
+          821,
+          495
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 73.362,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:36:14.488Z",
+      "action": "click Third task without estimate Capture Project",
+      "requirements": [
+        "C55",
+        "C56"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Third task without estimate Capture Project",
+        "automationId": "",
+        "focused": false,
+        "type": 50007,
+        "x": 500,
+        "y": 573,
+        "bounds": [
+          360,
+          630,
+          797,
+          673
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 93.086,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:36:37.660Z",
+      "action": "click Show time picker Start",
+      "requirements": [
+        "C55"
+      ],
+      "hwnd": 3015400,
+      "point": {
+        "name": "Show time picker Start",
+        "automationId": "picker",
+        "focused": false,
+        "type": 50000,
+        "x": 455,
+        "y": 480,
+        "bounds": [
+          521,
+          546,
+          545,
+          570
+        ]
+      },
+      "capturePid": 184944,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-005-original.mkv",
+          "approxOffsetSeconds": 116.258,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:38:38.096Z",
+      "action": "Keyboard Escape closes native Start time popup after helper timeout",
+      "requirements": [
+        "C55"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 0.903,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:38:47.444Z",
+      "action": "click Add Session",
+      "requirements": [
+        "C55",
+        "C57"
+      ],
+      "point": [
+        682,
+        572
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 10.251,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:38:56.885Z",
+      "action": "click 5:35 PM",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        774,
+        494
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 19.692,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:03.712Z",
+      "action": "click Save session end time",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        825,
+        494
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 26.519,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:14.284Z",
+      "action": "click first session task title",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        355,
+        484
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 37.091,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:22.109Z",
+      "action": "click All Lists",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        353,
+        278
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 44.916,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:28.375Z",
+      "action": "Space opens focused Sessions list filter",
+      "requirements": [
+        "C47"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 51.182,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:41.983Z",
+      "action": "click All Lists",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        353,
+        278
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 64.79,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:47.721Z",
+      "action": "click Reading & research",
+      "requirements": [
+        "C47",
+        "C53"
+      ],
+      "point": [
+        369,
+        403
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 70.528,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:39:53.518Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48",
+        "C52"
+      ],
+      "point": [
+        834,
+        278
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 76.325,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:04.749Z",
+      "action": "Select Oct 13 start in right calendar",
+      "requirements": [
+        "C48",
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 87.556,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:09.930Z",
+      "action": "Select Oct 20 end in right calendar",
+      "requirements": [
+        "C48",
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 92.737,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:18.874Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48",
+        "C52"
+      ],
+      "point": [
+        901,
+        602
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 101.681,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:26.234Z",
+      "action": "click Home",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        544,
+        704
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 109.041,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:32.490Z",
+      "action": "Open Capture Project",
+      "requirements": [
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 115.297,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:42.355Z",
+      "action": "click Edit Taken: 5m",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        896,
+        507
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 125.162,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:49.298Z",
+      "action": "click Cancel metric edit",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        906,
+        413
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 132.105,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:40:57.070Z",
+      "action": "click Task actions",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        950,
+        413
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 139.877,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:41:35.823Z",
+      "action": "click Reports",
+      "requirements": [
+        "C48",
+        "C57"
+      ],
+      "point": [
+        680,
+        704
+      ],
+      "hwnd": 3015400,
+      "capturePid": 187656,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-006-original.mkv",
+          "approxOffsetSeconds": 178.63,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:41:54.676Z",
+      "action": "Overview lower Done rows",
+      "requirements": [
+        "C51",
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 1.011,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:42:20.541Z",
+      "action": "Click Overview Done row Report sample day28",
+      "requirements": [
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 26.876,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:42:49.258Z",
+      "action": "click Sessions BETA",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        433,
+        220
+      ],
+      "hwnd": 3015400,
+      "capturePid": 198200,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 55.593,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:02.722Z",
+      "action": "First session actions menu",
+      "requirements": [
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 69.057,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:11.804Z",
+      "action": "click Edit",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        867,
+        542
+      ],
+      "hwnd": 3015400,
+      "capturePid": 198200,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 78.139,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:18.567Z",
+      "action": "Nested Add Session from task session detail",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        794,
+        319
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 84.902,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:31.609Z",
+      "action": "click Cancel",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        575,
+        572
+      ],
+      "hwnd": 3015400,
+      "capturePid": 198200,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 97.944,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:39.204Z",
+      "action": "Keyboard Return on restored nested Add focus",
+      "requirements": [
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 105.539,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:43:50.772Z",
+      "action": "click Add Session",
+      "requirements": [
+        "C57"
+      ],
+      "point": [
+        682,
+        572
+      ],
+      "hwnd": 3015400,
+      "capturePid": 198200,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 117.107,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:44:18.154Z",
+      "action": "Escape from task session detail",
+      "requirements": [
+        "C57"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 144.489,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:44:35.172Z",
+      "action": "click Home",
+      "requirements": [
+        "C08",
+        "C23"
+      ],
+      "point": [
+        544,
+        704
+      ],
+      "hwnd": 3015400,
+      "capturePid": 198200,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-007-original.mkv",
+          "approxOffsetSeconds": 161.507,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:44:51.856Z",
+      "action": "Global alternate presentation shortcut from Home",
+      "requirements": [
+        "C29"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 1.064,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:45:22.188Z",
+      "action": "Timer drag blank upper content 120px within opaque region",
+      "requirements": [
+        "C21",
+        "C31",
+        "C33"
+      ],
+      "from": [
+        200,
+        55
+      ],
+      "to": [
+        80,
+        55
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 31.396,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:45:34.020Z",
+      "action": "click Skip task",
+      "requirements": [
+        "C08",
+        "C23"
+      ],
+      "point": [
+        196,
+        36
+      ],
+      "hwnd": 2754956,
+      "capturePid": 138204,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 43.228,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:45:49.208Z",
+      "action": "click Return to Focus Panel",
+      "requirements": [
+        "C26",
+        "C27",
+        "C28"
+      ],
+      "point": [
+        300,
+        36
+      ],
+      "hwnd": 2754956,
+      "capturePid": 138204,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 58.416,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:46:08.700Z",
+      "action": "click Preferences",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        235,
+        32
+      ],
+      "hwnd": 2754956,
+      "capturePid": 138204,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 77.908,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:46:47.619Z",
+      "action": "click Back to Focus",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        28,
+        31
+      ],
+      "hwnd": 2754956,
+      "capturePid": 138204,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-008-original.mkv",
+          "approxOffsetSeconds": 116.827,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:47:54.399Z",
+      "action": "click Compact view",
+      "requirements": [
+        "C26",
+        "C27",
+        "C28"
+      ],
+      "point": [
+        311,
+        32
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 1.412,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:48:02.481Z",
+      "action": "click Expand Floating Timer",
+      "requirements": [
+        "C27",
+        "C28",
+        "C33"
+      ],
+      "point": [
+        311,
+        75
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 9.494,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:48:31.952Z",
+      "action": "click Collapse Floating Timer",
+      "requirements": [
+        "C27",
+        "C28"
+      ],
+      "point": [
+        311,
+        108
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 38.965,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:48:42.450Z",
+      "action": "OS motion explicitly set normal; original saved for restoration",
+      "requirements": [
+        "C19",
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 49.463,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:48:52.704Z",
+      "action": "click Return to Focus Panel",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        300,
+        36
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 59.717,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:05.464Z",
+      "action": "click Compact view",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        32
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 72.477,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:13.278Z",
+      "action": "click Expand Floating Timer",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        75
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 80.291,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:19.284Z",
+      "action": "click Collapse Floating Timer",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        108
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 86.297,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:29.142Z",
+      "action": "OS motion explicitly reduced",
+      "requirements": [
+        "C19",
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 96.155,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:34.958Z",
+      "action": "click Return to Focus Panel",
+      "requirements": [
+        "C19",
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        300,
+        36
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 101.971,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:40.926Z",
+      "action": "click Compact view",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        32
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 107.939,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:47.661Z",
+      "action": "click Expand Floating Timer",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        75
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 114.674,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:49:55.495Z",
+      "action": "click Collapse Floating Timer",
+      "requirements": [
+        "C27",
+        "C28",
+        "C35"
+      ],
+      "point": [
+        311,
+        108
+      ],
+      "hwnd": 2754956,
+      "capturePid": 182784,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-009-original.mkv",
+          "approxOffsetSeconds": 122.508,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:51:05.116Z",
+      "action": "Observed after real five-minute POMO work boundary",
+      "requirements": [
+        "C09",
+        "C14",
+        "C15"
+      ],
+      "approxRecordingCoverage": [],
+      "coverage": "VIDEO_GAP_OR_NONRECORDED_OBSERVATION"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:51:12.042Z",
+      "action": "click Return to Focus Panel",
+      "requirements": [
+        "C09"
+      ],
+      "point": [
+        300,
+        36
+      ],
+      "hwnd": 2754956,
+      "capturePid": 193432,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-010-original.mkv",
+          "approxOffsetSeconds": 0.911,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:51:29.930Z",
+      "action": "click Preferences",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        235,
+        32
+      ],
+      "hwnd": 2754956,
+      "capturePid": 193432,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-010-original.mkv",
+          "approxOffsetSeconds": 18.799,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:51:54.416Z",
+      "action": "click Pomodoros",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        304,
+        390
+      ],
+      "hwnd": 2754956,
+      "capturePid": 193432,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-010-original.mkv",
+          "approxOffsetSeconds": 43.285,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:52:05.224Z",
+      "action": "click Back to Focus",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        28,
+        31
+      ],
+      "hwnd": 2754956,
+      "capturePid": 193432,
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-010-original.mkv",
+          "approxOffsetSeconds": 54.093,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-resume-20261020",
+      "utc": "2026-10-20T13:52:22.639Z",
+      "action": "USER REQUESTED STOP: no further scenario input; freeze and restore only",
+      "requirements": [],
+      "approxRecordingCoverage": [
+        {
+          "file": "resume-segment-010-original.mkv",
+          "approxOffsetSeconds": 71.508,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:51:23.969Z",
+      "action": "Enter Focus through registered alternate shortcut",
+      "requirements": [
+        "C45"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 0.904,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:51:37.972Z",
+      "action": "click Expand Floating Timer",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        311,
+        75
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 14.907,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:51:45.386Z",
+      "action": "click Skip task",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        198,
+        59
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 22.321,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:51:57.923Z",
+      "action": "click Skip task",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        198,
+        59
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 34.858,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:52:23.877Z",
+      "action": "click Return to Focus Panel",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        310,
+        59
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 60.812,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:52:56.070Z",
+      "action": "click Complete task",
+      "requirements": [
+        "C45",
+        "C46"
+      ],
+      "point": [
+        289,
+        135
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 93.005,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:06.575Z",
+      "action": "click Next Task",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        73,
+        286
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 103.51,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:17.097Z",
+      "action": "click Complete task",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        289,
+        135
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 114.032,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:27.389Z",
+      "action": "click Close",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        182,
+        286
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 124.324,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:38.657Z",
+      "action": "click Add task in Focus Panel",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        170,
+        210
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 135.592,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:47.245Z",
+      "action": "Type synthetic timed alert task",
+      "requirements": [
+        "C45"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 144.18,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:53:53.956Z",
+      "action": "click Add task",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        274,
+        338
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 150.891,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:06.077Z",
+      "action": "click Task title: Timed alert capture \u00e2\u20ac\u201d uninterrupted work",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        138,
+        197
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 163.012,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:12.900Z",
+      "action": "click Make live: Timed alert capture \u00e2\u20ac\u201d uninterrupted work",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        205,
+        239
+      ],
+      "hwnd": 1704410,
+      "capturePid": 13648,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-001-original.mkv",
+          "approxOffsetSeconds": 169.835,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:27.994Z",
+      "action": "click Reports",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        680,
+        704
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 0.91,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:36.270Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        834,
+        276
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 9.186,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:51.528Z",
+      "action": "Overview custom range start Oct13",
+      "requirements": [
+        "C48"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 24.444,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:54:57.567Z",
+      "action": "Overview custom range end Oct20",
+      "requirements": [
+        "C48"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 30.483,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:01.758Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        901,
+        591
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 34.674,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:09.403Z",
+      "action": "click  Export PDF",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        896,
+        160
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 42.319,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:22.779Z",
+      "action": "click Oct 13, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        834,
+        330
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 55.695,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:27.123Z",
+      "action": "click Last 30 days",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        384,
+        510
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 60.039,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:32.247Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        901,
+        645
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 65.163,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:36.873Z",
+      "action": "click  Export PDF",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        896,
+        214
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 69.789,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:50.359Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        834,
+        330
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 83.275,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:55:56.561Z",
+      "action": "click Last 60 days",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        384,
+        551
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 89.477,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:01.463Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        901,
+        645
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 94.379,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:05.348Z",
+      "action": "click  Export PDF",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        896,
+        214
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 98.264,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:12.810Z",
+      "action": "click Aug 21, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        833,
+        330
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 105.726,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:19.020Z",
+      "action": "click Last 90 days",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        384,
+        592
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 111.936,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:25.198Z",
+      "action": "click Apply",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        901,
+        645
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 118.114,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:29.762Z",
+      "action": "click  Export PDF",
+      "requirements": [
+        "C48"
+      ],
+      "point": [
+        896,
+        214
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 122.678,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:37.494Z",
+      "action": "click Sessions BETA",
+      "requirements": [
+        "C47",
+        "C52"
+      ],
+      "point": [
+        433,
+        274
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 130.41,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:41.898Z",
+      "action": "click All Lists",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        353,
+        278
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 134.814,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:46.767Z",
+      "action": "click Capture Project",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        369,
+        361
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 139.683,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:56:55.135Z",
+      "action": "click Capture Project",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        361,
+        278
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 148.051,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:57:19.769Z",
+      "action": "Open Sessions filter through focused Space",
+      "requirements": [
+        "C47"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 172.685,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:57:26.283Z",
+      "action": "click Reading & research",
+      "requirements": [
+        "C47"
+      ],
+      "point": [
+        369,
+        403
+      ],
+      "hwnd": 787786,
+      "capturePid": 19036,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-002-original.mkv",
+          "approxOffsetSeconds": 179.199,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:57:43.749Z",
+      "action": "click Sep 20, 2026 \u00e2\u20ac\u201c Oct 20, 2026",
+      "requirements": [
+        "C52"
+      ],
+      "point": [
+        834,
+        278
+      ],
+      "hwnd": 787786,
+      "capturePid": 20572,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 0.913,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:57:50.798Z",
+      "action": "Sessions left Previous year",
+      "requirements": [
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 7.962,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:58:11.895Z",
+      "action": "Sessions left Next year",
+      "requirements": [
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 29.059,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:58:35.097Z",
+      "action": "Sessions left Previous month",
+      "requirements": [
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 52.261,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:58:50.292Z",
+      "action": "Sessions left Next month",
+      "requirements": [
+        "C52"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 67.456,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:58:59.470Z",
+      "action": "click Cancel",
+      "requirements": [
+        "C52"
+      ],
+      "point": [
+        583,
+        602
+      ],
+      "hwnd": 787786,
+      "capturePid": 20572,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 76.634,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:59:12.354Z",
+      "action": "click Compact view",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        311,
+        32
+      ],
+      "hwnd": 1704410,
+      "capturePid": 20572,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 89.518,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:59:22.918Z",
+      "action": "click Sessions BETA",
+      "requirements": [
+        "C45"
+      ],
+      "point": [
+        433,
+        220
+      ],
+      "hwnd": 787786,
+      "capturePid": 20572,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 100.082,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T17:59:23.944Z",
+      "action": "Real five-minute timed-alert interval elapsed while compact Timer visible",
+      "requirements": [
+        "C45"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 101.108,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:00:42.143Z",
+      "action": "click Expand Floating Timer",
+      "requirements": [
+        "C46"
+      ],
+      "point": [
+        311,
+        75
+      ],
+      "hwnd": 1704410,
+      "capturePid": 20572,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-003-original.mkv",
+          "approxOffsetSeconds": 179.307,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:00:48.426Z",
+      "action": "click Complete task",
+      "requirements": [
+        "C46"
+      ],
+      "point": [
+        254,
+        59
+      ],
+      "hwnd": 1704410,
+      "capturePid": 38488,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 0.908,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:00:56.131Z",
+      "action": "Success completion during loopback callback capture",
+      "requirements": [
+        "C46"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 8.613,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:01:08.955Z",
+      "action": "click Close",
+      "requirements": [
+        "C31"
+      ],
+      "point": [
+        182,
+        278
+      ],
+      "hwnd": 1704410,
+      "capturePid": 38488,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 21.437,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:01:22.838Z",
+      "action": "click Compact view",
+      "requirements": [
+        "C31"
+      ],
+      "point": [
+        311,
+        32
+      ],
+      "hwnd": 1704410,
+      "capturePid": 38488,
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 35.32,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:01:24.064Z",
+      "action": "Before owned-process restart; no actual placement drag established",
+      "requirements": [
+        "C31"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 36.546,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:01:42.313Z",
+      "action": "Reopen Focus presentation after same-profile same-EXE restart",
+      "requirements": [
+        "C31"
+      ],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 54.795,
+          "boundaryUncertainty": false
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    },
+    {
+      "packet": "capture57-final-gaps-20261020",
+      "utc": "2026-10-20T18:02:16.936Z",
+      "action": "Freeze final-gap acquisition; no further scenario input",
+      "requirements": [],
+      "approxRecordingCoverage": [
+        {
+          "file": "segment-004-original.mkv",
+          "approxOffsetSeconds": 89.418,
+          "boundaryUncertainty": true
+        }
+      ],
+      "coverage": "WITHIN_APPROX_CLIP_INTERVAL"
+    }
+  ]
+}

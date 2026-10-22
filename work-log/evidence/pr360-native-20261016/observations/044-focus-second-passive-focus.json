@@ -1,0 +1,34 @@
+{
+  "label": "044-focus-second",
+  "expectedField": "New subtask for Call with Pete",
+  "passiveOnly": true,
+  "elapsedSeconds": 0.3589999999385327,
+  "clearedEnabledVisibleFocusObserved": true,
+  "samples": [
+    {
+      "utc": "2026-10-16T06:53:21.799229+00:00",
+      "field": [
+        {
+          "name": "New subtask for Call with Pete",
+          "type": 50004,
+          "enabled": true,
+          "offscreen": false,
+          "focused": true,
+          "rect": [
+            2245,
+            491,
+            2535,
+            524
+          ],
+          "value": ""
+        }
+      ],
+      "focused": [
+        {
+          "name": "New subtask for Call with Pete",
+          "type": 50004
+        }
+      ]
+    }
+  ]
+}

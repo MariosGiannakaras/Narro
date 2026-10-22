@@ -1,0 +1,132 @@
+[
+  {
+    "path": "actions.jsonl",
+    "bytes": 175,
+    "sha256": "08715f6f15b80b62d929ec46d0d953e6f6406df992b65a589c160f28701bdc80"
+  },
+  {
+    "path": "assert-launch-safe.py",
+    "bytes": 715,
+    "sha256": "3ab8eeeeddc218b649da8e84d6c8f9df3fce7e4e302584b447ab707a14af6266"
+  },
+  {
+    "path": "freeze.py",
+    "bytes": 2684,
+    "sha256": "7c5d1a4dd5091c0cadb22cfb9ce7a717b83e63b5731bcf0955b09a6f1b385dcd"
+  },
+  {
+    "path": "isolate-profile.py",
+    "bytes": 2982,
+    "sha256": "dbb28db432f7206820a738f8ca72e2b89ed305b486aed1507a844ddb36d78640"
+  },
+  {
+    "path": "launch.json",
+    "bytes": 267,
+    "sha256": "e687c9a140e94df0f8ff51e16e2d92da6b340246deedcd64b514df363f6affa6"
+  },
+  {
+    "path": "monitor-facts.py",
+    "bytes": 1451,
+    "sha256": "1045940b025adb19f09510363eeee666d6b165119ef4557a54b152cb614abe86"
+  },
+  {
+    "path": "native-input.py",
+    "bytes": 5600,
+    "sha256": "d6186762b869c640f025cda95152d63adf5be5f4924f28b926c5230e8cf27648"
+  },
+  {
+    "path": "native-window-watch.jsonl",
+    "bytes": 1075588,
+    "sha256": "f40d29396f4cadb8279a11168d1bbc50836d0432762ca84ffcde61786d6c324e"
+  },
+  {
+    "path": "obs-actions.jsonl",
+    "bytes": 811,
+    "sha256": "c31be651a648acfed549f3ced3940cc134a8c804bf35a653c53782f330f3af03"
+  },
+  {
+    "path": "obs-control.py",
+    "bytes": 1832,
+    "sha256": "48383934e2fa033555fe79d1df6a85c9b18f2b600353e3b6f45aab0370455db7"
+  },
+  {
+    "path": "original-profile-restoration-proof.json",
+    "bytes": 208,
+    "sha256": "5c4d67a2638bbd8cb8d9c268c5b8c3a6910a2d2cf43285ea0772a3c0d7bb2d95"
+  },
+  {
+    "path": "os-notification-actions.jsonl",
+    "bytes": 818,
+    "sha256": "792366028abfc95ee80505ab4dc01e761cb0de6f2ffb28fe6a5648d0df39c155"
+  },
+  {
+    "path": "os-notification-original.json",
+    "bytes": 183,
+    "sha256": "b9b2c0be8a7e036f223c60660275ce0cddfff13c649dea039e666f197a769d8a"
+  },
+  {
+    "path": "pa06-production.mkv",
+    "bytes": 35190702,
+    "sha256": "910bbee636651665c80967a4f89a0d16a3fc7e37ac7af5fe370999a58789b599"
+  },
+  {
+    "path": "physical-key.py",
+    "bytes": 1274,
+    "sha256": "fc15f54a7cb791e14aabf8eb0bf1a930cc19086b8a21df8b2c385d258eb014e2"
+  },
+  {
+    "path": "probe-plan.json",
+    "bytes": 976,
+    "sha256": "82a7d4321c2bd82b0ffa9efbd95df47e2fae7b15166769d58347dd42aba8f0fb"
+  },
+  {
+    "path": "raw-observations.zip",
+    "bytes": 16081179,
+    "sha256": "d5a0bd99dbc14ea0c8344b24292686f5551c9baf40a3a2ce2a48e14aa7de42be"
+  },
+  {
+    "path": "reminder-delivery.json",
+    "bytes": 2170,
+    "sha256": "27ec6724b60251ac024bdc039e2d52be5a5eddf68717c6f60b45a28b2933ca36"
+  },
+  {
+    "path": "restore-profile.py",
+    "bytes": 2432,
+    "sha256": "4d555c6e47acd98630c97a037e171eb20358bfdaf347e61f3a9e4b7295f60b7a"
+  },
+  {
+    "path": "seed-and-launch.py",
+    "bytes": 2528,
+    "sha256": "c8255908170c25c327acc20665efa82b3af1f34e8cbe8cb7f2809a0d00c1e06e"
+  },
+  {
+    "path": "session-meta.json",
+    "bytes": 477,
+    "sha256": "7c76bd1ab5b63dc63babf25fb10deda7fb96155816a41ebebf1915b972de5f28"
+  },
+  {
+    "path": "tray_quit.py",
+    "bytes": 2299,
+    "sha256": "3831101c910282c455c7de3ee57431f17431cc3e2a2ee3806615d34b9e0d9dac"
+  },
+  {
+    "path": "uia_controls.py",
+    "bytes": 1583,
+    "sha256": "1ecbe3d75444c729bde4d103165e4871f53b7f302835bcd9574ceadbcdb64b2d"
+  },
+  {
+    "path": "video-receipt.json",
+    "bytes": 3875,
+    "sha256": "ca61700128c7bd05b5e6d06e4e686424dc30268c44bc33c6a10b05ae512631d4"
+  },
+  {
+    "path": "watch-deadlines.py",
+    "bytes": 2232,
+    "sha256": "f5dfbe8d23867b71bb9e62538b024317166e9bee983f5225d08a3e2d35ba4966"
+  },
+  {
+    "path": "windows-notification-toggle.py",
+    "bytes": 1676,
+    "sha256": "13f696917d137c0a626613cd778ffd0ae69d36d9acd4c6e82df79993f135818e"
+  }
+]

@@ -1,0 +1,69 @@
+windows-candidate	Capture Visual Regression Fixtures	﻿2026-10-14T13:46:31.9994861Z ##[group]Run npm run test:visual-regression:windows
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:31.9995361Z ^[[36;1mnpm run test:visual-regression:windows^[[0m
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0076417Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0076812Z env:
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0077027Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0077316Z   CARGO_INCREMENTAL: 0
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0077537Z   CARGO_TERM_COLOR: always
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0077773Z   CACHE_ON_FAILURE: false
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.0078003Z ##[endgroup]
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.7826613Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.7827379Z > narro@0.1.0 test:visual-regression:windows
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.7842539Z > powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-visual-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-focus-panel-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-floating-timer-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-archive-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-theme-settings-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-reports-fixtures.ps1 && node scripts/validate-visual-fixtures.mjs && node scripts/validate-focus-panel-captures.mjs && node scripts/validate-floating-timer-captures.mjs && node scripts/validate-focus-row-title-captures.mjs && node scripts/validate-focus-action-slot-captures.mjs && node scripts/validate-focus-visual-state-captures.mjs && node scripts/validate-list-settings-captures.mjs && node scripts/validate-archive-captures.mjs && node scripts/validate-theme-settings-captures.mjs && node scripts/validate-reports-captures.mjs && node scripts/validate-search-palette-captures.mjs && node scripts/validate-task-card-state-captures.mjs && node scripts/validate-task-create-edit-captures.mjs && node scripts/validate-task-metric-captures.mjs && node scripts/validate-task-schedule-captures.mjs && node scripts/validate-task-note-captures.mjs && node scripts/validate-task-note-spellcheck-captures.mjs && node scripts/validate-task-subtask-captures.mjs && node scripts/validate-task-reorder-captures.mjs && node scripts/validate-focus-editor-captures.mjs && npm run test:finding28-post-drag-action-rail
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:46:32.7855396Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:48:18.4434062Z WARNING: Fixture 'task-scheduling-light' was captured before it reported ready; retrying capture (1/8).
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:06.8627128Z Finding33 large Notes real Edge Escape regression: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:07.2611272Z Visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:10.8345766Z B49 running Edge CDP pixel+DOM capture: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:13.0596896Z ready: light/selector-open: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:15.2116007Z ready: light/paused-metrics: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:17.3397224Z ready: light/break: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:19.4739124Z ready: light/time-up: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:21.5966866Z ready: light/overtime: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:23.7320995Z ready: light/notes-expanded: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:25.7485794Z B49 focused Edge CDP pixel+DOM capture: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:27.9290463Z ready: light/success: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:30.0623323Z ready: light/no-eligible: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:32.2014715Z ready: light/empty: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:34.1002248Z B49 running Edge CDP pixel+DOM capture: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:36.2702881Z ready: dark/selector-open: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:38.3933768Z ready: dark/paused-metrics: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:40.5168384Z ready: dark/break: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:42.6462566Z ready: dark/time-up: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:44.7695008Z ready: dark/overtime: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:46.8959008Z ready: dark/notes-expanded: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:48.9990605Z B49 focused Edge CDP pixel+DOM capture: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:51.1758388Z ready: dark/success: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:53.3059864Z ready: dark/no-eligible: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:55.4663844Z ready: dark/empty: React fixture and screenshot are ready for strict visual validation
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:50:55.6257820Z Focus Panel visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:51:20.8483150Z Floating Timer visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:51:44.4364845Z Archive fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:07.1532389Z Theme settings fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:19.1776580Z WARNING: Reports fixture 'reports-chart-containment-light' was captured before ready; recapturing.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3914990Z Reports fixture reports-chart-containment-light assertion: Resize left an offscreen date tooltip visible.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3917641Z At D:\a\Narro\Narro\scripts\capture-reports-fixtures.ps1:91 char:21
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3920204Z + ...             throw "Reports fixture $Label assertion: $failureDescript ...
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3921198Z +                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3922385Z     + CategoryInfo          : OperationStopped: (Reports fixture...ooltip visible.:String) [], RuntimeException
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3925362Z     + FullyQualifiedErrorId : Reports fixture reports-chart-containment-light assertion: Resize left an offscreen date 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3926477Z     tooltip visible.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.3927038Z  
+windows-candidate	Capture Visual Regression Fixtures	2026-10-14T13:52:21.4648605Z ##[error]Process completed with exit code 1.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	﻿2026-10-14T13:52:24.0570700Z ##[group]Run actions/upload-artifact@v4
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0571199Z with:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0571496Z   name: narro-m7-focus-runtime-visual
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0571908Z   path: artifacts/focus-runtime-visual/**
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0572306Z   if-no-files-found: error
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0572631Z   compression-level: 6
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0572878Z   overwrite: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0573183Z   include-hidden-files: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0573487Z env:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0573780Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0574146Z   CARGO_INCREMENTAL: 0
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0574437Z   CARGO_TERM_COLOR: always
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0574759Z   CACHE_ON_FAILURE: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.0575070Z ##[endgroup]
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.2548221Z (node:5868) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.2549273Z (Use `node --trace-deprecation ...` to show where the warning was created)
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-14T13:52:24.2605722Z ##[error]No files were found with the provided path: artifacts/focus-runtime-visual/**. No artifacts will be uploaded.

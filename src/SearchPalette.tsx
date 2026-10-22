@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -96,6 +97,7 @@ export function SearchPalette({
   const [data, setData] = useState<SearchPaletteData | null>(fixtureData ?? null);
   const [loading, setLoading] = useState(open && !fixtureData);
   const [dataError, setDataError] = useState<string | null>(null);
+  const [dataRetryKey, setDataRetryKey] = useState(0);
   const [quickTaskTitle, setQuickTaskTitle] = useState("");
   const [quickTaskListId, setQuickTaskListId] = useState("");
   const [quickTaskLane, setQuickTaskLane] = useState<PlanningLaneToken | "">("");
@@ -164,7 +166,7 @@ export function SearchPalette({
     return () => {
       disposed = true;
     };
-  }, [open, fixtureData]);
+  }, [open, fixtureData, dataRetryKey]);
 
   // Quick-create fields mount only after the authoritative list read settles.
   // Keep loading/error keyboard focus in the modal, then focus the ready field.
@@ -319,6 +321,13 @@ export function SearchPalette({
     }
   };
 
+  const retryDataLoad = () => {
+    if (!open || fixtureData || loading || !dataError) return;
+    setDataError(null);
+    setLoading(true);
+    setDataRetryKey((value) => value + 1);
+  };
+
   const renderSearchSurface = () => {
     const hasMatches = matchingLists.length > 0 || matchingTasks.length > 0;
 
@@ -345,10 +354,11 @@ export function SearchPalette({
           {dataError ? (
             <div className="search-palette__error" role="alert">
               Local search data could not be loaded. {dataError}
+              <button type="button" className="motion-interactive" data-search-retry="true" onClick={retryDataLoad}>Retry local search</button>
             </div>
           ) : null}
 
-          {queryToken ? (
+          {dataError ? null : queryToken ? (
             loading ? (
               <div className="search-palette__message" role="status">Searching local tasks and lists…</div>
             ) : hasMatches ? (
@@ -395,7 +405,7 @@ export function SearchPalette({
                           data-search-task-id={task.id}
                           onClick={() => transition(() => onOpenTask(task))}
                         >
-                          <span className="search-palette__option-icon" aria-hidden="true">✓</span>
+                          <span className="search-palette__option-icon"><ActionIcon name="check" /></span>
                           <span className="search-palette__option-copy">
                             <strong><HighlightedMatch text={task.title} query={queryToken} /></strong>
                             <span>{task.listTitle} · {task.lane}</span>
@@ -427,7 +437,7 @@ export function SearchPalette({
                   }}
                   disabled={loading || Boolean(dataError)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">+</span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="plus" /></span>
                   <span className="search-palette__option-copy"><strong>Add new task</strong></span>
                 </button>
                 <button
@@ -436,7 +446,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onAddList)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">+</span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="plus" /></span>
                   <span className="search-palette__option-copy"><strong>Add new list</strong></span>
                 </button>
                 <button
@@ -445,7 +455,7 @@ export function SearchPalette({
                   data-search-palette-option="true"
                   onClick={() => transition(onGoReports)}
                 >
-                  <span className="search-palette__option-icon" aria-hidden="true">↗</span>
+                  <span className="search-palette__option-icon" aria-hidden="true"><ActionIcon name="chart" /></span>
                   <span className="search-palette__option-copy"><strong>Go to Reports</strong></span>
                 </button>
               </div>
@@ -474,7 +484,7 @@ export function SearchPalette({
           }}
           disabled={quickTaskPending}
         >
-          {taskCreateOnly ? "Cancel" : "← Back"}
+          {taskCreateOnly ? "Cancel" : <><ActionIcon name="arrow-left" /> Back</>}
         </button>
         <div>
           <p className="search-palette__eyebrow type-metadata">Quick action</p>
@@ -485,7 +495,10 @@ export function SearchPalette({
       {loading ? (
         <div className="search-palette__message" role="status">Loading active lists…</div>
       ) : dataError ? (
-        <div className="search-palette__error" role="alert">Active lists could not be loaded. {dataError}</div>
+        <div className="search-palette__error" role="alert">
+          Active lists could not be loaded. {dataError}
+          <button type="button" className="motion-interactive" data-search-retry="true" onClick={retryDataLoad}>Retry loading lists</button>
+        </div>
       ) : data && data.lists.length === 0 ? (
         <div className="search-palette__message">
           <strong>Create a list first.</strong>

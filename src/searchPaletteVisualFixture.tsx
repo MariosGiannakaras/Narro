@@ -106,4 +106,37 @@ if (!root) throw new Error("Search palette fixture root is missing.");
 flushSync(() => {
   createRoot(root).render(<FixtureSurface />);
 });
-document.documentElement.dataset.searchPaletteFixtureReady = "true";
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  const group = document.querySelector<HTMLElement>(mode === "empty"
+    ? '[data-search-palette-actions="true"]' : '[data-search-palette-results="true"]');
+  const rows = group ? Array.from(group.querySelectorAll<HTMLElement>('.search-palette__option')) : [];
+  const geometry = rows.map(row => row.getBoundingClientRect().toJSON());
+  const narrow = window.innerWidth <= 512;
+  const horizontal = mode === "empty" && !narrow;
+  const layoutPass = mode !== "empty" && mode !== "results" || geometry.length > 0 && geometry.every((rect, i) => {
+    if (rect.left < -1 || rect.right > window.innerWidth + 1) return false;
+    if (i === 0) return true;
+    const previous = geometry[i - 1];
+    return horizontal ? Math.abs(rect.top - previous.top) <= 1 && rect.left >= previous.right - 1
+      : rect.top >= previous.bottom - 1;
+  });
+  const contract = document.createElement("script");
+  contract.id = "search-palette-contract";
+  contract.type = "application/json";
+  const palette = document.querySelector<HTMLElement>('.search-palette')!;
+  const paletteRect = palette.getBoundingClientRect();
+  const actionsHeading = document.getElementById('search-palette-actions-title');
+  const actionIcons = document.querySelectorAll<HTMLElement>('[data-search-palette-actions] .search-palette__option-icon');
+  const viewportContainmentPass = paletteRect.left >= -1 && paletteRect.top >= -1
+    && paletteRect.right <= innerWidth + 1 && paletteRect.bottom <= innerHeight + 1;
+  const upperPlacementPass = innerWidth <= 576 || innerHeight < 600
+    || paletteRect.top >= 20 && paletteRect.top < innerHeight * 0.35;
+  const quickHeadingCasePass = !actionsHeading || getComputedStyle(actionsHeading).textTransform === 'none';
+  const boxedActionGlyphsPass = actionIcons.length === 0 || actionIcons.length === 3 && Array.from(actionIcons).every(icon =>
+    icon.querySelector('svg') && getComputedStyle(icon).backgroundColor !== 'rgba(0, 0, 0, 0)');
+  contract.textContent = JSON.stringify({ mode, theme, viewport: window.innerWidth, layoutPass, horizontal, geometry,
+    viewportContainmentPass, upperPlacementPass, quickHeadingCasePass, boxedActionGlyphsPass,
+    paletteGeometry: paletteRect.toJSON() });
+  document.body.appendChild(contract);
+  document.documentElement.dataset.searchPaletteFixtureReady = "true";
+}));

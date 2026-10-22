@@ -66,6 +66,12 @@ Runs only after the fast gate passes and is authoritative for Windows-sensitive 
 
 Do not discover rustfmt/static-contract failures after spending time on release/artifact work when they can be caught in the fast gate.
 
+### Candidate pre-push dependency closure
+
+Use the current `git diff main...HEAD` as an impact set, not the agent's remembered files. A reusable `scripts/preflight-impact.mjs` helper can identify direct/transitive Node regression consumers through actual source references, but misses dynamic runtime imports, native behavior, and CSS selectors encoded indirectly: always review unmapped entries manually. Execute affected tests and the **full frontend preflight locally** before spending another CI run when checkout/dependencies allow it. If they do not, mark local preflight NOT RUN and use CI to obtain evidence rather than representing static reading as execution.
+
+Three PR390 lessons are distinct: (1) updated 32px Focus CSS left a stale exact-substring test (cheap deterministic miss); (2) a real Windows CDP navigation transient had no absent-root guard (readiness/lifecycle miss); (3) a replaced navigation call left an unrelated Notes source contract stale (transitive consumer miss). The repaired contracts must test their behavioral/semantic owner and fail closed, not silently match an obsolete method. Preserve negative test cases for wrong/empty document/navigation, and keep validated earlier SHA outcomes separate from later failed or pending heads.
+
 ## 4. Static-contract testing rule
 
 Static source-text tests are appropriate only for durable architecture/build invariants that cannot be expressed more directly, for example:
@@ -95,6 +101,8 @@ Before requesting a manual run:
 The recording/checklist should cover all currently open physical observations that share the same executable. A failure reopens only the affected gate/surface unless evidence shows wider impact.
 
 Physical evidence is observational acceptance, not a reason to keep an otherwise automated-green implementation branch permanently unmerged.
+
+For native keyboard acceptance, verify the actual foreground/focus owner, expected modifier-key state and target state before input, then a positive visible postcondition. For plain Escape/Tab, unexpected Alt/Ctrl/Shift/Win means abort and recover input context first; do not send a different Windows shortcut and call the result a product failure. UIA visibility alone does not prove that a pointer target is unobscured; verify input actually reached the intended window. An absent filtered UIA node or a successful input API call does not prove modal closure or persistence. An unproven/undelivered interaction is UNCERTAIN, not a product failure to patch. Resolve that input context with a bounded observation on the same validated artifact before opening another source/CI cycle. Keep one current handoff/evidence matrix and update it at meaningful phase boundaries; archive obsolete checkpoint prose rather than accumulating conflicting current NEXT operations.
 
 ## 6. Milestone completion
 
@@ -148,7 +156,15 @@ For physical acceptance, prefer the latest relevant integrated candidate when a 
 
 The governing question is: **what concrete claim is missing or stale, and what is the least expensive evidence that can validly prove it without weakening the repository's required candidate gates?**
 
-## 9. Recurrent failure detection and prevention
+## 9. M10 release-candidate evidence reconciliation (no indiscriminate reruns)
+
+M10 starts **only after** the hard M1–M9 entry gate in `AGENT_WORKFLOW.md` / `TODO.md` has been proven closed. It consolidates existing acceptance evidence instead of replaying successful tests by default.
+
+For **each** M10 TODO criterion, maintain a claim-level release-candidate matrix with: criterion/claim; existing M1–M9 evidence reference and PASS scope; exact source SHA, executable/artifact identity and environment; relevant code/dependency/config changes since that evidence; disposition (`REUSED_VALID`, `NEW_CHECK_REQUIRED`, `LIMITATION_ACCEPTED`, or `OPEN`); and any new check/result. Reuse prior PASS only when its scope genuinely covers the claim and later changes have not invalidated it. Prior screenshots, native observations or CI PASS from a different build do not automatically prove final-installer, migration/upgrade, actual sign-in/autostart or changed cross-feature integration behavior. A check shown to be unchanged does not need repeating just to create fresh M10 evidence.
+
+Execute the **smallest missing/invalidated** targeted checks and genuinely release-candidate-specific end-to-end/packaging/install checks; maintain required aggregate preflight, exact-head Windows CI and narrowly justified integrated smoke. Where a shared implementation was replaced, trace actual dependency impact and rerun the affected acceptance claims only, not the entire old milestone. Do not silently downgrade a required physical/source-parity or security gate to a paper review. Count an M10 checklist item complete only after its full evidence matrix supports its acceptance, with `REUSED_VALID` distinguished from newly executed PASS and accepted limitations explicitly scoped.
+
+## 10. Recurrent failure detection and prevention
 
 The independent `CI Failure Learning` GitHub Actions workflow runs daily (and on manual dispatch), outside the Windows release/packaging path. It scans a **bounded rolling 14-day window** of completed `ci.yml` runs; reads failed-job logs where retrievable; identifies candidate failure signatures by failed job + **first failed step** + structured Rust-test/compiler/OS diagnostic or named Reports visual-fixture assertion (fixture slug plus hashed assertion invariant; no raw assertion text); and groups only **distinct workflow run IDs**. Multiple attempts of a single run do not establish recurrence. A successful rerun is inspected for earlier failed attempts where available but is never automatically labeled flaky.
 

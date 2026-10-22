@@ -36,14 +36,22 @@ $preview = $null
 $locationPushed = $false
 $scenarios = @(
     @{ Name = "running"; Suffix = ""; Query = ""; VirtualTimeBudgetMs = 0 },
+    @{ Name = "overdue-age"; Suffix = "-overdue-age"; Query = "&scenario=overdue-age"; VirtualTimeBudgetMs = 0 },
     @{ Name = "selector-open"; Suffix = "-selector-open"; Query = "&scenario=selector-open"; VirtualTimeBudgetMs = 800 },
     @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics"; VirtualTimeBudgetMs = 0 },
     @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "pomodoro-work"; Suffix = "-pomodoro-work"; Query = "&scenario=pomodoro-work"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "pomodoro-break"; Suffix = "-pomodoro-break"; Query = "&scenario=pomodoro-break"; VirtualTimeBudgetMs = 0 },
     @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up"; VirtualTimeBudgetMs = 0 },
     @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime"; VirtualTimeBudgetMs = 0 },
     @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
     @{ Name = "live-actions-focus"; Suffix = "-live-actions-focus"; Query = "&scenario=live-actions-focus"; VirtualTimeBudgetMs = 2500 },
+    @{ Name = "live-actions-done-focus"; Suffix = "-live-actions-done-focus"; Query = "&scenario=live-actions-done-focus"; VirtualTimeBudgetMs = 2500 },
     @{ Name = "success"; Suffix = "-success"; Query = "&scenario=success"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-late"; Suffix = "-success-late"; Query = "&scenario=success-late"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-equal"; Suffix = "-success-equal"; Query = "&scenario=success-equal"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-no-est"; Suffix = "-success-no-est"; Query = "&scenario=success-no-est"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "success-fun-gif"; Suffix = "-success-fun-gif"; Query = "&scenario=success-fun-gif"; VirtualTimeBudgetMs = 2600 },
     @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible"; VirtualTimeBudgetMs = 0 },
     @{ Name = "empty"; Suffix = "-empty"; Query = "&scenario=empty"; VirtualTimeBudgetMs = 0 }
 )
@@ -74,7 +82,7 @@ try {
                 # the SAME actual 420x720 CDP viewport. Legacy --window-size
                 # yields a 492x628 inner viewport on Windows Edge even though
                 # its screenshot is 420x720. Keep every other scenario unchanged.
-                if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus") {
+                if ($scenario.Name -eq "running" -or $scenario.Name -eq "live-actions-focus" -or $scenario.Name -eq "live-actions-done-focus") {
                     $reducedValue = if ($ReducedMotion) { "true" } else { "false" }
                     $mode = if ($scenario.Name -eq "running") { "running" } else { "focused" }
                     & node "scripts/capture-focus-action-cdp.mjs" "--edge=$edge" "--url=$url" "--profile=$profile" "--png=$screenshot" "--html=$dom" "--reducedMotion=$reducedValue" "--mode=$mode"

@@ -1,0 +1,7 @@
+{
+  "utc": "2026-10-21T07:08:15.7185144Z",
+  "arguments": "--remote-debugging-port=9244 --remote-debugging-address=127.0.0.1",
+  "note": "Unmodified scenario collector requires normal release process name. Previous validation-name setup rejected; no samples taken.",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR389-Baseline-20261021\\artifact\\narro.exe",
+  "pid": 98608
+}

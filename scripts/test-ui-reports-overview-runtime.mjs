@@ -53,7 +53,8 @@ for (const [haystack, needle, label] of [
   [runtime, "sessionsDisabled", "Sessions availability follows workspace routing"],
   [presentation, 'case "Last 30 days"', "source-evidenced date preset"],
   [presentation, "sundayBased === 0 ? 6 : sundayBased - 1", "Monday-starting week"],
-  [view, "setInteractiveTooltipDayId(day.id)", "keyboard/pointer chart tooltip state"],
+  [view, "setHoveredDayId(day.id)", "pointer chart tooltip state"],
+  [view, "setFocusedDayId(day.id)", "independent keyboard chart tooltip state"],
   [view, "inert={interactionLocked ? true : undefined}", "PDF capture freezes Overview interaction"],
   [shell, '<ReportsWorkspace onBack={() => setActiveDestination("home")} />', "production Reports workspace destination"],
   [workspace, 'onOpenSessions={() => setTab("sessions")}', "production Overview-to-Sessions tab routing"],
@@ -169,7 +170,7 @@ const documentStub = {body: {inert: false}, documentElement: {dataset: {}}};
 const pdfWait = deferred();
 const pdfFile = deferred();
 let pdfWrites = 0;
-const pdfRequest = {startAt: "2026-10-01", endAt: "2026-10-10"};
+const pdfRequest = {startAt: "2026-10-01", endAt: "2026-10-10", displayTimezone: "Europe/Athens"};
 const pdfBindings = {
   reportRequest: pdfRequest, overviewCurrent: true, exportPending: false,
   exportInFlightRef: pdfRef, document: documentStub,
@@ -178,7 +179,7 @@ const pdfBindings = {
   setExportError: value => pdfErrors.push(value),
   setListFilterOpen: () => {}, setDatePickerOpen: () => {},
   waitForReportPrintLayout: () => pdfWait.promise,
-  exportReportOverviewPdf: () => { pdfWrites++; return pdfFile.promise; },
+  exportReportOverviewPdf: request => { assert.deepEqual({ ...request }, pdfRequest, "PDF filename receives the same display timezone/range as Overview"); pdfWrites++; return pdfFile.promise; },
   formatInvokeError: failure => failure.message,
 };
 for (const invalid of [

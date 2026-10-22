@@ -1,0 +1,13 @@
+{
+  "setup": "Owned current process, new synthetic reminder, actual future deadline; prior setup attempt invalid because exact-Settings foreground guard failed",
+  "probes": [
+    {
+      "condition": "enabled-background",
+      "taskId": "b207fb30-be01-4181-baf7-672dc4706dcd",
+      "reminderId": "e4b22350-2a79-4cab-8ed5-ec6dd43ed84b",
+      "dueUtc": "2026-10-15T17:07:00+00:00",
+      "localTime": "2026-10-15T20:07:00+03:00"
+    }
+  ],
+  "mainHwnd": 1315296
+}

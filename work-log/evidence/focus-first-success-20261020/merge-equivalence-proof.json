@@ -1,0 +1,23 @@
+{
+  "PR": 387,
+  "head": "cdd88335c920f423630f322e7ba0c25dbba7f3c0",
+  "mainBeforeMerge": "bf28c7a3ca234ed8d6db7438bf9ee288d745c58e",
+  "prospectiveMergeTree": "477b2814ee35f09b45c0d0c1ff50de9d0c2c6eb9",
+  "headToProspectiveDelta": [
+    "HANDOFF.md",
+    "STATUS.md",
+    "TODO.md",
+    "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "docs/REMAINING_ACCEPTANCE_2026-10-20.md"
+  ],
+  "runtimeBuildTestWorkflowInputsEquivalent": true,
+  "changedSourceBlobs": {
+    "src/FocusPanel.tsx": "d1d4f80c575e296259f5a0c43b66fd78f7fe0e24",
+    "src/nativeHandoffRegression.tsx": "105a4f9653418e4505032fd10ab2d082f4a1a563",
+    "scripts/capture-ready-fixture-cdp.mjs": "c75ce6018ede175006c072f407c722cf992517aa"
+  },
+  "actualMerge": "9e631952158c5c6b9763e0e0d79e33b79e8c7ca3",
+  "actualTree": "477b2814ee35f09b45c0d0c1ff50de9d0c2c6eb9",
+  "changedBlobsEqual": "3/3",
+  "PRCI": "39386125624 3/3 SUCCESS"
+}

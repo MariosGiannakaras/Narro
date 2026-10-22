@@ -1,0 +1,63 @@
+{"utc": "2026-10-15T04:32:47.957978+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Dark theme \u2014 Use Narro's dark surfaces", "focused": true, "rect": [815, 996, 893, 1033]}
+{"utc": "2026-10-15T04:32:48.260555+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:32:50.780612+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 9, "scan": 15, "extended": false}
+{"utc": "2026-10-15T04:32:51.049129+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:33:31.956395+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:33:56.270772+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Light theme \u2014 Use Narro's light surfaces", "focused": true, "rect": [-845, 1201, -747, 1247]}
+{"utc": "2026-10-15T04:33:56.541409+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:34:54.613965+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "View shortcuts", "focused": true, "rect": [-902, 1790, -741, 1833]}
+{"utc": "2026-10-15T04:34:56.534045+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "View shortcuts", "focused": true, "rect": [-902, 3143, -741, 3186]}
+{"utc": "2026-10-15T04:34:56.810079+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:34:57.488888+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:35:44.609508+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 14291232, "point": [-1361, 624], "delta": -360, "count": 40, "endUtc": "2026-10-15T04:35:48.249446+00:00"}
+{"utc": "2026-10-15T04:35:49.468013+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 14291232, "point": [-1361, 624], "delta": 360, "count": 40, "endUtc": "2026-10-15T04:35:53.108443+00:00"}
+{"utc": "2026-10-15T04:35:53.356446+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:36:39.057029+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:36:40.384029+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 40, "scan": 80, "extended": true}
+{"utc": "2026-10-15T04:36:40.635021+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:37:09.013512+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:37:11.266165+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 35, "scan": 79, "extended": true}
+{"utc": "2026-10-15T04:37:11.525933+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 38, "scan": 72, "extended": true}
+{"utc": "2026-10-15T04:37:11.781002+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:37:12.662015+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:37:28.960168+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Hours Start", "focused": true, "rect": [-1414, 739, -1389, 770]}
+{"utc": "2026-10-15T04:37:29.947016+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Minutes Start", "focused": true, "rect": [-1385, 739, -1359, 770]}
+{"utc": "2026-10-15T04:37:30.930054+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Hours End", "focused": true, "rect": [-1085, 739, -1060, 770]}
+{"utc": "2026-10-15T04:37:31.913493+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Minutes End", "focused": true, "rect": [-1056, 739, -1030, 770]}
+{"utc": "2026-10-15T04:38:45.980317+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:38:46.911518+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:39:12.778047+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Dark theme \u2014 Use Narro's dark surfaces", "focused": true, "rect": [791, 996, 869, 1033]}
+{"utc": "2026-10-15T04:39:13.068056+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:39:13.186574+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 14291232, "point": [540, 617], "delta": -360, "count": 40, "endUtc": "2026-10-15T04:39:16.829907+00:00"}
+{"utc": "2026-10-15T04:39:18.088760+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 14291232, "point": [540, 617], "delta": 360, "count": 40, "endUtc": "2026-10-15T04:39:21.727368+00:00"}
+{"utc": "2026-10-15T04:39:21.979547+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 27, "scan": 1, "extended": false}
+{"utc": "2026-10-15T04:39:22.713535+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:39:23.446714+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 40, "scan": 80, "extended": true}
+{"utc": "2026-10-15T04:39:23.700223+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:39:24.916055+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:40:26.397575+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Close Preferences", "focused": true, "rect": [972, 211, 1004, 243]}
+{"utc": "2026-10-15T04:40:26.689092+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:40:38.863623+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:40:39.595838+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 40, "scan": 80, "extended": true}
+{"utc": "2026-10-15T04:40:39.866384+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:40:41.090417+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Cancel", "focused": true, "rect": [670, 708, 745, 748]}
+{"utc": "2026-10-15T04:40:41.370415+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:41:27.756600+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Tue, Sep 15: Tasks 0min, Breaks 0min, Total 0min", "focused": true, "rect": [417, 650, 441, 830]}
+{"utc": "2026-10-15T04:41:28.514227+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 9, "scan": 15, "extended": false}
+{"utc": "2026-10-15T04:41:30.442036+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Daily Tasks, Breaks and Total session time", "focused": true, "rect": [411, 628, 1077, 831]}
+{"utc": "2026-10-15T04:41:33.128600+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": " Export PDF", "focused": true, "rect": [964, 299, 1092, 333]}
+{"utc": "2026-10-15T04:41:34.345126+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:41:58.689480+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": " Export PDF", "focused": true, "rect": [964, 353, 1092, 387]}
+{"utc": "2026-10-15T04:41:58.973273+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:45:13.610495+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Light theme \u2014 Use Narro's light surfaces", "focused": true, "rect": [873, 996, 951, 1033]}
+{"utc": "2026-10-15T04:45:13.900499+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:45:14.514911+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Close Preferences", "focused": true, "rect": [972, 211, 1004, 243]}
+{"utc": "2026-10-15T04:45:14.793725+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:45:41.024736+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Last 90 days", "focused": true, "rect": [-1397, 869, -1232, 919]}
+{"utc": "2026-10-15T04:45:41.299751+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:45:41.818742+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Apply", "focused": true, "rect": [-726, 932, -611, 985]}
+{"utc": "2026-10-15T04:45:42.103781+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:46:16.073370+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": " Export PDF", "focused": true, "rect": [-755, 400, -595, 444]}
+{"utc": "2026-10-15T04:46:17.384121+00:00", "action": "held SendInput physical scancode", "hwnd": 14291232, "vk": 13, "scan": 28, "extended": false}
+{"utc": "2026-10-15T04:46:41.503715+00:00", "action": "real Windows UIA accessibility focus", "hwnd": 14291232, "name": "Daily Tasks, Breaks and Total session time", "focused": true, "rect": [-1447, 810, -613, 1064]}
+{"utc": "2026-10-15T04:47:24.938447+00:00", "text": "PA355 native3/3 acquisition complete; normal tray Quit", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1005, 2542, 1027]}

@@ -1,0 +1,32 @@
+{
+  "RA01": {
+    "status": "NOT RUN",
+    "cases": [
+      "normal cross-lane",
+      "normal reorder",
+      "normal cancel",
+      "reduced cross-lane",
+      "reduced reorder",
+      "reduced cancel"
+    ]
+  },
+  "RA02": {
+    "status": "NOT RUN",
+    "cases": [
+      "SuccessOFF eligible auto-next",
+      "SuccessOFF no eligible next",
+      "SuccessON control"
+    ]
+  },
+  "reuse": {
+    "M1": "identity/environment observations only; no performance or topology test",
+    "M5": "RA01 bounded drag only",
+    "M6": "RA02 handoff only",
+    "M7": "surface appearance only, no new acceptance",
+    "M8": "Preferences controls exercised incidentally, no shortcut acceptance",
+    "M9": "not exercised",
+    "M10": "no counter advance",
+    "M11_M12": "dormant"
+  },
+  "analysis": "DEFERRED; capture completion is not PASS"
+}

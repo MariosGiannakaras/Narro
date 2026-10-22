@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -139,6 +140,7 @@ export function TaskScheduleDialog({
   const openerRef = useRef<HTMLElement | null>(null);
   const [snapshot, setSnapshot] = useState<TaskScheduleEditorSnapshot | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [scheduleLocalDate, setScheduleLocalDate] = useState("");
@@ -223,7 +225,7 @@ export function TaskScheduleDialog({
     return () => {
       disposed = true;
     };
-  }, [displayTimezone, listId, taskId]);
+  }, [displayTimezone, listId, taskId, loadAttempt]);
 
   const generatedOccurrence = snapshot?.recurrenceParentTaskId !== null && snapshot?.recurrenceParentTaskId !== undefined;
   const existingRule = snapshot?.recurrence ?? null;
@@ -490,12 +492,25 @@ export function TaskScheduleDialog({
             disabled={pending}
             onClick={onClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </header>
 
-        {loadError ? <div className="task-schedule-dialog__error type-metadata" role="alert">{loadError}</div> : null}
-        {!snapshot && !loadError ? <div className="task-schedule-dialog__loading type-metadata">Loading authoritative schedule…</div> : null}
+        {loadError ? (
+          <div className="task-schedule-dialog__error type-metadata" role="alert">
+            <span>Schedule could not be loaded. {loadError}</span>
+            <button type="button" className="task-schedule-dialog__cancel motion-interactive"
+              data-task-schedule-control="retry-load"
+              onClick={() => {
+                setLoadError(null);
+                setSnapshot(null);
+                setLoadAttempt((attempt) => attempt + 1);
+              }}>
+              Retry loading schedule
+            </button>
+          </div>
+        ) : null}
+        {!snapshot && !loadError ? <div className="task-schedule-dialog__loading type-metadata">Loading schedule…</div> : null}
 
         {snapshot ? (
           <div className="task-schedule-dialog__content">
@@ -541,7 +556,7 @@ export function TaskScheduleDialog({
                   data-task-schedule-control="pick-date"
                   disabled={pending}
                   onClick={() => setCalendarStep("date")}
-                >‹ PICK DATE</button>
+                ><ActionIcon name="chevron-left" /> PICK DATE</button>
             <section className="task-schedule-dialog__section" aria-labelledby="task-schedule-section-title">
               <div className="task-schedule-dialog__section-heading">
                 <div>
@@ -584,7 +599,7 @@ export function TaskScheduleDialog({
                     }
                   }}
                 >
-                  {scheduleUseTime ? "× REMOVE" : "+ ADD"}
+                  {scheduleUseTime ? <><ActionIcon name="close" /> REMOVE</> : <><ActionIcon name="plus" /> ADD</>}
                 </button>
               </div>
               {scheduleUseTime ? (
@@ -631,7 +646,7 @@ export function TaskScheduleDialog({
                 </div>
               ) : null}
               <p className="task-schedule-dialog__timezone type-metadata">
-                Timed schedules use {scheduleTimezone || displayTimezone}. Date-only schedules never round-trip through UTC.
+                Tasks with a time use {scheduleTimezone || displayTimezone}. Tasks without a time stay on the calendar day you select.
               </p>
 
               <div className="task-schedule-dialog__section-actions">
@@ -653,10 +668,10 @@ export function TaskScheduleDialog({
                   <h3 id="task-recurrence-section-title">Repeat</h3>
                   <p className="type-metadata">
                     {generatedOccurrence
-                      ? "This is a generated recurrence occurrence. Edit its individual schedule without creating a nested rule."
+                      ? "This date is part of a repeating task. You can reschedule this occurrence without changing the repeat rule."
                       : existingRule
-                        ? "Edit the recurring parent rule. Historical/modified children remain protected."
-                        : "Create a recurring parent. Due children are materialized by the authoritative recurrence engine."}
+                        ? "Update how this task repeats. Previously edited tasks and tasks with recorded history are kept."
+                        : "Choose how often to repeat this task. Upcoming copies will be added as their dates approach."}
                   </p>
                 </div>
               </div>

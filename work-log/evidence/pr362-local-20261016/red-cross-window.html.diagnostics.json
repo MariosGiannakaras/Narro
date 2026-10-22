@@ -1,0 +1,83 @@
+{
+  "failure": "Error: Ready-fixture renderer/network failure (see diagnostics)",
+  "observed": {
+    "dataset": {
+      "theme": "dark",
+      "focusEditorFixtureReady": "true"
+    },
+    "rootChildren": 1,
+    "readyState": "complete",
+    "url": "http://127.0.0.1:4173/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=false",
+    "viewport": [
+      1280,
+      1080
+    ],
+    "focus": "<input data-task-subtask-control=\"create-input\" aria-label=\"New subtask for Queue task 1 with long readable title\" placeholder=\"Enter subtask task title*\" value=\"Retained cross-window draft\">",
+    "contract": {
+      "error": "Uncaught Error: M7 projection: Board expanded detail missed cross-window create despite board invalidation"
+    }
+  },
+  "events": [
+    {
+      "method": "Runtime.exceptionThrown",
+      "params": {
+        "timestamp": 1792134461632.946,
+        "exceptionDetails": {
+          "exceptionId": 1,
+          "text": "Uncaught",
+          "lineNumber": 0,
+          "columnNumber": 1321,
+          "scriptId": "16",
+          "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "a",
+                "scriptId": "16",
+                "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js",
+                "lineNumber": 0,
+                "columnNumber": 1321
+              },
+              {
+                "functionName": "xt",
+                "scriptId": "16",
+                "url": "http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js",
+                "lineNumber": 0,
+                "columnNumber": 35201
+              }
+            ]
+          },
+          "exception": {
+            "type": "object",
+            "subtype": "error",
+            "className": "Error",
+            "description": "Error: M7 projection: Board expanded detail missed cross-window create despite board invalidation\n    at a (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:1322)\n    at xt (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:35202)\n    at async Na (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:36030)\n    at async http://127.0.0.1:4173/assets/focusEditorFixture-trpGcl5u.js:2:9001",
+            "objectId": "8597893087999428111.2.1",
+            "preview": {
+              "type": "object",
+              "subtype": "error",
+              "description": "Error: M7 projection: Board expanded detail missed cross-window create despite board invalidation\n    at a (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:1322)\n    at xt (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:35202)\n    at async Na (http://127.0.0.1:4173/assets/m7IntegrationRegression-CBXgbIGn.js:1:36030)\n    at async http://127.0.0.1:4173/assets/focusEditorFixture-trpGcl5u.js:2:9001",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "Error: M7 projection: Board expanded detail missed…4173/assets/focusEditorFixture-trpGcl5u.js:2:9001"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "M7 projection: Board expanded detail missed cross-window create despite board invalidation"
+                }
+              ]
+            }
+          },
+          "executionContextId": 2
+        }
+      }
+    }
+  ],
+  "stderr": "[7864:43520:1016/100724.113:ERROR:components\\edge_ess\\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577\r\n\r\nDevTools listening on ws://127.0.0.1:62615/devtools/browser/5bcfd007-4517-4872-97c3-5c5afa0d7868\r\n[7864:29204:1016/100727.097:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n[7864:43520:1016/100729.227:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[7864:43520:1016/100729.583:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n",
+  "kind": "m7-integration",
+  "url": "http://127.0.0.1:4173/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=false"
+}

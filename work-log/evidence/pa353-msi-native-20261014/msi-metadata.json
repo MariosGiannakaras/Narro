@@ -1,0 +1,112 @@
+{
+  "Property": [
+    {
+      "Property": "UpgradeCode",
+      "Value": "{EFFA3093-5430-5DB1-8C47-75FA7A16ED39}"
+    },
+    {
+      "Property": "WIXUI_EXITDIALOGOPTIONALCHECKBOX",
+      "Value": "1"
+    },
+    {
+      "Property": "WIXUI_INSTALLDIR",
+      "Value": "INSTALLDIR"
+    },
+    {
+      "Property": "WixUIRMOption",
+      "Value": "UseRM"
+    },
+    {
+      "Property": "ALLUSERS",
+      "Value": "1"
+    },
+    {
+      "Property": "ARPNOMODIFY",
+      "Value": "1"
+    },
+    {
+      "Property": "ARPNOREPAIR",
+      "Value": "yes"
+    },
+    {
+      "Property": "REINSTALLMODE",
+      "Value": "amus"
+    },
+    {
+      "Property": "ARPPRODUCTICON",
+      "Value": "ProductIcon"
+    },
+    {
+      "Property": "WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT",
+      "Value": "Launch Narro"
+    },
+    {
+      "Property": "Manufacturer",
+      "Value": "mariosg"
+    },
+    {
+      "Property": "ProductCode",
+      "Value": "{B4A66C52-16A9-44AF-9EE4-3A8C8C956690}"
+    },
+    {
+      "Property": "ProductLanguage",
+      "Value": "1033"
+    },
+    {
+      "Property": "ProductName",
+      "Value": "Narro"
+    },
+    {
+      "Property": "ProductVersion",
+      "Value": "0.1.0"
+    },
+    {
+      "Property": "DefaultUIFont",
+      "Value": "WixUI_Font_Normal"
+    },
+    {
+      "Property": "WixUI_Mode",
+      "Value": "InstallDir"
+    },
+    {
+      "Property": "ErrorDialog",
+      "Value": "ErrorDlg"
+    },
+    {
+      "Property": "SecureCustomProperties",
+      "Value": "ARPNOREPAIR;AUTOLAUNCHAPP;LAUNCHAPPARGS;WIX_UPGRADE_DETECTED"
+    }
+  ],
+  "Directory": [
+    {
+      "Directory": "INSTALLDIR",
+      "Directory_Parent": "ProgramFiles64Folder",
+      "DefaultDir": "Narro"
+    },
+    {
+      "Directory": "DesktopFolder",
+      "Directory_Parent": "TARGETDIR",
+      "DefaultDir": "Desktop"
+    },
+    {
+      "Directory": "ApplicationProgramsFolder",
+      "Directory_Parent": "ProgramMenuFolder",
+      "DefaultDir": "Narro"
+    },
+    {
+      "Directory": "TARGETDIR",
+      "Directory_Parent": "",
+      "DefaultDir": "SourceDir"
+    },
+    {
+      "Directory": "ProgramFiles64Folder",
+      "Directory_Parent": "TARGETDIR",
+      "DefaultDir": "PFiles"
+    },
+    {
+      "Directory": "ProgramMenuFolder",
+      "Directory_Parent": "TARGETDIR",
+      "DefaultDir": "."
+    }
+  ]
+}

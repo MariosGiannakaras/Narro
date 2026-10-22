@@ -1,0 +1,33 @@
+{
+  "prHead": "2d99bec37ccf7a74a1f2dcf326e48297ac3a8c57",
+  "sourceCorrection": "5a86d3426c50ef5107ebb5ed4ad179a6cb5f10c3",
+  "acquiredScopes": 7,
+  "reviewedScopes": 7,
+  "scopeIds": [
+    "C38",
+    "C39",
+    "C40",
+    "C44",
+    "C51",
+    "C55",
+    "C56"
+  ],
+  "nativeC38": "FAIL on original PR EXE; local corrected real-browser layout PASS, exact corrected native build NOT RUN",
+  "otherSix": "Scoped checks only; see report for limits",
+  "frontendPreflight": {
+    "exitCode": 0,
+    "scriptInvocations": 104
+  },
+  "newCI": "NOT RUN; pending explicit clarification",
+  "nativeInput": "Computer Use capture/action failed; actual WebView2 used through CDP; no OS mouse/global-hotkey/drag PASS",
+  "video": {
+    "file": "pr388-cdp-native-original.mkv",
+    "durationSeconds": 163.1,
+    "sizeBytes": 2854217,
+    "fps": 30,
+    "desktopCrop": "1100x900; application moved on relaunch, right edge clipped in continuous desktop video; full WebView screenshots retained"
+  },
+  "originalProfilesRestored": true,
+  "originalDbSha256": "13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d",
+  "timerFreshness": "FAIL unchanged; no Timer runtime patch"
+}

@@ -1,0 +1,78 @@
+### Open tabs
+- 0: (current) [Narro](http://tauri.localhost/)
+- 1: [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+### Page
+- Page URL: http://tauri.localhost/
+- Page Title: Narro
+### Snapshot
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - complementary "List navigation" [ref=e4]:
+      - img "Narro" [ref=e5]
+      - navigation "Lists" [ref=e7]:
+        - button "+ Create new list" [ref=e8] [cursor=pointer]
+        - button "All my lists" [ref=e10] [cursor=pointer]
+        - button "Archived lists" [ref=e11] [cursor=pointer]
+    - generic [ref=e12]:
+      - generic "Utilities" [ref=e14]:
+        - button "Search" [ref=e15] [cursor=pointer]
+        - button "Settings" [ref=e16] [cursor=pointer]
+      - main [ref=e17]:
+        - region [ref=e18]:
+          - generic [ref=e19]:
+            - paragraph [ref=e20]: Home
+            - heading "Good afternoon" [level=1] [ref=e21]
+            - paragraph [ref=e22]: Plan the next work that deserves your attention.
+          - region [ref=e23]:
+            - generic [ref=e24]:
+              - heading "Your Lists" [level=2] [ref=e25]
+              - paragraph [ref=e26]: Lists with your upcoming tasks
+            - generic [ref=e27]:
+              - strong [ref=e28]: No lists yet
+              - generic [ref=e29]: Your local lists will appear here after you create one.
+              - button "Create your first list" [ref=e30] [cursor=pointer]
+      - navigation "Primary" [ref=e31]:
+        - button "Home" [ref=e32] [cursor=pointer]
+        - button "Reports" [ref=e33] [cursor=pointer]
+  - dialog [ref=e35]:
+    - button "Close list editor" [ref=e36] [cursor=pointer]
+    - banner [ref=e39]:
+      - paragraph [ref=e40]: Lists
+      - heading "Create a new list" [level=2] [ref=e41]
+      - paragraph [ref=e42]: Choose a local icon, color, and title. Changes are saved only after local persistence succeeds.
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - button "Choose a list icon" [ref=e45]
+        - button "Upload a list icon" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]: I
+        - generic [ref=e48]: UPLOAD AN ICON
+        - generic [ref=e49]: (jpg, png, svg · max 1 MiB)
+      - group "Pick a list color" [ref=e50]:
+        - generic [ref=e52]:
+          - button "Pick a custom list color" [ref=e53] [cursor=pointer]:
+            - generic [aria-hidden] [ref=e54]: +
+          - radiogroup "Preset list colors" [ref=e55]:
+            - 'generic "Color #48d6c5" [ref=e56] [cursor=pointer]':
+              - 'radio "Color #48d6c5" [checked]'
+              - generic [aria-hidden] [ref=e57]: ✓
+            - 'generic "Color #b7d96d" [ref=e58] [cursor=pointer]':
+              - 'radio "Color #b7d96d"'
+            - 'generic "Color #5da7e8" [ref=e59] [cursor=pointer]':
+              - 'radio "Color #5da7e8"'
+            - 'generic "Color #8a78dc" [ref=e60] [cursor=pointer]':
+              - 'radio "Color #8a78dc"'
+            - 'generic "Color #e0a34d" [ref=e61] [cursor=pointer]':
+              - 'radio "Color #e0a34d"'
+            - 'generic "Color #df716b" [ref=e62] [cursor=pointer]':
+              - 'radio "Color #df716b"'
+          - button "Choose a built-in list icon" [ref=e63] [cursor=pointer]
+      - generic [ref=e69]:
+        - generic [ref=e70]: Title
+        - textbox "Title" [active] [ref=e71]:
+          - /placeholder: Enter your list title
+          - text: Isolated alert capture
+      - contentinfo [ref=e72]:
+        - button "Cancel" [ref=e73] [cursor=pointer]
+        - button "Create" [ref=e74] [cursor=pointer]
+```

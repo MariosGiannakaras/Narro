@@ -1,0 +1,829 @@
+﻿2026-10-14T06:00:41.3869277Z Current runner version: '2.337.0'
+2026-10-14T06:00:41.3899264Z ##[group]Runner Image Provisioner
+2026-10-14T06:00:41.3900271Z Hosted Compute Agent
+2026-10-14T06:00:41.3900958Z Version: 20260901.588
+2026-10-14T06:00:41.3901798Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-14T06:00:41.3902545Z Build Date: 2026-09-01T19:56:44Z
+2026-10-14T06:00:41.3903203Z Worker ID: {6d109766-f435-4e40-84ba-0251518cfa59}
+2026-10-14T06:00:41.3903952Z Azure Region: westus
+2026-10-14T06:00:41.3904503Z ##[endgroup]
+2026-10-14T06:00:41.3906063Z ##[group]Operating System
+2026-10-14T06:00:41.3906750Z Microsoft Windows Server 2025
+2026-10-14T06:00:41.3907359Z 10.0.26100
+2026-10-14T06:00:41.3907914Z Datacenter
+2026-10-14T06:00:41.3908417Z ##[endgroup]
+2026-10-14T06:00:41.3908934Z ##[group]Runner Image
+2026-10-14T06:00:41.3909531Z Image: windows-2025-vs2026
+2026-10-14T06:00:41.3910146Z Version: 20260925.250.1
+2026-10-14T06:00:41.3911785Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-14T06:00:41.3913582Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-14T06:00:41.3914569Z ##[endgroup]
+2026-10-14T06:00:41.3916206Z ##[group]GITHUB_TOKEN Permissions
+2026-10-14T06:00:41.3918730Z Actions: read
+2026-10-14T06:00:41.3919339Z Contents: read
+2026-10-14T06:00:41.3919900Z Metadata: read
+2026-10-14T06:00:41.3920423Z PullRequests: read
+2026-10-14T06:00:41.3920973Z ##[endgroup]
+2026-10-14T06:00:41.3923443Z Secret source: Actions
+2026-10-14T06:00:41.3924321Z Cache mode: write
+2026-10-14T06:00:41.3925046Z Prepare workflow directory
+2026-10-14T06:00:41.4299956Z Prepare all required actions
+2026-10-14T06:00:41.4349978Z Getting action download info
+2026-10-14T06:00:41.7937338Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-14T06:00:41.9304534Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-14T06:00:42.1072649Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-14T06:00:42.3331976Z Download action repository 'Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-14T06:00:42.7490934Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-14T06:00:43.1550471Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-14T06:00:43.6514889Z Complete job name: windows-candidate
+2026-10-14T06:00:43.8342984Z ##[group]Run actions/checkout@v4
+2026-10-14T06:00:43.8344884Z with:
+2026-10-14T06:00:43.8345702Z   ref: fa3ca8e063104ad1d0449d4bc6675bb29a8979a8
+2026-10-14T06:00:43.8346749Z   repository: MariosGiannakaras/Narro
+2026-10-14T06:00:43.8354715Z   token: ***
+2026-10-14T06:00:43.8355433Z   ssh-strict: true
+2026-10-14T06:00:43.8356206Z   ssh-user: git
+2026-10-14T06:00:43.8356950Z   persist-credentials: true
+2026-10-14T06:00:43.8357752Z   clean: true
+2026-10-14T06:00:43.8358508Z   sparse-checkout-cone-mode: true
+2026-10-14T06:00:43.8359371Z   fetch-depth: 1
+2026-10-14T06:00:43.8360086Z   fetch-tags: false
+2026-10-14T06:00:43.8360843Z   show-progress: true
+2026-10-14T06:00:43.8361581Z   lfs: false
+2026-10-14T06:00:43.8362513Z   submodules: false
+2026-10-14T06:00:43.8363275Z   set-safe-directory: true
+2026-10-14T06:00:43.8364343Z   allow-unsafe-pr-checkout: false
+2026-10-14T06:00:43.8365522Z ##[endgroup]
+2026-10-14T06:00:44.0075164Z Syncing repository: MariosGiannakaras/Narro
+2026-10-14T06:00:44.0077741Z ##[group]Getting Git version info
+2026-10-14T06:00:44.0078749Z Working directory is 'D:\a\Narro\Narro'
+2026-10-14T06:00:44.1055410Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-14T06:00:44.4343709Z git version 2.55.0.windows.5
+2026-10-14T06:00:44.4402635Z ##[endgroup]
+2026-10-14T06:00:44.4423993Z Temporarily overriding HOME='D:\a\_temp\fac196e1-3eed-4fea-96a1-d4101aa4945a' before making global git config changes
+2026-10-14T06:00:44.4428603Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T06:00:44.4435849Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Narro\Narro
+2026-10-14T06:00:44.5073996Z Deleting the contents of 'D:\a\Narro\Narro'
+2026-10-14T06:00:44.5082758Z ##[group]Initializing the repository
+2026-10-14T06:00:44.5096724Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\Narro\Narro
+2026-10-14T06:00:44.5941922Z Initialized empty Git repository in D:/a/Narro/Narro/.git/
+2026-10-14T06:00:44.6002269Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/MariosGiannakaras/Narro
+2026-10-14T06:00:44.6674328Z ##[endgroup]
+2026-10-14T06:00:44.6676200Z ##[group]Disabling automatic garbage collection
+2026-10-14T06:00:44.6684451Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-14T06:00:44.7028697Z ##[endgroup]
+2026-10-14T06:00:44.7029938Z ##[group]Setting up auth
+2026-10-14T06:00:44.7042522Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T06:00:44.7397683Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-14T06:00:46.1974351Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T06:00:46.2331138Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-14T06:00:46.8024486Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T06:00:46.8368699Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-14T06:00:47.4496815Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-14T06:00:47.4839927Z ##[endgroup]
+2026-10-14T06:00:47.4852858Z ##[group]Fetching the repository
+2026-10-14T06:00:47.4856567Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin fa3ca8e063104ad1d0449d4bc6675bb29a8979a8
+2026-10-14T06:08:24.7572283Z From https://github.com/MariosGiannakaras/Narro
+2026-10-14T06:08:24.7579675Z  * branch              fa3ca8e063104ad1d0449d4bc6675bb29a8979a8 -> FETCH_HEAD
+2026-10-14T06:08:24.7827103Z ##[endgroup]
+2026-10-14T06:08:24.7883795Z ##[group]Determining the checkout info
+2026-10-14T06:08:24.7923357Z ##[endgroup]
+2026-10-14T06:08:24.7988961Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-14T06:08:24.8994331Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-14T06:08:24.9424046Z ##[group]Checking out the ref
+2026-10-14T06:08:24.9436273Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force fa3ca8e063104ad1d0449d4bc6675bb29a8979a8
+2026-10-14T06:08:26.6305329Z Updating files:   0% (195/27034)
+2026-10-14T06:08:26.7180323Z Updating files:   1% (271/27034)
+2026-10-14T06:08:26.7995921Z Updating files:   2% (541/27034)
+2026-10-14T06:08:26.8982063Z Updating files:   3% (812/27034)
+2026-10-14T06:08:26.9755235Z Updating files:   4% (1082/27034)
+2026-10-14T06:08:27.1025589Z Updating files:   5% (1352/27034)
+2026-10-14T06:08:27.2138491Z Updating files:   5% (1452/27034)
+2026-10-14T06:08:28.5153140Z Updating files:   6% (1623/27034)
+2026-10-14T06:08:29.1016934Z Updating files:   6% (1678/27034)
+2026-10-14T06:08:29.9877194Z Updating files:   6% (1805/27034)
+2026-10-14T06:08:30.0963422Z Updating files:   7% (1893/27034)
+2026-10-14T06:08:31.0686665Z Updating files:   7% (1920/27034)
+2026-10-14T06:08:32.0774857Z Updating files:   7% (2148/27034)
+2026-10-14T06:08:32.4380427Z Updating files:   7% (2159/27034)
+2026-10-14T06:08:33.1142037Z Updating files:   8% (2163/27034)
+2026-10-14T06:08:33.3502001Z Updating files:   8% (2333/27034)
+2026-10-14T06:08:33.5020297Z Updating files:   9% (2434/27034)
+2026-10-14T06:08:33.7317561Z Updating files:  10% (2704/27034)
+2026-10-14T06:08:33.8503022Z Updating files:  11% (2974/27034)
+2026-10-14T06:08:34.0317694Z Updating files:  12% (3245/27034)
+2026-10-14T06:08:34.0748824Z Updating files:  13% (3515/27034)
+2026-10-14T06:08:34.1756726Z Updating files:  13% (3598/27034)
+2026-10-14T06:08:34.3232099Z Updating files:  14% (3785/27034)
+2026-10-14T06:08:34.4716270Z Updating files:  15% (4056/27034)
+2026-10-14T06:08:35.2568156Z Updating files:  16% (4326/27034)
+2026-10-14T06:08:35.7484501Z Updating files:  16% (4531/27034)
+2026-10-14T06:08:36.0441099Z Updating files:  17% (4596/27034)
+2026-10-14T06:08:36.0906894Z Updating files:  18% (4867/27034)
+2026-10-14T06:08:36.1518623Z Updating files:  18% (4975/27034)
+2026-10-14T06:08:36.2607216Z Updating files:  19% (5137/27034)
+2026-10-14T06:08:36.5443189Z Updating files:  20% (5407/27034)
+2026-10-14T06:08:36.6817639Z Updating files:  21% (5678/27034)
+2026-10-14T06:08:36.8077118Z Updating files:  22% (5948/27034)
+2026-10-14T06:08:36.9605609Z Updating files:  23% (6218/27034)
+2026-10-14T06:08:37.1057272Z Updating files:  24% (6489/27034)
+2026-10-14T06:08:37.1112144Z Updating files:  24% (6748/27034)
+2026-10-14T06:08:37.2699568Z Updating files:  25% (6759/27034)
+2026-10-14T06:08:37.4201998Z Updating files:  26% (7029/27034)
+2026-10-14T06:08:37.5775877Z Updating files:  27% (7300/27034)
+2026-10-14T06:08:37.7266189Z Updating files:  28% (7570/27034)
+2026-10-14T06:08:37.8644785Z Updating files:  29% (7840/27034)
+2026-10-14T06:08:38.0481493Z Updating files:  30% (8111/27034)
+2026-10-14T06:08:38.1209184Z Updating files:  31% (8381/27034)
+2026-10-14T06:08:38.1810910Z Updating files:  31% (8528/27034)
+2026-10-14T06:08:38.3111936Z Updating files:  32% (8651/27034)
+2026-10-14T06:08:38.4472789Z Updating files:  33% (8922/27034)
+2026-10-14T06:08:38.5880355Z Updating files:  34% (9192/27034)
+2026-10-14T06:08:38.7245967Z Updating files:  35% (9462/27034)
+2026-10-14T06:08:38.8508707Z Updating files:  36% (9733/27034)
+2026-10-14T06:08:38.9982365Z Updating files:  37% (10003/27034)
+2026-10-14T06:08:39.1214974Z Updating files:  38% (10273/27034)
+2026-10-14T06:08:39.1624802Z Updating files:  38% (10471/27034)
+2026-10-14T06:08:39.3045123Z Updating files:  39% (10544/27034)
+2026-10-14T06:08:39.4582092Z Updating files:  40% (10814/27034)
+2026-10-14T06:08:39.6052685Z Updating files:  41% (11084/27034)
+2026-10-14T06:08:39.7640854Z Updating files:  42% (11355/27034)
+2026-10-14T06:08:39.9136953Z Updating files:  43% (11625/27034)
+2026-10-14T06:08:40.0676012Z Updating files:  44% (11895/27034)
+2026-10-14T06:08:40.1361670Z Updating files:  45% (12166/27034)
+2026-10-14T06:08:40.2354607Z Updating files:  45% (12292/27034)
+2026-10-14T06:08:40.3800830Z Updating files:  46% (12436/27034)
+2026-10-14T06:08:40.6293869Z Updating files:  47% (12706/27034)
+2026-10-14T06:08:40.7831253Z Updating files:  48% (12977/27034)
+2026-10-14T06:08:41.0850133Z Updating files:  49% (13247/27034)
+2026-10-14T06:08:41.1395036Z Updating files:  50% (13517/27034)
+2026-10-14T06:08:42.1543864Z Updating files:  50% (13535/27034)
+2026-10-14T06:08:42.2745220Z Updating files:  50% (13551/27034)
+2026-10-14T06:08:42.4431849Z Updating files:  51% (13788/27034)
+2026-10-14T06:08:42.5740735Z Updating files:  52% (14058/27034)
+2026-10-14T06:08:42.7116049Z Updating files:  53% (14329/27034)
+2026-10-14T06:08:42.8538628Z Updating files:  54% (14599/27034)
+2026-10-14T06:08:43.0666514Z Updating files:  55% (14869/27034)
+2026-10-14T06:08:43.1533998Z Updating files:  56% (15140/27034)
+2026-10-14T06:08:43.1924532Z Updating files:  56% (15322/27034)
+2026-10-14T06:08:43.6346562Z Updating files:  57% (15410/27034)
+2026-10-14T06:08:43.8362050Z Updating files:  58% (15680/27034)
+2026-10-14T06:08:43.9763502Z Updating files:  59% (15951/27034)
+2026-10-14T06:08:44.1155045Z Updating files:  60% (16221/27034)
+2026-10-14T06:08:44.1534104Z Updating files:  61% (16491/27034)
+2026-10-14T06:08:44.2576427Z Updating files:  61% (16577/27034)
+2026-10-14T06:08:44.3990314Z Updating files:  62% (16762/27034)
+2026-10-14T06:08:44.5789566Z Updating files:  63% (17032/27034)
+2026-10-14T06:08:44.9385184Z Updating files:  64% (17302/27034)
+2026-10-14T06:08:45.0665334Z Updating files:  65% (17573/27034)
+2026-10-14T06:08:45.1672256Z Updating files:  66% (17843/27034)
+2026-10-14T06:08:45.2118149Z Updating files:  66% (18017/27034)
+2026-10-14T06:08:45.3534870Z Updating files:  67% (18113/27034)
+2026-10-14T06:08:45.4881086Z Updating files:  68% (18384/27034)
+2026-10-14T06:08:45.7152288Z Updating files:  69% (18654/27034)
+2026-10-14T06:08:45.8313556Z Updating files:  70% (18924/27034)
+2026-10-14T06:08:46.1837495Z Updating files:  71% (19195/27034)
+2026-10-14T06:08:46.2116141Z Updating files:  71% (19430/27034)
+2026-10-14T06:08:46.3960067Z Updating files:  72% (19465/27034)
+2026-10-14T06:08:46.5542532Z Updating files:  73% (19735/27034)
+2026-10-14T06:08:46.6887244Z Updating files:  74% (20006/27034)
+2026-10-14T06:08:46.8146460Z Updating files:  75% (20276/27034)
+2026-10-14T06:08:47.0292331Z Updating files:  76% (20546/27034)
+2026-10-14T06:08:47.1856239Z Updating files:  77% (20817/27034)
+2026-10-14T06:08:47.7157815Z Updating files:  77% (20934/27034)
+2026-10-14T06:08:48.1946809Z Updating files:  78% (21087/27034)
+2026-10-14T06:08:49.1907088Z Updating files:  78% (21209/27034)
+2026-10-14T06:08:49.7369350Z Updating files:  78% (21306/27034)
+2026-10-14T06:08:50.4365405Z Updating files:  79% (21357/27034)
+2026-10-14T06:08:51.1961822Z Updating files:  79% (21397/27034)
+2026-10-14T06:08:51.3164744Z Updating files:  79% (21590/27034)
+2026-10-14T06:08:52.1967472Z Updating files:  80% (21628/27034)
+2026-10-14T06:08:53.2125238Z Updating files:  80% (21749/27034)
+2026-10-14T06:08:53.2777699Z Updating files:  80% (21886/27034)
+2026-10-14T06:08:54.3450820Z Updating files:  81% (21898/27034)
+2026-10-14T06:08:55.1084748Z Updating files:  81% (21953/27034)
+2026-10-14T06:08:55.2106669Z Updating files:  82% (22168/27034)
+2026-10-14T06:08:55.3605626Z Updating files:  82% (22305/27034)
+2026-10-14T06:08:56.1486261Z Updating files:  83% (22439/27034)
+2026-10-14T06:08:56.2194884Z Updating files:  84% (22709/27034)
+2026-10-14T06:08:56.7168684Z Updating files:  84% (22764/27034)
+2026-10-14T06:08:57.3243432Z Updating files:  85% (22979/27034)
+2026-10-14T06:08:58.2617385Z Updating files:  85% (23020/27034)
+2026-10-14T06:08:59.2947591Z Updating files:  85% (23041/27034)
+2026-10-14T06:08:59.4995303Z Updating files:  85% (23071/27034)
+2026-10-14T06:09:01.0100601Z Updating files:  86% (23250/27034)
+2026-10-14T06:09:02.2072740Z Updating files:  86% (23485/27034)
+2026-10-14T06:09:02.2831916Z Updating files:  86% (23486/27034)
+2026-10-14T06:09:03.1638105Z Updating files:  86% (23487/27034)
+2026-10-14T06:09:03.2827589Z Updating files:  87% (23520/27034)
+2026-10-14T06:09:03.9356796Z Updating files:  87% (23553/27034)
+2026-10-14T06:09:04.1441757Z Updating files:  88% (23790/27034)
+2026-10-14T06:09:04.2778093Z Updating files:  89% (24061/27034)
+2026-10-14T06:09:04.3837930Z Updating files:  89% (24223/27034)
+2026-10-14T06:09:05.6131215Z Updating files:  90% (24331/27034)
+2026-10-14T06:09:05.8257228Z Updating files:  90% (24540/27034)
+2026-10-14T06:09:06.3049682Z Updating files:  91% (24601/27034)
+2026-10-14T06:09:07.0855875Z Updating files:  91% (24635/27034)
+2026-10-14T06:09:07.2913183Z Updating files:  92% (24872/27034)
+2026-10-14T06:09:08.3048626Z Updating files:  92% (25015/27034)
+2026-10-14T06:09:08.6413673Z Updating files:  92% (25087/27034)
+2026-10-14T06:09:09.6272342Z Updating files:  93% (25142/27034)
+2026-10-14T06:09:09.6778221Z Updating files:  93% (25328/27034)
+2026-10-14T06:09:10.4065959Z Updating files:  94% (25412/27034)
+2026-10-14T06:09:11.3093772Z Updating files:  94% (25485/27034)
+2026-10-14T06:09:11.3204254Z Updating files:  95% (25683/27034)
+2026-10-14T06:09:12.5706872Z Updating files:  95% (25719/27034)
+2026-10-14T06:09:13.3766216Z Updating files:  95% (25741/27034)
+2026-10-14T06:09:16.0073864Z Updating files:  95% (25915/27034)
+2026-10-14T06:09:16.1807913Z Updating files:  95% (25916/27034)
+2026-10-14T06:09:16.3340659Z Updating files:  96% (25953/27034)
+2026-10-14T06:09:16.4692534Z Updating files:  97% (26223/27034)
+2026-10-14T06:09:16.6321060Z Updating files:  97% (26329/27034)
+2026-10-14T06:09:17.4361374Z Updating files:  98% (26494/27034)
+2026-10-14T06:09:18.4519868Z Updating files:  98% (26642/27034)
+2026-10-14T06:09:19.4680081Z Updating files:  98% (26645/27034)
+2026-10-14T06:09:20.4673522Z Updating files:  98% (26651/27034)
+2026-10-14T06:09:21.4697308Z Updating files:  98% (26654/27034)
+2026-10-14T06:09:21.8636804Z Updating files:  98% (26659/27034)
+2026-10-14T06:09:22.4535420Z Updating files:  99% (26764/27034)
+2026-10-14T06:09:23.9077849Z Updating files:  99% (26829/27034)
+2026-10-14T06:09:24.4768223Z Updating files:  99% (27003/27034)
+2026-10-14T06:09:25.3692788Z Updating files:  99% (27005/27034)
+2026-10-14T06:09:25.3705384Z Updating files: 100% (27034/27034)
+2026-10-14T06:09:25.3705760Z Updating files: 100% (27034/27034), done.
+2026-10-14T06:09:25.4169981Z Note: switching to 'fa3ca8e063104ad1d0449d4bc6675bb29a8979a8'.
+2026-10-14T06:09:25.4170513Z 
+2026-10-14T06:09:25.4171161Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-14T06:09:25.4172013Z changes and commit them, and you can discard any commits you make in this
+2026-10-14T06:09:25.4175459Z state without impacting any branches by switching back to a branch.
+2026-10-14T06:09:25.4175889Z 
+2026-10-14T06:09:25.4176247Z If you want to create a new branch to retain commits you create, you may
+2026-10-14T06:09:25.4179802Z do so (now or later) by using -c with the switch command. Example:
+2026-10-14T06:09:25.4180150Z 
+2026-10-14T06:09:25.4180404Z   git switch -c <new-branch-name>
+2026-10-14T06:09:25.4180610Z 
+2026-10-14T06:09:25.4180755Z Or undo this operation with:
+2026-10-14T06:09:25.4183552Z 
+2026-10-14T06:09:25.4183694Z   git switch -
+2026-10-14T06:09:25.4183860Z 
+2026-10-14T06:09:25.4184101Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-14T06:09:25.4184480Z 
+2026-10-14T06:09:25.4187733Z HEAD is now at fa3ca8e0 fix: use existing native diagnostics for secondary notification audio failures
+2026-10-14T06:09:26.2852390Z ##[endgroup]
+2026-10-14T06:09:26.3356416Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-14T06:09:26.3648561Z fa3ca8e063104ad1d0449d4bc6675bb29a8979a8
+2026-10-14T06:09:26.8504501Z ##[group]Run actions/setup-node@v4
+2026-10-14T06:09:26.8505188Z with:
+2026-10-14T06:09:26.8508494Z   node-version: 24
+2026-10-14T06:09:26.8508943Z   cache: npm
+2026-10-14T06:09:26.8512017Z   always-auth: false
+2026-10-14T06:09:26.8512476Z   check-latest: false
+2026-10-14T06:09:26.8520803Z   token: ***
+2026-10-14T06:09:26.8521204Z ##[endgroup]
+2026-10-14T06:09:27.6401694Z (node:8556) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-14T06:09:27.6403140Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-14T06:09:27.6407355Z Found in cache @ C:\hostedtoolcache\windows\node\24.21.0\x64
+2026-10-14T06:09:27.6408576Z ##[group]Environment details
+2026-10-14T06:09:31.9274865Z node: v24.21.0
+2026-10-14T06:09:31.9275424Z npm: 11.19.0
+2026-10-14T06:09:31.9275689Z yarn: 1.22.22
+2026-10-14T06:09:31.9279701Z ##[endgroup]
+2026-10-14T06:09:32.0228829Z [command]C:\Windows\system32\cmd.exe /D /S /C "C:\hostedtoolcache\windows\node\24.21.0\x64\npm.cmd config get cache"
+2026-10-14T06:09:32.8368575Z C:\npm\cache
+2026-10-14T06:09:33.3641485Z Cache hit for: node-cache-Windows-x64-npm-b9b8378d515b36f74e42d1d6bd92c3b9c4202270cd6ed4437d2cd2a82aceba67
+2026-10-14T06:09:33.3796046Z (node:8556) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-14T06:09:34.6483213Z Received 23797247 of 23797247 (100.0%), 23.1 MBs/sec
+2026-10-14T06:09:34.6491701Z Cache Size: ~23 MB (23797247 B)
+2026-10-14T06:09:34.6515900Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/d6b60a09-4223-45da-9824-7b40df0703be/cache.tzst -P -C D:/a/Narro/Narro --force-local --use-compress-program "zstd -d"
+2026-10-14T06:09:35.0984027Z Cache restored successfully
+2026-10-14T06:09:35.1017002Z Cache restored from key: node-cache-Windows-x64-npm-b9b8378d515b36f74e42d1d6bd92c3b9c4202270cd6ed4437d2cd2a82aceba67
+2026-10-14T06:09:35.2358579Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-14T06:09:35.2359205Z with:
+2026-10-14T06:09:35.2359568Z   targets: x86_64-pc-windows-msvc
+2026-10-14T06:09:35.2359993Z   components: rustfmt, clippy
+2026-10-14T06:09:35.2360391Z   toolchain: stable
+2026-10-14T06:09:35.2360708Z ##[endgroup]
+2026-10-14T06:09:35.2458106Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-14T06:09:35.2755612Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-14T06:09:35.2756005Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-14T06:09:35.2756591Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-14T06:09:35.2757211Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-14T06:09:35.2757531Z [36;1m  exit 1[0m
+2026-10-14T06:09:35.2757898Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-14T06:09:35.2758416Z [36;1m  if [[ Windows == macOS ]]; then[0m
+2026-10-14T06:09:35.2759008Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:35.2759596Z [36;1m  else[0m
+2026-10-14T06:09:35.2760041Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:35.2760542Z [36;1m  fi[0m
+2026-10-14T06:09:35.2760855Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-14T06:09:35.2761403Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:35.2761858Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-14T06:09:35.2762675Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:35.2763279Z [36;1melse[0m
+2026-10-14T06:09:35.2763481Z [36;1m  delimiter=EOF[0m
+2026-10-14T06:09:35.2763777Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-14T06:09:35.2764288Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:35.2764694Z [36;1mfi[0m
+2026-10-14T06:09:35.2809495Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:35.2809938Z env:
+2026-10-14T06:09:35.2810139Z   toolchain: stable
+2026-10-14T06:09:35.2810353Z ##[endgroup]
+2026-10-14T06:09:35.6212736Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=375]
+2026-10-14T06:09:35.6218324Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-14T06:09:35.6367297Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV
+2026-10-14T06:09:35.6367836Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV[0m
+2026-10-14T06:09:35.6385162Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:35.6385754Z ##[endgroup]
+2026-10-14T06:09:35.6841439Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=62]
+2026-10-14T06:09:35.6844256Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-14T06:09:35.6861357Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-14T06:09:35.6863827Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-14T06:09:35.7011860Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-14T06:09:35.7012230Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-14T06:09:35.7014789Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://win.rustup.rs/x86_64 --output 'D:\a\_temp\rustup-init.exe'[0m
+2026-10-14T06:09:35.7015741Z [36;1m  'D:\a\_temp\rustup-init.exe' --default-toolchain none --no-modify-path -y[0m
+2026-10-14T06:09:35.7016194Z [36;1m  echo "$CARGO_HOME\bin" >> $GITHUB_PATH[0m
+2026-10-14T06:09:35.7016463Z [36;1mfi[0m
+2026-10-14T06:09:35.7033548Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:35.7033937Z env:
+2026-10-14T06:09:35.7034132Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:35.7034383Z ##[endgroup]
+2026-10-14T06:09:35.7602322Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=success;conclusion=success;duration_ms=73]
+2026-10-14T06:09:35.7624929Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-14T06:09:35.7775845Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-14T06:09:35.7776527Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-14T06:09:35.7777366Z [36;1mflags=()[0m
+2026-10-14T06:09:35.7777750Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-14T06:09:35.7778167Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-14T06:09:35.7778667Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-14T06:09:35.7779085Z [36;1mlog=$(mktemp)[0m
+2026-10-14T06:09:35.7779306Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-14T06:09:35.7779553Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-14T06:09:35.7780128Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-14T06:09:35.7781151Z [36;1m    break[0m
+2026-10-14T06:09:35.7781343Z [36;1m  else[0m
+2026-10-14T06:09:35.7781519Z [36;1m    status=$?[0m
+2026-10-14T06:09:35.7781713Z [36;1m  fi[0m
+2026-10-14T06:09:35.7781999Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-14T06:09:35.7782538Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-14T06:09:35.7783010Z [36;1m    exit "$status"[0m
+2026-10-14T06:09:35.7783231Z [36;1m  fi[0m
+2026-10-14T06:09:35.7783572Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-14T06:09:35.7783977Z [36;1m  sleep 30[0m
+2026-10-14T06:09:35.7784164Z [36;1mdone[0m
+2026-10-14T06:09:35.7801514Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:35.7801916Z env:
+2026-10-14T06:09:35.7802118Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:35.7802388Z   toolchain: stable
+2026-10-14T06:09:35.7802601Z   targets: x86_64-pc-windows-msvc
+2026-10-14T06:09:35.7802851Z   components: rustfmt, clippy
+2026-10-14T06:09:35.7803094Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-14T06:09:35.7803323Z ##[endgroup]
+2026-10-14T06:09:38.7166826Z info: syncing channel updates for stable-x86_64-pc-windows-msvc
+2026-10-14T06:09:39.1552847Z info: latest update on 2026-10-01 for version 1.99.0 (b940084d7 2026-09-28)
+2026-10-14T06:09:39.1871820Z info: removing previous version of component rustfmt
+2026-10-14T06:09:39.2033382Z info: removing previous version of component clippy
+2026-10-14T06:09:39.2192108Z info: removing previous version of component rust-std for target x86_64-pc-windows-gnu
+2026-10-14T06:09:39.3301459Z info: removing previous version of component rust-std for target i686-pc-windows-msvc
+2026-10-14T06:09:39.4093271Z info: removing previous version of component cargo
+2026-10-14T06:09:39.4726367Z info: removing previous version of component rust-std
+2026-10-14T06:09:39.5517843Z info: removing previous version of component rustc
+2026-10-14T06:09:39.6309831Z info: downloading 7 components
+2026-10-14T06:09:53.1722556Z 
+2026-10-14T06:09:53.2204173Z   stable-x86_64-pc-windows-msvc updated - rustc 1.99.0 (b940084d7 2026-09-28) (from rustc 1.98.1 (48a229cea 2026-09-01))
+2026-10-14T06:09:53.2205037Z 
+2026-10-14T06:09:53.2563530Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=17493]
+2026-10-14T06:09:53.2572409Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-14T06:09:53.2722460Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-14T06:09:53.2722948Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-14T06:09:53.2739701Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:53.2740213Z env:
+2026-10-14T06:09:53.2740431Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:53.2740732Z   toolchain: stable
+2026-10-14T06:09:53.2740948Z ##[endgroup]
+2026-10-14T06:09:53.3499390Z info: using existing install for stable-x86_64-pc-windows-msvc
+2026-10-14T06:09:53.3568480Z info: default toolchain set to stable-x86_64-pc-windows-msvc
+2026-10-14T06:09:53.3569177Z 
+2026-10-14T06:09:53.3814490Z   stable-x86_64-pc-windows-msvc unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-14T06:09:53.3815150Z 
+2026-10-14T06:09:53.3948574Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=137]
+2026-10-14T06:09:53.3953198Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-14T06:09:53.4152095Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-14T06:09:53.4153122Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-14T06:09:53.4153864Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-14T06:09:53.4154416Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-14T06:09:53.4178996Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:53.4179602Z env:
+2026-10-14T06:09:53.4179919Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:53.4180321Z   toolchain: stable
+2026-10-14T06:09:53.4180609Z ##[endgroup]
+2026-10-14T06:09:54.2409697Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=845]
+2026-10-14T06:09:54.2412764Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-14T06:09:54.2564906Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-14T06:09:54.2565449Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-14T06:09:54.2565782Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-14T06:09:54.2566069Z [36;1mfi[0m
+2026-10-14T06:09:54.2582552Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:54.2582965Z env:
+2026-10-14T06:09:54.2583170Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.2583455Z ##[endgroup]
+2026-10-14T06:09:54.3039361Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=62]
+2026-10-14T06:09:54.3042688Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-14T06:09:54.3184459Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-14T06:09:54.3184843Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-14T06:09:54.3185160Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-14T06:09:54.3185433Z [36;1mfi[0m
+2026-10-14T06:09:54.3202004Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:54.3202403Z env:
+2026-10-14T06:09:54.3202596Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.3202858Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:09:54.3203047Z ##[endgroup]
+2026-10-14T06:09:54.3670129Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=62]
+2026-10-14T06:09:54.3674389Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-14T06:09:54.3830732Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-14T06:09:54.3831365Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-14T06:09:54.3832064Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-14T06:09:54.3832770Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-14T06:09:54.3833301Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-14T06:09:54.3833783Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-14T06:09:54.3834293Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-14T06:09:54.3834851Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-14T06:09:54.3835356Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-14T06:09:54.3835701Z [36;1m  fi[0m
+2026-10-14T06:09:54.3835881Z [36;1mfi[0m
+2026-10-14T06:09:54.3852278Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:54.3852677Z env:
+2026-10-14T06:09:54.3852887Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.3853150Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:09:54.3853357Z   CARGO_TERM_COLOR: always
+2026-10-14T06:09:54.3853565Z   toolchain: stable
+2026-10-14T06:09:54.3853764Z ##[endgroup]
+2026-10-14T06:09:54.5764623Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=208]
+2026-10-14T06:09:54.5768659Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-14T06:09:54.5920782Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-14T06:09:54.5921559Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-14T06:09:54.5922189Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-14T06:09:54.5922665Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-14T06:09:54.5922962Z [36;1mfi[0m
+2026-10-14T06:09:54.5939582Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:54.5939965Z env:
+2026-10-14T06:09:54.5940157Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.5940409Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:09:54.5940612Z   CARGO_TERM_COLOR: always
+2026-10-14T06:09:54.5940810Z   toolchain: stable
+2026-10-14T06:09:54.5940988Z ##[endgroup]
+2026-10-14T06:09:54.7162115Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=139]
+2026-10-14T06:09:54.7167613Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-14T06:09:54.7320891Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-14T06:09:54.7321266Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-14T06:09:54.7337498Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-14T06:09:54.7337899Z env:
+2026-10-14T06:09:54.7338093Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.7338355Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:09:54.7338563Z   CARGO_TERM_COLOR: always
+2026-10-14T06:09:54.7338771Z   toolchain: stable
+2026-10-14T06:09:54.7338957Z ##[endgroup]
+2026-10-14T06:09:54.8283895Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-14T06:09:54.8284410Z binary: rustc
+2026-10-14T06:09:54.8284837Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-14T06:09:54.8285268Z commit-date: 2026-09-28
+2026-10-14T06:09:54.8285591Z host: x86_64-pc-windows-msvc
+2026-10-14T06:09:54.8286292Z release: 1.99.0
+2026-10-14T06:09:54.8286829Z LLVM version: 23.1.1
+2026-10-14T06:09:54.8435088Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=126]
+2026-10-14T06:09:54.8848866Z ##[group]Run Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6
+2026-10-14T06:09:54.8849343Z with:
+2026-10-14T06:09:54.8849551Z   workspaces: ./src-tauri -> target
+2026-10-14T06:09:54.8849803Z   save-if: false
+2026-10-14T06:09:54.8849990Z   prefix-key: v0-rust
+2026-10-14T06:09:54.8850195Z   add-job-id-key: true
+2026-10-14T06:09:54.8850421Z   add-rust-environment-hash-key: true
+2026-10-14T06:09:54.8850676Z   cache-targets: true
+2026-10-14T06:09:54.8850876Z   cache-all-crates: false
+2026-10-14T06:09:54.8851101Z   cache-workspace-crates: false
+2026-10-14T06:09:54.8851337Z   cache-provider: github
+2026-10-14T06:09:54.8851545Z   cache-bin: true
+2026-10-14T06:09:54.8851722Z   lookup-only: false
+2026-10-14T06:09:54.8851906Z   cmd-format: {0}
+2026-10-14T06:09:54.8852079Z env:
+2026-10-14T06:09:54.8852265Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:09:54.8852544Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:09:54.8852743Z   CARGO_TERM_COLOR: always
+2026-10-14T06:09:54.8852985Z ##[endgroup]
+2026-10-14T06:09:56.2454108Z ##[group]Cache Configuration
+2026-10-14T06:09:56.2454855Z Cache Provider:
+2026-10-14T06:09:56.2455250Z     github
+2026-10-14T06:09:56.2455578Z Workspaces:
+2026-10-14T06:09:56.2456024Z     D:\a\Narro\Narro\src-tauri
+2026-10-14T06:09:56.2456459Z Cache Paths:
+2026-10-14T06:09:56.2456869Z     C:\Users\runneradmin\.cargo\bin
+2026-10-14T06:09:56.2457424Z     C:\Users\runneradmin\.cargo\.crates.toml
+2026-10-14T06:09:56.2458000Z     C:\Users\runneradmin\.cargo\.crates2.json
+2026-10-14T06:09:56.2458613Z     C:\Users\runneradmin\.cargo\registry
+2026-10-14T06:09:56.2459701Z     C:\Users\runneradmin\.cargo\git
+2026-10-14T06:09:56.2460236Z     D:\a\Narro\Narro\src-tauri\target
+2026-10-14T06:09:56.2460711Z Restore Key:
+2026-10-14T06:09:56.2461203Z     v0-rust-windows-candidate-Windows_NT-x64-63f58d45
+2026-10-14T06:09:56.2461742Z Cache Key:
+2026-10-14T06:09:56.2462263Z     v0-rust-windows-candidate-Windows_NT-x64-63f58d45-e7690c6e
+2026-10-14T06:09:56.2462892Z .. Prefix:
+2026-10-14T06:09:56.2463334Z   - v0-rust-windows-candidate-Windows_NT-x64
+2026-10-14T06:09:56.2463920Z .. Environment considered:
+2026-10-14T06:09:56.2464430Z   - Rust Versions:
+2026-10-14T06:09:56.2466910Z     - 1.99.0 x86_64-pc-windows-msvc b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-14T06:09:56.2468248Z   - CARGO_HOME
+2026-10-14T06:09:56.2470960Z   - CARGO_INCREMENTAL
+2026-10-14T06:09:56.2472637Z   - CARGO_TERM_COLOR
+2026-10-14T06:09:56.2473457Z .. Lockfiles considered:
+2026-10-14T06:09:56.2474147Z   - D:\a\Narro\Narro\src-tauri\Cargo.lock
+2026-10-14T06:09:56.2474912Z   - D:\a\Narro\Narro\src-tauri\Cargo.toml
+2026-10-14T06:09:56.2475981Z ##[endgroup]
+2026-10-14T06:09:56.2476452Z 
+2026-10-14T06:09:56.2477311Z ... Restoring cache ...
+2026-10-14T06:09:56.6160392Z Cache hit for: v0-rust-windows-candidate-Windows_NT-x64-63f58d45-e7690c6e
+2026-10-14T06:09:57.8793096Z Received 37748736 of 1062766212 (3.6%), 35.9 MBs/sec
+2026-10-14T06:09:58.8893540Z Received 146800640 of 1062766212 (13.8%), 69.5 MBs/sec
+2026-10-14T06:09:59.8932835Z Received 289406976 of 1062766212 (27.2%), 91.5 MBs/sec
+2026-10-14T06:10:00.9022270Z Received 432013312 of 1062766212 (40.6%), 102.3 MBs/sec
+2026-10-14T06:10:01.9273997Z Received 536870912 of 1062766212 (50.5%), 101.3 MBs/sec
+2026-10-14T06:10:02.9280226Z Received 671088640 of 1062766212 (63.1%), 105.7 MBs/sec
+2026-10-14T06:10:03.9568566Z Received 817889280 of 1062766212 (77.0%), 110.1 MBs/sec
+2026-10-14T06:10:04.9622409Z Received 939524096 of 1062766212 (88.4%), 110.8 MBs/sec
+2026-10-14T06:10:05.6966041Z Received 1062766212 of 1062766212 (100.0%), 114.9 MBs/sec
+2026-10-14T06:10:05.6969359Z Cache Size: ~1014 MB (1062766212 B)
+2026-10-14T06:10:05.7046859Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/2a304e6b-8051-4b4f-84f9-4646cb83f476/cache.tzst -P -C D:/a/Narro/Narro --force-local --use-compress-program "zstd -d"
+2026-10-14T06:10:25.9160810Z Cache restored successfully
+2026-10-14T06:10:26.0051126Z Restored from cache key "v0-rust-windows-candidate-Windows_NT-x64-63f58d45-e7690c6e" full match: true.
+2026-10-14T06:10:26.0362860Z ##[group]Run npm ci
+2026-10-14T06:10:26.0363175Z [36;1mnpm ci[0m
+2026-10-14T06:10:26.0629561Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:10:26.0630029Z env:
+2026-10-14T06:10:26.0630297Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:26.0630647Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:26.0631325Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:26.0631613Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:26.0631884Z ##[endgroup]
+2026-10-14T06:10:31.6508943Z 
+2026-10-14T06:10:31.6509717Z added 73 packages, and audited 74 packages in 4s
+2026-10-14T06:10:31.6510162Z 
+2026-10-14T06:10:31.6510436Z 11 packages are looking for funding
+2026-10-14T06:10:31.6512552Z   run `npm fund` for details
+2026-10-14T06:10:31.6532930Z 
+2026-10-14T06:10:31.6533459Z 1 high severity vulnerability
+2026-10-14T06:10:31.6533913Z 
+2026-10-14T06:10:31.6534162Z To address all issues, run:
+2026-10-14T06:10:31.6534601Z   npm audit fix
+2026-10-14T06:10:31.6534849Z 
+2026-10-14T06:10:31.6535020Z Run `npm audit` for details.
+2026-10-14T06:10:31.6548108Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-14T06:10:31.6549316Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-14T06:10:31.6550076Z npm warn install-scripts
+2026-10-14T06:10:31.6551124Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-14T06:10:33.1218039Z ##[group]Run actions/download-artifact@v4
+2026-10-14T06:10:33.1218396Z with:
+2026-10-14T06:10:33.1218602Z   name: narro-fast-frontend-dist
+2026-10-14T06:10:33.1218846Z   path: dist
+2026-10-14T06:10:33.1219037Z   merge-multiple: false
+2026-10-14T06:10:33.1219274Z   repository: MariosGiannakaras/Narro
+2026-10-14T06:10:33.1219545Z   run-id: 38519177394
+2026-10-14T06:10:33.1219729Z env:
+2026-10-14T06:10:33.1219919Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:33.1220176Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:33.1220754Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:33.1221090Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:33.1221296Z ##[endgroup]
+2026-10-14T06:10:33.4277319Z Downloading single artifact
+2026-10-14T06:10:33.4546706Z (node:912) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-14T06:10:33.4548164Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-14T06:10:33.7355219Z Preparing to download the following artifacts:
+2026-10-14T06:10:33.7357536Z - narro-fast-frontend-dist (ID: 11873655963, Size: 347900, Expected Digest: sha256:d8e8722fe5b61810c3fd1686d038981bcfabf81ca5e023f04920d7b07b3aea8a)
+2026-10-14T06:10:33.9893939Z Redirecting to blob download url: https://productionresultssa12.blob.core.windows.net/actions-results/ef03a485-fea7-880d-a0f8-992e95feb072/workflow-job-run-5b3f0390-e849-5c79-a257-6c71fa55b7ac/artifacts/b7350f29c88c540c490e7cef1960c76770391ac8fb0d656e26f09a386042f6da.zip
+2026-10-14T06:10:33.9896331Z Starting download of artifact to: D:\a\Narro\Narro\dist
+2026-10-14T06:10:34.3303774Z (node:912) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-14T06:10:34.6282977Z SHA256 digest of downloaded artifact is d8e8722fe5b61810c3fd1686d038981bcfabf81ca5e023f04920d7b07b3aea8a
+2026-10-14T06:10:34.6284346Z Artifact download completed successfully.
+2026-10-14T06:10:34.6284841Z Total of 1 artifact(s) downloaded
+2026-10-14T06:10:34.6292001Z Download artifact has finished successfully
+2026-10-14T06:10:34.6609100Z ##[group]Run foreach ($required in @("dist/index.html", "dist/focus.html")) {
+2026-10-14T06:10:34.6609757Z [36;1mforeach ($required in @("dist/index.html", "dist/focus.html")) {[0m
+2026-10-14T06:10:34.6610263Z [36;1m  if (-not (Test-Path $required -PathType Leaf)) {[0m
+2026-10-14T06:10:34.6610707Z [36;1m    throw "Fast-gate frontend output is missing: $required"[0m
+2026-10-14T06:10:34.6611054Z [36;1m  }[0m
+2026-10-14T06:10:34.6611247Z [36;1m}[0m
+2026-10-14T06:10:34.6690385Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:10:34.6690772Z env:
+2026-10-14T06:10:34.6690988Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:34.6691274Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:34.6691499Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:34.6691745Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:34.6691969Z ##[endgroup]
+2026-10-14T06:10:35.1138113Z ##[group]Run node -v
+2026-10-14T06:10:35.1138581Z [36;1mnode -v[0m
+2026-10-14T06:10:35.1138790Z [36;1mnpm -v[0m
+2026-10-14T06:10:35.1138987Z [36;1mrustc -V[0m
+2026-10-14T06:10:35.1139192Z [36;1mcargo -V[0m
+2026-10-14T06:10:35.1139402Z [36;1mrustfmt -V[0m
+2026-10-14T06:10:35.1139616Z [36;1mcargo clippy -V[0m
+2026-10-14T06:10:35.1213443Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:10:35.1213795Z env:
+2026-10-14T06:10:35.1214529Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:35.1214804Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:35.1215027Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:35.1215250Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:35.1215469Z ##[endgroup]
+2026-10-14T06:10:35.4360503Z v24.21.0
+2026-10-14T06:10:35.8629200Z 11.19.0
+2026-10-14T06:10:35.9155807Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-14T06:10:35.9624659Z cargo 1.99.0 (5f94df478 2026-08-27)
+2026-10-14T06:10:36.4715436Z rustfmt 1.10.0-stable (b940084d7e 2026-09-28)
+2026-10-14T06:10:37.0219822Z clippy 0.1.99 (b940084d7e 2026-09-28)
+2026-10-14T06:10:37.1192322Z ##[group]Run npm run prepare:icons
+2026-10-14T06:10:37.1192703Z [36;1mnpm run prepare:icons[0m
+2026-10-14T06:10:37.1266684Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:10:37.1267076Z env:
+2026-10-14T06:10:37.1267282Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:37.1267563Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:37.1267779Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:37.1268011Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:37.1268229Z ##[endgroup]
+2026-10-14T06:10:37.8541595Z 
+2026-10-14T06:10:37.8542163Z > narro@0.1.0 prepare:icons
+2026-10-14T06:10:37.8542872Z > tauri icon assets/branding/narro-logo-master.png && node scripts/sync-tray-icon.mjs
+2026-10-14T06:10:37.8543347Z 
+2026-10-14T06:10:38.0015186Z         Appx Creating StoreLogo.png
+2026-10-14T06:10:38.0834875Z         Appx Creating Square30x30Logo.png
+2026-10-14T06:10:38.1537374Z         Appx Creating Square44x44Logo.png
+2026-10-14T06:10:38.2222472Z         Appx Creating Square71x71Logo.png
+2026-10-14T06:10:38.2927682Z         Appx Creating Square89x89Logo.png
+2026-10-14T06:10:38.3642476Z         Appx Creating Square107x107Logo.png
+2026-10-14T06:10:38.4429268Z         Appx Creating Square142x142Logo.png
+2026-10-14T06:10:38.5131829Z         Appx Creating Square150x150Logo.png
+2026-10-14T06:10:38.6107528Z         Appx Creating Square284x284Logo.png
+2026-10-14T06:10:38.7235474Z         Appx Creating Square310x310Logo.png
+2026-10-14T06:10:38.8444713Z         ICNS Creating icon.icns
+2026-10-14T06:10:40.3184968Z          ICO Creating icon.ico
+2026-10-14T06:10:40.7620018Z          PNG Creating 32x32.png
+2026-10-14T06:10:40.8276537Z          PNG Creating 64x64.png
+2026-10-14T06:10:40.8964511Z          PNG Creating 128x128.png
+2026-10-14T06:10:40.9727506Z          PNG Creating 128x128@2x.png
+2026-10-14T06:10:41.0662073Z          PNG Creating icon.png
+2026-10-14T06:10:41.2712594Z          iOS Creating AppIcon-20x20@2x-1.png
+2026-10-14T06:10:41.3367373Z          iOS Creating AppIcon-20x20@1x.png
+2026-10-14T06:10:41.4012195Z          iOS Creating AppIcon-20x20@2x.png
+2026-10-14T06:10:41.4771940Z          iOS Creating AppIcon-20x20@3x.png
+2026-10-14T06:10:41.5458504Z          iOS Creating AppIcon-29x29@2x-1.png
+2026-10-14T06:10:41.6052135Z          iOS Creating AppIcon-29x29@1x.png
+2026-10-14T06:10:41.6820355Z          iOS Creating AppIcon-29x29@2x.png
+2026-10-14T06:10:41.7506850Z          iOS Creating AppIcon-29x29@3x.png
+2026-10-14T06:10:41.8306500Z          iOS Creating AppIcon-40x40@2x-1.png
+2026-10-14T06:10:41.9077786Z          iOS Creating AppIcon-40x40@1x.png
+2026-10-14T06:10:41.9668388Z          iOS Creating AppIcon-40x40@2x.png
+2026-10-14T06:10:42.0483306Z          iOS Creating AppIcon-40x40@3x.png
+2026-10-14T06:10:42.1237776Z          iOS Creating AppIcon-60x60@2x.png
+2026-10-14T06:10:42.1900094Z          iOS Creating AppIcon-60x60@3x.png
+2026-10-14T06:10:42.2966590Z          iOS Creating AppIcon-76x76@1x.png
+2026-10-14T06:10:42.3795078Z          iOS Creating AppIcon-76x76@2x.png
+2026-10-14T06:10:42.4694969Z          iOS Creating AppIcon-83.5x83.5@2x.png
+2026-10-14T06:10:42.5585497Z          iOS Creating AppIcon-512@2x.png
+2026-10-14T06:10:43.0874577Z      Android Creating mipmap-hdpi/ic_launcher_foreground.png
+2026-10-14T06:10:43.1750028Z      Android Creating mipmap-mdpi/ic_launcher_foreground.png
+2026-10-14T06:10:43.2519808Z      Android Creating mipmap-xhdpi/ic_launcher_foreground.png
+2026-10-14T06:10:43.3608838Z      Android Creating mipmap-xxhdpi/ic_launcher_foreground.png
+2026-10-14T06:10:43.5273087Z      Android Creating mipmap-xxxhdpi/ic_launcher_foreground.png
+2026-10-14T06:10:43.6947992Z      Android Creating mipmap-hdpi/ic_launcher_round.png
+2026-10-14T06:10:43.7665920Z      Android Creating mipmap-hdpi/ic_launcher.png
+2026-10-14T06:10:43.8432704Z      Android Creating mipmap-mdpi/ic_launcher_round.png
+2026-10-14T06:10:43.9167318Z      Android Creating mipmap-mdpi/ic_launcher.png
+2026-10-14T06:10:43.9886191Z      Android Creating mipmap-xhdpi/ic_launcher_round.png
+2026-10-14T06:10:44.0767457Z      Android Creating mipmap-xhdpi/ic_launcher.png
+2026-10-14T06:10:44.1553636Z      Android Creating mipmap-xxhdpi/ic_launcher_round.png
+2026-10-14T06:10:44.2478680Z      Android Creating mipmap-xxhdpi/ic_launcher.png
+2026-10-14T06:10:44.3317589Z      Android Creating mipmap-xxxhdpi/ic_launcher_round.png
+2026-10-14T06:10:44.4321022Z      Android Creating mipmap-xxxhdpi/ic_launcher.png
+2026-10-14T06:10:44.5908550Z Synced Narro tray icon from the canonical generated 64px icon.
+2026-10-14T06:10:44.6981562Z ##[group]Run npm run check:rust
+2026-10-14T06:10:44.6981942Z [36;1mnpm run check:rust[0m
+2026-10-14T06:10:44.7059461Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:10:44.7059838Z env:
+2026-10-14T06:10:44.7060051Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:10:44.7060329Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:10:44.7060545Z   CARGO_TERM_COLOR: always
+2026-10-14T06:10:44.7060777Z   CACHE_ON_FAILURE: false
+2026-10-14T06:10:44.7060991Z ##[endgroup]
+2026-10-14T06:10:45.5715582Z 
+2026-10-14T06:10:45.5716365Z > narro@0.1.0 check:rust
+2026-10-14T06:10:45.5717712Z > cargo check --manifest-path src-tauri/Cargo.toml --locked
+2026-10-14T06:10:45.5718260Z 
+2026-10-14T06:10:45.7686347Z [1m[92m    Updating[0m crates.io index
+2026-10-14T06:11:11.5022370Z [1m[92m   Compiling[0m narro v0.1.0 (D:\a\Narro\Narro\src-tauri)
+2026-10-14T06:11:22.2385979Z [1m[92m    Finished[0m `dev` profile [unoptimized + debuginfo] target(s) in 36.55s
+2026-10-14T06:11:22.3299190Z ##[group]Run npm run check:rust:clippy
+2026-10-14T06:11:22.3309269Z [36;1mnpm run check:rust:clippy[0m
+2026-10-14T06:11:22.3386130Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-14T06:11:22.3386511Z env:
+2026-10-14T06:11:22.3386736Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:11:22.3387026Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:11:22.3387262Z   CARGO_TERM_COLOR: always
+2026-10-14T06:11:22.3387498Z   CACHE_ON_FAILURE: false
+2026-10-14T06:11:22.3387739Z ##[endgroup]
+2026-10-14T06:11:23.0781241Z 
+2026-10-14T06:11:23.0781894Z > narro@0.1.0 check:rust:clippy
+2026-10-14T06:11:23.0782780Z > cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+2026-10-14T06:11:23.0783348Z 
+2026-10-14T06:11:23.8541282Z [1m[92m   Compiling[0m narro v0.1.0 (D:\a\Narro\Narro\src-tauri)
+2026-10-14T06:11:32.6464046Z [1m[91merror[0m[1m[97m: casting raw pointers to the same type and constness is unnecessary (`*mut std::ffi::c_void` -> `*mut std::ffi::c_void`)[0m
+2026-10-14T06:11:32.6465501Z   [1m[96m--> [0msrc\main_focus_morph.rs:33:16
+2026-10-14T06:11:32.6466082Z    [1m[96m|[0m
+2026-10-14T06:11:32.6466673Z [1m[96m33[0m [1m[96m|[0m       let hwnd = window
+2026-10-14T06:11:32.6467335Z    [1m[96m|[0m [1m[91m ________________^[0m
+2026-10-14T06:11:32.6468100Z [1m[96m34[0m [1m[96m|[0m [1m[91m|[0m         .hwnd()
+2026-10-14T06:11:32.6469206Z [1m[96m35[0m [1m[96m|[0m [1m[91m|[0m         .map_err(|e| morph_error("resolve reveal HWND", e))?
+2026-10-14T06:11:32.6470414Z [1m[96m36[0m [1m[96m|[0m [1m[91m|[0m         .0 as *mut std::ffi::c_void;
+2026-10-14T06:11:32.6471261Z    [1m[96m|[0m [1m[91m|___________________________________^[0m
+2026-10-14T06:11:32.6471835Z    [1m[96m|[0m
+2026-10-14T06:11:32.6473040Z    [1m[96m= [0m[1m[97mhelp[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#unnecessary_cast
+2026-10-14T06:11:32.6474620Z    [1m[96m= [0m[1m[97mnote[0m: `-D clippy::unnecessary-cast` implied by `-D warnings`
+2026-10-14T06:11:32.6475928Z    [1m[96m= [0m[1m[97mhelp[0m: to override `-D warnings` add `#[allow(clippy::unnecessary_cast)]`
+2026-10-14T06:11:32.6476790Z [1m[96mhelp[0m: try
+2026-10-14T06:11:32.6477651Z    [1m[96m|[0m
+2026-10-14T06:11:32.6478273Z [1m[96m33[0m [92m~ [0m    let hwnd = [92mwindow[0m
+2026-10-14T06:11:32.6478976Z [1m[96m34[0m [92m+         .hwnd()[0m
+2026-10-14T06:11:32.6479885Z [1m[96m35[0m [92m+         .map_err(|e| morph_error("resolve reveal HWND", e))?[0m
+2026-10-14T06:11:32.6480724Z [1m[96m36[0m [92m~         .0[0m;
+2026-10-14T06:11:32.6481183Z    [1m[96m|[0m
+2026-10-14T06:11:32.6481380Z 
+2026-10-14T06:11:32.6482652Z [1m[91merror[0m[1m[97m: casting raw pointers to the same type and constness is unnecessary (`*mut std::ffi::c_void` -> `*mut std::ffi::c_void`)[0m
+2026-10-14T06:11:32.6483949Z   [1m[96m--> [0msrc\main_focus_morph.rs:65:16
+2026-10-14T06:11:32.6484502Z    [1m[96m|[0m
+2026-10-14T06:11:32.6485068Z [1m[96m65[0m [1m[96m|[0m       let hwnd = window
+2026-10-14T06:11:32.6485727Z    [1m[96m|[0m [1m[91m ________________^[0m
+2026-10-14T06:11:32.6486495Z [1m[96m66[0m [1m[96m|[0m [1m[91m|[0m         .hwnd()
+2026-10-14T06:11:32.6487552Z [1m[96m67[0m [1m[96m|[0m [1m[91m|[0m         .map_err(|e| morph_error("resolve reveal HWND", e))?
+2026-10-14T06:11:32.6488578Z [1m[96m68[0m [1m[96m|[0m [1m[91m|[0m         .0 as *mut c_void;
+2026-10-14T06:11:32.6489350Z    [1m[96m|[0m [1m[91m|_________________________^[0m
+2026-10-14T06:11:32.6490356Z    [1m[96m|[0m
+2026-10-14T06:11:32.6491556Z    [1m[96m= [0m[1m[97mhelp[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#unnecessary_cast
+2026-10-14T06:11:32.6492707Z [1m[96mhelp[0m: try
+2026-10-14T06:11:32.6493130Z    [1m[96m|[0m
+2026-10-14T06:11:32.6496668Z [1m[96m65[0m [92m~ [0m    let hwnd = [92mwindow[0m
+2026-10-14T06:11:32.6497926Z [1m[96m66[0m [92m+         .hwnd()[0m
+2026-10-14T06:11:32.6498863Z [1m[96m67[0m [92m+         .map_err(|e| morph_error("resolve reveal HWND", e))?[0m
+2026-10-14T06:11:32.6499678Z [1m[96m68[0m [92m~         .0[0m;
+2026-10-14T06:11:32.6500181Z    [1m[96m|[0m
+2026-10-14T06:11:32.6500397Z 
+2026-10-14T06:11:33.4050041Z [1m[91merror[0m: could not compile `narro` (lib) due to 2 previous errors
+2026-10-14T06:11:33.4050776Z [1m[93mwarning[0m: build failed, waiting for other jobs to finish...
+2026-10-14T06:11:35.2831737Z [1m[91merror[0m: could not compile `narro` (lib test) due to 2 previous errors
+2026-10-14T06:11:35.3744009Z ##[error]Process completed with exit code 1.
+2026-10-14T06:11:35.4144600Z ##[group]Run actions/upload-artifact@v4
+2026-10-14T06:11:35.4144958Z with:
+2026-10-14T06:11:35.4145214Z   name: narro-visual-regression-failure-diagnostics
+2026-10-14T06:11:35.4145566Z   path: artifacts/visual-regression/*
+2026-10-14T06:11:35.4145838Z   if-no-files-found: warn
+2026-10-14T06:11:35.4146060Z   retention-days: 1
+2026-10-14T06:11:35.4146266Z   compression-level: 6
+2026-10-14T06:11:35.4146486Z   overwrite: false
+2026-10-14T06:11:35.4146693Z   include-hidden-files: false
+2026-10-14T06:11:35.4146928Z env:
+2026-10-14T06:11:35.4147123Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:11:35.4147403Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:11:35.4147616Z   CARGO_TERM_COLOR: always
+2026-10-14T06:11:35.4147847Z   CACHE_ON_FAILURE: false
+2026-10-14T06:11:35.4148055Z ##[endgroup]
+2026-10-14T06:11:35.7629025Z (node:692) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-14T06:11:35.7629920Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-14T06:11:35.7687544Z ##[warning]No files were found with the provided path: artifacts/visual-regression/*. No artifacts will be uploaded.
+2026-10-14T06:11:35.7998340Z ##[group]Run actions/upload-artifact@v4
+2026-10-14T06:11:35.7998709Z with:
+2026-10-14T06:11:35.7998931Z   name: narro-m7-focus-runtime-visual
+2026-10-14T06:11:35.7999240Z   path: artifacts/focus-runtime-visual/**
+2026-10-14T06:11:35.7999536Z   if-no-files-found: error
+2026-10-14T06:11:35.7999774Z   compression-level: 6
+2026-10-14T06:11:35.7999984Z   overwrite: false
+2026-10-14T06:11:35.8000192Z   include-hidden-files: false
+2026-10-14T06:11:35.8000411Z env:
+2026-10-14T06:11:35.8000604Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-14T06:11:35.8000867Z   CARGO_INCREMENTAL: 0
+2026-10-14T06:11:35.8001074Z   CARGO_TERM_COLOR: always
+2026-10-14T06:11:35.8001312Z   CACHE_ON_FAILURE: false
+2026-10-14T06:11:35.8001528Z ##[endgroup]
+2026-10-14T06:11:36.0139301Z (node:7116) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-14T06:11:36.0140708Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-14T06:11:36.0193954Z ##[error]No files were found with the provided path: artifacts/focus-runtime-visual/**. No artifacts will be uploaded.
+2026-10-14T06:11:36.0675015Z Post job cleanup.
+2026-10-14T06:11:36.3148799Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-14T06:11:36.3465261Z git version 2.55.0.windows.5
+2026-10-14T06:11:36.3536870Z Temporarily overriding HOME='D:\a\_temp\dc58672c-bb57-49d8-8c63-9d7a99ef6f14' before making global git config changes
+2026-10-14T06:11:36.3537722Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T06:11:36.3548766Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Narro\Narro
+2026-10-14T06:11:36.4033896Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T06:11:36.4478020Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-14T06:11:37.5490375Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T06:11:37.5773011Z http.https://github.com/.extraheader
+2026-10-14T06:11:37.5820085Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-14T06:11:37.6159622Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-14T06:11:38.2066276Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T06:11:38.2398212Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-14T06:11:38.8383646Z Cleaning up orphan processes
+2026-10-14T06:11:39.2371707Z Terminate orphan process: pid (9024) (vctip)
+2026-10-14T06:11:39.2442626Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

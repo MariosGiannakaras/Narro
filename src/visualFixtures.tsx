@@ -20,6 +20,7 @@ const fixture = requestedFixture === "app-shell"
   || requestedFixture === "list-board"
   || requestedFixture === "list-board-all"
   || requestedFixture === "task-card-states"
+  || requestedFixture === "task-recurring-menu"
   ? requestedFixture
   : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
@@ -399,6 +400,41 @@ function TaskCardStatesFixture() {
   );
 }
 
+// B45: the real TaskCard overflow menu, opened without any persistence calls.
+// This supplements source-level route checks; it does not simulate Rust edits.
+function RecurringParentMenuFixture() {
+  const task = {
+    ...taskForFixtureState("normal", 0),
+    title: "Repeat weekly review",
+    recurrenceRuleId: "84444444-4444-4444-8444-444444444444",
+    recurrenceCadence: "weekdays" as const,
+  };
+  return (
+    <AppShell
+      fixtureMode
+      homeContent={
+        <section className="task-recurring-menu-fixture" data-task-recurring-menu-fixture="true" aria-label="Recurring parent task menu fixture">
+          <h1 className="type-page-title">Recurring parent task</h1>
+          <div className="task-recurring-menu-fixture__card">
+            <TaskCard
+              task={task}
+              aggregateView
+              fixtureState="action_revealed"
+              actions={{
+                onSchedule: fixtureAction,
+                onRemoveRecurring: fixtureAction,
+                onChangeList: fixtureAction,
+                onDuplicate: fixtureAction,
+                onDelete: fixtureAction,
+              }}
+            />
+          </div>
+        </section>
+      }
+    />
+  );
+}
+
 function VisualFixtureSurface() {
   if (fixture === "app-shell") {
     return <AppShell fixtureMode homeContent={<ShellPlaceholderFixture />} />;
@@ -437,6 +473,7 @@ function VisualFixtureSurface() {
   if (fixture === "list-board") return <ListBoardFixture aggregate={false} />;
   if (fixture === "list-board-all") return <ListBoardFixture aggregate />;
   if (fixture === "task-card-states") return <TaskCardStatesFixture />;
+  if (fixture === "task-recurring-menu") return <RecurringParentMenuFixture />;
   return <FoundationFixtureSurface />;
 }
 
@@ -448,6 +485,17 @@ if (!rootElement) {
 flushSync(() => {
   createRoot(rootElement).render(<VisualFixtureSurface />);
 });
+
+if (fixture === "task-recurring-menu") {
+  const trigger = document.querySelector<HTMLButtonElement>(
+    '[data-task-recurring-menu-fixture="true"] button[aria-label="Task actions"]',
+  );
+  if (!trigger) throw new Error("Recurring parent Task actions trigger is missing.");
+  flushSync(() => trigger.click());
+  if (!document.querySelector('[data-task-recurring-menu-fixture="true"] .overlay-menu[data-open="true"]')) {
+    throw new Error("Recurring parent Task actions menu did not open.");
+  }
+}
 
 if (fixture === "list-card-states") {
   const menuTrigger = document.querySelector<HTMLButtonElement>('button[aria-label="More actions for Study"]');
@@ -488,6 +536,45 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
   }
 
   return values;
+}
+
+
+type DoneHeadingGeometry = {
+  dateKey: string;
+  count: number;
+  dateText: string;
+  countText: string;
+  dateRight: number;
+  countLeft: number;
+  countRight: number;
+  headingRight: number;
+  dateOverflows: boolean;
+  countOverflows: boolean;
+};
+
+function readDoneHeadingGeometry(): DoneHeadingGeometry[] {
+  return Array.from(
+    document.querySelectorAll<HTMLElement>('[data-board-lane="Done"] [data-board-done-date]'),
+    (heading) => {
+      const date = heading.querySelector<HTMLElement>(".list-board-lane__done-date");
+      const count = heading.querySelector<HTMLElement>(".list-board-lane__done-count");
+      if (!date || !count) throw new Error("Done heading lost its date or count child");
+      const dateRect = date.getBoundingClientRect();
+      const countRect = count.getBoundingClientRect();
+      return {
+        dateKey: heading.dataset.boardDoneDate ?? "",
+        count: Number(heading.dataset.boardDoneDateCount),
+        dateText: date.textContent?.trim() ?? "",
+        countText: count.textContent?.trim() ?? "",
+        dateRight: dateRect.right,
+        countLeft: countRect.left,
+        countRight: countRect.right,
+        headingRight: heading.getBoundingClientRect().right,
+        dateOverflows: date.scrollWidth > date.clientWidth + 1,
+        countOverflows: count.scrollWidth > count.clientWidth + 1,
+      };
+    },
+  );
 }
 
 function readLayoutViewport() {
@@ -555,6 +642,8 @@ const visualContract = fixture === "app-shell"
         home: readVisualNode(".home-dashboard", ["width", "height"]),
         aggregateCard: readVisualNode('[data-home-card="all-lists"]', ["width", "height", "backgroundColor", "borderRadius"]),
         listCard: readVisualNode('[data-home-card="list"]', ["width", "height", "backgroundColor", "borderRadius"]),
+        taskPreviewRow: readVisualNode('[data-home-card="all-lists"] .home-list-card__task', ["width", "height", "backgroundColor", "borderRadius"]),
+        taskPreviewOrdinal: readVisualNode('[data-home-card="all-lists"] .home-list-card__task-ordinal', ["color"]),
       }
     : fixture === "list-card-states"
       ? {
@@ -584,6 +673,7 @@ const visualContract = fixture === "app-shell"
               viewport: captureViewport,
               canvas: readVisualNode("body", ["backgroundColor", "color"]),
               ...boardContract(),
+              doneHeadings: readDoneHeadingGeometry(),
             }
           : fixture === "task-card-states"
             ? {
@@ -593,7 +683,17 @@ const visualContract = fixture === "app-shell"
                 canvas: readVisualNode("body", ["backgroundColor", "color"]),
                 ...taskCardStatesContract(),
               }
-            : {
+            : fixture === "task-recurring-menu"
+              ? {
+                  fixture,
+                  theme,
+                  viewport: captureViewport,
+                  canvas: readVisualNode("body", ["backgroundColor", "color"]),
+                  ...shellContract(),
+                  parentCard: readVisualNode('[data-task-recurring-menu-fixture="true"] .list-board-task', ["width", "height", "borderRadius"]),
+                  menu: readVisualNode('[data-task-recurring-menu-fixture="true"] .overlay-menu[data-open="true"]', ["width", "height", "borderRadius"]),
+                }
+              : {
                 theme,
                 viewport: captureViewport,
                 canvas: readVisualNode("body", ["backgroundColor", "color"]),

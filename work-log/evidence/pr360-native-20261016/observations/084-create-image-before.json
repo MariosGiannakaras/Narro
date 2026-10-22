@@ -1,0 +1,1243 @@
+{
+  "utc": "2026-10-16T06:55:22.054272+00:00",
+  "hwnd": 4723784,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        208,
+        1080
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        43,
+        195,
+        91
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        60,
+        48,
+        102,
+        69
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        131
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        156,
+        195,
+        196
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        200,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        23,
+        2560,
+        87
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2448,
+        75
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2455,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        87,
+        2560,
+        1024
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        111,
+        1928,
+        495
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        111,
+        1928,
+        196
+      ]
+    },
+    {
+      "name": "HOME",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        111,
+        880,
+        127
+      ]
+    },
+    {
+      "name": "Good morning",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        135,
+        1928,
+        164
+      ]
+    },
+    {
+      "name": "Plan the next work that deserves your attention.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        172,
+        1177,
+        194
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        219,
+        1928,
+        495
+      ]
+    },
+    {
+      "name": "Your Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        223,
+        909,
+        244
+      ]
+    },
+    {
+      "name": "Lists with your upcoming tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1711,
+        220,
+        1928,
+        242
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        840,
+        259,
+        1100,
+        495
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        841,
+        260,
+        1099,
+        318
+      ]
+    },
+    {
+      "name": "All Lists",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        897,
+        278,
+        1043,
+        300
+      ]
+    },
+    {
+      "name": "All Lists task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        841,
+        317,
+        1099,
+        450
+      ]
+    },
+    {
+      "name": "No pending task previews",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        857,
+        338,
+        1040,
+        360
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        918,
+        364,
+        1022,
+        404
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        841,
+        449,
+        1099,
+        494
+      ]
+    },
+    {
+      "name": "0 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        857,
+        464,
+        941,
+        481
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1049,
+        464,
+        1071,
+        481
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1071,
+        464,
+        1083,
+        481
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1116,
+        259,
+        1376,
+        495
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1117,
+        260,
+        1375,
+        318
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1173,
+        278,
+        1319,
+        300
+      ]
+    },
+    {
+      "name": "More actions for PA360 Board",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1327,
+        272,
+        1359,
+        305
+      ]
+    },
+    {
+      "name": "PA360 Board task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1117,
+        317,
+        1375,
+        450
+      ]
+    },
+    {
+      "name": "No pending task previews",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1133,
+        338,
+        1316,
+        360
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1194,
+        364,
+        1298,
+        404
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1117,
+        449,
+        1375,
+        494
+      ]
+    },
+    {
+      "name": "0 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1133,
+        464,
+        1217,
+        481
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1325,
+        464,
+        1347,
+        481
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1347,
+        464,
+        1359,
+        481
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1392,
+        259,
+        1652,
+        495
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1393,
+        260,
+        1651,
+        318
+      ]
+    },
+    {
+      "name": "PA360 Builtin",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1449,
+        278,
+        1595,
+        300
+      ]
+    },
+    {
+      "name": "More actions for PA360 Builtin",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1603,
+        272,
+        1635,
+        305
+      ]
+    },
+    {
+      "name": "PA360 Builtin task preview",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1393,
+        317,
+        1651,
+        450
+      ]
+    },
+    {
+      "name": "No pending task previews",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1409,
+        338,
+        1592,
+        360
+      ]
+    },
+    {
+      "name": "Open",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1470,
+        364,
+        1574,
+        404
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1393,
+        449,
+        1651,
+        494
+      ]
+    },
+    {
+      "name": "0 pending tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1409,
+        464,
+        1493,
+        481
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1601,
+        464,
+        1623,
+        481
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1623,
+        464,
+        1635,
+        481
+      ]
+    },
+    {
+      "name": "CREATE LIST",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1668,
+        259,
+        1928,
+        495
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        1024,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1252,
+        1033,
+        1380,
+        1073
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1388,
+        1033,
+        1516,
+        1073
+      ]
+    },
+    {
+      "name": "Create a new list",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1040,
+        261,
+        1520,
+        842
+      ]
+    },
+    {
+      "name": "Close list editor",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1475,
+        274,
+        1507,
+        307
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        286,
+        1495,
+        396
+      ]
+    },
+    {
+      "name": "LISTS",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        286,
+        1099,
+        303
+      ]
+    },
+    {
+      "name": "Create a new list",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        310,
+        1495,
+        340
+      ]
+    },
+    {
+      "name": "Choose a local icon, color, and title. Changes are saved only after local persistence succeeds.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        348,
+        1485,
+        394
+      ]
+    },
+    {
+      "name": "Choose a list icon: No file chosen",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1267,
+        428,
+        1293,
+        447
+      ],
+      "value": "No file chosen"
+    },
+    {
+      "name": "Upload a list icon",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        1232,
+        428,
+        1328,
+        525
+      ]
+    },
+    {
+      "name": "128x128.png",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1246,
+        533,
+        1314,
+        550
+      ]
+    },
+    {
+      "name": "(jpg, png, svg \u00b7 max 1 MiB)",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1210,
+        558,
+        1350,
+        575
+      ]
+    },
+    {
+      "name": "Pick a list color",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        607,
+        1495,
+        665
+      ]
+    },
+    {
+      "name": "Pick a list color",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1067,
+        607,
+        1146,
+        624
+      ]
+    },
+    {
+      "name": "Pick a custom list color",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        632,
+        1097,
+        665
+      ]
+    },
+    {
+      "name": "Preset list colors",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1109,
+        632,
+        1361,
+        665
+      ],
+      "value": ""
+    },
+    {
+      "name": "Color #48d6c5",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1109,
+        632,
+        1141,
+        665
+      ]
+    },
+    {
+      "name": "Color #48d6c5",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1125,
+        649,
+        1127,
+        651
+      ],
+      "selected": 1,
+      "value": ""
+    },
+    {
+      "name": "Color #b7d96d",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1153,
+        632,
+        1185,
+        665
+      ]
+    },
+    {
+      "name": "Color #b7d96d",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1169,
+        649,
+        1171,
+        651
+      ],
+      "selected": 0,
+      "value": ""
+    },
+    {
+      "name": "Color #5da7e8",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1197,
+        632,
+        1229,
+        665
+      ]
+    },
+    {
+      "name": "Color #5da7e8",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1213,
+        649,
+        1215,
+        651
+      ],
+      "selected": 0,
+      "value": ""
+    },
+    {
+      "name": "Color #8a78dc",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1241,
+        632,
+        1273,
+        665
+      ]
+    },
+    {
+      "name": "Color #8a78dc",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1257,
+        649,
+        1259,
+        651
+      ],
+      "selected": 0,
+      "value": ""
+    },
+    {
+      "name": "Color #e0a34d",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1285,
+        632,
+        1317,
+        665
+      ]
+    },
+    {
+      "name": "Color #e0a34d",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1301,
+        649,
+        1303,
+        651
+      ],
+      "selected": 0,
+      "value": ""
+    },
+    {
+      "name": "Color #df716b",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1329,
+        632,
+        1361,
+        665
+      ]
+    },
+    {
+      "name": "Color #df716b",
+      "type": 50013,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1345,
+        649,
+        1347,
+        651
+      ],
+      "selected": 0,
+      "value": ""
+    },
+    {
+      "name": "Choose a built-in list icon",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1373,
+        632,
+        1405,
+        665
+      ]
+    },
+    {
+      "name": "Title",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        684,
+        1088,
+        701
+      ]
+    },
+    {
+      "name": "Title",
+      "type": 50004,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        708,
+        1495,
+        753
+      ],
+      "value": "PA360 Image"
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1065,
+        772,
+        1495,
+        817
+      ]
+    },
+    {
+      "name": "Cancel",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1267,
+        776,
+        1375,
+        817
+      ]
+    },
+    {
+      "name": "Create",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1387,
+        776,
+        1495,
+        817
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2419,
+        8,
+        2466,
+        22
+      ]
+    },
+    {
+      "name": "Restore",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2466,
+        8,
+        2512,
+        22
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2512,
+        8,
+        2568,
+        22
+      ]
+    }
+  ]
+}

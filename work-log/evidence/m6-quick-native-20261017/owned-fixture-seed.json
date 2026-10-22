@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-17T07:09:40.653006+00:00",
+  "sourceSession": "M5-eight-group-20261016-17",
+  "ownedOnly": true,
+  "sqliteBackupQuickCheck": "ok",
+  "lists": 3,
+  "tasks": 18,
+  "assets": [
+    {
+      "path": "list-icons/32f2dda3-82cb-426e-a199-4aa1238a1cd8.png",
+      "sha256": "19b4fec485db7df51a691fcce72a3dd6f983e754fc4262da7154e4a4c688f69e"
+    }
+  ],
+  "retainedSourceUnchanged": [
+    {
+      "name": "narro.db",
+      "sha256": "05d7b5d7002ef31fb7a98e83549608265706abb62ee426aabf90adaa091dbe73"
+    },
+    {
+      "name": "narro.db-journal",
+      "sha256": "0e409507732c6f0522d763247f4fc5e902cf0588d544c5e86fbd257ed0af9467"
+    }
+  ],
+  "recovery": "Private byte-exact DB/journal copy only; retained source untouched; recovered IDs and quick_check validated"
+}

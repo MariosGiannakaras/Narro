@@ -142,4 +142,41 @@ invariant(
   "task-card state geometry differs between light and dark themes",
 );
 
+// B45: inspect the real, opened production TaskCard overflow menu on a
+// fixture-only recurring parent. This is visible-control evidence, not a
+// completed persistence lifecycle or an authorization for physical Windows PA.
+const recurringMenus = new Map();
+for (const theme of themes) {
+  const label = `task-recurring-menu-${theme}`;
+  validatePng(path.join(outputDirectory, `${label}.png`), label);
+  const domPath = path.join(outputDirectory, `${label}.html`);
+  invariant(fs.existsSync(domPath), `${label} captured DOM is missing`);
+  const dom = fs.readFileSync(domPath, "utf8");
+  invariant(dom.includes('data-visual-fixture-ready="true"'), `${label} did not report ready`);
+  invariant(dom.includes('data-task-recurring-menu-fixture="true"'), `${label} recurring fixture not mounted`);
+  invariant(dom.includes('data-task-recurrence="parent"'), `${label} card is not a recurring parent`);
+  invariant(dom.includes('aria-label="Task actions"'), `${label} overflow trigger not accessible`);
+  invariant(dom.includes('aria-expanded="true"'), `${label} overflow trigger not expanded`);
+  invariant(dom.includes('class="overlay-menu motion-overlay" data-align="end" data-open="true"'), `${label} actual menu is not open`);
+  for (const labelText of ["Update Recurring", "Remove Recurring", "Change List", "Duplicate", "Delete"]) {
+    invariant(dom.includes(`>${labelText}</button>`), `${label} missing real enabled menu choice: ${labelText}`);
+  }
+  invariant(!dom.includes(">Update Schedule</button>"), `${label} showed occurrence schedule instead of parent recurring edit`);
+  invariant(!dom.includes(">Remove schedule</button>"), `${label} parent exposes wrong occurrence quick-remove`);
+  const openingTag = '<script id="visual-contract" type="application/json">';
+  const contractStart = dom.indexOf(openingTag);
+  invariant(contractStart >= 0, `${label} visual geometry contract missing`);
+  const jsonStart = contractStart + openingTag.length;
+  const jsonEnd = dom.indexOf("</script>", jsonStart);
+  invariant(jsonEnd > jsonStart, `${label} visual geometry contract truncated`);
+  const contract = JSON.parse(dom.slice(jsonStart, jsonEnd));
+  invariant(contract.fixture === "task-recurring-menu", `${label} incorrect fixture identity`);
+  invariant(contract.theme === theme, `${label} wrong theme`);
+  invariant(contract.parentCard?.width > 0 && contract.parentCard?.height > 0, `${label} recurring card not rendered`);
+  invariant(contract.menu?.width > 0 && contract.menu?.height > 0, `${label} open menu has no visible geometry`);
+  recurringMenus.set(theme, {parentCard: contract.parentCard, menu: contract.menu});
+}
+invariant(stableJson(recurringMenus.get("light")) === stableJson(recurringMenus.get("dark")),
+  "Recurring overflow menu/card geometry differs across light and dark themes");
+
 console.log("Task-card state captured visual contracts: PASS");

@@ -1,0 +1,9 @@
+# Corrected PR388 C38 native acceptance
+
+Exact EXE source9d2e897d97c6c86896bdb8be3992164cfd8e590b, PR CI39550468133 all3SUCCESS, artifact12324283362, EXE SHA256fc27f73098036e657f9559087435617ca7832d227278e5ac2064c54716687e45. Guarded merge4786bbea382289d3458c7357138df491e80e11ea has all30changed source/test blobs equal to that PR. Resulting-main CI39553189123 was running at this checkpoint; this does not claim its artifacts are verified.
+
+**C38 corrected-native layout PASS:** actual Windows EXE/native desktop screenshot and continuous52.133s/30fps video show all10rows including Search at the real1000x700client viewport. Every row44px; scroll client/content594/594, width720/720. Dialog opening/Escape used CDP on the actual WebView2; OS mouse/global shortcuts/tray/drag were not tested. Desktop crop was measured from HWND6096704 before capture and includes the full1016x739outer window plus1bottom pixel for even video geometry. No previous clipped capture is substituted.
+
+Prior six scoped PR388 checks are retained by nine unchanged source-path identities from originalPR2d99bec3 through correctedPR/main, not repeated or promoted to whole-C/source-parity PASS. Thus seven changed-scope observations have scoped acceptance; M1–M4 remain4/10, Timer/native placement/other gates remain open. The original C38 FAIL stays immutable history.
+
+Full technical Narro-M7-Logs, native/CDP screenshots, actual DOM measurement, action journal and profile restoration proof are included. C5 was not run. Original profiles restored with identical personal DB hash; a transient Local folder lock after app exit cleared before retry. No owned app/recorder remains active. Private backups/caches/fixture databases excluded. SHA256 manifest describes canonical Git blobs; raw receipt ZIP preserves byte-exact text where Git normalizes newlines. Original PNG/MKV bytes are unchanged.

@@ -1,0 +1,8 @@
+{
+  "supersedesFieldOnly": "observations/acceptance-review.json.additionalGates.B60",
+  "incorrectRouting": "B60 as empty-state gradient/check emblem",
+  "correctRouting": "B60 is A28/SS-H12 Board subtask progress ring; unchanged and not exercised here",
+  "B61Verdict": "Four-lane All Clear COPY_SOURCE_AND_NATIVE_PASS only; other empty-state visual details not accepted by this run",
+  "rawEvidenceChanged": false,
+  "physicalFourClaimVerdictsChanged": false
+}

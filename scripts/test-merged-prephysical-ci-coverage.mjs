@@ -50,6 +50,13 @@ for (const [parent, child] of indirect) {
 }
 
 const regressionFile = fs.readFileSync("src/m7IntegrationRegression.tsx", "utf8");
+// The expanded sequential native/focus regression must run to its semantic
+// completion, rather than silently consuming the former 10s virtual budget.
+// This guards CI wiring; actual CDP captures and the fixture own behavior.
+const visualCapture = fs.readFileSync("scripts/capture-visual-fixtures.ps1", "utf8");
+assert.match(visualCapture,
+  /if \(\$Theme -like "focus-editor-m7-integration-\*"\)\s*\{[\s\S]*?capture-ready-fixture-cdp\.mjs[\s\S]*?--kind=m7-integration[\s\S]*?return\s*\}/,
+  "M7 integration must use actual-readiness CDP capture before the CLI virtual-time path");
 assert(regressionFile.includes("focusBoardStaleResponsesRejected: true")
   && regressionFile.includes("focusBoardReadWaiters[1](freshFocusBoard)")
   && regressionFile.includes("focusBoardReadWaiters[0](staleFocusBoard)"),
@@ -61,33 +68,30 @@ assert.equal(commands.at(-1), "npm run build",
   "Preflight must compile the merged React app after all focused regressions");
 assert.match(scripts["test:visual-regression:windows"] || "", /capture-focus-panel-fixtures\.ps1/,
   "Rendered production Focus fixture must stay in the authoritative Windows visual gate");
-// Guard the generated Windows acceptance checklist against accidentally
-// reverting to the superseded single-C5 procedure. This does not run any PA.
+
+// Explicit source-vs-native PA-01–09 routing cannot fall back to the old
+// C5-only or USER-PAUSED protocol; screenshots never certify transitions.
 const physicalScript = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
 const generated = physicalScript.match(/\$checklist = @"\r?\n([\s\S]*?)\r?\n"@/);
-assert(generated, "Physical preparation must include a generated checklist");
+assert(generated, "Physical preparation must include a generated PA checklist");
 const checklist = generated[1];
 let previous = -1;
-for (const id of ["PA-01", "PA-02", "PA-03", "PA-04", "PA-05", "PA-06", "PA-07", "PA-08"]) {
+for (const id of ["PA-01", "PA-02", "PA-03", "PA-04", "PA-05", "PA-06", "PA-07", "PA-08", "PA-09"]) {
   const offset = checklist.indexOf("## " + id + " —");
   assert(offset > previous, "Generated physical checklist must contain ordered " + id);
   previous = offset;
 }
-for (const requirement of [
-  "PA-09 — separate existing-evidence",
-  "M11 remains inactive",
-  "NOT RUN",
-  "125%",
-  "HWND/UIA",
-  "NSIS/MSI",
-  "continuous time-stamped video",
-  "production data",
-]) assert(checklist.includes(requirement), "Missing physical protocol guard: " + requirement);
-assert(!checklist.includes("covers ONLY the remaining C5"),
-  "Do not regress to obsolete C5-only acceptance checklist");
+for (const phrase of [
+  "AUTHORIZED by the user", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
+  "Codex captures continuous time-stamped video", "DO NOT demand video solely", "125%",
+  "HWND/UIA", "NSIS/MSI", "production", "M11 remains inactive",
+]) assert(checklist.includes(phrase), "Missing resumed PA protocol guard: " + phrase);
+assert(!checklist.includes("covers ONLY the remaining C5")
+  && !checklist.includes("until the user expressly authorizes"),
+  "Do not regress to obsolete C5-only or PA user-pause scope");
 assert(physicalScript.includes("Get-FileHash -Algorithm SHA256")
   && physicalScript.includes("production-appdata-backup")
   && physicalScript.includes("if ($Launch)"),
-  "Retain hash verification, backup and explicit launch gates");
+  "Retain strong executable hash, production backup, and explicit launch opt-in");
 
-console.log("Merged A01–A10 CI and complete PA-01–PA-08 checklist contracts passed.");
+console.log("Merged A01–A10 CI and resumed PA-01–PA-09 static/motion routing contracts passed.");

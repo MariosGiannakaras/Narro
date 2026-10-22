@@ -1,0 +1,77 @@
+{
+  "source": "f7456738b8b8498387d4d9637409c4a384f95ba3",
+  "ci": "38688646540",
+  "visualArtifact": "11952445118",
+  "files": [
+    {
+      "path": "intake.json",
+      "bytes": 494,
+      "sha256": "9539bc7a74a58e070438f78c07e5fb85889be12b4127a256f7bdcefa34289708"
+    },
+    {
+      "path": "same-ci-browser-receipt.json",
+      "bytes": 6095,
+      "sha256": "fe62588e504c409d2dc85afbc2525298c36eea18b1895119443bd110426be2e7"
+    },
+    {
+      "path": ".playwright-cli/console-2026-10-15T18-37-12-312Z.log",
+      "bytes": 143,
+      "sha256": "ddd23788c197ca4057ea6027a64d560acea2354881bca43e0903077e6b5f81e4"
+    },
+    {
+      "path": ".playwright-cli/console-2026-10-15T18-38-30-163Z.log",
+      "bytes": 309,
+      "sha256": "bd54488fd7d02084bc808ef68f0ce5faf10e92d762c8afe759197202c58a6416"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-37-12-640Z.yml",
+      "bytes": 449,
+      "sha256": "eafd06a04bbb04ba5de296d458a47b26523157864cb30aa11fd36bd9b70b57ea"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-38-07-307Z.yml",
+      "bytes": 7398,
+      "sha256": "e3657be9f0f41c16292721d78d5addeed698d6b6e09eb795e02407dcf123da22"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-38-30-821Z.yml",
+      "bytes": 2712,
+      "sha256": "b737861ed2804dc67de13fa8d00e4ea161af80a462b8eba0f16b4835e44e81e6"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-38-40-441Z.png",
+      "bytes": 34546,
+      "sha256": "da65af4faea9d4393d235ebef0967a93537f3b41825071e2338d644241959e87"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-39-01-185Z.yml",
+      "bytes": 2612,
+      "sha256": "02eb00159a8320699eda388750e83ff83a1359c3f3e627738126947754991437"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-39-16-210Z.png",
+      "bytes": 59970,
+      "sha256": "b80b0598629bbabacea375c7f5a7ef75dd3788fb41f315f8841dc8f561e06ebd"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-39-33-647Z.yml",
+      "bytes": 5006,
+      "sha256": "699a566d41beffc6230fa591ae87bfb13c93494c0bba9e51425457bb4441031c"
+    },
+    {
+      "path": ".playwright-cli/page-2026-10-15T18-39-34-106Z.png",
+      "bytes": 59326,
+      "sha256": "837579b4a950216af75fe76654b22326f3ee439a464d980b43af3de6c8201ace"
+    },
+    {
+      "path": "source-comparison/ve006-16s.png",
+      "bytes": 426252,
+      "sha256": "ab139ab31c854236740c2eca4f0e5d4cb5df8c828e62a7910b67061ca974fce7"
+    },
+    {
+      "path": "source-comparison/ve006-18s.png",
+      "bytes": 424724,
+      "sha256": "829aee4152cc497d17d2b60fcbc985e49e01b92cbe4e62510976964014a2e112"
+    }
+  ]
+}

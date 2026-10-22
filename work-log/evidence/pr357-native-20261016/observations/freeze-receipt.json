@@ -1,0 +1,10 @@
+{
+  "originalName": "2026-10-16 02-21-53.mkv",
+  "size": 35644271,
+  "sha256": "4ed01925cf9e8f9135b449fbfbbf090d021166928634cc30cd2308afe469b620",
+  "appLogFiles": 8,
+  "tasks": 6,
+  "privateDbExcluded": true,
+  "recordedInterval": "2026-10-15T23:21:53.686613Z to 2026-10-15T23:26:58.720888Z",
+  "computerUseFallback": "OBS screenshot 0x80070057; indexed click coordinate input geometry unavailable. Native observed UIA/GDI/SendInput used; no product PASS from failed Sky input."
+}

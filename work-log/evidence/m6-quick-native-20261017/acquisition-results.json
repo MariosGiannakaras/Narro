@@ -1,0 +1,14 @@
+{
+  "phase": "FROZEN",
+  "acquired": "3/3",
+  "review": "NOT RUN",
+  "D1": "Compact\u2192Panel, five action hovers, Resume and actualCtrlAltP pause; livequeue/progress/overdue. Skip/Notes/Break initially hovered, not all exercised here.",
+  "D2": "Firstcompletion withSuccessOFF auto-advanced; enabledShowSuccess and toggledFunGif using actualFocusPreferences; secondownedtask EST8:45/Taken0 editedwhilepaused thenDone\u2192Success/525minutesearly/NextTask+TakeBreakcontrols. No asset/motion/source verdict.",
+  "D3": "ActualTakeBreakfromSuccess\u2192idle; makeliveEmail\u2192StartBreak\u2192Breaklive; actualResume\u2192work, pause, scrollDonehistory withBreakrow. No timerexpiry wait.",
+  "conditionalNotRun": [
+    "POMObadge was not activated/tested",
+    "125%DPI unavailable; one primary96DPI",
+    "No complete M7 Gate7/C5 restart/placement test"
+  ],
+  "scoped": "No product edits, tests, builds or CI triggered during acquisition. All original profiles restored. UI-readiness guards aborted startup/offscreenBlitz input without side effects; actualCtrlShiftT chosen after freshstate."
+}

@@ -1,0 +1,14 @@
+{
+  "webviewVersion": "155.0.4283.45",
+  "utc": "2026-10-15T09:51:03.6364494Z",
+  "webviewProductVersion": "155.0.4283.45",
+  "windows": {
+    "ProductName": "Windows 10 Pro",
+    "CurrentBuild": "19045",
+    "UBR": 6466
+  },
+  "processor": {
+    "Name": "AMD Ryzen 5 2600X Six-Core Processor           ",
+    "NumberOfLogicalProcessors": 12
+  }
+}

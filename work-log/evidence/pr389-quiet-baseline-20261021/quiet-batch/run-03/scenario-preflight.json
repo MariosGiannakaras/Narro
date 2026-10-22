@@ -1,0 +1,35 @@
+﻿{
+    "schemaVersion":  1,
+    "scenario":  "floating-only-main-destroyed",
+    "pass":  true,
+    "rootPid":  98608,
+    "rootExecutable":  "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR389-Baseline-20261021\\artifact\\narro.exe",
+    "ownedTopLevelWindowCount":  6,
+    "mainWindowCount":  0,
+    "focusWindowCount":  1,
+    "focus":  {
+                  "pid":  98608,
+                  "title":  "Narro - Focus",
+                  "visible":  true,
+                  "dpi":  96,
+                  "hwnd":  "0x32033A",
+                  "window":  {
+                                 "x":  2220,
+                                 "y":  0,
+                                 "width":  340,
+                                 "height":  700
+                             },
+                  "regionKind":  2,
+                  "region":  {
+                                 "x":  0,
+                                 "y":  0,
+                                 "width":  340,
+                                 "height":  110
+                             }
+              },
+    "expectedCompactRegion":  {
+                                  "width":  340,
+                                  "height":  110
+                              },
+    "capturedAtUtc":  "2026-10-21T07:12:00.0110821Z"
+}

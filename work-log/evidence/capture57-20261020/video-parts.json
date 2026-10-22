@@ -1,0 +1,206 @@
+[
+  {
+    "file": "A-home-board-original.mkv",
+    "bytes": 143763741,
+    "sha256": "dc265e40f534fcc93a9f1bc2a5ac8febffa6ad60b27c46e376b45774b17e64f8",
+    "parts": [
+      {
+        "path": "video-parts/A-home-board-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "386eb01bdf43898cac0ad805ba1ddde4cb16ffad16fd18fd06bb6b6e5ea8dff5"
+      },
+      {
+        "path": "video-parts/A-home-board-original.mkv/part-002.bin",
+        "bytes": 41943040,
+        "sha256": "6768f4bd8f22e3fc81b9802dff240a4ac02325499f29933918765adb00f9c44b"
+      },
+      {
+        "path": "video-parts/A-home-board-original.mkv/part-003.bin",
+        "bytes": 41943040,
+        "sha256": "3440d95f8d73d6531022eca2c08895a5582e69ba5710d056551f9962f8fca060"
+      },
+      {
+        "path": "video-parts/A-home-board-original.mkv/part-004.bin",
+        "bytes": 17934621,
+        "sha256": "1b4ecd0be04a8357037fb63650309e973934bb24e93fd3637c2e5551fd3c4713"
+      }
+    ]
+  },
+  {
+    "file": "A2-board-parent-original.mkv",
+    "bytes": 72070133,
+    "sha256": "c6c026dc8ae25fd7632bb64084f50c00a0041a3d03fa23db6ee7abc02c986de2",
+    "parts": [
+      {
+        "path": "video-parts/A2-board-parent-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "f47682a1e4004c279f2ac047b1f6db247a7ded80caab810a283c36b583733ca9"
+      },
+      {
+        "path": "video-parts/A2-board-parent-original.mkv/part-002.bin",
+        "bytes": 30127093,
+        "sha256": "b27c36d4bccd7f0a61ad29011cbf9fbabec6aab10e8e0f8a500875b7245068fd"
+      }
+    ]
+  },
+  {
+    "file": "B-preferences-original.mkv",
+    "bytes": 12875254,
+    "sha256": "679fdfa72c07c30b9025a0f6438474e98586f128fd1b7b19e9cde0f54e7fbd95",
+    "parts": [
+      {
+        "path": "video-parts/B-preferences-original.mkv/part-001.bin",
+        "bytes": 12875254,
+        "sha256": "679fdfa72c07c30b9025a0f6438474e98586f128fd1b7b19e9cde0f54e7fbd95"
+      }
+    ]
+  },
+  {
+    "file": "C-focus-timer-original.mkv",
+    "bytes": 189977347,
+    "sha256": "2dfb0c675fc2fd3b76fbdb545b532db83d5dc2e021769cd3c514b31a5883847c",
+    "parts": [
+      {
+        "path": "video-parts/C-focus-timer-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "15cd0fadb8baf62f30e53f9713dcfafa00ad921be662c9ca33c0e46d5504fd1f"
+      },
+      {
+        "path": "video-parts/C-focus-timer-original.mkv/part-002.bin",
+        "bytes": 41943040,
+        "sha256": "dc189643fa4875f92e39ef9cb376cd182b4444c56f86c4a97d880f45136fc27f"
+      },
+      {
+        "path": "video-parts/C-focus-timer-original.mkv/part-003.bin",
+        "bytes": 41943040,
+        "sha256": "31de49bde95076b63f3bfaa49d55222a40fc4c4d08bb086726903cd9cda33dea"
+      },
+      {
+        "path": "video-parts/C-focus-timer-original.mkv/part-004.bin",
+        "bytes": 41943040,
+        "sha256": "b89270987cd10002704770df4f67f1a68c45f99c94cf36febbfca0d1d223b9df"
+      },
+      {
+        "path": "video-parts/C-focus-timer-original.mkv/part-005.bin",
+        "bytes": 22205187,
+        "sha256": "1075fae7d5e182624c5c183cb661e604f6c08675dde7e453ade0f2508424f965"
+      }
+    ]
+  },
+  {
+    "file": "capture-health.mkv",
+    "bytes": 717389,
+    "sha256": "f7a1c6a0e526a6d0bc7b636ceeb423f46dc7ff345eef317e4ad90517207c83db",
+    "parts": [
+      {
+        "path": "video-parts/capture-health.mkv/part-001.bin",
+        "bytes": 717389,
+        "sha256": "f7a1c6a0e526a6d0bc7b636ceeb423f46dc7ff345eef317e4ad90517207c83db"
+      }
+    ]
+  },
+  {
+    "file": "capture-segment-001-original.mkv",
+    "bytes": 58327632,
+    "sha256": "ea43e24c111e03c4e78f9ee124ebf8cf4698b79eea7ab135d6e1b0ed7e04f5cd",
+    "parts": [
+      {
+        "path": "video-parts/capture-segment-001-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "d71a45fa68e69c9b0dd93809094ccc363e5cfff1b9ea0683d4f8e6b3c6b82a55"
+      },
+      {
+        "path": "video-parts/capture-segment-001-original.mkv/part-002.bin",
+        "bytes": 16384592,
+        "sha256": "6f70aa5041f478d400d24b012d3c08cc31e266a8c112be359e8439c8ff525bea"
+      }
+    ]
+  },
+  {
+    "file": "capture-segment-002-original.mkv",
+    "bytes": 50903332,
+    "sha256": "ec23c4937197648aa80f60a09fb1b148588757fc4868482456f65842042b38e5",
+    "parts": [
+      {
+        "path": "video-parts/capture-segment-002-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "4aaac1da051edb0b1d861db7410fdf1a4acdc4d1bbc46ef86c8e97c92fbc6cf6"
+      },
+      {
+        "path": "video-parts/capture-segment-002-original.mkv/part-002.bin",
+        "bytes": 8960292,
+        "sha256": "dd0cefbe8d0052f04467f91f231e5a4d770e52c41b796bf09b1732f906a357ec"
+      }
+    ]
+  },
+  {
+    "file": "capture-segment-003-original.mkv",
+    "bytes": 48745592,
+    "sha256": "05125dd5ddf8e35fd53a7dd1bd98be70880aa765600cd6907524f0e4116fe432",
+    "parts": [
+      {
+        "path": "video-parts/capture-segment-003-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "e31094077a0f89be73d6c4aa8d9a0d630e4f3a0102951466895b7110773f1501"
+      },
+      {
+        "path": "video-parts/capture-segment-003-original.mkv/part-002.bin",
+        "bytes": 6802552,
+        "sha256": "85db0f88c37760504da29977d995328c72d060abd17d70e49235b9cde44613ec"
+      }
+    ]
+  },
+  {
+    "file": "capture-segment-004-original.mkv",
+    "bytes": 50688802,
+    "sha256": "4cd86ff366bca5a904de4027b16c3920ba270b6e745a958c65ef5001c09deeb6",
+    "parts": [
+      {
+        "path": "video-parts/capture-segment-004-original.mkv/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "5046da96c1e9b1b9bec1b1613e26cc2acbced774f0d8bc40f60ea55732996fe4"
+      },
+      {
+        "path": "video-parts/capture-segment-004-original.mkv/part-002.bin",
+        "bytes": 8745762,
+        "sha256": "055160e632c14df5f3ebc2073d30454a3876541f2419a16b78463d70a7d38fec"
+      }
+    ]
+  },
+  {
+    "file": "capture-segment-005-original.mkv",
+    "bytes": 15469724,
+    "sha256": "6aeca34dd6307fccc12123b56763761c53993b169620dc44aa31c29f2e4fa84c",
+    "parts": [
+      {
+        "path": "video-parts/capture-segment-005-original.mkv/part-001.bin",
+        "bytes": 15469724,
+        "sha256": "6aeca34dd6307fccc12123b56763761c53993b169620dc44aa31c29f2e4fa84c"
+      }
+    ]
+  },
+  {
+    "file": "OBS-2026-10-20_11-35-19.mkv-original.mkv",
+    "bytes": 12681686,
+    "sha256": "bcc2b01012bb0fa549240c35b43ea399b2c1ac14e135fe6a5e037715e8a94b77",
+    "parts": [
+      {
+        "path": "video-parts/OBS-2026-10-20_11-35-19.mkv-original.mkv/part-001.bin",
+        "bytes": 12681686,
+        "sha256": "bcc2b01012bb0fa549240c35b43ea399b2c1ac14e135fe6a5e037715e8a94b77"
+      }
+    ]
+  },
+  {
+    "file": "OBS-2026-10-20_11-59-23.mkv-original.mkv",
+    "bytes": 1065164,
+    "sha256": "610097ac772172c937e69b464c2f4541298727d2f2cb7cb2b778fc0927c78ab9",
+    "parts": [
+      {
+        "path": "video-parts/OBS-2026-10-20_11-59-23.mkv-original.mkv/part-001.bin",
+        "bytes": 1065164,
+        "sha256": "610097ac772172c937e69b464c2f4541298727d2f2cb7cb2b778fc0927c78ab9"
+      }
+    ]
+  }
+]

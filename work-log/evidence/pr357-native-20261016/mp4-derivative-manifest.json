@@ -1,0 +1,52 @@
+{
+  "source": "video/2026-10-16 02-21-53.mkv",
+  "sourceSha256": "4ed01925cf9e8f9135b449fbfbbf090d021166928634cc30cd2308afe469b620",
+  "derived": "video/pa357-dual-screen-full.mp4",
+  "derivedSha256": "0ee6fa5432d26fa8d77369815af3e0e04b853b11bc3573c62a0a8a0bd33adb30",
+  "bytes": 36012438,
+  "method": "ffmpeg -map 0 -c copy -movflags +faststart; container remux, no re-encoding or editing",
+  "sourceProbe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "width": 4480,
+        "height": 1080,
+        "nb_read_packets": "18266"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "nb_read_packets": "14270"
+      }
+    ],
+    "format": {
+      "duration": "304.450000"
+    }
+  },
+  "derivedProbe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "width": 4480,
+        "height": 1080,
+        "nb_read_packets": "18266"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "nb_read_packets": "14270"
+      }
+    ],
+    "format": {
+      "duration": "304.432000"
+    }
+  },
+  "sameVideoAndAudioPacketCounts": true,
+  "note": "Container reported duration differs by18ms; no video/audio packets removed. Original MKV and original acquisition manifest unchanged."
+}

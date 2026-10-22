@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { inflateSync } from "node:zlib";
 import { resolve } from "node:path";
 
 function invariant(condition, message) {
@@ -11,6 +12,37 @@ async function read(label) {
   return readFile(resolve(root, `${label}.html`), "utf8");
 }
 
+async function assertRenderedScreenshot(label) {
+  const png = await readFile(resolve(root, `${label}.png`));
+  invariant(png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])), `${label} is not a PNG`);
+  const idat = [];
+  for (let at = 8; at + 12 <= png.length;) {
+    const size = png.readUInt32BE(at);
+    const end = at + 12 + size;
+    invariant(end <= png.length, `${label} PNG chunk is truncated`);
+    const kind = png.toString("ascii", at + 4, at + 8);
+    if (kind === "IDAT") idat.push(png.subarray(at + 8, at + 8 + size));
+    at = end;
+    if (kind === "IEND") break;
+  }
+  invariant(idat.length > 0, `${label} PNG contains no image data`);
+  const pixels = inflateSync(Buffer.concat(idat));
+  // Detect the exact previously accepted failure: a single background color
+  // still produced a valid PNG and complete Preferences DOM. The Edge PNGs
+  // are filtered 8-bit RGB; truly rendered UI has substantially more diversity.
+  const distinct = new Set();
+  for (const value of pixels) {
+    distinct.add(value);
+    if (distinct.size > 16) break;
+  }
+  invariant(distinct.size > 16, `${label} screenshot is visually blank/monochrome despite ready DOM`);
+}
+
+function assertShortcutLabelsHidden(dom, label) {
+  invariant(dom.includes('data-theme-settings-shortcut-labels-hidden="true"'),
+    `${label} renders accessible-only toggle labels into the visible layout`);
+}
+
 for (const preference of ["system", "dark", "light"]) {
   const label = `theme-settings-${preference}`;
   const dom = await read(label);
@@ -18,6 +50,7 @@ for (const preference of ["system", "dark", "light"]) {
   invariant(dom.includes('data-theme-settings="true"'), `${label} production settings surface is missing`);
   invariant(dom.includes(`data-theme="${preference}"`), `${label} root theme token is incorrect`);
   invariant(dom.includes(`data-theme-settings-preference="${preference}"`), `${label} fixture preference marker is incorrect`);
+  assertShortcutLabelsHidden(dom, label);
   invariant(dom.includes("Preferences"), `${label} Preferences heading is missing`);
   invariant(dom.includes("General"), `${label} General section is missing`);
   invariant(dom.includes('role="group" aria-label="Theme"'), `${label} accessible Theme group is missing`);
@@ -47,6 +80,7 @@ invariant(errorDom.includes("THEME_PREFERENCE_FAILED"), "error state must retain
 invariant(/data-theme-option="system"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-theme-option="system"/.test(errorDom), "error state must keep System selected after a failed save");
 
 const shortcutConflictDom = await read("theme-settings-shortcut-conflict");
+assertShortcutLabelsHidden(shortcutConflictDom, "theme-settings-shortcut-conflict");
 invariant(shortcutConflictDom.includes('data-theme-settings-shortcut-conflict="true"'), "shortcut conflict fixture marker is missing");
 invariant(shortcutConflictDom.includes('data-global-shortcut-kind="findFocusTimer"'), "Find Timer row is missing in conflict state");
 invariant(shortcutConflictDom.includes('data-global-shortcut-enabled="true"'), "conflicted shortcut must retain enabled preference intent");
@@ -56,7 +90,9 @@ invariant(shortcutConflictDom.includes("Retry"), "shortcut conflict state must e
 invariant(shortcutConflictDom.includes('role="alert"'), "shortcut conflict must be announced as an alert");
 
 for (const section of ["upper", "middle", "lower"]) {
+  await assertRenderedScreenshot(`theme-settings-preferences-${section}`);
   const dom = await read(`theme-settings-preferences-${section}`);
+  assertShortcutLabelsHidden(dom, `theme-settings-preferences-${section}`);
   invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `Preferences ${section} capture did not reach readiness`);
   invariant(dom.includes(`data-theme-settings-section="${section}"`), `Preferences ${section} marker is missing`);
   invariant(dom.includes("Blitz Panel"), `Preferences ${section} Blitz Panel section is missing`);
@@ -85,4 +121,37 @@ invariant(lowerDom.includes("Show success screen"), "Preferences lower capture s
 invariant(lowerDom.includes("Fun GIF"), "Preferences lower capture nested GIF control is missing");
 invariant(lowerDom.includes("Success sound"), "Preferences lower capture success-sound state is missing");
 
+// SS-C17 is a dedicated modal, not the shortcut section scrolled into Preferences.
+for (const theme of ["dark", "light"]) {
+  const label = `theme-settings-shortcuts-dialog-${theme}`;
+  await assertRenderedScreenshot(label);
+  const dom = await read(label);
+  assertShortcutLabelsHidden(dom, label);
+  invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `${label} did not reach readiness`);
+  invariant(dom.includes(`data-theme="${theme}"`), `${label} source theme is missing`);
+  invariant(dom.includes('data-theme-settings-shortcuts-dialog="true"'), `${label} fixture did not select the dedicated dialog`);
+  invariant(dom.includes('data-theme-settings-shortcuts-layout-pass="true"'), `${label} ten shortcut rows must fit without overflow`);
+  invariant(dom.includes('data-theme-settings-shortcuts-keyboard-recovery-pass="true"'), `${label} pending shortcut-save orphaned-focus Tab/Escape recovery failed`);
+  invariant(dom.includes('data-windows-shortcuts-dialog="true"'), `${label} must capture the actual WindowsShortcutsDialog wrapper`);
+  invariant(dom.includes('role="dialog"') && dom.includes('aria-modal="true"'), `${label} accessible modal semantics missing`);
+  invariant(dom.includes('data-windows-shortcuts-close="true"'), `${label} close control missing`);
+  invariant(dom.includes("Windows Shortcuts"), `${label} heading missing`);
+  invariant(dom.includes('data-windows-shortcut-settings="true"'), `${label} shortcut controls missing`);
+  invariant(!dom.includes('data-theme-settings="true"'), `${label} wrongly captured the Preferences panel instead of the standalone modal`);
+  for (const shortcut of ["goToNarro", "toggleFocusMode", "findFocusTimer"]) {
+    invariant(dom.includes(`data-global-shortcut-kind="${shortcut}"`), `${label} global row missing: ${shortcut}`);
+  }
+  for (const shortcut of ["create-task", "start-break", "pause-resume", "skip-task", "finish-task", "notes", "search"]) {
+    invariant(dom.includes(`data-app-shortcut="${shortcut}"`), `${label} app shortcut missing: ${shortcut}`);
+  }
+}
+
+for (const theme of ["dark", "light"]) {
+  const label = `theme-settings-preferences-dialog-${theme}`;
+  const dom = await read(label);
+  await assertRenderedScreenshot(label);
+  invariant(dom.includes('data-theme-settings-dialog-containment-pass="true"'), `${label} parent containment/scroll/Escape/reopen did not pass`);
+  invariant(dom.includes('data-theme-settings-keyboard-pass="true"'), `${label} async-save/orphaned keyboard/cleanup regression did not pass`);
+  invariant(dom.includes('data-preferences-dialog="true"'), `${label} actual parent dialog missing`);
+}
 console.log("Theme settings + Windows shortcuts + Preferences Edge capture contract: PASS");

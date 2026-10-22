@@ -1,0 +1,11 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "ci": 38688646540,
+  "head": "f7456738b8b8498387d4d9637409c4a384f95ba3",
+  "artifact": 11952771160,
+  "zip_sha256": "edaf0884b18cf735fd5a7a45a5adeb3296ff14c1717ddfc6e07366e8409938b2",
+  "crc_entries": 7,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA356-residuals-20261015\\diagnostic\\src-tauri\\target\\release\\narro.exe",
+  "sha256": "73a78877672d9d9d2ac833ff9c46a376c9ea192694a5e8038b53ad95e02af546",
+  "identifier": "com.mariosg.Narro.M1Diagnostic"
+}

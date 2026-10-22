@@ -36,6 +36,7 @@ function harness() {
   const ctx={
     fixtureMode:false, presentationActive:true, mutationPendingTaskId:null,
     homePending:false, addTaskPending:false, deletePending:false,
+    automaticAdvance:null,
     focusMutationOwnerRef:{current:null}, rowMutationInFlightRef:{current:false}, addTaskInFlightRef:{current:false},
     addTaskTitle:"New task", addTaskListId:"list-one", autoParseEstFromTitle:false,
     target:{kind:"list",id:"list-one"}, deleteTarget:task,
@@ -124,6 +125,20 @@ function harness() {
   assert.match(String(h.calls.errors.at(-1)),/Task was added, but Focus could not refresh/);
   assert.equal(h.ctx.focusMutationOwnerRef.current,null);
   assert.equal(h.ctx.addTaskInFlightRef.current,false);
+}
+// A committed completion in its parent-owned handoff is not an opportunity
+// for a second Add before the authoritative next-task queue has refreshed.
+{
+  const h = harness();
+  h.ctx.automaticAdvance = { completedTaskId: "task-one", nextTaskId: "next-two", nextTaskTitle: "Next", phase: "pending" };
+  await h.submitAddTask();
+  assert.equal(h.calls.adds, 0, "auto-advance must block Add while committed Focus state is reconciling");
+  h.ctx.automaticAdvance = { ...h.ctx.automaticAdvance, phase: "refresh-blocked" };
+  await h.submitAddTask();
+  assert.equal(h.calls.adds, 0, "failed post-commit refresh cannot invite a second write");
+  h.ctx.automaticAdvance = null;
+  await h.submitAddTask();
+  assert.equal(h.calls.adds, 1, "normal Add resumes only after settled Focus projection");
 }
 // Delete retains shared owner after persistence, including the readback phase;
 // its modal closes after commit, not before an asynchronous write resolves.

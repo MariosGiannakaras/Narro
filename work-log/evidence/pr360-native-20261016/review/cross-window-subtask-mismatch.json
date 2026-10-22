@@ -1,0 +1,241 @@
+[
+  {
+    "file": "observations/048-main.json",
+    "utc": "2026-10-16T06:53:30.810900+00:00",
+    "subtaskControls": [
+      {
+        "name": "Call with PeteLive \u00b7 PausedEst: 20mTaken: 1mAdd notes0/4 SubtasksPrepare agendaDiscuss next steps",
+        "type": 50007,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1403,
+          325,
+          1944,
+          614
+        ]
+      },
+      {
+        "name": "0/4 Subtasks",
+        "type": 50020,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1450,
+          450,
+          1518,
+          467
+        ]
+      },
+      {
+        "name": "Complete subtask: Prepare agenda",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          488,
+          1450,
+          517
+        ]
+      },
+      {
+        "name": "Complete subtask: Discuss next steps",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          528,
+          1450,
+          557
+        ]
+      }
+    ]
+  },
+  {
+    "file": "observations/050-focus-return.json",
+    "utc": "2026-10-16T06:53:44.197442+00:00",
+    "subtaskControls": [
+      {
+        "name": "Subtasks for Call with Pete",
+        "type": 50026,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2245,
+          274,
+          2535,
+          524
+        ]
+      },
+      {
+        "name": "0/4 Subtasks",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2289,
+          285,
+          2495,
+          318
+        ]
+      },
+      {
+        "name": "Complete subtask: Prepare agenda",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2249,
+          331,
+          2277,
+          360
+        ]
+      },
+      {
+        "name": "Complete subtask: Discuss next steps",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2249,
+          371,
+          2277,
+          400
+        ]
+      },
+      {
+        "name": "Complete subtask: Confirm owners",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2249,
+          411,
+          2277,
+          440
+        ]
+      },
+      {
+        "name": "Complete subtask: Send summary",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          2249,
+          451,
+          2277,
+          480
+        ]
+      }
+    ]
+  },
+  {
+    "file": "observations/059-done-four-after.json",
+    "utc": "2026-10-16T06:54:11.109927+00:00",
+    "subtaskControls": [
+      {
+        "name": "Call with PeteLive \u00b7 PausedEst: 20mTaken: 1mAdd notes4/5 SubtasksPrepare agendaDiscuss next stepsConfirm ownersSend summarySchedule follow-up",
+        "type": 50007,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1403,
+          325,
+          1944,
+          734
+        ]
+      },
+      {
+        "name": "4/5 Subtasks",
+        "type": 50020,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1450,
+          450,
+          1518,
+          467
+        ]
+      },
+      {
+        "name": "Reopen subtask: Prepare agenda",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          488,
+          1450,
+          517
+        ]
+      },
+      {
+        "name": "Reopen subtask: Discuss next steps",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          528,
+          1450,
+          557
+        ]
+      },
+      {
+        "name": "Reopen subtask: Confirm owners",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          568,
+          1450,
+          597
+        ]
+      },
+      {
+        "name": "Reopen subtask: Send summary",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          608,
+          1450,
+          637
+        ]
+      },
+      {
+        "name": "Complete subtask: Schedule follow-up",
+        "type": 50000,
+        "enabled": true,
+        "offscreen": false,
+        "focused": false,
+        "rect": [
+          1422,
+          648,
+          1450,
+          677
+        ]
+      }
+    ]
+  }
+]

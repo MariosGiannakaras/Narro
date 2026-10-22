@@ -1,22 +1,29 @@
+import { runNativeHandoffRegression } from "./nativeHandoffRegression";
 import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
 import { useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
+import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { ListBoard } from "./ListBoard";
+import { ArchivedListsPanel } from "./ArchivedListsPanel";
+import type { ArchivedListSummary } from "./listSettingsApi";
+import { AppShell } from "./AppShell";
+import { BUILTIN_LIST_ICONS } from "./BuiltinListIcon";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
 import { archiveListFromSettings, restoreListFromSettings, permanentlyDeleteListFromSettings } from "./listSettingsApi";
 import { emitBoardInvalidated } from "./boardInvalidation";
-import type { ListBoardRequestTarget, ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
+import type { BoardSubtask, ListBoardRequestTarget, ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
 import type { TimerSessionPayload } from "./timerSessionApi";
 
 // Render production components and call production APIs; replace only native
 // IPC/storage. Assertions cover observable results and adverse response order.
 export async function runM7IntegrationRegression(container: HTMLElement) {
+  const nativeHandoff = await runNativeHandoffRegression(container);
   const assert = (value: unknown, text: string) => { if (!value) throw new Error("M7 projection: " + text); };
   const wait = () => new Promise<void>(resolve => setTimeout(resolve, 25));
   const id = "21111111-1111-4111-8111-111111111111";
-  let lists = [{ id, title: "Original" }];
+  let lists: Array<{ id: string; title: string; color?: string | null; iconAsset?: string | null; iconId?: string | null }> = [{ id, title: "Original" }];
   const tasks: ListBoardTask[] = Array.from({ length: 12 }, (_, index) => ({
     id: `31111111-1111-4111-8111-${String(index + 1).padStart(12, "0")}`,
     listId: id, listTitle: "Original", listColor: null, title: index === 11
@@ -24,6 +31,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       : `Queue task ${index + 1} with long readable title`,
     estSeconds: null, timeTakenSeconds: "0", subtaskTotalCount: 0, subtaskCompletedCount: 0,
     scheduledLocalDate: null, scheduledLocalTime: null, isOverdue: false, completedAt: null,
+    updatedAt: "2026-10-06T09:00:00Z",
   }));
   const timer: TimerSessionPayload = { revision: 1, awaitingResume: false, change: null,
     runtime: { open_session_id: null, timer: { state: "idle", task_id: null,
@@ -91,6 +99,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   };
 
   let boardTasks = [...tasks];
+  let boardDoneTasks: ListBoardTask[] = [];
   const taskLanes = new Map<string, "backlog" | "thisWeek" | "today">();
   const laneTasks = (lane: "backlog" | "thisWeek" | "today") => boardTasks.filter(task => (taskLanes.get(task.id) ?? "today") === lane);
   const laneSnapshot = (lane: "backlog" | "thisWeek" | "today") => ({tasks: laneTasks(lane), count: laneTasks(lane).length, aggregateEstSeconds: 0});
@@ -99,9 +108,10 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       : { kind: "all_lists", id: null, title: "All Lists", color: null },
     displayTimezone: "Europe/Athens",
     backlog: laneSnapshot("backlog"), thisWeek: laneSnapshot("thisWeek"), today: laneSnapshot("today"),
-    done: { tasks: [], count: 0, aggregateEstSeconds: 0 }, todayCompletionCount: 0, thisWeekCompletionCount: 0, doneMonthCompletionCount: 0,
+    done: { tasks: boardDoneTasks, count: boardDoneTasks.length, aggregateEstSeconds: 0 }, todayCompletionCount: 0, thisWeekCompletionCount: 0, doneMonthCompletionCount: boardDoneTasks.length,
   });
   const callbacks = new Map<number, (value: unknown) => void>();
+  let archiveRestoreCalls = 0, archiveDeleteCalls = 0;
   const listeners = new Map<number, { event: string; handler: number }>();
   let callbackId = 0, homeReads = 0, emissions = 0, mutationFailure = false, deliveryFailure = false;
   let deferHome = false, deferFocusBoardReads = false, deleteFailure = false, deleteCalls = 0;
@@ -110,6 +120,13 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const homeWaiters: Array<(value: unknown) => void> = [];
   let deferredDelete: (() => void) | undefined;
   const dragCalls: Array<Record<string, unknown>> = [];
+  const createCalls: Array<Record<string, unknown>> = [];
+  const quickClearCalls: Array<Record<string, unknown>> = [];
+  const ownedSubtasks: BoardSubtask[] = [];
+  let subtaskCalls = 0, subtaskFail = false, subtaskRefreshFail = false;
+  let releaseSubtask: (() => void) | undefined;
+  let deferSubtaskReads = false;
+  const subtaskReadWaiters: Array<{ resolve: (value: unknown) => void; reject: (failure: unknown) => void; payload: unknown }> = [];
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -148,6 +165,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
       if (command === "get_list_board_snapshot") {
+        if (subtaskRefreshFail) throw new Error("controlled committed subtask refresh failure");
         if (deferFocusBoardReads) return new Promise((resolve, reject) => {
           focusBoardReadWaiters.push(resolve as (value: ListBoardSnapshot) => void);
           focusBoardReadRejecters.push(reject);
@@ -218,6 +236,60 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         boardTasks.splice(before < 0 ? boardTasks.length : before, 0, task);
         return;
       }
+      if (command === "get_list_board_task_schedule_editor") {
+        const task = boardTasks.find(task => task.id === args.taskId)!;
+        assert(task && task.listId === args.listId && task.scheduledLocalDate, "invalid quick-clear editor identity");
+        return { taskId: task.id, listId: task.listId, updatedAt: task.updatedAt,
+          schedule: { kind: "date_only", local_date: task.scheduledLocalDate },
+          recurrenceParentTaskId: task.recurrenceParentTaskId ?? null, recurrence: null,
+          deleteExistingEligibleCount: 0, protectedExistingCount: 0 };
+      }
+      if (command === "quick_clear_list_board_task_schedule") {
+        const request = args.request as Record<string, unknown>;
+        quickClearCalls.push(request);
+        const task = boardTasks.find(task => task.id === request.taskId)!;
+        assert(task && request.listId === task.listId && request.expectedUpdatedAt === task.updatedAt
+          && request.expectedRecurrenceParentTaskId === (task.recurrenceParentTaskId ?? null)
+          && (request.expectedSchedule as { local_date: string }).local_date === task.scheduledLocalDate
+          && typeof request.fallbackDisplayTimezone === "string", "quick clear lost authoritative CAS/timezone arguments");
+        boardTasks = boardTasks.map(other => other.id === task.id
+          ? { ...other, scheduledLocalDate: null, scheduledLocalTime: null, updatedAt: "2026-10-06T09:01:00Z" } : other);
+        return;
+      }
+      if (command === "get_list_board_task_subtasks") {
+        const payload = { taskId: args.taskId, listId: args.listId, mutable: true,
+          subtasks: ownedSubtasks.filter(child => child.taskId === args.taskId).map(child => ({ ...child })) };
+        if (deferSubtaskReads) return new Promise((resolve, reject) => subtaskReadWaiters.push({ resolve, reject, payload }));
+        return payload;
+      }
+      if (command === "create_list_board_subtask") {
+        subtaskCalls++;
+        assert(args.taskId === tasks[0].id && args.listId === id, "subtask create lost parent identity");
+        if (subtaskFail) throw new Error("controlled uncommitted subtask failure");
+        return new Promise<BoardSubtask>(resolve => {
+          releaseSubtask = () => {
+            const child: BoardSubtask = { id: `child-${subtaskCalls}`, taskId: String(args.taskId),
+              title: String(args.title), sortRank: ownedSubtasks.length, completedAt: null, updatedAt: "2026-10-16T00:00:00Z" };
+            ownedSubtasks.push(child);
+            boardTasks = boardTasks.map(task => task.id === child.taskId
+              ? { ...task, subtaskTotalCount: ownedSubtasks.length, subtaskCompletedCount: ownedSubtasks.filter(child => child.completedAt !== null).length } : task);
+            resolve(child);
+          };
+        });
+      }
+      if (command === "create_list_board_task") {
+        createCalls.push({ ...args });
+        const created = {
+          ...tasks[0],
+          id: `61111111-1111-4111-8111-${String(createCalls.length).padStart(12, "0")}`,
+          title: String(args.title),
+          estSeconds: args.estSeconds as number | null,
+        };
+        taskLanes.set(created.id, String(args.lane).replace("this_week", "thisWeek") as "backlog" | "thisWeek" | "today");
+        if (args.insertAtTop) boardTasks.unshift(created);
+        else boardTasks.push(created);
+        return created.id;
+      }
       if (command === "permanently_delete_list_board_task") {
         deleteCalls++;
         if (deleteFailure) throw new Error("controlled delete failure");
@@ -228,6 +300,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         });
       }
       if (/^(create_list_from_editor|update_list_from_editor|duplicate_list_from_home|archive_list_from_settings|restore_list_from_settings|permanently_delete_list_from_settings)$/.test(command)) {
+        if (command === "restore_list_from_settings") archiveRestoreCalls++;
+        if (command === "permanently_delete_list_from_settings") archiveDeleteCalls++;
         if (mutationFailure) throw new Error("controlled persistence failure");
         if (command === "create_list_from_editor") lists.push({ id: "new", title: "New" });
         if (command === "update_list_from_editor") lists = lists.map(list => list.id === args.listId ? { ...list, title: "Renamed" } : list);
@@ -240,6 +314,34 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     },
   };
   const root = createRoot(container);
+  // Exercise the real production shell CSS, rather than the separately bounded
+  // screenshot fixture. Tall content must scroll inside Main and keep its nav.
+  const shellHost = document.createElement("div");
+  shellHost.style.cssText = "position:fixed;inset:0;z-index:10000";
+  document.body.append(shellHost);
+  const shellRoot = createRoot(shellHost);
+  try {
+    flushSync(() => shellRoot.render(<AppShell fixtureMode homeContent={
+      <div style={{ height: 1800 }}>Long owned planning/report content</div>
+    } />));
+    const shell = shellHost.querySelector<HTMLElement>(".app-shell")!;
+    shell.classList.remove("app-shell--fixture");
+    await wait();
+    const main = shell.querySelector<HTMLElement>(".app-shell__content")!;
+    const nav = shell.querySelector<HTMLElement>(".app-shell__primary-nav")!;
+    assert(shell.getBoundingClientRect().bottom <= innerHeight + 1
+      && nav.getBoundingClientRect().bottom <= innerHeight + 1,
+    "production shell expands beyond the Windows viewport and hides navigation");
+    assert(main.scrollHeight > main.clientHeight && main.clientHeight > 0,
+      "long content must retain an internal scroll owner");
+    main.scrollTop = 120;
+    assert(main.scrollTop === 120, "Main scrolling was disabled instead of contained");
+    assert(getComputedStyle(main).scrollbarWidth === "none",
+      "Main exposes native scrollbar chrome");
+  } finally {
+    flushSync(() => shellRoot.unmount());
+    shellHost.remove();
+  }
   const renderFocus = (refreshKey = 0, presentationActive = true) => flushSync(() => root.render(
     <FocusPanel refreshKey={refreshKey} presentationActive={presentationActive}
       sharedTimerProjection={{ payload: timer, settled: true }} />));
@@ -259,6 +361,41 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     if (!option) throw new Error(`Focus list option ${listId} unavailable`);
     flushSync(() => option.click());
   };
+  // Native PA03: autofocus exposed the title but left Add/Cancel below the
+  // compact Panel queue. Exercise the production form at its real700px height.
+  const originalBoardTasks = boardTasks;
+  const originalTimerRuntime = timer.runtime;
+  const originalScroll = { x: window.scrollX, y: window.scrollY };
+  boardTasks = tasks.slice(0, 3);
+  timer.runtime = { ...timer.runtime, open_session_id: "add-geometry-session",
+    timer: { ...timer.runtime.timer, state: "paused", task_id: tasks[0].id,
+      mode: { kind: "est_countdown", est_ms: 120_000 }, work_elapsed_ms: 126_000,
+      countdown_remaining_ms: -6_000, overtime_ms: 6_000 } };
+  renderFocus(); await wait(); await wait();
+  const addPanel = container.querySelector<HTMLElement>(".focus-panel")!;
+  const originalPanelHeight = addPanel.style.height;
+  const originalPanelMinHeight = addPanel.style.minHeight;
+  addPanel.style.height = "700px";
+  addPanel.style.minHeight = "700px";
+  const addQueue = addPanel.querySelector<HTMLElement>(".focus-panel__queue")!;
+  const addTrigger = addPanel.querySelector<HTMLButtonElement>('[data-focus-add-task="open"]')!;
+  flushSync(() => addTrigger.click());
+  await wait();
+  const editor = addPanel.querySelector<HTMLFormElement>('[data-focus-add-task="editor"]')!;
+  const editorBounds = editor.getBoundingClientRect();
+  const queueBounds = addQueue.getBoundingClientRect();
+  assert(editorBounds.top >= queueBounds.top - 1 && editorBounds.bottom <= queueBounds.bottom + 1,
+    "Focus Add Task complete form must fit inside its visible queue after opening.");
+  assert(document.activeElement === editor.querySelector('[data-focus-add-task-title="true"]'),
+    "Revealing the whole Focus Add form must preserve title-input autofocus.");
+  flushSync(() => editor.querySelector<HTMLButtonElement>('button[type="button"]')!.click());
+  addPanel.style.height = originalPanelHeight;
+  addPanel.style.minHeight = originalPanelMinHeight;
+  addQueue.scrollTop = 0;
+  boardTasks = originalBoardTasks;
+  timer.runtime = originalTimerRuntime;
+  flushSync(() => root.render(<div>Reset isolated Add geometry scenario</div>));
+  window.scrollTo(originalScroll.x, originalScroll.y);
   renderFocus(); await wait(); await wait();
   assert(options().includes("Original"), "initial active catalog missing");
   // Q03: drive the REAL Focus list-picker React keyboard handlers while its
@@ -757,6 +894,417 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   }
   container.style.zoom = "1"; taskLanes.clear();
 
+  // Reuse the actual archive component and existing controlled native boundary.
+  const savedLists = [...lists];
+  archiveRestoreCalls = 0; archiveDeleteCalls = 0;
+  const archivedCards: ArchivedListSummary[] = [0, 1].map(index => ({
+    id: `71111111-1111-4111-8111-${String(index + 1).padStart(12, "0")}`,
+    title: index === 0 ? "Long archived project title that remains identifiable" : "Archived reading",
+    color: index === 0 ? "#48d6c5" : "#b7d96d", iconAsset: null,
+    archivedAt: "2026-10-01T09:00:00Z",
+    previewTasks: [0, 1].map(child => ({id: `${index}-${child}`, title: `Saved preview ${child + 1} with long recognizable task content`})),
+  }));
+  const savedWidth = container.style.width;
+  flushSync(() => root.render(<ArchivedListsPanel fixtureLists={archivedCards} />)); await wait();
+  const archivedRows = () => Array.from(container.querySelectorAll<HTMLElement>('[data-archived-list-id]'));
+  assert(archivedRows().length === 2, "Archive lost independent list identities");
+  for (const zoom of [1, 1.25]) {
+    container.style.zoom = String(zoom);
+    for (const width of [320, 720]) {
+      container.style.width = `${width}px`; await wait();
+      for (const card of archivedRows()) {
+        const bounds = card.getBoundingClientRect();
+        const header = card.querySelector<HTMLElement>('.archived-list-row__header')!.getBoundingClientRect();
+        const previews = card.querySelector<HTMLElement>('[data-archived-list-previews]')!.getBoundingClientRect();
+        const actions = card.querySelector<HTMLElement>('.archived-list-row__actions')!.getBoundingClientRect();
+        assert(header.bottom <= previews.top + 1 && previews.bottom <= actions.top + 1
+          && actions.bottom <= bounds.bottom + 1, "Archive card no longer stacks title/previews/footer");
+        assert(card.scrollWidth <= card.clientWidth + 1 && actions.right <= bounds.right + 1,
+          "Archive card or footer overflows narrow viewport");
+        const unarchive = card.querySelector<HTMLButtonElement>('.archived-list-row__restore')!;
+        const forever = card.querySelector<HTMLButtonElement>('.archived-list-row__delete')!;
+        assert(unarchive.textContent?.trim() === "Unarchive" && forever.textContent?.trim() === "Delete Forever",
+          "Archive source footer action labels changed");
+        unarchive.focus(); await wait();
+        assert(getComputedStyle(card.querySelector('.archived-list-row__actions')!).opacity === "1"
+          && Math.abs(card.getBoundingClientRect().height - bounds.height) <= 1,
+          "Archive keyboard focus hides actions or changes card geometry");
+        unarchive.blur();
+      }
+    }
+  }
+  container.style.zoom = "1"; container.style.width = savedWidth;
+  const archiveDelete = () => archivedRows()[0].querySelector<HTMLButtonElement>('.archived-list-row__delete')!;
+  archiveDelete().click(); await wait();
+  const archiveDialog = () => document.querySelector<HTMLElement>('[data-list-confirm-action="delete"]')!;
+  assert(archiveDialog(), "Archive Delete Forever failed to open its confirmation");
+  assert(archiveDeleteCalls === 0, "Archive Delete Forever mutated before confirmation");
+  Array.from(archiveDialog().querySelectorAll<HTMLButtonElement>('button')).find(button => button.textContent?.trim() === "Cancel")!.click(); await wait();
+  assert(!archiveDialog() && archivedRows().length === 2, "Archive Cancel changed saved identities");
+  const firstUnarchive = archivedRows()[0].querySelector<HTMLButtonElement>('.archived-list-row__restore')!;
+  archiveRestoreCalls = 0; archiveDeleteCalls = 0;
+  mutationFailure = true; firstUnarchive.click(); await wait(); await wait();
+  assert(archiveRestoreCalls === 1 && archivedRows().length === 2 && container.querySelector('[role="alert"]'),
+    "Failed Unarchive lost its card/error or retried unexpectedly");
+  mutationFailure = false;
+  firstUnarchive.click(); firstUnarchive.click(); archiveDelete().click(); await wait(); await wait();
+  assert(archiveRestoreCalls === 2 && archiveDeleteCalls === 0 && !archiveDialog()
+    && archivedRows().length === 1 && archivedRows()[0].dataset.archivedListId === archivedCards[1].id,
+    "Unarchive duplicate/cross-owner click changed independent card or confirmation state");
+  archiveDelete().click(); await wait();
+  const archiveConfirm = () => Array.from(archiveDialog().querySelectorAll<HTMLButtonElement>('button'))
+    .find(button => button.textContent?.trim() === "Permanently delete")!;
+  mutationFailure = true; archiveConfirm().click(); await wait(); await wait();
+  assert(archiveDeleteCalls === 1 && archivedRows().length === 1 && archiveDialog().querySelector('[role="alert"]'),
+    "Archive delete failure dismissed context or lost retryable error");
+  mutationFailure = false;
+  const retryDelete = archiveConfirm(); retryDelete.click(); retryDelete.click(); await wait(); await wait();
+  assert(archiveDeleteCalls === 2 && archivedRows().length === 0 && !archiveDialog(),
+    "Archive delete retry duplicated commit or retained deleted card");
+  lists = savedLists;
+
+  // Exercise production Board grouping and heading styles together; header
+  // presentation must not change persisted completion instants or row identity.
+  boardTasks = [];
+  boardDoneTasks = tasks.slice(0, 3).map((task, index) => ({
+    ...task, completedAt: index === 0 ? "2026-10-17T09:00:00Z" : "2026-10-16T09:00:00Z",
+  }));
+  const originalDoneRows = JSON.stringify(boardDoneTasks);
+  renderBoard("source-done-headings"); await wait(); await wait();
+  const doneHeadings = Array.from(container.querySelectorAll<HTMLElement>("[data-board-done-date]"));
+  assert(doneHeadings.length === 2
+    && doneHeadings[0].dataset.boardDoneDate === "2026-10-17"
+    && doneHeadings[1].dataset.boardDoneDate === "2026-10-16",
+    "Done headings lost authoritative local-date grouping/order");
+  assert(doneHeadings.map(heading => heading.querySelector(".list-board-lane__done-count")?.textContent?.trim()).join("|") === "1 task|2 tasks",
+    "Done per-date counts lost singular/plural source wording");
+  const laneSlots = Array.from(container.querySelectorAll<HTMLElement>('[data-board-lane="Done"] [data-board-drag-task]'));
+  assert(laneSlots.map(slot => slot.dataset.boardDragTask).join("|") === boardDoneTasks.map(task => task.id).join("|"),
+    "Done heading presentation changed completed row identity/order");
+  const doneHeading = doneHeadings[0];
+  const dateLabel = doneHeading.querySelector<HTMLElement>(".list-board-lane__done-date")!;
+  const dateText = dateLabel.textContent;
+  // Stress the real heading with long localized text; no formatter/domain override.
+  dateLabel.textContent = "Wednesday, 30 September 2026 — LongUnbrokenLocalizedCalendarDate";
+  const savedHeadingWidth = doneHeading.style.width;
+  for (const zoom of [1, 1.25]) {
+    container.style.zoom = String(zoom); await wait();
+    for (const width of [112, 180, 320]) {
+      doneHeading.style.width = `${width}px`; await wait();
+      const headingBox = doneHeading.getBoundingClientRect();
+      const dateBox = dateLabel.getBoundingClientRect();
+      const countBox = doneHeading.querySelector<HTMLElement>(".list-board-lane__done-count")!.getBoundingClientRect();
+      assert(dateBox.right <= countBox.left + 1 && dateBox.left >= headingBox.left - 1
+        && countBox.right <= headingBox.right + 1 && Math.abs(countBox.right - headingBox.right) <= 1,
+        "Done date overlaps/displaces right count: " + JSON.stringify({width, zoom, headingBox, dateBox, countBox}));
+      assert(doneHeading.scrollWidth <= doneHeading.clientWidth + 1,
+        "Done localized date/count overflows narrow heading");
+    }
+  }
+  doneHeading.style.width = savedHeadingWidth;
+  dateLabel.textContent = dateText;
+  container.style.zoom = "1";
+  assert(JSON.stringify(boardDoneTasks) === originalDoneRows, "Done heading layout mutated authoritative rows");
+  boardDoneTasks = [];
+
+  // Source bottom ADD TASK keeps the form below the rows, but creates
+  // newest-first. Exercise the real handler, inputs, refresh and repeated entry.
+  boardTasks = [];
+  renderBoard("source-create"); await wait(); await wait();
+  const emptyLanes = Array.from(container.querySelectorAll<HTMLElement>('.list-board-lane__empty'));
+  assert(emptyLanes.length === 4 && emptyLanes.every(lane => lane.textContent === "All Clear"),
+    "source empty state is inconsistent across the four lanes");
+  assert(!container.querySelector('[data-board-lane="Done"] [data-board-add-task]'), "Done incorrectly permits task creation");
+  const startCreate = async (selector: string) => {
+    container.querySelector<HTMLButtonElement>(selector)!.click(); await wait();
+    const form = container.querySelector<HTMLFormElement>('[data-board-task-create="editor"]')!;
+    assert(form && form.querySelector('label')?.textContent === "Title", "source Title label missing");
+    return form;
+  };
+  const fillCreate = async (form: HTMLFormElement, title: string) => {
+    const input = form.querySelector<HTMLInputElement>('[data-task-create-title]')!;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, title);
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    await wait(); await wait(); await wait();
+    assert(input.value === "" && document.activeElement === input, "successful repeated entry lost cleared draft/focus");
+    assert(form === container.querySelector('[data-board-task-create="editor"]'), "repeated create remounted the form");
+  };
+  const bottomForm = await startCreate('[data-board-add-task="today"]');
+  await fillCreate(bottomForm, "Video");
+  await fillCreate(bottomForm, "Record voice");
+  const todayList = container.querySelector<HTMLElement>('[aria-label="Today tasks"]')!;
+  const createdTitles = () => Array.from(todayList.querySelectorAll<HTMLElement>('[data-board-task="task-card"] .list-board-task__title')).map(node => node.textContent);
+  assert(createdTitles().join("|") === "Record voice|Video", "bottom repeated create did not render newest-first");
+  assert(bottomForm === todayList.lastElementChild, "bottom editor moved when the new task prepended");
+  bottomForm.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  const topForm = await startCreate('[data-board-add-task-top="today"]');
+  await fillCreate(topForm, "Top entry");
+  assert(topForm === todayList.firstElementChild && createdTitles()[0] === "Top entry", "explicit top entry lost its form or insertion position");
+  topForm.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  for (const lane of ["backlog", "thisWeek"]) {
+    const form = await startCreate(`[data-board-add-task="${lane}"]`);
+    await fillCreate(form, `${lane} entry`);
+    form.querySelector<HTMLButtonElement>('[data-task-create-cancel]')!.click(); await wait();
+  }
+  assert(createCalls.length === 5 && createCalls.every(call => call.insertAtTop === true && call.listId === id),
+    "Board create did not use the existing atomic prepend request exactly once per task");
+  assert(boardTasks.length === 5 && new Set(boardTasks.map(task => task.id)).size === 5,
+    "repeated Board create lost or aliased task identities");
+  taskLanes.clear();
+
+  // Exercise the actual Board menu, read/version check, dedicated native API,
+  // event refresh and retained identity. Rust tests own the real SQLite lane
+  // projection/atomicity; this mock never claims to prove that backend logic.
+  boardTasks = [{ ...tasks[0], title: "Future scheduled task", scheduledLocalDate: "2026-12-18" }];
+  taskLanes.set(tasks[0].id, "backlog");
+  renderBoard("quick-clear"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[aria-label="Task actions"]')!.click(); await wait();
+  const quickX = container.querySelector<HTMLButtonElement>('[data-task-schedule-quick-remove] [role="menuitem"]')!;
+  assert(quickX, "real scheduled menu omitted quick-X");
+  quickX.click(); quickX.click(); await wait(); await wait(); await wait();
+  assert(quickClearCalls.length === 1 && boardTasks.length === 1 && boardTasks[0].id === tasks[0].id
+    && boardTasks[0].scheduledLocalDate === null && laneTasks("backlog")[0].id === tasks[0].id,
+    "quick-X handler failed dedicated once-only command/refresh/identity path");
+  container.querySelector<HTMLButtonElement>('[aria-label="Task actions"]')!.click(); await wait();
+  assert(!container.querySelector('[data-task-schedule-quick-remove]'), "committed quick-X left stale scheduled controls");
+  document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true })); await wait();
+  taskLanes.clear();
+
+  // Actual Board + shared TaskSubtasks, with deferred native commit and real
+  // pending/refresh renders. An isolated synchronous fixture misses the blur.
+  boardTasks = [tasks[0]];
+  renderBoard("subtask-create-focus"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[data-task-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  const subtaskInput = () => container.querySelector<HTMLInputElement>('[data-task-subtask-control="create-input"]')!;
+  const submitChild = async (title: string, doubleSubmit = true) => {
+    const input = subtaskInput(); input.focus();
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, title);
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    const form = input.form!;
+    if (doubleSubmit) form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    await wait();
+    return input;
+  };
+  for (const title of ["First child", "Second child"]) {
+    const calls = subtaskCalls;
+    const input = await submitChild(title, title !== "First child");
+    assert(input.disabled && subtaskCalls === calls + 1, "pending subtask duplicated native command or remained editable");
+    releaseSubtask!(); await wait(); await wait(); await wait();
+    assert(subtaskInput() === input && input.value === "" && !input.disabled && document.activeElement === input,
+      "committed subtask create lost repeat-ready input/focus after authoritative refresh");
+  }
+  // Reproduce PA360 with the real mounted Board detail consumer. An event
+  // carries no data: the independently stored child snapshot must be re-read.
+  const verifyExternalSubtasks = async (surface: string) => {
+    const input = subtaskInput(); input.focus();
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "Retained cross-window draft");
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+    ownedSubtasks.push({ id: `external-${surface}`, taskId: tasks[0].id, title: `External ${surface}`,
+      sortRank: ownedSubtasks.length, completedAt: null, updatedAt: "2026-10-16T10:00:00Z" });
+    boardTasks = boardTasks.map(task => ({ ...task, subtaskTotalCount: ownedSubtasks.length }));
+    await emitBoardInvalidated(); await wait(); await wait(); await wait();
+    const rows = () => Array.from(container.querySelectorAll<HTMLElement>('[data-subtask-id]'));
+    assert(rows().length === ownedSubtasks.length && rows().some(row => row.dataset.subtaskId === `external-${surface}`),
+      surface + " expanded detail missed cross-window create despite board invalidation");
+    assert(subtaskInput() === input && input.value === "Retained cross-window draft" && document.activeElement === input,
+      surface + " external detail refresh remounted, cleared or stole draft focus");
+    ownedSubtasks.reverse();
+    ownedSubtasks.forEach((child, index) => { child.sortRank = index; });
+    ownedSubtasks[0] = { ...ownedSubtasks[0], title: `Renamed ${surface}`, completedAt: "2026-10-16T10:01:00Z" };
+    boardTasks = boardTasks.map(task => ({ ...task, subtaskCompletedCount: ownedSubtasks.filter(child => child.completedAt !== null).length }));
+    await emitBoardInvalidated(); await wait(); await wait(); await wait();
+    assert(rows().map(row => row.dataset.subtaskId).join("|") === ownedSubtasks.map(child => child.id).join("|")
+      && rows()[0].textContent?.includes(`Renamed ${surface}`) && rows()[0].dataset.subtaskCompleted === "true",
+      surface + " same-count rename/reorder/completion remained stale");
+    // Independently delayed native reads must not rewind details or publish
+    // a stale failure after a newer event won, including same-count updates.
+    for (const staleFailure of [false, true]) {
+      deferSubtaskReads = true;
+      await emitBoardInvalidated(); await wait();
+      const older = subtaskReadWaiters.shift()!;
+      assert(older, surface + " did not read detail on invalidation");
+      ownedSubtasks[0] = { ...ownedSubtasks[0], title: `Latest ${surface} ${staleFailure}` };
+      await emitBoardInvalidated(); await wait();
+      const newer = subtaskReadWaiters.shift()!;
+      assert(newer, surface + " coalesced away a newer required read");
+      newer.resolve(newer.payload); await wait(); await wait();
+      if (staleFailure) older.reject(new Error("obsolete detail read failure"));
+      else older.resolve(older.payload);
+      await wait(); await wait();
+      assert(rows()[0].textContent?.includes(`Latest ${surface} ${staleFailure}`)
+        && !container.textContent?.includes("obsolete detail read failure"), surface + " stale detail/error replaced latest event");
+      deferSubtaskReads = false;
+    }
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "");
+    input.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+  };
+  await verifyExternalSubtasks("Board");
+  const clearInput = subtaskInput();
+  const clearWidth = clearInput.getBoundingClientRect().width;
+  const beforeClearCalls = subtaskCalls;
+  Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(clearInput, "Uncommitted draft");
+  clearInput.dispatchEvent(new Event("input", { bubbles: true })); await wait();
+  const clearButton = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!;
+  const clearBounds = clearButton.getBoundingClientRect(), inputBounds = clearInput.getBoundingClientRect();
+  assert(clearBounds.left >= inputBounds.left && clearBounds.right <= inputBounds.right,
+    "subtask clear must remain inside its reserved input slot");
+  clearButton.click(); await wait();
+  assert(clearInput.value === "" && document.activeElement === clearInput && subtaskCalls === beforeClearCalls
+    && clearInput.getBoundingClientRect().width === clearWidth, "subtask draft clear mutated storage or reflowed/lost input");
+  subtaskFail = true;
+  const failedInput = await submitChild("Retain failed draft"); await wait();
+  assert(failedInput.value === "Retain failed draft" && !failedInput.disabled && document.activeElement === failedInput,
+    "uncommitted failure lost editable draft/focus");
+  subtaskFail = false;
+  await submitChild("Navigation ownership");
+  const elsewhere = document.createElement("button"); elsewhere.textContent = "Outside focus owner";
+  document.body.append(elsewhere); elsewhere.focus();
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(document.activeElement === elsewhere, "completed native response stole explicitly moved focus");
+  elsewhere.remove();
+  await submitChild("Committed stale details");
+  subtaskRefreshFail = true; deferSubtaskReads = true;
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(!subtaskInput() && document.activeElement !== failedInput
+    && container.textContent?.includes("panel is stale"), "committed refresh failure refocused stale editing state");
+  const lateBoardDetails = subtaskReadWaiters.splice(0);
+  assert(lateBoardDetails.length > 0, "Board partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateBoardDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  const boardCommittedErrorRetained = !subtaskInput() && Boolean(container.textContent?.includes("panel is stale"));
+  subtaskRefreshFail = false;
+  // Dispose an outstanding request; its completion must not focus a new tree.
+  renderBoard("subtask-disposal"); await wait(); await wait();
+  container.querySelector<HTMLButtonElement>('[data-task-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  await submitChild("Disposed owner");
+  flushSync(() => root.render(<button id="new-focus-owner">New owner</button>));
+  const newOwner = container.querySelector<HTMLButtonElement>("#new-focus-owner")!; newOwner.focus();
+  releaseSubtask!(); await wait(); await wait();
+  assert(document.activeElement === newOwner, "disposed subtask response stole replacement focus");
+  assert(new Set(ownedSubtasks.map(child => child.id)).size === ownedSubtasks.length,
+    "subtask capture fixture lost independent child identities");
+
+  // Actual option projection, approved icon/initial consumer, and scope owner.
+  lists = [{ id, title: "Glyph list", color: "#48d6c5", iconId: BUILTIN_LIST_ICONS[0].id },
+    { id: "badge-second", title: "Second", color: "#b7d96d" },
+    { id: "badge-third", title: "Third", color: "#de8db3" }];
+  function BadgeBoardHarness() {
+    const [target, setTarget] = useState<ListBoardRequestTarget>({ kind: "list", id });
+    return <ListBoard target={target} onTargetChange={setTarget} />;
+  }
+  flushSync(() => root.render(<BadgeBoardHarness />)); await wait(); await wait();
+  const badgeTrigger = () => container.querySelector<HTMLButtonElement>('[aria-label="Planning list"]')!;
+  assert(badgeTrigger().querySelector('.board-list-picker__badge svg'), "Board dropped authoritative built-in icon metadata");
+  badgeTrigger().click(); await wait();
+  const boardBadgeOptions = Array.from(container.querySelectorAll<HTMLButtonElement>('[role="listbox"] [role="option"]'));
+  assert(boardBadgeOptions.length === 4 && boardBadgeOptions[0].querySelectorAll('.board-list-picker__badge').length === 2
+    && boardBadgeOptions[0].querySelector('.board-list-picker__remaining-count')?.textContent === "+1"
+    && boardBadgeOptions[1].querySelector('.board-list-picker__badge svg')
+    && boardBadgeOptions[2].querySelector('.board-list-picker__badge')?.textContent === "S",
+    "Board listbox lost icon/initial/AllLists remaining-count grammar");
+  for (const badge of container.querySelectorAll<HTMLElement>('.board-list-picker__badge')) {
+    const rect = badge.getBoundingClientRect();
+    assert(rect.width >= 18 && rect.height >= 18 && Math.abs(rect.width - rect.height) <= 1,
+      "Board source badges regressed to dots or distorted images");
+  }
+  boardBadgeOptions[1].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true, cancelable: true }));
+  assert(document.activeElement === boardBadgeOptions[0], "Board Home did not reach AllLists");
+  boardBadgeOptions[0].click(); await wait(); await wait();
+  assert(badgeTrigger().textContent?.includes("All Lists") && !container.querySelector('[data-board-add-task]'),
+    "Board AllLists scope failed or permitted owned-list creation");
+  badgeTrigger().click(); await wait();
+  container.querySelectorAll<HTMLButtonElement>('[role="listbox"] [role="option"]')[1].click(); await wait(); await wait();
+  assert(badgeTrigger().querySelector('.board-list-picker__badge svg') && container.querySelector('[data-board-add-task]'),
+    "Board selected list/icon failed to return after AllLists");
+
+  // Focus owns its toolbar and its minimal stylesheet; the shared input must
+  // not depend on Board CSS specificity or reveal a second summary header.
+  boardTasks = [tasks[0]];
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} /></div>));
+  const boardOnlyStyles: Array<{ rule: CSSStyleRule; css: string }> = [];
+  for (const sheet of Array.from(document.styleSheets)) for (const rule of Array.from(sheet.cssRules)) {
+    if (rule instanceof CSSStyleRule && rule.selectorText.includes(".list-board-task__subtask")
+      && !rule.selectorText.includes(".focus-panel__subtasks")) {
+      boardOnlyStyles.push({ rule, css: rule.style.cssText });
+      rule.style.cssText = "";
+    }
+  }
+  assert(boardOnlyStyles.length > 0, "Focus isolation test did not remove any Board-only style dependency");
+  let partialFocusErrorRetained = false;
+  try {
+  container.querySelector<HTMLButtonElement>('[data-focus-subtask-control="toggle"]')!.click(); await wait(); await wait();
+  const panelInput = await submitChild("Panel shared keyboard create");
+  assert(panelInput.disabled, "Focus shared create did not acquire native pending");
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(subtaskInput() === panelInput && !panelInput.disabled && panelInput.value === "" && document.activeElement === panelInput,
+    "Focus shared input lost repeat-ready focus after real authoritative refresh");
+  await verifyExternalSubtasks("Focus");
+  const panelHeader = container.querySelector<HTMLElement>('[data-task-subtask-header]')!;
+  assert(getComputedStyle(panelHeader).display === "none", "Focus revealed duplicate Board summary controls");
+  const panelClear = container.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!.getBoundingClientRect();
+  const panelBounds = panelInput.getBoundingClientRect();
+  assert(panelClear.left >= panelBounds.left && panelClear.right <= panelBounds.right
+    && panelClear.top >= panelBounds.top && panelClear.bottom <= panelBounds.bottom,
+    "Focus scoped CSS displaced the shared in-field clear");
+  await submitChild("Focus committed partial refresh failure");
+  subtaskRefreshFail = true; deferSubtaskReads = true;
+  releaseSubtask!(); await wait(); await wait(); await wait();
+  assert(container.querySelector('[data-focus-subtask-refresh-blocked="true"]')
+    && container.textContent?.includes("authoritative Focus progress could not refresh"),
+    "Focus committed partial failure did not expose blocked error state");
+  const lateFocusDetails = subtaskReadWaiters.splice(0);
+  assert(lateFocusDetails.length > 0, "Focus partial-failure case did not defer authoritative detail reads");
+  deferSubtaskReads = false;
+  for (const read of lateFocusDetails) read.resolve(read.payload);
+  await wait(); await wait(); await wait();
+  partialFocusErrorRetained = Boolean(container.querySelector('[data-focus-subtask-refresh-blocked="true"]'))
+    && Boolean(container.textContent?.includes("authoritative Focus progress could not refresh"));
+  subtaskRefreshFail = false;
+  } finally {
+    for (const { rule, css } of boardOnlyStyles) rule.style.cssText = css;
+  }
+
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks key="fresh-owner-race"
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+  await wait(); await wait();
+  // Keep the same component instance while its task owner changes; reject
+  // the old owner's late payload and clean the event listener on disposal.
+  deferSubtaskReads = true;
+  await emitBoardInvalidated(); await wait();
+  const oldOwnerRead = subtaskReadWaiters.shift()!;
+  assert(oldOwnerRead, "Focus owner test needs an in-flight authoritative detail read");
+  deferSubtaskReads = false;
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    key="fresh-owner-race" task={tasks[1]} target={{ kind: "list", id }} fixtureMode={false} expanded /></div>));
+  await wait(); await wait();
+  oldOwnerRead.resolve(oldOwnerRead.payload); await wait(); await wait();
+  assert(!container.querySelector('[data-subtask-id]') && !container.textContent?.includes("Latest Focus"),
+    "old task detail crossed into the new Focus owner");
+  const detailListeners = () => [...listeners.values()].filter(listener => listener.event === "board-data-invalidated").length;
+  const beforeDispose = detailListeners();
+  deferSubtaskReads = true; await emitBoardInvalidated(); await wait();
+  const disposedSubtaskRead = subtaskReadWaiters.shift()!;
+  flushSync(() => root.render(<div>Disposed subtask owner</div>)); await wait();
+  deferSubtaskReads = false; disposedSubtaskRead.reject(new Error("disposed detail read failure")); await wait(); await wait();
+  assert(detailListeners() === beforeDispose - 1 && container.textContent === "Disposed subtask owner",
+    "disposed subtask listener/read changed the next owner or leaked");
+
+  // The same production data consumer serves expanded Floating Timer; its
+  // separate visual editor must receive same-count invalidations as well.
+  flushSync(() => root.render(<div style={{ width: 300 }}><FocusLiveSubtasks
+    task={tasks[0]} target={{ kind: "list", id }} fixtureMode={false} presentation="floating" expanded /></div>));
+  await wait(); await wait();
+  ownedSubtasks[0] = { ...ownedSubtasks[0], title: "Floating external rename" };
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(container.querySelector('[data-floating-subtask-id]')?.textContent?.includes("Floating external rename"),
+    "expanded Floating Timer retained stale shared child data");
+
+  assert(boardCommittedErrorRetained && partialFocusErrorRetained,
+    "late detail read erased committed-refresh failure: " + JSON.stringify({ boardCommittedErrorRetained, partialFocusErrorRetained }));
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
   renderBoard("delete"); await wait(); await wait();
@@ -771,10 +1319,30 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     }));
     assert(Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).map(button => button.textContent).join("|")
       === "Schedule|Change List|Duplicate|Delete", "source menu order differs");
+    const zoom = Number(container.style.zoom) || 1;
+    // Layout dimensions exclude the menu's finite opening scale animation.
+    const restingMenu = { width: menu().offsetWidth, height: menu().offsetHeight };
+    for (const row of menu().querySelectorAll<HTMLElement>('[role="menuitem"]')) {
+      const style = getComputedStyle(row);
+      const height = row.getBoundingClientRect().height / zoom;
+      assert(height >= 30 && height <= 36 && style.backgroundColor === "rgba(0, 0, 0, 0)",
+        "source menu row uses raised/oversized button styling: " + JSON.stringify({ height, background: style.backgroundColor }));
+    }
     const deletion = Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).find(button => button.textContent === "Delete")!;
     deletion.click(); await wait();
     await new Promise<void>(resolve => setTimeout(resolve, 250));
     assert(menu() && menu().querySelector('[data-task-delete-confirm="inline"]'), "confirmation left source menu container");
+    const confirmationBounds = { width: menu().offsetWidth, height: menu().offsetHeight };
+    assert(Math.abs(confirmationBounds.width - restingMenu.width) <= 1
+      && Math.abs(confirmationBounds.height - restingMenu.height) <= 1,
+      "inline confirmation changed source menu geometry: " + JSON.stringify({ before: restingMenu, after: confirmationBounds }));
+    assert(menu().querySelectorAll('[role="separator"]').length === 1
+      && getComputedStyle(menu().querySelector('[data-task-delete-confirm]')!).borderTopStyle === "none",
+      "inline confirmation duplicated the destructive separator");
+    const confirmStyle = getComputedStyle(menu().querySelector('[data-task-delete-control="confirm"]')!);
+    const cancelStyle = getComputedStyle(menu().querySelector('[data-task-delete-control="cancel"]')!);
+    assert(confirmStyle.backgroundColor === "rgba(0, 0, 0, 0)" && cancelStyle.backgroundColor === "rgba(0, 0, 0, 0)"
+      && confirmStyle.color !== cancelStyle.color, "source inline confirm/cancel lost plain destructive/neutral styling");
     assert(menu().textContent?.includes("Schedule") && menu().textContent?.includes("Change List") && menu().textContent?.includes("Duplicate"), "source sibling rows disappeared");
     assert(menu().querySelector('svg'), "trash glyph missing");
     const popup = menu();
@@ -825,12 +1393,23 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(boardTasks.length === 1 && boardTasks[0].id === tasks[1].id, "confirmed delete did not preserve independent task identity");
   await openDelete(); // Leave the source comparison state visible in the capture.
   await new Promise<void>(resolve => setTimeout(resolve, 250));
-  return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, focusBoardStaleResponsesRejected: true, catalogEntryReconciled: true,
+  return { ...nativeHandoff, catalogCommittedCrud: true, catalogStaleResponsesRejected: true, focusBoardStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
+    focusAddEditorFullyVisible: true, productionShellViewportContained: true,
     pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
     pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
     deleteMenuRetained: true, deleteMenuUnobscured: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
-    deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true };
+    deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true,
+    sourceMenuCompactPlain: true, deleteConfirmationGeometryStable: true, sourceEmptyAllFourLanes: true,
+    sourceCreateTitleLabel: true, sourceBottomCreateNewestFirst: true, sourceCreateFormPositionStable: true,
+    sourceCreateIndependentIdentities: true, quickClearNativeCommandAndRefresh: true,
+    subtaskRepeatFocusAfterNativeRefresh: true, subtaskFailureDraftAndFocus: true,
+    subtaskExplicitFocusOwnership: true, subtaskStaleRefreshFailClosed: true, subtaskDisposedFocusSafe: true,
+    boardListGlyphsAndScope: true, subtaskInFieldClearStable: true, focusSharedSubtaskInput: true,
+    subtaskCrossWindowCreate: true, subtaskCrossWindowSameCount: true, subtaskCrossWindowDraftPreserved: true,
+    subtaskReadOrderAndErrorSafe: true, subtaskOwnerAndDisposalSafe: true, subtaskFloatingInvalidation: true, subtaskCommittedErrorRetained: true,
+    doneDateHeadingSourceGrammar: true, doneDateHeadingNarrowContainment: true, doneDateHeadingIdentityPreserved: true,
+    archiveCardSourceComposition: true, archiveCardKeyboardStable: true, archiveCardLifecycleSafe: true };
 }

@@ -1,0 +1,12 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "utc": "2026-10-21T12:24:19.376145+00:00",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR390-Capture-20261021\\artifact\\narro-m7-validation.exe",
+  "sha256": "321e21fb023cb0ef3fb7c5b2dd38c1525e494e7ff5852937cfd883d2d449bea0",
+  "source": "9694380f8c62cfa6e379ea88c19416172da0ddf2",
+  "run": 39595107868,
+  "gates": "3/3SUCCESS",
+  "artifactId": 12344656318,
+  "sourceShaEmbedded": true,
+  "scope": "5 changed-UI capture groups only; no source fixes/acceptance analysis"
+}

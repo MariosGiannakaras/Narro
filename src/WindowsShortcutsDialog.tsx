@@ -1,5 +1,7 @@
+import { ActionIcon } from "./ActionIcon";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
   useEffect,
   useRef,
 } from "react";
@@ -8,6 +10,8 @@ import "./windowsShortcutsDialog.css";
 
 type WindowsShortcutsDialogProps = {
   onRequestClose: () => void;
+  /** Preview-only slot; production keeps authoritative native shortcut state. */
+  settingsContent?: ReactNode;
 };
 
 function tabbableWithin(container: HTMLElement): HTMLElement[] {
@@ -22,7 +26,7 @@ function tabbableWithin(container: HTMLElement): HTMLElement[] {
  * Reuses the existing 3 global toggle controls and 7 fixed app-only bindings:
  * no additional shortcut registration/persistence authority is created here.
  */
-export function WindowsShortcutsDialog({ onRequestClose }: WindowsShortcutsDialogProps) {
+export function WindowsShortcutsDialog({ onRequestClose, settingsContent }: WindowsShortcutsDialogProps) {
   const dialogRef = useRef<HTMLElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -38,6 +42,32 @@ export function WindowsShortcutsDialog({ onRequestClose }: WindowsShortcutsDialo
       if (openerRef.current?.isConnected) openerRef.current.focus({ preventScroll: true });
     };
   }, []);
+
+  // Async shortcut saves disable the focused checkbox. When Chromium moves
+  // focus outside this modal, recover Escape/Tab without stealing input from
+  // a newer modal or handling events already owned by an inner control.
+  useEffect(() => {
+    const recoverOrphanedKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || (event.key !== "Escape" && event.key !== "Tab")) return;
+      const dialog = dialogRef.current;
+      if (!dialog || (event.target instanceof Node && dialog.contains(event.target))) return;
+      const activeDialogs = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]'))
+        .filter((element) => !element.closest('[hidden], [inert], [aria-hidden="true"]')
+          && element.getClientRects().length > 0);
+      if (activeDialogs[activeDialogs.length - 1] !== dialog) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.key === "Escape") {
+        onRequestClose();
+        return;
+      }
+      const elements = tabbableWithin(dialog);
+      (event.shiftKey ? elements[elements.length - 1] : elements[0] ?? closeRef.current)
+        ?.focus({ preventScroll: true });
+    };
+    window.addEventListener("keydown", recoverOrphanedKey);
+    return () => window.removeEventListener("keydown", recoverOrphanedKey);
+  }, [onRequestClose]);
 
   function handleKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.key === "Escape") {
@@ -98,11 +128,11 @@ export function WindowsShortcutsDialog({ onRequestClose }: WindowsShortcutsDialo
             aria-label="Close Windows Shortcuts"
             onClick={onRequestClose}
           >
-            ×
+            <ActionIcon name="close" />
           </button>
         </header>
         <div className="windows-shortcuts-dialog__scroll">
-          <WindowsShortcutSettingsPanel />
+          {settingsContent ?? <WindowsShortcutSettingsPanel />}
         </div>
       </section>
     </div>

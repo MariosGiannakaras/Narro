@@ -1,0 +1,753 @@
+{
+  "schema": 1,
+  "phase": "DONE_SCOPED_ANALYSIS",
+  "originalReviewed": 44,
+  "additionalDispositioned": 56,
+  "totalDispositioned": 100,
+  "totalCells": 100,
+  "records": [
+    {
+      "id": "V1-08",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        259,
+        285
+      ],
+      "sequence": "focus-dark-normal",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-09",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        219,
+        245
+      ],
+      "sequence": "focus-dark-reduced",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-10",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        482,
+        507
+      ],
+      "sequence": "focus-sysdark-normal",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-11",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        438,
+        463
+      ],
+      "sequence": "focus-sysdark-reduced",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-12",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        586,
+        612
+      ],
+      "sequence": "focus-syslight-normal",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-13",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "OPEN_EXACT_SOURCE_AND_CURRENT_NATIVE",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        636,
+        662
+      ],
+      "sequence": "focus-syslight-reduced",
+      "observed": "Inline Notes expands and displaces queue; larger editor replaces panel content; Escape returns to inline; subsequent toggle closes; queue scrolls to Done and returns. Dark/light structure remains recognizable.",
+      "limits": "10 fps sampled filmstrip, not every 60 fps source frame; no proof of zero sub-100ms flicker, exact easing, dirty save/URL launch, or present-main executable. Prior static scopes unchanged."
+    },
+    {
+      "id": "V1-01",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        357,
+        369
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "observed": "Floating card/source gap and positional drop observed in the corresponding normal/reduced DPI variant; RA01 native release proof is specifically theme1 375.217/375.233, not every variant."
+    },
+    {
+      "id": "V1-02",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        367,
+        378
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "observed": "Floating card/source gap and positional drop observed in the corresponding normal/reduced DPI variant; RA01 native release proof is specifically theme1 375.217/375.233, not every variant."
+    },
+    {
+      "id": "V1-03",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-2",
+      "intervalSeconds": [
+        247,
+        259
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-16-21.mkv",
+      "observed": "Floating card/source gap and positional drop observed in the corresponding normal/reduced DPI variant; RA01 native release proof is specifically theme1 375.217/375.233, not every variant."
+    },
+    {
+      "id": "V1-04",
+      "status": "REVIEWED_SCOPE_WITH_FINDING",
+      "acceptance": "SOURCE_MOTION_OPEN",
+      "stream": "theme-2",
+      "intervalSeconds": [
+        380,
+        392
+      ],
+      "finding": "RA01",
+      "limits": "Native 60 fps drag windows plus terminal frames. Two-frame snap-back directly established only at theme-1 375.217/375.233; identical symptom in every variant is not asserted. Menu retained/canceled, no destructive commit in that interval.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-16-21.mkv",
+      "observed": "Floating card/source gap and positional drop observed in the corresponding normal/reduced DPI variant; RA01 native release proof is specifically theme1 375.217/375.233, not every variant."
+    },
+    {
+      "id": "V1-05",
+      "status": "REVIEWED_SCOPED_GRAMMAR",
+      "acceptance": "SCOPED_INLINE_CONFIRM_GRAMMAR_OBSERVED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        87,
+        108
+      ],
+      "finding": null,
+      "limits": "Recorded retained confirmation and cancel only; permanent deletion not exercised. No unmeasured exact easing or current-build pixel PASS.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "observed": "Inline Delete changes to retained Confirm with cancel control across87-108s; canceled without destructive commit. Older VE00610-21s corroborates grammar, current screenshots take styling precedence."
+    },
+    {
+      "id": "V1-17",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        259,
+        285
+      ],
+      "sequence": "focus-dark-normal",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "V1-18",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        219,
+        245
+      ],
+      "sequence": "focus-dark-reduced",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "V1-19",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        482,
+        507
+      ],
+      "sequence": "focus-sysdark-normal",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "V1-20",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        438,
+        463
+      ],
+      "sequence": "focus-sysdark-reduced",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "V1-21",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        586,
+        612
+      ],
+      "sequence": "focus-syslight-normal",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "V1-22",
+      "status": "REVIEWED_HISTORICAL_MECHANISM_SUPERSEDED",
+      "stream": "theme-1",
+      "intervalSeconds": [
+        636,
+        662
+      ],
+      "sequence": "focus-syslight-reduced",
+      "observed": "Panel->compact relocation, compact/expanded, hovered action labels, Notes toggle, collapse/locate and subsequent return; old CI953 intermediate clipped/staged shapes are historical, not current PR349.",
+      "acceptance": "REUSE_LATER_PA01_NATIVE_PASS; EXACT_SOURCE_MOTION_OPEN",
+      "limits": "10fps direct selected sequence; no every-frame/zero-flicker claim. Return-to-panel hover is not itself a click. Later return frames occur at case boundary.",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv"
+    },
+    {
+      "id": "M5-A01",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        446,
+        480
+      ],
+      "sequence": "main-populated",
+      "observed": "Four subtasks expand below parent in Today.",
+      "limits": "Scoped historic observation; exact source easing/current native separate."
+    },
+    {
+      "id": "M5-A02",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        480,
+        511
+      ],
+      "sequence": "main-populated",
+      "observed": "Long inline subtask edit appears then returns to row.",
+      "limits": "ROI clips right controls; Cancel rollback inconclusive. Later G8 narrow task-title acceptance is distinct."
+    },
+    {
+      "id": "M5-A03",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        509.5,
+        510.1
+      ],
+      "sequence": "main-populated",
+      "observed": "Direct full Today ROI shows checked first row/1-of-4 then unchecked/0-of-4; parent0-of-2 unchanged.",
+      "limits": "Subtask feedback, not parent completion/current native."
+    },
+    {
+      "id": "M5-A04",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        511,
+        557
+      ],
+      "sequence": "main-populated",
+      "observed": "Formatted inline Notes and larger editor/return acquired.",
+      "limits": "Main Escape remains separately bounded F33; dirty dismissal not demonstrated."
+    },
+    {
+      "id": "M5-A05",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        529,
+        557
+      ],
+      "sequence": "main-populated",
+      "observed": "Saved formatted Notes visible again after reopen; original owned-state receipts corroborate.",
+      "limits": "Not arbitrary formatting round-trip/dirty close/link activation."
+    },
+    {
+      "id": "M5-A06",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "intervalSeconds": [
+        268,
+        345
+      ],
+      "sequence": "main-rail-keyboard",
+      "observed": "Hovered rail/full-title tooltip visible; original post-drag keyboard discrepancy F28.",
+      "limits": "Later CI1046 native closure supersedes F28. Not every action activated."
+    },
+    {
+      "id": "M6-A01",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        297,
+        307
+      ],
+      "sequence": "panel-notes",
+      "observed": "Four populated Panel rows and per-row controls under paused live card.",
+      "limits": "Old six-action footer superseded PR299 five slots."
+    },
+    {
+      "id": "M6-A02",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        303,
+        307
+      ],
+      "sequence": "panel-notes",
+      "observed": "304.4s direct frame proves1-of-4, retained EST/Time Taken; later0-of-4 before Notes.",
+      "limits": "No inference of parent mutation or all timer invariants."
+    },
+    {
+      "id": "M6-A03",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        306,
+        312
+      ],
+      "sequence": "panel-notes",
+      "observed": "Long formatted inline Notes contained; expanded card displaces queue.",
+      "limits": "Intentional vertical editor scroll is not horizontal overflow."
+    },
+    {
+      "id": "M6-A04",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        307,
+        364
+      ],
+      "sequence": "panel-notes",
+      "observed": "Large editor replaces content; selection/save/return and saved status visible.",
+      "limits": "No dirty-dismissal acceptance; Main and Focus Escape separate."
+    },
+    {
+      "id": "M6-A05",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        157,
+        364
+      ],
+      "sequence": "timer-notes;panel-notes",
+      "observed": "Formatting and URL-containing text visible on return between editors.",
+      "limits": "URL text not activation. No automatic opening PASS or remote-preview claim."
+    },
+    {
+      "id": "M6-A06",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        361,
+        363
+      ],
+      "sequence": "panel-notes",
+      "observed": "Keyboard changes long-note selection/scroll before return; editor bounds retained.",
+      "limits": "Correct resize-corner drag not acquired; resize NOT PROVEN."
+    },
+    {
+      "id": "M7-A01",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        0,
+        146
+      ],
+      "sequence": "timer-populated",
+      "observed": "Compact title/time and populated summary, expansion to owned rows.",
+      "limits": "Source SS-C20 anatomy comparison separate V1-23."
+    },
+    {
+      "id": "M7-A02",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        0,
+        136
+      ],
+      "sequence": "timer-populated",
+      "observed": "Add/edit input, altered text, return to rows visible.",
+      "limits": "Some Cancel/keyboard effects inconclusive from selected frames; not universal PASS."
+    },
+    {
+      "id": "M7-A03",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        56,
+        136
+      ],
+      "sequence": "timer-populated",
+      "observed": "Four expanded rows and bounded vertical list with controls.",
+      "limits": "Tooltip wider than Timer but within monitor is not horizontal scrollbar."
+    },
+    {
+      "id": "M7-A04",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        56,
+        146
+      ],
+      "sequence": "timer-populated",
+      "observed": "Checked/1-of-4 then unchecked/0-of-4 states recorded.",
+      "limits": "Checkbox projection only; not active session completion."
+    },
+    {
+      "id": "M7-A05",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        130,
+        146
+      ],
+      "sequence": "timer-populated",
+      "observed": "Truncated title exposes native tooltip; original UIA corroborates ownership/monitor containment.",
+      "limits": "Parent width not tooltip bound; no universal current tooltip PASS."
+    },
+    {
+      "id": "M7-A06",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        157,
+        271
+      ],
+      "sequence": "timer-notes",
+      "observed": "Inline/large Notes, selection/save/return, subtask view restored at244.4/266.4.",
+      "limits": "Old staging superseded PR349; not current C4 failure."
+    },
+    {
+      "id": "M7-A07",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        364,
+        369
+      ],
+      "sequence": "panel-notes",
+      "observed": "Old Panel/Timer/expanded briefly stage native geometry.",
+      "limits": "HISTORICAL_FIXED: PR349 later PA01 36 transitions/3024frames PASS; canonical motion separate."
+    },
+    {
+      "id": "M7-A08",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "intervalSeconds": [
+        113,
+        138
+      ],
+      "sequence": "populated-hover",
+      "observed": "Expanded Timer reveals native action tooltip; locate observation bounded by original logs/video.",
+      "limits": "Expanded tooltip not compact hover-pill parity or all action clicks."
+    },
+    {
+      "id": "M8-A01",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        557,
+        645
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Upper Preferences and monitor/side controls visible.",
+      "limits": "Grouped old panels superseded PR368 flat sections; cloud exclusions intentional."
+    },
+    {
+      "id": "M8-A02",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-pr235-native-capture-only-20261005/video/2026-10-05 17-46-34.mkv",
+      "intervalSeconds": [
+        35,
+        152
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Middle Focus/Pomodoro/global shortcut/alert controls navigated.",
+      "limits": "Toggle alone not registration/audio proof. Later manual browser A/B/C accepted separately."
+    },
+    {
+      "id": "M8-A03",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        976,
+        1007
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Lower alert/celebration sections reached by scrolling.",
+      "limits": "Silent audio inconclusive; PR368 composition/371timezone already merged."
+    },
+    {
+      "id": "M8-A04",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-pr235-native-capture-only-20261005/video/2026-10-05 17-46-34.mkv",
+      "intervalSeconds": [
+        0,
+        185
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Upper/mid/lower navigation with Home/End attempts and wheel recovery.",
+      "limits": "Ctrl+End not established dialog scrolling contract. Neutral-theme Escape later PA356 PASS."
+    },
+    {
+      "id": "M9-A01",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        650,
+        680
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Overview cards/populated chart; gaps340-475 additionally range/zero state.",
+      "limits": "Not comprehensive arithmetic/source typography acceptance."
+    },
+    {
+      "id": "M9-A02",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "intervalSeconds": [
+        340,
+        406
+      ],
+      "sequence": "reports-date-filter",
+      "observed": "Two-month picker selection/Apply; empty selected range rendered401.4 onward.",
+      "limits": "401.3 briefly old aggregates; no persistent stale view. Separate Q18 race not proven."
+    },
+    {
+      "id": "M9-A03",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        740,
+        770
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Old chart hover/options acquired; options unavailable/disabled.",
+      "limits": "HISTORICAL_FIXED PR340/380; exact resulting-main CI proof. SS-C11 anatomy not new current failure."
+    },
+    {
+      "id": "M9-A04",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        770,
+        790
+      ],
+      "sequence": "navigation-keyframes",
+      "observed": "Session table/list-filter surface shown.",
+      "limits": "Not every filter/order branch. Q18 regression-first; no reproduced current defect."
+    },
+    {
+      "id": "M9-A05",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        785,
+        860
+      ],
+      "sequence": "reports-modal-escape",
+      "observed": "Actual Recent Tasks horizontal scrollbar; Escape leaves modal, Cancel closes~845.3.",
+      "limits": "Historical F29/F30 fixedPR246 plus later PA04 accepted; no duplicate fix."
+    },
+    {
+      "id": "M9-A06",
+      "status": "REVIEWED_SCOPE_LIMIT",
+      "acceptance": "PRESERVE_SCOPED_ACCEPTANCE_AND_EXPLICIT_LIMITS",
+      "video": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "intervalSeconds": [
+        990,
+        1088
+      ],
+      "sequence": "manual-session-end",
+      "observed": "Inline duration edit/Save refreshes totals; receipts ID preserved120->180->120.",
+      "limits": "Inline Escape remains open F31 NO_FIX; no established cancel contract/async race."
+    },
+    {
+      "id": "V1-06",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        446,
+        561
+      ],
+      "sequence": "Board source anatomy",
+      "observed": "Four lane hierarchy, pending cards, paused EST/Time Taken and expandable subtask/Notes structure correspond to help-v2x-board-four-columns-dark and task/subtask sources.",
+      "limits": "Version/theme/dataset differ. Later PR365/367/372 correct Home/Archive/Done differences; exact pixel calibration not certified; retained-drop discrepancy RA01 is actionable."
+    },
+    {
+      "id": "V1-07",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        357,
+        378
+      ],
+      "sequence": "Board drag motion",
+      "observed": "Floating dragged card, source gap and destination insertion reproduce broad planning-clip structure; release includes the two-frame wrong-lane repaint at375.217/375.233.",
+      "limits": "Confirmed RA01; current retained cause. Source 9.344s clip has no exact easing measurement, not VE018. Normal/reduced other variants are not all claimed identical."
+    },
+    {
+      "id": "V1-14",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m6-quick-native-20261017/video/2026-10-17 10-09-41.mkv",
+      "intervalSeconds": [
+        64,
+        284
+      ],
+      "sequence": "Focus hierarchy",
+      "observed": "Source SS-C19/VE003 hierarchy recognizable: Today header, estimate/count, live bordered card, queue/scheduled/Done; newer five-slot hover rail remains fixed.",
+      "limits": "Dataset/font/DPI differ; exact geometry not passed. Old six-action footer already PR299-fixed. RA02 concerns intermediate projection, not settled anatomy."
+    },
+    {
+      "id": "V1-15",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        297,
+        364
+      ],
+      "sequence": "Notes canonical comparison",
+      "observed": "Inline formatting toolbar, content, in-place expansion and queue displacement match VE00351.2-54 and SS-C21 general Notes anatomy.",
+      "limits": "SS-C21 is ORDINARY queue-task Notes, not live-card-only proof. Excluded mic intentional. PR B26 inline Close already native accepted; no duplicate correction."
+    },
+    {
+      "id": "V1-16",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        130,
+        146
+      ],
+      "sequence": "Title and overflow",
+      "observed": "Recorded ellipsis plus full native tooltip and bounded queue/editor scrolling give access to long content.",
+      "limits": "UIA horizontal extent alone F23 NO_FIX; no new visible horizontal product scrollbar. Exact source full-title mechanism and all corner cases not proven."
+    },
+    {
+      "id": "V1-23",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "intervalSeconds": [
+        0,
+        146
+      ],
+      "sequence": "Timer canonical shell",
+      "observed": "SS-C20 has title-left/time-right, divider, ring summary/plus/chevron; recorded compact/expanded Timer retains same broad organization.",
+      "limits": "Different dataset/theme/DPI prevent exact font/pixel equality. Old native staged clipping superseded PR349 accepted scope; no new code defect inferred."
+    },
+    {
+      "id": "V1-24",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "intervalSeconds": [
+        113,
+        138
+      ],
+      "sequence": "Timer hover canonical comparison",
+      "observed": "VE003131-162.8 establishes compact five-slot title/rail crossfade/pills; recorded gaps clip instead shows EXPANDED Timer native tooltip.",
+      "limits": "Do not require compact pills on expanded surface from this source. Exact compact source motion/hit-target parity remains inconclusive; later native C4 reliability does not close it."
+    },
+    {
+      "id": "V1-25",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "intervalSeconds": [
+        438,
+        662
+      ],
+      "sequence": "System theme propagation",
+      "observed": "Settled System dark then light surfaces are recorded, including Focus/Timer/Notes variants.",
+      "limits": "OS Settings occludes Narro during change; immediate propagation timing INCONCLUSIVE_OCCLUDED. No justified lag FAIL from inspection gaps. No new physical run here."
+    },
+    {
+      "id": "V1-26",
+      "status": "REVIEWED_WITH_EXPLICIT_LIMITS",
+      "acceptance": "NOT_AUTOMATIC_SOURCE_PARITY_OR_NATIVE_PASS",
+      "video": "work-log/evidence/m7-pr235-native-capture-only-20261005/video/2026-10-05 17-46-34.mkv",
+      "intervalSeconds": [
+        0,
+        185
+      ],
+      "sequence": "Preferences canonical comparison",
+      "observed": "SS-C07 flat modal sections and current alerts/celebration sources contrast old grouped-card Preferences seen in legacy clip.",
+      "limits": "HISTORICAL_FIXED PR368; PR295 monitor thumbnails, PR298/371 timezone, PR294 shortcut dialog already present. Exact latest-native source pixel/motion parity remains separate."
+    }
+  ],
+  "countMeaning": "Review dispositions including inconclusive scopes; not PASS count or every source frame viewed.",
+  "remainingUndispositioned": 0,
+  "completedUTC": "2026-10-18T23:52:11.447933+00:00",
+  "limitations": "Inherited44 outcomes retained,56 reviewed with explicit confidence limits. Not every frame manually viewed; no new physical/current executable or blanket source-parity PASS."
+}

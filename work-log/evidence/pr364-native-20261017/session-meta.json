@@ -1,0 +1,14 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "b11c80bb43e11ee438698450377beea0b31933c1",
+  "ci": 38994951447,
+  "pr": 364,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5-B43-20261017\\native\\analysis\\validation\\narro-m7-validation.exe",
+  "sha256": "d9d092bc194ff4870e890390b90a5480a10be4a5403128c5a129266e62e8df29",
+  "scope": "PR364 affected M5 presentation plus missing compatible direct claims, accepted8groups retained",
+  "acquisition": "4/4",
+  "phase": "FROZEN",
+  "recordingCurrentlyActive": false,
+  "personalProfilesRestored": true,
+  "analysis": "NOT RUN / latest user capture-only instruction"
+}

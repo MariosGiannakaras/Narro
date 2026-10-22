@@ -14,6 +14,7 @@
   width: min(47rem, 100%);
   max-height: calc(100dvh - 2 * var(--space-4));
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-panel);
@@ -29,10 +30,14 @@
 }
 
 .preferences-dialog__close {
+  box-sizing: border-box;
   display: grid;
   place-items: center;
   width: 2rem;
+  min-width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  padding: 0;
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-control);
   color: var(--color-text-primary);
@@ -51,12 +56,14 @@
 
 .preferences-dialog__scroll {
   min-height: 0;
+  min-width: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
 .preferences-dialog__scroll .theme-settings {
   width: 100%;
+  box-sizing: border-box;
   margin: 0;
   padding-top: var(--space-3);
 }

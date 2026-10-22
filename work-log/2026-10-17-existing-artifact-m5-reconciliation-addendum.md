@@ -1,0 +1,31 @@
+# 2026-10-17 — M5 existing-artifact reconciliation addendum
+
+**Owner:** ChatGPT independent source/fixture/static review. **Latest user instruction:** do all possible without requiring new physical Windows tests or fresh capture; only ask for a narrowly demonstrated necessary physical check after exhausting existing source, images, visual fixtures and read-only evidence.
+
+## Exact provenance and limits
+
+- Source UI screenshots inspected: `reference/original-blitzit-screenshots/help-v2x-board-four-columns-dark.png`, `help-v2x-archived-lists-unarchive-delete-forever.png` (older Help v2.x, not same-version exact geometry authority), and `current-v2.6.69-archived-lists-empty.png` (current direct v2.6.69).
+- Genuine exact PR365 head `c155719030d760d8cc11655eb518e464ffb9e190`, Windows CI `39016905982` **3/3 SUCCESS**, artifact **`narro-m5-visual-regression` ID `12094829929`**. Original ZIP independently opened; relevant actual PNGs extracted and inspected: `list-board-dark.png`, `list-board-all-dark.png`, `list-settings-archived-dark.png`, `archive-lists-empty-dark.png`. These are automated Windows-rendered fixture states, **not** post-merge install/native user acceptance and not directly matching source viewport/dataset.
+- Current `src/ListBoard.tsx` and `src/listBoard.css` / contract regression inspected. UI screenshot alone proves only rendered states; JavaScript code and test existence alone do not prove all interactions or source animations.
+
+## Three stale M5 source claims reconciled in TODO
+
+| Route | Previously stale statement | Direct current evidence | Disposition |
+| --- | --- | --- | --- |
+| **A15/B40 scheduled task subgroups** | A flat task mapping / Backlog and This Week headings not yet physically visible. | Previously frozen `work-log/evidence/pr364-native-20261017/C3-037-final-lanes-main.png` shows **`1 Scheduled task this week`** Oct 18 and **`1 Scheduled task in backlog`** Oct 24; matching UIA controls offscreen:false. Before/after C3 owned DB retains original task identities and Today scheduled 4→3. | **SCOPED NATIVE PRESENCE OBSERVED**. Original exact source styling/motion and other recurrence paths OPEN. Do not ask Codex to rerecord solely these header states. |
+| **A15/B43 Done date/count header** | `date · n Done` inline / `M5 FIX_NOW SOURCE_VISUAL_FAIL`. | `src/ListBoard.tsx` current markup contains distinct `list-board-lane__done-date` and `list-board-lane__done-count` with singular/plural count, CSS `grid-template-columns: minmax(0, 1fr) max-content`; actual PR-head `list-board-dark.png` shows **`Sep 8, 2026` left, `1 task` right**, and `list-board-all-dark.png` shows **`2 tasks`**. Older source board has left date + right count. | **SCOPED AUTOMATED WINDOWS FIXTURE + CODE GRAMMAR OBSERVED**, not full long-heading/different-locale/motion/source-geometry parity. Do not reimplement the already-correct two-column header. |
+| **A2 archived-list preview projection** | `ArchivedListsPanel` does not render previews; composition 'FIX_NOW' treated as missing entire function. | Actual current `src/ArchivedListsPanel.tsx` maps bounded `previewTasks` to ordinal/title rows. PR-head `list-settings-archived-dark.png` shows two task-preview rows in Old project and one in Reading backlog, plus Unarchive/Delete Forever actions. Older source Help image also has preview cards and footer actions. | **FUNCTIONAL UI ELEMENT PRESENT / SOURCE VISUAL COMPOSITION GAP OPEN**: older source cards are denser, with trailing time metadata; current projection lacks that read-only time field, and display size/dataset are not aligned. No arbitrary EST/Taken schema change permitted. |
+
+### New distinct visual comparison: archived empty card arrangement
+
+Current v2.6.69 source `current-v2.6.69-archived-lists-empty.png` shows **three spaced dark placeholder cards**, with centered archive empty icon/text in the **middle** card and the other two blank. Actual PR365 head `archive-lists-empty-dark.png` uses **one wide bordered empty-message panel** with centered icon/title/copy. These are observably **different composition structures**, not simply different copy/viewport.
+
+**Disposition: M5-ARCHIVE-EMPTY-20261017 = CONFIRMED SOURCE STATIC COMPOSITION GAP / FUTURE SCOPED FIX CANDIDATE.** No new video is necessary to prove the *existence* of this visual discrepancy; however, screen sizes/copy/interaction responsive behavior remain separate. Avoid inventing placement widths/heights; use established source screenshot viewport relationship and existing spacing/radius tokens. Do not conflate help-only v2.x archived-populated card appearance with v2.6.69 empty screenshot. Potential fix can be made exclusively in presentation CSS/markup with regression fixtures when an authorized feature PR owner executes it; preserve ListArchive operations and lock Spectrum Core picker/icons/upload. Not a new U01–U41 finding and not evidence of a data bug.
+
+## Evidence boundaries and next action
+
+- No local Narro binary executed; no Windows/OBS session, no AppData changes, no real user data touched. No M11/M12 activation, PA-01–09 remain paused.
+- Main B23 fix PR365 is merged with **exact head 3/3 SUCCESS** and visual fixtures dark/light observed. The `push/main` run for merge `a76050afe69d24585611b163c667974b0f4b545f` remains **NOT VERIFIED**: connected GitHub tool enumerates PR-triggered runs only and legacy commit statuses are empty; public GitHub Actions API inaccessible. This inability is an API visibility issue, **not a physical test request**. Do not claim resulting-main PASS.
+- Separately confirmed M8 Preferences continuous-surface presentation candidate is documented in `work-log/2026-10-17-focus-control-tracker-reconciliation.md`. Its branch creation was blocked by tool safety; no source/PR exists for it. Do not silently bypass source workflow.
+- **Next independent step** is deduplicated analysis of already published evidence (including existing video where bytes can actually be opened), with explicit scope and status; do not relaunch Codex recorder. On future permitted code tasks implement only documented presentation deltas with source-pinned regression.
+- **Current user-facing six-step review cycle remains 5/6** because the resulting-main CI gate is not directly established. This 5/6 is distinct from mandatory **4/10** (M1–M4 complete; M5 open).

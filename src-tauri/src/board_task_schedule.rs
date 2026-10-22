@@ -16,7 +16,8 @@ use crate::persistence::recurrence_replace::{
     ReplaceExistingError,
 };
 use crate::persistence::task_schedule_edit::{
-    update_task_schedule_if_expected, TaskScheduleEditError,
+    quick_clear_task_schedule_if_expected, update_task_schedule_if_expected,
+    QuickClearTaskScheduleRequest, TaskScheduleEditError,
 };
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use crate::recurrence::materialize_recurrence_week;
@@ -73,6 +74,7 @@ pub struct BoardTaskScheduleEditorSnapshot {
     pub task_id: String,
     pub list_id: String,
     pub schedule: TaskSchedule,
+    pub updated_at: String,
     pub recurrence_parent_task_id: Option<String>,
     pub recurrence: Option<BoardRecurrenceRule>,
     pub delete_existing_eligible_count: usize,
@@ -262,6 +264,8 @@ fn map_schedule_error(error: TaskScheduleEditError) -> CommandError {
     match error {
         TaskScheduleEditError::ExpectedListMismatch { .. }
         | TaskScheduleEditError::ExpectedScheduleMismatch(_)
+        | TaskScheduleEditError::ExpectedTaskVersionMismatch(_)
+        | TaskScheduleEditError::ExpectedRecurrenceMismatch(_)
         | TaskScheduleEditError::Task(TaskStoreError::NotFound(_)) => {
             CommandError::new("TASK_SCHEDULE_STALE", error.to_string())
         }
@@ -278,7 +282,9 @@ fn map_schedule_error(error: TaskScheduleEditError) -> CommandError {
         }
         TaskScheduleEditError::ArchivedTask(_)
         | TaskScheduleEditError::CompletedTask(_)
-        | TaskScheduleEditError::ArchivedList(_) => {
+        | TaskScheduleEditError::ArchivedList(_)
+        | TaskScheduleEditError::RecurrenceParent(_)
+        | TaskScheduleEditError::Task(TaskStoreError::ActiveSession(_)) => {
             CommandError::new("TASK_SCHEDULE_NOT_ALLOWED", error.to_string())
         }
         _ => CommandError::new("TASK_SCHEDULE_FAILED", error.to_string()),
@@ -422,6 +428,7 @@ pub fn get_list_board_task_schedule_editor(
         task_id: task.id.to_string(),
         list_id: task.list_id.to_string(),
         schedule: task_schedule(&task)?,
+        updated_at: task.updated_at.clone(),
         recurrence_parent_task_id: task.recurrence_parent_task_id.map(|id| id.to_string()),
         recurrence,
         delete_existing_eligible_count,
@@ -460,6 +467,26 @@ pub fn update_list_board_task_schedule(
     )
     .map(|_| ())
     .map_err(map_schedule_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub async fn quick_clear_list_board_task_schedule(
+    app_handle: tauri::AppHandle,
+    request: QuickClearTaskScheduleRequest,
+) -> CommandResult<()> {
+    tauri::async_runtime::spawn_blocking(move || {
+        let mut connection = app_database(&app_handle)?;
+        quick_clear_task_schedule_if_expected(&mut connection, request, &Utc::now().to_rfc3339())
+            .map(|_| ())
+            .map_err(map_schedule_error)
+    })
+    .await
+    .map_err(|error| {
+        CommandError::new(
+            "TASK_SCHEDULE_FAILED",
+            format!("schedule worker failed: {error}"),
+        )
+    })?
 }
 
 #[tauri::command(rename_all = "camelCase")]

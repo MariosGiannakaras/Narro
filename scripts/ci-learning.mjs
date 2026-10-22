@@ -54,6 +54,27 @@ export function signalFromLog(log) {
     const os = /\bError:\s*(EPERM|EACCES|ENOENT|ENOSPC|ETIMEDOUT|ECONNRESET|EADDRINUSE)\b/i.exec(line);
     if (os) return { kind: "os-error", value: os[1].toUpperCase() };
   }
+  // Node frontend/contract failures previously disappeared into "unknown".
+  // Require an actual repository test script frame, not a bare npm exit code
+  // or a downstream artifact-upload error. Only publish a public script path
+  // and a digest of the message, never transient paths or raw assertions.
+  const nodeFrame = lines.map(line =>
+    /(?:^|[\\/])(scripts[\\/][\w.\\/-]+\.mjs):\d+(?::\d+)?/.exec(line)
+  ).find(Boolean);
+  const nodeError = lines.map(line =>
+    /^(Error|TypeError|SyntaxError|AssertionError(?: \[ERR_ASSERTION\])?):\s*(\S.*)/.exec(line)
+  ).find(Boolean);
+  if (nodeFrame && nodeError) {
+    const file = nodeFrame[1].replace(/\\/g, "/");
+    const type = nodeError[1];
+    const normalized = nodeError[2]
+      .replace(/(?:[A-Za-z]:[\\/]|\/(?:home|Users|tmp|runner)[\\/])[^\s,;]+/g, "<path>")
+      .replace(/\b\d{6,}\b/g, "<id>").replace(/\s+/g, " ").trim().slice(0, 300);
+    const digest = createHash("sha256").update(normalized).digest("hex").slice(0, 12);
+    const kind = type === "SyntaxError" ? "node-syntax"
+      : type.startsWith("AssertionError") ? "node-assertion" : "node-contract";
+    return { kind, value: file + ":" + digest };
+  }
   return null; // Generic exit code alone is not a reliable match.
 }
 

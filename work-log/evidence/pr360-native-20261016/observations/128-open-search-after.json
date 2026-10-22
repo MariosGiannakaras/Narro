@@ -1,0 +1,1684 @@
+{
+  "utc": "2026-10-16T06:57:11.952846+00:00",
+  "hwnd": 4723784,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "List navigation",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        23,
+        208,
+        1080
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        43,
+        195,
+        91
+      ]
+    },
+    {
+      "name": "Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        60,
+        48,
+        102,
+        69
+      ]
+    },
+    {
+      "name": "Lists",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        91,
+        195,
+        131
+      ]
+    },
+    {
+      "name": "All my lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        156,
+        195,
+        196
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        12,
+        200,
+        195,
+        240
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        23,
+        2560,
+        87
+      ]
+    },
+    {
+      "name": "Utilities",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "Search",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2367,
+        34,
+        2448,
+        75
+      ]
+    },
+    {
+      "name": "Settings",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2455,
+        34,
+        2540,
+        75
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        87,
+        2560,
+        1024
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        232,
+        111,
+        2536,
+        763
+      ]
+    },
+    {
+      "name": "Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": true,
+      "focused": false,
+      "rect": [
+        231,
+        111,
+        1150,
+        132
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        231,
+        110,
+        232,
+        111
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        232,
+        111,
+        2536,
+        172
+      ]
+    },
+    {
+      "name": "PLANNING",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        256,
+        122,
+        325,
+        139
+      ]
+    },
+    {
+      "name": "PA360 Board",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        256,
+        142,
+        396,
+        172
+      ]
+    },
+    {
+      "name": "List",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1984,
+        111,
+        2002,
+        127
+      ]
+    },
+    {
+      "name": "Planning list",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1984,
+        131,
+        2168,
+        172
+      ]
+    },
+    {
+      "name": "Plan this list across Backlog, This Week, Today, and Done.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2211,
+        124,
+        2536,
+        170
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        232,
+        191,
+        799,
+        478
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        245,
+        204,
+        786,
+        249
+      ]
+    },
+    {
+      "name": "Backlog",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        245,
+        204,
+        303,
+        225
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        245,
+        228,
+        282,
+        245
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        752,
+        208,
+        774,
+        225
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        774,
+        208,
+        786,
+        225
+      ]
+    },
+    {
+      "name": "Add task to top of Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        245,
+        257,
+        340,
+        286
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        493,
+        328,
+        538,
+        345
+      ]
+    },
+    {
+      "name": "Add task to Backlog",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        245,
+        434,
+        326,
+        463
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        811,
+        191,
+        1378,
+        507
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        204,
+        1365,
+        278
+      ]
+    },
+    {
+      "name": "This Week",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        204,
+        899,
+        225
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        228,
+        861,
+        245
+      ]
+    },
+    {
+      "name": "0 of 0 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        253,
+        899,
+        278
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        261,
+        831,
+        278
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        830,
+        261,
+        836,
+        278
+      ]
+    },
+    {
+      "name": "0",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        835,
+        261,
+        842,
+        278
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        841,
+        261,
+        874,
+        278
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1331,
+        208,
+        1353,
+        225
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1353,
+        208,
+        1365,
+        225
+      ]
+    },
+    {
+      "name": "Add task to top of This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        286,
+        919,
+        315
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1072,
+        357,
+        1117,
+        374
+      ]
+    },
+    {
+      "name": "Add task to This Week",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        824,
+        463,
+        905,
+        492
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1390,
+        191,
+        1957,
+        571
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        204,
+        1944,
+        278
+      ]
+    },
+    {
+      "name": "Today",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        204,
+        1453,
+        225
+      ]
+    },
+    {
+      "name": "0 tasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        228,
+        1440,
+        245
+      ]
+    },
+    {
+      "name": "1 of 1 tasks done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        253,
+        1453,
+        278
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        261,
+        1410,
+        278
+      ]
+    },
+    {
+      "name": "/",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1409,
+        261,
+        1415,
+        278
+      ]
+    },
+    {
+      "name": "1",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1414,
+        261,
+        1421,
+        278
+      ]
+    },
+    {
+      "name": " Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1420,
+        261,
+        1453,
+        278
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1910,
+        208,
+        1932,
+        225
+      ]
+    },
+    {
+      "name": "\u2014",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1932,
+        208,
+        1944,
+        225
+      ]
+    },
+    {
+      "name": "Add task to top of Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        286,
+        1498,
+        315
+      ]
+    },
+    {
+      "name": "All Clear",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1651,
+        357,
+        1696,
+        374
+      ]
+    },
+    {
+      "name": "Add task to Today",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        463,
+        1484,
+        492
+      ]
+    },
+    {
+      "name": "Blitz entry",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        513,
+        1944,
+        558
+      ]
+    },
+    {
+      "name": "Blitz now",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1403,
+        513,
+        1944,
+        558
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1969,
+        191,
+        2536,
+        763
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        204,
+        2523,
+        249
+      ]
+    },
+    {
+      "name": "Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        204,
+        2109,
+        225
+      ]
+    },
+    {
+      "name": "1 completed this month",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        228,
+        2109,
+        245
+      ]
+    },
+    {
+      "name": "Est: ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        208,
+        2500,
+        225
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2499,
+        208,
+        2523,
+        225
+      ]
+    },
+    {
+      "name": "Oct 16, 2026 \u00b7 1 Done",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        304,
+        2523,
+        330
+      ]
+    },
+    {
+      "name": "Call with PeteEst: 20mTaken: 1mAdd notes4/5 SubtasksPrepare agendaDiscuss next stepsConfirm ownersSend summarySchedule follow-upCompleted tasks keep subtasks as read-only history.",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        341,
+        2523,
+        734
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1982,
+        341,
+        2523,
+        734
+      ]
+    },
+    {
+      "name": "Call with Pete",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2021,
+        353,
+        2114,
+        374
+      ]
+    },
+    {
+      "name": "Est",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2396,
+        386,
+        2412,
+        403
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2411,
+        386,
+        2418,
+        403
+      ]
+    },
+    {
+      "name": "20m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2417,
+        386,
+        2441,
+        403
+      ]
+    },
+    {
+      "name": "Taken",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2457,
+        386,
+        2488,
+        403
+      ]
+    },
+    {
+      "name": ": ",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2487,
+        386,
+        2494,
+        403
+      ]
+    },
+    {
+      "name": "1m",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2493,
+        386,
+        2510,
+        403
+      ]
+    },
+    {
+      "name": "Expand notes for Call with Pete",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        419,
+        2510,
+        448
+      ]
+    },
+    {
+      "name": "Collapse subtasks for Call with Pete",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        460,
+        2510,
+        489
+      ]
+    },
+    {
+      "name": "4/5 Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2029,
+        466,
+        2097,
+        483
+      ]
+    },
+    {
+      "name": "Prepare agenda",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        500,
+        2510,
+        537
+      ]
+    },
+    {
+      "name": "Reopen subtask: Prepare agenda",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2001,
+        504,
+        2029,
+        533
+      ]
+    },
+    {
+      "name": "Prepare agenda",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2033,
+        505,
+        2410,
+        532
+      ]
+    },
+    {
+      "name": "Move subtask up: Prepare agenda",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2414,
+        504,
+        2442,
+        533
+      ]
+    },
+    {
+      "name": "Move subtask down: Prepare agenda",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2446,
+        504,
+        2474,
+        533
+      ]
+    },
+    {
+      "name": "Delete subtask: Prepare agenda",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        504,
+        2506,
+        533
+      ]
+    },
+    {
+      "name": "Discuss next steps",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        540,
+        2510,
+        577
+      ]
+    },
+    {
+      "name": "Reopen subtask: Discuss next steps",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2001,
+        544,
+        2029,
+        573
+      ]
+    },
+    {
+      "name": "Discuss next steps",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2033,
+        545,
+        2410,
+        572
+      ]
+    },
+    {
+      "name": "Move subtask up: Discuss next steps",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2414,
+        544,
+        2442,
+        573
+      ]
+    },
+    {
+      "name": "Move subtask down: Discuss next steps",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2446,
+        544,
+        2474,
+        573
+      ]
+    },
+    {
+      "name": "Delete subtask: Discuss next steps",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        544,
+        2506,
+        573
+      ]
+    },
+    {
+      "name": "Confirm owners",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        580,
+        2510,
+        617
+      ]
+    },
+    {
+      "name": "Reopen subtask: Confirm owners",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2001,
+        584,
+        2029,
+        613
+      ]
+    },
+    {
+      "name": "Confirm owners",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2033,
+        585,
+        2410,
+        612
+      ]
+    },
+    {
+      "name": "Move subtask up: Confirm owners",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2414,
+        584,
+        2442,
+        613
+      ]
+    },
+    {
+      "name": "Move subtask down: Confirm owners",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2446,
+        584,
+        2474,
+        613
+      ]
+    },
+    {
+      "name": "Delete subtask: Confirm owners",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        584,
+        2506,
+        613
+      ]
+    },
+    {
+      "name": "Send summary",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        620,
+        2510,
+        657
+      ]
+    },
+    {
+      "name": "Reopen subtask: Send summary",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2001,
+        624,
+        2029,
+        653
+      ]
+    },
+    {
+      "name": "Send summary",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2033,
+        625,
+        2410,
+        652
+      ]
+    },
+    {
+      "name": "Move subtask up: Send summary",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2414,
+        624,
+        2442,
+        653
+      ]
+    },
+    {
+      "name": "Move subtask down: Send summary",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2446,
+        624,
+        2474,
+        653
+      ]
+    },
+    {
+      "name": "Delete subtask: Send summary",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        624,
+        2506,
+        653
+      ]
+    },
+    {
+      "name": "Schedule follow-up",
+      "type": 50007,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        660,
+        2510,
+        697
+      ]
+    },
+    {
+      "name": "Complete subtask: Schedule follow-up",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2001,
+        664,
+        2029,
+        693
+      ]
+    },
+    {
+      "name": "Schedule follow-up",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2033,
+        665,
+        2410,
+        692
+      ]
+    },
+    {
+      "name": "Move subtask up: Schedule follow-up",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2414,
+        664,
+        2442,
+        693
+      ]
+    },
+    {
+      "name": "Move subtask down: Schedule follow-up",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2446,
+        664,
+        2474,
+        693
+      ]
+    },
+    {
+      "name": "Delete subtask: Schedule follow-up",
+      "type": 50000,
+      "enabled": false,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2478,
+        664,
+        2506,
+        693
+      ]
+    },
+    {
+      "name": "Completed tasks keep subtasks as read-only history.",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1997,
+        704,
+        2273,
+        721
+      ]
+    },
+    {
+      "name": "Primary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        208,
+        1024,
+        2560,
+        1080
+      ]
+    },
+    {
+      "name": "Home",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1252,
+        1033,
+        1380,
+        1073
+      ]
+    },
+    {
+      "name": "Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1388,
+        1033,
+        1516,
+        1073
+      ]
+    },
+    {
+      "name": "Search Narro",
+      "type": 50032,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        992,
+        255,
+        1568,
+        418
+      ]
+    },
+    {
+      "name": "Search Narro",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        992,
+        255,
+        993,
+        257
+      ]
+    },
+    {
+      "name": "Search tasks and lists",
+      "type": 50004,
+      "enabled": true,
+      "offscreen": false,
+      "focused": true,
+      "rect": [
+        1041,
+        266,
+        1485,
+        311
+      ],
+      "value": ""
+    },
+    {
+      "name": "Control F",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1496,
+        274,
+        1551,
+        303
+      ]
+    },
+    {
+      "name": "Ctrl+F",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1507,
+        280,
+        1541,
+        297
+      ]
+    },
+    {
+      "name": "Quick actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1009,
+        336,
+        1551,
+        401
+      ]
+    },
+    {
+      "name": "Quick actions",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1009,
+        336,
+        1551,
+        353
+      ]
+    },
+    {
+      "name": "Add new task",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1009,
+        360,
+        1151,
+        401
+      ]
+    },
+    {
+      "name": "Add new list",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1158,
+        360,
+        1293,
+        401
+      ]
+    },
+    {
+      "name": "Go to Reports",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        1300,
+        360,
+        1445,
+        401
+      ]
+    },
+    {
+      "name": "System",
+      "type": 50011,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        0,
+        0,
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Minimize",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2419,
+        8,
+        2466,
+        22
+      ]
+    },
+    {
+      "name": "Restore",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2466,
+        8,
+        2512,
+        22
+      ]
+    },
+    {
+      "name": "Close",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2512,
+        8,
+        2568,
+        22
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1340 @@
+{
+  "utc": "2026-10-20T17:55:37.842Z",
+  "window": {
+    "app": "process:E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-57-Capture-20261020\\candidate\\narro.exe",
+    "id": 787786,
+    "title": "Narro"
+  },
+  "liveReadOnlyUIA": [
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": true,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro - Web content",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "RootWebArea",
+      "focused": true,
+      "type": 50030,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "root",
+      "focused": false,
+      "type": 50026,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "List navigation",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 112,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        372,
+        887
+      ]
+    },
+    {
+      "name": "Narro",
+      "automationId": "",
+      "focused": false,
+      "type": 50006,
+      "x": 111,
+      "y": 83,
+      "bounds": [
+        176,
+        207,
+        359,
+        271
+      ]
+    },
+    {
+      "name": "Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 111,
+      "y": 189,
+      "bounds": [
+        176,
+        271,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "+ Create new list",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 135,
+      "bounds": [
+        176,
+        271,
+        359,
+        311
+      ]
+    },
+    {
+      "name": "All my lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 200,
+      "bounds": [
+        176,
+        336,
+        359,
+        376
+      ]
+    },
+    {
+      "name": "Archived lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 111,
+      "y": 244,
+      "bounds": [
+        176,
+        380,
+        359,
+        420
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 63,
+      "bounds": [
+        372,
+        187,
+        1164,
+        251
+      ]
+    },
+    {
+      "name": "Utilities",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 901,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "Search",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 855,
+      "y": 62,
+      "bounds": [
+        971,
+        198,
+        1052,
+        239
+      ]
+    },
+    {
+      "name": "Settings",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 945,
+      "y": 62,
+      "bounds": [
+        1059,
+        198,
+        1144,
+        239
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "main-content",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 385,
+      "bounds": [
+        372,
+        251,
+        1164,
+        831
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50017,
+      "x": 612,
+      "y": 140,
+      "bounds": [
+        396,
+        275,
+        1140,
+        317
+      ]
+    },
+    {
+      "name": "Saved PDF to F:\\narro-overview-2026-09-20-to-2026-10-20.pdf",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 476,
+      "y": 139,
+      "bounds": [
+        409,
+        285,
+        856,
+        306
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        396,
+        329,
+        1140,
+        1390
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 214,
+      "bounds": [
+        420,
+        351,
+        1116,
+        389
+      ]
+    },
+    {
+      "name": " BACK",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 294,
+      "y": 214,
+      "bounds": [
+        420,
+        351,
+        481,
+        389
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "reports-overview-title",
+      "focused": false,
+      "type": 50020,
+      "x": 381,
+      "y": 214,
+      "bounds": [
+        494,
+        355,
+        580,
+        385
+      ]
+    },
+    {
+      "name": " Export PDF",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 896,
+      "y": 214,
+      "bounds": [
+        988,
+        353,
+        1116,
+        387
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50018,
+      "x": 383,
+      "y": 274,
+      "bounds": [
+        420,
+        409,
+        659,
+        451
+      ]
+    },
+    {
+      "name": "Overview",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 317,
+      "y": 274,
+      "bounds": [
+        425,
+        414,
+        521,
+        446
+      ]
+    },
+    {
+      "name": "Sessions BETA",
+      "automationId": "",
+      "focused": false,
+      "type": 50019,
+      "x": 433,
+      "y": 274,
+      "bounds": [
+        525,
+        414,
+        654,
+        446
+      ]
+    },
+    {
+      "name": "All Lists",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 353,
+      "y": 330,
+      "bounds": [
+        420,
+        467,
+        598,
+        505
+      ]
+    },
+    {
+      "name": "Sep 20, 2026 – Oct 20, 2026",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 834,
+      "y": 330,
+      "bounds": [
+        864,
+        467,
+        1116,
+        505
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 346,
+      "y": 412,
+      "bounds": [
+        420,
+        519,
+        585,
+        617
+      ]
+    },
+    {
+      "name": "Total work days",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 316,
+      "y": 391,
+      "bounds": [
+        435,
+        540,
+        510,
+        555
+      ]
+    },
+    {
+      "name": "13",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 289,
+      "y": 418,
+      "bounds": [
+        435,
+        562,
+        456,
+        586
+      ]
+    },
+    {
+      "name": "13 active days",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 310,
+      "y": 437,
+      "bounds": [
+        435,
+        586,
+        497,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 523,
+      "y": 412,
+      "bounds": [
+        597,
+        519,
+        762,
+        617
+      ]
+    },
+    {
+      "name": "Total tasks done",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 495,
+      "y": 391,
+      "bounds": [
+        612,
+        540,
+        691,
+        555
+      ]
+    },
+    {
+      "name": "39",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 466,
+      "y": 418,
+      "bounds": [
+        612,
+        562,
+        633,
+        586
+      ]
+    },
+    {
+      "name": "3.0 avg / active day",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 498,
+      "y": 437,
+      "bounds": [
+        612,
+        586,
+        697,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 700,
+      "y": 412,
+      "bounds": [
+        774,
+        519,
+        939,
+        617
+      ]
+    },
+    {
+      "name": "Total time worked",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 676,
+      "y": 391,
+      "bounds": [
+        789,
+        540,
+        876,
+        555
+      ]
+    },
+    {
+      "name": "10hr 34min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 681,
+      "y": 418,
+      "bounds": [
+        789,
+        562,
+        886,
+        586
+      ]
+    },
+    {
+      "name": "49min avg / active day",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 683,
+      "y": 437,
+      "bounds": [
+        789,
+        586,
+        889,
+        601
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 877,
+      "y": 412,
+      "bounds": [
+        951,
+        519,
+        1116,
+        617
+      ]
+    },
+    {
+      "name": "Avg. Time per task",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 855,
+      "y": 391,
+      "bounds": [
+        966,
+        540,
+        1056,
+        555
+      ]
+    },
+    {
+      "name": "15min",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 837,
+      "y": 418,
+      "bounds": [
+        966,
+        562,
+        1020,
+        586
+      ]
+    },
+    {
+      "name": "includes partial tasks",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 856,
+      "y": 437,
+      "bounds": [
+        966,
+        586,
+        1058,
+        601
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 623,
+      "bounds": [
+        420,
+        630,
+        1116,
+        929
+      ]
+    },
+    {
+      "name": "PRODUCTIVITY",
+      "automationId": "",
+      "focused": false,
+      "type": 50020,
+      "x": 320,
+      "y": 497,
+      "bounds": [
+        435,
+        645,
+        517,
+        661
+      ]
+    },
+    {
+      "name": "TIME BY DAY",
+      "automationId": "reports-productivity-title",
+      "focused": false,
+      "type": 50020,
+      "x": 320,
+      "y": 518,
+      "bounds": [
+        435,
+        665,
+        517,
+        683
+      ]
+    },
+    {
+      "name": "Chart options",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 929,
+      "y": 507,
+      "bounds": [
+        1069,
+        649,
+        1101,
+        678
+      ]
+    },
+    {
+      "name": "Daily Tasks, Breaks and Total session time",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 627,
+      "bounds": [
+        435,
+        682,
+        1101,
+        885
+      ]
+    },
+    {
+      "name": "Sun, Sep 20: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 297,
+      "y": 638,
+      "bounds": [
+        441,
+        704,
+        465,
+        884
+      ]
+    },
+    {
+      "name": "Mon, Sep 21: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 320,
+      "y": 638,
+      "bounds": [
+        464,
+        704,
+        489,
+        884
+      ]
+    },
+    {
+      "name": "Tue, Sep 22: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 344,
+      "y": 638,
+      "bounds": [
+        488,
+        704,
+        512,
+        884
+      ]
+    },
+    {
+      "name": "Wed, Sep 23: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 367,
+      "y": 638,
+      "bounds": [
+        511,
+        704,
+        536,
+        884
+      ]
+    },
+    {
+      "name": "Thu, Sep 24: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 391,
+      "y": 638,
+      "bounds": [
+        535,
+        704,
+        560,
+        884
+      ]
+    },
+    {
+      "name": "Fri, Sep 25: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 415,
+      "y": 638,
+      "bounds": [
+        559,
+        704,
+        583,
+        884
+      ]
+    },
+    {
+      "name": "Sat, Sep 26: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 438,
+      "y": 638,
+      "bounds": [
+        582,
+        704,
+        607,
+        884
+      ]
+    },
+    {
+      "name": "Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 462,
+      "y": 638,
+      "bounds": [
+        606,
+        704,
+        630,
+        884
+      ]
+    },
+    {
+      "name": "Mon, Sep 28: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 485,
+      "y": 638,
+      "bounds": [
+        629,
+        704,
+        654,
+        884
+      ]
+    },
+    {
+      "name": "Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 509,
+      "y": 638,
+      "bounds": [
+        653,
+        704,
+        678,
+        884
+      ]
+    },
+    {
+      "name": "Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 533,
+      "y": 638,
+      "bounds": [
+        677,
+        704,
+        701,
+        884
+      ]
+    },
+    {
+      "name": "Thu, Oct 01: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 556,
+      "y": 638,
+      "bounds": [
+        700,
+        704,
+        725,
+        884
+      ]
+    },
+    {
+      "name": "Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 580,
+      "y": 638,
+      "bounds": [
+        724,
+        704,
+        748,
+        884
+      ]
+    },
+    {
+      "name": "Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 603,
+      "y": 638,
+      "bounds": [
+        747,
+        704,
+        772,
+        884
+      ]
+    },
+    {
+      "name": "Sun, Oct 04: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 627,
+      "y": 638,
+      "bounds": [
+        771,
+        704,
+        796,
+        884
+      ]
+    },
+    {
+      "name": "Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 651,
+      "y": 638,
+      "bounds": [
+        795,
+        704,
+        819,
+        884
+      ]
+    },
+    {
+      "name": "Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 674,
+      "y": 638,
+      "bounds": [
+        818,
+        704,
+        843,
+        884
+      ]
+    },
+    {
+      "name": "Wed, Oct 07: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 698,
+      "y": 638,
+      "bounds": [
+        842,
+        704,
+        867,
+        884
+      ]
+    },
+    {
+      "name": "Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 722,
+      "y": 638,
+      "bounds": [
+        866,
+        704,
+        890,
+        884
+      ]
+    },
+    {
+      "name": "Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 745,
+      "y": 638,
+      "bounds": [
+        889,
+        704,
+        914,
+        884
+      ]
+    },
+    {
+      "name": "Sat, Oct 10: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 769,
+      "y": 638,
+      "bounds": [
+        913,
+        704,
+        937,
+        884
+      ]
+    },
+    {
+      "name": "Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 792,
+      "y": 638,
+      "bounds": [
+        936,
+        704,
+        961,
+        884
+      ]
+    },
+    {
+      "name": "Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 816,
+      "y": 638,
+      "bounds": [
+        960,
+        704,
+        985,
+        884
+      ]
+    },
+    {
+      "name": "Tue, Oct 13: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 840,
+      "y": 638,
+      "bounds": [
+        984,
+        704,
+        1008,
+        884
+      ]
+    },
+    {
+      "name": "Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 863,
+      "y": 638,
+      "bounds": [
+        1007,
+        704,
+        1032,
+        884
+      ]
+    },
+    {
+      "name": "Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 887,
+      "y": 638,
+      "bounds": [
+        1031,
+        704,
+        1055,
+        884
+      ]
+    },
+    {
+      "name": "Fri, Oct 16: Tasks 20min, Breaks 5min, Total 25min",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 910,
+      "y": 638,
+      "bounds": [
+        1054,
+        704,
+        1079,
+        884
+      ]
+    },
+    {
+      "name": "Sat, Oct 17: Tasks 1hr, Breaks 0min, Total 1hr",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 934,
+      "y": 638,
+      "bounds": [
+        1078,
+        704,
+        1103,
+        884
+      ]
+    },
+    {
+      "name": "Primary",
+      "automationId": "",
+      "focused": false,
+      "type": 50026,
+      "x": 612,
+      "y": 703,
+      "bounds": [
+        372,
+        831,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": "Home",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 544,
+      "y": 704,
+      "bounds": [
+        636,
+        840,
+        764,
+        880
+      ]
+    },
+    {
+      "name": "Reports",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 680,
+      "y": 704,
+      "bounds": [
+        772,
+        840,
+        900,
+        880
+      ]
+    },
+    {
+      "name": "",
+      "automationId": "",
+      "focused": false,
+      "type": 50033,
+      "x": 508,
+      "y": 381,
+      "bounds": [
+        164,
+        187,
+        1164,
+        887
+      ]
+    },
+    {
+      "name": null,
+      "automationId": "",
+      "focused": false,
+      "type": 50037,
+      "x": 516,
+      "y": 17,
+      "bounds": [
+        180,
+        159,
+        1164,
+        187
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "MenuBar",
+      "focused": false,
+      "type": 50010,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "System",
+      "automationId": "",
+      "focused": false,
+      "type": 50011,
+      "x": 19,
+      "y": 19,
+      "bounds": [
+        164,
+        164,
+        186,
+        186
+      ]
+    },
+    {
+      "name": "Minimize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 892,
+      "y": 16,
+      "bounds": [
+        1025,
+        157,
+        1072,
+        187
+      ]
+    },
+    {
+      "name": "Maximize",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 939,
+      "y": 16,
+      "bounds": [
+        1072,
+        157,
+        1118,
+        187
+      ]
+    },
+    {
+      "name": "Close",
+      "automationId": "",
+      "focused": false,
+      "type": 50000,
+      "x": 985,
+      "y": 16,
+      "bounds": [
+        1118,
+        157,
+        1165,
+        187
+      ]
+    }
+  ]
+}

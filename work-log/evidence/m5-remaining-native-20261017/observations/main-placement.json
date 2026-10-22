@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-17T01:47:54.129725+00:00",
+  "hwnd": 6819644,
+  "before": {
+    "hwnd": 6819644,
+    "title": "Narro",
+    "pid": 24412,
+    "rect": [
+      78,
+      78,
+      1094,
+      817
+    ]
+  },
+  "requested": [
+    0,
+    0,
+    1800,
+    1040
+  ],
+  "reason": "Both already-open Board and right-edge Focus remain visible on primary without topology or primary-monitor changes; no 125% acceptance claimed"
+}

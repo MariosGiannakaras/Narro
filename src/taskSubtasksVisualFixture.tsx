@@ -174,9 +174,28 @@ const geometry = (selector: string): Geometry => {
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 };
 
+const expandedSubtasks = document.querySelector<HTMLElement>('[data-task-subtasks-visual="expanded"] [data-task-subtasks]')!;
+const header = expandedSubtasks.querySelector<HTMLElement>('[data-task-subtask-header]')!;
+const headerRing = header.querySelector<HTMLElement>('[role="progressbar"]')!.getBoundingClientRect();
+const headerCopy = header.querySelector<HTMLElement>('.list-board-task__subtask-header-copy > span:last-child')!.getBoundingClientRect();
+const headerPlus = header.querySelector<HTMLButtonElement>('[data-task-subtask-control="add-focus"]')!;
+const plusRect = headerPlus.getBoundingClientRect();
+const chevronRect = header.querySelector<HTMLElement>('.list-board-task__subtask-chevron')!.getBoundingClientRect();
+const createInputRect = expandedSubtasks.querySelector<HTMLInputElement>('[data-task-subtask-control="create-input"]')!.getBoundingClientRect();
+const clearRect = expandedSubtasks.querySelector<HTMLButtonElement>('[data-task-subtask-control="cancel-create"]')!.getBoundingClientRect();
 const contract = {
   fixture: "task-subtasks",
   theme,
+  singleSourceHeader: expandedSubtasks.querySelectorAll('[data-task-subtask-header]').length === 1
+    && expandedSubtasks.querySelectorAll('[role="progressbar"]').length === 1
+    && !expandedSubtasks.querySelector('.list-board-task__subtask-summary'),
+  headerRingCountPlusAligned: headerRing.right <= headerCopy.left + 1 && headerCopy.right <= plusRect.left + 1
+    && plusRect.right <= chevronRect.left + 1
+    && Math.abs((headerRing.top + headerRing.bottom - plusRect.top - plusRect.bottom) / 2) <= 1,
+  headerPlusTopHit: document.elementFromPoint((plusRect.left + plusRect.right) / 2,
+    (plusRect.top + plusRect.bottom) / 2)?.closest('button') === headerPlus,
+  clearInsideField: clearRect.left >= createInputRect.left && clearRect.right <= createInputRect.right
+    && clearRect.top >= createInputRect.top && clearRect.bottom <= createInputRect.bottom,
   viewport: { width: 1280, height: 720 },
   expandedCard: geometry('[data-task-subtasks-visual="expanded"] .list-board-task'),
   editingCard: geometry('[data-task-subtasks-visual="editing"] .list-board-task'),

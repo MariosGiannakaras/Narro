@@ -1,0 +1,73 @@
+{
+  "utc": "2026-10-14T18:07:21.356585+00:00",
+  "beforeOwned": {
+    "quickCheck": "ok",
+    "tables": {
+      "lists": {
+        "rows": 1,
+        "contentSha256": "74da2358732f15b3cea8753a5f21381a66b13ca206109764f50b6df2ac3bcebc"
+      },
+      "tasks": {
+        "rows": 7,
+        "contentSha256": "2fab557f5435355a44a32fe104d23bcb2f26c72b69153729af246315109df5e3"
+      },
+      "subtasks": {
+        "rows": 0,
+        "contentSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "task_notes": {
+        "rows": 0,
+        "contentSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "sessions": {
+        "rows": 21,
+        "contentSha256": "fec5c08b9d5d1ddf4314580cd1ce133b2ed6b1add451ef545cc06a21c83dbd6a"
+      }
+    }
+  },
+  "afterOwned": {
+    "quickCheck": "ok",
+    "tables": {
+      "lists": {
+        "rows": 1,
+        "contentSha256": "74da2358732f15b3cea8753a5f21381a66b13ca206109764f50b6df2ac3bcebc"
+      },
+      "tasks": {
+        "rows": 7,
+        "contentSha256": "2fab557f5435355a44a32fe104d23bcb2f26c72b69153729af246315109df5e3"
+      },
+      "subtasks": {
+        "rows": 0,
+        "contentSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "task_notes": {
+        "rows": 0,
+        "contentSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "sessions": {
+        "rows": 21,
+        "contentSha256": "4a053292e8343d464f7d4b29b298bb70feea3fe19d5c1a75709f0839546d33f9"
+      }
+    }
+  },
+  "allOwnedRowsEqual": false,
+  "originalProfile": {
+    "state": "ORIGINAL_PROFILES_RESTORED",
+    "utc": "2026-10-14T18:01:44.733870+00:00",
+    "originalDbSha256": "13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d",
+    "hashIdentical": true
+  },
+  "changedFields": [
+    {
+      "table": "sessions",
+      "fields": {
+        "updated_at": [
+          "2026-10-14T12:48:40.882Z",
+          "2026-10-14T18:00:17.731Z"
+        ]
+      }
+    }
+  ],
+  "allOwnedBusinessDataEqual": true,
+  "timestampOnlyNormalQuit": true
+}

@@ -2,12 +2,14 @@ use crate::domain::ids::{ListId, TaskId};
 use crate::domain::model::ScheduleKind;
 use crate::domain::tasks::{TaskRecord, TaskSchedule};
 use crate::persistence::lists::{get_list, ListStoreError};
-use crate::persistence::tasks::{get_task, TaskStoreError};
+use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
+use crate::persistence::tasks::{compact_bucket_ranks, get_task, next_bucket_rank, TaskStoreError};
 use crate::scheduling::{
     resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError,
 };
 use chrono::{DateTime, NaiveDate, NaiveTime};
 use rusqlite::{params, Connection, TransactionBehavior};
+use serde::Deserialize;
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
@@ -21,6 +23,11 @@ pub enum TaskScheduleEditError {
     ArchivedList(ListId),
     ExpectedListMismatch { expected: ListId, actual: ListId },
     ExpectedScheduleMismatch(TaskId),
+    ExpectedTaskVersionMismatch(TaskId),
+    ExpectedRecurrenceMismatch(TaskId),
+    RecurrenceParent(TaskId),
+    Preferences(PreferenceStoreError),
+    Scheduling(SchedulingError),
     InvalidScheduleDate,
     InvalidScheduleTime,
     InvalidScheduleTimezone,
@@ -45,6 +52,11 @@ impl Display for TaskScheduleEditError {
             Self::ExpectedScheduleMismatch(id) => {
                 write!(formatter, "task schedule changed before the edit committed: {id}")
             }
+            Self::ExpectedTaskVersionMismatch(id) => write!(formatter, "task changed before quick schedule removal committed: {id}"),
+            Self::ExpectedRecurrenceMismatch(id) => write!(formatter, "task recurrence changed before quick schedule removal committed: {id}"),
+            Self::RecurrenceParent(id) => write!(formatter, "recurring parent cannot use quick schedule removal: {id}"),
+            Self::Preferences(error) => Display::fmt(error, formatter),
+            Self::Scheduling(error) => Display::fmt(error, formatter),
             Self::InvalidScheduleDate => formatter.write_str("scheduled local date must use YYYY-MM-DD"),
             Self::InvalidScheduleTime => formatter.write_str("scheduled local time must use 24-hour HH:MM"),
             Self::InvalidScheduleTimezone => formatter.write_str("scheduled timezone must be a known IANA timezone identifier"),
@@ -62,6 +74,8 @@ impl std::error::Error for TaskScheduleEditError {
             Self::Sqlite(error) => Some(error),
             Self::Task(error) => Some(error),
             Self::List(error) => Some(error),
+            Self::Preferences(error) => Some(error),
+            Self::Scheduling(error) => Some(error),
             _ => None,
         }
     }
@@ -294,6 +308,97 @@ pub fn update_task_schedule_if_expected(
     }
 
     let updated = get_task(&tx, task_id)?;
+    tx.commit()?;
+    Ok(updated)
+}
+
+/// Quick-X keeps the task in its authoritative visible lane. Generic date
+/// editing retains its separate manual-lane contract.
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct QuickClearTaskScheduleRequest {
+    pub task_id: TaskId,
+    pub list_id: ListId,
+    pub expected_schedule: TaskSchedule,
+    pub expected_updated_at: String,
+    pub expected_recurrence_parent_task_id: Option<TaskId>,
+    pub fallback_display_timezone: String,
+}
+
+pub fn quick_clear_task_schedule_if_expected(
+    conn: &mut Connection,
+    request: QuickClearTaskScheduleRequest,
+    now: &str,
+) -> Result<TaskRecord, TaskScheduleEditError> {
+    validate_timestamp(now)?;
+    let instant = now
+        .parse()
+        .map_err(|_| TaskScheduleEditError::InvalidTimestamp)?;
+    let expected = normalize_schedule(request.expected_schedule)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let current = validate_task_context(&tx, request.task_id, request.list_id)?;
+    if expected.kind == ScheduleKind::None || normalized_schedule_from_task(&current)? != expected {
+        return Err(TaskScheduleEditError::ExpectedScheduleMismatch(current.id));
+    }
+    if current.updated_at != request.expected_updated_at {
+        return Err(TaskScheduleEditError::ExpectedTaskVersionMismatch(
+            current.id,
+        ));
+    }
+    if current.recurrence_rule_id.is_some() {
+        return Err(TaskScheduleEditError::RecurrenceParent(current.id));
+    }
+    if current.recurrence_parent_task_id != request.expected_recurrence_parent_task_id {
+        return Err(TaskScheduleEditError::ExpectedRecurrenceMismatch(
+            current.id,
+        ));
+    }
+    let has_open_session: bool = tx.query_row(
+        "SELECT EXISTS(SELECT 1 FROM sessions WHERE task_id = ?1 AND ended_at IS NULL)",
+        [current.id.to_string()],
+        |row| row.get(0),
+    )?;
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(current.id).into());
+    }
+    // Preference, task and rank decisions belong to the same writer snapshot.
+    let selected = get_preferences(&tx)
+        .map_err(TaskScheduleEditError::Preferences)?
+        .and_then(|record| record.payload.general.timezone)
+        .filter(|value| !value.trim().is_empty());
+    let timezone = selected
+        .as_deref()
+        .unwrap_or(&request.fallback_display_timezone);
+    let lane = crate::scheduling::effective_planning_lane_at(&current, instant, timezone)
+        .map_err(TaskScheduleEditError::Scheduling)?;
+    let changed_lane = lane != current.manual_lane;
+    let rank = if changed_lane {
+        next_bucket_rank(&tx, current.list_id, lane)?
+    } else {
+        i64::from(current.sort_rank)
+    };
+    let changed = tx.execute(
+        "UPDATE tasks SET schedule_kind = 'none', scheduled_local_date = NULL,
+             scheduled_local_time = NULL, schedule_timezone = NULL,
+             manual_lane = ?1, sort_rank = ?2, updated_at = ?3
+         WHERE id = ?4 AND list_id = ?5 AND completed_at IS NULL AND archived_at IS NULL",
+        params![
+            lane.as_str(),
+            rank,
+            now,
+            current.id.to_string(),
+            current.list_id.to_string()
+        ],
+    )?;
+    if changed != 1 {
+        return Err(TaskScheduleEditError::ExpectedTaskVersionMismatch(
+            current.id,
+        ));
+    }
+    if changed_lane {
+        compact_bucket_ranks(&tx, current.list_id, current.manual_lane, now)?;
+    }
+    let updated = get_task(&tx, current.id)?;
     tx.commit()?;
     Ok(updated)
 }

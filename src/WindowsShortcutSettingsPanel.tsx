@@ -1,5 +1,5 @@
 import { listen } from "@tauri-apps/api/event";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { InAppShortcut } from "./inAppShortcuts";
 import {
   applyNewerShortcutDiagnostics,
@@ -28,6 +28,7 @@ type WindowsShortcutSettingsPanelViewProps = {
   pendingKind?: GlobalShortcutKind | null;
   error?: string | null;
   onChange: (kind: GlobalShortcutKind, enabled: boolean) => void;
+  onRetryLoad?: () => void;
 };
 
 type InAppShortcutRow = { action: InAppShortcut; label: string; chord: string };
@@ -114,6 +115,7 @@ export function WindowsShortcutSettingsPanelView({
   pendingKind = null,
   error = null,
   onChange,
+  onRetryLoad,
 }: WindowsShortcutSettingsPanelViewProps) {
   if (loading) {
     return (
@@ -176,7 +178,12 @@ export function WindowsShortcutSettingsPanelView({
                 </div>
 
                 <div className="windows-shortcuts__controls">
-                  <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+                  <span className="windows-shortcuts__keycaps">
+                  <span className="windows-shortcuts__accessible-chord">{row.chord}</span>
+                    {row.chord.split(" + ").map((key, index) => (
+                      <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
+                    ))}
+                  </span>
                   <label className="windows-shortcuts__toggle">
                     <span className="sr-only">Enable {row.label}</span>
                     <input
@@ -205,7 +212,13 @@ export function WindowsShortcutSettingsPanelView({
         </div>
       ) : (
         <div className="windows-shortcuts__unavailable" role="alert">
-          Shortcut settings are unavailable. Retry after the settings state can be read.
+          Shortcut settings are unavailable. {error ?? "Try loading the local settings again."}
+          {onRetryLoad ? (
+            <button type="button" className="windows-shortcuts__retry motion-interactive"
+              data-windows-shortcuts-retry-load="true" onClick={onRetryLoad}>
+              Retry loading shortcuts
+            </button>
+          ) : null}
         </div>
       )}
 
@@ -222,7 +235,12 @@ export function WindowsShortcutSettingsPanelView({
                 <strong>{row.label}</strong>
               </div>
               <div className="windows-shortcuts__controls windows-shortcuts__controls--app">
-                <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+                <span className="windows-shortcuts__keycaps">
+                  <span className="windows-shortcuts__accessible-chord">{row.chord}</span>
+                  {row.chord.split(" + ").map((key, index) => (
+                    <kbd key={index} className="windows-shortcuts__keycap" aria-hidden="true">{key}</kbd>
+                  ))}
+                </span>
               </div>
             </div>
           ))}
@@ -237,7 +255,12 @@ export function WindowsShortcutSettingsPanel() {
   const [snapshot, setSnapshot] = useState<GlobalShortcutSettingsSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [pendingKind, setPendingKind] = useState<GlobalShortcutKind | null>(null);
+  // React pending state is published on a later render. Guard native shortcut
+  // registration synchronously, including two callbacks in one event turn.
+  const shortcutWriteInFlightRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
+  const [initialReadAttempt, setInitialReadAttempt] = useState(0);
+  const initialReadInFlightRef = useRef(false);
 
   async function refresh() {
     const latest = await getGlobalShortcutSettings();
@@ -255,12 +278,14 @@ export function WindowsShortcutSettingsPanel() {
           setSnapshot(latest);
           setError(null);
           setLoading(false);
+          initialReadInFlightRef.current = false;
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setError(formatInvokeError(failure));
           setLoading(false);
+          initialReadInFlightRef.current = false;
         }
       });
 
@@ -285,10 +310,19 @@ export function WindowsShortcutSettingsPanel() {
       disposed = true;
       stopListening?.();
     };
-  }, []);
+  }, [initialReadAttempt]);
+
+  const retryInitialLoad = () => {
+    if (loading || snapshot !== null || !error || initialReadInFlightRef.current || shortcutWriteInFlightRef.current) return;
+    initialReadInFlightRef.current = true;
+    setError(null);
+    setLoading(true);
+    setInitialReadAttempt((attempt) => attempt + 1);
+  };
 
   async function change(kind: GlobalShortcutKind, enabled: boolean) {
-    if (pendingKind) return;
+    if (shortcutWriteInFlightRef.current) return;
+    shortcutWriteInFlightRef.current = true;
     setPendingKind(kind);
     setError(null);
     try {
@@ -303,6 +337,7 @@ export function WindowsShortcutSettingsPanel() {
         setError(primary + " | Shortcut status refresh failed: " + formatInvokeError(refreshFailure));
       }
     } finally {
+      shortcutWriteInFlightRef.current = false;
       setPendingKind(null);
     }
   }
@@ -314,6 +349,7 @@ export function WindowsShortcutSettingsPanel() {
       pendingKind={pendingKind}
       error={error}
       onChange={(kind, enabled) => void change(kind, enabled)}
+      onRetryLoad={retryInitialLoad}
     />
   );
 }

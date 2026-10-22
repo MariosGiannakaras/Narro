@@ -28,14 +28,22 @@ const theme = params.get("theme") === "light" ? "light" : "dark";
 const requestedScenario = params.get("scenario") ?? "running";
 const scenarios = [
   "running",
+  "overdue-age",
   "selector-open",
   "paused-metrics",
   "break",
+  "pomodoro-work",
+  "pomodoro-break",
   "time-up",
   "overtime",
   "notes-expanded",
   "live-actions-focus",
+  "live-actions-done-focus",
   "success",
+  "success-late",
+  "success-equal",
+  "success-no-est",
+  "success-fun-gif",
   "no-eligible",
   "empty",
 ] as const;
@@ -43,6 +51,9 @@ type Scenario = (typeof scenarios)[number];
 const scenario: Scenario = scenarios.includes(requestedScenario as Scenario)
   ? requestedScenario as Scenario
   : "running";
+const isSuccessScenario = scenario.startsWith("success");
+const isPomodoroScenario = scenario === "pomodoro-work" || scenario === "pomodoro-break";
+const isBreakScenario = scenario === "break" || scenario === "pomodoro-break";
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
@@ -85,7 +96,7 @@ const scheduledId = "21111111-1111-4111-8111-111111111114";
 const longTitle = ["Plan weekend errands", "and confirm the pickup route before leaving home"].join(" ");
 
 const liveTask = task(liveId, "Prepare BFCM strategy", workId, "Work", "#48d6c5", {
-  estSeconds: 3600,
+  estSeconds: isPomodoroScenario ? 0 : 3600,
   timeTakenSeconds: "1320",
   subtaskTotalCount: 4,
   subtaskCompletedCount: 1,
@@ -109,10 +120,17 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
   completedAt: "2026-09-13T08:50:00Z",
 });
 
+// Exercise the actual committed-success view with authoritative metric variants.
+const successEstSeconds = scenario === "success-no-est" ? null
+  : scenario === "success-late" || scenario === "success-equal" ? 600
+    : liveTask.estSeconds;
+const successTakenSeconds = scenario === "success-late" ? "660"
+  : scenario === "success-equal" || scenario === "success-no-est" ? "600"
+    : liveTask.timeTakenSeconds;
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
 const todayTasks = scenario === "no-eligible" ? [scheduledTask]
   : scenario === "empty" ? []
-  : scenario === "success" ? [overdueTask, longTitleTask, scheduledTask]
+  : isSuccessScenario ? [overdueTask, longTitleTask, scheduledTask]
   : normalTodayTasks;
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
@@ -125,13 +143,13 @@ const board: ListBoardSnapshot = {
     tasks: todayTasks,
   },
   done: {
-    count: scenario === "success" ? 2 : 1,
-    aggregateEstSeconds: scenario === "success" ? 4800 : 1200,
-    tasks: scenario === "success"
-      ? [doneTask, { ...liveTask, completedAt: "2026-09-13T09:20:00Z" }]
+    count: isSuccessScenario ? 2 : 1,
+    aggregateEstSeconds: isSuccessScenario ? 1200 + (successEstSeconds ?? 0) : 1200,
+    tasks: isSuccessScenario
+      ? [doneTask, { ...liveTask, estSeconds: successEstSeconds, timeTakenSeconds: successTakenSeconds, completedAt: "2026-09-13T09:20:00Z" }]
       : [doneTask],
   },
-  todayCompletionCount: scenario === "success" ? 1 : 0,
+  todayCompletionCount: isSuccessScenario ? 1 : 0,
   thisWeekCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
@@ -141,6 +159,7 @@ function timerState(): TimerStateKind {
     case "paused-metrics":
       return "paused";
     case "break":
+    case "pomodoro-break":
       return "break";
     case "time-up":
       return "time_up";
@@ -152,21 +171,24 @@ function timerState(): TimerStateKind {
 }
 
 const state = timerState();
-const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || scenario === "success";
+const noLiveScenario = scenario === "no-eligible" || scenario === "empty" || isSuccessScenario;
 const timer: TimerSessionPayload | null = noLiveScenario ? null : {
   revision: scenarios.indexOf(scenario) + 7,
   runtime: {
     timer: {
       state,
       task_id: liveId,
-      mode: { kind: "est_countdown", est_ms: 3_600_000 },
-      work_elapsed_ms: 1_320_000,
-      total_break_ms: state === "break" ? 180_000 : 0,
-      countdown_remaining_ms: state === "time_up" || state.startsWith("overtime") ? 0 : 2_280_000,
+      mode: isPomodoroScenario
+        ? { kind: "pomodoro", work_ms: 1_500_000, break_ms: 300_000 }
+        : { kind: "est_countdown", est_ms: 3_600_000 },
+      work_elapsed_ms: isPomodoroScenario ? 420_000 : 1_320_000,
+      total_break_ms: isBreakScenario ? (isPomodoroScenario ? 120_000 : 180_000) : 0,
+      countdown_remaining_ms: state === "time_up" || state.startsWith("overtime") ? 0
+        : isPomodoroScenario ? 1_080_000 : 2_280_000,
       overtime_ms: state.startsWith("overtime") ? 420_000 : 0,
-      break_kind: state === "break" ? "manual" : null,
-      break_remaining_ms: state === "break" ? 420_000 : null,
-      break_planned_ms: state === "break" ? 600_000 : null,
+      break_kind: isBreakScenario ? (isPomodoroScenario ? "pomodoro" : "manual") : null,
+      break_remaining_ms: isBreakScenario ? (isPomodoroScenario ? 180_000 : 420_000) : null,
+      break_planned_ms: isBreakScenario ? (isPomodoroScenario ? 300_000 : 600_000) : null,
     },
     open_session_id: "31111111-1111-4111-8111-111111111111",
   },
@@ -231,16 +253,17 @@ flushSync(() => {
         { id: "a1111111-1111-4111-8111-111111111111", title: "Research", color: "#48d6c5" },
       ]}
       fixtureTimer={timer}
+      fixtureOverdueNow={scenario === "overdue-age" ? new Date("2026-09-13T09:00:00.000Z") : undefined}
       fixtureDoneBreaks={scenario === "break" ? [{
         id: "41111111-1111-4111-8111-111111111111",
         endedAt: "2026-09-13T09:10:00Z",
         durationSeconds: "600",
       }] : []}
-      completionSuccessContent={scenario === "success" ? (
+      completionSuccessContent={isSuccessScenario ? (
         <FocusCompletionSuccess inline
           state={{ completedTaskId: liveId, completedTaskTitle: liveTask.title,
-            estSeconds: liveTask.estSeconds, timeTakenSeconds: liveTask.timeTakenSeconds,
-            funGifEnabled: false,
+            estSeconds: successEstSeconds, timeTakenSeconds: successTakenSeconds,
+            funGifEnabled: scenario === "success-fun-gif",
             nextTask: { id: overdueId, title: overdueTask.title, mode: { kind: "count_up" } } }}
           pending={false} error={null} onNextTask={() => undefined} onTakeBreak={() => undefined} onClose={() => undefined}
         />
@@ -327,8 +350,8 @@ if (queuedRow) {
   const rowIsVisible = before[0].top >= 0 && before[0].bottom <= window.innerHeight;
   // B63 keeps the queue visible but inert until Next Task/Close. Never demand
   // its ordinary focus-triggered tooltip while completion owns interaction.
-  const successQueueInert = scenario === "success" && queuedRow.closest('[inert]') !== null;
-  if (scenario === "success") {
+  const successQueueInert = isSuccessScenario && queuedRow.closest('[inert]') !== null;
+  if (isSuccessScenario) {
     if (!successQueueInert) throw new Error('Committed success queue must remain inert');
     title.focus({preventScroll: true});
     if (document.activeElement === title) throw new Error('Committed success queue title incorrectly accepted focus');
@@ -358,7 +381,7 @@ if (queuedRow) {
   const tooltipNode = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!;
   const tooltip = tooltipNode.getBoundingClientRect();
   const rowBounds = queuedRow.getBoundingClientRect();
-  const tooltipEscapes = scenario !== "success" && (tooltip.left < rowBounds.left
+  const tooltipEscapes = !isSuccessScenario && (tooltip.left < rowBounds.left
     || tooltip.right > rowBounds.right
     || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight)));
   if (tooltipEscapes) {
@@ -381,9 +404,23 @@ if (queuedRow) {
       }),
     );
   }
+  // The ordinary long-title tooltip overlaps the overdue metadata below it.
+  // For the age-only screenshot, retain the measured tooltip/focus contracts,
+  // then explicitly dismiss it and wait for React to remove the paint layer.
+  // Merely measuring a nonzero age rectangle gave a false visual PASS.
+  if (scenario === "overdue-age") {
+    title.blur();
+    const closeDeadline = performance.now() + 2_000;
+    while (tooltipNode.dataset.open === "true" && performance.now() < closeDeadline) {
+      await new Promise<void>(resolve => window.setTimeout(resolve, 50));
+    }
+    if (tooltipNode.dataset.open === "true") {
+      throw new Error("Overdue-age screenshot must not retain an overlapping queued-title tooltip");
+    }
+  }
   queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true,
-    revealGeometryStable: scenario === "success" ? null : rowIsVisible,
-    rowContained: true, tooltipContained: scenario === "success" ? null : rowIsVisible,
+    revealGeometryStable: isSuccessScenario ? null : rowIsVisible,
+    rowContained: true, tooltipContained: isSuccessScenario ? null : rowIsVisible,
     successQueueInert, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
 }
@@ -393,8 +430,10 @@ if (queuedRow) {
 // a different task row and had been stealing focus AFTER the old B49 "pass"
 // marker, leaving its PNG indistinguishable from the ordinary running state.
 // No validation threshold or application behavior changes.
-if (scenario === "live-actions-focus") {
-  const action = document.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+const focusDoneEdge = scenario === "live-actions-done-focus";
+if (scenario === "live-actions-focus" || focusDoneEdge) {
+  const action = document.querySelector<HTMLButtonElement>(
+    focusDoneEdge ? '[data-focus-action="done"]' : '[data-focus-action="pause-resume"]');
   const rail = document.querySelector<HTMLElement>(".focus-panel__live-actions");
   const heading = document.querySelector<HTMLElement>(".focus-panel__live-heading");
   const liveCard = document.querySelector<HTMLElement>('[data-focus-live-card="true"]');
@@ -430,7 +469,18 @@ if (scenario === "live-actions-focus") {
   const cardAfter = liveCard.getBoundingClientRect();
   const railAfter = rail.getBoundingClientRect();
   const label = action.querySelector<HTMLElement>(".focus-panel__live-action-label");
+  const actionRect = action.getBoundingClientRect();
+  const labelRect = label?.getBoundingClientRect();
+  // The rightmost Done pill uses a distinct end-alignment rule. Verify its
+  // actual focused paint stays inside the same reserved action rail/card.
   const revealProblems = [
+    focusDoneEdge && label?.textContent?.trim() !== "Done" ? "done-label-missing" : null,
+    focusDoneEdge && (actionRect.left < railAfter.left - 1 || actionRect.right > railAfter.right + 1)
+      ? "done-pill-escapes-action-rail" : null,
+    focusDoneEdge && (actionRect.left < cardAfter.left - 1 || actionRect.right > cardAfter.right + 1)
+      ? "done-pill-escapes-live-card" : null,
+    focusDoneEdge && labelRect && (labelRect.left < actionRect.left - 1 || labelRect.right > actionRect.right + 1)
+      ? "done-label-escapes-pill" : null,
     document.activeElement !== action ? "keyboard-focus-owner" : null,
     liveCard.dataset.focusActionsKeyboard !== "true" ? "explicit-keyboard-focus-marker-missing" : null,
     !liveCard.matches(":focus-within") ? "card-focus-within-not-matched" : null,
@@ -503,9 +553,73 @@ const contract = {
   topbar: box(".focus-panel__topbar"),
   summary: box(".focus-panel__summary"),
   liveCard: box(".focus-panel__live-card"),
+  // Read real rendered success-copy dimensions without duplicating its formatter.
+  successTiming: (() => {
+    const timing = document.querySelector<HTMLElement>('[data-focus-success-timing="true"]');
+    if (!timing) return null;
+    const card = timing.closest<HTMLElement>(".focus-completion-success__card");
+    if (!card) throw new Error("Visible timing has no completion card");
+    const rect = timing.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    return {
+      text: timing.textContent?.trim() ?? "",
+      width: rect.width,
+      height: rect.height,
+      fitsCard: rect.left >= cardRect.left - 1 && rect.right <= cardRect.right + 1
+        && rect.top >= cardRect.top - 1 && rect.bottom <= cardRect.bottom + 1,
+      notClipped: timing.scrollWidth <= timing.clientWidth + 1
+        && timing.scrollHeight <= timing.clientHeight + 1,
+    };
+  })(),
+  // Real production celebration geometry, for enabled-preference screenshot
+  // validation; do not infer paint solely from the DOM presence marker.
+  successReaction: (() => {
+    const reaction = document.querySelector<HTMLElement>('[data-focus-success-reaction="true"]');
+    if (!reaction) return null;
+    const card = document.querySelector<HTMLElement>(".focus-panel__live-card");
+    const svg = reaction.querySelector("svg");
+    if (!card || !svg) throw new Error("Enabled Focus success reaction is not mounted in its card");
+    const rect = reaction.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    return {
+      paintRegion: {
+        x: Math.floor(rect.left), y: Math.floor(rect.top),
+        width: Math.ceil(rect.right) - Math.floor(rect.left),
+        height: Math.ceil(rect.bottom) - Math.floor(rect.top),
+      },
+      fitsCard: rect.left >= cardRect.left - 1 && rect.right <= cardRect.right + 1
+        && rect.top >= cardRect.top - 1 && rect.bottom <= cardRect.bottom + 1,
+      svgVisible: svgRect.width > 0 && svgRect.height > 0,
+      notClipped: reaction.scrollHeight <= reaction.clientHeight + 1,
+    };
+  })(),
+
   liveCardStyle: styleContract(".focus-panel__live-card"),
   liveTimer: optionalBox(".focus-panel__live-timer"),
   liveTimerStyle: styleContract(".focus-panel__live-timer"),
+  // Inspect the actual production chip paint/placement in both Pomodoro phases.
+  pomodoroBadge: (() => {
+    const badge = document.querySelector<HTMLElement>('[data-focus-pomodoro-badge="true"]');
+    if (!badge) return null;
+    const liveCard = document.querySelector<HTMLElement>(".focus-panel__live-card");
+    if (!liveCard) throw new Error("POMO badge has no active Focus card");
+    const badgeRect = badge.getBoundingClientRect();
+    const cardRect = liveCard.getBoundingClientRect();
+    const style = getComputedStyle(badge);
+    return {
+      text: badge.textContent?.trim() ?? "",
+      width: badgeRect.width,
+      height: badgeRect.height,
+      color: style.color,
+      borderColor: style.borderColor,
+      visible: style.visibility === "visible" && style.opacity !== "0",
+      fitsCard: badgeRect.left >= cardRect.left - 1 && badgeRect.right <= cardRect.right + 1
+        && badgeRect.top >= cardRect.top - 1 && badgeRect.bottom <= cardRect.bottom + 1,
+      notClipped: badge.scrollWidth <= badge.clientWidth + 1
+        && badge.scrollHeight <= badge.clientHeight + 1,
+    };
+  })(),
   liveStateStyle: styleContract(".focus-panel__live-state"),
   metrics: optionalBox(".focus-panel__live-metrics"),
   metricRow: optionalBox(".focus-panel__metric-row"),
@@ -547,6 +661,29 @@ const contract = {
   rowActionSlot: optionalBox('.focus-panel__task-row[data-focus-task-row="remaining"] .focus-panel__row-action-slot'),
   overdueRow: optionalBox(overdueSelector),
   overdueRowStyle: styleContract(overdueSelector),
+  overdueAge: (() => {
+    const row = document.querySelector<HTMLElement>(overdueSelector);
+    const age = row?.querySelector<HTMLElement>('[data-focus-overdue-age]');
+    const ordinaryMeta = document.querySelector<HTMLElement>(`${longRowSelector} .focus-panel__task-meta`);
+    if (!row || !age || !ordinaryMeta) return null;
+    const bounds = age.getBoundingClientRect();
+    const rowBounds = row.getBoundingClientRect();
+    return {
+      text: age.textContent?.trim() ?? "",
+      width: bounds.width,
+      height: bounds.height,
+      color: getComputedStyle(age).color,
+      ordinaryColor: getComputedStyle(ordinaryMeta).color,
+      withinRow: bounds.left >= rowBounds.left - 1 && bounds.right <= rowBounds.right + 1,
+      withinScreenshot: bounds.left >= 0 && bounds.top >= 0
+        && bounds.right <= 420 && bounds.bottom <= 720,
+      topmostAtCenter: (() => {
+        const surface = document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+        return surface === age || age.contains(surface);
+      })(),
+      notClipped: age.scrollWidth <= age.clientWidth + 1 && age.scrollHeight <= age.clientHeight + 1,
+    };
+  })(),
   longRow: optionalBox(longRowSelector),
   longRowStyle: styleContract(longRowSelector),
   longTitle: titleContract(`${longRowSelector} [data-focus-task-title="true"]`),

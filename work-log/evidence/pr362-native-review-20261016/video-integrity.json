@@ -1,0 +1,13 @@
+{
+  "video": "2026-10-16 14-55-36.mkv",
+  "bytes": 67634310,
+  "sha256": "13c7a8c8897c04aaccbe7d64b784875c1c5ba531faeed4f4779db8309d9a005f",
+  "duration": 519.617,
+  "resolution": [
+    4480,
+    1080
+  ],
+  "fps": 60,
+  "fullDecodeExit": 0,
+  "fullDecodeErrors": []
+}

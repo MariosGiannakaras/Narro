@@ -1,0 +1,97 @@
+- dialog [ref=f4e3]:
+  - banner [ref=f4e4]:
+    - heading "Windows Shortcuts" [level=2] [ref=f4e5]
+    - button "Close Windows Shortcuts" [active] [ref=f4e6] [cursor=pointer]
+  - region [ref=f4e10]:
+    - heading "Shortcuts" [level=2] [ref=f4e13]
+    - heading "Global (works outside & inside Narro)" [level=3] [ref=f4e14]
+    - paragraph [ref=f4e15]: Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
+    - generic [ref=f4e16]:
+      - generic [ref=f4e17]:
+        - generic [ref=f4e18]:
+          - strong [ref=f4e19]: Go to Narro
+          - generic [ref=f4e20]: Bring the Narro Main window to the front from any Windows app.
+          - status [ref=f4e21]: Registered
+        - generic [ref=f4e22]:
+          - generic "Ctrl + Shift + B" [ref=f4e23]:
+            - generic [aria-hidden] [ref=f4e24]: Ctrl
+            - generic [aria-hidden] [ref=f4e25]: Shift
+            - generic [aria-hidden] [ref=f4e26]: B
+          - generic [ref=f4e27]:
+            - generic [ref=f4e28] [cursor=pointer]: Enable Go to Narro
+            - checkbox "Enable Go to Narro" [checked] [ref=f4e29]
+            - generic [aria-hidden] [ref=f4e30] [cursor=pointer]
+      - generic [ref=f4e31]:
+        - generic [ref=f4e32]:
+          - strong [ref=f4e33]: Alternate Focus Mode
+          - generic [ref=f4e34]: Switch the active Focus surface between Panel and Floating Timer.
+          - status [ref=f4e35]: Registered
+        - generic [ref=f4e36]:
+          - generic "Ctrl + Shift + T" [ref=f4e37]:
+            - generic [aria-hidden] [ref=f4e38]: Ctrl
+            - generic [aria-hidden] [ref=f4e39]: Shift
+            - generic [aria-hidden] [ref=f4e40]: T
+          - generic [ref=f4e41]:
+            - generic [ref=f4e42] [cursor=pointer]: Enable Alternate Focus Mode
+            - checkbox "Enable Alternate Focus Mode" [checked] [ref=f4e43]
+            - generic [aria-hidden] [ref=f4e44] [cursor=pointer]
+      - generic [ref=f4e45]:
+        - generic [ref=f4e46]:
+          - strong [ref=f4e47]: Find focus timer
+          - generic [ref=f4e48]: Bring attention to the Floating Timer when Focus is active.
+          - alert [ref=f4e49]: Shortcut conflict — global shortcut 'Ctrl+Shift+P' is already registered and cannot be claimed by Narro
+        - generic [ref=f4e50]:
+          - generic "Ctrl + Shift + P" [ref=f4e51]:
+            - generic [aria-hidden] [ref=f4e52]: Ctrl
+            - generic [aria-hidden] [ref=f4e53]: Shift
+            - generic [aria-hidden] [ref=f4e54]: P
+          - generic [ref=f4e55]:
+            - generic [ref=f4e56] [cursor=pointer]: Enable Find focus timer
+            - checkbox "Enable Find focus timer" [checked] [ref=f4e57]
+            - generic [aria-hidden] [ref=f4e58] [cursor=pointer]
+          - button "Retry" [ref=f4e59] [cursor=pointer]
+    - generic [ref=f4e60]:
+      - heading "App (works only inside of Narro)" [level=3] [ref=f4e61]
+      - paragraph [ref=f4e62]: These seven bindings work only when the app has keyboard focus and no text editor or dialog is active. Their shortcuts are fixed and have no on/off controls.
+      - generic [ref=f4e63]:
+        - generic [ref=f4e64]:
+          - strong [ref=f4e66]: Create task
+          - generic "Ctrl + Alt + T" [ref=f4e68]:
+            - generic [aria-hidden] [ref=f4e69]: Ctrl
+            - generic [aria-hidden] [ref=f4e70]: Alt
+            - generic [aria-hidden] [ref=f4e71]: T
+        - generic [ref=f4e72]:
+          - strong [ref=f4e74]: Start break
+          - generic "Ctrl + Alt + B" [ref=f4e76]:
+            - generic [aria-hidden] [ref=f4e77]: Ctrl
+            - generic [aria-hidden] [ref=f4e78]: Alt
+            - generic [aria-hidden] [ref=f4e79]: B
+        - generic [ref=f4e80]:
+          - strong [ref=f4e82]: Pause / resume
+          - generic "Ctrl + Alt + P" [ref=f4e84]:
+            - generic [aria-hidden] [ref=f4e85]: Ctrl
+            - generic [aria-hidden] [ref=f4e86]: Alt
+            - generic [aria-hidden] [ref=f4e87]: P
+        - generic [ref=f4e88]:
+          - strong [ref=f4e90]: Skip task
+          - generic "Ctrl + Alt + S" [ref=f4e92]:
+            - generic [aria-hidden] [ref=f4e93]: Ctrl
+            - generic [aria-hidden] [ref=f4e94]: Alt
+            - generic [aria-hidden] [ref=f4e95]: S
+        - generic [ref=f4e96]:
+          - strong [ref=f4e98]: Finish task
+          - generic "Ctrl + Alt + F" [ref=f4e100]:
+            - generic [aria-hidden] [ref=f4e101]: Ctrl
+            - generic [aria-hidden] [ref=f4e102]: Alt
+            - generic [aria-hidden] [ref=f4e103]: F
+        - generic [ref=f4e104]:
+          - strong [ref=f4e106]: Notes
+          - generic "Ctrl + Alt + N" [ref=f4e108]:
+            - generic [aria-hidden] [ref=f4e109]: Ctrl
+            - generic [aria-hidden] [ref=f4e110]: Alt
+            - generic [aria-hidden] [ref=f4e111]: "N"
+        - generic [ref=f4e112]:
+          - strong [ref=f4e114]: Search
+          - generic "Ctrl + F" [ref=f4e116]:
+            - generic [aria-hidden] [ref=f4e117]: Ctrl
+            - generic [aria-hidden] [ref=f4e118]: F

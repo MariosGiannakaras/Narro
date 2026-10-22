@@ -1,0 +1,10 @@
+{"utc": "2026-10-14T19:14:25.685033+00:00", "label": "prepare-reports-native", "foreground": 1183842, "keys": "0x09"}
+{"utc": "2026-10-14T19:19:41.537650+00:00", "label": "acquire-main-foreground", "foreground": 1183842, "keys": "0x09"}
+{"utc": "2026-10-14T19:21:54.115416+00:00", "label": "g2-new-keyboard-owner", "foreground": 1183842, "keys": "0x09"}
+{"utc": "2026-10-14T19:25:56.756456+00:00", "label": "g3-light-theme-select", "foreground": 1183842, "keys": "0x0D"}
+{"utc": "2026-10-14T19:25:57.895458+00:00", "label": "g3-close-preferences", "foreground": 1183842, "keys": "0x1B"}
+{"utc": "2026-10-14T19:32:29.204402+00:00", "label": "g4-picker-keyboard-open", "foreground": 1183842, "keys": "0x0D"}
+{"utc": "2026-10-14T19:32:42.794192+00:00", "label": "g4-picker-arrow-select", "foreground": 1183842, "keys": "0x28"}
+{"utc": "2026-10-14T19:32:43.255291+00:00", "label": "g4-picker-enter-selection", "foreground": 1183842, "keys": "0x0D"}
+{"utc": "2026-10-14T19:34:29.416424+00:00", "label": "g4-physical-scan-arrow-down", "foreground": 1183842, "keys": "0x28"}
+{"utc": "2026-10-14T19:34:29.878424+00:00", "label": "g4-physical-scan-enter", "foreground": 1183842, "keys": "0x0D"}

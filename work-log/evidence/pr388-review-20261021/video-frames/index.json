@@ -1,0 +1,53 @@
+{
+  "videoSha256": "9ecce5bb3ba818dc6395e290e177c81f9d081705b501916ede68a1ec79677c60",
+  "frames": [
+    {
+      "file": "video-frames/preferences-top.png",
+      "requestedPtsSeconds": 22.5,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "020daaf85b64888fb838d81e30c5f0b9aa7610848a5977e321306739d2911141"
+    },
+    {
+      "file": "video-frames/time-info.png",
+      "requestedPtsSeconds": 37.5,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "9b815d37ec4cfa3a4612f7872c3d37d4553bfae6b973ca6f49bbbb7f0544d367"
+    },
+    {
+      "file": "video-frames/volume-focus.png",
+      "requestedPtsSeconds": 52.5,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "2986914c533cb98bc0be05441ad0aa67adc2e5a0295e1525bb1e3b742e4214f3"
+    },
+    {
+      "file": "video-frames/shortcut-overflow.png",
+      "requestedPtsSeconds": 67.5,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "3e9f3d9bc0a9647d684eb71951d4a75e437ffed38b308f568a2ba42e40a7b2f3"
+    },
+    {
+      "file": "video-frames/reports-done.png",
+      "requestedPtsSeconds": 116,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "c7e5b6a498043e95a340b1eda15c7b93f4a68e511f44c3400f7f8e5d7af88c89"
+    },
+    {
+      "file": "video-frames/add-session.png",
+      "requestedPtsSeconds": 132,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "a6642b969e814261fc2f11651e4cffe99f760caa0802225917aa90c5fc8ae32a"
+    },
+    {
+      "file": "video-frames/recent-tasks.png",
+      "requestedPtsSeconds": 143,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "8bce9630b3381c6674f84658e8d91679e211facf45b263575de83157f75c5cb9"
+    },
+    {
+      "file": "video-frames/selected-task.png",
+      "requestedPtsSeconds": 156,
+      "method": "ffmpeg output still from immutable original; nearest decoded frame after input seek",
+      "sha256": "9a9745f0a486108e9b477e93a1e1d6d2aab063748f427b5defccb9438fb872c4"
+    }
+  ]
+}

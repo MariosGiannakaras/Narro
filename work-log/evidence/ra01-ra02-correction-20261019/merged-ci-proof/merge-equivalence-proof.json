@@ -1,0 +1,92 @@
+{
+  "utc": "2026-10-19T18:18:57.339621+00:00",
+  "PR": 385,
+  "greenPRHead": "ed4d5083e1df00077df2fef2bb74a6cf90321692",
+  "greenRun": 39298395231,
+  "PRCI": "3/3 SUCCESS",
+  "merge": "4064fb9a05c55ed91f226a115cf479b5d7f52dcc",
+  "tree": "7d6d478fbf0c955f62499a83ef4e22400f584ce9",
+  "prospectiveTreeEqualsActual": true,
+  "allRuntimeBuildTestInputsEquivalent": true,
+  "nonRuntimeDifferences": [
+    "HANDOFF.md",
+    "STATUS.md",
+    "TODO.md",
+    "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "docs/NARRO_ENGINEERING_RISK_REGISTER.md",
+    "work-log/evidence/ra01-ra02-correction-20261019/README.md",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/README.md",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark-reduced.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark-reduced.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-dark.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light-reduced.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light-reduced.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/focus-editor-m7-integration-light.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/frontend-preflight.txt",
+    "work-log/evidence/ra01-ra02-correction-20261019/draft-preserved-final/rejected-draft-before-fix.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark-reduced.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark-reduced.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-dark.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light-reduced.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light-reduced.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light.html",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light.html.diagnostics.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/focus-editor-m7-integration-light.png",
+    "work-log/evidence/ra01-ra02-correction-20261019/frontend-preflight.log",
+    "work-log/evidence/ra01-ra02-correction-20261019/manifest.json",
+    "work-log/evidence/ra01-ra02-correction-20261019/rust-check-unavailable.log"
+  ],
+  "eightChangedInputs": [
+    {
+      "path": "scripts/capture-ready-fixture-cdp.mjs",
+      "gitBlob": "f26429112cf6b3269a411c38530dc4797b16bb1b",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "scripts/test-board-drop-visual-handoff.mjs",
+      "gitBlob": "929f4ced4aa84f930472fdf871b969657f10af10",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "scripts/test-focus-automatic-completion-handoff.mjs",
+      "gitBlob": "56b8c1dcef2c2776effd0578eea6462e1d091c04",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "src/FocusLiveActions.tsx",
+      "gitBlob": "560fb19158082038189672b13b4277942f1a1d24",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "src/FocusPanel.tsx",
+      "gitBlob": "c60565171761641cd714b42a973b95ffefe83ff1",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "src/ListBoard.tsx",
+      "gitBlob": "e8dc332324b9b23df9a4b7d86cc5d568183e1bff",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "src/m7IntegrationRegression.tsx",
+      "gitBlob": "690800233f99f860ac750d0e698cb8d1fbd557af",
+      "sameAsGreenHead": true
+    },
+    {
+      "path": "src/nativeHandoffRegression.tsx",
+      "gitBlob": "d2bcbc20b9d7b2d81935b47ef7f83cb1fca9abbb",
+      "sameAsGreenHead": true
+    }
+  ],
+  "mainValidation": "Equivalent source/input proof; duplicate main candidate may be deduplicated/cancelled per CI_VALIDATION_STRATEGY section7"
+}

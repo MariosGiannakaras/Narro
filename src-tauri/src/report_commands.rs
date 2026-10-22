@@ -466,6 +466,42 @@ fn export_range_date(value: &str) -> &str {
         .unwrap_or("range")
 }
 
+fn overview_pdf_file_stem(
+    start_at: &str,
+    end_at: &str,
+    display_timezone: &str,
+) -> CommandResult<String> {
+    let start = chrono::DateTime::parse_from_rfc3339(start_at)
+        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
+    let end = chrono::DateTime::parse_from_rfc3339(end_at)
+        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
+    if end <= start {
+        return Err(CommandError::invalid_argument(
+            "endAt",
+            "must be after startAt",
+        ));
+    }
+    let zone = jiff::tz::TimeZone::get(display_timezone).map_err(|_| {
+        CommandError::invalid_argument("displayTimezone", "must be a valid IANA timezone name")
+    })?;
+    // Reporting uses an exclusive next-day boundary; the filename names the
+    // same inclusive local dates that were displayed and printed.
+    let last_included = end
+        .checked_sub_signed(chrono::Duration::nanoseconds(1))
+        .ok_or_else(|| CommandError::invalid_argument("endAt", "outside supported date range"))?;
+    let local_date = |value: chrono::DateTime<chrono::FixedOffset>| -> CommandResult<String> {
+        let timestamp = value.to_rfc3339().parse::<jiff::Timestamp>().map_err(|_| {
+            CommandError::invalid_argument("range", "outside supported local date range")
+        })?;
+        Ok(zone.to_datetime(timestamp).date().to_string())
+    };
+    Ok(format!(
+        "narro-overview-{}-to-{}",
+        local_date(start)?,
+        local_date(last_included)?
+    ))
+}
+
 fn write_unique_export(
     directory: &Path,
     file_stem: &str,
@@ -744,6 +780,7 @@ pub async fn export_report_overview_pdf(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
+    display_timezone: String,
 ) -> CommandResult<ReportPdfExportPayload> {
     if window.label() != "main" {
         return Err(CommandError::new(
@@ -752,22 +789,7 @@ pub async fn export_report_overview_pdf(
         ));
     }
 
-    let start = chrono::DateTime::parse_from_rfc3339(&start_at)
-        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
-    let end = chrono::DateTime::parse_from_rfc3339(&end_at)
-        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
-    if end <= start {
-        return Err(CommandError::invalid_argument(
-            "endAt",
-            "must be after startAt",
-        ));
-    }
-
-    let file_stem = format!(
-        "narro-overview-{}-to-{}",
-        export_range_date(&start_at),
-        export_range_date(&end_at)
-    );
+    let file_stem = overview_pdf_file_stem(&start_at, &end_at, &display_timezone)?;
     let pdf = crate::report_pdf::capture(window).await?;
     let download_directory = app_handle.path().download_dir().map_err(|error| {
         CommandError::new(
@@ -833,7 +855,7 @@ pub fn get_report_task_sessions(
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn create_manual_report_session(
+pub async fn create_manual_report_session(
     app_handle: tauri::AppHandle,
     task_id: String,
     started_at: String,
@@ -841,17 +863,37 @@ pub fn create_manual_report_session(
     duration_seconds: u32,
 ) -> CommandResult<ReportSessionMutationPayload> {
     let task_id = parse_task_id(&task_id)?;
-    let mut connection = app_database(&app_handle)?;
-    create_manual_work_session(
-        &mut connection,
-        task_id,
-        &started_at,
-        &ended_at,
-        u64::from(duration_seconds),
-        &chrono::Utc::now().to_rfc3339(),
-    )
-    .map(Into::into)
-    .map_err(map_session_error)
+    run_manual_session_write(move || {
+        let mut connection = app_database(&app_handle)?;
+        create_manual_work_session(
+            &mut connection,
+            task_id,
+            &started_at,
+            &ended_at,
+            u64::from(duration_seconds),
+            &chrono::Utc::now().to_rfc3339(),
+        )
+        .map(Into::into)
+        .map_err(map_session_error)
+    })
+    .await
+}
+
+// The owned write can wait on SQLite while the native loop keeps processing
+// keyboard/focus events. Await its durable result before reporting success.
+async fn run_manual_session_write<T, F>(operation: F) -> CommandResult<T>
+where
+    T: Send + 'static,
+    F: FnOnce() -> CommandResult<T> + Send + 'static,
+{
+    tauri::async_runtime::spawn_blocking(operation)
+        .await
+        .map_err(|error| {
+            CommandError::new(
+                "REPORT_SESSION_WRITE_FAILED",
+                format!("background manual-session write failed: {error}"),
+            )
+        })?
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -896,9 +938,132 @@ mod tests {
     use super::*;
 
     #[test]
+    fn locked_manual_write_yields_and_commits_once_before_returning() {
+        use std::future::Future;
+        use std::sync::mpsc;
+        use std::task::{Context, Poll, Waker};
+        use std::time::Duration;
+
+        let path =
+            std::env::temp_dir().join(format!("narro-manual-write-{}.db", uuid::Uuid::new_v4()));
+        let owner = rusqlite::Connection::open(&path).expect("open lock owner");
+        owner
+            .execute_batch(
+                "PRAGMA journal_mode=DELETE;
+             CREATE TABLE owned_write_ledger(id TEXT PRIMARY KEY, seconds INTEGER NOT NULL);
+             BEGIN EXCLUSIVE;",
+            )
+            .expect("hold exclusive lock");
+        let worker_path = path.clone();
+        let caller = std::thread::current().id();
+        let (started_tx, started_rx) = mpsc::channel();
+        let (finished_tx, finished_rx) = mpsc::channel();
+        let mut pending = Box::pin(run_manual_session_write(move || {
+            let map = |error: rusqlite::Error| {
+                CommandError::new("REPORT_SESSION_WRITE_FAILED", error.to_string())
+            };
+            let mut worker = rusqlite::Connection::open(worker_path).map_err(map)?;
+            worker.busy_timeout(Duration::from_secs(3)).map_err(map)?;
+            started_tx
+                .send(std::thread::current().id())
+                .expect("worker started");
+            let transaction = worker.transaction().map_err(map)?;
+            transaction
+                .execute(
+                    "INSERT INTO owned_write_ledger VALUES('owned-session',60)",
+                    [],
+                )
+                .map_err(map)?;
+            transaction.commit().map_err(map)?;
+            finished_tx.send(()).expect("committed");
+            Ok("owned-session")
+        }));
+        let mut context = Context::from_waker(Waker::noop());
+        assert!(matches!(pending.as_mut().poll(&mut context), Poll::Pending));
+        assert_ne!(
+            started_rx
+                .recv_timeout(Duration::from_secs(2))
+                .expect("start"),
+            caller
+        );
+        assert!(matches!(pending.as_mut().poll(&mut context), Poll::Pending));
+        assert_eq!(finished_rx.try_recv(), Err(mpsc::TryRecvError::Empty));
+        owner.execute_batch("ROLLBACK").expect("release lock");
+        assert_eq!(
+            tauri::async_runtime::block_on(pending).expect("committed result"),
+            "owned-session"
+        );
+        let actual: (i64, i64) = owner
+            .query_row(
+                "SELECT COUNT(*), SUM(seconds) FROM owned_write_ledger",
+                [],
+                |row| Ok((row.get(0)?, row.get(1)?)),
+            )
+            .expect("read durable result");
+        assert_eq!(actual, (1, 60));
+        drop(owner);
+        std::fs::remove_file(path).expect("remove owned test database");
+    }
+
+    #[test]
+    fn manual_write_worker_preserves_domain_errors() {
+        let expected = CommandError::invalid_argument("durationSeconds", "must be positive");
+        let returned = expected.clone();
+        let result: CommandResult<()> =
+            tauri::async_runtime::block_on(run_manual_session_write(move || Err(returned)));
+        assert_eq!(result, Err(expected));
+    }
+
+    #[test]
     fn overview_pdf_export_range_dates_are_filename_safe() {
         assert_eq!(export_range_date("2026-10-01T00:00:00+03:00"), "2026-10-01");
         assert_eq!(export_range_date("not-a-range"), "range");
+    }
+
+    #[test]
+    fn overview_pdf_filename_uses_inclusive_local_dates_and_dst() {
+        for (start, end, zone, expected) in [
+            (
+                "2026-09-13T21:00:00Z",
+                "2026-10-14T21:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-09-14-to-2026-10-14",
+            ),
+            (
+                "2026-10-01T00:00:00Z",
+                "2026-10-02T00:00:00Z",
+                "UTC",
+                "narro-overview-2026-10-01-to-2026-10-01",
+            ),
+            (
+                "2026-03-08T08:00:00Z",
+                "2026-03-09T07:00:00Z",
+                "America/Los_Angeles",
+                "narro-overview-2026-03-08-to-2026-03-08",
+            ),
+            (
+                "2026-03-28T22:00:00Z",
+                "2026-03-29T21:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-03-29-to-2026-03-29",
+            ),
+            (
+                "2026-10-24T21:00:00Z",
+                "2026-10-25T22:00:00Z",
+                "Europe/Athens",
+                "narro-overview-2026-10-25-to-2026-10-25",
+            ),
+        ] {
+            assert_eq!(overview_pdf_file_stem(start, end, zone).unwrap(), expected);
+        }
+        assert!(overview_pdf_file_stem("bad", "2026-10-02T00:00:00Z", "UTC").is_err());
+        assert!(
+            overview_pdf_file_stem("2026-10-02T00:00:00Z", "2026-10-01T00:00:00Z", "UTC").is_err()
+        );
+        assert!(
+            overview_pdf_file_stem("2026-10-01T00:00:00Z", "2026-10-02T00:00:00Z", "../bad")
+                .is_err()
+        );
     }
 
     #[test]

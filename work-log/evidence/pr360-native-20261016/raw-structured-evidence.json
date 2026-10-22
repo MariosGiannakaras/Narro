@@ -1,0 +1,7 @@
+{
+  "archive": "raw-structured-evidence.zip",
+  "bytes": 574975,
+  "sha256": "db9435986a2ec0bd6fe690be6b7c7315aec8670d75f84481c977628e61b8e36e",
+  "entries": 256,
+  "purpose": "Exact original structured bytes preserved independently of Git text line ending normalization. Existing SHA256SUMS.json describes original local evidence bytes; use this ZIP for text-byte verification. Video and PNG hashes apply directly."
+}

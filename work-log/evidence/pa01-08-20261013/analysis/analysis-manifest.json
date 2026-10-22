@@ -1,0 +1,160 @@
+{
+  "raw_archive_is_byte_preserving": true,
+  "files": [
+    {
+      "path": "chronological-actions.json",
+      "bytes": 84915,
+      "sha256": "d522fafbec0fb146aca6f1b92b3118de1176eadb10297ed3b43a7ae9c8ea6010"
+    },
+    {
+      "path": "clips-manifest.json",
+      "bytes": 3572,
+      "sha256": "80e7f0470614cf39cb1ef85d1ae72215d841a3c1943ed636aaad844c1cd7269d"
+    },
+    {
+      "path": "PA01-cycle1-to-panel-60fps.png",
+      "bytes": 801661,
+      "sha256": "a9afe4d24427c72181d905d0775605f045c5bd2c8ee4b3afd6dad1726f664615"
+    },
+    {
+      "path": "PA01-cycle1-to-panel.mp4",
+      "bytes": 383847,
+      "sha256": "3f350b33562adc35d3073562845e00314d923f19031174cee503dbbbfdb3e05c"
+    },
+    {
+      "path": "PA01-cycle1-to-timer-60fps.png",
+      "bytes": 670526,
+      "sha256": "70261894b141b7561d3283322549fb5cad90a84391277a54e2071863407bd114"
+    },
+    {
+      "path": "PA01-cycle2-to-panel-60fps.png",
+      "bytes": 794047,
+      "sha256": "493efd9fa38bdeac0ad03b4161c83361b8c78f3f7fba71dedd361b479eb97286"
+    },
+    {
+      "path": "PA01-cycle2-to-timer-60fps.png",
+      "bytes": 674164,
+      "sha256": "4a1a9bc4b099ddb1ece5277e38c3cff38223903046322254de2a9d9c3eb480bb"
+    },
+    {
+      "path": "PA01-cycle3-to-panel-60fps.png",
+      "bytes": 751581,
+      "sha256": "62fa424bd630f7d2c7df7eb45080b85a06706d47a73deddf07d61857a1bea5cd"
+    },
+    {
+      "path": "PA01-cycle3-to-timer-60fps.png",
+      "bytes": 658425,
+      "sha256": "c2858210552c046eeb6d1b34ecc9d901f11d76f7d79b1c2e488651bf58b81aa1"
+    },
+    {
+      "path": "PA01-cycles2-3.mp4",
+      "bytes": 1445501,
+      "sha256": "d1b935a79728d4f3b43f9a7867cc1d17b253daae9359ba6911e67929691fb781"
+    },
+    {
+      "path": "PA01-expansion.mp4",
+      "bytes": 1294717,
+      "sha256": "d1f6e0c279e72e30ef3542a13097120a155554506be0755b1397251aaeed90d0"
+    },
+    {
+      "path": "PA01-frame-screen.json",
+      "bytes": 50301,
+      "sha256": "2412f5f698ab7db6d31f46c035ae79980d4abe8a5a9d70503bff2eed3229200c"
+    },
+    {
+      "path": "PA01-reduced-motion.mp4",
+      "bytes": 917507,
+      "sha256": "8e383222c82853ce566ac8325428f179a01668f42ccae3baffaf2a34c13ad848"
+    },
+    {
+      "path": "PA02-main-entry.mp4",
+      "bytes": 900208,
+      "sha256": "a5777f974453175b44c7c36d24d57ff0cd5e7b753e5e2338df493ae7548fe14a"
+    },
+    {
+      "path": "PA02-video-surface-map.png",
+      "bytes": 1814297,
+      "sha256": "538354136ec770a10d64383310dd83ff94339f4dea3904e1d994d00b2e598a7c"
+    },
+    {
+      "path": "PA03-expired-views.mp4",
+      "bytes": 789767,
+      "sha256": "b3c405d8d00cd4f7466190d4dae508a182b7e6c6228cafdac5e968740e4f2352"
+    },
+    {
+      "path": "PA03-extend-pause.mp4",
+      "bytes": 872901,
+      "sha256": "488a2aa0f36ccd9943dcfd1e8275fac5def9caa6679980bb0b12dc7cff8d1662"
+    },
+    {
+      "path": "PA03-time-up.mp4",
+      "bytes": 766507,
+      "sha256": "a21dd3889059e3486ad977b9f32d17e9b457ac3b9f33016d451ee60f005f3133"
+    },
+    {
+      "path": "PA04-after-release.png",
+      "bytes": 76763,
+      "sha256": "dd02574f2850a3cf5bc4926f380a494ad20290e37b89a3d88b7d7f8b9ef4ec6a"
+    },
+    {
+      "path": "PA04-pending-escape.png",
+      "bytes": 47912,
+      "sha256": "312916d139553d81e0ebefe007256b37166f645a78dfbf98545f9c3b240916df"
+    },
+    {
+      "path": "PA04-pending-lock.mp4",
+      "bytes": 1262649,
+      "sha256": "ce7a92fd35ca520641b0a0afd2c16c63596cc5a520d133f5a8a79394cea99238"
+    },
+    {
+      "path": "PA04-pending-tab.png",
+      "bytes": 47912,
+      "sha256": "312916d139553d81e0ebefe007256b37166f645a78dfbf98545f9c3b240916df"
+    },
+    {
+      "path": "PA05-unavailable.mp4",
+      "bytes": 1141566,
+      "sha256": "7ca653ccbb03c65b55be5204d3318cb26dbbff179057894fd520468a9ac80f44"
+    },
+    {
+      "path": "PA06-audio-previews.mp4",
+      "bytes": 2968280,
+      "sha256": "2782ccd930cdaef1cf475e38008d5daeccc0d44e1939cb6ba68916f00a6884d6"
+    },
+    {
+      "path": "PA06-break-expiry.mp4",
+      "bytes": 1278762,
+      "sha256": "b7d81ee185c0db094fa58a60232e2913aeeef79d2d9c1ca5e535ec52117159e7"
+    },
+    {
+      "path": "PA07-before-quit-counter.png",
+      "bytes": 17359,
+      "sha256": "a9d62bbfe97d8ec7b3526eb84f6c5d5f5ef864f9b29ca29b2d796e06bc2e8415"
+    },
+    {
+      "path": "PA07-drag.mp4",
+      "bytes": 458725,
+      "sha256": "27dcc3e12644acef4808a54db05a9348c7297817e16d402f03885177dc8923df"
+    },
+    {
+      "path": "PA07-quit-relaunch.mp4",
+      "bytes": 4163572,
+      "sha256": "dc31d33e4b0615523833b56d4919a9daaff527739d55a7f6a03e1a7b1266ba4c"
+    },
+    {
+      "path": "PA07-recovered-counter.png",
+      "bytes": 17190,
+      "sha256": "bfa1965f7a13f408c1e60fcd0eddffd66b3b40b2766da1e230e7930a7665f02d"
+    },
+    {
+      "path": "PA08-nsis-installed-launch.mp4",
+      "bytes": 822819,
+      "sha256": "8fd5f82d4cf19e2b2829ed777fb2de21887edfa47b0d78ac705548362169ca2f"
+    },
+    {
+      "path": "raw-sidecars-media.zip",
+      "bytes": 42790809,
+      "sha256": "b591d700f98b3c6b753dc786f68a485eb32fb7a2a1f3e86b33c026188abaf4bf"
+    }
+  ]
+}

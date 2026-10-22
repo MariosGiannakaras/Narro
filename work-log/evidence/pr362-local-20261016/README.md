@@ -1,0 +1,7 @@
+# PR362 local pre-CI evidence
+
+Exact source0e9cdae1835caad37baaef402b8faca46b591cff, [PR362](https://github.com/MariosGiannakaras/Narro/pull/362), WindowsCI38889617175pending. FullfrontendpreflightPASS, TypeScript/buildPASS, realproductioncomponent4/4theme/motion semanticcapturesPASS. Redpriorproduct regression retained. NativecorrectedEXE acceptanceOPEN. Source changes7files, noRust/window/config/CSS/approvedpicker/upload/icons/Searchchange; generatedtrackedicons restored and unrelateduntrackedicons preserved. Fullpreflight temporarily normalized570textfilesLF for existing source-string contracts, exact original sourcebytes restored, private backup omitted.
+
+Tests exercise realBoard/Focus/expandedFloating consumer with mockednative boundary: externalcreate; same-count rename/reorder/completion; draft/node/focus retention; newer read resolving first then old success/error; newtaskowner and disposedlistener/read; prior nativepending/repeat-entry/error tests retained. CIvalidator requires6newsemanticfields. Existingsource-string assertions migrated to the shared authoritative native-read boundary. No manualWindowsPASS from these captures.
+
+ParallelCDP transport attempts and reused-profile retry retained separately. They did not reach a product assertion; fresh profiles/sequential capturepassed4/4. No "flaky"/productFAIL/rootcause claim from timeout alone. The sourcecorrectness red regression is distinct and has exact assertion/DOM/PNG. Current source exact build actualWindowsrecapture still required.

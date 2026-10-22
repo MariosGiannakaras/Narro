@@ -1,0 +1,67 @@
+{
+  "run": 39389033088,
+  "source": "9e631952158c5c6b9763e0e0d79e33b79e8c7ca3",
+  "artifact": 12249212632,
+  "zipSHA256": "e83efacd9f5829fb9affd137b4ee03306a035c742da7d1263afc36957060d364",
+  "entries": 415,
+  "CRC": "PASS",
+  "actualWindowsMatrix": "4/4 PASS",
+  "contracts": [
+    {
+      "html": "focus-editor-m7-integration-dark-reduced.html",
+      "receipts": [
+        "nativeHandoffBoardDOMCommit",
+        "nativeHandoffEventBeforeReply",
+        "nativeHandoffExplicitNext",
+        "nativeHandoffFirstSuccessCommit",
+        "nativeHandoffPartialFailure",
+        "nativeHandoffSuccessBoardAtomic",
+        "nativeHandoffSuccessOnRestStatus",
+        "nativeHandoffSuccessReadRecovery",
+        "nativeHandoffUncommittedRejection"
+      ]
+    },
+    {
+      "html": "focus-editor-m7-integration-dark.html",
+      "receipts": [
+        "nativeHandoffBoardDOMCommit",
+        "nativeHandoffEventBeforeReply",
+        "nativeHandoffExplicitNext",
+        "nativeHandoffFirstSuccessCommit",
+        "nativeHandoffPartialFailure",
+        "nativeHandoffSuccessBoardAtomic",
+        "nativeHandoffSuccessOnRestStatus",
+        "nativeHandoffSuccessReadRecovery",
+        "nativeHandoffUncommittedRejection"
+      ]
+    },
+    {
+      "html": "focus-editor-m7-integration-light-reduced.html",
+      "receipts": [
+        "nativeHandoffBoardDOMCommit",
+        "nativeHandoffEventBeforeReply",
+        "nativeHandoffExplicitNext",
+        "nativeHandoffFirstSuccessCommit",
+        "nativeHandoffPartialFailure",
+        "nativeHandoffSuccessBoardAtomic",
+        "nativeHandoffSuccessOnRestStatus",
+        "nativeHandoffSuccessReadRecovery",
+        "nativeHandoffUncommittedRejection"
+      ]
+    },
+    {
+      "html": "focus-editor-m7-integration-light.html",
+      "receipts": [
+        "nativeHandoffBoardDOMCommit",
+        "nativeHandoffEventBeforeReply",
+        "nativeHandoffExplicitNext",
+        "nativeHandoffFirstSuccessCommit",
+        "nativeHandoffPartialFailure",
+        "nativeHandoffSuccessBoardAtomic",
+        "nativeHandoffSuccessOnRestStatus",
+        "nativeHandoffSuccessReadRecovery",
+        "nativeHandoffUncommittedRejection"
+      ]
+    }
+  ]
+}

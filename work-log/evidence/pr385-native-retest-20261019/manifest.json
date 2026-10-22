@@ -1,0 +1,690 @@
+{
+  "source": "ed4d5083e1df00077df2fef2bb74a6cf90321692",
+  "equivalentMain": "4064fb9a05c55ed91f226a115cf479b5d7f52dcc",
+  "files": [
+    {
+      "path": "actions.jsonl",
+      "bytes": 17259,
+      "sha256": "9fc68222723294158f8fd82456787543e9474c6b27b841739dd60058f933d419",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "capture-quality.json",
+      "bytes": 863099,
+      "sha256": "341d6e3b344d7d7901d336e6ae2a4e3d8eeee6bcf1e71402cbc9fbe9e69d9a99",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "gdi-observations.jsonl",
+      "bytes": 10365,
+      "sha256": "3cd8f3a5db32d7eb5057f830c612954257c919cc1c5e50e0fdaeae653e44692f",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "launch.json",
+      "bytes": 177,
+      "sha256": "c2201ce8f4e4f1e64535e607ede7495b30f1724a49e00b074f5e96ebbdcf4a70",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "lossless-crop-proof.json",
+      "bytes": 401,
+      "sha256": "dcc7af093a1b40d50c53c5f9e2c80e081a51785ccacc7cbef30361483b032497",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "motion-normal.json",
+      "bytes": 216,
+      "sha256": "9d4150241123350a0449dfe7a7789a780fdbb65f1c20659763abf894cf19db8f",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "motion-restore.json",
+      "bytes": 216,
+      "sha256": "67eee487cd40d8b4da82f2b8edad7819b621706d7938427ff6a692ec4d71b692",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "original-profile-restoration-proof.json",
+      "bytes": 203,
+      "sha256": "eca0530279c8da85b91207238192c8c663c9c6626c272e3569013ed3dd928b38",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "persistence-proof.json",
+      "bytes": 286,
+      "sha256": "8c1a878323160b165bd416dd2cae8bbb1333155578f2a96c5c72e75a2d54167a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "RA02-OFF-pts.json",
+      "bytes": 49177,
+      "sha256": "e0722b5807c8c3fd503ed9c0444326db2841c8823cb8c48f12d0f7a435683ba1",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "RA02-ON-pts.json",
+      "bytes": 34175,
+      "sha256": "94fdf1a03c8bda9265e7ad0cd067fd9a33adbfa5f51f56503464a8ba76da6736",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "README.md",
+      "bytes": 967,
+      "sha256": "8d839a81b1fd8e17c34e18273034219e685b1435e52e3bb537970dff61976b7a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "session-meta.json",
+      "bytes": 1027,
+      "sha256": "3b933bdf9462195dad680a9f0b30f4dc5de24f35304bd5849aacb56003b405b2",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/confirmed-f3753.png",
+      "bytes": 72270,
+      "sha256": "cbb4f4d3f1809b2b1d8db65b96a71be650fdf62f40d15723f9b4b3816571bcf3",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/explicit-next-consecutive.png",
+      "bytes": 202372,
+      "sha256": "f5860ad1117b6edc3ba0163d6fa8b14a483c67844b82f28b823e90a218c2c165",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/off-last-consecutive.png",
+      "bytes": 176637,
+      "sha256": "4a74a42ef0f09fa9e0ce0a4ea476570e21dbe76caf4be6cf3aa466b17f56ccaa",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/off-next-consecutive.png",
+      "bytes": 154977,
+      "sha256": "c83f0e332b1348879858ed0ba98b435b9e5f2f962d8cdb44a1997d6d75c4f807",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/on-next-consecutive.png",
+      "bytes": 223242,
+      "sha256": "e5db74b19c54629454d6959a9066afe9caf2a35e9871c59ec186bda7f3be8ee7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/on-only-consecutive.png",
+      "bytes": 208766,
+      "sha256": "6db6fdf5473d7c04edde939029ca16a07ad2faa22bd97d2a7aee9999f9402df2",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/on-third-consecutive.png",
+      "bytes": 274170,
+      "sha256": "a21f3b1e0726d98fe7295e56e1b966114c0d7fbcdd52cb0222ddb6474cd23a50",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/rest-final-consecutive.png",
+      "bytes": 245296,
+      "sha256": "5b24f20ca9a5d381ebb4284cae62734cbd1b1d0d7f3f36ee732e7c186d044860",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/rest-queue-consecutive.png",
+      "bytes": 196765,
+      "sha256": "c116dc14e3ffd9acb341b0c6e2035b595a2ff4128825b23f58a7146a1c781a85",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "frames/rest-status-intervals.png",
+      "bytes": 61327,
+      "sha256": "04d54997beb5d2041c592a7fc6cbf61d3ea7fb35105667f7580c9841aec017be",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434296132-initial.json",
+      "bytes": 7586,
+      "sha256": "c2ab52c745d9f2b961cfdf4cf997cb3b0891ded1de1d7a9581c110f8fd18494a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434315329-after-capture-timeout.json",
+      "bytes": 7586,
+      "sha256": "c2ab52c745d9f2b961cfdf4cf997cb3b0891ded1de1d7a9581c110f8fd18494a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434319274-tab-keyboard-probe.json",
+      "bytes": 7586,
+      "sha256": "c2ab52c745d9f2b961cfdf4cf997cb3b0891ded1de1d7a9581c110f8fd18494a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434328729-tab-into-webview.json",
+      "bytes": 7586,
+      "sha256": "c2ab52c745d9f2b961cfdf4cf997cb3b0891ded1de1d7a9581c110f8fd18494a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434336559-focus-content-probe.json",
+      "bytes": 7586,
+      "sha256": "c2ab52c745d9f2b961cfdf4cf997cb3b0891ded1de1d7a9581c110f8fd18494a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434346091-open-focused-navigation.json",
+      "bytes": 6382,
+      "sha256": "48095c4aff390c081a023e1178a9725df305e203ca6749dc3e5364f9c012b001",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434355680-board-settled.json",
+      "bytes": 16631,
+      "sha256": "046220df50087799f77dfbca0ee442fa5c8e379931dc1c341ccce33bbc14c3e7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434360784-nav-archived.json",
+      "bytes": 16631,
+      "sha256": "046220df50087799f77dfbca0ee442fa5c8e379931dc1c341ccce33bbc14c3e7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434364068-nav-search.json",
+      "bytes": 16631,
+      "sha256": "046220df50087799f77dfbca0ee442fa5c8e379931dc1c341ccce33bbc14c3e7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434366561-nav-settings.json",
+      "bytes": 16631,
+      "sha256": "046220df50087799f77dfbca0ee442fa5c8e379931dc1c341ccce33bbc14c3e7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434369977-nav-planning-selector.json",
+      "bytes": 16631,
+      "sha256": "046220df50087799f77dfbca0ee442fa5c8e379931dc1c341ccce33bbc14c3e7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434379277-open-planning-selector.json",
+      "bytes": 16741,
+      "sha256": "71ce0dc216140d05fd1c02fb5f4f757385b5ab3cd31ed6e8f031a6da00d97d83",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434384982-planning-next-option.json",
+      "bytes": 17120,
+      "sha256": "ee55c5bfbf2970bcd0798bc127c8c0aaaa12b9254362e811069af2d588ffab88",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434388915-planning-ra02-option.json",
+      "bytes": 17120,
+      "sha256": "ee55c5bfbf2970bcd0798bc127c8c0aaaa12b9254362e811069af2d588ffab88",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434397719-select-ra02-advance.json",
+      "bytes": 13370,
+      "sha256": "b95c58f71d32c59e53334d848aea688b2c07c9088aa6ffa3d00d6790abbfffa6",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434409776-ra02-board.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434417181-reverse-to-last-control.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434423600-reverse-to-home.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434426850-reverse-to-blitz.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434438125-reverse-all-lists.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434441148-reverse-create-list.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434443643-reverse-reports.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434446870-reverse-home.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434450654-focus-blitz-entry.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434459873-focus-blitz-before-home.json",
+      "bytes": 8964,
+      "sha256": "80f8f40bab65135f3ddaa467a60993ad7c3ca9f1d968b59e34e13cd3a0ed31eb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434467009-enter-ra02-focus.json",
+      "bytes": 9128,
+      "sha256": "5465229ed14c643a26dfd4828deb5ec7e456e8d0726e46fd6e45fbeb19d0d7a7",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434476482-focus-running.json",
+      "bytes": 5406,
+      "sha256": "7e2883b28dca582ac7b2456e18e03d6bd6086bdf70b24269b9f07b3dd7b6c461",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434484229-focus-list-selector-keyboard.json",
+      "bytes": 5406,
+      "sha256": "02761bdd6f53d2ea3078015bdb4cd25a877513514018240e0cb6678f7eb7f742",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434491244-open-focus-list.json",
+      "bytes": 5911,
+      "sha256": "490ebd46b1581ab8c82f16a517ce749b0b96c994402359000632103ce1451e8b",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434493519-focus-list-ra01.json",
+      "bytes": 5911,
+      "sha256": "05490a453ff3ff5410784c17a1e77460a685953d339abad945ac2aaeeddde2d4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434497035-focus-list-ra02.json",
+      "bytes": 5911,
+      "sha256": "3e725feee84fa853849abd8a2b5d085692f51998a194693a6be85dcf01475e6e",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434507012-scope-focus-ra02-advance.json",
+      "bytes": 1201,
+      "sha256": "5e2cbefa464a400b6bef2a330d7fe5cb590e5a4306f5fdb5dfad219b665dab7f",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434524676-ra02-off-recording.json",
+      "bytes": 4236,
+      "sha256": "10710b8ee395f0c736054b5b1f4074404c9ddaeb9a29cbd3a819bd6c2134a9fe",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434532749-RA02-OFF-complete-first.json",
+      "bytes": 4033,
+      "sha256": "c17adabb549a8bbefbe037308c2f7b17ac3cd64d74cc03cd37cdb4c4e9c76cdf",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434535447-RA02-OFF-next-settled.json",
+      "bytes": 4521,
+      "sha256": "2a32ce29b8d5c7f12e58b18b9aaedda81d24a7b4440b0a36fd53ff14fc21123f",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434538073-RA02-OFF-complete-last.json",
+      "bytes": 3537,
+      "sha256": "5f3848844acbf136a81dda83ecfced11919164b7012b104776f330dc275e1c67",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434543017-focus-preferences.json",
+      "bytes": 3537,
+      "sha256": "5f3848844acbf136a81dda83ecfced11919164b7012b104776f330dc275e1c67",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434554367-open-focus-scope-for-on.json",
+      "bytes": 4047,
+      "sha256": "d5342db80ee09d102c117b10a9481a2c67037b227afbf69e3075bc36809d098b",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434559467-focus-scope-last-task.json",
+      "bytes": 4047,
+      "sha256": "d5342db80ee09d102c117b10a9481a2c67037b227afbf69e3075bc36809d098b",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434566867-apply-on-scope.json",
+      "bytes": 3441,
+      "sha256": "e7f8137865233241c9ad24f1a9bc89ed3ff818731e8bba08fdef00cdfab9989a",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434569931-on-scope-first-tab.json",
+      "bytes": 3201,
+      "sha256": "9bbd9e50f383a3537f94c1612c24222c183fe7db619fae046630c18a61a32e42",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434573146-on-scope-preferences-tab.json",
+      "bytes": 3201,
+      "sha256": "9bbd9e50f383a3537f94c1612c24222c183fe7db619fae046630c18a61a32e42",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434579195-open-success-preferences.json",
+      "bytes": 3607,
+      "sha256": "56ebd8d697b6ebb85689b764aa9ed9e6052af5eeedb5cc2fbd34bd167b01fd0b",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434592162-preferences-settled.json",
+      "bytes": 3563,
+      "sha256": "9f8c002f9b0d63dcad7fa7a69e82efd6b5206899237505fa5d3d1437bc294c90",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434595918-focus-success-switch.json",
+      "bytes": 3563,
+      "sha256": "9f8c002f9b0d63dcad7fa7a69e82efd6b5206899237505fa5d3d1437bc294c90",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434606771-focus-last-preference.json",
+      "bytes": 3563,
+      "sha256": "9f8c002f9b0d63dcad7fa7a69e82efd6b5206899237505fa5d3d1437bc294c90",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434615058-enable-success-screen.json",
+      "bytes": 3896,
+      "sha256": "5681c324437d6411db66bee55f9f17afe41b64a460d7c8daa1a1f984f4914f18",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434619393-return-focus-after-preference.json",
+      "bytes": 3832,
+      "sha256": "880cdbc9eb0ff68338b94c36241ef57ed7ac43e4020ce0bc7cc2003bbaa15faf",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434625569-success-extra-fun-setting.json",
+      "bytes": 3832,
+      "sha256": "880cdbc9eb0ff68338b94c36241ef57ed7ac43e4020ce0bc7cc2003bbaa15faf",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434628800-quick-prefs-wrap.json",
+      "bytes": 3832,
+      "sha256": "880cdbc9eb0ff68338b94c36241ef57ed7ac43e4020ce0bc7cc2003bbaa15faf",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434632608-quick-prefs-back-focus.json",
+      "bytes": 3832,
+      "sha256": "880cdbc9eb0ff68338b94c36241ef57ed7ac43e4020ce0bc7cc2003bbaa15faf",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434639795-back-to-focus-success-on.json",
+      "bytes": 3380,
+      "sha256": "05c7333f0741bc06a1939c721267de0b77077d864e059bb863be5fc455e3c4f2",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434645479-on-nav-home.json",
+      "bytes": 3201,
+      "sha256": "3961d00358f74b8085483bb5a9d7cba0e227a53e5ccc836212c89b715fb4deb4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434647977-on-nav-compact.json",
+      "bytes": 3201,
+      "sha256": "3961d00358f74b8085483bb5a9d7cba0e227a53e5ccc836212c89b715fb4deb4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434653110-on-nav-task-row.json",
+      "bytes": 3201,
+      "sha256": "3961d00358f74b8085483bb5a9d7cba0e227a53e5ccc836212c89b715fb4deb4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434664008-on-compact-control.json",
+      "bytes": 3256,
+      "sha256": "06c53bc7fe0d0d6bdf0c23692b3cb1a6f003d38e1a395e305afbebbe548ab624",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434667960-on-first-task-title.json",
+      "bytes": 3201,
+      "sha256": "3961d00358f74b8085483bb5a9d7cba0e227a53e5ccc836212c89b715fb4deb4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434681184-on-only-task-action.json",
+      "bytes": 3831,
+      "sha256": "b5940d635bccab451ad84491c30e719b003280d1e80cec1c6efa418c88875d4c",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434697473-on-row-complete-control.json",
+      "bytes": 3831,
+      "sha256": "b5940d635bccab451ad84491c30e719b003280d1e80cec1c6efa418c88875d4c",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434706161-on-row-title-control.json",
+      "bytes": 3831,
+      "sha256": "b5940d635bccab451ad84491c30e719b003280d1e80cec1c6efa418c88875d4c",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434716441-on-make-live-focus.json",
+      "bytes": 3831,
+      "sha256": "b5940d635bccab451ad84491c30e719b003280d1e80cec1c6efa418c88875d4c",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434736128-RA02-ON-make-only-live.json",
+      "bytes": 3631,
+      "sha256": "47df09b17b10134f1c387e7d030300175ea7e5fd89dfe2b4d5d3c5c269ac1720",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434739976-on-only-running.json",
+      "bytes": 4596,
+      "sha256": "720b096a6473ee47f76ca64cfa60070801efaaaaf7641485148e680f0d6a4a40",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434744980-RA02-ON-complete-only.json",
+      "bytes": 2407,
+      "sha256": "675510bfeccc7eafdceb512d4941b1bbe2dd278a3f4642e6b7d36af053d4d255",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434756945-success-only-focus-rest.json",
+      "bytes": 2814,
+      "sha256": "482cacd820fbcd91770162bc441b563386f0957ed2c2f6434c946dc0af0b9482",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434760380-RA02-ON-untimed-rest-with-queue.json",
+      "bytes": 3559,
+      "sha256": "03ee5a34388d09ff0776c9272a4f7a633910aa22733e986eab19beb3ef8d54ea",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434765668-rest-after-feedback-expiry.json",
+      "bytes": 3262,
+      "sha256": "5805265ca872c399063dd2ccf553a5d92b6c56f896e5f97a4ad8c8cf4d8628ab",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434772018-next-nav-1.json",
+      "bytes": 3262,
+      "sha256": "5805265ca872c399063dd2ccf553a5d92b6c56f896e5f97a4ad8c8cf4d8628ab",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434774759-next-nav-2.json",
+      "bytes": 3262,
+      "sha256": "5805265ca872c399063dd2ccf553a5d92b6c56f896e5f97a4ad8c8cf4d8628ab",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434777663-next-nav-3.json",
+      "bytes": 3262,
+      "sha256": "5805265ca872c399063dd2ccf553a5d92b6c56f896e5f97a4ad8c8cf4d8628ab",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434780212-next-nav-4.json",
+      "bytes": 3262,
+      "sha256": "5805265ca872c399063dd2ccf553a5d92b6c56f896e5f97a4ad8c8cf4d8628ab",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434783374-next-nav-5.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434785842-next-nav-6.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434789703-next-nav-7.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434792489-next-nav-8.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434796207-next-nav-9.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434806320-next-back-to-make-live.json",
+      "bytes": 3802,
+      "sha256": "776387a3124a1ea9f70641cb80d6aacaf2582330c6ab1b14ca5183bdcde32496",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434813318-RA02-ON-make-next-live.json",
+      "bytes": 3284,
+      "sha256": "e15bfcb505be24f5f93ec1388e612ba4ad214296be86d092c38e907287a58303",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434817568-on-next-running.json",
+      "bytes": 4633,
+      "sha256": "e77f230f003830848817e339f29a663a6d0134dc61bcb8522d68e836d2830d58",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434820424-RA02-ON-complete-next.json",
+      "bytes": 4410,
+      "sha256": "d8005689769cd971695e3f62d49c80d559aea32c9ea8368949bec881201acc39",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434824480-success-next-ready.json",
+      "bytes": 3055,
+      "sha256": "e0e7d79f5317d911b0644d1ad0b9af2c3201ac9c9cfa2f22d913bb462bf86578",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434831368-RA02-ON-explicit-next-start-third.json",
+      "bytes": 4542,
+      "sha256": "fd37cd67da505ef4c8374ae607d4e6e568daace74b307e81f9e4d74aa463fee0",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434834350-RA02-ON-complete-third.json",
+      "bytes": 2976,
+      "sha256": "f03b67c34bd97a49b78c1c23a4a3eb9391f7b526ba40ba4c78fe4be5397c1f9c",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434845560-final-focus-rest.json",
+      "bytes": 3239,
+      "sha256": "b5f631518849bdf9724af99033ad4675f0e1eacac18dbb99764adc67feca4e30",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434848829-RA02-ON-final-untimed-rest.json",
+      "bytes": 3772,
+      "sha256": "5ea9dda43b768d5102d17a5260b52dc7e017592e73a4662dc7dec0ea04cbc636",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/1792434853655-final-rest-expired.json",
+      "bytes": 3475,
+      "sha256": "53648c418af33da684022868edf526e6b198a5f4ed3a156605ce6cc7c676c226",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/after-only-rest-db.json",
+      "bytes": 10033,
+      "sha256": "6ebfa799f049df7040c1cb50c152da6b4f140ccfb56392dfdf329c832fef8395",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/before-ra02-db.json",
+      "bytes": 9628,
+      "sha256": "e1f2abdd205779babb75b648b1f9fe35eaf7356bb9572cc9966f8a3130ca7608",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "observations/final-native-db.json",
+      "bytes": 10987,
+      "sha256": "f1ec569fe09301998ce4f0f12a077395351d5979f8a367e4221f8ade271e8ed4",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "video/RA02-OFF-focus-lossless.mkv",
+      "bytes": 714678,
+      "sha256": "a2d7d86918d47f35aac61c231ddd0c7fe175ad803f11d37eda3ed4fb07d6ed9f",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    },
+    {
+      "path": "video/RA02-ON-focus-lossless.mkv",
+      "bytes": 707777,
+      "sha256": "9eab77404605978bc17dc4b5ff5f860388880152e58975f2b78f69c965250dcb",
+      "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# PA360 combined native evidence
+
+Acquisition **5/5**, aggregate review **5/5**; four scoped groups PASS, Focus/cross-window group FAIL (repeat Enter focus itself PASS). [Detailed verdicts](review/results.json). Original continuous dual-screen video **445.600s,4480x1080,60fps**,51,506,206 bytes. Complete original MKV is in `video/2026-10-16 09-51-08.mkv`; no reencoding.20 native PNGs, UIA/HWND/real-input UTC chronology, owned DB readonly proofs, whole7-fileNarro-M7-Logs and SHA256 inventory included.30 context frames at15s are sampling only. Full video decode returned0/no errors. Direct canonical source comparisons: SS-H11/H12,SS-C06,VE00570s.
+
+**Confirmed PA360-XW-SUBTASKS:** Main open details keep two rows after Focus creates third/fourth, despite header0/4; returning Focus keeps0/4/four uncompleted rows after Main adds fifth/completes four. Owned DB authoritative five/fourcomplete, no data loss evidenced. `review/cross-window-subtask-mismatch.json`, native045/060/069 and observations048/059 expose it. Shared create-focus correction itself passes both actual windows without synthetic refocus.
+
+EXE SHA2562efffecfbec6462185548042a3b1d1dabbc70181c96c5001400b145f9ba6162a; source916b17d2/CI38860384226SUCCESS3/3; guarded main merge da126a0d/553 identical inputs. Controller selection guards aborted invalid assumptions before typing;007-create button is actuallyCreate; cancelQuickTask returnsSearch, clickingSearch togglesclosed;198selector attempt blocked by openSubtasks untilcollapse. These are acquisition adaptations, not productFAILs. Early087snap intentionally had snapshots disabled; real089 is authoritative.
+
+C5 automatic **INCONCLUSIVE**, expected: this Board/Panel run does not exercise compact Timer drag/restart; historical acceptedC5 unaffected. Physical motion is normal only; no full reduced-motion/microanimation PASS. No other milestone closes by merely appearing. OBSstopped, Narro normaltrayQuit, originalRoaming/Local restored with originalDB SHA13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d byte-identical. Personal databases/profiles/cache/backups excluded. M1-M4complete4/10; M10blocked/M11dormant.
+
+
+[Exact original structured bytes](raw-structured-evidence.zip) and [archive SHA](raw-structured-evidence.json) preserve all UIA/log/chronology bytes across Git newline normalization. Earlier controller-adaptation label198 means **098**; no action198 occurred. Whole sibling EXE logs were copied after normalQuit; originals restored, owned profile retained locally.
+
+
+Scope clarification: **All Lists creation was unavailable**, and **completed task subtasks were read-only**. The captured All task was completed, so this does not prove blanket read-only semantics for all pending tasks in All Lists. Existing task-specific edits may retain their true owning list; no product policy change is inferred from this capture. Canonical calibration records SS-C06/SS-H11 are SYSTEM_REFERENCE and SS-H12 SYSTEM_COVERED in the completed visual-calibration tracker; this was direct final verification, not a new research pass.

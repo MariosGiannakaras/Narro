@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "560efeb076d2ec167232b9d86aa3354f6893214b",
+  "ci": 38894130069,
+  "pr": 362,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-M5-Remaining-native-20261016\\analysis\\validation\\narro-m7-validation.exe",
+  "sha256": "434b7182266086dca541d85c229f1cc4c2db413e5812551501ad1ab2f380da48",
+  "scope": "New8group remainingM5/compatibleM6 capture; reuse exact accepted integrated PR362 artifact; no newCI/source edits before capturefreeze+aggregateanalysis"
+}

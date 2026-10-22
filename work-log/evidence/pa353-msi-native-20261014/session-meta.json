@@ -1,0 +1,9 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "head": "8bda5cc40be905c4a91506e0708d39e2770b4cde",
+  "ci": 38558587191,
+  "pr": 353,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA353-msi-20261014\\analysis\\physical\\narro.exe",
+  "sha256": "8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18",
+  "scope": "PA08 MSI fresh-install/installed launch; packaging unchanged by pending tooltip PR354"
+}

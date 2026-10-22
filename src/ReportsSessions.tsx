@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
@@ -151,7 +151,9 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [listFilterOpen, setListFilterOpen] = useState(false);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [readError, setReadError] = useState<string | null>(null);
+  const [initialReadAttempt, setInitialReadAttempt] = useState(0);
   const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [sessionsReadAttempt, setSessionsReadAttempt] = useState(0);
   const [detailTaskId, setDetailTaskId] = useState<string | null>(null);
   const detailOpenerRef = useRef<HTMLElement | null>(null);
   const [detail, setDetail] = useState<ReportTaskSessionsDetail | null>(null);
@@ -165,6 +167,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const sessionsActiveRequestKeyRef = useRef<string | null>(null);
   const detailActiveTaskIdRef = useRef<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
+  const addOpenerRef = useRef<HTMLElement | null>(null);
   const [addDraft, setAddDraft] = useState<AddDraftState>(() => makeAddDraft(timeZone));
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
   // Shared synchronous owner for Add, Edit and Delete. React pending state alone
@@ -193,7 +196,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         if (!disposed) setReadError(formatInvokeError(failure));
       });
     return () => { disposed = true; };
-  }, []);
+  }, [initialReadAttempt]);
 
   useEffect(() => {
     if (!preferences.settled || appliedRange !== null) return;
@@ -235,6 +238,21 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     }
   }, [currentRequest]);
 
+  // A new filter is authoritative at its committed DOM boundary, *before*
+  // the passive effect starts its IPC read. Publishing this in useEffect left
+  // a frame where an old post-mutation refresh could claim the new view.
+  // Never change refs during render: an aborted concurrent render cannot
+  // invalidate the currently committed request.
+  const committedSessionsRequest = currentRequest();
+  const committedSessionsRequestKey = committedSessionsRequest
+    ? JSON.stringify(committedSessionsRequest) : null;
+  useLayoutEffect(() => {
+    if (sessionsActiveRequestKeyRef.current !== committedSessionsRequestKey) {
+      sessionsActiveRequestKeyRef.current = committedSessionsRequestKey;
+      ++sessionsReadRevisionRef.current;
+    }
+  }, [committedSessionsRequestKey]);
+
   useEffect(() => {
     if (!preferences.settled || preferences.error) return;
     let disposed = false;
@@ -254,7 +272,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         }
       });
     return () => { disposed = true; };
-  }, [currentRequest, preferences.error, preferences.settled]);
+  }, [currentRequest, preferences.error, preferences.settled, sessionsReadAttempt]);
 
   const refreshDetail = useCallback(async (taskId = detailTaskId) => {
     if (!taskId) {
@@ -275,6 +293,15 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       if (revision !== detailReadRevisionRef.current
         || detailActiveTaskIdRef.current !== taskId) return null;
       throw failure;
+    }
+  }, [detailTaskId]);
+
+  // Closing or switching task detail commits before its passive fetch runs.
+  // Invalidate an old mutation result at that committed selection boundary.
+  useLayoutEffect(() => {
+    if (detailActiveTaskIdRef.current !== detailTaskId) {
+      detailActiveTaskIdRef.current = detailTaskId;
+      ++detailReadRevisionRef.current;
     }
   }, [detailTaskId]);
 
@@ -438,7 +465,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     }
   };
 
-  const openAddSession = (taskId = "") => {
+  const openAddSession = (taskId = "", opener?: HTMLElement) => {
+    addOpenerRef.current = opener ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
     setMutationError(null);
     setAddDraft(makeAddDraft(timeZone, taskId));
     setAddOpen(true);
@@ -550,6 +578,24 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         <h1>Reports</h1>
         <p>Sessions could not be loaded from local data.</p>
         <code>{blockingError}</code>
+        {(readError || (sessions === null && refreshError)) ? (
+          <button type="button" className="motion-interactive" data-reports-sessions-retry="true"
+            onClick={() => {
+              if (readError) {
+                setReadError(null);
+                setHome(null);
+                setSearchData(null);
+                setInitialReadAttempt((attempt) => attempt + 1);
+              }
+              if (sessions === null && refreshError) {
+                setRefreshError(null);
+                setSessionsReadAttempt((attempt) => attempt + 1);
+              }
+            }}>
+            Retry loading sessions
+          </button>
+        ) : null}
+        <button type="button" className="motion-interactive" onClick={onBack}>Back</button>
       </section>
     );
   }
@@ -590,7 +636,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         exportPending={exportPending}
         onBack={onBack}
         onOpenOverview={onOpenOverview}
-        onOpenAddSession={() => openAddSession()}
+        onOpenAddSession={(opener) => openAddSession("", opener)}
         onExport={() => void exportSessions()}
         onToggleBreakSessions={() => setShowBreakSessions((visible) => !visible)}
         onToggleListFilter={() => setListFilterOpen((open) => !open)}
@@ -612,13 +658,14 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         onDelete={(row) => void deleteSession(row)}
       />
 
-      {detailView && !addOpen ? (
+      {detailView ? (
         <ReportTaskSessionsDialog
           detail={detailView}
+          covered={addOpen}
           returnFocusTarget={detailOpenerRef.current}
           pendingSessionId={mutationPendingId}
           onClose={() => setDetailTaskId(null)}
-          onAddSession={(taskId) => openAddSession(taskId)}
+          onAddSession={(taskId, opener) => openAddSession(taskId, opener)}
           onCommitEndTime={commitEndTime}
           onDelete={(row) => void deleteSession(row)}
         />
@@ -626,6 +673,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
 
       {addOpen ? (
         <ReportAddSessionDialog
+          returnFocusTarget={addOpenerRef.current}
           tasks={searchData?.tasks ?? []}
           draft={addDraftView}
           pending={mutationPendingId === "add"}

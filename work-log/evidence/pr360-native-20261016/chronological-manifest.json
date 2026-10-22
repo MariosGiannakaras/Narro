@@ -1,0 +1,2997 @@
+[
+  {
+    "utc": "2026-10-16T06:29:38.771481+00:00",
+    "hwnd": 2429984,
+    "action": "state",
+    "controls": [
+      {
+        "name": "00:00:00",
+        "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+        "type": 50020
+      },
+      {
+        "name": "Start Recording",
+        "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+        "type": 50000
+      }
+    ],
+    "channel": "obs-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:50:47.755033+00:00",
+    "hwnd": 2429984,
+    "action": "state",
+    "controls": [
+      {
+        "name": "00:00:00",
+        "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+        "type": 50020
+      },
+      {
+        "name": "Start Recording",
+        "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+        "type": 50000
+      }
+    ],
+    "channel": "obs-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:08.499006+00:00",
+    "hwnd": 2429984,
+    "action": "Start Recording",
+    "controls": [
+      {
+        "name": "00:00:00",
+        "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+        "type": 50020
+      },
+      {
+        "name": "Stop Recording",
+        "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+        "type": 50000
+      },
+      {
+        "name": "Pause Recording",
+        "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.pauseRecordButton",
+        "type": 50000
+      }
+    ],
+    "channel": "obs-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:21.813831+00:00",
+    "label": "002-maximize",
+    "command": [
+      "click-screen",
+      "Narro",
+      "002-maximize",
+      "1095",
+      "172"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        156,
+        156,
+        1172,
+        895
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:23.411698+00:00",
+    "label": "003-new-list",
+    "command": [
+      "click-screen",
+      "Narro",
+      "003-new-list",
+      "103",
+      "111"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:24.844405+00:00",
+    "label": "004-list-title",
+    "command": [
+      "text",
+      "Narro",
+      "004-list-title",
+      "PA360 Board"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:37.723475+00:00",
+    "label": "006-create-list",
+    "command": [
+      "click-screen",
+      "Narro",
+      "006-create-list",
+      "1441",
+      "796"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:44.861507+00:00",
+    "label": "008-open-owned-board",
+    "command": [
+      "click-screen",
+      "Narro",
+      "008-open-owned-board",
+      "1384",
+      "384"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:51.645308+00:00",
+    "label": "010-add-today",
+    "command": [
+      "click-screen",
+      "Narro",
+      "010-add-today",
+      "1443",
+      "477"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:51:53.133420+00:00",
+    "label": "011-title",
+    "command": [
+      "text",
+      "Narro",
+      "011-title",
+      "Call with Pete"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:01.029232+00:00",
+    "label": "013-est",
+    "command": [
+      "click-screen",
+      "Narro",
+      "013-est",
+      "1875",
+      "500"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:02.493443+00:00",
+    "label": "014-est-value",
+    "command": [
+      "text",
+      "Narro",
+      "014-est-value",
+      "00:20"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:03.911479+00:00",
+    "label": "015-confirm",
+    "command": [
+      "click-screen",
+      "Narro",
+      "015-confirm",
+      "1896",
+      "540"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:16.069633+00:00",
+    "label": "017-close-form",
+    "command": [
+      "click-screen",
+      "Narro",
+      "017-close-form",
+      "1454",
+      "521"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:17.521422+00:00",
+    "label": "018-expand",
+    "command": [
+      "click-screen",
+      "Narro",
+      "018-expand",
+      "1917",
+      "458"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:25.755864+00:00",
+    "label": "020-input",
+    "command": [
+      "click-screen",
+      "Narro",
+      "020-input",
+      "1674",
+      "508"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:27.239678+00:00",
+    "label": "021-child-one",
+    "command": [
+      "text",
+      "Narro",
+      "021-child-one",
+      "Prepare agenda"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:28.707588+00:00",
+    "label": "022-enter-one",
+    "command": [
+      "key",
+      "Narro",
+      "022-enter-one",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:30.798822+00:00",
+    "label": "024-child-two",
+    "command": [
+      "text",
+      "Narro",
+      "024-child-two",
+      "Discuss next steps"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:32.283013+00:00",
+    "label": "025-enter-two",
+    "command": [
+      "key",
+      "Narro",
+      "025-enter-two",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:33.760435+00:00",
+    "label": "027-board-repeat",
+    "command": [
+      "snap",
+      "Narro",
+      "027-board-repeat"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:41.553623+00:00",
+    "label": "029-unsaved-draft",
+    "command": [
+      "text",
+      "Narro",
+      "029-unsaved-draft",
+      "Unsaved draft"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:43.025761+00:00",
+    "label": "030-clear",
+    "command": [
+      "click-screen",
+      "Narro",
+      "030-clear",
+      "1915",
+      "584"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:44.550511+00:00",
+    "label": "031-empty-enter",
+    "command": [
+      "key",
+      "Narro",
+      "031-empty-enter",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:52:46.117340+00:00",
+    "label": "033-focus",
+    "command": [
+      "click-screen",
+      "Narro",
+      "033-focus",
+      "1673",
+      "695"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:03.291102+00:00",
+    "label": "035-pause",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "035-pause",
+      "2395",
+      "135"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:04.662673+00:00",
+    "label": "036-focus-subtasks",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "036-focus-subtasks",
+      "2519",
+      "301"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:14.292528+00:00",
+    "label": "038-focus-input",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "038-focus-input",
+      "2390",
+      "427"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:15.698627+00:00",
+    "label": "039-focus-child-three",
+    "command": [
+      "text",
+      "Narro - Focus",
+      "039-focus-child-three",
+      "Confirm owners"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:17.121696+00:00",
+    "label": "040-focus-enter",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "040-focus-enter",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:19.102934+00:00",
+    "label": "042-focus-child-four",
+    "command": [
+      "text",
+      "Narro - Focus",
+      "042-focus-child-four",
+      "Send summary"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:20.525512+00:00",
+    "label": "043-focus-enter-two",
+    "command": [
+      "key",
+      "Narro - Focus",
+      "043-focus-enter-two",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:21.941229+00:00",
+    "label": "045-focus-repeat",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "045-focus-repeat"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:23.323901+00:00",
+    "label": "047-home",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "047-home",
+      "2493",
+      "32"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:42.376429+00:00",
+    "observation": "Main after Focus Home still shows first two children while owned DB and Focus show four; Main editing/list selection disabled under active paused Focus. Capture retained, analysis deferred.",
+    "channel": "bookmarks.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:43.110396+00:00",
+    "label": "049-reenter",
+    "command": [
+      "click-screen",
+      "Narro",
+      "049-reenter",
+      "1673",
+      "695"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:53:59.021134+00:00",
+    "label": "051-home-again",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "051-home-again",
+      "2493",
+      "32"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:00.426441+00:00",
+    "label": "052-main-input",
+    "command": [
+      "click-screen",
+      "Narro",
+      "052-main-input",
+      "1674",
+      "584"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:01.944519+00:00",
+    "label": "053-fifth",
+    "command": [
+      "text",
+      "Narro",
+      "053-fifth",
+      "Schedule follow-up"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:03.448173+00:00",
+    "label": "054-fifth-enter",
+    "command": [
+      "key",
+      "Narro",
+      "054-fifth-enter",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:05.657955+00:00",
+    "label": "056-done-one",
+    "command": [
+      "click-screen",
+      "Narro",
+      "056-done-one",
+      "1436",
+      "502"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:07.196710+00:00",
+    "label": "057-done-two",
+    "command": [
+      "click-screen",
+      "Narro",
+      "057-done-two",
+      "1436",
+      "542"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:08.749062+00:00",
+    "label": "058-done-three",
+    "command": [
+      "click-screen",
+      "Narro",
+      "058-done-three",
+      "1436",
+      "582"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:10.309327+00:00",
+    "label": "059-done-four",
+    "command": [
+      "click-screen",
+      "Narro",
+      "059-done-four",
+      "1436",
+      "622"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:11.258968+00:00",
+    "label": "060-board-four-of-five",
+    "command": [
+      "snap",
+      "Narro",
+      "060-board-four-of-five"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:20.389815+00:00",
+    "label": "061-header-hover",
+    "command": [
+      "move-screen",
+      "Narro",
+      "061-header-hover",
+      "1535",
+      "458"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:21.911715+00:00",
+    "label": "062-collapse",
+    "command": [
+      "click-screen",
+      "Narro",
+      "062-collapse",
+      "1917",
+      "458"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:22.791761+00:00",
+    "label": "063-board-collapsed",
+    "command": [
+      "snap",
+      "Narro",
+      "063-board-collapsed"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:24.159237+00:00",
+    "label": "064-expand",
+    "command": [
+      "click-screen",
+      "Narro",
+      "064-expand",
+      "1917",
+      "458"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:25.709979+00:00",
+    "label": "065-tab",
+    "command": [
+      "key",
+      "Narro",
+      "065-tab",
+      "0x09"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:26.618564+00:00",
+    "label": "066-board-keyboard",
+    "command": [
+      "snap",
+      "Narro",
+      "066-board-keyboard"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:28.028617+00:00",
+    "label": "068-focus-ring",
+    "command": [
+      "click-screen",
+      "Narro",
+      "068-focus-ring",
+      "1673",
+      "815"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:28.826665+00:00",
+    "label": "069-focus-ring",
+    "command": [
+      "snap",
+      "Narro - Focus",
+      "069-focus-ring"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:40.693396+00:00",
+    "label": "070-complete-owned",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "070-complete-owned",
+      "2509",
+      "135"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 594262,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:42.087541+00:00",
+    "label": "071-home",
+    "command": [
+      "click-screen",
+      "Narro - Focus",
+      "071-home",
+      "2493",
+      "32"
+    ],
+    "window": {
+      "hwnd": 594262,
+      "title": "Narro - Focus",
+      "pid": 29524,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:43.467660+00:00",
+    "label": "072-new-list",
+    "command": [
+      "click-screen",
+      "Narro",
+      "072-new-list",
+      "103",
+      "111"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:45.103219+00:00",
+    "label": "073-builtin-title",
+    "command": [
+      "text",
+      "Narro",
+      "073-builtin-title",
+      "PA360 Builtin"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:46.724952+00:00",
+    "label": "074-icon-picker",
+    "command": [
+      "click-screen",
+      "Narro",
+      "074-icon-picker",
+      "1389",
+      "648"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:56.593088+00:00",
+    "label": "076-code-icon",
+    "command": [
+      "click-screen",
+      "Narro",
+      "076-code-icon",
+      "1735",
+      "581"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:58.220655+00:00",
+    "label": "077-create-builtin",
+    "command": [
+      "click-screen",
+      "Narro",
+      "077-create-builtin",
+      "1441",
+      "796"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:54:59.612194+00:00",
+    "label": "078-new-image",
+    "command": [
+      "click-screen",
+      "Narro",
+      "078-new-image",
+      "103",
+      "111"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:01.096692+00:00",
+    "label": "079-image-title",
+    "command": [
+      "text",
+      "Narro",
+      "079-image-title",
+      "PA360 Image"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:02.561787+00:00",
+    "label": "080-upload",
+    "command": [
+      "click-screen",
+      "Narro",
+      "080-upload",
+      "1280",
+      "476"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 8652818,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:20.499877+00:00",
+    "label": "082-image-file",
+    "command": [
+      "text",
+      "Open",
+      "082-image-file",
+      "E:\\SystemFiles\\Desktop\\Narro-PA352\\src-tauri\\icons\\128x128.png"
+    ],
+    "window": {
+      "hwnd": 8652818,
+      "title": "Open",
+      "pid": 74952,
+      "rect": [
+        0,
+        23,
+        1200,
+        563
+      ]
+    },
+    "foreground": 8652818,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:21.097961+00:00",
+    "label": "083-open-file",
+    "command": [
+      "key",
+      "Open",
+      "083-open-file",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 8652818,
+      "title": "Open",
+      "pid": 74952,
+      "rect": [
+        0,
+        23,
+        1200,
+        563
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:22.195807+00:00",
+    "label": "084-create-image",
+    "command": [
+      "click-screen",
+      "Narro",
+      "084-create-image",
+      "1441",
+      "796"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:23.625509+00:00",
+    "label": "085-all-lists",
+    "command": [
+      "click-screen",
+      "Narro",
+      "085-all-lists",
+      "103",
+      "176"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:25.067652+00:00",
+    "label": "086-selector",
+    "command": [
+      "click-screen",
+      "Narro",
+      "086-selector",
+      "2076",
+      "151"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:25.930689+00:00",
+    "label": "087-selector-three",
+    "command": [
+      "snap",
+      "Narro",
+      "087-selector-three"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:38.419955+00:00",
+    "label": "089-selector-three",
+    "command": [
+      "snap",
+      "Narro",
+      "089-selector-three"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:39.662557+00:00",
+    "label": "090-select-end",
+    "command": [
+      "key",
+      "Narro",
+      "090-select-end",
+      "0x23"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:41.114206+00:00",
+    "label": "091-select-image",
+    "command": [
+      "key",
+      "Narro",
+      "091-select-image",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:41.961260+00:00",
+    "label": "092-image-trigger",
+    "command": [
+      "snap",
+      "Narro",
+      "092-image-trigger"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:43.231760+00:00",
+    "label": "093-reopen-selector",
+    "command": [
+      "click-screen",
+      "Narro",
+      "093-reopen-selector",
+      "2076",
+      "151"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:44.695797+00:00",
+    "label": "094-select-home",
+    "command": [
+      "key",
+      "Narro",
+      "094-select-home",
+      "0x24"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:46.125206+00:00",
+    "label": "095-select-all",
+    "command": [
+      "key",
+      "Narro",
+      "095-select-all",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:47.566701+00:00",
+    "label": "096-all-subtasks",
+    "command": [
+      "click-screen",
+      "Narro",
+      "096-all-subtasks",
+      "2496",
+      "474"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:48.464620+00:00",
+    "label": "097-all-readonly",
+    "command": [
+      "snap",
+      "Narro",
+      "097-all-readonly"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:55:55.884611+00:00",
+    "label": "103-settings",
+    "command": [
+      "click-screen",
+      "Narro",
+      "103-settings",
+      "2497",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:10.814069+00:00",
+    "label": "105-dark",
+    "command": [
+      "click-screen",
+      "Narro",
+      "105-dark",
+      "1470",
+      "850"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:12.615087+00:00",
+    "label": "106-close-prefs",
+    "command": [
+      "click-screen",
+      "Narro",
+      "106-close-prefs",
+      "1628",
+      "63"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:14.134755+00:00",
+    "label": "107-collapse-readonly",
+    "command": [
+      "click-screen",
+      "Narro",
+      "107-collapse-readonly",
+      "2496",
+      "474"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:15.575918+00:00",
+    "label": "108-selector",
+    "command": [
+      "click-screen",
+      "Narro",
+      "108-selector",
+      "2076",
+      "151"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:17.029851+00:00",
+    "label": "109-home",
+    "command": [
+      "key",
+      "Narro",
+      "109-home",
+      "0x24"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:18.462120+00:00",
+    "label": "110-down",
+    "command": [
+      "key",
+      "Narro",
+      "110-down",
+      "0x28"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:19.897472+00:00",
+    "label": "111-board",
+    "command": [
+      "key",
+      "Narro",
+      "111-board",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:21.413700+00:00",
+    "label": "112-subtasks",
+    "command": [
+      "click-screen",
+      "Narro",
+      "112-subtasks",
+      "2496",
+      "474"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:22.324830+00:00",
+    "label": "113-dark100-subtasks",
+    "command": [
+      "snap",
+      "Narro",
+      "113-dark100-subtasks"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:23.682056+00:00",
+    "label": "114-search",
+    "command": [
+      "click-screen",
+      "Narro",
+      "114-search",
+      "2407",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:24.627106+00:00",
+    "label": "115-dark100-search",
+    "command": [
+      "snap",
+      "Narro",
+      "115-dark100-search"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:38.323880+00:00",
+    "label": "117-search-tab",
+    "command": [
+      "key",
+      "Narro",
+      "117-search-tab",
+      "0x09"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:39.249276+00:00",
+    "label": "118-search-keyboard",
+    "command": [
+      "snap",
+      "Narro",
+      "118-search-keyboard"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:40.611762+00:00",
+    "label": "119-new-list",
+    "command": [
+      "click-screen",
+      "Narro",
+      "119-new-list",
+      "1225",
+      "380"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:42.238554+00:00",
+    "label": "120-cancel-list",
+    "command": [
+      "click-screen",
+      "Narro",
+      "120-cancel-list",
+      "1321",
+      "796"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:43.763050+00:00",
+    "label": "121-search",
+    "command": [
+      "click-screen",
+      "Narro",
+      "121-search",
+      "2407",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:45.327673+00:00",
+    "label": "122-new-task",
+    "command": [
+      "click-screen",
+      "Narro",
+      "122-new-task",
+      "1080",
+      "380"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:56.851930+00:00",
+    "label": "124-task-route",
+    "command": [
+      "snap",
+      "Narro",
+      "124-task-route"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:58.160691+00:00",
+    "label": "125-cancel-task",
+    "command": [
+      "click-screen",
+      "Narro",
+      "125-cancel-task",
+      "1371",
+      "632"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:56:59.715274+00:00",
+    "label": "126-search",
+    "command": [
+      "click-screen",
+      "Narro",
+      "126-search",
+      "2407",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:11.178324+00:00",
+    "label": "128-open-search",
+    "command": [
+      "click-screen",
+      "Narro",
+      "128-open-search",
+      "2407",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:12.731891+00:00",
+    "label": "129-query",
+    "command": [
+      "text",
+      "Narro",
+      "129-query",
+      "Pete"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:13.641949+00:00",
+    "label": "130-search-results",
+    "command": [
+      "snap",
+      "Narro",
+      "130-search-results"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:14.995046+00:00",
+    "label": "131-select-query",
+    "command": [
+      "key",
+      "Narro",
+      "131-select-query",
+      "0x11+0x41"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:16.532657+00:00",
+    "label": "132-no-results",
+    "command": [
+      "text",
+      "Narro",
+      "132-no-results",
+      "zzzzpa360nomatch"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:17.446888+00:00",
+    "label": "133-search-no-results",
+    "command": [
+      "snap",
+      "Narro",
+      "133-search-no-results"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:18.731955+00:00",
+    "label": "134-escape",
+    "command": [
+      "key",
+      "Narro",
+      "134-escape",
+      "0x1B"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:20.244051+00:00",
+    "label": "135-open-search",
+    "command": [
+      "click-screen",
+      "Narro",
+      "135-open-search",
+      "2407",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:21.800273+00:00",
+    "label": "136-reports",
+    "command": [
+      "click-screen",
+      "Narro",
+      "136-reports",
+      "1372",
+      "380"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:22.726794+00:00",
+    "label": "137-reports-route",
+    "command": [
+      "snap",
+      "Narro",
+      "137-reports-route"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:24.073453+00:00",
+    "label": "138-settings",
+    "command": [
+      "click-screen",
+      "Narro",
+      "138-settings",
+      "2497",
+      "54"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:25.831078+00:00",
+    "label": "139-light",
+    "command": [
+      "click-screen",
+      "Narro",
+      "139-light",
+      "1552",
+      "850"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:27.619923+00:00",
+    "label": "140-close-prefs",
+    "command": [
+      "click-screen",
+      "Narro",
+      "140-close-prefs",
+      "1628",
+      "63"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:29.169529+00:00",
+    "label": "141-restore",
+    "command": [
+      "click-screen",
+      "Narro",
+      "141-restore",
+      "2489",
+      "15"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -8,
+        -8,
+        2568,
+        1088
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:40.635160+00:00",
+    "hwnd": 4723784,
+    "pid": 29524,
+    "method": "SetWindowPos",
+    "target": [
+      -1840,
+      60,
+      1680,
+      940
+    ],
+    "purpose": "real secondary monitor 125% native DPI; primary/topology unchanged",
+    "channel": "native-window-moves.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:41.550766+00:00",
+    "label": "142-maximize-secondary",
+    "command": [
+      "click-screen",
+      "Narro",
+      "142-maximize-secondary",
+      "160",
+      "79"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1840,
+        60,
+        258,
+        1233
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:43.142839+00:00",
+    "label": "143-search125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "143-search125",
+      "-191",
+      "67"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:57:44.079839+00:00",
+    "label": "144-light125-search",
+    "command": [
+      "snap",
+      "Narro",
+      "144-light125-search"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:02.671207+00:00",
+    "label": "146-escape125",
+    "command": [
+      "key",
+      "Narro",
+      "146-escape125",
+      "0x1B"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:04.297822+00:00",
+    "label": "147-all125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "147-all125",
+      "-1791",
+      "219"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:05.772589+00:00",
+    "label": "148-selector125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "148-selector125",
+      "-605",
+      "188"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:06.653204+00:00",
+    "label": "149-light125-selector",
+    "command": [
+      "snap",
+      "Narro",
+      "149-light125-selector"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:15.731145+00:00",
+    "label": "151-board-pointer125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "151-board-pointer125",
+      "-620",
+      "297"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:16.868231+00:00",
+    "label": "152-expand125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "152-expand125",
+      "-80",
+      "591"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:17.795115+00:00",
+    "label": "153-light125-four-of-five",
+    "command": [
+      "snap",
+      "Narro",
+      "153-light125-four-of-five"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:19.093479+00:00",
+    "label": "154-collapse125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "154-collapse125",
+      "-80",
+      "591"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:20.560742+00:00",
+    "label": "155-selector125",
+    "command": [
+      "click-screen",
+      "Narro",
+      "155-selector125",
+      "-605",
+      "188"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:22.054937+00:00",
+    "label": "156-up-all125",
+    "command": [
+      "key",
+      "Narro",
+      "156-up-all125",
+      "0x24"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:23.513825+00:00",
+    "label": "157-all-enter125",
+    "command": [
+      "key",
+      "Narro",
+      "157-all-enter125",
+      "0x0D"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:24.393920+00:00",
+    "label": "158-light125-all-trigger",
+    "command": [
+      "snap",
+      "Narro",
+      "158-light125-all-trigger"
+    ],
+    "window": {
+      "hwnd": 4723784,
+      "title": "Narro",
+      "pid": 29524,
+      "rect": [
+        -1929,
+        -9,
+        9,
+        1089
+      ]
+    },
+    "foreground": 4723784,
+    "channel": "native-actions.jsonl"
+  },
+  {
+    "utc": "2026-10-16T06:58:34.364374+00:00",
+    "hwnd": 2429984,
+    "action": "Stop Recording",
+    "controls": [
+      {
+        "name": "00:00:00",
+        "id": "OBSApp.OBSBasic.statusbar.StatusBarWidget.recordFrame.recordTime",
+        "type": 50020
+      },
+      {
+        "name": "Start Recording",
+        "id": "OBSApp.OBSBasic.controlsDock.OBSBasicControls.controlsFrame.recordButton",
+        "type": 50000
+      }
+    ],
+    "channel": "obs-actions.jsonl"
+  }
+]

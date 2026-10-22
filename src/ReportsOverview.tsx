@@ -39,6 +39,7 @@ import {
 } from "./reportOverviewPresentation";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { reportListAccent } from "./reportListAccent";
+import { orderReportDoneTasks } from "./reportDoneOrdering";
 
 type ReportsOverviewProps = {
   onBack?: () => void;
@@ -106,7 +107,7 @@ function doneTaskPresentation(
   timeZone: string,
   listColors: ReadonlyMap<string, string | null>,
 ): ReportsDoneTask[] {
-  return overview.doneTasks.map(({ task, timing }) => {
+  return orderReportDoneTasks(overview.doneTasks).map(({ task, timing }) => {
     const punctuality = timing?.kind === "early"
       ? "early"
       : timing?.kind === "late"
@@ -119,7 +120,9 @@ function doneTaskPresentation(
       title: task.taskTitle,
       listTitle: task.listTitle,
       listColor: reportListAccent(task.listId, listColors),
-      completionLabel: formatReportCompletionDate(task.completedAt, locale, timeZone),
+      completionLabel: Number.isFinite(Date.parse(task.completedAt))
+        ? formatReportCompletionDate(task.completedAt, locale, timeZone)
+        : "Completion date unavailable",
       timeTakenLabel: formatReportDuration(task.timeTakenSeconds),
       punctuality,
       varianceLabel: timing === null
@@ -136,10 +139,12 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const preferences = usePreferenceSettingsProjection();
   const [home, setHome] = useState<HomeSnapshot | null>(null);
   const [homeError, setHomeError] = useState<string | null>(null);
+  const [homeReadAttempt, setHomeReadAttempt] = useState(0);
   const [overview, setOverview] = useState<ReportOverview | null>(null);
   const [overviewRequestKey, setOverviewRequestKey] = useState<string | null>(null);
   const [reportPending, setReportPending] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
+  const [reportReadAttempt, setReportReadAttempt] = useState(0);
   const [exportPending, setExportPending] = useState(false);
   // A single Export can create a distinct PDF and temporarily lock body interaction.
   const exportInFlightRef = useRef(false);
@@ -189,7 +194,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     return () => {
       disposed = true;
     };
-  }, []);
+  }, [homeReadAttempt]);
 
   useEffect(() => {
     if (!preferences.settled || appliedRange !== null) return;
@@ -222,7 +227,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     return () => {
       disposed = true;
     };
-  }, [reportRequest, reportRequestKey]);
+  }, [reportRequest, reportRequestKey, reportReadAttempt]);
 
   const listOptions = useMemo<ReportsListOption[]>(() => [
     { id: null, title: "All Lists", color: null },
@@ -334,6 +339,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
       const result = await exportReportOverviewPdf({
         startAt: reportRequest.startAt,
         endAt: reportRequest.endAt,
+        displayTimezone: reportRequest.displayTimezone,
       });
       setExportStatus(`Saved PDF to ${result.path}`);
     } catch (failure: unknown) {
@@ -353,6 +359,24 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         <h1>Reports</h1>
         <p>Reports could not be loaded from local data.</p>
         <code>{blockingError}</code>
+        {(homeError || (overview === null && reportError)) ? (
+          <button type="button" className="motion-interactive" data-reports-overview-retry="true"
+            onClick={() => {
+              if (homeError) {
+                setHomeError(null);
+                setHome(null);
+                setHomeReadAttempt((attempt) => attempt + 1);
+              }
+              if (overview === null && reportError) {
+                setReportError(null);
+                setReportPending(true);
+                setReportReadAttempt((attempt) => attempt + 1);
+              }
+            }}>
+            Retry loading reports
+          </button>
+        ) : null}
+        <button type="button" className="motion-interactive" onClick={onBack}>Back</button>
       </section>
     );
   }

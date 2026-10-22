@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 // Inspect actual production mutation handler boundaries, not a UI-only imitation.
-const source = fs.readFileSync("src/FocusPanel.tsx", "utf8");
+const source = fs.readFileSync("src/FocusPanel.tsx", "utf8").replace(/\r\n/g, "\n");
 function section(start, end) {
   const from = source.indexOf(start);
   const to = source.indexOf(end, from + start.length);

@@ -1,0 +1,34 @@
+[
+  {
+    "FriendlyName": "Voicemeeter Out 1 (VB-Audio Voicemeeter VAIO)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "CABLE In 16ch (VB-Audio Virtual Cable)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "CABLE Input (VB-Audio Virtual Cable)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "Microphone (HyperX Virtual Surround Sound)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "4 - 2D FHD LG TV (AMD High Definition Audio Device)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "Speakers (VB-Audio Voicemeeter VAIO)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "CABLE Output (VB-Audio Virtual Cable)",
+    "Status": "OK"
+  },
+  {
+    "FriendlyName": "Speakers (HyperX Virtual Surround Sound)",
+    "Status": "OK"
+  }
+]

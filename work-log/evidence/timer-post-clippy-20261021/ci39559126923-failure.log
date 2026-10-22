@@ -1,0 +1,43 @@
+windows-candidate	Run Clippy	﻿2026-10-21T07:05:53.1997942Z ##[group]Run npm run check:rust:clippy
+windows-candidate	Run Clippy	2026-10-21T07:05:53.1998277Z ^[[36;1mnpm run check:rust:clippy^[[0m
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2060217Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2060528Z env:
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2060702Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2060915Z   CARGO_INCREMENTAL: 0
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2061094Z   CARGO_TERM_COLOR: always
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2061281Z   CACHE_ON_FAILURE: false
+windows-candidate	Run Clippy	2026-10-21T07:05:53.2061463Z ##[endgroup]
+windows-candidate	Run Clippy	2026-10-21T07:05:53.7494982Z 
+windows-candidate	Run Clippy	2026-10-21T07:05:53.7495696Z > narro@0.1.0 check:rust:clippy
+windows-candidate	Run Clippy	2026-10-21T07:05:53.7496556Z > cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+windows-candidate	Run Clippy	2026-10-21T07:05:53.7497116Z 
+windows-candidate	Run Clippy	2026-10-21T07:05:54.3357092Z ^[[1m^[[92m   Compiling^[[0m narro v0.1.0 (D:\a\Narro\Narro\src-tauri)
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3363584Z ^[[1m^[[91merror^[[0m^[[1m^[[97m: using `chunks_exact` with a constant chunk size^[[0m
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3393369Z    ^[[1m^[[96m--> ^[[0msrc\focus_mode_raster.rs:195:34
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3424860Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3433679Z ^[[1m^[[96m195^[[0m ^[[1m^[[96m|^[[0m         let gray: Vec<_> = frame.chunks_exact(4).map(|pixel| pixel[0]).collect();
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3463198Z     ^[[1m^[[96m|^[[0m                                  ^[[1m^[[91m^^^^^^^^^^^^^^^^[[0m ^[[1m^[[91mhelp: consider using `as_chunks` instead: `as_chunks::<4>().0.iter()`^[[0m
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3482166Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3496379Z     ^[[1m^[[96m= ^[[0m^[[1m^[[97mhelp^[[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#chunks_exact_to_as_chunks
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3498985Z     ^[[1m^[[96m= ^[[0m^[[1m^[[97mnote^[[0m: `-D clippy::chunks-exact-to-as-chunks` implied by `-D warnings`
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3500366Z     ^[[1m^[[96m= ^[[0m^[[1m^[[97mhelp^[[0m: to override `-D warnings` add `#[allow(clippy::chunks_exact_to_as_chunks)]`
+windows-candidate	Run Clippy	2026-10-21T07:06:02.3528560Z 
+windows-candidate	Run Clippy	2026-10-21T07:06:03.2485920Z ^[[1m^[[91merror^[[0m: could not compile `narro` (lib test) due to 1 previous error
+windows-candidate	Run Clippy	2026-10-21T07:06:03.3459779Z ##[error]Process completed with exit code 1.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	﻿2026-10-21T07:06:03.5475480Z ##[group]Run actions/upload-artifact@v4
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5475789Z with:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5475958Z   name: narro-m7-focus-runtime-visual
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5476201Z   path: artifacts/focus-runtime-visual/**
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5476426Z   if-no-files-found: error
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5476620Z   compression-level: 6
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5476788Z   overwrite: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5476960Z   include-hidden-files: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5477141Z env:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5477298Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5477503Z   CARGO_INCREMENTAL: 0
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5477672Z   CARGO_TERM_COLOR: always
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5477841Z   CACHE_ON_FAILURE: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.5478015Z ##[endgroup]
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.7109941Z (node:5772) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.7111034Z (Use `node --trace-deprecation ...` to show where the warning was created)
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-21T07:06:03.7145925Z ##[error]No files were found with the provided path: artifacts/focus-runtime-visual/**. No artifacts will be uploaded.

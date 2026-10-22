@@ -1,0 +1,188 @@
+[
+  {
+    "path": "final-frontend-preflight.txt",
+    "bytes": 33342,
+    "sha256": "735d8e01522047f6ade911457f432b08bf4eb909db60bd761c0ee9c9bdc42a5f",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "final-production-build.txt",
+    "bytes": 7821,
+    "sha256": "686e6431810265eeabbd7728408e30233521c0dcdf42889b0d036ce745402721",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-false.html",
+    "bytes": 24378,
+    "sha256": "ce3812b42e8a1b4168ec5ca1c339b43bab3429957a47d0f591a6afff31a90375",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-false.html.diagnostics.json",
+    "bytes": 5506,
+    "sha256": "95da1bc49a0c811f36f4cddb6d39466fcb0c25a6aad5822c56371d2e01a30afe",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-false.png",
+    "bytes": 57192,
+    "sha256": "3e132142bb7718dfb48432481fd20c7af242add52f5299a4adfc840d20c231bd",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-false.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-true.html",
+    "bytes": 24377,
+    "sha256": "c91a168f66c8cf3cfef81faf6ce50c5abdf5371788f65b929523bd35418be10c",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-true.html.diagnostics.json",
+    "bytes": 5158,
+    "sha256": "46a1477111c66671741e619643e0172d2e3d99dc733a35648172bf0afb6d1921",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-true.png",
+    "bytes": 57219,
+    "sha256": "884f1c6e79c5d9c6ce3cea3bbf32ab2693c275dc710d8ea4c61ba61ef1b744aa",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-dark-true.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-false.html",
+    "bytes": 24380,
+    "sha256": "f504da627efd23f6a3af03d7b012f800c952064fabcd206e5a1f17f4af0c34e7",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-false.html.diagnostics.json",
+    "bytes": 5165,
+    "sha256": "4dc3c93c2e893864d49eb139e46ba660e0c2a0b5a45ee2309b28e8393b4e740a",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-false.png",
+    "bytes": 60341,
+    "sha256": "28ed85b0c16089f0eaf4788c713ab04fc99e5bfbdbffcd3f0713d79329f5b50d",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-true.html",
+    "bytes": 24379,
+    "sha256": "bcd9ed38f0384d8e52011bfe913b36f8b42c2f66aa0e9dda1626e35fc610b66e",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-true.html.diagnostics.json",
+    "bytes": 5162,
+    "sha256": "bde890ee8f18546bd928feb3494dea40a0b308c0f45804c7ee635f19e688eb93",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-true.png",
+    "bytes": 60350,
+    "sha256": "16317b6d55761cec88883f5944fdd9a2430449c0b339c4b57e9c43c7c485ea85",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-light-true.txt",
+    "bytes": 63,
+    "sha256": "35bd32b5d5d1cb0a3782bb98433430943d73dadea1c51824703073f53f1148b3",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "production-final-matrix.json",
+    "bytes": 343,
+    "sha256": "bee0913a804f782306057c27c323359016a90f1619fe35fe786f03fb1833597d",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "README.md",
+    "bytes": 1881,
+    "sha256": "f2d40e591bd0dd4cc118c53398db539f830846d81b111cf5a627b1101168d0e4",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "receipts.json",
+    "bytes": 2324,
+    "sha256": "7cecbf20895107edeffb37a05196942046dfa35ac2d70e8ad087c7d92b23b651",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "red-independent.html.diagnostics.json",
+    "bytes": 9935,
+    "sha256": "5582f87a5dfa80418859d1c91c47a3e6110843216abde79c681f016b134b33b7",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "tool-health.json",
+    "bytes": 375,
+    "sha256": "eb284ae4d42b78761b6197c7bbb111fca4e4e2143a7b96c94517304350b69c33",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "cropped-source-cadence-probe.json",
+    "bytes": 378,
+    "sha256": "a9cf69c8342fac3c36924b0492cbcf3d20ba57f685ca497540416efb1c138ab2",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "dxgi-cadence-probe.json",
+    "bytes": 314,
+    "sha256": "9a633675d08301b9cf97d30d79eed82c683f1768e41b709892b10d6d5c0d1d6d",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "ci-windows-visual-proof.json",
+    "bytes": 2478,
+    "sha256": "9d3afd3d1399ea8c2cb3f8ce7cbe00859ffd5910b00ae8ec88acec1aea94c580",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "ci-fast-dist-proof.json",
+    "bytes": 15076,
+    "sha256": "9d34f76ea3e0c89ca8619eb7964a9a8d1916fade0bf6fac6d89f884e6f6531d8",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "dxgi-oversampling-probe.json",
+    "bytes": 302,
+    "sha256": "577d286c4780f1c0cfef6dbd31b402ac0715e70dc2408afb6fb505d97283b8a6",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "merge-equivalence-proof.json",
+    "bytes": 3740,
+    "sha256": "7bd46e03691476ff64e0bd0dc8ba59058fa1600c0021d0fbb0e7860d233a1fa9",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "final-pr-ci-state.json",
+    "bytes": 13533,
+    "sha256": "10edfb2087beab3011816f2612999c6a55837e15d4b8c4a42a81c79e75455fc2",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "candidate-meta.json",
+    "bytes": 1025,
+    "sha256": "cc25ac89793ce155c75b240cba3c3a72443d4974b4de1f513346fd822585c0d3",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  },
+  {
+    "path": "native-acceptance-plan.json",
+    "bytes": 730,
+    "sha256": "73376100f72b6ca97dc18ca26aa3f913c81df0ab7d58771226bed80e7e1c8e18",
+    "hashBasis": "canonical Git blob bytes; LF text, binary unchanged"
+  }
+]

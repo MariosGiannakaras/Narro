@@ -1,10 +1,13 @@
-import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { ActionIcon } from "./ActionIcon";
+import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import { orderRecentSessionTasks } from "./recentSessionTaskChoices";
+import { positionReportAddSession } from "./reportAddSessionPlacement";
+import { listIconContrast } from "./listSpectrumColor";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
 
@@ -108,26 +111,26 @@ function DateRangePicker({
                 aria-label="Previous year"
                 onClick={onPreviousYear}
                 disabled={monthIndex !== 0}
-              >«</button>
+              ><ActionIcon name="chevrons-left" /></button>
               <button
                 type="button"
                 aria-label="Previous month"
                 onClick={onPreviousMonth}
                 disabled={monthIndex !== 0}
-              >‹</button>
+              ><ActionIcon name="chevron-left" /></button>
               <strong>{month.label}</strong>
               <button
                 type="button"
                 aria-label="Next month"
                 onClick={onNextMonth}
                 disabled={monthIndex !== months.length - 1}
-              >›</button>
+              ><ActionIcon name="chevron-right" /></button>
               <button
                 type="button"
                 aria-label="Next year"
                 onClick={onNextYear}
                 disabled={monthIndex !== months.length - 1}
-              >»</button>
+              ><ActionIcon name="chevrons-right" /></button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["S", "M", "T", "W", "T", "F", "S"].map((label, index) => (
@@ -208,7 +211,7 @@ function SessionRow({
       </span>
       <span className="reports-sessions__date">{row.dateLabel}</span>
       <span className="reports-sessions__time">{row.startLabel}</span>
-      <span className="reports-sessions__arrow" aria-hidden="true">→</span>
+      <span className="reports-sessions__arrow"><ActionIcon name="arrow-right" /></span>
       <span className="reports-sessions__time reports-sessions__time--end">
         {editing ? (
           <span className="reports-sessions__inline-editor">
@@ -225,7 +228,7 @@ function SessionRow({
               aria-label="Save session end time"
               disabled={pending}
               onClick={() => void commit()}
-            >✓</button>
+            ><ActionIcon name="check" /></button>
           </span>
         ) : (
           <button
@@ -245,7 +248,7 @@ function SessionRow({
       <Menu
         triggerLabel={`Session actions for ${row.taskTitle}`}
         align="end"
-        trigger={<span aria-hidden="true">•••</span>}
+        trigger={<ActionIcon name="more" />}
       >
         {showDetailAction ? (
           <MenuItem
@@ -266,6 +269,7 @@ function SessionRow({
 export function ReportTaskSessionsDialog({
   detail,
   pendingSessionId,
+  covered = false,
   returnFocusTarget,
   onClose,
   onAddSession,
@@ -274,21 +278,23 @@ export function ReportTaskSessionsDialog({
 }: {
   detail: ReportsTaskDetailView;
   pendingSessionId: string | null;
+  covered?: boolean;
   returnFocusTarget?: HTMLElement | null;
   onClose: () => void;
-  onAddSession: (taskId: string) => void;
+  onAddSession: (taskId: string, opener?: HTMLElement) => void;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
   onDelete: (row: ReportsSessionViewRow) => void;
 }) {
   const dialogRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+  const nestedReturnPendingRef = useRef(false);
   const openerRef = useRef<HTMLElement | null>(null);
   const pending = pendingSessionId !== null;
 
   useEffect(() => {
     const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    // The detail is temporarily unmounted while nested Add Session owns focus.
-    // Reuse the original list opener after remount, not document.body.
+    // Nested Add keeps this owner mounted, preserving its actual button opener.
     openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
     closeButtonRef.current?.focus();
     return () => {
@@ -297,8 +303,16 @@ export function ReportTaskSessionsDialog({
   }, []);
 
   useEffect(() => {
-    if (pending) dialogRef.current?.focus();
-  }, [pending]);
+    if (pending && !covered) dialogRef.current?.focus();
+  }, [pending, covered]);
+
+  useEffect(() => {
+    if (covered) nestedReturnPendingRef.current = true;
+    if (nestedReturnPendingRef.current && !covered && !pending) {
+      nestedReturnPendingRef.current = false;
+      addButtonRef.current?.focus();
+    }
+  }, [covered, pending]);
 
   function handleDetailKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.key === "Escape") {
@@ -330,9 +344,10 @@ export function ReportTaskSessionsDialog({
   }
 
   return (
-    <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true">
+    <div className="reports-sessions__backdrop" role="presentation" data-report-session-detail="true"
+      hidden={covered} inert={covered} aria-hidden={covered ? true : undefined}>
       <section ref={dialogRef} className="reports-sessions__detail" role="dialog"
-        aria-modal="true" aria-labelledby="report-task-sessions-title" tabIndex={-1}
+        aria-modal={covered ? undefined : true} aria-labelledby="report-task-sessions-title" tabIndex={-1}
         onKeyDown={handleDetailKeyDown} data-report-session-detail-dialog="true">
         <header className="reports-sessions__detail-header">
           <div>
@@ -347,11 +362,12 @@ export function ReportTaskSessionsDialog({
             <span>{detail.totalTime}</span>
           </div>
           <button ref={closeButtonRef} type="button" aria-label="Close task session detail"
-            disabled={pending} onClick={() => { if (!pending) onClose(); }}>×</button>
+            disabled={pending} onClick={() => { if (!pending) onClose(); }}><ActionIcon name="close" /></button>
         </header>
         <div className="reports-sessions__detail-actions">
           <button type="button" className="reports-sessions__primary" disabled={pending}
-            onClick={() => { if (!pending) onAddSession(detail.taskId); }}>
+            ref={addButtonRef}
+            onClick={(event) => { if (!pending) onAddSession(detail.taskId, event.currentTarget); }}>
             + Add Session
           </button>
         </div>
@@ -389,6 +405,7 @@ export function focusableDialogElements(container: HTMLElement): HTMLElement[] {
 }
 
 export function ReportAddSessionDialog({
+  returnFocusTarget,
   tasks,
   draft,
   pending,
@@ -397,6 +414,7 @@ export function ReportAddSessionDialog({
   onClose,
   onCommit,
 }: {
+  returnFocusTarget?: HTMLElement | null;
   tasks: SearchPaletteTaskResult[];
   draft: ReportsAddSessionDraft;
   pending: boolean;
@@ -407,6 +425,8 @@ export function ReportAddSessionDialog({
 }) {
   const [query, setQuery] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [pickerPlacement, setPickerPlacement] = useState({ above: false, maxHeight: 280 });
+  const [anchorPosition, setAnchorPosition] = useState<{ left: number; top: number } | null>(null);
   const orderedTasks = useMemo(() => orderRecentSessionTasks(tasks), [tasks]);
   const filtered = orderedTasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
@@ -415,13 +435,16 @@ export function ReportAddSessionDialog({
   const pickerAnchorRef = useRef<HTMLDivElement>(null);
   const pickerTriggerRef = useRef<HTMLButtonElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    // Pointer activation may leave Back focused. The opening event owns identity.
+    openerRef.current = returnFocusTarget?.isConnected ? returnFocusTarget : current;
     pickerTriggerRef.current?.focus();
-    return () => openerRef.current?.focus();
-  }, []);
+    return () => { if (openerRef.current?.isConnected) openerRef.current.focus(); };
+  }, [returnFocusTarget]);
 
   useEffect(() => {
     if (pending) {
@@ -429,6 +452,40 @@ export function ReportAddSessionDialog({
       dialogRef.current?.focus();
     }
   }, [pending]);
+
+  // The original SS-H17 Add Session is anchored beneath the actual invoking
+  // control, not centered. Measure only during a real open/resize/selection;
+  // retain a centered modal fallback if the opener has since been detached.
+  useLayoutEffect(() => {
+    const position = () => {
+      const rect = returnFocusTarget?.getBoundingClientRect();
+      const panel = dialogRef.current;
+      // In the nested Task Sessions → Add flow the parent detail dialog is
+      // intentionally hidden/inert, yet its opener remains isConnected. A
+      // detached OR visually suppressed opener has no meaningful anchor.
+      // Falling back to the centered accessible modal protects this path.
+      if (!rect || !returnFocusTarget?.isConnected || !panel
+        || returnFocusTarget.closest("[hidden], [inert]")
+        || returnFocusTarget.getClientRects().length === 0
+        || rect.width <= 0 || rect.height <= 0) {
+        setAnchorPosition(null);
+        return;
+      }
+      const next = positionReportAddSession(rect, {
+        width: panel.offsetWidth,
+        height: panel.offsetHeight,
+      }, { width: window.innerWidth, height: window.innerHeight });
+      setAnchorPosition((current) =>
+        current?.left === next.left && current.top === next.top ? current : next);
+    };
+    position();
+    window.addEventListener("resize", position);
+    window.addEventListener("scroll", position, true);
+    return () => {
+      window.removeEventListener("resize", position);
+      window.removeEventListener("scroll", position, true);
+    };
+  }, [returnFocusTarget, draft.taskId, pickerOpen, pending, error]);
 
   useEffect(() => {
     if (!pickerOpen || pending) return;
@@ -441,6 +498,41 @@ export function ReportAddSessionDialog({
     document.addEventListener("pointerdown", onOutside);
     return () => document.removeEventListener("pointerdown", onOutside);
   }, [pickerOpen, pending]);
+
+  useLayoutEffect(() => {
+    if (!pickerOpen || pending) return;
+    const place = () => {
+      const anchor = pickerAnchorRef.current?.getBoundingClientRect();
+      if (!anchor) return;
+      const below = Math.max(0, window.innerHeight - anchor.bottom - 8);
+      const above = Math.max(0, anchor.top - 8);
+      const useAbove = below < 160 && above > below;
+      setPickerPlacement({ above: useAbove, maxHeight: Math.min(280, useAbove ? above : below) });
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [pickerOpen, pending]);
+
+  function handlePickerKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (pending) return;
+    const options = Array.from(pickerRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]:not([disabled])') ?? []);
+    if (!options.length || !["ArrowDown", "ArrowUp", "Home", "End", "Enter"].includes(event.key)) return;
+    const index = options.indexOf(document.activeElement as HTMLButtonElement);
+    if (event.key === "Enter") {
+      // Enter from the search box selects the first visible match; Enter
+      // on an option preserves its explicit selection. No result => no action.
+      event.preventDefault();
+      (index >= 0 ? options[index] : options[0]).click();
+      return;
+    }
+    event.preventDefault();
+    const next = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1
+      : event.key === "ArrowDown" ? (index + 1) % options.length
+      : index <= 0 ? options.length - 1 : index - 1;
+    options[next].focus({ preventScroll: true });
+    options[next].scrollIntoView({ block: "nearest" });
+  }
 
   function closePicker() {
     setPickerOpen(false);
@@ -494,6 +586,8 @@ export function ReportAddSessionDialog({
       <section
         ref={dialogRef}
         className="reports-sessions__add-dialog"
+        data-report-add-anchored={anchorPosition ? "true" : "false"}
+        style={anchorPosition ? { left: anchorPosition.left, top: anchorPosition.top } : undefined}
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-add-session-title"
@@ -502,7 +596,7 @@ export function ReportAddSessionDialog({
       >
         <header>
           <h2 id="report-add-session-title">Add Session</h2>
-          <button type="button" aria-label="Close Add Session" disabled={pending} onClick={requestClose}>×</button>
+          <button type="button" aria-label="Close Add Session" disabled={pending} onClick={requestClose}><ActionIcon name="close" /></button>
         </header>
 
         <div className="reports-sessions__field reports-sessions__task-selector" ref={pickerAnchorRef}>
@@ -519,10 +613,12 @@ export function ReportAddSessionDialog({
             onClick={() => setPickerOpen((current) => !current)}
           >
             <span>{selected?.title ?? "Select tasks..."}</span>
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={pickerOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {pickerOpen && !pending ? (
-            <div className="reports-sessions__task-selector-popover" data-report-task-picker-open="true">
+            <div ref={pickerRef} className="reports-sessions__task-selector-popover" data-report-task-picker-open="true"
+              data-picker-above={pickerPlacement.above ? "true" : "false"}
+              style={{ maxHeight: pickerPlacement.maxHeight }} onKeyDown={handlePickerKeyDown}>
               <input
                 ref={searchInputRef}
                 type="search"
@@ -534,6 +630,9 @@ export function ReportAddSessionDialog({
               />
               <div className="reports-sessions__task-picker" role="listbox" aria-label="Recent Tasks">
                 <strong>Recent Tasks</strong>
+                {filtered.length === 0 ? (
+                  <p className="reports-sessions__task-picker-empty" role="status">No matching tasks</p>
+                ) : null}
                 {filtered.slice(0, 12).map((task) => (
                   <button
                     type="button"
@@ -544,12 +643,13 @@ export function ReportAddSessionDialog({
                     onClick={() => chooseTask(task.id)}
                   >
                     <span>{task.title}</span>
-                    <small className="reports-sessions__task-picker-list" data-session-task-list-badge="true">
-                      <i
-                        aria-hidden="true"
-                        style={{ backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)" }}
-                      />
-                      {task.listTitle}
+                    <small className="reports-sessions__task-picker-list"
+                      data-session-task-list-badge="true" title={task.listTitle}>
+                      <i aria-hidden="true" style={{
+                        backgroundColor: task.listColor && HEX_COLOR.test(task.listColor) ? task.listColor : "var(--color-accent-solid)",
+                        color: task.listColor && HEX_COLOR.test(task.listColor) ? listIconContrast(task.listColor) : "var(--color-text-primary)",
+                      }}>{task.listTitle.trim().charAt(0).toUpperCase() || "L"}</i>
+                      <span className="reports-sessions__task-picker-list-label">{task.listTitle}</span>
                     </small>
                   </button>
                 ))}
@@ -561,8 +661,8 @@ export function ReportAddSessionDialog({
         {selected ? (
           <div className="reports-sessions__add-fields">
             <p className="reports-sessions__selected-task">
-              <strong>{selected.title}</strong>
-              <span>{selected.listTitle}</span>
+              <strong title={selected.title}>{selected.title}</strong>
+              <span title={selected.listTitle}>{selected.listTitle}</span>
             </p>
             <label className="reports-sessions__field">
               <span>Date</span>
@@ -627,7 +727,7 @@ export type ReportsSessionsViewProps = {
   exportPending?: boolean;
   onBack?: () => void;
   onOpenOverview: () => void;
-  onOpenAddSession: () => void;
+  onOpenAddSession: (opener: HTMLElement) => void;
   onExport?: () => void;
   onToggleBreakSessions: () => void;
   onToggleListFilter: () => void;
@@ -683,11 +783,11 @@ export function ReportsSessionsView({
     <section className="reports-overview reports-sessions" data-reports-sessions="true">
       <header className="reports-overview__header">
         <div className="reports-overview__title-row">
-          <button type="button" className="reports-overview__back" onClick={onBack}>← Back</button>
+          <button type="button" className="reports-overview__back" onClick={onBack}><ActionIcon name="arrow-left" /> Back</button>
           <h1>Reports</h1>
         </div>
         <div className="reports-sessions__top-actions">
-          <button type="button" className="reports-sessions__primary" onClick={onOpenAddSession}>+ Add Session</button>
+          <button type="button" className="reports-sessions__primary" onClick={(event) => onOpenAddSession(event.currentTarget)}>+ Add Session</button>
           <button
             type="button"
             className="reports-overview__export"
@@ -717,7 +817,7 @@ export function ReportsSessionsView({
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
-            <span aria-hidden="true">⌄</span>
+            <ActionIcon name={listFilterOpen ? "chevron-up" : "chevron-down"} />
           </button>
           {listFilterOpen ? (
             <div
@@ -738,7 +838,7 @@ export function ReportsSessionsView({
                     key={option.id ?? "all"}
                     onClick={() => onToggleListSelection(option.id)}
                   >
-                    <span className="reports-overview__list-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+                    <span className="reports-overview__list-check">{selected ? <ActionIcon name="check" /> : null}</span>
                     <i style={{ backgroundColor: option.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
                     {option.title}
                   </button>
@@ -770,7 +870,7 @@ export function ReportsSessionsView({
             onClick={onToggleDatePicker}
             data-report-session-date-range="true"
           >
-            <span aria-hidden="true">▣</span>
+            <ActionIcon name="calendar" />
             {rangeLabel}
           </button>
           {datePickerOpen ? (

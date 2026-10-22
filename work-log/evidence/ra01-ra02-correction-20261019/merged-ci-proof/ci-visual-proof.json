@@ -1,0 +1,68 @@
+{
+  "source": "ed4d5083e1df00077df2fef2bb74a6cf90321692",
+  "run": 39298395231,
+  "artifact": 12211081620,
+  "zipSHA256": "ef3159b694c3a62512ca1c09107385f1dd4ff11b281ab036533eb196c31c7b16",
+  "entries": 416,
+  "CRC": "PASS",
+  "mountedWindowsMatrix": "4/4 PASS; six receipts each",
+  "receipts": [
+    {
+      "entry": "focus-editor-m7-integration-dark-reduced.html",
+      "theme": "dark",
+      "reducedMotion": true,
+      "flags": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true
+      },
+      "htmlSHA256": "289c33c6b810bcec03bba074d2fe2e58bc7e21955e4df7551d05e2ec4385a288"
+    },
+    {
+      "entry": "focus-editor-m7-integration-dark.html",
+      "theme": "dark",
+      "reducedMotion": false,
+      "flags": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true
+      },
+      "htmlSHA256": "559f97dfe2990a689744fe3299c556ee1f2ae1e3f925b6df9473773200c46f4f"
+    },
+    {
+      "entry": "focus-editor-m7-integration-light-reduced.html",
+      "theme": "light",
+      "reducedMotion": true,
+      "flags": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true
+      },
+      "htmlSHA256": "28825766e9be1a73e30ec9350db1917e691ce845dc22b6ed443cea8eaef2627b"
+    },
+    {
+      "entry": "focus-editor-m7-integration-light.html",
+      "theme": "light",
+      "reducedMotion": false,
+      "flags": {
+        "nativeHandoffBoardDOMCommit": true,
+        "nativeHandoffEventBeforeReply": true,
+        "nativeHandoffSuccessOnRestStatus": true,
+        "nativeHandoffUncommittedRejection": true,
+        "nativeHandoffExplicitNext": true,
+        "nativeHandoffPartialFailure": true
+      },
+      "htmlSHA256": "a635e28cf9a07b7100f1e23f084746fef1f1d6f68cb3cc8f671e38e314852fa7"
+    }
+  ],
+  "native": "NOT RUN; artifact is Edge/CDP renderer proof, not native Narro"
+}

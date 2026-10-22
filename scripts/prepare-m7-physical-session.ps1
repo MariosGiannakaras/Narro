@@ -115,13 +115,20 @@ Evidence directory: $sessionDir
 Production AppData: $productionAppDataDir
 $backupStatus
 
-STATUS: PA-01–PA-08 NOT RUN until the user expressly authorizes a Windows desktop session.
-This preparation script does not itself authorize launching/installing the app or editing AppData.
+STATUS: PA-01–PA-09 AUTHORIZED by the user on 2026-10-22; individual cases remain OPEN/NOT RUN until evidenced.
+ChatGPT owns static source-vs-Narro screenshot/icon/layout checks and all implementation. Codex
+owns only actual native Windows interactions, continuous motion/video, OS state and packaging
+acceptance after ChatGPT's corrected candidate passes exact source Windows CI. This script
+only prepares a case manifest; actual app launch is still opt-in (-Launch) and production
+AppData must not be overwritten or used for speculative fixture testing.
 Use -ExpectedSha256 to verify the exact resulting-main release before any physical session.
 Preserve the backup and environment.json; prefer disposable test data/profile and avoid
 altering the user's live data. Record monitor identity, DPI, Windows build, theme and motion.
-Capture continuous time-stamped video for the planned journey, with aligned HWND/UIA,
-screenshots and logs; mark unavoidable process restart/installer segment boundaries.
+For PA-01 and PA-02 native transitions, timer expiry/action timing and other motion,
+Codex captures continuous time-stamped video with aligned HWND/UIA, screenshots and logs.
+For static icons, colors, card geometry, single-frame state and source screenshot parity,
+ChatGPT compares existing exact-build Windows screenshots; DO NOT demand video solely
+for a static claim. Mark unavoidable restart/installer segment boundaries.
 PASS requires direct evidence from this exact binary; CI/fixtures are not a physical PASS.
 
 ## PA-01 — continuous Focus Panel and Floating Timer host identity (C4)
@@ -157,7 +164,9 @@ PASS requires direct evidence from this exact binary; CI/fixtures are not a phys
 - [ ] Verify installer/release identity and safe launch/uninstall behavior; otherwise NOT RUN.
 
 ## PA-09 — separate existing-evidence Blitzit comparison, NOT a PA-01–PA-08 PASS
-- [ ] Review matching source screenshots/videos and Narro captures where evidence allows.
+- [ ] ChatGPT compares static screenshot/icon/color/layout states directly against matching
+      original retained Blitzit evidence with exact build and frame identity.
+- [ ] Codex later validates source motion/animations only when continuous native video is needed.
 - [ ] Preserve SOURCE_PARITY_OPEN for unobserved or version-dependent details.
 - [ ] Optional live Blitzit M11 remains inactive without separate explicit authorization.
 

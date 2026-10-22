@@ -1,0 +1,14 @@
+{
+  "RA02-OFF": {
+    "cropDecodedYUVandPTS": "ALL FRAME ROWS IDENTICAL",
+    "frames": 6236,
+    "retimed": false,
+    "sha256": "a2d7d86918d47f35aac61c231ddd0c7fe175ad803f11d37eda3ed4fb07d6ed9f"
+  },
+  "RA02-ON": {
+    "cropDecodedYUVandPTS": "ALL FRAME ROWS IDENTICAL",
+    "frames": 4469,
+    "retimed": false,
+    "sha256": "9eab77404605978bc17dc4b5ff5f860388880152e58975f2b78f69c965250dcb"
+  }
+}

@@ -1,3 +1,4 @@
+import { ActionIcon } from "./ActionIcon";
 import { type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import type { ListBoardRequestTarget } from "./listBoardApi";
 import { ListIcon } from "./ListIcon";
@@ -34,23 +35,23 @@ function listAccent(color: string | null): CSSProperties | undefined {
 function ListBadge({ option, focus }: { option: BoardListOption; focus: boolean }) {
   return (
     <span
-      className={focus ? "board-list-picker__badge board-list-picker__badge--focus" : "board-list-picker__badge"}
+      className={focus ? "board-list-picker__badge board-list-picker__badge--focus" : "board-list-picker__badge board-list-picker__badge--board-icon"}
       style={listAccent(option.color)}
       aria-hidden="true"
     >
-      {focus ? <ListIcon listId={option.id} iconAsset={option.iconAsset ?? null}
+      <ListIcon listId={option.id} iconAsset={option.iconAsset ?? null}
         iconId={option.iconId} fallback={option.title.trim().slice(0, 1).toUpperCase() || "•"}
-        imageClassName="board-list-picker__badge-icon" /> : null}
+        imageClassName="board-list-picker__badge-icon" />
     </span>
   );
 }
 
 function ListBadges({ options, focus }: { options: BoardListOption[]; focus: boolean }) {
-  const shown = options.slice(0, focus ? 2 : 3);
+  const shown = options.slice(0, 2);
   return (
     <span className="board-list-picker__all-badges" aria-hidden="true">
       {shown.map((option) => <ListBadge key={option.id} option={option} focus={focus} />)}
-      {focus && options.length > shown.length ? (
+      {options.length > shown.length ? (
         <span className="board-list-picker__remaining-count">+{options.length - shown.length}</span>
       ) : null}
     </span>
@@ -61,6 +62,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
   const focus = variant === "focus";
   const [open, setOpen] = useState(false);
   const id = useId();
+  const selectedDescriptionId = `${id}-selection`;
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -132,6 +134,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
         data-focus-list-selector={focus ? "true" : undefined}
         data-focus-selected-target={focus ? selectedTarget : undefined}
         aria-haspopup="listbox"
+        aria-describedby={selectedDescriptionId}
         aria-controls={id}
         aria-expanded={open}
         disabled={disabled}
@@ -147,8 +150,8 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
         }}
       >
         {selected ? <ListBadge option={selected} focus={focus} /> : <ListBadges options={options} focus={focus} />}
-        <span className="board-list-picker__current">{selected?.title ?? "All Lists"}</span>
-        <span aria-hidden="true">⌄</span>
+        <span className="board-list-picker__current" id={selectedDescriptionId}>{selected?.title ?? "All Lists"}</span>
+        <ActionIcon name={open ? "chevron-up" : "chevron-down"} />
       </button>
       {open && !disabled ? (
         <div className="board-list-picker__menu" id={id} role="listbox"
@@ -165,7 +168,7 @@ export function BoardListPicker({ selectedTarget, options, disabled, onTargetCha
             >
               {option.id === ALL_LISTS ? <ListBadges options={options} focus={focus} /> : <ListBadge option={option} focus={focus} />}
               <span className="board-list-picker__option-title">{option.title}</span>
-              <span className="board-list-picker__check" aria-hidden="true">{selectedTarget === option.id ? "✓" : ""}</span>
+              <span className="board-list-picker__check">{selectedTarget === option.id ? <ActionIcon name="check" /> : null}</span>
             </button>
           ))}
         </div>

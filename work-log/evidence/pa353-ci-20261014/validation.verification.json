@@ -1,0 +1,9 @@
+{
+  "artifact": 11892682382,
+  "name": "narro-m7-validation-windows-x64",
+  "source": "8bda5cc40be905c4a91506e0708d39e2770b4cde",
+  "ci": 38558587191,
+  "zip_sha256": "91451a2473c2628754d72934c9a356da88cd649a67462a630e7063d1289a3759",
+  "crc_entries": 2,
+  "exe_sha256": "8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18"
+}

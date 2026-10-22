@@ -1,0 +1,189 @@
+[
+  {
+    "id": "theme-1",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 728.7,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 7287
+  },
+  {
+    "id": "theme-2",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 883.2,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 8832
+  },
+  {
+    "id": "interfaces",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 1007.0,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 10070
+  },
+  {
+    "id": "gaps",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 1088.6,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 10886
+  },
+  {
+    "id": "dual",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 549.6,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 5496
+  },
+  {
+    "id": "continuous",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 1042.4,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 10424
+  },
+  {
+    "id": "layout",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 99.4,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 994
+  },
+  {
+    "id": "live",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 1339.5,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 13395
+  },
+  {
+    "id": "success125",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 373.3,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 3733
+  },
+  {
+    "id": "special-1",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 589.2,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 5892
+  },
+  {
+    "id": "special-2",
+    "audio": "NO_TRACK"
+  },
+  {
+    "id": "browser-shortcut",
+    "audio": "NO_TRACK"
+  },
+  {
+    "id": "prefs",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 316.5,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 3165
+  },
+  {
+    "id": "g1g8-1",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 180.0,
+    "maxRmsDbFS": -21.870781158344105,
+    "activeWindows": [
+      [
+        165.3,
+        165.7
+      ]
+    ],
+    "activeBins": 4,
+    "totalBins": 1800
+  },
+  {
+    "id": "g1g8-2",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 852.3,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 8523
+  },
+  {
+    "id": "c1c4-1",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 170.0,
+    "maxRmsDbFS": -22.072827844600962,
+    "activeWindows": [
+      [
+        159.6,
+        160.0
+      ]
+    ],
+    "activeBins": 4,
+    "totalBins": 1700
+  },
+  {
+    "id": "c1c4-2",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 221.0,
+    "maxRmsDbFS": -240.0,
+    "activeWindows": [],
+    "activeBins": 0,
+    "totalBins": 2210
+  },
+  {
+    "id": "d1d3",
+    "audio": "DECODED",
+    "method": "8kHz mono PCM RMS in 100ms bins; threshold -48dBFS; events merge gaps <=0.5s; signal presence only, no sound identity/delivery claim",
+    "durationSeconds": 284.3,
+    "maxRmsDbFS": -20.01263517517399,
+    "activeWindows": [
+      [
+        130.3,
+        130.8
+      ],
+      [
+        217.9,
+        218.4
+      ]
+    ],
+    "activeBins": 10,
+    "totalBins": 2843
+  }
+]

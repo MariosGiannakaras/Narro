@@ -1,0 +1,162 @@
+{
+  "utc": "2026-10-17T07:10:27.694530+00:00",
+  "hwnd": 3211866,
+  "controls": [
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ]
+    },
+    {
+      "name": "Floating Timer",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2220,
+        0,
+        2560,
+        110
+      ]
+    },
+    {
+      "name": "Show Floating Timer actions",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        11,
+        2547,
+        51
+      ]
+    },
+    {
+      "name": "M5FocusCheck",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        20,
+        2345,
+        42
+      ]
+    },
+    {
+      "name": "Paused: 24:45 remaining",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2454,
+        19,
+        2547,
+        43
+      ]
+    },
+    {
+      "name": "24:45",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2505,
+        20,
+        2547,
+        41
+      ]
+    },
+    {
+      "name": "Subtasks for M5FocusCheck",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        59,
+        2547,
+        99
+      ]
+    },
+    {
+      "name": "Floating Timer subtask summary",
+      "type": 50026,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2233,
+        59,
+        2547,
+        91
+      ]
+    },
+    {
+      "name": "Subtasks",
+      "type": 50020,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2267,
+        66,
+        2314,
+        83
+      ]
+    },
+    {
+      "name": "Add subtask for M5FocusCheck",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2477,
+        59,
+        2509,
+        91
+      ]
+    },
+    {
+      "name": "Expand Floating Timer",
+      "type": 50000,
+      "enabled": true,
+      "offscreen": false,
+      "focused": false,
+      "rect": [
+        2515,
+        59,
+        2547,
+        91
+      ]
+    }
+  ]
+}

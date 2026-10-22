@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-16T10:53:05.196493+00:00",
+  "state": "FINAL_MERGED_MAIN_IDENTITY_PROVEN",
+  "profileProtected": false,
+  "recordingStarted": false,
+  "acquisitionDirections": "0/3",
+  "exactCI": 38894130069,
+  "exactSource": "560efeb076d2ec167232b9d86aa3354f6893214b",
+  "approvedFinalCandidate": true,
+  "supersededCandidate": {
+    "head": "0e9cdae1835caad37baaef402b8faca46b591cff",
+    "ci": 38889617175,
+    "ciResult": "3/3SUCCESS",
+    "reason": "Confirmed late-read committed-error regression; not approved for native acceptance"
+  },
+  "merge": "5dfbede3feaf69eee493427f109fcdc90fd79c4b"
+}

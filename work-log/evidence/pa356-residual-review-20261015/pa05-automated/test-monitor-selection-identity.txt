@@ -1,0 +1,5 @@
+
+> narro@0.1.0 test:monitor-selection-identity
+> node --experimental-strip-types scripts/test-monitor-selection-identity.mjs
+
+Monitor selection identity regressions passed.
