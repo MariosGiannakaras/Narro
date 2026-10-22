@@ -85,7 +85,10 @@ for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
 }
 invariant(
   foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
-    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
+    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 4
+    && presentationFrame.includes("export function waitForPresentedFrameWithin(")
+    && presentationFrame.includes("window.cancelAnimationFrame(")
+    && presentationFrame.includes("window.clearTimeout(")
     && !presentationFrame.includes("setInterval("),
   "presentation preparation may use only the shared finite frame barrier",
 );
