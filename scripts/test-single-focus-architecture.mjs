@@ -342,7 +342,9 @@ invariant(
     && lib.includes("fn animate_focus_surface_presentation_internal(")
     && lib.includes("windows::suspend_focus_display_recovery()")
     && lib.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
-    && lib.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && lib.includes("focus_layered_raster::begin_mode_transition(&window, visible, &png)")
+    && lib.includes("mod focus_layered_raster;")
+    && lib.includes("hold: focus_layered_raster::Hold,")
     && lib.includes("restore_focus_native_snapshot_protected")
     && !lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),
   "interactive/programmatic cross-monitor movement must defer competing DPI recovery, protect outgoing and incoming pixels on one raster timeline, and hold through final DPI paint acknowledgement",
