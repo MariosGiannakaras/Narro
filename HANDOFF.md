@@ -1,4 +1,4 @@
-# HANDOFF — PR401–405 accepted source; newest resulting-main CI pending; native Timer FAIL
+# HANDOFF — PR401–405 accepted; PR409 Home Retry in exact-head CI; native Timer FAIL
 
 **ACCEPTED CURRENT SOURCE:** PR401 CI artifact provenance head `d0bf09ad70df8fdb9f7b782042ec78cc49315532`, run `39742617831` 3/3 PASS, guarded merge `f817c7b1ff262b7156c1297b0773095db7f8105f`, resulting-main **5/5 blobs exact**. PR402 Home Archive/Duplicate same-render gate head `accb0f908df0d2599a6ea36e8f8a4e56728947a2`, run `39744249518` 3/3 PASS, guarded merge `b27c130addabd809a864c131503f50a2d00133c7`, resulting-main **5/5 blobs exact**. Main push `39748153648` validation/fast PASS, Windows RUNNING at last check; prior push `39747996244` CANCELLED, not PASS.
 
@@ -6,9 +6,11 @@
 
 **RESULTING MAIN WINDOWS:** run `39755456824` at accepted merge `86e5a8746608f55d4062ea79e9470ef931ebfede` **3/3 PASS**. [New immutable resulting-main run receipt](work-log/2026-10-22-chatgpt-combined-main-ui403-405-ci-closure.md).
 
+**ACTIVE RECOVERABILITY PR409 (ChatGPT owner, 2026-10-22):** [Home initial-read Retry](https://github.com/MariosGiannakaras/Narro/pull/409), branch `fix/home-initial-read-retry-20261022`, current exact head `0bbb58aac1f602c30f17075261cb3f37000c0be9`, replacement CI `39762674590` **RUNNING / NOT YET 3/3 PASS**. Production Home had failure-without-in-place-retry; add explicit Retry while keeping error distinct from true empty and preserving stale-read/unmount disposal. New regression executes actual component callbacks and was observed **PASS** in prior run `39762426352`. Historical fast gate `39762426352` **FAIL** because an independent List Editor test matched the obsolete exact effect dependency string; corrected its assertion to require the new retry dependency without weakening coverage. No AppData, Spectrum Core picker/upload or 218-icon changes. [Immutable initial evidence log](work-log/2026-10-22-chatgpt-home-initial-read-retry-pr409.md).
+
 **RESTRICTIONS:** Mandatory milestones **4/10 accepted**; real Focus/Timer compositor PR389 **4/8 physical transitions FAIL**. PA Windows categories incomplete/NOT RUN (not user-paused). Optional M11/M12 dormant. Approved Spectrum Core Create/Edit List color picker, image upload, 218 icons unchanged. No physical PASS inferred from CI.
 
-**ONE NEXT SAFE ACTION:** Combined resulting-main push `39755456824` is now verified **3/3 PASS**. Continue one narrow independently evidenced nonphysical source correction, with tests, separate PR and exact-head CI; physical PR389 remains FAIL/OPEN. Continue only evidence-backed independent audit/fix work. Keep PR389 physical Timer 4/8 FAIL and #344 under other owner; do not idle poll or conflate CI with physical acceptance.
+**ONE NEXT SAFE ACTION:** Await actual replacement PR409 run `39762674590` completion without idle polling: read first failed step if FAIL or on exact head 3/3 PASS guarded merge and affected main source/test blob verification. Physical native Timer PR389 remains 4/8 FAIL under separate ownership.
 
 ---
 
