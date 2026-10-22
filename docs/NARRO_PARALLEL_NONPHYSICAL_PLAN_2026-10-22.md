@@ -1,6 +1,6 @@
 # Narro — parallel nonphysical implementation plan (2026-10-22)
 
-**Owner:** ChatGPT source/CI agent. **Latest user instruction:** execute as many independent tasks as possible concurrently; communicate each task's real phase in a table. Code changes do **not** imply source parity, automated CI PASS, physical Windows PASS or milestone acceptance.
+**Owner:** ChatGPT sole coding and static visual comparison agent. User explicitly resumed PA-01–09 on 2026-10-22; Codex reserved ONLY for later actual native physical/video/motion execution when code candidate is ready. No PA case is marked PASS without individual evidence. **Latest user instruction:** execute as many independent tasks as possible concurrently; communicate each task's real phase in a table. Code changes do **not** imply source parity, automated CI PASS, physical Windows PASS or milestone acceptance.
 
 ## Stage definitions
 
@@ -36,7 +36,7 @@
 | 12 | Scheduling/recurrence/timezone edge cases | Ελέγχεται — functionality already implemented | Existing deterministic date-only/DST/recurrence regression suites; release and native acceptance remain separate. |
 | 13a | Reports Recent Tasks search Enter and no-match state | **Ολοκληρώθηκε — PR404** | Exact head `9667ce2cbf9044e3fd2651a3093cfea4c8e2be2a`, replacement CI `39747650759` **3/3 SUCCESS**, guarded merge `e38a5891b34877495272055f6be489f26515f94e`, **4/4 main blobs exact**. Earlier Windows failure remains historical. |
 | 13b | Reports calculations, ordering and exports | Ελέγχθηκε — χωρίς νέα διόρθωση στο C51 | Production `ReportsOverview.tsx` already applies `orderReportDoneTasks(overview.doneTasks)` prior to shared UI/PDF. Additional arithmetic/parity evidence independent. |
-| 14 | Focus Panel ↔ Timer stale/mixed pixels | **Φυσική αποτυχία παραμένει — PR389** | 4/8 scoped physical transitions FAIL despite historic CI; needs causal compositor fix and native Windows retest, no false PASS. |
+| 14 | Focus Panel ↔ Timer stale/mixed pixels | **Αναλύεται / υλοποιείται — ChatGPT-owned PR389** | Actual 8 native transitions 4 PASS / 4 FAIL (normal/reduced Panel→compact and expanded→compact). ChatGPT authorized to fix compositor on existing PR389; Codex later validates 8/8 on exact corrected binary/video. No false PASS from CI. |
 | 15 | CI guardrails and artifact provenance | **Ολοκληρώθηκε — PR400/PR401** | PR400/401 exact-head CI 3/3 and guarded merges; PR401 `f817c7b1ff262b7156c1297b0773095db7f8105f` main 5/5 blobs. Resulting-main CI after newest PR402 is running/not claimed PASS. Bigger visual sharding is separate high-risk work, not implemented. |
 | 16 | Regression test coverage | Ολοκληρώθηκε για PR403–405 / νέα εύρη μόνο μετά από εύρημα | Actual production callback/keyboard tests under exact-head 3/3-success CI #403–405; no claim that all application acceptance tests are complete. |
 
