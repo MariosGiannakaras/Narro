@@ -114,6 +114,58 @@ fn ensure_no_mode_raster() -> CommandResult<()> {
     Ok(())
 }
 
+// Never block the UI thread while waiting for a native presentation lock.
+// Retry only the recoverable transient busy state; a poisoned gate is terminal.
+fn retry_busy_focus_recovery<T>(
+    mut acquire: impl FnMut() -> CommandResult<T>,
+    mut backoff: impl FnMut(),
+) -> CommandResult<T> {
+    loop {
+        match acquire() {
+            Err(error) if error.code == "FOCUS_PRESENTATION_BUSY" => backoff(),
+            result => return result,
+        }
+    }
+}
+
+#[cfg(test)]
+mod focus_raster_watchdog_recovery_tests {
+    use super::*;
+
+    #[test]
+    fn transient_presentation_contention_retries_until_recovery_can_proceed() {
+        let mut tries = 0;
+        let mut backoffs = 0;
+        let recovered = retry_busy_focus_recovery(
+            || {
+                tries += 1;
+                if tries <= 2 {
+                    Err(CommandError::new("FOCUS_PRESENTATION_BUSY", "gate held"))
+                } else {
+                    Ok(17_u32)
+                }
+            },
+            || backoffs += 1,
+        )
+        .expect("the watchdog must not abandon a still-live lease on transient contention");
+        assert_eq!(recovered, 17);
+        assert_eq!(tries, 3);
+        assert_eq!(backoffs, 2);
+    }
+
+    #[test]
+    fn nonbusy_recovery_failure_is_not_retried() {
+        let mut backoffs = 0;
+        let error = retry_busy_focus_recovery(
+            || Err::<(), _>(CommandError::new("FOCUS_PRESENTATION_FAILED", "gate poisoned")),
+            || backoffs += 1,
+        )
+        .expect_err("unrecoverable lock failures must not spin");
+        assert_eq!(error.code, "FOCUS_PRESENTATION_FAILED");
+        assert_eq!(backoffs, 0);
+    }
+}
+
 fn arm_mode_raster_watchdog(app: tauri::AppHandle, token: u32) {
     // Finish/rollback wakes this one-shot worker immediately. Renderer loss
     // cannot retain bitmap memory or display/placement suspensions forever.
@@ -134,8 +186,18 @@ fn arm_mode_raster_watchdog(app: tauri::AppHandle, token: u32) {
         if !expired {
             return;
         }
-        let Ok(_presentation_guard) = presentation_guard() else {
-            return;
+        // A native presentation can still own the gate at the exact expiry
+        // instant. Retrying off the UI thread is essential: returning on
+        // WouldBlock here would orphan the sole raster lease indefinitely.
+        let _presentation_guard = match retry_busy_focus_recovery(
+            presentation_guard,
+            || std::thread::sleep(Duration::from_millis(50)),
+        ) {
+            Ok(guard) => guard,
+            Err(error) => {
+                eprintln!("Focus raster watchdog cannot acquire recovery gate: {error}");
+                return;
+            }
         };
         let Ok(mut raster) = mode_raster_guard() else {
             return;
