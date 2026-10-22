@@ -432,32 +432,38 @@ mod native {
             Ok(())
         })
     }
-    pub(crate) fn sync_owner_position(window: &tauri::WebviewWindow) {
-        let _ = on_window_thread(window, |owner| {
+    pub(crate) fn sync_owner_position(window: &tauri::WebviewWindow) -> CommandResult<()> {
+        on_window_thread(window, |owner| {
             let owner = owner as Handle;
             let popup = existing(owner);
-            if !popup.is_null() {
-                let mut origin = Rect::default();
-                let mut current = Rect::default();
-                unsafe {
-                    if GetWindowRect(owner, &mut origin) != 0
-                        && GetWindowRect(popup, &mut current) != 0
-                        && (origin.left != current.left || origin.top != current.top)
-                    {
-                        SetWindowPos(
-                            popup,
-                            ptr::null_mut(),
-                            origin.left,
-                            origin.top,
-                            0,
-                            0,
-                            0x0001 | 0x0004 | 0x0010,
-                        );
-                    }
+            if popup.is_null() {
+                return Ok(());
+            }
+            let mut origin = Rect::default();
+            let mut current = Rect::default();
+            unsafe {
+                if GetWindowRect(owner, &mut origin) == 0 {
+                    return Err(failed("read Focus owner position for layered raster sync"));
+                }
+                if GetWindowRect(popup, &mut current) == 0 {
+                    return Err(failed("read Focus layered raster position for sync"));
+                }
+                if (origin.left != current.left || origin.top != current.top)
+                    && SetWindowPos(
+                        popup,
+                        ptr::null_mut(),
+                        origin.left,
+                        origin.top,
+                        0,
+                        0,
+                        0x0001 | 0x0004 | 0x0010,
+                    ) == 0
+                {
+                    return Err(failed("move Focus layered raster with its owner"));
                 }
             }
             Ok(())
-        });
+        })
     }
     pub struct Hold {
         window: tauri::WebviewWindow,
@@ -677,7 +683,9 @@ mod native {
     pub(crate) fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
     }
-    pub(crate) fn sync_owner_position(_: &tauri::WebviewWindow) {}
+    pub(crate) fn sync_owner_position(_: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
 }
 
 pub(crate) use native::{begin_mode_transition, clear, sync_owner_position, Hold};
