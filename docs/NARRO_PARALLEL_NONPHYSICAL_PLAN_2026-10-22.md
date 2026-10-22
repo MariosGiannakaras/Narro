@@ -41,9 +41,9 @@
 ## Execution lanes and merge dependencies (verified 2026-10-22)
 
 A. **Source accepted:** PR401–405 have genuine exact-head 3/3 Windows CI PASS, expected-head guarded merges and resulting-main changed-file blob identity checks (PR401 5/5, PR402 5/5, PR403 3/3, PR404 4/4, PR405 3/3). Historical failed/cancelled runs remain distinct.
-B. **Resulting-main automation:** most recent combined main push run `39755456824` **RUNNING / NOT YET 3/3 PASS** at the last observed checkpoint. Earlier intermediate main pushes may be cancelled; avoid treating those as validated.
+B. **Resulting-main automation:** most recent combined main push run `39755456824` **3/3 SUCCESS (validation/fast/windows-candidate), exact resulting-main merged SHA `86e5a8746608f55d4062ea79e9470ef931ebfede`** at the last observed checkpoint. Earlier intermediate main pushes may be cancelled; avoid treating those as validated.
 C. **Safe independent review:** C51 chronology already uses `orderReportDoneTasks`, so do not reopen it. Focus/Timer #389 has genuine failed physical transitions and requires compositor correction under existing ownership. Evidence-limited UI/source details stay OPEN, not random code edits. Optional M11/M12 dormant. Preserve approved Spectrum Core Create/Edit List picker/upload and 218 icons.
 
 **Validated project baseline:** 41/41 uncertainty-local handling, 9/9 confirmed code gaps corrected historically, 4/10 mandatory milestones accepted; these counters are not overall app percentage and not updated by opening PRs. Physical PA categories contain OPEN/NOT RUN cases, not an active user pause.
 
-**Next action:** Check resulting-main run `39755456824` only after an actual completion; close/reconcile any genuine failure. Find the next independently reproducible defect by comparing current source, fixture and audit evidence; no duplicate PR for accepted work.
+**Next action:** Resulting-main push run `39755456824` is **3/3 PASS**; no retry is needed. Find the next independently reproducible defect by comparing current source, fixture and audit evidence; no duplicate PR for accepted work.
