@@ -426,9 +426,7 @@ mod native {
         let class = wide(CLASS);
         let mut cursor = ptr::null_mut();
         loop {
-            cursor = unsafe {
-                FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null())
-            };
+            cursor = unsafe { FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null()) };
             if cursor.is_null() {
                 return ptr::null_mut();
             }
