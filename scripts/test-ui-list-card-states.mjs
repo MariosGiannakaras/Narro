@@ -43,7 +43,7 @@ for (const [haystack, needle, label] of [
   [validator, "list-card-states", "captured list-card state validation"],
   [shell, "onOpen: () => openListBoard(list)", "real Open target after list-board implementation"],
   [shell, "onEdit: () => openEditList(list)", "real Edit List target after modal implementation"],
-  [shell, "onArchive: archivePendingId ? undefined : () => void archiveList(list)", "direct Archive List target after list-settings implementation"],
+  [shell, "onArchive: archivePendingId || duplicatePendingId ? undefined : () => void archiveList(list)", "direct Archive List target after list-settings implementation"],
   [shell, "await archiveListFromSettings(list.id);", "persistence-first direct Archive List mutation"],
 ]) {
   requireText(haystack, needle, label);
