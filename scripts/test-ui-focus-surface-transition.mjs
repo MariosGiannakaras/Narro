@@ -166,7 +166,11 @@ invariant(
     && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
     && animatedNativeCommit.indexOf("render_mode_raster_frame(&window, lease, &incoming, progress)")
       < animatedNativeCommit.indexOf("set_focus_position(")
-    && focusWebview.includes("crate::focus_layered_raster::sync_owner_position(window);")
+    && focusWebview.includes("let popup_sync = crate::focus_layered_raster::sync_owner_position(window)")
+    && focusWebview.includes("let webview_notification = notify_parent_position_changed(window);")
+    && focusWebview.includes("popup_sync?;")
+    && layeredHold.includes("pub(crate) fn sync_owner_position(window: &tauri::WebviewWindow) -> CommandResult<()>")
+    && layeredHold.includes('return Err(failed("move Focus layered raster with its owner"));')
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
