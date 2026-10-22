@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs";
 import { commitProtectedTimerResize } from "../src/protectedTimerResize.ts";
+import { waitForPresentedFrameWithin, waitForTimerRasterReady } from "../src/presentationFrame.ts";
 import { FocusPresentationRecoveryError } from "../src/focusPresentationTransition.ts";
 
 function harness(previous = "timerCompact", target = "timerExpanded") {
@@ -73,7 +74,9 @@ test("application wiring uses the protected path rather than the standalone fall
   const native = fs.readFileSync(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8");
   assert.ok(coordinator.includes("commitProtectedTimerResize({"));
   assert.ok(coordinator.includes("protectOutgoing: prepareFocusSurfaceModeRaster"));
-  assert.ok(coordinator.includes('document.querySelector(\'[data-floating-subtasks-loading="true"]\')'));
+  assert.ok(coordinator.includes("waitForTimerRasterReady("));
+  assert.ok(coordinator.includes('data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]'));
+  assert.ok(coordinator.includes("waitForPresentedFrameWithin,"));
   assert.ok(subtasks.includes("data-floating-subtasks-loading="));
   assert.ok(coordinator.includes("restoreNative: (token) => finishFocusSurfaceModeRaster(token, true)"));
   assert.ok(coordinator.includes("onRequestExpanded={requestTimerExpanded}"));
@@ -91,4 +94,74 @@ test("delayed native animation cannot publish or release early", async () => {
   await new Promise((done) => setImmediate(done));
   assert.equal(h.calls.some((call) => /^(publish|release):/.test(call)), false);
   resolve(); await pending;
+});
+
+test("expanded Timer waits for authoritative subtask hydration plus a final paint", async () => {
+  let now = 0;
+  let frames = 0;
+  await waitForTimerRasterReady(
+    "timerExpanded",
+    () => frames < 3,
+    async (remaining) => { assert.ok(remaining > 0); now += 16; frames += 1; return true; },
+    () => now,
+    150,
+  );
+  assert.equal(frames, 4, "one initial paint, hydration frames and one final paint");
+});
+
+test("compact Timer never waits for stale expanded subtask hydration", async () => {
+  let frames = 0;
+  await waitForTimerRasterReady(
+    "timerCompact",
+    () => true,
+    async () => { frames += 1; return true; },
+    () => 0,
+    150,
+  );
+  assert.equal(frames, 2);
+});
+
+test("never-settling expanded subtasks fail closed instead of rasterizing loading text", async () => {
+  let now = 0;
+  let frames = 0;
+  await assert.rejects(
+    waitForTimerRasterReady(
+      "timerExpanded",
+      () => true,
+      async () => { frames += 1; now += 100; return true; },
+      () => now,
+      250,
+    ),
+    /did not finish preparing for raster capture/,
+  );
+  assert.ok(frames <= 3, "a deadline must limit the hydration loop");
+});
+
+test("suspended renderer frames fail closed without unbounded requestAnimationFrame wait", async () => {
+  await assert.rejects(
+    waitForTimerRasterReady("timerExpanded", () => true, async () => false, () => 0, 250),
+    /did not finish preparing for raster capture/,
+  );
+});
+
+test("timed paint cancels abandoned rAF callbacks when the renderer is suspended", async () => {
+  const previousWindow = globalThis.window;
+  let fireTimeout;
+  const canceled = [];
+  globalThis.window = {
+    setTimeout: (callback) => { fireTimeout = callback; return 11; },
+    clearTimeout: () => undefined,
+    requestAnimationFrame: () => 21,
+    cancelAnimationFrame: (id) => { canceled.push(id); },
+  };
+  try {
+    const wait = waitForPresentedFrameWithin(20);
+    assert.equal(typeof fireTimeout, "function");
+    fireTimeout();
+    assert.equal(await wait, false);
+    assert.ok(canceled.includes(21));
+  } finally {
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+  }
 });
