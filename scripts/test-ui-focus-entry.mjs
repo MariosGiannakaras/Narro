@@ -328,6 +328,8 @@ for (const required of [
   "if (resumeNonce === null) {",
   "setTimerProjectionError(null);",
   "await resumeTimerFromFocusHome(resumeNonce);",
+  "Focus Panel could not finish presenting.",
+  "Home-paused work could not resume."
   "deferredPanelResumeNonceRef.current = request.resumeNonce",
   "void handleBlitzPanelRequest(request.resumeNonce);",
 ]) {
