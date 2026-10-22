@@ -60,6 +60,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const [loadAttempt, setLoadAttempt] = useState(0);
   // Synchronous admission owner: React pendingKey only publishes on a later render.
   const saveInFlightRef = useRef(false);
+  const initialReadInFlightRef = useRef(false);
 
   const refreshMonitors = async () => {
     try {
@@ -100,7 +101,10 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
         if (!disposed) setError(formatInvokeError(failure));
       })
       .finally(() => {
-        if (!disposed) setLoading(false);
+        if (!disposed) {
+          initialReadInFlightRef.current = false;
+          setLoading(false);
+        }
       });
 
     return () => {
@@ -110,7 +114,8 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   }, [loadAttempt]);
 
   const retryInitialLoad = () => {
-    if (loading || snapshot !== null || !error || saveInFlightRef.current) return;
+    if (loading || snapshot !== null || !error || saveInFlightRef.current || initialReadInFlightRef.current) return;
+    initialReadInFlightRef.current = true;
     setError(null);
     setLoading(true);
     setLoadAttempt((attempt) => attempt + 1);
