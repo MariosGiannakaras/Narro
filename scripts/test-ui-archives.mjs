@@ -106,7 +106,7 @@ requireText(listPanel, 'className="archived-lists-panel__empty-icon" aria-hidden
 requireText(listPanel, 'viewBox="0 0 24 24"', "offline source-like archive box icon");
 requireText(listPanelCss, "font-size: var(--font-size-metadata)", "compact source-like empty copy");
 requireText(listPanelCss, "width: var(--space-5)", "source-like compact archive icon size");
-requireText(listPanel, 'lists?.length === 0 ? null : (', "no irrelevant archive restore/delete instruction when empty");
+requireText(listPanel, '!lists?.length ? null : (', "no irrelevant archive restore/delete instruction when empty");
 requireText(listPanelCss, "gap: var(--space-3)", "shared visual spacing token");
 requireText(listPanelCss, "@media (max-width: 48rem)", "existing narrow-screen breakpoint");
 requireText(listPanelCss, ".archived-lists-panel__empty--ghost", "narrow layout hides decorative side cards");
@@ -146,6 +146,24 @@ requireText(donePanel, "snapshot === null ? (loadError ? null : (", "failed arch
 requireText(listPanel, "lists === null ? (", "archive-list load-only recovery");
 requireText(listPanelCss, ".archived-lists-panel__retry", "archive-list retry styling");
 requireText(donePanelCss, ".archive-panel__retry", "archived-done retry styling");
+for (const needle of [
+  "function handleTabKeyDown(",
+  'event.key === "Home"',
+  'event.key === "End"',
+  'event.key === "ArrowLeft"',
+  'event.key === "ArrowRight"',
+  'onKeyDown={(event) => handleTabKeyDown(event, "lists")}',
+  'onKeyDown={(event) => handleTabKeyDown(event, "done")}',
+  'id="archive-lists-tabpanel" role="tabpanel" aria-labelledby="archive-lists-tab"',
+  'id="archive-done-tabpanel" role="tabpanel" aria-labelledby="archive-done-tab"',
+  'hidden={activeTab !== "lists"}',
+  'hidden={activeTab !== "done"}',
+  'tabIndex={activeTab === "lists" ? 0 : -1}',
+  'tabIndex={activeTab === "done" ? 0 : -1}',
+]) requireText(archivePanel, needle, "Archive tab/tabpanel keyboard and focus invariants");
+requireText(fixture, "dataset.archiveTabsKeyboardPass", "real archive fixture keyboard arrow/focus coverage");
+requireText(validator, "data-archive-tabs-keyboard-pass", "Windows archive capture validates keyboard recovery");
+
 const sweepCall = boardApi.indexOf("await getArchiveSnapshot();");
 const boardRead = boardApi.indexOf('invoke<ListBoardSnapshot>("get_list_board_snapshot"', sweepCall);
 if (sweepCall < 0 || boardRead < sweepCall) {
