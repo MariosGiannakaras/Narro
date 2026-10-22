@@ -474,7 +474,17 @@ mod native {
     pub struct Hold;
     impl Hold {
         pub fn commit(self) {}
-
+    }
+    pub fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
+    pub fn begin(
+        _: &tauri::WebviewWindow,
+        _: tauri::PhysicalSize<u32>,
+        _: &[u8],
+    ) -> CommandResult<Hold> {
+        Ok(Hold)
+    }
 }
 
 pub use native::{begin, clear};
