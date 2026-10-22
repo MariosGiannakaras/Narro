@@ -97,4 +97,5 @@ if (previewOrdinal.includes("var(--home-list-accent)")) {
   throw new Error("B23 ordinal must not revert to the list accent.");
 }
 
+await import("./test-home-read-retry.mjs");
 console.log("Home dashboard/list-card contract checks passed.");
