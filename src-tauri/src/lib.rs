@@ -12,6 +12,7 @@ pub mod floating_placement;
 pub mod focus_entry;
 pub mod focus_frame_capture;
 pub mod focus_frame_hold;
+mod focus_layered_raster;
 mod focus_mode_raster;
 pub mod focus_preferences;
 pub mod focus_webview;
@@ -91,7 +92,7 @@ struct FocusModeRaster {
     target: FocusSurfacePresentation,
     snapshot: FocusNativeSnapshot,
     outgoing: focus_mode_raster::Image,
-    hold: focus_frame_hold::Hold,
+    hold: focus_layered_raster::Hold,
     native_committed: bool,
     _placement_guard: floating_placement::PlacementTransitionGuard,
     _display_guard: windows::DisplayRecoveryGuard,
@@ -1058,6 +1059,7 @@ fn restore_focus_native_snapshot(
     snapshot: &FocusNativeSnapshot,
 ) -> CommandResult<()> {
     focus_frame_hold::clear(window)?;
+    focus_layered_raster::clear(window)?;
     restore_focus_native_snapshot_protected(window, snapshot, None)
 }
 
@@ -1897,7 +1899,7 @@ async fn focus_surface_prepare_mode_raster(
             }
         }
         focus_frame_hold::clear(&window)?;
-        let hold = focus_frame_hold::begin_mode_transition(&window, visible, &png)?;
+        let hold = focus_layered_raster::begin_mode_transition(&window, visible, &png)?;
         let token = FOCUS_RASTER_TOKEN.fetch_add(1, AtomicOrdering::Relaxed);
         *raster = Some(FocusModeRaster {
             token,

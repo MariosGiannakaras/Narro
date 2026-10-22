@@ -42,6 +42,7 @@ const nativeCommit = slice(
   "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
 );
 const frameHold = read("src-tauri/src/focus_frame_hold.rs");
+const layeredHold = read("src-tauri/src/focus_layered_raster.rs");
 const raster = read("src-tauri/src/focus_mode_raster.rs");
 const prepareRaster = slice(lib, "async fn focus_surface_prepare_mode_raster(", "async fn focus_surface_animate_presentation(");
 const finishRaster = slice(lib, "async fn focus_surface_finish_mode_raster(", "fn position_focus_panel(");
@@ -169,7 +170,7 @@ invariant(
 );
 invariant(
   prepareRaster.includes("focus_frame_capture::capture(window.clone()).await")
-    && prepareRaster.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && prepareRaster.includes("focus_layered_raster::begin_mode_transition(&window, visible, &png)")
     && coordinator.indexOf("await prepareFocusSurfaceModeRaster(targetPresentation)")
       < coordinator.indexOf("await prepareGeometryMotion(previousPresentation, targetPresentation)")
     && raster.includes("source_offset(image, visible, x, y)")
@@ -189,10 +190,16 @@ invariant(
     && finishRaster.indexOf("focus_mode_raster::decode(") < finishRaster.indexOf("lease.hold.release()?")
     && finishRaster.includes("restore_focus_native_snapshot_protected")
     && finishRaster.includes("lease.token != raster_token")
-    && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
-    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
-    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
-  "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
+    && layeredHold.includes("UpdateLayeredWindow(")
+    && layeredHold.includes("WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW")
+    && layeredHold.includes("let shrinking = visible.height")
+    && layeredHold.indexOf("if shrinking {") < layeredHold.indexOf("draw(owner as Handle, popup, visible, bytes, diameter)?")
+    && layeredHold.indexOf("draw(owner as Handle, popup, visible, bytes, diameter)?") < layeredHold.indexOf("if !shrinking {")
+    && layeredHold.includes("IsWindowVisible(owner)")
+    && layeredHold.includes("IsIconic(owner)")
+    && layeredHold.includes("MAX_LIFETIME")
+    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it"),
+  "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, independent layered pixels own composition, shrink/grow ordering protects parent pixels, and watchdog remains bounded",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
