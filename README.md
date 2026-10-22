@@ -42,15 +42,15 @@ Canonical continuation files:
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-## Current phase — validated 2026-10-12
+## Current phase — source / physical status verified 2026-10-23
 
-The **41 reviewed source-uncertainty IDs** are all covered by Narro-local functional behavior (**41/41**); the **nine specifically evidenced local code/UI gaps** are automated-Windows-validated and merged (**9/9**). This is neither a claim of **full current Blitzit source parity** nor final physical Windows acceptance. See the [fixed-scope coverage ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md) and [current HANDOFF](HANDOFF.md).
+- **Progress:** 41/41 fixed U01–U41 Narro-local uncertainty items functionally covered; original nine proven code/UI gaps 9/9 repaired and release-validated. **Mandatory milestones 4/10 accepted (M1–M4), six pending**. These counters do not prove whole-app completion or current-original Blitzit pixel/behavior parity.
+- **Current active candidate:** [draft PR #389](https://github.com/MariosGiannakaras/Narro/pull/389), corrected HEAD `15c0649f9c4b9865bec7f74c82cc8cd7373decaa`, [exact Windows CI run 39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) **3/3 PASS**, Rust main suite **427/427 PASS**. Physical/validation Windows ZIPs, executable, installer and diagnostic provenance independently checked: [build proof](work-log/2026-10-22-chatgpt-pr389-independent-three-artifact-binary-provenance.md). **PR389 is NOT MERGED**.
+- **Outstanding acceptance:** corrected Floating Timer eight normal/reduced native transitions **0/8 NOT RUN**. The older PR389 build's 4/8 native failures remain historical only; automated CI/build PASS does not substitute for physical pixel/motion/interaction acceptance. Codex owns the physical Windows protocol, with exact artifact and safeguards in [HANDOFF](HANDOFF.md).
+- **PA context:** prior PA01–08 physical campaign was **8/8 dispositioned within its dated scope** (actual HDMI hotplug explicitly NOT RUN). PA-01–09 later authorized for case-specific work, but no unexecuted new-build case is PASS by inference. No personal AppData/user profile modifications without separately authorized safe procedure.
+- **Protected scope:** Spectrum Core Create/Edit List color picker, image upload and 218 offline icons are user-approved. M11 (live original Blitzit) and M12 (optional QA) are dormant; M11 is not required to keep Narro functional.
 
-The latest accepted executable source is guarded-merged [U04 PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), merge `ec7673c921e08c83de11c986bd25fbb3600475ce`; [exact resulting-main Windows CI #38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS**. The original Windows production ZIP, executable, NSIS and MSI were independently checksum-verified, and the modern Archived Done confirmation modal was captured in both Edge themes. The source identity and physical candidate details are pinned in [current physical session instructions](docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md).
-
-**Mandatory milestone native acceptance remains 3/10, with 7/10 still not physically accepted.** All nine Codex PA-01–09 tests are **USER-PAUSED / NOT RUN** pending explicit reauthorization; do not install/run the current binary or alter AppData without permission. Live original-Blitzit verification is optional M11 and has **not** been activated. The existing Spectrum Core Create/Edit List color picker, image upload and 218 offline icons are user-approved and protected.
-
-See [TODO](TODO.md) for the intact 10 mandatory milestone checklists and [STATUS](STATUS.md) for current state. Old progress snapshots are preserved byte-for-byte via their linked immutable archive files rather than presented as active next tasks.
+See [TODO](TODO.md) for the unchanged mandatory milestone checklists, [STATUS](STATUS.md) for source/validation state, and [HANDOFF](HANDOFF.md) for the one actionable next step. The previously advertised U04 PR343 “latest executable” and paused-PA checkpoint are historical, not the live Windows candidate.
 
 ## Product scope
 
