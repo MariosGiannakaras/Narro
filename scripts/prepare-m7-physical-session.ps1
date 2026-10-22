@@ -108,35 +108,75 @@ $backupStatus = if (Test-Path $backupDir -PathType Container) {
 }
 
 $checklist = @"
-# M7 final physical closure session
+# Narro consolidated Windows physical acceptance — PA-01–PA-08
 
 Executable SHA-256: $hash
 Evidence directory: $sessionDir
 Production AppData: $productionAppDataDir
 $backupStatus
 
-This session covers ONLY the remaining C5 saved-placement observation.
-Do not repeat already accepted M7 compositor, shortcut, DPI, topology-removal,
-topmost, Blitz-now or continuity tests.
+STATUS: PA-01–PA-09 AUTHORIZED by the user on 2026-10-22; individual cases remain OPEN/NOT RUN until evidenced.
+ChatGPT owns static source-vs-Narro screenshot/icon/layout checks and all implementation. Codex
+owns only actual native Windows interactions, continuous motion/video, OS state and packaging
+acceptance after ChatGPT's corrected candidate passes exact source Windows CI. This script
+only prepares a case manifest; actual app launch is still opt-in (-Launch) and production
+AppData must not be overwritten or used for speculative fixture testing.
+Use -ExpectedSha256 to verify the exact resulting-main release before any physical session.
+Preserve the backup and environment.json; prefer disposable test data/profile and avoid
+altering the user's live data. Record monitor identity, DPI, Windows build, theme and motion.
+For PA-01 and PA-02 native transitions, timer expiry/action timing and other motion,
+Codex captures continuous time-stamped video with aligned HWND/UIA, screenshots and logs.
+For static icons, colors, card geometry, single-frame state and source screenshot parity,
+ChatGPT compares existing exact-build Windows screenshots; DO NOT demand video solely
+for a static claim. Mark unavoidable restart/installer segment boundaries.
+PASS requires direct evidence from this exact binary; CI/fixtures are not a physical PASS.
 
-## C5 — saved Timer placement across normal restart
+## PA-01 — continuous Focus Panel and Floating Timer host identity (C4)
+- [ ] Capture Panel -> compact Timer -> expanded Timer -> Panel with the same HWND/WebView.
+- [ ] Check no blank/stale/clipped frames, proper focus and normal/reduced motion.
 
-- [ ] Start/keep one real active task and show compact Floating Timer.
-- [ ] Drag Timer to an obvious safe non-default position.
-- [ ] Wait until the drag is visually settled.
-- [ ] Quit Narro normally through tray **Quit Narro**.
-- [ ] Relaunch this exact executable.
-- [ ] Reopen/show Timer for the recovered/live task as applicable.
-- [ ] PASS only if Timer returns to a safe visible saved placement and is not stranded/off-screen.
-- [ ] Record one continuous video and the approximate restart/restore timestamp.
+## PA-02 — initial Board to Focus transition (M6)
+- [ ] Capture first Board-to-Focus morph, timing, main geometry restoration, stable task/session owner.
 
-If anything unexpected modifies or damages production data:
-1. quit Narro completely;
-2. preserve the failed-session evidence;
-3. restore the snapshotted production AppData only while Narro is stopped.
+## PA-03 — real timer expiry and Time's Up (F35)
+- [ ] Observe real expiry at compact 340x110 and expanded 340x300.
+- [ ] Verify zero clock, visible unclipped Time's Up and contextual Extend; no synthetic fixture shortcut.
 
-Do not restore the backup merely because the placement test passes; normal test-created
-state may be intentionally retained.
+## PA-04 — pending Reports Add Session and Escape (F29)
+- [ ] Capture foreground/UIA focus, trigger a delayed real mutation and press Escape while pending.
+- [ ] Verify retained modal owner, no duplicate insertion and focus restored after resolution.
+
+## PA-05 — named secondary monitor / DPI (F27)
+- [ ] Select a nonprimary monitor at 125%, change that same screen to 100% without app restart.
+- [ ] Check no offscreen/wrong-display placement, stale device handling and saved Timer position.
+- [ ] If physical hardware is unavailable, record NOT RUN rather than PASS.
+
+## PA-06 — real OS notifications and audible sound (M8)
+- [ ] Observe Windows toast, WebView2/local sound, volume/mute, foreground/background.
+- [ ] Test notifications-disabled behavior and safe listener recovery where feasible.
+
+## PA-07 — normal quit/restart, persistence and Timer position
+- [ ] Quit via tray, relaunch this exact executable, verify timer/session/data recovery.
+- [ ] Confirm Timer restores to a safe visible placement; preserve original AppData backup.
+
+## PA-08 — genuine NSIS/MSI installation
+- [ ] With explicit installer authorization and protected data, smoke-test both actual installers.
+- [ ] Verify installer/release identity and safe launch/uninstall behavior; otherwise NOT RUN.
+
+## PA-09 — separate existing-evidence Blitzit comparison, NOT a PA-01–PA-08 PASS
+- [ ] ChatGPT compares static screenshot/icon/color/layout states directly against matching
+      original retained Blitzit evidence with exact build and frame identity.
+- [ ] Codex later validates source motion/animations only when continuous native video is needed.
+- [ ] Preserve SOURCE_PARITY_OPEN for unobserved or version-dependent details.
+- [ ] Optional live Blitzit M11 remains inactive without separate explicit authorization.
+
+## Results and safeguards
+- [ ] For each PA record PASS/FAIL/INCONCLUSIVE/NOT RUN with timestamps and evidence links.
+- [ ] If data appears damaged, stop Narro, preserve evidence and restore backup ONLY while stopped.
+- [ ] Never infer physical PASS from a successful build or visual fixture.
+- [ ] Do not restore production data merely because a test passed.
+- [ ] Follow docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md and
+      docs/PRE_CODEX_RISK_AUDIT_2026-10-11.md for full scenario details.
 "@
 $checklist | Set-Content -Encoding UTF8 (Join-Path $sessionDir "checklist.md")
 
