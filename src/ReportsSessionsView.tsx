@@ -1,6 +1,7 @@
 import { ActionIcon } from "./ActionIcon";
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ReportListBadges } from "./ReportListBadges";
+import { handleReportListFilterKeyDown } from "./reportListFilterKeyboard";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
@@ -779,6 +780,13 @@ export function ReportsSessionsView({
   onOpenDetail,
   onDelete,
 }: ReportsSessionsViewProps) {
+  const listFilterTriggerRef = useRef<HTMLButtonElement>(null);
+  const listFilterMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (listFilterOpen) listFilterMenuRef.current?.querySelector<HTMLButtonElement>('button[role="option"]:not([disabled])')?.focus({ preventScroll: true });
+  }, [listFilterOpen]);
+
   return (
     <section className="reports-overview reports-sessions" data-reports-sessions="true">
       <header className="reports-overview__header">
@@ -814,6 +822,7 @@ export function ReportsSessionsView({
             aria-expanded={listFilterOpen}
             onClick={onToggleListFilter}
             data-report-session-list-filter="true"
+            ref={listFilterTriggerRef}
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
@@ -825,6 +834,9 @@ export function ReportsSessionsView({
               role="listbox"
               aria-multiselectable="true"
               aria-label="Filter Sessions by list"
+              ref={listFilterMenuRef}
+              onKeyDown={(event) => handleReportListFilterKeyDown(event, listFilterMenuRef.current,
+                document.activeElement, listFilterTriggerRef.current, onToggleListFilter)}
             >
               {listOptions.map((option) => {
                 const selected = option.id === null
