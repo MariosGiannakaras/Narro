@@ -84,9 +84,10 @@ for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
 }
 invariant(
-  foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
+  foundation.includes('import { waitForPresentedFrameOrThrow } from "./presentationFrame";')
     && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 4
     && presentationFrame.includes("export function waitForPresentedFrameWithin(")
+    && presentationFrame.includes("export async function waitForPresentedFrameOrThrow(")
     && presentationFrame.includes("window.cancelAnimationFrame(")
     && presentationFrame.includes("window.clearTimeout(")
     && !presentationFrame.includes("setInterval("),
