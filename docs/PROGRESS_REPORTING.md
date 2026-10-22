@@ -1,9 +1,15 @@
-# User-facing progress
+# User-facing progress — canonical current interpretation (2026-10-23)
 
-Latest user direction: report the active physical work clearly, using stable x/y denominators. Lead with acquisition, aggregate review and fully closed acceptance groups; identify which phase is running. Do not call a recorded/reviewed group PASS merely because capture/review completed. Announce an actual wholemilestone completion explicitly.
+Use the single current reporting rule in [AI_START_HERE](../AI_START_HERE.md) and current [HANDOFF](../HANDOFF.md); this file **does not create another independent active denominator or work queue**.
 
-Current accepted PA01-08 campaign: **8/8 dispositioned within documented scope**, including physical-HDMI NOTRUN/accepted unavailable limitation. **M1-M4 complete4/10;6 mandatory milestones remain; M10hardentry blocked.** Accepted Reports/PDF/M9export12/12 and scoped M8 theme-save/keyboard evidence remain retained; source-parity acceptance is separate. PA09 existing-corpus comparison is now active; optional liveM11 remains dormant.
+When reporting substantive Narro implementation progress, use this precisely scoped compact order:
 
-Active PR357 correction slice: **four defined M5 behaviors**, not all of M5 — compact/plain task menu with retained confirmation, inline Title label, empty Done All Clear, newest-first repeated Board creation. Local production DOM variants4/4 and12 static states reviewed; physical acquisition0/4, native review0/4 and native acceptance0/4 until the exact validated executable actually exercises them. Exact sourcea56571d2/CI38796243985running at this checkpoint. Announce phase changes and completion of this bounded slice without claiming the whole milestone is complete. Prepared capture/backup plan has made no profile/app/recording changes.
+1. **Γενική υλοποίηση U01–U41: 41/41 λειτουργικά καλυμμένα, 0/41 συγκεκριμένες ελλείψεις** — local functional uncertainty register, **not** exact modern Blitzit fidelity or all product features.
+2. **Επιμέρους επιβεβαιωμένα λειτουργικά κενά: 9/9 διορθωμένα και επικυρωμένα, 0/9 εκκρεμή** — originally proven local code/UI gaps, guarded source/automated validation accepted.
+3. **Υποχρεωτικά milestones: 4/10 αποδεκτά, 6/10 εκκρεμούν** — native Windows/source-parity physical acceptance is distinct; optional M11/M12 dormant.
 
-U01–U41 localcoverage41/41 and original specificcodegaps9/9 remain separate historical scope ledgers. Report them when relevant/requested; do not lead physical progress updates with them or substitute them for sourceparity/nativeacceptance. [Previous reporting policy](../work-log/2026-10-15-progress-reporting-before-workflow-review.md) is historical. Current facts: [HANDOFF](../HANDOFF.md), [PA356 report](WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [ordered TODO](../TODO.md).
+For the **active bounded task** (when relevant) also give real `PR / head SHA / CI run / PASS-FAIL-PENDING / real physical cases / next action`. Do not present small slice counts (`0/1`, `4/8`) or all-owner checklist totals as the global ChatGPT coding-progress denominator. No fixed globally inventoried ChatGPT-only denominator is established; say so if that exact metric is requested.
+
+As of this validated checkpoint, corrected PR389 source `15c0649f9c4b9865bec7f74c82cc8cd7373decaa` has exact-head [CI39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) **3/3 PASS** with independently checked binaries, but corrected native transitions **0/8 NOT RUN**. The draft [PR389](https://github.com/MariosGiannakaras/Narro/pull/389) must **not be merged** before real 8/8 acceptance. PA01–08 were dispositioned in an earlier limited native campaign; HDMI actual hotplug remained NOT RUN. Do not infer any new-case physical PASS from those historical receipts.
+
+Former PR357 active-candidate and prior progress-policy paragraphs are preserved **verbatim** in [2026-10-23 pre-cleanup reporting snapshot](../work-log/tracker-archives/2026-10-23-docs-PROGRESS_REPORTING-before-active-documentation-cleanup.md), not maintained as a competing active instruction.
