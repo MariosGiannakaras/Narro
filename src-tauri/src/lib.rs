@@ -157,7 +157,12 @@ mod focus_raster_watchdog_recovery_tests {
     fn nonbusy_recovery_failure_is_not_retried() {
         let mut backoffs = 0;
         let error = retry_busy_focus_recovery(
-            || Err::<(), _>(CommandError::new("FOCUS_PRESENTATION_FAILED", "gate poisoned")),
+            || {
+                Err::<(), _>(CommandError::new(
+                    "FOCUS_PRESENTATION_FAILED",
+                    "gate poisoned",
+                ))
+            },
             || backoffs += 1,
         )
         .expect_err("unrecoverable lock failures must not spin");
@@ -189,10 +194,9 @@ fn arm_mode_raster_watchdog(app: tauri::AppHandle, token: u32) {
         // A native presentation can still own the gate at the exact expiry
         // instant. Retrying off the UI thread is essential: returning on
         // WouldBlock here would orphan the sole raster lease indefinitely.
-        let _presentation_guard = match retry_busy_focus_recovery(
-            presentation_guard,
-            || std::thread::sleep(Duration::from_millis(50)),
-        ) {
+        let _presentation_guard = match retry_busy_focus_recovery(presentation_guard, || {
+            std::thread::sleep(Duration::from_millis(50))
+        }) {
             Ok(guard) => guard,
             Err(error) => {
                 eprintln!("Focus raster watchdog cannot acquire recovery gate: {error}");
