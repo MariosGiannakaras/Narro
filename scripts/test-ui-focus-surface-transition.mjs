@@ -44,6 +44,14 @@ const nativeCommit = slice(
 const frameHold = read("src-tauri/src/focus_frame_hold.rs");
 const layeredHold = read("src-tauri/src/focus_layered_raster.rs");
 const raster = read("src-tauri/src/focus_mode_raster.rs");
+const ownedOverlayLookup = slice(layeredHold, "fn existing(owner: Handle) -> Handle {", "pub fn clear(");
+invariant(
+  ownedOverlayLookup.includes("FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null())")
+    && ownedOverlayLookup.includes("if cursor.is_null()")
+    && ownedOverlayLookup.includes("GetWindow(cursor, GW_OWNER) } == owner")
+    && !ownedOverlayLookup.includes("FindWindowW("),
+  "temporary native raster lookup must enumerate same-class top-level windows until the exact Focus owner matches",
+);
 const prepareRaster = slice(lib, "async fn focus_surface_prepare_mode_raster(", "async fn focus_surface_animate_presentation(");
 const finishRaster = slice(lib, "async fn focus_surface_finish_mode_raster(", "fn position_focus_panel(");
 
