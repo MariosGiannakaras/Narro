@@ -1,6 +1,6 @@
 import { ActionIcon } from "./ActionIcon";
 import { reportChartPrintLabelIndices } from "./reportChartPrintLabels";
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ReportListBadges } from "./ReportListBadges";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportChartPreset } from "./reportChartSeriesPreset";
@@ -329,6 +329,7 @@ function DateRangePicker({
   onNextYear,
   onCancel,
   onApply,
+  returnFocusTarget,
 }: {
   months: ReportsCalendarMonth[];
   onSelectPreset?: (preset: ReportDatePreset) => void;
@@ -339,17 +340,35 @@ function DateRangePicker({
   onNextYear?: () => void;
   onCancel?: () => void;
   onApply?: () => void;
+  returnFocusTarget?: HTMLElement | null;
 }) {
+  const firstPresetRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    firstPresetRef.current?.focus({ preventScroll: true });
+    return () => {
+      if (returnFocusTarget?.isConnected) returnFocusTarget.focus({ preventScroll: true });
+    };
+  }, [returnFocusTarget]);
+
+  function handleDatePickerKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    event.stopPropagation();
+    onCancel?.();
+  }
+
   return (
     <div
       className="reports-overview__date-popover"
       role="dialog"
       aria-label="Choose report date range"
       data-report-date-picker="true"
+      onKeyDown={handleDatePickerKeyDown}
     >
       <div className="reports-overview__date-presets" aria-label="Date presets">
-        {(["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"] as ReportDatePreset[]).map((preset) => (
-          <button type="button" key={preset} onClick={() => onSelectPreset?.(preset)}>{preset}</button>
+        {(["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"] as ReportDatePreset[]).map((preset, index) => (
+          <button type="button" key={preset} ref={index === 0 ? firstPresetRef : undefined}
+            onClick={() => onSelectPreset?.(preset)}>{preset}</button>
         ))}
       </div>
 
@@ -435,6 +454,7 @@ export function ReportsOverviewView({
   interactionLocked = false,
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
+  const rangeTriggerRef = useRef<HTMLButtonElement>(null);
   let listCursor = 0;
   const listSegments = timeByList.map((item) => {
     const start = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : 0;
@@ -544,6 +564,7 @@ export function ReportsOverviewView({
           <button
             type="button"
             className="reports-overview__range-button"
+            ref={rangeTriggerRef}
             aria-haspopup="dialog"
             aria-expanded={datePickerOpen}
             onClick={onToggleDatePicker}
@@ -563,6 +584,7 @@ export function ReportsOverviewView({
               onNextYear={onNextCalendarYear}
               onCancel={onCancelDateRange}
               onApply={onApplyDateRange}
+              returnFocusTarget={rangeTriggerRef.current}
             />
           ) : null}
         </div>
