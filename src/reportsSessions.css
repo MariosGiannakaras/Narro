@@ -390,6 +390,13 @@
   text-transform: uppercase;
 }
 
+.reports-sessions__task-picker-empty {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
 .reports-sessions__task-picker button {
   display: flex;
   justify-content: space-between;
