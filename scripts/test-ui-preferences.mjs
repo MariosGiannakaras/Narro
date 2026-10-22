@@ -381,4 +381,5 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preference
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
 
+await import("./test-sound-volume-escape-cancel.mjs");
 console.log("M8 Preferences contracts passed.");
