@@ -47,7 +47,7 @@ for (const [haystack, needle, label] of [
   [api, 'invoke<void>("archive_list_from_settings"', "archive frontend IPC"],
   [api, 'invoke<void>("restore_list_from_settings"', "restore frontend IPC"],
   [api, 'invoke<void>("permanently_delete_list_from_settings"', "delete frontend IPC"],
-  [shell, "onArchive: archivePendingId ? undefined : () => void archiveList(list)", "direct Home Archive target"],
+  [shell, "onArchive: archivePendingId || duplicatePendingId ? undefined : () => void archiveList(list)", "direct Home Archive target blocks competing pending mutations"],
   [shell, "await archiveListFromSettings(list.id);", "persistence-first direct active archive"],
   [shell, 'activeDestination === "archived-lists"', "production archived-list destination"],
   [shell, "<ArchivePanel />", "production archive surface"],

@@ -113,4 +113,5 @@ for (const [needle, label] of [
   requireText(matrixFlow, needle, label);
 }
 
+await import("./test-home-list-mutation-gate.mjs");
 console.log("App shell/navigation contract checks passed.");
