@@ -130,8 +130,15 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       />
     </>
   ) : (
-    <div className="preference-settings__loading" role="status">
+    <div className="preference-settings__loading"
+      role={preferences.loading ? "status" : "alert"}>
       {preferences.loading ? "Loading Preferences…" : "Preferences could not be loaded."}
+      {!preferences.loading && preferences.error ? (
+        <button type="button" className="motion-interactive" data-preferences-retry="true"
+          onClick={preferences.retryInitialLoad}>
+          Retry loading Preferences
+        </button>
+      ) : null}
     </div>
   );
 

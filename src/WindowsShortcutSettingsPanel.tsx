@@ -28,6 +28,7 @@ type WindowsShortcutSettingsPanelViewProps = {
   pendingKind?: GlobalShortcutKind | null;
   error?: string | null;
   onChange: (kind: GlobalShortcutKind, enabled: boolean) => void;
+  onRetryLoad?: () => void;
 };
 
 type InAppShortcutRow = { action: InAppShortcut; label: string; chord: string };
@@ -114,6 +115,7 @@ export function WindowsShortcutSettingsPanelView({
   pendingKind = null,
   error = null,
   onChange,
+  onRetryLoad,
 }: WindowsShortcutSettingsPanelViewProps) {
   if (loading) {
     return (
@@ -210,7 +212,13 @@ export function WindowsShortcutSettingsPanelView({
         </div>
       ) : (
         <div className="windows-shortcuts__unavailable" role="alert">
-          Shortcut settings are unavailable. Retry after the settings state can be read.
+          Shortcut settings are unavailable. {error ?? "Try loading the local settings again."}
+          {onRetryLoad ? (
+            <button type="button" className="windows-shortcuts__retry motion-interactive"
+              data-windows-shortcuts-retry-load="true" onClick={onRetryLoad}>
+              Retry loading shortcuts
+            </button>
+          ) : null}
         </div>
       )}
 
@@ -251,6 +259,8 @@ export function WindowsShortcutSettingsPanel() {
   // registration synchronously, including two callbacks in one event turn.
   const shortcutWriteInFlightRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
+  const [initialReadAttempt, setInitialReadAttempt] = useState(0);
+  const initialReadInFlightRef = useRef(false);
 
   async function refresh() {
     const latest = await getGlobalShortcutSettings();
@@ -268,12 +278,14 @@ export function WindowsShortcutSettingsPanel() {
           setSnapshot(latest);
           setError(null);
           setLoading(false);
+          initialReadInFlightRef.current = false;
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setError(formatInvokeError(failure));
           setLoading(false);
+          initialReadInFlightRef.current = false;
         }
       });
 
@@ -298,7 +310,15 @@ export function WindowsShortcutSettingsPanel() {
       disposed = true;
       stopListening?.();
     };
-  }, []);
+  }, [initialReadAttempt]);
+
+  const retryInitialLoad = () => {
+    if (loading || snapshot !== null || !error || initialReadInFlightRef.current || shortcutWriteInFlightRef.current) return;
+    initialReadInFlightRef.current = true;
+    setError(null);
+    setLoading(true);
+    setInitialReadAttempt((attempt) => attempt + 1);
+  };
 
   async function change(kind: GlobalShortcutKind, enabled: boolean) {
     if (shortcutWriteInFlightRef.current) return;
@@ -329,6 +349,7 @@ export function WindowsShortcutSettingsPanel() {
       pendingKind={pendingKind}
       error={error}
       onChange={(kind, enabled) => void change(kind, enabled)}
+      onRetryLoad={retryInitialLoad}
     />
   );
 }
