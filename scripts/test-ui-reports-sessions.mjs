@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import "./test-reports-add-session-single-flight.mjs";
+import "./test-reports-recent-task-picker-keyboard.mjs";
 
 function invariant(condition, message) {
   if (!condition) throw new Error("Reports Sessions production contract failed: " + message);
@@ -14,6 +15,7 @@ invariant(view.includes('<ReportListBadges options={listOptions} selectedListIds
 invariant(badges.includes('data-report-list-badges="true"'), "Report badge component missing");
 invariant(view.includes('className="reports-sessions__break-icon"'), "source Break filter icon missing");
 const styles = fs.readFileSync("src/reportsSessions.css", "utf8");
+invariant(styles.includes(".reports-sessions__task-picker-empty"), "Recent Tasks missing-result feedback must retain readable theme styling");
 const fixture = fs.readFileSync("src/reportsVisualFixture.tsx", "utf8");
 const captureValidator = fs.readFileSync("scripts/validate-reports-captures.mjs", "utf8");
 const api = fs.readFileSync("src/reportsApi.ts", "utf8");
