@@ -340,12 +340,12 @@ export function FocusSurfaceCoordinator() {
       return;
     }
 
-    await waitForPresentedFrameOrThrow();
-    if (resumeNonce === null) {
-      setTimerProjectionError(null);
-      return;
-    }
     try {
+      await waitForPresentedFrameOrThrow();
+      if (resumeNonce === null) {
+        setTimerProjectionError(null);
+        return;
+      }
       const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
         setTimerProjection((current) => {
@@ -357,7 +357,9 @@ export function FocusSurfaceCoordinator() {
       setTimerProjectionError(null);
     } catch (failure: unknown) {
       setTimerProjectionError(
-        `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
+        resumeNonce === null
+          ? `Focus Panel could not finish presenting. ${formatInvokeError(failure)}`
+          : `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
       );
     }
   }, []);
@@ -521,7 +523,14 @@ export function FocusSurfaceCoordinator() {
         void reconcileAuthoritativePresentation();
       })
       .catch((failure: unknown) => {
-        if (!disposed) setTransitionError(formatInvokeError(failure));
+        if (!disposed) {
+          setTransitionError(formatInvokeError(failure));
+          // A failed event subscription must not leave Focus permanently
+          // unhydrated/inert when the authoritative snapshot still works.
+          // Renderer-owned changes remain committed locally; external native
+          // invalidations are unavailable until the listener is restored.
+          void reconcileAuthoritativePresentation();
+        }
       });
 
     return () => {
