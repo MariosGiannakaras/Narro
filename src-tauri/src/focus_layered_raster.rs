@@ -113,7 +113,12 @@ mod native {
         fn DefWindowProcW(window: Handle, message: u32, w: usize, l: isize) -> isize;
         fn SetWindowLongPtrW(window: Handle, index: i32, value: isize) -> isize;
         fn GetWindowLongPtrW(window: Handle, index: i32) -> isize;
-        fn FindWindowW(class: *const u16, title: *const u16) -> Handle;
+        fn FindWindowExW(
+            parent: Handle,
+            child_after: Handle,
+            class: *const u16,
+            title: *const u16,
+        ) -> Handle;
         fn GetWindow(window: Handle, command: u32) -> Handle;
         fn IsWindow(window: Handle) -> i32;
         fn IsWindowVisible(window: Handle) -> i32;
@@ -415,12 +420,21 @@ mod native {
             .map_err(|e| invalid(&format!("Focus HWND dispatch timeout: {e}")))?
     }
     fn existing(owner: Handle) -> Handle {
+        // FindWindowW returns only the first class match across top-level
+        // windows. Another Narro instance can own that match, so enumerate
+        // until we find the transient popup owned by this exact Focus HWND.
         let class = wide(CLASS);
-        let popup = unsafe { FindWindowW(class.as_ptr(), ptr::null()) };
-        if !popup.is_null() && unsafe { GetWindow(popup, GW_OWNER) } == owner {
-            popup
-        } else {
-            ptr::null_mut()
+        let mut cursor = ptr::null_mut();
+        loop {
+            cursor = unsafe {
+                FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null())
+            };
+            if cursor.is_null() {
+                return ptr::null_mut();
+            }
+            if unsafe { GetWindow(cursor, GW_OWNER) } == owner {
+                return cursor;
+            }
         }
     }
     pub fn clear(window: &tauri::WebviewWindow) -> CommandResult<()> {
