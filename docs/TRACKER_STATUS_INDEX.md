@@ -1,6 +1,14 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## CURRENT 2026-10-19 — final-build native analysis2/2 DONE; three corrective scopes
+## Current navigation — 2026-10-23
+
+This is an **evidence/ownership index**, not another implementation queue. **Only** the latest [HANDOFF](../HANDOFF.md) owns the active agent and next action; [STATUS](../STATUS.md) owns validated source/current gates, [TODO](../TODO.md) owns the exact 10 mandatory milestone checklists, [AI bootstrap](../AI_START_HERE.md) and [progress rule](PROGRESS_REPORTING.md) own current reporting.
+
+The corrected draft [PR389](https://github.com/MariosGiannakaras/Narro/pull/389) has head `15c0649f9c4b9865bec7f74c82cc8cd7373decaa`, exact-head [CI39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) **3/3 PASS**, [independent physical-artifact proof](../work-log/2026-10-22-chatgpt-pr389-independent-three-artifact-binary-provenance.md); new-build native eight Timer transitions **0/8 NOT RUN**, no merge. 41/41 Narro-local uncertainty coverage, 9/9 prior code gaps accepted, 4/10 mandatory milestones formally complete. Older PA01–08 scoped findings and other original-source evidence remain useful, but *old physical receipts do not certify this candidate*.
+
+**Historical sections below are dated snapshots.** Phrases such as `CURRENT`, `NEXT`, `USER-PAUSED`, `3/10`, `RUNNING` and old build SHAs in those sections describe their **historical checkpoint only**; never treat them as live agent instructions. Historical artifacts, branch-retention inventory, source media and prior tests remain preserved; do not prune on the basis of this index.
+
+## HISTORICAL 2026-10-19 — final-build native analysis2/2 DONE; three corrective scopes
 
 [Authoritative current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) / [HANDOFF](../HANDOFF.md): RA01 card handoff gap, RA02 early idle/stale queue in OFF and ON, RA02 obsolete status after rest. Ten case dispositions4scopedPASS/5FAIL/1UNCERTAIN. Original evidence unchanged, no fixes performed. Mandatory4/10 unchanged; native/source parity not closed.
 
