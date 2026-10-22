@@ -12,8 +12,14 @@ pub(crate) fn set_physical_position(window: &WebviewWindow, x: i32, y: i32) -> R
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }))
         .map_err(|error| format!("set Focus parent position: {error}"))?;
 
-    crate::focus_layered_raster::sync_owner_position(window);
-    notify_parent_position_changed(window)
+    // The owner already moved even if its transient popup cannot follow.
+    // Always notify WebView2, but propagate the native failure so the raster
+    // transition can recover rather than silently presenting a displaced cover.
+    let popup_sync = crate::focus_layered_raster::sync_owner_position(window)
+        .map_err(|error| format!("sync Focus owned raster position: {error}"));
+    let webview_notification = notify_parent_position_changed(window);
+    popup_sync?;
+    webview_notification
 }
 
 #[cfg(windows)]
