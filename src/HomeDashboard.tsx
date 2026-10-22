@@ -203,6 +203,7 @@ export function HomeDashboard({
 }: HomeDashboardProps) {
   const [snapshot, setSnapshot] = useState<HomeSnapshot | null>(fixtureSnapshot ?? null);
   const [error, setError] = useState<string | null>(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     if (fixtureSnapshot) return;
@@ -225,7 +226,7 @@ export function HomeDashboard({
     return () => {
       disposed = true;
     };
-  }, [fixtureSnapshot, refreshKey]);
+  }, [fixtureSnapshot, refreshKey, retryKey]);
 
   const greetingHour = fixtureHour ?? new Date().getHours();
   const aggregateCard = useMemo<DisplayCard | null>(() => {
@@ -266,7 +267,14 @@ export function HomeDashboard({
 
         {error ? (
           <div className="home-dashboard__error" role="alert">
-            Home data could not be loaded. {error}
+            <span>Home data could not be loaded. {error}</span>
+            <button type="button" className="home-dashboard__retry motion-interactive"
+              data-home-read-retry="true"
+              onClick={() => {
+                setError(null);
+                setSnapshot(null);
+                setRetryKey((value) => value + 1);
+              }}>Retry loading lists</button>
           </div>
         ) : snapshot === null ? (
           <div className="home-dashboard__loading" role="status">Loading your local lists…</div>
