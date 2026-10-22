@@ -24,7 +24,7 @@ import {
 import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
 import { commitProtectedTimerResize } from "./protectedTimerResize";
-import { waitForPresentedFrame } from "./presentationFrame";
+import { waitForPresentedFrame, waitForPresentedFrameWithin, waitForTimerRasterReady } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
@@ -376,16 +376,14 @@ export function FocusSurfaceCoordinator() {
     try {
       const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
         ? 1 : FOCUS_GEOMETRY_MOTION_MS;
-      const waitForTimerTargetPaint = async () => {
-        for (
-          let attempt = 0;
-          attempt < 16 && document.querySelector('[data-floating-subtasks-loading="true"]') !== null;
-          attempt += 1
-        ) {
-          await waitForPresentedFrame();
-        }
-        await waitForPresentedFrame();
-      };
+      const waitForTimerTargetPaint = () => waitForTimerRasterReady(
+        target,
+        () => document.querySelector(
+          '.floating-timer-foundation[data-floating-expanded="true"] [data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]',
+        ) !== null,
+        waitForPresentedFrameWithin,
+        () => performance.now(),
+      );
       await commitProtectedTimerResize({
         previous,
         target,
