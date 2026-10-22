@@ -278,6 +278,7 @@ export function WindowsShortcutSettingsPanel() {
           setSnapshot(latest);
           setError(null);
           setLoading(false);
+          initialReadInFlightRef.current = false;
         }
       })
       .catch((failure: unknown) => {
