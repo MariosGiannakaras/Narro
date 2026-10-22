@@ -525,7 +525,7 @@ export function FocusSurfaceCoordinator() {
       .catch((failure: unknown) => {
         if (!disposed) {
           setTransitionError(formatInvokeError(failure));
-          // A failed event subscription must not leave Focus permanently
+          // A failed event listener must not leave Focus permanently
           // unhydrated/inert when the authoritative snapshot still works.
           // Renderer-owned changes remain committed locally; external native
           // invalidations are unavailable until the listener is restored.
