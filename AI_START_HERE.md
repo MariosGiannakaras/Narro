@@ -109,19 +109,15 @@ A capable agent should normally:
 
 Do not make the user act as a messenger between agents. If the next agent needs information, commit it to the repository.
 
-## User-facing progress — one current rule (verified 2026-10-23)
+## User-facing progress — active work only (user correction 2026-10-23)
 
-**For substantive implementation/continuation reports use the following compact project scope in this order; each line is explicitly scoped, not a claim of whole-product completion:**
+**Report the actual current task first, not historical closure statistics.** Briefly state: current change or problem; source branch/PR/head when relevant; validation actually performed (**PASS / FAIL / PENDING / NOT RUN**); physical Windows evidence separately; blocker and one next action. For a bounded test or implementation slice, an `X/Y` is appropriate only if the precise denominator and acceptance basis are stated. Do not manufacture a global ChatGPT-only coding-completion percentage, substitute milestone completion for code progress or treat green CI as native acceptance.
 
-- **Γενική υλοποίηση U01–U41: 41/41 λειτουργικά καλυμμένα, 0/41 συγκεκριμένες ελλείψεις** (Narro-local functional coverage only; original-source exact parity is distinct).
-- **Επιμέρους επιβεβαιωμένα λειτουργικά κενά: 9/9 διορθωμένα και επικυρωμένα, 0/9 εκκρεμή** (the original nine classified local source/UI defects; accepted source + automated resulting-main proof).
-- **Υποχρεωτικά milestones: 4/10 αποδεκτά, 6/10 εκκρεμούν** (real native/visual/source acceptance for M5–M10 remains separate; M11/M12 dormant).
+**Do not repeat completed historical finding-register totals in new coding, repair, inspection, progress or handoff messages.** The older U-item source-uncertainty review and its confirmed local-gap remediation were closed historically, not a live work queue. Consult their immutable ledgers *only when directly investigating a related regression, the user explicitly asks for historical totals, or source evidence requires reopening a narrowly evidenced claim.* The original closed findings are never default report headings.
 
-**Avoid misleading progress fractions.** The 41 reviewed uncertainties were **not** 41 coding bugs or the whole roadmap. A single-PR `0/1`, a bounded test fraction, a milestone count or the TODO's all-owner checkbox count must not be presented as a global ChatGPT-owned implementation fraction. If asked for one such global coding-completion X/Y, inventory a defensible fixed set of work units first; if unavailable say the global coding denominator is not established. Give active PR SHA/CI/physical status as separately named gates. Do not invent a denominator or change one opportunistically. Use exact values from the current TODO/HANDOFF if evidence subsequently changes.
+**Roadmap on explicit request:** report the **10 mandatory milestone** acceptance statuses from live `TODO.md`/real validation; never imply every unchecked row is a new bug. M11 and M12 remain independent hard opt-in extensions. Keep native physical and Blitzit-source parity claims separate from local/automated implementation.
 
-**Current hard boundary:** existing draft [PR389](https://github.com/MariosGiannakaras/Narro/pull/389) has source `15c0649f9c4b9865bec7f74c82cc8cd7373decaa`, [CI39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) 3/3 SUCCESS, verified Windows package, but new-build native Timer transitions **0/8 NOT RUN**. **No merge before actual eight-case acceptance**. PA-01–09 have a user-authorized physical track but still require exact build/case evidence. PA01–08 earlier scoped dispositions do not certify newly built code; HDMI hotplug was NOT RUN. Preserve protected Spectrum Core picker, upload and 218 icons. [HANDOFF](HANDOFF.md) supersedes dated current-looking snapshots and supplies the **one next action**.
-
-**Historical fixed-scope proof:** [U01–U41 implementation ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md); [PR343 U04 accepted release](work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md). Those accepted older candidate receipts remain valid only for their exact source/build; they are not a current Timer physical PASS. Former progress/next-action paragraphs from earlier October are historical records rather than alternative live reporting instructions.
+**Source of truth:** [HANDOFF](HANDOFF.md) holds the last verified active operation, head/run/artifact and applicable explicit integration restrictions; [STATUS](STATUS.md) records current bounded evidence; [TODO](TODO.md) owns milestone gates. Older PR/CI/candidate checkpoints are historical. Obey the latest user's explicit instruction and live GitHub state before reusing a dated handoff snapshot.
 
 ## Historical progress — 2026-10-09 superseded by the 2026-10-12 all-41-first counter
 
