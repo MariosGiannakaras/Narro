@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs";
 import { commitProtectedTimerResize } from "../src/protectedTimerResize.ts";
-import { waitForPresentedFrameWithin, waitForTimerRasterReady } from "../src/presentationFrame.ts";
+import { waitForPresentedFrameOrThrow, waitForPresentedFrameWithin, waitForTimerRasterReady } from "../src/presentationFrame.ts";
 import { FocusPresentationRecoveryError } from "../src/focusPresentationTransition.ts";
 
 function harness(previous = "timerCompact", target = "timerExpanded") {
@@ -163,5 +163,36 @@ test("timed paint cancels abandoned rAF callbacks when the renderer is suspended
   } finally {
     if (previousWindow === undefined) delete globalThis.window;
     else globalThis.window = previousWindow;
+  }
+});
+
+test("Focus presentation transaction rejects a suspended WebView after a finite frame deadline", async () => {
+  const previousWindow = globalThis.window;
+  let fireTimeout;
+  let pendingCallback = 0;
+  const canceled = [];
+  globalThis.window = {
+    setTimeout: (callback) => { fireTimeout = callback; return 41; },
+    clearTimeout: () => undefined,
+    requestAnimationFrame: () => ++pendingCallback,
+    cancelAnimationFrame: (id) => { canceled.push(id); },
+  };
+  try {
+    const paint = waitForPresentedFrameOrThrow(200);
+    assert.equal(typeof fireTimeout, "function");
+    fireTimeout();
+    await assert.rejects(paint, /Focus presentation did not paint within the recovery deadline/);
+    assert.deepEqual(canceled, [1, 0]);
+  } finally {
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+  }
+});
+
+test("all critical Focus and Timer geometry paths use the finite presentation barrier", () => {
+  for (const path of ["../src/FocusSurfaceCoordinator.tsx", "../src/FloatingTimerFoundation.tsx"]) {
+    const body = fs.readFileSync(new URL(path, import.meta.url), "utf8");
+    assert.match(body, /waitForPresentedFrameOrThrow\(\)/);
+    assert.doesNotMatch(body, /(?<![A-Za-z])waitForPresentedFrame\(\)/);
   }
 });
