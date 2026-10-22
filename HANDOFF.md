@@ -1,4 +1,4 @@
-# HANDOFF — PR399 accepted, PR401 exact-head Windows CI pending; native Timer FAIL
+# HANDOFF — PR399 merged; PR401 CI provenance and PR402 Home mutation source pending; PR389 native FAIL
 
 **CURRENT 2026-10-21 / ChatGPT source owner.** [CI audit #400](https://github.com/MariosGiannakaras/Narro/pull/400) merged `0b905e83f4f94030624d3081e8d2d64ce13787f7`; validated PR head `91d57218b43acf78237f58fdf6aa8ba1181ab941`, Windows run `39662181572` **3/3 PASS** and CI-learning run `39662184582` **PASS**; resulting-main **4/4 exact source blob equality PASS**. Subsequent main changes cancelled main push run `39671104853`; do **not** claim resulting-main CI PASS for that cancelled run.
 
@@ -8,9 +8,11 @@
 
 **ACTIVE CI PROVENANCE / PR401:** PR401 CI artifact provenance previous head `86969a9b6c6d7514ccc3072ac00e77848e01969e` had Windows `39674664763` **3/3 PASS**, but newer main after PR399 required reconciliation. Existing branch fast-forwarded with expected-head to exact **new** two-parent commit `d0bf09ad70df8fdb9f7b782042ec78cc49315532`, preserving current-main files and only five new CI source blobs. PR401 **OPEN/MERGEABLE**, new exact-head CI `39742617831` **RUNNING/NOT YET PASS**. Workflow change requires replacement-head 3/3 and resulting-main verification. [Immutable work log](work-log/2026-10-22-chatgpt-pr399-merge-and-pr401-reconcile.md).
 
+**HOME ACTIVE-LIST MUTATION FIX / PR402:** [#402](https://github.com/MariosGiannakaras/Narro/pull/402), branch `fix/home-list-same-render-mutation-owner-20261022`, exact head `5e1dc5f2608303f08cd15a432cbb388cd785d3b5`. Prevents same-render double Archive/Duplicate persistence and cross-action competing list writes using one synchronous in-flight owner, preserving existing errors/refetch. Actual-production-callback deferred-IPC regression wired into existing fast preflight. GitHub Windows CI `39743908068` **IN_PROGRESS / NOT YET PASS** at last checkpoint; 9/9 source-contract checks PASS is not full validation. [Immutable implementation log](work-log/2026-10-22-chatgpt-home-list-mutation-single-flight.md).
+
 **NATIVE LIMITATION:** Draft #389 real Panel/Timer compositor **4/8 motion transitions FAIL** despite old 3/3 CI. PA-01–09 unexecuted cases OPEN/NOT RUN (not user-paused); Codex can perform native-only actions, no exclusive ownership of general source code. Optional M11/M12 stay dormant. Spectrum Core Create/Edit List picker, image upload and 218 icons protected. Mandatory milestones remain **4/10 accepted, six pending**. [Immutable run/merge evidence](work-log/2026-10-21-chatgpt-ci400-and-ui394-398-merge-closure.md).
 
-**ONE NEXT SAFE ACTION:** After CI `39742617831` finishes, diagnose first failed step on FAIL or exact-head guarded merge PR401 on 3/3 PASS; then verify five main blobs and workflow-change resulting-main CI. No >7-minute idle polling. PR389 physical compositor FAIL and PA cases OPEN separately.
+**ONE NEXT SAFE ACTION:** Follow exact active CI heads #401 `39742617831` and #402 `39743908068` only after completion: first failed job/log on FAIL; on current-head 3/3 PASS expected-head guarded merge, verify changed-source identities and required resulting-main CI (workflow-change for #401). Preserve PR389 physical compositor 4/8 FAIL; no idle polling.
 
 ---
 
