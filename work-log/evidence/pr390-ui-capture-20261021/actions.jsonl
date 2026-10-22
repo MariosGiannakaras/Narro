@@ -1,0 +1,48 @@
+{"utc": "2026-10-21T12:24:55.778952+00:00", "action": "BEGIN button Reports", "input": "CDP keyboard", "ref": "e148"}
+{"utc": "2026-10-21T12:24:58.380461+00:00", "action": "RETURN button Reports"}
+{"utc": "2026-10-21T12:25:55.415493+00:00", "action": "RECORD_START", "segment": "P1-overview-calendar", "pid": 102068}
+{"utc": "2026-10-21T12:25:57.338716+00:00", "action": "Open actual Overview calendar", "ref": "e172"}
+{"utc": "2026-10-21T12:26:03.757864+00:00", "action": "RECORD_STOP", "segment": "P1-overview-calendar", "exitCode": 0}
+{"utc": "2026-10-21T12:26:50.575747+00:00", "action": "RECORD_START", "segment": "P1-overview-calendar-navigation", "pid": 69536}
+{"utc": "2026-10-21T12:26:52.393415+00:00", "action": "Calendar navigation", "name": "Previous year from Sep 2026", "calendar": 0, "ref": "e739"}
+{"utc": "2026-10-21T12:26:56.726953+00:00", "action": "Calendar navigation", "name": "Next year from Sep 2025", "calendar": 0, "ref": "e884"}
+{"utc": "2026-10-21T12:27:00.833996+00:00", "action": "Calendar navigation", "name": "Previous month from Sep 2026", "calendar": 0, "ref": "e1009"}
+{"utc": "2026-10-21T12:27:05.049303+00:00", "action": "Calendar navigation", "name": "Next month from Aug 2026", "calendar": 0, "ref": "e1145"}
+{"utc": "2026-10-21T12:27:09.225657+00:00", "action": "Calendar navigation", "name": "Previous year from Oct 2026", "calendar": 1, "ref": "e1204"}
+{"utc": "2026-10-21T12:27:13.466661+00:00", "action": "Calendar navigation", "name": "Next year from Oct 2025", "calendar": 1, "ref": "e1346"}
+{"utc": "2026-10-21T12:27:17.637957+00:00", "action": "Calendar navigation", "name": "Previous month from Oct 2026", "calendar": 1, "ref": "e1471"}
+{"utc": "2026-10-21T12:27:21.801107+00:00", "action": "Calendar navigation", "name": "Next month from Sep 2026", "calendar": 1, "ref": "e1409"}
+{"utc": "2026-10-21T12:27:30.871987+00:00", "action": "RECORD_STOP", "segment": "P1-overview-calendar-navigation", "exitCode": 0}
+{"utc": "2026-10-21T12:28:28.900284+00:00", "action": "RECORD_START", "segment": "P2-sessions-calendar-controls", "pid": 62068}
+{"utc": "2026-10-21T12:28:35.661000+00:00", "action": "RECORD_STOP", "segment": "P2-sessions-calendar-controls", "exitCode": 0}
+{"utc": "2026-10-21T12:29:08.213296+00:00", "action": "RECORD_START", "segment": "P2-sessions-navigation-dialog", "pid": 105904}
+{"utc": "2026-10-21T12:29:10.063936+00:00", "action": "Sessions actual enabled pointer navigation", "name": "Previous year", "ref": "e2718"}
+{"utc": "2026-10-21T12:29:14.267410+00:00", "action": "Sessions actual enabled pointer navigation", "name": "Next year", "ref": "e2929"}
+{"utc": "2026-10-21T12:29:18.458966+00:00", "action": "Sessions actual enabled pointer navigation", "name": "Previous month", "ref": "e2988"}
+{"utc": "2026-10-21T12:29:22.692430+00:00", "action": "Sessions actual enabled pointer navigation", "name": "Next month", "ref": "e2992"}
+{"utc": "2026-10-21T12:29:28.704676+00:00", "action": "BEGIN button Cancel", "input": "CDP keyboard", "ref": "e2849"}
+{"utc": "2026-10-21T12:29:31.028451+00:00", "action": "RETURN button Cancel"}
+{"utc": "2026-10-21T12:29:32.837168+00:00", "action": "BEGIN button + Add Session", "input": "CDP keyboard", "ref": "e1672"}
+{"utc": "2026-10-21T12:29:35.136707+00:00", "action": "RETURN button + Add Session"}
+{"utc": "2026-10-21T12:29:52.621273+00:00", "action": "RECORD_STOP", "segment": "P2-sessions-navigation-dialog", "exitCode": 0}
+{"utc": "2026-10-21T12:30:19.565285+00:00", "action": "RECORD_START", "segment": "P3-shortcuts-accessible-ui", "pid": 54800}
+{"utc": "2026-10-21T12:30:21.431467+00:00", "action": "BEGIN button Settings", "input": "CDP keyboard", "ref": "e16"}
+{"utc": "2026-10-21T12:30:24.381306+00:00", "action": "RETURN button Settings"}
+{"utc": "2026-10-21T12:30:26.214966+00:00", "action": "BEGIN button View shortcuts", "input": "CDP keyboard", "ref": "e3467"}
+{"utc": "2026-10-21T12:30:29.059846+00:00", "action": "RETURN button View shortcuts"}
+{"utc": "2026-10-21T12:30:32.689794+00:00", "action": "Keyboard Tab traversal only; no global shortcut registration toggles or OS hotkeys"}
+{"utc": "2026-10-21T12:30:51.072310+00:00", "action": "RECORD_STOP", "segment": "P3-shortcuts-accessible-ui", "exitCode": 0}
+{"utc": "2026-10-21T12:32:03.852834+00:00", "action": "RECORD_START", "segment": "P4-focus-header-hover-keyboard", "pid": 31580}
+{"utc": "2026-10-21T12:32:05.647959+00:00", "action": "Actual header hover", "label": "Preferences", "ref": "e19"}
+{"utc": "2026-10-21T12:32:10.129418+00:00", "action": "Actual header hover", "label": "Home", "ref": "e24"}
+{"utc": "2026-10-21T12:32:14.541525+00:00", "action": "Actual header hover", "label": "Compact view", "ref": "e28"}
+{"utc": "2026-10-21T12:32:26.090261+00:00", "action": "RECORD_STOP", "segment": "P4-focus-header-hover-keyboard", "exitCode": 0}
+{"utc": "2026-10-21T12:32:29.562395+00:00", "action": "BEGIN button Home", "input": "CDP keyboard", "ref": "e24"}
+{"utc": "2026-10-21T12:32:32.114077+00:00", "action": "RETURN button Home"}
+{"utc": "2026-10-21T12:32:52.473438+00:00", "action": "RECORD_START", "segment": "P5-task-actions-search", "pid": 95088}
+{"utc": "2026-10-21T12:32:54.266885+00:00", "action": "BEGIN button All my lists", "input": "CDP keyboard", "ref": "e10"}
+{"utc": "2026-10-21T12:32:57.137841+00:00", "action": "RETURN button All my lists"}
+{"utc": "2026-10-21T12:32:59.075325+00:00", "action": "Hover first actual Board article", "ref": "e3834"}
+{"utc": "2026-10-21T12:33:14.111064+00:00", "action": "BEGIN button Search", "input": "CDP keyboard", "ref": "e15"}
+{"utc": "2026-10-21T12:33:17.009053+00:00", "action": "RETURN button Search"}
+{"utc": "2026-10-21T12:33:26.077924+00:00", "action": "RECORD_STOP", "segment": "P5-task-actions-search", "exitCode": 0}

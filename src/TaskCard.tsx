@@ -221,7 +221,7 @@ function TaskActionButton({
         onPointerDown={(event) => event.stopPropagation()}
         onClick={action}
       >
-        <ActionIcon name={glyph} />
+        <ActionIcon name={glyph} size={14} />
       </button>
     </Tooltip>
   );
@@ -266,7 +266,7 @@ function TaskOverflowMenu({
       <Menu
         triggerLabel="Task actions"
         align="end"
-        trigger={<ActionIcon name="more" />}
+        trigger={<ActionIcon name="more" size={14} />}
         onDismiss={confirmation?.onCancel}
         dismissDisabled={confirmation?.pending}
       >
@@ -451,7 +451,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
       onPointerDown={(event) => event.stopPropagation()}
     >
       <span className="list-board-task__completion-slot" aria-hidden="true">
-        <span className="list-board-task__completion-mark"><ActionIcon name={done ? "check" : "circle"} /></span>
+        <span className="list-board-task__completion-mark">{done ? <ActionIcon name="check" /> : null}</span>
       </span>
       <input
         className="list-board-task__title-input"
@@ -769,11 +769,11 @@ export function TaskCard({
                       onPointerDown={(event) => event.stopPropagation()}
                       onClick={onComplete}
                     >
-                      <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
+                      <span className="list-board-task__completion-mark" />
                     </button>
                   ) : (
                     <span className="list-board-task__completion-preview" aria-hidden="true">
-                      <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
+                      <span className="list-board-task__completion-mark" />
                     </span>
                   )}
                 </span>
@@ -788,11 +788,11 @@ export function TaskCard({
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={onComplete}
                 >
-                  <span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>
+                  <span className="list-board-task__completion-mark" />
                 </button>
               ) : (
                 <span className="list-board-task__completion-slot" aria-hidden="true">
-                  <span className="list-board-task__completion-mark"><ActionIcon name={state === "done" ? "check" : "circle"} /></span>
+                  <span className="list-board-task__completion-mark">{state === "done" ? <ActionIcon name="check" /> : null}</span>
                 </span>
               )}
               {onTitleEdit ? (

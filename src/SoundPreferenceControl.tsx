@@ -40,6 +40,8 @@ export function SoundPreferenceControl({
   const popoverId = useId();
   const submittedVolume = useRef(clampVolume(volumePercent));
   const volumeCommitInFlight = useRef(false);
+  // Escape dismisses the draft without turning the induced range blur into a save.
+  const dismissingVolumeRef = useRef(false);
 
   useEffect(() => {
     const committedVolume = clampVolume(volumePercent);
@@ -64,7 +66,7 @@ export function SoundPreferenceControl({
 
   const commitVolume = async () => {
     const next = clampVolume(draftVolume);
-    if (interactionLocked || next === volumePercent || next === submittedVolume.current || volumeCommitInFlight.current) return;
+    if (dismissingVolumeRef.current || interactionLocked || next === volumePercent || next === submittedVolume.current || volumeCommitInFlight.current) return;
     submittedVolume.current = next;
     volumeCommitInFlight.current = true;
     try {
@@ -90,6 +92,8 @@ export function SoundPreferenceControl({
   };
 
   const closeVolume = () => {
+    dismissingVolumeRef.current = true;
+    setDraftVolume(clampVolume(volumePercent));
     setVolumeOpen(false);
     volumeTriggerRef.current?.focus();
   };
@@ -107,7 +111,10 @@ export function SoundPreferenceControl({
           aria-expanded={volumeOpen}
           aria-haspopup="dialog"
           disabled={interactionLocked}
-          onClick={() => setVolumeOpen((current) => !current)}
+          onClick={() => {
+            dismissingVolumeRef.current = false;
+            setVolumeOpen((current) => !current);
+          }}
           onKeyDown={(event) => {
             if (event.key === "Escape" && volumeOpen) {
               event.preventDefault();

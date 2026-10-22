@@ -248,7 +248,7 @@ function SessionRow({
       <Menu
         triggerLabel={`Session actions for ${row.taskTitle}`}
         align="end"
-        trigger={<span aria-hidden="true">•••</span>}
+        trigger={<ActionIcon name="more" />}
       >
         {showDetailAction ? (
           <MenuItem
@@ -520,7 +520,10 @@ export function ReportAddSessionDialog({
     if (!options.length || !["ArrowDown", "ArrowUp", "Home", "End", "Enter"].includes(event.key)) return;
     const index = options.indexOf(document.activeElement as HTMLButtonElement);
     if (event.key === "Enter") {
-      if (index >= 0) { event.preventDefault(); options[index].click(); }
+      // Enter from the search box selects the first visible match; Enter
+      // on an option preserves its explicit selection. No result => no action.
+      event.preventDefault();
+      (index >= 0 ? options[index] : options[0]).click();
       return;
     }
     event.preventDefault();
@@ -627,6 +630,9 @@ export function ReportAddSessionDialog({
               />
               <div className="reports-sessions__task-picker" role="listbox" aria-label="Recent Tasks">
                 <strong>Recent Tasks</strong>
+                {filtered.length === 0 ? (
+                  <p className="reports-sessions__task-picker-empty" role="status">No matching tasks</p>
+                ) : null}
                 {filtered.slice(0, 12).map((task) => (
                   <button
                     type="button"

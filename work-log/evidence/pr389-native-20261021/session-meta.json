@@ -1,0 +1,11 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "utc": "2026-10-21T07:38:04.365310+00:00",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR389-Native-20261021\\artifact\\narro-m7-validation.exe",
+  "sha256": "31cc0db9be9acf4dd7b4c1176fd31668f9ec407f4d9c2c126967c12cc3839a79",
+  "source": "77a6b13903cf6bf3f4ba67c3e6edddb1d0402ad1",
+  "run": 39560130498,
+  "gates": "3/3SUCCESS",
+  "physicalExeIdentical": true,
+  "sourceShaEmbedded": true
+}

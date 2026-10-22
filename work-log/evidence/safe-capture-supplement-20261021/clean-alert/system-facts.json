@@ -1,0 +1,18 @@
+{
+  "originalPolicyRejectionRootCause": "not confirmed",
+  "windowsVersion": "10.0.19045",
+  "windowsBuild": "19045",
+  "source": "4786bbea382289d3458c7357138df491e80e11ea",
+  "windowsCaption": "Microsoft Windows 10 Pro",
+  "utc": "2026-10-21T12:18:12.8636004Z",
+  "appPid": 109188,
+  "captureMethod": "ffmpeg Desktop Duplication, primary display, nominal60fps",
+  "timezone": "GTB Standard Time",
+  "inputMethod": "CDP actual production WebView2, not OS SendInput",
+  "localRuleCounts": {
+    "forbidden": 0,
+    "prompt": 0,
+    "allow": 218
+  },
+  "securityOrApprovalSettingsChanged": false
+}

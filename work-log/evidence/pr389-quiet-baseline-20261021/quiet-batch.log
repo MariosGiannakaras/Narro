@@ -1,0 +1,51 @@
+
+=== Floating performance run-01 of 3 ===
+Scenario preflight: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-01\scenario-preflight.json
+M1 floating scenario PASS: PID 98608; Focus 0x32033A; DPI 96; compact region 340x110; Main HWND count 0.
+Narro root PID: 98608
+Executable: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\artifact\narro.exe
+Logical processors: 12
+Warm-up: 30 s; sample window: 60 s; interval: 1 s
+Summary: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-01\summary.json
+Raw process samples: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-01\samples.csv
+CPU intervals: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-01\cpu-intervals.csv
+Average CPU: 0,803% of one core / 0,067% total capacity
+Average working set: 413,8 MiB
+Average private bytes: 377,8 MiB
+Floating-only steady-state sampling completed without process-tree churn.
+
+=== Floating performance run-02 of 3 ===
+Scenario preflight: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-02\scenario-preflight.json
+M1 floating scenario PASS: PID 98608; Focus 0x32033A; DPI 96; compact region 340x110; Main HWND count 0.
+Narro root PID: 98608
+Executable: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\artifact\narro.exe
+Logical processors: 12
+Warm-up: 30 s; sample window: 60 s; interval: 1 s
+Summary: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-02\summary.json
+Raw process samples: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-02\samples.csv
+CPU intervals: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-02\cpu-intervals.csv
+Average CPU: 0,415% of one core / 0,035% total capacity
+Average working set: 414,4 MiB
+Average private bytes: 377,5 MiB
+Floating-only steady-state sampling completed without process-tree churn.
+
+=== Floating performance run-03 of 3 ===
+Scenario preflight: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-03\scenario-preflight.json
+M1 floating scenario PASS: PID 98608; Focus 0x32033A; DPI 96; compact region 340x110; Main HWND count 0.
+Narro root PID: 98608
+Executable: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\artifact\narro.exe
+Logical processors: 12
+Warm-up: 30 s; sample window: 60 s; interval: 1 s
+Summary: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-03\summary.json
+Raw process samples: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-03\samples.csv
+CPU intervals: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\run-03\cpu-intervals.csv
+Average CPU: 0,673% of one core / 0,056% total capacity
+Average working set: 414,8 MiB
+Average private bytes: 377,7 MiB
+Floating-only steady-state sampling completed without process-tree churn.
+
+All 3 floating-only runs are valid steady-state evidence.
+Batch summary: E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR389-Baseline-20261021\quiet-batch\batch-summary.json
+Median run-average CPU: 0,673% of one core / 0,056% total capacity
+Median run-average working set: 414,4 MiB
+Median run-average private bytes: 377,7 MiB

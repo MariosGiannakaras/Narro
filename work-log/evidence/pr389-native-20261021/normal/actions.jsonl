@@ -1,0 +1,11 @@
+{"utc":"2026-10-21T07:40:55.9700534Z","action":"RECORDER_STARTED; actions below are CDP WebView2 inputs, not OS input"}
+{"utc":"2026-10-21T07:40:58.4536166Z","action":"BEGIN Compact view"}
+{"utc":"2026-10-21T07:41:03.7063697Z","action":"RETURN Compact view; DOM receipt {\r\n  \"presentation\": \"timerCompact\",\r\n  \"pending\": \"false\",\r\n  \"resizePending\": \"false\"\r\n}"}
+{"utc":"2026-10-21T07:41:05.5174791Z","action":"BEGIN Expand Floating Timer"}
+{"utc":"2026-10-21T07:41:10.6446007Z","action":"RETURN Expand Floating Timer; DOM receipt {\r\n  \"presentation\": \"timerExpanded\",\r\n  \"pending\": \"false\",\r\n  \"resizePending\": \"false\"\r\n}"}
+{"utc":"2026-10-21T07:41:12.4146026Z","action":"BEGIN Collapse Floating Timer"}
+{"utc":"2026-10-21T07:41:17.8881623Z","action":"RETURN Collapse Floating Timer; DOM receipt {\r\n  \"presentation\": \"timerCompact\",\r\n  \"pending\": \"false\",\r\n  \"resizePending\": \"false\"\r\n}"}
+{"utc":"2026-10-21T07:41:19.7015429Z","action":"BEGIN Return to Focus Panel"}
+{"utc":"2026-10-21T07:41:24.9284091Z","action":"RETURN Return to Focus Panel; DOM receipt {\r\n  \"presentation\": \"panel\",\r\n  \"pending\": \"false\"\r\n}"}
+{"utc":"2026-10-21T07:41:24.9294570Z","action":"FOUR TRANSITIONS ACQUIRED; NO VISUAL PASS CLAIM"}
+{"utc":"2026-10-21T07:41:25.1719860Z","action":"RECORDER_STOPPED"}

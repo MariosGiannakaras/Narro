@@ -46,6 +46,7 @@ type PreferenceSettingsRuntimeValue = {
   error: string | null;
   save: (patch: PreferenceSettingsPatch, key: PreferencePendingKey) => Promise<boolean>;
   refreshMonitors: () => Promise<void>;
+  retryInitialLoad: () => void;
 };
 
 const PreferenceSettingsRuntimeContext = createContext<PreferenceSettingsRuntimeValue | null>(null);
@@ -56,8 +57,10 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const [loading, setLoading] = useState(true);
   const [pendingKey, setPendingKey] = useState<PreferencePendingKey | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   // Synchronous admission owner: React pendingKey only publishes on a later render.
   const saveInFlightRef = useRef(false);
+  const initialReadInFlightRef = useRef(false);
 
   const refreshMonitors = async () => {
     try {
@@ -98,14 +101,25 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
         if (!disposed) setError(formatInvokeError(failure));
       })
       .finally(() => {
-        if (!disposed) setLoading(false);
+        if (!disposed) {
+          initialReadInFlightRef.current = false;
+          setLoading(false);
+        }
       });
 
     return () => {
       disposed = true;
       stopListening?.();
     };
-  }, []);
+  }, [loadAttempt]);
+
+  const retryInitialLoad = () => {
+    if (loading || snapshot !== null || !error || saveInFlightRef.current || initialReadInFlightRef.current) return;
+    initialReadInFlightRef.current = true;
+    setError(null);
+    setLoading(true);
+    setLoadAttempt((attempt) => attempt + 1);
+  };
 
   const save = async (patch: PreferenceSettingsPatch, key: PreferencePendingKey) => {
     if (saveInFlightRef.current) return false;
@@ -134,7 +148,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
 
   return (
     <PreferenceSettingsRuntimeContext.Provider
-      value={{ snapshot, monitors, loading, pendingKey, error, save, refreshMonitors }}
+      value={{ snapshot, monitors, loading, pendingKey, error, save, refreshMonitors, retryInitialLoad }}
     >
       {children}
     </PreferenceSettingsRuntimeContext.Provider>

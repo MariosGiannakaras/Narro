@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { navigateOrConfirmFinding33Document } from "./finding33NavigationAck.mjs";
 import {
   isRetryableFinding33NavigationFailure,
   runWithBoundedFinding33BootstrapRecovery,
@@ -120,4 +121,50 @@ assert(runner.includes("pathToFileURL(path.resolve(process.argv[1]))"), "portabl
 const entry = new URL("./run-finding33-large-notes-escape.mjs", import.meta.url);
 const wrongArgumentRun = spawnSync(process.execPath, [fileURLToPath(entry)], { encoding: "utf8" });
 assert.equal(wrongArgumentRun.status, 2, "the real runner must execute as a CLI and reject missing arguments, never silently succeed");
+// Exact Windows CI 39585388511 navigation-ack race: Edge's correct URL had
+// readyState=interactive/rootChildren=0 while Page.navigate CDP response timed
+// out twice. Only a confirmed target document may proceed to the ORIGINAL
+// strict React-ready and real Escape checks in the calling driver.
+const navTimeout = new Error("Finding33 CDP command timed out: Page.navigate");
+const goodDocument = { url: target, readyState: "interactive", documentPresent: true };
+let sent = 0, observed = 0;
+const requestNavigation = (reply, state = goodDocument) =>
+  navigateOrConfirmFinding33Document({
+    url: target,
+    send: async (method, params) => {
+      sent++;
+      assert.equal(method, "Page.navigate");
+      assert.deepEqual(params, { url: target });
+      if (reply instanceof Error) throw reply;
+      return reply;
+    },
+    observe: async () => { observed++; if (state instanceof Error) throw state; return state; },
+  });
+assert.deepEqual(await requestNavigation({ frameId: "actual-target" }), { acknowledged: true });
+assert.equal(observed, 0, "acknowledged navigation needs no duplicate inspection");
+assert.deepEqual(await requestNavigation(navTimeout), { acknowledged: false });
+assert.equal(observed, 1, "one additional read must confirm the committed URL");
+for (const invalid of [
+  { ...goodDocument, url: "about:blank" },
+  { ...goodDocument, documentPresent: false },
+  { ...goodDocument, readyState: "unexpected" },
+  null,
+  new Error("CDP Runtime.evaluate also timed out"),
+]) {
+  await assert.rejects(requestNavigation(navTimeout, invalid), /Page.navigate/,
+    "unverified navigation cannot bypass a stalled browser or wrong target");
+}
+await assert.rejects(requestNavigation({ errorText: "ERR_CONNECTION_REFUSED" }),
+  /navigation failed: ERR_CONNECTION_REFUSED/);
+await assert.rejects(requestNavigation(new Error("Unexpected CDP session reset")),
+  /Unexpected CDP session reset/);
+assert.equal(sent, 9, "exactly one navigation command per guarded test attempt");
+assert.equal(observed, 6, "only Page.navigate timeouts may probe document ownership");
+const actualDriver = fs.readFileSync("scripts/test-finding33-large-notes-escape.mjs", "utf8");
+assert(actualDriver.includes("await navigateOrConfirmFinding33Document({"));
+assert(actualDriver.includes('documentPresent: Boolean(document.documentElement)'));
+assert(actualDriver.includes('taskNotesFixtureReady === "true"'));
+assert(actualDriver.includes('await key(client, "Escape", "Escape", 27)'));
+assert(actualDriver.includes('assert.equal(finalState.presentation, "compact"'));
+
 console.log("Finding33 evidence-classified at-most-once fresh Edge bootstrap/CDP transport retry: PASS");

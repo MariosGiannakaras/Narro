@@ -1,0 +1,52 @@
+﻿{
+    "schemaVersion":  1,
+    "scenario":  "floating-only-main-destroyed",
+    "rootPid":  98608,
+    "rootExecutable":  "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR389-Baseline-20261021\\artifact\\narro.exe",
+    "logicalProcessorCount":  12,
+    "warmupSeconds":  30,
+    "requestedSampleSeconds":  60,
+    "actualSampleSeconds":  60.6057202,
+    "intervalSeconds":  1,
+    "sampleCount":  52,
+    "stableCpuIntervalCount":  51,
+    "churnIntervalCount":  0,
+    "steadyStateValid":  true,
+    "cpuPercentOneCore":  {
+                              "min":  0,
+                              "max":  14.430969755290226,
+                              "average":  0.8026494307878177
+                          },
+    "cpuPercentTotalCapacity":  {
+                                    "min":  0,
+                                    "max":  1.2025808129408522,
+                                    "average":  0.066887452565651456
+                                },
+    "workingSetBytes":  {
+                            "min":  433270784,
+                            "max":  440320000,
+                            "average":  433900307.69230771
+                        },
+    "privateBytes":  {
+                         "min":  395681792,
+                         "max":  401833984,
+                         "average":  396147475.69230771
+                     },
+    "lastProcessBreakdown":  [
+                                 {
+                                     "name":  "msedgewebview2.exe",
+                                     "processCount":  6,
+                                     "workingSetBytes":  403767296,
+                                     "privateBytes":  331292672,
+                                     "cumulativeCpuSeconds":  3.359375
+                                 },
+                                 {
+                                     "name":  "narro.exe",
+                                     "processCount":  1,
+                                     "workingSetBytes":  32288768,
+                                     "privateBytes":  66277376,
+                                     "cumulativeCpuSeconds":  1
+                                 }
+                             ],
+    "generatedAtUtc":  "2026-10-21T07:10:24.0967003Z"
+}

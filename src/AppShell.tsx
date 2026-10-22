@@ -2,7 +2,7 @@ import narroLogoDark from "../assets/branding/narro-logo-horizontal-dark.svg";
 import narroLogoLight from "../assets/branding/narro-logo-horizontal-light.svg";
 import narroSymbol from "../assets/branding/narro-symbol.svg";
 import { emitTo } from "@tauri-apps/api/event";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { ArchivePanel } from "./ArchivePanel";
 import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
@@ -128,6 +128,9 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [editorState, setEditorState] = useState<ListEditorState | null>(null);
   const [archivePendingId, setArchivePendingId] = useState<string | null>(null);
   const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
+  // React pending state becomes visible after render. One synchronous owner
+  // excludes duplicate clicks and incompatible archive/duplicate writes immediately.
+  const homeListMutationInFlightRef = useRef(false);
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -164,7 +167,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
       if (!shortcut || event.defaultPrevented) return;
-      if (editorState || archivePendingId || hasActiveModalShortcutBoundary()) {
+      if (editorState || archivePendingId || duplicatePendingId || hasActiveModalShortcutBoundary()) {
         // The modal owns recognized shortcuts, including WebView2's native Find default.
         event.preventDefault();
         return;
@@ -198,7 +201,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [editorState, archivePendingId]);
+  }, [editorState, archivePendingId, duplicatePendingId]);
 
   useEffect(() => {
     if (!shortcutFeedback) return;
@@ -217,7 +220,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   }
 
   async function archiveList(list: HomeListCardSnapshot) {
-    if (archivePendingId) return;
+    if (archivePendingId || duplicatePendingId || homeListMutationInFlightRef.current) return;
+    homeListMutationInFlightRef.current = true;
     setSearchOpen(false);
     setArchivePendingId(list.id);
     setHomeMutationError(null);
@@ -227,12 +231,14 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     } catch (failure) {
       setHomeMutationError(formatInvokeError(failure));
     } finally {
+      homeListMutationInFlightRef.current = false;
       setArchivePendingId(null);
     }
   }
 
   async function duplicateList(list: HomeListCardSnapshot) {
-    if (duplicatePendingId) return;
+    if (archivePendingId || duplicatePendingId || homeListMutationInFlightRef.current) return;
+    homeListMutationInFlightRef.current = true;
     setSearchOpen(false);
     setDuplicatePendingId(list.id);
     setHomeMutationError(null);
@@ -242,6 +248,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     } catch (failure) {
       setHomeMutationError(formatInvokeError(failure));
     } finally {
+      homeListMutationInFlightRef.current = false;
       setDuplicatePendingId(null);
     }
   }
@@ -314,8 +321,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
       getListCardActions={(list) => ({
         onOpen: () => openListBoard(list),
         onEdit: () => openEditList(list),
-        onDuplicate: duplicatePendingId ? undefined : () => void duplicateList(list),
-        onArchive: archivePendingId ? undefined : () => void archiveList(list),
+        onDuplicate: archivePendingId || duplicatePendingId ? undefined : () => void duplicateList(list),
+        onArchive: archivePendingId || duplicatePendingId ? undefined : () => void archiveList(list),
       })}
     />
   );

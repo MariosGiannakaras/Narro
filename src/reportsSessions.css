@@ -182,6 +182,8 @@
 .reports-sessions__inline-confirm {
   width: 28px;
   height: 30px;
+  display: inline-grid;
+  place-items: center;
   padding: 0;
   border-color: transparent;
   color: var(--color-accent-contrast);
@@ -288,6 +290,8 @@
 .reports-sessions__detail-header > button {
   width: 32px;
   height: 32px;
+  display: inline-grid;
+  place-items: center;
   padding: 0;
   border-color: transparent;
   background: transparent;
@@ -384,6 +388,13 @@
   color: var(--color-text-secondary);
   font-size: 10px;
   text-transform: uppercase;
+}
+
+.reports-sessions__task-picker-empty {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
 }
 
 .reports-sessions__task-picker button {

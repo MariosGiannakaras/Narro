@@ -53,11 +53,15 @@
 }
 
 .windows-shortcuts-dialog__close {
+  box-sizing: border-box;
   display: grid;
   place-items: center;
   flex: 0 0 2rem;
   width: 2rem;
+  min-width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  padding: 0;
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-control);
   color: var(--color-text-primary);

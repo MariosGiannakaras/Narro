@@ -30,6 +30,7 @@ function listAccent(color: string | null): CSSProperties | undefined {
 export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedListsPanelProps) {
   const [lists, setLists] = useState<ArchivedListSummary[] | null>(fixtureLists ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [pendingRestoreId, setPendingRestoreId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ArchivedListSummary | null>(null);
   const [deletePending, setDeletePending] = useState(false);
@@ -57,7 +58,13 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
     return () => {
       disposed = true;
     };
-  }, [fixtureLists]);
+  }, [fixtureLists, loadAttempt]);
+
+  function retryLoad() {
+    if (fixtureLists || archiveMutationInFlightRef.current) return;
+    setLoadError(null);
+    setLoadAttempt((attempt) => attempt + 1);
+  }
 
   async function restoreList(list: ArchivedListSummary) {
     if (pendingRestoreId || deletePending || archiveMutationInFlightRef.current) return;
@@ -119,13 +126,23 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
         </header>
       )}
 
-      {lists?.length === 0 ? null : (
+      {!lists?.length ? null : (
         <p className="archived-lists-panel__scope-note">
           Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
         </p>
       )}
 
-      {loadError ? <div className="archived-lists-panel__error" role="alert">{loadError}</div> : null}
+      {loadError ? (
+        <div className="archived-lists-panel__error" role="alert">
+          {loadError}
+          {lists === null ? (
+            <button type="button" className="archived-lists-panel__retry motion-interactive"
+              onClick={retryLoad} data-archive-retry="lists">
+              Retry loading lists
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       {lists === null && !loadError ? (
         <div className="archived-lists-panel__loading" role="status">Loading archived lists…</div>

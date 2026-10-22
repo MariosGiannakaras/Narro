@@ -1,0 +1,33 @@
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+### Snapshot
+```yaml
+- main [ref=e3]:
+  - main "Floating Timer" [ref=e697]:
+    - generic [ref=e698]:
+      - generic "Show Floating Timer actions":
+        - strong: Weekly recurring parent
+        - generic:
+          - 'generic "Pomodoro paused: 05:00 remaining"': 05:00
+      - group "Floating Timer actions" [ref=e701]:
+        - button "Start break" [ref=e703] [cursor=pointer]
+        - button "Notes" [ref=e710] [cursor=pointer]
+        - button "Resume" [ref=e715] [cursor=pointer]
+        - button "Skip task" [ref=e719] [cursor=pointer]
+        - button "Complete task" [ref=e723] [cursor=pointer]
+        - generic [ref=e727]:
+          - button "Return to Focus Panel" [ref=e728] [cursor=pointer]:
+            - generic [aria-hidden] [ref=e731]: Focus
+          - tooltip "Return to Focus Panel" [ref=e744]
+      - region "Subtasks for Weekly recurring parent" [ref=e733]:
+        - generic "Floating Timer subtask summary" [ref=e734]:
+          - progressbar "0 of 0 subtasks complete" [ref=e735]:
+            - generic [aria-hidden] [ref=e736]: 0/0
+          - generic [ref=e737]: Subtasks
+          - button "Add subtask for Weekly recurring parent" [ref=e739] [cursor=pointer]: +
+          - button "Expand Floating Timer" [ref=e754] [cursor=pointer]
+```

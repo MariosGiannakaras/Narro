@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await page.getByRole('switch', { name: 'Pomodoros' }).click();
+```
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+- Console: 0 errors, 4 warnings
+### Snapshot
+- [Snapshot](.playwright-cli\page-2026-10-21T12-10-29-372Z.yml)

@@ -22,6 +22,8 @@ This file is **not** another backlog, issue tracker, milestone ledger, acceptanc
 
 **2026-10-16 NER-004/003 guard:** PR359/CI38856507685 first failed M7 capture readiness at the final fixture stage, not an assertion. Same product/fixture10s CLI virtual budget reproduced missing completion; diagnostic15s completed. Reuse actual-ready CDP for that sequential scenario, retain exact1280×1080/theme/motion identity and all behavioral assertions, preserve failure DOM/PNG/diagnostics and a finite outer bound; capture-route reachability is now an aggregate preflight contract. No unchanged-SHA rerun or weakened product checks. [Causal record](../work-log/2026-10-16-pr359-ci-readiness-failure-and-correction.md).
 
+**2026-10-21 NER-003/004 recurrence refinement:** PR390's 32px Focus CSS-to-test substring failure (39572897277) and changed Finding33 driver-to-Notes-contract failure (39587751677) were **pre-push dependency closure misses**, not independent app/runtime regressions. An intermediate candidate (39582866897) instead failed the Windows CDP fixture at a temporarily missing HTML root; this is a **separate NER-004 browser readiness** cause, not evidence the product itself failed. Require exact diff-driven direct+transitive test/fixture review, matching local test execution before pushing where feasible, and absent-document fail-closed semantic readiness; carry `NOT RUN` explicitly when local environment cannot execute. Do not add a family per CI attempt or turn matched source-text assertions into empty tautologies. [Process analysis](../work-log/2026-10-21-chatgpt-pr390-prepush-regression-closure.md).
+
 ## How to use it
 
 Before a non-trivial source/config/test slice:

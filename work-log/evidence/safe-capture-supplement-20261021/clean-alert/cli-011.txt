@@ -1,0 +1,3 @@
+### Result
+- 0: (current) [Narro](http://tauri.localhost/)
+- 1: [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)

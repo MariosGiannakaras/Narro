@@ -105,6 +105,9 @@
 }
 
 .board-list-picker__check {
+  display: inline-grid;
+  place-items: center;
+  width: 1rem;
   min-width: 1rem;
   color: var(--color-accent-solid);
 }
@@ -125,7 +128,15 @@
 }
 
 .board-list-picker--focus .board-list-picker__current {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .board-list-picker__badge--focus,

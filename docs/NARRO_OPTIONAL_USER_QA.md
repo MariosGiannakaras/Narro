@@ -1,6 +1,6 @@
 # Optional Milestone 12 — Professional in-app user QA / testing
 
-**Status: DORMANT / STRICTLY OPT-IN — specification only.** This document records a *future optional* user-level quality-assurance campaign for Narro. Creating or reading it does **not** activate M12, grant permission to run the Windows app, resume paused physical acceptance, change settings, access real user data, or install anything.
+**Status: DORMANT / STRICTLY OPT-IN — specification only.** This document records a *future optional* user-level quality-assurance campaign for Narro. Creating or reading it does **not** activate M12, grant permission to run the Windows app, count as completion of separate physical Windows acceptance, change settings, access real user data, or install anything.
 
 ## 1. Purpose and boundaries
 
@@ -40,7 +40,7 @@ M12 must be **explicitly activated by the user by name or by a clearly equivalen
 - If M12 is never activated, mark it **SKIPPED BY DESIGN**, do not treat any checklist here as a blocker, and proceed directly to the Final Comprehensive Review after the applicable earlier stage.
 - **2026-10-19 user sequencing:** new Narro-owned feature brainstorming, independent analysis, recommendations, prioritization and any corresponding implementation belong **only after M12 has actually completed and the mandatory Final Comprehensive Review and final stable product/release acceptance are fully complete**. This post-product activity is separate from M12 QA and does not run while M12 is dormant, even when mandatory release work is finished. An M11 Blitzit-announcement register is source research, not permission to propose/build Narro features early; see `TODO.md` post-final section.
 - The base progress denominator always remains **10 mandatory milestones** until an optional milestone is explicitly activated. If the reporting convention counts activated optionals, use **10 + number of separately activated optionals**, never 12 merely because this file exists. Always report mandatory 10 separately from optional completion and Windows/Blitzit source parity.
-- **Safety prerequisite:** separate, explicit approval for *this* normal user-app session and its evidence/capture method; user-paused native PA-01–09 **remain paused**. M12 approval is not consent to install/execute outside the agreed application environment, modify user AppData or use genuine personal content.
+- **Safety prerequisite:** separate, explicit approval for *this* normal user-app session and its evidence/capture method; native PA-01–09 remain a separate required acceptance track and are not completed by M12 approval. M12 approval is not consent to install/execute outside the agreed application environment, modify user AppData or use genuine personal content.
 - On activation record exact candidate source SHA, package identity, app version, owner, environment, allowed test data, session permissions and M12 status in current tracking. Never claim historical validation applies to a newer replacement SHA without impact review.
 
 ## 3. Testing method (professional but practical)

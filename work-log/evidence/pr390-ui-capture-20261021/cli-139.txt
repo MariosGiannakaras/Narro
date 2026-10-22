@@ -1,0 +1,578 @@
+### Open tabs
+- 0: [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: (current) [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/
+- Page Title: Narro
+### Snapshot
+```yaml
+- generic [ref=e3]:
+  - complementary "List navigation" [ref=e4]:
+    - img "Narro" [ref=e5]
+    - navigation "Lists" [ref=e7]:
+      - button "+ Create new list" [ref=e8] [cursor=pointer]
+      - button "All my lists" [ref=e10] [cursor=pointer]
+      - button "Archived lists" [ref=e11] [cursor=pointer]
+  - generic [ref=e12]:
+    - generic "Utilities" [ref=e14]:
+      - button "Search" [ref=e15] [cursor=pointer]
+      - button "Settings" [ref=e16] [cursor=pointer]
+    - main [ref=e17]:
+      - region [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - button "Back" [ref=e152] [cursor=pointer]
+            - heading "Reports" [level=1] [ref=e155]
+          - button "Export PDF" [ref=e156] [cursor=pointer]
+        - tablist "Reports" [ref=e159]:
+          - tab "Overview" [selected] [ref=e160] [cursor=pointer]
+          - tab "Sessions Beta" [ref=e161] [cursor=pointer]
+        - generic [ref=e162]:
+          - button "All Lists" [ref=e164] [cursor=pointer]
+          - generic [ref=e171]:
+            - button "Sep 21, 2026 – Oct 21, 2026" [expanded] [ref=e172] [cursor=pointer]
+            - dialog "Choose report date range" [ref=e728]:
+              - generic "Date presets" [ref=e729]:
+                - button "Today" [ref=e730] [cursor=pointer]
+                - button "Yesterday" [ref=e731] [cursor=pointer]
+                - button "This week" [ref=e732] [cursor=pointer]
+                - button "Last 30 days" [ref=e733] [cursor=pointer]
+                - button "Last 60 days" [ref=e734] [cursor=pointer]
+                - button "Last 90 days" [ref=e735] [cursor=pointer]
+              - generic [ref=e736]:
+                - region "Sep 2026" [ref=e1004]:
+                  - generic [ref=e1005]:
+                    - button "Previous year from Sep 2026" [ref=e1006] [cursor=pointer]
+                    - button "Previous month from Sep 2026" [ref=e1009] [cursor=pointer]
+                    - strong [ref=e1012]: Sep 2026
+                    - button "Next month from Sep 2026" [ref=e1013] [cursor=pointer]
+                    - button "Next year from Sep 2026" [ref=e1016] [cursor=pointer]
+                  - generic [aria-hidden] [ref=e1019]:
+                    - generic [ref=e1020]: Su
+                    - generic [ref=e1021]: Mo
+                    - generic [ref=e1022]: Tu
+                    - generic [ref=e1023]: We
+                    - generic [ref=e1024]: Th
+                    - generic [ref=e1025]: Fr
+                    - generic [ref=e1026]: Sa
+                  - generic [ref=e1027]:
+                    - button "30" [ref=e1028] [cursor=pointer]
+                    - button "31" [ref=e1029] [cursor=pointer]
+                    - button "1" [ref=e1030] [cursor=pointer]
+                    - button "2" [ref=e1031] [cursor=pointer]
+                    - button "3" [ref=e1032] [cursor=pointer]
+                    - button "4" [ref=e1033] [cursor=pointer]
+                    - button "5" [ref=e1034] [cursor=pointer]
+                    - button "6" [ref=e1035] [cursor=pointer]
+                    - button "7" [ref=e1036] [cursor=pointer]
+                    - button "8" [ref=e1037] [cursor=pointer]
+                    - button "9" [ref=e1038] [cursor=pointer]
+                    - button "10" [ref=e1039] [cursor=pointer]
+                    - button "11" [ref=e1040] [cursor=pointer]
+                    - button "12" [ref=e1041] [cursor=pointer]
+                    - button "13" [ref=e1042] [cursor=pointer]
+                    - button "14" [ref=e1043] [cursor=pointer]
+                    - button "15" [ref=e1044] [cursor=pointer]
+                    - button "16" [ref=e1045] [cursor=pointer]
+                    - button "17" [ref=e1046] [cursor=pointer]
+                    - button "18" [ref=e1047] [cursor=pointer]
+                    - button "19" [ref=e1048] [cursor=pointer]
+                    - button "20" [ref=e1049] [cursor=pointer]
+                    - button "21" [pressed] [ref=e1050] [cursor=pointer]
+                    - button "22" [pressed] [ref=e1051] [cursor=pointer]
+                    - button "23" [pressed] [ref=e1052] [cursor=pointer]
+                    - button "24" [pressed] [ref=e1053] [cursor=pointer]
+                    - button "25" [pressed] [ref=e1054] [cursor=pointer]
+                    - button "26" [pressed] [ref=e1055] [cursor=pointer]
+                    - button "27" [pressed] [ref=e1056] [cursor=pointer]
+                    - button "28" [pressed] [ref=e1057] [cursor=pointer]
+                    - button "29" [pressed] [ref=e1058] [cursor=pointer]
+                    - button "30" [pressed] [ref=e1059] [cursor=pointer]
+                    - button "1" [pressed] [ref=e1060] [cursor=pointer]
+                    - button "2" [pressed] [ref=e1061] [cursor=pointer]
+                    - button "3" [pressed] [ref=e1062] [cursor=pointer]
+                    - button "4" [pressed] [ref=e1063] [cursor=pointer]
+                    - button "5" [pressed] [ref=e1064] [cursor=pointer]
+                    - button "6" [pressed] [ref=e1065] [cursor=pointer]
+                    - button "7" [pressed] [ref=e1066] [cursor=pointer]
+                    - button "8" [pressed] [ref=e1067] [cursor=pointer]
+                    - button "9" [pressed] [ref=e1068] [cursor=pointer]
+                    - button "10" [pressed] [ref=e1069] [cursor=pointer]
+                - region "Oct 2026" [ref=e1202]:
+                  - generic [ref=e1203]:
+                    - button "Previous year from Oct 2026" [ref=e1204] [cursor=pointer]
+                    - button "Previous month from Oct 2026" [ref=e1207] [cursor=pointer]
+                    - strong [ref=e1210]: Oct 2026
+                    - button "Next month from Oct 2026" [ref=e1211] [cursor=pointer]
+                    - button "Next year from Oct 2026" [ref=e1214] [cursor=pointer]
+                  - generic [aria-hidden] [ref=e1217]:
+                    - generic [ref=e1218]: Su
+                    - generic [ref=e1219]: Mo
+                    - generic [ref=e1220]: Tu
+                    - generic [ref=e1221]: We
+                    - generic [ref=e1222]: Th
+                    - generic [ref=e1223]: Fr
+                    - generic [ref=e1224]: Sa
+                  - generic [ref=e1225]:
+                    - button "27" [pressed] [ref=e1226] [cursor=pointer]
+                    - button "28" [pressed] [ref=e1227] [cursor=pointer]
+                    - button "29" [pressed] [ref=e1228] [cursor=pointer]
+                    - button "30" [pressed] [ref=e1229] [cursor=pointer]
+                    - button "1" [pressed] [ref=e1230] [cursor=pointer]
+                    - button "2" [pressed] [ref=e1231] [cursor=pointer]
+                    - button "3" [pressed] [ref=e1232] [cursor=pointer]
+                    - button "4" [pressed] [ref=e1233] [cursor=pointer]
+                    - button "5" [pressed] [ref=e1234] [cursor=pointer]
+                    - button "6" [pressed] [ref=e1235] [cursor=pointer]
+                    - button "7" [pressed] [ref=e1236] [cursor=pointer]
+                    - button "8" [pressed] [ref=e1237] [cursor=pointer]
+                    - button "9" [pressed] [ref=e1238] [cursor=pointer]
+                    - button "10" [pressed] [ref=e1239] [cursor=pointer]
+                    - button "11" [pressed] [ref=e1240] [cursor=pointer]
+                    - button "12" [pressed] [ref=e1241] [cursor=pointer]
+                    - button "13" [pressed] [ref=e1242] [cursor=pointer]
+                    - button "14" [pressed] [ref=e1243] [cursor=pointer]
+                    - button "15" [pressed] [ref=e1244] [cursor=pointer]
+                    - button "16" [pressed] [ref=e1245] [cursor=pointer]
+                    - button "17" [pressed] [ref=e1246] [cursor=pointer]
+                    - button "18" [pressed] [ref=e1247] [cursor=pointer]
+                    - button "19" [pressed] [ref=e1248] [cursor=pointer]
+                    - button "20" [pressed] [ref=e1249] [cursor=pointer]
+                    - button "21" [pressed] [ref=e1250] [cursor=pointer]
+                    - button "22" [ref=e1251] [cursor=pointer]
+                    - button "23" [ref=e1252] [cursor=pointer]
+                    - button "24" [ref=e1253] [cursor=pointer]
+                    - button "25" [ref=e1254] [cursor=pointer]
+                    - button "26" [ref=e1255] [cursor=pointer]
+                    - button "27" [ref=e1256] [cursor=pointer]
+                    - button "28" [ref=e1257] [cursor=pointer]
+                    - button "29" [ref=e1258] [cursor=pointer]
+                    - button "30" [ref=e1259] [cursor=pointer]
+                    - button "31" [ref=e1260] [cursor=pointer]
+                    - button "1" [ref=e1261] [cursor=pointer]
+                    - button "2" [ref=e1262] [cursor=pointer]
+                    - button "3" [ref=e1263] [cursor=pointer]
+                    - button "4" [ref=e1264] [cursor=pointer]
+                    - button "5" [ref=e1265] [cursor=pointer]
+                    - button "6" [ref=e1266] [cursor=pointer]
+                    - button "7" [ref=e1267] [cursor=pointer]
+                - generic [ref=e869]:
+                  - button "Cancel" [ref=e870] [cursor=pointer]
+                  - button "Apply" [ref=e871] [cursor=pointer]
+        - generic [ref=e176]:
+          - article [ref=e177]:
+            - text: Total work days
+            - strong [ref=e178]: "13"
+            - generic [ref=e179]: 13 active days
+          - article [ref=e180]:
+            - text: Total tasks done
+            - strong [ref=e181]: "37"
+            - generic [ref=e182]: 2.8 avg / active day
+          - article [ref=e183]:
+            - text: Total time worked
+            - strong [ref=e184]: 10hr 33min
+            - generic [ref=e185]: 49min avg / active day
+          - article [ref=e186]:
+            - text: Avg. Time per task
+            - strong [ref=e187]: 15min
+            - generic [ref=e188]: includes partial tasks
+        - region [ref=e189]:
+          - generic [ref=e190]:
+            - generic [ref=e191]:
+              - paragraph [ref=e192]: Productivity
+              - heading "Time by day" [level=2] [ref=e193]
+            - button "Chart options" [ref=e196] [cursor=pointer]:
+              - generic [aria-hidden] [ref=e197]: •••
+          - region "Daily Tasks, Breaks and Total session time" [ref=e198]:
+            - generic [ref=e199]:
+              - 'button "Mon, Sep 21: Tasks 0min, Breaks 0min, Total 0min" [ref=e201] [cursor=pointer]':
+                - generic [ref=e203]: Mon, Sep 21
+              - 'button "Tue, Sep 22: Tasks 20min, Breaks 5min, Total 25min" [ref=e205] [cursor=pointer]'
+              - 'button "Wed, Sep 23: Tasks 0min, Breaks 0min, Total 0min" [ref=e211] [cursor=pointer]'
+              - 'button "Thu, Sep 24: Tasks 0min, Breaks 0min, Total 0min" [ref=e214] [cursor=pointer]'
+              - 'button "Fri, Sep 25: Tasks 20min, Breaks 5min, Total 25min" [ref=e217] [cursor=pointer]'
+              - 'button "Sat, Sep 26: Tasks 0min, Breaks 0min, Total 0min" [ref=e223] [cursor=pointer]'
+              - 'button "Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min" [ref=e226] [cursor=pointer]'
+              - 'button "Mon, Sep 28: Tasks 20min, Breaks 5min, Total 25min" [ref=e229] [cursor=pointer]':
+                - generic [ref=e234]: Mon, Sep 28
+              - 'button "Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min" [ref=e236] [cursor=pointer]'
+              - 'button "Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min" [ref=e239] [cursor=pointer]'
+              - 'button "Thu, Oct 01: Tasks 20min, Breaks 5min, Total 25min" [ref=e242] [cursor=pointer]'
+              - 'button "Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min" [ref=e248] [cursor=pointer]'
+              - 'button "Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min" [ref=e251] [cursor=pointer]'
+              - 'button "Sun, Oct 04: Tasks 20min, Breaks 5min, Total 25min" [ref=e254] [cursor=pointer]'
+              - 'button "Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min" [ref=e260] [cursor=pointer]':
+                - generic [ref=e262]: Mon, Oct 05
+              - 'button "Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min" [ref=e264] [cursor=pointer]'
+              - 'button "Wed, Oct 07: Tasks 20min, Breaks 5min, Total 25min" [ref=e267] [cursor=pointer]'
+              - 'button "Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min" [ref=e273] [cursor=pointer]'
+              - 'button "Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min" [ref=e276] [cursor=pointer]'
+              - 'button "Sat, Oct 10: Tasks 20min, Breaks 5min, Total 25min" [ref=e279] [cursor=pointer]'
+              - 'button "Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min" [ref=e285] [cursor=pointer]'
+              - 'button "Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min" [ref=e288] [cursor=pointer]':
+                - generic [ref=e290]: Mon, Oct 12
+              - 'button "Tue, Oct 13: Tasks 20min, Breaks 5min, Total 25min" [ref=e292] [cursor=pointer]'
+              - 'button "Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min" [ref=e298] [cursor=pointer]'
+              - 'button "Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min" [ref=e301] [cursor=pointer]'
+              - 'button "Fri, Oct 16: Tasks 20min, Breaks 5min, Total 25min" [ref=e304] [cursor=pointer]'
+              - 'button "Sat, Oct 17: Tasks 1hr, Breaks 0min, Total 1hr" [ref=e310] [cursor=pointer]'
+              - 'button "Sun, Oct 18: Tasks 1hr, Breaks 0min, Total 1hr" [ref=e315] [cursor=pointer]'
+              - 'button "Mon, Oct 19: Tasks 1hr 20min, Breaks 5min, Total 1hr 25min" [ref=e320] [cursor=pointer]':
+                - generic [ref=e325]: Mon, Oct 19
+              - 'button "Tue, Oct 20: Tasks 3hr 17min, Breaks 6min, Total 3hr 23min" [ref=e327] [cursor=pointer]'
+              - 'button "Wed, Oct 21: Tasks 0min, Breaks 0min, Total 0min" [ref=e333] [cursor=pointer]':
+                - generic [ref=e335]: Wed, Oct 21
+          - generic "Chart legend" [ref=e336]:
+            - button "Tasks" [pressed] [ref=e337] [cursor=pointer]
+            - button "Breaks" [pressed] [ref=e339] [cursor=pointer]
+            - button "Total" [pressed] [ref=e341] [cursor=pointer]
+        - generic [ref=e343]:
+          - article [ref=e344]:
+            - text: Most Productive hour
+            - strong [ref=e345]: 12 PM–1 PM
+          - article [ref=e346]:
+            - text: Most Productive day
+            - strong [ref=e347]: Tuesday
+          - article [ref=e348]:
+            - text: Most Productive month
+            - strong [ref=e349]: Oct 26
+        - generic [ref=e350]:
+          - region [ref=e351]:
+            - generic [ref=e352]:
+              - heading "Time By List" [level=2] [ref=e353]
+              - generic [ref=e354]:
+                - text: "Total Time:"
+                - strong [ref=e355]: 9hr 37min
+            - generic [ref=e356]:
+              - generic [ref=e358]: 9hr 37min
+              - generic [ref=e359]:
+                - generic [ref=e360]:
+                  - generic [ref=e361]: Capture Project
+                  - strong [ref=e363]: 6hr 17min
+                  - generic [ref=e364]: 65%
+                - generic [ref=e365]:
+                  - generic [ref=e366]: Reading & research
+                  - strong [ref=e368]: 3hr 20min
+                  - generic [ref=e369]: 35%
+          - region [ref=e370]:
+            - generic [ref=e371]:
+              - heading "Done Tasks" [level=2] [ref=e372]
+              - generic "Completion punctuality" [ref=e373]:
+                - generic [ref=e374]: ● Early 99.40%
+                - generic [ref=e375]: ● Late 0.60%
+            - region "Done Tasks" [ref=e379]:
+              - generic [ref=e380]:
+                - generic [ref=e381]:
+                  - strong [ref=e382]: Oct 20, 2026
+                  - generic [ref=e383]: 9 tasks
+                - article [ref=e384]:
+                  - generic [ref=e385]:
+                    - strong [ref=e386]: Third task without estimate
+                    - generic [ref=e387]: Capture Project
+                  - generic [ref=e389]:
+                    - generic [ref=e390]: No Est
+                    - generic [ref=e391]: Time Taken 2hr 2min
+                - article [ref=e392]:
+                  - generic [ref=e393]:
+                    - strong [ref=e394]: Second task — notes and success feedback
+                    - generic [ref=e395]: Capture Project
+                  - generic [ref=e397]:
+                    - generic [ref=e398]: 8hr 43min early
+                    - generic [ref=e399]: Time Taken 2min
+                - article [ref=e400]:
+                  - generic [ref=e401]:
+                    - strong [ref=e402]: Capture live task — long title for compact wrapping and hover actions
+                    - generic [ref=e403]: Capture Project
+                  - generic [ref=e405]:
+                    - generic [ref=e406]: 4min late
+                    - generic [ref=e407]: Time Taken 5min
+                - article [ref=e408]:
+                  - generic [ref=e409]:
+                    - strong [ref=e410]: Done history 03 — long title for scroll
+                    - generic [ref=e411]: Capture Project
+                  - generic [ref=e413]:
+                    - generic [ref=e414]: 5min early
+                    - generic [ref=e415]: Time Taken 10min
+                - article [ref=e416]:
+                  - generic [ref=e417]:
+                    - strong [ref=e418]: Done history 01 — long title for scroll
+                    - generic [ref=e419]: Capture Project
+                  - generic [ref=e421]:
+                    - generic [ref=e422]: 5min early
+                    - generic [ref=e423]: Time Taken 10min
+                - article [ref=e424]:
+                  - generic [ref=e425]:
+                    - strong [ref=e426]: Done history 06 — long title for scroll
+                    - generic [ref=e427]: Capture Project
+                  - generic [ref=e429]:
+                    - generic [ref=e430]: 5min early
+                    - generic [ref=e431]: Time Taken 10min
+                - article [ref=e432]:
+                  - generic [ref=e433]:
+                    - strong [ref=e434]: Done history 05 — long title for scroll
+                    - generic [ref=e435]: Capture Project
+                  - generic [ref=e437]:
+                    - generic [ref=e438]: 5min early
+                    - generic [ref=e439]: Time Taken 10min
+                - article [ref=e440]:
+                  - generic [ref=e441]:
+                    - strong [ref=e442]: Done history 04 — long title for scroll
+                    - generic [ref=e443]: Capture Project
+                  - generic [ref=e445]:
+                    - generic [ref=e446]: 5min early
+                    - generic [ref=e447]: Time Taken 10min
+                - article [ref=e448]:
+                  - generic [ref=e449]:
+                    - strong [ref=e450]: Done history 02 — long title for scroll
+                    - generic [ref=e451]: Capture Project
+                  - generic [ref=e453]:
+                    - generic [ref=e454]: 5min early
+                    - generic [ref=e455]: Time Taken 10min
+              - generic [ref=e456]:
+                - generic [ref=e457]:
+                  - strong [ref=e458]: Oct 19, 2026
+                  - generic [ref=e459]: 7 tasks
+                - article [ref=e460]:
+                  - generic [ref=e461]:
+                    - strong [ref=e462]: Report sample day 1
+                    - generic [ref=e463]: Reading & research
+                  - generic [ref=e465]:
+                    - generic [ref=e466]: 10min early
+                    - generic [ref=e467]: Time Taken 20min
+                - article [ref=e468]:
+                  - generic [ref=e469]:
+                    - strong [ref=e470]: Done history 11 — long title for scroll
+                    - generic [ref=e471]: Capture Project
+                  - generic [ref=e473]:
+                    - generic [ref=e474]: 5min early
+                    - generic [ref=e475]: Time Taken 10min
+                - article [ref=e476]:
+                  - generic [ref=e477]:
+                    - strong [ref=e478]: Done history 12 — long title for scroll
+                    - generic [ref=e479]: Capture Project
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: 5min early
+                    - generic [ref=e483]: Time Taken 10min
+                - article [ref=e484]:
+                  - generic [ref=e485]:
+                    - strong [ref=e486]: Done history 08 — long title for scroll
+                    - generic [ref=e487]: Capture Project
+                  - generic [ref=e489]:
+                    - generic [ref=e490]: 5min early
+                    - generic [ref=e491]: Time Taken 10min
+                - article [ref=e492]:
+                  - generic [ref=e493]:
+                    - strong [ref=e494]: Done history 10 — long title for scroll
+                    - generic [ref=e495]: Capture Project
+                  - generic [ref=e497]:
+                    - generic [ref=e498]: 5min early
+                    - generic [ref=e499]: Time Taken 10min
+                - article [ref=e500]:
+                  - generic [ref=e501]:
+                    - strong [ref=e502]: Done history 07 — long title for scroll
+                    - generic [ref=e503]: Capture Project
+                  - generic [ref=e505]:
+                    - generic [ref=e506]: 5min early
+                    - generic [ref=e507]: Time Taken 10min
+                - article [ref=e508]:
+                  - generic [ref=e509]:
+                    - strong [ref=e510]: Done history 09 — long title for scroll
+                    - generic [ref=e511]: Capture Project
+                  - generic [ref=e513]:
+                    - generic [ref=e514]: 5min early
+                    - generic [ref=e515]: Time Taken 10min
+              - generic [ref=e516]:
+                - generic [ref=e517]:
+                  - strong [ref=e518]: Oct 18, 2026
+                  - generic [ref=e519]: 6 tasks
+                - article [ref=e520]:
+                  - generic [ref=e521]:
+                    - strong [ref=e522]: Done history 14 — long title for scroll
+                    - generic [ref=e523]: Capture Project
+                  - generic [ref=e525]:
+                    - generic [ref=e526]: 5min early
+                    - generic [ref=e527]: Time Taken 10min
+                - article [ref=e528]:
+                  - generic [ref=e529]:
+                    - strong [ref=e530]: Done history 16 — long title for scroll
+                    - generic [ref=e531]: Capture Project
+                  - generic [ref=e533]:
+                    - generic [ref=e534]: 5min early
+                    - generic [ref=e535]: Time Taken 10min
+                - article [ref=e536]:
+                  - generic [ref=e537]:
+                    - strong [ref=e538]: Done history 17 — long title for scroll
+                    - generic [ref=e539]: Capture Project
+                  - generic [ref=e541]:
+                    - generic [ref=e542]: 5min early
+                    - generic [ref=e543]: Time Taken 10min
+                - article [ref=e544]:
+                  - generic [ref=e545]:
+                    - strong [ref=e546]: Done history 13 — long title for scroll
+                    - generic [ref=e547]: Capture Project
+                  - generic [ref=e549]:
+                    - generic [ref=e550]: 5min early
+                    - generic [ref=e551]: Time Taken 10min
+                - article [ref=e552]:
+                  - generic [ref=e553]:
+                    - strong [ref=e554]: Done history 18 — long title for scroll
+                    - generic [ref=e555]: Capture Project
+                  - generic [ref=e557]:
+                    - generic [ref=e558]: 5min early
+                    - generic [ref=e559]: Time Taken 10min
+                - article [ref=e560]:
+                  - generic [ref=e561]:
+                    - strong [ref=e562]: Done history 15 — long title for scroll
+                    - generic [ref=e563]: Capture Project
+                  - generic [ref=e565]:
+                    - generic [ref=e566]: 5min early
+                    - generic [ref=e567]: Time Taken 10min
+              - generic [ref=e568]:
+                - generic [ref=e569]:
+                  - strong [ref=e570]: Oct 17, 2026
+                  - generic [ref=e571]: 6 tasks
+                - article [ref=e572]:
+                  - generic [ref=e573]:
+                    - strong [ref=e574]: Done history 24 — long title for scroll
+                    - generic [ref=e575]: Capture Project
+                  - generic [ref=e577]:
+                    - generic [ref=e578]: 5min early
+                    - generic [ref=e579]: Time Taken 10min
+                - article [ref=e580]:
+                  - generic [ref=e581]:
+                    - strong [ref=e582]: Done history 20 — long title for scroll
+                    - generic [ref=e583]: Capture Project
+                  - generic [ref=e585]:
+                    - generic [ref=e586]: 5min early
+                    - generic [ref=e587]: Time Taken 10min
+                - article [ref=e588]:
+                  - generic [ref=e589]:
+                    - strong [ref=e590]: Done history 23 — long title for scroll
+                    - generic [ref=e591]: Capture Project
+                  - generic [ref=e593]:
+                    - generic [ref=e594]: 5min early
+                    - generic [ref=e595]: Time Taken 10min
+                - article [ref=e596]:
+                  - generic [ref=e597]:
+                    - strong [ref=e598]: Done history 19 — long title for scroll
+                    - generic [ref=e599]: Capture Project
+                  - generic [ref=e601]:
+                    - generic [ref=e602]: 5min early
+                    - generic [ref=e603]: Time Taken 10min
+                - article [ref=e604]:
+                  - generic [ref=e605]:
+                    - strong [ref=e606]: Done history 22 — long title for scroll
+                    - generic [ref=e607]: Capture Project
+                  - generic [ref=e609]:
+                    - generic [ref=e610]: 5min early
+                    - generic [ref=e611]: Time Taken 10min
+                - article [ref=e612]:
+                  - generic [ref=e613]:
+                    - strong [ref=e614]: Done history 21 — long title for scroll
+                    - generic [ref=e615]: Capture Project
+                  - generic [ref=e617]:
+                    - generic [ref=e618]: 5min early
+                    - generic [ref=e619]: Time Taken 10min
+              - generic [ref=e620]:
+                - generic [ref=e621]:
+                  - strong [ref=e622]: Oct 16, 2026
+                  - generic [ref=e623]: 1 task
+                - article [ref=e624]:
+                  - generic [ref=e625]:
+                    - strong [ref=e626]: Report sample day 4
+                    - generic [ref=e627]: Reading & research
+                  - generic [ref=e629]:
+                    - generic [ref=e630]: 10min early
+                    - generic [ref=e631]: Time Taken 20min
+              - generic [ref=e632]:
+                - generic [ref=e633]:
+                  - strong [ref=e634]: Oct 13, 2026
+                  - generic [ref=e635]: 1 task
+                - article [ref=e636]:
+                  - generic [ref=e637]:
+                    - strong [ref=e638]: Report sample day 7
+                    - generic [ref=e639]: Reading & research
+                  - generic [ref=e641]:
+                    - generic [ref=e642]: 10min early
+                    - generic [ref=e643]: Time Taken 20min
+              - generic [ref=e644]:
+                - generic [ref=e645]:
+                  - strong [ref=e646]: Oct 10, 2026
+                  - generic [ref=e647]: 1 task
+                - article [ref=e648]:
+                  - generic [ref=e649]:
+                    - strong [ref=e650]: Report sample day 10
+                    - generic [ref=e651]: Reading & research
+                  - generic [ref=e653]:
+                    - generic [ref=e654]: 10min early
+                    - generic [ref=e655]: Time Taken 20min
+              - generic [ref=e656]:
+                - generic [ref=e657]:
+                  - strong [ref=e658]: Oct 07, 2026
+                  - generic [ref=e659]: 1 task
+                - article [ref=e660]:
+                  - generic [ref=e661]:
+                    - strong [ref=e662]: Report sample day 13
+                    - generic [ref=e663]: Reading & research
+                  - generic [ref=e665]:
+                    - generic [ref=e666]: 10min early
+                    - generic [ref=e667]: Time Taken 20min
+              - generic [ref=e668]:
+                - generic [ref=e669]:
+                  - strong [ref=e670]: Oct 04, 2026
+                  - generic [ref=e671]: 1 task
+                - article [ref=e672]:
+                  - generic [ref=e673]:
+                    - strong [ref=e674]: Report sample day 16
+                    - generic [ref=e675]: Reading & research
+                  - generic [ref=e677]:
+                    - generic [ref=e678]: 10min early
+                    - generic [ref=e679]: Time Taken 20min
+              - generic [ref=e680]:
+                - generic [ref=e681]:
+                  - strong [ref=e682]: Oct 01, 2026
+                  - generic [ref=e683]: 1 task
+                - article [ref=e684]:
+                  - generic [ref=e685]:
+                    - strong [ref=e686]: Report sample day 19
+                    - generic [ref=e687]: Reading & research
+                  - generic [ref=e689]:
+                    - generic [ref=e690]: 10min early
+                    - generic [ref=e691]: Time Taken 20min
+              - generic [ref=e692]:
+                - generic [ref=e693]:
+                  - strong [ref=e694]: Sep 28, 2026
+                  - generic [ref=e695]: 1 task
+                - article [ref=e696]:
+                  - generic [ref=e697]:
+                    - strong [ref=e698]: Report sample day 22
+                    - generic [ref=e699]: Reading & research
+                  - generic [ref=e701]:
+                    - generic [ref=e702]: 10min early
+                    - generic [ref=e703]: Time Taken 20min
+              - generic [ref=e704]:
+                - generic [ref=e705]:
+                  - strong [ref=e706]: Sep 25, 2026
+                  - generic [ref=e707]: 1 task
+                - article [ref=e708]:
+                  - generic [ref=e709]:
+                    - strong [ref=e710]: Report sample day 25
+                    - generic [ref=e711]: Reading & research
+                  - generic [ref=e713]:
+                    - generic [ref=e714]: 10min early
+                    - generic [ref=e715]: Time Taken 20min
+              - generic [ref=e716]:
+                - generic [ref=e717]:
+                  - strong [ref=e718]: Sep 22, 2026
+                  - generic [ref=e719]: 1 task
+                - article [ref=e720]:
+                  - generic [ref=e721]:
+                    - strong [ref=e722]: Report sample day 28
+                    - generic [ref=e723]: Reading & research
+                  - generic [ref=e725]:
+                    - generic [ref=e726]: 10min early
+                    - generic [ref=e727]: Time Taken 20min
+    - navigation "Primary" [ref=e146]:
+      - button "Home" [ref=e147] [cursor=pointer]
+      - button "Reports" [ref=e148] [cursor=pointer]
+```

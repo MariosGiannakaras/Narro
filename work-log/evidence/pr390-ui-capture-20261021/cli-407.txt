@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async(page)=>{for(let i=0;i<12;i++){await page.keyboard.press("Tab");await page.waitForTimeout(450);}})(page);
+```

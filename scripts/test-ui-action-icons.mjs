@@ -16,7 +16,7 @@ assert(!icons.includes("<img") && !icons.includes("fetch("), "action icons must 
 const sourceFiles = [
   "FocusPanel", "FloatingTimerFoundation", "FocusLiveSubtasks", "FocusLiveActions",
   "TaskSubtasks", "TaskNotes", "FocusQuickPreferences", "FocusLiveMetrics",
-  "TaskCard", "ListBoard", "BoardListPicker", "ArchivedDoneTasksPanel",
+  "TaskCard", "ListBoard", "BoardListPicker", "ArchivedDoneTasksPanel", "HomeDashboard",
   "ReportsOverviewView", "ReportsSessionsView", "ScheduleCalendarStep",
   "TaskScheduleDialog", "SearchPalette", "BlitzEntryButton",
   "PreferencesDialog", "WindowsShortcutsDialog",
@@ -36,6 +36,59 @@ const actions = read("src/FocusLiveActions.tsx");
 const notes = read("src/TaskNotes.tsx");
 const board = read("src/TaskCard.tsx");
 const reports = read("src/ReportsSessionsView.tsx");
+const overviewView = read("src/ReportsOverviewView.tsx");
+assert(overviewView.includes('triggerLabel="Chart options"')
+  && overviewView.includes('trigger={<ActionIcon name="more" />}')
+  && reports.includes('triggerLabel={`Session actions for ${row.taskTitle}`}')
+  && reports.includes('trigger={<ActionIcon name="more" />}'),
+  "Reports Overview and Sessions menus must use shared SVG More with preserved semantic trigger names");
+assert(!overviewView.includes('trigger={<span aria-hidden="true">•••</span>}')
+  && !reports.includes('trigger={<span aria-hidden="true">•••</span>}'),
+  "font-dependent triple-dot glyphs must not return to Reports action menus");
+
+const homeDashboard = read("src/HomeDashboard.tsx");
+const homeCss = read("src/homeDashboard.css");
+assert(homeDashboard.includes('trigger={<ActionIcon name="more" />}')
+  && homeDashboard.includes('triggerLabel={`More actions for ${card.title}`}')
+  && homeDashboard.includes('className="home-list-card__action-slot"'),
+  "Home list action must use centered offline More SVG with the unchanged named menu");
+assert(!homeDashboard.includes('trigger={<span aria-hidden="true">…</span>}'),
+  "font-dependent ellipsis must not return to the Home action control");
+assert(homeCss.includes(".home-list-card__action-slot .overlay-trigger {")
+  && homeCss.includes("width: 2rem;")
+  && homeCss.includes("height: 2rem;")
+  && homeCss.includes("padding: 0;"),
+  "Home menu icon must retain existing hitbox and central SVG alignment");
+
+const completionRingCss = read("src/listBoard.css");
+const markCount = (board.match(/className="list-board-task__completion-mark"/g) ?? []).length;
+assert(markCount === 5, "all five task-card completion mark variants must share the same ring");
+assert(completionRingCss.includes(".list-board-task__completion-mark {")
+  && completionRingCss.includes("border: 1px solid currentColor;")
+  && completionRingCss.includes("border-radius: 999px;"),
+  "the existing 16px CSS completion ring is the one actual circle owner");
+assert(!board.includes('<span className="list-board-task__completion-mark"><ActionIcon name="circle" /></span>')
+  && !board.includes('"check" : "circle"'),
+  "a second SVG circle inside the CSS ring creates the visibly doubled turquoise outline");
+assert(board.split('<span className="list-board-task__completion-mark" />').length - 1 === 3,
+  "all three non-completed buttons/previews must use exactly one CSS ring");
+assert(board.includes('{done ? <ActionIcon name="check" /> : null}')
+  && board.includes('{state === "done" ? <ActionIcon name="check" /> : null}'),
+  "Done cards and inline title editor must keep the original centered check SVG");
+
+const railCss = read("src/listBoard.css");
+const actionButton = board.slice(board.indexOf("function TaskActionButton("), board.indexOf("function TaskOverflowMenu("));
+assert(railCss.includes(".list-board,\n.list-board * {\n  box-sizing: border-box;")
+  && railCss.includes("width: 1rem;\n  height: 1.75rem;\n  min-width: 1rem;")
+  && railCss.includes("border: 1px solid var(--color-border-subtle)"),
+  "planning task action rail uses a bordered 16px border-box, not 16px of content");
+assert(actionButton.includes('<ActionIcon name={glyph} size={14} />')
+  && board.includes('trigger={<ActionIcon name="more" size={14} />}'),
+  "planning task hover and overflow icons must fit inside the actual 14px content width");
+assert(actionButton.includes("onClick={action}") && actionButton.includes("aria-label={label}")
+  && board.includes('data-task-action="overflow"'),
+  "icon optical sizing must preserve click handlers, labels and overflow interaction");
+
 for (const [source, needle, reason] of [
   [panel, 'data-focus-compact-control="true"', "Panel compact action identity"],
   [panel, '<ActionIcon name="panel-to-timer" />', "Panel to compact Timer direction"],

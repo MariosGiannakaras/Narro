@@ -1,0 +1,330 @@
+{
+  "scope": "canonical staged Git blobs; manifest excludes itself",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "378f9c40a8ed2b8591330543481f613e4072258ec8f7339ca801ec345891596d",
+      "bytes": 2699,
+      "localOriginalSha256": "1a188270a0fc89ddd772187e90c07e2b09af013ee091f11f98e0e48478d80f27"
+    },
+    {
+      "path": "candidate-frontend-preflight.log",
+      "sha256": "8e4ced6c384021b35e7ccfd7c5859b3110c509b160d2eb993acfb06d96465a47",
+      "bytes": 36058,
+      "localOriginalSha256": "3e1ac2ad4c1cd1abea285b3de9776a9e611e732627f9f297ac0ef04414c425f4"
+    },
+    {
+      "path": "m7-integration-capture.log",
+      "sha256": "0f4f570b89720d0f25bb4e47f634cb114880175739bfb6aed905f739f5b9cde9",
+      "bytes": 380,
+      "localOriginalSha256": "73cb996291c6b5088717b27f3f167d2dbdda6f50dc762c566fedbd64ebbbbfd7"
+    },
+    {
+      "path": "original-text-receipts.zip",
+      "sha256": "fa46737229ed943c6d7425774b4c434abbb51705450a611bbe1cfefd8c33f088",
+      "bytes": 103504
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark-reduced.html",
+      "sha256": "bb9f2c83f871fd2b68d96669ed93bb3b34bb63b7004b1b8a4f7b61449a40e425",
+      "bytes": 24514
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark-reduced.html.diagnostics.json",
+      "sha256": "f23a4c5b24d9908ee4ded087950bd5ede502497d63c75599a6dbb1d3a628fc5b",
+      "bytes": 4860
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark-reduced.png",
+      "sha256": "ddfef417761c9d3850fdccb35437ee27150ea750f952c0eb22aa148162cfeb56",
+      "bytes": 57199
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark.html",
+      "sha256": "89941f94f6ebe7e846aad3be44cf34b12b8927ed40c3c3551580648251540626",
+      "bytes": 24515
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark.html.diagnostics.json",
+      "sha256": "5972817bf6d21e320e621b38ef3052ddb4eee19ad72f66e2980e72995e721da6",
+      "bytes": 4864
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-dark.png",
+      "sha256": "3e132142bb7718dfb48432481fd20c7af242add52f5299a4adfc840d20c231bd",
+      "bytes": 57192
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light-reduced.html",
+      "sha256": "203391af48f2ab2ce11bac700a4e22cdfea625f8a0c77f02a941b56329229627",
+      "bytes": 24516
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light-reduced.html.diagnostics.json",
+      "sha256": "658443a8ae7ef915b5b41d173a9cab8cc79a04d6ceb6d5722ec9cd452fbd80e1",
+      "bytes": 4864
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light-reduced.png",
+      "sha256": "7aa1fa6584d1917bbebec3995bb6c024cf74c4e27463c02e67bfcb5f4d1989e2",
+      "bytes": 60364
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light.html",
+      "sha256": "674606b9e4902a300ebe9f9d8b88ae0d29108f15ec180e436b0df03c98a58361",
+      "bytes": 24517
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light.html.diagnostics.json",
+      "sha256": "cc1461b5e6eb2adca8b3f528ccf935f996276c6378a57b550043b1cc59323d63",
+      "bytes": 4867
+    },
+    {
+      "path": "timer-m7-integration/focus-editor-m7-integration-light.png",
+      "sha256": "28ed85b0c16089f0eaf4788c713ab04fc99e5bfbdbffcd3f0713d79329f5b50d",
+      "bytes": 60341
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-compact-focus.html",
+      "sha256": "b28c483eae5c65ab610a622b36087b1166cd8c750561bb8d0e1923e8fc95f7bc",
+      "bytes": 16978,
+      "localOriginalSha256": "46e9eaabed923a4a46508097b24777fa48051dd27a9d78bfabb3a8e233d7b235"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-cycle.html",
+      "sha256": "67f4d9282ceb1b71c394d1f279c94b5fa9d1351923ebd308358211b9b32b3fe6",
+      "bytes": 12977,
+      "localOriginalSha256": "749d51ab48f08cb2b1f0af2bb35df2111a7f0fe22de350f0d69d25d369010055"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-dark.html",
+      "sha256": "1034377aed5d51c1df2418990a44a9c3e5b998a3f1aced1027015a1ced01cb1a",
+      "bytes": 12663,
+      "localOriginalSha256": "4804d6617dff86816f585101daadcd9d865bdbd9d8b3677923778e9829269e23"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-dark.png",
+      "sha256": "07c497b2d721d0213de78671f4fa02b9b301643ed776a6afcb7eb913eda9d6c0",
+      "bytes": 5394
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-expanded-dark.html",
+      "sha256": "33f89e84777f94fc20ffc6de39b586ab86f22a1a34a1c6f185e964a317621d3d",
+      "bytes": 26264,
+      "localOriginalSha256": "2e30649adc8b25dcffaf64295d48a48b49a1592fd09a0d1599dbca12bab0fac4"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-expanded-dark.png",
+      "sha256": "f9959fb4e6bf9c53b465c1d55c0f945a669275c4c1a488553f7a2cdee129a2b4",
+      "bytes": 13888
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-expanded-light.html",
+      "sha256": "0536d9e24db07bb5a5adc222792284583e34a1add1e195c0f041377357765d49",
+      "bytes": 26266,
+      "localOriginalSha256": "a50f4ec3a9a9b487a8ec828b6dddaee8dbd6f02720b3ca858bdcefb286973c00"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-expanded-light.png",
+      "sha256": "ec662a9e499a9ae3f9d9c2b946a8d87dfb04f8db79367aec4559536d50681f3f",
+      "bytes": 13695
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-idle-recovery.html",
+      "sha256": "1684c1f82e5d181b55f98bc3b57b1fedf3725955e46671bf583b600c36317492",
+      "bytes": 5432,
+      "localOriginalSha256": "5be9765c2477d32f3413e70251bc14ae4cf83c866f0537cfca59653f338108f2"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-light.html",
+      "sha256": "e017b70a9da0fc476ee59d44f3eec7a4d9dc4127fd88fbd1bc0798bec327623a",
+      "bytes": 12665,
+      "localOriginalSha256": "8a39494439dbd567a2f51a328b03d101a0f245b0d7340044d8c294169224c1ed"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-light.png",
+      "sha256": "638f372493d088fec0b4cd379d474adfeabc622e1013bf93f4ed0f648fc838d4",
+      "bytes": 5313
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-compact-dark.html",
+      "sha256": "a8b704d5682a4c2f53c0416fe29df174c8c5d3c343f64e0470f649ddfded395e",
+      "bytes": 12602,
+      "localOriginalSha256": "c2f39c7b8f0d30812b5000054be2ae982e4d7446e7405c1481cecc1edc37ef87"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-compact-dark.png",
+      "sha256": "7f2e29fce248acc3421fa1b2bed419d7ff25c01da69a1d2c2561ae647fc08460",
+      "bytes": 5898
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-compact-light.html",
+      "sha256": "198d285df4b232fbc7ea19f228249a38e701acd3591a1c726f14d7d7ec98b943",
+      "bytes": 12604,
+      "localOriginalSha256": "8f29026cff4f2b4599fbdcf96f535cfec1f5c57fa818d07bb2fb5597684915be"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-compact-light.png",
+      "sha256": "901f68f9c05ebab26501909a0d1c4e5b64e120419a06fe424f7b9379483da046",
+      "bytes": 5825
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-expanded-dark.html",
+      "sha256": "d1b0ce7b9e42fc4a02bad362e4a9caf611d6f50caa2bba276ca78469ad8d556a",
+      "bytes": 26489,
+      "localOriginalSha256": "5cec3e1b59f7205dffbb1e4a7cf442cf881e34eb7bccff32a37a9bb0bd63d9f3"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-expanded-dark.png",
+      "sha256": "5e2e744ac0577a485545630ce33290d468d30420f0a4a2cbf1cb2c4aba1c6515",
+      "bytes": 13568
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-expanded-light.html",
+      "sha256": "00d1f3502d8d7f2596f112a228c40559a810724e0ee379b18d7029849fe67c33",
+      "bytes": 26491,
+      "localOriginalSha256": "affcf5f34f91aac3e58799bcf5e24f512611b63d0041e45ac5f96c4fa094835a"
+    },
+    {
+      "path": "timer-tooltip-green/floating-timer-time-up-expanded-light.png",
+      "sha256": "e3775bac0ed1d0252d36223baf8277e69343ab7f1dfd370e143c05b6d027b310",
+      "bytes": 13362
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-compact-focus.html",
+      "sha256": "c553b753e2df28b06c9a856d1cbb29bf89e9a1cd85584086a8795cb55b0a3127",
+      "bytes": 16978,
+      "localOriginalSha256": "99047177e0ba8ca8808ef024db677759765113dfc947b0a2ecd74457e544f1c9"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-cycle.html",
+      "sha256": "ac5f0c516ff2017aa0594ab6d6784768e5da27baefd80ca8fb5bf2be2a8f257b",
+      "bytes": 12977,
+      "localOriginalSha256": "79ef75c441955fb6ea17906bf829d02b76ffdbee5b85f9d2999f25dd55ef3771"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-dark.html",
+      "sha256": "e0765f991a81b216e2e7964df3eaa04a773a74a6c7c4c1078388c265c707d245",
+      "bytes": 12663,
+      "localOriginalSha256": "f1d5b075d84cd7c110df9343cf197830e75e8eb721aba8d2d4836fd10daf275e"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-dark.png",
+      "sha256": "07c497b2d721d0213de78671f4fa02b9b301643ed776a6afcb7eb913eda9d6c0",
+      "bytes": 5394
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-expanded-dark.html",
+      "sha256": "ac024e2981bc2a4bbaed36e0de950d662e63e17bb7ab2c0f996d9bc81de7fe34",
+      "bytes": 26264,
+      "localOriginalSha256": "0644b59b8a8cd7d9d0c9dfd8449a775bc3a3e2fd104f528a6adb8f8cac3705fb"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-expanded-dark.png",
+      "sha256": "f9959fb4e6bf9c53b465c1d55c0f945a669275c4c1a488553f7a2cdee129a2b4",
+      "bytes": 13888
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-expanded-light.html",
+      "sha256": "36e76eadb7f4fd13baf2d7525b14be4eb7b69fae2ba108e55a7f8e2f1d16b10a",
+      "bytes": 26266,
+      "localOriginalSha256": "ded1b5078a014f08f89087356e233d118697dbc53367b0576ca73d2c7da3a0f7"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-expanded-light.png",
+      "sha256": "ec662a9e499a9ae3f9d9c2b946a8d87dfb04f8db79367aec4559536d50681f3f",
+      "bytes": 13695
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-idle-recovery.html",
+      "sha256": "aeb880ceb5ab63ebd41f0bc69e1320b79d76949c276f890efbd09edbc5f2d96c",
+      "bytes": 5432,
+      "localOriginalSha256": "c531e2e6f23a525b5314ab9374ca0d3afd195826b0e116756dcc21c518bcb49c"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-light.html",
+      "sha256": "cfdc30f159660f453e64756d14a3e3f24a24c3fefb7b13df00d1700b14e22582",
+      "bytes": 12672,
+      "localOriginalSha256": "f0e66a34e1f2db1c229ebbb74ae908728d0d41542842e19f3ec35db671636822"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-light.png",
+      "sha256": "638f372493d088fec0b4cd379d474adfeabc622e1013bf93f4ed0f648fc838d4",
+      "bytes": 5313
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-compact-dark.html",
+      "sha256": "51a42710971887e639f28382d5c3c44a2152130f414b1ea16a70e5dd4e212c64",
+      "bytes": 12602,
+      "localOriginalSha256": "96d3f6c6c5606af408278d862778315dc47185cd37c7a1d1802bc05a3d5476e0"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-compact-dark.png",
+      "sha256": "7f2e29fce248acc3421fa1b2bed419d7ff25c01da69a1d2c2561ae647fc08460",
+      "bytes": 5898
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-compact-light.html",
+      "sha256": "8da414fb4d35ee042aa077972e408245d2f9254865cd816b5c0147eb790f6d63",
+      "bytes": 12604,
+      "localOriginalSha256": "6ecca8387a0b47919a3ef4bf23662e1b3145f426ee3aab9316b86f7a704f3bb3"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-compact-light.png",
+      "sha256": "901f68f9c05ebab26501909a0d1c4e5b64e120419a06fe424f7b9379483da046",
+      "bytes": 5825
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-expanded-dark.html",
+      "sha256": "b5f000d2887a2019c67b455b6794ae2640f503e8b76c73d707ece93f0f3e25e8",
+      "bytes": 26489,
+      "localOriginalSha256": "0562900e273a38e78e856c4cc092ad3c9cb0b80628668e989acf20d2a05a7e48"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-expanded-dark.png",
+      "sha256": "5e2e744ac0577a485545630ce33290d468d30420f0a4a2cbf1cb2c4aba1c6515",
+      "bytes": 13568
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-expanded-light.html",
+      "sha256": "6136cbd6d30dec5fa526a5679c98181b5ed6bef48153bd237153b10d52f55dc5",
+      "bytes": 26491,
+      "localOriginalSha256": "c04447955a2bde7cb579737764331dcc66b0fc4ea2576a37bd911bc319cbd45c"
+    },
+    {
+      "path": "timer-tooltip-red/floating-timer-time-up-expanded-light.png",
+      "sha256": "e3775bac0ed1d0252d36223baf8277e69343ab7f1dfd370e143c05b6d027b310",
+      "bytes": 13362
+    },
+    {
+      "path": "tooltip-green-capture.log",
+      "sha256": "62ba5ec6445bcc3678d1de859f656af8e191772726cf002a65bd8e3ee71b438d",
+      "bytes": 142,
+      "localOriginalSha256": "4712709e62d93d56f2d8867bef7bda92ba87348838472c62c4b31829a89a65f9"
+    },
+    {
+      "path": "tooltip-green-validation.log",
+      "sha256": "50807c6915b62c0f46f0981d81458a27654aca3797da521219d2134db037f34d",
+      "bytes": 105,
+      "localOriginalSha256": "dd95d12da1132e2fbfc87f995b1ade73ab324420dd7688b688c7be3d385c34d6"
+    },
+    {
+      "path": "tooltip-red-capture.log",
+      "sha256": "648138cb4c8da348e07ac74edc178b54c5d4887fbcd3de102a999cd7c4f083c3",
+      "bytes": 140,
+      "localOriginalSha256": "616b42be5622ebc4bc6ab83d5847a7dad804515f6a4c1291f97422083615d20b"
+    },
+    {
+      "path": "tooltip-red-validation.log",
+      "sha256": "07bac751c096a902466d1e33ed1d399fb1938e7cb780d54934a1d58a2f8f07de",
+      "bytes": 1170,
+      "localOriginalSha256": "1a6697561c0591e9f10da6503a70a1c6e01508aff393a8dcf0892ce8d9d41531"
+    },
+    {
+      "path": "validation-summary.json",
+      "sha256": "5d55300cb3572d60d8620ada74732369165eb2f65c169c8184a943c2f2cc154b",
+      "bytes": 606,
+      "localOriginalSha256": "7a48d1162a1552db3febd92be886da146692855f356ac284f37c9331506863b9"
+    }
+  ]
+}

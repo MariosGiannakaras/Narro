@@ -128,6 +128,12 @@ invariant(shortcutsDialogSource.includes('event.key === "Escape"')
 invariant(shortcutsDialogSource.includes("closeRef.current?.focus({ preventScroll: true })")
   && shortcutsDialogSource.includes("openerRef.current?.isConnected"),
   "Shortcuts initial focus and focus-return recovery");
+invariant(shortcutsDialogSource.includes('window.addEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('window.removeEventListener("keydown", recoverOrphanedKey)')
+  && shortcutsDialogSource.includes('event.defaultPrevented')
+  && shortcutsDialogSource.includes('activeDialogs[activeDialogs.length - 1] !== dialog')
+  && shortcutsDialogSource.includes('event.target instanceof Node && dialog.contains(event.target)'),
+  "Shortcuts must recover orphaned pending-save Tab/Escape only while the topmost modal owns input");
 invariant(shortcutsDialogSource.includes("<WindowsShortcutSettingsPanel />")
   && shortcutSettingsSource.includes("APP_SHORTCUT_ROWS")
   && shortcutSettingsSource.includes("SHORTCUT_ROWS"),
@@ -166,7 +172,7 @@ invariant(themePanel.includes("timeChildren={preferences.snapshot ? (")
     && fixture.includes("timeChildren={("),
   "C40 must update production and visual fixtures without losing Time");
 
-invariant(sections.includes('detail="Show a brief celebration animation when a task is completed."'),
+invariant(sections.includes('detail="Show a brief offline celebration animation on the success screen."'),
   "Fun GIF help must describe user-visible functionality, not internal source-parity work");
 invariant(shortcutsDialogCss.includes(".windows-shortcuts-dialog__surface .windows-shortcuts__row")
     && shortcutsDialogCss.includes("min-height: 44px")
@@ -269,6 +275,9 @@ for (const label of [
 ]) {
   invariant(sections.includes(label), `Preferences surface is missing ${label}`);
 }
+invariant(sections.includes("Briefly highlight the active task and timer when a timed alert occurs."), "Timed-alert helper must explain the visual effect without implementation jargon");
+invariant(sections.includes("Show a completion message with options for what to do next."), "Success-screen helper must explain the user action");
+invariant(sections.includes("Show a brief offline celebration animation on the success screen."), "Celebration helper must accurately describe bundled offline behavior");
 invariant(sections.includes("SoundPreferenceControl"), "sound rows must use the shared local preview/volume control");
 for (const field of [
   "taskAlertSound",
@@ -372,4 +381,6 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preference
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
 
+await import("./test-sound-volume-escape-cancel.mjs");
+await import("./test-settings-initial-read-retry.mjs");
 console.log("M8 Preferences contracts passed.");

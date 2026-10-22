@@ -151,11 +151,13 @@ document.body.dataset.themeSettingsPreference = theme;
 const root = document.getElementById("root");
 if (!root) throw new Error("Theme settings fixture root is missing.");
 
+let shortcutsCloseRequests = 0;
+const readShortcutCloseRequests = () => shortcutsCloseRequests;
 flushSync(() => {
   const content = (
     shortcutsDialog ? (
       <WindowsShortcutsDialog
-        onRequestClose={() => undefined}
+        onRequestClose={() => { shortcutsCloseRequests++; }}
         settingsContent={(
           <WindowsShortcutSettingsPanelView
             snapshot={shortcutSnapshot}
@@ -276,6 +278,61 @@ window.requestAnimationFrame(async () => {
         document.documentElement.dataset.themeSettingsShortcutsLayoutPass = String(fits);
         if (!fits) throw new Error("C38: ten shortcut rows must fit the supported dialog viewport");
       }
+    }
+    if (shortcutsDialog && !shortcutConflict) {
+      // Simulate browser focus loss during a native shortcut-save without
+      // changing actual shortcut preferences or registration.
+      const closeButton = document.querySelector<HTMLButtonElement>('[data-windows-shortcuts-close="true"]');
+      if (!closeButton) throw new Error("Shortcuts close button is missing");
+      // A later topmost modal owns input; do not steal its Escape.
+      const newerDialog = document.createElement("section");
+      newerDialog.setAttribute("role", "dialog");
+      newerDialog.setAttribute("aria-modal", "true");
+      newerDialog.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px";
+      document.body.appendChild(newerDialog);
+      const newerEscape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+      window.dispatchEvent(newerEscape);
+      newerDialog.remove();
+      if (newerEscape.defaultPrevented || readShortcutCloseRequests() !== 0) {
+        throw new Error("Shortcuts recovery stole input from a newer modal");
+      }
+      closeButton.blur();
+      if (document.activeElement !== document.body) throw new Error("Shortcuts orphaned focus setup failed");
+      const tab = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
+      window.dispatchEvent(tab);
+      const tabRecovered = tab.defaultPrevented && document.activeElement === closeButton;
+      closeButton.blur();
+      const escape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+      window.dispatchEvent(escape);
+      const passed = tabRecovered && escape.defaultPrevented && readShortcutCloseRequests() === 1;
+      document.documentElement.dataset.themeSettingsShortcutsKeyboardRecoveryPass = String(passed);
+      if (!passed) throw new Error("Shortcuts must recover Tab and Escape when pending save orphans focus");
+    }
+    // Verify *rendered* icon-only modal controls, not just source CSS text.
+    // Both dialogs reuse 2rem hitboxes around the same 16px ActionIcon close.
+    // A browser line box or inherited global button padding can otherwise
+    // displace/squeeze the SVG even if the class declares place-items:center.
+    const modalCloseSelector = shortcutsDialog
+      ? '[data-windows-shortcuts-close="true"]'
+      : preferencesDialog ? '[data-preferences-close="true"]' : null;
+    if (modalCloseSelector) {
+      const close = document.querySelector<HTMLButtonElement>(modalCloseSelector);
+      const svg = close?.querySelector("svg");
+      if (!close || !svg) throw new Error("Modal close icon control is missing");
+      const rect = close.getBoundingClientRect();
+      const glyph = svg.getBoundingClientRect();
+      const rootRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const computed = getComputedStyle(close);
+      const near = (actual: number, expected: number) =>
+        Number.isFinite(actual) && Number.isFinite(expected) && Math.abs(actual - expected) <= 0.75;
+      const centered = near(rect.width, 2 * rootRem) && near(rect.height, 2 * rootRem)
+        && near(glyph.width, 16) && near(glyph.height, 16)
+        && near((glyph.left + glyph.right) / 2, (rect.left + rect.right) / 2)
+        && near((glyph.top + glyph.bottom) / 2, (rect.top + rect.bottom) / 2)
+        && near(parseFloat(computed.paddingLeft), 0)
+        && near(parseFloat(computed.paddingRight), 0);
+      document.documentElement.dataset.themeSettingsModalCloseGeometryPass = String(centered);
+      if (!centered) throw new Error("Rendered 2rem modal close: 16px SVG must be centered, no inherited padding");
     }
     // Check actual layout: these three readable accessibility names must not
     // occupy visible space in a standalone renderer without unrelated CSS.

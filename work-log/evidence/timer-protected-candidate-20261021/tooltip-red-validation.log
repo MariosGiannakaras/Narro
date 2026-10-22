@@ -1,0 +1,13 @@
+file:///C:/Users/MariosG/.codex/worktrees/m7-native-paint/NarroUpload/scripts/validate-floating-timer-captures.mjs:9
+  if (!condition) throw new Error(`Floating Timer visual validation failed: ${message}`);
+                        ^
+
+Error: Floating Timer visual validation failed: floating-timer-light explanatory tooltip blocks a neighboring Timer control: [{"control":"add","receivesPointer":false,"interceptedBy":"tooltip"},{"control":"expand","receivesPointer":false,"interceptedBy":"tooltip"}]
+    at invariant (file:///C:/Users/MariosG/.codex/worktrees/m7-native-paint/NarroUpload/scripts/validate-floating-timer-captures.mjs:9:25)
+    at validateCollapsed (file:///C:/Users/MariosG/.codex/worktrees/m7-native-paint/NarroUpload/scripts/validate-floating-timer-captures.mjs:87:3)
+    at file:///C:/Users/MariosG/.codex/worktrees/m7-native-paint/NarroUpload/scripts/validate-floating-timer-captures.mjs:175:32
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0

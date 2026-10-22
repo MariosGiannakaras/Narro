@@ -387,7 +387,7 @@ export function LowerPreferenceSections({
             />
           )}
         </Row>
-        <Row title="Animated flash on timer" detail="Allow the timer surface to use the documented alert flash.">
+        <Row title="Animated flash on timer" detail="Briefly highlight the active task and timer when a timed alert occurs.">
           <Switch
             checked={snapshot.alerts.animatedTimerFlash}
             disabled={busy}
@@ -468,7 +468,7 @@ export function LowerPreferenceSections({
             <h2 id="preferences-celebration-title" className="type-section-title">Celebrate task completion</h2>
           </div>
         </div>
-        <Row title="Show success screen" detail="Enable a local completion moment after a successful task transition.">
+        <Row title="Show success screen" detail="Show a completion message with options for what to do next.">
           <Switch
             checked={snapshot.celebration.showSuccessScreen}
             disabled={busy}
@@ -478,7 +478,7 @@ export function LowerPreferenceSections({
         </Row>
         {snapshot.celebration.showSuccessScreen ? (
           <>
-        <Row title="Fun GIF" detail="Show a brief celebration animation when a task is completed." nested>
+        <Row title="Fun GIF" detail="Show a brief offline celebration animation on the success screen." nested>
           <Switch
             checked={snapshot.celebration.funGif}
             disabled={busy || !snapshot.celebration.showSuccessScreen}

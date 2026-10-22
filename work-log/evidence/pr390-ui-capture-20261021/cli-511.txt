@@ -1,0 +1,11 @@
+### Result
+- [Screenshot of viewport](E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR390-Capture-20261021\P4-focus-header-webview.png)
+### Ran Playwright code
+```js
+// Screenshot viewport and save it as E:\SystemFiles\Desktop\Narro-Workspace\Narro-PR390-Capture-20261021\P4-focus-header-webview.png
+await page.screenshot({
+  path: 'E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-PR390-Capture-20261021\\P4-focus-header-webview.png',
+  scale: 'css',
+  type: 'png'
+});
+```

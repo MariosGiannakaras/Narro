@@ -1,0 +1,134 @@
+{
+  "utc": "2026-10-21T07:43:16.746067+00:00",
+  "initialFocusHandleObservedByTool": 5375194,
+  "initialObservation": "Get-Process at entry before both recordings",
+  "sameHandleAfter": true,
+  "windows": [
+    {
+      "hwnd": 5375194,
+      "title": "Narro - Focus",
+      "visible": true,
+      "rect": [
+        2220,
+        0,
+        2560,
+        700
+      ],
+      "regionKind": 2,
+      "region": [
+        0,
+        0,
+        340,
+        700
+      ]
+    },
+    {
+      "hwnd": 265610,
+      "title": "",
+      "visible": false,
+      "rect": [
+        26,
+        26,
+        1946,
+        815
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 265562,
+      "title": "Narro",
+      "visible": false,
+      "rect": [
+        156,
+        156,
+        1172,
+        895
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 461278,
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 855660,
+      "title": "",
+      "visible": true,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 264992,
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 854276,
+      "title": "Default IME",
+      "visible": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "regionKind": 0,
+      "region": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

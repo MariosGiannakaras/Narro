@@ -75,6 +75,9 @@
 }
 
 .reports-overview__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   border-color: transparent;
   padding: 6px 0;
   color: var(--color-text-secondary);
@@ -84,6 +87,10 @@
 }
 
 .reports-overview__export {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   min-height: 34px;
   padding: 0 14px;
   border-radius: 18px;
@@ -744,6 +751,20 @@
 .reports-overview__calendar-days button {
   border-color: transparent;
   background: transparent;
+}
+
+/* The month/year arrow controls occupy 22px grid tracks. Default App button
+   padding otherwise gives their 16px icons a wider intrinsic box and shifts
+   arrows into neighbouring cells. Keep icons centered inside the track. */
+.reports-overview__calendar header button {
+  box-sizing: border-box;
+  width: 22px;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
 }
 
 .reports-overview__weekdays,

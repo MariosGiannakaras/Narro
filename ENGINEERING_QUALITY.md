@@ -42,6 +42,30 @@ After a material implementation, validation or process failure/correction:
 A risk-register control state describes prevention maturity only. It never converts an open TODO, physical Windows gate or source-parity gate to PASS.
 
 
+### Pre-push impact and regression ownership gate (NER-003 / NER-004)
+
+Before publishing a frontend/native/test-harness candidate that can trigger Windows CI:
+
+1. Compare the actual branch diff against the **latest main**, including modified tests, fixtures, styling and scripts (not only production TSX/Rust). Find all directly and transitively affected consumers; e.g. CSS selector → old source-contract test, CDP navigation driver → Notes bootstrap contract, source SVG → Task Card visual fixtures. Use `node scripts/preflight-impact.mjs --base main` once available in the relevant branch to list candidate tests; review any **unmapped** files manually. This scanner is an *aid*, not a proof that all dependencies are captured.
+2. Execute the identified cheapest tests, including negative/error lifecycle cases, **then** the mandatory `npm run preflight:frontend` locally or in an equivalent checked-out validation environment. For Rust/Windows source also run the relevant Rust checks. A source-only mock/inline V8 check is a valid narrow result but **not** a substitute for the full test command. If an authenticated checkout/dependencies/Edge cannot run locally, explicitly record `NOT RUN` and use the existing CI fast/Windows stages to discover the gap; never claim pre-push PASS.
+3. For changed browser navigation/capture code, verify three separate events: DOM/document exists, **real fixture completion contract** is satisfied, and real user input/escape/focus was delivered. Fail closed on absent `documentElement`, browser/network errors, unexpected URL, wrong target, missing modules and timeout. Do not replace semantic readiness with a fixed sleep or merely successful `Page.navigate`.
+4. Fix or migrate implementation-text contracts when their producer changes; preserve the underlying behavior/error expectation instead of deleting the assertion. Search the whole test directory for old method names, CSS declarations and fixture identifiers.
+5. Batch all dependency-safe corrected implementation and regression files *before the next push/CI*, while keeping only one in-flight PR-head CI generation. Record the exact SHA and the tests actually run or unavailable, so later candidate results cannot be misattributed.
+
+Do **not** modify the Windows workflow or add new expensive gates merely to compensate for pre-push omissions. Existing `validation → fast → windows-candidate` ordering is correct. A prior green SHA does not validate later source/test edits.
+
+### Pre-CI impacted-contract admission (2026-10-21)
+
+For a frontend, fixture, or CDP/harness change, **before pushing the candidate that triggers expensive Windows CI**:
+
+1. Construct a changed-file-to-consumer map: production imports/call sites, shared CSS selectors, visual fixtures, scripts that read the changed source as text, and every preflight/test referencing renamed commands or selectors. Search for both the old and replacement symbol. Include downstream tests outside the directly edited module.
+2. Consult matching NER-003 (cheap failures) and NER-004 (readiness/transport) examples. Run the narrow tests first, then the strongest locally available aggregate frontend preflight; if a checked-out environment is unavailable, record `NOT RUN` and do not misrepresent isolated source-text/V8 assertions as a full preflight.
+3. For browser/CDP navigation, test the observable document/DOM-ready acknowledgment, retries and failure path with a deterministic delayed/missing-acknowledgment harness. Do not rely on fixed sleeps or brittle assertions that a helper must call a command inline.
+4. For CSS geometry, verify border-box, padding, SVG size, shared selectors and fixture consumers together. Update contract tests to assert behavioral/layout invariants, not an obsolete literal string.
+5. Keep one reviewable batch per expensive CI candidate. On FAIL inspect the first causally failing job/step and log, repair the same PR with a targeted regression, then revalidate the replacement SHA. Do not restart a run on an unchanged known-failing SHA.
+
+This is an **admission checklist, not an extra CI gate**. The Windows candidate remains mandatory and physical pixel/motion acceptance remains separate. Record any unexecutable local checks explicitly before CI.
+
 ### CI failure-learning obligation
 
 The lightweight CI recurrence scanner (see `.github/workflows/ci-learning.yml` and `scripts/ci-learning.mjs`) reports **candidate patterns**, not proven causal equivalence. A repeated job/step or a green rerun alone must not be called the same defect or “flaky”.

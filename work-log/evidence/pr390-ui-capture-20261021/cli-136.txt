@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async(page)=>{const b=page.getByRole("button",{name:"Previous month from Sep 2026",exact:true});await b.focus();await b.press("Space");})(page);
+```
