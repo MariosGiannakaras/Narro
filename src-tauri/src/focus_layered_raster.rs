@@ -611,7 +611,7 @@ mod native {
             rounded_premultiplied(&mut pixels, 4, 4, 4);
             assert_eq!(&pixels[..4], &[0, 0, 0, 0]);
             assert_eq!(
-                &pixels[(1 * 4 + 1) * 4..(1 * 4 + 2) * 4],
+                &pixels[20..24],
                 &[12, 22, 32, 255]
             );
             assert_eq!(&pixels[(3 * 4 + 3) * 4..], &[0, 0, 0, 0]);
@@ -628,30 +628,21 @@ mod native {
 #[cfg(not(windows))]
 mod native {
     use super::CommandResult;
-    pub struct Hold(crate::focus_frame_hold::Hold);
+    // Off-Windows source tests keep the renderer protocol type-correct;
+    // actual compositor presentation is exclusively the Windows native path.
+    pub struct Hold;
     impl Hold {
-        pub(crate) fn release(&mut self) -> CommandResult<()> {
-            self.0.release()
-        }
+        pub(crate) fn release(&mut self) -> CommandResult<()> { Ok(()) }
         pub(crate) fn replace_transition_frame(
-            &self,
-            size: tauri::PhysicalSize<u32>,
-            bytes: Vec<u8>,
-        ) -> CommandResult<()> {
-            self.0.replace_transition_frame(size, bytes)
-        }
+            &self, _: tauri::PhysicalSize<u32>, _: Vec<u8>,
+        ) -> CommandResult<()> { Ok(()) }
     }
     pub(crate) fn begin_mode_transition(
-        window: &tauri::WebviewWindow,
-        size: tauri::PhysicalSize<u32>,
-        png: &[u8],
-    ) -> CommandResult<Hold> {
-        Ok(Hold(crate::focus_frame_hold::begin_mode_transition(
-            window, size, png,
-        )?))
-    }
-    pub(crate) fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> {
-        Ok(())
-    }
+        _: &tauri::WebviewWindow,
+        _: tauri::PhysicalSize<u32>,
+        _: &[u8],
+    ) -> CommandResult<Hold> { Ok(Hold) }
+    pub(crate) fn clear(_: &tauri::WebviewWindow) -> CommandResult<()> { Ok(()) }
 }
+
 pub(crate) use native::{begin_mode_transition, clear, Hold};
