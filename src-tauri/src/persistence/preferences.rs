@@ -615,7 +615,9 @@ mod tests {
         .expect("hold uncommitted update");
 
         let mut reader = Connection::open(&path).expect("open independent reader");
-        reader.busy_timeout(Duration::ZERO).expect("fail immediately if a write lock is requested");
+        reader
+            .busy_timeout(Duration::ZERO)
+            .expect("fail immediately if a write lock is requested");
         let observed = initialize_preferences(&mut reader, NOW)
             .expect("reading established preferences must not acquire a writer lock");
         assert_eq!(observed, initial);
