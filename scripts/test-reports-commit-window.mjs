@@ -38,6 +38,7 @@ function mountedOwnerSequence() {
       currentRequest: () => ({ listIds: [listId], showBreakSessions: true }),
       detailTaskId: taskId,
       preferences: { settled: true, error: null },
+      sessionsReadAttempt: 0,
       useCallback: callback => callback,
       useLayoutEffect: callback => layouts.push(callback),
       useEffect: callback => effects.push(callback),

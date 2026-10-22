@@ -88,4 +88,5 @@ if (!pkg.scripts["test:visual-regression:windows"]?.includes("validate-search-pa
 }
 
 await import("./test-search-quick-task-reopen.mjs");
+await import("./test-recoverable-local-reads.mjs");
 console.log("Search palette contract checks passed.");

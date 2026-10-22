@@ -151,7 +151,9 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [listFilterOpen, setListFilterOpen] = useState(false);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [readError, setReadError] = useState<string | null>(null);
+  const [initialReadAttempt, setInitialReadAttempt] = useState(0);
   const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [sessionsReadAttempt, setSessionsReadAttempt] = useState(0);
   const [detailTaskId, setDetailTaskId] = useState<string | null>(null);
   const detailOpenerRef = useRef<HTMLElement | null>(null);
   const [detail, setDetail] = useState<ReportTaskSessionsDetail | null>(null);
@@ -194,7 +196,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         if (!disposed) setReadError(formatInvokeError(failure));
       });
     return () => { disposed = true; };
-  }, []);
+  }, [initialReadAttempt]);
 
   useEffect(() => {
     if (!preferences.settled || appliedRange !== null) return;
@@ -270,7 +272,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         }
       });
     return () => { disposed = true; };
-  }, [currentRequest, preferences.error, preferences.settled]);
+  }, [currentRequest, preferences.error, preferences.settled, sessionsReadAttempt]);
 
   const refreshDetail = useCallback(async (taskId = detailTaskId) => {
     if (!taskId) {
@@ -576,6 +578,24 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         <h1>Reports</h1>
         <p>Sessions could not be loaded from local data.</p>
         <code>{blockingError}</code>
+        {(readError || (sessions === null && refreshError)) ? (
+          <button type="button" className="motion-interactive" data-reports-sessions-retry="true"
+            onClick={() => {
+              if (readError) {
+                setReadError(null);
+                setHome(null);
+                setSearchData(null);
+                setInitialReadAttempt((attempt) => attempt + 1);
+              }
+              if (sessions === null && refreshError) {
+                setRefreshError(null);
+                setSessionsReadAttempt((attempt) => attempt + 1);
+              }
+            }}>
+            Retry loading sessions
+          </button>
+        ) : null}
+        <button type="button" className="motion-interactive" onClick={onBack}>Back</button>
       </section>
     );
   }

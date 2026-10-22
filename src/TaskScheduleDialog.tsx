@@ -140,6 +140,7 @@ export function TaskScheduleDialog({
   const openerRef = useRef<HTMLElement | null>(null);
   const [snapshot, setSnapshot] = useState<TaskScheduleEditorSnapshot | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [scheduleLocalDate, setScheduleLocalDate] = useState("");
@@ -224,7 +225,7 @@ export function TaskScheduleDialog({
     return () => {
       disposed = true;
     };
-  }, [displayTimezone, listId, taskId]);
+  }, [displayTimezone, listId, taskId, loadAttempt]);
 
   const generatedOccurrence = snapshot?.recurrenceParentTaskId !== null && snapshot?.recurrenceParentTaskId !== undefined;
   const existingRule = snapshot?.recurrence ?? null;
@@ -495,7 +496,20 @@ export function TaskScheduleDialog({
           </button>
         </header>
 
-        {loadError ? <div className="task-schedule-dialog__error type-metadata" role="alert">{loadError}</div> : null}
+        {loadError ? (
+          <div className="task-schedule-dialog__error type-metadata" role="alert">
+            <span>Schedule could not be loaded. {loadError}</span>
+            <button type="button" className="task-schedule-dialog__cancel motion-interactive"
+              data-task-schedule-control="retry-load"
+              onClick={() => {
+                setLoadError(null);
+                setSnapshot(null);
+                setLoadAttempt((attempt) => attempt + 1);
+              }}>
+              Retry loading schedule
+            </button>
+          </div>
+        ) : null}
         {!snapshot && !loadError ? <div className="task-schedule-dialog__loading type-metadata">Loading schedule…</div> : null}
 
         {snapshot ? (

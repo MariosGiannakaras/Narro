@@ -97,6 +97,7 @@ export function SearchPalette({
   const [data, setData] = useState<SearchPaletteData | null>(fixtureData ?? null);
   const [loading, setLoading] = useState(open && !fixtureData);
   const [dataError, setDataError] = useState<string | null>(null);
+  const [dataRetryKey, setDataRetryKey] = useState(0);
   const [quickTaskTitle, setQuickTaskTitle] = useState("");
   const [quickTaskListId, setQuickTaskListId] = useState("");
   const [quickTaskLane, setQuickTaskLane] = useState<PlanningLaneToken | "">("");
@@ -165,7 +166,7 @@ export function SearchPalette({
     return () => {
       disposed = true;
     };
-  }, [open, fixtureData]);
+  }, [open, fixtureData, dataRetryKey]);
 
   // Quick-create fields mount only after the authoritative list read settles.
   // Keep loading/error keyboard focus in the modal, then focus the ready field.
@@ -320,6 +321,13 @@ export function SearchPalette({
     }
   };
 
+  const retryDataLoad = () => {
+    if (!open || fixtureData || loading || !dataError) return;
+    setDataError(null);
+    setLoading(true);
+    setDataRetryKey((value) => value + 1);
+  };
+
   const renderSearchSurface = () => {
     const hasMatches = matchingLists.length > 0 || matchingTasks.length > 0;
 
@@ -346,10 +354,11 @@ export function SearchPalette({
           {dataError ? (
             <div className="search-palette__error" role="alert">
               Local search data could not be loaded. {dataError}
+              <button type="button" className="motion-interactive" data-search-retry="true" onClick={retryDataLoad}>Retry local search</button>
             </div>
           ) : null}
 
-          {queryToken ? (
+          {dataError ? null : queryToken ? (
             loading ? (
               <div className="search-palette__message" role="status">Searching local tasks and lists…</div>
             ) : hasMatches ? (
@@ -486,7 +495,10 @@ export function SearchPalette({
       {loading ? (
         <div className="search-palette__message" role="status">Loading active lists…</div>
       ) : dataError ? (
-        <div className="search-palette__error" role="alert">Active lists could not be loaded. {dataError}</div>
+        <div className="search-palette__error" role="alert">
+          Active lists could not be loaded. {dataError}
+          <button type="button" className="motion-interactive" data-search-retry="true" onClick={retryDataLoad}>Retry loading lists</button>
+        </div>
       ) : data && data.lists.length === 0 ? (
         <div className="search-palette__message">
           <strong>Create a list first.</strong>
