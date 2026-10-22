@@ -42,15 +42,15 @@ Canonical continuation files:
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-## Current phase — source / physical status verified 2026-10-23
+## Current phase — evidence-scoped 2026-10-23
 
-- **Current acceptance:** mandatory milestones M1–M4 accepted, M5–M10 pending their separately required checks. Past closed uncertainty and original gap remediation are archived as historical evidence, not active tasks or recurring reporting counters; automated gates do not certify native Windows/source fidelity.
-- **Current active candidate:** [draft PR #389](https://github.com/MariosGiannakaras/Narro/pull/389), corrected HEAD `15c0649f9c4b9865bec7f74c82cc8cd7373decaa`, [exact Windows CI run 39848609179](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179) **3/3 PASS**, Rust main suite **427/427 PASS**. Physical/validation Windows ZIPs, executable, installer and diagnostic provenance independently checked: [build proof](work-log/2026-10-22-chatgpt-pr389-independent-three-artifact-binary-provenance.md). **PR389 is NOT MERGED**.
-- **Outstanding acceptance:** corrected Floating Timer eight normal/reduced native transitions **0/8 NOT RUN**. The older PR389 build's 4/8 native failures remain historical only; automated CI/build PASS does not substitute for physical pixel/motion/interaction acceptance. Codex owns the physical Windows protocol, with exact artifact and safeguards in [HANDOFF](HANDOFF.md).
-- **PA context:** prior PA01–08 physical campaign was **8/8 dispositioned within its dated scope** (actual HDMI hotplug explicitly NOT RUN). PA-01–09 later authorized for case-specific work, but no unexecuted new-build case is PASS by inference. No personal AppData/user profile modifications without separately authorized safe procedure.
-- **Protected scope:** Spectrum Core Create/Edit List color picker, image upload and 218 offline icons are user-approved. M11 (live original Blitzit) and M12 (optional QA) are dormant; M11 is not required to keep Narro functional.
+- **Roadmap:** mandatory M1–M4 accepted, M5–M10 awaiting their individual acceptance criteria. Closed historical source investigations are preserved as evidence, not active tasks or recurring report counters.
+- **Current source candidate:** [PR #389](https://github.com/MariosGiannakaras/Narro/pull/389) **OPEN/DRAFT**, HEAD `a66e4afcd57e572bec9c36691f15f70e6d616682`. [Windows CI 39861119823](https://github.com/MariosGiannakaras/Narro/actions/runs/39861119823) **RUNNING/PENDING** after narrowly fixing watchdog recovery-lock contention and unbounded critical Focus/Timer frame waits, including regression coverage.
+- **Native status:** this new source **0/8 physical cases NOT RUN**. Previously automated-green same-surface candidate physically failed **4/8** with mixed compositor hierarchies. PR389 therefore has an evidence-backed **PR-only physical-before-merge hold**; independent low-risk green PRs use the normal guarded integration policy.
+- **Artifact identity:** the previously verified ZIP/EXE from old PR389 HEAD `15c0649f` (CI `39848609179`, artifact `12457776202`) is **not** a valid physical-test candidate for the new HEAD. Only hand off a newly green, verified exact-head package; see [HANDOFF](HANDOFF.md).
+- **Scope:** prior PA01–08 reviewed within their exact original physical/environment coverage (HDMI hardware hotplug NOT RUN). Do not infer a new-build physical PASS. Protect user-approved Spectrum Core picker, image upload and 218 offline icons. M11 and M12 require independent explicit opt-in.
 
-See [TODO](TODO.md) for the unchanged mandatory milestone checklists, [STATUS](STATUS.md) for source/validation state, and [HANDOFF](HANDOFF.md) for the one actionable next step. The previously advertised U04 PR343 “latest executable” and paused-PA checkpoint are historical, not the live Windows candidate.
+See [TODO](TODO.md) for the mandatory roadmap, [STATUS](STATUS.md) for validated claims, and [HANDOFF](HANDOFF.md) for the only current agent action.
 
 ## Product scope
 
