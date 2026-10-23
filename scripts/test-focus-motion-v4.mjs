@@ -94,6 +94,12 @@ assert.equal(sampleMotionV4(open, 0, bottoms).actionsOpacity, 0);
 assert.equal(sampleMotionV4(open, 1, bottoms).actionsOpacity, 1);
 assert.deepEqual(sampleMotionV4(open, 1, bottoms).subtaskRowOpacity, [1, 1, 1, 1]);
 assert.deepEqual(sampleMotionV4(close, 1, bottoms).subtaskRowOpacity, [0, 0, 0, 0]);
+const expandedHome = { from: "timerExpanded", to: "panel" };
+assert.deepEqual(sampleMotionV4(expandedHome, 0, bottoms).subtaskRowOpacity, [1, 1, 1, 1]);
+assert.deepEqual(sampleMotionV4(expandedHome, 1, bottoms).subtaskRowOpacity, [0, 0, 0, 0]);
+assert.equal(sampleMotionV4(expandedHome, 0).sharedAnchorFraction, 0);
+assert.equal(sampleMotionV4(expandedHome, 1).sharedAnchorFraction, 1);
+
 for (const [from, to] of routes) {
   const frames = [0, 0.25, 0.5, 0.75, 1].map((progress) =>
     sampleMotionV4({ from, to }, progress).sharedAnchorFraction,
