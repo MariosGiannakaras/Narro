@@ -13,6 +13,7 @@ const routes = [
   ["timerCompact", "timerExpanded", 110, 300],
   ["timerExpanded", "timerCompact", 300, 110],
   ["timerCompact", "panel", 110, 700],
+  ["timerExpanded", "panel", 300, 700],
 ];
 
 assert.equal(MOTION_V4_DURATION_MS, 500);
@@ -65,6 +66,7 @@ for (const bad of [NaN, Infinity, -0.1, 1.1]) {
   assert.throws(() => sampleMotionV4({ from: "panel", to: "timerCompact" }, bad), RangeError);
 }
 assert.equal(isMotionV4Route({ from: "panel", to: "timerExpanded" }), false);
+assert.equal(isMotionV4Route({ from: "timerExpanded", to: "panel" }), true);
 assert.throws(() => sampleMotionV4({ from: "panel", to: "timerExpanded" }, 0.5), RangeError);
 assert.throws(() => sampleMotionV4({ from: "panel", to: "panel" }, 0.5), RangeError);
 assert.throws(() => sampleMotionV4({ from: "timerCompact", to: "timerExpanded" }, 0.5, [Infinity]), RangeError);
