@@ -265,12 +265,13 @@ export function FocusLiveActions({
   const run = async (
     action: FocusAction,
     mutation: () => Promise<TimerSessionPayload>,
-    success: string,
+    success: string | ((committed: TimerSessionPayload) => string),
   ) => {
     if (!beginMutation(action)) return;
     try {
-      applyPayload(await mutation());
-      setStatus(success);
+      const committed = await mutation();
+      applyPayload(committed);
+      setStatus(typeof success === "string" ? success : success(committed));
     } catch (failure: unknown) {
       fail(failure);
     } finally {
@@ -290,10 +291,24 @@ export function FocusLiveActions({
     void run("break", () => startManualBreakTimer(defaultBreakMs), "Break started.");
   };
 
+  const skipBreakFeedback = (committed: TimerSessionPayload): string => {
+    // The native timer may have reached the automatic manual-break boundary
+    // while the Skip IPC was queued; use its committed outcome, not the UI's
+    // stale pre-click Break state. Pomodoro skip stays explicitly paused.
+    const committedState = committed.runtime.timer.state;
+    if (committedState === "paused" || committedState === "overtime_paused") {
+      return "Break skipped. Work paused.";
+    }
+    if (committedState === "running" || committedState === "overtime_running") {
+      return "Break ended. Work resumed.";
+    }
+    return "Break ended.";
+  };
+
   const handlePauseResume = () => {
     const timerState = timer.runtime.timer.state;
     if (timerState === "break") {
-      void run("pause_resume", skipBreakTimer, "Break skipped. Work paused.");
+      void run("pause_resume", skipBreakTimer, skipBreakFeedback);
       return;
     }
     if (timerState === "paused" || timerState === "overtime_paused") {
