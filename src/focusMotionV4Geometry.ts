@@ -8,6 +8,7 @@ export type MotionV4SharedRect = Readonly<{
 export type MotionV4RasterLayout = Readonly<{
   title: MotionV4SharedRect;
   timer: MotionV4SharedRect;
+  toolbar: MotionV4SharedRect;
   actions: MotionV4Rect | null;
   rows: readonly MotionV4Rect[];
 }>;
@@ -15,6 +16,7 @@ export type MotionV4MeasuredTimer = Readonly<{
   taskId: string;
   title: MotionV4Rect;
   timer: MotionV4Rect;
+  toolbar: MotionV4Rect;
   actions: MotionV4Rect | null;
   rows: readonly MotionV4Rect[];
   expanded: boolean;
@@ -47,7 +49,8 @@ export function measureMotionV4Timer(root: ParentNode): MotionV4MeasuredTimer | 
   };
   const title = rect('[data-floating-task-title="true"]');
   const time = rect('[data-floating-live-timer="true"]');
-  if (!title || !time) return null;
+  const toolbar = rect(".floating-timer-foundation__subtask-toolbar");
+  if (!title || !time || !toolbar) return null;
   const expanded = timer.dataset.floatingExpanded === "true";
   const actions = expanded ? rect(".floating-timer-foundation__actions-wrap") : null;
   const rows: MotionV4Rect[] = [];
@@ -65,7 +68,7 @@ export function measureMotionV4Timer(root: ParentNode): MotionV4MeasuredTimer | 
       if (rows.length > 64) return null;
     }
   }
-  return { taskId, title, timer: time, actions, rows, expanded };
+  return { taskId, title, timer: time, toolbar, actions, rows, expanded };
 }
 
 export function createMotionV4TimerLayout(
@@ -77,6 +80,7 @@ export function createMotionV4TimerLayout(
   return {
     title: { from: from.title, to: to.title },
     timer: { from: from.timer, to: to.timer },
+    toolbar: { from: from.toolbar, to: to.toolbar },
     actions: enlarged.actions,
     rows: enlarged.rows,
   };
