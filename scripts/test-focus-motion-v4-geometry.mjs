@@ -81,6 +81,8 @@ assert.ok(foundation.includes("measureMotionV4Timer(document)"));
 assert.ok(foundation.includes("sourceAnchors);"));
 assert.ok(foundation.includes("await waitForPresentedFrameOrThrow();\n        // The coordinator acquires"));
 assert.ok(timerCss.includes('[data-floating-resize-pending="true"] .floating-timer-foundation__heading'));
+assert.ok(timerCss.includes('[data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading'));
+assert.ok(timerCss.indexOf('[data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading') > timerCss.indexOf('[data-floating-compact-actions="true"] .floating-timer-foundation__heading'));
 assert.ok(coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"));
 assert.ok(coordinator.indexOf('host.dataset.focusV4Plate = "true"') <
   coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)"));
