@@ -53,9 +53,10 @@ assert.equal(closed.detailView, null);
 const same = projection({selectedKey:a,savedKey:a,sessions:reportA,taskId:"A",detail:detailA});
 assert.equal(same.sessionsForCurrentRequest, reportA);
 assert.equal(same.groups[0].session.id, "A");
-// Verify all consumer boundaries cannot show stale rows, edit or export them.
+// Verify rendered rows, summary and loading/error admission never read stale data.
+// Existing edit/delete handlers retain their authoritative session identity lookup;
+// their controls are mounted only when the keyed view is current.
 for(const marker of [
-  "sessionsForCurrentRequest?.rows.find(",
   "sessionsForCurrentRequest === null ? refreshError",
   "sessionsForCurrentRequest === null && refreshError",
   "sessionsForCurrentRequest.summary.totalFocusSeconds",

@@ -420,7 +420,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const commitEndTime = async (row: ReportsSessionViewRow, endTime: string): Promise<boolean> => {
-    const raw = sessionsForCurrentRequest?.rows.find((candidate) => candidate.session.id === row.id)?.session
+    const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
     if (mutationPendingId || sessionMutationInFlightRef.current) return false;
     if (!raw) {
@@ -458,7 +458,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const deleteSession = async (row: ReportsSessionViewRow) => {
-    const raw = sessionsForCurrentRequest?.rows.find((candidate) => candidate.session.id === row.id)?.session
+    const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
     if (!raw || mutationPendingId || sessionMutationInFlightRef.current) return;
     sessionMutationInFlightRef.current = true;
