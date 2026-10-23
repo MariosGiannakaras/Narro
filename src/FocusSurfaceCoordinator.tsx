@@ -34,10 +34,10 @@ import {
   startTimerTask,
   type TimerSessionPayload,
 } from "./timerSessionApi";
+import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
-const FOCUS_GEOMETRY_MOTION_MS = 250;
 
 type FocusGeometryMotion = {
   from: FocusSurfacePresentation;
@@ -152,6 +152,7 @@ export function FocusSurfaceCoordinator() {
     to: FocusSurfacePresentation,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+    if (!isMotionV4Route({ from, to })) throw new RangeError("Unsupported Focus Motion v4 route.");
     // Native outgoing-pixel protection is installed before this promotion.
     // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
@@ -161,13 +162,13 @@ export function FocusSurfaceCoordinator() {
   const runGeometryMotion = useCallback(async (
     from: FocusSurfacePresentation,
     to: FocusSurfacePresentation,
-    durationMs: number,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+    // The native raster compositor is the only finite animation clock.
+    // An independent JS timeout could drift beyond the protected native
+    // presentation; paint the marker but await native completion instead.
     flushSync(() => setGeometryMotion({ from, to, phase: "running" }));
-    await new Promise<void>((resolve) => {
-      window.setTimeout(resolve, durationMs);
-    });
+    await waitForPresentedFrameOrThrow();
   }, []);
 
   useEffect(() => {
@@ -253,9 +254,9 @@ export function FocusSurfaceCoordinator() {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
       // and restores native state if renderer publication itself ever throws.
-      const motionDurationMs = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? 1
-        : FOCUS_GEOMETRY_MOTION_MS;
+      const motionDurationMs = motionV4Duration(
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      );
       await commitPreparedFocusPresentation({
         previousPresentation,
         targetPresentation,
@@ -291,7 +292,7 @@ export function FocusSurfaceCoordinator() {
           });
         },
         runConcurrentMotion: () =>
-          runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
+          runGeometryMotion(previousPresentation, targetPresentation),
         commitRendererPresentation: (next) => {
           flushSync(() => {
             setGeometryMotion(null);
@@ -386,8 +387,12 @@ export function FocusSurfaceCoordinator() {
 
     transitionGateRef.current = true;
     try {
-      const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? 1 : FOCUS_GEOMETRY_MOTION_MS;
+      if (!isMotionV4Route({ from: previous, to: target })) {
+        throw new RangeError("Unsupported Timer Motion v4 route.");
+      }
+      const duration = motionV4Duration(
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      );
       const waitForTimerTargetPaint = () => waitForTimerRasterReady(
         target,
         () => document.querySelector(
