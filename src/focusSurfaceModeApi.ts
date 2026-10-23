@@ -63,6 +63,9 @@ export function markFocusTransitionTrace(
   stage: FocusTransitionTraceStage,
   rasterToken?: number,
 ): void {
+  // Normal Narro has no diagnostic IPC cost. The dedicated Focus replay page
+  // alone may emit markers, and native also requires a disposable capture dir.
+  if (new URLSearchParams(window.location.search).get("runtimeVisual") !== "1") return;
   void invoke<void>("focus_transition_trace_mark", { stage, rasterToken })
     .catch(() => { /* diagnostic only; never interfere with Focus recovery */ });
 }
