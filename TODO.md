@@ -652,6 +652,8 @@ Acceptance criteria:
 
 **After ALL M1–M9 mandatory acceptance gates close on resulting main**, pursue the requested **single persistent window/WebView for the entire application**, including new **Main ↔ Focus** entry/return animations (and state-appropriate Main ↔ Timer journeys) aligned with Motion v4. This is a future non-counting architecture initiative; **do not start it early, activate M11/M12, modify the 10-milestone denominator or bypass M10's hard entry gate**. Audit whether Main and Floating Timer must coexist as independent desktop surfaces: strict single-HWND may require a separately approved behavior compromise. Any migrated foundation reopens only affected M1–M9 evidence for reacceptance before M10. The existing 220 ms one-way Main → Focus raster morph is an implementation baseline to replace, not proof of final unified-window behavior.
 
+**Durable code checkpoint:** [Draft PR #418](https://github.com/MariosGiannakaras/Narro/pull/418) includes the exact Motion v4 preview HTML, reusable TS timing/choreography, tests and explicit integration handoff. **SOURCE SAVED; NOT PRODUCTION-INTEGRATED; PHYSICAL NOT RUN**. It is independent of, and cannot bypass, the PR389 A02 physical-before-merge hold. Check its live head/CI before reuse; not a completed M7/M10 gate.
+
 **Authoritative design/dependency/validation plan:** [Narro Motion v4 and unified window roadmap](docs/NARRO_MOTION_V4_AND_UNIFIED_WINDOW_ROADMAP.md). **Implementation / CI / physical: NOT RUN for this new proposal.** Active PR389 ownership, SHA, CI and next action remain unchanged in [HANDOFF.md](HANDOFF.md).
 
 ## Milestone 10 — Windows lifecycle, packaging, visual/regression pass
