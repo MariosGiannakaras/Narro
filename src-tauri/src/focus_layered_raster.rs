@@ -148,6 +148,18 @@ mod native {
         fn SetTimer(window: Handle, id: usize, ms: u32, callback: Handle) -> usize;
         fn KillTimer(window: Handle, id: usize) -> i32;
         fn GetWindowThreadProcessId(window: Handle, pid: *mut u32) -> u32;
+        fn BeginDeferWindowPos(count: i32) -> Handle;
+        fn DeferWindowPos(
+            batch: Handle,
+            window: Handle,
+            after: Handle,
+            x: i32,
+            y: i32,
+            width: i32,
+            height: i32,
+            flags: u32,
+        ) -> Handle;
+        fn EndDeferWindowPos(batch: Handle) -> i32;
     }
     #[link(name = "gdi32")]
     unsafe extern "system" {
@@ -444,6 +456,74 @@ mod native {
             Ok(())
         })
     }
+    // The Focus owner and its independent WS_POPUP raster share the desktop
+    // parent (ownership is not parentage). Two sequential SetWindowPos calls
+    // expose mismatched positions to DWM, even if the raster pixels are valid.
+    // Commit both HWND positions in one Win32 window-position transaction.
+    fn move_owned_pair(owner: Handle, popup: Handle, x: i32, y: i32) -> CommandResult<()> {
+        if owner.is_null()
+            || popup.is_null()
+            || unsafe { IsWindow(owner) } == 0
+            || unsafe { IsWindow(popup) } == 0
+            || unsafe { GetWindow(popup, GW_OWNER) } != owner
+        {
+            return Err(invalid("protected Focus move has no matching owner and popup"));
+        }
+        const FLAGS: u32 = 0x0001 | 0x0004 | 0x0010 | 0x0200;
+        // SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER.
+        // The latter keeps the established topmost/owner stacking intact.
+        let mut batch = unsafe { BeginDeferWindowPos(2) };
+        if batch.is_null() {
+            return Err(failed("begin atomic Focus/owned-raster move"));
+        }
+        batch = unsafe { DeferWindowPos(batch, owner, ptr::null_mut(), x, y, 0, 0, FLAGS) };
+        if batch.is_null() {
+            // Failed DeferWindowPos invalidates its batch; do not EndDefer it.
+            return Err(failed("stage Focus owner move"));
+        }
+        batch = unsafe { DeferWindowPos(batch, popup, ptr::null_mut(), x, y, 0, 0, FLAGS) };
+        if batch.is_null() {
+            return Err(failed("stage owned Focus raster move"));
+        }
+        if unsafe { EndDeferWindowPos(batch) } == 0 {
+            return Err(failed("commit atomic Focus/owned-raster move"));
+        }
+        let mut owner_rect = Rect::default();
+        let mut popup_rect = Rect::default();
+        if unsafe { GetWindowRect(owner, &mut owner_rect) } == 0
+            || unsafe { GetWindowRect(popup, &mut popup_rect) } == 0
+        {
+            return Err(failed("verify atomic Focus/owned-raster move"));
+        }
+        if owner_rect.left != x
+            || owner_rect.top != y
+            || popup_rect.left != x
+            || popup_rect.top != y
+        {
+            return Err(invalid("Focus and owned raster did not settle at the same origin"));
+        }
+        Ok(())
+    }
+
+    /// A present owned raster is moved in the same native screen-refresh
+    /// batch as the persistent Focus HWND. No raster: retain Tauri's ordinary
+    /// movement path (including its own platform/window bookkeeping).
+    pub(crate) fn move_owner_and_popup(
+        window: &tauri::WebviewWindow,
+        x: i32,
+        y: i32,
+    ) -> CommandResult<bool> {
+        on_window_thread(window, move |owner| {
+            let owner = owner as Handle;
+            let popup = existing(owner);
+            if popup.is_null() {
+                return Ok(false);
+            }
+            move_owned_pair(owner, popup, x, y)?;
+            Ok(true)
+        })
+    }
+
     pub(crate) fn sync_owner_position(window: &tauri::WebviewWindow) -> CommandResult<()> {
         on_window_thread(window, |owner| {
             let owner = owner as Handle;
@@ -651,6 +731,45 @@ mod native {
     mod tests {
         use super::*;
         #[test]
+        fn owned_raster_and_focus_move_together_or_fail_without_mutating() {
+            // Real Win32 top-level owner + owned WS_POPUP, not an arithmetic
+            // mock. Does not open a Tauri app, access profiles or change DPI.
+            unsafe {
+                let class = wide("STATIC");
+                let instance = GetModuleHandleW(ptr::null());
+                let owner = CreateWindowExW(
+                    0, class.as_ptr(), ptr::null(), WS_POPUP,
+                    80, 90, 180, 180, ptr::null_mut(), ptr::null_mut(),
+                    instance, ptr::null_mut(),
+                );
+                assert!(!owner.is_null(), "create test Focus HWND");
+                let popup = CreateWindowExW(
+                    WS_EX_LAYERED | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW,
+                    class.as_ptr(), ptr::null(), WS_POPUP,
+                    80, 90, 110, 110, owner, ptr::null_mut(),
+                    instance, ptr::null_mut(),
+                );
+                assert!(!popup.is_null(), "create test owned layered popup");
+                assert_eq!(GetWindow(popup, GW_OWNER), owner);
+                move_owned_pair(owner, popup, 430, 525).unwrap();
+                let mut a = Rect::default();
+                let mut b = Rect::default();
+                assert_ne!(GetWindowRect(owner, &mut a), 0);
+                assert_ne!(GetWindowRect(popup, &mut b), 0);
+                assert_eq!((a.left, a.top), (430, 525));
+                assert_eq!((b.left, b.top), (430, 525));
+                assert_eq!(a.right - a.left, 180);
+                assert_eq!(b.right - b.left, 110);
+                assert!(move_owned_pair(popup, owner, 600, 600).is_err(),
+                    "a reversed/unowned pair must not be admitted");
+                assert_ne!(GetWindowRect(owner, &mut a), 0);
+                assert_ne!(GetWindowRect(popup, &mut b), 0);
+                assert_eq!((a.left, a.top, b.left, b.top), (430, 525, 430, 525));
+                assert_ne!(DestroyWindow(popup), 0);
+                assert_ne!(DestroyWindow(owner), 0);
+            }
+        }
+        #[test]
         fn rounded_alpha_preserves_opaque_interior_and_zeros_corner_rgb() {
             let mut pixels = [12, 22, 32, 255].repeat(16);
             rounded_premultiplied(&mut pixels, 4, 4, 4);
@@ -698,6 +817,13 @@ mod native {
     pub(crate) fn sync_owner_position(_: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
     }
+    pub(crate) fn move_owner_and_popup(
+        _: &tauri::WebviewWindow,
+        _: i32,
+        _: i32,
+    ) -> CommandResult<bool> {
+        Ok(false)
+    }
 }
 
-pub(crate) use native::{begin_mode_transition, clear, sync_owner_position, Hold};
+pub(crate) use native::{begin_mode_transition, clear, move_owner_and_popup, sync_owner_position, Hold};
