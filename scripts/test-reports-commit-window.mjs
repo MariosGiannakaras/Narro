@@ -49,6 +49,7 @@ function mountedOwnerSequence() {
         const d = barrier(); calls.detail.push({ request, ...d }); return d.promise;
       },
       setSessions: payload => { state.sessions = payload; },
+      setSessionsRequestKey: key => { state.sessionsKey = key; },
       setDetail: payload => { state.detail = payload; },
       setRefreshError: error => { state.errors.push(error); },
       setDetailError: error => { state.detailErrors.push(error); },
@@ -108,6 +109,7 @@ function mountedOwnerSequence() {
   h.calls.detail[2].resolve({ taskId: "task-B" });
   await flush();
   assert.equal(h.state.sessions.rows[0], "fresh B");
+  assert.deepEqual(JSON.parse(h.state.sessionsKey).listIds, ["list-B"], "commit-window renderer key belongs to B");
   assert.equal(h.state.detail.taskId, "task-B");
   assert(!h.state.errors.some(x => typeof x === "string" && x.includes("obsolete")));
   assert(!h.state.detailErrors.some(x => typeof x === "string" && x.includes("obsolete")));

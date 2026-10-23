@@ -143,6 +143,9 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [home, setHome] = useState<HomeSnapshot | null>(null);
   const [searchData, setSearchData] = useState<SearchPaletteData | null>(null);
   const [sessions, setSessions] = useState<ReportSessions | null>(null);
+  // Render rows only for the request that produced them. A previously accepted
+  // filter's rows must not be relabelled as a newly committed filter.
+  const [sessionsRequestKey, setSessionsRequestKey] = useState<string | null>(null);
   const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
   const [showBreakSessions, setShowBreakSessions] = useState(true);
   const [appliedRange, setAppliedRange] = useState<ReportDateRange | null>(null);
@@ -228,6 +231,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       if (revision !== sessionsReadRevisionRef.current
         || sessionsActiveRequestKeyRef.current !== requestKey) return null;
       setSessions(payload);
+      setSessionsRequestKey(requestKey);
       setRefreshError(null);
       return payload;
     } catch (failure: unknown) {
@@ -250,6 +254,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     if (sessionsActiveRequestKeyRef.current !== committedSessionsRequestKey) {
       sessionsActiveRequestKeyRef.current = committedSessionsRequestKey;
       ++sessionsReadRevisionRef.current;
+      // Do not expose a previous filter's read error under a new selection.
+      setRefreshError(null);
     }
   }, [committedSessionsRequestKey]);
 
@@ -264,6 +270,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       .then((payload) => {
         if (disposed || revision !== sessionsReadRevisionRef.current) return;
         setSessions(payload);
+        setSessionsRequestKey(JSON.stringify(request));
         setRefreshError(null);
       })
       .catch((failure: unknown) => {
@@ -351,13 +358,16 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       ? listOptions.find((option) => option.id === selectedListIds[0])?.title ?? "Selected list"
       : `Selected ${selectedListIds.length} lists`;
 
+  const sessionsForCurrentRequest = sessionsRequestKey === committedSessionsRequestKey ? sessions : null;
   const groups = useMemo(
-    () => groupRows((sessions?.rows ?? []).map((row) => sessionRowView(row, locale, timeZone, listColors))),
-    [listColors, locale, sessions, timeZone],
+    () => groupRows((sessionsForCurrentRequest?.rows ?? []).map((row) => sessionRowView(row, locale, timeZone, listColors))),
+    [listColors, locale, sessionsForCurrentRequest, timeZone],
   );
 
   const detailView = useMemo<ReportsTaskDetailView | null>(() => {
-    if (!detail) return null;
+    // Closing or switching a task must unmount its old modal in the same
+    // committed render, not wait for passive read cleanup.
+    if (!detail || detailTaskId !== detail.taskId) return null;
     return {
       taskId: detail.taskId,
       taskTitle: detail.taskTitle,
@@ -367,7 +377,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       totalSessions: detail.totalSessions,
       rows: detail.rows.map((row) => sessionRowView(row, locale, timeZone, listColors)),
     };
-  }, [detail, listColors, locale, timeZone]);
+  }, [detail, detailTaskId, listColors, locale, timeZone]);
 
   const selectedCalendarRange = draftRange?.range ?? appliedRange;
   const calendarMonths = useMemo(
@@ -410,7 +420,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const commitEndTime = async (row: ReportsSessionViewRow, endTime: string): Promise<boolean> => {
-    const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
+    const raw = sessionsForCurrentRequest?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
     if (mutationPendingId || sessionMutationInFlightRef.current) return false;
     if (!raw) {
@@ -448,7 +458,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   };
 
   const deleteSession = async (row: ReportsSessionViewRow) => {
-    const raw = sessions?.rows.find((candidate) => candidate.session.id === row.id)?.session
+    const raw = sessionsForCurrentRequest?.rows.find((candidate) => candidate.session.id === row.id)?.session
       ?? detail?.rows.find((candidate) => candidate.session.id === row.id)?.session;
     if (!raw || mutationPendingId || sessionMutationInFlightRef.current) return;
     sessionMutationInFlightRef.current = true;
@@ -571,14 +581,14 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     setDatePickerOpen(false);
   };
 
-  const blockingError = preferences.error || readError || (sessions === null ? refreshError : null);
+  const blockingError = preferences.error || readError || (sessionsForCurrentRequest === null ? refreshError : null);
   if (blockingError) {
     return (
       <section className="reports-overview reports-overview--state" data-reports-sessions-state="error" role="alert">
         <h1>Reports</h1>
         <p>Sessions could not be loaded from local data.</p>
         <code>{blockingError}</code>
-        {(readError || (sessions === null && refreshError)) ? (
+        {(readError || (sessionsForCurrentRequest === null && refreshError)) ? (
           <button type="button" className="motion-interactive" data-reports-sessions-retry="true"
             onClick={() => {
               if (readError) {
@@ -587,7 +597,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
                 setSearchData(null);
                 setInitialReadAttempt((attempt) => attempt + 1);
               }
-              if (sessions === null && refreshError) {
+              if (sessionsForCurrentRequest === null && refreshError) {
                 setRefreshError(null);
                 setSessionsReadAttempt((attempt) => attempt + 1);
               }
@@ -600,7 +610,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     );
   }
 
-  if (!preferences.settled || home === null || appliedRange === null || sessions === null) {
+  if (!preferences.settled || home === null || appliedRange === null || sessionsForCurrentRequest === null) {
     return (
       <section className="reports-overview reports-overview--state" data-reports-sessions-state="loading" aria-live="polite">
         <h1>Reports</h1>
@@ -619,9 +629,9 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
 
       <ReportsSessionsView
         summary={{
-          totalTime: formatReportDuration(sessions.summary.totalFocusSeconds),
-          totalTasks: sessions.summary.totalTasks,
-          totalSessions: sessions.summary.totalSessions,
+          totalTime: formatReportDuration(sessionsForCurrentRequest.summary.totalFocusSeconds),
+          totalTasks: sessionsForCurrentRequest.summary.totalTasks,
+          totalSessions: sessionsForCurrentRequest.summary.totalSessions,
         }}
         groups={groups}
         listLabel={listLabel}
