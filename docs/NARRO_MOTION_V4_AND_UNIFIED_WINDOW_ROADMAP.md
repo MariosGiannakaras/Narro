@@ -1,5 +1,7 @@
 # Narro Motion v4 + future unified Main/Focus/Timer window — user-directed plan
 
+**Durable source package / user-directed 2026-10-23:** [draft PR #418](https://github.com/MariosGiannakaras/Narro/pull/418) contains the exact self-contained Motion v4 browser HTML, a reusable pure TypeScript 500 ms choreography model, a four-route regression script wired into frontend preflight, and a full code handoff. This is **CODE SAVED / NOT YET CONNECTED TO PRODUCTION**, not a Windows physical candidate or a PR389 ghosting fix. Read the PR branch's [`docs/NARRO_MOTION_V4_CODE_HANDOFF.md`](https://github.com/MariosGiannakaras/Narro/blob/design/m7-motion-v4-source-contract/docs/NARRO_MOTION_V4_CODE_HANDOFF.md). Live CI and head must be rechecked; the PR is draft and deliberately separate from PR389. The sequencing/acceptance rules below remain unchanged.
+
 **Recorded:** 2026-10-23. **Status:** DESIGN APPROVED / PLAN ONLY; source implementation, automated validation and physical Windows acceptance of the proposed motion are **NOT RUN**. This file is not a completed feature, implementation authorization to skip an existing gate, M11/M12 activation, or a change to the 10 mandatory milestone denominator.
 
 ## Binding user decisions / sequencing
