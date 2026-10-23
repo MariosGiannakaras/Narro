@@ -247,6 +247,17 @@
   opacity: 1;
   pointer-events: auto;
 }
+/* This later, more specific rule wins over compact hover's normal
+   action-only state after a resize starts, so source CapturePreview receives
+   the real heading and not an invisible title with action controls. */
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading {
+  opacity: 1;
+  pointer-events: auto;
+}
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__actions-wrap {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__actions {
   width: 100%;
