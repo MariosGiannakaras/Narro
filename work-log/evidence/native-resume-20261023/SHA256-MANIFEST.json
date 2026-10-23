@@ -1,0 +1,137 @@
+{
+  "scope": "checkpoint staged Git blobs",
+  "files": [
+    {
+      "path": "B1-home-list-navigation/ffmpeg-stderr.txt",
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B1-home-list-navigation/native-original.mkv",
+      "gitSha256": "553ef1552a9263a4280c5ab19270f4cf17b0b583dc62e5350b8dc308ac25f995",
+      "originalSha256": "553ef1552a9263a4280c5ab19270f4cf17b0b583dc62e5350b8dc308ac25f995",
+      "bytes": 10666101
+    },
+    {
+      "path": "B1-home-list-navigation/video-metadata.json",
+      "gitSha256": "808e4c543a2754a4b1eb8450a47428f46379ac6272b4990c30127d71fd62b923",
+      "originalSha256": "a28d27d09184fa98cdee5a6aff0ea8016cecf871377a08a656737d6acd104c78",
+      "bytes": 287
+    },
+    {
+      "path": "B2B3-board-schedule-reorder/ffmpeg-stderr.txt",
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B2B3-board-schedule-reorder/native-original.mkv",
+      "gitSha256": "284d12656bbe582bb40de3186dfc3f401f0f6b4b6b83cc28433ae19fc99bfc0a",
+      "originalSha256": "284d12656bbe582bb40de3186dfc3f401f0f6b4b6b83cc28433ae19fc99bfc0a",
+      "bytes": 13843148
+    },
+    {
+      "path": "B2B3-board-schedule-reorder/video-metadata.json",
+      "gitSha256": "9c7df9edf9c708fd7008be030536c694d81c6139b942ba9549cb97893343c722",
+      "originalSha256": "4d5acb5cc8633e4c9f0a8ece346bff80985c285c20f3441371ef6463775e5a8c",
+      "bytes": 288
+    },
+    {
+      "path": "B3-board-input-reorder/ffmpeg-stderr.txt",
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B3-board-input-reorder/native-original.mkv",
+      "gitSha256": "b2490c00907f7fc800807c65c8029dd54a8bed423f931ca9ed1eba19a1ea83c6",
+      "originalSha256": "b2490c00907f7fc800807c65c8029dd54a8bed423f931ca9ed1eba19a1ea83c6",
+      "bytes": 8171605
+    },
+    {
+      "path": "B3-board-input-reorder/video-metadata.json",
+      "gitSha256": "e015e85983c7286a590145e5e872a9cffc9291ced4c19b64a468d813a62cb52f",
+      "originalSha256": "f815ff056ccf81971e38eda242ad7fef1ae1d5f3d903a38ab08fecdc7fe94fbb",
+      "bytes": 288
+    },
+    {
+      "path": "B7B8-preferences-lower/ffmpeg-stderr.txt",
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B7B8-preferences-lower/native-original.mkv",
+      "gitSha256": "5f1d473310c0e746fce3fa1b53b7238f547ae7c101dbe4c94e4e24e2c726579c",
+      "originalSha256": "5f1d473310c0e746fce3fa1b53b7238f547ae7c101dbe4c94e4e24e2c726579c",
+      "bytes": 6415122
+    },
+    {
+      "path": "B7B8-preferences-lower/video-metadata.json",
+      "gitSha256": "4d5f7c7608d7a1daf1d974e8e222daf19620d8b11ee57e802f2e95aa37d7368d",
+      "originalSha256": "d899ef84da1aa15f6289aa4abc69ae4a5991382bfe687147fb9e92939ad37fcf",
+      "bytes": 288
+    },
+    {
+      "path": "B7B8-preferences-shortcuts/ffmpeg-stderr.txt",
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B7B8-preferences-shortcuts/native-original.mkv",
+      "gitSha256": "559f88fb0ef8b2be64b03623a4e8cfdbd56f259ebec1304cd92fee7607bc7d27",
+      "originalSha256": "559f88fb0ef8b2be64b03623a4e8cfdbd56f259ebec1304cd92fee7607bc7d27",
+      "bytes": 14270008
+    },
+    {
+      "path": "B7B8-preferences-shortcuts/video-metadata.json",
+      "gitSha256": "38422d5ce928e1b8e523d30578f237adf9c1a104de830ad3d371df844d3d12c4",
+      "originalSha256": "3792aeb9c4fa77ff750f87e30e8aad243e4b4f5c3a3fbc3c97f20771f5996a30",
+      "bytes": 288
+    },
+    {
+      "path": "CAPTURE_PLAN.md",
+      "gitSha256": "ddc8cb74b3b0a63278da1d5fd64272639d27731a8e2f8f97db3ca4efa3487d21",
+      "originalSha256": "ddc8cb74b3b0a63278da1d5fd64272639d27731a8e2f8f97db3ca4efa3487d21",
+      "bytes": 749
+    },
+    {
+      "path": "README.md",
+      "gitSha256": "b0aad898f63d8801d2ccfd9da8e9cd68c8309f1d000b1cf67eb49c198691c9cd",
+      "originalSha256": "c91d2bac3b80833c7eb3c571c3897252a6e53511e202895c0176466e97066c27",
+      "bytes": 2527
+    },
+    {
+      "path": "actions.jsonl",
+      "gitSha256": "e9717c7e6e4af1c2b5ae7ab63c5cc7e7edc94487b5d1dda3c81913fc8af65407",
+      "originalSha256": "f7e0f350f30041554066528c2355093e54a71e7bde52368c6d042f66df7fa2c8",
+      "bytes": 1513
+    },
+    {
+      "path": "fixture.json",
+      "gitSha256": "747f450f704cddfd69c1ed76ce33587aed67371a40f3652c5cbe711724243eec",
+      "originalSha256": "6372060ea14377d0be365c1038c4281a2f99cabe47101c0810f852767f483d0f",
+      "bytes": 180
+    },
+    {
+      "path": "native-actions.jsonl",
+      "gitSha256": "d39ab7d68190282abc6ac434c16a76859b41cf0487ddadf21eb2efaf6366111a",
+      "originalSha256": "d39ab7d68190282abc6ac434c16a76859b41cf0487ddadf21eb2efaf6366111a",
+      "bytes": 1545976
+    },
+    {
+      "path": "prior-local-cache-restored-proof.json",
+      "gitSha256": "36f7cd33d47ecd8a1e9053aad06e3cabe69b63915bd761399b7a08e2f37b66eb",
+      "originalSha256": "bea988d0d7629985a5dee31d4ba33fc4495acf77c3628af6c38f19955eaa7b27",
+      "bytes": 203
+    },
+    {
+      "path": "session-meta.json",
+      "gitSha256": "a5f6ba3e124b16ea5aff8857acd42b65efd90d719b679a464d4e3c5cd569f89c",
+      "originalSha256": "ca451246b49cd5bffff3d2d3d249b3ff78275b47d45fef9a47c25683db8f9a42",
+      "bytes": 706
+    }
+  ]
+}

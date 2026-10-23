@@ -1,0 +1,11 @@
+{"utc": "2026-10-23T13:39:43.778075+00:00", "action": "RECORD_START", "segment": "B1-home-list-navigation", "pid": 49364}
+{"utc": "2026-10-23T13:41:02.633118+00:00", "action": "RECORD_START", "segment": "B2B3-board-schedule-reorder", "pid": 73336}
+{"utc": "2026-10-23T13:41:02.693119+00:00", "action": "RECORD_STOP", "segment": "B1-home-list-navigation", "exitCode": 0}
+{"utc": "2026-10-23T13:43:49.293962+00:00", "action": "RECORD_STOP", "segment": "B2B3-board-schedule-reorder", "exitCode": 0}
+{"utc": "2026-10-23T13:43:58.589391+00:00", "action": "RECORD_START", "segment": "B3-board-input-reorder", "pid": 50304}
+{"utc": "2026-10-23T13:46:45.209088+00:00", "action": "RECORD_STOP", "segment": "B3-board-input-reorder", "exitCode": 0}
+{"utc": "2026-10-23T17:57:27.988902+00:00", "action": "RESUME_RECONCILIATION", "app": "previous PID no longer present; cause not determined", "recorders": "none active; previous segments ended by watchdog", "profile": "same owned synthetic profile and protected originals verified"}
+{"utc": "2026-10-23T17:57:28.951619+00:00", "action": "RECORD_START", "segment": "B7B8-preferences-shortcuts", "pid": 44424}
+{"utc": "2026-10-23T17:59:52.631037+00:00", "action": "RECORD_START", "segment": "B7B8-preferences-lower", "pid": 31844}
+{"utc": "2026-10-23T18:00:15.315582+00:00", "action": "RECORD_STOP", "segment": "B7B8-preferences-shortcuts", "exitCode": 0}
+{"utc": "2026-10-23T18:02:39.436256+00:00", "action": "RECORD_STOP", "segment": "B7B8-preferences-lower", "exitCode": 0}
