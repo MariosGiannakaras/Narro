@@ -266,6 +266,16 @@ invariant(
   "normal Narro must not send any diagnostic trace IPC outside the opted-in Focus runtime page",
 );
 invariant(
+  driver.includes("motionV4Anchors:")
+    && driver.includes('anchor(".focus-panel__live-card[data-task-id] .focus-panel__live-title")')
+    && driver.includes('anchor("[data-floating-task-title]")')
+    && driver.includes("subtaskRowBottoms")
+    && driver.includes("taskIdentityMatches: Boolean(")
+    && !driver.includes("taskId: panelTaskId")
+    && !driver.includes("taskId: floatingTaskId"),
+  "packaged native reference must record real title/time and measured subtask anchors without leaking task identifiers",
+);
+invariant(
   rust.includes('"native.raster-source"')
     && rust.includes('"incoming"')
     && rust.includes('"outgoing"'),
