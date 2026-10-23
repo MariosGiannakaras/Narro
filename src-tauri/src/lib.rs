@@ -1452,6 +1452,44 @@ fn fluent_point_to_point_easing(progress: f64) -> f64 {
     )
 }
 
+/// Motion v4 Focus-only ease: mirror src/focusMotionV4.ts smoothstep.
+fn focus_motion_v4_easing(progress: f64) -> f64 {
+    debug_assert!(progress.is_finite());
+    let t = progress.clamp(0.0, 1.0);
+    t * t * (3.0 - 2.0 * t)
+}
+
+#[cfg(test)]
+mod focus_motion_v4_easing_tests {
+    use super::focus_motion_v4_easing;
+
+    #[test]
+    fn smoothstep_matches_renderer_contract_at_quarter_samples() {
+        for (elapsed, expected) in [
+            (0.0, 0.0),
+            (0.25, 0.15625),
+            (0.5, 0.5),
+            (0.75, 0.84375),
+            (1.0, 1.0),
+        ] {
+            assert!((focus_motion_v4_easing(elapsed) - expected).abs() < 1e-12);
+        }
+        assert_eq!(focus_motion_v4_easing(-1.0), 0.0);
+        assert_eq!(focus_motion_v4_easing(2.0), 1.0);
+    }
+
+    #[test]
+    fn smoothstep_is_bounded_and_monotonic_for_native_frame_steps() {
+        let mut previous = 0.0;
+        for step in 0..=100 {
+            let current = focus_motion_v4_easing(f64::from(step) / 100.0);
+            assert!(current >= previous && current <= 1.0);
+            previous = current;
+        }
+        assert_eq!(previous, 1.0);
+    }
+}
+
 fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
     if steps == 0 || step > steps {
         return Err(CommandError::new(
@@ -1661,7 +1699,7 @@ fn animate_focus_surface_presentation_internal(
         // One measured timeline owns position, visible envelope and complete
         // raster content. Work spent presenting a frame is not added as sleep.
         let elapsed = (started.elapsed().as_secs_f64() / (duration_ms as f64 / 1000.0)).min(1.0);
-        let progress = fluent_point_to_point_easing(elapsed);
+        let progress = focus_motion_v4_easing(elapsed);
         let axis = |from: i32, to: i32| -> CommandResult<i32> {
             let value = f64::from(from) + (f64::from(to) - f64::from(from)) * progress;
             if value < f64::from(i32::MIN) || value > f64::from(i32::MAX) {
