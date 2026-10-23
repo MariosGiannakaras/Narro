@@ -30,8 +30,7 @@ const valid = (r: MotionV4Rect): boolean =>
 export function measureMotionV4Timer(root: ParentNode): MotionV4MeasuredTimer | null {
   const host = root.querySelector<HTMLElement>(".focus-surface-coordinator");
   const timer = root.querySelector<HTMLElement>('.floating-timer-foundation[data-floating-timer="foundation"]');
-  if (!host || !timer || timer.dataset.floatingCompactActions === "true"
-      || timer.querySelector('[data-floating-time-up-label="true"]')
+  if (!host || !timer || timer.querySelector('[data-floating-time-up-label="true"]')
       || timer.querySelector('[data-floating-subtasks-loading="true"]')) return null;
   const taskId = timer.dataset.floatingLiveTaskId;
   if (!taskId) return null;
