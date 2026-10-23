@@ -84,6 +84,22 @@
   display: none;
 }
 
+/* Only during an opt-in CapturePreview behind the already-owned native
+   raster. The image becomes a clean 300px backing for complete-row/semantic
+   pixel staging; no text is duplicated between DOM and popup captures. */
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation {
+  height: 300px;
+  clip-path: inset(0 0 0 0 round 16px);
+  transition: none;
+}
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__timer,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__actions-wrap,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__subtask-panel {
+  visibility: hidden !important;
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .focus-surface-coordinator {
     --focus-geometry-motion-duration: 1ms;
