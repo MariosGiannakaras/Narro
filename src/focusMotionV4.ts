@@ -139,7 +139,7 @@ export function sampleMotionV4(
     // Each row is revealed only after the complete row fits in the real
     // visible window. The end threshold lies BELOW the final 300 px extent,
     // including the fourth 36px fixture row (bottom 290).
-    const fits = reveal(visibleHeight, bottom - 10, bottom + 2);
+    const fits = reveal(visibleHeight, bottom, bottom + 8);
     const details = reveal(
       expandedAmount,
       0.44 + index * 0.07,
