@@ -22,6 +22,17 @@
   pointer-events: none;
 }
 
+/* During a protected compact resize, show the single source heading rather
+   than snapshotting hover-only action pixels as the semantic title. Once busy
+   clears, the original compact hover/focus grammar automatically returns. */
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-resize-pending="true"] .floating-timer-foundation__heading {
+  opacity: 1;
+}
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-resize-pending="true"] .floating-timer-foundation__actions-wrap {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* The native raster owns geometry while the full target is painted beneath it. */
 .floating-timer-foundation[data-floating-resize-phase="raster-preparing"] {
   clip-path: inset(0 0 0 0 round 16px);
