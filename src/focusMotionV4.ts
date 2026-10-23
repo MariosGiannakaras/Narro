@@ -69,10 +69,11 @@ export function isMotionV4Route(route: MotionV4Route): boolean {
   const valid = presentationKinds.includes(route.from)
     && presentationKinds.includes(route.to);
   if (!valid || route.from === route.to) return false;
-  // No fictitious direct Panel-to-Expanded command; current coordinator
-  // serializes this via Compact.
+  // Panel enters Timer through Compact, but Home may return directly
+  // from Expanded Timer to Panel. That route is real and must be sampled.
   return (route.from === "panel" && route.to === "timerCompact")
     || (route.from === "timerCompact" && route.to === "panel")
+    || (route.from === "timerExpanded" && route.to === "panel")
     || (route.from === "timerCompact" && route.to === "timerExpanded")
     || (route.from === "timerExpanded" && route.to === "timerCompact");
 }
