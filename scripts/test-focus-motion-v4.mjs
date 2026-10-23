@@ -92,6 +92,29 @@ assert.equal(sampleMotionV4(open, 0, bottoms).actionsOpacity, 0);
 assert.equal(sampleMotionV4(open, 1, bottoms).actionsOpacity, 1);
 assert.deepEqual(sampleMotionV4(open, 1, bottoms).subtaskRowOpacity, [1, 1, 1, 1]);
 assert.deepEqual(sampleMotionV4(close, 1, bottoms).subtaskRowOpacity, [0, 0, 0, 0]);
+for (const [from, to] of routes) {
+  const frames = [0, 0.25, 0.5, 0.75, 1].map((progress) =>
+    sampleMotionV4({ from, to }, progress).sharedAnchorFraction,
+  );
+  assert.equal(frames[0], 0, `${from}→${to} shared anchor must start at source`);
+  assert.equal(frames.at(-1), 1, `${from}→${to} shared anchor must end at destination`);
+  for (let i = 1; i < frames.length; i++) {
+    assert.ok(frames[i] >= frames[i - 1], "shared semantic anchor cannot reverse direction");
+  }
+}
+assert.deepEqual(
+  sampleMotionV4(open, 1, [299, 300, 301]).subtaskRowOpacity,
+  [1, 1, 0],
+  "dynamic row endpoint must fully reveal only rows that fit in the real native height",
+);
+const justBeforeEnd = sampleMotionV4(open, 0.999, [300]);
+assert.equal(justBeforeEnd.subtaskRowOpacity[0], 0);
+assert.deepEqual(
+  sampleMotionV4(open, 1, Array.from({length: 12}, (_, i) => 100 + i * 16)).subtaskRowOpacity,
+  Array.from({length: 12}, () => 1),
+  "many physically fitting rows must not be permanently hidden by index-based staging",
+);
+
 // At one-third expansion actions are already visible, rows are not.
 assert.ok(sampleMotionV4(open, 0.40, bottoms).actionsOpacity >
   sampleMotionV4(open, 0.40, bottoms).subtaskRowOpacity[0]);
