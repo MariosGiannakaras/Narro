@@ -45,6 +45,22 @@ const frameHold = read("src-tauri/src/focus_frame_hold.rs");
 const layeredHold = read("src-tauri/src/focus_layered_raster.rs");
 const raster = read("src-tauri/src/focus_mode_raster.rs");
 const ownedOverlayLookup = slice(layeredHold, "fn existing(owner: Handle) -> Handle {", "pub fn clear(");
+
+const atomicMove = slice(layeredHold, "fn move_owned_pair(", "/// A present owned raster");
+invariant(
+  atomicMove.includes("GetWindow(popup, GW_OWNER)")
+    && atomicMove.includes("if owner.is_null()")
+    && atomicMove.includes("if batch.is_null()")
+    && atomicMove.includes("let mut batch = unsafe { BeginDeferWindowPos(2) }")
+    && atomicMove.indexOf("DeferWindowPos(batch, owner") > atomicMove.indexOf("BeginDeferWindowPos(2)")
+    && atomicMove.indexOf("DeferWindowPos(batch, popup") > atomicMove.indexOf("DeferWindowPos(batch, owner")
+    && atomicMove.indexOf("EndDeferWindowPos(batch)") > atomicMove.indexOf("DeferWindowPos(batch, popup")
+    && atomicMove.includes("owner_rect.left != x")
+    && atomicMove.includes("popup_rect.left != x")
+    && !atomicMove.includes("SetWindowPos("),
+  "owner and owned layered raster must move in one guarded deferred native position batch, never sequential SetWindowPos calls",
+);
+
 invariant(
   ownedOverlayLookup.includes("FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null())")
     && ownedOverlayLookup.includes("if cursor.is_null()")
