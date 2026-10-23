@@ -85,6 +85,9 @@ assert.ok(coordinator.indexOf("delete host.dataset.focusV4Plate") <
 assert.ok(css.includes('.floating-timer-foundation__subtask-toolbar,'));
 assert.ok(api.includes('invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout })'));
 assert.ok(rust.includes("focus_surface_prepare_v4_plate,"));
+assert.ok(rust.includes("lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer"));
+assert.ok(rust.includes("lease.target.mode() != FocusSurfaceMode::Timer"));
+assert.ok(rust.includes('"motion-v4-composite"'));
 assert.ok(rust.includes("v4_plate: None") && rust.includes("v4_layout: None"));
 assert.ok(rust.includes("focus_motion_v4_raster::compose("));
 assert.ok(compositor.includes("let from_toolbar = layout.toolbar.from.interpolate("));
