@@ -151,11 +151,13 @@ invariant(
   coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
-    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
+    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation)")
     && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && transition.includes("runConcurrentMotion?: () => Promise<void>")
-    && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinator.includes("motionV4Duration(")
+    && coordinator.includes("isMotionV4Route({ from, to })")
+    && !coordinator.includes("window.setTimeout(resolve, durationMs)")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)"),
   "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
