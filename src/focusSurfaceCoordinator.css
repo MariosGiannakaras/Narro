@@ -1,6 +1,6 @@
 .focus-surface-coordinator {
   --focus-visible-height: 700px;
-  --focus-geometry-motion-duration: 250ms;
+  --focus-geometry-motion-duration: 500ms;
   --focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1);
   position: relative;
   width: 340px;
