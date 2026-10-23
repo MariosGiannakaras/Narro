@@ -33,7 +33,8 @@ assert.throws(() => correlateFocusTrace([e(1, "a", 0), {...e(2, "b", 0), qpcFreq
 assert.throws(() => correlateFocusTrace(ordered, {frames: [{...input.frames[0], captureQpcAfter: 500}]}), /missing, reversed/);
 assert.throws(() => correlateFocusTrace(ordered, {frames: [{...input.frames[0], captureQpcFrequency: 8}]}), /different timebase/);
 for (const field of ["captureQpcBefore", "captureQpcAfter", "captureQpcFrequency"]) {
-  for (const invalid of [null, "", "0", undefined, Number.NaN, Number.POSITIVE_INFINITY]) {
+  for (const invalid of [null, "", "0", undefined, Number.NaN, Number.POSITIVE_INFINITY,
+    1.5, Number.MAX_SAFE_INTEGER + 1]) {
     assert.throws(
       () => correlateFocusTrace(ordered, {frames: [{...input.frames[0], [field]: invalid}]}),
       /missing, reversed, or from a different timebase/,
