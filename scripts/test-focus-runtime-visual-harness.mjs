@@ -225,4 +225,38 @@ invariant(
     && !physicalSmoke.includes("narro.db"),
   "physical artifact smoke must verify the renderer activation boundary directly instead of assuming Windows app-data redirection",
 );
+const nativeTrace = fs.readFileSync("src-tauri/src/focus_transition_trace.rs", "utf8");
+const qpcAnalyzer = fs.readFileSync("scripts/analyze-focus-compositor-trace.mjs", "utf8");
+for (const required of [
+  "NARRO_FOCUS_CAPTURE_DIR",
+  "MAX_FRAME_EVENTS",
+  "native.before-raster",
+]) {
+  // Per-frame native phases are emitted in the actual Rust animation owner,
+  // while the trace module owns QPC/timestamp encoding and buffered writes.
+  invariant(required === "native.before-raster" ? rust.includes(required) : nativeTrace.includes(required),
+    "A02 diagnostic missing " + required);
+}
+for (const required of [
+  "QueryPerformanceCounter", "QueryPerformanceFrequency", "focus-transition-trace.jsonl",
+  "fn renderer_mark", "impl Drop for NativeMotionTrace",
+]) invariant(nativeTrace.includes(required), "native A02 trace contract missing " + required);
+for (const required of [
+  "captureQpcBefore", "captureQpcAfter", "captureQpcFrequency",
+  "[System.Diagnostics.Stopwatch]::GetTimestamp()",
+]) invariant(nativeSequence.includes(required), "screen probe QPC contract missing " + required);
+for (const required of [
+  "timer-compact-to-expanded-start", "timer-expanded-to-compact-start",
+  "compact-to-expanded-runtime", "expanded-to-compact-runtime",
+]) invariant(capture.includes(required), "automated isolated A02 capture missing " + required);
+for (const required of [
+  '[data-floating-subtask-control="expand"][aria-expanded="false"]',
+  '[data-floating-subtask-control="expand"][aria-expanded="true"]',
+  "floatingResizePending", "timer-compact-returned",
+]) invariant(driver.includes(required), "A02 driver must use real user-visible controls " + required);
+invariant(!driver.includes('await applyFocusSurfacePresentation("timerExpanded")'),
+  "A02 driver must NOT bypass the protected production resize path");
+invariant(qpcAnalyzer.includes("correlateFocusTrace")
+  && qpcAnalyzer.includes("DWM-scanout-unconfirmed"),
+  "offline QPC replay must preserve uncertainty around DWM scanout");
 console.log("Focus packaged-runtime visual harness contracts passed.");
