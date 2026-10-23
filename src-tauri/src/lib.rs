@@ -2119,6 +2119,10 @@ async fn focus_surface_prepare_v4_plate(
                 "FOCUS_MODE_RASTER_FAILED", "stale or incompatible Motion v4 lease",
             ));
         }
+        layout.validate_for_native(
+            lease.snapshot.presentation.region().height,
+            lease.target.region().height,
+        )?;
         lease.v4_plate = Some(plate);
         lease.v4_layout = Some(layout);
         Ok(())
