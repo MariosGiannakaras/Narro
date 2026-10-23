@@ -73,12 +73,17 @@ test("application wiring uses the protected path rather than the standalone fall
   const subtasks = fs.readFileSync(new URL("../src/FocusLiveSubtasks.tsx", import.meta.url), "utf8");
   const native = fs.readFileSync(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8");
   assert.ok(coordinator.includes("commitProtectedTimerResize({"));
-  assert.ok(coordinator.includes("protectOutgoing: prepareFocusSurfaceModeRaster"));
+  assert.ok(coordinator.includes("protectOutgoing: async (next) => {")
+    && coordinator.includes("const token = await prepareFocusSurfaceModeRaster(next);")
+    && coordinator.includes("return token;"),
+    "outgoing native raster must still be acquired and token returned before renderer preparation");
   assert.ok(coordinator.includes("waitForTimerRasterReady("));
   assert.ok(coordinator.includes('data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]'));
   assert.ok(coordinator.includes("waitForPresentedFrameWithin,"));
   assert.ok(subtasks.includes("data-floating-subtasks-loading="));
-  assert.ok(coordinator.includes("restoreNative: (token) => finishFocusSurfaceModeRaster(token, true)"));
+  assert.ok(coordinator.includes("restoreNative: (token) => {")
+    && coordinator.includes("return finishFocusSurfaceModeRaster(token, true);"),
+    "native rollback must retain the exact protected raster restore path");
   assert.ok(coordinator.includes("onRequestExpanded={requestTimerExpanded}"));
   const body = foundation.slice(foundation.indexOf("const requestExpanded = async"));
   assert.ok(body.indexOf("await onRequestExpanded(nextExpanded") < body.indexOf("if (nextExpanded) {"));
