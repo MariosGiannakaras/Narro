@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import type { MotionV4RasterLayout } from "./focusMotionV4Geometry";
 
 export type FocusSurfacePresentation = "panel" | "timerCompact" | "timerExpanded";
 export type FocusSurfaceMode = "panel" | "timer";
@@ -38,6 +39,14 @@ export async function animateFocusSurfacePresentation(
 
 export async function prepareFocusSurfaceModeRaster(presentation: FocusSurfacePresentation): Promise<number> {
   return invoke<number>("focus_surface_prepare_mode_raster", { presentation });
+}
+
+/** Optional B-only native plate; failure falls back to existing compositor. */
+export async function prepareFocusMotionV4Plate(
+  rasterToken: number,
+  layout: MotionV4RasterLayout,
+): Promise<void> {
+  await invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout });
 }
 
 export async function finishFocusSurfaceModeRaster(rasterToken: number, rollback = false): Promise<void> {
