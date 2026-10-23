@@ -139,9 +139,9 @@ invariant(
   "prepainted/in-motion controls outside committed Timer geometry must be keyboard/accessibility inert",
 );
 invariant(
-  foundation.includes("const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270")
+  foundation.includes("const FLOATING_TIMER_GEOMETRY_MOTION_MS = MOTION_V4_DURATION_MS")
     && foundation.includes("prefers-reduced-motion: reduce")
-    && css.includes("--floating-timer-geometry-motion-duration: 270ms")
+    && css.includes("--floating-timer-geometry-motion-duration: 500ms")
     && css.includes('data-floating-resize-phase="revealing"')
     && css.includes('data-floating-resize-phase="contracting"')
     && css.includes("clip-path: inset(0 0 190px 0 round 16px)")
