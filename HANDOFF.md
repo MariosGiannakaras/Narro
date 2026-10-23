@@ -1,5 +1,7 @@
 # ACTIVE HANDOFF — PR389 exact-source CI 3/3 PASS; eight native physical cases NOT RUN
 
+**Codex capture owner / PREPARED 2026-10-23:** latest user resumed after CI. Native3898transition+6support IDs and main10shared journeys =24planned acquisition IDs, no acceptance denominator. Root E:/SystemFiles/Desktop/Narro-Workspace/Narro-Batch-20261023, exact nativeccb70a92/CI39871074255/EXE3d003909...; maincdaf85b3/CI39921466242 nowCOMPLETED SUCCESS. New protected profiles, whole original videos/logs/UTC/native HWND receipts; no analysis/source edits/CI/merge. Check owned processes/ledgers/partial files before resuming; never replay a consumed ledger or disrupt active capture. Source owner and strict PR389physical-before-merge hold remain; capture availability does not establishPASS.
+
 **Verified 2026-10-23 07:20Z / phase: AUTOMATED_VALIDATED, PHYSICAL_PENDING.** ChatGPT owns source/tests/CI and coordinates next native acceptance; Codex owns original Windows visual/interaction capture when a suitable Windows operator is available. Standing user direction permits routine native tests in the chat workflow without another authorization request. No current-source physical acceptance was performed in this audit.
 
 ## Active source / exact CI / new artifact
