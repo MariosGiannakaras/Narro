@@ -16,7 +16,7 @@ export function correlateFocusTrace(records, frameInput) {
   if (!Array.isArray(frames) || frames.length === 0) {
     throw new Error("No screen-sampled frame records.");
   }
-  const events = records.filter((r) => Number.isFinite(r.qpcTicks) && Number.isFinite(r.qpcFrequency))
+  const events = records.filter((r) => Number.isSafeInteger(r.qpcTicks) && Number.isSafeInteger(r.qpcFrequency))
     .sort((a, b) => a.qpcTicks - b.qpcTicks);
   if (events.length === 0) throw new Error("Native QPC events missing; cannot correlate.");
   const hz = events[0].qpcFrequency;
@@ -24,15 +24,16 @@ export function correlateFocusTrace(records, frameInput) {
     throw new Error("Trace contains inconsistent native QPC frequencies.");
   }
   const samples = frames.map((frame) => {
-    // Missing QPC fields must fail closed; Number(null) and Number("") both
+    // QPC timestamps and frequencies must be safely representable integer ticks.
+    // Missing fields must also fail closed: Number(null) and Number("") both
     // become zero and previously made an invalid capture look time-aligned.
     const before = frame.captureQpcBefore;
     const after = frame.captureQpcAfter;
     const frequency = frame.captureQpcFrequency;
     if (typeof before !== "number" || typeof after !== "number"
         || typeof frequency !== "number"
-        || !Number.isFinite(before) || !Number.isFinite(after)
-        || !Number.isFinite(frequency) || after < before || frequency !== hz) {
+        || !Number.isSafeInteger(before) || !Number.isSafeInteger(after)
+        || !Number.isSafeInteger(frequency) || after < before || frequency !== hz) {
       throw new Error("Screen sample QPC bracket missing, reversed, or from a different timebase.");
     }
     const midpoint = (before + after) / 2;
