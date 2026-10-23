@@ -36,10 +36,22 @@ export function correlateFocusTrace(records, frameInput) {
       throw new Error("Screen sample QPC bracket missing, reversed, or from a different timebase.");
     }
     const midpoint = (before + after) / 2;
-    const prior = [...events].reverse().find((e) => e.qpcTicks <= before) ?? null;
-    const following = events.find((e) => e.qpcTicks >= after) ?? null;
-    const within = events.filter((e) => e.qpcTicks >= before && e.qpcTicks <= after);
-    const nearest = events.reduce((best, e) =>
+    // The trace file receives buffered native batches after animation and
+    // can contain four consecutive transitions. Once a native.begin is
+    // observed, never attribute an old raster token's delayed marker to this
+    // new transition merely because its QPC stamp is closest to a screenshot.
+    const activeBegin = events.filter((e) =>
+      e.stage === "native.begin"
+      && Number.isInteger(e.rasterToken) && e.rasterToken > 0
+      && e.qpcTicks <= after
+    ).at(-1) ?? null;
+    const activeRasterToken = activeBegin?.rasterToken ?? null;
+    const scoped = activeRasterToken === null ? events
+      : events.filter((e) => e.rasterToken === activeRasterToken);
+    const prior = [...scoped].reverse().find((e) => e.qpcTicks <= before) ?? null;
+    const following = scoped.find((e) => e.qpcTicks >= after) ?? null;
+    const within = scoped.filter((e) => e.qpcTicks >= before && e.qpcTicks <= after);
+    const nearest = scoped.reduce((best, e) =>
       best === null || Math.abs(e.qpcTicks - midpoint) < Math.abs(best.qpcTicks - midpoint)
         ? e : best, null);
     const phase = (e) => e && ({
@@ -56,6 +68,7 @@ export function correlateFocusTrace(records, frameInput) {
       captureQpcBefore: before,
       captureQpcAfter: after,
       bracketMs: (after - before) * 1000 / hz,
+      activeRasterToken,
       native: frame.native ?? null,
       prior: phase(prior),
       duringCapture: within.map(phase),
