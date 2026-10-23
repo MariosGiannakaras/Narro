@@ -21,6 +21,7 @@ import {
   connectLiveTimerSessionProjection,
   type TimerSessionPayload,
 } from "./timerSessionApi";
+import { motionV4Duration, MOTION_V4_DURATION_MS } from "./focusMotionV4";
 import "./floatingTimerFoundation.css";
 
 export type FloatingTimerFoundationProps = {
@@ -48,13 +49,11 @@ export type FloatingTimerFoundationProps = {
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
-const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270;
+const FLOATING_TIMER_GEOMETRY_MOTION_MS = MOTION_V4_DURATION_MS;
 const ALL_FOCUS_TARGET: ListBoardRequestTarget = { kind: "all" };
 
 async function waitForFloatingTimerGeometryMotion(): Promise<void> {
-  const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ? 1
-    : FLOATING_TIMER_GEOMETRY_MOTION_MS;
+  const duration = motionV4Duration(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   await new Promise<void>((resolve) => {
     window.setTimeout(resolve, duration);
   });
