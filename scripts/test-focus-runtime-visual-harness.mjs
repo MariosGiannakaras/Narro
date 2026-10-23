@@ -11,6 +11,7 @@ const nativeSequence = fs.readFileSync("scripts/capture-focus-window-sequence.ps
 const nativeMotionSampler = fs.readFileSync("scripts/sample-focus-window-motion.ps1", "utf8");
 const physicalSmoke = fs.readFileSync("scripts/verify-physical-validation-build.ps1", "utf8");
 const driver = fs.readFileSync("src/focusRuntimeVisualDriver.ts", "utf8");
+const traceModeApi = fs.readFileSync("src/focusSurfaceModeApi.ts", "utf8");
 const rust = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
 const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
@@ -259,4 +260,20 @@ invariant(!driver.includes('await applyFocusSurfacePresentation("timerExpanded")
 invariant(qpcAnalyzer.includes("correlateFocusTrace")
   && qpcAnalyzer.includes("DWM-scanout-unconfirmed"),
   "offline QPC replay must preserve uncertainty around DWM scanout");
+invariant(
+  traceModeApi.includes('new URLSearchParams(window.location.search).get("runtimeVisual") !== "1"')
+    && traceModeApi.includes('invoke<void>("focus_transition_trace_mark"'),
+  "normal Narro must not send any diagnostic trace IPC outside the opted-in Focus runtime page",
+);
+invariant(
+  rust.includes('"native.raster-source"')
+    && rust.includes('"incoming"')
+    && rust.includes('"outgoing"'),
+  "native A02 trace must disclose which original raster hierarchy each frame selected",
+);
+invariant(
+  capture.includes('correlateFocusTrace(records, sequence.frames)')
+    && capture.includes('"qpc-correlation.json"'),
+  "each isolated runtime transition must produce its own fail-closed screen/native QPC correlation",
+);
 console.log("Focus packaged-runtime visual harness contracts passed.");
