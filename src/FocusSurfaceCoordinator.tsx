@@ -284,10 +284,11 @@ export function FocusSurfaceCoordinator() {
             await applyFocusSurfacePresentation(next);
           }
         },
-        animateNativePresentation: async (next) => {
+        animateNativePresentation: (next) => {
           markFocusTransitionTrace("renderer.native-request", rasterToken);
-          await animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!);
-          markFocusTransitionTrace("renderer.native-finished", rasterToken);
+          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then(() => {
+            markFocusTransitionTrace("renderer.native-finished", rasterToken);
+          });
         },
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
