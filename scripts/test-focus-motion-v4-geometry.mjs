@@ -1,0 +1,89 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { createMotionV4TimerLayout, measureMotionV4Timer } from "../src/focusMotionV4Geometry.ts";
+
+const rect = (x, y, width, height) => ({ x, y, width, height });
+const taskId = "isolated-synthetic-task";
+const compact = {
+  taskId, expanded: false,
+  title: rect(10, 12, 150, 18), timer: rect(240, 12, 85, 18),
+  toolbar: rect(12, 70, 310, 28), actions: null, rows: [],
+};
+const expanded = {
+  taskId, expanded: true,
+  title: rect(12, 12, 150, 18), timer: rect(240, 12, 85, 18),
+  toolbar: rect(12, 96, 310, 28),
+  actions: rect(12, 44, 310, 32),
+  rows: [rect(12, 142, 310, 36), rect(12, 264, 310, 36)],
+};
+const opening = createMotionV4TimerLayout(compact, expanded);
+assert.deepEqual(opening.title, {from: compact.title, to: expanded.title});
+assert.deepEqual(opening.toolbar, {from: compact.toolbar, to: expanded.toolbar});
+assert.deepEqual(opening.rows, expanded.rows);
+assert.deepEqual(opening.actions, expanded.actions);
+const collapsing = createMotionV4TimerLayout(expanded, compact);
+assert.deepEqual(collapsing.timer, {from: expanded.timer, to: compact.timer});
+assert.deepEqual(collapsing.rows, expanded.rows);
+assert.equal(createMotionV4TimerLayout(compact, {...expanded, taskId:"other-task"}), null);
+assert.equal(createMotionV4TimerLayout(compact, compact), null);
+assert.equal(createMotionV4TimerLayout(null, expanded), null);
+assert.equal(createMotionV4TimerLayout(expanded, null), null);
+
+const el = (bounds) => ({getBoundingClientRect: () =>
+  ({left:bounds.x, top:bounds.y, width:bounds.width, height:bounds.height,
+    right:bounds.x+bounds.width, bottom:bounds.y+bounds.height})});
+const makeTree = ({hover=false, loading=false, timeUp=false, rows=expanded.rows}={}) => {
+  const map = {
+    '[data-floating-task-title="true"]': el(expanded.title),
+    '[data-floating-live-timer="true"]': el(expanded.timer),
+    '.floating-timer-foundation__subtask-toolbar': el(expanded.toolbar),
+    '.floating-timer-foundation__actions-wrap': el(expanded.actions),
+  };
+  const timer = {
+    dataset: {floatingCompactActions: hover?"true":"false", floatingLiveTaskId:taskId,
+      floatingExpanded:"true"},
+    querySelector: (selector) => {
+      if (selector === '[data-floating-time-up-label="true"]') return timeUp?{}:null;
+      if (selector === '[data-floating-subtasks-loading="true"]') return loading?{}:null;
+      return map[selector] ?? null;
+    },
+    querySelectorAll: (selector) => selector === "[data-floating-subtask-id]"
+      ? rows.map(el) : [],
+  };
+  return {querySelector: (selector) =>
+    selector === ".focus-surface-coordinator" ? el(rect(0,0,340,700))
+    : selector === '.floating-timer-foundation[data-floating-timer="foundation"]' ? timer
+    : null};
+};
+assert.deepEqual(measureMotionV4Timer(makeTree()), expanded);
+assert.equal(measureMotionV4Timer(makeTree({hover:true})), null);
+assert.equal(measureMotionV4Timer(makeTree({loading:true})), null);
+assert.equal(measureMotionV4Timer(makeTree({timeUp:true})), null);
+assert.equal(measureMotionV4Timer(makeTree({rows:[rect(325,142,20,36)]})), null);
+assert.equal(measureMotionV4Timer(makeTree({rows:Array.from({length:65},()=>expanded.rows[0])})), null);
+
+const coordinator=fs.readFileSync("src/FocusSurfaceCoordinator.tsx","utf8");
+const foundation=fs.readFileSync("src/FloatingTimerFoundation.tsx","utf8");
+const css=fs.readFileSync("src/focusSurfaceCoordinator.css","utf8");
+const api=fs.readFileSync("src/focusSurfaceModeApi.ts","utf8");
+const rust=fs.readFileSync("src-tauri/src/lib.rs","utf8");
+const compositor=fs.readFileSync("src-tauri/src/focus_motion_v4_raster.rs","utf8");
+assert.ok(foundation.includes("measureMotionV4Timer(document)"));
+assert.ok(foundation.includes("sourceAnchors);"));
+assert.ok(coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"));
+assert.ok(coordinator.indexOf('host.dataset.focusV4Plate = "true"') <
+  coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)"));
+assert.ok(coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)") <
+  coordinator.indexOf("delete host.dataset.focusV4Plate"));
+assert.ok(coordinator.indexOf("delete host.dataset.focusV4Plate") <
+  coordinator.indexOf('markFocusTransitionTrace("renderer.native-request", token);',
+    coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)")));
+assert.ok(css.includes('.floating-timer-foundation__subtask-toolbar,'));
+assert.ok(api.includes('invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout })'));
+assert.ok(rust.includes("focus_surface_prepare_v4_plate,"));
+assert.ok(rust.includes("v4_plate: None") && rust.includes("v4_layout: None"));
+assert.ok(rust.includes("focus_motion_v4_raster::compose("));
+assert.ok(compositor.includes("let from_toolbar = layout.toolbar.from.interpolate("));
+assert.ok(compositor.includes("focus_mode_raster::compose(plate, plate, visible, eased)?"));
+assert.ok(compositor.includes("if eased <= 0.0 || eased >= 1.0"));
+console.log("Actual DOM anchor capture, guarded plate preparation and native staged source contracts: PASS");
