@@ -156,12 +156,12 @@ invariant(
     && transition.includes("runConcurrentMotion?: () => Promise<void>")
     && coordinator.includes("motionV4Duration(")
     && coordinator.includes("isMotionV4Route({ from: previous, to: target })")
-    && coordinator.includes("Home can legitimately return directly from Expanded Timer to Panel.")
+    && !slice(coordinator, "const prepareGeometryMotion = useCallback", "const runGeometryMotion = useCallback").includes("isMotionV4Route(")
     && !coordinator.includes("window.setTimeout(resolve, durationMs)")
     && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)"),
-  "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
+  "Panel/Timer transition must use the native measured clock and preserve Expanded Timer Home navigation",
 );
 invariant(
   coordinatorCss.includes('data-focus-visibility="preparing"')
