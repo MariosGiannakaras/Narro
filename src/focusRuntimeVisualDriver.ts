@@ -43,6 +43,27 @@ function runtimeSnapshot() {
     };
   };
   const coordinator = document.querySelector(".focus-surface-coordinator");
+  // Real source-component Motion v4 anchors, never mock HTML coordinates.
+  // The driver runs with a synthetic task in a disposable Windows profile.
+  // Only geometry and identity equality (not task titles/IDs) are serialized.
+  const host = coordinator instanceof HTMLElement ? coordinator.getBoundingClientRect() : null;
+  const anchor = (selector: string) => {
+    const node = document.querySelector(selector);
+    if (!(node instanceof HTMLElement) || !host) return null;
+    const r = node.getBoundingClientRect();
+    return {
+      x: r.left - host.left,
+      y: r.top - host.top,
+      width: r.width,
+      height: r.height,
+    };
+  };
+  const panelTaskId = document.querySelector(".focus-panel__live-card[data-task-id]")?.getAttribute("data-task-id");
+  const floatingTaskId = document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-live-task-id");
+  const subtaskRowBottoms = [...document.querySelectorAll("[data-floating-subtask-id]")]
+    .filter((node): node is HTMLElement => node instanceof HTMLElement)
+    .map((node) => host ? node.getBoundingClientRect().bottom - host.top : null)
+    .filter((bottom): bottom is number => bottom !== null && Number.isFinite(bottom));
   const active = document.querySelector('.focus-surface-coordinator__presentation[data-focus-visibility="active"]');
   const unintendedScrollers = [...document.querySelectorAll("html, body, #root")]
     .filter((element) => element instanceof HTMLElement
@@ -59,6 +80,15 @@ function runtimeSnapshot() {
     presentation: coordinator?.getAttribute("data-focus-presentation") ?? null,
     hydrated: coordinator?.getAttribute("data-focus-presentation-hydrated") ?? null,
     transitionPending: coordinator?.getAttribute("data-focus-transition-pending") ?? null,
+    motionV4Anchors: {
+      taskIdentityMatches: Boolean(panelTaskId && floatingTaskId && panelTaskId === floatingTaskId),
+      panelTitle: anchor(".focus-panel__live-card[data-task-id] .focus-panel__live-title"),
+      panelTimer: anchor(".focus-panel__live-card[data-task-id] [data-focus-live-timer]"),
+      floatingTitle: anchor("[data-floating-task-title]"),
+      floatingTimer: anchor("[data-floating-live-timer]"),
+      floatingActions: anchor("[data-focus-live-actions]"),
+      subtaskRowBottoms,
+    },
     geometryMotion: {
       from: coordinator?.getAttribute("data-focus-geometry-motion-from") ?? null,
       to: coordinator?.getAttribute("data-focus-geometry-motion-to") ?? null,
