@@ -56,7 +56,8 @@ const makeTree = ({hover=false, loading=false, timeUp=false, rows=expanded.rows}
     : null};
 };
 assert.deepEqual(measureMotionV4Timer(makeTree()), expanded);
-assert.equal(measureMotionV4Timer(makeTree({hover:true})), null);
+assert.deepEqual(measureMotionV4Timer(makeTree({hover:true})), expanded,
+  "real pointer-triggered expansion must retain measured anchors");
 assert.equal(measureMotionV4Timer(makeTree({loading:true})), null);
 assert.equal(measureMotionV4Timer(makeTree({timeUp:true})), null);
 assert.equal(measureMotionV4Timer(makeTree({rows:[rect(325,142,20,36)]})), null);
@@ -65,11 +66,14 @@ assert.equal(measureMotionV4Timer(makeTree({rows:Array.from({length:65},()=>expa
 const coordinator=fs.readFileSync("src/FocusSurfaceCoordinator.tsx","utf8");
 const foundation=fs.readFileSync("src/FloatingTimerFoundation.tsx","utf8");
 const css=fs.readFileSync("src/focusSurfaceCoordinator.css","utf8");
+const timerCss=fs.readFileSync("src/floatingTimerFoundation.css","utf8");
 const api=fs.readFileSync("src/focusSurfaceModeApi.ts","utf8");
 const rust=fs.readFileSync("src-tauri/src/lib.rs","utf8");
 const compositor=fs.readFileSync("src-tauri/src/focus_motion_v4_raster.rs","utf8");
 assert.ok(foundation.includes("measureMotionV4Timer(document)"));
 assert.ok(foundation.includes("sourceAnchors);"));
+assert.ok(foundation.includes("await waitForPresentedFrameOrThrow();\n        // The coordinator acquires"));
+assert.ok(timerCss.includes('[data-floating-resize-pending="true"] .floating-timer-foundation__heading'));
 assert.ok(coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"));
 assert.ok(coordinator.indexOf('host.dataset.focusV4Plate = "true"') <
   coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)"));
