@@ -18,6 +18,7 @@ import {
   getFocusSurfacePresentation,
   prepareFocusSurfaceModeRaster,
   finishFocusSurfaceModeRaster,
+  markFocusTransitionTrace,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
@@ -261,9 +262,12 @@ export function FocusSurfaceCoordinator() {
         waitForTargetReady: () => waitForReady(targetMode),
         beforeNativeCommit: async () => {
           rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
+          markFocusTransitionTrace("renderer.raster-ready", rasterToken);
           await prepareGeometryMotion(previousPresentation, targetPresentation);
+          markFocusTransitionTrace("renderer.target-prepared", rasterToken);
         },
         beforeNativeRollback: async () => {
+          markFocusTransitionTrace("renderer.rollback", rasterToken);
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(previousPresentation);
@@ -280,8 +284,11 @@ export function FocusSurfaceCoordinator() {
             await applyFocusSurfacePresentation(next);
           }
         },
-        animateNativePresentation: (next) =>
-          animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!),
+        animateNativePresentation: async (next) => {
+          markFocusTransitionTrace("renderer.native-request", rasterToken);
+          await animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!);
+          markFocusTransitionTrace("renderer.native-finished", rasterToken);
+        },
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
         commitRendererPresentation: (next) => {
@@ -289,9 +296,11 @@ export function FocusSurfaceCoordinator() {
             setGeometryMotion(null);
             publishPresentation(next);
           });
+          markFocusTransitionTrace("renderer.commit", rasterToken);
         },
         afterRendererCommit: async () => {
           await waitForPresentedFrameOrThrow();
+          markFocusTransitionTrace("renderer.release-request", rasterToken);
           await finishFocusSurfaceModeRaster(rasterToken!);
           rasterToken = undefined;
         },
@@ -389,13 +398,33 @@ export function FocusSurfaceCoordinator() {
       await commitProtectedTimerResize({
         previous,
         target,
-        protectOutgoing: prepareFocusSurfaceModeRaster,
-        prepareRenderer: (next) => prepareRenderer(next === "timerExpanded"),
+        protectOutgoing: async (next) => {
+          const token = await prepareFocusSurfaceModeRaster(next);
+          markFocusTransitionTrace("renderer.raster-ready", token);
+          return token;
+        },
+        prepareRenderer: (next) => {
+          prepareRenderer(next === "timerExpanded");
+          markFocusTransitionTrace("renderer.target-prepared");
+        },
         waitForPaint: waitForTimerTargetPaint,
-        animate: (next, token) => animateFocusSurfacePresentation(next, duration, token),
-        publish: (next) => flushSync(() => publishPresentation(next)),
-        restoreNative: (token) => finishFocusSurfaceModeRaster(token, true),
-        release: (token) => finishFocusSurfaceModeRaster(token),
+        animate: async (next, token) => {
+          markFocusTransitionTrace("renderer.native-request", token);
+          await animateFocusSurfacePresentation(next, duration, token);
+          markFocusTransitionTrace("renderer.native-finished", token);
+        },
+        publish: (next) => {
+          flushSync(() => publishPresentation(next));
+          markFocusTransitionTrace("renderer.commit");
+        },
+        restoreNative: (token) => {
+          markFocusTransitionTrace("renderer.rollback", token);
+          return finishFocusSurfaceModeRaster(token, true);
+        },
+        release: (token) => {
+          markFocusTransitionTrace("renderer.release-request", token);
+          return finishFocusSurfaceModeRaster(token);
+        },
       });
     } finally {
       transitionGateRef.current = false;
