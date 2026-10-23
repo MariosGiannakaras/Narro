@@ -167,9 +167,11 @@ pub(crate) fn compose(
     if !eased.is_finite() || !(0.0..=1.0).contains(&eased) {
         return Err(invalid("invalid native Motion v4 progress"));
     }
-    let endpoint = focus_mode_raster::compose(outgoing, incoming, visible, eased)?;
     if eased <= 0.0 || eased >= 1.0 {
-        return Ok(endpoint); // Exact native source and target bytes.
+        // Only endpoints need legacy raster composition; allocating a
+        // discarded full image at every intermediate frame adds A02
+        // compositor deadline pressure without changing visible pixels.
+        return focus_mode_raster::compose(outgoing, incoming, visible, eased);
     }
     let mut frame = focus_mode_raster::compose(plate, plate, visible, eased)?;
     let from_title = layout.title.from.interpolate(&layout.title.to, eased);
