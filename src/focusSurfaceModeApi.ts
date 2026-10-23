@@ -44,6 +44,29 @@ export async function finishFocusSurfaceModeRaster(rasterToken: number, rollback
   await invoke<void>("focus_surface_finish_mode_raster", { rasterToken, rollback });
 }
 
+export type FocusTransitionTraceStage =
+  | "renderer.raster-ready"
+  | "renderer.target-prepared"
+  | "renderer.native-request"
+  | "renderer.native-finished"
+  | "renderer.commit"
+  | "renderer.release-request"
+  | "renderer.rollback";
+
+/**
+ * Best-effort, bounded technical marker for opt-in packaged physical capture.
+ * The native endpoint writes nothing without NARRO_FOCUS_CAPTURE_DIR; markers
+ * contain no task strings or pixel data. Do not await this diagnostic command:
+ * diagnostics cannot be allowed to change transition ordering or failures.
+ */
+export function markFocusTransitionTrace(
+  stage: FocusTransitionTraceStage,
+  rasterToken?: number,
+): void {
+  void invoke<void>("focus_transition_trace_mark", { stage, rasterToken })
+    .catch(() => { /* diagnostic only; never interfere with Focus recovery */ });
+}
+
 export async function presentFocusPanel(): Promise<void> {
   await applyFocusSurfacePresentation("panel");
 }
