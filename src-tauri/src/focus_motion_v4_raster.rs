@@ -32,6 +32,7 @@ pub(crate) struct SharedRect {
 pub(crate) struct Layout {
     title: SharedRect,
     timer: SharedRect,
+    toolbar: SharedRect,
     actions: Option<Rect>,
     rows: Vec<Rect>,
 }
@@ -65,6 +66,7 @@ impl Layout {
         if self.rows.len() > MAX_ROWS
             || !self.title.from.valid() || !self.title.to.valid()
             || !self.timer.from.valid() || !self.timer.to.valid()
+            || !self.toolbar.from.valid() || !self.toolbar.to.valid()
             || self.actions.as_ref().is_some_and(|rect| !rect.valid())
             || self.rows.iter().any(|rect| !rect.valid())
         {
@@ -122,14 +124,13 @@ fn blit(
     let Some(src) = pixels(source_rect, source) else { return; };
     // The current native frame may clip below a full row or the endpoint.
     // Destination geometry is scaled from the current DPI-consistent width.
-    let basis = Image { size: visible, bgra: Vec::new() };
     let scale = f64::from(visible.width) / TIMER_WIDTH;
     let dx = (destination_rect.x * scale).round() as isize;
     let dy = (destination_rect.y * scale).round() as isize;
     let dw = ((destination_rect.width * scale).round() as usize).max(1);
     let dh = ((destination_rect.height * scale).round() as usize).max(1);
-    let width = basis.size.width as usize;
-    let height = basis.size.height as usize;
+    let width = visible.width as usize;
+    let height = visible.height as usize;
     for py in 0..dh {
         let y = dy + py as isize;
         if y < 0 || y >= height as isize { continue; }
@@ -173,8 +174,10 @@ pub(crate) fn compose(
     let mut frame = focus_mode_raster::compose(plate, plate, visible, eased)?;
     let from_title = layout.title.from.interpolate(&layout.title.to, eased);
     let from_timer = layout.timer.from.interpolate(&layout.timer.to, eased);
+    let from_toolbar = layout.toolbar.from.interpolate(&layout.toolbar.to, eased);
     blit(&mut frame, visible, outgoing, &layout.title.from, &from_title, 1.0);
     blit(&mut frame, visible, outgoing, &layout.timer.from, &from_timer, 1.0);
+    blit(&mut frame, visible, outgoing, &layout.toolbar.from, &from_toolbar, 1.0);
 
     let expanded_amount = if expanding { eased } else { 1.0 - eased };
     let actions_alpha = reveal(expanded_amount, 0.24, 0.49);
@@ -217,6 +220,8 @@ mod tests {
                 to: rect(30.0, 12.0, 30.0, 14.0) },
             timer: SharedRect { from: rect(260.0, 10.0, 60.0, 14.0),
                 to: rect(250.0, 12.0, 60.0, 14.0) },
+            toolbar: SharedRect { from: rect(10.0, 70.0, 280.0, 28.0),
+                to: rect(10.0, 92.0, 280.0, 28.0) },
             actions: Some(rect(10.0, 38.0, 280.0, 20.0)),
             rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
         }
