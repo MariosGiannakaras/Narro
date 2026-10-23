@@ -22,6 +22,7 @@ import {
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import { motionV4Duration } from "./focusMotionV4";
+import { measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import "./floatingTimerFoundation.css";
 
 export type FloatingTimerFoundationProps = {
@@ -43,7 +44,7 @@ export type FloatingTimerFoundationProps = {
   focusTarget?: ListBoardRequestTarget;
   presentationActive?: boolean;
   controlledExpanded?: boolean;
-  onRequestExpanded?: (expanded: boolean, prepareRenderer: (expanded: boolean) => void) => Promise<void>;
+  onRequestExpanded?: (expanded: boolean, prepareRenderer: (expanded: boolean) => void, source: MotionV4MeasuredTimer | null) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
@@ -265,6 +266,9 @@ export function FloatingTimerFoundation({
       return true;
     }
 
+    // Capture source anchors before the renderer is switched or protected.
+    // A missing/mismatched task automatically retains the old native path.
+    const sourceAnchors = onRequestExpanded ? measureMotionV4Timer(document) : null;
     resizeRequestInFlightRef.current = true;
     onResizePendingChange?.(true);
     setResizePending(true);
@@ -280,7 +284,7 @@ export function FloatingTimerFoundation({
             setRegionExpanded(preparedExpanded);
             setResizePhase("raster-preparing");
           });
-        });
+        }, sourceAnchors);
         nativeRegionCommitted = true;
         return true;
       }
