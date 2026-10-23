@@ -188,7 +188,16 @@ try {
     "panel-to-timer-runtime", "panel-to-timer-start", "panel", "timer-compact", "timerCompact",
   );
   const compact = await captureSettled("floating-timer-runtime", "timer-compact", "timerCompact", 340, 110);
+  const compactToExpanded = await captureTransition(
+    "compact-to-expanded-runtime",
+    "timer-compact-to-expanded-start", "timerCompact", "timer-expanded", "timerExpanded",
+  );
   const expanded = await captureSettled("floating-timer-expanded-runtime", "timer-expanded", "timerExpanded", 340, 300);
+  const expandedToCompact = await captureTransition(
+    "expanded-to-compact-runtime",
+    "timer-expanded-to-compact-start", "timerExpanded", "timer-compact-returned", "timerCompact",
+    true,
+  );
   const timerToPanel = await captureTransition(
     "timer-to-panel-runtime", "timer-to-panel-start", "timerCompact", "panel-returned", "panel", true,
   );
@@ -199,7 +208,10 @@ try {
     captureTransport: "win32-screen-plus-environment-gated-renderer-checkpoints",
     captures: {
       panel: panel.name, compact: compact.name, expanded: expanded.name,
-      panelToTimer: panelToTimer.name, timerToPanel: timerToPanel.name,
+      panelToTimer: panelToTimer.name,
+      compactToExpanded: compactToExpanded.name,
+      expandedToCompact: expandedToCompact.name,
+      timerToPanel: timerToPanel.name,
     },
   };
   fs.writeFileSync(path.join(outputDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
