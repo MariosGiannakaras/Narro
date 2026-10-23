@@ -14,6 +14,7 @@ pub mod focus_frame_capture;
 pub mod focus_frame_hold;
 mod focus_layered_raster;
 mod focus_mode_raster;
+mod focus_motion_v4_raster;
 mod focus_transition_trace;
 pub mod focus_preferences;
 pub mod focus_webview;
@@ -93,6 +94,8 @@ struct FocusModeRaster {
     target: FocusSurfacePresentation,
     snapshot: FocusNativeSnapshot,
     outgoing: focus_mode_raster::Image,
+    v4_plate: Option<focus_mode_raster::Image>,
+    v4_layout: Option<focus_motion_v4_raster::Layout>,
     hold: focus_layered_raster::Hold,
     native_committed: bool,
     _placement_guard: floating_placement::PlacementTransitionGuard,
@@ -1615,7 +1618,16 @@ fn render_mode_raster_frame(
         outer,
         progress,
     )?;
-    let frame = focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?;
+    let frame = if let (Some(plate), Some(layout)) = (&lease.v4_plate, &lease.v4_layout) {
+        // Experimental B-only semantic raster staging. A/PR389 continues to
+        // use the exact original one-hierarchy compositor.
+        focus_motion_v4_raster::compose(
+            &lease.outgoing, incoming, plate, visible, progress,
+            lease.target == FocusSurfacePresentation::TimerExpanded, layout,
+        )?
+    } else {
+        focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
+    };
     lease.hold.replace_transition_frame(visible, frame)
 }
 
@@ -1721,7 +1733,9 @@ fn animate_focus_surface_presentation_internal(
         // This logs the selected raster hierarchy, not compositor scanout.
         let growing = u64::from(incoming.size.height) * u64::from(lease.outgoing.size.width)
             > u64::from(lease.outgoing.size.height) * u64::from(incoming.size.width);
-        let source = if progress >= 1.0 || (progress > 0.0 && growing) {
+        let source = if lease.v4_plate.is_some() && lease.v4_layout.is_some() {
+            "motion-v4-composite"
+        } else if progress >= 1.0 || (progress > 0.0 && growing) {
             "incoming"
         } else {
             "outgoing"
@@ -2053,6 +2067,8 @@ async fn focus_surface_prepare_mode_raster(
             target,
             snapshot,
             outgoing,
+            v4_plate: None,
+            v4_layout: None,
             hold,
             native_committed: false,
             _placement_guard: floating_placement::suspend_saves(),
@@ -2061,6 +2077,49 @@ async fn focus_surface_prepare_mode_raster(
         drop(raster);
         arm_mode_raster_watchdog(app_handle, token);
         Ok(token)
+    })
+    .await
+    .map_err(|error| CommandError::new("FOCUS_MODE_RASTER_FAILED", error.to_string()))?
+}
+
+/// Optional experimental B-only cleanplate, captured while the original
+/// raster hold protects the live WebView. Any preparation failure leaves the
+/// original compositor functional; the caller restores the DOM immediately.
+#[tauri::command(rename_all = "camelCase")]
+async fn focus_surface_prepare_v4_plate(
+    window: tauri::WebviewWindow,
+    raster_token: u32,
+    layout: focus_motion_v4_raster::Layout,
+) -> CommandResult<()> {
+    if window.label() != FOCUS_SURFACE_LABEL {
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED", "Motion v4 requires the Focus renderer",
+        ));
+    }
+    layout.validate()?;
+    let extent = timer_region::visible_size(
+        &window, FocusSurfacePresentation::TimerExpanded.region(),
+    )?;
+    let png = focus_frame_capture::capture(window).await?;
+    tauri::async_runtime::spawn_blocking(move || {
+        let plate = focus_mode_raster::decode(&png, extent)?;
+        let mut raster = mode_raster_guard()?;
+        let lease = raster.as_mut().ok_or_else(|| {
+            CommandError::new("FOCUS_MODE_RASTER_FAILED", "no raster lease for Motion v4")
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
+            || lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer
+            || lease.target.mode() != FocusSurfaceMode::Timer
+            || lease.v4_plate.is_some()
+        {
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED", "stale or incompatible Motion v4 lease",
+            ));
+        }
+        lease.v4_plate = Some(plate);
+        lease.v4_layout = Some(layout);
+        Ok(())
     })
     .await
     .map_err(|error| CommandError::new("FOCUS_MODE_RASTER_FAILED", error.to_string()))?
@@ -3004,6 +3063,7 @@ pub fn run() {
             focus_surface_apply_presentation,
             focus_surface_capture_compact_frame,
             focus_surface_prepare_mode_raster,
+            focus_surface_prepare_v4_plate,
             focus_transition_trace_mark,
             focus_surface_animate_presentation,
             focus_surface_finish_mode_raster,
