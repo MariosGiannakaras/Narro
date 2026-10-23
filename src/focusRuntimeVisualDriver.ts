@@ -87,6 +87,24 @@ async function waitForPresentation(presentation: "panel" | "timerCompact" | "tim
   throw new Error(`Focus presentation ${presentation} did not settle for packaged runtime capture`);
 }
 
+async function clickRealTimerSizeControl(expand: boolean): Promise<void> {
+  const selector = expand
+    ? '[data-floating-subtask-control="expand"][aria-expanded="false"]'
+    : '[data-floating-subtask-control="expand"][aria-expanded="true"]';
+  const deadline = performance.now() + 8_000;
+  while (performance.now() < deadline) {
+    const button = document.querySelector<HTMLButtonElement>(selector);
+    if (button && !button.disabled) {
+      button.click();
+      return;
+    }
+    await sleep(25);
+  }
+  throw new Error(expand
+    ? "Real Timer expand control did not become enabled"
+    : "Real Timer collapse control did not become enabled");
+}
+
 async function checkpoint(phase: string, snapshot = runtimeSnapshot()) {
   await invoke("focus_runtime_capture_checkpoint", {
     phase,
@@ -140,21 +158,13 @@ export function startFocusRuntimeVisualDriver() {
     // not a direct diagnostic native setter that bypasses renderer/raster phases.
     await checkpoint("timer-compact-to-expanded-start");
     await waitForCaptureAck("timer-compact-to-expanded-start");
-    const expandButton = document.querySelector<HTMLButtonElement>(
-      '[data-floating-subtask-control="expand"][aria-expanded="false"]',
-    );
-    if (!expandButton || expandButton.disabled) throw new Error("Real Timer expand control unavailable");
-    expandButton.click();
+    await clickRealTimerSizeControl(true);
     await checkpoint("timer-expanded", await waitForPresentation("timerExpanded"));
     await waitForCaptureAck("timer-expanded");
 
     await checkpoint("timer-expanded-to-compact-start");
     await waitForCaptureAck("timer-expanded-to-compact-start");
-    const collapseButton = document.querySelector<HTMLButtonElement>(
-      '[data-floating-subtask-control="expand"][aria-expanded="true"]',
-    );
-    if (!collapseButton || collapseButton.disabled) throw new Error("Real Timer collapse control unavailable");
-    collapseButton.click();
+    await clickRealTimerSizeControl(false);
     await checkpoint("timer-compact-returned", await waitForPresentation("timerCompact"));
     await waitForCaptureAck("timer-compact-returned");
     await checkpoint("timer-to-panel-start");
