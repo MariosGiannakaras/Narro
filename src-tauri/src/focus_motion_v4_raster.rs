@@ -111,10 +111,18 @@ fn pixels(rect: &Rect, image: &Image) -> Option<PixelRect> {
         return None;
     }
     let scale = f64::from(image.size.width) / TIMER_WIDTH;
+    // Round the outer edges, not origin and extent independently: two
+    // half-pixel round-ups can make a perfectly fitting rectangle overflow
+    // by one pixel at 125%/150% DPI.
     let x = (rect.x * scale).round() as usize;
     let y = (rect.y * scale).round() as usize;
-    let w = ((rect.width * scale).round() as usize).max(1);
-    let h = ((rect.height * scale).round() as usize).max(1);
+    let right = ((rect.x + rect.width) * scale).round() as usize;
+    let bottom = ((rect.y + rect.height) * scale).round() as usize;
+    let w = right.checked_sub(x)?;
+    let h = bottom.checked_sub(y)?;
+    if w == 0 || h == 0 {
+        return None;
+    }
     if x.checked_add(w)? > image.size.width as usize
         || y.checked_add(h)? > image.size.height as usize
     {
@@ -149,8 +157,13 @@ fn blit(
     let scale = f64::from(visible.width) / TIMER_WIDTH;
     let dx = (destination_rect.x * scale).round() as isize;
     let dy = (destination_rect.y * scale).round() as isize;
-    let dw = ((destination_rect.width * scale).round() as usize).max(1);
-    let dh = ((destination_rect.height * scale).round() as usize).max(1);
+    let right = ((destination_rect.x + destination_rect.width) * scale).round() as isize;
+    let bottom = ((destination_rect.y + destination_rect.height) * scale).round() as isize;
+    let dw = (right - dx).max(0) as usize;
+    let dh = (bottom - dy).max(0) as usize;
+    if dw == 0 || dh == 0 {
+        return;
+    }
     let width = visible.width as usize;
     let height = visible.height as usize;
     for py in 0..dh {
@@ -250,6 +263,20 @@ mod tests {
             rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
         }
     }
+    #[test]
+    fn high_dpi_half_pixel_edges_stay_inside_image() {
+        let high_dpi = Image {
+            size: tauri::PhysicalSize::new(425, 375),
+            bgra: vec![255; 425 * 375 * 4],
+        };
+        // Both halves round up if measured independently at 1.25x.
+        let exactly_fitting = rect(0.4, 4.0, 339.6, 10.0);
+        let measured = pixels(&exactly_fitting, &high_dpi).unwrap();
+        assert_eq!(measured.x + measured.w, 425);
+        let cropped = rect(0.0, 298.0, 340.0, 4.0);
+        assert!(pixels(&cropped, &high_dpi).is_none());
+    }
+
     #[test]
     fn source_and_target_rasters_are_byte_exact() {
         let old = image(110, 11);
