@@ -293,7 +293,7 @@ export function FocusLiveActions({
   const handlePauseResume = () => {
     const timerState = timer.runtime.timer.state;
     if (timerState === "break") {
-      void run("pause_resume", skipBreakTimer, "Break skipped. Work resumed.");
+      void run("pause_resume", skipBreakTimer, "Break skipped. Work paused.");
       return;
     }
     if (timerState === "paused" || timerState === "overtime_paused") {
