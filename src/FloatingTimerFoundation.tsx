@@ -276,6 +276,10 @@ export function FloatingTimerFoundation({
     let nativeRegionCommitted = false;
     try {
       if (onRequestExpanded) {
+        // A compact hover may currently hide the heading. The pending-state
+        // CSS restores that single source title before CapturePreview takes
+        // the outgoing pixels; keyboard and pointer both use the same path.
+        await waitForPresentedFrameOrThrow();
         // The coordinator acquires the outgoing native raster before invoking
         // this callback. Never expose an intermediate clipped React hierarchy.
         await onRequestExpanded(nextExpanded, (preparedExpanded) => {
