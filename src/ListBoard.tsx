@@ -918,6 +918,9 @@ export function ListBoard({
     }
   }, [target.kind, target.kind === "list" ? target.id : null]);
   const pointerDragCleanup = useRef<(() => void) | null>(null);
+  // React pending state may not render between rapid keyboard/pointer requests.
+  // A saved move/reorder must own admission through authoritative readback.
+  const boardReorderInFlightRef = useRef(false);
   const pointerDropInFlightRef = useRef(false);
   const pointerDragEpochRef = useRef(0);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
@@ -1510,12 +1513,14 @@ export function ListBoard({
       || target.kind !== "list"
       || mutationPendingTaskId
       || mutationRefreshBlocked
+      || boardReorderInFlightRef.current
     ) return "restored";
     const task = findTask(taskId);
     if (!task || !isManualReorderTask(task)) return "restored";
 
     // Keep the lifted source collapsed and its target gap visible until
     // the authoritative refreshed snapshot is ready for a single handoff.
+    boardReorderInFlightRef.current = true;
     setMutationPendingTaskId(taskId);
     setMutationError(null);
 
@@ -1544,6 +1549,7 @@ export function ListBoard({
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
       setMutationStatus(`${sameLane ? "Could not reorder" : "Could not move"} ${task.title}.`);
+      boardReorderInFlightRef.current = false;
       setMutationPendingTaskId(null);
       return "restored";
     }
@@ -1560,6 +1566,7 @@ export function ListBoard({
       refreshBlocked = true;
       handleCommittedRefreshFailure(failure);
     } finally {
+      boardReorderInFlightRef.current = false;
       setMutationPendingTaskId(null);
     }
     return refreshBlocked ? "needs_refresh" : "settled";
