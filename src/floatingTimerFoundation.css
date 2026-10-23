@@ -1,5 +1,5 @@
 .floating-timer-foundation {
-  --floating-timer-geometry-motion-duration: 270ms;
+  --floating-timer-geometry-motion-duration: 500ms;
   position: relative;
   width: 100%;
   height: 110px;
