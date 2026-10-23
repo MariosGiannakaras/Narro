@@ -19,6 +19,7 @@ import {
   prepareFocusSurfaceModeRaster,
   finishFocusSurfaceModeRaster,
   markFocusTransitionTrace,
+  prepareFocusMotionV4Plate,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
@@ -35,6 +36,7 @@ import {
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
+import { createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
@@ -376,7 +378,7 @@ export function FocusSurfaceCoordinator() {
     }
   }, []);
 
-  const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void) => {
+  const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void, sourceAnchors: MotionV4MeasuredTimer | null) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
@@ -416,6 +418,25 @@ export function FocusSurfaceCoordinator() {
         },
         waitForPaint: waitForTimerTargetPaint,
         animate: async (next, token) => {
+          // The native hold already covers the outgoing pixels. Capture a
+          // clean target plate behind it, then restore fully painted JSX
+          // before the native animation's incoming WebView screenshot.
+          // If staging cannot be prepared, the original compositor remains
+          // intact; never sacrifice Timer resize functionality for Motion v4.
+          const layout = createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document));
+          const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
+          if (layout && host) {
+            host.dataset.focusV4Plate = "true";
+            try {
+              await waitForPresentedFrameOrThrow();
+              await prepareFocusMotionV4Plate(token, layout);
+            } catch {
+              // Optional isolated visual staging, not authoritative state.
+            } finally {
+              delete host.dataset.focusV4Plate;
+              await waitForPresentedFrameOrThrow();
+            }
+          }
           markFocusTransitionTrace("renderer.native-request", token);
           await animateFocusSurfacePresentation(next, duration, token);
           markFocusTransitionTrace("renderer.native-finished", token);
