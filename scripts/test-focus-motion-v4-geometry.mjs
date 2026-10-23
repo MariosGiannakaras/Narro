@@ -28,6 +28,13 @@ assert.equal(createMotionV4TimerLayout(compact, {...expanded, taskId:"other-task
 assert.equal(createMotionV4TimerLayout(compact, compact), null);
 assert.equal(createMotionV4TimerLayout(null, expanded), null);
 assert.equal(createMotionV4TimerLayout(expanded, null), null);
+assert.equal(createMotionV4TimerLayout(
+  {...compact, title:rect(10,100,120,20)}, expanded), null);
+assert.equal(createMotionV4TimerLayout(
+  compact, {...expanded, toolbar:rect(10,295,120,15)}), null);
+assert.equal(createMotionV4TimerLayout(
+  compact, {...expanded, rows:[rect(10,280,100,30)]}), null);
+
 
 const el = (bounds) => ({getBoundingClientRect: () =>
   ({left:bounds.x, top:bounds.y, width:bounds.width, height:bounds.height,
