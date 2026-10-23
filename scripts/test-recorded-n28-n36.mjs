@@ -123,9 +123,15 @@ menu.props.onKeyDown({key:"ArrowDown",preventDefault:()=>{throw Error("Stole Arr
 assert.equal(dismiss,2);
 
 // N36: same actual Focus handler dispatches the existing authoritative
-// skip_break IPC and reports Paused, never falsely claims running work.
-let status=null,inFlight=false,callCount=0,published=null;
+// skip_break IPC; feedback follows the returned timer state across boundaries.
+const feedback=productionArrow("src/FocusLiveActions.tsx","skipBreakFeedback",{});
 const payload={runtime:{timer:{state:"paused"}}};
+assert.equal(feedback(payload),"Break skipped. Work paused.");
+assert.equal(feedback({runtime:{timer:{state:"overtime_paused"}}}),"Break skipped. Work paused.");
+assert.equal(feedback({runtime:{timer:{state:"running"}}}),"Break ended. Work resumed.");
+assert.equal(feedback({runtime:{timer:{state:"overtime_running"}}}),"Break ended. Work resumed.");
+assert.equal(feedback({runtime:{timer:{state:"time_up"}}}),"Break ended.");
+let status=null,inFlight=false,callCount=0,published=null;
 let release;
 const waiting=new Promise(resolve=>{release=resolve;});
 const run=productionArrow("src/FocusLiveActions.tsx","run",{
@@ -140,7 +146,7 @@ const handler=productionArrow("src/FocusLiveActions.tsx","handlePauseResume",{
   timer:{runtime:{timer:{state:"break"}}},skipBreakTimer,
   resumeTimer:()=>{throw Error("Wrong resume API for Break");},
   pauseTimer:()=>{throw Error("Wrong pause API for Break");},
-  run,
+  skipBreakFeedback:feedback,run,
 });
 handler();
 handler();
@@ -155,6 +161,8 @@ assert.ok(!read("src/FocusLiveActions.tsx").includes("Break skipped. Work resume
   "No other misleading Break skip feedback may remain");
 const engine=read("src-tauri/src/timer/mod.rs");
 assert.ok(engine.includes("skipped_manual_break_leaves_task_paused")
-  && engine.includes("assert_eq!(skipped.state, TimerStateKind::Paused)"),
-  "The native skipped-break invariant must still be Paused");
+  && engine.includes("assert_eq!(skipped.state, TimerStateKind::Paused)")
+  && engine.includes("BreakKind::Manual")
+  && engine.includes("work.phase = work.phase.running_variant();"),
+  "Native skip and automatic manual expiry must remain distinct authoritative outcomes");
 console.log("N28 actual Reports overlay state/keyboard/focus and N36 authoritative Break Skip feedback: PASS");
