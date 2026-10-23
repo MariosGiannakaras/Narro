@@ -1733,7 +1733,9 @@ fn animate_focus_surface_presentation_internal(
         // This logs the selected raster hierarchy, not compositor scanout.
         let growing = u64::from(incoming.size.height) * u64::from(lease.outgoing.size.width)
             > u64::from(lease.outgoing.size.height) * u64::from(incoming.size.width);
-        let source = if lease.v4_plate.is_some() && lease.v4_layout.is_some() {
+        let source = if lease.v4_plate.is_some() && lease.v4_layout.is_some()
+            && progress > 0.0 && progress < 1.0
+        {
             "motion-v4-composite"
         } else if progress >= 1.0 || (progress > 0.0 && growing) {
             "incoming"
