@@ -7,6 +7,7 @@ import {
   type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -906,6 +907,16 @@ export function ListBoard({
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
   const externalRefreshRevisionRef = useRef(0);
+  // Fence readbacks when a different board target commits, before passive
+  // effect cleanup. Old post-write responses must never paint a new target.
+  const committedTargetKeyRef = useRef(target.kind === "list" ? `list:${target.id}` : "all");
+  useLayoutEffect(() => {
+    const committedKey = target.kind === "list" ? `list:${target.id}` : "all";
+    if (committedTargetKeyRef.current !== committedKey) {
+      committedTargetKeyRef.current = committedKey;
+      ++externalRefreshRevisionRef.current;
+    }
+  }, [target.kind, target.kind === "list" ? target.id : null]);
   const pointerDragCleanup = useRef<(() => void) | null>(null);
   const pointerDropInFlightRef = useRef(false);
   const pointerDragEpochRef = useRef(0);
@@ -1217,7 +1228,16 @@ export function ListBoard({
   };
 
   const refreshAfterMutation = async (taskId: string) => {
+    // Initial loads, cross-window invalidations, subtask readbacks and saved
+    // mutations must use one revision clock. Otherwise a delayed older read
+    // can repaint stale cards after a newer accepted board snapshot.
+    const revision = ++externalRefreshRevisionRef.current;
     const payload = await getListBoardSnapshot(target);
+    if (revision !== externalRefreshRevisionRef.current) {
+      // A newer projection may have succeeded or failed; never acknowledge
+      // an uncertain post-commit read as fresh and invite an unsafe retry.
+      throw new Error("The board changed while confirming the saved task mutation. Reopen this board before making further changes.");
+    }
     setSnapshot(payload);
     markSettling(taskId);
   };
