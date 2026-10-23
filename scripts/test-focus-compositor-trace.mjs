@@ -63,4 +63,12 @@ assert.equal(isolated.following.rasterToken, 12);
 assert.equal(isolated.prior.stage, "native.after-raster");
 assert.equal(isolated.following.qpcTicks, 1300);
 assert.equal(isolated.claim, "native-call-phase-near-screen-sample; DWM-scanout-unconfirmed");
+const crossing = correlateFocusTrace(twoTransitions, {
+  frames: [{index:1, fileName:"begin-boundary.png",
+    captureQpcBefore: 990, captureQpcAfter:1010,
+    captureQpcFrequency:1_000_000}],
+}).frames[0];
+assert.equal(crossing.activeRasterToken, null);
+assert.equal(crossing.transitionBoundaryWithinCapture, true);
+assert.match(crossing.claim, /attribution-ambiguous/);
 console.log("A02 native/QPC screen-frame correlation: PASS");
