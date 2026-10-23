@@ -1679,6 +1679,19 @@ fn animate_focus_surface_presentation_internal(
         let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
         trace.frame("native.before-raster", step, elapsed_ms, progress, desired.x, desired.y);
         render_mode_raster_frame(&window, lease, &incoming, progress)?;
+        // Mirror focus_mode_raster::compose's source choice for diagnosis.
+        // This logs the selected raster hierarchy, not compositor scanout.
+        let growing = u64::from(incoming.size.height) * u64::from(lease.outgoing.size.width)
+            > u64::from(lease.outgoing.size.height) * u64::from(incoming.size.width);
+        let source = if progress >= 1.0 || (progress > 0.0 && growing) {
+            "incoming"
+        } else {
+            "outgoing"
+        };
+        trace.note("native.raster-source", serde_json::json!({
+            "step": step,
+            "source": source
+        }));
         trace.frame("native.after-raster", step, elapsed_ms, progress, desired.x, desired.y);
         set_focus_position(&window, desired, "move protected Focus host")?;
         trace.frame("native.after-move", step, elapsed_ms, progress, desired.x, desired.y);
