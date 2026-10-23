@@ -152,7 +152,8 @@ export function FocusSurfaceCoordinator() {
     to: FocusSurfacePresentation,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
-    if (!isMotionV4Route({ from, to })) throw new RangeError("Unsupported Focus Motion v4 route.");
+    // Home can legitimately return directly from Expanded Timer to Panel.
+    // Do not restrict existing production navigation to the four demo routes.
     // Native outgoing-pixel protection is installed before this promotion.
     // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
