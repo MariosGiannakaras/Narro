@@ -80,7 +80,7 @@ for (let tick = 0; tick <= 100; tick++) {
   assert.ok(Math.abs(expansion.visibleHeight - contraction.visibleHeight) <= 1e-8);
   assert.ok(Math.abs(expansion.actionsOpacity - contraction.actionsOpacity) <= 1e-8);
   bottoms.forEach((bottom, index) => {
-    if (expansion.visibleHeight <= bottom - 10) {
+    if (expansion.visibleHeight <= bottom) {
       assert.equal(expansion.subtaskRowOpacity[index], 0);
     }
     assert.ok(Math.abs(
