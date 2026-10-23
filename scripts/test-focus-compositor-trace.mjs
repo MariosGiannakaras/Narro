@@ -41,4 +41,25 @@ for (const field of ["captureQpcBefore", "captureQpcAfter", "captureQpcFrequency
     );
   }
 }
+// A completed prior native transition can flush its stage markers after the
+// next transition begins; their timestamps must not contaminate A02 attribution.
+const twoTransitions = [
+  {...e(100, "native.begin", 0), rasterToken: 11},
+  {...e(120, "native.after-move", 1), rasterToken: 11},
+  {...e(1000, "native.begin", 0), rasterToken: 12},
+  {...e(1040, "native.after-raster", 1), rasterToken: 12},
+  {...e(1100, "native.after-move", 2), rasterToken: 11},
+  {...e(1300, "native.after-move", 3), rasterToken: 12},
+];
+const secondCapture = {
+  frames: [{index: 0, fileName: "a02.png", captureQpcBefore: 1060,
+    captureQpcAfter: 1080, captureQpcFrequency: 1_000_000}],
+};
+const isolated = correlateFocusTrace(twoTransitions, secondCapture).frames[0];
+assert.equal(isolated.activeRasterToken, 12);
+assert.equal(isolated.prior.rasterToken, 12);
+assert.equal(isolated.following.rasterToken, 12);
+assert.equal(isolated.prior.stage, "native.after-raster");
+assert.equal(isolated.following.qpcTicks, 1300);
+assert.equal(isolated.claim, "native-call-phase-near-screen-sample; DWM-scanout-unconfirmed");
 console.log("A02 native/QPC screen-frame correlation: PASS");
