@@ -251,6 +251,25 @@ mod tests {
         assert_eq!(frame.len(), 340 * 205 * 4);
     }
     #[test]
+    fn partial_row_is_not_painted_and_collapse_uses_exact_compact_endpoint() {
+        let compact = image(110, 11);
+        let expanded = image(300, 22);
+        let plate = image(300, 33);
+        let visible = tauri::PhysicalSize::new(340, 160);
+        let intermediate = compose(
+            &compact, &expanded, &plate, visible, 0.3, true, &layout(),
+        )
+        .unwrap();
+        let first_row = (150_usize * 340 + 15) * 4;
+        assert_eq!(intermediate[first_row], 33); // First row bottom 176: no partial text.
+        assert_eq!(
+            compose(&expanded, &compact, &plate, compact.size, 1.0, false, &layout())
+                .unwrap(),
+            compact.bgra
+        );
+    }
+
+    #[test]
     fn invalid_geometry_cannot_escape_bounded_native_pixels() {
         let mut l = layout();
         l.title.from.x = f64::NAN;
