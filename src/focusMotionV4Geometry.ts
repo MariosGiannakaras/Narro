@@ -76,6 +76,16 @@ export function createMotionV4TimerLayout(
 ): MotionV4RasterLayout | null {
   if (!from || !to || from.taskId !== to.taskId || from.expanded === to.expanded) return null;
   const enlarged = to.expanded ? to : from;
+  // A rectangle outside either actual native endpoint would be dropped by
+  // the compositor. Fail closed to the established pixel-preserving path.
+  const fits = (rect: MotionV4Rect, height: number) =>
+    valid(rect) && rect.y + rect.height <= height;
+  const fromHeight = from.expanded ? 300 : 110;
+  const toHeight = to.expanded ? 300 : 110;
+  if (![from.title, from.timer, from.toolbar].every(rect => fits(rect, fromHeight))
+      || ![to.title, to.timer, to.toolbar].every(rect => fits(rect, toHeight))
+      || (enlarged.actions !== null && !fits(enlarged.actions, 300))
+      || enlarged.rows.some(rect => !fits(rect, 300))) return null;
   return {
     title: { from: from.title, to: to.title },
     timer: { from: from.timer, to: to.timer },
