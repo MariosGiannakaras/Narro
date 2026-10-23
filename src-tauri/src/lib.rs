@@ -14,6 +14,7 @@ pub mod focus_frame_capture;
 pub mod focus_frame_hold;
 mod focus_layered_raster;
 mod focus_mode_raster;
+mod focus_transition_trace;
 pub mod focus_preferences;
 pub mod focus_webview;
 pub mod home_snapshot;
@@ -1611,6 +1612,12 @@ fn animate_focus_surface_presentation_internal(
         ));
     }
     let incoming = focus_mode_raster::decode(&incoming_png, incoming_size)?;
+    let mut trace = focus_transition_trace::NativeMotionTrace::begin(
+        raster_token,
+        lease.snapshot.presentation.event_name(),
+        target.event_name(),
+        duration_ms,
+    );
     let _save_guard = floating_placement::suspend_saves();
     let _display_recovery_guard = windows::suspend_focus_display_recovery();
     let target_position = if target == FocusSurfacePresentation::Panel {
@@ -1665,15 +1672,16 @@ fn animate_focus_surface_presentation_internal(
             }
             Ok(value.round() as i32)
         };
+        let desired = GeometryPoint {
+            x: axis(start.x, target_position.x)?,
+            y: axis(start.y, target_position.y)?,
+        };
+        let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
+        trace.frame("native.before-raster", step, elapsed_ms, progress, desired.x, desired.y);
         render_mode_raster_frame(&window, lease, &incoming, progress)?;
-        set_focus_position(
-            &window,
-            GeometryPoint {
-                x: axis(start.x, target_position.x)?,
-                y: axis(start.y, target_position.y)?,
-            },
-            "move protected Focus host",
-        )?;
+        trace.frame("native.after-raster", step, elapsed_ms, progress, desired.x, desired.y);
+        set_focus_position(&window, desired, "move protected Focus host")?;
+        trace.frame("native.after-move", step, elapsed_ms, progress, desired.x, desired.y);
         if progress >= 1.0 {
             break;
         }
@@ -1697,6 +1705,7 @@ fn animate_focus_surface_presentation_internal(
     render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
+    trace.note("native.committed", serde_json::json!({ "target": target.event_name() }));
     announce_focus_surface_presentation(app_handle, target);
     Ok(())
 }
@@ -1915,6 +1924,21 @@ async fn focus_surface_capture_compact_frame(
         ));
     }
     focus_frame_capture::capture(window).await
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn focus_transition_trace_mark(
+    window: tauri::WebviewWindow,
+    stage: String,
+    raster_token: Option<u32>,
+) -> CommandResult<()> {
+    if window.label() != FOCUS_SURFACE_LABEL {
+        return Err(CommandError::invalid_argument("stage", "Focus renderer required"));
+    }
+    if !focus_transition_trace::renderer_mark(&stage, raster_token.unwrap_or_default()) {
+        return Err(CommandError::invalid_argument("stage", "unrecognized trace phase"));
+    }
+    Ok(())
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -2923,6 +2947,7 @@ pub fn run() {
             focus_surface_apply_presentation,
             focus_surface_capture_compact_frame,
             focus_surface_prepare_mode_raster,
+            focus_transition_trace_mark,
             focus_surface_animate_presentation,
             focus_surface_finish_mode_raster,
             focus_surface_mode_snapshot,
