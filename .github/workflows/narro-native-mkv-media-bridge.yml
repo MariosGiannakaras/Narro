@@ -1,0 +1,35 @@
+name: Narro Native MKV Analysis-Only Media Bridge
+
+on:
+  push:
+    branches:
+      - analysis/narro-20261024-native-mkv-media-bridge
+
+permissions:
+  contents: read
+
+jobs:
+  publish-frozen-native-videos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout frozen main-origin media
+        uses: actions/checkout@v4
+      - name: Confirm original video corpus and record file identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir='work-log/evidence/native-resume-20261023'
+          count=$(find "$dir" -mindepth 2 -maxdepth 2 -type f -name 'native-original.mkv' | wc -l)
+          test "$count" -eq 13
+          find "$dir" -mindepth 2 -maxdepth 2 -type f -name 'native-original.mkv' -print0 |
+            sort -z | xargs -0 sha256sum | tee /tmp/native-mkv-source-sha256.txt
+          test -s /tmp/native-mkv-source-sha256.txt
+      - name: Upload original-byte Narro videos for analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-20261023-thirteen-native-mkvs
+          path: work-log/evidence/native-resume-20261023/*/native-original.mkv
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
