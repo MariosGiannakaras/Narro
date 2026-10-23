@@ -119,9 +119,11 @@ export function sampleMotionV4(
 
   // A title/time anchor travels first; a full Panel hierarchy reveals later.
   // When closing, the inverse ordering is obtained from the same pure frame.
-  const sharedAnchorFraction = route.from === "panel" || route.to === "panel"
-    ? reveal(panelAmount, 0.16, 0.67)
-    : q;
+  const sharedAnchorFraction = route.from === "panel"
+    ? 1 - reveal(panelAmount, 0.16, 0.67)
+    : route.to === "panel"
+      ? reveal(panelAmount, 0.16, 0.67)
+      : q;
   const panelChromeOpacity = reveal(panelAmount, 0.55, 0.85);
   const activeCardOpacity = reveal(panelAmount, 0.50, 0.90);
   const liveMetadataOpacity = reveal(panelAmount, 0.84, 0.98);
@@ -136,14 +138,19 @@ export function sampleMotionV4(
   );
 
   const subtaskRowOpacity = rowBottoms.map((bottom, index) => {
-    // Each row is revealed only after the complete row fits in the real
-    // visible window. The end threshold lies BELOW the final 300 px extent,
-    // including the fourth 36px fixture row (bottom 290).
-    const fits = reveal(visibleHeight, bottom, bottom + 8);
+    // Never reveal pixels before the whole row fits; even a final row
+    // ending at exactly 300 px must be fully visible at the endpoint.
+    const fullExtent = heights.timerExpanded;
+    const fits = bottom >= fullExtent
+      ? (bottom === fullExtent && visibleHeight >= fullExtent ? 1 : 0)
+      : reveal(visibleHeight, bottom, Math.min(fullExtent, bottom + 8));
+    // Scrollable task lists can contain more than four rows. Additional
+    // rows share the final stage instead of exceeding the [0, 1] clock.
+    const stagger = Math.min(index, 4);
     const details = reveal(
       expandedAmount,
-      0.44 + index * 0.07,
-      0.73 + index * 0.06,
+      0.44 + stagger * 0.07,
+      0.73 + stagger * 0.06,
     );
     return fits * details;
   });
