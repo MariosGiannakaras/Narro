@@ -1,5 +1,7 @@
 # TODO.md
 
+**Codex capture checkpoint 2026-10-23:** [native389 original acquisition](work-log/evidence/batch-native389-20261023/README.md): 14/24 planned acquisition IDs have footage (A13/A14 partial), UNREVIEWED, no physical/source-parity PASS or checkbox closure. Main10 journeys remain. Personal DB restored SHA-identically; Local cache restoration pending, original protected copy intact. Capture-only; ChatGPT source owner and PR389 hold unchanged.
+
 ## Current execution gate — verified 2026-10-23
 
 - **Fixed mandatory order:** M1–M10; **4/10 formally accepted (M1–M4), six pending**. Checklists and their `[x]` states below are unchanged by this documentation cleanup; unchecked source-parity/native rows are not automatically coding bugs. M11 (optional live Blitzit) and M12 (optional Narro QA) are not activated.

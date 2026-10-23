@@ -1,5 +1,7 @@
 # Audit → implementation crosswalk
 
+**Codex capture checkpoint 2026-10-23:** [native389 original acquisition](../work-log/evidence/batch-native389-20261023/README.md): 14/24 planned acquisition IDs have footage (A13/A14 partial), UNREVIEWED, no physical/source-parity PASS or checkbox closure. Main10 journeys remain. Personal DB restored SHA-identically; Local cache restoration pending, original protected copy intact. Capture-only; ChatGPT source owner and PR389 hold unchanged.
+
 **Timer platform-evidence reconciliation:** M7 mode raster has a directly proven arithmetic mixing/stretching defect; unmerged prototype609e0b65 has61pure-Rust arithmetic assertions, not native acceptance. Timer-only stale presentation remains unisolated. Official WebView2 issue reports5574/5669 are relevant diagnostic leads with different reproductions/runtime versions, not Narro root-cause proof. Route a controlled default-versus-software-compositing experiment before more freshness protocol code; do not silently adopt flags or reopen host architecture. [Current decision/limits](PR388_REVIEW_2026-10-21.md).
 
 **Latest corrected PR388 acceptance:** exactPR9d2e897d green3/3/merged4786bbea,30source/test blobs MATCH. C38 corrected-native ten-row layout PASS; six prior scoped checks retained by unchanged-path proof. Narrow changed-scope set7/7 accepted, not whole-C/source-parity or milestone closure. Timer remains FAIL/OPEN. [New evidence](../work-log/evidence/pr388-c38-acceptance-20261021/README.md); resulting-main CI/packages pending. Prior original-EXE C38FAIL remains history.

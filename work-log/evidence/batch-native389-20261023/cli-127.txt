@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async(page)=>{for(let i=0;i<3;i++){await page.getByRole("button",{name:"Expand Floating Timer",exact:true}).click({clickCount:3,delay:25});await page.waitForTimeout(700);await page.getByRole("button",{name:"Collapse Floating Timer",exact:true}).click({clickCount:3,delay:25});await page.waitForTimeout(700);}})(page);
+```

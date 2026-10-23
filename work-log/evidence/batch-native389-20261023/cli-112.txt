@@ -1,0 +1,37 @@
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+### Snapshot
+```yaml
+- main [ref=e3]:
+  - main "Floating Timer" [ref=e2242]:
+    - generic [ref=e2243]:
+      - generic [ref=e2289]:
+        - strong [ref=e2290]: Weekly recurring parent
+        - 'generic "Pomodoro paused: 05:00 remaining" [ref=e2292]': 05:00
+      - group "Floating Timer actions" [ref=e2246]:
+        - button "Start break" [ref=e2248] [cursor=pointer]
+        - button "Notes" [ref=e2255] [cursor=pointer]
+        - button "Resume" [ref=e2260] [cursor=pointer]
+        - button "Skip task" [ref=e2264] [cursor=pointer]
+        - button "Complete task" [ref=e2268] [cursor=pointer]
+        - button "Return to Focus Panel" [ref=e2273] [cursor=pointer]
+      - region "Subtasks for Weekly recurring parent" [ref=e2278]:
+        - generic "Floating Timer subtask summary" [ref=e2279]:
+          - progressbar "0 of 1 subtasks complete" [ref=e2280]:
+            - generic [aria-hidden] [ref=e2281]: 0/1
+          - generic [ref=e2282]: 0/1 Subtasks
+          - button "Add subtask for Weekly recurring parent" [ref=e2284] [cursor=pointer]: +
+          - button "Collapse Floating Timer" [expanded] [ref=e2293] [cursor=pointer]
+        - list "Subtasks for Weekly recurring parent" [ref=e2295]:
+          - listitem [ref=e2296]:
+            - 'button "Complete subtask: Native capture subtask" [ref=e2298] [cursor=pointer]'
+            - 'button "Edit subtask: Native capture subtask" [ref=e2301]': Native capture subtask
+            - generic [ref=e2302]:
+              - 'button "Move subtask up: Native capture subtask" [disabled] [ref=e2304]'
+              - 'button "Move subtask down: Native capture subtask" [disabled] [ref=e2308]'
+              - 'button "Delete subtask: Native capture subtask" [ref=e2312] [cursor=pointer]'
+```

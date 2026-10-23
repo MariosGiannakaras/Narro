@@ -1,5 +1,7 @@
 # STATUS.md
 
+**Codex capture checkpoint 2026-10-23:** [native389 original acquisition](work-log/evidence/batch-native389-20261023/README.md): 14/24 planned acquisition IDs have footage (A13/A14 partial), UNREVIEWED, no physical/source-parity PASS or checkbox closure. Main10 journeys remain. Personal DB restored SHA-identically; Local cache restoration pending, original protected copy intact. Capture-only; ChatGPT source owner and PR389 hold unchanged.
+
 ## Current project truth — 2026-10-23
 
 **Current product and roadmap:** Narro is a local-only personal Windows application. Mandatory milestones M1–M4 are accepted; M5–M10 remain formally open, with M10 entry dependent on earlier gates. Optional M11/M12 are dormant. Historical source-uncertainty and original remediation ledgers remain closed evidence, **not** an active task queue or default progress metric. [TODO.md](TODO.md) is the acceptance checklist.
