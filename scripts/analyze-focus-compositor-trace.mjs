@@ -24,10 +24,15 @@ export function correlateFocusTrace(records, frameInput) {
     throw new Error("Trace contains inconsistent native QPC frequencies.");
   }
   const samples = frames.map((frame) => {
-    const before = Number(frame.captureQpcBefore);
-    const after = Number(frame.captureQpcAfter);
-    const frequency = Number(frame.captureQpcFrequency);
-    if (!Number.isFinite(before) || !Number.isFinite(after) || after < before || frequency !== hz) {
+    // Missing QPC fields must fail closed; Number(null) and Number("") both
+    // become zero and previously made an invalid capture look time-aligned.
+    const before = frame.captureQpcBefore;
+    const after = frame.captureQpcAfter;
+    const frequency = frame.captureQpcFrequency;
+    if (typeof before !== "number" || typeof after !== "number"
+        || typeof frequency !== "number"
+        || !Number.isFinite(before) || !Number.isFinite(after)
+        || !Number.isFinite(frequency) || after < before || frequency !== hz) {
       throw new Error("Screen sample QPC bracket missing, reversed, or from a different timebase.");
     }
     const midpoint = (before + after) / 2;
