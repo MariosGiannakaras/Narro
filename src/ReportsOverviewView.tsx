@@ -459,7 +459,7 @@ export function ReportsOverviewView({
   const firstListOptionRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (listFilterOpen) firstListOptionRef.current?.focus({ preventScroll: true });
+    if (listFilterOpen && onToggleListFilter) firstListOptionRef.current?.focus({ preventScroll: true });
   }, [listFilterOpen]);
 
   const closeListFilterOnEscape = (event: ReactKeyboardEvent<HTMLElement>) => {
