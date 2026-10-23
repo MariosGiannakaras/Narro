@@ -95,6 +95,7 @@
 .focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__title,
 .focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__timer,
 .focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__actions-wrap,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__subtask-toolbar,
 .focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__subtask-panel {
   visibility: hidden !important;
   transition: none !important;
