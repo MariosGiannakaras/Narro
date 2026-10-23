@@ -74,6 +74,28 @@ impl Layout {
         }
         Ok(())
     }
+
+    /// Validate image-source limits before accepting the optional raster lease.
+    /// Otherwise blit() could silently omit a clipped title or toolbar.
+    pub(crate) fn validate_for_native(
+        &self, from_height: f64, to_height: f64,
+    ) -> CommandResult<()> {
+        self.validate()?;
+        let fits = |rect: &Rect, height: f64| rect.y + rect.height <= height;
+        if !self.title.from.valid() || !self.title.to.valid()
+            || !fits(&self.title.from, from_height)
+            || !fits(&self.timer.from, from_height)
+            || !fits(&self.toolbar.from, from_height)
+            || !fits(&self.title.to, to_height)
+            || !fits(&self.timer.to, to_height)
+            || !fits(&self.toolbar.to, to_height)
+            || self.actions.as_ref().is_some_and(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
+            || self.rows.iter().any(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
+        {
+            return Err(invalid("Motion v4 semantic pixels exceed source or target region"));
+        }
+        Ok(())
+    }
 }
 
 #[derive(Clone, Copy)]
@@ -276,6 +298,12 @@ mod tests {
         let mut l = layout();
         l.title.from.x = f64::NAN;
         assert!(l.validate().is_err());
+        let mut l = layout();
+        l.toolbar.from = rect(0.0, 105.0, 20.0, 15.0);
+        assert!(l.validate_for_native(110.0, 300.0).is_err());
+        let mut l = layout();
+        l.rows = vec![rect(12.0, 280.0, 290.0, 30.0)];
+        assert!(l.validate_for_native(110.0, 300.0).is_err());
         let mut l = layout();
         l.rows = vec![rect(0.0, 0.0, 1.0, 1.0); 65];
         assert!(l.validate().is_err());
