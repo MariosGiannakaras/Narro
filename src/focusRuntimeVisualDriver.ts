@@ -65,6 +65,7 @@ function runtimeSnapshot() {
       phase: coordinator?.getAttribute("data-focus-geometry-motion-phase") ?? null,
     },
     floatingExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-expanded") ?? null,
+    floatingResizePending: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-resize-pending") ?? null,
     floatingRegionExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-region-expanded") ?? null,
     visibleTextLength: (document.body?.innerText ?? "").trim().length,
     prefersReducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -78,7 +79,9 @@ async function waitForPresentation(presentation: "panel" | "timerCompact" | "tim
   while (performance.now() < deadline) {
     const snapshot = runtimeSnapshot();
     if (snapshot.hydrated === "true" && snapshot.presentation === presentation
-      && snapshot.activePresentation === activePresentation) return snapshot;
+      && snapshot.activePresentation === activePresentation
+      && snapshot.transitionPending === "false"
+      && snapshot.floatingResizePending !== "true") return snapshot;
     await sleep(25);
   }
   throw new Error(`Focus presentation ${presentation} did not settle for packaged runtime capture`);
@@ -133,12 +136,27 @@ export function startFocusRuntimeVisualDriver() {
     await checkpoint("timer-compact", await waitForPresentation("timerCompact"));
     await waitForCaptureAck("timer-compact");
 
-    await applyFocusSurfacePresentation("timerExpanded");
+    // A02 reproduction MUST traverse the production protected Timer-resize path,
+    // not a direct diagnostic native setter that bypasses renderer/raster phases.
+    await checkpoint("timer-compact-to-expanded-start");
+    await waitForCaptureAck("timer-compact-to-expanded-start");
+    const expandButton = document.querySelector<HTMLButtonElement>(
+      '[data-floating-subtask-control="expand"][aria-expanded="false"]',
+    );
+    if (!expandButton || expandButton.disabled) throw new Error("Real Timer expand control unavailable");
+    expandButton.click();
     await checkpoint("timer-expanded", await waitForPresentation("timerExpanded"));
     await waitForCaptureAck("timer-expanded");
 
-    await applyFocusSurfacePresentation("timerCompact");
-    await waitForPresentation("timerCompact");
+    await checkpoint("timer-expanded-to-compact-start");
+    await waitForCaptureAck("timer-expanded-to-compact-start");
+    const collapseButton = document.querySelector<HTMLButtonElement>(
+      '[data-floating-subtask-control="expand"][aria-expanded="true"]',
+    );
+    if (!collapseButton || collapseButton.disabled) throw new Error("Real Timer collapse control unavailable");
+    collapseButton.click();
+    await checkpoint("timer-compact-returned", await waitForPresentation("timerCompact"));
+    await waitForCaptureAck("timer-compact-returned");
     await checkpoint("timer-to-panel-start");
     await waitForCaptureAck("timer-to-panel-start");
     const returnButton = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
