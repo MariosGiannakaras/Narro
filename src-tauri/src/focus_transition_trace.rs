@@ -72,8 +72,12 @@ fn append_records(records: &[Value]) {
     if records.is_empty() {
         return;
     }
-    let Some(path) = trace_path() else { return };
-    let Ok(_gate) = WRITE_GATE.lock() else { return };
+    let Some(path) = trace_path() else {
+        return;
+    };
+    let Ok(_gate) = WRITE_GATE.lock() else {
+        return;
+    };
     let write = || -> Result<(), String> {
         let parent = path.parent().ok_or("trace file has no parent")?;
         fs::create_dir_all(parent).map_err(|error| error.to_string())?;
@@ -82,7 +86,10 @@ fn append_records(records: &[Value]) {
             serde_json::to_writer(&mut bytes, record).map_err(|error| error.to_string())?;
             bytes.push(b'\n');
         }
-        let mut file = OpenOptions::new().create(true).append(true).open(path)
+        let mut file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)
             .map_err(|error| error.to_string())?;
         file.write_all(&bytes).map_err(|error| error.to_string())?;
         file.flush().map_err(|error| error.to_string())
@@ -127,35 +134,52 @@ impl NativeMotionTrace {
             enabled: trace_path().is_some(),
             started: Instant::now(),
         };
-        trace.note("native.begin", json!({
-            "from": from,
-            "to": to,
-            "durationMs": duration_ms
-        }));
+        trace.note(
+            "native.begin",
+            json!({
+                "from": from,
+                "to": to,
+                "durationMs": duration_ms
+            }),
+        );
         trace
     }
 
     pub(crate) fn note(&mut self, stage: &str, details: Value) {
         if self.enabled && self.records.len() < MAX_FRAME_EVENTS {
             let elapsed_us = self.started.elapsed().as_micros();
-            self.records.push(event(stage, self.raster_token, json!({
-                "elapsedUs": elapsed_us,
-                "data": details
-            })));
+            self.records.push(event(
+                stage,
+                self.raster_token,
+                json!({
+                    "elapsedUs": elapsed_us,
+                    "data": details
+                }),
+            ));
         }
     }
 
     pub(crate) fn frame(
-        &mut self, stage: &str, step: u64, elapsed_ms: f64, progress: f64,
-        x: i32, y: i32,
+        &mut self,
+        stage: &str,
+        step: u64,
+        elapsed_ms: f64,
+        progress: f64,
+        x: i32,
+        y: i32,
     ) {
-        if !self.enabled { return }
-        self.note(stage, json!({
-            "step": step,
-            "elapsedMs": elapsed_ms,
-            "easedProgress": progress,
-            "requestedOwnerPosition": {"x": x, "y": y}
-        }));
+        if !self.enabled {
+            return;
+        }
+        self.note(
+            stage,
+            json!({
+                "step": step,
+                "elapsedMs": elapsed_ms,
+                "easedProgress": progress,
+                "requestedOwnerPosition": {"x": x, "y": y}
+            }),
+        );
     }
 }
 
@@ -163,7 +187,11 @@ impl Drop for NativeMotionTrace {
     fn drop(&mut self) {
         if self.enabled {
             if self.records.len() >= MAX_FRAME_EVENTS {
-                self.records.push(event("native.trace-truncated", self.raster_token, json!({})));
+                self.records.push(event(
+                    "native.trace-truncated",
+                    self.raster_token,
+                    json!({}),
+                ));
             }
             append_records(&self.records);
         }
@@ -179,6 +207,7 @@ mod tests {
         assert!(!renderer_mark("user task title", 4));
         assert!(!renderer_mark("../arbitrary.json", 4));
     }
+
     #[test]
     fn trace_without_environment_does_not_change_domain_or_files() {
         // CI process normally has no capture env; check representation without
