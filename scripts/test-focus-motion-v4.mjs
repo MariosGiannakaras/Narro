@@ -1,184 +1,122 @@
-/**
- * Motion v4: source-portable, deterministic choreography contract.
- *
- * This module intentionally does NOT move a native HWND, manipulate a WebView,
- * publish renderer presentation or mutate timer/session state. PR389 owns the
- * active native raster transaction. A later integration must supply the actual
- * measured DOM anchors, bind one live progress clock to native + renderer,
- * and render exactly ONE semantic task-title/time hierarchy.
- *
- * Reference: docs/NARRO_MOTION_V4_AND_UNIFIED_WINDOW_ROADMAP.md.
- */
-export type MotionV4Presentation = "panel" | "timerCompact" | "timerExpanded";
+import assert from "node:assert/strict";
+import {
+  MOTION_V4_DURATION_MS,
+  MOTION_V4_REDUCED_DURATION_MS,
+  isMotionV4Route,
+  motionV4Duration,
+  motionV4Progress,
+  sampleMotionV4,
+} from "../src/focusMotionV4.ts";
 
-export type MotionV4Route = Readonly<{
-  from: MotionV4Presentation;
-  to: MotionV4Presentation;
-}>;
-
-export type MotionV4Frame = Readonly<{
-  progress: number;
-  easedProgress: number;
-  visibleHeight: number;
-  panelAmount: number;
-  expandedAmount: number;
-  // A single title/time visual representative moves from DOM-measured source
-  // anchor to destination anchor by this fraction. Never duplicate its text.
-  sharedAnchorFraction: number;
-  panelChromeOpacity: number;
-  activeCardOpacity: number;
-  liveMetadataOpacity: number;
-  queueOpacity: number;
-  actionsOpacity: number;
-  // Expanded-only row opacity, gated on full row visibility inside window.
-  subtaskRowOpacity: readonly number[];
-}>;
-
-export const MOTION_V4_DURATION_MS = 500;
-export const MOTION_V4_REDUCED_DURATION_MS = 1;
-
-const heights: Readonly<Record<MotionV4Presentation, number>> = {
-  panel: 700,
-  timerCompact: 110,
-  timerExpanded: 300,
-};
-
-const presentationKinds: readonly MotionV4Presentation[] = [
-  "panel",
-  "timerCompact",
-  "timerExpanded",
+const routes = [
+  ["panel", "timerCompact", 700, 110],
+  ["timerCompact", "timerExpanded", 110, 300],
+  ["timerExpanded", "timerCompact", 300, 110],
+  ["timerCompact", "panel", 110, 700],
 ];
 
-const clamp = (value: number): number => Math.min(1, Math.max(0, value));
-const mix = (a: number, b: number, progress: number): number =>
-  a + (b - a) * progress;
-
-export function motionV4Smoothstep(progress: number): number {
-  if (!Number.isFinite(progress)) {
-    throw new RangeError("Motion v4 progress must be finite.");
-  }
-  const t = clamp(progress);
-  return t * t * (3 - 2 * t);
+assert.equal(MOTION_V4_DURATION_MS, 500);
+assert.equal(MOTION_V4_REDUCED_DURATION_MS, 1);
+assert.equal(motionV4Duration(true), 1);
+assert.equal(motionV4Duration(false), 500);
+assert.equal(motionV4Progress(250), 0.5);
+assert.equal(motionV4Progress(500), 1);
+assert.equal(motionV4Progress(900), 1);
+assert.equal(motionV4Progress(1, true), 1);
+assert.equal(motionV4Progress(0), 0);
+for (const bad of [NaN, Infinity, -1]) {
+  assert.throws(() => motionV4Progress(bad), RangeError);
 }
 
-function reveal(value: number, start: number, end: number): number {
-  return motionV4Smoothstep((value - start) / (end - start));
-}
-
-export function isMotionV4Route(route: MotionV4Route): boolean {
-  const valid = presentationKinds.includes(route.from)
-    && presentationKinds.includes(route.to);
-  if (!valid || route.from === route.to) return false;
-  // Panel enters Timer through Compact, but Home may return directly
-  // from Expanded Timer to Panel. That route is real and must be sampled.
-  return (route.from === "panel" && route.to === "timerCompact")
-    || (route.from === "timerCompact" && route.to === "panel")
-    || (route.from === "timerExpanded" && route.to === "panel")
-    || (route.from === "timerCompact" && route.to === "timerExpanded")
-    || (route.from === "timerExpanded" && route.to === "timerCompact");
-}
-
-export function motionV4Duration(reducedMotion: boolean): number {
-  return reducedMotion ? MOTION_V4_REDUCED_DURATION_MS : MOTION_V4_DURATION_MS;
-}
-
-/**
- * Pure frame sampler.
- *
- * @param rowBottoms Bottom coordinates of expanded-only row boxes, measured
- * from the visible top of the actual Timer surface; not fixture constants.
- *
- * The named opacity channels are renderer presentation cues, NOT permission to
- * alpha-blend two full-window bitmap screenshots. In particular, native A02
- * ghosting cannot be pronounced fixed by this pure renderer model.
- */
-export function sampleMotionV4(
-  route: MotionV4Route,
-  progress: number,
-  rowBottoms: readonly number[] = [],
-): MotionV4Frame {
-  if (!isMotionV4Route(route)) {
-    throw new RangeError("Unsupported Motion v4 presentation transition.");
-  }
-  if (!Number.isFinite(progress) || progress < 0 || progress > 1) {
-    throw new RangeError("Motion v4 progress must be finite and in [0, 1].");
-  }
-  for (const bottom of rowBottoms) {
-    if (!Number.isFinite(bottom) || bottom < 0) {
-      throw new RangeError("Subtask row bottom must be a finite nonnegative coordinate.");
+for (const [from, to, startHeight, endHeight] of routes) {
+  const route = { from, to };
+  assert.equal(isMotionV4Route(route), true);
+  const frames = Array.from({ length: 101 }, (_, tick) =>
+    sampleMotionV4(route, tick / 100, [182, 218, 254, 290]),
+  );
+  assert.equal(frames[0].visibleHeight, startHeight);
+  assert.equal(frames[100].visibleHeight, endHeight);
+  assert.equal(frames[0].progress, 0);
+  assert.equal(frames[100].progress, 1);
+  assert.equal(frames[50].easedProgress, 0.5);
+  assert.deepEqual(frames[50].subtaskRowOpacity.length, 4);
+  for (const frame of frames) {
+    assert.ok(Number.isFinite(frame.visibleHeight));
+    for (const key of [
+      "easedProgress", "panelAmount", "expandedAmount",
+      "sharedAnchorFraction", "panelChromeOpacity", "activeCardOpacity",
+      "liveMetadataOpacity", "queueOpacity", "actionsOpacity",
+    ]) assert.ok(frame[key] >= 0 && frame[key] <= 1, key);
+    for (const opacity of frame.subtaskRowOpacity) {
+      assert.ok(opacity >= 0 && opacity <= 1);
+    }
+    if (to === "timerCompact" || to === "timerExpanded") {
+      assert.ok(frame.visibleHeight >= Math.min(startHeight, endHeight));
+      assert.ok(frame.visibleHeight <= Math.max(startHeight, endHeight));
     }
   }
-
-  const q = motionV4Smoothstep(progress);
-  const fromPanel = route.from === "panel" ? 1 : 0;
-  const toPanel = route.to === "panel" ? 1 : 0;
-  const fromExpanded = route.from === "timerExpanded" ? 1 : 0;
-  const toExpanded = route.to === "timerExpanded" ? 1 : 0;
-  const panelAmount = mix(fromPanel, toPanel, q);
-  const expandedAmount = mix(fromExpanded, toExpanded, q);
-  const visibleHeight = mix(heights[route.from], heights[route.to], q);
-
-  // A title/time anchor travels first; a full Panel hierarchy reveals later.
-  // When closing, the inverse ordering is obtained from the same pure frame.
-  const sharedAnchorFraction = route.from === "panel"
-    ? 1 - reveal(panelAmount, 0.16, 0.67)
-    : route.to === "panel"
-      ? reveal(panelAmount, 0.16, 0.67)
-      : q;
-  const panelChromeOpacity = reveal(panelAmount, 0.55, 0.85);
-  const activeCardOpacity = reveal(panelAmount, 0.50, 0.90);
-  const liveMetadataOpacity = reveal(panelAmount, 0.84, 0.98);
-  const queueOpacity = reveal(panelAmount, 0.53, 0.94);
-
-  // Compact has no permanently visible action strip; it uses the existing
-  // hover/focus grammar. Expanded and Panel display action buttons. On
-  // expansion, buttons appear before rows. On collapse, rows leave first.
-  const actionsOpacity = clamp(
-    reveal(panelAmount, 0.71, 0.92)
-    + reveal(expandedAmount, 0.24, 0.49),
-  );
-
-  const subtaskRowOpacity = rowBottoms.map((bottom, index) => {
-    // Never reveal pixels before the whole row fits; even a final row
-    // ending at exactly 300 px must be fully visible at the endpoint.
-    const fullExtent = heights.timerExpanded;
-    const fits = bottom >= fullExtent
-      ? (bottom === fullExtent && visibleHeight >= fullExtent ? 1 : 0)
-      : reveal(visibleHeight, bottom, Math.min(fullExtent, bottom + 8));
-    // Scrollable task lists can contain more than four rows. Additional
-    // rows share the final stage instead of exceeding the [0, 1] clock.
-    const stagger = Math.min(index, 4);
-    const details = reveal(
-      expandedAmount,
-      0.44 + stagger * 0.07,
-      0.73 + stagger * 0.06,
-    );
-    return fits * details;
-  });
-
-  return {
-    progress,
-    easedProgress: q,
-    visibleHeight,
-    panelAmount,
-    expandedAmount,
-    sharedAnchorFraction,
-    panelChromeOpacity,
-    activeCardOpacity,
-    liveMetadataOpacity,
-    queueOpacity,
-    actionsOpacity,
-    subtaskRowOpacity,
-  };
-}
-
-/** Uses a monotonic elapsed clock; renderer timer must not be authoritative. */
-export function motionV4Progress(
-  elapsedMs: number,
-  reducedMotion = false,
-): number {
-  if (!Number.isFinite(elapsedMs) || elapsedMs < 0) {
-    throw new RangeError("Motion v4 elapsed time must be finite and nonnegative.");
+  for (let i = 1; i < frames.length; i++) {
+    assert.ok(frames[i].easedProgress >= frames[i - 1].easedProgress);
+    const direction = Math.sign(endHeight - startHeight);
+    assert.ok((frames[i].visibleHeight - frames[i - 1].visibleHeight) * direction >= -1e-8);
   }
-  return clamp(elapsedMs / motionV4Duration(reducedMotion));
 }
+for (const bad of [NaN, Infinity, -0.1, 1.1]) {
+  assert.throws(() => sampleMotionV4({ from: "panel", to: "timerCompact" }, bad), RangeError);
+}
+assert.equal(isMotionV4Route({ from: "panel", to: "timerExpanded" }), false);
+assert.throws(() => sampleMotionV4({ from: "panel", to: "timerExpanded" }, 0.5), RangeError);
+assert.throws(() => sampleMotionV4({ from: "panel", to: "panel" }, 0.5), RangeError);
+assert.throws(() => sampleMotionV4({ from: "timerCompact", to: "timerExpanded" }, 0.5, [Infinity]), RangeError);
+
+// No premature row pixels: row opacity remains zero until the entire row
+// is within the visible region, with a small bounded threshold cushion.
+const open = { from: "timerCompact", to: "timerExpanded" };
+const close = { from: "timerExpanded", to: "timerCompact" };
+const bottoms = [182, 218, 254, 290];
+for (let tick = 0; tick <= 100; tick++) {
+  const expansion = sampleMotionV4(open, tick / 100, bottoms);
+  const contraction = sampleMotionV4(close, 1 - tick / 100, bottoms);
+  assert.ok(Math.abs(expansion.visibleHeight - contraction.visibleHeight) <= 1e-8);
+  assert.ok(Math.abs(expansion.actionsOpacity - contraction.actionsOpacity) <= 1e-8);
+  bottoms.forEach((bottom, index) => {
+    if (expansion.visibleHeight <= bottom) {
+      assert.equal(expansion.subtaskRowOpacity[index], 0);
+    }
+    assert.ok(Math.abs(
+      expansion.subtaskRowOpacity[index] - contraction.subtaskRowOpacity[index],
+    ) <= 1e-8);
+  });
+}
+assert.equal(sampleMotionV4(open, 0, bottoms).actionsOpacity, 0);
+assert.equal(sampleMotionV4(open, 1, bottoms).actionsOpacity, 1);
+assert.deepEqual(sampleMotionV4(open, 1, bottoms).subtaskRowOpacity, [1, 1, 1, 1]);
+assert.deepEqual(sampleMotionV4(close, 1, bottoms).subtaskRowOpacity, [0, 0, 0, 0]);
+for (const [from, to] of routes) {
+  const frames = [0, 0.25, 0.5, 0.75, 1].map((progress) =>
+    sampleMotionV4({ from, to }, progress).sharedAnchorFraction,
+  );
+  assert.equal(frames[0], 0, `${from}→${to} shared anchor must start at source`);
+  assert.equal(frames.at(-1), 1, `${from}→${to} shared anchor must end at destination`);
+  for (let i = 1; i < frames.length; i++) {
+    assert.ok(frames[i] >= frames[i - 1], "shared semantic anchor cannot reverse direction");
+  }
+}
+assert.deepEqual(
+  sampleMotionV4(open, 1, [299, 300, 301]).subtaskRowOpacity,
+  [1, 1, 0],
+  "dynamic row endpoint must fully reveal only rows that fit in the real native height",
+);
+const justBeforeEnd = sampleMotionV4(open, 0.999, [300]);
+assert.equal(justBeforeEnd.subtaskRowOpacity[0], 0);
+assert.deepEqual(
+  sampleMotionV4(open, 1, Array.from({length: 12}, (_, i) => 100 + i * 16)).subtaskRowOpacity,
+  Array.from({length: 12}, () => 1),
+  "many physically fitting rows must not be permanently hidden by index-based staging",
+);
+
+// At one-third expansion actions are already visible, rows are not.
+assert.ok(sampleMotionV4(open, 0.40, bottoms).actionsOpacity >
+  sampleMotionV4(open, 0.40, bottoms).subtaskRowOpacity[0]);
+
+console.log("Motion v4 pure choreography/geometry/regression: PASS");
