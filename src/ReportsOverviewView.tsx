@@ -455,6 +455,21 @@ export function ReportsOverviewView({
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
   const rangeTriggerRef = useRef<HTMLButtonElement>(null);
+  const listTriggerRef = useRef<HTMLButtonElement>(null);
+  const firstListOptionRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (listFilterOpen) firstListOptionRef.current?.focus({ preventScroll: true });
+  }, [listFilterOpen]);
+
+  const closeListFilterOnEscape = (event: ReactKeyboardEvent<HTMLElement>) => {
+    if (event.key !== "Escape" || !listFilterOpen) return;
+    event.preventDefault();
+    event.stopPropagation();
+    onToggleListFilter?.();
+    listTriggerRef.current?.focus({ preventScroll: true });
+  };
+
   let listCursor = 0;
   const listSegments = timeByList.map((item) => {
     const start = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : 0;
@@ -525,6 +540,9 @@ export function ReportsOverviewView({
             aria-expanded={listFilterOpen}
             onClick={onToggleListFilter}
             data-report-list-filter="true"
+            ref={listTriggerRef}
+            aria-controls={listFilterOpen ? "reports-overview-list-menu" : undefined}
+            onKeyDown={closeListFilterOnEscape}
           >
             <ReportListBadges options={listOptions} selectedListIds={selectedListIds} />
             {listLabel}
@@ -537,6 +555,8 @@ export function ReportsOverviewView({
               aria-multiselectable="true"
               aria-label="Filter reports by list"
               data-report-list-menu="true"
+              id="reports-overview-list-menu"
+              onKeyDown={closeListFilterOnEscape}
             >
               {listOptions.map((option) => {
                 const selected = option.id === null
@@ -548,6 +568,7 @@ export function ReportsOverviewView({
                     role="option"
                     aria-selected={selected}
                     key={option.id ?? "all"}
+                    ref={option.id === null ? firstListOptionRef : undefined}
                     onClick={() => onToggleListSelection?.(option.id)}
                   >
                     <span className="reports-overview__list-check">{selected ? <ActionIcon name="check" /> : null}</span>
