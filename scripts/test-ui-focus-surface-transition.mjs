@@ -203,7 +203,7 @@ invariant(
     && layeredHold.includes("EndDeferWindowPos(batch)")
     && layeredHold.includes("GetWindow(popup, GW_OWNER)")
     && layeredHold.includes("fn owned_raster_and_focus_move_together_or_fail_without_mutating()")
-    && layeredHold.includes("pub(crate) fn sync_owner_position(window: &tauri::WebviewWindow) -> CommandResult<()>")
+    && !layeredHold.includes("pub(crate) fn sync_owner_position(")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
