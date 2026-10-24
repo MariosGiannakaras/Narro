@@ -1,0 +1,246 @@
+[
+  {
+    "id": "G01",
+    "milestone": "M5",
+    "requirement": "JPEG selection and rendering",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null
+  },
+  {
+    "id": "G02",
+    "milestone": "M5",
+    "requirement": "SVG selection and rendering",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null
+  },
+  {
+    "id": "G03",
+    "milestone": "M5",
+    "requirement": "Invalid image rejected without losing icon",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null
+  },
+  {
+    "id": "G04",
+    "milestone": "M5",
+    "requirement": "Oversize image rejected without losing icon",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null
+  },
+  {
+    "id": "G05",
+    "milestone": "M5",
+    "requirement": "Image replacement saved and persisted",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G06",
+    "milestone": "M5",
+    "requirement": "Changed recurrence save and restart persistence",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null,
+    "observation": "Reached Update Recurring through task menu after initial direct-field attempts did not open; changed pattern and actual success toast captured. No restart."
+  },
+  {
+    "id": "G07",
+    "milestone": "M5",
+    "requirement": "Archive/unarchive and restart persistence",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G08",
+    "milestone": "M6",
+    "requirement": "Notes save and restart persistence",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G09",
+    "milestone": "M6",
+    "requirement": "Subtask completion and restart persistence",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G10",
+    "milestone": "M6",
+    "requirement": "Panel keyboard focus/actions",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null
+  },
+  {
+    "id": "G11",
+    "milestone": "M6",
+    "requirement": "Panel resize native supported behavior",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G12",
+    "milestone": "M6",
+    "requirement": "Home paused return and reentry",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G13",
+    "milestone": "M8",
+    "requirement": "Task volume pending/failure focus and rollback",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null,
+    "observation": "Real BEGIN IMMEDIATE write lock: disabled slider while save pending, second arrow not admitted; explicit database-locked error and rollback70. Pending/focus needs review, not blanket PASS."
+  },
+  {
+    "id": "G14",
+    "milestone": "M8",
+    "requirement": "Notification volume pending/failure focus and rollback",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null,
+    "observation": "Same actual controlled failure, rollback95; pending slider disabled. First earlier attempt outside lock is superseded."
+  },
+  {
+    "id": "G15",
+    "milestone": "M8",
+    "requirement": "Success volume pending/failure focus and rollback",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null,
+    "observation": "Same actual controlled failure, rollback90; pending slider disabled."
+  },
+  {
+    "id": "G16",
+    "milestone": "M8",
+    "requirement": "Shortcuts modal Tab ShiftTab Escape focus",
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": null,
+    "observation": "Tab8 / ShiftTab2 / Escape performed; focused_element may not reliably identify DOM focus. Grade video."
+  },
+  {
+    "id": "G17",
+    "milestone": "M8",
+    "requirement": "Timezone changed and persisted across restart",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G18",
+    "milestone": "M8",
+    "requirement": "Single-monitor edge preference persisted across restart",
+    "state": "PARTIAL_RESTART_NOT_RUN",
+    "evidence": null
+  },
+  {
+    "id": "G19",
+    "milestone": "M9",
+    "requirement": "Sessions create actual record",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G20",
+    "milestone": "M9",
+    "requirement": "Sessions edit actual record",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G21",
+    "milestone": "M9",
+    "requirement": "CSV native export",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G22",
+    "milestone": "M9",
+    "requirement": "PDF native export",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G23",
+    "milestone": "M9",
+    "requirement": "Reports filter chart date interaction",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G24",
+    "milestone": "M7",
+    "requirement": "B populated expanded rows normal motion",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G25",
+    "milestone": "M7",
+    "requirement": "B populated expanded rows reduced motion",
+    "state": "PARTIAL_MEDIA_CONDITION_UNVERIFIED",
+    "evidence": null,
+    "observation": "Four populated reduced routes, completed subtask row; final settled Panel UIA captured. Source B native trace flag was not set in this supplemental launch; no QPC claim. Supplemental renderer media condition not queried, so no verified reduced-motion claim."
+  },
+  {
+    "id": "G26",
+    "milestone": "M1/M7",
+    "requirement": "Floating-only quiet CPU and memory",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G27",
+    "milestone": "M7",
+    "requirement": "Topmost maximized app and main minimize/restore",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G28",
+    "milestone": "M7",
+    "requirement": "A02 frame QPC bracket supplemental capture",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G29",
+    "milestone": "M6",
+    "requirement": "Break already-expired return to paused work",
+    "state": "OPEN",
+    "evidence": null
+  },
+  {
+    "id": "G30",
+    "milestone": "M5-M9",
+    "requirement": "Canonical source parity comparison of captured states",
+    "state": "ANALYSIS_ONLY",
+    "evidence": null
+  },
+  {
+    "id": "G31",
+    "milestone": "M7",
+    "requirement": "Timer drag and actual tray Quit",
+    "state": "USER_DEFERRED",
+    "evidence": null
+  },
+  {
+    "id": "G32",
+    "milestone": "M5",
+    "requirement": "Escape during held pointer drag",
+    "state": "USER_DEFERRED",
+    "evidence": null
+  },
+  {
+    "id": "G33",
+    "milestone": "M7/M8",
+    "requirement": "Real Windows DPI and second-monitor topology",
+    "state": "USER_DEFERRED",
+    "evidence": null
+  },
+  {
+    "id": "G34",
+    "milestone": "M10",
+    "requirement": "Final-release installer autostart and integrated gate",
+    "state": "DEPENDENCY_BLOCKED",
+    "evidence": null
+  }
+]

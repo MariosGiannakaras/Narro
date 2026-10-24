@@ -1,0 +1,70 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+							13 region
+								14 region
+								15 region
+									16 region
+										17 region
+											18 region
+												19 region
+												20 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													21 group ID: root
+														22 complementary List navigation
+															23 graphic Narro
+															24 navigation Lists
+																25 button + Create new list
+																26 button All my lists
+																27 button Archived lists
+														28 section header
+															29 group Utilities
+																30 button Search
+																31 button Settings
+														32 main ID: main-content
+															2203 region Archived items
+																2204 section header
+																	2205 text ARCHIVE
+																	2206 heading Archived items ID: archive-panel-title
+																2207 tab Archive sections
+																	2208 tab item (selectable) Archived lists ID: archive-lists-tab
+																	2209 tab item (selectable) Archived done tasks ID: archive-done-tab
+																2210 tab panel Archived lists ID: archive-lists-tabpanel
+																	2211 region Archived lists
+																		2212 text Your archived lists
+																		2225 text No archived lists found
+																		2226 text Looks like you do not have any archived lists at this moment.
+														116 navigation Primary
+															117 button Home
+															118 button Reports
+								119 region
+						120 region
+						121 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				808 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+ARCHIVE
+Archived items
+Archived lists
+Archived done tasks
+Your archived lists
+No archived lists found
+Looks like you do not have any archived lists at this moment.
+Home
+Reports
+```

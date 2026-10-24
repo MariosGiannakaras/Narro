@@ -1,0 +1,65 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+													15 group ID: root
+														16 main
+															401 main Floating Timer
+																402 text Ordinary backlog item
+																403 group Pomodoro paused: 03:29 remaining
+																	404 text 03:29
+																405 group Floating Timer actions
+																	406 button Start break
+																	407 button Notes
+																	408 button Resume
+																	409 button Skip task
+																	410 button Complete task
+																	411 button Return to Focus Panel
+																412 region Subtasks for Ordinary backlog item
+																	413 group Floating Timer subtask summary
+																		414 progress indicator 1 of 1 subtasks complete Value: 1
+																		415 text 1/1 Subtasks
+																		416 button Add subtask for Ordinary backlog item
+																		417 button Collapse Floating Timer
+																	418 list Subtasks for Ordinary backlog item
+																		419 list item Physical acceptance first subtaskPhysical acceptance first subt…
+																			420 button Reopen subtask: Physical acceptance first subtask
+																			421 button Edit subtask: Physical acceptance first subtask Description: Physical acceptance first subtask
+																			422 button (disabled) Move subtask up: Physical acceptance first subtask
+																			423 button (disabled) Move subtask down: Physical acceptance first subtask
+																			424 button Delete subtask: Physical acceptance first subtask
+								327 region
+						328 region
+						329 region
+
+Document text: ```
+Ordinary backlog item
+03:29
+Start break
+Notes
+Resume
+Skip task
+Complete task
+Return to Focus Panel
+1 of 1 subtasks complete
+1/1 Subtasks
++
+Collapse Floating Timer
+Reopen subtask: Physical acceptance first subtask
+Physical acceptance first subtaskPhysical acceptance first subt…
+Move subtask up: Physical acceptance first subtask
+Move subtask down: Physical acceptance first subtask
+Delete subtask: Physical acceptance first subtask
+```

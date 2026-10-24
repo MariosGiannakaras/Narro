@@ -1,0 +1,159 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane (disabled) Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+							13 region
+								14 region
+								15 region
+									16 region
+										17 region
+											18 region
+												19 region
+												20 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													21 group ID: root
+														22 complementary List navigation
+															23 graphic Narro
+															24 navigation Lists
+																25 button + Create new list
+																26 button All my lists
+																27 button Archived lists
+														28 section header
+															29 group Utilities
+																30 button Search
+																31 button Settings
+														32 main ID: main-content
+															33 region Good afternoon
+																34 section header
+																	35 text HOME
+																	36 heading Good afternoon ID: home-title
+																	37 text Plan the next work that deserves your attention.
+																38 region Your Lists
+																	39 heading Your Lists ID: home-lists-title
+																	40 text Lists with your upcoming tasks
+																	41 article
+																		42 section header
+																			43 heading All Lists
+																		44 group All Lists task preview
+																			45 text Capture drag task B
+																			46 text Capture drag task A
+																			47 text Scheduled future backlog
+																			48 text 10m
+																			49 text Ordinary backlog item
+																			50 text 10m
+																			51 button Open
+																		52 section footer
+																			53 text 11 pending tasks
+																			54 text Est:
+																			55 text 1h 20m
+																	56 article
+																		57 section header
+																			58 heading Capture Project
+																			59 button More actions for Capture Project
+																		60 group Capture Project task preview
+																			61 text Capture drag task B
+																			62 text Capture drag task A
+																			63 text Scheduled future backlog
+																			64 text 10m
+																			65 text Ordinary backlog item
+																			66 text 10m
+																			67 button Open
+																		68 section footer
+																			69 text 5 pending tasks
+																			70 text Est:
+																			71 text 20m
+																	72 article
+																		73 section header
+																			74 heading Reading & research
+																			75 button More actions for Reading & research
+																		76 group Reading & research task preview
+																			77 text Reading & research task 1
+																			78 text 5m
+																			79 text Reading & research task 2
+																			80 text 10m
+																			81 text Reading & research task 3
+																			82 text 15m
+																			83 button Open
+																		84 section footer
+																			85 text 3 pending tasks
+																			86 text Est:
+																			87 text 30m
+																	88 article
+																		89 section header
+																			90 heading Long project name for list badge and title wrapping
+																			91 button More actions for Long project name for list badge and title wrapping
+																		92 group Long project name for list badge and title wrapping task preview
+																			93 text Long project name for list badge and title wrapping task 1
+																			94 text 5m
+																			95 text Long project name for list badge and title wrapping task 2
+																			96 text 10m
+																			97 text Long project name for list badge and title wrapping task 3
+																			98 text 15m
+																			99 button Open
+																		100 section footer
+																			101 text 3 pending tasks
+																			102 text Est:
+																			103 text 30m
+																	104 article
+																		105 section header
+																			106 heading Uploaded image capture list
+																			107 button More actions for Uploaded image capture list
+																		108 group Uploaded image capture list task preview
+																			109 text No pending task previews
+																			110 button Open
+																		111 section footer
+																			112 text 0 pending tasks
+																			113 text Est:
+																			114 text —
+																	115 button CREATE LIST
+														116 navigation Primary
+															117 button Home
+															118 button Reports
+														127 dialog Edit list Secondary Actions: Raise
+															128 button Close list editor
+															129 header
+																130 text LISTS
+																131 heading Edit list
+																132 text Choose a local icon, color, and title. Changes are saved only after local persistence succeeds.
+															133 button Choose a list icon: No file chosen Value: No file chosen
+															134 button Upload a list icon
+															135 text Current local icon retained
+															136 text (jpg, png, svg · max 1 MiB)
+															137 group Pick a list color
+																138 text Pick a list color
+																139 button Pick a custom list color
+																140 radio group (settable, string) Preset list colors
+																	141 group Color #48d6c5
+																		142 radio button (selectable, settable, string) Color #48d6c5
+																	143 group Color #b7d96d
+																		144 radio button (selectable, settable, string) Color #b7d96d
+																	145 group Color #5da7e8
+																		146 radio button (selectable, settable, string) Color #5da7e8
+																	147 group Color #8a78dc
+																		148 radio button (selectable, settable, string) Color #8a78dc
+																	149 group Color #e0a34d
+																		150 radio button (selectable, settable, string) Color #e0a34d
+																	151 group Color #df716b
+																		152 radio button (selectable, settable, string) Color #df716b
+																153 button Choose a built-in list icon
+															154 text Title
+															155 edit (settable, string) Title Description: Enter your list title Value: Uploaded image capture list
+															156 footer
+																157 button Cancel
+																158 button Save changes
+								119 region
+						120 region
+						121 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				4 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+Uploaded image capture list
+```

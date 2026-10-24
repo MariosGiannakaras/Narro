@@ -1,0 +1,132 @@
+[
+  {
+    "segment": "B-populated-reduced",
+    "start": {
+      "utc": "2026-10-24T14:14:26.680574+00:00",
+      "pid": 82172
+    },
+    "stop": {
+      "utc": "2026-10-24T14:16:11.552211+00:00",
+      "exit": 0
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 2560,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        }
+      ],
+      "format": {
+        "duration": "104.700000",
+        "size": "17633607"
+      }
+    }
+  },
+  {
+    "segment": "image-and-persistence",
+    "start": {
+      "utc": "2026-10-24T13:57:17.127637+00:00",
+      "pid": 80752
+    },
+    "stop": {
+      "utc": "2026-10-24T14:02:12.544666+00:00",
+      "exit": 0
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 2560,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        }
+      ],
+      "format": {
+        "duration": "295.234000",
+        "size": "15070496"
+      }
+    }
+  },
+  {
+    "segment": "images",
+    "start": {
+      "utc": "2026-10-24T13:51:59.093033+00:00",
+      "pid": 79756
+    },
+    "stop": {
+      "utc": "2026-10-24T13:56:54.329198+00:00",
+      "exit": 0
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 2560,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        }
+      ],
+      "format": {
+        "duration": "295.050000",
+        "size": "15494543"
+      }
+    }
+  },
+  {
+    "segment": "preference-failures",
+    "start": {
+      "utc": "2026-10-24T14:08:35.901309+00:00",
+      "pid": 82556
+    },
+    "stop": {
+      "utc": "2026-10-24T14:13:31.462236+00:00",
+      "exit": 0
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 2560,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        }
+      ],
+      "format": {
+        "duration": "295.367000",
+        "size": "27909333"
+      }
+    }
+  },
+  {
+    "segment": "preferences",
+    "start": {
+      "utc": "2026-10-24T14:05:08.012631+00:00",
+      "pid": 68772
+    },
+    "stop": {
+      "utc": "2026-10-24T14:08:36.051312+00:00",
+      "exit": 0
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 2560,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        }
+      ],
+      "format": {
+        "duration": "207.850000",
+        "size": "6428674"
+      }
+    }
+  }
+]
