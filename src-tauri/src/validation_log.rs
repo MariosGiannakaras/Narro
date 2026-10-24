@@ -11,6 +11,7 @@ use tauri::Manager;
 
 const VALIDATION_EXE_STEM: &str = "narro-m7-validation";
 const LOG_ROOT_NAME: &str = "Narro-M7-Logs";
+const FIRST_FAULT_LOG_NAME: &str = "panic-first-fault.jsonl";
 const EVENT_SCHEMA_VERSION: u8 = 1;
 const QUALIFYING_MOVE_PX: i64 = 64;
 const RESTORE_TOLERANCE_PX: i64 = 2;
@@ -132,6 +133,52 @@ fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
     let bytes = serde_json::to_vec_pretty(value)
         .map_err(|error| format!("serialize {}: {error}", path.display()))?;
     fs::write(path, bytes).map_err(|error| format!("write {}: {error}", path.display()))
+}
+
+/// This path belongs to the dedicated synthetic validation executable only.
+/// Never record a panic payload: it could contain task titles or user content.
+/// The source location, OS thread label and Rust backtrace are sufficient to
+/// identify a panic before the subsequent TimerService mutex-poison symptom.
+fn panic_first_fault_record(
+    location: Option<(&str, u32, u32)>,
+    thread_name: Option<&str>,
+    backtrace: &str,
+) -> Value {
+    json!({
+        "schemaVersion": EVENT_SCHEMA_VERSION,
+        "event": "rust-panic-first-fault",
+        "timestampUtc": utc_now(),
+        "processId": std::process::id(),
+        "sourceSha": option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown"),
+        "threadName": thread_name,
+        "sourceLocation": location.map(|(file, line, column)| json!({
+            "file": file, "line": line, "column": column
+        })),
+        "backtrace": backtrace,
+        "privacy": "panic-payload-and-task-content-not-recorded"
+    })
+}
+
+/// Install before creating/recovering TimerService, after the unique validation
+/// session has its durable folder. Unlike the normal validation event logger,
+/// this writer does not acquire STATE's mutex: a panic during a held lock must
+/// not deadlock the first-fault recorder. The previous hook always runs, so
+/// Rust unwinding, poisoning and fail-closed error semantics remain unchanged.
+fn install_first_fault_panic_hook(session_dir: &Path) {
+    let path = session_dir.join(FIRST_FAULT_LOG_NAME);
+    let previous_hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |info| {
+        let thread = std::thread::current();
+        let location = info
+            .location()
+            .map(|loc| (loc.file(), loc.line(), loc.column()));
+        let trace = std::backtrace::Backtrace::force_capture().to_string();
+        let record = panic_first_fault_record(location, thread.name(), &trace);
+        if let Err(error) = append_json_line(&path, &record) {
+            eprintln!("M7 validation first-fault recording failed: {error}");
+        }
+        previous_hook(info);
+    }));
 }
 
 fn create_log_root(app: &tauri::App) -> Result<PathBuf, String> {
@@ -363,6 +410,7 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
     STATE
         .set(Mutex::new(state))
         .map_err(|_| "M7 validation logger was initialized concurrently".to_string())?;
+    install_first_fault_panic_hook(&session_dir);
 
     let metadata = json!({
         "schemaVersion": EVENT_SCHEMA_VERSION,
@@ -761,6 +809,49 @@ mod tests {
     fn validation_activation_requires_explicit_validation_executable_name_contract() {
         assert_eq!(VALIDATION_EXE_STEM, "narro-m7-validation");
         assert_eq!(LOG_ROOT_NAME, "Narro-M7-Logs");
+    }
+
+    #[test]
+    fn first_fault_log_is_append_only_and_never_contains_panic_payload() {
+        let folder = std::env::temp_dir().join(format!(
+            "narro-panic-diagnostic-{}",
+            uuid::Uuid::new_v4()
+        ));
+        fs::create_dir_all(&folder).unwrap();
+        let path = folder.join(FIRST_FAULT_LOG_NAME);
+        let record = panic_first_fault_record(
+            Some(("src-tauri/src/persistence/timer_controller.rs", 42, 9)),
+            Some("timer-worker"),
+            "0: narro_lib::persistence::timer_controller::start_task",
+        );
+        append_json_line(&path, &record).unwrap();
+        append_json_line(&path, &record).unwrap();
+        let text = fs::read_to_string(&path).unwrap();
+        let records: Vec<Value> = text
+            .lines()
+            .map(|line| serde_json::from_str(line).unwrap())
+            .collect();
+        assert_eq!(records.len(), 2, "keep the original first fault and any later faults");
+        assert_eq!(records[0]["event"], "rust-panic-first-fault");
+        assert_eq!(records[0]["threadName"], "timer-worker");
+        assert_eq!(records[0]["sourceLocation"]["line"], 42);
+        assert!(records[0]["backtrace"]
+            .as_str()
+            .unwrap()
+            .contains("timer_controller::start_task"));
+        assert!(records[0].get("panicPayload").is_none());
+        assert!(records[0].get("message").is_none());
+        assert!(!text.contains("task title"));
+        assert!(!text.contains("user note"));
+        fs::remove_dir_all(folder).unwrap();
+    }
+
+    #[test]
+    fn first_fault_record_accepts_no_source_location_or_thread_name() {
+        let record = panic_first_fault_record(None, None, "unresolved backtrace");
+        assert!(record["sourceLocation"].is_null());
+        assert!(record["threadName"].is_null());
+        assert_eq!(record["event"], "rust-panic-first-fault");
     }
 
     #[test]
