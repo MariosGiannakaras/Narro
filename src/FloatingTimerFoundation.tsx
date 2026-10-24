@@ -269,6 +269,12 @@ export function FloatingTimerFoundation({
     // Capture source anchors before the renderer is switched or protected.
     // A missing/mismatched task automatically retains the old native path.
     const sourceAnchors = onRequestExpanded ? measureMotionV4Timer(document) : null;
+    // The parent marks the Timer section inert while native pixels own it.
+    // Remember only the resize trigger, not arbitrary focused controls:
+    // re-establish keyboard continuity if inert moved focus to <body>.
+    const restoreResizeTriggerFocus =
+      document.activeElement instanceof HTMLButtonElement
+      && document.activeElement.dataset.floatingSubtaskControl === "expand";
     resizeRequestInFlightRef.current = true;
     onResizePendingChange?.(true);
     setResizePending(true);
@@ -349,6 +355,23 @@ export function FloatingTimerFoundation({
       onResizePendingChange?.(false);
       setResizePhase("idle");
       setResizePending(false);
+      if (restoreResizeTriggerFocus) {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            // Never steal focus back if the user deliberately moved elsewhere
+            // during the native transition or the Timer left the screen.
+            if (!document.hasFocus()
+              || (document.activeElement !== document.body
+                && document.activeElement !== document.documentElement)) return;
+            const trigger = document.querySelector<HTMLButtonElement>(
+              '.floating-timer-foundation [data-floating-subtask-control="expand"]',
+            );
+            if (trigger && !trigger.disabled && !trigger.closest("[inert]")) {
+              trigger.focus({ preventScroll: true });
+            }
+          });
+        });
+      }
     }
   };
 
