@@ -330,6 +330,9 @@ pub(crate) fn compose_panel(
     validate_source_image(incoming)?;
     validate_source_image(from_plate)?;
     validate_source_image(to_plate)?;
+    if from_plate.size != outgoing.size || to_plate.size != incoming.size {
+        return Err(invalid("Panel Motion v4 cleanplates have stale native DPI or region geometry"));
+    }
     let from_height = f64::from(outgoing.size.height) * TIMER_WIDTH
         / f64::from(outgoing.size.width);
     let to_height = f64::from(incoming.size.height) * TIMER_WIDTH
@@ -412,6 +415,10 @@ mod tests {
                 to: rect(220.0, 10.0, 100.0, 20.0) },
         };
         l.validate_for_native(700.0,110.0).unwrap();
+        assert!(compose_panel(&panel,&compact,&image(300,33),&compact_plate,
+            panel.size,0.5,&l).is_err(),"mismatched captured source DPI must fail");
+        assert!(compose_panel(&panel,&compact,&panel_plate,&image(300,44),
+            panel.size,0.5,&l).is_err(),"mismatched captured target region must fail");
         assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
             panel.size,0.0,&l).unwrap(),panel.bgra);
         assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
