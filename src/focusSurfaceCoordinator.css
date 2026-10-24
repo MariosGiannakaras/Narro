@@ -101,6 +101,29 @@
   transition: none !important;
 }
 
+/* During a native-protected Panel↔Timer transition only the shared
+   title/clock pixels are hidden from the *background* CapturePreview.
+   This never hides the protected owned raster displayed to the user. */
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .focus-panel__live-title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .focus-panel__live-timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .floating-timer-foundation__timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .focus-panel__live-title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .focus-panel__live-timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .floating-timer-foundation__timer {
+  visibility: hidden !important;
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .focus-surface-coordinator {
     --focus-geometry-motion-duration: 1ms;
