@@ -22,6 +22,13 @@ export type MotionV4MeasuredTimer = Readonly<{
   expanded: boolean;
 }>;
 
+/** Refuse semantic title/time pixels from a different live task during IPC capture. */
+export function assertMotionV4TaskIdentity(expected: string | null, actual: string | null): void {
+  if (actual !== expected) {
+    throw new Error("The live Focus task changed during Timer resize; retry the transition.");
+  }
+}
+
 const valid = (r: MotionV4Rect): boolean =>
   [r.x, r.y, r.width, r.height].every(Number.isFinite)
   && r.x >= 0 && r.y >= 0 && r.width > 0 && r.height > 0
