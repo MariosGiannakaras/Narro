@@ -1,5 +1,9 @@
 # ACTIVE HANDOFF — supplemental Windows gaps frozen; continuation ready
 
+**ACTIVE Codex PREPARED:** supplemental same-EXE restart from retained synthetic fixture, root E:/SystemFiles/Desktop/Narro-Workspace/Narro-Physical-20261024-Gap-Restart. Personal profiles protected; new owned ledger active. Next launch exact same B and observe seven pending persistence claims; no source edits or CI. Check ledger/recorders before any restart.
+
+**Previous frozen checkpoint:**
+
 **Codex gap acquisition FROZEN 2026-10-24T19:17:54.063481+00:00**: [34-group gap matrix and original evidence](work-log/evidence/physical-gaps-20261024/README.md).29 executable groups: **9 fully exercised acquisition /8 PARTIAL /12 OPEN**; G30 analysis-only,G31–33 user-deferred,G34 M10 dependency-blocked. Corrects provisional10/29: populated B routes executed, but supplemental media condition unverified, so G25 partial. PNG/JPEG/SVG/invalid/oversize scoped evidence retained; three genuine native DB-write failures captured, rollback baselines restored, pending sliders disabled: interaction discrepancy needs review, not blanket C44 PASS. Shared restart of G05/06/07/08/09/17/18 not done.5 new original videos+screenshots/UIA+whole logs. Personal profiles restored hash-identical; all owned app/recorders stopped. No source edits/CI/merge or new milestone acceptance. **NEXT: new isolated session seeded from retained synthetic fixture; one same-EXE relaunch to finish seven persistence subclaims, then remaining native/Reports cases. Never replay consumed ledger or redo completed old analyses.**
 
 Exact B43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9 / EXE8436d89b9d868fbdd7f5e5c76b13412a1360182645810e64b835b9a3ba8f9cd8. Existing CI40084666277 success3/3; native A389/B419 strict physical holds remain, mandatory4/10 accepted. No branch source work is active. Existing first10 originals remain at physical-ab-20261024 and physical-upload-20261024; new5 are physical-gaps-20261024.
