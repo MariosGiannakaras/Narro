@@ -14,8 +14,8 @@ pub mod focus_frame_capture;
 pub mod focus_frame_hold;
 mod focus_layered_raster;
 mod focus_mode_raster;
-mod focus_transition_trace;
 pub mod focus_preferences;
+mod focus_transition_trace;
 pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
@@ -1677,7 +1677,14 @@ fn animate_focus_surface_presentation_internal(
             y: axis(start.y, target_position.y)?,
         };
         let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
-        trace.frame("native.before-raster", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.frame(
+            "native.before-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         render_mode_raster_frame(&window, lease, &incoming, progress)?;
         // Mirror focus_mode_raster::compose's source choice for diagnosis.
         // This logs the selected raster hierarchy, not compositor scanout.
@@ -1688,13 +1695,30 @@ fn animate_focus_surface_presentation_internal(
         } else {
             "outgoing"
         };
-        trace.note("native.raster-source", serde_json::json!({
-            "step": step,
-            "source": source
-        }));
-        trace.frame("native.after-raster", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.note(
+            "native.raster-source",
+            serde_json::json!({
+                "step": step,
+                "source": source
+            }),
+        );
+        trace.frame(
+            "native.after-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         set_focus_position(&window, desired, "move protected Focus host")?;
-        trace.frame("native.after-move", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.frame(
+            "native.after-move",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         if progress >= 1.0 {
             break;
         }
@@ -1718,7 +1742,10 @@ fn animate_focus_surface_presentation_internal(
     render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
-    trace.note("native.committed", serde_json::json!({ "target": target.event_name() }));
+    trace.note(
+        "native.committed",
+        serde_json::json!({ "target": target.event_name() }),
+    );
     announce_focus_surface_presentation(app_handle, target);
     Ok(())
 }
@@ -1952,10 +1979,16 @@ fn focus_transition_trace_mark(
     raster_token: Option<u32>,
 ) -> CommandResult<()> {
     if window.label() != FOCUS_SURFACE_LABEL {
-        return Err(CommandError::invalid_argument("stage", "Focus renderer required"));
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "Focus renderer required",
+        ));
     }
     if !focus_transition_trace::renderer_mark(&stage, raster_token.unwrap_or_default()) {
-        return Err(CommandError::invalid_argument("stage", "unrecognized trace phase"));
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "unrecognized trace phase",
+        ));
     }
     Ok(())
 }

@@ -23,7 +23,9 @@ pub(crate) fn set_physical_position(window: &WebviewWindow, x: i32, y: i32) -> R
             // EndDeferWindowPos can report failure after sending position
             // notifications. Always refresh WebView2 before native rollback.
             let _ = notify_parent_position_changed(window);
-            return Err(format!("atomically move Focus owner and owned raster: {error}"));
+            return Err(format!(
+                "atomically move Focus owner and owned raster: {error}"
+            ));
         }
     }
     notify_parent_position_changed(window)

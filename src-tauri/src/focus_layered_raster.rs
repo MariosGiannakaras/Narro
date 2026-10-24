@@ -467,7 +467,9 @@ mod native {
             || unsafe { IsWindow(popup) } == 0
             || unsafe { GetWindow(popup, GW_OWNER) } != owner
         {
-            return Err(invalid("protected Focus move has no matching owner and popup"));
+            return Err(invalid(
+                "protected Focus move has no matching owner and popup",
+            ));
         }
         const FLAGS: u32 = 0x0001 | 0x0004 | 0x0010 | 0x0200;
         // SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER.
@@ -500,7 +502,9 @@ mod native {
             || popup_rect.left != x
             || popup_rect.top != y
         {
-            return Err(invalid("Focus and owned raster did not settle at the same origin"));
+            return Err(invalid(
+                "Focus and owned raster did not settle at the same origin",
+            ));
         }
         Ok(())
     }
@@ -738,16 +742,33 @@ mod native {
                 let class = wide("STATIC");
                 let instance = GetModuleHandleW(ptr::null());
                 let owner = CreateWindowExW(
-                    0, class.as_ptr(), ptr::null(), WS_POPUP,
-                    80, 90, 180, 180, ptr::null_mut(), ptr::null_mut(),
-                    instance, ptr::null_mut(),
+                    0,
+                    class.as_ptr(),
+                    ptr::null(),
+                    WS_POPUP,
+                    80,
+                    90,
+                    180,
+                    180,
+                    ptr::null_mut(),
+                    ptr::null_mut(),
+                    instance,
+                    ptr::null_mut(),
                 );
                 assert!(!owner.is_null(), "create test Focus HWND");
                 let popup = CreateWindowExW(
                     WS_EX_LAYERED | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW,
-                    class.as_ptr(), ptr::null(), WS_POPUP,
-                    80, 90, 110, 110, owner, ptr::null_mut(),
-                    instance, ptr::null_mut(),
+                    class.as_ptr(),
+                    ptr::null(),
+                    WS_POPUP,
+                    80,
+                    90,
+                    110,
+                    110,
+                    owner,
+                    ptr::null_mut(),
+                    instance,
+                    ptr::null_mut(),
                 );
                 assert!(!popup.is_null(), "create test owned layered popup");
                 assert_eq!(GetWindow(popup, GW_OWNER), owner);
@@ -760,8 +781,10 @@ mod native {
                 assert_eq!((b.left, b.top), (430, 525));
                 assert_eq!(a.right - a.left, 180);
                 assert_eq!(b.right - b.left, 110);
-                assert!(move_owned_pair(popup, owner, 600, 600).is_err(),
-                    "a reversed/unowned pair must not be admitted");
+                assert!(
+                    move_owned_pair(popup, owner, 600, 600).is_err(),
+                    "a reversed/unowned pair must not be admitted"
+                );
                 assert_ne!(GetWindowRect(owner, &mut a), 0);
                 assert_ne!(GetWindowRect(popup, &mut b), 0);
                 assert_eq!((a.left, a.top, b.left, b.top), (430, 525, 430, 525));
@@ -826,4 +849,6 @@ mod native {
     }
 }
 
-pub(crate) use native::{begin_mode_transition, clear, move_owner_and_popup, sync_owner_position, Hold};
+pub(crate) use native::{
+    begin_mode_transition, clear, move_owner_and_popup, sync_owner_position, Hold,
+};
