@@ -87,7 +87,7 @@ invariant(
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? ("),
   "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
@@ -100,17 +100,18 @@ invariant(
 );
 
 invariant(
-  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
+  coordinator.includes("motionV4Duration(")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
+    && lib.includes("fn focus_motion_v4_easing(")
+    && lib.includes("focus_motion_v4_raster::compose(")
     && coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
     && presentationTransition.includes("await Promise.allSettled([")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
-    && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
-    && lib.includes("fluent_point_to_point_easing")
+    && lib.includes("focus_motion_v4_easing")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)")
     && coordinator.includes("afterRendererCommit: async () =>")
     && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
