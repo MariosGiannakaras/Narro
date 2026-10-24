@@ -40,7 +40,7 @@ for candidate in ("A", "B"):
         label = f"{candidate}{i + 1:02}-{('reduced' if i < 4 else 'normal')}"
         with tempfile.TemporaryDirectory() as directory:
             jpg = pathlib.Path(directory) / "sheet.jpg"
-            filt = "crop=340:700:2220:0,fps=60,scale=170:350:flags=neighbor,tile=8x5:padding=2:margin=1:color=black"
+            filt = "crop=340:350:2220:0,fps=60,tile=8x5:padding=2:margin=1:color=black"
             cmd = ["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error", "-ss", f"{start:.3f}",
                    "-i", str(file_path), "-t", "0.70", "-vf", filt,
                    "-frames:v", "1", "-q:v", "6", "-y", str(jpg)]
