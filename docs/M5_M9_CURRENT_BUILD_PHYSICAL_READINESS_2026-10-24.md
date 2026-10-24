@@ -1,5 +1,7 @@
 # Narro M5–M9 candidate readiness and remaining exact physical acceptance — 2026-10-24
 
+**NEW 2026-10-24 USER-ACTIVATED PRE-PHYSICAL COMPLETE, 9/9 PA-FAMILY SOURCE/EVIDENCE DISPOSITIONS:** [Immutable full PA-01–PA-09 assessment and A01–A14/B1–B10 mapping](../work-log/2026-10-24-chatgpt-pa01-pa09-optin-prephysical-audit.md). This is an inspection/completeness outcome, **NOT** physical PASS, Blitzit source-parity PASS, M10 entry, or permission for PA Windows execution. Prior source/CI receipts and PR389/419 PHYSICAL_BEFORE_MERGE holds remain exactly as below; earlier wording that the dedicated audit had not started is historical to this newly recorded assessment.
+
 **Source/CI owner:** ChatGPT; **purpose:** operator handoff and existing evidence reconciliation, **NOT** the user-reserved comprehensive pre-physical audit, NOT a new native physical run, and NOT approval to start M10. Current core source remains on `main` as of `983b0e3f4448c68b807b864e5f04e6c6f3332ad1` (the doc-only continuation may advance HEAD). Existing original-video evidence is source-scoped to the OLD `cdaf85b3` executable, not either candidate.
 
 ## What can actually be called completed now
