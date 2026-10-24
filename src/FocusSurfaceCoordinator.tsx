@@ -384,6 +384,16 @@ export function FocusSurfaceCoordinator() {
     }
 
     const previous = presentationRef.current;
+    // A native lease binds one immutable semantic task. Timer projections
+    // may change from another window or an automatic boundary while the
+    // renderer is prepainting/capturing its next bitmap.
+    const sourceTaskId = sourceAnchors?.taskId
+      ?? timerProjectionRef.current?.runtime.timer.task_id ?? null;
+    const assertSameRasterTask = () => {
+      if ((timerProjectionRef.current?.runtime.timer.task_id ?? null) !== sourceTaskId) {
+        throw new Error("The live Focus task changed during Timer resize; retry the transition.");
+      }
+    };
     const target = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
     if (previous === "panel") throw new Error("Timer resize requires a committed Timer presentation.");
@@ -418,6 +428,7 @@ export function FocusSurfaceCoordinator() {
         },
         waitForPaint: waitForTimerTargetPaint,
         animate: async (next, token) => {
+          assertSameRasterTask();
           // The native hold already covers the outgoing pixels. Capture a
           // clean target plate behind it, then restore fully painted JSX
           // before the native animation's incoming WebView screenshot.
@@ -437,6 +448,9 @@ export function FocusSurfaceCoordinator() {
               await waitForPresentedFrameOrThrow();
             }
           }
+          // A late authoritative task switch must roll back rather than
+          // animate the old title/source screenshot over a new live task.
+          assertSameRasterTask();
           markFocusTransitionTrace("renderer.native-request", token);
           await animateFocusSurfacePresentation(next, duration, token);
           markFocusTransitionTrace("renderer.native-finished", token);
