@@ -1,0 +1,155 @@
+{
+  "files": [
+    {
+      "path": "A13-same-exe-relaunch/ffmpeg-stderr.txt",
+      "gitBlobSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localRawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "A13-same-exe-relaunch/native-original.mkv",
+      "gitBlobSha256": "d95fcd43e3dbcc00ce1ba416d1b891185fdc0c06072f5a3927e949809e097650",
+      "localRawSha256": "d95fcd43e3dbcc00ce1ba416d1b891185fdc0c06072f5a3927e949809e097650",
+      "bytes": 13388582
+    },
+    {
+      "path": "A13-same-exe-relaunch/video-metadata.json",
+      "gitBlobSha256": "899d75aeb3c21d4c4cb5ae279a018ddf3e41351e876a6544bf59ce22874b7a9f",
+      "localRawSha256": "0226d4e1283ee667d5a9d82c1eef702bf4fef472374072dfc9bad62038bc3056",
+      "bytes": 288
+    },
+    {
+      "path": "A13A14-drag-topmost/ffmpeg-stderr.txt",
+      "gitBlobSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localRawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "A13A14-drag-topmost/native-original.mkv",
+      "gitBlobSha256": "81b4cb87088d85f1cae831b45b843c48e729cf39622c71696621cf99ebed3cff",
+      "localRawSha256": "81b4cb87088d85f1cae831b45b843c48e729cf39622c71696621cf99ebed3cff",
+      "bytes": 18590372
+    },
+    {
+      "path": "A13A14-drag-topmost/video-metadata.json",
+      "gitBlobSha256": "ebce29d8fdaa134b0df862e4ba5d163cecfac7e9e5943416ce677e68edb6bc91",
+      "localRawSha256": "4054216a593fdfa107de2511eea7de4d97cbf69dd6c82171c51475f57d93a6ce",
+      "bytes": 288
+    },
+    {
+      "path": "B3-keyboard-reorder-cancel/ffmpeg-stderr.txt",
+      "gitBlobSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localRawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B3-keyboard-reorder-cancel/native-original.mkv",
+      "gitBlobSha256": "4ac32c4d95645dba6a016d8b124ccac41af56230fe510cc60d7af4c8a3ec0789",
+      "localRawSha256": "4ac32c4d95645dba6a016d8b124ccac41af56230fe510cc60d7af4c8a3ec0789",
+      "bytes": 8675220
+    },
+    {
+      "path": "B3-keyboard-reorder-cancel/video-metadata.json",
+      "gitBlobSha256": "35438e830531f21833533727870de13f60857d7e3949d685c6c1d369df1c2b10",
+      "localRawSha256": "e557341756abb02f6d43894ae89f1a36fa4c73ff314e6a3283991708a4a9790f",
+      "bytes": 288
+    },
+    {
+      "path": "B4B5-skip-switch-expiry/ffmpeg-stderr.txt",
+      "gitBlobSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localRawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B4B5-skip-switch-expiry/native-original.mkv",
+      "gitBlobSha256": "9dda53e2de7473a7eb79d78d0167823ee9fa8b51bdb7922d24023275ef674036",
+      "localRawSha256": "9dda53e2de7473a7eb79d78d0167823ee9fa8b51bdb7922d24023275ef674036",
+      "bytes": 18439426
+    },
+    {
+      "path": "B4B5-skip-switch-expiry/video-metadata.json",
+      "gitBlobSha256": "6ed72844443dde2c4d417d0d8bca531ac5bb9e68529d3161492a25d9f09e4aeb",
+      "localRawSha256": "029cf417293e39a3d43de65ff1d604175194f75b92e1c2227162edbaed600e2b",
+      "bytes": 288
+    },
+    {
+      "path": "B5-real-boundaries/ffmpeg-stderr.txt",
+      "gitBlobSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localRawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "B5-real-boundaries/native-original.mkv",
+      "gitBlobSha256": "a97b07258cdf0c6c5f12aa2ddbd447446d8304960578cf914b4abac32e103d8e",
+      "localRawSha256": "a97b07258cdf0c6c5f12aa2ddbd447446d8304960578cf914b4abac32e103d8e",
+      "bytes": 75048933
+    },
+    {
+      "path": "B5-real-boundaries/video-metadata.json",
+      "gitBlobSha256": "5eb846a734e87dc8299a1816938b81dc81a79405ee2296e718ee91a6920669b1",
+      "localRawSha256": "521ffe80d581cbf2dacd6a8679d6aff9d40e1c3e4a1d8b7a7b746ed9dc1cfba2",
+      "bytes": 289
+    },
+    {
+      "path": "CAPTURE_PLAN.md",
+      "gitBlobSha256": "49c9235593287bcebdb6b1b2cc952a89da41030637b939f442700f67f47bda5c",
+      "localRawSha256": "01f159706ea0b32cd068de8a7b9599f06704728f529687a01c32b8e5fb408af4",
+      "bytes": 329
+    },
+    {
+      "path": "README.md",
+      "gitBlobSha256": "011862f4702795b3a667c69149b8a9247b7ad80169fe0191f15d1b13d4d29d56",
+      "localRawSha256": "2ec6081d270972be3c2488176399335f7b7d9864ec0e88fed3279f0d11dc80aa",
+      "bytes": 3225
+    },
+    {
+      "path": "actions.jsonl",
+      "gitBlobSha256": "d5d90c3e05be9003e4f8e773cb646553f401a6df0ff8274f59770d820ad6a2e3",
+      "localRawSha256": "1422cba23fa868197a7b38f10b513f04174593aa8473f19e3a60ea972ae3f233",
+      "bytes": 1767
+    },
+    {
+      "path": "fixture.json",
+      "gitBlobSha256": "9f6a8ce84ba4f9230b99d546b2878edd53cfb985a82a1ed7fccc44ca10d97dda",
+      "localRawSha256": "9f6a8ce84ba4f9230b99d546b2878edd53cfb985a82a1ed7fccc44ca10d97dda",
+      "bytes": 183
+    },
+    {
+      "path": "native-actions.jsonl",
+      "gitBlobSha256": "886788366d28cc54773bfaf934559f6afa496af317fe75c2a8c887c77c9c23c0",
+      "localRawSha256": "886788366d28cc54773bfaf934559f6afa496af317fe75c2a8c887c77c9c23c0",
+      "bytes": 1282709
+    },
+    {
+      "path": "native-window-probes.jsonl",
+      "gitBlobSha256": "64f9fe6890252c56dbd00a1b3f8ef774f331b93ed774dfa63f645de06eb44580",
+      "localRawSha256": "cd41fd748ccec3b17b55f4f4ee1288838247098e15a1b214d2aec85aa7bb7d91",
+      "bytes": 1724
+    },
+    {
+      "path": "original-byte-journals-and-method.zip",
+      "gitBlobSha256": "ba8ad2469b78882304fa8931acac0ab488d85738a7f4670c71a0c140e4b35069",
+      "localRawSha256": "ba8ad2469b78882304fa8931acac0ab488d85738a7f4670c71a0c140e4b35069",
+      "bytes": 98949
+    },
+    {
+      "path": "quit-coverage-tail-680.png",
+      "gitBlobSha256": "105f2b12bc196e8d4491815925222f13070f81171d43348e9e4148ae7bf3f273",
+      "localRawSha256": "105f2b12bc196e8d4491815925222f13070f81171d43348e9e4148ae7bf3f273",
+      "bytes": 772639
+    },
+    {
+      "path": "quit-coverage-tail-701.png",
+      "gitBlobSha256": "fb717d30a5f8b9a22ae6753b9ff9e101a0981cdfa5f5e40e1897651616f3d7af",
+      "localRawSha256": "fb717d30a5f8b9a22ae6753b9ff9e101a0981cdfa5f5e40e1897651616f3d7af",
+      "bytes": 772673
+    },
+    {
+      "path": "session-meta.json",
+      "gitBlobSha256": "a5f6ba3e124b16ea5aff8857acd42b65efd90d719b679a464d4e3c5cd569f89c",
+      "localRawSha256": "ca451246b49cd5bffff3d2d3d249b3ff78275b47d45fef9a47c25683db8f9a42",
+      "bytes": 706
+    }
+  ],
+  "selfExcluded": true
+}
