@@ -94,6 +94,8 @@ assert.ok(coordinator.includes("const assertSameRasterTask = () => assertMotionV
 assert.ok(coordinator.includes('animate: async (next, token) => {\n          assertSameRasterTask();'));
 assert.ok(coordinator.indexOf('assertSameRasterTask();\n          markFocusTransitionTrace("renderer.native-request", token);')
   > coordinator.indexOf('delete host.dataset.focusV4Plate'));
+assert.ok(coordinator.includes('await animateFocusSurfacePresentation(next, duration, token);\n          assertSameRasterTask();'),
+  'post-animation task change must roll back before publication');
 assert.ok(coordinator.indexOf('host.dataset.focusV4Plate = "true"') <
   coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)"));
 assert.ok(coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)") <
