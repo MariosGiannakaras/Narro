@@ -1457,6 +1457,125 @@ mod tests {
         fs::remove_file(path).unwrap();
     }
 
+    #[test]
+    fn recovered_timer_checkpoint_rebases_cursor_without_replaying_delivered_alert() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .expect("start authoritative work");
+        controller
+            .pause(91_000, "2026-09-05T12:01:31Z")
+            .expect("checkpoint an authoritative 91-second pause");
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+
+        let observed = |seconds, reset_run| TimedAlertObservation {
+            task_id,
+            seed_run_id: session_id,
+            work_elapsed_seconds: seconds,
+            enabled: true,
+            interval_seconds: 60,
+            reset_run,
+        };
+        observe_timed_alert_run(&mut effects, observed(0, true), T0).unwrap();
+        observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap();
+        let first = claim_pending_timed_alerts(&mut effects, T0).unwrap();
+        assert_eq!(first.len(), 1);
+        assert_eq!(first[0].boundary_seconds, 60);
+
+        drop(effects);
+        drop(controller);
+        let conn = Connection::open(&path).unwrap();
+        let service = TimerService::recover_at(conn, "2026-09-05T12:02:00Z")
+            .expect("recover timer without losing the durable notification watermark");
+        assert_eq!(
+            service.snapshot().unwrap().runtime.timer.work_elapsed_ms,
+            91_000
+        );
+        let mut independent = Connection::open(&path).unwrap();
+        configure_connection(&independent).unwrap();
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(91, false), T0).unwrap(),
+            0,
+            "the recovered cursor must no longer repeatedly reject the checkpoint"
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(119, false), T0).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(120, false), T0).unwrap(),
+            1
+        );
+        let second = claim_pending_timed_alerts(&mut independent, T0).unwrap();
+        assert_eq!(second.len(), 1);
+        assert_eq!(second[0].boundary_seconds, 120);
+        drop(independent);
+        drop(service);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn explicit_time_taken_edit_reconciles_alert_cursor_without_duplicate_threshold() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        initialize_preferences(&mut effects, T0).unwrap();
+        mutate_preferences(&mut effects, "2026-09-05T12:00:01Z", |preferences| {
+            preferences.alerts.timed_alerts_enabled = true;
+            preferences.alerts.task_alert_interval_seconds = 60;
+        })
+        .unwrap();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        controller
+            .pause(95_000, "2026-09-05T12:01:35Z")
+            .unwrap();
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+        let observed = |seconds, reset_run| TimedAlertObservation {
+            task_id,
+            seed_run_id: session_id,
+            work_elapsed_seconds: seconds,
+            enabled: true,
+            interval_seconds: 60,
+            reset_run,
+        };
+        observe_timed_alert_run(&mut effects, observed(0, true), T0).unwrap();
+        observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap();
+        assert_eq!(claim_pending_timed_alerts(&mut effects, T0).unwrap().len(), 1);
+
+        let rebased = controller
+            .set_time_taken_while_paused(
+                task_id,
+                95,
+                SetTaskTimeTakenInput { total_seconds: 91 },
+                95_000,
+                "2026-09-05T12:01:35Z",
+            )
+            .expect("commit a lower authoritative Time Taken value");
+        assert!(matches!(
+            rebased.change,
+            Some(TimerSessionChange::TimeTakenRebased { .. })
+        ));
+        reconcile_timed_alert_transition_best_effort(
+            &mut effects,
+            &rebased,
+            "2026-09-05T12:01:35Z",
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut effects, observed(91, false), T0).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut effects, observed(120, false), T0).unwrap(),
+            1
+        );
+        let next = claim_pending_timed_alerts(&mut effects, T0).unwrap();
+        assert_eq!(next.len(), 1);
+        assert_eq!(next[0].boundary_seconds, 120);
+        drop(effects);
+        drop(controller);
+        fs::remove_file(path).unwrap();
+    }
+
     fn fixture() -> (TimerController, Connection, TaskId, PathBuf) {
         let path =
             std::env::temp_dir().join(format!("narro-pomodoro-boundary-{}.db", Uuid::new_v4()));
