@@ -1,5 +1,7 @@
 # Narro — parallel nonphysical implementation plan (2026-10-22)
 
+> **HISTORICAL execution-board snapshot (2026-10-22), not an active queue.** Some rows below describe older PR389 heads `ffaa512e`, CI and previous “Next action” and remain intentionally frozen for provenance; they are **not current instructions**. Use [HANDOFF](../HANDOFF.md), [STATUS](../STATUS.md) and [TODO](../TODO.md) instead. Latest corrected PR389 head `15c0649f9c4b9865bec7f74c82cc8cd7373decaa` / CI `39848609179` **3/3 PASS**, corrected native physical **0/8 NOT RUN**, still draft/unmerged. The dated board's accepted prior UI batches remain historical evidence, not open implementation tickets.
+
 **Owner:** ChatGPT sole coding and static visual comparison agent. User explicitly resumed PA-01–09 on 2026-10-22; Codex reserved ONLY for later actual native physical/video/motion execution when code candidate is ready. No PA case is marked PASS without individual evidence. **Latest user instruction:** execute as many independent tasks as possible concurrently; communicate each task's real phase in a table. Code changes do **not** imply source parity, automated CI PASS, physical Windows PASS or milestone acceptance.
 
 ## Stage definitions

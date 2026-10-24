@@ -42,15 +42,15 @@ Canonical continuation files:
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-## Current phase — validated 2026-10-12
+## Current phase — evidence-scoped 2026-10-23
 
-The **41 reviewed source-uncertainty IDs** are all covered by Narro-local functional behavior (**41/41**); the **nine specifically evidenced local code/UI gaps** are automated-Windows-validated and merged (**9/9**). This is neither a claim of **full current Blitzit source parity** nor final physical Windows acceptance. See the [fixed-scope coverage ledger](docs/U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md) and [current HANDOFF](HANDOFF.md).
+- **Roadmap:** mandatory M1–M4 accepted, M5–M10 awaiting their individual acceptance criteria. Closed historical source investigations are preserved as evidence, not active tasks or recurring report counters.
+- **Current source candidate:** [PR #389](https://github.com/MariosGiannakaras/Narro/pull/389) **OPEN/DRAFT**, HEAD `f709214bbbcd07e199865d2c1bf2842d6fa9d1cf`. [Windows CI 39861577759](https://github.com/MariosGiannakaras/Narro/actions/runs/39861577759) **3/3 PASS** after narrowly fixing watchdog recovery-lock contention and unbounded critical Focus/Timer frame waits, including regression coverage.
+- **Native status:** this new source **0/8 physical cases NOT RUN**. Previously automated-green same-surface candidate physically failed **4/8** with mixed compositor hierarchies. PR389 therefore has an evidence-backed **PR-only physical-before-merge hold**; independent low-risk green PRs use the normal guarded integration policy.
+- **Artifact identity:** the previously verified ZIP/EXE from old PR389 HEAD `15c0649f` (CI `39848609179`, artifact `12457776202`) is **not** a valid physical-test candidate for the new HEAD. The new exact-head artifact **12463188111** is independently hash/CRC/manifest-verified and ready for Codex eight-case native capture; see [HANDOFF](HANDOFF.md).
+- **Scope:** prior PA01–08 reviewed within their exact original physical/environment coverage (HDMI hardware hotplug NOT RUN). Do not infer a new-build physical PASS. Protect user-approved Spectrum Core picker, image upload and 218 offline icons. M11 and M12 require independent explicit opt-in.
 
-The latest accepted executable source is guarded-merged [U04 PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), merge `ec7673c921e08c83de11c986bd25fbb3600475ce`; [exact resulting-main Windows CI #38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS**. The original Windows production ZIP, executable, NSIS and MSI were independently checksum-verified, and the modern Archived Done confirmation modal was captured in both Edge themes. The source identity and physical candidate details are pinned in [current physical session instructions](docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md).
-
-**Mandatory milestone native acceptance remains 3/10, with 7/10 still not physically accepted.** All nine Codex PA-01–09 tests are **USER-PAUSED / NOT RUN** pending explicit reauthorization; do not install/run the current binary or alter AppData without permission. Live original-Blitzit verification is optional M11 and has **not** been activated. The existing Spectrum Core Create/Edit List color picker, image upload and 218 offline icons are user-approved and protected.
-
-See [TODO](TODO.md) for the intact 10 mandatory milestone checklists and [STATUS](STATUS.md) for current state. Old progress snapshots are preserved byte-for-byte via their linked immutable archive files rather than presented as active next tasks.
+See [TODO](TODO.md) for the mandatory roadmap, [STATUS](STATUS.md) for validated claims, and [HANDOFF](HANDOFF.md) for the only current agent action.
 
 ## Product scope
 

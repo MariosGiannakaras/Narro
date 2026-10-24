@@ -1,0 +1,6 @@
+{
+  "exactRoiFramesChecked": 1818,
+  "sourcePtsMismatches": 0,
+  "roundingSeconds": 0.001,
+  "method": "Each canonical ROI showinfo-derived source PTS checked against original ffprobe frame PTS set."
+}

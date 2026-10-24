@@ -1,0 +1,9 @@
+{"utc": "2026-10-23T19:03:49.881268+00:00", "label": "A13-before-measured-drag", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1117614}
+{"utc": "2026-10-23T19:04:04.318340+00:00", "label": "A13-after-measured-drag", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1117614}
+{"utc": "2026-10-23T19:04:39.122669+00:00", "label": "A14-foreground-open-before-switch", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1314288}
+{"utc": "2026-10-23T19:04:57.327215+00:00", "label": "A14-Timer-while-Notepad-maximized", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1314288}
+{"utc": "2026-10-23T19:04:57.438234+00:00", "label": "A14-Notepad-maximized", "hwnd": 1314288, "bounds": [-8, -8, 2568, 1088], "dpi": 96, "topmostStyle": false, "foregroundHwnd": 1314288}
+{"utc": "2026-10-23T19:05:30.887219+00:00", "label": "A13-after-lower-header-drag", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1117614}
+{"utc": "2026-10-23T19:05:49.224018+00:00", "label": "A13-after-contained-drag", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1117614}
+{"utc": "2026-10-23T19:13:33.813513+00:00", "label": "A14-left-side-request", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": false, "foregroundHwnd": 1117614}
+{"utc": "2026-10-23T19:13:41.884056+00:00", "label": "A14-after-left-return", "hwnd": 1117614, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": false, "foregroundHwnd": 1117614}

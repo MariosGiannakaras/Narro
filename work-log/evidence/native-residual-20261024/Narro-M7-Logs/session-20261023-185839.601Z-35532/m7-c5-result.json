@@ -1,0 +1,14 @@
+{
+  "currentSessionId": "7565ed8a-def3-4f89-bef3-a10da76266a9",
+  "generatedUtc": "2026-10-23T19:24:09.063Z",
+  "metrics": {
+    "maxMoveDistancePx": 0,
+    "saveError": null
+  },
+  "pendingSourceSessionId": null,
+  "reason": "tray-quit-did-not-produce-a-visible-timer-placement-save",
+  "schemaVersion": 1,
+  "sourceSha": "cdaf85b3c20028a78d17f75f5700e652e7147f7e",
+  "status": "INCONCLUSIVE",
+  "test": "M7-C5-saved-placement-restart"
+}

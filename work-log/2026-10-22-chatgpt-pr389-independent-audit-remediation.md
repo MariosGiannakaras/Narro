@@ -1,0 +1,25 @@
+# PR #389 — independent-audit remediation checkpoint (2026-10-22)
+
+## Ownership / scope
+- User stopped the Antigravity session after hitting its quota and directed ChatGPT to inspect, plan and begin source corrections.
+- Checked live PR #389 and compared its branch to independent audit baseline `c30d82550af5d8ac3bc1ccc922cdc673ca880d71`: **identical before takeover**, no pushed Antigravity edits; local unpushed Antigravity workspace inaccessible.
+- Reused existing `fix/m7-pixel-preserving-composition` draft PR #389. No new implementation PR, merge or physical Windows operation.
+- New corrected source HEAD `15c0649f9c4b9865bec7f74c82cc8cd7373decaa` (11 sequential forward commits from `c30d8255` through limited GitHub file-edit API). Compare includes exactly 10 changed paths: `src-tauri/src/persistence/{preferences.rs,task_writer_contention.rs}`, `src-tauri/src/{focus_layered_raster.rs,focus_webview.rs}`, `src/{FocusLiveSubtasks.tsx,FocusSurfaceCoordinator.tsx,presentationFrame.ts}`, and `scripts/{test-protected-timer-resize.mjs,test-ui-floating-collapsed.mjs,test-ui-focus-surface-transition.mjs}`.
+
+## Specific review outcomes / implemented changes
+1. **SQLite (confirmed):** An established `initialize_preferences` had been converted into a write-reserving `IMMEDIATE` transaction even for a read-only caller. It now uses a plain committed read, then an `IMMEDIATE` transaction and second read only if initialization is needed; prevents duplicate initialization and removes write lock contention for existing Theme/Shortcuts/Preferences loads. New two-connection test holds an actual `IMMEDIATE` writer with an uncommitted preference update while reading through `initialize_preferences` with zero busy timeout. Existing `mutate_preferences` retains `IMMEDIATE` to prevent read-to-write upgrade failures.
+2. **Coverage for SQLite contention (confirmed incomplete):** The Antigravity test performed three mutations after one blocked acquire, proving contention only for the first. It now independently establishes a competing writer for each of subtask create, note write and sleep-accounting write, checks no premature completion and requires success after release.
+3. **Native popup (confirmed error-handling gap):** `focus_layered_raster::sync_owner_position` now returns `CommandResult<()>` and checks owner/popup geometry and `SetWindowPos` errors. `focus_webview::set_physical_position` propagates the popup error but still calls `NotifyParentWindowPositionChanged` after moving the owner. The non-Windows helper retains a successful typed stub. Source contract updated. Runtime DWM/window-thread frame alignment still requires native physical evidence.
+4. **Timer subtasks (confirmed incomplete readiness):** Only expanded presentation waits for relevant in-flight subtask projection. Added 1500ms deadline-bound, cancelable two-rAF helper with fail-closed capture semantics; collapsed presentation does not block on stale expanded loading. Loading marker now checks expansion and matching task/list snapshot. Added tests for delayed completion, stale compact marker, deadline exhaustion, stalled frames and callback cleanup.
+5. **Hover CSS:** No code change: ordinary hover preserved; mid-raster alpha remains a physical frame-level acceptance question rather than a proven new defect.
+
+## Validation / CI evidence
+- Previous source `c30d8255` Windows CI `39832818567`: 3/3 success, **historical only**.
+- During corrected source iterations, run `39847947587` failed fast due obsolete assertion requiring exactly two rAF uses; test updated to verify both finite and deadline-bound barriers. Run `39848375041` completed frontend/build then failed Rust formatting for one preference-test line; corrected to exact `cargo fmt` expectation. These historical failures remain FAIL.
+- Current exact source `15c0649f9c4b9865bec7f74c82cc8cd7373decaa`, run [`39848609179`](https://github.com/MariosGiannakaras/Narro/actions/runs/39848609179): `validation-gate PASS`, `fast-gate PASS`, `windows-candidate RUNNING / NOT YET PASS` at last check; Windows had reached `Check Rust`.
+- Local checked-out repo, Rust toolchain and full local tests not available here: `NOT RUN` locally. Do not claim local preflight, physical 8/8, Windows binary provenance or new 3/3 until explicitly verified.
+
+## Constraints / next
+- PR #389 remains OPEN/DRAFT/UNMERGED. Explicit user/repository physical 8/8 gate controls merge. Normal/reduced-motion physical native transitions on new exact source are `NOT RUN`; old 4/8 visual failure belongs to older candidate.
+- Preserve approved Spectrum Core picker/upload/218 icons, single Focus HWND, local app data, user-paused/authorized physical boundaries and optional M11/M12 dormant state.
+- **NEXT:** Check run `39848609179` once it completes. If Windows FAIL, use first failed job/step/log to fix this same branch with a new SHA and regression. On exact-head 3/3 PASS, verify package/artifact source identity, update `HANDOFF.md`/`STATUS.md`/`TODO.md` with the validated SHA/run and hand candidate to Codex for physical 8/8. No merge before actual accepted eight transitions.

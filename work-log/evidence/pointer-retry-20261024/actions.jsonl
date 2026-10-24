@@ -1,0 +1,4 @@
+{"utc": "2026-10-24T06:54:55.719025+00:00", "action": "RECORD_START", "segment": "pointer-retry-board", "pid": 97984}
+{"utc": "2026-10-24T06:57:42.323102+00:00", "action": "RECORD_STOP", "segment": "pointer-retry-board", "exitCode": 0}
+{"utc": "2026-10-24T06:58:04.635421+00:00", "action": "RECORD_START", "segment": "pointer-retry-crosslane-timer", "pid": 24800}
+{"utc": "2026-10-24T07:00:30.567007+00:00", "action": "RECORD_STOP", "segment": "pointer-retry-crosslane-timer", "exitCode": 0}

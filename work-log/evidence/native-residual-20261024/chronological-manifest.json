@@ -1,0 +1,1551 @@
+{
+  "note": "UTC receipt offsets are navigation aids, not frame-accurate PTS. Recorder starts before its START receipt; use actual media PTS for analysis. Empty captureIntervals means outside all video windows. Input and subsequent observation can have separate rows. No product acceptance verdict assigned.",
+  "clips": [
+    {
+      "segment": "B3-keyboard-reorder-cancel",
+      "startUtc": "2026-10-23T18:59:06.168132+00:00",
+      "stopUtc": "2026-10-23T19:00:51.728337+00:00",
+      "durationSeconds": 106.084,
+      "decodedFrames": 6275,
+      "sha256": "4ac32c4d95645dba6a016d8b124ccac41af56230fe510cc60d7af4c8a3ec0789"
+    },
+    {
+      "segment": "B4B5-skip-switch-expiry",
+      "startUtc": "2026-10-23T19:00:51.837147+00:00",
+      "stopUtc": "2026-10-23T19:02:59.241683+00:00",
+      "durationSeconds": 127.917,
+      "decodedFrames": 7630,
+      "sha256": "9dda53e2de7473a7eb79d78d0167823ee9fa8b51bdb7922d24023275ef674036"
+    },
+    {
+      "segment": "A13A14-drag-topmost",
+      "startUtc": "2026-10-23T19:02:59.010246+00:00",
+      "stopUtc": "2026-10-23T19:05:45.575416+00:00",
+      "durationSeconds": 167.084,
+      "decodedFrames": 9927,
+      "sha256": "81b4cb87088d85f1cae831b45b843c48e729cf39622c71696621cf99ebed3cff"
+    },
+    {
+      "segment": "B5-real-boundaries",
+      "startUtc": "2026-10-23T19:10:11.092014+00:00",
+      "stopUtc": "2026-10-23T19:21:52.573406+00:00",
+      "durationSeconds": 702.017,
+      "decodedFrames": 41557,
+      "sha256": "a97b07258cdf0c6c5f12aa2ddbd447446d8304960578cf914b4abac32e103d8e"
+    },
+    {
+      "segment": "A13-same-exe-relaunch",
+      "startUtc": "2026-10-24T00:56:49.327824+00:00",
+      "stopUtc": "2026-10-24T00:59:20.438354+00:00",
+      "durationSeconds": 151.634,
+      "decodedFrames": 8556,
+      "sha256": "d95fcd43e3dbcc00ce1ba416d1b891185fdc0c06072f5a3927e949809e097650"
+    },
+    {
+      "segment": "A13-assisted-drag-tray",
+      "startUtc": "2026-10-24T00:58:24.394270+00:00",
+      "stopUtc": "2026-10-24T01:03:35.951252+00:00",
+      "durationSeconds": 312.067,
+      "decodedFrames": 17877,
+      "sha256": "4c324719054936c6224c4bf43530cc88b59fa4df9828e767d9f4348e470e1240"
+    },
+    {
+      "segment": "B5-plain-est-expiry",
+      "startUtc": "2026-10-24T01:08:48.139542+00:00",
+      "stopUtc": "2026-10-24T01:11:34.696954+00:00",
+      "durationSeconds": 167.117,
+      "decodedFrames": 9521,
+      "sha256": "96d9faf8ba0064fd3fb66db1a99004664d69702f1b99c813854fd1a7ea9f47bb"
+    },
+    {
+      "segment": "B5-plain-est-boundary-final",
+      "startUtc": "2026-10-24T01:12:47.929150+00:00",
+      "stopUtc": "2026-10-24T01:15:00.448243+00:00",
+      "durationSeconds": 133.067,
+      "decodedFrames": 7582,
+      "sha256": "88a9c92b942e6bf2ab58d66220dbef9d1d7228345655393c4393fb2b851b52db"
+    }
+  ],
+  "actions": [
+    {
+      "utc": "2026-10-23T18:58:56.739Z",
+      "label": "Residual initial owned main state",
+      "captureIntervals": []
+    },
+    {
+      "utc": "2026-10-23T18:59:15.157Z",
+      "label": "B3 maximize owned main for Board",
+      "action": "click",
+      "x": 932,
+      "y": 15,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 8.989
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:17.735Z",
+      "label": "B3 maximize owned main for Board",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 11.567
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:22.172Z",
+      "label": "B3 expose Capture Project Open",
+      "action": "click",
+      "x": 1226,
+      "y": 290,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 16.004
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:23.321Z",
+      "label": "B3 expose Capture Project Open",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 17.153
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:32.139Z",
+      "label": "B3 open Board",
+      "action": "click",
+      "x": 1245,
+      "y": 403,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 25.971
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:33.296Z",
+      "label": "B3 open Board",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 27.128
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:45.684Z",
+      "label": "B3 select owned A title then keyboard card focus",
+      "action": "click",
+      "x": 515,
+      "y": 310,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 39.516
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:46.388Z",
+      "label": "B3 select owned A title then keyboard card focus",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 40.22
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:52.253Z",
+      "label": "B3 leave title edit before card keyboard navigation",
+      "action": "key",
+      "key": "Escape",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 46.085
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:52.933Z",
+      "label": "B3 leave title edit before card keyboard navigation",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 46.765
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:57.549Z",
+      "label": "B3 keyboard previous focus target",
+      "action": "key",
+      "key": "Shift_L+Tab",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 51.381
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T18:59:58.212Z",
+      "label": "B3 keyboard previous focus target",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 52.044
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:03.427Z",
+      "label": "B3 reorder focused task A down via keyboard",
+      "action": "key",
+      "key": "Alt_L+Down",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 57.259
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:04.126Z",
+      "label": "B3 reorder focused task A down via keyboard",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 57.958
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:10.833Z",
+      "label": "B3 reverse reorder focused A up",
+      "action": "key",
+      "key": "Alt_L+Up",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 64.665
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:11.736Z",
+      "label": "B3 reverse reorder focused A up",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 65.568
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:29.208Z",
+      "label": "B4 focus This Week B card border for keyboard move",
+      "action": "click",
+      "x": 828,
+      "y": 437,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 83.04
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:29.893Z",
+      "label": "B4 focus This Week B card border for keyboard move",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 83.725
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:36.960Z",
+      "label": "B4 move B to Today via observed right arrow",
+      "action": "click",
+      "x": 1323,
+      "y": 349,
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 90.792
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:00:37.693Z",
+      "label": "B4 move B to Today via observed right arrow",
+      "captureIntervals": [
+        {
+          "segment": "B3-keyboard-reorder-cancel",
+          "secondsAfterStartReceipt": 91.525
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:00.541Z",
+      "label": "B5 add one-minute real expiry fixture through Today UI",
+      "action": "click",
+      "x": 1457,
+      "y": 301,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 8.704
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:01.302Z",
+      "label": "B5 add one-minute real expiry fixture through Today UI",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 9.465
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:06.594Z",
+      "label": "B5 title entered",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 14.757
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:11.290Z",
+      "label": "B5 focus actual EST input",
+      "action": "click",
+      "x": 1874,
+      "y": 412,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 19.453
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:12.002Z",
+      "label": "B5 focus actual EST input",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 20.165
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:17.341Z",
+      "label": "B5 actual one-minute EST entered",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 25.504
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:23.100Z",
+      "label": "B5 confirm one-minute EST task",
+      "action": "click",
+      "x": 1895,
+      "y": 453,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 31.263
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:23.794Z",
+      "label": "B5 confirm one-minute EST task",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 31.957
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:28.778Z",
+      "label": "B4 close empty continuing add form",
+      "action": "key",
+      "key": "Escape",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 36.941
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:29.440Z",
+      "label": "B4 close empty continuing add form",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 37.603
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:36.456Z",
+      "label": "B4 Blitz now with two Today tasks",
+      "action": "click",
+      "x": 1665,
+      "y": 735,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 44.619
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:46.642Z",
+      "label": "B4 two-task Focus entry",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 54.805
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:52.051Z",
+      "label": "B4 Skip real current expiry task to queued B",
+      "action": "click",
+      "x": 237,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 60.214
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:01:52.699Z",
+      "label": "B4 Skip real current expiry task to queued B",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 60.862
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:09.595Z",
+      "label": "B5 Quick Preferences to use real EST countdown",
+      "action": "click",
+      "x": 240,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 77.758
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:10.233Z",
+      "label": "B5 Quick Preferences to use real EST countdown",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 78.396
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:15.028Z",
+      "label": "B5 turn Pomodoros OFF for genuine EST expiry",
+      "action": "click",
+      "x": 305,
+      "y": 390,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 83.191
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:15.665Z",
+      "label": "B5 turn Pomodoros OFF for genuine EST expiry",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 83.828
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:20.153Z",
+      "label": "B5 back to Focus with EST mode",
+      "action": "click",
+      "x": 28,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 88.316
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:20.792Z",
+      "label": "B5 back to Focus with EST mode",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 88.955
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:26.435Z",
+      "label": "B5 expose queued expiry task Make live",
+      "action": "click",
+      "x": 163,
+      "y": 361,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 94.598
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:27.074Z",
+      "label": "B5 expose queued expiry task Make live",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 95.237
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:32.679Z",
+      "label": "B5 Make live expiry task after POMO off",
+      "action": "click",
+      "x": 205,
+      "y": 412,
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 100.842
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:02:33.328Z",
+      "label": "B5 Make live expiry task after POMO off",
+      "captureIntervals": [
+        {
+          "segment": "B4B5-skip-switch-expiry",
+          "secondsAfterStartReceipt": 101.491
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:03:07.691Z",
+      "label": "A13 compact Timer for native drag while genuine work continues",
+      "action": "click",
+      "x": 311,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 8.681
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:03:08.373Z",
+      "label": "A13 compact Timer for native drag while genuine work continues",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 9.363
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:03:15.219Z",
+      "label": "A13 settled compact Timer before native drag",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 16.209
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:03:30.473Z",
+      "label": "A13 compact Timer 113px requested",
+      "action": "native drag",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 31.463
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:03:31.129Z",
+      "label": "A13 compact Timer native drag outcome",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 32.119
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:04:03.585Z",
+      "label": "A13 measured native drag left100 down80 requested",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 64.575
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:04:48.781Z",
+      "label": "A14 actual foreground Notepad behind topmost Timer",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 109.771
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:04:55.853Z",
+      "label": "A14 maximize Notepad behind floating Timer",
+      "action": "click",
+      "x": 1470,
+      "y": 15,
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 116.843
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:04:56.600Z",
+      "label": "A14 maximize Notepad behind floating Timer",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 117.59
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:05:22.119Z",
+      "label": "A13 Timer before lower-header drag",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 143.109
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:05:40.706Z",
+      "label": "A13 refresh after non-target endpoint guard",
+      "captureIntervals": [
+        {
+          "segment": "A13A14-drag-topmost",
+          "secondsAfterStartReceipt": 161.696
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:05:48.505Z",
+      "label": "A13 drag within original visible native region left200 down30",
+      "captureIntervals": []
+    },
+    {
+      "utc": "2026-10-23T19:07:42.435Z",
+      "label": "A14 display settings and Control Panel launch association failure",
+      "captureIntervals": []
+    },
+    {
+      "utc": "2026-10-23T19:07:43.141Z",
+      "label": "B5 real POMO countdown before boundary",
+      "captureIntervals": []
+    },
+    {
+      "utc": "2026-10-23T19:10:20.349Z",
+      "label": "B5 current real countdown at new long boundary capture start",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 9.257
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:27.237Z",
+      "label": "B5 return real countdown to Focus Panel for phase controls",
+      "action": "click",
+      "x": 300,
+      "y": 36,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 16.145
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:27.870Z",
+      "label": "B5 return real countdown to Focus Panel for phase controls",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 16.778
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:34.803Z",
+      "label": "B5 expose current Pomodoro Break controls",
+      "action": "click",
+      "x": 165,
+      "y": 170,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 23.711
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:35.432Z",
+      "label": "B5 expose current Pomodoro Break controls",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 24.34
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:45.467Z",
+      "label": "B5 break phase pause shortcut attempt",
+      "action": "key",
+      "key": "Control_L+Alt_L+p",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 34.375
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:10:46.303Z",
+      "label": "B5 break phase pause shortcut attempt",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 35.211
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:11:09.594Z",
+      "label": "B5 unobscured Break countdown while Notepad foreground",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 58.502
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:11:17.123Z",
+      "label": "A14 foreground Notepad for pointer departure",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 66.031
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:11:23.505Z",
+      "label": "A14 pointer outside Focus during real boundary recording",
+      "action": "click",
+      "x": 500,
+      "y": 400,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 72.413
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:11:24.144Z",
+      "label": "A14 pointer outside Focus during real boundary recording",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 73.052
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:11:24.771Z",
+      "label": "B5 unobscured phase countdown",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 73.679
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:12:07.919Z",
+      "label": "B5 real Pomodoro Break boundary approaching",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 116.827
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:12:49.421Z",
+      "label": "B5 actual Pomodoro Break expiry and successor state",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 158.329
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:12.739Z",
+      "label": "B5 Resume after genuine Break expiry",
+      "action": "click",
+      "x": 175,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 181.647
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:13.768Z",
+      "label": "B5 Resume after genuine Break expiry",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 182.676
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:25.604Z",
+      "label": "A14 positioning checks during real POMO work",
+      "action": "click",
+      "x": 240,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 194.512
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:26.234Z",
+      "label": "A14 positioning checks during real POMO work",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 195.142
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:32.439Z",
+      "label": "A14 choose Left positioning on actual sole monitor",
+      "action": "click",
+      "x": 240,
+      "y": 334,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 201.347
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:33.064Z",
+      "label": "A14 choose Left positioning on actual sole monitor",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 201.972
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:40.486Z",
+      "label": "A14 return Focus after Left selection",
+      "action": "click",
+      "x": 28,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 209.394
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:13:41.132Z",
+      "label": "A14 return Focus after Left selection",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 210.04
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:01.768Z",
+      "label": "A14 restore original Right positioning preference",
+      "action": "click",
+      "x": 240,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 290.676
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:02.505Z",
+      "label": "A14 restore original Right positioning preference",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 291.413
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:07.071Z",
+      "label": "A14 restore Right preference",
+      "action": "click",
+      "x": 296,
+      "y": 334,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 295.979
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:08.115Z",
+      "label": "A14 restore Right preference",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 297.023
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:14.523Z",
+      "label": "B5 restore unobstructed work boundary view",
+      "action": "click",
+      "x": 28,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 303.431
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-23T19:15:15.440Z",
+      "label": "B5 restore unobstructed work boundary view",
+      "captureIntervals": [
+        {
+          "segment": "B5-real-boundaries",
+          "secondsAfterStartReceipt": 304.348
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:23.242Z",
+      "label": "A13 same EXE relaunch initial UI",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 33.914
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:28.454Z",
+      "label": "A13 request recovered Timer with registered global shortcut",
+      "action": "key",
+      "key": "Control_L+Shift_L+t",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 39.126
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:29.460Z",
+      "label": "A13 request recovered Timer with registered global shortcut",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 40.132
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:36.047Z",
+      "label": "A13 open All Lists after relaunch",
+      "action": "click",
+      "x": 415,
+      "y": 411,
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 46.719
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:36.792Z",
+      "label": "A13 open All Lists after relaunch",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 47.464
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:43.412Z",
+      "label": "A13 maximize recovered planning view",
+      "action": "click",
+      "x": 932,
+      "y": 15,
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 54.084
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:57:44.293Z",
+      "label": "A13 maximize recovered planning view",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 54.965
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:58:07.770Z",
+      "label": "A13 recovered Timer from same EXE",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 78.442
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:58:13.564Z",
+      "label": "A13 resume recovered compact Timer before drag and Quit",
+      "action": "click",
+      "x": 144,
+      "y": 36,
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 84.236
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T00:58:14.290Z",
+      "label": "A13 resume recovered compact Timer before drag and Quit",
+      "captureIntervals": [
+        {
+          "segment": "A13-same-exe-relaunch",
+          "secondsAfterStartReceipt": 84.962
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:08:57.536Z",
+      "label": "B5 current Timer before plain EST setup",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 9.396
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:01.877Z",
+      "label": "B5 return Panel from recovered paused Timer",
+      "action": "click",
+      "x": 300,
+      "y": 36,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 13.737
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:02.552Z",
+      "label": "B5 return Panel from recovered paused Timer",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 14.412
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:06.180Z",
+      "label": "B5 finish old POMO cycle task in owned profile",
+      "action": "click",
+      "x": 289,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 18.04
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:06.855Z",
+      "label": "B5 finish old POMO cycle task in owned profile",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 18.715
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:12.837Z",
+      "label": "B5 finish owned B to close remaining queue",
+      "action": "click",
+      "x": 289,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 24.697
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:13.520Z",
+      "label": "B5 finish owned B to close remaining queue",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 25.38
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:17.750Z",
+      "label": "B5 finish owned ordinary task to All Clear",
+      "action": "click",
+      "x": 289,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 29.61
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:18.428Z",
+      "label": "B5 finish owned ordinary task to All Clear",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 30.288
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:33.163Z",
+      "label": "B5 exit completed POMO queue to prepare plain EST",
+      "action": "click",
+      "x": 275,
+      "y": 32,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 45.023
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:43.468Z",
+      "label": "B5 main after completed Focus queue",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 55.328
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:48.860Z",
+      "label": "B5 select owned Capture Project for plain EST form",
+      "action": "click",
+      "x": 2082,
+      "y": 151,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 60.72
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:49.626Z",
+      "label": "B5 select owned Capture Project for plain EST form",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 61.486
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:54.668Z",
+      "label": "B5 choose Capture Project",
+      "action": "click",
+      "x": 2062,
+      "y": 238,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 66.528
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:09:55.413Z",
+      "label": "B5 choose Capture Project",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 67.273
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:10:01.066Z",
+      "label": "B5 add plain EST task to Today",
+      "action": "click",
+      "x": 1452,
+      "y": 479,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 72.926
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:10:01.841Z",
+      "label": "B5 add plain EST task to Today",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 73.701
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:10:06.777Z",
+      "label": "B5 plain task title entered",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-expiry",
+          "secondsAfterStartReceipt": 78.637
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:12:38.694Z",
+      "label": "B5 resume current form before bounded expiry capture",
+      "captureIntervals": []
+    },
+    {
+      "utc": "2026-10-24T01:12:56.727Z",
+      "label": "B5 plain EST input focus",
+      "action": "click",
+      "x": 1874,
+      "y": 501,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 8.798
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:12:57.473Z",
+      "label": "B5 plain EST input focus",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 9.544
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:01.901Z",
+      "label": "B5 plain EST set literal 00:01",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 13.972
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:05.442Z",
+      "label": "B5 save one minute plain task",
+      "action": "click",
+      "x": 1895,
+      "y": 541,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 17.513
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:06.184Z",
+      "label": "B5 save one minute plain task",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 18.255
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:10.197Z",
+      "label": "B5 close empty add form",
+      "action": "key",
+      "key": "Escape",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 22.268
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:10.901Z",
+      "label": "B5 close empty add form",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 22.972
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:15.053Z",
+      "label": "B5 enter Focus plain one minute task",
+      "action": "click",
+      "x": 1670,
+      "y": 568,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 27.124
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:13:26.172Z",
+      "label": "B5 actual plain EST countdown after entry",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 38.243
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:02.313Z",
+      "label": "B5 plain EST boundary continuous recording",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 74.384
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:28.491Z",
+      "label": "B5 plain EST expiry outcome",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 100.562
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:33.201Z",
+      "label": "B5 open Extend after real expiry",
+      "action": "click",
+      "x": 173,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 105.272
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:33.871Z",
+      "label": "B5 open Extend after real expiry",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 105.942
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:40.674Z",
+      "label": "B5 pause actual overtime",
+      "action": "click",
+      "x": 173,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 112.745
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:41.359Z",
+      "label": "B5 pause actual overtime",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 113.43
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:44.341Z",
+      "label": "B5 resume overtime",
+      "action": "click",
+      "x": 173,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 116.412
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:45.025Z",
+      "label": "B5 resume overtime",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 117.096
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:48.072Z",
+      "label": "B5 complete after actual expiry and overtime",
+      "action": "click",
+      "x": 289,
+      "y": 135,
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 120.143
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-24T01:14:48.748Z",
+      "label": "B5 complete after actual expiry and overtime",
+      "captureIntervals": [
+        {
+          "segment": "B5-plain-est-boundary-final",
+          "secondsAfterStartReceipt": 120.819
+        }
+      ]
+    }
+  ]
+}

@@ -54,6 +54,7 @@ function harness() {
       return response.promise;
     },
     setSessions: (value) => { state.sessions = value; },
+    setSessionsRequestKey: (key) => { state.sessionsKey = key; },
     setRefreshError: (value) => { state.errors.push(value); },
     setDetail: (value) => { state.detail = value; },
     setDetailError: (value) => { state.detailErrors.push(value); },
@@ -79,6 +80,7 @@ function harness() {
   h.sessionCalls[2].resolve({ rows: ["new"] });
   await settle();
   assert.equal(h.state.sessions.rows[0], "new");
+  assert.deepEqual(JSON.parse(h.state.sessionsKey).listIds, ["new"], "accepted sessions carry their own filter identity");
   h.sessionCalls[1].resolve({ rows: ["stale-mutation-refetch"] });
   assert.equal(await pendingMutationRefresh, null, "superseded mutation refresh must return no old rows");
   h.sessionCalls[0].resolve({ rows: ["stale-initial"] });
@@ -183,6 +185,7 @@ function harness() {
         return d.promise;
       },
       setSessions: (value) => { state.sessions = value; },
+    setSessionsRequestKey: (key) => { state.sessionsKey = key; },
       setRefreshError: (value) => { state.errors.push(value); },
       setDetail: (value) => { state.detail = value; },
       setDetailError: (value) => { state.detailErrors.push(value); },

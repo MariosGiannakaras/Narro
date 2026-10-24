@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await page.getByRole('textbox', { name: 'Task note' }).fill('Owned capture note: actual larger editor and keyboard return.');
+```

@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+// Press Enter
+await page.keyboard.press('Enter');
+```
+### Open tabs
+- 0: (current) [Narro Diagnostic - Focus](http://tauri.localhost/focus.html)
+- 1: [Narro](http://tauri.localhost/)
+### Page
+- Page URL: http://tauri.localhost/focus.html
+- Page Title: Narro Diagnostic - Focus
+### Snapshot
+- [Snapshot](.playwright-cli\page-2026-10-23T08-33-42-474Z.yml)

@@ -1,0 +1,167 @@
+{
+  "scope": "staged Git blobs; local originals recorded separately for newline provenance",
+  "files": [
+    {
+      "path": "B01-native-main-input/ffmpeg-stderr.txt",
+      "gitBytes": 0,
+      "gitSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalLocalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "B01-native-main-input/native-original.mkv",
+      "gitBytes": 15289694,
+      "gitSha256": "20c5c97e4e1ecec3796b291024aca5ed8117588c66ce3dc72f0e43a400991caf",
+      "originalLocalSha256": "20c5c97e4e1ecec3796b291024aca5ed8117588c66ce3dc72f0e43a400991caf"
+    },
+    {
+      "path": "B01-native-main-input/video-metadata.json",
+      "gitBytes": 287,
+      "gitSha256": "6c58bb1e9add09cdc49c5caa2bdb29db5813654a6d3b19100c6f6de5156a9986",
+      "originalLocalSha256": "bbaa5c964a6a8f4b6aada3cffe1b6d04531c25d607d44906a1b8bd987e352ddf"
+    },
+    {
+      "path": "Narro-M7-Logs/LATEST.txt",
+      "gitBytes": 35,
+      "gitSha256": "74d5e4620470d7e4082967fbbead77284fcdd14789c200440fd7d8e2c1caefc6",
+      "originalLocalSha256": "33d82234edb5494217067d429ea68c8bc8e87a033b54f3597713c667c786296b"
+    },
+    {
+      "path": "Narro-M7-Logs/README.txt",
+      "gitBytes": 756,
+      "gitSha256": "ef6d1ad6e1deb7534dbdb044b5f60699a61a68b5b0bed985c13d90c0f3edb2bb",
+      "originalLocalSha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+    },
+    {
+      "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+      "gitBytes": 396,
+      "gitSha256": "e5ac3a0b2bf30af2dc28796fdfb9ca67ad5222efe718580fb7a597684ce9bd5e",
+      "originalLocalSha256": "e5ac3a0b2bf30af2dc28796fdfb9ca67ad5222efe718580fb7a597684ce9bd5e"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085241.673Z-37600/events.jsonl",
+      "gitBytes": 611,
+      "gitSha256": "38f582ff2c8527e70d3dcc9a2abb7574485084ef1752c908b3d8c8c0c7c9eae0",
+      "originalLocalSha256": "38f582ff2c8527e70d3dcc9a2abb7574485084ef1752c908b3d8c8c0c7c9eae0"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085241.673Z-37600/m7-c5-result.json",
+      "gitBytes": 396,
+      "gitSha256": "32bec7d3db543549dffff2886207afb5b46b33150ba58d03ad4167c75f5775b4",
+      "originalLocalSha256": "32bec7d3db543549dffff2886207afb5b46b33150ba58d03ad4167c75f5775b4"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085241.673Z-37600/session.json",
+      "gitBytes": 489,
+      "gitSha256": "3f12da445822d2e10817186a6787b6521f8826d439a050362a00c1e33de8e49b",
+      "originalLocalSha256": "3f12da445822d2e10817186a6787b6521f8826d439a050362a00c1e33de8e49b"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085328.544Z-50860/events.jsonl",
+      "gitBytes": 615,
+      "gitSha256": "b8e0bfcd7c9fdda21775b778e6ba8dec9437346b11500ec92b0cce0d19cd5281",
+      "originalLocalSha256": "b8e0bfcd7c9fdda21775b778e6ba8dec9437346b11500ec92b0cce0d19cd5281"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085328.544Z-50860/m7-c5-result.json",
+      "gitBytes": 396,
+      "gitSha256": "e5ac3a0b2bf30af2dc28796fdfb9ca67ad5222efe718580fb7a597684ce9bd5e",
+      "originalLocalSha256": "e5ac3a0b2bf30af2dc28796fdfb9ca67ad5222efe718580fb7a597684ce9bd5e"
+    },
+    {
+      "path": "Narro-M7-Logs/session-20261023-085328.544Z-50860/session.json",
+      "gitBytes": 489,
+      "gitSha256": "3827370a75dc8491bcebc4d6bd8010c5a5f0a56a0e08bed482f8dddea83ca2eb",
+      "originalLocalSha256": "3827370a75dc8491bcebc4d6bd8010c5a5f0a56a0e08bed482f8dddea83ca2eb"
+    },
+    {
+      "path": "README.md",
+      "gitBytes": 1908,
+      "gitSha256": "2e4c85c62047872d270c106df065ceb64a67b672f0b83fcb1f6e512334b48ab1",
+      "originalLocalSha256": "1b09aab5527f9be1ecbe2dc93f42d700afa68f98bae2757a50446944db7b90f2"
+    },
+    {
+      "path": "acquisition-manifest.json",
+      "gitBytes": 2491,
+      "gitSha256": "647127853e96db4418b63c5adfc303991346dc5491a903fbc9f323a3ded104ea",
+      "originalLocalSha256": "33331ab5e5a7126b24b68acb18d1385cb39c446ed91840134b0ba2e57e2d0b36"
+    },
+    {
+      "path": "actions.jsonl",
+      "gitBytes": 240,
+      "gitSha256": "cbe20b43ca51002202fbc1d18814e58f90ebede32869e4b1573925673d63c06c",
+      "originalLocalSha256": "e18c5beffa61173416ddac6abb6e6856c6c654b1596f8dc683201bd74eaa9b5b"
+    },
+    {
+      "path": "ci-final.json",
+      "gitBytes": 9274,
+      "gitSha256": "a284c7b5bb7c82103fb69d7ffa8ee11bb70cf7837b7542d057d408359ad9ecd2",
+      "originalLocalSha256": "e177e5a782eea0ed889e11d05c1eed2f53648150a1bb7caa8a87a8b866b8540e"
+    },
+    {
+      "path": "fixture.json",
+      "gitBytes": 239,
+      "gitSha256": "dd452d5c50af2d66505211124047d48a633a2eaf1433862ad0d68e5435a428c4",
+      "originalLocalSha256": "bce31e331152c8805c54b17dc224a4e9ecf8526af7ec8122104d8978635b0f35"
+    },
+    {
+      "path": "native-after-escape-uia.txt",
+      "gitBytes": 6397,
+      "gitSha256": "95fd9a83001efb89b91dddcc5586373fae75f9391a7bdf58c2446c2ccc3cb111",
+      "originalLocalSha256": "95fd9a83001efb89b91dddcc5586373fae75f9391a7bdf58c2446c2ccc3cb111"
+    },
+    {
+      "path": "native-after-search-key-uia.txt",
+      "gitBytes": 5678,
+      "gitSha256": "9ea64cb87d41fb5914e24b3aa99cec9850a9ce9d58f87ed5f49ad21a818894ba",
+      "originalLocalSha256": "9ea64cb87d41fb5914e24b3aa99cec9850a9ce9d58f87ed5f49ad21a818894ba"
+    },
+    {
+      "path": "native-click-error.txt",
+      "gitBytes": 47,
+      "gitSha256": "0a0d27f13964bbdeba15fa02feb571eedcea8de69df4fb4fb95668bf205613a4",
+      "originalLocalSha256": "0a0d27f13964bbdeba15fa02feb571eedcea8de69df4fb4fb95668bf205613a4"
+    },
+    {
+      "path": "native-initial-uia.txt",
+      "gitBytes": 6397,
+      "gitSha256": "9e3a0de5bf790d5bde767b0264ce4bdaf53973d4ef1ba996586e00186824b324",
+      "originalLocalSha256": "9e3a0de5bf790d5bde767b0264ce4bdaf53973d4ef1ba996586e00186824b324"
+    },
+    {
+      "path": "native-search-setvalue-uia.txt",
+      "gitBytes": 5804,
+      "gitSha256": "aa1dd004d6d300f069798fe10455695f56e7421470c2cf781904ed0d055c0e4d",
+      "originalLocalSha256": "aa1dd004d6d300f069798fe10455695f56e7421470c2cf781904ed0d055c0e4d"
+    },
+    {
+      "path": "original-logs-and-helpers.zip",
+      "gitBytes": 7801,
+      "gitSha256": "23256de5c0a21738f42dbbbeb722a3827dd0a7f4b8bee2c0646a5cddf51b5fb2",
+      "originalLocalSha256": "23256de5c0a21738f42dbbbeb722a3827dd0a7f4b8bee2c0646a5cddf51b5fb2"
+    },
+    {
+      "path": "original-profile-restoration-proof.json",
+      "gitBytes": 203,
+      "gitSha256": "d0aca344cef478783d7e826c8658920ff2b95956a37ce74006b064bf40321569",
+      "originalLocalSha256": "4ec3f8845cf0c1d0a1f7afee48147ef6f797b680f1650e0820d925a0e782179b"
+    },
+    {
+      "path": "owned-webview-children.json",
+      "gitBytes": 674,
+      "gitSha256": "f99049f98d9be5fb0f62a1a74e1061ef233f12f3bca4ed8131dadf11b36b748b",
+      "originalLocalSha256": "c804747d43e2809a94884e258cdef2116c9992697f87c23161f3c65012960306"
+    },
+    {
+      "path": "pr389-freeze-status.json",
+      "gitBytes": 117,
+      "gitSha256": "e689cf57ce63323e4643bffc3907e710e92613a4778b96a1221b7de2cbdbc766",
+      "originalLocalSha256": "9209ff7775aac96932487fd8b0284218d576ca08963dd2d3d84b0631fb98ed20"
+    },
+    {
+      "path": "session-meta.json",
+      "gitBytes": 706,
+      "gitSha256": "a5f6ba3e124b16ea5aff8857acd42b65efd90d719b679a464d4e3c5cd569f89c",
+      "originalLocalSha256": "ca451246b49cd5bffff3d2d3d249b3ff78275b47d45fef9a47c25683db8f9a42"
+    }
+  ]
+}

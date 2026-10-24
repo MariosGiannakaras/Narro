@@ -1,0 +1,18 @@
+[
+  {
+    "segment": "pointer-retry-board",
+    "sha256": "571a7aa6bc0d9adeb89e4140a24a441b0f209683526085a4300de0d3d17f570e",
+    "decodedFrames": 9287,
+    "firstPts": 0.0,
+    "lastPts": 167.1,
+    "maxPtsGap": 0.4159999999999968
+  },
+  {
+    "segment": "pointer-retry-crosslane-timer",
+    "sha256": "caded3701bb3d81e5ee4d48fcc540e43d5e80f95f3d100141dad81750b3e24a0",
+    "decodedFrames": 8316,
+    "firstPts": 0.0,
+    "lastPts": 146.45,
+    "maxPtsGap": 0.034000000000020236
+  }
+]
