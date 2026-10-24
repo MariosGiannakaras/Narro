@@ -813,10 +813,8 @@ mod tests {
 
     #[test]
     fn first_fault_log_is_append_only_and_never_contains_panic_payload() {
-        let folder = std::env::temp_dir().join(format!(
-            "narro-panic-diagnostic-{}",
-            uuid::Uuid::new_v4()
-        ));
+        let folder =
+            std::env::temp_dir().join(format!("narro-panic-diagnostic-{}", uuid::Uuid::new_v4()));
         fs::create_dir_all(&folder).unwrap();
         let path = folder.join(FIRST_FAULT_LOG_NAME);
         let record = panic_first_fault_record(
@@ -831,7 +829,11 @@ mod tests {
             .lines()
             .map(|line| serde_json::from_str(line).unwrap())
             .collect();
-        assert_eq!(records.len(), 2, "keep the original first fault and any later faults");
+        assert_eq!(
+            records.len(),
+            2,
+            "keep the original first fault and any later faults"
+        );
         assert_eq!(records[0]["event"], "rust-panic-first-fault");
         assert_eq!(records[0]["threadName"], "timer-worker");
         assert_eq!(records[0]["sourceLocation"]["line"], 42);
