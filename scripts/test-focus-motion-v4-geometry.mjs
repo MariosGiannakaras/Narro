@@ -114,4 +114,10 @@ assert.ok(rust.includes("focus_motion_v4_raster::compose("));
 assert.ok(compositor.includes("let from_toolbar = layout.toolbar.from.interpolate("));
 assert.ok(compositor.includes("focus_mode_raster::compose(plate, plate, visible, eased)?"));
 assert.ok(compositor.includes("if eased <= 0.0 || eased >= 1.0"));
+assert.ok(compositor.includes("fn validate_source_image(image: &Image) -> CommandResult<()>"));
+assert.ok(compositor.includes("validate_source_image(outgoing)?;")
+  && compositor.includes("validate_source_image(incoming)?;")
+  && compositor.includes("validate_source_image(plate)?;"),
+  "all BGRA sources need validation before unchecked staged blit indexing");
+assert.ok(compositor.includes("malformed_intermediate_source_fails_without_bgra_out_of_bounds"));
 console.log("Actual DOM anchor capture, guarded plate preparation and native staged source contracts: PASS");
