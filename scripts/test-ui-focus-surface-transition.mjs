@@ -286,7 +286,11 @@ invariant(
     && floatingTimer.includes('document.activeElement.dataset.floatingSubtaskControl === "expand"')
     && floatingTimer.includes("!document.hasFocus()")
     && floatingTimer.includes('!trigger.closest("[inert]")')
-    && floatingTimer.includes('trigger.focus({ preventScroll: true })'),
+    && floatingTimer.includes('trigger.focus({ preventScroll: true })')
+    && floatingTimer.includes('document.activeElement !== document.body')
+    && floatingTimer.includes('document.activeElement !== document.documentElement')
+    && floatingTimer.includes('setResizePending(false);')
+    && coordinator.includes('onResizePendingChange={setTimerResizeBusy}'),
   "native Timer raster must exclude keyboard interaction, and restore only an unchanged resize-control focus",
 );
 
