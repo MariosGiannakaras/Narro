@@ -1,0 +1,26 @@
+# Timer recovery and timed-alert pre-physical verification — 2026-10-25
+
+**Scope:** source-level and automated checks for the two newly evidenced Timer risks before any new native Windows physical session. **Owner:** ChatGPT source/config/tests/CI. **Physical owner:** Codex; this plan does **not** authorize real Windows execution, installer, personal AppData edit, original profile replay or candidate-PR hold removal. **Milestones:** independent M3/M6/M7/M8 shared Timer behavior; formal acceptance remains separate.
+
+## Evidence baseline
+
+- [Frozen 2026-10-24 G24–G29 native source packet](../work-log/evidence/physical-native-final-20261024/README.md), actual candidate B `43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9`, EXE `8436d89b9d868fbdd7f5e5c76b13412a1360182645810e64b835b9a3ba8f9cd8`: first launch PID16104 had Board `[TIMER_SERVICE_LOCK_POISONED]`, same-EXE relaunch PID63288 recovered. **No stderr/backtrace from the first failed process.** Do not infer from preceding Screen2 preference selection that display selection caused the panic.
+- Recovery PID63288 original `app-201659.stderr.txt`: **2,679** repeated timed-alert warnings `previous=95s observed=91s` (eventually 92–94); separate A saw 95→94. These are cursor-authority mismatches, not evidence that wall-clock or QPC ran backward, or that any emitted effect was duplicated.
+- [ChatGPT exact six-case physical review](../work-log/2026-10-24-chatgpt-g24-g29-exact-native-packet-six-case-review.md) separated 6/6 *analysis* from 3/6 scoped functional successes, one bounded performance measurement, G28 first-frame parity OPEN, G29 policy OPEN.
+- Source correction [PR422](https://github.com/MariosGiannakaras/Narro/pull/422), independent of strict native-compositor PR389/419, addresses **persisted alert-run identity / authorized elapsed rebase only**. It does **not** purport to solve the cause of Rust Mutex poisoning.
+
+## Pre-physical assertion matrix (source/tests/CI only)
+
+| Claim | State owner, invariant and expected evidence | Status rule |
+|---|---|---|
+| TAR-01 stale task cursor, *new* work session | `persistence/timed_alert_effects.rs`: current `seed_run_id` must replace a cursor bound to a different run, retiring old pending effects; new 60s boundary fires once | Regression Rust test + exact-head Windows Rust tests CI PASS; NOT native audio/banner PASS |
+| TAR-02 saved cursor 95s, recovered authoritative checkpoint 91s | `timer_service::recover_at` uses DB/session identity; previous `next_boundary_seconds` and claimed effects preserved; no per-250ms flood while timeline catches up; 60s remains delivered, 120s fires once | Exact-head Rust regression and CI; any new physical reproduction requires protected synthetic profile and pre-launch logs |
+| TAR-03 legitimate lower Time Taken edit | Explicit `TimeTakenRebased` alone can reconcile lower last-observed time; plain backward observation without authorized transition remains a hard error. No replay/backfill of claimed effects | Exact-head Rust regression + check of real paused UI separately if required |
+| TAR-04 fail-closed timer panic | Mutex poison is evidence of a panic while holding an owned lock, **not sufficient root cause**. Never call `PoisonError::into_inner` blindly; do not mutate SQLite or swallow panics to fake recovery | Requires original first-fault stack/thread/source/build identity before causal fix. Current source cause **OPEN** |
+| TAR-05 full UI/Windows acceptance | Timer state, notifications, Break/manual vs Pomodoro, correct Focus/Board live projection, zero mixed compositor first frames at A/B transitions, restart persistence | PA Windows physical and Blitzit source parity **separate OPEN gates**; green automated CI does not establish either |
+
+## Minimal next genuine physical repro (only with separately active Codex physical operation)
+
+In a **new** isolated protected synthetic profile, run the exact new candidate binary with process stderr captured *before the first launch*, panic/backtrace enabled where supported, startup timestamps and SHA captured; use the smallest previously failing native path (two-display preferences → Board while persisted paused task). On failure freeze original stderr, thread/backtrace, OS event timing, current DB quick_check, Timer session and native log identities. Stop and restore protected personal data per existing workflow. If the first launch does not reproduce the panic, classify as **NOT REPRODUCED**, not source-fixed. Never reuse a consumed prior-session restore ledger. Treat the QPC compositor and manual-break pause policy as independent claims, not prerequisites for TAR source tests.
+
+**Escalation:** A new proven panic cause warrants the smallest state-owner corrective PR and fail-closed regression, exact-head CI and an isolated physical retest. A new alert-cursor mismatch after PR422 must include task ID, current run ID, stored cursor run ID, latest confirmed timer checkpoint, old and new work seconds, and claim/boundary IDs without exposing private task text.
