@@ -15,7 +15,8 @@ use crate::persistence::pomodoro_effects::{
 use crate::persistence::preferences::get_preferences;
 use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
 use crate::persistence::timed_alert_effects::{
-    claim_pending_timed_alerts, observe_timed_alert_run, retire_timed_alert_run, TimedAlertEffect,
+    claim_pending_timed_alerts, observe_timed_alert_run,
+    reconcile_timed_alert_cursor_after_authoritative_rebase, retire_timed_alert_run, TimedAlertEffect,
     TimedAlertObservation,
 };
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
@@ -120,7 +121,7 @@ impl TimerService {
             .filter(|path| !path.is_empty())
             .map(str::to_owned)
             .ok_or(TimerServiceRecoverError::DatabasePathUnavailable)?;
-        let effects_connection =
+        let mut effects_connection =
             Connection::open(database_path).map_err(TimerServiceRecoverError::EffectsConnection)?;
         configure_connection(&effects_connection)
             .map_err(TimerServiceRecoverError::EffectsConfiguration)?;
@@ -130,6 +131,30 @@ impl TimerService {
 
         let monotonic_origin = Instant::now();
         let controller = TimerController::recover(connection, 0, wall_time)?;
+        // The durable alert cursor may have observed more elapsed work than the
+        // last timer checkpoint before a crash/restart. Reconcile its observation
+        // *only for the same persisted session*; keep its next boundary and any
+        // claimed effects so the older alert cannot fire twice.
+        let recovered_timer = controller.snapshot().runtime;
+        if let (Some(task_id), Some(session_id)) =
+            (recovered_timer.timer.task_id, recovered_timer.open_session_id)
+        {
+            match reconcile_timed_alert_cursor_after_authoritative_rebase(
+                &mut effects_connection,
+                task_id,
+                session_id,
+                work_elapsed_seconds(&controller.snapshot()),
+                wall_time,
+            ) {
+                Ok(true) => eprintln!(
+                    "Timed-alert cursor reconciled with recovered timer checkpoint; prior notification boundary preserved"
+                ),
+                Ok(false) => {}
+                Err(error) => eprintln!(
+                    "Timed-alert recovery reconciliation failed; original cursor retained: {error}"
+                ),
+            }
+        }
         Ok(Self {
             state: Mutex::new(TimerServiceState {
                 controller,
@@ -955,6 +980,24 @@ fn reconcile_timed_alert_transition_best_effort(
             if let Err(error) = retire_timed_alert_run(effects_connection, *task_id) {
                 eprintln!("Timed-alert completed-run retirement failed: {error}");
             }
+        }
+        Some(TimerSessionChange::TimeTakenRebased { .. }) => {
+            // This is an explicitly committed user edit, not a backwards clock.
+            // Preserve already decided/delivered boundaries across reductions.
+            if let (Some(task_id), Some(session_id)) =
+                (payload.runtime.timer.task_id, payload.runtime.open_session_id)
+            {
+                if let Err(error) = reconcile_timed_alert_cursor_after_authoritative_rebase(
+                    effects_connection,
+                    task_id,
+                    session_id,
+                    work_elapsed_seconds(payload),
+                    wall_time,
+                ) {
+                    eprintln!("Timed-alert Time Taken rebase reconciliation failed: {error}");
+                }
+            }
+            observe_timed_alerts_best_effort(effects_connection, payload, false, wall_time);
         }
         _ => observe_timed_alerts_best_effort(effects_connection, payload, false, wall_time),
     }
