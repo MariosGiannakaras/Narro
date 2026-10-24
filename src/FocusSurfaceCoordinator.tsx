@@ -271,7 +271,10 @@ export function FocusSurfaceCoordinator() {
       && previousPresentation !== targetPresentation;
     let rasterToken: number | undefined;
     const panelStage = async (stage: "source" | "target", layout?: MotionV4PanelLayout) => {
-      if (!panelStageEnabled || rasterToken === undefined) return;
+      // Pin the lease across the CSS paint barrier; a later release must
+      // never silently retarget an in-flight CapturePreview IPC.
+      const token = rasterToken;
+      if (!panelStageEnabled || token === undefined) return;
       const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
       if (!host) return;
       // The native owned popup remains visible and protects the entire capture
@@ -279,7 +282,7 @@ export function FocusSurfaceCoordinator() {
       host.dataset.focusV4PanelPlate = stage;
       try {
         await waitForPresentedFrameOrThrow();
-        await prepareFocusMotionV4PanelPlate(rasterToken, stage, layout);
+        await prepareFocusMotionV4PanelPlate(token, stage, layout);
       } catch {
         // Optional pixel-sprite route: never block working Panel/Timer state.
       } finally {
