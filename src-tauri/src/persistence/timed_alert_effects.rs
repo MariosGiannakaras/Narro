@@ -299,11 +299,12 @@ pub fn observe_timed_alert_run(
 /// Reconcile a *committed* authoritative time rebase with the best-effort
 /// notification cursor. Do not rewind `next_boundary_seconds` or unclaim
 /// effects: notifications already delivered at an old elapsed time must not
-/// replay after a user Time Taken edit or a checkpoint-based restart.
+/// replay after a persisted checkpoint-based restart.
 ///
 /// An unannounced backward observation still fails closed in
-/// `observe_timed_alert_run`; callers must use this only for an explicit
-/// TimeTakenRebased transition or a persisted checkpoint recovery.
+/// `observe_timed_alert_run`. This reconciliation is permitted only when
+/// the timer has recovered its authoritative persisted checkpoint, *not*
+/// when task-level Time Taken metadata was edited (raw work stays monotonic).
 pub fn reconcile_timed_alert_cursor_after_authoritative_rebase(
     conn: &mut Connection,
     task_id: TaskId,
@@ -661,7 +662,7 @@ mod tests {
     }
 
     #[test]
-    fn authorized_time_rebase_keeps_notification_high_water_and_prevents_replay() {
+    fn recovered_checkpoint_rebase_keeps_notification_high_water_and_prevents_replay() {
         let (mut conn, task_id, run_id) = fixture();
         observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
         observe!(&mut conn, task_id, run_id, 95, true, 60, false, T1).unwrap();
