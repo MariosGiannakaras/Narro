@@ -294,4 +294,9 @@ invariant(
   "native Timer raster must exclude keyboard interaction, and restore only an unchanged resize-control focus",
 );
 
+invariant(
+  pkg.scripts["preflight:frontend"].includes("npm run test:recorded-n28-n36"),
+  "reconciled candidate must preserve resulting-main N28/N36 regression gate",
+);
+
 console.log("Single-host Focus presentation transition contracts passed.");
