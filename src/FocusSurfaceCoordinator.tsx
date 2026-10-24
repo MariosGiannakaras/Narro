@@ -20,6 +20,7 @@ import {
   finishFocusSurfaceModeRaster,
   markFocusTransitionTrace,
   prepareFocusMotionV4Plate,
+  prepareFocusMotionV4PanelPlate,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
@@ -37,6 +38,10 @@ import {
 } from "./timerSessionApi";
 import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
 import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
+import {
+  createMotionV4PanelLayout, measureMotionV4Panel, measureMotionV4PanelTimer,
+  type MotionV4PanelLayout,
+} from "./focusMotionV4PanelGeometry";
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
@@ -259,6 +264,29 @@ export function FocusSurfaceCoordinator() {
     const assertSameModeTask = () => assertMotionV4TaskIdentity(
       sourceTaskId, timerProjectionRef.current?.runtime.timer.task_id ?? null,
     );
+    const sourcePanelAnchors = previousPresentation === "panel"
+      ? measureMotionV4Panel(document)
+      : measureMotionV4PanelTimer(document, previousPresentation === "timerExpanded");
+    const panelStageEnabled = sourcePanelAnchors?.taskId === sourceTaskId
+      && previousPresentation !== targetPresentation;
+    const panelStage = async (stage: "source" | "target", layout?: MotionV4PanelLayout) => {
+      if (!panelStageEnabled || rasterToken === undefined) return;
+      const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
+      if (!host) return;
+      // The native owned popup remains visible and protects the entire capture
+      // interval. Failed optional staging retains the original compositor.
+      host.dataset.focusV4PanelPlate = stage;
+      try {
+        await waitForPresentedFrameOrThrow();
+        await prepareFocusMotionV4PanelPlate(rasterToken, stage, layout);
+      } catch {
+        // Optional pixel-sprite route: never block working Panel/Timer state.
+      } finally {
+        delete host.dataset.focusV4PanelPlate;
+        // Must not animate while hidden DOM glyphs remain in the frame.
+        await waitForPresentedFrameOrThrow();
+      }
+    };
 
     let rasterToken: number | undefined;
     try {
@@ -275,7 +303,22 @@ export function FocusSurfaceCoordinator() {
         beforeNativeCommit: async () => {
           rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
           markFocusTransitionTrace("renderer.raster-ready", rasterToken);
+          await panelStage("source");
           await prepareGeometryMotion(previousPresentation, targetPresentation);
+          assertSameModeTask();
+          if (panelStageEnabled) {
+            const targetAnchors = targetPresentation === "panel"
+              ? measureMotionV4Panel(document)
+              : measureMotionV4PanelTimer(document, targetPresentation === "timerExpanded");
+            const fromHeight = previousPresentation === "panel"
+              ? 700 : previousPresentation === "timerExpanded" ? 300 : 110;
+            const toHeight = targetPresentation === "panel"
+              ? 700 : targetPresentation === "timerExpanded" ? 300 : 110;
+            const panelLayout = createMotionV4PanelLayout(
+              sourcePanelAnchors, targetAnchors, fromHeight, toHeight,
+            );
+            if (panelLayout) await panelStage("target", panelLayout);
+          }
           assertSameModeTask();
           markFocusTransitionTrace("renderer.target-prepared", rasterToken);
         },
