@@ -88,6 +88,14 @@ assert.ok(css.includes('data-focus-v4-panel-plate="source"')
   && css.includes("visibility: hidden !important"));
 assert.ok(api.includes('invoke<void>("focus_surface_prepare_v4_panel_plate"'));
 assert.ok(rust.includes("focus_surface_prepare_v4_panel_plate,"));
+assert.ok(coordinator.includes("const token = rasterToken;"),
+  "immutable capture lease token must survive async DOM paint");
+assert.ok(rust.includes("stale or unsupported Panel Motion v4 lease"));
+assert.ok(rust.includes("stale Panel Motion v4 plate after capture"));
+assert.ok(raster.includes("from_plate.size != outgoing.size || to_plate.size != incoming.size"),
+  "intermediate plates must reject cross-DPI and stale native region sizes");
+assert.ok(raster.includes("if eased <= 0.0 || eased >= 1.0"),
+  "shared-element animation retains exact native endpoint frames");
 assert.ok(rust.includes("v4_panel_from_plate: None")
   && rust.includes("v4_panel_to_plate: None")
   && rust.includes("v4_panel_layout: None"));
