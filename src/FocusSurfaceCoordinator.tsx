@@ -18,12 +18,14 @@ import {
   getFocusSurfacePresentation,
   prepareFocusSurfaceModeRaster,
   finishFocusSurfaceModeRaster,
+  markFocusTransitionTrace,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
 import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
-import { waitForPresentedFrame } from "./presentationFrame";
+import { commitProtectedTimerResize } from "./protectedTimerResize";
+import { waitForPresentedFrameOrThrow, waitForPresentedFrameWithin, waitForTimerRasterReady } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
@@ -119,7 +121,7 @@ export function FocusSurfaceCoordinator() {
 
   const waitForReady = useCallback(async (mode: FocusSurfaceMode) => {
     if (readinessRef.current[mode]) {
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
       return;
     }
 
@@ -138,7 +140,7 @@ export function FocusSurfaceCoordinator() {
           ));
         }, PRESENTATION_READY_TIMEOUT_MS);
       });
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
     } finally {
       if (timeout !== undefined) window.clearTimeout(timeout);
       if (waiter) readinessWaitersRef.current[mode].delete(waiter);
@@ -153,7 +155,7 @@ export function FocusSurfaceCoordinator() {
     // Native outgoing-pixel protection is installed before this promotion.
     // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
-    await waitForPresentedFrame();
+    await waitForPresentedFrameOrThrow();
   }, []);
 
   const runGeometryMotion = useCallback(async (
@@ -260,27 +262,34 @@ export function FocusSurfaceCoordinator() {
         waitForTargetReady: () => waitForReady(targetMode),
         beforeNativeCommit: async () => {
           rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
+          markFocusTransitionTrace("renderer.raster-ready", rasterToken);
           await prepareGeometryMotion(previousPresentation, targetPresentation);
+          markFocusTransitionTrace("renderer.target-prepared", rasterToken);
         },
         beforeNativeRollback: async () => {
+          markFocusTransitionTrace("renderer.rollback", rasterToken);
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(previousPresentation);
           });
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
         },
         applyNativePresentation: async (next) => {
           if (rasterToken !== undefined) {
             await finishFocusSurfaceModeRaster(rasterToken, true);
-            await waitForPresentedFrame();
+            await waitForPresentedFrameOrThrow();
             await finishFocusSurfaceModeRaster(rasterToken);
             rasterToken = undefined;
           } else {
             await applyFocusSurfacePresentation(next);
           }
         },
-        animateNativePresentation: (next) =>
-          animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!),
+        animateNativePresentation: (next) => {
+          markFocusTransitionTrace("renderer.native-request", rasterToken);
+          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then(() => {
+            markFocusTransitionTrace("renderer.native-finished", rasterToken);
+          });
+        },
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
         commitRendererPresentation: (next) => {
@@ -288,9 +297,11 @@ export function FocusSurfaceCoordinator() {
             setGeometryMotion(null);
             publishPresentation(next);
           });
+          markFocusTransitionTrace("renderer.commit", rasterToken);
         },
         afterRendererCommit: async () => {
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
+          markFocusTransitionTrace("renderer.release-request", rasterToken);
           await finishFocusSurfaceModeRaster(rasterToken!);
           rasterToken = undefined;
         },
@@ -339,12 +350,12 @@ export function FocusSurfaceCoordinator() {
       return;
     }
 
-    await waitForPresentedFrame();
-    if (resumeNonce === null) {
-      setTimerProjectionError(null);
-      return;
-    }
     try {
+      await waitForPresentedFrameOrThrow();
+      if (resumeNonce === null) {
+        setTimerProjectionError(null);
+        return;
+      }
       const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
         setTimerProjection((current) => {
@@ -356,28 +367,65 @@ export function FocusSurfaceCoordinator() {
       setTimerProjectionError(null);
     } catch (failure: unknown) {
       setTimerProjectionError(
-        `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
+        resumeNonce === null
+          ? `Focus Panel could not finish presenting. ${formatInvokeError(failure)}`
+          : `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
       );
     }
   }, []);
 
-  const requestTimerExpanded = useCallback(async (expanded: boolean, compactFrame?: number[]) => {
+  const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
 
     const previous = presentationRef.current;
-    const target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact";
+    const target = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
+    if (previous === "panel") throw new Error("Timer resize requires a committed Timer presentation.");
 
     transitionGateRef.current = true;
     try {
-      await commitPreparedFocusPresentation({
-        previousPresentation: previous,
-        targetPresentation: target,
-        waitForTargetReady: async () => {},
-        applyNativePresentation: (presentation) => applyFocusSurfacePresentation(presentation, compactFrame),
-        commitRendererPresentation: publishPresentation,
+      const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 1 : FOCUS_GEOMETRY_MOTION_MS;
+      const waitForTimerTargetPaint = () => waitForTimerRasterReady(
+        target,
+        () => document.querySelector(
+          '.floating-timer-foundation[data-floating-expanded="true"] [data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]',
+        ) !== null,
+        waitForPresentedFrameWithin,
+        () => performance.now(),
+      );
+      await commitProtectedTimerResize({
+        previous,
+        target,
+        protectOutgoing: async (next) => {
+          const token = await prepareFocusSurfaceModeRaster(next);
+          markFocusTransitionTrace("renderer.raster-ready", token);
+          return token;
+        },
+        prepareRenderer: (next) => {
+          prepareRenderer(next === "timerExpanded");
+          markFocusTransitionTrace("renderer.target-prepared");
+        },
+        waitForPaint: waitForTimerTargetPaint,
+        animate: async (next, token) => {
+          markFocusTransitionTrace("renderer.native-request", token);
+          await animateFocusSurfacePresentation(next, duration, token);
+          markFocusTransitionTrace("renderer.native-finished", token);
+        },
+        publish: (next) => {
+          flushSync(() => publishPresentation(next));
+          markFocusTransitionTrace("renderer.commit");
+        },
+        restoreNative: (token) => {
+          markFocusTransitionTrace("renderer.rollback", token);
+          return finishFocusSurfaceModeRaster(token, true);
+        },
+        release: (token) => {
+          markFocusTransitionTrace("renderer.release-request", token);
+          return finishFocusSurfaceModeRaster(token);
+        },
       });
     } finally {
       transitionGateRef.current = false;
@@ -505,7 +553,14 @@ export function FocusSurfaceCoordinator() {
         void reconcileAuthoritativePresentation();
       })
       .catch((failure: unknown) => {
-        if (!disposed) setTransitionError(formatInvokeError(failure));
+        if (!disposed) {
+          setTransitionError(formatInvokeError(failure));
+          // A failed event listener must not leave Focus permanently
+          // unhydrated/inert when the authoritative snapshot still works.
+          // Renderer-owned changes remain committed locally; external native
+          // invalidations are unavailable until the listener is restored.
+          void reconcileAuthoritativePresentation();
+        }
       });
 
     return () => {
@@ -762,7 +817,7 @@ export function FocusSurfaceCoordinator() {
           data-focus-presentation="timer"
           data-focus-visibility={timerActive ? "active" : "preparing"}
           aria-hidden={timerActive && completionSuccess === null ? undefined : true}
-          inert={!timerActive || transitionPending || completionSuccess !== null}
+          inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}

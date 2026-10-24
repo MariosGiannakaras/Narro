@@ -182,7 +182,38 @@ contractNode.id = "floating-timer-visual-contract";
 contractNode.type = "application/json";
 contractNode.textContent = JSON.stringify(contract);
 document.body.append(contractNode);
-document.documentElement.dataset.floatingTimerFixtureReady = "true";
+if (fixtureState === "collapsed" && !timeUpFixture && (!requestedState || requestedState === "collapsed")) {
+  // Real browser hit-testing catches explanatory tooltips covering the next
+  // control. HTMLElement.click() would bypass this failure entirely.
+  void (async () => {
+    const heading = renderedTimer.querySelector<HTMLElement>(".floating-timer-foundation__heading");
+    const returnButton = renderedTimer.querySelector<HTMLButtonElement>('[data-floating-action="return-to-panel"]');
+    if (!heading || !returnButton) throw new Error("Timer tooltip probe controls are missing");
+    flushSync(() => heading.focus());
+    flushSync(() => returnButton.focus());
+    await new Promise((resolve) => window.setTimeout(resolve, 600));
+    const tooltip = document.getElementById(returnButton.getAttribute("aria-describedby") ?? "");
+    const targets = ["add", "expand"].map((control) => {
+      const button = renderedTimer.querySelector<HTMLButtonElement>(`[data-floating-subtask-control="${control}"]`)!;
+      const bounds = button.getBoundingClientRect();
+      const hit = document.elementFromPoint(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+      return { control, receivesPointer: hit === button || Boolean(hit && button.contains(hit)),
+        interceptedBy: hit?.getAttribute("role") ?? hit?.tagName ?? null };
+    });
+    const probe = document.createElement("script");
+    probe.id = "floating-timer-tooltip-hit-contract";
+    probe.type = "application/json";
+    probe.textContent = JSON.stringify({ tooltipOpen: tooltip?.dataset.open === "true",
+      tooltipText: tooltip?.textContent, targets });
+    document.body.append(probe);
+    flushSync(() => returnButton.blur());
+    // Restore the resting screenshot state; this wait is fixture-only.
+    await new Promise((resolve) => window.setTimeout(resolve, 200));
+    document.documentElement.dataset.floatingTimerFixtureReady = "true";
+  })();
+} else {
+  document.documentElement.dataset.floatingTimerFixtureReady = "true";
+}
 
 if (params.get("state") === "cycle") {
   const observations: Array<{

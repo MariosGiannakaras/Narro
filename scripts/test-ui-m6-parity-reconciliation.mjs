@@ -87,7 +87,7 @@ for (const [haystack, needle, label] of [
   [native, "show_or_recreate_main(app_handle.clone()).await?;", "A15 existing Main lifecycle reuse"],
   [native, "focus_surface_hide(app_handle)", "A15 Focus hide without timer reset"],
   [panel, "await pauseTimerForFocusHome();", "P3-M6-06 guarded Home pause"],
-  [panel, "await waitForPresentedFrame();", "P3-M6-06 visible PAUSED frame before exit"],
+  [panel, "await waitForPresentedFrameOrThrow();", "P3-M6-06 bounded PAUSED frame before exit"],
   [panel, "await resumeTimerFromFocusHome();", "P3-M6-06 guarded Home exit rollback"],
   [timerApi, 'committedOptionalTimerMutation("timer_pause_for_focus_home")', "P3-M6-06 typed optional Home pause API"],
   [timerApi, '"timer_resume_focus_home_pause"', "P3-M6-06 typed optional guarded resume API"],
@@ -208,7 +208,7 @@ const homeStart = panel.indexOf("const exitFocusHome");
 const homeEnd = panel.indexOf("const submitAddTask", homeStart);
 const home = panel.slice(homeStart, homeEnd);
 const homePause = home.indexOf("await pauseTimerForFocusHome();");
-const homeFrame = home.indexOf("await waitForPresentedFrame();", homePause);
+const homeFrame = home.indexOf("await waitForPresentedFrameOrThrow();", homePause);
 const homeExit = home.indexOf('await invoke<void>("focus_surface_exit_to_main");', homeFrame);
 if (homeStart < 0 || homeEnd < homeStart || homePause < 0 || homeFrame < homePause || homeExit < homeFrame) {
   throw new Error("P3-M6-06 must visibly commit PAUSED before Focus Home exits.");

@@ -1,7 +1,7 @@
 use crate::domain::ids::{ListId, TaskId};
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension, Row, Transaction};
+use rusqlite::{params, Connection, OptionalExtension, Row, Transaction, TransactionBehavior};
 use std::collections::HashSet;
 use std::fmt::{Display, Formatter};
 
@@ -229,7 +229,7 @@ pub fn create_list_with_builtin_icon(
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
     let id = ListId::generate();
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let rank = next_active_rank(&tx)?;
     tx.execute(
         "INSERT INTO lists (
@@ -263,7 +263,7 @@ pub fn duplicate_list(
     }
 
     let new_id = ListId::generate();
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let rank = next_active_rank(&tx)?;
     tx.execute(
         "INSERT INTO lists (
@@ -375,7 +375,7 @@ pub fn update_list_with_builtin_icon(
 ) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let changed = tx.execute(
         "UPDATE lists
          SET title = ?1, color = ?2, icon_asset = ?3, icon_id = ?4, updated_at = ?5
@@ -408,7 +408,7 @@ pub fn reorder_active_lists(
         return Err(ListStoreError::DuplicateReorderId);
     }
 
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = active_ids(&tx)?;
     let current_set: HashSet<ListId> = current.iter().copied().collect();
     if current.len() != ordered_ids.len() || current_set != requested {
@@ -437,7 +437,7 @@ pub fn archive_list(
     now: &str,
 ) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_raw_list(&tx, id)?.ok_or(ListStoreError::NotFound(id))?;
     if current.archived_at.is_some() {
         let unchanged = decode_list(current)?;
@@ -466,7 +466,7 @@ pub fn restore_list(
     now: &str,
 ) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_raw_list(&tx, id)?.ok_or(ListStoreError::NotFound(id))?;
     if current.archived_at.is_none() {
         let unchanged = decode_list(current)?;
@@ -490,7 +490,7 @@ pub fn restore_list(
 }
 
 pub fn permanently_delete_list(conn: &mut Connection, id: ListId) -> Result<(), ListStoreError> {
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_raw_list(&tx, id)?.ok_or(ListStoreError::NotFound(id))?;
     if current.archived_at.is_none() {
         return Err(ListStoreError::MustArchiveBeforePermanentDelete(id));

@@ -16,6 +16,18 @@
   transition: clip-path var(--floating-timer-geometry-motion-duration) var(--motion-ease-enter);
 }
 
+/* Explanatory text can overlap a neighboring hit target in the compact host.
+   Keep the text visible without making it an input surface. */
+.floating-timer-foundation .overlay-tooltip[data-open="true"] {
+  pointer-events: none;
+}
+
+/* The native raster owns geometry while the full target is painted beneath it. */
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] {
+  clip-path: inset(0 0 0 0 round 16px);
+  transition: none;
+}
+
 .floating-timer-foundation[data-floating-expanded="true"] {
   height: 300px;
 }
@@ -37,6 +49,10 @@
 
 /* The native raster takes the complete incoming frame, never a partly faded
    expanded heading/action strip. Ordinary compact hover keeps its crossfade. */
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__heading,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__actions-wrap,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__drag-handle,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__content,
 .floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__heading,
 .floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {
   transition: none;
