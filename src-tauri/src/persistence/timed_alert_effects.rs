@@ -212,7 +212,7 @@ pub fn observe_timed_alert_run(
     if reset_run
         || cursor
             .as_ref()
-            .map_or(true, |current| current.run_id != seed_run_id)
+            .is_none_or(|current| current.run_id != seed_run_id)
     {
         tx.execute(
             "DELETE FROM timed_alert_effects WHERE task_id = ?1",
