@@ -131,6 +131,21 @@ fn pixels(rect: &Rect, image: &Image) -> Option<PixelRect> {
     Some(PixelRect { x, y, w, h })
 }
 
+/// Even optional staged frames must reject malformed decoded sources before
+/// blit() performs unchecked hot-path BGRA indexing. Legacy compose validates
+/// both sources; the v4 intermediate path previously bypassed that check.
+fn validate_source_image(image: &Image) -> CommandResult<()> {
+    let width = image.size.width as usize;
+    let height = image.size.height as usize;
+    let expected = width.checked_mul(height).and_then(|count| count.checked_mul(4));
+    if width == 0 || height == 0 || width > 4096 || height > 4096
+        || expected != Some(image.bgra.len())
+    {
+        return Err(invalid("invalid Motion v4 decoded raster size or pixel buffer"));
+    }
+    Ok(())
+}
+
 fn smoothstep(t: f64) -> f64 {
     let t = t.clamp(0.0, 1.0);
     t * t * (3.0 - 2.0 * t)
@@ -199,6 +214,9 @@ pub(crate) fn compose(
     layout: &Layout,
 ) -> CommandResult<Vec<u8>> {
     layout.validate()?;
+    validate_source_image(outgoing)?;
+    validate_source_image(incoming)?;
+    validate_source_image(plate)?;
     if !eased.is_finite() || !(0.0..=1.0).contains(&eased) {
         return Err(invalid("invalid native Motion v4 progress"));
     }
@@ -263,6 +281,24 @@ mod tests {
             rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
         }
     }
+    #[test]
+    fn malformed_intermediate_source_fails_without_bgra_out_of_bounds() {
+        let mut truncated = image(110, 11);
+        truncated.bgra.truncate(3);
+        let target = image(300, 22);
+        let plate = image(300, 33);
+        assert!(compose(&truncated, &target, &plate,
+            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+        let mut truncated_plate = image(300, 33);
+        truncated_plate.bgra.truncate(5);
+        assert!(compose(&image(110, 11), &target, &truncated_plate,
+            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+        let mut target = image(300, 22);
+        target.bgra.clear();
+        assert!(compose(&image(110, 11), &target, &plate,
+            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+    }
+
     #[test]
     fn high_dpi_half_pixel_edges_stay_inside_image() {
         let high_dpi = Image {
