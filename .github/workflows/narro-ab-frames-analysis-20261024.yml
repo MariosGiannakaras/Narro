@@ -11,6 +11,12 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            analysis
+            work-log/evidence/physical-ab-20261024
       - name: Verify ffmpeg availability
         run: |
           command -v ffmpeg
