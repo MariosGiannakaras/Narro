@@ -11,3 +11,8 @@
 {"utc": "2026-10-24T00:57:05.101329+00:00", "action": "SAME_EXE_RELAUNCH", "pid": 77704, "sha256": "2c8b091f6bea079196f7b068c303749417bd80a3529230fb8c6ed0f93d386765"}
 {"utc": "2026-10-24T00:58:24.394270+00:00", "action": "RECORD_START", "segment": "A13-assisted-drag-tray", "pid": 87260}
 {"utc": "2026-10-24T00:59:20.438354+00:00", "action": "RECORD_STOP", "segment": "A13-same-exe-relaunch", "exitCode": 0}
+{"utc": "2026-10-24T01:03:35.951252+00:00", "action": "RECORD_STOP", "segment": "A13-assisted-drag-tray", "exitCode": 0}
+{"utc": "2026-10-24T01:08:48.139542+00:00", "action": "RECORD_START", "segment": "B5-plain-est-expiry", "pid": 67220}
+{"utc": "2026-10-24T01:11:34.696954+00:00", "action": "RECORD_STOP", "segment": "B5-plain-est-expiry", "exitCode": 0}
+{"utc": "2026-10-24T01:12:47.929150+00:00", "action": "RECORD_START", "segment": "B5-plain-est-boundary-final", "pid": 64348}
+{"utc": "2026-10-24T01:15:00.448243+00:00", "action": "RECORD_STOP", "segment": "B5-plain-est-boundary-final", "exitCode": 0}
