@@ -1,0 +1,36 @@
+{
+  "recordedCommit": "cdaf85b3c20028a78d17f75f5700e652e7147f7e",
+  "reviewedHead": "9c9e370df6339100e703d30ccb27ae689e9ac223",
+  "files": [
+    {
+      "path": "src/boardTaskPointerDrag.ts",
+      "recordedBlob": "a1764eccb78b9b092643f6fdd5a1ce2c27de1703",
+      "currentBlob": "a1764eccb78b9b092643f6fdd5a1ce2c27de1703",
+      "identical": true
+    },
+    {
+      "path": "src/ListBoard.tsx",
+      "recordedBlob": "bb3d7546c4de6a39ddaee462d75f4c7a9884efd0",
+      "currentBlob": "bb3d7546c4de6a39ddaee462d75f4c7a9884efd0",
+      "identical": true
+    },
+    {
+      "path": "src/FloatingTimerFoundation.tsx",
+      "recordedBlob": "182019b994cd63fd95a4a6c05ab7cb9138242e7d",
+      "currentBlob": "182019b994cd63fd95a4a6c05ab7cb9138242e7d",
+      "identical": true
+    },
+    {
+      "path": "src/floatingTimerFoundation.css",
+      "recordedBlob": "371855f9e17d97ea65e869839cad171d2b8ee154",
+      "currentBlob": "371855f9e17d97ea65e869839cad171d2b8ee154",
+      "identical": true
+    },
+    {
+      "path": "src-tauri/capabilities/focus-surface.json",
+      "recordedBlob": "78ead26f15b52b58564e107b0dc25eb6b64f00b4",
+      "currentBlob": "78ead26f15b52b58564e107b0dc25eb6b64f00b4",
+      "identical": true
+    }
+  ]
+}

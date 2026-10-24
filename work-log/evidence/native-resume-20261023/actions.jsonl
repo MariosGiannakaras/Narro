@@ -1,0 +1,27 @@
+{"utc": "2026-10-23T13:39:43.778075+00:00", "action": "RECORD_START", "segment": "B1-home-list-navigation", "pid": 49364}
+{"utc": "2026-10-23T13:41:02.633118+00:00", "action": "RECORD_START", "segment": "B2B3-board-schedule-reorder", "pid": 73336}
+{"utc": "2026-10-23T13:41:02.693119+00:00", "action": "RECORD_STOP", "segment": "B1-home-list-navigation", "exitCode": 0}
+{"utc": "2026-10-23T13:43:49.293962+00:00", "action": "RECORD_STOP", "segment": "B2B3-board-schedule-reorder", "exitCode": 0}
+{"utc": "2026-10-23T13:43:58.589391+00:00", "action": "RECORD_START", "segment": "B3-board-input-reorder", "pid": 50304}
+{"utc": "2026-10-23T13:46:45.209088+00:00", "action": "RECORD_STOP", "segment": "B3-board-input-reorder", "exitCode": 0}
+{"utc": "2026-10-23T17:57:27.988902+00:00", "action": "RESUME_RECONCILIATION", "app": "previous PID no longer present; cause not determined", "recorders": "none active; previous segments ended by watchdog", "profile": "same owned synthetic profile and protected originals verified"}
+{"utc": "2026-10-23T17:57:28.951619+00:00", "action": "RECORD_START", "segment": "B7B8-preferences-shortcuts", "pid": 44424}
+{"utc": "2026-10-23T17:59:52.631037+00:00", "action": "RECORD_START", "segment": "B7B8-preferences-lower", "pid": 31844}
+{"utc": "2026-10-23T18:00:15.315582+00:00", "action": "RECORD_STOP", "segment": "B7B8-preferences-shortcuts", "exitCode": 0}
+{"utc": "2026-10-23T18:02:39.436256+00:00", "action": "RECORD_STOP", "segment": "B7B8-preferences-lower", "exitCode": 0}
+{"utc": "2026-10-23T18:04:07.507590+00:00", "action": "RECORD_START", "segment": "B9B10-reports-navigation", "pid": 76372}
+{"utc": "2026-10-23T18:06:29.159923+00:00", "action": "RECORD_START", "segment": "B10-reports-sessions", "pid": 88256}
+{"utc": "2026-10-23T18:06:53.850302+00:00", "action": "RECORD_STOP", "segment": "B9B10-reports-navigation", "exitCode": 0}
+{"utc": "2026-10-23T18:09:01.844953+00:00", "action": "RECORD_STOP", "segment": "B10-reports-sessions", "exitCode": 0}
+{"utc": "2026-10-23T18:13:06.691336+00:00", "action": "RECORD_START", "segment": "B4-focus-live-notes", "pid": 66216}
+{"utc": "2026-10-23T18:15:07.379737+00:00", "action": "RECORD_STOP", "segment": "B4-focus-live-notes", "exitCode": 0}
+{"utc": "2026-10-23T18:15:07.470758+00:00", "action": "RECORD_START", "segment": "B4B5-focus-break-pomo", "pid": 52252}
+{"utc": "2026-10-23T18:16:43.316682+00:00", "action": "RECORD_START", "segment": "B6-success-off-rest", "pid": 18876}
+{"utc": "2026-10-23T18:16:43.390695+00:00", "action": "RECORD_STOP", "segment": "B4B5-focus-break-pomo", "exitCode": 0}
+{"utc": "2026-10-23T18:17:38.733736+00:00", "action": "RECORD_START", "segment": "B2B3-board-native-drag", "pid": 51304}
+{"utc": "2026-10-23T18:17:39.010422+00:00", "action": "RECORD_STOP", "segment": "B6-success-off-rest", "exitCode": 0}
+{"utc": "2026-10-23T18:19:17.703353+00:00", "action": "RECORD_START", "segment": "B2-board-done-archive", "pid": 7932}
+{"utc": "2026-10-23T18:19:17.744097+00:00", "action": "RECORD_STOP", "segment": "B2B3-board-native-drag", "exitCode": 0}
+{"utc": "2026-10-23T18:20:35.047361+00:00", "action": "RECORD_STOP", "segment": "B2-board-done-archive", "exitCode": 0}
+{"utc": "2026-10-23T18:20:47.967518+00:00", "action": "RECORD_START", "segment": "B4-focus-skip-final", "pid": 62032}
+{"utc": "2026-10-23T18:21:28.761719+00:00", "action": "RECORD_STOP", "segment": "B4-focus-skip-final", "exitCode": 0}

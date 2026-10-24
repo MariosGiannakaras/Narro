@@ -25,9 +25,11 @@ const flush = async () => { for (let i = 0; i < 5; i++) await Promise.resolve();
 function harness({ enabled = true } = {}) {
   const writes = [], reads = [], statuses = [], errors = [], pending = [], clears = [];
   const task = { id: "task-1", title: "Prioritize", listId: "list-1" };
+  const boardReorderInFlightRef = { current: false };
   let blocked = false;
   const callback = vm.runInNewContext(productionCommit, {
     interactionReorderEnabled: enabled,
+    boardReorderInFlightRef,
     target: { kind: "list", id: "list-1" },
     mutationPendingTaskId: null,
     mutationRefreshBlocked: false,
@@ -56,7 +58,7 @@ function harness({ enabled = true } = {}) {
     LANES: [{ key: "backlog", title: "Backlog" }, { key: "thisWeek", title: "This Week" }],
     LANE_TOKEN: { backlog: "backlog", thisWeek: "this_week", today: "today" },
   });
-  return { callback, writes, reads, statuses, errors, pending, clears, get blocked() { return blocked; } };
+  return { callback, boardReorderInFlightRef, writes, reads, statuses, errors, pending, clears, get blocked() { return blocked; } };
 }
 
 // Cross-lane: the actual callback must not expose the stale source lane
@@ -65,6 +67,7 @@ function harness({ enabled = true } = {}) {
   const h = harness();
   const completion = h.callback("task-1", "backlog", "thisWeek", "anchor-9");
   assert.equal(h.writes.length, 1);
+  assert.equal(h.boardReorderInFlightRef.current, true, "actual reorder holds a synchronous owner while write is pending");
   assert.equal(h.writes[0].kind, "move");
   assert.equal(h.writes[0].request.beforeTaskId, "anchor-9");
   assert.deepEqual(h.pending, ["task-1"]);
@@ -73,9 +76,11 @@ function harness({ enabled = true } = {}) {
   h.writes[0].resolve();
   await flush();
   assert.equal(h.reads.length, 1, "fresh authoritative board is required after commit");
+  assert.equal(h.boardReorderInFlightRef.current, true, "the same owner survives durable write until readback");
   assert.deepEqual(h.clears, [], "source/target must stay held until fresh board resolves");
   h.reads[0].resolve();
   assert.equal(await completion, "settled");
+  assert.equal(h.boardReorderInFlightRef.current, false, "settled readback releases synchronous owner");
   assert.deepEqual(h.pending, ["task-1", null]);
   assert.deepEqual(h.clears, [], "only pointer owner releases held visuals after settlement");
   assert.deepEqual(h.statuses, ["Moved Prioritize to This Week."]);
@@ -100,6 +105,7 @@ function harness({ enabled = true } = {}) {
   const completed = h.callback("task-1", "backlog", "thisWeek", null);
   h.writes[0].reject(new Error("expected source-lane mismatch"));
   assert.equal(await completed, "restored");
+  assert.equal(h.boardReorderInFlightRef.current, false, "rejected native write releases owner");
   assert.equal(h.reads.length, 0);
   assert(h.errors.some(error => String(error).includes("expected source-lane mismatch")));
   assert.deepEqual(h.pending, ["task-1", null]);
@@ -114,6 +120,7 @@ function harness({ enabled = true } = {}) {
   h.writes[0].resolve(); await flush();
   h.reads[0].reject(new Error("board read unavailable"));
   assert.equal(await completed, "needs_refresh");
+  assert.equal(h.boardReorderInFlightRef.current, false, "committed-but-stale readback releases single-flight owner");
   assert.equal(h.blocked, true);
   assert(h.errors.some(error => String(error).includes("committed:")));
   assert.deepEqual(h.statuses, [], "refresh failure is not a completed screen state");

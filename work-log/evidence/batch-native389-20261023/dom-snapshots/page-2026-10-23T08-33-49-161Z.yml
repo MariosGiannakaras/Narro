@@ -1,0 +1,22 @@
+- main [ref=e3]:
+  - main "Floating Timer" [ref=e2242]:
+    - generic [ref=e2243]:
+      - generic "Show Floating Timer actions":
+        - strong: Weekly recurring parent
+        - generic:
+          - 'generic "Pomodoro paused: 05:00 remaining"': 05:00
+      - group "Floating Timer actions" [ref=e2246]:
+        - button "Start break" [ref=e2248] [cursor=pointer]
+        - button "Notes" [ref=e2255] [cursor=pointer]
+        - button "Resume" [ref=e2260] [cursor=pointer]
+        - button "Skip task" [ref=e2264] [cursor=pointer]
+        - button "Complete task" [ref=e2268] [cursor=pointer]
+        - button "Return to Focus Panel" [ref=e2273] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e2276]: Focus
+      - region "Subtasks for Weekly recurring parent" [ref=e2278]:
+        - generic "Floating Timer subtask summary" [ref=e2279]:
+          - progressbar "0 of 1 subtasks complete" [ref=e2280]:
+            - generic [aria-hidden] [ref=e2281]: 0/1
+          - generic [ref=e2282]: 0/1 Subtasks
+          - button "Add subtask for Weekly recurring parent" [ref=e2284] [cursor=pointer]: +
+          - button "Expand Floating Timer" [ref=e2286] [cursor=pointer]

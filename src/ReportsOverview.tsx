@@ -262,7 +262,14 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
       : [...current, listId]);
   };
 
+  const toggleListFilter = () => {
+    // Only one Reports filter overlay owns input and focus at a time.
+    if (!listFilterOpen) setDatePickerOpen(false);
+    setListFilterOpen((open) => !open);
+  };
+
   const toggleDatePicker = () => {
+    if (!datePickerOpen) setListFilterOpen(false);
     setDatePickerOpen((open) => {
       const next = !open;
       if (next && appliedRange) {
@@ -449,7 +456,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         onBack={onBack}
         onOpenSessions={onOpenSessions}
         onToggleListSelection={toggleListSelection}
-        onToggleListFilter={() => setListFilterOpen((open) => !open)}
+        onToggleListFilter={toggleListFilter}
         onToggleDatePicker={toggleDatePicker}
         onToggleChartSeries={toggleChartSeries}
         onSelectChartPreset={applyChartSeriesPreset}

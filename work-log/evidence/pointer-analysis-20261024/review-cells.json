@@ -1,0 +1,80 @@
+[
+  {
+    "id": "N09",
+    "verdict": "PASS_RECORDED_BUILD_ONLY",
+    "video": "pointer-retry-board",
+    "pts": [
+      145,
+      148
+    ],
+    "corroborationVideo": "pointer-retry-crosslane-timer",
+    "corroborationPts": [
+      24.5,
+      27.5
+    ],
+    "finding": "Actual pointer reorder A/B -> B/A, lifted preview/target slot and settled rows; same synthetic task IDs retained."
+  },
+  {
+    "id": "N10-backlog-thisWeek",
+    "verdict": "SCOPED_PASS",
+    "video": "pointer-retry-crosslane-timer",
+    "pts": [
+      16,
+      19,
+      30,
+      33
+    ],
+    "finding": "True pointer cross-lane movement both directions, observed lane counts and committed final lane."
+  },
+  {
+    "id": "N10-outside-drop",
+    "verdict": "SCOPED_PASS",
+    "video": "pointer-retry-crosslane-timer",
+    "pts": [
+      40.3,
+      43.3
+    ],
+    "finding": "Drop outside lanes removes preview and preserves original lane/order; not held-Escape."
+  },
+  {
+    "id": "N10-original-exact-today-and-held-escape",
+    "verdict": "PENDING_NOT_RUN",
+    "finding": "Exact original Today-target path and held-pointer Escape were not exercised. N10 aggregate remains PENDING."
+  },
+  {
+    "id": "A13-timer-native-drag",
+    "verdict": "UNCERTAIN_CAUSE_NO_DISPLACEMENT",
+    "video": "pointer-retry-crosslane-timer",
+    "pts": [
+      74.4,
+      77.4,
+      90.4,
+      93.4,
+      117.8,
+      120.8
+    ],
+    "finding": "No video/Win32 displacement in three attempts; correct screenshot binding alone did not repair native Timer movement. Not enough to isolate application vs input/native drag-loop cause."
+  },
+  {
+    "id": "A13-tray-quit",
+    "verdict": "NOT_RUN",
+    "finding": "No taskbar/tray target or actual tray-menu Quit in either original; cleanup Stop-Process is not tray acceptance."
+  },
+  {
+    "id": "A14-dpi-topology",
+    "verdict": "NOT_RUN_NEW_EVIDENCE",
+    "finding": "Only single-display96dpi; no125%/connected-second-monitor evidence added."
+  },
+  {
+    "id": "M7-presentation-acceptance",
+    "verdict": "NOT_CLOSED",
+    "video": "pointer-retry-crosslane-timer",
+    "pts": [
+      48,
+      52,
+      58,
+      62
+    ],
+    "finding": "Incidental main->Panel and Panel->Compact context reviewed; old executable and incomplete gate sequence do not validate corrected main or draft A/B."
+  }
+]

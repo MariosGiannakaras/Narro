@@ -1,0 +1,18 @@
+{"utc": "2026-10-23T18:59:06.168132+00:00", "action": "RECORD_START", "segment": "B3-keyboard-reorder-cancel", "pid": 19876}
+{"utc": "2026-10-23T19:00:51.728337+00:00", "action": "RECORD_STOP", "segment": "B3-keyboard-reorder-cancel", "exitCode": 0}
+{"utc": "2026-10-23T19:00:51.837147+00:00", "action": "RECORD_START", "segment": "B4B5-skip-switch-expiry", "pid": 67244}
+{"utc": "2026-10-23T19:02:59.010246+00:00", "action": "RECORD_START", "segment": "A13A14-drag-topmost", "pid": 74088}
+{"utc": "2026-10-23T19:02:59.241683+00:00", "action": "RECORD_STOP", "segment": "B4B5-skip-switch-expiry", "exitCode": 0}
+{"utc": "2026-10-23T19:05:45.575416+00:00", "action": "RECORD_STOP", "segment": "A13A14-drag-topmost", "exitCode": 0}
+{"utc": "2026-10-23T19:10:11.092014+00:00", "action": "RECORD_START", "segment": "B5-real-boundaries", "pid": 78764}
+{"utc": "2026-10-23T19:21:52.573406+00:00", "action": "RECORD_STOP", "segment": "B5-real-boundaries", "exitCode": 0}
+{"utc": "2026-10-24T00:56:48.468351+00:00", "action": "RESUME_RECONCILIATION", "ownedAppAbsent": true, "recordersAbsent": true, "videoEndUtc": "2026-10-23T19:21:52.573406Z", "quitVideoCoverage": "NOT_CAPTURED: application still visible at701s", "userReportedTrayQuit": true}
+{"utc": "2026-10-24T00:56:49.327824+00:00", "action": "RECORD_START", "segment": "A13-same-exe-relaunch", "pid": 64712}
+{"utc": "2026-10-24T00:57:05.101329+00:00", "action": "SAME_EXE_RELAUNCH", "pid": 77704, "sha256": "2c8b091f6bea079196f7b068c303749417bd80a3529230fb8c6ed0f93d386765"}
+{"utc": "2026-10-24T00:58:24.394270+00:00", "action": "RECORD_START", "segment": "A13-assisted-drag-tray", "pid": 87260}
+{"utc": "2026-10-24T00:59:20.438354+00:00", "action": "RECORD_STOP", "segment": "A13-same-exe-relaunch", "exitCode": 0}
+{"utc": "2026-10-24T01:03:35.951252+00:00", "action": "RECORD_STOP", "segment": "A13-assisted-drag-tray", "exitCode": 0}
+{"utc": "2026-10-24T01:08:48.139542+00:00", "action": "RECORD_START", "segment": "B5-plain-est-expiry", "pid": 67220}
+{"utc": "2026-10-24T01:11:34.696954+00:00", "action": "RECORD_STOP", "segment": "B5-plain-est-expiry", "exitCode": 0}
+{"utc": "2026-10-24T01:12:47.929150+00:00", "action": "RECORD_START", "segment": "B5-plain-est-boundary-final", "pid": 64348}
+{"utc": "2026-10-24T01:15:00.448243+00:00", "action": "RECORD_STOP", "segment": "B5-plain-est-boundary-final", "exitCode": 0}

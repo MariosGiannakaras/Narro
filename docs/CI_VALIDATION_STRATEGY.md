@@ -12,7 +12,7 @@ When a coherent implementation slice:
 - has a reviewable source/config/test diff;
 - preserves repository invariants;
 
-it should be expected-head guarded-merged to `main` even when a **purely observational physical Windows gate** remains open.
+it should **normally** be expected-head guarded-merged to `main` even when a **purely observational physical Windows gate** remains open. This rule does not override a **specific, reasoned `PHYSICAL_BEFORE_MERGE` hold** in the current HANDOFF/PR for known demonstrated native regressions whose substantial replacement has not yet been physically checked. Such a hold must identify the failed source/build and scenario, exact current candidate, concrete acceptance/exit criterion, and reassessment owner; it is retired once its evidence is obtained or a fresh documented analysis proves the block unnecessary. Never invent an exception for ordinary independent green PRs.
 
 A physical/manual gate does not become PASS because code was merged. The milestone/TODO item stays OPEN until the required observation exists.
 
@@ -24,7 +24,7 @@ If the later physical run fails:
 5. merge the correction;
 6. repeat only the affected physical portion unless evidence requires a broader rerun.
 
-Do not keep an automated-green PR open for days while unrelated documentation/main truth advances around it. That creates avoidable merge/reconciliation debt and invalidates branch-local process truth.
+Do not keep ordinary automated-green PRs open just because an unrelated milestone physical checklist is not finished. For a documented exceptional `PHYSICAL_BEFORE_MERGE` native-risk hold, branch age alone is **not** evidence for lifting the hold; schedule specific physical acceptance, keep source ownership and head identity clear, and avoid adding unrelated branch scope. PR389 currently qualifies due to previously verified 4/8 native failure on the same compositor surface and untested replacement; the next successful 8/8 exact-candidate native acceptance ends the hold.
 
 ## 2. Branch lifecycle
 

@@ -1,0 +1,73 @@
+{
+  "mode": "capture only; no frame analysis, no code changes, no acceptance PASS",
+  "inputSequence": [
+    "Home tree saved",
+    "native click All my lists: coordinate input geometry is unavailable",
+    "Tab twice: focus pane",
+    "activate native window",
+    "Ctrl+F: Search dialog observed",
+    "set_value Search tasks and lists=capture through UIA",
+    "Tab; focus remained document",
+    "Escape; stop recorder"
+  ],
+  "actionUtc": "record start/stop in actions.jsonl; intermediate receipt write times below are not exact input timestamps",
+  "receipts": [
+    {
+      "file": "native-after-escape-uia.txt",
+      "receiptFileModifiedUtc": "2026-10-23T08:55:04.356606+00:00",
+      "warning": "receipt write time, not exact input onset"
+    },
+    {
+      "file": "native-after-search-key-uia.txt",
+      "receiptFileModifiedUtc": "2026-10-23T08:54:33.938516+00:00",
+      "warning": "receipt write time, not exact input onset"
+    },
+    {
+      "file": "native-click-error.txt",
+      "receiptFileModifiedUtc": "2026-10-23T08:54:14.214358+00:00",
+      "warning": "receipt write time, not exact input onset"
+    },
+    {
+      "file": "native-initial-uia.txt",
+      "receiptFileModifiedUtc": "2026-10-23T08:54:13.351696+00:00",
+      "warning": "receipt write time, not exact input onset"
+    },
+    {
+      "file": "native-search-setvalue-uia.txt",
+      "receiptFileModifiedUtc": "2026-10-23T08:54:50.214139+00:00",
+      "warning": "receipt write time, not exact input onset"
+    }
+  ],
+  "acquisitionProgress": {
+    "fullyAcquiredIds": 12,
+    "partialIds": [
+      "A13",
+      "A14",
+      "B1",
+      "B8"
+    ],
+    "notRunIds": [
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B9",
+      "B10"
+    ],
+    "denominator": 24,
+    "acceptanceVerdicts": "UNREVIEWED; zero new PASS"
+  },
+  "blockers": [
+    "Computer Use WGC: FrameArrived timed out",
+    "Computer Use click: coordinate input geometry is unavailable",
+    "Automatic approval review rejected combined launch with remote-debugging options; no reason beyond blocked by policy",
+    "plain launch succeeded; private WebView2 cache override launch succeeded; no remote debugger"
+  ],
+  "personalData": {
+    "RoamingDatabase": "restored hash-identical, proof included",
+    "LocalCache": "original protected copy remains intact; active synthetic cache cannot be renamed; recovery pending in native389 ledger"
+  },
+  "processes": "owned recorders/apps stopped before freeze"
+}

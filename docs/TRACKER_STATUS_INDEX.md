@@ -1,6 +1,16 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## CURRENT 2026-10-19 — final-build native analysis2/2 DONE; three corrective scopes
+## Current navigation — 2026-10-23
+
+This is an evidence/ownership index, not an implementation queue. [HANDOFF](../HANDOFF.md) owns current task and source/physical agent; [STATUS](../STATUS.md) owns current validated evidence; [TODO](../TODO.md) owns the mandatory 10-milestone checklist; [AI bootstrap](../AI_START_HERE.md) and [progress rule](PROGRESS_REPORTING.md) own reporting.
+
+[PR389](https://github.com/MariosGiannakaras/Narro/pull/389) is **OPEN/DRAFT/UNMERGED** at exact head `ccb70a922b0f3c14f1e718850238343a8156fc6d`. Current [Windows CI 39871074255](https://github.com/MariosGiannakaras/Narro/actions/runs/39871074255) is **3/3 PASS** (validation/fast/Windows). Current physical artifact `12467730680`, GitHub-reported ZIP SHA256 `387c265c2c0ef341938264fcce0d724dfd9da00a6e442e218929c684c8566db8`; independent ZIP+embedded EXE SHA256/CRC/manifest verification is **PASS**, including physical/M7 byte-identical EXE `3d00390920b9af4f00a298111bca3baa075b1b0d05e4692fa39bffbf9b2d962a` ([immutable provenance](../work-log/2026-10-23-chatgpt-pr389-ccb70a92-independent-artifact-provenance.md)). Historical `f709214b` CI/artifact `12463188111` is obsolete for current-source physical testing. Corrective scope is owner-aware native popup discovery, bounded Home PAUSED paint/rollback, re-entry frame-error reporting and initial native snapshot fallback on listener failure; details in [immutable audit](../work-log/2026-10-23-chatgpt-pr389-prephysical-audit-ccb70a92.md). **Current native physical 0/8 NOT RUN**, with narrow PR389-only physical-before-merge hold supported by old 4/8 physical FAIL. Mandatory M1–M4 accepted and M5–M10 open; M11/M12 dormant. [HANDOFF](../HANDOFF.md) controls the next native validation action within the chat's standing authorization; no separate routine-test permission gate.
+
+**Live execution rule:** Routine native acceptance cases are sequenced by the current chat workflow when the relevant candidate and Windows operator are ready, without repeated user permission requests. Old restrictions within historical checkpoints are archival evidence only. Preserve accurate per-build results and safeguards for personal data and machine settings.
+
+**Historical sections below are dated snapshots.** Phrases such as `CURRENT`, `NEXT`, `USER-PAUSED`, `3/10`, `RUNNING` and old build SHAs in those sections describe their **historical checkpoint only**; never treat them as live agent instructions. Historical artifacts, branch-retention inventory, source media and prior tests remain preserved; do not prune on the basis of this index.
+
+## HISTORICAL 2026-10-19 — final-build native analysis2/2 DONE; three corrective scopes
 
 [Authoritative current report](RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md) / [HANDOFF](../HANDOFF.md): RA01 card handoff gap, RA02 early idle/stale queue in OFF and ON, RA02 obsolete status after rest. Ten case dispositions4scopedPASS/5FAIL/1UNCERTAIN. Original evidence unchanged, no fixes performed. Mandatory4/10 unchanged; native/source parity not closed.
 

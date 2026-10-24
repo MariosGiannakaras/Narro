@@ -1,0 +1,9 @@
+# Main partial acquisition — 2026-10-23
+
+Exact source cdaf85b3c20028a78d17f75f5700e652e7147f7e, resulting-main CI39921466242 3/3 SUCCESS (ci-final.json), artifact12488287273, EXE SHA2562c8b091f6bea079196f7b068c303749417bd80a3529230fb8c6ed0f93d386765. Separate executable from unmerged PR389; do not transfer compositor claims between builds.
+
+Original66.534s desktop clip,2560x1080 nominal60fps,3943decodedframes. B1 PARTIAL Home + Search; B8 PARTIAL actual Ctrl+F/Tab/Escape, not full shortcuts dialog/Tab acceptance. Remaining B2–B7/B9–B10 NOT RUN because native pointer geometry unavailable and fallback debugger launch was rejected by automatic approval review. Native UIA set_value used for synthetic query, not pointer typing. No cause/visual verdict is inferred. The native tool failure is an infrastructure blocker, not a confirmed Narro product FAIL. No screenshots fabricated from unavailable WGC; video has not been reviewed or analyzed.
+
+See acquisition-manifest.json for actual action sequence and receipt times, actions.jsonl for recording boundaries, native UIA snapshots for state evidence. Whole original Narro-M7-Logs plus raw ZIP included. No private DB, backup or WebView profile is published. Main personal Roaming profile restored hash-identically. Native389 original Local cache still protected intact but restoration PENDING; no owned capture/app left running.
+
+Campaign total:12/24 IDs fully acquired at planned action scope,4 partial(A13,A14,B1,B8),8 NOT RUN. These count acquisition only, not PASS. Existing native3898clips uploaded separately. Native8transition films need continuous boundary review; strict PR389 hold remains. Resume incomplete acquisition after native pointer/usable capture input is restored; do not replay consumed isolation ledgers, repeat completed native8 transitions, rerun old unaffected tests, or perform product fixes in this capture-only track.

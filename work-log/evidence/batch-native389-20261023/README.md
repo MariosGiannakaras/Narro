@@ -1,0 +1,9 @@
+# Native389 acquisition freeze — 2026-10-23
+
+Capture only. Exact source ccb70a922b0f3c14f1e718850238343a8156fc6d, CI39871074255, artifact12467730680, EXE SHA2563d00390920b9af4f00a298111bca3baa075b1b0d05e4692fa39bffbf9b2d962a. Logging filename is a byte-identical copy. Original full-desktop nominal60fps videos, UTC actions, current-DOM CLI receipts, native HWND/UIA facts, whole Narro-M7-Logs and byte-preserving raw ZIP included. No video/frame analysis or source comparison was performed; no acceptance PASS is asserted.
+
+A01–08: normal/reduced four presentation transitions acquired. Reduced motion via renderer media emulation, not OS setting. A09 controls/Notes/subtask; A10 rapid inputs; A11 bottom/edge via diagnostic SetWindowPos, NOT OS drag; A12 Home pause/exit and actual global-key reentry. A13 PARTIAL: actual Ctrl+Shift+T/P recorded, native pointer unavailable, so OS drag/tray Quit/relaunch/minimize NOT RUN. A14 PARTIAL: local Edge maximized/fullscreen flags requested and native facts captured; actual topmost/fullscreen verdict UNREVIEWED; 125% DPI/hardware unplug NOT RUN. Clip directories map to these IDs; actions.jsonl carries UTC boundaries and state receipts. CDP pointer/key actions are not Windows SendInput. Desktop capture is real production Windows pixels.
+
+Personal Roaming database restored hash-identically. Original Local cache remains protected intact; synthetic active Local directory could not be renamed after app exit (locked WebView2 remnants); restoration PENDING. Private databases/backups and all browser profiles are excluded. See capture-recovery-status.json. Do not replay consumed profile ledgers.
+
+ChatGPT should review all original transition boundaries continuously, correlate actions/native facts, keep old physical 4/8 FAIL historical, and retain strict PR389 physical-before-merge hold until exact-source evidence is actually reviewed. Main executable journeys are a separate packet/build. No milestone checkbox advanced.

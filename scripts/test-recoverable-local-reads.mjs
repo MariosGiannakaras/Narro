@@ -122,14 +122,20 @@ function retryHandlerByValue(path, marker, value) {
     "Sessions aggregation retry must reissue same filter request");
   has(s, "revision !== sessionsReadRevisionRef.current", "Sessions must reject stale reads");
   const click = retryHandlerByValue(path, "data-reports-sessions-retry", "true");
-  for (const [readError, sessions, refreshError, expected] of [
-    ["database busy", null, null,
+  has(s, "sessionsForCurrentRequest === null && refreshError",
+    "Sessions retry must use the committed request's projection, not any retained previous filter");
+  const obsolete = { rows: ["previous filter"] };
+  for (const [readError, sessions, sessionsForCurrentRequest, refreshError, expected] of [
+    ["database busy", null, null, null,
       [["readError", null], ["home", null], ["search", null], ["initialAttempt", 4]]],
-    [null, null, "session read failed",
+    [null, null, null, "session read failed",
       [["refreshError", null], ["sessionsAttempt", 4]]],
+    [null, obsolete, null, "new filter read failed",
+      [["refreshError", null], ["sessionsAttempt", 4]]],
+    [null, obsolete, obsolete, "old warning while current data is visible", []],
   ]) {
     const r = recorder();
-    run(click, { readError, sessions, refreshError,
+    run(click, { readError, sessions, sessionsForCurrentRequest, refreshError,
       setReadError: r.set("readError"), setHome: r.set("home"),
       setSearchData: r.set("search"), setInitialReadAttempt: r.set("initialAttempt"),
       setRefreshError: r.set("refreshError"), setSessionsReadAttempt: r.set("sessionsAttempt") });

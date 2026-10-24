@@ -1,0 +1,25 @@
+{
+  "schema": "narro.ci-resulting-main-verification.v1",
+  "source": "PR420 original-video N28/N36 corrective implementation",
+  "pr_number": 420,
+  "pr_head_sha": "d7bf628d25cbea95185205535f3658c5ef488e85",
+  "pr_ci_run_id": 40037398524,
+  "pr_ci_jobs": {
+    "validation-gate": "success",
+    "fast-gate": "success",
+    "windows-candidate": "success"
+  },
+  "squash_merge_sha": "9690d051da5a3f25d261decefcfe0c4c9c80b1db",
+  "verified_affected_blobs_equal": 5,
+  "affected_paths": [
+    "package.json",
+    "scripts/test-recorded-n28-n36.mjs",
+    "src/FocusLiveActions.tsx",
+    "src/ReportsOverview.tsx",
+    "src/ReportsOverviewView.tsx"
+  ],
+  "release_physical_acceptance": "NOT_RUN",
+  "result_main_context": "This machine-readable evidence-only receipt deliberately requests one main branch push validation after PR420's squash commit inherited [skip ci] from its source commit history. The executable code is unchanged; the receipt is not a bundled/runtime asset.",
+  "source_stage": "merged_main",
+  "pre_physical_step3": "NOT_STARTED"
+}

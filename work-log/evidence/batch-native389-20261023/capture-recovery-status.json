@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-23T08:50:41.578617+00:00",
+  "personalDatabaseRestoredHashIdentical": true,
+  "personalDatabaseSha256": "13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d",
+  "localCacheRestoration": "PENDING: synthetic Local directory locked; original Local protected directory intact; no deletion/overwrite",
+  "nativeInputLimits": [
+    "Windows key input works",
+    "Native UIA click failed: coordinate input geometry unavailable",
+    "WGC screenshot unavailable; actual desktop captured through Desktop Duplication"
+  ],
+  "verdict": "UNREVIEWED"
+}
