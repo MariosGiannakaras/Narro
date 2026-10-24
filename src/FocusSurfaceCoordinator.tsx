@@ -36,7 +36,7 @@ import {
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
-import { createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
+import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
@@ -389,11 +389,9 @@ export function FocusSurfaceCoordinator() {
     // renderer is prepainting/capturing its next bitmap.
     const sourceTaskId = sourceAnchors?.taskId
       ?? timerProjectionRef.current?.runtime.timer.task_id ?? null;
-    const assertSameRasterTask = () => {
-      if ((timerProjectionRef.current?.runtime.timer.task_id ?? null) !== sourceTaskId) {
-        throw new Error("The live Focus task changed during Timer resize; retry the transition.");
-      }
-    };
+    const assertSameRasterTask = () => assertMotionV4TaskIdentity(
+      sourceTaskId, timerProjectionRef.current?.runtime.timer.task_id ?? null,
+    );
     const target = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
     if (previous === "panel") throw new Error("Timer resize requires a committed Timer presentation.");
