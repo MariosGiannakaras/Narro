@@ -1,0 +1,21 @@
+name: Narro original-frame analysis bridge (isolated)
+on:
+  push:
+    branches:
+      - analysis/narro-20261024-exact-ab-frame-review
+permissions:
+  contents: read
+jobs:
+  original-frames:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify ffmpeg availability
+        run: |
+          command -v ffmpeg
+          python3 --version
+      - name: Emit frame sheets from existing original video bytes
+        shell: bash
+        run: |
+          python3 -u analysis/exact_ab_frame_review.py
