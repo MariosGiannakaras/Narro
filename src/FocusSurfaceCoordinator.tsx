@@ -251,6 +251,14 @@ export function FocusSurfaceCoordinator() {
 
     const previousPresentation = presentationRef.current;
     const targetPresentation = modePresentation(targetMode);
+    // Mode transitions are not exempt from the same single-live-task rule
+    // as Timer-only raster stages. A switch via another window or an
+    // automatic successor task must not publish an outgoing task's pixels
+    // over a different incoming task.
+    const sourceTaskId = timerProjectionRef.current?.runtime.timer.task_id ?? null;
+    const assertSameModeTask = () => assertMotionV4TaskIdentity(
+      sourceTaskId, timerProjectionRef.current?.runtime.timer.task_id ?? null,
+    );
 
     let rasterToken: number | undefined;
     try {
@@ -268,6 +276,7 @@ export function FocusSurfaceCoordinator() {
           rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
           markFocusTransitionTrace("renderer.raster-ready", rasterToken);
           await prepareGeometryMotion(previousPresentation, targetPresentation);
+          assertSameModeTask();
           markFocusTransitionTrace("renderer.target-prepared", rasterToken);
         },
         beforeNativeRollback: async () => {
@@ -290,13 +299,16 @@ export function FocusSurfaceCoordinator() {
         },
         animateNativePresentation: (next) => {
           markFocusTransitionTrace("renderer.native-request", rasterToken);
+          assertSameModeTask();
           return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then(() => {
+            assertSameModeTask();
             markFocusTransitionTrace("renderer.native-finished", rasterToken);
           });
         },
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation),
         commitRendererPresentation: (next) => {
+          assertSameModeTask();
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(next);
