@@ -451,6 +451,7 @@ export function FocusSurfaceCoordinator() {
           assertSameRasterTask();
           markFocusTransitionTrace("renderer.native-request", token);
           await animateFocusSurfacePresentation(next, duration, token);
+          assertSameRasterTask();
           markFocusTransitionTrace("renderer.native-finished", token);
         },
         publish: (next) => {
