@@ -1552,7 +1552,7 @@ mod tests {
             )
             .expect("commit a lower authoritative Time Taken value");
         assert!(matches!(
-            rebased.change,
+            rebased.change.as_ref(),
             Some(TimerSessionChange::TimeTakenRebased { .. })
         ));
         reconcile_timed_alert_transition_best_effort(
