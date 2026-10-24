@@ -104,7 +104,7 @@ assert.ok(coordinator.includes("const assertSameModeTask = () => assertMotionV4T
 assert.ok(coordinator.includes('assertSameModeTask();\n          markFocusTransitionTrace("renderer.target-prepared"'));
 assert.ok(coordinator.includes('assertSameModeTask();\n          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then'));
 assert.ok(coordinator.includes('assertSameModeTask();\n            markFocusTransitionTrace("renderer.native-finished"'));
-assert.ok(coordinator.includes('commitRendererPresentation: (next) => {\\n          // The same callback'));
+assert.ok(coordinator.includes("commitRendererPresentation: (next) => {"));
 assert.ok(coordinator.includes('if (next === targetPresentation) assertSameModeTask();'),
   "task-race guard must not prevent the recovery helper from publishing previous presentation");
 assert.ok(coordinator.includes("const assertSameRasterTask = () => assertMotionV4TaskIdentity("));
