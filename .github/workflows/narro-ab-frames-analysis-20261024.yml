@@ -1,4 +1,4 @@
-name: Narro original-frame analysis bridge (isolated)
+name: Narro frozen-media evidence analysis bridge (isolated)
 on:
   push:
     branches:
@@ -16,14 +16,15 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             analysis
-            work-log/evidence/physical-ab-20261024
+            work-log/evidence/physical-gap-restart-20261024/exports
       - name: Verify ffmpeg availability
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
-          command -v ffmpeg
+          sudo apt-get install -y -qq poppler-utils
+          command -v pdfinfo
+          command -v pdftoppm
           python3 --version
-      - name: Emit frame sheets from existing original video bytes
+      - name: Inspect existing original Reports PDF pages
         shell: bash
         run: |
-          NARRO_FRAME_SCOPE=rest12 python3 -u analysis/exact_ab_frame_review.py
+          python3 -u analysis/inspect_g22_export.py
