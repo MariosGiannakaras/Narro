@@ -1,0 +1,512 @@
+[
+  {
+    "utc": "2026-10-24T19:20:53.070Z",
+    "action": "Restart maximize",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 28.221
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:28.535Z",
+    "action": "restart reveal Capture Project",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 63.686
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:29.267Z",
+    "action": "restart Open Capture Project",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 64.418
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:30.108Z",
+    "action": "restart recurring task menu",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 65.259
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:30.659Z",
+    "action": "restart Update Recurring",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 65.81
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:37.984Z",
+    "action": "restart close schedule",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 73.135
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:21:38.532Z",
+    "action": "restart Preferences",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 73.683
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:22:10.663Z",
+    "action": "restart close Preferences",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 105.814
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:22:11.051Z",
+    "action": "restart enter paused Focus",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 106.202
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:22:12.208Z",
+    "action": "restart Notes",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 107.359
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:22:47.672Z",
+    "action": "G11 larger Notes editor",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 142.823
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:23:03.657Z",
+    "action": "G11 drag larger Notes resize handle; not Timer/window drag",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 158.808
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:23:38.782Z",
+    "action": "G12 Home while work paused",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 193.933
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:23:39.889Z",
+    "action": "G12 reveal Capture Project",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 195.04
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:23:40.639Z",
+    "action": "G12 Open board",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 195.79
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:23:41.517Z",
+    "action": "G12 reenter Focus",
+    "coverage": [
+      {
+        "segment": "common-restart",
+        "approxOffsetSeconds": 196.668
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:06.015Z",
+    "action": "G05 Home for actual replacement save",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 0.696
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:07.154Z",
+    "action": "G05 image menu",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 1.835
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:07.813Z",
+    "action": "G05 Edit List",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 2.494
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:38.083Z",
+    "action": "G05 actual Main Home route",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 32.764
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:39.182Z",
+    "action": "G05 actual image menu",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 33.863
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:25:39.776Z",
+    "action": "G05 actual Edit List",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 34.457
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:26:04.637Z",
+    "action": "G05 temporary English layout; direct filename keystrokes",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 59.318
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:26:19.453Z",
+    "action": "G05 click actual visible Save changes",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 74.134
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:26:20.460Z",
+    "action": "G05 restored prior Greek layout; stop before same EXE relaunch",
+    "coverage": [
+      {
+        "segment": "image-replacement",
+        "approxOffsetSeconds": 75.141
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:26:32.074Z",
+    "action": "G05 replacement restart maximize",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 10.594
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:27:02.922Z",
+    "action": "G19-G23 Reports",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 41.442
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:27:11.714Z",
+    "action": "G19 Sessions tab",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 50.234
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:27:12.398Z",
+    "action": "G19 Add Session",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 50.918
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:27:33.496Z",
+    "action": "G19 task chooser",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 72.016
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:28:56.398Z",
+    "action": "G19 End hour segment",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 154.918
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:29:05.157Z",
+    "action": "G19 save actual one-minute session",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 163.677
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:29:28.130Z",
+    "action": "G20 actions for newly created session",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 186.65
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:29:37.524Z",
+    "action": "G20 Edit new session",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 196.044
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:30:02.959Z",
+    "action": "G20 end time editor",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 221.479
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:30:33.740Z",
+    "action": "G20 minute segment",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 252.26
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:30:34.347Z",
+    "action": "G20 Save session end time",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 252.867
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:31:05.879Z",
+    "action": "G20 normalize fixture end time",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 284.399
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:31:06.556Z",
+    "action": "G20 save final two-minute duration",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 285.076
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:31:07.881Z",
+    "action": "G21 Export CSV",
+    "coverage": [
+      {
+        "segment": "replacement-restart",
+        "approxOffsetSeconds": 286.401
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:31:23.643Z",
+    "action": "G21 close task session detail",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 0.84
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:31:24.201Z",
+    "action": "G21 actual Export CSV",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 1.398
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:32:24.099Z",
+    "action": "G22 Overview",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 61.296
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:32:24.841Z",
+    "action": "G22 Export PDF",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 62.038
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:33:34.233Z",
+    "action": "G23 Overview list filter",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 131.43
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:34:03.359Z",
+    "action": "G23 actual list filter below export feedback",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 160.556
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:34:29.966Z",
+    "action": "G23 date range",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 187.163
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:35:16.442Z",
+    "action": "G23 choose visible Capture Project option",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 233.639
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:35:17.369Z",
+    "action": "G23 actual date-range button",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 234.566
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:35:40.969Z",
+    "action": "G23 This week preset",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 258.166
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T19:35:41.374Z",
+    "action": "G23 Apply weekly range",
+    "coverage": [
+      {
+        "segment": "report-exports",
+        "approxOffsetSeconds": 258.571
+      }
+    ]
+  }
+]

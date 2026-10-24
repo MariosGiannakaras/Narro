@@ -1,0 +1,22 @@
+{
+  "quick_check": "ok",
+  "tables": [
+    "_diagnostic_startup",
+    "lists",
+    "tasks",
+    "subtasks",
+    "task_notes",
+    "recurrence_rules",
+    "recurrence_occurrences",
+    "reminders",
+    "sessions",
+    "preferences",
+    "timer_runtime_checkpoint",
+    "pomodoro_boundary_effects",
+    "task_timer_preferences",
+    "floating_timer_placement",
+    "schedule_preference_reminder_effects",
+    "timed_alert_runs",
+    "timed_alert_effects"
+  ]
+}

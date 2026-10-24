@@ -1,0 +1,79 @@
+[
+  {
+    "hwnd": 198250,
+    "title": "Narro - Focus",
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "right": 340,
+      "bottom": 700
+    },
+    "visible": true
+  },
+  {
+    "hwnd": 5046866,
+    "title": "Narro",
+    "rect": {
+      "left": -8,
+      "top": -8,
+      "right": 2568,
+      "bottom": 1088
+    },
+    "visible": false
+  },
+  {
+    "hwnd": 460124,
+    "title": "",
+    "rect": {
+      "left": 26,
+      "top": 26,
+      "right": 1946,
+      "bottom": 815
+    },
+    "visible": false
+  },
+  {
+    "hwnd": 722354,
+    "title": "com.mariosg.Narro-siw",
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "right": 16,
+      "bottom": 16
+    },
+    "visible": true
+  },
+  {
+    "hwnd": 4132896,
+    "title": "",
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "right": 16,
+      "bottom": 16
+    },
+    "visible": true
+  },
+  {
+    "hwnd": 787172,
+    "title": "MSCTFIME UI",
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "visible": false
+  },
+  {
+    "hwnd": 3671706,
+    "title": "Default IME",
+    "rect": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "visible": false
+  }
+]
