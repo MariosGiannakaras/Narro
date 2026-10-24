@@ -19,6 +19,8 @@ jobs:
             work-log/evidence/physical-ab-20261024
       - name: Verify ffmpeg availability
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           command -v ffmpeg
           python3 --version
       - name: Emit frame sheets from existing original video bytes
