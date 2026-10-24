@@ -1,0 +1,35 @@
+name: Narro Residual Original MKV Analysis Bridge
+
+on:
+  push:
+    branches:
+      - analysis/narro-20261024-residual-native-mkv-bridge
+
+permissions:
+  contents: read
+
+jobs:
+  original-residual-mkvs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout original recorded binaries
+        uses: actions/checkout@v4
+      - name: Verify exact original 8 video identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir='work-log/evidence/native-residual-20261024'
+          count=$(find "$dir" -mindepth 2 -maxdepth 2 -type f -name 'native-original.mkv' | wc -l)
+          test "$count" -eq 8
+          find "$dir" -mindepth 2 -maxdepth 2 -type f -name 'native-original.mkv' -print0 |
+            sort -z | xargs -0 sha256sum | tee /tmp/residual-originals.sha256
+          test -s /tmp/residual-originals.sha256
+      - name: Publish original-byte residual MKVs for read-only analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-20261024-eight-residual-original-mkvs
+          path: work-log/evidence/native-residual-20261024/*/native-original.mkv
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
