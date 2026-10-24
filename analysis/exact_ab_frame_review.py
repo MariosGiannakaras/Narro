@@ -27,6 +27,45 @@ def emit_image(path, label):
     print(f"FRAME_END|{label}", flush=True)
 
 
+# Independent full native-PTS interval inspection of the previously failed A02
+# Compact->Expanded route. Existing MKV bytes remain read-only and unchanged.
+# One sheet per candidate x renderer media mode; 56 consecutive source-PTS
+# decoded frames in exact display order, native 340x725 screen crop, no rescale.
+import os
+if os.environ.get("NARRO_FRAME_SCOPE", "a02") == "a02":
+    for candidate in ("A", "B"):
+        trace_file = ROOT / "native-trace" / candidate / "focus-transition-trace.jsonl"
+        rows = [json.loads(v) for v in trace_file.read_text(encoding="utf-8").splitlines() if v]
+        beginnings = [v for v in rows if v["stage"] == "native.begin"]
+        assert len(beginnings) == 8
+        for slot, index in (("reduced", 1), ("normal", 5)):
+            record = beginnings[index]
+            assert record["details"]["data"]["from"] == "timerCompact"
+            assert record["details"]["data"]["to"] == "timerExpanded"
+            seg = SOURCE_MAP[candidate][0 if slot == "reduced" else 1]
+            video = ROOT / "recordings" / seg / "native-original.mkv"
+            start = max(0, (DATE(record["utc"]) - DATE(SEGMENTS[seg]["start"]["utc"])).total_seconds() - 0.15)
+            label = f"A02-{candidate}-{slot}"
+            with tempfile.TemporaryDirectory() as work:
+                jpg = pathlib.Path(work) / "sheet.jpg"
+                vf = "crop=340:725:2220:0,tile=7x8:padding=2:margin=2:color=black"
+                cmd = ["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error",
+                       "-ss", f"{start:.3f}", "-i", str(video),
+                       "-t", "0.91", "-vf", vf,
+                       "-frames:v", "1", "-q:v", "5", "-y", str(jpg)]
+                done = subprocess.run(cmd, capture_output=True, text=True)
+                if done.returncode or not jpg.is_file():
+                    raise RuntimeError(f"{label}: {done.stderr}")
+                print("A02_SOURCE|" + json.dumps({
+                    "label": label, "segment": seg, "start": start,
+                    "beginUTC": record["utc"], "requestedDurationMs": record["details"]["data"]["durationMs"],
+                    "sha": record["sourceSha"], "sampleMode": "native frame sequence/no fps filter",
+                    "grid": "7x8 (up to 56 consecutive original frames)", "crop": [2220, 0, 340, 725]
+                }, separators=(",", ":")), flush=True)
+                emit_image(jpg, label)
+    print("A02_ORIGINAL_FRAME_SCAN_COMPLETE|4", flush=True)
+    raise SystemExit(0)
+
 # Dedicated original-frame cross-check for UIA-visible Break timer versus live pixels.
 # Normal A/B reproduction remains available with NARRO_FRAME_SCOPE=ab.
 import os
