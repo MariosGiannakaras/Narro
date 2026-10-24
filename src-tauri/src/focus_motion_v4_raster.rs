@@ -61,6 +61,16 @@ impl Rect {
     }
 }
 
+fn intersects(a: &Rect, b: &Rect) -> bool {
+    a.x < b.x + b.width && b.x < a.x + a.width
+        && a.y < b.y + b.height && b.y < a.y + a.height
+}
+
+fn distinct(rects: &[&Rect]) -> bool {
+    rects.iter().enumerate().all(|(index, a)|
+        rects[index + 1..].iter().all(|b| !intersects(a, b)))
+}
+
 impl Layout {
     pub(crate) fn validate(&self) -> CommandResult<()> {
         if self.rows.len() > MAX_ROWS
@@ -69,6 +79,8 @@ impl Layout {
             || !self.toolbar.from.valid() || !self.toolbar.to.valid()
             || self.actions.as_ref().is_some_and(|rect| !rect.valid())
             || self.rows.iter().any(|rect| !rect.valid())
+            || !distinct(&[&self.title.from, &self.timer.from, &self.toolbar.from])
+            || !distinct(&[&self.title.to, &self.timer.to, &self.toolbar.to])
         {
             return Err(invalid("invalid Motion v4 source/target measured DOM geometry"));
         }
@@ -93,6 +105,20 @@ impl Layout {
             || self.rows.iter().any(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
         {
             return Err(invalid("Motion v4 semantic pixels exceed source or target region"));
+        }
+        // Actions/rows belong to the expanded image, even when collapsing.
+        // Overlap would otherwise blend two independently captured semantic
+        // sprites into one native rectangle in nondeterministic draw order.
+        let (title, timer, toolbar) = if from_height > to_height {
+            (&self.title.from, &self.timer.from, &self.toolbar.from)
+        } else {
+            (&self.title.to, &self.timer.to, &self.toolbar.to)
+        };
+        let mut expanded = vec![title, timer, toolbar];
+        if let Some(actions) = &self.actions { expanded.push(actions); }
+        expanded.extend(self.rows.iter());
+        if !distinct(&expanded) {
+            return Err(invalid("overlapping Motion v4 semantic pixel rectangles"));
         }
         Ok(())
     }
@@ -281,6 +307,17 @@ mod tests {
             rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
         }
     }
+    #[test]
+    fn overlapping_semantic_sprite_regions_are_rejected_before_paint() {
+        let mut l = layout();
+        l.title.to = rect(245.0, 12.0, 30.0, 14.0);
+        assert!(l.validate().is_err(), "target title and timer overlap");
+        let mut l = layout();
+        l.rows = vec![rect(12.0, 140.0, 290.0, 36.0),
+            rect(12.0, 145.0, 290.0, 36.0)];
+        assert!(l.validate_for_native(110.0, 300.0).is_err());
+    }
+
     #[test]
     fn malformed_intermediate_source_fails_without_bgra_out_of_bounds() {
         let mut truncated = image(110, 11);
