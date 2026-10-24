@@ -27,6 +27,54 @@ def emit_image(path, label):
     print(f"FRAME_END|{label}", flush=True)
 
 
+# Source-PTS review of the 12 other transitions: A/B x normal/reduced
+# x Panel->Compact, Expanded->Compact, Compact->Panel.
+# Existing A02 4/4 review stays frozen and is not repeated.
+import os
+if os.environ.get("NARRO_FRAME_SCOPE", "n36") == "rest12":
+    expected = [
+        ("panel", "timerCompact"),
+        ("timerExpanded", "timerCompact"),
+        ("timerCompact", "panel"),
+    ]
+    count = 0
+    for candidate in ("A", "B"):
+        p = ROOT / "native-trace" / candidate / "focus-transition-trace.jsonl"
+        rows = [json.loads(s) for s in p.read_text(encoding="utf-8").splitlines() if s]
+        beginnings = [r for r in rows if r["stage"] == "native.begin"]
+        assert len(beginnings) == 8
+        for motion, index_offset in (("reduced", 0), ("normal", 4)):
+            segment = SOURCE_MAP[candidate][0 if motion == "reduced" else 1]
+            video = ROOT / "recordings" / segment / "native-original.mkv"
+            for route_index in (0, 2, 3):
+                entry = beginnings[index_offset + route_index]
+                actual = (entry["details"]["data"]["from"], entry["details"]["data"]["to"])
+                assert actual == expected[(0,2,3).index(route_index)], (candidate,motion,actual)
+                seek = max(0, (DATE(entry["utc"]) - DATE(SEGMENTS[segment]["start"]["utc"])).total_seconds() - 0.13)
+                label = f"{candidate}-R{route_index+1}-{motion}"
+                with tempfile.TemporaryDirectory() as td:
+                    image_path = pathlib.Path(td) / "sheet.jpg"
+                    # Full current Focus height, cropped from immutable original native desktop.
+                    # No 'fps' time resampling. 7x8 tiled chronological frames; JPG is lossy.
+                    vf = "crop=340:700:2220:0,scale=240:494:flags=lanczos,tile=7x8:padding=2:margin=2:color=black"
+                    cmd = ["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error",
+                           "-ss", f"{seek:.3f}", "-i", str(video), "-t", "0.91",
+                           "-vf", vf, "-frames:v", "1", "-q:v", "6", "-y", str(image_path)]
+                    job = subprocess.run(cmd, capture_output=True, text=True)
+                    if job.returncode or not image_path.is_file():
+                        raise RuntimeError(f"{label} ffmpeg: {job.stderr}")
+                    print("REST12_META|" + json.dumps({"label":label, "segment":segment,
+                        "seconds":seek,"beginUTC":entry["utc"],
+                        "from":actual[0],"to":actual[1],"durationMs":entry["details"]["data"]["durationMs"],
+                        "sha":entry["sourceSha"],"roi":[2220,0,340,700],
+                        "sampling":"source PTS consecutive/7x8 tiled"},
+                        separators=(",", ":")), flush=True)
+                    emit_image(image_path, label)
+                    count += 1
+    assert count == 12
+    print("REST12_COMPLETE|12", flush=True)
+    raise SystemExit(0)
+
 # Independent full native-PTS interval inspection of the previously failed A02
 # Compact->Expanded route. Existing MKV bytes remain read-only and unchanged.
 # One sheet per candidate x renderer media mode; 56 consecutive source-PTS
