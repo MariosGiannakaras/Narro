@@ -124,6 +124,34 @@ impl Layout {
     }
 }
 
+/// Panel↔Timer has two shared semantic sprites; the Panel has no Timer
+/// subtask toolbar, so pretending that it does would overlay unrelated
+/// source pixels. This is intentionally distinct from Timer-only Layout.
+#[derive(Clone, Debug, serde::Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub(crate) struct PanelLayout {
+    title: SharedRect,
+    timer: SharedRect,
+}
+impl PanelLayout {
+    pub(crate) fn validate_for_native(&self, from: f64, to: f64) -> CommandResult<()> {
+        if !((from == 700.0 && (to == 110.0 || to == 300.0))
+            || (to == 700.0 && (from == 110.0 || from == 300.0)))
+            || !self.title.from.valid() || !self.title.to.valid()
+            || !self.timer.from.valid() || !self.timer.to.valid()
+            || intersects(&self.title.from, &self.timer.from)
+            || intersects(&self.title.to, &self.timer.to)
+            || self.title.from.y + self.title.from.height > from
+            || self.timer.from.y + self.timer.from.height > from
+            || self.title.to.y + self.title.to.height > to
+            || self.timer.to.y + self.timer.to.height > to
+        {
+            return Err(invalid("invalid Panel/Timer shared semantic native source geometry"));
+        }
+        Ok(())
+    }
+}
+
 #[derive(Clone, Copy)]
 struct PixelRect {
     x: usize,
@@ -285,6 +313,70 @@ pub(crate) fn compose(
     Ok(frame)
 }
 
+/// Panel↔Timer stages native-captured *clean backgrounds*, not a blend
+/// of two full screenshots containing duplicate title/time glyphs. During
+/// motion exactly one outgoing title and one clock sprite traverse the
+/// measured source→target anchors. Both endpoint images remain byte-exact.
+pub(crate) fn compose_panel(
+    outgoing: &Image,
+    incoming: &Image,
+    from_plate: &Image,
+    to_plate: &Image,
+    visible: tauri::PhysicalSize<u32>,
+    eased: f64,
+    layout: &PanelLayout,
+) -> CommandResult<Vec<u8>> {
+    validate_source_image(outgoing)?;
+    validate_source_image(incoming)?;
+    validate_source_image(from_plate)?;
+    validate_source_image(to_plate)?;
+    let from_height = f64::from(outgoing.size.height) * TIMER_WIDTH
+        / f64::from(outgoing.size.width);
+    let to_height = f64::from(incoming.size.height) * TIMER_WIDTH
+        / f64::from(incoming.size.width);
+    // Geometry is measured in logical pixels, but the source DPI can be 125%.
+    // Use a half-pixel allowance for round-to-physical-edge endpoints.
+    if (from_height - 700.0).abs() < 0.6 {
+        layout.validate_for_native(700.0,
+            if (to_height - 300.0).abs() < 0.6 { 300.0 } else if
+                (to_height - 110.0).abs() < 0.6 { 110.0 } else {
+                return Err(invalid("invalid Panel-to-Timer target region"));
+            })?;
+    } else if (to_height - 700.0).abs() < 0.6 {
+        layout.validate_for_native(
+            if (from_height - 300.0).abs() < 0.6 { 300.0 } else if
+                (from_height - 110.0).abs() < 0.6 { 110.0 } else {
+                return Err(invalid("invalid Timer-to-Panel source region"));
+            }, 700.0)?;
+    } else {
+        return Err(invalid("Panel v4 only supports real Panel/Timer transitions"));
+    }
+    if !eased.is_finite() || !(0.0..=1.0).contains(&eased) {
+        return Err(invalid("invalid Panel Motion v4 progress"));
+    }
+    if eased <= 0.0 || eased >= 1.0 {
+        return focus_mode_raster::compose(outgoing,incoming,visible,eased);
+    }
+    // One naturally clipped clean background is authoritative; blend only
+    // the other *text-free* shell inside its own actual visible region.
+    let mut frame = focus_mode_raster::compose(from_plate,to_plate,visible,eased)?;
+    let expanding = to_height > from_height;
+    let (background, opacity, height) = if expanding {
+        (from_plate, 1.0 - eased, from_height)
+    } else {
+        (to_plate, eased, to_height)
+    };
+    let background_rect = Rect {
+        x:0.0, y:0.0, width:TIMER_WIDTH, height,
+    };
+    blit(&mut frame,visible,background,&background_rect,&background_rect,opacity);
+    blit(&mut frame,visible,outgoing,&layout.title.from,
+        &layout.title.from.interpolate(&layout.title.to,eased),1.0);
+    blit(&mut frame,visible,outgoing,&layout.timer.from,
+        &layout.timer.from.interpolate(&layout.timer.to,eased),1.0);
+    Ok(frame)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -307,6 +399,34 @@ mod tests {
             rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
         }
     }
+    #[test]
+    fn panel_shared_pixels_use_one_semantic_source_and_exact_endpoints() {
+        let panel = image(700, 11);
+        let compact = image(110, 22);
+        let panel_plate = image(700, 33);
+        let compact_plate = image(110, 44);
+        let l = PanelLayout {
+            title: SharedRect { from: rect(10.0, 76.0, 120.0, 20.0),
+                to: rect(10.0, 10.0, 120.0, 20.0) },
+            timer: SharedRect { from: rect(220.0, 76.0, 100.0, 20.0),
+                to: rect(220.0, 10.0, 100.0, 20.0) },
+        };
+        l.validate_for_native(700.0,110.0).unwrap();
+        assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
+            panel.size,0.0,&l).unwrap(),panel.bgra);
+        assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
+            compact.size,1.0,&l).unwrap(),compact.bgra);
+        let frame = compose_panel(&panel,&compact,&panel_plate,&compact_plate,
+            tauri::PhysicalSize::new(340,405),0.5,&l).unwrap();
+        let channel = |x:usize,y:usize|frame[(y*340+x)*4];
+        assert_eq!(channel(15,43),11,"one outgoing title is at its measured interpolated anchor");
+        assert_eq!(channel(15,130),33,"the source Panel title does not remain in the clean background");
+        assert_eq!(channel(15,11),39,"the target Timer title does not exist as a duplicate sprite");
+        let mut invalid_layout = l;
+        invalid_layout.timer.to.x=40.0;
+        assert!(invalid_layout.validate_for_native(700.0,110.0).is_err());
+    }
+
     #[test]
     fn overlapping_semantic_sprite_regions_are_rejected_before_paint() {
         let mut l = layout();
