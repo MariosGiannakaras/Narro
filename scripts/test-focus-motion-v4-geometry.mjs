@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer } from "../src/focusMotionV4Geometry.ts";
+import { commitPreparedFocusPresentation } from "../src/focusPresentationTransition.ts";
 
 const rect = (x, y, width, height) => ({ x, y, width, height });
 assert.doesNotThrow(() => assertMotionV4TaskIdentity("one", "one"));
@@ -103,7 +104,9 @@ assert.ok(coordinator.includes("const assertSameModeTask = () => assertMotionV4T
 assert.ok(coordinator.includes('assertSameModeTask();\n          markFocusTransitionTrace("renderer.target-prepared"'));
 assert.ok(coordinator.includes('assertSameModeTask();\n          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then'));
 assert.ok(coordinator.includes('assertSameModeTask();\n            markFocusTransitionTrace("renderer.native-finished"'));
-assert.ok(coordinator.includes('commitRendererPresentation: (next) => {\n          assertSameModeTask();'));
+assert.ok(coordinator.includes('commitRendererPresentation: (next) => {\\n          // The same callback'));
+assert.ok(coordinator.includes('if (next === targetPresentation) assertSameModeTask();'),
+  "task-race guard must not prevent the recovery helper from publishing previous presentation");
 assert.ok(coordinator.includes("const assertSameRasterTask = () => assertMotionV4TaskIdentity("));
 assert.ok(coordinator.includes('animate: async (next, token) => {\n          assertSameRasterTask();'));
 assert.ok(coordinator.indexOf('assertSameRasterTask();\n          markFocusTransitionTrace("renderer.native-request", token);')
@@ -136,4 +139,44 @@ assert.ok(compositor.includes("validate_source_image(outgoing)?;")
 assert.ok(compositor.includes("malformed_intermediate_source_fails_without_bgra_out_of_bounds"));
 assert.ok(compositor.includes("fn intersects(a: &Rect, b: &Rect) -> bool"));
 assert.ok(compositor.includes("overlapping Motion v4 semantic pixel rectangles"));
+// Exercise the real generic transaction helper with the production task
+// identity invariant. Regression: a task change during native animation
+// MUST release/restore the outgoing presentation rather than generating a
+// secondary FocusPresentationRecoveryError during rollback publication.
+for (const mutateAt of ["prepare", "native-end", "renderer-commit"]) {
+  let taskId = "live-a";
+  const operations = [];
+  const assertTask = () => assertMotionV4TaskIdentity("live-a", taskId);
+  const failure = await assert.rejects(
+    () => commitPreparedFocusPresentation({
+      previousPresentation: "panel",
+      targetPresentation: "timerCompact",
+      waitForTargetReady: async () => { operations.push("target-ready"); },
+      beforeNativeCommit: async () => {
+        operations.push("prepare");
+        if (mutateAt === "prepare") taskId = "live-b";
+        assertTask();
+      },
+      beforeNativeRollback: async () => { operations.push("restore-dom"); },
+      applyNativePresentation: async (next) => { operations.push("restore-native:" + next); },
+      animateNativePresentation: async () => {
+        operations.push("native-animate");
+        if (mutateAt === "native-end") taskId = "live-b";
+        assertTask();
+      },
+      runConcurrentMotion: async () => { operations.push("renderer-motion"); },
+      commitRendererPresentation: (next) => {
+        if (mutateAt === "renderer-commit") taskId = "live-b";
+        if (next === "timerCompact") assertTask();
+        operations.push("publish:" + next);
+      },
+    }), /live Focus task changed/,
+    "the first stale-task error must be preserved without blocking rollback",
+  );
+  assert.ok(failure === undefined);
+  assert.ok(operations.includes("restore-dom"));
+  assert.ok(operations.includes("restore-native:panel"));
+  assert.ok(operations.includes("publish:panel"));
+  assert.ok(!operations.includes("publish:timerCompact"));
+}
 console.log("Actual DOM anchor capture, guarded plate preparation and native staged source contracts: PASS");
