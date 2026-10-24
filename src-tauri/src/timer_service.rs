@@ -982,25 +982,6 @@ fn reconcile_timed_alert_transition_best_effort(
                 eprintln!("Timed-alert completed-run retirement failed: {error}");
             }
         }
-        Some(TimerSessionChange::TimeTakenRebased { .. }) => {
-            // This is an explicitly committed user edit, not a backwards clock.
-            // Preserve already decided/delivered boundaries across reductions.
-            if let (Some(task_id), Some(session_id)) = (
-                payload.runtime.timer.task_id,
-                payload.runtime.open_session_id,
-            ) {
-                if let Err(error) = reconcile_timed_alert_cursor_after_authoritative_rebase(
-                    effects_connection,
-                    task_id,
-                    session_id,
-                    work_elapsed_seconds(payload),
-                    wall_time,
-                ) {
-                    eprintln!("Timed-alert Time Taken rebase reconciliation failed: {error}");
-                }
-            }
-            observe_timed_alerts_best_effort(effects_connection, payload, false, wall_time);
-        }
         _ => observe_timed_alerts_best_effort(effects_connection, payload, false, wall_time),
     }
 }
@@ -1517,7 +1498,7 @@ mod tests {
     }
 
     #[test]
-    fn explicit_time_taken_edit_reconciles_alert_cursor_without_duplicate_threshold() {
+    fn time_taken_metadata_edit_does_not_rewind_authoritative_alert_cursor() {
         let (mut controller, mut effects, task_id, path) = fixture();
         initialize_preferences(&mut effects, T0).unwrap();
         mutate_preferences(&mut effects, "2026-09-05T12:00:01Z", |preferences| {
@@ -1558,13 +1539,18 @@ mod tests {
             rebased.change.as_ref(),
             Some(TimerSessionChange::TimeTakenRebased { .. })
         ));
+        assert_eq!(
+            rebased.runtime.timer.work_elapsed_ms, 95_000,
+            "editing task-level Time Taken must never rebase authoritative timer elapsed"
+        );
+        assert_eq!(rebased.runtime.open_session_id, Some(session_id));
         reconcile_timed_alert_transition_best_effort(
             &mut effects,
             &rebased,
             "2026-09-05T12:01:35Z",
         );
         assert_eq!(
-            observe_timed_alert_run(&mut effects, observed(91, false), T0).unwrap(),
+            observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap(),
             0
         );
         assert_eq!(
