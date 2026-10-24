@@ -26,4 +26,4 @@ jobs:
       - name: Emit frame sheets from existing original video bytes
         shell: bash
         run: |
-          python3 -u analysis/exact_ab_frame_review.py
+          NARRO_FRAME_SCOPE=rest12 python3 -u analysis/exact_ab_frame_review.py
