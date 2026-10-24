@@ -16,8 +16,8 @@ use crate::persistence::preferences::get_preferences;
 use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
 use crate::persistence::timed_alert_effects::{
     claim_pending_timed_alerts, observe_timed_alert_run,
-    reconcile_timed_alert_cursor_after_authoritative_rebase, retire_timed_alert_run, TimedAlertEffect,
-    TimedAlertObservation,
+    reconcile_timed_alert_cursor_after_authoritative_rebase, retire_timed_alert_run,
+    TimedAlertEffect, TimedAlertObservation,
 };
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
@@ -136,9 +136,10 @@ impl TimerService {
         // *only for the same persisted session*; keep its next boundary and any
         // claimed effects so the older alert cannot fire twice.
         let recovered_timer = controller.snapshot().runtime;
-        if let (Some(task_id), Some(session_id)) =
-            (recovered_timer.timer.task_id, recovered_timer.open_session_id)
-        {
+        if let (Some(task_id), Some(session_id)) = (
+            recovered_timer.timer.task_id,
+            recovered_timer.open_session_id,
+        ) {
             match reconcile_timed_alert_cursor_after_authoritative_rebase(
                 &mut effects_connection,
                 task_id,
@@ -984,9 +985,10 @@ fn reconcile_timed_alert_transition_best_effort(
         Some(TimerSessionChange::TimeTakenRebased { .. }) => {
             // This is an explicitly committed user edit, not a backwards clock.
             // Preserve already decided/delivered boundaries across reductions.
-            if let (Some(task_id), Some(session_id)) =
-                (payload.runtime.timer.task_id, payload.runtime.open_session_id)
-            {
+            if let (Some(task_id), Some(session_id)) = (
+                payload.runtime.timer.task_id,
+                payload.runtime.open_session_id,
+            ) {
                 if let Err(error) = reconcile_timed_alert_cursor_after_authoritative_rebase(
                     effects_connection,
                     task_id,
@@ -1526,9 +1528,7 @@ mod tests {
         controller
             .start_task(task_id, TimerMode::CountUp, 0, T0)
             .unwrap();
-        controller
-            .pause(95_000, "2026-09-05T12:01:35Z")
-            .unwrap();
+        controller.pause(95_000, "2026-09-05T12:01:35Z").unwrap();
         let session_id = controller.snapshot().runtime.open_session_id.unwrap();
         let observed = |seconds, reset_run| TimedAlertObservation {
             task_id,
@@ -1540,7 +1540,10 @@ mod tests {
         };
         observe_timed_alert_run(&mut effects, observed(0, true), T0).unwrap();
         observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap();
-        assert_eq!(claim_pending_timed_alerts(&mut effects, T0).unwrap().len(), 1);
+        assert_eq!(
+            claim_pending_timed_alerts(&mut effects, T0).unwrap().len(),
+            1
+        );
 
         let rebased = controller
             .set_time_taken_while_paused(
