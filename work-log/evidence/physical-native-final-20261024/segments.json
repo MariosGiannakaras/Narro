@@ -1,0 +1,457 @@
+[
+  {
+    "name": "A-qpc-control",
+    "start": {
+      "utc": "2026-10-24T20:29:15.829317+00:00",
+      "pid": 1176,
+      "physicalVirtualDesktop": {
+        "x": -1920,
+        "y": 0,
+        "width": 4480,
+        "height": 1080
+      }
+    },
+    "stop": {
+      "utc": "2026-10-24T20:29:59.352979+00:00",
+      "exit": 0
+    },
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "avc1.42c032",
+          "width": 4480,
+          "height": 1080,
+          "coded_width": 4480,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "pix_fmt": "yuv420p",
+          "level": 50,
+          "color_range": "tv",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "bits_per_raw_sample": "8",
+          "extradata_size": 41,
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "ENCODER": "Lavc63.1.100 libx264",
+            "DURATION": "00:00:43.333000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-Native-Final\\A-qpc-control\\native-original.mkv",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "43.333000",
+        "size": "6164191",
+        "bit_rate": "1138013",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    }
+  },
+  {
+    "name": "break-expiry-dual",
+    "start": {
+      "utc": "2026-10-24T20:23:55.536695+00:00",
+      "pid": 56324,
+      "physicalVirtualDesktop": {
+        "x": -1920,
+        "y": 0,
+        "width": 4480,
+        "height": 1080
+      }
+    },
+    "stop": {
+      "utc": "2026-10-24T20:28:51.006288+00:00",
+      "exit": 0
+    },
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "avc1.42c032",
+          "width": 4480,
+          "height": 1080,
+          "coded_width": 4480,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "pix_fmt": "yuv420p",
+          "level": 50,
+          "color_range": "tv",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "bits_per_raw_sample": "8",
+          "extradata_size": 41,
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "ENCODER": "Lavc63.1.100 libx264",
+            "DURATION": "00:04:55.266000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-Native-Final\\break-expiry-dual\\native-original.mkv",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "295.266000",
+        "size": "28875559",
+        "bit_rate": "782360",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    }
+  },
+  {
+    "name": "native-dual-reduced",
+    "start": {
+      "utc": "2026-10-24T20:16:04.802602+00:00",
+      "pid": 37708,
+      "physicalVirtualDesktop": {
+        "x": -1920,
+        "y": 0,
+        "width": 4480,
+        "height": 1080
+      }
+    },
+    "stop": {
+      "utc": "2026-10-24T20:16:58.117667+00:00",
+      "exit": 0
+    },
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "avc1.42c032",
+          "width": 4480,
+          "height": 1080,
+          "coded_width": 4480,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "pix_fmt": "yuv420p",
+          "level": 50,
+          "color_range": "tv",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "bits_per_raw_sample": "8",
+          "extradata_size": 41,
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "ENCODER": "Lavc63.1.100 libx264",
+            "DURATION": "00:00:53.133000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-Native-Final\\native-dual-reduced\\native-original.mkv",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "53.133000",
+        "size": "7661436",
+        "bit_rate": "1153548",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    }
+  },
+  {
+    "name": "recovery-reduced",
+    "start": {
+      "utc": "2026-10-24T20:17:16.040718+00:00",
+      "pid": 56308,
+      "physicalVirtualDesktop": {
+        "x": -1920,
+        "y": 0,
+        "width": 4480,
+        "height": 1080
+      }
+    },
+    "stop": {
+      "utc": "2026-10-24T20:19:38.084795+00:00",
+      "exit": 0
+    },
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "avc1.42c032",
+          "width": 4480,
+          "height": 1080,
+          "coded_width": 4480,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "pix_fmt": "yuv420p",
+          "level": 50,
+          "color_range": "tv",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "bits_per_raw_sample": "8",
+          "extradata_size": 41,
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "ENCODER": "Lavc63.1.100 libx264",
+            "DURATION": "00:02:21.866000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-Native-Final\\recovery-reduced\\native-original.mkv",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "141.866000",
+        "size": "24200099",
+        "bit_rate": "1364673",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    }
+  },
+  {
+    "name": "topmost-break",
+    "start": {
+      "utc": "2026-10-24T20:20:53.239333+00:00",
+      "pid": 88868,
+      "physicalVirtualDesktop": {
+        "x": -1920,
+        "y": 0,
+        "width": 4480,
+        "height": 1080
+      }
+    },
+    "stop": {
+      "utc": "2026-10-24T20:23:55.492907+00:00",
+      "exit": 0
+    },
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "avc1.42c032",
+          "width": 4480,
+          "height": 1080,
+          "coded_width": 4480,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "pix_fmt": "yuv420p",
+          "level": 50,
+          "color_range": "tv",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "bits_per_raw_sample": "8",
+          "extradata_size": 41,
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "ENCODER": "Lavc63.1.100 libx264",
+            "DURATION": "00:03:02.066000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-Native-Final\\topmost-break\\native-original.mkv",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "182.066000",
+        "size": "22033649",
+        "bit_rate": "968160",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    }
+  }
+]

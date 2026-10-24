@@ -1,0 +1,562 @@
+[
+  {
+    "utc": "2026-10-24T20:15:55.290Z",
+    "action": "Maximize main",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:16:05.543Z",
+    "action": "Preferences for one-minute actual break and display selection",
+    "coverage": [
+      {
+        "segment": "native-dual-reduced",
+        "approxOffsetSeconds": 0.74
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:16:21.401Z",
+    "action": "Select second monitor 1920x1080 at125%",
+    "coverage": [
+      {
+        "segment": "native-dual-reduced",
+        "approxOffsetSeconds": 16.598
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:16:21.859Z",
+    "action": "Reveal Capture Project Open",
+    "coverage": [
+      {
+        "segment": "native-dual-reduced",
+        "approxOffsetSeconds": 17.056
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:16:22.278Z",
+    "action": "Open Capture Project",
+    "coverage": [
+      {
+        "segment": "native-dual-reduced",
+        "approxOffsetSeconds": 17.475
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:16:31.707Z",
+    "action": "Click visible Capture Project Open",
+    "coverage": [
+      {
+        "segment": "native-dual-reduced",
+        "approxOffsetSeconds": 26.904
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:17:16.371Z",
+    "action": "Recovery maximize",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 0.33
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:17:16.920Z",
+    "action": "Recovery reveal Project",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 0.879
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:17:17.454Z",
+    "action": "Recovery open Project",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 1.413
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:17:23.164Z",
+    "action": "Enter paused Focus after recovery",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 7.123
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:17:37.230Z",
+    "action": "G25 reduced Panel to Compact populated completed subtask",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 21.189
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:18:00.623Z",
+    "action": "G25 B02 reduced Compact to Expanded with QPC screen sampler",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 44.582
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:18:19.043Z",
+    "action": "G25 Expanded to Compact actual Collapse Floating Timer",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 63.002
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:18:28.529Z",
+    "action": "G25 Compact to Panel via confirmed global shortcut",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 72.488
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:18:51.979Z",
+    "action": "G24 normal Panel to Compact with populated completed subtask",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 95.938
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:19:06.174Z",
+    "action": "G24 normal Compact to Expanded with sampler ready",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 110.133
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:19:13.668Z",
+    "action": "G24 normal Expanded to Compact",
+    "coverage": [
+      {
+        "segment": "recovery-reduced",
+        "approxOffsetSeconds": 117.627
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:19:50.989Z",
+    "action": "G26 prepare paused floating-only quiet sample; recorder stopped",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:20:53.169Z",
+    "action": "G27 Bring Main with global shortcut while compact remains",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:21:08.153Z",
+    "action": "G27 launch owned blank Notepad foreground comparator",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 14.914
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:21.568Z",
+    "action": "G27 maximize blank Notepad using visible title bar",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 28.329
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:40.465Z",
+    "action": "G27 Home to Main for minimize restore and break Preferences",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 47.226
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:45.434Z",
+    "action": "G27 minimize Main through title bar",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 52.195
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:52.963Z",
+    "action": "G27 restore minimized Main with SKY activation",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 59.724
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:53.802Z",
+    "action": "G29 open Preferences to set one-minute manual break",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 60.563
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:21:59.572Z",
+    "action": "Maximize restored Main",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 66.333
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:04.457Z",
+    "action": "G29 Preferences",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 71.218
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:11.091Z",
+    "action": "G29 choose minimum available real manual break",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 77.852
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:26.491Z",
+    "action": "G29 manual duration combo",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 93.252
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:34.740Z",
+    "action": "G29 reenter paused Focus",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 101.501
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:51.618Z",
+    "action": "G29 Start manual Break while work paused; actual UI minimum5min",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 118.379
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:22:57.121Z",
+    "action": "G29 move pointer/focus outside live card for countdown comparator",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 123.882
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:23:11.857Z",
+    "action": "Reveal work live-card actions for actual Start Break button",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 138.618
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:23:19.874Z",
+    "action": "G29 actual visible Start Break button from paused work",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 146.635
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:23:24.282Z",
+    "action": "G29 mouse/focus away from live break card",
+    "coverage": [
+      {
+        "segment": "topmost-break",
+        "approxOffsetSeconds": 151.043
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:23:56.166Z",
+    "action": "Dual monitor shared evidence: Home while Break running",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 0.629
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:02.070Z",
+    "action": "Dual running Break: Preferences display change",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 6.533
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:09.014Z",
+    "action": "Dual select Screen1",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 13.477
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:09.549Z",
+    "action": "Dual select Right edge",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 14.012
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:10.091Z",
+    "action": "Dual reenter running Break on primary Right",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 14.554
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:27.401Z",
+    "action": "Dual Home while actual Break continues",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 31.864
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:32.166Z",
+    "action": "Dual Preferences for second-monitor Right",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 36.629
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:38.820Z",
+    "action": "Dual Screen2 retaining Right edge",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 43.283
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:24:45.442Z",
+    "action": "Dual reenter Break secondary Right",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 49.905
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:25:05.669Z",
+    "action": "Dual Home for second-monitor Left edge",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 70.132
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:25:12.736Z",
+    "action": "Dual Preferences for secondary Left",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 77.199
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:25:16.919Z",
+    "action": "Dual secondary Left edge",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 81.382
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:25:33.599Z",
+    "action": "Dual reenter Break secondary Left",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 98.062
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:28:37.463Z",
+    "action": "G29 real wall-clock break deadline reached without clock/DB manipulation",
+    "coverage": [
+      {
+        "segment": "break-expiry-dual",
+        "approxOffsetSeconds": 281.926
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:28:50.812Z",
+    "action": "G29 observation: real expiry auto-returned previously paused work as Pomodoro Work; not PASS",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:28:50.916Z",
+    "action": "Recovery reveal actions after unexpected running work",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:28:55.416Z",
+    "action": "Recovery actual Pause after real expiry",
+    "coverage": []
+  },
+  {
+    "utc": "2026-10-24T20:29:16.867Z",
+    "action": "A maximize control",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 1.038
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:23.754Z",
+    "action": "A reveal Capture Project Open",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 7.925
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:24.182Z",
+    "action": "A open Capture Project",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 8.353
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:31.549Z",
+    "action": "G28 enter A control existing paused focus",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 15.72
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:37.044Z",
+    "action": "G28 A Panel to Compact preparation",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 21.215
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:51.487Z",
+    "action": "G28 A02 normal actual Compact to Expanded after QPC sampler ready",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 35.658
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T20:29:58.436Z",
+    "action": "G28 A02 actual control expanded; end useful acquisition",
+    "coverage": [
+      {
+        "segment": "A-qpc-control",
+        "approxOffsetSeconds": 42.607
+      }
+    ]
+  }
+]

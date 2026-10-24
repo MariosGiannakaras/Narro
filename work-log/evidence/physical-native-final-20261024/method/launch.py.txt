@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib,os,subprocess,datetime,sys
+r=Path(__file__).parent;m=json.loads((r/'session-meta.json').read_text());l=json.loads((r/'profile-protection-private.json').read_text())
+variant=sys.argv[1] if len(sys.argv)>1 else 'B'
+assert variant in ['A','B']
+if variant=='A':
+ m['executable']=m['executable'].replace('\\B\\','\\A\\')
+ m['source']='ec9227a2e09a69c380d4605aaf9623bdd9b9c394';m['sha256']='08a7e1d6b306e1469c274938c7e5c907ab962766f1b04b9ae2dce0d04d03985a'
+assert l['state']=='OWNED_PROFILE_ACTIVE'
+assert hashlib.sha256(Path(m['executable']).read_bytes()).hexdigest()==m['sha256']
+env=os.environ.copy();env['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS']='--remote-debugging-address=127.0.0.1 --remote-debugging-port=9234';env['NARRO_FOCUS_CAPTURE_DIR']=str(r/('native-traces-'+variant));env['RUST_BACKTRACE']='1'
+stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%H%M%S')
+with (r/('app-'+stamp+'.stdout.txt')).open('wb') as out,(r/('app-'+stamp+'.stderr.txt')).open('wb') as err:
+ p=subprocess.Popen([m['executable']],env=env,stdout=out,stderr=err)
+(r/('launch-'+stamp+'.json')).write_text(json.dumps({'variant':variant,'executable':m['executable'],'source':m['source'],'sha256':m['sha256'],'pid':p.pid,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()},indent=2))
+(r/'owned-app-pid.txt').write_text(str(p.pid));print(p.pid)

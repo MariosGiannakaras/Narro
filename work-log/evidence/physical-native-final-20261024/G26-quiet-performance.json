@@ -1,0 +1,127 @@
+{
+  "recorderRunning": false,
+  "cpuSeconds": 0.09375,
+  "machinePercent": 0.02601389397332181,
+  "oneCorePercent": 0.3121667276798617,
+  "logicalProcessors": 12,
+  "before": [
+    {
+      "Id": 15700,
+      "ProcessName": "msedgewebview2",
+      "CPU": 5.203125,
+      "WorkingSet64": 128405504,
+      "PrivateMemorySize64": 192471040
+    },
+    {
+      "Id": 22200,
+      "ProcessName": "msedgewebview2",
+      "CPU": 5.265625,
+      "WorkingSet64": 122527744,
+      "PrivateMemorySize64": 73482240
+    },
+    {
+      "Id": 25228,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.078125,
+      "WorkingSet64": 19681280,
+      "PrivateMemorySize64": 7606272
+    },
+    {
+      "Id": 39596,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.4375,
+      "WorkingSet64": 38428672,
+      "PrivateMemorySize64": 12988416
+    },
+    {
+      "Id": 46292,
+      "ProcessName": "msedgewebview2",
+      "CPU": 11.109375,
+      "WorkingSet64": 126132224,
+      "PrivateMemorySize64": 100700160
+    },
+    {
+      "Id": 63220,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.046875,
+      "WorkingSet64": 12075008,
+      "PrivateMemorySize64": 3833856
+    },
+    {
+      "Id": 90000,
+      "ProcessName": "msedgewebview2",
+      "CPU": 1.375,
+      "WorkingSet64": 115417088,
+      "PrivateMemorySize64": 69361664
+    },
+    {
+      "Id": 63288,
+      "ProcessName": "narro-m7-validation",
+      "CPU": 4.640625,
+      "WorkingSet64": 33935360,
+      "PrivateMemorySize64": 67125248
+    }
+  ],
+  "context": "B paused floating-only, two monitors, real125percent display, renderer normal override; existing timed-alert warnings retained",
+  "endUtc": "2026-10-24T20:20:34.3423610Z",
+  "seconds": 30.0320283,
+  "startUtc": "2026-10-24T20:20:04.3003489Z",
+  "after": [
+    {
+      "Id": 15700,
+      "ProcessName": "msedgewebview2",
+      "CPU": 5.203125,
+      "WorkingSet64": 127868928,
+      "PrivateMemorySize64": 192442368
+    },
+    {
+      "Id": 22200,
+      "ProcessName": "msedgewebview2",
+      "CPU": 5.265625,
+      "WorkingSet64": 122527744,
+      "PrivateMemorySize64": 73482240
+    },
+    {
+      "Id": 25228,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.078125,
+      "WorkingSet64": 19681280,
+      "PrivateMemorySize64": 7606272
+    },
+    {
+      "Id": 39596,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.4375,
+      "WorkingSet64": 38420480,
+      "PrivateMemorySize64": 12955648
+    },
+    {
+      "Id": 46292,
+      "ProcessName": "msedgewebview2",
+      "CPU": 11.171875,
+      "WorkingSet64": 125751296,
+      "PrivateMemorySize64": 100278272
+    },
+    {
+      "Id": 63220,
+      "ProcessName": "msedgewebview2",
+      "CPU": 0.046875,
+      "WorkingSet64": 12075008,
+      "PrivateMemorySize64": 3833856
+    },
+    {
+      "Id": 90000,
+      "ProcessName": "msedgewebview2",
+      "CPU": 1.375,
+      "WorkingSet64": 115417088,
+      "PrivateMemorySize64": 69361664
+    },
+    {
+      "Id": 63288,
+      "ProcessName": "narro-m7-validation",
+      "CPU": 4.671875,
+      "WorkingSet64": 33935360,
+      "PrivateMemorySize64": 67125248
+    }
+  ]
+}
