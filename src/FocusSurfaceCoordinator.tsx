@@ -269,6 +269,7 @@ export function FocusSurfaceCoordinator() {
       : measureMotionV4PanelTimer(document, previousPresentation === "timerExpanded");
     const panelStageEnabled = sourcePanelAnchors?.taskId === sourceTaskId
       && previousPresentation !== targetPresentation;
+    let rasterToken: number | undefined;
     const panelStage = async (stage: "source" | "target", layout?: MotionV4PanelLayout) => {
       if (!panelStageEnabled || rasterToken === undefined) return;
       const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
@@ -288,7 +289,6 @@ export function FocusSurfaceCoordinator() {
       }
     };
 
-    let rasterToken: number | undefined;
     try {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
