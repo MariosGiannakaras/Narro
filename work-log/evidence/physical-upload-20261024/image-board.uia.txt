@@ -1,0 +1,143 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													15 group ID: root
+														16 complementary List navigation
+															17 graphic Narro
+															18 navigation Lists
+																19 button + Create new list
+																20 button All my lists
+																21 button Archived lists
+														22 section header
+															23 group Utilities
+																24 button Search
+																25 button Settings
+														26 main ID: main-content
+															453 region Uploaded image capture list
+																455 text Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+																456 group
+																457 section header
+																	458 text PLANNING
+																	459 heading Uploaded image capture list ID: list-board-title
+																	460 text List
+																	461 button Planning list
+																		462 text Uploaded image capture list
+																	463 text Plan this list across Backlog, This Week, Today, and Done.
+																464 region Backlog
+																	465 section header
+																		466 heading Backlog ID: list-board-backlog
+																		467 text 0 tasks
+																		468 text Est:
+																		469 text —
+																	470 button Add task to top of Backlog
+																	471 list Backlog tasks
+																		472 text All Clear
+																	473 button Add task to Backlog
+																474 region This Week
+																	475 section header
+																		476 heading This Week ID: list-board-this-week
+																		477 text 0 tasks
+																		478 group 0 of 0 tasks done
+																			479 text 0
+																			480 text /
+																			481 text 0
+																			482 text Done
+																		483 text Est:
+																		484 text —
+																	485 button Add task to top of This Week
+																	486 list This Week tasks
+																		487 text All Clear
+																	488 button Add task to This Week
+																489 region Today
+																	490 section header
+																		491 heading Today ID: list-board-today
+																		492 text 0 tasks
+																		493 group 0 of 0 tasks done
+																			494 text 0
+																			495 text /
+																			496 text 0
+																			497 text Done
+																		498 text Est:
+																		499 text —
+																	500 button Add task to top of Today
+																	501 list Today tasks
+																		502 text All Clear
+																	503 button Add task to Today
+																	504 region Blitz entry
+																		505 button Blitz now
+																506 region Done
+																	507 section header
+																		508 heading Done ID: list-board-done
+																		509 text 0 completed this month
+																		510 text Est:
+																		511 text —
+																	512 list Done tasks
+																		513 text All Clear
+														110 navigation Primary
+															111 button Home
+															112 button Reports
+								113 region
+						114 region
+						115 region
+		116 title bar (settable, string) Value: Narro
+			117 menu bar System ID: MenuBar
+				452 menu item System
+			119 button Minimize
+			120 button Restore
+			121 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+￼
+PLANNING
+Uploaded image capture list
+List
+Uploaded image capture list
+Plan this list across Backlog, This Week, Today, and Done.
+Backlog
+0 tasks
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+This Week
+0 tasks
+0/0 Done
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+Today
+0 tasks
+0/0 Done
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+Blitz now
+Done
+0 completed this month
+Est: —
+All Clear
+Home
+Reports
+```
