@@ -27,6 +27,29 @@ def emit_image(path, label):
     print(f"FRAME_END|{label}", flush=True)
 
 
+# Dedicated original-frame cross-check for UIA-visible Break timer versus live pixels.
+# Normal A/B reproduction remains available with NARRO_FRAME_SCOPE=ab.
+import os
+if os.environ.get("NARRO_FRAME_SCOPE", "n36") == "n36":
+    source_segment = "A-panel-residual"
+    file_path = ROOT / "recordings" / source_segment / "native-original.mkv"
+    assert file_path.is_file()
+    for t in (101.0, 106.0, 111.0, 113.0, 117.0, 121.0, 124.0, 126.0):
+        label = f"N36-{int(t):03d}"
+        with tempfile.TemporaryDirectory() as directory:
+            jpg = pathlib.Path(directory) / "sheet.jpg"
+            filt = "crop=340:630:2220:0,fps=60,scale=255:472:flags=neighbor,tile=8x4:padding=2:margin=1:color=black"
+            cmd = ["ffmpeg","-nostdin","-hide_banner","-loglevel","error","-ss",f"{t:.3f}",
+                   "-i",str(file_path),"-t","0.54","-vf",filt,
+                   "-frames:v","1","-q:v","5","-y",str(jpg)]
+            done = subprocess.run(cmd, capture_output=True, text=True)
+            if done.returncode or not jpg.is_file():
+                raise RuntimeError(f"{label} {done.stderr}")
+            print("FRAME_META|"+json.dumps({"label":label,"segment":source_segment,"seconds":t},separators=(",",":")),flush=True)
+            emit_image(jpg,label)
+    print("BREAK_FRAME_REVIEW_COMPLETE|8",flush=True)
+    raise SystemExit(0)
+
 for candidate in ("A", "B"):
     trace = ROOT / "native-trace" / candidate / "focus-transition-trace.jsonl"
     rows = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines() if line]
