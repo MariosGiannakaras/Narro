@@ -1,8 +1,13 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { createMotionV4TimerLayout, measureMotionV4Timer } from "../src/focusMotionV4Geometry.ts";
+import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer } from "../src/focusMotionV4Geometry.ts";
 
 const rect = (x, y, width, height) => ({ x, y, width, height });
+assert.doesNotThrow(() => assertMotionV4TaskIdentity("one", "one"));
+assert.doesNotThrow(() => assertMotionV4TaskIdentity(null, null));
+assert.throws(() => assertMotionV4TaskIdentity("one", "two"), /live Focus task changed/);
+assert.throws(() => assertMotionV4TaskIdentity("one", null), /live Focus task changed/);
+assert.throws(() => assertMotionV4TaskIdentity(null, "two"), /live Focus task changed/);
 const taskId = "isolated-synthetic-task";
 const compact = {
   taskId, expanded: false,
@@ -84,6 +89,11 @@ assert.ok(timerCss.includes('[data-floating-resize-pending="true"] .floating-tim
 assert.ok(timerCss.includes('[data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading'));
 assert.ok(timerCss.indexOf('[data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading') > timerCss.indexOf('[data-floating-compact-actions="true"] .floating-timer-foundation__heading'));
 assert.ok(coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"));
+assert.ok(coordinator.includes("const sourceTaskId = sourceAnchors?.taskId"));
+assert.ok(coordinator.includes("const assertSameRasterTask = () => assertMotionV4TaskIdentity("));
+assert.ok(coordinator.includes('animate: async (next, token) => {\n          assertSameRasterTask();'));
+assert.ok(coordinator.indexOf('assertSameRasterTask();\n          markFocusTransitionTrace("renderer.native-request", token);')
+  > coordinator.indexOf('delete host.dataset.focusV4Plate'));
 assert.ok(coordinator.indexOf('host.dataset.focusV4Plate = "true"') <
   coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)"));
 assert.ok(coordinator.indexOf("await prepareFocusMotionV4Plate(token, layout)") <
