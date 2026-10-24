@@ -50,7 +50,7 @@ import {
   switchTimerTask,
   type TimerSessionPayload,
 } from "./timerSessionApi";
-import { waitForPresentedFrame } from "./presentationFrame";
+import { waitForPresentedFrameOrThrow } from "./presentationFrame";
 import "./focusPanel.css";
 
 const ALL_LISTS_VALUE = "__all_lists__";
@@ -960,7 +960,7 @@ export function FocusPanel({
       if (paused !== null) {
         pausedByHome = true;
         setTimer((current) => applyTimerSessionProjection(current, paused));
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
       }
       await invoke<void>("focus_surface_exit_to_main");
     } catch (failure: unknown) {

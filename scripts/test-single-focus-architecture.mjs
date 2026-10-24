@@ -87,7 +87,7 @@ invariant(
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? ("),
   "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
@@ -100,17 +100,18 @@ invariant(
 );
 
 invariant(
-  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
+  coordinator.includes("motionV4Duration(")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
+    && lib.includes("fn focus_motion_v4_easing(")
+    && lib.includes("focus_motion_v4_raster::compose(")
     && coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
     && presentationTransition.includes("await Promise.allSettled([")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
-    && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
-    && lib.includes("fluent_point_to_point_easing")
+    && lib.includes("focus_motion_v4_easing")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)")
     && coordinator.includes("afterRendererCommit: async () =>")
     && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
@@ -186,6 +187,17 @@ invariant(
   coordinator.includes("presentationReconcileRevisionRef.current")
     && coordinator.includes("revision === presentationReconcileRevisionRef.current"),
   "out-of-order native presentation snapshots must not overwrite a newer renderer reconciliation",
+);
+const listenerFailure = coordinator.slice(
+  coordinator.indexOf("void listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT"),
+  coordinator.indexOf("return () => {", presentationListenerStart),
+);
+invariant(
+  listenerFailure.includes(".catch((failure: unknown) =>")
+    && listenerFailure.includes("setTransitionError(formatInvokeError(failure));")
+    && listenerFailure.lastIndexOf("void reconcileAuthoritativePresentation();")
+      > listenerFailure.indexOf(".catch((failure: unknown) =>"),
+  "failed native event subscription must still attempt one authoritative presentation hydration",
 );
 invariant(
   coordinator.includes("presentationHydrated")
@@ -342,7 +354,9 @@ invariant(
     && lib.includes("fn animate_focus_surface_presentation_internal(")
     && lib.includes("windows::suspend_focus_display_recovery()")
     && lib.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
-    && lib.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && lib.includes("focus_layered_raster::begin_mode_transition(&window, visible, &png)")
+    && lib.includes("mod focus_layered_raster;")
+    && lib.includes("hold: focus_layered_raster::Hold,")
     && lib.includes("restore_focus_native_snapshot_protected")
     && !lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),
   "interactive/programmatic cross-monitor movement must defer competing DPI recovery, protect outgoing and incoming pixels on one raster timeline, and hold through final DPI paint acknowledgement",

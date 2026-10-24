@@ -18,12 +18,16 @@ import {
   getFocusSurfacePresentation,
   prepareFocusSurfaceModeRaster,
   finishFocusSurfaceModeRaster,
+  markFocusTransitionTrace,
+  prepareFocusMotionV4Plate,
+  prepareFocusMotionV4PanelPlate,
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
 import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
-import { waitForPresentedFrame } from "./presentationFrame";
+import { commitProtectedTimerResize } from "./protectedTimerResize";
+import { waitForPresentedFrameOrThrow, waitForPresentedFrameWithin, waitForTimerRasterReady } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
@@ -32,10 +36,15 @@ import {
   startTimerTask,
   type TimerSessionPayload,
 } from "./timerSessionApi";
+import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
+import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
+import {
+  createMotionV4PanelLayout, measureMotionV4Panel, measureMotionV4PanelTimer,
+  type MotionV4PanelLayout,
+} from "./focusMotionV4PanelGeometry";
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
-const FOCUS_GEOMETRY_MOTION_MS = 250;
 
 type FocusGeometryMotion = {
   from: FocusSurfacePresentation;
@@ -119,7 +128,7 @@ export function FocusSurfaceCoordinator() {
 
   const waitForReady = useCallback(async (mode: FocusSurfaceMode) => {
     if (readinessRef.current[mode]) {
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
       return;
     }
 
@@ -138,7 +147,7 @@ export function FocusSurfaceCoordinator() {
           ));
         }, PRESENTATION_READY_TIMEOUT_MS);
       });
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
     } finally {
       if (timeout !== undefined) window.clearTimeout(timeout);
       if (waiter) readinessWaitersRef.current[mode].delete(waiter);
@@ -150,22 +159,24 @@ export function FocusSurfaceCoordinator() {
     to: FocusSurfacePresentation,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+    // Home can legitimately return directly from Expanded Timer to Panel.
+    // Do not restrict existing production navigation to the four demo routes.
     // Native outgoing-pixel protection is installed before this promotion.
     // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
-    await waitForPresentedFrame();
+    await waitForPresentedFrameOrThrow();
   }, []);
 
   const runGeometryMotion = useCallback(async (
     from: FocusSurfacePresentation,
     to: FocusSurfacePresentation,
-    durationMs: number,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+    // The native raster compositor is the only finite animation clock.
+    // An independent JS timeout could drift beyond the protected native
+    // presentation; paint the marker but await native completion instead.
     flushSync(() => setGeometryMotion({ from, to, phase: "running" }));
-    await new Promise<void>((resolve) => {
-      window.setTimeout(resolve, durationMs);
-    });
+    await waitForPresentedFrameOrThrow();
   }, []);
 
   useEffect(() => {
@@ -245,52 +256,117 @@ export function FocusSurfaceCoordinator() {
 
     const previousPresentation = presentationRef.current;
     const targetPresentation = modePresentation(targetMode);
-
+    // Mode transitions are not exempt from the same single-live-task rule
+    // as Timer-only raster stages. A switch via another window or an
+    // automatic successor task must not publish an outgoing task's pixels
+    // over a different incoming task.
+    const sourceTaskId = timerProjectionRef.current?.runtime.timer.task_id ?? null;
+    const assertSameModeTask = () => assertMotionV4TaskIdentity(
+      sourceTaskId, timerProjectionRef.current?.runtime.timer.task_id ?? null,
+    );
+    const sourcePanelAnchors = previousPresentation === "panel"
+      ? measureMotionV4Panel(document)
+      : measureMotionV4PanelTimer(document, previousPresentation === "timerExpanded");
+    const panelStageEnabled = sourcePanelAnchors?.taskId === sourceTaskId
+      && previousPresentation !== targetPresentation;
     let rasterToken: number | undefined;
+    const panelStage = async (stage: "source" | "target", layout?: MotionV4PanelLayout) => {
+      // Pin the lease across the CSS paint barrier; a later release must
+      // never silently retarget an in-flight CapturePreview IPC.
+      const token = rasterToken;
+      if (!panelStageEnabled || token === undefined) return;
+      const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
+      if (!host) return;
+      // The native owned popup remains visible and protects the entire capture
+      // interval. Failed optional staging retains the original compositor.
+      host.dataset.focusV4PanelPlate = stage;
+      try {
+        await waitForPresentedFrameOrThrow();
+        await prepareFocusMotionV4PanelPlate(token, stage, layout);
+      } catch {
+        // Optional pixel-sprite route: never block working Panel/Timer state.
+      } finally {
+        delete host.dataset.focusV4PanelPlate;
+        // Must not animate while hidden DOM glyphs remain in the frame.
+        await waitForPresentedFrameOrThrow();
+      }
+    };
+
     try {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
       // and restores native state if renderer publication itself ever throws.
-      const motionDurationMs = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? 1
-        : FOCUS_GEOMETRY_MOTION_MS;
+      const motionDurationMs = motionV4Duration(
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      );
       await commitPreparedFocusPresentation({
         previousPresentation,
         targetPresentation,
         waitForTargetReady: () => waitForReady(targetMode),
         beforeNativeCommit: async () => {
           rasterToken = await prepareFocusSurfaceModeRaster(targetPresentation);
+          markFocusTransitionTrace("renderer.raster-ready", rasterToken);
+          await panelStage("source");
           await prepareGeometryMotion(previousPresentation, targetPresentation);
+          assertSameModeTask();
+          if (panelStageEnabled) {
+            const targetAnchors = targetPresentation === "panel"
+              ? measureMotionV4Panel(document)
+              : measureMotionV4PanelTimer(document, targetPresentation === "timerExpanded");
+            const fromHeight = previousPresentation === "panel"
+              ? 700 : previousPresentation === "timerExpanded" ? 300 : 110;
+            const toHeight = targetPresentation === "panel"
+              ? 700 : targetPresentation === "timerExpanded" ? 300 : 110;
+            const panelLayout = createMotionV4PanelLayout(
+              sourcePanelAnchors, targetAnchors, fromHeight, toHeight,
+            );
+            if (panelLayout) await panelStage("target", panelLayout);
+          }
+          assertSameModeTask();
+          markFocusTransitionTrace("renderer.target-prepared", rasterToken);
         },
         beforeNativeRollback: async () => {
+          markFocusTransitionTrace("renderer.rollback", rasterToken);
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(previousPresentation);
           });
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
         },
         applyNativePresentation: async (next) => {
           if (rasterToken !== undefined) {
             await finishFocusSurfaceModeRaster(rasterToken, true);
-            await waitForPresentedFrame();
+            await waitForPresentedFrameOrThrow();
             await finishFocusSurfaceModeRaster(rasterToken);
             rasterToken = undefined;
           } else {
             await applyFocusSurfacePresentation(next);
           }
         },
-        animateNativePresentation: (next) =>
-          animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!),
+        animateNativePresentation: (next) => {
+          markFocusTransitionTrace("renderer.native-request", rasterToken);
+          assertSameModeTask();
+          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then(() => {
+            assertSameModeTask();
+            markFocusTransitionTrace("renderer.native-finished", rasterToken);
+          });
+        },
         runConcurrentMotion: () =>
-          runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
+          runGeometryMotion(previousPresentation, targetPresentation),
         commitRendererPresentation: (next) => {
+          // The same callback is invoked by the recovery helper to restore
+          // the outgoing presentation. A task switch must abort forward
+          // publication, never block rollback of the protected native lease.
+          if (next === targetPresentation) assertSameModeTask();
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(next);
           });
+          markFocusTransitionTrace("renderer.commit", rasterToken);
         },
         afterRendererCommit: async () => {
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
+          markFocusTransitionTrace("renderer.release-request", rasterToken);
           await finishFocusSurfaceModeRaster(rasterToken!);
           rasterToken = undefined;
         },
@@ -339,12 +415,12 @@ export function FocusSurfaceCoordinator() {
       return;
     }
 
-    await waitForPresentedFrame();
-    if (resumeNonce === null) {
-      setTimerProjectionError(null);
-      return;
-    }
     try {
+      await waitForPresentedFrameOrThrow();
+      if (resumeNonce === null) {
+        setTimerProjectionError(null);
+        return;
+      }
       const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
         setTimerProjection((current) => {
@@ -356,28 +432,101 @@ export function FocusSurfaceCoordinator() {
       setTimerProjectionError(null);
     } catch (failure: unknown) {
       setTimerProjectionError(
-        `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
+        resumeNonce === null
+          ? `Focus Panel could not finish presenting. ${formatInvokeError(failure)}`
+          : `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
       );
     }
   }, []);
 
-  const requestTimerExpanded = useCallback(async (expanded: boolean, compactFrame?: number[]) => {
+  const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void, sourceAnchors: MotionV4MeasuredTimer | null) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
 
     const previous = presentationRef.current;
-    const target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact";
+    // A native lease binds one immutable semantic task. Timer projections
+    // may change from another window or an automatic boundary while the
+    // renderer is prepainting/capturing its next bitmap.
+    const sourceTaskId = sourceAnchors?.taskId
+      ?? timerProjectionRef.current?.runtime.timer.task_id ?? null;
+    const assertSameRasterTask = () => assertMotionV4TaskIdentity(
+      sourceTaskId, timerProjectionRef.current?.runtime.timer.task_id ?? null,
+    );
+    const target = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
+    if (previous === "panel") throw new Error("Timer resize requires a committed Timer presentation.");
 
     transitionGateRef.current = true;
     try {
-      await commitPreparedFocusPresentation({
-        previousPresentation: previous,
-        targetPresentation: target,
-        waitForTargetReady: async () => {},
-        applyNativePresentation: (presentation) => applyFocusSurfacePresentation(presentation, compactFrame),
-        commitRendererPresentation: publishPresentation,
+      if (!isMotionV4Route({ from: previous, to: target })) {
+        throw new RangeError("Unsupported Timer Motion v4 route.");
+      }
+      const duration = motionV4Duration(
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      );
+      const waitForTimerTargetPaint = () => waitForTimerRasterReady(
+        target,
+        () => document.querySelector(
+          '.floating-timer-foundation[data-floating-expanded="true"] [data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]',
+        ) !== null,
+        waitForPresentedFrameWithin,
+        () => performance.now(),
+      );
+      await commitProtectedTimerResize({
+        previous,
+        target,
+        protectOutgoing: async (next) => {
+          const token = await prepareFocusSurfaceModeRaster(next);
+          markFocusTransitionTrace("renderer.raster-ready", token);
+          return token;
+        },
+        prepareRenderer: (next) => {
+          prepareRenderer(next === "timerExpanded");
+          markFocusTransitionTrace("renderer.target-prepared");
+        },
+        waitForPaint: waitForTimerTargetPaint,
+        animate: async (next, token) => {
+          assertSameRasterTask();
+          // The native hold already covers the outgoing pixels. Capture a
+          // clean target plate behind it, then restore fully painted JSX
+          // before the native animation's incoming WebView screenshot.
+          // If staging cannot be prepared, the original compositor remains
+          // intact; never sacrifice Timer resize functionality for Motion v4.
+          const layout = createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document));
+          const host = document.querySelector<HTMLElement>(".focus-surface-coordinator");
+          if (layout && host) {
+            host.dataset.focusV4Plate = "true";
+            try {
+              await waitForPresentedFrameOrThrow();
+              await prepareFocusMotionV4Plate(token, layout);
+            } catch {
+              // Optional isolated visual staging, not authoritative state.
+            } finally {
+              delete host.dataset.focusV4Plate;
+              await waitForPresentedFrameOrThrow();
+            }
+          }
+          // A late authoritative task switch must roll back rather than
+          // animate the old title/source screenshot over a new live task.
+          assertSameRasterTask();
+          markFocusTransitionTrace("renderer.native-request", token);
+          await animateFocusSurfacePresentation(next, duration, token);
+          assertSameRasterTask();
+          markFocusTransitionTrace("renderer.native-finished", token);
+        },
+        publish: (next) => {
+          flushSync(() => publishPresentation(next));
+          markFocusTransitionTrace("renderer.commit");
+        },
+        restoreNative: (token) => {
+          markFocusTransitionTrace("renderer.rollback", token);
+          return finishFocusSurfaceModeRaster(token, true);
+        },
+        release: (token) => {
+          markFocusTransitionTrace("renderer.release-request", token);
+          return finishFocusSurfaceModeRaster(token);
+        },
       });
     } finally {
       transitionGateRef.current = false;
@@ -505,7 +654,14 @@ export function FocusSurfaceCoordinator() {
         void reconcileAuthoritativePresentation();
       })
       .catch((failure: unknown) => {
-        if (!disposed) setTransitionError(formatInvokeError(failure));
+        if (!disposed) {
+          setTransitionError(formatInvokeError(failure));
+          // A failed event listener must not leave Focus permanently
+          // unhydrated/inert when the authoritative snapshot still works.
+          // Renderer-owned changes remain committed locally; external native
+          // invalidations are unavailable until the listener is restored.
+          void reconcileAuthoritativePresentation();
+        }
       });
 
     return () => {
@@ -762,7 +918,7 @@ export function FocusSurfaceCoordinator() {
           data-focus-presentation="timer"
           data-focus-visibility={timerActive ? "active" : "preparing"}
           aria-hidden={timerActive && completionSuccess === null ? undefined : true}
-          inert={!timerActive || transitionPending || completionSuccess !== null}
+          inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}

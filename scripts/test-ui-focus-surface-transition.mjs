@@ -15,6 +15,7 @@ const lib = read("src-tauri/src/lib.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const cargoToml = read("src-tauri/Cargo.toml");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const floatingTimer = read("src/FloatingTimerFoundation.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const focusEntry = read("src/focus.tsx");
 const focusDocumentCss = read("src/focusDocument.css");
@@ -42,7 +43,32 @@ const nativeCommit = slice(
   "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
 );
 const frameHold = read("src-tauri/src/focus_frame_hold.rs");
+const layeredHold = read("src-tauri/src/focus_layered_raster.rs");
 const raster = read("src-tauri/src/focus_mode_raster.rs");
+const ownedOverlayLookup = slice(layeredHold, "fn existing(owner: Handle) -> Handle {", "pub fn clear(");
+
+const atomicMove = slice(layeredHold, "fn move_owned_pair(", "/// A present owned raster");
+invariant(
+  atomicMove.includes("GetWindow(popup, GW_OWNER)")
+    && atomicMove.includes("if owner.is_null()")
+    && atomicMove.includes("if batch.is_null()")
+    && atomicMove.includes("let mut batch = unsafe { BeginDeferWindowPos(2) }")
+    && atomicMove.indexOf("DeferWindowPos(batch, owner") > atomicMove.indexOf("BeginDeferWindowPos(2)")
+    && atomicMove.indexOf("DeferWindowPos(batch, popup") > atomicMove.indexOf("DeferWindowPos(batch, owner")
+    && atomicMove.indexOf("EndDeferWindowPos(batch)") > atomicMove.indexOf("DeferWindowPos(batch, popup")
+    && atomicMove.includes("owner_rect.left != x")
+    && atomicMove.includes("popup_rect.left != x")
+    && !atomicMove.includes("SetWindowPos("),
+  "owner and owned layered raster must move in one guarded deferred native position batch, never sequential SetWindowPos calls",
+);
+
+invariant(
+  ownedOverlayLookup.includes("FindWindowExW(ptr::null_mut(), cursor, class.as_ptr(), ptr::null())")
+    && ownedOverlayLookup.includes("if cursor.is_null()")
+    && ownedOverlayLookup.includes("GetWindow(cursor, GW_OWNER) } == owner")
+    && !ownedOverlayLookup.includes("FindWindowW("),
+  "temporary native raster lookup must enumerate same-class top-level windows until the exact Focus owner matches",
+);
 const prepareRaster = slice(lib, "async fn focus_surface_prepare_mode_raster(", "async fn focus_surface_animate_presentation(");
 const finishRaster = slice(lib, "async fn focus_surface_finish_mode_raster(", "fn position_focus_panel(");
 
@@ -116,7 +142,7 @@ invariant(
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
@@ -126,14 +152,17 @@ invariant(
   coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
-    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
+    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation)")
     && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && transition.includes("runConcurrentMotion?: () => Promise<void>")
-    && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinator.includes("motionV4Duration(")
+    && coordinator.includes("isMotionV4Route({ from: previous, to: target })")
+    && !slice(coordinator, "const prepareGeometryMotion = useCallback", "const runGeometryMotion = useCallback").includes("isMotionV4Route(")
+    && !coordinator.includes("window.setTimeout(resolve, durationMs)")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)"),
-  "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
+  "Panel/Timer transition must use the native measured clock and preserve Expanded Timer Home navigation",
 );
 invariant(
   coordinatorCss.includes('data-focus-visibility="preparing"')
@@ -161,22 +190,42 @@ invariant(
   animatedNativeCommit.includes("planned_focus_presentation_position")
     && animatedNativeCommit.includes("std::time::Instant::now()")
     && animatedNativeCommit.includes("deadline.checked_sub(started.elapsed())")
-    && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
+    && animatedNativeCommit.includes("focus_motion_v4_easing(elapsed)")
+    && lib.includes("fn focus_motion_v4_easing(progress: f64) -> f64")
+    && lib.includes("t * t * (3.0 - 2.0 * t)")
+    && lib.includes("let eased = fluent_point_to_point_easing(progress)")
     && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && animatedNativeCommit.indexOf("render_mode_raster_frame(&window, lease, &incoming, progress)")
+      < animatedNativeCommit.indexOf("set_focus_position(")
+    && focusWebview.includes("let protected_move = crate::focus_layered_raster::move_owner_and_popup(window, x, y);")
+    && focusWebview.includes("Ok(true) => {}")
+    && focusWebview.includes("Ok(false) => {")
+    && focusWebview.includes("let _ = notify_parent_position_changed(window);")
+    && focusWebview.includes("notify_parent_position_changed(window)")
+    && layeredHold.includes("pub(crate) fn move_owner_and_popup(")
+    && layeredHold.includes("BeginDeferWindowPos(2)")
+    && layeredHold.includes("DeferWindowPos(batch, owner")
+    && layeredHold.includes("DeferWindowPos(batch, popup")
+    && layeredHold.includes("EndDeferWindowPos(batch)")
+    && layeredHold.includes("GetWindow(popup, GW_OWNER)")
+    && layeredHold.includes("fn owned_raster_and_focus_move_together_or_fail_without_mutating()")
+    && !layeredHold.includes("pub(crate) fn sync_owner_position(")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
 );
 invariant(
   prepareRaster.includes("focus_frame_capture::capture(window.clone()).await")
-    && prepareRaster.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
+    && prepareRaster.includes("focus_layered_raster::begin_mode_transition(&window, visible, &png)")
     && coordinator.indexOf("await prepareFocusSurfaceModeRaster(targetPresentation)")
       < coordinator.indexOf("await prepareGeometryMotion(previousPresentation, targetPresentation)")
-    && raster.includes("source_offset(outgoing, visible, x, y)")
-    && raster.includes("source_offset(incoming, visible, x, y)")
+    && raster.includes("source_offset(image, visible, x, y)")
+    && raster.includes("let growing =")
+    && raster.includes("visible.height) > scaled_height")
+    && !raster.includes("incoming_weight")
     && !coordinatorCss.includes("inset(0 0 590px")
     && !coordinatorCss.includes("inset(0 0 400px"),
-  "outgoing CapturePreview protection precedes target promotion; every intermediate image resamples the complete hierarchy instead of cropping incoming Panel rows",
+  "outgoing protection precedes target promotion; one hierarchy is clipped at natural row spacing with uniform DPI scale and no crossblend",
 );
 invariant(
   coordinator.includes("afterRendererCommit: async () =>")
@@ -187,10 +236,16 @@ invariant(
     && finishRaster.indexOf("focus_mode_raster::decode(") < finishRaster.indexOf("lease.hold.release()?")
     && finishRaster.includes("restore_focus_native_snapshot_protected")
     && finishRaster.includes("lease.token != raster_token")
-    && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
-    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
-    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
-  "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
+    && layeredHold.includes("UpdateLayeredWindow(")
+    && layeredHold.includes("WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW")
+    && layeredHold.includes("let shrinking = visible.height")
+    && layeredHold.indexOf("if shrinking {") < layeredHold.indexOf("draw(owner as Handle, popup, visible, bytes, diameter)?")
+    && layeredHold.indexOf("draw(owner as Handle, popup, visible, bytes, diameter)?") < layeredHold.indexOf("if !shrinking {")
+    && layeredHold.includes("IsWindowVisible(owner)")
+    && layeredHold.includes("IsIconic(owner)")
+    && layeredHold.includes("MAX_LIFETIME")
+    && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it"),
+  "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, independent layered pixels own composition, shrink/grow ordering protects parent pixels, and watchdog remains bounded",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
@@ -229,6 +284,20 @@ invariant(
   pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
     && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
   "transition unit and integration contracts must stay in frontend preflight",
+);
+
+invariant(
+  coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
+    && floatingTimer.includes("restoreResizeTriggerFocus")
+    && floatingTimer.includes('document.activeElement.dataset.floatingSubtaskControl === "expand"')
+    && floatingTimer.includes("!document.hasFocus()")
+    && floatingTimer.includes('!trigger.closest("[inert]")')
+    && floatingTimer.includes('trigger.focus({ preventScroll: true })')
+    && floatingTimer.includes('document.activeElement !== document.body')
+    && floatingTimer.includes('document.activeElement !== document.documentElement')
+    && floatingTimer.includes('setResizePending(false);')
+    && coordinator.includes('onResizePendingChange={setTimerResizeBusy}'),
+  "native Timer raster must exclude keyboard interaction, and restore only an unchanged resize-control focus",
 );
 
 console.log("Single-host Focus presentation transition contracts passed.");

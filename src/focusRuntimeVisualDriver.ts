@@ -43,6 +43,27 @@ function runtimeSnapshot() {
     };
   };
   const coordinator = document.querySelector(".focus-surface-coordinator");
+  // Real source-component Motion v4 anchors, never mock HTML coordinates.
+  // The driver runs with a synthetic task in a disposable Windows profile.
+  // Only geometry and identity equality (not task titles/IDs) are serialized.
+  const host = coordinator instanceof HTMLElement ? coordinator.getBoundingClientRect() : null;
+  const anchor = (selector: string) => {
+    const node = document.querySelector(selector);
+    if (!(node instanceof HTMLElement) || !host) return null;
+    const r = node.getBoundingClientRect();
+    return {
+      x: r.left - host.left,
+      y: r.top - host.top,
+      width: r.width,
+      height: r.height,
+    };
+  };
+  const panelTaskId = document.querySelector(".focus-panel__live-card[data-task-id]")?.getAttribute("data-task-id");
+  const floatingTaskId = document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-live-task-id");
+  const subtaskRowBottoms = [...document.querySelectorAll("[data-floating-subtask-id]")]
+    .filter((node): node is HTMLElement => node instanceof HTMLElement)
+    .map((node) => host ? node.getBoundingClientRect().bottom - host.top : null)
+    .filter((bottom): bottom is number => bottom !== null && Number.isFinite(bottom));
   const active = document.querySelector('.focus-surface-coordinator__presentation[data-focus-visibility="active"]');
   const unintendedScrollers = [...document.querySelectorAll("html, body, #root")]
     .filter((element) => element instanceof HTMLElement
@@ -59,12 +80,22 @@ function runtimeSnapshot() {
     presentation: coordinator?.getAttribute("data-focus-presentation") ?? null,
     hydrated: coordinator?.getAttribute("data-focus-presentation-hydrated") ?? null,
     transitionPending: coordinator?.getAttribute("data-focus-transition-pending") ?? null,
+    motionV4Anchors: {
+      taskIdentityMatches: Boolean(panelTaskId && floatingTaskId && panelTaskId === floatingTaskId),
+      panelTitle: anchor(".focus-panel__live-card[data-task-id] .focus-panel__live-title"),
+      panelTimer: anchor(".focus-panel__live-card[data-task-id] [data-focus-live-timer]"),
+      floatingTitle: anchor("[data-floating-task-title]"),
+      floatingTimer: anchor("[data-floating-live-timer]"),
+      floatingActions: anchor("[data-focus-live-actions]"),
+      subtaskRowBottoms,
+    },
     geometryMotion: {
       from: coordinator?.getAttribute("data-focus-geometry-motion-from") ?? null,
       to: coordinator?.getAttribute("data-focus-geometry-motion-to") ?? null,
       phase: coordinator?.getAttribute("data-focus-geometry-motion-phase") ?? null,
     },
     floatingExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-expanded") ?? null,
+    floatingResizePending: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-resize-pending") ?? null,
     floatingRegionExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-region-expanded") ?? null,
     visibleTextLength: (document.body?.innerText ?? "").trim().length,
     prefersReducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -78,10 +109,30 @@ async function waitForPresentation(presentation: "panel" | "timerCompact" | "tim
   while (performance.now() < deadline) {
     const snapshot = runtimeSnapshot();
     if (snapshot.hydrated === "true" && snapshot.presentation === presentation
-      && snapshot.activePresentation === activePresentation) return snapshot;
+      && snapshot.activePresentation === activePresentation
+      && snapshot.transitionPending === "false"
+      && snapshot.floatingResizePending !== "true") return snapshot;
     await sleep(25);
   }
   throw new Error(`Focus presentation ${presentation} did not settle for packaged runtime capture`);
+}
+
+async function clickRealTimerSizeControl(expand: boolean): Promise<void> {
+  const selector = expand
+    ? '[data-floating-subtask-control="expand"][aria-expanded="false"]'
+    : '[data-floating-subtask-control="expand"][aria-expanded="true"]';
+  const deadline = performance.now() + 8_000;
+  while (performance.now() < deadline) {
+    const button = document.querySelector<HTMLButtonElement>(selector);
+    if (button && !button.disabled) {
+      button.click();
+      return;
+    }
+    await sleep(25);
+  }
+  throw new Error(expand
+    ? "Real Timer expand control did not become enabled"
+    : "Real Timer collapse control did not become enabled");
 }
 
 async function checkpoint(phase: string, snapshot = runtimeSnapshot()) {
@@ -133,12 +184,19 @@ export function startFocusRuntimeVisualDriver() {
     await checkpoint("timer-compact", await waitForPresentation("timerCompact"));
     await waitForCaptureAck("timer-compact");
 
-    await applyFocusSurfacePresentation("timerExpanded");
+    // A02 reproduction MUST traverse the production protected Timer-resize path,
+    // not a direct diagnostic native setter that bypasses renderer/raster phases.
+    await checkpoint("timer-compact-to-expanded-start");
+    await waitForCaptureAck("timer-compact-to-expanded-start");
+    await clickRealTimerSizeControl(true);
     await checkpoint("timer-expanded", await waitForPresentation("timerExpanded"));
     await waitForCaptureAck("timer-expanded");
 
-    await applyFocusSurfacePresentation("timerCompact");
-    await waitForPresentation("timerCompact");
+    await checkpoint("timer-expanded-to-compact-start");
+    await waitForCaptureAck("timer-expanded-to-compact-start");
+    await clickRealTimerSizeControl(false);
+    await checkpoint("timer-compact-returned", await waitForPresentation("timerCompact"));
+    await waitForCaptureAck("timer-compact-returned");
     await checkpoint("timer-to-panel-start");
     await waitForCaptureAck("timer-to-panel-start");
     const returnButton = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
