@@ -102,4 +102,7 @@ assert.ok(rust.includes("v4_panel_from_plate: None")
 assert.ok(rust.includes("focus_motion_v4_raster::compose_panel("));
 assert.ok(raster.includes("pub(crate) fn compose_panel("));
 assert.ok(raster.includes("panel_shared_pixels_use_one_semantic_source_and_exact_endpoints"));
+assert.ok(JSON.parse(fs.readFileSync("package.json","utf8")).scripts["preflight:frontend"]
+  .includes("npm run test:recorded-n28-n36"),
+  "rebased B candidate must retain the accepted Reports/Focus state regression gate");
 console.log("Panel↔Timer source-measured native shared sprites, identity guards and stage ordering: PASS");
