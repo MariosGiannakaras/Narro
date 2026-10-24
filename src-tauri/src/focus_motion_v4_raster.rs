@@ -43,9 +43,13 @@ fn invalid(message: &str) -> CommandError {
 
 impl Rect {
     fn valid(&self) -> bool {
-        [self.x, self.y, self.width, self.height].iter().all(|v| v.is_finite())
-            && self.x >= 0.0 && self.y >= 0.0
-            && self.width > 0.0 && self.height > 0.0
+        [self.x, self.y, self.width, self.height]
+            .iter()
+            .all(|v| v.is_finite())
+            && self.x >= 0.0
+            && self.y >= 0.0
+            && self.width > 0.0
+            && self.height > 0.0
             && self.x + self.width <= TIMER_WIDTH
             && self.y + self.height <= 700.0
     }
@@ -62,27 +66,33 @@ impl Rect {
 }
 
 fn intersects(a: &Rect, b: &Rect) -> bool {
-    a.x < b.x + b.width && b.x < a.x + a.width
-        && a.y < b.y + b.height && b.y < a.y + a.height
+    a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height
 }
 
 fn distinct(rects: &[&Rect]) -> bool {
-    rects.iter().enumerate().all(|(index, a)|
-        rects[index + 1..].iter().all(|b| !intersects(a, b)))
+    rects
+        .iter()
+        .enumerate()
+        .all(|(index, a)| rects[index + 1..].iter().all(|b| !intersects(a, b)))
 }
 
 impl Layout {
     pub(crate) fn validate(&self) -> CommandResult<()> {
         if self.rows.len() > MAX_ROWS
-            || !self.title.from.valid() || !self.title.to.valid()
-            || !self.timer.from.valid() || !self.timer.to.valid()
-            || !self.toolbar.from.valid() || !self.toolbar.to.valid()
+            || !self.title.from.valid()
+            || !self.title.to.valid()
+            || !self.timer.from.valid()
+            || !self.timer.to.valid()
+            || !self.toolbar.from.valid()
+            || !self.toolbar.to.valid()
             || self.actions.as_ref().is_some_and(|rect| !rect.valid())
             || self.rows.iter().any(|rect| !rect.valid())
             || !distinct(&[&self.title.from, &self.timer.from, &self.toolbar.from])
             || !distinct(&[&self.title.to, &self.timer.to, &self.toolbar.to])
         {
-            return Err(invalid("invalid Motion v4 source/target measured DOM geometry"));
+            return Err(invalid(
+                "invalid Motion v4 source/target measured DOM geometry",
+            ));
         }
         Ok(())
     }
@@ -90,21 +100,32 @@ impl Layout {
     /// Validate image-source limits before accepting the optional raster lease.
     /// Otherwise blit() could silently omit a clipped title or toolbar.
     pub(crate) fn validate_for_native(
-        &self, from_height: f64, to_height: f64,
+        &self,
+        from_height: f64,
+        to_height: f64,
     ) -> CommandResult<()> {
         self.validate()?;
         let fits = |rect: &Rect, height: f64| rect.y + rect.height <= height;
-        if !self.title.from.valid() || !self.title.to.valid()
+        if !self.title.from.valid()
+            || !self.title.to.valid()
             || !fits(&self.title.from, from_height)
             || !fits(&self.timer.from, from_height)
             || !fits(&self.toolbar.from, from_height)
             || !fits(&self.title.to, to_height)
             || !fits(&self.timer.to, to_height)
             || !fits(&self.toolbar.to, to_height)
-            || self.actions.as_ref().is_some_and(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
-            || self.rows.iter().any(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
+            || self
+                .actions
+                .as_ref()
+                .is_some_and(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
+            || self
+                .rows
+                .iter()
+                .any(|rect| !fits(rect, TIMER_EXPANDED_HEIGHT))
         {
-            return Err(invalid("Motion v4 semantic pixels exceed source or target region"));
+            return Err(invalid(
+                "Motion v4 semantic pixels exceed source or target region",
+            ));
         }
         // Actions/rows belong to the expanded image, even when collapsing.
         // Overlap would otherwise blend two independently captured semantic
@@ -115,7 +136,9 @@ impl Layout {
             (&self.title.to, &self.timer.to, &self.toolbar.to)
         };
         let mut expanded = vec![title, timer, toolbar];
-        if let Some(actions) = &self.actions { expanded.push(actions); }
+        if let Some(actions) = &self.actions {
+            expanded.push(actions);
+        }
         expanded.extend(self.rows.iter());
         if !distinct(&expanded) {
             return Err(invalid("overlapping Motion v4 semantic pixel rectangles"));
@@ -137,8 +160,10 @@ impl PanelLayout {
     pub(crate) fn validate_for_native(&self, from: f64, to: f64) -> CommandResult<()> {
         if !((from == 700.0 && (to == 110.0 || to == 300.0))
             || (to == 700.0 && (from == 110.0 || from == 300.0)))
-            || !self.title.from.valid() || !self.title.to.valid()
-            || !self.timer.from.valid() || !self.timer.to.valid()
+            || !self.title.from.valid()
+            || !self.title.to.valid()
+            || !self.timer.from.valid()
+            || !self.timer.to.valid()
             || intersects(&self.title.from, &self.timer.from)
             || intersects(&self.title.to, &self.timer.to)
             || self.title.from.y + self.title.from.height > from
@@ -146,7 +171,9 @@ impl PanelLayout {
             || self.title.to.y + self.title.to.height > to
             || self.timer.to.y + self.timer.to.height > to
         {
-            return Err(invalid("invalid Panel/Timer shared semantic native source geometry"));
+            return Err(invalid(
+                "invalid Panel/Timer shared semantic native source geometry",
+            ));
         }
         Ok(())
     }
@@ -191,11 +218,18 @@ fn pixels(rect: &Rect, image: &Image) -> Option<PixelRect> {
 fn validate_source_image(image: &Image) -> CommandResult<()> {
     let width = image.size.width as usize;
     let height = image.size.height as usize;
-    let expected = width.checked_mul(height).and_then(|count| count.checked_mul(4));
-    if width == 0 || height == 0 || width > 4096 || height > 4096
+    let expected = width
+        .checked_mul(height)
+        .and_then(|count| count.checked_mul(4));
+    if width == 0
+        || height == 0
+        || width > 4096
+        || height > 4096
         || expected != Some(image.bgra.len())
     {
-        return Err(invalid("invalid Motion v4 decoded raster size or pixel buffer"));
+        return Err(invalid(
+            "invalid Motion v4 decoded raster size or pixel buffer",
+        ));
     }
     Ok(())
 }
@@ -220,7 +254,9 @@ fn blit(
     if alpha <= 0.0 {
         return;
     }
-    let Some(src) = pixels(source_rect, source) else { return; };
+    let Some(src) = pixels(source_rect, source) else {
+        return;
+    };
     // The current native frame may clip below a full row or the endpoint.
     // Destination geometry is scaled from the current DPI-consistent width.
     let scale = f64::from(visible.width) / TIMER_WIDTH;
@@ -237,11 +273,15 @@ fn blit(
     let height = visible.height as usize;
     for py in 0..dh {
         let y = dy + py as isize;
-        if y < 0 || y >= height as isize { continue; }
+        if y < 0 || y >= height as isize {
+            continue;
+        }
         let sy = src.y + (py * src.h / dh).min(src.h - 1);
         for px in 0..dw {
             let x = dx + px as isize;
-            if x < 0 || x >= width as isize { continue; }
+            if x < 0 || x >= width as isize {
+                continue;
+            }
             let sx = src.x + (px * src.w / dw).min(src.w - 1);
             let source_at = (sy * source.size.width as usize + sx) * 4;
             let target_at = (y as usize * width + x as usize) * 4;
@@ -284,15 +324,43 @@ pub(crate) fn compose(
     let from_title = layout.title.from.interpolate(&layout.title.to, eased);
     let from_timer = layout.timer.from.interpolate(&layout.timer.to, eased);
     let from_toolbar = layout.toolbar.from.interpolate(&layout.toolbar.to, eased);
-    blit(&mut frame, visible, outgoing, &layout.title.from, &from_title, 1.0);
-    blit(&mut frame, visible, outgoing, &layout.timer.from, &from_timer, 1.0);
-    blit(&mut frame, visible, outgoing, &layout.toolbar.from, &from_toolbar, 1.0);
+    blit(
+        &mut frame,
+        visible,
+        outgoing,
+        &layout.title.from,
+        &from_title,
+        1.0,
+    );
+    blit(
+        &mut frame,
+        visible,
+        outgoing,
+        &layout.timer.from,
+        &from_timer,
+        1.0,
+    );
+    blit(
+        &mut frame,
+        visible,
+        outgoing,
+        &layout.toolbar.from,
+        &from_toolbar,
+        1.0,
+    );
 
     let expanded_amount = if expanding { eased } else { 1.0 - eased };
     let actions_alpha = reveal(expanded_amount, 0.24, 0.49);
     let expanded_source = if expanding { incoming } else { outgoing };
     if let Some(actions) = &layout.actions {
-        blit(&mut frame, visible, expanded_source, actions, actions, actions_alpha);
+        blit(
+            &mut frame,
+            visible,
+            expanded_source,
+            actions,
+            actions,
+            actions_alpha,
+        );
     }
     let logical_visible = f64::from(visible.height) * TIMER_WIDTH / f64::from(visible.width);
     for (index, row) in layout.rows.iter().enumerate() {
@@ -304,11 +372,26 @@ pub(crate) fn compose(
                 0.0
             }
         } else {
-            reveal(logical_visible, bottom, (bottom + 8.0).min(TIMER_EXPANDED_HEIGHT))
+            reveal(
+                logical_visible,
+                bottom,
+                (bottom + 8.0).min(TIMER_EXPANDED_HEIGHT),
+            )
         };
         let stagger = index.min(4) as f64;
-        let details = reveal(expanded_amount, 0.44 + stagger * 0.07, 0.73 + stagger * 0.06);
-        blit(&mut frame, visible, expanded_source, row, row, fits * details);
+        let details = reveal(
+            expanded_amount,
+            0.44 + stagger * 0.07,
+            0.73 + stagger * 0.06,
+        );
+        blit(
+            &mut frame,
+            visible,
+            expanded_source,
+            row,
+            row,
+            fits * details,
+        );
     }
     Ok(frame)
 }
@@ -331,38 +414,51 @@ pub(crate) fn compose_panel(
     validate_source_image(from_plate)?;
     validate_source_image(to_plate)?;
     if from_plate.size != outgoing.size || to_plate.size != incoming.size {
-        return Err(invalid("Panel Motion v4 cleanplates have stale native DPI or region geometry"));
+        return Err(invalid(
+            "Panel Motion v4 cleanplates have stale native DPI or region geometry",
+        ));
     }
-    let from_height = f64::from(outgoing.size.height) * TIMER_WIDTH
-        / f64::from(outgoing.size.width);
-    let to_height = f64::from(incoming.size.height) * TIMER_WIDTH
-        / f64::from(incoming.size.width);
+    let from_height =
+        f64::from(outgoing.size.height) * TIMER_WIDTH / f64::from(outgoing.size.width);
+    let to_height = f64::from(incoming.size.height) * TIMER_WIDTH / f64::from(incoming.size.width);
     // Geometry is measured in logical pixels, but the source DPI can be 125%.
     // Use a half-pixel allowance for round-to-physical-edge endpoints.
     if (from_height - 700.0).abs() < 0.6 {
-        layout.validate_for_native(700.0,
-            if (to_height - 300.0).abs() < 0.6 { 300.0 } else if
-                (to_height - 110.0).abs() < 0.6 { 110.0 } else {
+        layout.validate_for_native(
+            700.0,
+            if (to_height - 300.0).abs() < 0.6 {
+                300.0
+            } else if (to_height - 110.0).abs() < 0.6 {
+                110.0
+            } else {
                 return Err(invalid("invalid Panel-to-Timer target region"));
-            })?;
+            },
+        )?;
     } else if (to_height - 700.0).abs() < 0.6 {
         layout.validate_for_native(
-            if (from_height - 300.0).abs() < 0.6 { 300.0 } else if
-                (from_height - 110.0).abs() < 0.6 { 110.0 } else {
+            if (from_height - 300.0).abs() < 0.6 {
+                300.0
+            } else if (from_height - 110.0).abs() < 0.6 {
+                110.0
+            } else {
                 return Err(invalid("invalid Timer-to-Panel source region"));
-            }, 700.0)?;
+            },
+            700.0,
+        )?;
     } else {
-        return Err(invalid("Panel v4 only supports real Panel/Timer transitions"));
+        return Err(invalid(
+            "Panel v4 only supports real Panel/Timer transitions",
+        ));
     }
     if !eased.is_finite() || !(0.0..=1.0).contains(&eased) {
         return Err(invalid("invalid Panel Motion v4 progress"));
     }
     if eased <= 0.0 || eased >= 1.0 {
-        return focus_mode_raster::compose(outgoing,incoming,visible,eased);
+        return focus_mode_raster::compose(outgoing, incoming, visible, eased);
     }
     // One naturally clipped clean background is authoritative; blend only
     // the other *text-free* shell inside its own actual visible region.
-    let mut frame = focus_mode_raster::compose(from_plate,to_plate,visible,eased)?;
+    let mut frame = focus_mode_raster::compose(from_plate, to_plate, visible, eased)?;
     let expanding = to_height > from_height;
     let (background, opacity, height) = if expanding {
         (from_plate, 1.0 - eased, from_height)
@@ -370,13 +466,35 @@ pub(crate) fn compose_panel(
         (to_plate, eased, to_height)
     };
     let background_rect = Rect {
-        x:0.0, y:0.0, width:TIMER_WIDTH, height,
+        x: 0.0,
+        y: 0.0,
+        width: TIMER_WIDTH,
+        height,
     };
-    blit(&mut frame,visible,background,&background_rect,&background_rect,opacity);
-    blit(&mut frame,visible,outgoing,&layout.title.from,
-        &layout.title.from.interpolate(&layout.title.to,eased),1.0);
-    blit(&mut frame,visible,outgoing,&layout.timer.from,
-        &layout.timer.from.interpolate(&layout.timer.to,eased),1.0);
+    blit(
+        &mut frame,
+        visible,
+        background,
+        &background_rect,
+        &background_rect,
+        opacity,
+    );
+    blit(
+        &mut frame,
+        visible,
+        outgoing,
+        &layout.title.from,
+        &layout.title.from.interpolate(&layout.title.to, eased),
+        1.0,
+    );
+    blit(
+        &mut frame,
+        visible,
+        outgoing,
+        &layout.timer.from,
+        &layout.timer.from.interpolate(&layout.timer.to, eased),
+        1.0,
+    );
     Ok(frame)
 }
 
@@ -384,22 +502,38 @@ pub(crate) fn compose_panel(
 mod tests {
     use super::*;
     fn image(height: u32, byte: u8) -> Image {
-        Image { size: tauri::PhysicalSize::new(340, height),
-            bgra: [byte, byte, byte, 255].repeat((340 * height) as usize) }
+        Image {
+            size: tauri::PhysicalSize::new(340, height),
+            bgra: [byte, byte, byte, 255].repeat((340 * height) as usize),
+        }
     }
     fn rect(x: f64, y: f64, width: f64, height: f64) -> Rect {
-        Rect { x, y, width, height }
+        Rect {
+            x,
+            y,
+            width,
+            height,
+        }
     }
     fn layout() -> Layout {
         Layout {
-            title: SharedRect { from: rect(10.0, 10.0, 30.0, 14.0),
-                to: rect(30.0, 12.0, 30.0, 14.0) },
-            timer: SharedRect { from: rect(260.0, 10.0, 60.0, 14.0),
-                to: rect(250.0, 12.0, 60.0, 14.0) },
-            toolbar: SharedRect { from: rect(10.0, 70.0, 280.0, 28.0),
-                to: rect(10.0, 92.0, 280.0, 28.0) },
+            title: SharedRect {
+                from: rect(10.0, 10.0, 30.0, 14.0),
+                to: rect(30.0, 12.0, 30.0, 14.0),
+            },
+            timer: SharedRect {
+                from: rect(260.0, 10.0, 60.0, 14.0),
+                to: rect(250.0, 12.0, 60.0, 14.0),
+            },
+            toolbar: SharedRect {
+                from: rect(10.0, 70.0, 280.0, 28.0),
+                to: rect(10.0, 92.0, 280.0, 28.0),
+            },
             actions: Some(rect(10.0, 38.0, 280.0, 20.0)),
-            rows: vec![rect(12.0, 140.0, 290.0, 36.0), rect(12.0, 264.0, 290.0, 36.0)],
+            rows: vec![
+                rect(12.0, 140.0, 290.0, 36.0),
+                rect(12.0, 264.0, 290.0, 36.0),
+            ],
         }
     }
     #[test]
@@ -409,29 +543,97 @@ mod tests {
         let panel_plate = image(700, 33);
         let compact_plate = image(110, 44);
         let l = PanelLayout {
-            title: SharedRect { from: rect(10.0, 76.0, 120.0, 20.0),
-                to: rect(10.0, 10.0, 120.0, 20.0) },
-            timer: SharedRect { from: rect(220.0, 76.0, 100.0, 20.0),
-                to: rect(220.0, 10.0, 100.0, 20.0) },
+            title: SharedRect {
+                from: rect(10.0, 76.0, 120.0, 20.0),
+                to: rect(10.0, 10.0, 120.0, 20.0),
+            },
+            timer: SharedRect {
+                from: rect(220.0, 76.0, 100.0, 20.0),
+                to: rect(220.0, 10.0, 100.0, 20.0),
+            },
         };
-        l.validate_for_native(700.0,110.0).unwrap();
-        assert!(compose_panel(&panel,&compact,&image(300,33),&compact_plate,
-            panel.size,0.5,&l).is_err(),"mismatched captured source DPI must fail");
-        assert!(compose_panel(&panel,&compact,&panel_plate,&image(300,44),
-            panel.size,0.5,&l).is_err(),"mismatched captured target region must fail");
-        assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
-            panel.size,0.0,&l).unwrap(),panel.bgra);
-        assert_eq!(compose_panel(&panel,&compact,&panel_plate,&compact_plate,
-            compact.size,1.0,&l).unwrap(),compact.bgra);
-        let frame = compose_panel(&panel,&compact,&panel_plate,&compact_plate,
-            tauri::PhysicalSize::new(340,405),0.5,&l).unwrap();
-        let channel = |x:usize,y:usize|frame[(y*340+x)*4];
-        assert_eq!(channel(15,43),11,"one outgoing title is at its measured interpolated anchor");
-        assert_eq!(channel(15,130),33,"the source Panel title does not remain in the clean background");
-        assert_eq!(channel(15,11),39,"the target Timer title does not exist as a duplicate sprite");
+        l.validate_for_native(700.0, 110.0).unwrap();
+        assert!(
+            compose_panel(
+                &panel,
+                &compact,
+                &image(300, 33),
+                &compact_plate,
+                panel.size,
+                0.5,
+                &l
+            )
+            .is_err(),
+            "mismatched captured source DPI must fail"
+        );
+        assert!(
+            compose_panel(
+                &panel,
+                &compact,
+                &panel_plate,
+                &image(300, 44),
+                panel.size,
+                0.5,
+                &l
+            )
+            .is_err(),
+            "mismatched captured target region must fail"
+        );
+        assert_eq!(
+            compose_panel(
+                &panel,
+                &compact,
+                &panel_plate,
+                &compact_plate,
+                panel.size,
+                0.0,
+                &l
+            )
+            .unwrap(),
+            panel.bgra
+        );
+        assert_eq!(
+            compose_panel(
+                &panel,
+                &compact,
+                &panel_plate,
+                &compact_plate,
+                compact.size,
+                1.0,
+                &l
+            )
+            .unwrap(),
+            compact.bgra
+        );
+        let frame = compose_panel(
+            &panel,
+            &compact,
+            &panel_plate,
+            &compact_plate,
+            tauri::PhysicalSize::new(340, 405),
+            0.5,
+            &l,
+        )
+        .unwrap();
+        let channel = |x: usize, y: usize| frame[(y * 340 + x) * 4];
+        assert_eq!(
+            channel(15, 43),
+            11,
+            "one outgoing title is at its measured interpolated anchor"
+        );
+        assert_eq!(
+            channel(15, 130),
+            33,
+            "the source Panel title does not remain in the clean background"
+        );
+        assert_eq!(
+            channel(15, 11),
+            39,
+            "the target Timer title does not exist as a duplicate sprite"
+        );
         let mut invalid_layout = l;
-        invalid_layout.timer.to.x=40.0;
-        assert!(invalid_layout.validate_for_native(700.0,110.0).is_err());
+        invalid_layout.timer.to.x = 40.0;
+        assert!(invalid_layout.validate_for_native(700.0, 110.0).is_err());
     }
 
     #[test]
@@ -440,8 +642,10 @@ mod tests {
         l.title.to = rect(245.0, 12.0, 30.0, 14.0);
         assert!(l.validate().is_err(), "target title and timer overlap");
         let mut l = layout();
-        l.rows = vec![rect(12.0, 140.0, 290.0, 36.0),
-            rect(12.0, 145.0, 290.0, 36.0)];
+        l.rows = vec![
+            rect(12.0, 140.0, 290.0, 36.0),
+            rect(12.0, 145.0, 290.0, 36.0),
+        ];
         assert!(l.validate_for_native(110.0, 300.0).is_err());
     }
 
@@ -451,16 +655,40 @@ mod tests {
         truncated.bgra.truncate(3);
         let target = image(300, 22);
         let plate = image(300, 33);
-        assert!(compose(&truncated, &target, &plate,
-            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+        assert!(compose(
+            &truncated,
+            &target,
+            &plate,
+            tauri::PhysicalSize::new(340, 205),
+            0.5,
+            true,
+            &layout()
+        )
+        .is_err());
         let mut truncated_plate = image(300, 33);
         truncated_plate.bgra.truncate(5);
-        assert!(compose(&image(110, 11), &target, &truncated_plate,
-            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+        assert!(compose(
+            &image(110, 11),
+            &target,
+            &truncated_plate,
+            tauri::PhysicalSize::new(340, 205),
+            0.5,
+            true,
+            &layout()
+        )
+        .is_err());
         let mut target = image(300, 22);
         target.bgra.clear();
-        assert!(compose(&image(110, 11), &target, &plate,
-            tauri::PhysicalSize::new(340, 205), 0.5, true, &layout()).is_err());
+        assert!(compose(
+            &image(110, 11),
+            &target,
+            &plate,
+            tauri::PhysicalSize::new(340, 205),
+            0.5,
+            true,
+            &layout()
+        )
+        .is_err());
     }
 
     #[test]
@@ -482,10 +710,14 @@ mod tests {
         let old = image(110, 11);
         let new = image(300, 22);
         let plate = image(300, 33);
-        assert_eq!(compose(&old, &new, &plate, old.size, 0.0, true, &layout()).unwrap(),
-            old.bgra);
-        assert_eq!(compose(&old, &new, &plate, new.size, 1.0, true, &layout()).unwrap(),
-            new.bgra);
+        assert_eq!(
+            compose(&old, &new, &plate, old.size, 0.0, true, &layout()).unwrap(),
+            old.bgra
+        );
+        assert_eq!(
+            compose(&old, &new, &plate, new.size, 1.0, true, &layout()).unwrap(),
+            new.bgra
+        );
     }
     #[test]
     fn mid_expansion_uses_clean_plate_and_one_outgoing_semantic_source() {
@@ -507,15 +739,21 @@ mod tests {
         let expanded = image(300, 22);
         let plate = image(300, 33);
         let visible = tauri::PhysicalSize::new(340, 160);
-        let intermediate = compose(
-            &compact, &expanded, &plate, visible, 0.3, true, &layout(),
-        )
-        .unwrap();
+        let intermediate =
+            compose(&compact, &expanded, &plate, visible, 0.3, true, &layout()).unwrap();
         let first_row = (150_usize * 340 + 15) * 4;
         assert_eq!(intermediate[first_row], 33); // First row bottom 176: no partial text.
         assert_eq!(
-            compose(&expanded, &compact, &plate, compact.size, 1.0, false, &layout())
-                .unwrap(),
+            compose(
+                &expanded,
+                &compact,
+                &plate,
+                compact.size,
+                1.0,
+                false,
+                &layout()
+            )
+            .unwrap(),
             compact.bgra
         );
     }

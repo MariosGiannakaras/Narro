@@ -15,8 +15,8 @@ pub mod focus_frame_hold;
 mod focus_layered_raster;
 mod focus_mode_raster;
 mod focus_motion_v4_raster;
-mod focus_transition_trace;
 pub mod focus_preferences;
+mod focus_transition_trace;
 pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
@@ -1622,17 +1622,30 @@ fn render_mode_raster_frame(
         progress,
     )?;
     let frame = if let (Some(from_plate), Some(to_plate), Some(layout)) = (
-        &lease.v4_panel_from_plate, &lease.v4_panel_to_plate, &lease.v4_panel_layout,
+        &lease.v4_panel_from_plate,
+        &lease.v4_panel_to_plate,
+        &lease.v4_panel_layout,
     ) {
         focus_motion_v4_raster::compose_panel(
-            &lease.outgoing, incoming, from_plate, to_plate, visible, progress, layout,
+            &lease.outgoing,
+            incoming,
+            from_plate,
+            to_plate,
+            visible,
+            progress,
+            layout,
         )?
     } else if let (Some(plate), Some(layout)) = (&lease.v4_plate, &lease.v4_layout) {
         // Experimental B-only semantic raster staging. A/PR389 continues to
         // use the exact original one-hierarchy compositor.
         focus_motion_v4_raster::compose(
-            &lease.outgoing, incoming, plate, visible, progress,
-            lease.target == FocusSurfacePresentation::TimerExpanded, layout,
+            &lease.outgoing,
+            incoming,
+            plate,
+            visible,
+            progress,
+            lease.target == FocusSurfacePresentation::TimerExpanded,
+            layout,
         )?
     } else {
         focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
@@ -1736,7 +1749,14 @@ fn animate_focus_surface_presentation_internal(
             y: axis(start.y, target_position.y)?,
         };
         let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
-        trace.frame("native.before-raster", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.frame(
+            "native.before-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         render_mode_raster_frame(&window, lease, &incoming, progress)?;
         // Mirror focus_mode_raster::compose's source choice for diagnosis.
         // This logs the selected raster hierarchy, not compositor scanout.
@@ -1745,11 +1765,14 @@ fn animate_focus_surface_presentation_internal(
         let source = if lease.v4_panel_from_plate.is_some()
             && lease.v4_panel_to_plate.is_some()
             && lease.v4_panel_layout.is_some()
-            && progress > 0.0 && progress < 1.0
+            && progress > 0.0
+            && progress < 1.0
         {
             "motion-v4-panel-shared"
-        } else if lease.v4_plate.is_some() && lease.v4_layout.is_some()
-            && progress > 0.0 && progress < 1.0
+        } else if lease.v4_plate.is_some()
+            && lease.v4_layout.is_some()
+            && progress > 0.0
+            && progress < 1.0
         {
             "motion-v4-composite"
         } else if progress >= 1.0 || (progress > 0.0 && growing) {
@@ -1757,13 +1780,30 @@ fn animate_focus_surface_presentation_internal(
         } else {
             "outgoing"
         };
-        trace.note("native.raster-source", serde_json::json!({
-            "step": step,
-            "source": source
-        }));
-        trace.frame("native.after-raster", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.note(
+            "native.raster-source",
+            serde_json::json!({
+                "step": step,
+                "source": source
+            }),
+        );
+        trace.frame(
+            "native.after-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         set_focus_position(&window, desired, "move protected Focus host")?;
-        trace.frame("native.after-move", step, elapsed_ms, progress, desired.x, desired.y);
+        trace.frame(
+            "native.after-move",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         if progress >= 1.0 {
             break;
         }
@@ -1787,7 +1827,10 @@ fn animate_focus_surface_presentation_internal(
     render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
-    trace.note("native.committed", serde_json::json!({ "target": target.event_name() }));
+    trace.note(
+        "native.committed",
+        serde_json::json!({ "target": target.event_name() }),
+    );
     announce_focus_surface_presentation(app_handle, target);
     Ok(())
 }
@@ -2021,10 +2064,16 @@ fn focus_transition_trace_mark(
     raster_token: Option<u32>,
 ) -> CommandResult<()> {
     if window.label() != FOCUS_SURFACE_LABEL {
-        return Err(CommandError::invalid_argument("stage", "Focus renderer required"));
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "Focus renderer required",
+        ));
     }
     if !focus_transition_trace::renderer_mark(&stage, raster_token.unwrap_or_default()) {
-        return Err(CommandError::invalid_argument("stage", "unrecognized trace phase"));
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "unrecognized trace phase",
+        ));
     }
     Ok(())
 }
@@ -2113,13 +2162,13 @@ async fn focus_surface_prepare_v4_plate(
 ) -> CommandResult<()> {
     if window.label() != FOCUS_SURFACE_LABEL {
         return Err(CommandError::new(
-            "FOCUS_MODE_RASTER_FAILED", "Motion v4 requires the Focus renderer",
+            "FOCUS_MODE_RASTER_FAILED",
+            "Motion v4 requires the Focus renderer",
         ));
     }
     layout.validate()?;
-    let extent = timer_region::visible_size(
-        &window, FocusSurfacePresentation::TimerExpanded.region(),
-    )?;
+    let extent =
+        timer_region::visible_size(&window, FocusSurfacePresentation::TimerExpanded.region())?;
     let png = focus_frame_capture::capture(window).await?;
     tauri::async_runtime::spawn_blocking(move || {
         let plate = focus_mode_raster::decode(&png, extent)?;
@@ -2134,7 +2183,8 @@ async fn focus_surface_prepare_v4_plate(
             || lease.v4_plate.is_some()
         {
             return Err(CommandError::new(
-                "FOCUS_MODE_RASTER_FAILED", "stale or incompatible Motion v4 lease",
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale or incompatible Motion v4 lease",
             ));
         }
         layout.validate_for_native(
@@ -2161,59 +2211,92 @@ async fn focus_surface_prepare_v4_panel_plate(
     layout: Option<focus_motion_v4_raster::PanelLayout>,
 ) -> CommandResult<()> {
     if window.label() != FOCUS_SURFACE_LABEL || (stage != "source" && stage != "target") {
-        return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-            "invalid Panel Motion v4 stage or renderer"));
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED",
+            "invalid Panel Motion v4 stage or renderer",
+        ));
     }
     let (from_height, to_height) = {
         let raster = mode_raster_guard()?;
-        let lease = raster.as_ref().ok_or_else(|| CommandError::new(
-            "FOCUS_MODE_RASTER_FAILED", "no Panel Motion v4 raster lease"))?;
-        if lease.token != raster_token || lease.native_committed
+        let lease = raster.as_ref().ok_or_else(|| {
+            CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "no Panel Motion v4 raster lease",
+            )
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
             || current_focus_surface_presentation() != Some(lease.snapshot.presentation)
             || lease.snapshot.presentation.mode() == lease.target.mode()
         {
-            return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-                "stale or unsupported Panel Motion v4 lease"));
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale or unsupported Panel Motion v4 lease",
+            ));
         }
-        (lease.snapshot.presentation.region().height, lease.target.region().height)
+        (
+            lease.snapshot.presentation.region().height,
+            lease.target.region().height,
+        )
     };
     if stage == "source" && layout.is_some() || stage == "target" && layout.is_none() {
-        return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-            "Panel Motion v4 requires a final measured layout only for target capture"));
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED",
+            "Panel Motion v4 requires a final measured layout only for target capture",
+        ));
     }
     if let Some(ref measured) = layout {
         measured.validate_for_native(from_height, to_height)?;
     }
-    let region = if stage == "source" { from_height } else { to_height };
+    let region = if stage == "source" {
+        from_height
+    } else {
+        to_height
+    };
     let expected = timer_region::visible_size(
         &window,
-        if region == 700.0 { FocusSurfacePresentation::Panel.region() }
-        else if region == 300.0 { FocusSurfacePresentation::TimerExpanded.region() }
-        else { FocusSurfacePresentation::TimerCompact.region() },
+        if region == 700.0 {
+            FocusSurfacePresentation::Panel.region()
+        } else if region == 300.0 {
+            FocusSurfacePresentation::TimerExpanded.region()
+        } else {
+            FocusSurfacePresentation::TimerCompact.region()
+        },
     )?;
     let png = focus_frame_capture::capture(window).await?;
     tauri::async_runtime::spawn_blocking(move || {
         let plate = focus_mode_raster::decode(&png, expected)?;
         let mut raster = mode_raster_guard()?;
-        let lease = raster.as_mut().ok_or_else(|| CommandError::new(
-            "FOCUS_MODE_RASTER_FAILED", "Panel Motion v4 raster disappeared"))?;
-        if lease.token != raster_token || lease.native_committed
+        let lease = raster.as_mut().ok_or_else(|| {
+            CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "Panel Motion v4 raster disappeared",
+            )
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
             || current_focus_surface_presentation() != Some(lease.snapshot.presentation)
             || lease.snapshot.presentation.mode() == lease.target.mode()
         {
-            return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-                "stale Panel Motion v4 plate after capture"));
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale Panel Motion v4 plate after capture",
+            ));
         }
         if stage == "source" {
             if lease.v4_panel_from_plate.is_some() || lease.v4_panel_to_plate.is_some() {
-                return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-                    "duplicate Panel Motion v4 source plate"));
+                return Err(CommandError::new(
+                    "FOCUS_MODE_RASTER_FAILED",
+                    "duplicate Panel Motion v4 source plate",
+                ));
             }
             lease.v4_panel_from_plate = Some(plate);
         } else {
             if lease.v4_panel_from_plate.is_none() || lease.v4_panel_to_plate.is_some() {
-                return Err(CommandError::new("FOCUS_MODE_RASTER_FAILED",
-                    "missing source or duplicate target Panel Motion v4 plate"));
+                return Err(CommandError::new(
+                    "FOCUS_MODE_RASTER_FAILED",
+                    "missing source or duplicate target Panel Motion v4 plate",
+                ));
             }
             lease.v4_panel_to_plate = Some(plate);
             lease.v4_panel_layout = layout;
