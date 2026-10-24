@@ -308,7 +308,10 @@ export function FocusSurfaceCoordinator() {
         runConcurrentMotion: () =>
           runGeometryMotion(previousPresentation, targetPresentation),
         commitRendererPresentation: (next) => {
-          assertSameModeTask();
+          // The same callback is invoked by the recovery helper to restore
+          // the outgoing presentation. A task switch must abort forward
+          // publication, never block rollback of the protected native lease.
+          if (next === targetPresentation) assertSameModeTask();
           flushSync(() => {
             setGeometryMotion(null);
             publishPresentation(next);
