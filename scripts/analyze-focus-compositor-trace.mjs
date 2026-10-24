@@ -16,7 +16,7 @@ export function correlateFocusTrace(records, frameInput) {
   if (!Array.isArray(frames) || frames.length === 0) {
     throw new Error("No screen-sampled frame records.");
   }
-  const events = records.filter((r) => Number.isFinite(r.qpcTicks) && Number.isFinite(r.qpcFrequency))
+  const events = records.filter((r) => Number.isSafeInteger(r.qpcTicks) && Number.isSafeInteger(r.qpcFrequency))
     .sort((a, b) => a.qpcTicks - b.qpcTicks);
   if (events.length === 0) throw new Error("Native QPC events missing; cannot correlate.");
   const hz = events[0].qpcFrequency;
@@ -24,17 +24,41 @@ export function correlateFocusTrace(records, frameInput) {
     throw new Error("Trace contains inconsistent native QPC frequencies.");
   }
   const samples = frames.map((frame) => {
-    const before = Number(frame.captureQpcBefore);
-    const after = Number(frame.captureQpcAfter);
-    const frequency = Number(frame.captureQpcFrequency);
-    if (!Number.isFinite(before) || !Number.isFinite(after) || after < before || frequency !== hz) {
+    // QPC timestamps and frequencies must be safely representable integer ticks.
+    // Missing fields must also fail closed: Number(null) and Number("") both
+    // become zero and previously made an invalid capture look time-aligned.
+    const before = frame.captureQpcBefore;
+    const after = frame.captureQpcAfter;
+    const frequency = frame.captureQpcFrequency;
+    if (typeof before !== "number" || typeof after !== "number"
+        || typeof frequency !== "number"
+        || !Number.isSafeInteger(before) || !Number.isSafeInteger(after)
+        || !Number.isSafeInteger(frequency) || after < before || frequency !== hz) {
       throw new Error("Screen sample QPC bracket missing, reversed, or from a different timebase.");
     }
     const midpoint = (before + after) / 2;
-    const prior = [...events].reverse().find((e) => e.qpcTicks <= before) ?? null;
-    const following = events.find((e) => e.qpcTicks >= after) ?? null;
-    const within = events.filter((e) => e.qpcTicks >= before && e.qpcTicks <= after);
-    const nearest = events.reduce((best, e) =>
+    // The trace file receives buffered native batches after animation and
+    // can contain four consecutive transitions. Once a native.begin is
+    // observed, never attribute an old raster token's delayed marker to this
+    // new transition merely because its QPC stamp is closest to a screenshot.
+    const allBegins = events.filter((e) =>
+      e.stage === "native.begin"
+      && Number.isInteger(e.rasterToken) && e.rasterToken > 0
+    );
+    const beginsDuringCapture = allBegins.some((e) =>
+      e.qpcTicks > before && e.qpcTicks <= after
+    );
+    // A screenshot spanning native.begin cannot be assigned to either
+    // presentation with certainty, even if every timestamp is valid.
+    const activeBegin = beginsDuringCapture ? null
+      : (allBegins.filter((e) => e.qpcTicks <= before).at(-1) ?? null);
+    const activeRasterToken = activeBegin?.rasterToken ?? null;
+    const scoped = activeRasterToken === null ? events
+      : events.filter((e) => e.rasterToken === activeRasterToken);
+    const prior = [...scoped].reverse().find((e) => e.qpcTicks <= before) ?? null;
+    const following = scoped.find((e) => e.qpcTicks >= after) ?? null;
+    const within = scoped.filter((e) => e.qpcTicks >= before && e.qpcTicks <= after);
+    const nearest = scoped.reduce((best, e) =>
       best === null || Math.abs(e.qpcTicks - midpoint) < Math.abs(best.qpcTicks - midpoint)
         ? e : best, null);
     const phase = (e) => e && ({
@@ -51,12 +75,16 @@ export function correlateFocusTrace(records, frameInput) {
       captureQpcBefore: before,
       captureQpcAfter: after,
       bracketMs: (after - before) * 1000 / hz,
+      activeRasterToken,
+      transitionBoundaryWithinCapture: beginsDuringCapture,
       native: frame.native ?? null,
       prior: phase(prior),
       duringCapture: within.map(phase),
       following: phase(following),
       nearest: phase(nearest),
-      claim: "native-call-phase-near-screen-sample; DWM-scanout-unconfirmed",
+      claim: beginsDuringCapture
+        ? "raster-token-boundary-inside-screen-capture; attribution-ambiguous"
+        : "native-call-phase-near-screen-sample; DWM-scanout-unconfirmed",
     };
   });
   return {
