@@ -39,6 +39,15 @@ assert.equal(createMotionV4TimerLayout(
   compact, {...expanded, toolbar:rect(10,295,120,15)}), null);
 assert.equal(createMotionV4TimerLayout(
   compact, {...expanded, rows:[rect(10,280,100,30)]}), null);
+assert.equal(createMotionV4TimerLayout(
+  compact, {...expanded, timer: rect(140,12,85,18)}), null,
+  "overlapping title/time sprites must fallback instead of double painting");
+assert.equal(createMotionV4TimerLayout(
+  compact, {...expanded, rows:[rect(12,141,310,36),rect(12,145,310,36)]}), null,
+  "overlapping row sprites must fallback");
+assert.equal(createMotionV4TimerLayout(
+  {...compact, toolbar:rect(10,18,140,28)}, expanded), null,
+  "overlap in outgoing compact pixels must fallback");
 
 
 const el = (bounds) => ({getBoundingClientRect: () =>
@@ -120,4 +129,6 @@ assert.ok(compositor.includes("validate_source_image(outgoing)?;")
   && compositor.includes("validate_source_image(plate)?;"),
   "all BGRA sources need validation before unchecked staged blit indexing");
 assert.ok(compositor.includes("malformed_intermediate_source_fails_without_bgra_out_of_bounds"));
+assert.ok(compositor.includes("fn intersects(a: &Rect, b: &Rect) -> bool"));
+assert.ok(compositor.includes("overlapping Motion v4 semantic pixel rectangles"));
 console.log("Actual DOM anchor capture, guarded plate preparation and native staged source contracts: PASS");
