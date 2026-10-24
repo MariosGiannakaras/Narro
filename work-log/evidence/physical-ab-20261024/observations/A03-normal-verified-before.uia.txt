@@ -1,0 +1,60 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									10 group ID: root
+										11 main
+											716 main Floating Timer
+												717 text Ordinary backlog item
+												718 group Pomodoro paused: 03:30 remaining
+													719 text 03:30
+												720 group Floating Timer actions
+													721 button Start break
+													722 button Notes
+													723 button Resume
+													724 button Skip task
+													725 button Complete task
+													726 button Return to Focus Panel
+												727 region Subtasks for Ordinary backlog item
+													728 group Floating Timer subtask summary
+														729 progress indicator 0 of 1 subtasks complete Value: 0
+														730 text 0/1 Subtasks
+														731 button Add subtask for Ordinary backlog item
+														732 button Collapse Floating Timer
+														740 tool tip Collapse subtasks
+													733 list Subtasks for Ordinary backlog item
+														734 list item Physical acceptance first subtaskPhysical acceptance first subt…
+															735 button Complete subtask: Physical acceptance first subtask
+															736 button Edit subtask: Physical acceptance first subtask Description: Physical acceptance first subtask
+															737 button (disabled) Move subtask up: Physical acceptance first subtask
+															738 button (disabled) Move subtask down: Physical acceptance first subtask
+															739 button Delete subtask: Physical acceptance first subtask
+								315 region
+
+Document text: ```
+Ordinary backlog item
+03:30
+Start break
+Notes
+Resume
+Skip task
+Complete task
+Return to Focus Panel
+0 of 1 subtasks complete
+0/1 Subtasks
++
+Collapse Floating Timer
+Collapse subtasks
+Complete subtask: Physical acceptance first subtask
+Physical acceptance first subtaskPhysical acceptance first subt…
+Move subtask up: Physical acceptance first subtask
+Move subtask down: Physical acceptance first subtask
+Delete subtask: Physical acceptance first subtask
+```

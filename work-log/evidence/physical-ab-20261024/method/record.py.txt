@@ -1,0 +1,10 @@
+from pathlib import Path
+import subprocess,time,datetime,json,shutil,sys
+r=Path(__file__).parent;name=sys.argv[1];d=r/name;d.mkdir(exist_ok=False)
+with (d/'stderr.txt').open('w') as err:
+ p=subprocess.Popen([shutil.which('ffmpeg'),'-hide_banner','-loglevel','warning','-f','lavfi','-i','ddagrab=output_idx=0:framerate=60:draw_mouse=1','-vf','hwdownload,format=bgra','-t','300','-c:v','libx264','-preset','ultrafast','-crf','18','-pix_fmt','yuv420p',str(d/'native-original.mkv')],stdin=subprocess.PIPE,stderr=err,stdout=subprocess.DEVNULL)
+ (d/'start.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'pid':p.pid}))
+ end=time.monotonic()+295
+ while p.poll() is None and time.monotonic()<end and not (r/(name+'.stop')).exists():time.sleep(.25)
+ if p.poll() is None:p.communicate(b'q\n',timeout=10)
+ (d/'stop.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exit':p.returncode}))

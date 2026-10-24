@@ -1,0 +1,504 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									10 group ID: root
+										11 main
+											743 main
+												744 section header
+													745 button Focus list
+														746 text All Lists
+													747 heading Today
+													748 group Focus Panel quick controls
+														749 button Preferences
+														750 button Home
+														751 button Compact view
+												752 region Today progress
+													753 text Est:
+													754 text 10min
+													755 text 50
+													756 text /
+													757 text 51
+													758 text Done
+												759 region Focus queue
+													760 article
+														761 text Ordinary backlog item
+														762 group Pomodoro paused: 03:30 remaining
+															763 text 03:30
+														764 group Pomodoro mode
+															765 text POMO
+														766 text Capture Project
+														767 text Pomodoro Paused
+														768 region Live task time details
+															769 text EST
+															770 button Edit EST: 0:10:00
+															771 text Time Taken
+															772 button Edit Time Taken: 0:01:30
+														773 region Subtasks for Ordinary backlog item
+															774 progress indicator 0 of 0 subtasks complete Value: 0
+															775 button Subtasks
+															776 button Add subtask for Ordinary backlog item
+														777 group Live task actions
+															778 button Start break
+															779 button Notes
+															780 button Resume
+															781 button Skip task
+															782 button Complete task
+													783 button Add task in Focus Panel
+													784 region 0 Scheduled tasks
+														785 heading 0 Scheduled tasks ID: focus-scheduled-title
+													786 region 51 Done
+														787 heading 51 Done ID: focus-done-title
+														788 article Completed Break, 1min
+															789 text Break
+															790 text 1min
+														791 article
+															792 group Task title: Capture live task — long title for compact wrapping and hover actions
+																793 text Capture live task — long title for compact wrapping and hover actions
+															794 text Capture Project
+															795 text 2/4 subtasks
+															796 text 5min
+														797 article
+															798 group Task title: Second task — notes and success feedback
+																799 text Second task — notes and success feedback
+															800 text Capture Project
+															801 text 2min
+														802 article
+															803 group Task title: Overdue task with age label
+																804 text Overdue task with age label
+															805 text Capture Project
+															806 text Oct 18, 2026
+															807 text 1hr 2min
+														808 article
+															809 group Task title: Third task without estimate
+																810 text Third task without estimate
+															811 text Capture Project
+															812 text 2hr 2min
+														813 article
+															814 group Task title: Capture success OFF task
+																815 text Capture success OFF task
+															816 text Capture Project
+															817 text 1min
+														818 article
+															819 group Task title: Scheduled later this week
+																820 text Scheduled later this week
+															821 text Capture Project
+															822 text Oct 22, 2026
+															823 text 1/1 subtasks
+															824 text 1min
+														825 article
+															826 group Task title: Done history 01 — long title for scroll
+																827 text Done history 01 — long title for scroll
+															828 text Capture Project
+															829 text 10min
+														830 article
+															831 group Task title: Weekly recurring parent
+																832 text Weekly recurring parent
+															833 text Capture Project
+															834 text Oct 20, 2026
+															835 text 5min
+														836 article
+															837 group Task title: Done history 02 — long title for scroll
+																838 text Done history 02 — long title for scroll
+															839 text Capture Project
+															840 text 10min
+														841 article
+															842 group Task title: Done history 03 — long title for scroll
+																843 text Done history 03 — long title for scroll
+															844 text Capture Project
+															845 text 10min
+														846 article
+															847 group Task title: Done history 04 — long title for scroll
+																848 text Done history 04 — long title for scroll
+															849 text Capture Project
+															850 text 10min
+														851 article
+															852 group Task title: Done history 05 — long title for scroll
+																853 text Done history 05 — long title for scroll
+															854 text Capture Project
+															855 text 10min
+														856 article
+															857 group Task title: Done history 06 — long title for scroll
+																858 text Done history 06 — long title for scroll
+															859 text Capture Project
+															860 text 10min
+														861 article
+															862 group Task title: Done history 07 — long title for scroll
+																863 text Done history 07 — long title for scroll
+															864 text Capture Project
+															865 text 10min
+														866 article
+															867 group Task title: Done history 08 — long title for scroll
+																868 text Done history 08 — long title for scroll
+															869 text Capture Project
+															870 text 10min
+														871 article
+															872 group Task title: Done history 09 — long title for scroll
+																873 text Done history 09 — long title for scroll
+															874 text Capture Project
+															875 text 10min
+														876 article
+															877 group Task title: Done history 10 — long title for scroll
+																878 text Done history 10 — long title for scroll
+															879 text Capture Project
+															880 text 10min
+														881 article
+															882 group Task title: Done history 11 — long title for scroll
+																883 text Done history 11 — long title for scroll
+															884 text Capture Project
+															885 text 10min
+														886 article
+															887 group Task title: Done history 12 — long title for scroll
+																888 text Done history 12 — long title for scroll
+															889 text Capture Project
+															890 text 10min
+														891 article
+															892 group Task title: Done history 13 — long title for scroll
+																893 text Done history 13 — long title for scroll
+															894 text Capture Project
+															895 text 10min
+														896 article
+															897 group Task title: Done history 14 — long title for scroll
+																898 text Done history 14 — long title for scroll
+															899 text Capture Project
+															900 text 10min
+														901 article
+															902 group Task title: Done history 15 — long title for scroll
+																903 text Done history 15 — long title for scroll
+															904 text Capture Project
+															905 text 10min
+														906 article
+															907 group Task title: Done history 16 — long title for scroll
+																908 text Done history 16 — long title for scroll
+															909 text Capture Project
+															910 text 10min
+														911 article
+															912 group Task title: Done history 17 — long title for scroll
+																913 text Done history 17 — long title for scroll
+															914 text Capture Project
+															915 text 10min
+														916 article
+															917 group Task title: Done history 18 — long title for scroll
+																918 text Done history 18 — long title for scroll
+															919 text Capture Project
+															920 text 10min
+														921 article
+															922 group Task title: Done history 19 — long title for scroll
+																923 text Done history 19 — long title for scroll
+															924 text Capture Project
+															925 text 10min
+														926 article
+															927 group Task title: Done history 20 — long title for scroll
+																928 text Done history 20 — long title for scroll
+															929 text Capture Project
+															930 text 10min
+														931 article
+															932 group Task title: Done history 21 — long title for scroll
+																933 text Done history 21 — long title for scroll
+															934 text Capture Project
+															935 text 10min
+														936 article
+															937 group Task title: Done history 22 — long title for scroll
+																938 text Done history 22 — long title for scroll
+															939 text Capture Project
+															940 text 10min
+														941 article
+															942 group Task title: Done history 23 — long title for scroll
+																943 text Done history 23 — long title for scroll
+															944 text Capture Project
+															945 text 10min
+														946 article
+															947 group Task title: Done history 24 — long title for scroll
+																948 text Done history 24 — long title for scroll
+															949 text Capture Project
+															950 text 10min
+														951 article
+															952 group Task title: Report sample day 1
+																953 text Report sample day 1
+															954 text Reading & research
+															955 text 20min
+														956 article
+															957 group Task title: Report sample day 4
+																958 text Report sample day 4
+															959 text Reading & research
+															960 text 20min
+														961 article
+															962 group Task title: Report sample day 7
+																963 text Report sample day 7
+															964 text Reading & research
+															965 text 20min
+														966 article
+															967 group Task title: Report sample day 10
+																968 text Report sample day 10
+															969 text Reading & research
+															970 text 20min
+														971 article
+															972 group Task title: Report sample day 13
+																973 text Report sample day 13
+															974 text Reading & research
+															975 text 20min
+														976 article
+															977 group Task title: Report sample day 16
+																978 text Report sample day 16
+															979 text Reading & research
+															980 text 20min
+														981 article
+															982 group Task title: Report sample day 19
+																983 text Report sample day 19
+															984 text Reading & research
+															985 text 20min
+														986 article
+															987 group Task title: Report sample day 22
+																988 text Report sample day 22
+															989 text Reading & research
+															990 text 20min
+														991 article
+															992 group Task title: Report sample day 25
+																993 text Report sample day 25
+															994 text Reading & research
+															995 text 20min
+														996 article
+															997 group Task title: Report sample day 28
+																998 text Report sample day 28
+															999 text Reading & research
+															1000 text 20min
+														1001 article
+															1002 group Task title: Report sample day 31
+																1003 text Report sample day 31
+															1004 text Reading & research
+															1005 text 20min
+														1006 article
+															1007 group Task title: Report sample day 34
+																1008 text Report sample day 34
+															1009 text Reading & research
+															1010 text 20min
+														1011 article
+															1012 group Task title: Report sample day 37
+																1013 text Report sample day 37
+															1014 text Reading & research
+															1015 text 20min
+														1016 article
+															1017 group Task title: Report sample day 40
+																1018 text Report sample day 40
+															1019 text Reading & research
+															1020 text 20min
+														1021 article
+															1022 group Task title: Report sample day 43
+																1023 text Report sample day 43
+															1024 text Reading & research
+															1025 text 20min
+														1026 article
+															1027 group Task title: Report sample day 46
+																1028 text Report sample day 46
+															1029 text Reading & research
+															1030 text 20min
+														1031 article
+															1032 group Task title: Report sample day 49
+																1033 text Report sample day 49
+															1034 text Reading & research
+															1035 text 20min
+														1036 article
+															1037 group Task title: Report sample day 52
+																1038 text Report sample day 52
+															1039 text Reading & research
+															1040 text 20min
+														1041 article
+															1042 group Task title: Report sample day 55
+																1043 text Report sample day 55
+															1044 text Reading & research
+															1045 text 20min
+								315 region
+
+Document text: ```
+All ListsA…
+Today
+Preferences
+Home
+Compact view
+Est: 10min
+50/51 Done
+Ordinary backlog item
+03:30
+POMO
+Capture ProjectCapture Pro…
+Pomodoro Paused
+EST
+0:10:00
+Time Taken
+0:01:30
+0 of 0 subtasks complete
+Subtasks
++
+Start break
+Notes
+Resume
+Skip task
+Complete task
++ ADD TASK
+0 Scheduled tasks
+51 Done
+Break
+1min
+Capture live task — long title for compact long title for compac…wrapping and hover actions
+Capture ProjectCapture Pro…
+2/4 subtasks
+5min
+Second task — notes and success feedback
+Capture ProjectCapture Pro…
+2min
+Overdue task with age label
+Capture ProjectCapture Pro…
+Oct 18, 2026
+1hr 2min
+Third task without estimate
+Capture ProjectCapture Pro…
+2hr 2min
+Capture success OFF task
+Capture ProjectCapture Pro…
+1min
+Scheduled later this week
+Capture ProjectCapture Pro…
+Oct 22, 2026
+1/1 subtasks
+1min
+Done history 01 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Weekly recurring parent
+Capture ProjectCapture Pro…
+Oct 20, 2026
+5min
+Done history 02 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 03 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 04 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 05 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 06 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 07 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 08 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 09 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 10 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 11 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 12 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 13 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 14 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 15 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 16 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 17 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 18 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 19 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 20 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 21 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 22 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 23 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 24 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Report sample day 1
+Reading & researchReading & r…
+20min
+Report sample day 4
+Reading & researchReading & r…
+20min
+Report sample day 7
+Reading & researchReading & r…
+20min
+Report sample day 10
+Reading & researchReading & r…
+20min
+Report sample day 13
+Reading & researchReading & r…
+20min
+Report sample day 16
+Reading & researchReading & r…
+20min
+Report sample day 19
+Reading & researchReading & r…
+20min
+Report sample day 22
+Reading & researchReading & r…
+20min
+Report sample day 25
+Reading & researchReading & r…
+20min
+Report sample day 28
+Reading & researchReading & r…
+20min
+Report sample day 31
+Reading & researchReading & r…
+20min
+Report sample day 34
+Reading & researchReading & r…
+20min
+Report sample day 37
+Reading & researchReading & r…
+20min
+Report sample day 40
+Reading & researchReading & r…
+20min
+Report sample day 43
+Reading & researchReading & r…
+20min
+Report sample day 46
+Reading & researchReading & r…
+20min
+Report sample day 49
+Reading & researchReading & r…
+20min
+Report sample day 52
+Reading & researchReading & r…
+20min
+Report sample day 55
+Reading & researchReading & r…
+20min
+```

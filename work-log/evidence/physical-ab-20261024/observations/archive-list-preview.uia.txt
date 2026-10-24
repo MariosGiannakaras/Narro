@@ -1,0 +1,76 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+						13 region
+							14 region
+								15 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									16 group ID: root
+										18 complementary List navigation
+											19 graphic Narro
+											20 navigation Lists
+												21 button + Create new list
+												22 button All my lists
+												23 button Archived lists
+										24 section header
+											25 group Utilities
+												26 button Search
+												27 button Settings
+										28 main ID: main-content
+											2753 region Archived items
+												2754 section header
+													2755 text ARCHIVE
+													2756 heading Archived items ID: archive-panel-title
+												2757 tab Archive sections
+													2758 tab item (selectable) Archived lists ID: archive-lists-tab
+													2759 tab item (selectable) Archived done tasks ID: archive-done-tab
+												2760 tab panel Archived lists ID: archive-lists-tabpanel
+													2761 region Archived lists
+														2762 text Your archived lists
+														2765 text Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
+														2766 article
+															2767 section header
+																2768 heading Archived example Description: Archived example
+															2769 group Task previews for Archived example
+																2770 text Archived example task 1
+																2771 text Archived example task 2
+																2772 text Archived example task 3
+															2773 button Unarchive Archived example
+															2774 button Delete Forever Archived example
+										112 navigation Primary
+											113 button Home
+											114 button Reports
+								17 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				1339 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+ARCHIVE
+Archived items
+Archived lists
+Archived done tasks
+Your archived lists
+Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
+Archived example
+Archived example task 1
+Archived example task 2
+Archived example task 3
+Unarchive
+Delete Forever
+Home
+Reports
+```
