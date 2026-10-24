@@ -77,6 +77,13 @@ export function measureMotionV4Timer(root: ParentNode): MotionV4MeasuredTimer | 
   return { taskId, title, timer: time, toolbar, actions, rows, expanded };
 }
 
+/** Prevent two sampled semantic sources from repainting the same pixels. */
+function distinct(rects: readonly MotionV4Rect[]): boolean {
+  return rects.every((a, index) => rects.slice(index + 1).every((b) =>
+    a.x + a.width <= b.x || b.x + b.width <= a.x
+    || a.y + a.height <= b.y || b.y + b.height <= a.y));
+}
+
 export function createMotionV4TimerLayout(
   from: MotionV4MeasuredTimer | null,
   to: MotionV4MeasuredTimer | null,
@@ -92,7 +99,11 @@ export function createMotionV4TimerLayout(
   if (![from.title, from.timer, from.toolbar].every(rect => fits(rect, fromHeight))
       || ![to.title, to.timer, to.toolbar].every(rect => fits(rect, toHeight))
       || (enlarged.actions !== null && !fits(enlarged.actions, 300))
-      || enlarged.rows.some(rect => !fits(rect, 300))) return null;
+      || enlarged.rows.some(rect => !fits(rect, 300))
+      || !distinct([from.title, from.timer, from.toolbar])
+      || !distinct([to.title, to.timer, to.toolbar])
+      || !distinct([enlarged.title, enlarged.timer, enlarged.toolbar,
+        ...(enlarged.actions ? [enlarged.actions] : []), ...enlarged.rows])) return null;
   return {
     title: { from: from.title, to: to.title },
     timer: { from: from.timer, to: to.timer },
