@@ -99,6 +99,11 @@ assert.ok(timerCss.includes('[data-floating-compact-actions="true"][data-floatin
 assert.ok(timerCss.indexOf('[data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading') > timerCss.indexOf('[data-floating-compact-actions="true"] .floating-timer-foundation__heading'));
 assert.ok(coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"));
 assert.ok(coordinator.includes("const sourceTaskId = sourceAnchors?.taskId"));
+assert.ok(coordinator.includes("const assertSameModeTask = () => assertMotionV4TaskIdentity("));
+assert.ok(coordinator.includes('assertSameModeTask();\n          markFocusTransitionTrace("renderer.target-prepared"'));
+assert.ok(coordinator.includes('assertSameModeTask();\n          return animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!).then'));
+assert.ok(coordinator.includes('assertSameModeTask();\n            markFocusTransitionTrace("renderer.native-finished"'));
+assert.ok(coordinator.includes('commitRendererPresentation: (next) => {\n          assertSameModeTask();'));
 assert.ok(coordinator.includes("const assertSameRasterTask = () => assertMotionV4TaskIdentity("));
 assert.ok(coordinator.includes('animate: async (next, token) => {\n          assertSameRasterTask();'));
 assert.ok(coordinator.indexOf('assertSameRasterTask();\n          markFocusTransitionTrace("renderer.native-request", token);')
