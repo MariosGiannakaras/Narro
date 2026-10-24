@@ -15,6 +15,7 @@ const lib = read("src-tauri/src/lib.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const cargoToml = read("src-tauri/Cargo.toml");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const floatingTimer = read("src/FloatingTimerFoundation.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const focusEntry = read("src/focus.tsx");
 const focusDocumentCss = read("src/focusDocument.css");
@@ -283,6 +284,16 @@ invariant(
   pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
     && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
   "transition unit and integration contracts must stay in frontend preflight",
+);
+
+invariant(
+  coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
+    && floatingTimer.includes("restoreResizeTriggerFocus")
+    && floatingTimer.includes('document.activeElement.dataset.floatingSubtaskControl === "expand"')
+    && floatingTimer.includes("!document.hasFocus()")
+    && floatingTimer.includes('!trigger.closest("[inert]")')
+    && floatingTimer.includes('trigger.focus({ preventScroll: true })'),
+  "native Timer raster must exclude keyboard interaction, and restore only an unchanged resize-control focus",
 );
 
 console.log("Single-host Focus presentation transition contracts passed.");
