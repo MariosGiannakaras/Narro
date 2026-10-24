@@ -209,7 +209,11 @@ pub fn observe_timed_alert_run(
     // A task can open a new work session without a preceding effect callback
     // (for example after recovery). Never attribute the previous session's
     // cursor or pending effects to the newly authoritative work session.
-    if reset_run || cursor.as_ref().map_or(true, |current| current.run_id != seed_run_id) {
+    if reset_run
+        || cursor
+            .as_ref()
+            .map_or(true, |current| current.run_id != seed_run_id)
+    {
         tx.execute(
             "DELETE FROM timed_alert_effects WHERE task_id = ?1",
             [task_id.to_string()],
@@ -641,7 +645,9 @@ mod tests {
             "a changed authoritative session must reset stale effects even without a Started event"
         );
         assert!(
-            claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty(),
+            claim_pending_timed_alerts(&mut conn, T1)
+                .unwrap()
+                .is_empty(),
             "the previous session's pending effects must not fire for a replacement work session"
         );
         assert_eq!(
@@ -663,20 +669,32 @@ mod tests {
         assert_eq!(first.len(), 1);
         assert_eq!(first[0].boundary_seconds, 60);
 
-        assert!(matches!(
-            observe!(&mut conn, task_id, run_id, 91, true, 60, false, T1),
-            Err(TimedAlertEffectError::WorkElapsedMovedBackwards {
-                previous_seconds: 95,
-                observed_seconds: 91
-            })
-        ), "unexpected backward observations must still fail closed");
+        assert!(
+            matches!(
+                observe!(&mut conn, task_id, run_id, 91, true, 60, false, T1),
+                Err(TimedAlertEffectError::WorkElapsedMovedBackwards {
+                    previous_seconds: 95,
+                    observed_seconds: 91
+                })
+            ),
+            "unexpected backward observations must still fail closed"
+        );
 
         assert!(reconcile_timed_alert_cursor_after_authoritative_rebase(
             &mut conn, task_id, run_id, 91, T1
-        ).unwrap());
-        assert!(!reconcile_timed_alert_cursor_after_authoritative_rebase(
-            &mut conn, task_id, SessionId::generate(), 89, T1
-        ).unwrap(), "a different session must not rewrite the active cursor");
+        )
+        .unwrap());
+        assert!(
+            !reconcile_timed_alert_cursor_after_authoritative_rebase(
+                &mut conn,
+                task_id,
+                SessionId::generate(),
+                89,
+                T1
+            )
+            .unwrap(),
+            "a different session must not rewrite the active cursor"
+        );
 
         assert_eq!(
             observe!(&mut conn, task_id, run_id, 91, true, 60, false, T1).unwrap(),
@@ -694,7 +712,9 @@ mod tests {
         let next = claim_pending_timed_alerts(&mut conn, T1).unwrap();
         assert_eq!(next.len(), 1);
         assert_eq!(next[0].boundary_seconds, 120);
-        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
     }
 
     #[test]
