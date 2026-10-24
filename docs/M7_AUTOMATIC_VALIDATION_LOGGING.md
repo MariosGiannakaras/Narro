@@ -27,6 +27,7 @@ Each process launch creates a new `session-*` directory containing. Do not delet
 
 - `session.json` — process/build/privacy metadata;
 - `events.jsonl` — ordered timestamped technical events;
+- `panic-first-fault.jsonl` — **created only if a Rust panic occurs**, recording the source file/line/column, thread name and captured Rust backtrace before the timer mutex can subsequently report `TIMER_SERVICE_LOCK_POISONED`. This diagnostic is independent of the normal events mutex, so an unrelated poisoned validation logger cannot prevent the first-fault write. The original Rust panic hook is still invoked: a panic remains a panic and no state is silently recovered; the presence of this file is **not** a Timer fix or a physical PASS.
 - `m7-c5-result.json` — evaluator state/result for that session.
 
 The root also contains:
@@ -53,7 +54,7 @@ The JSONL trace records only technical validation data needed to diagnose M7 win
 - expected versus actual restore coordinates and work-area containment;
 - second-launch forwarding events when applicable.
 
-The logger does **not** record task titles, task descriptions, notes, list names or other user-authored content. It does not upload anything and does not add cloud telemetry.
+The logger does **not** record task titles, task descriptions, notes, list names or other user-authored content. The panic diagnostic deliberately omits the panic payload/message (which could contain such content) but its stack trace may contain local source/binary paths. Handle the entire evidence directory as local diagnostic material. It does not upload anything and does not add cloud telemetry.
 
 ## Evaluator semantics
 
@@ -68,4 +69,4 @@ A PASS is deliberately fail-closed: missing observations never become PASS.
 
 ## Relationship to video evidence
 
-The automatic evaluator is the primary structured technical evidence for the final saved-placement test. A short continuous screen recording remains useful as independent physical confirmation and for diagnosing unexpected visual behavior, but the raw JSONL trace provides the detailed native/persistence timeline needed for debugging.
+The automatic evaluator is the primary structured technical evidence for the final saved-placement test. A `panic-first-fault.jsonl` file supports causal analysis only when it actually records a first fault; a missing file, clean launch or mere lock-poison symptom must not be promoted to root-cause proof. A short continuous screen recording remains useful as independent physical confirmation and for diagnosing unexpected visual behavior, but the raw JSONL trace provides the detailed native/persistence timeline needed for debugging.
