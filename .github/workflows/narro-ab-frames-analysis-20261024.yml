@@ -24,6 +24,12 @@ jobs:
           command -v pdfinfo
           command -v pdftoppm
           python3 --version
+      - name: Restore latest immutable PDF evidence (analysis only)
+        shell: bash
+        run: |
+          git fetch --no-tags --depth=1 --filter=blob:none origin main
+          git restore --source=FETCH_HEAD --worktree -- work-log/evidence/physical-gap-restart-20261024/exports
+          test -f work-log/evidence/physical-gap-restart-20261024/exports/narro-overview-2026-09-24-to-2026-10-24.pdf
       - name: Inspect existing original Reports PDF pages
         shell: bash
         run: |
