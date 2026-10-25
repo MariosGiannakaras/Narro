@@ -1,0 +1,6 @@
+from pathlib import Path
+import json,sqlite3,shutil,subprocess
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());assert l['state']=='OWNED_PROFILE_ACTIVE'
+running=subprocess.check_output(['powershell','-NoProfile','-Command',"@(Get-Process narro,narro-m7-validation -ErrorAction SilentlyContinue | Select-Object Id) | ConvertTo-Json -Compress"],encoding='utf8',creationflags=0x08000000);assert not json.loads(running or '[]'),'Owned app must be stopped before fixture reset'
+old=json.loads((r.parent/'Narro-Physical-20261024-Gap-Restart/profile-protection-private.json').read_text());a=Path(old['namespaces'][0]['retainedPostfix']);b=Path(l['namespaces'][0]['active']);assert json.loads((b/'pa-owned-profile.json').read_text())['sessionRoot']==str(r)
+s=sqlite3.connect((a/'narro.db').as_uri()+'?mode=ro',uri=True);t=sqlite3.connect(b/'narro.db');s.backup(t);assert t.execute('pragma quick_check').fetchone()[0]=='ok';s.close();t.close();print('Same synthetic A/B fixture restored; no user data')

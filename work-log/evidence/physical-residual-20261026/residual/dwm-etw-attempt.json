@@ -1,0 +1,1 @@
+{"status":"TOOL_ACCESS_DENIED","hresult":"0x80070005","command":"wpr -start DesktopComposition -filemode","recordingStarted":false,"impact":"ETW/present corroboration NOT RUN; do not infer Narro failure or bypass security"}

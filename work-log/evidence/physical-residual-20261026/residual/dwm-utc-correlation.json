@@ -1,0 +1,229 @@
+{
+  "decoder": "xperf6.3.9600 ETL dumper",
+  "range": "2026/10/25:23:03:50.0000+UTC through23:04:00.0000+UTC",
+  "nativeEventsUtc": [
+    "2026-10-25T23:03:51.264Z",
+    "2026-10-25T23:03:58.379Z"
+  ],
+  "decodedDwmEvents": 252211,
+  "mostCommon": [
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      42053
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_VISUAL_RENDERCONTENT/Info",
+      36281
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWEVENT/Start",
+      14424
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWEVENT/Stop",
+      14424
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_OCCLUSIONEVENT/Info",
+      11544
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DIRTY_ADDRECT/Info",
+      6466
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/SCHEDULED_COMPOSITION_REASON/Info",
+      6392
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_COMPOSITION_SURFACE_DRAW/Info",
+      5772
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_OCCLUSIONEVENT/Stop",
+      2886
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_FRAME/Start",
+      2886
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_FRAME/Stop",
+      2886
+    ],
+    [
+      "Microsoft-Windows-Dwm-Core/ETWGUID_OCCLUSIONEVENT/Start",
+      2885
+    ]
+  ],
+  "fPresentedValues": {
+    "0x00000001": 2880,
+    "0x00000000": 1439
+  },
+  "attributedTargetPidEventCounts": {
+    "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": 3119
+  },
+  "targetExamples": [
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41654973",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41655479",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41661946",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41662454",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41670192",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41671150",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41676016",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    },
+    {
+      "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info": "Microsoft-Windows-Dwm-Core/ETWGUID_DRAWING_CONTEXT_STATE/Info",
+      "TimeStamp": "41676564",
+      "Process Name ( PID)": "\"Unknown\" (1836)",
+      "ThreadID": "2132",
+      "CPU": "2",
+      "etw:ActivityId": "",
+      "etw:Related ActivityId": "",
+      "etw:UserSid": "",
+      "etw:SessionId": "",
+      "DrawingContext": "0x000001ea671f40c0",
+      "Visual": "0x000001ea008ee700",
+      "ClipLeft": "0.000000",
+      "ClipTop": "0.000000",
+      "ClipRight": "2560.000000",
+      "ClipBottom": "1080.000000",
+      "TransformMatrixLength": "68",
+      "TransformMatrix": "00000044 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 c0 0a 45 00 00 00 00 00 00 00 00 00 00 80 3f 54 7d 00 00",
+      "AttributedProcessId": "75924"
+    }
+  ],
+  "limits": "Provider activity and fPresented are DWM-wide unless a target payload explicitly attributes the PID. Not per-pixel semantic proof; XML timezone offset is malformed and not used for precise correlation. UTC xperf range chosen explicitly."
+}

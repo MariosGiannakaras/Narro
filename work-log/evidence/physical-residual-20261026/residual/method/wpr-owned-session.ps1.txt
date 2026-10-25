@@ -1,0 +1,5 @@
+param([string]$Mode)
+$r=Split-Path -Parent $MyInvocation.MyCommand.Path
+if ($Mode -eq 'start') { wpr -start DesktopComposition -filemode *> (Join-Path $r 'wpr-elevated-start.txt'); $code=$LASTEXITCODE } else { wpr -stop (Join-Path $r 'A-desktop-composition.etl') *> (Join-Path $r 'wpr-elevated-stop.txt'); $code=$LASTEXITCODE }
+@{mode=$Mode;utc=[DateTime]::UtcNow.ToString('o');exit=$code} | ConvertTo-Json | Set-Content -Encoding UTF8 -LiteralPath (Join-Path $r ('wpr-elevated-'+$Mode+'.json'))
+exit $code
