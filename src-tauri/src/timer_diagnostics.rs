@@ -44,7 +44,12 @@ fn append(path: &Path, record: &Value) -> Result<(), String> {
         .map_err(|error| format!("write timer diagnostics: {error}"))
 }
 
-fn write(event: &'static str, operation: Option<&'static str>, stage: Option<&'static str>, extra: Value) {
+fn write(
+    event: &'static str,
+    operation: Option<&'static str>,
+    stage: Option<&'static str>,
+    extra: Value,
+) {
     let Some(Some(path)) = LOG_PATH.get() else {
         return;
     };
@@ -105,14 +110,20 @@ pub fn initialize() -> Result<(), String> {
         .map_err(|error| format!("create Timer diagnostic directory: {error}"))?;
     let path = directory.join(format!("timer-diagnostics-{}.jsonl", std::process::id()));
     // Verify the target is actually writable before installing the hook.
-    OpenOptions::new().create(true).append(true).open(&path)
+    OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&path)
         .map_err(|error| format!("open Timer diagnostic output: {error}"))?;
-    LOG_PATH.set(Some(path.clone()))
+    LOG_PATH
+        .set(Some(path.clone()))
         .map_err(|_| "Timer diagnostics initialized concurrently".to_string())?;
 
     let previous_hook = std::panic::take_hook();
     std::panic::set_hook(Box::new(move |info| {
-        let location = info.location().map(|loc| (loc.file(), loc.line(), loc.column()));
+        let location = info
+            .location()
+            .map(|loc| (loc.file(), loc.line(), loc.column()));
         let context = TIMER_CONTEXT.try_with(|value| value.get()).ok().flatten();
         let trace = std::backtrace::Backtrace::force_capture().to_string();
         // Do not stringify info/payload: panics may contain private task text.
@@ -122,7 +133,12 @@ pub fn initialize() -> Result<(), String> {
         }
         previous_hook(info);
     }));
-    write("timer-diagnostics-start", Some("startup"), Some("before-runtime"), json!({}));
+    write(
+        "timer-diagnostics-start",
+        Some("startup"),
+        Some("before-runtime"),
+        json!({}),
+    );
     Ok(())
 }
 
@@ -137,11 +153,14 @@ impl Scope {
     pub fn enter(operation: &'static str) -> Self {
         let active = LOG_PATH.get().is_some_and(Option::is_some);
         let previous = if active {
-            TIMER_CONTEXT.try_with(|value| {
-                let old = value.get();
-                value.set(Some((operation, "entered")));
-                old
-            }).ok().flatten()
+            TIMER_CONTEXT
+                .try_with(|value| {
+                    let old = value.get();
+                    value.set(Some((operation, "entered")));
+                    old
+                })
+                .ok()
+                .flatten()
         } else {
             None
         };
@@ -181,10 +200,15 @@ fn lock_bit(lock: &str) -> u8 {
 pub fn poisoned(lock: &'static str, operation: &'static str) -> CommandError {
     let bit = lock_bit(lock);
     if REPORTED_LOCKS.fetch_or(bit, Ordering::Relaxed) & bit == 0 {
-        write("timer-lock-poisoned", Some(operation), Some("lock-acquisition"), json!({
-            "lock": lock,
-            "code": "TIMER_SERVICE_LOCK_POISONED"
-        }));
+        write(
+            "timer-lock-poisoned",
+            Some(operation),
+            Some("lock-acquisition"),
+            json!({
+                "lock": lock,
+                "code": "TIMER_SERVICE_LOCK_POISONED"
+            }),
+        );
         eprintln!("TimerService first poisoned lock: lock={lock} operation={operation}");
     }
     CommandError::timer_service_lock_poisoned()
@@ -208,7 +232,10 @@ mod tests {
         assert_eq!(record["timerOperation"], "advance_and_report");
         assert_eq!(record["timerStage"], "persist-boundary");
         assert_eq!(record["sourceLocation"]["line"], 62);
-        assert!(record["backtrace"].as_str().unwrap().contains("advance_controller_to"));
+        assert!(record["backtrace"]
+            .as_str()
+            .unwrap()
+            .contains("advance_controller_to"));
         assert!(record.get("panicPayload").is_none());
         assert!(record.get("taskId").is_none());
         assert!(record.get("databasePath").is_none());
@@ -227,10 +254,8 @@ mod tests {
 
     #[test]
     fn appender_preserves_valid_bounded_jsonl_without_private_fields() {
-        let folder = std::env::temp_dir().join(format!(
-            "narro-timer-diagnostic-{}",
-            uuid::Uuid::new_v4()
-        ));
+        let folder =
+            std::env::temp_dir().join(format!("narro-timer-diagnostic-{}", uuid::Uuid::new_v4()));
         fs::create_dir_all(&folder).expect("isolated test diagnostic folder");
         let path = folder.join("first-fault.jsonl");
         let record = panic_record(
@@ -241,7 +266,8 @@ mod tests {
         append(&path, &record).expect("write first JSONL line");
         append(&path, &record).expect("append second JSONL line");
         let lines = fs::read_to_string(&path).expect("read technical log");
-        let parsed: Vec<Value> = lines.lines()
+        let parsed: Vec<Value> = lines
+            .lines()
             .map(|line| serde_json::from_str(line).expect("independent valid JSONL record"))
             .collect();
         assert_eq!(parsed.len(), 2);
