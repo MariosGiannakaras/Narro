@@ -1152,7 +1152,10 @@ mod live_estimate_tests {
         let serialized = checkpoint_payload_for(&engine, 0, 0, 1_500).unwrap();
         let mut legacy: serde_json::Value = serde_json::from_str(&serialized).unwrap();
         assert_eq!(legacy["state"]["resume_after_break"], true);
-        legacy["state"].as_object_mut().unwrap().remove("resume_after_break");
+        legacy["state"]
+            .as_object_mut()
+            .unwrap()
+            .remove("resume_after_break");
         let checkpoint: DurableTimerCheckpoint = serde_json::from_value(legacy).unwrap();
         let (mut restored, _, _) = restore_engine(checkpoint, 1_500).unwrap();
         let finished = restored.advance(4_000).unwrap();
@@ -1165,9 +1168,13 @@ mod live_estimate_tests {
     fn paused_manual_break_preserves_pause_after_durable_restart_and_late_expiry() {
         let (mut conn, _, task_id) = fixture(None);
         let mut runtime = TimerRuntime::new();
-        runtime.start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0).unwrap();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
         runtime.pause(&mut conn, 60_000, T1).unwrap();
-        runtime.start_manual_break(&mut conn, 600_000, 60_000, T1).unwrap();
+        runtime
+            .start_manual_break(&mut conn, 600_000, 60_000, T1)
+            .unwrap();
 
         let before = runtime.checkpoint(&mut conn, 300_000, T5).unwrap();
         assert_eq!(before.timer.state, TimerStateKind::Break);
@@ -1176,7 +1183,10 @@ mod live_estimate_tests {
         assert_eq!(ended.timer.state, TimerStateKind::Paused);
         assert_eq!(ended.timer.work_elapsed_ms, 60_000);
         assert_eq!(ended.timer.total_break_ms, 600_000);
-        assert_eq!(recovered.snapshot(1_000_000).unwrap().timer.work_elapsed_ms, 60_000);
+        assert_eq!(
+            recovered.snapshot(1_000_000).unwrap().timer.work_elapsed_ms,
+            60_000
+        );
     }
 
     #[test]
