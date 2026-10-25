@@ -1,8 +1,0 @@
-{
-  "exportedDuringCapture": true,
-  "rows": 5,
-  "onlyOwnedList": true,
-  "oneBreak41sIncluded": true,
-  "secondBreakAndLaterCompletionsNotYetInThisEarlyExport": true,
-  "finalSessionTruth": "inventory/ledger-after.json"
-}

@@ -1,9 +1,0 @@
-# Narro reporting contract — current task, evidence and next action
-
-Use [AI_START_HERE.md](../AI_START_HERE.md) as the **single current reporting rule** and [HANDOFF.md](../HANDOFF.md) for the last verified current state. This file is not a separate work queue, historical progress dashboard or alternative denominator policy.
-
-- Report **what was actually changed or checked**, the affected task/PR/head SHA, and exact CI/tests/native Windows status as **PASS / FAIL / PENDING / NOT RUN**. Finish with the real blocker and one next safe action.
-- Use short, **scope-labeled** fractions only when they answer the user's question (e.g. an actual bounded 8-case acceptance suite). Never turn completed historical audit/corrective totals, past PR batches, or roadmap counts into routine status boilerplate.
-- Historical U-item uncertainty and original local-gap remediation are **closed ledger entries**, not active features to implement or repeat. They are consulted only on a user-requested historical review or a newly evidenced related regression. The original evidence is preserved in [dated implementation ledger](U01_U41_LOCAL_IMPLEMENTATION_PROGRESS_2026-10-12.md).
-- If asked for whole-roadmap progress, use **10 mandatory milestone gates** with independently evidenced completion; distinguish source, CI, merge, physical Windows and confirmed original-source parity. M11 and M12 are separately opt-in; neither is activated by general continuation.
-- When a current PR has a **specific documented physical-before-merge restriction**, name it as a task-specific gate, not a general rule forbidding merge of other green slices. Historical versions of this reporting file live in [immutable pre-cleanup snapshot](../work-log/tracker-archives/2026-10-23-docs-PROGRESS_REPORTING-before-active-documentation-cleanup.md).

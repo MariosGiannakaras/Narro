@@ -1,9 +1,0 @@
-{
-  "state": "ARTIFACT_VERIFIED",
-  "head": "7647ffabb8ee93edfe95f90395baec632802b25e",
-  "ci": 38614321520,
-  "pr": 354,
-  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA354-native-20261014\\analysis\\validation\\narro-m7-validation.exe",
-  "sha256": "205e0a422042e76db0ccee0317dda06d9a3186b0fc12d4c864054bc0a63f4f3a",
-  "scope": "Reports tooltip clipping: 30/90-day hover/focus/scroll, resize/DPI/reduced motion, picker/PDF paired checks"
-}

@@ -1,7 +1,0 @@
-{
-  "sha256": "5152e504c3d9ff1e646cd83a7c9549c9a7520ffe56f2f66ccffb68417e9cbbdb",
-  "action": "Launch verified MSI installed executable",
-  "path": "E:\\SystemFiles\\Desktop\\Narro-PA-postfix-20261013\\installed-nsis\\narro.exe",
-  "msi": "0afa160f4770dd82632797173e94f0714fb7c8628e4f990f789e8e769a3f87f5",
-  "utc": "2026-10-14T17:59:04.1792465Z"
-}

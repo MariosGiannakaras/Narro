@@ -1,7 +1,0 @@
-{
-  "frames": 156672,
-  "rate": 48000,
-  "channels": 2,
-  "durationSeconds": 3.264,
-  "warning": "Raw WASAPI acquisition was discontinuous/short; no continuous AV synchronization or audio PASS claimed."
-}

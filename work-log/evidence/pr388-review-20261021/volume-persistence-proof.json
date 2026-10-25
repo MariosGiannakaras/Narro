@@ -1,6 +1,0 @@
-{
-  "ownedSyntheticProfile": true,
-  "successSoundVolumePercent": 90,
-  "updatedUtc": "2026-10-20T23:06:44.291844900+00:00",
-  "method": "Read-only SQLite query after capture; two actual ArrowLeft key releases from 100 to 90"
-}

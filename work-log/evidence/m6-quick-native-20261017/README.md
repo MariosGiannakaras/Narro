@@ -1,7 +1,0 @@
-# Focus three-group raw capture — 2026-10-17
-
-Acquisition **3/3**; analysis and PASS/FAIL grading **NOT RUN**. Complete 284.350000s dual-scene video, **28 native screenshots** (Main+Focus), complete **7-file Narro-M7-Logs**, actualinput/UIA/HWND/ownedSQL/systemchronology, rawstructuredZIP. Raw logs preserve exact sourceb11c80bb/EXEd9d092bc; PR364 and resultingmainCI both3/3SUCCESS,554inputidentity already accepted. See acquisition-results.json/chronological-manifest.json/session evidence matrices/freeze manifest. No new milestone acceptance or source motion/parity conclusions.
-
-D1 fiveactionhover/resume/shortcutpause and compact→Panel; D2 SuccessOFF automaticadvance, actualShowSuccess/FunGifcontrols, then pausedEST8:45/Taken0→Done→in-cardSuccess/525minutesearly; D3 SuccessTakeBreak→idle, actualEmailmakelive/StartBreak/Resume/pause/DonehistoryBreakrow. Functionality/sourceappearance/motion requires subsequent aggregate review, independently perrequirement. No POMO/125%DPI/wholeM7C5/Gate7 PASS from this run. Startup/readiness/offscreen guards prevented undelivered clicks; no product patch.
-
-NormaltrayQuit07:14:25Z,OBSstop07:14:26Z, originalprofilesrestored exactSHA13185e54bc0ea08f3b368ccc48a8ede429683e1d58a60b15b8f7491a06d2224d. No Narro/recording left. Ownedrecording120s-idle watchdog enabled, using actualinputtimestamp plus OBSrecordingtimer ownership; normalStopendsguard. No personal/ownedDB/cache/privatebackup/executable in upload.

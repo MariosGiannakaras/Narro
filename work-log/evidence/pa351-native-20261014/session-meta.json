@@ -1,9 +1,0 @@
-{
-  "state": "ARTIFACT_VERIFIED",
-  "head": "372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c",
-  "ci": 38521066086,
-  "pr": 351,
-  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA351-native-20261014\\analysis\\validation\\narro-m7-validation.exe",
-  "sha256": "40cba8b41f89da3f9820d2e089932d980c40be413345ca04280b62844527bef3",
-  "scope": "Initial Main entry / production scrolling / actual notification audio; held physical shortcut both directions"
-}

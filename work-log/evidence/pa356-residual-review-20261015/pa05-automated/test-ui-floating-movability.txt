@@ -1,5 +1,0 @@
-
-> narro@0.1.0 test:ui-floating-movability
-> node scripts/test-ui-floating-movability.mjs
-
-Floating Timer single-host movability/topmost/taskbar contracts passed.

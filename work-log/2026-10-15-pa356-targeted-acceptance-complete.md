@@ -1,3 +1,0 @@
-# PA356 targeted acceptance complete
-
-Capture2/2, review2/2, targetedacceptance2/2PASSscoped. SameEXE neutralkeyboard diagnostic completed; no extraNarro sourcepatch/build/CI. [Authoritative PA report and remaining limits](../docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md), [applied workflow audit](2026-10-15-pa356-workflow-review.md). Whole395.5s original and164.684s diagnostic recordings, PDFs/screens/actions/UIA/nativefocus/wholelogs published; originals restored byte-identically, no runningapp/viewer/recording. M9export12/12/narrowM8theme-save gate closed, wholemilestones3/10/M10blocked. Unchanged acceptedPA evidence retained, actualHDMI manualNOTRUN by explicituserchoice, other conditional/performance/sourceparity limits preserved; PA09/M11excluded.

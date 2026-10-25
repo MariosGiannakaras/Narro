@@ -1,7 +1,0 @@
-# Exact post-Clippy source proof
-
-Current PR389head77a6b13903cf6bf3f4ba67c3e6edddb1d0402ad1, CI39560130498. Initial85141282 CI39559126923 native gate failed at a Rust1.99Clippy fixed-chunk lint in the new unit test, not the app's runtime. Missing runtime visual upload is downstream of that failure, not independent evidence. Interim958947ca fixed the lint but was pushed despite a failed format check because the PowerShell command did not stop on a native nonzero result; immediately corrected77a6b139 passes rustfmt, with strict native-exit handling used for that correction. Historical runs remain failed/superseded; never upgrade them to PASS.
-
-Only unit-test expression/format differs from85141282; the complete production prefix before cfg(test) is byte-identical. Prior full frontend/browser14/14+4/4proof retains those unchanged paths. New exact77a6b139 proof runs production61scalar composition assertions **and all6unchanged Rust unit assertion bodies** in WASM. Native Windows Rust/COM/CI tests remain NOT RUN locally.
-
-ZIP contains exact canonical Rust source and its digest, a private adapted copy (only cfg(test)/test export attributes/visibility changed), geometry/error adapter harness, compiled WASM, provenance and Node verifier. `node verify.mjs` after extraction executes the proof; `rustc --edition=2021 --crate-type=cdylib --target=wasm32-unknown-unknown probe.rs -o candidate.wasm` regenerates it with installed matching Rust std target. No native API/controller/window behavior is simulated. No source original is edited by this proof.

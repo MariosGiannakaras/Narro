@@ -1,9 +1,0 @@
-# PA351 exact Clippy failure and replacement — 2026-10-14
-
-Run38519177394/fa3ca8e0: Windows Check Rust PASS. First causal failure Run Clippy: unnecessary_cast at new main_focus_morph.rs33/65, HWND.0 already *mut c_void. The two redundant casts are removed without lint suppression or API changes. All other newly added native casts were inspected together: usize→HWND, native integer→Pixels pointer, DPI→float/rounded geometry and elapsed→bounded timeline are meaningful conversions. Actual source contract now rejects those same-type HWND casts locally, real Blitz single-flight/recovery, M6 and notification delivery regression PASS, Rust fmt PASS. Existing NER003 cheap-preflight prevention applies; missing packaged Focus artifact remains downstream.
-
-Replacement head372da50b6ec5f0c4d88f8e6c00e141a4cdb3127c / exact CI38521066086 IN_PROGRESS, same PR351. Native0/3, no new recording/launch/profile mutation. Actual frontend artifact11873655963 previously independently verified against fa3ca8e0 remains valid for unchanged renderer/build inputs; latest correction changes only native pointer casts and its source guard. Whole failure log retained in evidence/pa351-preflight/windows-clippy-failure.log.
-
-Independent work during CI completed actual fast artifact integrity/reference check, real ownership/EXE launch-guard positive/negative cases, protected picker/renderer/domain/persistence/timer/shortcut source path no-diff check, current two-monitor/OBS/audio facts and native reuse matrix. Reports belongs M9, Main M5; PA08 installer evidence is reusable for M10 only after its hard entry gate, without any M10 checkbox/counter advancement.
-
-NEXT exact current3/3, guarded merge/source proof, all exact artifacts, fresh isolated-profile targeted dense capture and aggregate analysis. Mandatory3/10 unchanged; unavailable physical-device/MSI/listener branches OPEN/NOT RUN, no M11/PA09.

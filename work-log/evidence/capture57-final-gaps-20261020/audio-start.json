@@ -1,9 +1,0 @@
-{
-  "utc": "2026-10-20T18:00:25.803588+00:00",
-  "method": "WASAPI loopback callback blocks, original captured PCM only; no generated silence",
-  "microphone": false,
-  "device": "Speakers (HyperX Virtual Surround Sound) [Loopback]",
-  "rate": 48000,
-  "channels": 2,
-  "maxSeconds": 30
-}

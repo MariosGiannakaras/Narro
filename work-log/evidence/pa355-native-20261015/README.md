@@ -1,7 +1,0 @@
-# PA355 continuous exact Windows acquisition
-
-Source7b54e62f / CI38630226135 / main dbc3f6f2 / EXEd772edbf. Acquisition3/3 groups completed; acceptance pending aggregate review. One full914.034s dual-display4480x1080/60fps movie, no intentional cut/gap, four ordered40MiB binary parts. Concatenate in manifest order and verify full SHA256. UTC action journals plus approximate process-start/video correlation in capture-meta.
-
-All observations/helper snapshots, screenshots, three actual owned PDF exports and complete seven-file Narro-M7-Logs are included. Personal original DB/profile ledger and private owned DB backups are excluded. Normal trayQuit04:47:24.938 UTC; originals/motion/topology restored, originalDB SHA identical, no Narro/recorder. This Reports-only C5 result is INCONCLUSIVE, not a newC5 failure or PASS.
-
-Factual possible defect: Preferences remains open on Escape after theme save/focus loss; primary picker/Overview attempts behind it are INVALID. Only explicitly named valid/recovery observations count. Whole raw recording retains those attempts and recovery. Phase2 must distinguish captured scope, PASS/FAIL/UNCERTAIN/NOTRUN, and reuse only sufficiently exercised M1–M9 gates. Actual Windows default NitroPDF viewer opened PDF1, NextPage twice and normal close; no reader settings changed. No source changes during acquisition. HDMI unplug/replug remains user-deferred manualNOTRUN; M10 blocked, PA09/M11 excluded.

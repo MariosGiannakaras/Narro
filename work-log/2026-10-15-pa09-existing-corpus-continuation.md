@@ -1,7 +1,0 @@
-# PA09 existing-corpus continuation — 2026-10-15
-
-The user reiterates broad authorization and explicitly distinguishes already available screenshots/videos/Pass3 from M11, which concerns live Blitzit. Any prior request to clarify PA09 is resolved; do not re-ask. M11 remains dormant. PA01–08 acceptance is preserved.
-
-Use the existing canonical crosswalk and Pass3 IDs, not a new research tracker. First actionable M5 slice: P3-M5-04 destructive-menu retained-container/inline confirmation plus B48 destructive separator. Canonical sources VE-00610–21s and SS-H13 are available locally. VE-006v2.4.89 determines observed interaction grammar; SS-H13/calibrated system determines ordinary menu styling, with stronger current sources taking precedence where they cover the same claim. The historical October06 NO_SOURCE_FIX reconciliation is requirements/provenance context, not current visible acceptance.
-
-Current Narro exact sourcef7456738/PR356/CI38688646540 3/3 and visual artifact11952445118 are reused. Direct current comparison must distinguish screenshot anatomy from continuous motion/keyboard/native evidence. No new capture/CI until a missing state or confirmed source delta makes it necessary. Group compatible M5 evidence/changes and preserve local-only invariants, destructive confirmation, identity/data ownership, and the user-approved SpectrumCore/imageupload/218icons. M1–M4 remain4/10; do not advance M10 before all required M1–M9 gates close.

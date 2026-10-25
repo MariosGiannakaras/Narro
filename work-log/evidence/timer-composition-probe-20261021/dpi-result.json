@@ -1,5 +1,0 @@
-{
-  "uniformDpiGridAssertions": 16,
-  "rejectedGeometryAssertions": 3,
-  "result": "PASS; pure production Rust composition, not native Windows capture/COM"
-}

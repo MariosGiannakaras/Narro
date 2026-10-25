@@ -8,7 +8,7 @@ permissions:
 jobs:
   original-frames:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,26 +16,18 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             analysis
-            work-log/evidence/physical-native-final-20261024/A02-normal-qpc
-            work-log/evidence/physical-native-final-20261024/B02-normal-qpc
-            work-log/evidence/physical-native-final-20261024/segments.json
-            work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control
-            work-log/evidence/physical-native-final-20261024/recordings/recovery-reduced
-      - name: Verify ffmpeg availability
+      - name: Ensure video decoding tools
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
-          command -v git
+          command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+          command -v ffprobe
           python3 --version
-      - name: Restore latest immutable G28 frames (analysis only)
+      - name: Freeze main source tree in checkout without changing original files
         shell: bash
         run: |
           git fetch --no-tags --depth=1 --filter=blob:none origin main
-          git restore --source=FETCH_HEAD --worktree -- work-log/evidence/physical-native-final-20261024/A02-normal-qpc work-log/evidence/physical-native-final-20261024/B02-normal-qpc work-log/evidence/physical-native-final-20261024/segments.json work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control work-log/evidence/physical-native-final-20261024/recordings/recovery-reduced
-          test -f work-log/evidence/physical-native-final-20261024/A02-normal-qpc/frames.json
-          test -f work-log/evidence/physical-native-final-20261024/B02-normal-qpc/frames.json
-          test -f work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control/native-original.mkv
-      - name: Inspect actual continuous original G28 desktop A02 frames
+          test -f analysis/inspect_20261025_frozen_ab_timer.py
+          git cat-file -e FETCH_HEAD:work-log/evidence/physical-acceptance-20261025/README.md
+      - name: Inspect 16 current native transitions and 1 normal-media Timer alert from original MKVs
         shell: bash
         run: |
-          python3 -u analysis/inspect_g28_continuous_original.py
+          python3 -u analysis/inspect_20261025_frozen_ab_timer.py

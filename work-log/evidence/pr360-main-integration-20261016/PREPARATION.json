@@ -1,8 +1,0 @@
-{
-  "source": "916b17d247c62c5ccc31353b657119b61981b409",
-  "ci": 38860384226,
-  "pr": 360,
-  "state": "WAITING_EXACT_CI_MAIN_PROOF_AND_ARTIFACT",
-  "physicalGroups": "0/5",
-  "profileIsolationStarted": false
-}

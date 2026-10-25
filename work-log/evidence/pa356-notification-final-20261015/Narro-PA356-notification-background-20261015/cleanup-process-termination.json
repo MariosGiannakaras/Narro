@@ -1,7 +1,0 @@
-{
-  "utc": "2026-10-15T17:08:38.8235847Z",
-  "pid": 68644,
-  "executable": "E:\\SystemFiles\\Desktop\\Narro-PA356-native-20261015\\analysis\\validation\\narro-m7-validation.exe",
-  "reason": "Owned notification-only cleanup; native tray helper could not open menu after external notification interference",
-  "normalQuit": false
-}

@@ -1,4 +1,0 @@
-
-> narro@0.1.0 check:rust:fmt
-> cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
-

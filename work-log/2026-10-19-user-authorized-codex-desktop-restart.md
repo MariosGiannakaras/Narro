@@ -1,5 +1,0 @@
-# User-authorized desktop restart — 2026-10-19
-
-User explicitly requested creation and execution of a BAT to close/reopen Codex because they cannot access the computer. Local helper: E:\SystemFiles\Desktop\Narro-Workspace\Restart-Codex\Restart-Codex.bat with adjacent Restart-Codex.ps1 and restart-log.jsonl. PowerShell parser and -CheckOnly verified installed OpenAI.Codex package, registered AUMID and exact desktop executable. Helper waits20seconds, stops only matching installed desktop processes, relaunches via registered AppsFolder activation, logs outcome and falls back to the verified executable if needed. It does not broadly kill codex.exe CLI processes or process trees. Launch is independent via local Windows process creation so the desktop shutdown does not own the helper lifetime.
-
-RA01/RA02 captures remain0/2 NOT RUN; original Narro profile and OBS config were restored, no recorder is active. After restart inspect log first, re-establish actual Computer Use capture/input, then resume only protected recordings. No analysis/code corrections before the requested effort-change pause. No Narro source/config/test edits or CI triggered.

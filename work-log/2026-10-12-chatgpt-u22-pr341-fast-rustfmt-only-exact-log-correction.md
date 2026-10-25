@@ -1,9 +1,0 @@
-# 2026-10-12 — U22 PR341 initial fast-gate rustfmt failure, exact diff applied in-place
-
-## First failed head
-
-- Source [PR #341](https://github.com/MariosGiannakaras/Narro/pull/341), first submitted exact `1d20f27bc07e4bd3c05559fda5d8598d7d5adb02`. [PR run 38255922626](https://github.com/MariosGiannakaras/Narro/actions/runs/38255922626) validation **SUCCESS**, fast-gate **FAIL**, Windows **SKIPPED**.
-- Exact failed job **114833893057**, step **Check Rust Formatting**, after all registered frontend tests, TypeScript compilation and production Vite build already passed. `npm run check:rust:fmt` invoked `cargo fmt --manifest-path src-tauri/Cargo.toml -- --check`; rustfmt showed differences **only** in `src-tauri/src/persistence/sessions.rs` test block around lines 968–1040 and `src-tauri/src/report_commands.rs` around lines 687–705. No Rust compile/domain/test failure established. Historical first run remains FAIL.
-- Parsed the **actual CI rustfmt diff**, 7 hunks in `sessions.rs` and 2 in `report_commands.rs`, applied exact original-vs-formatted text replacement with unique match guard to the **same preexisting U22 branch**, no Rust logic or behavior modification, no weakening tests.
-- Replacement PR head **`3c306300bd9d9eedd6818ec15e87e3de3dc8a3cf`**; [run 38256743036](https://github.com/MariosGiannakaras/Narro/actions/runs/38256743036) **IN PROGRESS, NOT YET PASS** at immutable checkpoint. New U22 scope still **0/1 accepted** until exact-head all 3 jobs pass and guarded merge + resulting-main acceptance. Prior accepted bounded U12/U40/U35/U21 4/4, independent U06 1/1 U09 1/1 unaffected.
-- Preserve source PR and re-inspect latest run. If red, inspect exact first step/diagnostic rather than guessing. On full green expected-head guarded squash, changed blob identity, resulting-main Windows run and real release checksum/physical pin. Original Blitzit parity OPEN, M11 optional; physical Codex PA-01–09 USER-PAUSED.

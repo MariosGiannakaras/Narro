@@ -1,9 +1,0 @@
-# PR356 corrected exact head — live readiness capture
-
-SamePR356/branch, forwardhead`b43549bf24f1edb9080f5651496ef27d6c054228`, [WindowsCI38688218496](https://github.com/MariosGiannakaras/Narro/actions/runs/38688218496) queued/running. Previous9232a6a6/38684913852 first readiness failure remains immutable with full diagnostics/log. Product Preferences/PDF changes are **byte unchanged** from first candidate (`git diff9232a6a6 --` four productfiles empty).
-
-Only new validation changes: dedicated bounded liveCDP capture for the2 sequential Preferences and8 print fixtures; viewport1280x720 pinned before navigation, observers installed before page load, actualready+pass/error markers, realprintmedia for print states, all DOM/PNG/phase/network/JS/stderr retained before ownbrowser cleanup, no blind retry of assertions. Existing calibrated B49/legacycaptures untouched. Fixture now emits exact phase diagnostics; original12-frame keyboard assertions unchanged. This addresses readiness/observability without inferring an unobserved precise oldstallphase.
-
-Whole frontend preflight/finalbuild PASS; Node driver syntax, bothPowerShell drivers parse, TypeScript PASS. LiveCDP replay2/2Preferences completephase+8/8realprintstates PASS. Original product matrix12/12+print8/8+3660lengths retained. Standalone Windows headlessdriver not locallyexecuted (approvedIAB liveCDP used); exact newCI must prove the headless transport/fixture together. LocalRustcompile NOTRUN/MSVClinker absent, noRustchanges.
-
-[Repaired preflight/liveCDP/source identity](evidence/pa356-readiness-repair-20261015). Nativephysical0/2; noNarrolaunch/AppData orrecorderactive. NEXT exactnewCIresult onthissamePR, then expectedheadmerge/mainproof/artifacts and preparedowned2-groupOBSsession. M9export11/12/M8EscapeOPEN; mandatory3/10/M10blocked, HDMI manualNOTRUN, PA09/M11excluded.

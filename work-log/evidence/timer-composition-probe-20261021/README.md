@@ -1,9 +1,0 @@
-# Actual production Rust composition probe
-
-Prototype source branch `fix/m7-pixel-preserving-composition`, commit609e0b65b3a98a3bc1da46a8494265c936ff62cc, **not merged/no PR/no new CI**. Main Timer remains unchanged and FAIL/OPEN. Native Windows/MSVC compilation and exact-build native acceptance are NOT RUN; local MSVC/Windows SDK are absent.
-
-The actual production module was compiled into WASM with only geometry/error type adapters. Baseline captured source bytes/hash27a4f861 map growing input rows to[5,120] and shrinking rows to[45,160], a RED against pixel-preserving[10,100]. Candidate source hashceaec93e passes61 scalar arithmetic assertions across intermediate growth/shrink, endpoints, uniform DPI, normalized direction and invalid extent. Existing frontend mode transaction22/22 and architecture/transition contracts passed; cargo fmt passed. These are not native COM/capture/freshness/visual proofs.
-
-`reproducible-probe.zip` preserves exact baseline/candidate module source bytes, compiled WASM, driver sources and JSON receipts. Extract and run `node verify-evidence.mjs` to verify source/WASM hashes and execute the actual preserved binaries. It needs Node with WebAssembly; it does not invoke Windows APIs, change profiles or contact a service. The archived Rust driver contains the original absolute include path; to recompile, bind it to the preserved baseline or candidate module explicitly. Original baseline result is historical; do not rerun its old convenience script against a different checkout and call that a fresh source binding.
-
-Source reconstruction decision and remaining native obligations are in docs/PR388_REVIEW_2026-10-21.md and HANDOFF. No new Timer PASS or milestone counter was recorded. SHA256 manifest describes canonical Git blobs; original binaries are byte-preserved in the ZIP.

@@ -1,9 +1,0 @@
-# PA08 MSI intake — no install launched
-
-While PR354 CI runs, the unchanged packaging claim can reuse the verified PA353 production artifact11893002140/CI38558587191. Original ZIP CRC3/3/provider SHA match; production EXE SHA8e2f9080a2868bd813ce95e9c58c301285f0913b37e7c8f789bea3e9da474d18; MSI SHA `0afa160f4770dd82632797173e94f0714fb7c8628e4f990f789e8e769a3f87f5`.
-
-Read-only Windows Installer database inspection confirms `ALLUSERS=1` (per-machine), default INSTALLDIR under ProgramFiles64Folder/Narro, ProductCode `{B4A66C52-16A9-44AF-9EE4-3A8C8C956690}`. Current process is **not elevated**. Actual installation therefore needs the user's Windows UAC approval; no security prompt is automated. User availability was requested asynchronously while other work continues. **MSI install/installed launch remains NOT RUN**, not a source failure or PASS.
-
-Existing Narro NSIS test registration points to `E:\SystemFiles\Desktop\Narro-PA-postfix-20261013\installed-nsis`; it is preserved and no existing installation was removed. Original profiles remain restored; no new profile isolation/install/app launch occurred for this MSI intake. Prepared MSI is local at `E:\SystemFiles\Desktop\Narro-PA353-msi-20261014\analysis\physical\bundle\msi\Narro_0.1.0_x64_en-US.msi` and original production ZIP is published with the PA353 CI evidence. [Read-only metadata/result](evidence/pa353-msi-intake-20261014).
-
-If the user is available for UAC: first create fresh original-profile backup/isolation and preserve current installer registrations/shortcuts; run exact MSI installation, verify installed EXE SHA, record genuine installed launch/normal Quit, then remove only the owned test install and restore the original profile/registration/shortcuts. Do not rerun already accepted NSIS/C5 or infer MSI PASS from its package alone.

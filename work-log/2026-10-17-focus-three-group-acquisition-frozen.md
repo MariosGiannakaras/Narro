@@ -1,5 +1,0 @@
-# Focus three-group acquisition frozen — 2026-10-17
-
-Acquired**3/3**, review**NOTRUN**. [Whole raw corpus](evidence/m6-quick-native-20261017/README.md), [actualchronology](evidence/m6-quick-native-20261017/chronological-manifest.json), [facts/limits](evidence/m6-quick-native-20261017/acquisition-results.json). Complete284.350000s video/28nativePNGs/all7logs; pausedpriorownedfixtureonly. UnchangedPR364b11/EXEd9d092bc/bothCI3/3sourceidentity. No new builds/tests/code or blanketPASS. This plus [publishedPR364fourgroups](2026-10-17-pr364-four-group-capture-frozen.md) gives **7/7 acquired groups**, not seven milestones. Full originalprofileSHA restored, noNarro/OBSrecordingactive. Currentall-files centralNarro-Workspace.
-
-Nextowner aggregates the frozen4+3groups once, separately dispositions B43/SS-H14/B40/B45/darkcustomcolor, B49/B63/B64/B65/B35/B36 and any genuinelyexercised compatible requirement; preserves POMO/125%/motion/nativeunexercisedlimits and earlieracceptedcorpora. KnownB23preview-row correction waits compatibleimplementation after evidence reconciliation. No pausedPA/hardware/M10/M11/M12 activation.
