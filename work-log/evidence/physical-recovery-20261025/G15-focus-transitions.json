@@ -1,0 +1,128 @@
+[
+  {
+    "utc": "2026-10-25T10:40:33.071Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Success sound volume",
+        "text": "",
+        "value": "90",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Success sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Success sound volume",
+          "text": "",
+          "value": "90",
+          "disabled": false,
+          "ariaDisabled": null,
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:38.726Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Success sound volume",
+        "text": "",
+        "value": "85",
+        "disabled": false,
+        "ariaDisabled": "true",
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Success sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Success sound volume",
+          "text": "",
+          "value": "85",
+          "disabled": false,
+          "ariaDisabled": "true",
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:44.302Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Success sound volume",
+        "text": "",
+        "value": "90",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Success sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Success sound volume",
+          "text": "",
+          "value": "90",
+          "disabled": false,
+          "ariaDisabled": null,
+          "tabIndex": 0
+        }
+      ]
+    }
+  }
+]

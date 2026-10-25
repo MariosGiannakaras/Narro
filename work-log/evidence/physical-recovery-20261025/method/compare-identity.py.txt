@@ -1,0 +1,5 @@
+from pathlib import Path
+import json,sqlite3
+r=Path(__file__).parent;old=json.loads((r.parent/'Narro-Physical-20261024-Gap-Restart/profile-protection-private.json').read_text());new=json.loads((r/'profile-protection-private.json').read_text())
+a=sqlite3.connect((Path(old['namespaces'][0]['retainedPostfix'])/'narro.db').as_uri()+'?mode=ro',uri=True);b=sqlite3.connect((Path(new['namespaces'][0]['retainedPostfix'])/'narro.db').as_uri()+'?mode=ro',uri=True)
+id='a83a9c01-d4ab-4087-8424-610e56f1ebe7';q='select id,title,archived_at from lists where id=?';t='select id,list_id,title from tasks where list_id=? order by id';result={'syntheticOnly':True,'listBefore':a.execute(q,(id,)).fetchall(),'listAfter':b.execute(q,(id,)).fetchall(),'tasksBefore':a.execute(t,(id,)).fetchall(),'tasksAfter':b.execute(t,(id,)).fetchall()};result['sameIdentityAndChildren']=result['listBefore']==result['listAfter'] and result['tasksBefore']==result['tasksAfter'];assert result['sameIdentityAndChildren'];(r/'G07-durable-identity.json').write_text(json.dumps(result,indent=2));print(result['sameIdentityAndChildren'])

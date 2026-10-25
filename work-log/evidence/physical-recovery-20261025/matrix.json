@@ -1,0 +1,37 @@
+[
+  {
+    "id": "G07",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "G13",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "G14",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "G15",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "G16",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "G20",
+    "status": "SCOPED_PASS",
+    "scope": "previously missing native subclaim only"
+  },
+  {
+    "id": "R1",
+    "status": "NOT_REPRODUCED",
+    "scope": "first-process two-display Preferences to Board; poison root cause remains OPEN"
+  }
+]

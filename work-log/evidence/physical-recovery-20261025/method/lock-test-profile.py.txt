@@ -1,0 +1,7 @@
+from pathlib import Path
+import sqlite3,json,time,datetime,sys
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());assert l['state']=='OWNED_PROFILE_ACTIVE'
+active=Path(l['namespaces'][0]['active']);assert json.loads((active/'pa-owned-profile.json').read_text())['sessionRoot']==str(r)
+name=sys.argv[1];con=sqlite3.connect(active/'narro.db',timeout=2);con.execute('BEGIN IMMEDIATE')
+(r/(name+'-lock-start.json')).write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'syntheticOnly':True,'writes':0}))
+time.sleep(20);con.rollback();con.close();(r/(name+'-lock-end.json')).write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'released':True,'writes':0}))
