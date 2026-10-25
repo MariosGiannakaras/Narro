@@ -161,7 +161,11 @@ impl TimerService {
             }
         }
         trace.stage("construct-locks");
-        crate::timer_diagnostics::milestone("timer-recovery-completed", "recover_at", "construct-locks");
+        crate::timer_diagnostics::milestone(
+            "timer-recovery-completed",
+            "recover_at",
+            "construct-locks",
+        );
         Ok(Self {
             state: Mutex::new(TimerServiceState {
                 controller,
@@ -200,10 +204,9 @@ impl TimerService {
     ) -> CommandResult<TimerSessionPayload> {
         let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
         trace.stage("lock-state");
-        let mut state = self
-            .state
-            .lock()
-            .map_err(|_| crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit"))?;
+        let mut state = self.state.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit")
+        })?;
         let raw_ms = self.raw_now_ms()?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let wall_time = current_wall_time();
@@ -401,10 +404,9 @@ impl TimerService {
     }
 
     pub fn focus_home_pause_nonce(&self) -> CommandResult<Option<u64>> {
-        let lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_lease", "focus_home_pause_nonce"))?;
+        let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "focus_home_pause_nonce")
+        })?;
         Ok(lease.as_ref().map(|current| current.nonce))
     }
 
@@ -416,16 +418,14 @@ impl TimerService {
         trace.stage("lock-home-gate");
         // Serialize only Home-pause provenance operations. Do not hold the lease
         // mutex across SQLite, event publication or native notification work.
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_gate", "pause_for_focus_home"))?;
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "pause_for_focus_home")
+        })?;
         let nonce = self.next_focus_home_pause_nonce()?;
         let existing_lease = {
-            let lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home"))?;
+            let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+            })?;
             *lease
         };
 
@@ -467,10 +467,9 @@ impl TimerService {
         };
 
         trace.stage("persist-pause-provenance");
-        let mut lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home"))?;
+        let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+        })?;
         *lease = next_lease;
         Ok(payload)
     }
@@ -482,16 +481,17 @@ impl TimerService {
     ) -> CommandResult<Option<TimerSessionPayload>> {
         let trace = crate::timer_diagnostics::Scope::enter("resume_focus_home_pause");
         trace.stage("lock-home-gate");
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_gate", "resume_focus_home_pause"))?;
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "resume_focus_home_pause")
+        })?;
         trace.stage("consume-pause-provenance");
         let lease = {
-            let mut lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_lease", "resume_focus_home_pause"))?;
+            let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned(
+                    "focus_home_pause_lease",
+                    "resume_focus_home_pause",
+                )
+            })?;
             if let (Some(expected), Some(current)) = (expected_nonce, lease.as_ref()) {
                 if current.nonce != expected {
                     return Ok(None);
@@ -695,7 +695,11 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         trace.stage("publish-after-lock-release");
         drop(state);
-        crate::timer_diagnostics::milestone("timer-transition-return", "transition_if", "after-lock-release");
+        crate::timer_diagnostics::milestone(
+            "timer-transition-return",
+            "transition_if",
+            "after-lock-release",
+        );
 
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);
