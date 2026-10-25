@@ -198,6 +198,8 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<TimerSessionPayload> {
+        let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
+        trace.stage("lock-state");
         let mut state = self
             .state
             .lock()
@@ -211,6 +213,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("persist-final-checkpoint");
         checkpoint_runtime_before_exit(
             controller,
             effects_connection,
@@ -265,6 +268,8 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_suspend");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
@@ -285,6 +290,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("advance-before-suspend");
         advance_controller_to(
             controller,
             effects_connection,
@@ -293,6 +299,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-suspend-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -312,6 +319,8 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_resume");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
@@ -322,6 +331,7 @@ impl TimerService {
             return Ok(());
         }
 
+        trace.stage("read-sleep-policy");
         let policy = active_sleep_policy(&state.controller, &state.effects_connection)?;
         let now_ms = state
             .clock
@@ -334,6 +344,7 @@ impl TimerService {
             recovered_awaiting_resume,
             ..
         } = &mut *state;
+        trace.stage("advance-after-resume");
         advance_controller_to(
             controller,
             effects_connection,
@@ -342,6 +353,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-resume-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -400,6 +412,8 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<Option<TimerSessionPayload>> {
+        let trace = crate::timer_diagnostics::Scope::enter("pause_for_focus_home");
+        trace.stage("lock-home-gate");
         // Serialize only Home-pause provenance operations. Do not hold the lease
         // mutex across SQLite, event publication or native notification work.
         let _home_pause_gate = self
@@ -415,6 +429,7 @@ impl TimerService {
             *lease
         };
 
+        trace.stage("pause-transaction");
         let payload = self.transition_if(
             app_handle,
             |before| {
@@ -451,6 +466,7 @@ impl TimerService {
             renew_focus_home_pause_lease(existing_lease, &current, nonce)
         };
 
+        trace.stage("persist-pause-provenance");
         let mut lease = self
             .focus_home_pause_lease
             .lock()
@@ -464,10 +480,13 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         expected_nonce: Option<u64>,
     ) -> CommandResult<Option<TimerSessionPayload>> {
+        let trace = crate::timer_diagnostics::Scope::enter("resume_focus_home_pause");
+        trace.stage("lock-home-gate");
         let _home_pause_gate = self
             .focus_home_pause_gate
             .lock()
             .map_err(|_| crate::timer_diagnostics::poisoned("focus_home_pause_gate", "resume_focus_home_pause"))?;
+        trace.stage("consume-pause-provenance");
         let lease = {
             let mut lease = self
                 .focus_home_pause_lease
@@ -484,6 +503,7 @@ impl TimerService {
             return Ok(None);
         };
 
+        trace.stage("resume-transaction");
         self.transition_if(
             app_handle,
             move |before| focus_home_pause_lease_matches(lease, before),
