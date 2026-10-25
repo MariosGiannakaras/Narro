@@ -1143,6 +1143,25 @@ mod live_estimate_tests {
     }
 
     #[test]
+    fn legacy_manual_break_checkpoint_without_resume_field_preserves_old_running_behavior() {
+        let (_, _, task_id) = fixture(None);
+        let mut engine = TimerEngine::new();
+        engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
+        engine.start_manual_break(2_000, 1_000).unwrap();
+
+        let serialized = checkpoint_payload_for(&engine, 0, 0, 1_500).unwrap();
+        let mut legacy: serde_json::Value = serde_json::from_str(&serialized).unwrap();
+        assert_eq!(legacy["state"]["resume_after_break"], true);
+        legacy["state"].as_object_mut().unwrap().remove("resume_after_break");
+        let checkpoint: DurableTimerCheckpoint = serde_json::from_value(legacy).unwrap();
+        let (mut restored, _, _) = restore_engine(checkpoint, 1_500).unwrap();
+        let finished = restored.advance(4_000).unwrap();
+        assert_eq!(finished.state, TimerStateKind::Running);
+        assert_eq!(finished.work_elapsed_ms, 2_000);
+        assert_eq!(finished.total_break_ms, 2_000);
+    }
+
+    #[test]
     fn paused_manual_break_preserves_pause_after_durable_restart_and_late_expiry() {
         let (mut conn, _, task_id) = fixture(None);
         let mut runtime = TimerRuntime::new();
