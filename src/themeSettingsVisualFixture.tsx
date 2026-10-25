@@ -284,6 +284,31 @@ window.requestAnimationFrame(async () => {
       // changing actual shortcut preferences or registration.
       const closeButton = document.querySelector<HTMLButtonElement>('[data-windows-shortcuts-close="true"]');
       if (!closeButton) throw new Error("Shortcuts close button is missing");
+      // G16 pre-physical: exercise production dialog's real browser-facing
+      // forward and reverse focus trap, not UI Automation's RootWebArea
+      // placeholder (which cannot identify a DOM-focused child in WebView2).
+      const shortcutsSurface = closeButton.closest<HTMLElement>('[role="dialog"][aria-modal="true"]');
+      if (!shortcutsSurface) throw new Error("Windows Shortcuts modal focus owner missing");
+      const tabbables = Array.from(shortcutsSurface.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )).filter(element => !element.closest('[hidden], [inert]') && element.getClientRects().length > 0);
+      const lastTabbable = tabbables[tabbables.length - 1];
+      if (tabbables[0] !== closeButton || !lastTabbable || lastTabbable === closeButton) {
+        throw new Error("Shortcuts trap requires the real close and final keyboard control");
+      }
+      lastTabbable.focus({ preventScroll: true });
+      const forwardTab = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
+      lastTabbable.dispatchEvent(forwardTab);
+      if (!forwardTab.defaultPrevented || document.activeElement !== closeButton) {
+        throw new Error("Shortcuts forward Tab did not wrap from last to first control");
+      }
+      const reverseTab = new KeyboardEvent("keydown", { key: "Tab", shiftKey: true, bubbles: true, cancelable: true });
+      closeButton.dispatchEvent(reverseTab);
+      if (!reverseTab.defaultPrevented || document.activeElement !== lastTabbable) {
+        throw new Error("Shortcuts reverse Shift+Tab did not wrap from first to last control");
+      }
+      document.documentElement.dataset.themeSettingsShortcutsTabTrapPass = "true";
+      closeButton.focus({ preventScroll: true });
       // A later topmost modal owns input; do not steal its Escape.
       const newerDialog = document.createElement("section");
       newerDialog.setAttribute("role", "dialog");
