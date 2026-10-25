@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-25T11:16:04.153774+00:00",
+  "device": {
+    "index": 29,
+    "structVersion": 2,
+    "name": "Speakers (HyperX Virtual Surround Sound) [Loopback]",
+    "hostApi": 2,
+    "maxInputChannels": 2,
+    "maxOutputChannels": 0,
+    "defaultLowInputLatency": 0.003,
+    "defaultLowOutputLatency": 0.0,
+    "defaultHighInputLatency": 0.01,
+    "defaultHighOutputLatency": 0.0,
+    "defaultSampleRate": 48000.0,
+    "isLoopbackDevice": true
+  },
+  "rate": 48000,
+  "channels": 2,
+  "method": "PyAudioWPatch0.2.12.9 WASAPI loopback; no microphone",
+  "monotonic": 275084.812
+}

@@ -1,0 +1,3 @@
+from pathlib import Path
+import sqlite3,json
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());c=sqlite3.connect((Path(l['namespaces'][0]['active'])/'narro.db').as_uri()+'?mode=ro',uri=True);c.row_factory=sqlite3.Row;v={t:[dict(x) for x in c.execute('select * from '+t)] for t in ['preferences','timer_runtime_checkpoint','timed_alert_runs','timed_alert_effects']};(r/'timer-before-launch.json').write_text(json.dumps(v,indent=2));print(json.dumps(v)[:6500])

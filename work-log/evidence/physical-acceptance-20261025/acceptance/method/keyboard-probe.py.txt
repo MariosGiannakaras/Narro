@@ -1,0 +1,3 @@
+from pathlib import Path
+import ctypes as c,json,datetime,sys
+u=c.windll.user32;u.GetForegroundWindow.restype=c.c_void_p;u.GetKeyboardLayout.restype=c.c_void_p;h=u.GetForegroundWindow();pid=c.c_ulong();thread=u.GetWindowThreadProcessId(c.c_void_p(h),c.byref(pid));v={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'hwnd':h,'pid':pid.value,'thread':thread,'hkl':hex(u.GetKeyboardLayout(thread))};p=Path(__file__).parent/(sys.argv[1]+'.json');p.write_text(json.dumps(v));print(v)

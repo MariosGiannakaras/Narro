@@ -1,0 +1,9 @@
+{
+  "syntheticOnly": true,
+  "basis": "Gap-Restart paused91.605sec stored95sec cursor",
+  "deliberateFixtureChanges": [
+    "Pomodoro preference disabled",
+    "paused timer mode count_up; no elapsed or boundary fast-forward"
+  ],
+  "quickCheck": "ok"
+}

@@ -1,0 +1,4 @@
+Focus Panel selected-monitor revalidation failed after visible-area recovery: [FOCUS_PRESENTATION_BUSY] Another Focus native transaction is pending
+Focus Panel selected-monitor revalidation failed after visible-area recovery: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus Panel selected-monitor revalidation failed after visible-area recovery: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus Panel selected-monitor revalidation failed after visible-area recovery: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry

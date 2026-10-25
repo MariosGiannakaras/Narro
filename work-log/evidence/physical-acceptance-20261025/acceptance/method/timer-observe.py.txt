@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,sqlite3,time,datetime
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());assert l['state']=='OWNED_PROFILE_ACTIVE';db=Path(l['namespaces'][0]['active'])/'narro.db';end=time.monotonic()+400
+while time.monotonic()<end and not (r/'timer-observe.stop').exists():
+ c=sqlite3.connect(db.as_uri()+'?mode=ro',uri=True,timeout=2);c.row_factory=sqlite3.Row
+ row={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ for t in ['timer_runtime_checkpoint','timed_alert_runs','timed_alert_effects','pomodoro_boundary_effects']:row[t]=[dict(x) for x in c.execute('select * from '+t)]
+ c.close()
+ with (r/'timer-observation.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
+ time.sleep(1)

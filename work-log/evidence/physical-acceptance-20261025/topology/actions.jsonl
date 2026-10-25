@@ -1,0 +1,12 @@
+{"utc":"2026-10-25T11:50:38.802Z","action":"Topology maximize main"}
+{"utc":"2026-10-25T11:50:39.299Z","action":"Topology open All lists"}
+{"utc":"2026-10-25T11:50:40.130Z","action":"Topology enter recovered standard Focus"}
+{"utc":"2026-10-25T11:50:59.607Z","action":"Resume standard recovery91.605s; main normal media held"}
+{"utc":"2026-10-25T11:50:59.865Z","action":"Expose running standard timer"}
+{"utc":"2026-10-25T11:51:00.255Z","action":"Select secondary monitor through Quick Preferences"}
+{"utc":"2026-10-25T11:51:10.051Z","action":"Topology select real DISPLAY2 125percent"}
+{"utc":"2026-10-25T11:51:19.505Z","action":"Apply selected monitor and return Panel"}
+{"utc":"2026-10-25T11:51:50.573Z","action":"Monitor preference Screen2 selected; actual HWND remains primary0,0 after returning Panel. Preserve observation before re-entry."}
+{"utc":"2026-10-25T11:51:50.774Z","action":"Topology re-enter Focus to apply saved monitor preference"}
+{"utc":"2026-10-25T11:52:05.436Z","action":"Re-show Focus with saved Screen2 preference"}
+{"utc":"2026-10-25T11:54:34.830Z","action":"Topology re-add automatically returned same HWND to selected DISPLAY2 125percent; secondary1920x1080 recording started for normal-motion alert"}

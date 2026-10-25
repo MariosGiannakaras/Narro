@@ -1,0 +1,35 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "source": "43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261024-AB\\B\\artifact\\src-tauri\\target-physical\\release\\narro-m7-validation.exe",
+  "sha256": "8436d89b9d868fbdd7f5e5c76b13412a1360182645810e64b835b9a3ba8f9cd8",
+  "zipSha256": "e77a51b6ca8961c3f496ec3087cdd4b106749a65158ee80678728559daab0f9c",
+  "provenance": {
+    "schema": "narro-ci-artifact-provenance/v1",
+    "kind": "physical",
+    "sourceSha": "43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9",
+    "githubRunId": "40084666277",
+    "githubRunAttempt": 1,
+    "files": [
+      {
+        "path": "src-tauri/target-physical/release/bundle/msi/Narro_0.1.0_x64_en-US.msi",
+        "bytes": 5980160,
+        "sha256": "b363176e0f6826fb28efe19cc167ee9b83677274311ab01d31c049e4e57e46be"
+      },
+      {
+        "path": "src-tauri/target-physical/release/bundle/nsis/Narro_0.1.0_x64-setup.exe",
+        "bytes": 4243693,
+        "sha256": "1789d5326d7fc929b541dbe728a1a5b09258793b9bcb7c7fb3ceaf7e9e009b32"
+      },
+      {
+        "path": "src-tauri/target-physical/release/narro.exe",
+        "bytes": 16389120,
+        "sha256": "8436d89b9d868fbdd7f5e5c76b13412a1360182645810e64b835b9a3ba8f9cd8"
+      }
+    ]
+  },
+  "variant": "B",
+  "pid": 37896,
+  "utc": "2026-10-25T11:26:56.013841+00:00",
+  "stderrCapturedBeforeLaunch": true
+}

@@ -1,0 +1,16 @@
+{
+  "executableFingerprint": "fnv1a64:5a052b6edfee1d06:bytes:16389120",
+  "executableName": "narro-m7-validation.exe",
+  "privacy": {
+    "localOnly": true,
+    "recordsListNames": false,
+    "recordsNotes": false,
+    "recordsTaskContent": false,
+    "uploadsAutomatically": false
+  },
+  "processId": 37896,
+  "schemaVersion": 1,
+  "sessionId": "d3be8ebb-f920-45f2-8283-f078c0f59a64",
+  "sourceSha": "43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9",
+  "startedUtc": "2026-10-25T11:26:57.031Z"
+}

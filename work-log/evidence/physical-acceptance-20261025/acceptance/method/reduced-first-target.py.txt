@@ -1,0 +1,11 @@
+from pathlib import Path
+from PIL import Image
+import numpy as np,json
+r=Path(__file__).parent;out=[]
+for name in ['A-reduced-4','B-reduced-4']:
+ rows=[]
+ for p in sorted((r/'analysis-v2'/name).glob('frame-*.png')):
+  im=np.array(Image.open(p).convert('RGB')).astype(float);a=im[82:94,10:325,:];green=int(((a[:,:,1]>a[:,:,0]*1.2)&(a[:,:,1]>100)).sum());a=im[124:150,20:240,:];white=int(((a.min(axis=2)>160)&(a.max(axis=2)-a.min(axis=2)<40)).sum());
+  if green>150:rows.append({'frame':p.name,'green':green,'titleWhite':white})
+ out.append({'case':name,'first':rows[:12],'minimumTitle':min((x['titleWhite'] for x in rows),default=None)});print(name,rows[:6])
+(r/'analysis-qpc/reduced-panel-first-target.json').write_text(json.dumps(out,indent=2),encoding='utf-8')

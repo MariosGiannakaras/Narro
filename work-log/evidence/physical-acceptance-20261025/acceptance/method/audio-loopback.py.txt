@@ -1,0 +1,12 @@
+from pathlib import Path
+import sys,time,json,datetime,wave
+r=Path(__file__).parent;sys.path.insert(0,str(r/'capture-tools'));import pyaudiowpatch as pa
+p=pa.PyAudio();d=p.get_default_wasapi_loopback();rate=int(d['defaultSampleRate']);channels=int(d['maxInputChannels']);assert d['isLoopbackDevice'] and channels>0
+w=wave.open(str(r/'standard-alert-loopback.wav'),'wb');w.setnchannels(channels);w.setsampwidth(2);w.setframerate(rate);count=[0]
+def cb(data,frame_count,time_info,status):
+ w.writeframesraw(data);count[0]+=frame_count;return(None,pa.paContinue)
+stream=p.open(format=pa.paInt16,channels=channels,rate=rate,input=True,input_device_index=d['index'],frames_per_buffer=1024,stream_callback=cb)
+(r/'audio-start.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'device':d,'rate':rate,'channels':channels,'method':'PyAudioWPatch0.2.12.9 WASAPI loopback; no microphone','monotonic':time.monotonic()},indent=2))
+end=time.monotonic()+330
+while time.monotonic()<end and not (r/'audio.stop').exists():time.sleep(.2)
+stream.stop_stream();stream.close();p.terminate();w.close();(r/'audio-stop.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frames':count[0],'durationSeconds':count[0]/rate}))

@@ -1,0 +1,7 @@
+from pathlib import Path
+import subprocess,json,os,hashlib,datetime
+r=Path(__file__).parent;m=json.loads((r/'session-meta.json').read_text());assert json.loads((r/'profile-protection-private.json').read_text())['state']=='OWNED_PROFILE_ACTIVE'
+assert hashlib.sha256(Path(m['executable']).read_bytes()).hexdigest()==m['sha256']
+env=os.environ.copy();env['RUST_BACKTRACE']='full';env['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS']='--remote-debugging-address=127.0.0.1 --remote-debugging-port=9234'
+with (r/'first-process.stdout.txt').open('wb') as out,(r/'first-process.stderr.txt').open('wb') as err:p=subprocess.Popen([m['executable']],env=env,stdout=out,stderr=err)
+(r/'owned-app-pid.txt').write_text(str(p.pid));(r/'first-launch.json').write_text(json.dumps({'pid':p.pid,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source':m['source'],'sha256':m['sha256'],'stderrCapturedBeforeLaunch':True},indent=2));print(p.pid)

@@ -1,0 +1,62 @@
+{"utc":"2026-10-25T11:03:56.566Z","action":"Maximize main titlebar button"}
+{"utc":"2026-10-25T11:03:57.097Z","action":"Hover project card to reveal Open"}
+{"utc":"2026-10-25T11:04:06.816Z","action":"Enter recovered Focus through Blitz now"}
+{"utc":"2026-10-25T11:04:24.659Z","action":"TAR resume recovered paused91s through in-app shortcut"}
+{"utc":"2026-10-25T11:04:44.625Z","action":"TAR actual accessible Resume invoked"}
+{"utc":"2026-10-25T11:07:00.648Z","action":"Move pointer to Focus heading for visible countdown"}
+{"utc":"2026-10-25T11:07:20.218Z","action":"OBSERVATION: live countdown advanced03:29 to01:13; Focus Time Taken still0:01:31; preserve for analysis, no correction during capture"}
+{"utc":"2026-10-25T11:08:52.614Z","action":"TAR Preferences for explicit short alert interval"}
+{"utc":"2026-10-25T11:09:12.426Z","action":"Close quick preferences"}
+{"utc":"2026-10-25T11:09:12.965Z","action":"TAR Focus Home for full Preferences"}
+{"utc":"2026-10-25T11:09:19.966Z","action":"Full Preferences alert interval"}
+{"utc":"2026-10-25T11:09:32.186Z","action":"Inspect supported task alert interval options"}
+{"utc":"2026-10-25T11:10:16.226Z","action":"Disable Pomodoro for next standard work session timed alert"}
+{"utc":"2026-10-25T11:10:16.526Z","action":"Close Preferences"}
+{"utc":"2026-10-25T11:10:16.842Z","action":"Return Focus after alert settings inspection"}
+{"utc":"2026-10-25T11:10:25.848Z","action":"Reveal ordinary queued task actions for new standard work"}
+{"utc":"2026-10-25T11:10:34.351Z","action":"Start Capture drag task B via observed Make Live action"}
+{"utc":"2026-10-25T11:10:34.785Z","action":"Expose new standard timer heading"}
+{"utc":"2026-10-25T11:10:50.400Z","action":"Reveal Break actions"}
+{"utc":"2026-10-25T11:11:38.745Z","action":"Pomodoro Break real UI live actions disabled; attempted queued Make Live rejected with Resume work before switching; preserve observation"}
+{"utc":"2026-10-25T11:11:38.919Z","action":"Expose countdown during actual automatic Break wait"}
+{"utc":"2026-10-25T11:12:06.493Z","action":"Settled state resolves prior transient: Break skipped; Work paused at05:00. No disabled-control defect concluded."}
+{"utc":"2026-10-25T11:12:06.670Z","action":"Reveal B task Make Live after break skipped"}
+{"utc":"2026-10-25T11:12:11.952Z","action":"Make Capture drag task B live with Pomodoro disabled"}
+{"utc":"2026-10-25T11:12:12.453Z","action":"Read new timer mode"}
+{"utc":"2026-10-25T11:12:26.325Z","action":"Pause B while configuring standard timer"}
+{"utc":"2026-10-25T11:12:26.671Z","action":"Quick preferences Pomodoro switch"}
+{"utc":"2026-10-25T11:13:59.106Z","action":"Return from quick preferences off confirmed"}
+{"utc":"2026-10-25T11:14:04.957Z","action":"Complete paused B synthetic task to close old Pomodoro session"}
+{"utc":"2026-10-25T11:14:11.173Z","action":"Complete final synthetic Today task to idle old timer mode"}
+{"utc":"2026-10-25T11:14:20.635Z","action":"Create isolated standard alert task from All Clear"}
+{"utc":"2026-10-25T11:14:51.400Z","action":"Add TAR standard acceptance synthetic task"}
+{"utc":"2026-10-25T11:14:51.928Z","action":"Reveal first new task actions"}
+{"utc":"2026-10-25T11:14:58.246Z","action":"Reveal Make Live for new standard acceptance"}
+{"utc":"2026-10-25T11:15:03.554Z","action":"Start actual standard acceptance from genuine idle"}
+{"utc":"2026-10-25T11:15:03.979Z","action":"Expose standard live countdown"}
+{"utc":"2026-10-25T11:20:15.044Z","action":"TAR actual300sec boundary persisted/claimed once at11:20:03.769Z; next600. Do not infer audio/flash until recording review."}
+{"utc":"2026-10-25T11:21:09.752Z","action":"Shortcut layout test original CtrlAltP"}
+{"utc":"2026-10-25T11:21:32.973Z","action":"Shortcut layout test switch keyboard once"}
+{"utc":"2026-10-25T11:24:09.308Z","action":"All my lists"}
+{"utc":"2026-10-25T11:24:20.543Z","action":"A maximize main"}
+{"utc":"2026-10-25T11:24:21.166Z","action":"A open All my lists board"}
+{"utc":"2026-10-25T11:24:31.885Z","action":"A exact candidate enter Focus"}
+{"utc":"2026-10-25T11:24:46.584Z","action":"A N01 Panel to compact BEGIN"}
+{"utc":"2026-10-25T11:24:57.681Z","action":"A N02 compact to expanded BEGIN"}
+{"utc":"2026-10-25T11:25:19.750Z","action":"A N03 expanded to compact BEGIN"}
+{"utc":"2026-10-25T11:25:30.835Z","action":"A N04 compact to Panel BEGIN"}
+{"utc":"2026-10-25T11:26:26.534Z","action":"A R01 Panel to compact BEGIN"}
+{"utc":"2026-10-25T11:26:28.149Z","action":"A R02 compact to expanded BEGIN"}
+{"utc":"2026-10-25T11:26:29.637Z","action":"A R03 expanded to compact BEGIN"}
+{"utc":"2026-10-25T11:26:31.187Z","action":"A R04 compact to Panel BEGIN"}
+{"utc":"2026-10-25T11:27:23.668Z","action":"B maximize main"}
+{"utc":"2026-10-25T11:27:24.059Z","action":"B All my lists board"}
+{"utc":"2026-10-25T11:27:24.838Z","action":"B enter Focus from Today"}
+{"utc":"2026-10-25T11:27:40.396Z","action":"B N01 Panel to compact BEGIN"}
+{"utc":"2026-10-25T11:27:42.040Z","action":"B N02 compact to expanded BEGIN"}
+{"utc":"2026-10-25T11:27:43.571Z","action":"B N03 expanded to compact BEGIN"}
+{"utc":"2026-10-25T11:27:45.080Z","action":"B N04 compact to Panel BEGIN"}
+{"utc":"2026-10-25T11:28:06.273Z","action":"B R01 Panel to compact BEGIN"}
+{"utc":"2026-10-25T11:28:07.916Z","action":"B R02 compact to expanded BEGIN"}
+{"utc":"2026-10-25T11:28:09.379Z","action":"B R03 expanded to compact BEGIN"}
+{"utc":"2026-10-25T11:28:10.895Z","action":"B R04 compact to Panel BEGIN"}
