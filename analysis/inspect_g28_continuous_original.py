@@ -24,8 +24,8 @@ for name,segment in (("A02","A-qpc-control"),("B02","recovery-reduced")):
         # flank where previously observed ghost text could belong to main.
         vf="crop=640:760:1915:0,scale=256:304:flags=lanczos,tile=8x7:padding=2:margin=1:color=black"
         cmd=["ffmpeg","-hide_banner","-nostdin","-loglevel","error",
-             "-ss",f"{started:.3f}","-i",str(clip),"-frames:v","56",
-             "-vf",vf,"-q:v","8","-y",str(out)]
+             "-ss",f"{started:.3f}","-i",str(clip),"-t","1.90",
+             "-vf",vf,"-frames:v","1","-q:v","8","-y",str(out)]
         done=subprocess.run(cmd,capture_output=True,text=True)
         if done.returncode or not out.is_file():raise RuntimeError(name+" ffmpeg "+done.stderr)
         data=out.read_bytes();encoded=base64.b64encode(data).decode("ascii")
