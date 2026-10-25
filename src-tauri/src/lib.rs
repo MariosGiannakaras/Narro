@@ -40,6 +40,7 @@ pub mod shortcuts;
 pub mod theme_settings;
 pub mod timer;
 pub mod timer_region;
+mod timer_diagnostics;
 pub mod timer_service;
 pub mod validation_log;
 pub mod windows;
@@ -2861,6 +2862,8 @@ pub fn run() {
         .setup(|app| {
             validation_log::initialize(app)
                 .map_err(|error| startup_error("initialize M7 validation logging", error))?;
+            timer_diagnostics::initialize()
+                .map_err(|error| startup_error("initialize opt-in Timer first-fault diagnostics", error))?;
             let focus = get_window(app.handle(), FOCUS_SURFACE_LABEL)?;
             floating_placement::ensure_fixed_focus_host_size(&focus)?;
             timer_region::apply(&focus, timer_region::panel_logical_size())?;
