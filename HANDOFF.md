@@ -1,8 +1,8 @@
-# ACTIVE Codex residual native acceptance
+# ACTIVE Codex isolated instrumented Timer verification
 
-**PREPARED 2026-10-25T22:54:48.049765+00:00:** Physical owner Codex, main tracking13791cd4; new protected session `E:/SystemFiles/Desktop/Narro-Workspace/Narro-Physical-20261026-Residual`. Defined residual batch0/3 A-DWM/A-INPUT/A-WINDOW, exact frozen A PR389 ec9227a2 EXE08a7e1d6, CI40084188512 green. Existing A8/8+B8/8 functional and17/17 bounded analysis retained, no blanket repeat. No owned app/recording is running yet. **NEXT:** protect original profiles, load synthetic fixture, launch same A and acquire only missing DWM/present + interaction proof; inspect ledger/process before replay. Deferred drag/tray Quit/held Escape/HDMI stay OPEN. Source changes remain with implementation owner.
+**PREPARED 2026-10-25T23:07:45.692598+00:00:** Residual A native session FROZEN, owned apps/recorders/normal-media controller stopped; original profile restored hash-identical. A-INPUT and A-WINDOW scoped PASS; A-DWM present/pixel correlation still being dispositioned. Three original videos, direct DWM ETL (0 lost events), snapshots/native traces retained under Narro-Physical-20261026-Residual; no whole A hold lifted.
 
-**Verified closure:** PR428 resulting-main push CI40235080133 on exact merge efe6cadd8fb7d1a4785cd584c6d3d18e17523142 is completed SUCCESS, jobs validation-gate/fast-gate/windows-candidate all3/3 PASS. Prior UNVERIFIED statement below is superseded. Frozen A/B must retain main Timer diagnostics during eventual integration. Mandatory milestone4/10 unchanged; M10 gated.
+**NEXT:** protected main diagnostic session Narro-Physical-20261026-Diagnostics, source efe6cadd, exact green resulting-main CI40235080133, artifact12615157025 ZIP98e877b1/EXE9371b97c. Declared0/3 observations: opt-in first-fault recorder startup; actual Preferences-to-Board path; Focus-to-Home/checkpoint. No induced panic or manufactured PASS; historical poison closure requires real first fault. Check own process/ledger before replay. Source ownership remains ChatGPT; no source edit or new CI. Mandatory4/10 unchanged, M10 gated.
 
 ## Historical source-owner handoff
 
