@@ -415,6 +415,16 @@
     "sha256": "3fba433a2239dc5f9160a4141eddd54aed923477bbb01332f307d62d05869a0e"
   },
   {
+    "path": "residual/final-capture-cleanup-proof.json",
+    "bytes": 2231,
+    "sha256": "e79e55aea286dacedcb3365831ca55484dd198a55a6f684a018b736ea2eddb04"
+  },
+  {
+    "path": "residual/final-wpr-status.txt",
+    "bytes": 326,
+    "sha256": "f94fda9495aca7775197d7cbdc4587931e2acb9fc1883f8fd23cf4643eafb2d1"
+  },
+  {
     "path": "residual/focus-panel-before-0.jpg",
     "bytes": 641,
     "sha256": "ca8b715458ab5cfe5473b86256ef9bc135e56e5a600ba4d7b3f235ca502a3d71"
@@ -543,6 +553,11 @@
     "path": "residual/method/summarize-dwm.py.txt",
     "bytes": 1984,
     "sha256": "ce0f556dbcdc3fc86acd7aa9c7ff76899b88bb424ca42c5ea8f018957fc9f157"
+  },
+  {
+    "path": "residual/method/verify-owned-capture-stopped.ps1.txt",
+    "bytes": 682,
+    "sha256": "d1ee244462318ae40dc4f07429daa56d29538bc2ba0dc4b081750d6a4670f520"
   },
   {
     "path": "residual/method/wpr-owned-session.ps1.txt",
