@@ -252,6 +252,9 @@ impl WorkRuntime {
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct BreakRuntime {
     kind: BreakKind,
+    // Preserve the authoritative pre-break work state. A manual break
+    // started while paused must not silently resume work on expiry.
+    resume_after_break: bool,
     duration_ms: u64,
     elapsed_ms: u64,
     run_started_ms: u64,
@@ -392,7 +395,8 @@ impl TimerEngine {
             if work.phase == WorkPhase::TimeUp {
                 return Err(candidate.invalid(TimerAction::StartManualBreak, state));
             }
-            if work.phase.is_running() {
+            let resume_after_break = work.phase.is_running();
+            if resume_after_break {
                 let started = work.run_started_ms.ok_or(TimerError::DurationOverflow)?;
                 work.checkpoint_delta(now_ms - started)?;
             }
@@ -400,6 +404,7 @@ impl TimerEngine {
             work.run_started_ms = None;
             candidate.runtime = RuntimeState::Break(BreakRuntime {
                 kind: BreakKind::Manual,
+                resume_after_break,
                 duration_ms,
                 elapsed_ms: 0,
                 run_started_ms: now_ms,
@@ -545,9 +550,13 @@ impl TimerEngine {
                         .ok_or(TimerError::DurationOverflow)?;
                     let mut work = break_runtime.resume_work.clone();
                     match break_runtime.kind {
-                        BreakKind::Manual => {
+                        BreakKind::Manual if break_runtime.resume_after_break => {
                             work.phase = work.phase.running_variant();
                             work.run_started_ms = Some(completed_at);
+                        }
+                        BreakKind::Manual => {
+                            work.phase = work.phase.paused_variant();
+                            work.run_started_ms = None;
                         }
                         BreakKind::Pomodoro => {
                             work.phase = WorkPhase::Paused;
@@ -601,6 +610,7 @@ impl TimerEngine {
                 resume_work.run_started_ms = None;
                 Ok(Some(RuntimeState::Break(BreakRuntime {
                     kind: BreakKind::Pomodoro,
+                    resume_after_break: false,
                     duration_ms: break_ms,
                     elapsed_ms: 0,
                     run_started_ms: break_started_ms,
@@ -629,7 +639,7 @@ impl TimerEngine {
             .checked_add(credited)
             .ok_or(TimerError::DurationOverflow)?;
         let mut work = break_runtime.resume_work;
-        if skipped || break_runtime.kind == BreakKind::Pomodoro {
+        if skipped || break_runtime.kind == BreakKind::Pomodoro || !break_runtime.resume_after_break {
             work.phase = work.phase.paused_variant();
             work.run_started_ms = None;
         } else {
@@ -844,6 +854,36 @@ mod tests {
         assert_eq!(second.break_planned_ms, Some(60_000));
         assert_eq!(second.total_break_ms, 120_000);
         assert_eq!(engine.finish_break(125_000).unwrap().break_planned_ms, None);
+    }
+
+    #[test]
+    fn paused_manual_break_never_implicitly_resumes_even_when_expired_late() {
+        let mut natural = TimerEngine::new();
+        natural.start_task(task(601), TimerMode::CountUp, 0).unwrap();
+        natural.pause(2_000).unwrap();
+        natural.start_manual_break(5_000, 3_000).unwrap();
+        let during = natural.snapshot(7_000).unwrap();
+        assert_eq!(during.state, TimerStateKind::Break);
+        let ended = natural.advance(12_000).unwrap();
+        assert_eq!(ended.state, TimerStateKind::Paused);
+        assert_eq!(ended.work_elapsed_ms, 2_000);
+        assert_eq!(ended.total_break_ms, 5_000);
+        assert_eq!(natural.advance(30_000).unwrap().work_elapsed_ms, 2_000);
+
+        for skip in [false, true] {
+            let mut explicit = TimerEngine::new();
+            explicit.start_task(task(602), TimerMode::CountUp, 0).unwrap();
+            explicit.pause(2_000).unwrap();
+            explicit.start_manual_break(10_000, 3_000).unwrap();
+            let snapshot = if skip {
+                explicit.skip_break(4_000).unwrap()
+            } else {
+                explicit.finish_break(4_000).unwrap()
+            };
+            assert_eq!(snapshot.state, TimerStateKind::Paused);
+            assert_eq!(snapshot.total_break_ms, 1_000);
+            assert_eq!(explicit.advance(30_000).unwrap().work_elapsed_ms, 2_000);
+        }
     }
 
     #[test]
