@@ -18,20 +18,24 @@ jobs:
             analysis
             work-log/evidence/physical-native-final-20261024/A02-normal-qpc
             work-log/evidence/physical-native-final-20261024/B02-normal-qpc
+            work-log/evidence/physical-native-final-20261024/segments.json
+            work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control
+            work-log/evidence/physical-native-final-20261024/recordings/recovery-reduced
       - name: Verify ffmpeg availability
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq python3-pil
+          sudo apt-get install -y -qq ffmpeg
           command -v git
           python3 --version
       - name: Restore latest immutable G28 frames (analysis only)
         shell: bash
         run: |
           git fetch --no-tags --depth=1 --filter=blob:none origin main
-          git restore --source=FETCH_HEAD --worktree -- work-log/evidence/physical-native-final-20261024/A02-normal-qpc work-log/evidence/physical-native-final-20261024/B02-normal-qpc
+          git restore --source=FETCH_HEAD --worktree -- work-log/evidence/physical-native-final-20261024/A02-normal-qpc work-log/evidence/physical-native-final-20261024/B02-normal-qpc work-log/evidence/physical-native-final-20261024/segments.json work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control work-log/evidence/physical-native-final-20261024/recordings/recovery-reduced
           test -f work-log/evidence/physical-native-final-20261024/A02-normal-qpc/frames.json
           test -f work-log/evidence/physical-native-final-20261024/B02-normal-qpc/frames.json
-      - name: Inspect native original G28 QPC pixels
+          test -f work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control/native-original.mkv
+      - name: Inspect actual continuous original G28 desktop A02 frames
         shell: bash
         run: |
-          python3 -u analysis/inspect_native_g28_qpc_frames.py
+          python3 -u analysis/inspect_g28_continuous_original.py
