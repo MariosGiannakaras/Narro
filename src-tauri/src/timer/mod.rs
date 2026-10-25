@@ -639,7 +639,8 @@ impl TimerEngine {
             .checked_add(credited)
             .ok_or(TimerError::DurationOverflow)?;
         let mut work = break_runtime.resume_work;
-        if skipped || break_runtime.kind == BreakKind::Pomodoro || !break_runtime.resume_after_break {
+        if skipped || break_runtime.kind == BreakKind::Pomodoro || !break_runtime.resume_after_break
+        {
             work.phase = work.phase.paused_variant();
             work.run_started_ms = None;
         } else {
@@ -859,7 +860,9 @@ mod tests {
     #[test]
     fn paused_manual_break_never_implicitly_resumes_even_when_expired_late() {
         let mut natural = TimerEngine::new();
-        natural.start_task(task(601), TimerMode::CountUp, 0).unwrap();
+        natural
+            .start_task(task(601), TimerMode::CountUp, 0)
+            .unwrap();
         natural.pause(2_000).unwrap();
         natural.start_manual_break(5_000, 3_000).unwrap();
         let during = natural.snapshot(7_000).unwrap();
@@ -872,7 +875,9 @@ mod tests {
 
         for skip in [false, true] {
             let mut explicit = TimerEngine::new();
-            explicit.start_task(task(602), TimerMode::CountUp, 0).unwrap();
+            explicit
+                .start_task(task(602), TimerMode::CountUp, 0)
+                .unwrap();
             explicit.pause(2_000).unwrap();
             explicit.start_manual_break(10_000, 3_000).unwrap();
             let snapshot = if skip {
