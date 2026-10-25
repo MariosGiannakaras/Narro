@@ -16,13 +16,14 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             analysis
-      - name: Verify FFmpeg and frozen artifact availability
-        shell: bash
+      - name: Verify video toolchain
         run: |
           command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-          git fetch --no-tags --depth=1 --filter=blob:none origin main
-          git cat-file -e FETCH_HEAD:work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/native-original.mkv
-      - name: Review remaining normal-media Timer flash interval only
+      - name: Locate frozen originals without touching profile or production runtime
         shell: bash
         run: |
-          python3 -u analysis/inspect_20261025_alert_full.py
+          git fetch --no-tags --depth=1 --filter=blob:none origin main
+          git cat-file -e FETCH_HEAD:work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/native-original.mkv
+      - name: Inspect alert in source pixels at native Timer crop
+        run: |
+          python3 -u analysis/inspect_20261025_alert_detail.py
