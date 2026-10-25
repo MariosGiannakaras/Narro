@@ -116,6 +116,8 @@ impl TimerService {
         connection: Connection,
         wall_time: &str,
     ) -> Result<Self, TimerServiceRecoverError> {
+        let trace = crate::timer_diagnostics::Scope::enter("recover_at");
+        trace.stage("effects-open");
         let database_path = connection
             .path()
             .filter(|path| !path.is_empty())
@@ -125,11 +127,13 @@ impl TimerService {
             Connection::open(database_path).map_err(TimerServiceRecoverError::EffectsConnection)?;
         configure_connection(&effects_connection)
             .map_err(TimerServiceRecoverError::EffectsConfiguration)?;
+        trace.stage("effects-recovery");
         let recovered_awaiting_resume =
             awaiting_resume_for_current_open_work_session(&effects_connection)
                 .map_err(TimerServiceRecoverError::EffectsRecovery)?;
 
         let monotonic_origin = Instant::now();
+        trace.stage("controller-recovery");
         let controller = TimerController::recover(connection, 0, wall_time)?;
         // The durable alert cursor may have observed more elapsed work than the
         // last timer checkpoint before a crash/restart. Reconcile its observation
@@ -156,6 +160,12 @@ impl TimerService {
                 ),
             }
         }
+        trace.stage("construct-locks");
+        crate::timer_diagnostics::milestone(
+            "timer-recovery-completed",
+            "recover_at",
+            "construct-locks",
+        );
         Ok(Self {
             state: Mutex::new(TimerServiceState {
                 controller,
@@ -172,10 +182,13 @@ impl TimerService {
     }
 
     pub fn snapshot(&self) -> CommandResult<TimerSessionPayload> {
+        let trace = crate::timer_diagnostics::Scope::enter("snapshot");
+        trace.stage("lock-state");
         let state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "snapshot"))?;
+        trace.stage("decorate-snapshot");
         decorate_timer_payload(
             &state.effects_connection,
             state.controller.snapshot(),
@@ -189,10 +202,11 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<TimerSessionPayload> {
-        let mut state = self
-            .state
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
+        trace.stage("lock-state");
+        let mut state = self.state.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit")
+        })?;
         let raw_ms = self.raw_now_ms()?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let wall_time = current_wall_time();
@@ -202,6 +216,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("persist-final-checkpoint");
         checkpoint_runtime_before_exit(
             controller,
             effects_connection,
@@ -214,12 +229,14 @@ impl TimerService {
     }
 
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("advance_and_report");
+        trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "advance_and_report"))?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
@@ -228,6 +245,7 @@ impl TimerService {
             ..
         } = &mut *state;
 
+        trace.stage("advance-and-persist-boundary");
         advance_controller_to(
             controller,
             effects_connection,
@@ -236,10 +254,12 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("claim-effects");
         let projection = controller.snapshot();
         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        trace.stage("release-lock");
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
@@ -251,12 +271,14 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_suspend");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "handle_power_suspend"))?;
         if state.clock.is_suspended() {
             return Ok(());
         }
@@ -271,6 +293,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("advance-before-suspend");
         advance_controller_to(
             controller,
             effects_connection,
@@ -279,6 +302,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-suspend-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -298,16 +322,19 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_resume");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "handle_power_resume"))?;
         if !state.clock.is_suspended() {
             return Ok(());
         }
 
+        trace.stage("read-sleep-policy");
         let policy = active_sleep_policy(&state.controller, &state.effects_connection)?;
         let now_ms = state
             .clock
@@ -320,6 +347,7 @@ impl TimerService {
             recovered_awaiting_resume,
             ..
         } = &mut *state;
+        trace.stage("advance-after-resume");
         advance_controller_to(
             controller,
             effects_connection,
@@ -328,6 +356,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-resume-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -375,10 +404,9 @@ impl TimerService {
     }
 
     pub fn focus_home_pause_nonce(&self) -> CommandResult<Option<u64>> {
-        let lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "focus_home_pause_nonce")
+        })?;
         Ok(lease.as_ref().map(|current| current.nonce))
     }
 
@@ -386,21 +414,22 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<Option<TimerSessionPayload>> {
+        let trace = crate::timer_diagnostics::Scope::enter("pause_for_focus_home");
+        trace.stage("lock-home-gate");
         // Serialize only Home-pause provenance operations. Do not hold the lease
         // mutex across SQLite, event publication or native notification work.
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "pause_for_focus_home")
+        })?;
         let nonce = self.next_focus_home_pause_nonce()?;
         let existing_lease = {
-            let lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+            })?;
             *lease
         };
 
+        trace.stage("pause-transaction");
         let payload = self.transition_if(
             app_handle,
             |before| {
@@ -437,10 +466,10 @@ impl TimerService {
             renew_focus_home_pause_lease(existing_lease, &current, nonce)
         };
 
-        let mut lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        trace.stage("persist-pause-provenance");
+        let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+        })?;
         *lease = next_lease;
         Ok(payload)
     }
@@ -450,15 +479,19 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         expected_nonce: Option<u64>,
     ) -> CommandResult<Option<TimerSessionPayload>> {
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let trace = crate::timer_diagnostics::Scope::enter("resume_focus_home_pause");
+        trace.stage("lock-home-gate");
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "resume_focus_home_pause")
+        })?;
+        trace.stage("consume-pause-provenance");
         let lease = {
-            let mut lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned(
+                    "focus_home_pause_lease",
+                    "resume_focus_home_pause",
+                )
+            })?;
             if let (Some(expected), Some(current)) = (expected_nonce, lease.as_ref()) {
                 if current.nonce != expected {
                     return Ok(None);
@@ -470,6 +503,7 @@ impl TimerService {
             return Ok(None);
         };
 
+        trace.stage("resume-transaction");
         self.transition_if(
             app_handle,
             move |before| focus_home_pause_lease_matches(lease, before),
@@ -601,12 +635,15 @@ impl TimerService {
         ) -> Result<TimerSessionPayload, TimerControllerError>,
         P: FnOnce(&TimerSessionPayload) -> bool,
     {
+        let trace = crate::timer_diagnostics::Scope::enter("transition_if");
+        trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
+        trace.stage("lock-state");
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "transition_if"))?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
@@ -618,6 +655,7 @@ impl TimerService {
 
         // Catch up every automatic boundary first. Decisions are persisted before each due boundary,
         // while events are reported only after the timer/session transition commits.
+        trace.stage("advance-and-persist-boundary");
         advance_controller_to(
             controller,
             effects_connection,
@@ -627,6 +665,7 @@ impl TimerService {
             |payload| report_timer_change(app_handle, payload),
         )?;
 
+        trace.stage("claim-prior-effects");
         let before_transition = controller.snapshot();
         observe_timed_alerts_best_effort(effects_connection, &before_transition, false, &wall_time);
         let mut timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
@@ -639,8 +678,10 @@ impl TimerService {
             return Ok(None);
         }
 
+        trace.stage("apply-authoritative-transition");
         let payload =
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
+        trace.stage("reconcile-after-commit");
         *observed_ms = now_ms;
         *recovered_awaiting_resume &= is_paused_pomodoro_projection(&payload);
         reconcile_timed_alert_transition_best_effort(effects_connection, &payload, &wall_time);
@@ -648,10 +689,17 @@ impl TimerService {
             effects_connection,
             &wall_time,
         ));
+        trace.stage("decorate-after-commit");
         let payload =
             decorate_timer_payload(effects_connection, payload, *recovered_awaiting_resume)?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        trace.stage("publish-after-lock-release");
         drop(state);
+        crate::timer_diagnostics::milestone(
+            "timer-transition-return",
+            "transition_if",
+            "after-lock-release",
+        );
 
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);

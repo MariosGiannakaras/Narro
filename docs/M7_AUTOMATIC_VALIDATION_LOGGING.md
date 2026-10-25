@@ -70,3 +70,23 @@ A PASS is deliberately fail-closed: missing observations never become PASS.
 ## Relationship to video evidence
 
 The automatic evaluator is the primary structured technical evidence for the final saved-placement test. A `panic-first-fault.jsonl` file supports causal analysis only when it actually records a first fault; a missing file, clean launch or mere lock-poison symptom must not be promoted to root-cause proof. A short continuous screen recording remains useful as independent physical confirmation and for diagnosing unexpected visual behavior, but the raw JSONL trace provides the detailed native/persistence timeline needed for debugging.
+
+## Opt-in Timer first-fault diagnostics across all candidate executables
+
+**Separate from the automatic M7 validation logger above.** Candidate A/B, regular `narro.exe`, and the dedicated validation executable can all activate this *additional* local-only diagnostic channel by explicitly setting `NARRO_TIMER_DIAGNOSTICS_DIR` to a writable **absolute directory** before process startup. Without this variable the new channel performs **no diagnostic file I/O**; the existing M7 validation-only logger works as before.
+
+For an isolated disposable test session, set the environment variable in the **launching process** (example PowerShell, adjust paths to the actual isolated test files):
+
+```powershell
+$env:NARRO_TIMER_DIAGNOSTICS_DIR = 'C:\Temp\Narro-Timer-Diagnostics'
+& 'C:\Isolated-Narro-Candidate\narro-m7-validation.exe'
+Remove-Item Env:NARRO_TIMER_DIAGNOSTICS_DIR
+```
+
+The specified directory receives one `timer-diagnostics-<PID>.jsonl` per process. Each log is capped at approximately 4 MiB plus one last record; the cap is deliberately fail-closed to prevent an unattended tick loop filling the disk. Only startup, committed interactive transitions, first poison occurrence *per lock category*, and panic evidence are written; 250ms successful background ticks are **not** written. Any write failure reports a technical diagnostic error to stderr but never changes authoritative Timer state, rollback behavior or the user-facing error code. If the explicit directory is invalid or cannot be created/opened at startup, the application fails startup instead of falsely claiming logging is active.
+
+**Recorded fields:** UTC, process ID, build source SHA when supplied by packaging (otherwise `unknown`), thread name, named Timer operation, last stage (`read-clock`, `advance-and-persist-boundary`, `apply-authoritative-transition`, `reconcile-after-commit`, `publish-after-lock-release`, Focus Home lease, sleep/resume, or final checkpoint), panic source file/line and forced Rust backtrace. On the **first** poisoned `state`, `focus_home_pause_gate`, or `focus_home_pause_lease` mutex, the error event identifies the offending lock and caller operation. This distinguishes which lock reported the symptom; it does **not** alone prove what originally panicked.
+
+No task title, note, list name, task content, command input, database path or panic payload is intentionally serialized. A backtrace can include local source paths/symbols, so protect the files as private diagnostic evidence. There is no network request or automatic upload. The existing Rust panic hook runs after the additional recorder, preserving ordinary panic/poison semantics. On the dedicated validation executable **both** log formats may contain the same panic for independent provenance; do not count this as two faults.
+
+**Evidence/acceptance rule:** a new executable including this change and a first-fault log from the actual failed PID are required for root-cause attribution. The original historical PR419 B executable is unchanged and cannot retroactively gain this instrumentation. A later successful launch, absent first-fault file or inferred stack does not fix or close `TIMER_SERVICE_LOCK_POISONED`. Existing PR389/PR419 compositor physical-before-merge holds remain independent.
