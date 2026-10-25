@@ -66,6 +66,10 @@ enum DurableTimerState {
         resume_total_work_ms: u64,
         resume_interval_work_ms: u64,
         break_kind: BreakKind,
+        // Old checkpoint JSON has no field and retains its historical
+        // manual-break resume policy on recovery.
+        #[serde(default)]
+        resume_after_break: Option<bool>,
         duration_ms: u64,
         elapsed_ms: u64,
     },
@@ -876,6 +880,7 @@ fn checkpoint_payload_for(
             resume_total_work_ms: break_runtime.resume_work.total_work_ms,
             resume_interval_work_ms: break_runtime.resume_work.interval_work_ms,
             break_kind: break_runtime.kind,
+            resume_after_break: Some(break_runtime.resume_after_break),
             duration_ms: break_runtime.duration_ms,
             elapsed_ms: break_runtime.projected_elapsed(now_ms)?,
         },
@@ -928,10 +933,14 @@ fn restore_engine(
             resume_total_work_ms,
             resume_interval_work_ms,
             break_kind,
+            resume_after_break,
             duration_ms,
             elapsed_ms,
         } => {
             validate_mode(mode)?;
+            if break_kind == BreakKind::Pomodoro && resume_after_break == Some(true) {
+                return Err(TimerRuntimeError::InvalidRecoveryState);
+            }
             if duration_ms == 0 || elapsed_ms >= duration_ms {
                 return Err(TimerRuntimeError::InvalidRecoveryState);
             }
@@ -952,6 +961,7 @@ fn restore_engine(
             )?;
             RuntimeState::Break(BreakRuntime {
                 kind: break_kind,
+                resume_after_break: resume_after_break.unwrap_or(break_kind == BreakKind::Manual),
                 duration_ms,
                 elapsed_ms,
                 run_started_ms: now_ms,
@@ -1130,6 +1140,24 @@ mod live_estimate_tests {
         )
         .expect("create task");
         (conn, list.id, task.id)
+    }
+
+    #[test]
+    fn paused_manual_break_preserves_pause_after_durable_restart_and_late_expiry() {
+        let (mut conn, _, task_id) = fixture(None);
+        let mut runtime = TimerRuntime::new();
+        runtime.start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0).unwrap();
+        runtime.pause(&mut conn, 60_000, T1).unwrap();
+        runtime.start_manual_break(&mut conn, 600_000, 60_000, T1).unwrap();
+
+        let before = runtime.checkpoint(&mut conn, 300_000, T5).unwrap();
+        assert_eq!(before.timer.state, TimerStateKind::Break);
+        let mut recovered = TimerRuntime::recover(&mut conn, 300_000, T5).unwrap();
+        let ended = recovered.checkpoint(&mut conn, 900_000, T15).unwrap();
+        assert_eq!(ended.timer.state, TimerStateKind::Paused);
+        assert_eq!(ended.timer.work_elapsed_ms, 60_000);
+        assert_eq!(ended.timer.total_break_ms, 600_000);
+        assert_eq!(recovered.snapshot(1_000_000).unwrap().timer.work_elapsed_ms, 60_000);
     }
 
     #[test]
