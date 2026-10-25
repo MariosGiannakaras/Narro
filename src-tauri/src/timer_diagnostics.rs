@@ -226,6 +226,32 @@ mod tests {
     }
 
     #[test]
+    fn appender_preserves_valid_bounded_jsonl_without_private_fields() {
+        let folder = std::env::temp_dir().join(format!(
+            "narro-timer-diagnostic-{}",
+            uuid::Uuid::new_v4()
+        ));
+        fs::create_dir_all(&folder).expect("isolated test diagnostic folder");
+        let path = folder.join("first-fault.jsonl");
+        let record = panic_record(
+            None,
+            Some(("transition_if", "apply-authoritative-transition")),
+            "technical backtrace only",
+        );
+        append(&path, &record).expect("write first JSONL line");
+        append(&path, &record).expect("append second JSONL line");
+        let lines = fs::read_to_string(&path).expect("read technical log");
+        let parsed: Vec<Value> = lines.lines()
+            .map(|line| serde_json::from_str(line).expect("independent valid JSONL record"))
+            .collect();
+        assert_eq!(parsed.len(), 2);
+        assert_eq!(parsed[1]["timerStage"], "apply-authoritative-transition");
+        assert!(!lines.contains("taskTitle"));
+        assert!(!lines.contains("panicPayload"));
+        fs::remove_dir_all(folder).expect("remove isolated diagnostic folder");
+    }
+
+    #[test]
     fn nested_scope_without_opt_in_leaves_no_thread_local_residue() {
         // The test runner does not set the opt-in environment variable.
         // Scope semantics must never require logging I/O for normal operation.
