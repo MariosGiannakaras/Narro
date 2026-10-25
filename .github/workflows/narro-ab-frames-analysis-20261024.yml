@@ -8,7 +8,7 @@ permissions:
 jobs:
   original-frames:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,18 +16,13 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             analysis
-      - name: Ensure video decoding tools
+      - name: Verify FFmpeg and frozen artifact availability
+        shell: bash
         run: |
           command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-          command -v ffprobe
-          python3 --version
-      - name: Freeze main source tree in checkout without changing original files
-        shell: bash
-        run: |
           git fetch --no-tags --depth=1 --filter=blob:none origin main
-          test -f analysis/inspect_20261025_frozen_ab_timer.py
-          git cat-file -e FETCH_HEAD:work-log/evidence/physical-acceptance-20261025/README.md
-      - name: Inspect 16 current native transitions and 1 normal-media Timer alert from original MKVs
+          git cat-file -e FETCH_HEAD:work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/native-original.mkv
+      - name: Review remaining normal-media Timer flash interval only
         shell: bash
         run: |
-          python3 -u analysis/inspect_20261025_frozen_ab_timer.py
+          python3 -u analysis/inspect_20261025_alert_full.py
