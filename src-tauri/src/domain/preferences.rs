@@ -208,8 +208,8 @@ mod tests {
 
     #[test]
     fn older_preferences_json_defaults_timer_restart_policy_to_session_only() {
-        let mut legacy = serde_json::to_value(PreferencesPayload::default())
-            .expect("serialize preferences");
+        let mut legacy =
+            serde_json::to_value(PreferencesPayload::default()).expect("serialize preferences");
         legacy["general"]
             .as_object_mut()
             .expect("general payload")
