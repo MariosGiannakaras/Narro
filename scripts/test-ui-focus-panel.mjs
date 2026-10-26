@@ -367,7 +367,7 @@ const homeStart = panel.indexOf("const exitFocusHome");
 const homeEnd = panel.indexOf("const submitAddTask", homeStart);
 const home = panel.slice(homeStart, homeEnd);
 const homePause = home.indexOf("await pauseTimerForFocusHome();");
-const homePausedFrame = home.indexOf("await waitForPresentedFrame();", homePause);
+const homePausedFrame = home.indexOf("await waitForPresentedFrameOrThrow();", homePause);
 const homeExit = home.indexOf('await invoke<void>("focus_surface_exit_to_main");', homePausedFrame);
 invariant(
   homeStart >= 0
@@ -375,7 +375,7 @@ invariant(
     && homePause >= 0
     && homePausedFrame > homePause
     && homeExit > homePausedFrame,
-  "P3-M6-06 Home must commit its guarded pause, expose the PAUSED frame, then exit Focus",
+  "P3-M6-06 Home must commit its guarded pause, use a finite paint barrier, then exit Focus",
 );
 invariant(
   home.includes("await resumeTimerFromFocusHome();")

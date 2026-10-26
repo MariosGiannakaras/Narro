@@ -135,8 +135,9 @@ export function FocusLiveSubtasks({
       return;
     }
     if (!refreshBlocked) setError(null);
+    if (openCreate) setCreateOpen(true);
     const accepted = await requestExpanded(true);
-    if (accepted && openCreate) setCreateOpen(true);
+    if (!accepted && openCreate) setCreateOpen(false);
   };
 
   const toggleExpanded = async () => {
@@ -228,6 +229,10 @@ export function FocusLiveSubtasks({
       <section
         className="floating-timer-foundation__subtasks"
         data-floating-subtasks={expanded ? "expanded" : "collapsed"}
+        data-floating-subtasks-loading={expanded && (
+          loading || (!fixtureMode && !refreshBlocked && error === null
+            && (snapshot?.taskId !== task.id || snapshot?.listId !== task.listId))
+        ) ? "true" : "false"}
         data-floating-subtask-refresh-blocked={refreshBlocked ? "true" : "false"}
         data-task-id={task.id}
         aria-label={`Subtasks for ${task.title}`}

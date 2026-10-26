@@ -3,7 +3,7 @@ use crate::domain::subtasks::{NewSubtaskInput, SubtaskRecord, UpdateSubtaskInput
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension, Row, Transaction};
+use rusqlite::{params, Connection, OptionalExtension, Row, Transaction, TransactionBehavior};
 use std::collections::HashSet;
 use std::fmt::{Display, Formatter};
 
@@ -260,7 +260,7 @@ pub fn create_subtask(
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
     let id = SubtaskId::generate();
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     validate_parent_mutable(&tx, input.task_id)?;
     let rank = next_rank(&tx, input.task_id)?;
     tx.execute(
@@ -282,7 +282,7 @@ pub fn update_subtask(
 ) -> Result<SubtaskRecord, SubtaskStoreError> {
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_subtask(&tx, id)?;
     validate_parent_mutable(&tx, current.task_id)?;
     let changed = tx.execute(
@@ -303,7 +303,7 @@ pub fn complete_subtask(
     now: &str,
 ) -> Result<SubtaskRecord, SubtaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_subtask(&tx, id)?;
     validate_parent_mutable(&tx, current.task_id)?;
     if current.completed_at.is_some() {
@@ -329,7 +329,7 @@ pub fn reopen_subtask(
     now: &str,
 ) -> Result<SubtaskRecord, SubtaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_subtask(&tx, id)?;
     validate_parent_mutable(&tx, current.task_id)?;
     if current.completed_at.is_none() {
@@ -361,7 +361,7 @@ pub fn reorder_subtasks(
         return Err(SubtaskStoreError::DuplicateReorderId);
     }
 
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     validate_parent_mutable(&tx, task_id)?;
     let current = subtask_ids(&tx, task_id)?;
     let current_set: HashSet<SubtaskId> = current.iter().copied().collect();
@@ -392,7 +392,7 @@ pub fn delete_subtask(
     now: &str,
 ) -> Result<(), SubtaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_subtask(&tx, id)?;
     validate_parent_mutable(&tx, current.task_id)?;
     let changed = tx.execute(

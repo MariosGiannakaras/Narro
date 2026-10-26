@@ -12,8 +12,10 @@ pub mod floating_placement;
 pub mod focus_entry;
 pub mod focus_frame_capture;
 pub mod focus_frame_hold;
+mod focus_layered_raster;
 mod focus_mode_raster;
 pub mod focus_preferences;
+mod focus_transition_trace;
 pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
@@ -92,7 +94,7 @@ struct FocusModeRaster {
     target: FocusSurfacePresentation,
     snapshot: FocusNativeSnapshot,
     outgoing: focus_mode_raster::Image,
-    hold: focus_frame_hold::Hold,
+    hold: focus_layered_raster::Hold,
     native_committed: bool,
     _placement_guard: floating_placement::PlacementTransitionGuard,
     _display_guard: windows::DisplayRecoveryGuard,
@@ -112,6 +114,63 @@ fn ensure_no_mode_raster() -> CommandResult<()> {
         ));
     }
     Ok(())
+}
+
+// Never block the UI thread while waiting for a native presentation lock.
+// Retry only the recoverable transient busy state; a poisoned gate is terminal.
+fn retry_busy_focus_recovery<T>(
+    mut acquire: impl FnMut() -> CommandResult<T>,
+    mut backoff: impl FnMut(),
+) -> CommandResult<T> {
+    loop {
+        match acquire() {
+            Err(error) if error.code == "FOCUS_PRESENTATION_BUSY" => backoff(),
+            result => return result,
+        }
+    }
+}
+
+#[cfg(test)]
+mod focus_raster_watchdog_recovery_tests {
+    use super::*;
+
+    #[test]
+    fn transient_presentation_contention_retries_until_recovery_can_proceed() {
+        let mut tries = 0;
+        let mut backoffs = 0;
+        let recovered = retry_busy_focus_recovery(
+            || {
+                tries += 1;
+                if tries <= 2 {
+                    Err(CommandError::new("FOCUS_PRESENTATION_BUSY", "gate held"))
+                } else {
+                    Ok(17_u32)
+                }
+            },
+            || backoffs += 1,
+        )
+        .expect("the watchdog must not abandon a still-live lease on transient contention");
+        assert_eq!(recovered, 17);
+        assert_eq!(tries, 3);
+        assert_eq!(backoffs, 2);
+    }
+
+    #[test]
+    fn nonbusy_recovery_failure_is_not_retried() {
+        let mut backoffs = 0;
+        let error = retry_busy_focus_recovery(
+            || {
+                Err::<(), _>(CommandError::new(
+                    "FOCUS_PRESENTATION_FAILED",
+                    "gate poisoned",
+                ))
+            },
+            || backoffs += 1,
+        )
+        .expect_err("unrecoverable lock failures must not spin");
+        assert_eq!(error.code, "FOCUS_PRESENTATION_FAILED");
+        assert_eq!(backoffs, 0);
+    }
 }
 
 fn arm_mode_raster_watchdog(app: tauri::AppHandle, token: u32) {
@@ -134,8 +193,17 @@ fn arm_mode_raster_watchdog(app: tauri::AppHandle, token: u32) {
         if !expired {
             return;
         }
-        let Ok(_presentation_guard) = presentation_guard() else {
-            return;
+        // A native presentation can still own the gate at the exact expiry
+        // instant. Retrying off the UI thread is essential: returning on
+        // WouldBlock here would orphan the sole raster lease indefinitely.
+        let _presentation_guard = match retry_busy_focus_recovery(presentation_guard, || {
+            std::thread::sleep(Duration::from_millis(50))
+        }) {
+            Ok(guard) => guard,
+            Err(error) => {
+                eprintln!("Focus raster watchdog cannot acquire recovery gate: {error}");
+                return;
+            }
         };
         let Ok(mut raster) = mode_raster_guard() else {
             return;
@@ -1059,6 +1127,7 @@ fn restore_focus_native_snapshot(
     snapshot: &FocusNativeSnapshot,
 ) -> CommandResult<()> {
     focus_frame_hold::clear(window)?;
+    focus_layered_raster::clear(window)?;
     restore_focus_native_snapshot_protected(window, snapshot, None)
 }
 
@@ -1544,6 +1613,12 @@ fn animate_focus_surface_presentation_internal(
         ));
     }
     let incoming = focus_mode_raster::decode(&incoming_png, incoming_size)?;
+    let mut trace = focus_transition_trace::NativeMotionTrace::begin(
+        raster_token,
+        lease.snapshot.presentation.event_name(),
+        target.event_name(),
+        duration_ms,
+    );
     let _save_guard = floating_placement::suspend_saves();
     let _display_recovery_guard = windows::suspend_focus_display_recovery();
     let target_position = if target == FocusSurfacePresentation::Panel {
@@ -1564,6 +1639,15 @@ fn animate_focus_surface_presentation_internal(
             target_scale,
         )?;
         focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?
+    } else if lease.snapshot.presentation.mode() == FocusSurfaceMode::Timer {
+        // Timer-only changes retain the current safe origin. Saved placement
+        // restoration belongs to entering Timer from Panel, not every resize.
+        floating_placement::safe_position_for_timer_region(
+            app_handle,
+            &window,
+            target.expanded(),
+            None,
+        )?
     } else {
         planned_focus_presentation_position(app_handle, &window, target)?
     };
@@ -1589,15 +1673,53 @@ fn animate_focus_surface_presentation_internal(
             }
             Ok(value.round() as i32)
         };
-        set_focus_position(
-            &window,
-            GeometryPoint {
-                x: axis(start.x, target_position.x)?,
-                y: axis(start.y, target_position.y)?,
-            },
-            "move protected Focus host",
-        )?;
+        let desired = GeometryPoint {
+            x: axis(start.x, target_position.x)?,
+            y: axis(start.y, target_position.y)?,
+        };
+        let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
+        trace.frame(
+            "native.before-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         render_mode_raster_frame(&window, lease, &incoming, progress)?;
+        // Mirror focus_mode_raster::compose's source choice for diagnosis.
+        // This logs the selected raster hierarchy, not compositor scanout.
+        let growing = u64::from(incoming.size.height) * u64::from(lease.outgoing.size.width)
+            > u64::from(lease.outgoing.size.height) * u64::from(incoming.size.width);
+        let source = if progress >= 1.0 || (progress > 0.0 && growing) {
+            "incoming"
+        } else {
+            "outgoing"
+        };
+        trace.note(
+            "native.raster-source",
+            serde_json::json!({
+                "step": step,
+                "source": source
+            }),
+        );
+        trace.frame(
+            "native.after-raster",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
+        set_focus_position(&window, desired, "move protected Focus host")?;
+        trace.frame(
+            "native.after-move",
+            step,
+            elapsed_ms,
+            progress,
+            desired.x,
+            desired.y,
+        );
         if progress >= 1.0 {
             break;
         }
@@ -1615,12 +1737,16 @@ fn animate_focus_surface_presentation_internal(
             final_position,
             "finish protected Panel DPI placement",
         )?;
-    } else {
+    } else if lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer {
         floating_placement::restore_for_timer(app_handle, &window, target.expanded())?;
     }
     render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
+    trace.note(
+        "native.committed",
+        serde_json::json!({ "target": target.event_name() }),
+    );
     announce_focus_surface_presentation(app_handle, target);
     Ok(())
 }
@@ -1709,7 +1835,10 @@ fn focus_runtime_capture_checkpoint(phase: String, snapshot: String) -> CommandR
         "panel"
             | "panel-to-timer-start"
             | "timer-compact"
+            | "timer-compact-to-expanded-start"
             | "timer-expanded"
+            | "timer-expanded-to-compact-start"
+            | "timer-compact-returned"
             | "timer-to-panel-start"
             | "panel-returned"
             | "complete"
@@ -1748,7 +1877,10 @@ fn focus_runtime_capture_acknowledged(phase: String) -> CommandResult<bool> {
         "panel"
             | "panel-to-timer-start"
             | "timer-compact"
+            | "timer-compact-to-expanded-start"
             | "timer-expanded"
+            | "timer-expanded-to-compact-start"
+            | "timer-compact-returned"
             | "timer-to-panel-start"
             | "panel-returned"
     ) {
@@ -1842,6 +1974,27 @@ async fn focus_surface_capture_compact_frame(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+fn focus_transition_trace_mark(
+    window: tauri::WebviewWindow,
+    stage: String,
+    raster_token: Option<u32>,
+) -> CommandResult<()> {
+    if window.label() != FOCUS_SURFACE_LABEL {
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "Focus renderer required",
+        ));
+    }
+    if !focus_transition_trace::renderer_mark(&stage, raster_token.unwrap_or_default()) {
+        return Err(CommandError::invalid_argument(
+            "stage",
+            "unrecognized trace phase",
+        ));
+    }
+    Ok(())
+}
+
+#[tauri::command(rename_all = "camelCase")]
 async fn focus_surface_prepare_mode_raster(
     app_handle: tauri::AppHandle,
     window: tauri::WebviewWindow,
@@ -1855,10 +2008,10 @@ async fn focus_surface_prepare_mode_raster(
     }
     let target = parse_focus_surface_presentation(&presentation)?;
     let snapshot = capture_focus_native_snapshot(&window)?;
-    if snapshot.presentation.mode() == target.mode() {
+    if snapshot.presentation == target {
         return Err(CommandError::invalid_argument(
             "presentation",
-            "mode raster requires Panel/Timer transition",
+            "raster requires a distinct Focus presentation",
         ));
     }
     let visible = timer_region::visible_size(&window, snapshot.presentation.region())?;
@@ -1889,7 +2042,7 @@ async fn focus_surface_prepare_mode_raster(
             }
         }
         focus_frame_hold::clear(&window)?;
-        let hold = focus_frame_hold::begin_mode_transition(&window, visible, &png)?;
+        let hold = focus_layered_raster::begin_mode_transition(&window, visible, &png)?;
         let token = FOCUS_RASTER_TOKEN.fetch_add(1, AtomicOrdering::Relaxed);
         *raster = Some(FocusModeRaster {
             token,
@@ -2847,6 +3000,7 @@ pub fn run() {
             focus_surface_apply_presentation,
             focus_surface_capture_compact_frame,
             focus_surface_prepare_mode_raster,
+            focus_transition_trace_mark,
             focus_surface_animate_presentation,
             focus_surface_finish_mode_raster,
             focus_surface_mode_snapshot,

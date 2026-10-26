@@ -324,10 +324,12 @@ if (
 for (const required of [
   "const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {",
   'await requestModeRef.current("panel");',
-  "await waitForPresentedFrame();",
+  "await waitForPresentedFrameOrThrow();",
   "if (resumeNonce === null) {",
   "setTimerProjectionError(null);",
   "await resumeTimerFromFocusHome(resumeNonce);",
+  "Focus Panel could not finish presenting.",
+  "Home-paused work could not resume.",
   "deferredPanelResumeNonceRef.current = request.resumeNonce",
   "void handleBlitzPanelRequest(request.resumeNonce);",
 ]) {
