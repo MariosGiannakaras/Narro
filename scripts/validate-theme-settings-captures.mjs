@@ -109,6 +109,9 @@ for (const section of ["upper", "middle", "lower"]) {
 const upperDom = await read("theme-settings-preferences-upper");
 invariant(upperDom.includes("Secondary display"), "Preferences upper capture monitor inventory is missing");
 invariant(upperDom.includes('data-panel-side="right"'), "Preferences upper capture Panel side control is missing");
+invariant(upperDom.includes("Keep Timer position after restart"), "Preferences upper capture must expose Timer restart-position policy");
+invariant(upperDom.includes('aria-label="Keep Floating Timer position after restarting Narro"')
+  && upperDom.includes('aria-checked="false"'), "Preferences upper capture should default Timer persistence to session-only");
 invariant(upperDom.includes("Europe/Athens"), "Preferences upper capture timezone value is missing");
 
 const middleDom = await read("theme-settings-preferences-middle");
