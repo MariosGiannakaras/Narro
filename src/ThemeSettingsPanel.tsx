@@ -157,6 +157,10 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
               <span>Panel side</span>
               <span className="preference-settings__skeleton-control" />
             </div>
+            <div className="preference-settings__skeleton-row">
+              <span>Keep Timer position after restart</span>
+              <span className="preference-settings__skeleton-switch" />
+            </div>
           </section>
           <section className="preference-settings__skeleton-section">
             <strong>General</strong>
