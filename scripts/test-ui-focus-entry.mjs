@@ -226,7 +226,8 @@ if (
   applyTimerStart < 0
   || applyTimerEnd < applyTimerStart
   || !applyTimerBlock.includes("!already_visible && !floating_placement::has_saved_timer_position(app_handle)?")
-  || !applyTimerBlock.includes("preferred_focus_panel_work_area(app_handle)")
+  || !applyTimerBlock.includes("panel_anchor_for_initial_timer(app_handle)")
+  || !lib.includes('Err(error) if error.code == "MONITOR_SELECTION_STALE"')
   || !applyTimerBlock.includes("apply_panel_native(window, work_area, scale_factor, side)?")
   || !applyTimerBlock.includes("floating_placement::restore_for_timer(app_handle, window, expanded)?")
 ) {
