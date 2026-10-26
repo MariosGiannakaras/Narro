@@ -19,6 +19,7 @@ type ThemeSettingsPanelViewProps = {
   pending?: boolean;
   error?: string | null;
   onSelectTheme: (theme: ThemePreference) => void;
+  loadingContent?: ReactNode;
   beforeGeneral?: ReactNode;
   generalChildren?: ReactNode;
   timeChildren?: ReactNode;
@@ -36,6 +37,7 @@ export function ThemeSettingsPanelView({
   pending = false,
   error = null,
   onSelectTheme,
+  loadingContent,
   beforeGeneral,
   generalChildren,
   timeChildren,
@@ -49,6 +51,7 @@ export function ThemeSettingsPanelView({
         <p className="theme-settings__intro">Manage Narro's local Windows appearance and shortcuts.</p>
       </header>
 
+      {loadingContent ?? <>
       {beforeGeneral}
 
       <section className="theme-settings__section preference-settings__section" aria-labelledby="theme-general-title">
@@ -101,6 +104,7 @@ export function ThemeSettingsPanelView({
       ) : null}
 
       {children}
+      </>}
     </section>
   );
 }
@@ -129,7 +133,9 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
         onRefreshMonitors={() => void preferences.refreshMonitors()}
       />
     </>
-  ) : (
+  ) : null;
+
+  const loadingContent = !preferences.snapshot ? (
     <div className="preference-settings__loading"
       role={preferences.loading ? "status" : "alert"}>
       {preferences.loading ? "Loading Preferences…" : "Preferences could not be loaded."}
@@ -140,7 +146,7 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
         </button>
       ) : null}
     </div>
-  );
+  ) : null;
 
   return (
     <ThemeSettingsPanelView
@@ -148,6 +154,7 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       pending={pending}
       error={themeError}
       onSelectTheme={(next) => void saveTheme(next)}
+      loadingContent={loadingContent}
       beforeGeneral={beforeGeneral}
       generalChildren={preferences.snapshot ? (
         <GeneralPreferenceRows

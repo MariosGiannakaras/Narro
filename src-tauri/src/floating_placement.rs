@@ -3,6 +3,7 @@ use crate::persistence;
 use crate::persistence::floating_placement::SavedFloatingPlacement;
 use crate::windows::{clamp_top_left, PhysicalPoint, PhysicalRect, PhysicalSize};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
+use std::sync::Mutex;
 use std::time::Duration;
 use tauri::Manager;
 
@@ -11,6 +12,51 @@ const MOVE_SETTLE_DELAY: Duration = Duration::from_millis(600);
 static MOVE_REVISION: AtomicU64 = AtomicU64::new(0);
 static MOVE_WORKER_ACTIVE: AtomicBool = AtomicBool::new(false);
 static SAVE_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
+static USER_MOVE_START: Mutex<Option<PhysicalPoint>> = Mutex::new(None);
+static USER_PLACEMENT_DIRTY: AtomicBool = AtomicBool::new(false);
+
+// OS recovery is temporary. Only a completed, non-cancelled interactive move
+// may replace a remembered position on a monitor that is currently absent.
+pub(crate) fn begin_user_timer_move(app: &tauri::AppHandle) {
+    if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+        return;
+    }
+    let position = app
+        .get_webview_window(FOCUS_SURFACE_LABEL)
+        .and_then(|window| window.outer_position().ok())
+        .map(|point| PhysicalPoint {
+            x: point.x,
+            y: point.y,
+        });
+    match USER_MOVE_START.lock() {
+        Ok(mut start) => *start = position,
+        Err(error) => eprintln!("Could not track interactive Timer move start: {error}"),
+    }
+}
+
+pub(crate) fn finish_user_timer_move(app: &tauri::AppHandle) {
+    let start = match USER_MOVE_START.lock() {
+        Ok(mut value) => value.take(),
+        Err(error) => {
+            eprintln!("Could not finish interactive Timer move: {error}");
+            return;
+        }
+    };
+    if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+        return;
+    }
+    let end = app
+        .get_webview_window(FOCUS_SURFACE_LABEL)
+        .and_then(|window| window.outer_position().ok())
+        .map(|point| PhysicalPoint {
+            x: point.x,
+            y: point.y,
+        });
+    if start.zip(end).is_some_and(|(start, end)| start != end) {
+        USER_PLACEMENT_DIRTY.store(true, Ordering::Release);
+        note_timer_moved(app);
+    }
+}
 
 pub struct PlacementTransitionGuard;
 
@@ -372,6 +418,30 @@ fn target_work_area<'a>(
     best_work_area_for_window(saved.work_area, areas, fallback)
 }
 
+fn preferred_monitor<'a>(
+    saved: &SavedFloatingPlacement,
+    areas: &'a [WorkArea],
+) -> Option<&'a WorkArea> {
+    let mut matches = areas
+        .iter()
+        .filter(|area| match saved.monitor_name.as_deref() {
+            Some(name) => area.name.as_deref() == Some(name),
+            None => area.rect == saved.work_area,
+        });
+    match (matches.next(), matches.next()) {
+        (Some(one), None) => Some(one),
+        _ => None,
+    }
+}
+
+fn preserve_preferred_placement(
+    saved: Option<&SavedFloatingPlacement>,
+    areas: &[WorkArea],
+    user_moved: bool,
+) -> bool {
+    !user_moved && saved.is_some_and(|saved| preferred_monitor(saved, areas).is_none())
+}
+
 fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult<PhysicalSize> {
     if !area.scale_factor.is_finite() || area.scale_factor <= 0.0 {
         return Err(placement_error(
@@ -473,7 +543,9 @@ fn restored_position(
 }
 
 pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
-    if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0 {
+    if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0
+        || crate::windows::focus_interactive_move_active()
+    {
         return Ok(false);
     }
     if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
@@ -490,6 +562,16 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     }
     let current_window = current_visible_rect(&window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
+    let connection = app_database(app_handle)?;
+    let previous = persistence::floating_placement::load(&connection)
+        .map_err(|error| placement_error("read preferred Timer position", error))?;
+    if preserve_preferred_placement(
+        previous.as_ref(),
+        &areas,
+        USER_PLACEMENT_DIRTY.load(Ordering::Acquire),
+    ) {
+        return Ok(false);
+    }
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let selected = best_work_area_for_window(current_window, &areas, &fallback);
     let safe = clamp_top_left(selected.rect, current_window.size, current_window.position)
@@ -501,9 +583,9 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
         work_area: selected.rect,
         monitor_name: selected.name.clone(),
     };
-    let connection = app_database(app_handle)?;
     persistence::floating_placement::save(&connection, &saved, &chrono::Utc::now().to_rfc3339())
         .map_err(|error| placement_error("save Timer position", error))?;
+    USER_PLACEMENT_DIRTY.store(false, Ordering::Release);
     crate::validation_log::record_placement_saved(app_handle, &saved);
     Ok(true)
 }
@@ -590,7 +672,26 @@ pub fn revalidate_visible_timer_after_display_change(
     let expanded = crate::current_focus_surface_expanded();
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
-    let selected = best_work_area_for_window(previous, &areas, &fallback);
+    let connection = app_database(app_handle)?;
+    let saved = persistence::floating_placement::load(&connection)
+        .map_err(|error| placement_error("read Timer reconnect position", error))?;
+    let preferred = if USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
+        None
+    } else {
+        saved
+            .as_ref()
+            .and_then(|saved| preferred_monitor(saved, &areas))
+    };
+    let selected =
+        preferred.unwrap_or_else(|| best_work_area_for_window(previous, &areas, &fallback));
+    let desired = match (preferred, saved.as_ref()) {
+        (Some(_), Some(saved)) => restored_position(
+            saved,
+            selected.rect,
+            timer_visible_size_for_area(selected, expanded)?,
+        )?,
+        _ => previous.position,
+    };
     let logical_size = crate::timer_region::host_logical_size();
     let scale_factor = window
         .scale_factor()
@@ -602,7 +703,7 @@ pub fn revalidate_visible_timer_after_display_change(
         selected.rect,
     )?;
     let planned_size = fitted_outer_size(selected.rect, previous_outer.size)?;
-    let planned_position = clamp_top_left(selected.rect, previous.size, previous.position)
+    let planned_position = clamp_top_left(selected.rect, previous.size, desired)
         .map_err(|error| placement_error("plan Timer display recovery", error))?;
     let needs_hide = needs_dpi_resize
         || planned_size != previous_outer.size
@@ -641,7 +742,7 @@ pub fn revalidate_visible_timer_after_display_change(
                 width: actual.width,
                 height: actual.height,
             };
-            let safe = clamp_top_left(selected.rect, actual_size, previous.position)
+            let safe = clamp_top_left(selected.rect, actual_size, desired)
                 .map_err(|error| placement_error("clamp Timer after display change", error))?;
             position_window_if_needed(&window, safe)?;
             if pass == 0 {
@@ -756,6 +857,57 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn temporary_disconnect_preserves_preference_and_reconnect_restores_it() {
+        let primary = area("primary", 0, 2560);
+        let secondary = area("LG", -1920, 1920);
+        let saved = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: -1185, y: 398 },
+            outer_size: PhysicalSize {
+                width: 425,
+                height: 138,
+            },
+            work_area: secondary.rect,
+            monitor_name: Some("LG".into()),
+        };
+        assert!(preserve_preferred_placement(
+            Some(&saved),
+            &[primary.clone()],
+            false
+        ));
+        assert!(preferred_monitor(&saved, std::slice::from_ref(&primary)).is_none());
+        let reconnected = [primary.clone(), secondary];
+        let monitor = preferred_monitor(&saved, &reconnected).expect("LG returns");
+        assert_eq!(
+            restored_position(&saved, monitor.rect, saved.outer_size).expect("restore"),
+            saved.position
+        );
+        // A genuine completed move on fallback explicitly supersedes the old target.
+        assert!(!preserve_preferred_placement(
+            Some(&saved),
+            &[primary],
+            true
+        ));
+        assert!(!preserve_preferred_placement(None, &reconnected, false));
+    }
+
+    #[test]
+    fn ambiguous_monitor_identity_is_never_an_automatic_return_target() {
+        let first = area("duplicate", 0, 1920);
+        let second = area("duplicate", -1920, 1920);
+        let saved = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: 100, y: 100 },
+            outer_size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+            work_area: first.rect,
+            monitor_name: Some("duplicate".into()),
+        };
+        assert!(preferred_monitor(&saved, &[first, second]).is_none());
+    }
     #[test]
     fn bottom_edge_expansion_and_collapse_retain_the_new_safe_origin() {
         for (width, compact_height, expanded_height, x) in

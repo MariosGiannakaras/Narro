@@ -1,0 +1,36 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import vm from "node:vm";
+import ts from "typescript";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import * as jsxRuntime from "react/jsx-runtime";
+let state = { snapshot: null, monitors: [], loading: true, error: null, save() {}, refreshMonitors() {}, retryInitialLoad() {} };
+const source = readFileSync(new URL("../src/ThemeSettingsPanel.tsx", import.meta.url), "utf8");
+const compiled = ts.transpileModule(source, { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
+const module = { exports: {} };
+vm.runInNewContext(compiled, { module, exports: module.exports, require(id) {
+ if (id === "react") return React;
+ if (id === "react/jsx-runtime") return jsxRuntime;
+ if (id === "./PreferenceSettingsRuntime") return { PreferenceSettingsRuntimeProvider: ({children}) => children, usePreferenceSettingsRuntime: () => state };
+ if (id === "./ThemeRuntime") return { useThemeRuntime: () => ({ theme: "light", pending: false, error: null, saveTheme() {} }) };
+ if (id === "./PreferenceSettingsSections") return Object.fromEntries(["BlitzPanelPreferenceSection", "GeneralPreferenceRows", "LowerPreferenceSections", "TimePreferenceRows"].map(name => [name, () => React.createElement("div", null, name)]));
+ if (id === "./WindowsShortcutSettingsPanel") return { WindowsShortcutSettingsPanel: () => null };
+ if (id.endsWith(".css")) return {};
+ throw new Error("Unexpected module " + id);
+}});
+const render = () => renderToStaticMarkup(React.createElement(module.exports.ThemeSettingsPanel, {onOpenShortcuts() {}}));
+let html = render();
+assert.match(html, /Loading Preferences/);
+assert.doesNotMatch(html, /Theme<|View shortcuts|BlitzPanelPreferenceSection|GeneralPreferenceRows/,
+ "Initial load must not paint a misleading partial Preferences form");
+state = {...state, loading: false, error: "offline"}; html = render();
+assert.match(html, /role="alert"/); assert.match(html, /Retry loading Preferences/);
+assert.doesNotMatch(html, /View shortcuts|GeneralPreferenceRows/);
+state = {...state, snapshot: {}, error: null}; html = render();
+assert.match(html, /BlitzPanelPreferenceSection/); assert.match(html, /GeneralPreferenceRows/);
+assert.match(html, /View shortcuts/); assert.doesNotMatch(html, /Loading Preferences/);
+state = {...state, pendingKey: "monitor", error: "save failed"}; html = render();
+assert.match(html, /GeneralPreferenceRows/); assert.match(html, /save failed/);
+assert.doesNotMatch(html, /Loading Preferences/);
+console.log("Preferences loading/error/ready/save-error rendered composition: 4/4 PASS");

@@ -22,7 +22,7 @@
   max-height: min(38rem, calc(100vh - var(--search-palette-top) - var(--space-6)));
   overflow: hidden;
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-modal);
+  border-radius: var(--radius-panel);
   color: var(--color-text-primary);
   background: var(--color-surface-raised);
   box-shadow: var(--elevation-overlay);
@@ -44,8 +44,11 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-3);
-  min-height: 4rem;
-  padding: 0 var(--space-4);
+  min-height: 3.5rem;
+  margin: var(--space-3);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
   border-bottom: 1px solid var(--color-border-subtle);
   background: var(--color-surface-deep);
 }
@@ -66,7 +69,7 @@
   color: var(--color-text-primary);
   background: transparent;
   font: inherit;
-  font-size: var(--font-size-section-title);
+  font-size: var(--font-size-body);
 }
 
 .search-palette__query::placeholder {
@@ -364,4 +367,28 @@
   .search-palette {
     transform: none;
   }
+}
+
+/* Keep keyboard focus on the rounded search field rather than drawing a
+   second rectangular outline over its transparent inner input. */
+.search-palette__query-row:focus-within {
+  border-color: var(--color-accent-solid);
+  box-shadow: 0 0 0 1px var(--color-accent-solid);
+}
+.search-palette .search-palette__query:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option {
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-raised);
+}
+.search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option:hover:not(:disabled),
+.search-palette__option-list[data-search-palette-actions="true"] > .search-palette__option:focus-visible {
+  border-color: var(--color-accent-solid);
+  background: var(--color-surface-interactive-hover);
+}
+.search-palette__option-list[data-search-palette-actions="true"] .search-palette__option-icon {
+  color: var(--color-accent-solid);
+  background: transparent;
 }

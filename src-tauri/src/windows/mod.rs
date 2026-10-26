@@ -6,7 +6,13 @@ mod topology;
 #[cfg(windows)]
 pub use topology::install_display_change_observer;
 #[cfg(windows)]
-pub(crate) use topology::{suspend_focus_display_recovery, DisplayRecoveryGuard};
+pub(crate) use topology::{
+    focus_interactive_move_active, suspend_focus_display_recovery, DisplayRecoveryGuard,
+};
+#[cfg(not(windows))]
+pub(crate) fn focus_interactive_move_active() -> bool {
+    false
+}
 #[cfg(not(windows))]
 pub(crate) struct DisplayRecoveryGuard;
 #[cfg(not(windows))]
