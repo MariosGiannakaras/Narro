@@ -458,6 +458,18 @@ fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult
     })
 }
 
+// With no explicit/legacy Timer preference, inherit the committed Panel
+// screen position on every app launch. Never create a durable record just
+// because a presentation transition took place.
+fn first_timer_position(
+    work_area: PhysicalRect,
+    visible_size: PhysicalSize,
+    panel_origin: PhysicalPoint,
+) -> CommandResult<PhysicalPoint> {
+    clamp_top_left(work_area, visible_size, panel_origin)
+        .map_err(|error| placement_error("clamp unpinned Timer to Panel origin", error))
+}
+
 pub(crate) fn planned_timer_position(
     app_handle: &tauri::AppHandle,
     window: &tauri::WebviewWindow,
@@ -476,8 +488,7 @@ pub(crate) fn planned_timer_position(
     let target_size = timer_visible_size_for_area(selected, expanded)?;
     match saved.as_ref() {
         Some(saved) => restored_position(saved, selected.rect, target_size),
-        None => clamp_top_left(selected.rect, target_size, current.position)
-            .map_err(|error| placement_error("plan first Timer position", error)),
+        None => first_timer_position(selected.rect, target_size, current.position),
     }
 }
 
@@ -633,8 +644,7 @@ pub fn restore_for_timer(
         };
         let restored = match saved.as_ref() {
             Some(saved) => restored_position(saved, selected.rect, actual_size)?,
-            None => clamp_top_left(selected.rect, actual_size, current.position)
-                .map_err(|error| placement_error("clamp first Timer position", error))?,
+            None => first_timer_position(selected.rect, actual_size, current.position)?,
         };
         position_window_if_needed(window, restored)?;
         if pass == 0 {
@@ -871,6 +881,29 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn unpinned_timer_inherits_panel_origin_on_launch_and_clamps_when_needed() {
+        let left = PhysicalRect {
+            position: PhysicalPoint { x: -1920, y: -120 },
+            size: PhysicalSize { width: 1920, height: 980 },
+        };
+        let compact = PhysicalSize { width: 340, height: 110 };
+        let panel = PhysicalPoint { x: -1904, y: -104 };
+        assert_eq!(
+            first_timer_position(left, compact, panel).expect("follow Panel"),
+            panel,
+        );
+        let constrained = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize { width: 400, height: 200 },
+        };
+        assert_eq!(
+            first_timer_position(constrained, compact, PhysicalPoint { x: 390, y: 194 })
+                .expect("safe clamp"),
+            PhysicalPoint { x: 60, y: 90 },
+        );
+    }
+
     #[test]
     fn no_drag_keeps_timer_unpinned_across_programmatic_transitions_and_restart() {
         assert!(!should_persist_timer_position(false, false));
