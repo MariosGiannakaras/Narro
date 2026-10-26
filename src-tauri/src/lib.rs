@@ -1285,6 +1285,17 @@ fn apply_timer_native(
     let expanded = target.expanded();
 
     if previous.mode() != FocusSurfaceMode::Timer {
+        // A direct Timer shortcut can be the first Focus reveal after launch.
+        // The hidden HWND then has no committed Panel origin yet. Stage the
+        // real preferred Panel position while hidden only for an *unpinned*
+        // Timer. Never override a stored, possibly user-dragged placement.
+        let already_visible = window.is_visible().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "read Focus visibility before Timer reveal", error)
+        })?;
+        if !already_visible && !floating_placement::has_saved_timer_position(app_handle)? {
+            let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
+            apply_panel_native(window, work_area, scale_factor, side)?;
+        }
         floating_placement::restore_for_timer(app_handle, window, expanded)?;
         timer_region::apply(window, target.region())?;
         return set_focus_presentation_attributes(window, target);
