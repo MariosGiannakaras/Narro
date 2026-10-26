@@ -16,6 +16,7 @@ static PREFERENCES_GATE: Mutex<()> = Mutex::new(());
 pub struct GeneralSettingsSnapshot {
     pub selected_monitor_key: Option<String>,
     pub focus_panel_side: String,
+    pub remember_timer_position_on_restart: bool,
     pub open_on_login: bool,
     pub autostart_enabled: bool,
     pub hide_task_times: bool,
@@ -74,6 +75,7 @@ pub struct PreferenceSettingsSnapshot {
 pub struct PreferenceSettingsPatch {
     pub selected_monitor_key: Option<String>,
     pub focus_panel_side: Option<String>,
+    pub remember_timer_position_on_restart: Option<bool>,
     pub open_on_login: Option<bool>,
     pub hide_task_times: Option<bool>,
     pub auto_parse_est_from_title: Option<bool>,
@@ -218,6 +220,9 @@ fn apply_patch(payload: &mut PreferencesPayload, prepared: &PreparedPatch) {
     if let Some(value) = prepared.side {
         payload.general.focus_panel_side = value;
     }
+    if let Some(value) = patch.remember_timer_position_on_restart {
+        payload.general.remember_timer_position_on_restart = value;
+    }
     if let Some(value) = patch.open_on_login {
         payload.general.open_on_login = value;
     }
@@ -308,6 +313,7 @@ fn snapshot(
                 FocusPanelSide::Left => "left".to_owned(),
                 FocusPanelSide::Right => "right".to_owned(),
             },
+            remember_timer_position_on_restart: payload.general.remember_timer_position_on_restart,
             open_on_login: payload.general.open_on_login,
             autostart_enabled,
             hide_task_times: payload.general.hide_task_times,
