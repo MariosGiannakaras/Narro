@@ -1453,7 +1453,7 @@ mod tests {
             reports.publish();
         }
         assert_eq!(observed, 1);
-        let failed: Result<(), &'static str> = (|| {
+        let failed: Result<(), &'static str> = {
             let mut reports = DeferredTimerReports::new(|_| {
                 assert!(
                     gate.try_lock().is_ok(),
@@ -1464,7 +1464,7 @@ mod tests {
             let _guard = gate.lock().unwrap();
             reports.record(&payload);
             Err("later checkpoint failed")
-        })();
+        };
         assert_eq!(failed, Err("later checkpoint failed"));
         assert_eq!(observed, 2, "committed revision must survive later failure");
         drop(controller);
