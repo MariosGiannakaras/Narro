@@ -444,7 +444,9 @@ pub fn update_preference_settings(
         if let Err(error) =
             crate::floating_placement::sync_session_position_on_preference_change(&app_handle)
         {
-            eprintln!("Could not sync current Timer position after enabling restart retention: {error}");
+            eprintln!(
+                "Could not sync current Timer position after enabling restart retention: {error}"
+            );
         }
     }
     if let Err(error) = app_handle.emit(PREFERENCES_CHANGED_EVENT, committed.clone()) {
