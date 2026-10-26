@@ -1264,7 +1264,8 @@ fn apply_panel_native(
     set_focus_position(window, staging, "stage Focus Panel on target monitor")?;
 
     let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
-    let final_position = focus_panel_placement_position(work_area, actual_size, side, target_scale)?;
+    let final_position =
+        focus_panel_placement_position(work_area, actual_size, side, target_scale)?;
     set_focus_position(
         window,
         final_position,
@@ -1628,8 +1629,7 @@ fn animate_focus_surface_presentation_internal(
     if target == FocusSurfacePresentation::Panel {
         let (area, scale, side) = preferred_focus_panel_work_area(app_handle)?;
         let size = fit_focus_host_for_target_scale(&window, area, scale)?;
-        let final_position =
-            focus_panel_placement_position(area, size, side, scale)?;
+        let final_position = focus_panel_placement_position(area, size, side, scale)?;
         set_focus_position(
             &window,
             final_position,
