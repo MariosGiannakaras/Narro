@@ -916,6 +916,27 @@ fn preferred_focus_panel_work_area(
     Ok((descriptor.work_area, descriptor.scale_factor, side))
 }
 
+// An unpinned Timer may be opened by shortcut before the Panel was ever
+// shown. A temporarily disconnected saved Panel monitor must not make that
+// first Timer reveal fail. Keep the saved preference intact for hotplug return.
+fn panel_anchor_for_initial_timer(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<(GeometryRect, f64, FocusPanelSide)> {
+    match preferred_focus_panel_work_area(app_handle) {
+        Ok(placement) => Ok(placement),
+        Err(error) if error.code == "MONITOR_SELECTION_STALE" => {
+            let (_, side) = load_focus_panel_placement_preferences(app_handle)?;
+            let monitor = app_handle
+                .primary_monitor()
+                .map_err(CommandError::monitor_enumeration)?
+                .ok_or_else(CommandError::no_monitors_available)?;
+            let descriptor = monitor_descriptor(0, &monitor)?;
+            Ok((descriptor.work_area, descriptor.scale_factor, side))
+        }
+        Err(error) => Err(error),
+    }
+}
+
 fn focus_panel_placement_position(
     work_area: GeometryRect,
     window_size: GeometrySize,
@@ -1293,7 +1314,7 @@ fn apply_timer_native(
             map_window_error(FOCUS_SURFACE_LABEL, "read Focus visibility before Timer reveal", error)
         })?;
         if !already_visible && !floating_placement::has_saved_timer_position(app_handle)? {
-            let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
+            let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
             apply_panel_native(window, work_area, scale_factor, side)?;
         }
         floating_placement::restore_for_timer(app_handle, window, expanded)?;
