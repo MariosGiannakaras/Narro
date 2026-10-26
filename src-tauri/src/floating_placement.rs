@@ -470,6 +470,13 @@ fn first_timer_position(
         .map_err(|error| placement_error("clamp unpinned Timer to Panel origin", error))
 }
 
+pub(crate) fn has_saved_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    let connection = app_database(app_handle)?;
+    persistence::floating_placement::load(&connection)
+        .map(|saved| saved.is_some())
+        .map_err(|error| placement_error("read saved Timer position before first reveal", error))
+}
+
 pub(crate) fn planned_timer_position(
     app_handle: &tauri::AppHandle,
     window: &tauri::WebviewWindow,
