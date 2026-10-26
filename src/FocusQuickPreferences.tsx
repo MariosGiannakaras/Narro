@@ -1,6 +1,7 @@
 import { ActionIcon } from "./ActionIcon";
-import type { ReactNode } from "react";
-import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
+import { type ReactNode, useRef, useState } from "react";
+import { findSelectedMonitor, formatInvokeError, type MonitorDescriptor } from "./diagnosticApi";
+import { applyFocusSurfacePresentation } from "./focusSurfaceModeApi";
 import {
   PreferenceSettingsRuntimeProvider,
   type PreferencePendingKey,
@@ -258,6 +259,34 @@ export function FocusQuickPreferencesView({
 
 function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
   const preferences = usePreferenceSettingsRuntime();
+  const placementInFlightRef = useRef(false);
+  const [livePlacementKey, setLivePlacementKey] = useState<PreferencePendingKey | null>(null);
+  const [livePlacementError, setLivePlacementError] = useState<string | null>(null);
+
+  const saveAndApplyVisiblePanel = async (patch: PreferenceSettingsPatch, key: PreferencePendingKey): Promise<boolean> => {
+    if (placementInFlightRef.current) return false;
+    placementInFlightRef.current = true;
+    setLivePlacementKey(key);
+    setLivePlacementError(null);
+    try {
+      const saved = await preferences.save(patch, key);
+      if (!saved) return false;
+      if (key === "monitor" || key === "side") {
+        try {
+          // The same Focus HWND remains a Panel; re-apply its committed SQLite
+          // monitor/side now rather than only after a future Main -> Panel entry.
+          await applyFocusSurfacePresentation("panel");
+        } catch (failure: unknown) {
+          setLivePlacementError("Preference saved, but the visible Panel could not be moved: " + formatInvokeError(failure));
+          return false;
+        }
+      }
+      return true;
+    } finally {
+      placementInFlightRef.current = false;
+      setLivePlacementKey(null);
+    }
+  };
 
   if (!preferences.snapshot) {
     return (
@@ -281,9 +310,9 @@ function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
       onBack={onBack}
       snapshot={preferences.snapshot}
       monitors={preferences.monitors}
-      pendingKey={preferences.pendingKey}
-      error={preferences.error}
-      onSave={preferences.save}
+      pendingKey={preferences.pendingKey ?? livePlacementKey}
+      error={livePlacementError ?? preferences.error}
+      onSave={saveAndApplyVisiblePanel}
     />
   );
 }
