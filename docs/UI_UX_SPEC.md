@@ -964,6 +964,8 @@ Subtasks:
 - Enter confirms focused primary action;
 - test 100%, 125%, 150%, 200% Windows scaling;
 - use logical/physical coordinate conversion correctly;
+- **User-directed Focus Panel native inset (2026-10-27; proposed PR431 source, native acceptance OPEN):** left/right Panel anchors must retain one 16-DIP `--space-4` margin from the selected monitor's relevant side **and top** within usable work area, scaled for target DPI and reduced only when a small work area cannot fit it. Do not hard-anchor the Focus HWND at raw work-area origin `(0,0)`, break selected monitor/side, violate safe bounds, introduce transition double-paint, or constrain user drag of Timer.
+- **User-directed first Floating Timer origin (2026-10-27; PR431 source, native acceptance OPEN):** before a genuine completed user drag, each fresh application launch/reveal begins at the preferred Panel's safe inset work-area origin, including a direct Timer shortcut from a hidden initial Focus HWND. A cancelled Escape drag does not persist; only an actual completed drag establishes new durable placement. Explicit/legacy saved Timer positions remain authoritative because old records cannot reliably distinguish prior automatic placement from user choice. Disconnected preferred Panel monitor falls back safely for unpinned Timer first reveal, preserving its selected monitor preference. Reduced motion and error handling do not modify underlying task/timer persistence.
 - display changes are runtime events;
 - Windows locale/system 12/24-hour preference drives visible schedule/session formatting by default;
 - reduced-motion remains fully functional.
