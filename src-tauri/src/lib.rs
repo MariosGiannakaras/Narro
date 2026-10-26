@@ -62,7 +62,7 @@ use timer_service::{
     timer_start_task, timer_switch_task, TimerService,
 };
 use windows::{
-    clamp_top_left, focus_panel_edge_position, validate_work_area, FocusPanelSide,
+    clamp_top_left, focus_panel_inset_position, validate_work_area, FocusPanelSide,
     MonitorDescriptor, PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect,
     PhysicalSize as GeometrySize,
 };
@@ -73,6 +73,8 @@ const STATE_CHANGED_EVENT: &str = "state-changed";
 const FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT: &str = "focus-surface-presentation-changed";
 const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
+// One existing 16-DIP spacing step (matching --space-4), scaled for DPI.
+const FOCUS_PANEL_EDGE_INSET_DIP: f64 = 16.0;
 const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
 const FOCUS_PRESENTATION_PANEL: u8 = 1;
 const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
@@ -816,8 +818,12 @@ fn focus_panel_placement_probe(
         width: outer_size.width,
         height: outer_size.height,
     };
-    let expected_position = focus_panel_edge_position(descriptor.work_area, actual_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let expected_position = focus_panel_placement_position(
+        descriptor.work_area,
+        actual_size,
+        side,
+        descriptor.scale_factor,
+    )?;
     let clamped_position = clamp_top_left(descriptor.work_area, actual_size, actual_position)
         .map_err(CommandError::window_geometry)?;
     let fits_work_area = actual_size.width <= descriptor.work_area.size.width
@@ -908,6 +914,23 @@ fn preferred_focus_panel_work_area(
         }
     };
     Ok((descriptor.work_area, descriptor.scale_factor, side))
+}
+
+fn focus_panel_placement_position(
+    work_area: GeometryRect,
+    window_size: GeometrySize,
+    side: FocusPanelSide,
+    scale_factor: f64,
+) -> CommandResult<GeometryPoint> {
+    if !scale_factor.is_finite() || scale_factor <= 0.0 {
+        return Err(CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "selected monitor has an invalid DPI scale",
+        ));
+    }
+    let pixels = (FOCUS_PANEL_EDGE_INSET_DIP * scale_factor).round() as u32;
+    focus_panel_inset_position(work_area, window_size, side, pixels.max(1))
+        .map_err(CommandError::window_geometry)
 }
 
 fn record_focus_surface_presentation(presentation: FocusSurfacePresentation) {
@@ -1237,17 +1260,15 @@ fn apply_panel_native(
         width: current.width.min(work_area.size.width),
         height: current.height.min(work_area.size.height),
     };
-    let staging = focus_panel_edge_position(work_area, staging_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let staging = focus_panel_placement_position(work_area, staging_size, side, target_scale)?;
     set_focus_position(window, staging, "stage Focus Panel on target monitor")?;
 
     let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
-    let final_position = focus_panel_edge_position(work_area, actual_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let final_position = focus_panel_placement_position(work_area, actual_size, side, target_scale)?;
     set_focus_position(
         window,
         final_position,
-        "position Focus Panel at monitor edge",
+        "position Focus Panel with work-area inset",
     )?;
     timer_region::apply_full_host(window)?;
     set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
@@ -1334,8 +1355,7 @@ fn planned_focus_presentation_position(
         FocusSurfacePresentation::Panel => {
             let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
             let target_size = focus_host_size_for_target_scale(work_area, scale_factor)?;
-            focus_panel_edge_position(work_area, target_size, side)
-                .map_err(CommandError::window_geometry)
+            focus_panel_placement_position(work_area, target_size, side, scale_factor)
         }
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
             floating_placement::planned_timer_position(app_handle, window, target.expanded())
@@ -1563,7 +1583,7 @@ fn animate_focus_surface_presentation_internal(
             source_scale,
             target_scale,
         )?;
-        focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?
+        focus_panel_placement_position(area, size, side, target_scale)?
     } else {
         planned_focus_presentation_position(app_handle, &window, target)?
     };
@@ -1609,7 +1629,7 @@ fn animate_focus_surface_presentation_internal(
         let (area, scale, side) = preferred_focus_panel_work_area(app_handle)?;
         let size = fit_focus_host_for_target_scale(&window, area, scale)?;
         let final_position =
-            focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?;
+            focus_panel_placement_position(area, size, side, scale)?;
         set_focus_position(
             &window,
             final_position,
