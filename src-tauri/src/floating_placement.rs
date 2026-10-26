@@ -542,6 +542,13 @@ fn restored_position(
         .map_err(|error| placement_error("clamp restored position", error))
 }
 
+// A Timer positioned automatically from the Panel is not a user preference.
+// A recorded drag remains authoritative, including on a later application restart.
+// Existing legacy saved positions are conservatively retained as preferences.
+fn should_persist_timer_position(has_saved: bool, completed_user_move: bool) -> bool {
+    has_saved || completed_user_move
+}
+
 pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
     if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0
         || crate::windows::focus_interactive_move_active()
@@ -565,10 +572,17 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     let connection = app_database(app_handle)?;
     let previous = persistence::floating_placement::load(&connection)
         .map_err(|error| placement_error("read preferred Timer position", error))?;
+    let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
+    if !should_persist_timer_position(previous.is_some(), user_moved) {
+        // The Window can be in Timer mode due only to an automatic Panel →
+        // Timer transition; do not commit this position on Quit, Home or
+        // a mode switch, otherwise next launch wrongly treats it as dragged.
+        return Ok(false);
+    }
     if preserve_preferred_placement(
         previous.as_ref(),
         &areas,
-        USER_PLACEMENT_DIRTY.load(Ordering::Acquire),
+        user_moved,
     ) {
         return Ok(false);
     }
@@ -857,6 +871,17 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn no_drag_keeps_timer_unpinned_across_programmatic_transitions_and_restart() {
+        assert!(!should_persist_timer_position(false, false));
+        // A completed interactive drag — not an Escape-cancelled attempt —
+        // is the first event allowed to establish a durable Timer position.
+        assert!(should_persist_timer_position(false, true));
+        // Do not erase or reinterpret stored positions written by past builds.
+        assert!(should_persist_timer_position(true, false));
+        assert!(should_persist_timer_position(true, true));
+    }
+
     #[test]
     fn temporary_disconnect_preserves_preference_and_reconnect_restores_it() {
         let primary = area("primary", 0, 2560);
