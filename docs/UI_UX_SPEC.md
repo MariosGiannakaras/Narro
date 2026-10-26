@@ -965,7 +965,7 @@ Subtasks:
 - test 100%, 125%, 150%, 200% Windows scaling;
 - use logical/physical coordinate conversion correctly;
 - **User-directed Focus Panel native inset (2026-10-27; proposed PR431 source, native acceptance OPEN):** left/right Panel anchors must retain one 16-DIP `--space-4` margin from the selected monitor's relevant side **and top** within usable work area, scaled for target DPI and reduced only when a small work area cannot fit it. Do not hard-anchor the Focus HWND at raw work-area origin `(0,0)`, break selected monitor/side, violate safe bounds, introduce transition double-paint, or constrain user drag of Timer.
-- **User-directed first Floating Timer origin (2026-10-27; PR431 source, native acceptance OPEN):** before a genuine completed user drag, each fresh application launch/reveal begins at the preferred Panel's safe inset work-area origin, including a direct Timer shortcut from a hidden initial Focus HWND. A cancelled Escape drag does not persist; only an actual completed drag establishes new durable placement. Explicit/legacy saved Timer positions remain authoritative because old records cannot reliably distinguish prior automatic placement from user choice. Disconnected preferred Panel monitor falls back safely for unpinned Timer first reveal, preserving its selected monitor preference. Reduced motion and error handling do not modify underlying task/timer persistence.
+- **User-directed Floating Timer position policy (2026-10-27; PR431 implementation awaiting exact-head CI/physical acceptance):** default **Keep Timer position after restart = OFF**. During a single Narro process, a completed user drag sets the Timer position for all Panel ↔ Compact ↔ Expanded transitions; aborted drag Escape does not update it. Every true application Quit → relaunch starts the unpinned Timer at the preferred Panel monitor/side/inset, even when older SQLite placement data exists. Optional Full Preferences **ON** enables last Timer position persistence across full app restarts; the current session move remains authoritative while the app runs, and existing SQLite positions may be restored in the opt-in mode. No automatic deletion/migration of legacy placement records. Selected Panel preference survives HDMI reconnection, and direct hidden first Timer reveal stages the safe Panel origin if needed. This choice modifies only Timer placement policy, never task/session/timer elapsed persistence.
 - display changes are runtime events;
 - Windows locale/system 12/24-hour preference drives visible schedule/session formatting by default;
 - reduced-motion remains fully functional.
@@ -982,7 +982,7 @@ Subtasks:
 6. Larger/resizable Notes plus compact inline access.
 7. Explicit URL activation; no surprise auto-launch.
 8. Runtime monitor hotplug recovery.
-9. Persisted safe Floating Timer position.
+9. Safe Floating Timer position retained during the current run, with explicit opt-in persistence across app restarts.
 10. Windows-locale date/time presentation.
 11. Strong destructive-action clarity.
 12. Reduced-motion support.
