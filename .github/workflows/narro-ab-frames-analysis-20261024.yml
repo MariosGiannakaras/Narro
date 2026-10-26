@@ -4,7 +4,7 @@ on:
     branches:
       - analysis/narro-20261024-exact-ab-frame-review
 permissions:
-  contents: write
+  contents: read
 jobs:
   original-frames:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
           command -v ffprobe
           git fetch --no-tags --depth=1 --filter=blob:none origin main
           git cat-file -e FETCH_HEAD:work-log/evidence/all-remaining-physical-20261026/main-focus/native-original.mkv
-      - name: Inspect physical P03 P09 P11 original video frames
+      - name: Inspect P01 through P18 original physical journey frames
         shell: bash
         run: |
           python3 -u - <<'PY'
@@ -36,18 +36,26 @@ jobs:
           def probe(path):
               return json.loads(git_bytes(path))
           cases = [
-            ("P09-drag-80x46", "main-focus", "2026-10-26T07:32:48.300Z", "focus"),
-            ("P09-title-drag", "main-focus", "2026-10-26T07:33:20.394Z", "focus"),
-            ("P09-live-blank-drag", "main-focus", "2026-10-26T07:35:21.727Z", "focus"),
-            ("P11-global-toggle", "main-focus", "2026-10-26T07:33:45.012Z", "focus"),
-            ("P11-global-locate", "main-focus", "2026-10-26T07:35:42.602Z", "focus"),
-            ("P09-screen2-compact", "main-topology", "2026-10-26T07:46:16.547Z", "full"),
-            ("P11-main-search", "resume-01/restart-persistence", "2026-10-26T11:32:13.614Z", "primary"),
-            ("P11-main-task-create", "resume-01/restart-persistence", "2026-10-26T11:32:24.058Z", "primary"),
-            ("P11-board-task-create", "resume-01/restart-persistence", "2026-10-26T11:32:38.529Z", "primary"),
-            ("P11-focus-notes-pause", "resume-01/restart-persistence", "2026-10-26T11:33:54.233Z", "whole"),
-            ("P11-focus-resume", "resume-01/timer-boundaries", "2026-10-26T11:37:46.816Z", "whole"),
-            ("P09-compact-top-edge", "resume-01/timer-boundaries", "2026-10-26T11:39:29.917Z", "right"),
+            ("P01-home-dark", "main-lists", "2026-10-26T06:36:34.076Z", "full"),
+            ("P01-home-light", "main-lists", "2026-10-26T06:37:10.314Z", "full"),
+            ("P02-image-upload", "main-lists", "2026-10-26T06:41:08.815Z", "full"),
+            ("P05-archive", "main-lists", "2026-10-26T06:44:58.555Z", "full"),
+            ("P15-reports-filter", "main-board", "2026-10-26T07:21:15.793Z", "full"),
+            ("P16-session-commit", "main-board", "2026-10-26T07:23:01.573Z", "full"),
+            ("P12-preferences", "main-board", "2026-10-26T07:24:42.534Z", "full"),
+            ("P13-volume-success", "main-board", "2026-10-26T07:28:50.162Z", "full"),
+            ("P06-focus-entry", "main-focus", "2026-10-26T07:31:31.841Z", "focus"),
+            ("P10-compact-notes", "main-focus", "2026-10-26T07:36:00.734Z", "focus"),
+            ("P15-done-long-scroll", "main-focus", "2026-10-26T07:38:44.169Z", "full"),
+            ("P17-second-screen", "main-topology", "2026-10-26T07:45:03.428Z", "full"),
+            ("P07-time-up", "resume-01/timer-boundaries", "2026-10-26T11:40:05.449Z", "right"),
+            ("P07-extend-done", "resume-01/timer-boundaries", "2026-10-26T11:41:04.652Z", "right"),
+            ("P08-break-skip", "main-break", "2026-10-26T07:51:27.920Z", "whole"),
+            ("P08-break-natural", "resume-01/manual-break-expiry", "2026-10-26T11:46:55.829Z", "whole"),
+            ("P14-rollback", "resume-01/preferences-write-failure", "2026-10-26T12:29:59.032Z", "primary"),
+            ("P04-weekly-save", "resume-01/restart-persistence", "2026-10-26T11:33:33.577Z", "primary"),
+            ("P04-weekly-persist", "resume-01/final-relaunch-persistence", "2026-10-26T12:33:34.430Z", "primary"),
+            ("P18-relaunch", "resume-01/restart-persistence", "2026-10-26T11:30:55.548Z", "primary"),
           ]
           with tempfile.TemporaryDirectory() as td:
               target = pathlib.Path(td)
@@ -100,12 +108,3 @@ jobs:
               print("P03_VIDEO_SCOPE|"+json.dumps(coverage,separators=(",",":")),flush=True)
           print("VIDEO_REVIEW_DONE|"+str(len(cases)),flush=True)
           PY
-      - name: Publish original MKV contact sheets in isolated analysis branch only
-        shell: bash
-        run: |
-          test -s analysis/video-review-20261026/P03-video-coverage.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add analysis/video-review-20261026
-          git commit -m "analysis: archive original-video contact sheets [skip ci]"
-          git push origin HEAD:analysis/narro-20261024-exact-ab-frame-review
