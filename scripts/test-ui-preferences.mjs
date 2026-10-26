@@ -235,6 +235,14 @@ invariant(monitorCss.includes('.preference-settings__monitor-option[data-selecte
   && monitorCss.includes('linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box'),
   "monitor selected border must use calibrated existing accent gradient",
 );
+invariant(
+  sections.includes('checked={snapshot.general.rememberTimerPositionOnRestart}')
+    && sections.includes('onSave({ rememberTimerPositionOnRestart }, "timerPositionRestart")')
+    && api.includes("rememberTimerPositionOnRestart: boolean;")
+    && rust.includes("remember_timer_position_on_restart")
+    && domain.includes("#[serde(default)]"),
+  "Settings must round-trip Timer restart-position opt-in without breaking old preference payloads",
+);
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
