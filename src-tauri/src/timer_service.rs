@@ -1399,14 +1399,15 @@ mod tests {
         controller
             .start_task(task_id, TimerMode::CountUp, 0, T0)
             .unwrap();
-        controller.checkpoint(5_000, "2026-09-05T12:00:05Z").unwrap();
+        controller
+            .checkpoint(5_000, "2026-09-05T12:00:05Z")
+            .unwrap();
         let session = controller.snapshot().runtime.open_session_id.unwrap();
         drop(controller);
         drop(effects);
 
-        let service = Arc::new(
-            TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap(),
-        );
+        let service =
+            Arc::new(TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap());
         let injected = Arc::clone(&service);
         let failed_worker = std::thread::spawn(move || {
             let _held = injected.state.lock().unwrap();
@@ -1454,7 +1455,10 @@ mod tests {
         assert_eq!(observed, 1);
         let failed: Result<(), &'static str> = (|| {
             let mut reports = DeferredTimerReports::new(|_| {
-                assert!(gate.try_lock().is_ok(), "error-path publication must run unlocked");
+                assert!(
+                    gate.try_lock().is_ok(),
+                    "error-path publication must run unlocked"
+                );
                 observed += 1;
             });
             let _guard = gate.lock().unwrap();
