@@ -169,7 +169,6 @@ pub fn focus_panel_edge_position(
     clamp_top_left(work_area, window_size, desired)
 }
 
-
 /** Insets an edge-anchored Panel without leaving the work area.
  * The inset is physical pixels, supplied by the DPI-aware native caller.
  * If a work area cannot fit two margins, preserve its safe geometry instead.
@@ -181,10 +180,9 @@ pub fn focus_panel_inset_position(
     inset_pixels: u32,
 ) -> Result<PhysicalPoint, WindowGeometryError> {
     let edge = focus_panel_edge_position(work_area, window_size, side)?;
-    let inset_x = i32::try_from(
-        inset_pixels.min(work_area.size.width.saturating_sub(window_size.width) / 2),
-    )
-    .map_err(|_| WindowGeometryError::CoordinateOverflow)?;
+    let inset_x =
+        i32::try_from(inset_pixels.min(work_area.size.width.saturating_sub(window_size.width) / 2))
+            .map_err(|_| WindowGeometryError::CoordinateOverflow)?;
     let inset_y = i32::try_from(
         inset_pixels.min(work_area.size.height.saturating_sub(window_size.height) / 2),
     )
@@ -252,7 +250,6 @@ mod tests {
             height: 1040,
         },
     };
-
 
     #[test]
     fn panel_inset_respects_both_edges_and_top_on_primary_and_negative_monitors() {
