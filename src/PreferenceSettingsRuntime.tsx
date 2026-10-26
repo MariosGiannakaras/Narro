@@ -13,6 +13,7 @@ import {
 export type PreferencePendingKey =
   | "monitor"
   | "side"
+  | "timerPositionRestart"
   | "openOnLogin"
   | "hideTaskTimes"
   | "autoParseEst"
