@@ -42,7 +42,7 @@ fn effective_saved_placement(
     legacy: Option<SavedFloatingPlacement>,
     remember_after_restart: bool,
 ) -> Option<SavedFloatingPlacement> {
-    current_session.or_else(|| if remember_after_restart { legacy } else { None })
+    current_session.or(if remember_after_restart { legacy } else { None })
 }
 
 fn timer_position_for_current_policy(
