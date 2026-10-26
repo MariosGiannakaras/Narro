@@ -873,7 +873,7 @@ mod tests {
         };
         assert!(preserve_preferred_placement(
             Some(&saved),
-            &[primary.clone()],
+            std::slice::from_ref(&primary),
             false
         ));
         assert!(preferred_monitor(&saved, std::slice::from_ref(&primary)).is_none());
@@ -886,7 +886,7 @@ mod tests {
         // A genuine completed move on fallback explicitly supersedes the old target.
         assert!(!preserve_preferred_placement(
             Some(&saved),
-            &[primary],
+            std::slice::from_ref(&primary),
             true
         ));
         assert!(!preserve_preferred_placement(None, &reconnected, false));
