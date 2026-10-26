@@ -19,6 +19,14 @@ Every implementation slice should consider:
 - OS/API failures at native boundaries;
 - performance costs in long-lived/background code.
 
+## Product decision quality and alternative impact gate
+
+Apply the binding **critical product partnership** rule in [`AGENTS.md`](AGENTS.md) to meaningful design and behavior decisions, not just to code correctness. Treat a user's suggested mechanism as a proposed solution to an authoritative user goal, **not as untested evidence that the mechanism is correct**.
+
+Before making a material user-facing/stateful change, determine: **(a)** the outcome actually wanted, **(b)** the current state owner and invariants, **(c)** at least one credible failure mode or cross-surface consequence, and **(d)** whether another approach or an optional setting would better satisfy the goal. Explicitly examine the relevant lifecycle boundary (for example, **same window/session vs real app Quit/restart**), persistence and legacy-data implications, Windows display/motion behavior, accessibility, source fidelity and regression scope where applicable. Document meaningful trade-offs and the recommended default concisely; suggest alternatives proactively **only when they add genuine decision value**.
+
+If the user suggestion conflicts with proven behavior, evidence, accepted invariants or safety, explain the conflict respectfully and offer the smallest sound alternative. If the optimal change is obvious and safe, implement directly; do not create speculative feature branches, mandatory deliberation forms, additional roadmap gates or unnecessary confirmation loops. Preserve user-approved scope and any required explicit approval for materially different product behavior.
+
 ## Learning from prior Narro corrections
 
 `docs/NARRO_ENGINEERING_RISK_REGISTER.md` is the reusable failure-family index mined from Narro's own implementation, validation and process corrections. It complements `docs/BLITZIT_HISTORY_RISK_INDEX.md`: the Blitzit index records source-product reliability hazards; the Narro register records ways **our implementation process or architecture has already failed or nearly failed** and the prevention guards learned from them.
