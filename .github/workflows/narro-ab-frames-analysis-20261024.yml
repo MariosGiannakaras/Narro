@@ -52,8 +52,8 @@ jobs:
           with tempfile.TemporaryDirectory() as td:
               target = pathlib.Path(td)
               cache = {}
-    evidence = pathlib.Path("analysis/video-review-20261026")
-    evidence.mkdir(parents=True,exist_ok=True)
+              evidence = pathlib.Path("analysis/video-review-20261026")
+              evidence.mkdir(parents=True,exist_ok=True)
               for label, segment, stamp, mode in cases:
                   start = probe(segment + "/start.json")
                   d = (when(stamp) - when(start["utc"])).total_seconds()
