@@ -14,7 +14,7 @@ The probe is strictly read-only: it injects temporary capture-phase DOM observer
 
 ### Windows OS/HWND corroboration — read-only, operator-owned
 
-PR429's CDP probe observes renderer delivery, **not** the Windows side of the same physical action. Capture an independent bounded, opt-in Win32 receipt at the same time. The companion script reads the **named Ctrl/Alt/F/T and left-mouse virtual-key held states**, foreground and focused HWND/PID, cursor point and the rectangles of visible top-level windows of the isolated Narro host process. It neither hooks all keystrokes nor injects input, steals focus, moves windows, accesses Narro storage or records user-entered text.
+PR429's CDP probe observes renderer delivery, **not** the Windows side of the same physical action. Capture an independent bounded, opt-in Win32 receipt at the same time. The companion script samples the modifier/F/T/left-mouse virtual-key states but persists **only the Ctrl+F and Ctrl+Alt+T chord booleans, modifier/left-mouse states**, foreground and focused HWND/PID, cursor point and the rectangles of visible top-level windows of the isolated Narro host process. Standalone typed letter-key states are never written. It neither hooks all keystrokes nor injects input, steals focus, moves windows, accesses Narro storage or records user-entered text.
 
 From a separate terminal on the **same isolated Windows machine**, select the verified exact Narro.exe PID (never a personal-profile process), create a new empty isolated evidence directory, and start this read-only sample before the matching CDP probe and operator action:
 
