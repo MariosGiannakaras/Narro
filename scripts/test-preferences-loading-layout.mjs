@@ -21,16 +21,26 @@ vm.runInNewContext(compiled, { module, exports: module.exports, require(id) {
 }});
 const render = () => renderToStaticMarkup(React.createElement(module.exports.ThemeSettingsPanel, {onOpenShortcuts() {}}));
 let html = render();
-assert.match(html, /Loading Preferences/);
-assert.doesNotMatch(html, /Theme<|View shortcuts|BlitzPanelPreferenceSection|GeneralPreferenceRows/,
- "Initial load must not paint a misleading partial Preferences form");
+assert.match(html, /data-preferences-skeleton="true"/);
+assert.match(html, /aria-busy="true"/);
+assert.doesNotMatch(html, /Loading Preferences|View shortcuts|BlitzPanelPreferenceSection|GeneralPreferenceRows/,
+ "Initial load must present an inert skeleton without Loading text or premature controls");
 state = {...state, loading: false, error: "offline"}; html = render();
-assert.match(html, /role="alert"/); assert.match(html, /Retry loading Preferences/);
+assert.match(html, /role="alert"/); assert.match(html, /data-preferences-retry="true"/);
 assert.doesNotMatch(html, /View shortcuts|GeneralPreferenceRows/);
 state = {...state, snapshot: {}, error: null}; html = render();
 assert.match(html, /BlitzPanelPreferenceSection/); assert.match(html, /GeneralPreferenceRows/);
-assert.match(html, /View shortcuts/); assert.doesNotMatch(html, /Loading Preferences/);
+assert.match(html, /View shortcuts/); assert.doesNotMatch(html, /data-preferences-skeleton|Loading Preferences/);
 state = {...state, pendingKey: "monitor", error: "save failed"}; html = render();
 assert.match(html, /GeneralPreferenceRows/); assert.match(html, /save failed/);
-assert.doesNotMatch(html, /Loading Preferences/);
-console.log("Preferences loading/error/ready/save-error rendered composition: 4/4 PASS");
+assert.doesNotMatch(html, /data-preferences-skeleton|Loading Preferences/);
+const quickSource = readFileSync(new URL("../src/FocusQuickPreferences.tsx", import.meta.url), "utf8");
+const quickCss = readFileSync(new URL("../src/focusQuickPreferences.css", import.meta.url), "utf8");
+const prefCss = readFileSync(new URL("../src/preferenceSettingsSections.css", import.meta.url), "utf8");
+assert.match(quickSource, /data-focus-quick-skeleton="true"/);
+assert.match(quickSource, /data-focus-quick-preferences-retry="true"/);
+assert.doesNotMatch(quickSource, /Loading Quick Preferences/);
+assert.match(quickCss, /prefers-reduced-motion: reduce/);
+assert.match(prefCss, /prefers-reduced-motion: reduce/);
+assert.match(prefCss, /narro-preferences-ready/);
+console.log("Preferences and Quick Preferences stable skeleton/error/ready/reduced-motion contracts: PASS");
