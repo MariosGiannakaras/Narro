@@ -219,6 +219,20 @@ if (
   throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
 }
 
+const applyTimerStart = lib.indexOf("fn apply_timer_native(");
+const applyTimerEnd = lib.indexOf("fn apply_focus_native_target(", applyTimerStart);
+const applyTimerBlock = lib.slice(applyTimerStart, applyTimerEnd);
+if (
+  applyTimerStart < 0
+  || applyTimerEnd < applyTimerStart
+  || !applyTimerBlock.includes("!already_visible && !floating_placement::has_saved_timer_position(app_handle)?")
+  || !applyTimerBlock.includes("preferred_focus_panel_work_area(app_handle)")
+  || !applyTimerBlock.includes("apply_panel_native(window, work_area, scale_factor, side)?")
+  || !applyTimerBlock.includes("floating_placement::restore_for_timer(app_handle, window, expanded)?")
+) {
+  throw new Error("Hidden first Timer reveal must inherit Panel origin only when no user/legacy Timer position exists.");
+}
+
 const blitzPresentationStart = lib.indexOf("async fn present_focus_for_blitz(");
 const blitzPresentationEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzPresentationStart);
 const blitzPresentation = lib.slice(blitzPresentationStart, blitzPresentationEnd);
