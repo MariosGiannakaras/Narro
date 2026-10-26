@@ -26,7 +26,7 @@ fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
         .map_err(|error| placement_error("read session-only Timer position", error))
 }
 
-fn remember_position_after_restart(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+pub(crate) fn remember_position_after_restart(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
     let connection = app_database(app_handle)?;
     persistence::preferences::get_preferences(&connection)
         .map(|record| {
