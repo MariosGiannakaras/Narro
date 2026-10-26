@@ -98,6 +98,12 @@ Do not ask the user for a kickoff prompt or previous-chat summary when repositor
 - `docs/*` — specs, evidence and validation procedures.
 - `prompts/*` — historical/slice-specific aids only; not required onboarding unless `HANDOFF.md` explicitly references one.
 
+## User-choice checkpoint for material product alternatives (2026-10-27)
+
+Before implementing a user request with **two or more viable, materially different user-visible approaches**, follow the binding `AGENTS.md` **Critical product partnership** and `ENGINEERING_QUALITY.md` decision-quality requirements: assess the user's outcome and verified constraints, surface the relevant choices and trade-offs, state your recommendation, then **ask the user to select the product/UX behavior before implementing it**. A recommended default does **not** substitute for that choice. Typical forks include Timer location **current-run vs across restarts vs configurable**, changed failure handling, navigation, visual treatment, and persistence policies. Record an actual selection in the relevant specification/tracking and validate it; do not silently treat agent inference as user approval.
+
+Do **not** seek permission for equivalent internal implementations that satisfy the same already-agreed user-visible result, repeat previously resolved choices without new evidence, or stall safe independent tasks/ongoing CI while awaiting a material decision. Keep the decision question short, concrete and comparative; user scope and explicit prerequisite approvals remain binding.
+
 ## Choosing work autonomously
 
 1. If `HANDOFF.md` contains a **USER ACTION REQUIRED** blocker, do not fake that evidence or broaden past the blocker unless the handoff explicitly allows parallel work or the user explicitly instructs continuation.
