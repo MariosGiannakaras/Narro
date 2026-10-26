@@ -1317,7 +1317,7 @@ fn apply_timer_native(
                 error,
             )
         })?;
-        if !already_visible && !floating_placement::has_saved_timer_position(app_handle)? {
+        if !already_visible && !floating_placement::has_effective_timer_position(app_handle)? {
             let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
             apply_panel_native(window, work_area, scale_factor, side)?;
         }
@@ -1857,7 +1857,7 @@ fn focus_runtime_capture_seed_timer_placement(app_handle: tauri::AppHandle) -> C
     focus_webview::set_physical_position(&window, target.x, target.y).map_err(|error| {
         map_window_error(FOCUS_SURFACE_LABEL, "seed capture Timer position", error)
     })?;
-    if !floating_placement::save_if_timer_visible(&app_handle)? {
+    if !floating_placement::seed_capture_timer_position(&app_handle)? {
         return Err(CommandError::new(
             "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
             "seeded Timer position was not persisted through the production placement path",
