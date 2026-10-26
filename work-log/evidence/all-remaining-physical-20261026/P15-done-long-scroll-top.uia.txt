@@ -1,0 +1,156 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		5 pane
+			6 pane Narro
+				7 pane (disabled)
+				8 region Narro - Web content
+					9 region
+						10 region
+							11 region
+								12 region
+								13 region
+									14 region
+										15 region
+											16 region
+												17 region
+												18 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													4477 group ID: root
+														4478 complementary List navigation
+															4479 graphic Narro
+															4480 navigation Lists
+																4481 button + Create new list
+																4482 button All my lists
+																4483 button Archived lists
+														4484 section header
+															4485 group Utilities
+																4486 button Search
+																4487 button Settings
+														4488 main ID: main-content
+															5383 region Uploaded image capture list
+																6662 text Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+																6663 group
+																6664 section header
+																	6665 text PLANNING
+																	6666 heading Uploaded image capture list ID: list-board-title
+																	6667 text List
+																	6668 button Planning list
+																		6669 text Uploaded image capture list
+																	6721 list (settable, string) Choose planning list
+																		6722 option (selectable) All Lists
+																		6723 option (selectable) Capture Project
+																		6724 option (selectable) Reading & research
+																		6725 option (selectable) Long project name for list badge and title wrapping
+																		6726 option (selectable) Uploaded image capture list
+																		6727 option (selectable) Archived example
+																	6670 text Plan this list across Backlog, This Week, Today, and Done.
+																6671 region Backlog
+																	6672 section header
+																		6673 heading Backlog ID: list-board-backlog
+																		6674 text 0 tasks
+																		6675 text Est:
+																		6676 text —
+																	6677 button Add task to top of Backlog
+																	6678 list Backlog tasks
+																		6679 text All Clear
+																	6680 button Add task to Backlog
+																6681 region This Week
+																	6682 section header
+																		6683 heading This Week ID: list-board-this-week
+																		6684 text 0 tasks
+																		6685 group 0 of 0 tasks done
+																			6686 text 0
+																			6687 text /
+																			6688 text 0
+																			6689 text Done
+																		6690 text Est:
+																		6691 text —
+																	6692 button Add task to top of This Week
+																	6693 list This Week tasks
+																		6694 text All Clear
+																	6695 button Add task to This Week
+																6696 region Today
+																	6697 section header
+																		6698 heading Today ID: list-board-today
+																		6699 text 0 tasks
+																		6700 group 0 of 0 tasks done
+																			6701 text 0
+																			6702 text /
+																			6703 text 0
+																			6704 text Done
+																		6705 text Est:
+																		6706 text —
+																	6707 button Add task to top of Today
+																	6708 list Today tasks
+																		6709 text All Clear
+																	6710 button Add task to Today
+																	6711 region Blitz entry
+																		6712 button Blitz now
+																6713 region Done
+																	6714 section header
+																		6715 heading Done ID: list-board-done
+																		6716 text 0 completed this month
+																		6717 text Est:
+																		6718 text —
+																	6719 list Done tasks
+																		6720 text All Clear
+														4882 navigation Primary
+															4883 button Home
+															4884 button Reports
+								779 region
+						780 region
+						781 region
+		782 title bar (settable, string) Value: Narro
+			783 menu bar System ID: MenuBar
+				784 menu item System
+			785 button Minimize
+			786 button Restore
+			787 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+￼
+PLANNING
+Uploaded image capture list
+List
+Uploaded image capture list
+All Lists
+Capture Project
+Reading & research
+Long project name for list badge and title wrapping
+Uploaded image capture list
+Archived example
+Plan this list across Backlog, This Week, Today, and Done.
+Backlog
+0 tasks
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+This Week
+0 tasks
+0/0 Done
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+Today
+0 tasks
+0/0 Done
+Est: —
+ADD TO TOP
+All Clear
+ADD TASK
+Blitz now
+Done
+0 completed this month
+Est: —
+All Clear
+Home
+Reports
+```

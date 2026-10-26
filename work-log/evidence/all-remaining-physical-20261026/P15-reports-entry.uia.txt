@@ -1,0 +1,798 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		5 pane
+			6 pane Narro
+				7 pane (disabled)
+				8 region Narro - Web content
+					9 region
+						10 region
+							11 region
+								12 region
+								13 region
+									14 region
+										15 region
+											16 region
+												17 region
+												18 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													19 group ID: root
+														20 complementary List navigation
+															21 graphic Narro
+															22 navigation Lists
+																23 button + Create new list
+																24 button All my lists
+																25 button Archived lists
+														26 section header
+															27 group Utilities
+																28 button Search
+																29 button Settings
+														30 main ID: main-content
+															31 region All Lists
+																32 text Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+																33 group
+																34 section header
+																	35 text PLANNING
+																	36 heading All Lists ID: list-board-title
+																	37 text List
+																	38 button Planning list
+																		39 text All Lists
+																	40 text Tasks from your active lists, organized into one planning view.
+																41 region Backlog
+																	42 section header
+																		43 heading Backlog ID: list-board-backlog
+																		44 text 11 tasks
+																		45 text Est:
+																		46 text 1h 40m
+																	47 list Backlog tasks
+																		48 list item Capture drag task BCapture ProjectEst:—Taken:0mAdd notesSubtasks
+																			49 article
+																				1239 button Complete task: Capture drag task B
+																				1240 button Edit task title: Capture drag task B Description: Capture drag task B
+																				52 text Capture Project
+																				1241 button Edit Est: —
+																				1242 button Edit Taken: 0m
+																				55 button Expand notes for Capture drag task B
+																				56 button Expand subtasks for Capture drag task B
+																				57 progress indicator 0 of 0 subtasks complete Value: 0
+																				58 text Subtasks
+																		59 list item Reading & research task 1Reading & researchEst:5mTaken:0mAdd notesSubtasks
+																			60 article
+																				1243 button Complete task: Reading & research task 1
+																				1244 button Edit task title: Reading & research task 1 Description: Reading & research task 1
+																				63 text Reading & research
+																				1245 button Edit Est: 5m
+																				1246 button Edit Taken: 0m
+																				66 button Expand notes for Reading & research task 1
+																				67 button Expand subtasks for Reading & research task 1
+																				68 progress indicator 0 of 0 subtasks complete Value: 0
+																				69 text Subtasks
+																		70 list item Reading & research task 2Reading & researchEst:10mTaken:0mAdd notesSubtasks
+																			71 article
+																				1247 button Complete task: Reading & research task 2
+																				1248 button Edit task title: Reading & research task 2 Description: Reading & research task 2
+																				74 text Reading & research
+																				1249 button Edit Est: 10m
+																				1250 button Edit Taken: 0m
+																				77 button Expand notes for Reading & research task 2
+																				78 button Expand subtasks for Reading & research task 2
+																				79 progress indicator 0 of 0 subtasks complete Value: 0
+																				80 text Subtasks
+																		81 list item Reading & research task 3Reading & researchEst:15mTaken:0mAdd notesSubtasks
+																			82 article
+																				1251 button Complete task: Reading & research task 3
+																				1252 button Edit task title: Reading & research task 3 Description: Reading & research task 3
+																				85 text Reading & research
+																				1253 button Edit Est: 15m
+																				1254 button Edit Taken: 0m
+																				88 button Expand notes for Reading & research task 3
+																				89 button Expand subtasks for Reading & research task 3
+																				90 progress indicator 0 of 0 subtasks complete Value: 0
+																				91 text Subtasks
+																		92 list item Long project name for list badge and title wrapping task 1Long project name for list badge and title wrapping t…Long project name for list badge and title wrappingEst:5mTaken:0mAdd notesSubtasks
+																			93 article
+																				1255 button Complete task: Long project name for list badge and title wrapping task 1
+																				1256 button Edit task title: Long project name for list badge and title wrapping task 1 Description: Long project name for list badge and title wrapping task 1
+																				96 text Long project name for list badge and title wrapping
+																				1257 button Edit Est: 5m
+																				1258 button Edit Taken: 0m
+																				99 button Expand notes for Long project name for list badge and title wrapping task 1
+																				100 button Expand subtasks for Long project name for list badge and title wrapping task 1
+																				101 progress indicator 0 of 0 subtasks complete Value: 0
+																				102 text Subtasks
+																		103 list item Long project name for list badge and title wrapping task 2Long project name for list badge and title wrapping t…Long project name for list badge and title wrappingEst:10mTaken:0mAdd notesSubtasks
+																			104 article
+																				1259 button Complete task: Long project name for list badge and title wrapping task 2
+																				1260 button Edit task title: Long project name for list badge and title wrapping task 2 Description: Long project name for list badge and title wrapping task 2
+																				107 text Long project name for list badge and title wrapping
+																				1261 button Edit Est: 10m
+																				1262 button Edit Taken: 0m
+																				110 button Expand notes for Long project name for list badge and title wrapping task 2
+																				111 button Expand subtasks for Long project name for list badge and title wrapping task 2
+																				112 progress indicator 0 of 0 subtasks complete Value: 0
+																				113 text Subtasks
+																		114 list item Long project name for list badge and title wrapping task 3Long project name for list badge and title wrapping t…Long project name for list badge and title wrappingEst:15mTaken:0mAdd notesSubtasks
+																			115 article
+																				1263 button Complete task: Long project name for list badge and title wrapping task 3
+																				1264 button Edit task title: Long project name for list badge and title wrapping task 3 Description: Long project name for list badge and title wrapping task 3
+																				118 text Long project name for list badge and title wrapping
+																				1265 button Edit Est: 15m
+																				1266 button Edit Taken: 0m
+																				121 button Expand notes for Long project name for list badge and title wrapping task 3
+																				122 button Expand subtasks for Long project name for list badge and title wrapping task 3
+																				123 progress indicator 0 of 0 subtasks complete Value: 0
+																				124 text Subtasks
+																		125 list item Archived example task 1Archived exampleEst:5mTaken:0mAdd notesSubtasks
+																			126 article
+																				1267 button Complete task: Archived example task 1
+																				1268 button Edit task title: Archived example task 1 Description: Archived example task 1
+																				129 text Archived example
+																				1269 button Edit Est: 5m
+																				1270 button Edit Taken: 0m
+																				132 button Expand notes for Archived example task 1
+																				133 button Expand subtasks for Archived example task 1
+																				134 progress indicator 0 of 0 subtasks complete Value: 0
+																				135 text Subtasks
+																		136 list item Archived example task 2Archived exampleEst:10mTaken:0mAdd notesSubtasks
+																			137 article
+																				1271 button Complete task: Archived example task 2
+																				1272 button Edit task title: Archived example task 2 Description: Archived example task 2
+																				140 text Archived example
+																				1273 button Edit Est: 10m
+																				1274 button Edit Taken: 0m
+																				143 button Expand notes for Archived example task 2
+																				144 button Expand subtasks for Archived example task 2
+																				145 progress indicator 0 of 0 subtasks complete Value: 0
+																				146 text Subtasks
+																		147 list item Archived example task 3Archived exampleEst:15mTaken:0mAdd notesSubtasks
+																			148 article
+																				1275 button Complete task: Archived example task 3
+																				1276 button Edit task title: Archived example task 3 Description: Archived example task 3
+																				151 text Archived example
+																				1277 button Edit Est: 15m
+																				1278 button Edit Taken: 0m
+																				154 button Expand notes for Archived example task 3
+																				155 button Expand subtasks for Archived example task 3
+																				156 progress indicator 0 of 0 subtasks complete Value: 0
+																				157 text Subtasks
+																		158 heading Recurring tasks
+																		159 list item Weekly recurring parentCapture Project · CustomEst:20mTaken:0mAdd notesSubtasks
+																			160 article
+																				1279 button Edit task title: Weekly recurring parent Description: Weekly recurring parent
+																				162 group Description: Capture Project
+																					163 text Capture Project
+																					164 text · Custom
+																				1280 button Edit Est: 20m
+																				1281 button Edit Taken: 0m
+																				167 button Expand notes for Weekly recurring parent
+																				168 button Expand subtasks for Weekly recurring parent
+																				169 progress indicator 0 of 0 subtasks complete Value: 0
+																				170 text Subtasks
+																		171 heading 1 Scheduled task in backlog
+																		172 list item Scheduled future backlogScheduledNov 4, 2026Capture ProjectEst:10mTaken:0mAdd notesSubtasks
+																			173 article
+																				1282 button Complete task: Scheduled future backlog
+																				1283 button Edit task title: Scheduled future backlog Description: Scheduled future backlog
+																				1284 button Edit task schedule: Nov 4, 2026
+																				177 text Capture Project
+																				1285 button Edit Est: 10m
+																				1286 button Edit Taken: 0m
+																				180 button Expand notes for Scheduled future backlog
+																				181 button Expand subtasks for Scheduled future backlog
+																				182 progress indicator 0 of 0 subtasks complete Value: 0
+																				183 text Subtasks
+																184 region This Week
+																	185 section header
+																		186 heading This Week ID: list-board-this-week
+																		187 text 1 task
+																		188 group 0 of 1 tasks done
+																			189 text 0
+																			190 text /
+																			191 text 1
+																			192 text Done
+																		193 text Est:
+																		194 text —
+																	195 list This Week tasks
+																		196 list item Capture drag task ACapture ProjectEst:—Taken:1h 1mAdd notesSubtasks
+																			197 article
+																				1287 button Complete task: Capture drag task A
+																				1288 button Edit task title: Capture drag task A Description: Capture drag task A
+																				200 text Capture Project
+																				1289 button Edit Est: —
+																				1290 button Edit Taken: 1h 1m
+																				203 button Expand notes for Capture drag task A
+																				204 button Expand subtasks for Capture drag task A
+																				205 progress indicator 0 of 0 subtasks complete Value: 0
+																				206 text Subtasks
+																207 region Today
+																	208 section header
+																		209 heading Today ID: list-board-today
+																		210 text 2 tasks
+																		211 group 0 of 2 tasks done
+																			212 text 0
+																			213 text /
+																			214 text 2
+																			215 text Done
+																		216 text Est:
+																		217 text 9m
+																	218 list Today tasks
+																		219 list item Capture drag task BCapture ProjectEst:—Taken:0mAdd notesSubtasks
+																			220 article
+																				1291 button Complete task: Capture drag task B
+																				1292 button Edit task title: Capture drag task B Description: Capture drag task B
+																				223 text Capture Project
+																				1293 button Edit Est: —
+																				1294 button Edit Taken: 0m
+																				226 button Expand notes for Capture drag task B
+																				227 button Expand subtasks for Capture drag task B
+																				228 progress indicator 0 of 0 subtasks complete Value: 0
+																				229 text Subtasks
+																		230 heading 1 Scheduled task today
+																		231 list item Ordinary backlog itemOverdueOct 24, 2026Capture ProjectEst:10mTaken:2mAdd notes1/1 Subtasks
+																			232 article
+																				1295 button Complete task: Ordinary backlog item
+																				234 text Ordinary backlog item
+																				235 text Overdue
+																				236 text Oct 24, 2026
+																				237 text Capture Project
+																				1296 button Edit Est: 10m
+																				1297 button Edit Taken: 2m
+																				240 button Expand notes for Ordinary backlog item
+																				241 button Expand subtasks for Ordinary backlog item
+																				242 progress indicator 1 of 1 subtasks complete Value: 1
+																				243 text 1/1 Subtasks
+																	244 region Blitz entry
+																		245 button Blitz now
+																246 region Done
+																	247 section header
+																		248 heading Done ID: list-board-done
+																		249 text 38 completed this month
+																		250 text Est:
+																		251 text 24h 21m
+																	252 list Done tasks
+																		253 heading Oct 23, 2026, 4 tasks
+																		254 list item Overdue task with age labelScheduledOct 18, 2026Capture ProjectEst:5mTaken:1h 3mAdd notesSubtasks
+																			255 article
+																				1298 button Edit task title: Overdue task with age label Description: Overdue task with age label
+																				257 text Scheduled
+																				258 text Oct 18, 2026
+																				259 text Capture Project
+																				1299 button Edit Est: 5m
+																				1300 button Edit Taken: 1h 3m
+																				262 button Expand notes for Overdue task with age label
+																				263 button Expand subtasks for Overdue task with age label
+																				264 progress indicator 0 of 0 subtasks complete Value: 0
+																				265 text Subtasks
+																		266 list item Capture success OFF taskCapture ProjectEst:—Taken:1mAdd notesSubtasks
+																			267 article
+																				1301 button Edit task title: Capture success OFF task Description: Capture success OFF task
+																				269 text Capture Project
+																				1302 button Edit Est: —
+																				1303 button Edit Taken: 1m
+																				272 button Expand notes for Capture success OFF task
+																				273 button Expand subtasks for Capture success OFF task
+																				274 progress indicator 0 of 0 subtasks complete Value: 0
+																				275 text Subtasks
+																		276 list item Scheduled later this weekScheduledOct 22, 2026Capture ProjectEst:10mTaken:1mAdd notes1/1 Subtasks
+																			277 article
+																				1304 button Edit task title: Scheduled later this week Description: Scheduled later this week
+																				279 text Scheduled
+																				280 text Oct 22, 2026
+																				281 text Capture Project
+																				1305 button Edit Est: 10m
+																				1306 button Edit Taken: 1m
+																				284 button Expand notes for Scheduled later this week
+																				285 button Expand subtasks for Scheduled later this week
+																				286 progress indicator 1 of 1 subtasks complete Value: 1
+																				287 text 1/1 Subtasks
+																		288 list item Weekly recurring parentScheduled · OccurrenceOct 20, 2026Capture Project · OccurrenceEst:20mTaken:6mAdd notesSubtasks
+																			289 article
+																				1307 button Edit task title: Weekly recurring parent Description: Weekly recurring parent
+																				1308 button Subtasks
+																				1309 button Notes
+																				1310 button Task actions
+																				291 text Scheduled · Occurrence
+																				292 text Oct 20, 2026
+																				293 group Description: Capture Project
+																					294 text Capture Project
+																					295 text · Occurrence
+																				1311 button Edit Est: 20m
+																				1312 button Edit Taken: 6m
+																				298 button Expand notes for Weekly recurring parent
+																				299 button Expand subtasks for Weekly recurring parent
+																				300 progress indicator 0 of 0 subtasks complete Value: 0
+																				301 text Subtasks
+																		302 heading Oct 20, 2026, 9 tasks
+																		303 list item Capture live task — long title for compact wrapping and hover actionsCapture live task — long title for compact wrapping a…Capture ProjectEst:1mTaken:5mAdd notes2/4 Subtasks
+																			304 article
+																				1313 button Edit task title: Capture live task — long title for compact wrapping and hover actions Description: Capture live task — long title for compact wrapping and hover actions
+																				306 text Capture Project
+																				1314 button Edit Est: 1m
+																				1315 button Edit Taken: 5m
+																				309 button Expand notes for Capture live task — long title for compact wrapping and hover actions
+																				310 button Expand subtasks for Capture live task — long title for compact wrapping and hover actions
+																				311 progress indicator 2 of 4 subtasks complete Value: 2
+																				312 text 2/4 Subtasks
+																		313 list item Second task — notes and success feedbackCapture ProjectEst:8h 45mTaken:3mAdd notesSubtasks
+																			314 article
+																				1316 button Edit task title: Second task — notes and success feedback Description: Second task — notes and success feedback
+																				319 text Capture Project
+																				1317 button Edit Est: 8h 45m
+																				1318 button Edit Taken: 3m
+																				322 button Expand notes for Second task — notes and success feedback
+																				323 button Expand subtasks for Second task — notes and success feedback
+																				324 progress indicator 0 of 0 subtasks complete Value: 0
+																				325 text Subtasks
+																		326 list item Third task without estimateCapture ProjectEst:—Taken:2h 3mAdd notesSubtasks
+																			327 article
+																				1319 button Edit task title: Third task without estimate Description: Third task without estimate
+																				329 text Capture Project
+																				1320 button Edit Est: —
+																				1321 button Edit Taken: 2h 3m
+																				332 button Expand notes for Third task without estimate
+																				333 button Expand subtasks for Third task without estimate
+																				334 progress indicator 0 of 0 subtasks complete Value: 0
+																				335 text Subtasks
+																		336 list item Done history 01 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			337 article
+																				1322 button Edit task title: Done history 01 — long title for scroll Description: Done history 01 — long title for scroll
+																				339 text Capture Project
+																				1323 button Edit Est: 15m
+																				1324 button Edit Taken: 10m
+																				342 button Expand notes for Done history 01 — long title for scroll
+																				343 button Expand subtasks for Done history 01 — long title for scroll
+																				344 progress indicator 0 of 0 subtasks complete Value: 0
+																				345 text Subtasks
+																		346 list item Done history 02 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			347 article
+																				1325 button Edit task title: Done history 02 — long title for scroll Description: Done history 02 — long title for scroll
+																				349 text Capture Project
+																				1326 button Edit Est: 15m
+																				1327 button Edit Taken: 10m
+																				352 button Expand notes for Done history 02 — long title for scroll
+																				353 button Expand subtasks for Done history 02 — long title for scroll
+																				354 progress indicator 0 of 0 subtasks complete Value: 0
+																				355 text Subtasks
+																		356 list item Done history 03 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			357 article
+																				1328 button Edit task title: Done history 03 — long title for scroll Description: Done history 03 — long title for scroll
+																				359 text Capture Project
+																				1329 button Edit Est: 15m
+																				1330 button Edit Taken: 10m
+																				362 button Expand notes for Done history 03 — long title for scroll
+																				363 button Expand subtasks for Done history 03 — long title for scroll
+																				364 progress indicator 0 of 0 subtasks complete Value: 0
+																				365 text Subtasks
+																		366 list item Done history 04 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			367 article
+																				1331 button Edit task title: Done history 04 — long title for scroll Description: Done history 04 — long title for scroll
+																				369 text Capture Project
+																				1332 button Edit Est: 15m
+																				1333 button Edit Taken: 10m
+																				372 button Expand notes for Done history 04 — long title for scroll
+																				373 button Expand subtasks for Done history 04 — long title for scroll
+																				374 progress indicator 0 of 0 subtasks complete Value: 0
+																				375 text Subtasks
+																		376 list item Done history 05 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			377 article
+																				1334 button Edit task title: Done history 05 — long title for scroll Description: Done history 05 — long title for scroll
+																				379 text Capture Project
+																				1335 button Edit Est: 15m
+																				1336 button Edit Taken: 10m
+																				382 button Expand notes for Done history 05 — long title for scroll
+																				383 button Expand subtasks for Done history 05 — long title for scroll
+																				384 progress indicator 0 of 0 subtasks complete Value: 0
+																				385 text Subtasks
+																		386 list item Done history 06 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			387 article
+																				1337 button Edit task title: Done history 06 — long title for scroll Description: Done history 06 — long title for scroll
+																				389 text Capture Project
+																				1338 button Edit Est: 15m
+																				1339 button Edit Taken: 10m
+																				392 button Expand notes for Done history 06 — long title for scroll
+																				393 button Expand subtasks for Done history 06 — long title for scroll
+																				394 progress indicator 0 of 0 subtasks complete Value: 0
+																				395 text Subtasks
+																		396 heading Oct 19, 2026, 7 tasks
+																		397 list item Done history 07 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			398 article
+																				1340 button Edit task title: Done history 07 — long title for scroll Description: Done history 07 — long title for scroll
+																				400 text Capture Project
+																				1341 button Edit Est: 15m
+																				1342 button Edit Taken: 10m
+																				403 button Expand notes for Done history 07 — long title for scroll
+																				404 button Expand subtasks for Done history 07 — long title for scroll
+																				405 progress indicator 0 of 0 subtasks complete Value: 0
+																				406 text Subtasks
+																		407 list item Done history 08 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			408 article
+																				1343 button Edit task title: Done history 08 — long title for scroll Description: Done history 08 — long title for scroll
+																				410 text Capture Project
+																				1344 button Edit Est: 15m
+																				1345 button Edit Taken: 10m
+																				413 button Expand notes for Done history 08 — long title for scroll
+																				414 button Expand subtasks for Done history 08 — long title for scroll
+																				415 progress indicator 0 of 0 subtasks complete Value: 0
+																				416 text Subtasks
+																		417 list item Done history 09 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			418 article
+																				1346 button Edit task title: Done history 09 — long title for scroll Description: Done history 09 — long title for scroll
+																				420 text Capture Project
+																				1347 button Edit Est: 15m
+																				1348 button Edit Taken: 10m
+																				423 button Expand notes for Done history 09 — long title for scroll
+																				424 button Expand subtasks for Done history 09 — long title for scroll
+																				425 progress indicator 0 of 0 subtasks complete Value: 0
+																				426 text Subtasks
+																		427 list item Done history 10 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			428 article
+																				1349 button Edit task title: Done history 10 — long title for scroll Description: Done history 10 — long title for scroll
+																				430 text Capture Project
+																				1350 button Edit Est: 15m
+																				1351 button Edit Taken: 10m
+																				433 button Expand notes for Done history 10 — long title for scroll
+																				434 button Expand subtasks for Done history 10 — long title for scroll
+																				435 progress indicator 0 of 0 subtasks complete Value: 0
+																				436 text Subtasks
+																		437 list item Done history 11 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			438 article
+																				1352 button Edit task title: Done history 11 — long title for scroll Description: Done history 11 — long title for scroll
+																				440 text Capture Project
+																				1353 button Edit Est: 15m
+																				1354 button Edit Taken: 10m
+																				443 button Expand notes for Done history 11 — long title for scroll
+																				444 button Expand subtasks for Done history 11 — long title for scroll
+																				445 progress indicator 0 of 0 subtasks complete Value: 0
+																				446 text Subtasks
+																		447 list item Done history 12 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			448 article
+																				1355 button Edit task title: Done history 12 — long title for scroll Description: Done history 12 — long title for scroll
+																				450 text Capture Project
+																				1356 button Edit Est: 15m
+																				1357 button Edit Taken: 10m
+																				453 button Expand notes for Done history 12 — long title for scroll
+																				454 button Expand subtasks for Done history 12 — long title for scroll
+																				455 progress indicator 0 of 0 subtasks complete Value: 0
+																				456 text Subtasks
+																		457 list item Report sample day 1Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			458 article
+																				1358 button Edit task title: Report sample day 1 Description: Report sample day 1
+																				460 text Reading & research
+																				1359 button Edit Est: 30m
+																				1360 button Edit Taken: 20m
+																				463 button Expand notes for Report sample day 1
+																				464 button Expand subtasks for Report sample day 1
+																				465 progress indicator 0 of 0 subtasks complete Value: 0
+																				466 text Subtasks
+																		467 heading Oct 18, 2026, 6 tasks
+																		468 list item Done history 13 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			469 article
+																				1361 button Edit task title: Done history 13 — long title for scroll Description: Done history 13 — long title for scroll
+																				471 text Capture Project
+																				1362 button Edit Est: 15m
+																				1363 button Edit Taken: 10m
+																				474 button Expand notes for Done history 13 — long title for scroll
+																				475 button Expand subtasks for Done history 13 — long title for scroll
+																				476 progress indicator 0 of 0 subtasks complete Value: 0
+																				477 text Subtasks
+																		478 list item Done history 14 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			479 article
+																				1364 button Edit task title: Done history 14 — long title for scroll Description: Done history 14 — long title for scroll
+																				481 text Capture Project
+																				1365 button Edit Est: 15m
+																				1366 button Edit Taken: 10m
+																				484 button Expand notes for Done history 14 — long title for scroll
+																				485 button Expand subtasks for Done history 14 — long title for scroll
+																				486 progress indicator 0 of 0 subtasks complete Value: 0
+																				487 text Subtasks
+																		488 list item Done history 15 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			489 article
+																				1367 button Edit task title: Done history 15 — long title for scroll Description: Done history 15 — long title for scroll
+																				491 text Capture Project
+																				1368 button Edit Est: 15m
+																				1369 button Edit Taken: 10m
+																				494 button Expand notes for Done history 15 — long title for scroll
+																				495 button Expand subtasks for Done history 15 — long title for scroll
+																				496 progress indicator 0 of 0 subtasks complete Value: 0
+																				497 text Subtasks
+																		498 list item Done history 16 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			499 article
+																				1370 button Edit task title: Done history 16 — long title for scroll Description: Done history 16 — long title for scroll
+																				501 text Capture Project
+																				1371 button Edit Est: 15m
+																				1372 button Edit Taken: 10m
+																				504 button Expand notes for Done history 16 — long title for scroll
+																				505 button Expand subtasks for Done history 16 — long title for scroll
+																				506 progress indicator 0 of 0 subtasks complete Value: 0
+																				507 text Subtasks
+																		508 list item Done history 17 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			509 article
+																				1373 button Edit task title: Done history 17 — long title for scroll Description: Done history 17 — long title for scroll
+																				511 text Capture Project
+																				1374 button Edit Est: 15m
+																				1375 button Edit Taken: 10m
+																				514 button Expand notes for Done history 17 — long title for scroll
+																				515 button Expand subtasks for Done history 17 — long title for scroll
+																				516 progress indicator 0 of 0 subtasks complete Value: 0
+																				517 text Subtasks
+																		518 list item Done history 18 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			519 article
+																				1376 button Edit task title: Done history 18 — long title for scroll Description: Done history 18 — long title for scroll
+																				521 text Capture Project
+																				1377 button Edit Est: 15m
+																				1378 button Edit Taken: 10m
+																				524 button Expand notes for Done history 18 — long title for scroll
+																				525 button Expand subtasks for Done history 18 — long title for scroll
+																				526 progress indicator 0 of 0 subtasks complete Value: 0
+																				527 text Subtasks
+																		528 heading Oct 17, 2026, 6 tasks
+																		529 list item Done history 19 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			530 article
+																				1379 button Edit task title: Done history 19 — long title for scroll Description: Done history 19 — long title for scroll
+																				532 text Capture Project
+																				1380 button Edit Est: 15m
+																				1381 button Edit Taken: 10m
+																				535 button Expand notes for Done history 19 — long title for scroll
+																				536 button Expand subtasks for Done history 19 — long title for scroll
+																				537 progress indicator 0 of 0 subtasks complete Value: 0
+																				538 text Subtasks
+																		539 list item Done history 20 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			540 article
+																				1382 button Edit task title: Done history 20 — long title for scroll Description: Done history 20 — long title for scroll
+																				542 text Capture Project
+																				1383 button Edit Est: 15m
+																				1384 button Edit Taken: 10m
+																				545 button Expand notes for Done history 20 — long title for scroll
+																				546 button Expand subtasks for Done history 20 — long title for scroll
+																				547 progress indicator 0 of 0 subtasks complete Value: 0
+																				548 text Subtasks
+																		549 list item Done history 21 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			550 article
+																				1385 button Edit task title: Done history 21 — long title for scroll Description: Done history 21 — long title for scroll
+																				552 text Capture Project
+																				1386 button Edit Est: 15m
+																				1387 button Edit Taken: 10m
+																				555 button Expand notes for Done history 21 — long title for scroll
+																				556 button Expand subtasks for Done history 21 — long title for scroll
+																				557 progress indicator 0 of 0 subtasks complete Value: 0
+																				558 text Subtasks
+																		559 list item Done history 22 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			560 article
+																				1388 button Edit task title: Done history 22 — long title for scroll Description: Done history 22 — long title for scroll
+																				562 text Capture Project
+																				1389 button Edit Est: 15m
+																				1390 button Edit Taken: 10m
+																				565 button Expand notes for Done history 22 — long title for scroll
+																				566 button Expand subtasks for Done history 22 — long title for scroll
+																				567 progress indicator 0 of 0 subtasks complete Value: 0
+																				568 text Subtasks
+																		569 list item Done history 23 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			570 article
+																				1391 button Edit task title: Done history 23 — long title for scroll Description: Done history 23 — long title for scroll
+																				572 text Capture Project
+																				1392 button Edit Est: 15m
+																				1393 button Edit Taken: 10m
+																				575 button Expand notes for Done history 23 — long title for scroll
+																				576 button Expand subtasks for Done history 23 — long title for scroll
+																				577 progress indicator 0 of 0 subtasks complete Value: 0
+																				578 text Subtasks
+																		579 list item Done history 24 — long title for scrollCapture ProjectEst:15mTaken:10mAdd notesSubtasks
+																			580 article
+																				1394 button Edit task title: Done history 24 — long title for scroll Description: Done history 24 — long title for scroll
+																				582 text Capture Project
+																				1395 button Edit Est: 15m
+																				1396 button Edit Taken: 10m
+																				585 button Expand notes for Done history 24 — long title for scroll
+																				586 button Expand subtasks for Done history 24 — long title for scroll
+																				587 progress indicator 0 of 0 subtasks complete Value: 0
+																				588 text Subtasks
+																		589 heading Oct 16, 2026, 1 task
+																		590 list item Report sample day 4Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			591 article
+																				1397 button Edit task title: Report sample day 4 Description: Report sample day 4
+																				593 text Reading & research
+																				1398 button Edit Est: 30m
+																				1399 button Edit Taken: 20m
+																				596 button Expand notes for Report sample day 4
+																				597 button Expand subtasks for Report sample day 4
+																				598 progress indicator 0 of 0 subtasks complete Value: 0
+																				599 text Subtasks
+																		600 heading Oct 13, 2026, 1 task
+																		601 list item Report sample day 7Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			602 article
+																				1400 button Edit task title: Report sample day 7 Description: Report sample day 7
+																				604 text Reading & research
+																				1401 button Edit Est: 30m
+																				1402 button Edit Taken: 20m
+																				607 button Expand notes for Report sample day 7
+																				608 button Expand subtasks for Report sample day 7
+																				609 progress indicator 0 of 0 subtasks complete Value: 0
+																				610 text Subtasks
+																		611 heading Oct 10, 2026, 1 task
+																		612 list item Report sample day 10Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			613 article
+																				1403 button Edit task title: Report sample day 10 Description: Report sample day 10
+																				615 text Reading & research
+																				1404 button Edit Est: 30m
+																				1405 button Edit Taken: 20m
+																				618 button Expand notes for Report sample day 10
+																				619 button Expand subtasks for Report sample day 10
+																				620 progress indicator 0 of 0 subtasks complete Value: 0
+																				621 text Subtasks
+																		622 heading Oct 7, 2026, 1 task
+																		623 list item Report sample day 13Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			624 article
+																				1406 button Edit task title: Report sample day 13 Description: Report sample day 13
+																				626 text Reading & research
+																				1407 button Edit Est: 30m
+																				1408 button Edit Taken: 20m
+																				629 button Expand notes for Report sample day 13
+																				630 button Expand subtasks for Report sample day 13
+																				631 progress indicator 0 of 0 subtasks complete Value: 0
+																				632 text Subtasks
+																		633 heading Oct 4, 2026, 1 task
+																		634 list item Report sample day 16Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			635 article
+																				1409 button Edit task title: Report sample day 16 Description: Report sample day 16
+																				637 text Reading & research
+																				1410 button Edit Est: 30m
+																				1411 button Edit Taken: 20m
+																				640 button Expand notes for Report sample day 16
+																				641 button Expand subtasks for Report sample day 16
+																				642 progress indicator 0 of 0 subtasks complete Value: 0
+																				643 text Subtasks
+																		644 heading Oct 1, 2026, 1 task
+																		645 list item Report sample day 19Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			646 article
+																				1412 button Edit task title: Report sample day 19 Description: Report sample day 19
+																				648 text Reading & research
+																				1413 button Edit Est: 30m
+																				1414 button Edit Taken: 20m
+																				651 button Expand notes for Report sample day 19
+																				652 button Expand subtasks for Report sample day 19
+																				653 progress indicator 0 of 0 subtasks complete Value: 0
+																				654 text Subtasks
+																		655 heading Sep 28, 2026, 1 task
+																		656 list item Report sample day 22Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			657 article
+																				1415 button Edit task title: Report sample day 22 Description: Report sample day 22
+																				659 text Reading & research
+																				1416 button Edit Est: 30m
+																				1417 button Edit Taken: 20m
+																				662 button Expand notes for Report sample day 22
+																				663 button Expand subtasks for Report sample day 22
+																				664 progress indicator 0 of 0 subtasks complete Value: 0
+																				665 text Subtasks
+																		666 heading Sep 25, 2026, 1 task
+																		667 list item Report sample day 25Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			668 article
+																				1418 button Edit task title: Report sample day 25 Description: Report sample day 25
+																				670 text Reading & research
+																				1419 button Edit Est: 30m
+																				1420 button Edit Taken: 20m
+																				673 button Expand notes for Report sample day 25
+																				674 button Expand subtasks for Report sample day 25
+																				675 progress indicator 0 of 0 subtasks complete Value: 0
+																				676 text Subtasks
+																		677 heading Sep 22, 2026, 1 task
+																		678 list item Report sample day 28Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			679 article
+																				1421 button Edit task title: Report sample day 28 Description: Report sample day 28
+																				681 text Reading & research
+																				1422 button Edit Est: 30m
+																				1423 button Edit Taken: 20m
+																				684 button Expand notes for Report sample day 28
+																				685 button Expand subtasks for Report sample day 28
+																				686 progress indicator 0 of 0 subtasks complete Value: 0
+																				687 text Subtasks
+																		688 heading Sep 19, 2026, 1 task
+																		689 list item Report sample day 31Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			690 article
+																				1424 button Edit task title: Report sample day 31 Description: Report sample day 31
+																				692 text Reading & research
+																				1425 button Edit Est: 30m
+																				1426 button Edit Taken: 20m
+																				695 button Expand notes for Report sample day 31
+																				696 button Expand subtasks for Report sample day 31
+																				697 progress indicator 0 of 0 subtasks complete Value: 0
+																				698 text Subtasks
+																		699 heading Sep 16, 2026, 1 task
+																		700 list item Report sample day 34Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			701 article
+																				1427 button Edit task title: Report sample day 34 Description: Report sample day 34
+																				703 text Reading & research
+																				1428 button Edit Est: 30m
+																				1429 button Edit Taken: 20m
+																				706 button Expand notes for Report sample day 34
+																				707 button Expand subtasks for Report sample day 34
+																				708 progress indicator 0 of 0 subtasks complete Value: 0
+																				709 text Subtasks
+																		710 heading Sep 13, 2026, 1 task
+																		711 list item Report sample day 37Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			712 article
+																				1430 button Edit task title: Report sample day 37 Description: Report sample day 37
+																				714 text Reading & research
+																				1431 button Edit Est: 30m
+																				1432 button Edit Taken: 20m
+																				717 button Expand notes for Report sample day 37
+																				718 button Expand subtasks for Report sample day 37
+																				719 progress indicator 0 of 0 subtasks complete Value: 0
+																				720 text Subtasks
+																		721 heading Sep 10, 2026, 1 task
+																		722 list item Report sample day 40Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			723 article
+																				1433 button Edit task title: Report sample day 40 Description: Report sample day 40
+																				725 text Reading & research
+																				1434 button Edit Est: 30m
+																				1435 button Edit Taken: 20m
+																				728 button Expand notes for Report sample day 40
+																				729 button Expand subtasks for Report sample day 40
+																				730 progress indicator 0 of 0 subtasks complete Value: 0
+																				731 text Subtasks
+																		732 heading Sep 7, 2026, 1 task
+																		733 list item Report sample day 43Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			734 article
+																				1436 button Edit task title: Report sample day 43 Description: Report sample day 43
+																				736 text Reading & research
+																				1437 button Edit Est: 30m
+																				1438 button Edit Taken: 20m
+																				739 button Expand notes for Report sample day 43
+																				740 button Expand subtasks for Report sample day 43
+																				741 progress indicator 0 of 0 subtasks complete Value: 0
+																				742 text Subtasks
+																		743 heading Sep 4, 2026, 1 task
+																		744 list item Report sample day 46Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			745 article
+																				1439 button Edit task title: Report sample day 46 Description: Report sample day 46
+																				747 text Reading & research
+																				1440 button Edit Est: 30m
+																				1441 button Edit Taken: 20m
+																				750 button Expand notes for Report sample day 46
+																				751 button Expand subtasks for Report sample day 46
+																				752 progress indicator 0 of 0 subtasks complete Value: 0
+																				753 text Subtasks
+																		754 heading Sep 1, 2026, 1 task
+																		755 list item Report sample day 49Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			756 article
+																				1442 button Edit task title: Report sample day 49 Description: Report sample day 49
+																				758 text Reading & research
+																				1443 button Edit Est: 30m
+																				1444 button Edit Taken: 20m
+																				761 button Expand notes for Report sample day 49
+																				762 button Expand subtasks for Report sample day 49
+																				763 progress indicator 0 of 0 subtasks complete Value: 0
+																				764 text Subtasks
+																		765 heading Aug 29, 2026, 1 task
+																		766 list item Report sample day 52Reading & researchEst:30mTaken:20mAdd notesSubtasks
+																			767 article
+																				1445 button Edit task title: Report sample day 52 Description: Report sample day 52
+																				769 text Reading & research
+																				1446 button Edit Est: 30m
+																				1447 button Edit Taken: 20m
+																				772 button Expand notes for Report sample day 52
+																				773 button Expand subtasks for Report sample day 52
+																				774 progress indicator 0 of 0 subtasks complete Value: 0
+																				775 text Subtasks
+														776 navigation Primary
+															777 button Home
+															778 button Reports
+								779 region
+						780 region
+						781 region
+		782 title bar (settable, string) Value: Narro
+			783 menu bar System ID: MenuBar
+				784 menu item System
+			785 button Minimize
+			786 button Restore
+			787 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reports
+Loading local report history…
+Home
+Reports
+```

@@ -1,0 +1,239 @@
+{
+  "preparedUtc": "2026-10-26T06:35:17.893370+00:00",
+  "scope": "All outstanding physical journeys; each individual requirement retains separate result and evidence pointer. No optional M11/M12 or M10 counter advancement.",
+  "baseline": {
+    "state": "ARTIFACT_VERIFIED",
+    "source": "efe6cadd8fb7d1a4785cd584c6d3d18e17523142",
+    "artifact": 12615157025,
+    "ciRun": 40235080133,
+    "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261026-Diagnostics\\artifact\\m7-validation\\narro-m7-validation.exe",
+    "sha256": "9371b97cfc7a74566b0e220c5c3dd8ea6521839b52511eaa874e8dd966509241",
+    "zipSha256": "98e877b13a0768288a0ccb31a0e3e3b814b62b1147da4a91fb0531a61f6dbca5"
+  },
+  "journeys": [
+    {
+      "id": "P01",
+      "milestones": "M5",
+      "intent": "Home dark/light preview composition",
+      "status": "ACQUIRED",
+      "requirements": [
+        {
+          "criterion": "Same Home viewport dark and light, row geometry, title truncation and times",
+          "evidence": [
+            "P01-home-dark-max",
+            "P01-home-light"
+          ],
+          "result": "OBSERVED"
+        }
+      ],
+      "updatedUtc": "2026-10-26T06:37:59.824Z"
+    },
+    {
+      "id": "P02",
+      "milestones": "M5",
+      "intent": "Create/edit list image rendering and custom contrast",
+      "status": "ACQUIRED",
+      "requirements": "PNG uploaded through real native picker; Home card and Board selector/icon rendered; restart still pending",
+      "updatedUtc": "2026-10-26T07:39:14.030Z"
+    },
+    {
+      "id": "P03",
+      "milestones": "M5",
+      "intent": "Scheduled and Done groups / independent scroll",
+      "status": "ACQUIRED",
+      "requirements": [
+        {
+          "criterion": "Scheduled and Done groups, date headers, global versus independent scrolling",
+          "evidence": [
+            "P03-done-independent-scroll",
+            "P15-reports-entry"
+          ],
+          "result": "OBSERVED; global board scroll moved multiple lanes, independent Done scroll not established; candidate mismatch for later analysis"
+        }
+      ],
+      "updatedUtc": "2026-10-26T07:24:24.202Z"
+    },
+    {
+      "id": "P04",
+      "milestones": "M5",
+      "intent": "Recurring parent actions and persistence",
+      "status": "ACQUIRED",
+      "requirements": "parent recurrence edit, preset/custom fields, cancel, completed child and actions observed; mutation/persistence pending",
+      "updatedUtc": "2026-10-26T07:39:14.032Z"
+    },
+    {
+      "id": "P05",
+      "milestones": "M5",
+      "intent": "Archive preview and unarchive persistence",
+      "status": "ACQUIRED",
+      "requirements": [
+        {
+          "criterion": "Populated preview, hover restore actions, archive and unarchive cycle",
+          "evidence": [
+            "P05-archive-settled",
+            "P05-archive-hover-actions",
+            "P05-native-unarchive"
+          ],
+          "result": "OBSERVED"
+        },
+        {
+          "criterion": "Persistence after same-executable restart",
+          "result": "PENDING_BATCH_RESTART"
+        }
+      ],
+      "updatedUtc": "2026-10-26T06:47:16.423Z"
+    },
+    {
+      "id": "P06",
+      "milestones": "M6",
+      "intent": "Focus selector hover metadata Notes keyboard",
+      "status": "ACQUIRED",
+      "requirements": "Focus selector/filter, active and next hover, pause/resume, notes, live task switch",
+      "updatedUtc": "2026-10-26T07:39:14.033Z"
+    },
+    {
+      "id": "P07",
+      "milestones": "M6",
+      "intent": "Real Time Up Extend completion feedback and media",
+      "status": "PLANNED",
+      "requirements": []
+    },
+    {
+      "id": "P08",
+      "milestones": "M6",
+      "intent": "Paused break Skip toast / real expiry / history",
+      "status": "PLANNED",
+      "requirements": []
+    },
+    {
+      "id": "P09",
+      "milestones": "M7-A",
+      "intent": "Timer subtasks actions drag clamping and placement",
+      "status": "ACQUIRED",
+      "requirements": "same HWND panel/compact, subtasks create/reorder/complete/delete; 100px drag attempts did not change HWND rect, unresolved",
+      "updatedUtc": "2026-10-26T07:39:14.034Z"
+    },
+    {
+      "id": "P10",
+      "milestones": "M7-B",
+      "intent": "Independent affected Timer native interactions",
+      "status": "ACQUIRED",
+      "requirements": "live compact notes entry, expanded/collapsed subtasks, action toolbar; remaining independent cases pending",
+      "updatedUtc": "2026-10-26T07:39:14.035Z"
+    },
+    {
+      "id": "P11",
+      "milestones": "M7/M8",
+      "intent": "Global and in-app shortcuts",
+      "status": "ACQUIRED",
+      "requirements": "shortcut list, Ctrl+Shift+T round trip and P locate; B disabled in UI, in-app N did not visibly open notes",
+      "updatedUtc": "2026-10-26T07:39:14.036Z"
+    },
+    {
+      "id": "P12",
+      "milestones": "M8",
+      "intent": "Preferences help continuous sections monitor timezone restart",
+      "status": "ACQUIRED",
+      "requirements": "Preferences top/mid/bottom and View shortcuts observed; timezone and display choice visible; further interaction/restart pending",
+      "updatedUtc": "2026-10-26T07:30:15.724Z"
+    },
+    {
+      "id": "P13",
+      "milestones": "M8",
+      "intent": "Three volume families keyboard deferred save dismissal focus",
+      "status": "ACQUIRED",
+      "requirements": "three independently controlled slider families; pointer and keyboard changes; Escape/outside dismiss; persisted through close/reopen",
+      "updatedUtc": "2026-10-26T07:29:32.394Z"
+    },
+    {
+      "id": "P14",
+      "milestones": "M8",
+      "intent": "Isolated controlled volume write failure rollback",
+      "status": "PLANNED",
+      "requirements": []
+    },
+    {
+      "id": "P15",
+      "milestones": "M9",
+      "intent": "Reports filters dates chart options hover Done export",
+      "status": "ACQUIRED",
+      "requirements": [
+        {
+          "criterion": "Overview list filter, 60-day date preset, chart series and daily hover, PDF export",
+          "evidence": [
+            "P15-reports-list-filter-open",
+            "P15-report-filter-capture",
+            "P15-date-preset-60-applied",
+            "P15-chart-options",
+            "P15-breaks-only-chart",
+            "P15-chart-daily-band",
+            "P15-exported-overview.pdf"
+          ],
+          "result": "OBSERVED"
+        },
+        {
+          "criterion": "Done ordering and scrolling",
+          "evidence": [
+            "P15-reports-entry",
+            "P15-pdf-export-result"
+          ],
+          "result": "VISIBLE_ONLY; still needs deliberate long-scroll"
+        }
+      ],
+      "updatedUtc": "2026-10-26T07:24:24.203Z"
+    },
+    {
+      "id": "P16",
+      "milestones": "M9",
+      "intent": "Sessions picker badges Cancel commit detail focus",
+      "status": "ACQUIRED",
+      "requirements": [
+        {
+          "criterion": "Session list, Break filter, Add picker, Cancel, commit, counters, detail, Escape, CSV export",
+          "evidence": [
+            "P16-sessions-loaded",
+            "P16-hide-break-sessions",
+            "P16-session-task-picker-open",
+            "P16-add-session-cancel",
+            "P16-add-session-committed",
+            "P16-session-edit-modal",
+            "P16-detail-escape-close",
+            "P16-exported-sessions.csv"
+          ],
+          "result": "OBSERVED; task count 41->42, sessions64->65, time10h59->11h59; Escape closes detail but UIA focus reported document; investigate restoration"
+        }
+      ],
+      "updatedUtc": "2026-10-26T07:24:24.204Z"
+    },
+    {
+      "id": "P17",
+      "milestones": "M1/M7/M8",
+      "intent": "Actual available topology/scaling and recovery",
+      "status": "ACQUIRED",
+      "requirements": "Two displays active; Screen2 left, DPI120; clone fallback to primary and extend recovery same HWND via probes; HDMI cable hotplug not exercised",
+      "updatedUtc": "2026-10-26T07:45:30.006Z"
+    },
+    {
+      "id": "P18",
+      "milestones": "M7",
+      "intent": "Actual tray Quit and same-EXE placement restart",
+      "status": "PLANNED",
+      "requirements": []
+    },
+    {
+      "id": "P19",
+      "milestones": "M1/M7",
+      "intent": "Physical HDMI unplug/replug requires physical operator",
+      "status": "PLANNED",
+      "requirements": []
+    },
+    {
+      "id": "P20",
+      "milestones": "M6/M7",
+      "intent": "Mouse-held Escape cancellation if supported by available input API",
+      "status": "PLANNED",
+      "requirements": []
+    }
+  ],
+  "reuse": "Previous accepted16 A/B functional routes,17 analyses and six native residual closures retained. Only missing/invalidated states acquired."
+}

@@ -1,0 +1,54 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		5 pane
+			6 pane Narro
+				7 pane (disabled)
+				8 region Narro - Web content
+					9 region
+						10 region
+							11 region
+								12 region
+								13 region
+									14 region
+										15 region
+											16 region
+												17 region
+												18 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													4477 group ID: root
+														4478 complementary List navigation
+															4479 graphic Narro
+															4480 navigation Lists
+																4481 button + Create new list
+																4482 button All my lists
+																4483 button Archived lists
+														4484 section header
+															4485 group Utilities
+																4486 button Search
+																4487 button Settings
+														4488 main ID: main-content
+															5383 status
+																5384 text Loading your local planning board…
+														4882 navigation Primary
+															4883 button Home
+															4884 button Reports
+								779 region
+						780 region
+						781 region
+		782 title bar (settable, string) Value: Narro
+			783 menu bar System ID: MenuBar
+				784 menu item System
+			785 button Minimize
+			786 button Restore
+			787 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Loading your local planning board…
+Home
+Reports
+```

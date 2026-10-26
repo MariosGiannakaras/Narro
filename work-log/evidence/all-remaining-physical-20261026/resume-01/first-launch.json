@@ -1,0 +1,13 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "source": "efe6cadd8fb7d1a4785cd584c6d3d18e17523142",
+  "artifact": 12615157025,
+  "ciRun": 40235080133,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261026-Diagnostics\\artifact\\m7-validation\\narro-m7-validation.exe",
+  "sha256": "9371b97cfc7a74566b0e220c5c3dd8ea6521839b52511eaa874e8dd966509241",
+  "zipSha256": "98e877b13a0768288a0ccb31a0e3e3b814b62b1147da4a91fb0531a61f6dbca5",
+  "pid": 53188,
+  "utc": "2026-10-26T11:30:35.558330+00:00",
+  "optInTimerDiagnostics": true,
+  "stderrCapturedBeforeLaunch": true
+}

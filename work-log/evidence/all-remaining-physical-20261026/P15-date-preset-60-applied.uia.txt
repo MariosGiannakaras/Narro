@@ -1,0 +1,770 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		5 pane
+			6 pane Narro
+				7 pane (disabled)
+				8 region Narro - Web content
+					9 region
+						10 region
+							11 region
+								12 region
+								13 region
+									14 region
+										15 region
+											16 region
+												17 region
+												18 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													19 group ID: root
+														20 complementary List navigation
+															21 graphic Narro
+															22 navigation Lists
+																23 button + Create new list
+																24 button All my lists
+																25 button Archived lists
+														26 section header
+															27 group Utilities
+																28 button Search
+																29 button Settings
+														30 main ID: main-content
+															1451 region Reports
+																1452 section header
+																	1453 button BACK
+																	1454 heading Reports ID: reports-overview-title
+																	1455 button Export PDF
+																1456 tab Reports
+																	1457 tab item (selectable) Overview
+																	1458 tab item (selectable) Sessions BETA
+																1459 button Capture Project
+																1460 button Sep 26, 2026 – Oct 26, 2026
+																1849 dialog Choose report date range Secondary Actions: Raise
+																	1850 group Date presets
+																		1851 button Today
+																		1852 button Yesterday
+																		1853 button This week
+																		1854 button Last 30 days
+																		1855 button Last 60 days
+																		1856 button Last 90 days
+																	1958 region Aug 2026
+																		1959 section header
+																			1960 button Previous year from Aug 2026
+																			1961 button Previous month from Aug 2026
+																			1962 text Aug 2026
+																			1963 button Next month from Aug 2026
+																			1964 button Next year from Aug 2026
+																		1965 button 26
+																		1966 button 27
+																		1967 button 28
+																		1968 button 29
+																		1969 button 30
+																		1970 button 31
+																		1971 button 1
+																		1972 button 2
+																		1973 button 3
+																		1974 button 4
+																		1975 button 5
+																		1976 button 6
+																		1977 button 7
+																		1978 button 8
+																		1979 button 9
+																		1980 button 10
+																		1981 button 11
+																		1982 button 12
+																		1983 button 13
+																		1984 button 14
+																		1985 button 15
+																		1986 button 16
+																		1987 button 17
+																		1988 button 18
+																		1989 button 19
+																		1990 button 20
+																		1991 button 21
+																		1992 button 22
+																		1993 button 23
+																		1994 button 24
+																		1995 button 25
+																		1996 button 26
+																		1997 toggle button 27
+																		1998 toggle button 28
+																		1999 toggle button 29
+																		2000 toggle button 30
+																		2001 toggle button 31
+																		2002 toggle button 1
+																		2003 toggle button 2
+																		2004 toggle button 3
+																		2005 toggle button 4
+																		2006 toggle button 5
+																	1857 region Sep 2026
+																		1858 section header
+																			1859 button Previous year from Sep 2026
+																			1860 button Previous month from Sep 2026
+																			1861 text Sep 2026
+																			1862 button Next month from Sep 2026
+																			1863 button Next year from Sep 2026
+																		1864 toggle button 30
+																		1865 toggle button 31
+																		1866 toggle button 1
+																		1867 toggle button 2
+																		1868 toggle button 3
+																		1869 toggle button 4
+																		1870 toggle button 5
+																		1871 toggle button 6
+																		1872 toggle button 7
+																		1873 toggle button 8
+																		1874 toggle button 9
+																		1875 toggle button 10
+																		1876 toggle button 11
+																		1877 toggle button 12
+																		1878 toggle button 13
+																		1879 toggle button 14
+																		1880 toggle button 15
+																		1881 toggle button 16
+																		1882 toggle button 17
+																		1883 toggle button 18
+																		1884 toggle button 19
+																		1885 toggle button 20
+																		1886 toggle button 21
+																		1887 toggle button 22
+																		1888 toggle button 23
+																		1889 toggle button 24
+																		1890 toggle button 25
+																		1891 toggle button 26
+																		1892 toggle button 27
+																		1893 toggle button 28
+																		1894 toggle button 29
+																		1895 toggle button 30
+																		1896 toggle button 1
+																		1897 toggle button 2
+																		1898 toggle button 3
+																		1899 toggle button 4
+																		1900 toggle button 5
+																		1901 toggle button 6
+																		1902 toggle button 7
+																		1903 toggle button 8
+																		1904 toggle button 9
+																		1905 toggle button 10
+																	1955 section footer
+																		1956 button Cancel
+																		1957 button Apply
+																1461 article
+																	1462 text Total work days
+																	1463 text 6
+																	1464 text 6 active days
+																1465 article
+																	1466 text Total tasks done
+																	1467 text 31
+																	1468 text 5.2 avg / active day
+																1469 article
+																	1470 text Total time worked
+																	1471 text 8hr 26min
+																	1472 text 1hr 24min avg / active day
+																1473 article
+																	1474 text Avg. Time per task
+																	1475 text 15min
+																	1476 text includes partial tasks
+																1477 region TIME BY DAY
+																	1478 text PRODUCTIVITY
+																	1479 heading TIME BY DAY ID: reports-productivity-title
+																	1480 button Chart options
+																	1481 region Daily Tasks, Breaks and Total session time
+																		1482 button Sat, Sep 26: Tasks 0min, Breaks 0min, Total 0min
+																		1483 button Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min
+																		1484 button Mon, Sep 28: Tasks 0min, Breaks 0min, Total 0min
+																		1485 button Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min
+																		1486 button Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min
+																		1487 button Thu, Oct 01: Tasks 0min, Breaks 0min, Total 0min
+																		1488 button Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min
+																		1489 button Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min
+																		1490 button Sun, Oct 04: Tasks 0min, Breaks 0min, Total 0min
+																		1491 button Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min
+																		1492 button Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min
+																		1493 button Wed, Oct 07: Tasks 0min, Breaks 0min, Total 0min
+																		1494 button Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min
+																		1495 button Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min
+																		1496 button Sat, Oct 10: Tasks 0min, Breaks 0min, Total 0min
+																		1497 button Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min
+																		1498 button Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min
+																		1499 button Tue, Oct 13: Tasks 0min, Breaks 0min, Total 0min
+																		1500 button Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min
+																		1501 button Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min
+																		1502 button Fri, Oct 16: Tasks 0min, Breaks 0min, Total 0min
+																		1503 button Sat, Oct 17: Tasks 1hr, Breaks 0min, Total 1hr
+																		1504 button Sun, Oct 18: Tasks 1hr, Breaks 0min, Total 1hr
+																		1505 button Mon, Oct 19: Tasks 1hr, Breaks 0min, Total 1hr
+																		1506 button Tue, Oct 20: Tasks 3hr 17min, Breaks 6min, Total 3hr 23min
+																		1507 button Wed, Oct 21: Tasks 0min, Breaks 0min, Total 0min
+																		1508 button Thu, Oct 22: Tasks 0min, Breaks 0min, Total 0min
+																		1509 button Fri, Oct 23: Tasks 1hr, Breaks 0min, Total 1hr
+																		1510 button Sat, Oct 24: Tasks 1hr 3min, Breaks 1min, Total 1hr 3min
+																		1511 button Sun, Oct 25: Tasks 0min, Breaks 0min, Total 0min
+																		1512 button Mon, Oct 26: Tasks 0min, Breaks 0min, Total 0min
+																	1513 group Chart legend
+																		1514 toggle button TASKS
+																		1515 toggle button BREAKS
+																		1516 toggle button TOTAL
+																1517 article
+																	1518 text Most Productive hour
+																	1519 text 9 AM–10 AM
+																1520 article
+																	1521 text Most Productive day
+																	1522 text Tuesday
+																1523 article
+																	1524 text Most Productive month
+																	1525 text Oct 26
+																1526 region TIME BY LIST
+																	1527 heading TIME BY LIST ID: reports-time-by-list-title
+																	1528 text Total Time:
+																	1529 text 8hr 19min
+																	1530 text Capture Project
+																	1531 text 8hr 19min
+																	1532 text 100
+																	1533 text %
+																1538 region DONE TASKS
+																	1539 heading DONE TASKS ID: reports-done-title
+																	1540 group Completion punctuality
+																		1541 text ● Early
+																		1542 text 91.56
+																		1543 text %
+																		1544 text ● Late
+																		1545 text 8.44
+																		1546 text %
+																	1547 region Done Tasks
+																		1548 section header
+																			1549 text Oct 23, 2026
+																			1550 text 4
+																			1551 text 
+																			1552 text tasks
+																		1553 article
+																			1554 text Capture success OFF task
+																			1555 text Capture Project
+																			1556 text No Est
+																			1557 text Time Taken
+																			1558 text 0min
+																		1559 article
+																			1560 text Scheduled later this week
+																			1561 text Capture Project
+																			1562 text 10min early
+																			1563 text Time Taken
+																			1564 text 0min
+																		1565 article
+																			1566 text Overdue task with age label
+																			1567 text Capture Project
+																			1568 text 57min late
+																			1569 text Time Taken
+																			1570 text 1hr 2min
+																		1571 article
+																			1572 text Weekly recurring parent
+																			1573 text Capture Project
+																			1574 text 15min early
+																			1575 text Time Taken
+																			1576 text 5min
+																		1577 section header
+																			1578 text Oct 20, 2026
+																			1579 text 9
+																			1580 text 
+																			1581 text tasks
+																		1582 article
+																			1583 text Third task without estimate
+																			1584 text Capture Project
+																			1585 text No Est
+																			1586 text Time Taken
+																			1587 text 2hr 2min
+																		1588 article
+																			1589 text Second task — notes and success feedback
+																			1590 text Capture Project
+																			1591 text 8hr 43min early
+																			1592 text Time Taken
+																			1593 text 2min
+																		1594 article
+																			1595 text Capture live task — long title for compact wrapping and hover actions
+																			1596 text Capture Project
+																			1597 text 4min late
+																			1598 text Time Taken
+																			1599 text 5min
+																		1600 article
+																			1601 text Done history 03 — long title for scroll
+																			1602 text Capture Project
+																			1603 text 5min early
+																			1604 text Time Taken
+																			1605 text 10min
+																		1606 article
+																			1607 text Done history 01 — long title for scroll
+																			1608 text Capture Project
+																			1609 text 5min early
+																			1610 text Time Taken
+																			1611 text 10min
+																		1612 article
+																			1613 text Done history 06 — long title for scroll
+																			1614 text Capture Project
+																			1615 text 5min early
+																			1616 text Time Taken
+																			1617 text 10min
+																		1618 article
+																			1619 text Done history 05 — long title for scroll
+																			1620 text Capture Project
+																			1621 text 5min early
+																			1622 text Time Taken
+																			1623 text 10min
+																		1624 article
+																			1625 text Done history 04 — long title for scroll
+																			1626 text Capture Project
+																			1627 text 5min early
+																			1628 text Time Taken
+																			1629 text 10min
+																		1630 article
+																			1631 text Done history 02 — long title for scroll
+																			1632 text Capture Project
+																			1633 text 5min early
+																			1634 text Time Taken
+																			1635 text 10min
+																		1636 section header
+																			1637 text Oct 19, 2026
+																			1638 text 6
+																			1639 text 
+																			1640 text tasks
+																		1647 article
+																			1648 text Done history 11 — long title for scroll
+																			1649 text Capture Project
+																			1650 text 5min early
+																			1651 text Time Taken
+																			1652 text 10min
+																		1653 article
+																			1654 text Done history 12 — long title for scroll
+																			1655 text Capture Project
+																			1656 text 5min early
+																			1657 text Time Taken
+																			1658 text 10min
+																		1659 article
+																			1660 text Done history 08 — long title for scroll
+																			1661 text Capture Project
+																			1662 text 5min early
+																			1663 text Time Taken
+																			1664 text 10min
+																		1665 article
+																			1666 text Done history 10 — long title for scroll
+																			1667 text Capture Project
+																			1668 text 5min early
+																			1669 text Time Taken
+																			1670 text 10min
+																		1671 article
+																			1672 text Done history 07 — long title for scroll
+																			1673 text Capture Project
+																			1674 text 5min early
+																			1675 text Time Taken
+																			1676 text 10min
+																		1677 article
+																			1678 text Done history 09 — long title for scroll
+																			1679 text Capture Project
+																			1680 text 5min early
+																			1681 text Time Taken
+																			1682 text 10min
+																		1683 section header
+																			1684 text Oct 18, 2026
+																			1685 text 6
+																			1686 text 
+																			1687 text tasks
+																		1688 article
+																			1689 text Done history 14 — long title for scroll
+																			1690 text Capture Project
+																			1691 text 5min early
+																			1692 text Time Taken
+																			1693 text 10min
+																		1694 article
+																			1695 text Done history 16 — long title for scroll
+																			1696 text Capture Project
+																			1697 text 5min early
+																			1698 text Time Taken
+																			1699 text 10min
+																		1700 article
+																			1701 text Done history 17 — long title for scroll
+																			1702 text Capture Project
+																			1703 text 5min early
+																			1704 text Time Taken
+																			1705 text 10min
+																		1706 article
+																			1707 text Done history 13 — long title for scroll
+																			1708 text Capture Project
+																			1709 text 5min early
+																			1710 text Time Taken
+																			1711 text 10min
+																		1712 article
+																			1713 text Done history 18 — long title for scroll
+																			1714 text Capture Project
+																			1715 text 5min early
+																			1716 text Time Taken
+																			1717 text 10min
+																		1718 article
+																			1719 text Done history 15 — long title for scroll
+																			1720 text Capture Project
+																			1721 text 5min early
+																			1722 text Time Taken
+																			1723 text 10min
+																		1724 section header
+																			1725 text Oct 17, 2026
+																			1726 text 6
+																			1727 text 
+																			1728 text tasks
+																		1729 article
+																			1730 text Done history 24 — long title for scroll
+																			1731 text Capture Project
+																			1732 text 5min early
+																			1733 text Time Taken
+																			1734 text 10min
+																		1735 article
+																			1736 text Done history 20 — long title for scroll
+																			1737 text Capture Project
+																			1738 text 5min early
+																			1739 text Time Taken
+																			1740 text 10min
+																		1741 article
+																			1742 text Done history 23 — long title for scroll
+																			1743 text Capture Project
+																			1744 text 5min early
+																			1745 text Time Taken
+																			1746 text 10min
+																		1747 article
+																			1748 text Done history 19 — long title for scroll
+																			1749 text Capture Project
+																			1750 text 5min early
+																			1751 text Time Taken
+																			1752 text 10min
+																		1753 article
+																			1754 text Done history 22 — long title for scroll
+																			1755 text Capture Project
+																			1756 text 5min early
+																			1757 text Time Taken
+																			1758 text 10min
+																		1759 article
+																			1760 text Done history 21 — long title for scroll
+																			1761 text Capture Project
+																			1762 text 5min early
+																			1763 text Time Taken
+																			1764 text 10min
+														776 navigation Primary
+															777 button Home
+															778 button Reports
+								779 region
+						780 region
+						781 region
+		782 title bar (settable, string) Value: Narro
+			783 menu bar System ID: MenuBar
+				784 menu item System
+			785 button Minimize
+			786 button Restore
+			787 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+BACK
+Reports
+Export PDF
+Overview
+Sessions BETA
+Capture Project
+Sep 26, 2026 – Oct 26, 2026
+Today
+Yesterday
+This week
+Last 30 days
+Last 60 days
+Last 90 days
+Previous year from Aug 2026
+Previous month from Aug 2026
+Aug 2026
+Next month from Aug 2026
+Next year from Aug 2026
+26
+27
+28
+29
+30
+31
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+1
+2
+3
+4
+5
+Previous year from Sep 2026
+Previous month from Sep 2026
+Sep 2026
+Next month from Sep 2026
+Next year from Sep 2026
+30
+31
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Cancel
+Apply
+Total work days
+6
+6 active days
+Total tasks done
+31
+5.2 avg / active day
+Total time worked
+8hr 26min
+1hr 24min avg / active day
+Avg. Time per task
+15min
+includes partial tasks
+PRODUCTIVITY
+TIME BY DAY
+Chart options
+Sat, Sep 26
+Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min
+Mon, Sep 28: Tasks 0min, Breaks 0min, Total 0min
+Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min
+Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 01: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 03
+Sun, Oct 04: Tasks 0min, Breaks 0min, Total 0min
+Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min
+Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min
+Wed, Oct 07: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 10
+Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min
+Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min
+Tue, Oct 13: Tasks 0min, Breaks 0min, Total 0min
+Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 16: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 17
+Sun, Oct 18: Tasks 1hr, Breaks 0min, Total 1hr
+Mon, Oct 19: Tasks 1hr, Breaks 0min, Total 1hr
+Tue, Oct 20: Tasks 3hr 17min, Breaks 6min, Total 3hr 23min
+Wed, Oct 21: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 22: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 23: Tasks 1hr, Breaks 0min, Total 1hr
+Sat, Oct 24
+Sun, Oct 25: Tasks 0min, Breaks 0min, Total 0min
+Mon, Oct 26
+TASKS
+BREAKS
+TOTAL
+Most Productive hour
+9 AM–10 AM
+Most Productive day
+Tuesday
+Most Productive month
+Oct 26
+TIME BY LIST
+Total Time: 8hr 19min
+Capture Project
+8hr 19min
+100%
+DONE TASKS
+● Early 91.56%
+● Late 8.44%
+Oct 23, 2026
+4 tasks
+Capture success OFF task
+Capture Project
+No Est
+Time Taken 0min
+Scheduled later this week
+Capture Project
+10min early
+Time Taken 0min
+Overdue task with age label
+Capture Project
+57min late
+Time Taken 1hr 2min
+Weekly recurring parent
+Capture Project
+15min early
+Time Taken 5min
+Oct 20, 2026
+9 tasks
+Third task without estimate
+Capture Project
+No Est
+Time Taken 2hr 2min
+Second task — notes and success feedback
+Capture Project
+8hr 43min early
+Time Taken 2min
+Capture live task — long title for compact wrapping and hover actions
+Capture Project
+4min late
+Time Taken 5min
+Done history 03 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 01 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 06 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 05 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 04 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 02 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Oct 19, 2026
+6 tasks
+Done history 11 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 12 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 08 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 10 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 07 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 09 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Oct 18, 2026
+6 tasks
+Done history 14 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 16 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 17 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 13 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 18 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 15 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Oct 17, 2026
+6 tasks
+Done history 24 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 20 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 23 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 19 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 22 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Done history 21 — long title for scroll
+Capture Project
+5min early
+Time Taken 10min
+Home
+Reports
+```

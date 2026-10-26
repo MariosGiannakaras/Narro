@@ -1,0 +1,9 @@
+Focus Panel selected-monitor revalidation failed after visible-area recovery: [FOCUS_PRESENTATION_BUSY] Another Focus native transaction is pending
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked
+Schedule-preference reminder cycle failed; no effect is acknowledged on failure: schedule-reminder effect persistence failed: database is locked
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked
+Recurrence rule 0eba6936-8e16-47d3-a36f-04ff45d69049 orchestration failed and will retry on a later cycle: recurrence materialization failed: database is locked
+Timed-alert observation failed; no undurable effect was emitted: timed-alert effect persistence failed: database is locked

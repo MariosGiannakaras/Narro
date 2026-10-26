@@ -1,0 +1,69 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													15 group ID: root
+														16 complementary List navigation
+															17 graphic Narro
+															18 navigation Lists
+																19 button + Create new list
+																20 button All my lists
+																21 button Archived lists
+														22 section header
+															23 group Utilities
+																24 button Search
+																25 button Settings
+														26 main ID: main-content
+															745 region Archived items
+																746 section header
+																	747 text ARCHIVE
+																	748 heading Archived items ID: archive-panel-title
+																749 tab Archive sections
+																	750 tab item (selectable) Archived lists ID: archive-lists-tab
+																	751 tab item (selectable) Archived done tasks ID: archive-done-tab
+																752 tab panel Archived lists ID: archive-lists-tabpanel
+																	753 region Archived lists
+																		754 text Your archived lists
+																		755 status
+																			756 text Loading archived lists…
+														126 navigation Primary
+															127 button Home
+															128 button Reports
+								129 region
+						130 region
+						131 region
+		132 title bar (settable, string) Value: Narro
+			133 menu bar System ID: MenuBar
+				577 menu item System
+			135 button Minimize
+			136 button Restore
+			137 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+ARCHIVE
+Archived items
+Archived lists
+Archived done tasks
+Your archived lists
+Loading archived lists…
+Home
+Reports
+```

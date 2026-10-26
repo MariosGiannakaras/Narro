@@ -1,0 +1,214 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									10 group ID: root
+										11 main
+								325 region
+
+Document text: ```
+All ListsA…
+Today
+Preferences
+Home
+Compact view
+Est: 11min
+52/54 Done
+Physical EST clean 20261026Physical EST clean 202610…
+00:00
+Capture ProjectCapture Pro…
+Time's Up
+EST
+0:01:00
+Time Taken
+0:01:00
+0 of 0 subtasks complete
+Subtasks
++
+Start break
+Notes
+Extend timer
+Skip task
+Complete task
+Ordinary backlog item
+Capture ProjectCapture Pro…
+2d ago
+Oct 24, 2026
+1/1 subtasks
+￼
++ ADD TASK
+0 Scheduled tasks
+54 Done
+Break
+1min
+Break
+1min
+Capture drag task B
+Capture ProjectCapture Pro…
+1hr 6min
+Capture live task — long title for compact …wrapping and hover actions
+Capture ProjectCapture Pro…
+2/4 subtasks
+5min
+Physical EST boundary resume 20261026
+Capture ProjectCapture Pro…
+1min
+Second task — notes and success feedback
+Capture ProjectCapture Pro…
+2min
+Overdue task with age label
+Capture ProjectCapture Pro…
+Oct 18, 2026
+1hr 2min
+Third task without estimate
+Capture ProjectCapture Pro…
+2hr 2min
+Capture success OFF task
+Capture ProjectCapture Pro…
+1min
+Physical EST expiry 1m
+Capture ProjectCapture Pro…
+1min
+Scheduled later this week
+Capture ProjectCapture Pro…
+Oct 22, 2026
+1/1 subtasks
+1min
+Done history 01 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Weekly recurring parent
+Capture ProjectCapture Pro…
+Oct 20, 2026
+5min
+Done history 02 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 03 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 04 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 05 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 06 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 07 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 08 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 09 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 10 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 11 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 12 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 13 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 14 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 15 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 16 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 17 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 18 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 19 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 20 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 21 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 22 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 23 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Done history 24 — long title for scroll
+Capture ProjectCapture Pro…
+10min
+Report sample day 1
+Reading & researchReading & r…
+20min
+Report sample day 4
+Reading & researchReading & r…
+20min
+Report sample day 7
+Reading & researchReading & r…
+20min
+Report sample day 10
+Reading & researchReading & r…
+20min
+Report sample day 13
+Reading & researchReading & r…
+20min
+Report sample day 16
+Reading & researchReading & r…
+20min
+Report sample day 19
+Reading & researchReading & r…
+20min
+Report sample day 22
+Reading & researchReading & r…
+20min
+Report sample day 25
+Reading & researchReading & r…
+20min
+Report sample day 28
+Reading & researchReading & r…
+20min
+Report sample day 31
+Reading & researchReading & r…
+20min
+Report sample day 34
+Reading & researchReading & r…
+20min
+Report sample day 37
+Reading & researchReading & r…
+20min
+Report sample day 40
+Reading & researchReading & r…
+20min
+Report sample day 43
+Reading & researchReading & r…
+20min
+Report sample day 46
+Reading & researchReading & r…
+20min
+Report sample day 49
+Reading & researchReading & r…
+20min
+Report sample day 52
+Reading & researchReading & r…
+20min
+```
