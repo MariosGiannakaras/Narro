@@ -293,14 +293,47 @@ function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
     return (
       <section
         className="focus-quick-preferences"
-        data-focus-quick-preferences={preferences.loading ? "loading" : "error"}
+        data-focus-quick-preferences={preferences.loading ? "preparing" : "error"}
         aria-labelledby="focus-quick-preferences-title"
+        aria-busy={preferences.loading}
       >
         <QuickHeader onBack={onBack} />
         <div className="focus-quick-preferences__body">
-          <div className={`focus-quick-preferences__status type-metadata${preferences.error ? " focus-quick-preferences__error" : ""}`} role={preferences.error ? "alert" : "status"}>
-            {preferences.error ?? "Loading Quick Preferences…"}
-          </div>
+          {preferences.loading ? (
+            <div className="focus-quick-preferences__skeleton" data-focus-quick-skeleton="true"
+              role="status" aria-label="Preparing Quick Preferences">
+              <div aria-hidden="true">
+                <div className="focus-quick-preferences__row">
+                  <span>Hide est/done times</span>
+                  <span className="focus-quick-preferences__skeleton-switch" />
+                </div>
+                <section className="focus-quick-preferences__group">
+                  <h2 className="focus-quick-preferences__group-title">Screen</h2>
+                  <div className="focus-quick-preferences__screens">
+                    {[0, 1, 2].map((index) => (
+                      <div key={index} className="focus-quick-preferences__screen">
+                        <span className="focus-quick-preferences__screen-preview" />
+                        <span className="focus-quick-preferences__skeleton-line" />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <div className="focus-quick-preferences__row">
+                  <span>Blitz Panel Side</span>
+                  <span className="focus-quick-preferences__skeleton-control" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="focus-quick-preferences__error" role="alert">
+              <p>{preferences.error ?? "Quick Preferences could not be opened."}</p>
+              <button type="button" className="motion-interactive"
+                data-focus-quick-preferences-retry="true"
+                onClick={preferences.retryInitialLoad}>
+                Retry
+              </button>
+            </div>
+          )}
         </div>
       </section>
     );
