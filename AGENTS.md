@@ -6,6 +6,10 @@ This file contains durable implementation rules for Narro. Keep changing progres
 
 **Continuation overrides startup:** for an active coding chat, interrupted tool call or "συνέχισε/κόλλησες/ολοκλήρωσες;" first preserve the exact live owner/branch/PR/head SHA/CI run and resume its next action. Check whether an interrupted write/merge already occurred before retrying. Do not repeat full discovery, open a duplicate PR or invent pending CI when the recorded run has completed. Follow the binding minimal-check state machine in [`AI_START_HERE.md`](AI_START_HERE.md) and [`AGENT_WORKFLOW.md`](AGENT_WORKFLOW.md). Apply the zero-context onboarding **once only** when genuinely needed for a new coding session; obey the latest user's explicit repository-access restrictions.
 
+## M10 boundary: explicit user approval required
+
+**M10 USER APPROVAL HOLD (2026-10-26; explicit user decision):** Completion of all M1–M9 does **not** authorize automatic M10 continuation. After M1–M9 technical/CI/resulting-main/native acceptance is truly closed, **stop at the M9→M10 boundary**. Prepare a read-only pre-M10 user-review handoff with exact main/source SHA, verified EXE/build identity and access, M1–M9 PASS/FAIL/OPEN/NOT RUN by independent acceptance type, relevant manual Windows checks and reproducible instructions, unresolved risks (including poisoned-lock/compositor where applicable), and the precise proposed M10 scope. Give the user an opportunity to inspect/test the M1–M9 candidate and review the evidence. **Do not begin, schedule, prepare as a new M10 work item, validate, count, freeze or silently auto-advance M10** until the user explicitly approves starting M10 *after* that review. General 'continue', M9 completion, CI PASS, or silence are not approval. Remediation needed for M1–M9 may continue within its authorized scope; M11/M12 remain independent hard opt-ins. Record explicit approval in `HANDOFF.md`, `TODO.md` and `STATUS.md` before the first M10 task. This user approval is an additional gate, not a replacement for the existing M1–M9 technical/physical entry gate.
+
 ## Start-of-task procedure
 
 Before making changes:
