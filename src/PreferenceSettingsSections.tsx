@@ -210,6 +210,18 @@ export function BlitzPanelPreferenceSection({
           })}
         </div>
       </Row>
+      <Row
+        title="Keep Timer position after restart"
+        detail="Off: every new Narro launch starts the Timer at the Panel. On: remember the last moved Timer position across launches. During one run the Timer always remembers where you dragged it."
+      >
+        <Switch
+          checked={snapshot.general.rememberTimerPositionOnRestart}
+          disabled={pendingKey !== null}
+          label="Keep Floating Timer position after restarting Narro"
+          onChange={(rememberTimerPositionOnRestart) =>
+            onSave({ rememberTimerPositionOnRestart }, "timerPositionRestart")}
+        />
+      </Row>
     </section>
   );
 }
