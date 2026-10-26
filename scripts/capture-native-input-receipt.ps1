@@ -16,7 +16,8 @@ if ($PSVersionTable.PSEdition -eq 'Core' -and -not $IsWindows) {
     throw 'This receipt tool only runs on Windows.'
 }
 
-# Deliberately no keyboard hook: poll only the five named virtual-key states.
+# Deliberately no keyboard hook: poll only shortcut modifiers, F/T and left mouse;
+# persist only the exact chord booleans (never individual letter-key state).
 # In particular, a virtual-key sample is NOT an OS scan-code/event-delivery proof.
 $win32 = @'
 using System;
@@ -94,7 +95,7 @@ if ($SelfTest) {
     $null = Get-NarroRect $foreground
     $null = ConvertTo-NarroHandle $foreground
     $null = [NarroInputWin32]::VisibleTopLevelWindows([uint32]0)
-    foreach ($key in @(0x11, 0x12, 0x46, 0x54, 0x01)) { $null = Test-NarroKey $key }
+    foreach ($key in @(0x11, 0x12, 0x10, 0x46, 0x54, 0x01)) { $null = Test-NarroKey $key }
     Write-Output 'Windows read-only input receipt Win32 interop self-test: PASS (no physical input exercised).'
     return
 }
@@ -143,6 +144,11 @@ try {
                 }
             }
         )
+        $ctrlHeld = Test-NarroKey 0x11
+        $altHeld = Test-NarroKey 0x12
+        $shiftHeld = Test-NarroKey 0x10
+        $ctrlFChord = $ctrlHeld -and -not $altHeld -and -not $shiftHeld -and (Test-NarroKey 0x46)
+        $ctrlAltTChord = $ctrlHeld -and $altHeld -and -not $shiftHeld -and (Test-NarroKey 0x54)
         $samples.Add([pscustomobject]@{
             elapsedMs = [int][Math]::Round($timer.Elapsed.TotalMilliseconds)
             targetForeground = ($foregroundPid -eq [uint32]$TargetProcessId)
@@ -153,10 +159,11 @@ try {
             hwnds = $windows
             cursor = if ($cursorAvailable) { @($cursor.X, $cursor.Y) } else { $null }
             keys = [pscustomobject]@{
-                ctrl = Test-NarroKey 0x11
-                alt = Test-NarroKey 0x12
-                f = Test-NarroKey 0x46
-                t = Test-NarroKey 0x54
+                ctrl = $ctrlHeld
+                alt = $altHeld
+                shift = $shiftHeld
+                ctrlF = $ctrlFChord
+                ctrlAltT = $ctrlAltTChord
                 leftMouse = Test-NarroKey 0x01
             }
         })
