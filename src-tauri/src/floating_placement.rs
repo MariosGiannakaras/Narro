@@ -26,7 +26,9 @@ fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
         .map_err(|error| placement_error("read session-only Timer position", error))
 }
 
-pub(crate) fn remember_position_after_restart(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+pub(crate) fn remember_position_after_restart(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<bool> {
     let connection = app_database(app_handle)?;
     persistence::preferences::get_preferences(&connection)
         .map(|record| {
@@ -65,12 +67,8 @@ fn persist_session_placement_if_opted_in(
 ) -> CommandResult<()> {
     if remember_position_after_restart(app_handle)? {
         let connection = app_database(app_handle)?;
-        persistence::floating_placement::save(
-            &connection,
-            saved,
-            &chrono::Utc::now().to_rfc3339(),
-        )
-        .map_err(|error| placement_error("persist opted-in Timer position", error))?;
+        persistence::floating_placement::save(&connection, saved, &chrono::Utc::now().to_rfc3339())
+            .map_err(|error| placement_error("persist opted-in Timer position", error))?;
     }
     Ok(())
 }
@@ -93,7 +91,6 @@ fn set_session_timer_position(placement: SavedFloatingPlacement) -> CommandResul
     *saved = Some(placement);
     Ok(())
 }
-
 
 // OS recovery is temporary. Only a completed, non-cancelled interactive move
 // may replace a remembered position on a monitor that is currently absent.
