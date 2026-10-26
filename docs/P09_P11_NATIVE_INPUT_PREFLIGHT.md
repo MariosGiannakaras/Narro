@@ -21,7 +21,8 @@ From a separate terminal on the **same isolated Windows machine**, select the ve
 ```powershell
 # First identify the PID of the isolated Narro.exe explicitly; do not infer it from the example.
 Get-Process Narro | Select-Object Id, Path
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-native-input-receipt.ps1 -TargetProcessId <ISOLATED_NARRO_PID> -Seconds 45 -IntervalMs 50 -Out E:\IsolatedEvidence\P11-main-win32.json
+$isolatedNarroPid = 12345 # REPLACE with the verified PID from Get-Process above
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-native-input-receipt.ps1 -TargetProcessId $isolatedNarroPid -Seconds 45 -IntervalMs 50 -Out E:\IsolatedEvidence\P11-main-win32.json
 ```
 
 Repeat with a **new** file `P09-focus-win32.json` for the P09 held-pointer case. Both scripts write with exclusive CreateNew semantics and will refuse to overwrite an existing receipt; the Win32 collector also refuses to create an unexpected parent directory. The Windows preflight has an isolated, **no-interaction** self-test:
