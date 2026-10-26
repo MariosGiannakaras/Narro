@@ -249,9 +249,10 @@ if (process.argv.length === 3 && process.argv[2] === "--self-test") {
   assert.equal(classifyChord({ code: "KeyT", ctrlKey: true, altKey: true, repeat: true }), null);
   assert.equal(classifyChord({ code: "KeyT", ctrlKey: false, altKey: true }), null);
   assert.throws(() => parseOptions(["--out=relative.json"]));
-  assert.throws(() => parseOptions(["--out=/tmp/a.json", "--target=other"]));
-  assert.throws(() => parseOptions(["--out=/tmp/a.json", "--seconds=0"]));
-  assert.throws(() => parseOptions(["--out=/tmp/a.json", "--unknown=x"]));
+  assert.throws(() => parseOptions(["--out=" + path.resolve("a.json"), "--target=other"]));
+  assert.throws(() => parseOptions(["--out=" + path.resolve("a.json"), "--seconds=0"]));
+  assert.throws(() => parseOptions(["--out=" + path.resolve("a.json"), "--unknown=x"]));
+  assert.deepEqual(parseOptions(["--out=" + path.resolve("a.json"), "--seconds=10", "--target=main"]).target, "main");
   assert.match(installInPage.toString(), /pointerdown/);
 } else {
   await run().catch(error => {
