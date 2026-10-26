@@ -1311,7 +1311,11 @@ fn apply_timer_native(
         // real preferred Panel position while hidden only for an *unpinned*
         // Timer. Never override a stored, possibly user-dragged placement.
         let already_visible = window.is_visible().map_err(|error| {
-            map_window_error(FOCUS_SURFACE_LABEL, "read Focus visibility before Timer reveal", error)
+            map_window_error(
+                FOCUS_SURFACE_LABEL,
+                "read Focus visibility before Timer reveal",
+                error,
+            )
         })?;
         if !already_visible && !floating_placement::has_saved_timer_position(app_handle)? {
             let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
