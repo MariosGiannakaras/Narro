@@ -1,0 +1,28 @@
+Browser tab: 1, Title: "Narro Search Palette Fixture", URL: "http://127.0.0.1:4189/search-palette-fixture.html?theme=dark&mode=results".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 55-58
+~1 AXWebArea Narro Search Palette Fixture, URL: 127.0.0.1:4189/search-palette-fixture.html?theme=dark&mode=results
+~			47 search text field (settable) Description: Search tasks and lists, Value: project
+~			50 container LISTS
+~				51 heading LISTS, Value: 3, ID: search-palette-lists-title
+~					52 text LISTS
+~				53 button Project Atlas List
+~					54 container
++						55 text Project  Atlas
++					56 text List
++			57 container TASKS
++				58 heading TASKS, Value: 3, ID: search-palette-tasks-title
++					59 text TASKS
++				60 button Draft project update Project Atlas · Today
++					61 container
++						62 text Draft  project  update
++					63 text Project Atlas
++					64 text  · 
++					65 text Today
++				66 button Archive project receipts Project Atlas · Backlog
++					67 container
++						68 text Archive  project  receipts
++					69 text Project Atlas
++					70 text  · 
++					71 text Backlog
+The focused UI element is 47 search text field (settable) Description: Search tasks and lists, Value: project

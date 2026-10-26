@@ -1,0 +1,74 @@
+Browser tab: 1, Title: "Narro Search Palette Fixture", URL: "http://127.0.0.1:4189/search-palette-fixture.html?theme=light&mode=results".
+1 AXWebArea Narro Search Palette Fixture, URL: 127.0.0.1:4189/search-palette-fixture.html?theme=light&mode=results
+	2 container root
+		3 container List navigation
+			4 image Narro
+			5 container Lists
+				6 button + Create new list
+				7 button All my lists
+				8 button Archived lists
+		9 container
+			10 container Utilities
+				11 button Search
+				12 button Settings
+			13 container Good morning
+				14 container
+					15 text HOME
+					16 heading Good morning, Value: 1, ID: home-title
+						17 text Good morning
+					18 text Plan the next work that deserves your attention.
+				19 container Your Lists
+					20 heading Your Lists, Value: 2, ID: home-lists-title
+						21 text Your Lists
+					22 text Lists with your upcoming tasks
+					23 container
+						24 heading All Lists, Value: 3
+							25 text All Lists
+						26 container All Lists task preview
+							27 text Draft project update 30m Review chapter notes 1h
+						28 text 5 pending tasks Est:  2h 30m
+					29 container
+						30 heading Project Atlas, Value: 3
+							31 text Project Atlas
+						32 container Project Atlas task preview
+							33 text Draft project update 30m
+						34 text 3 pending tasks Est:  1h 30m
+					35 container
+						36 heading Study, Value: 3
+							37 text Study
+						38 container Study task preview
+							39 text Review chapter notes 1h
+						40 text 2 pending tasks Est:  1h
+			41 container Primary
+				42 button Home
+				43 button Reports
+		44 container Search Narro
+			45 heading Search Narro, Value: 2, ID: search-palette-title
+				46 text Search Narro
+			47 search text field (settable) Description: Search tasks and lists, Value: project
+			48 container Control F
+				49 text Ctrl+F
+			50 container LISTS
+				51 heading LISTS, Value: 3, ID: search-palette-lists-title
+					52 text LISTS
+				53 button Project Atlas List
+					54 container
+						55 text Project  Atlas
+					56 text List
+			57 container TASKS
+				58 heading TASKS, Value: 3, ID: search-palette-tasks-title
+					59 text TASKS
+				60 button Draft project update Project Atlas · Today
+					61 container
+						62 text Draft  project  update
+					63 text Project Atlas
+					64 text  · 
+					65 text Today
+				66 button Archive project receipts Project Atlas · Backlog
+					67 container
+						68 text Archive  project  receipts
+					69 text Project Atlas
+					70 text  · 
+					71 text Backlog
+
+The focused UI element is 47 search text field (settable) Description: Search tasks and lists, Value: project

@@ -1,0 +1,650 @@
+Browser tab: 1, Title: "Narro Theme Settings Fixture", URL: "http://127.0.0.1:4189/theme-settings-fixture.html?preference=dark&preferencesDialog=1".
+1 AXWebArea Narro Theme Settings Fixture, URL: 127.0.0.1:4189/theme-settings-fixture.html?preference=dark&preferencesDialog=1
+	2 container root
+		3 button Reopen Preferences
+		4 container Preferences
+			5 button Close Preferences
+			6 container Preferences
+				7 container
+					8 heading Preferences, Value: 1, ID: theme-settings-title
+						9 text Preferences
+					10 text Manage Narro's local Windows appearance and shortcuts.
+				11 container Blitz Panel
+					12 heading Blitz Panel, Value: 2, ID: preferences-blitz-panel-title
+						13 text Blitz Panel
+					14 button Refresh displays
+					15 text Monitor
+					16 text Choose which Windows work area owns the Focus Panel.
+					17 container Focus Panel monitor
+						18 checkbox Automatic Primary display, Value: 0
+							19 text Automatic
+							20 text Primary display
+						21 checkbox Description: Screen 1: Primary display · 1920×1080 · 100%, Value: 0
+							22 container
+								23 text Screen  1
+							24 text Primary display
+						25 checkbox Description: Screen 2: Secondary display · 2560×1440 · 125%, Value: 1
+							26 container
+								27 text Screen  2
+							28 text Secondary display
+					29 text Panel side
+					30 text Anchor the Focus Panel to the selected monitor's work-area edge.
+					31 container Blitz Panel Side
+						32 checkbox Left, Value: 0
+						33 checkbox Right, Value: 1
+				34 container General
+					35 heading General, Value: 2, ID: theme-general-title
+						36 text General
+					37 text Theme
+					38 text System follows your current Windows light or dark preference.
+					39 container Theme
+						40 checkbox Description: System theme — Follow your Windows color mode, Value: 0
+						41 checkbox Description: Dark theme — Use Narro's dark surfaces, Value: 1
+						42 checkbox Description: Light theme — Use Narro's light surfaces, Value: 0
+					43 text Start with Windows
+					44 text Start Narro automatically when Windows starts.
+					45 switch Description: Start Narro with Windows, Value: 1
+					46 text Hide EST / Time Taken
+					47 text Keep task timing quieter until you hover or focus a task.
+					48 switch Description: Hide task EST and Time Taken, Value: 1
+					49 text Auto-parse EST from title
+					50 text Recognize a supported estimate suffix when creating a task.
+					51 switch Description: Auto-parse EST from task title, Value: 1
+				52 container Time
+					53 heading Time, Value: 2, ID: theme-time-title
+						54 text Time
+					55 text Timezone
+					56 text Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+					57 pop up button (collapsed, settable) Description: Display timezone, Value: (GMT+02:00) Europe/Athens, Secondary Actions: Expand
+						58 menu
+							59 Automatic (Windows: (GMT+02:00) Europe/Athens)
+							60 (GMT+00:00) Africa/Abidjan
+							61 (GMT+00:00) Africa/Accra
+							62 (GMT+03:00) Africa/Addis_Ababa
+							63 (GMT+01:00) Africa/Algiers
+							64 (GMT+03:00) Africa/Asmera
+							65 (GMT+00:00) Africa/Bamako
+							66 (GMT+01:00) Africa/Bangui
+							67 (GMT+00:00) Africa/Banjul
+							68 (GMT+00:00) Africa/Bissau
+							69 (GMT+02:00) Africa/Blantyre
+							70 (GMT+01:00) Africa/Brazzaville
+							71 (GMT+02:00) Africa/Bujumbura
+							72 (GMT+03:00) Africa/Cairo
+							73 (GMT+00:00) Africa/Casablanca
+							74 (GMT+01:00) Africa/Ceuta
+							75 (GMT+00:00) Africa/Conakry
+							76 (GMT+00:00) Africa/Dakar
+							77 (GMT+03:00) Africa/Dar_es_Salaam
+							78 (GMT+03:00) Africa/Djibouti
+							79 (GMT+01:00) Africa/Douala
+							80 (GMT+00:00) Africa/El_Aaiun
+							81 (GMT+00:00) Africa/Freetown
+							82 (GMT+02:00) Africa/Gaborone
+							83 (GMT+02:00) Africa/Harare
+							84 (GMT+02:00) Africa/Johannesburg
+							85 (GMT+02:00) Africa/Juba
+							86 (GMT+03:00) Africa/Kampala
+							87 (GMT+02:00) Africa/Khartoum
+							88 (GMT+02:00) Africa/Kigali
+							89 (GMT+01:00) Africa/Kinshasa
+							90 (GMT+01:00) Africa/Lagos
+							91 (GMT+01:00) Africa/Libreville
+							92 (GMT+00:00) Africa/Lome
+							93 (GMT+01:00) Africa/Luanda
+							94 (GMT+02:00) Africa/Lubumbashi
+							95 (GMT+02:00) Africa/Lusaka
+							96 (GMT+01:00) Africa/Malabo
+							97 (GMT+02:00) Africa/Maputo
+							98 (GMT+02:00) Africa/Maseru
+							99 (GMT+02:00) Africa/Mbabane
+							100 (GMT+03:00) Africa/Mogadishu
+							101 (GMT+00:00) Africa/Monrovia
+							102 (GMT+03:00) Africa/Nairobi
+							103 (GMT+01:00) Africa/Ndjamena
+							104 (GMT+01:00) Africa/Niamey
+							105 (GMT+00:00) Africa/Nouakchott
+							106 (GMT+00:00) Africa/Ouagadougou
+							107 (GMT+01:00) Africa/Porto-Novo
+							108 (GMT+00:00) Africa/Sao_Tome
+							109 (GMT+02:00) Africa/Tripoli
+							110 (GMT+01:00) Africa/Tunis
+							111 (GMT+02:00) Africa/Windhoek
+							112 (GMT-09:00) America/Adak
+							113 (GMT-08:00) America/Anchorage
+							114 (GMT-04:00) America/Anguilla
+							115 (GMT-04:00) America/Antigua
+							116 (GMT-03:00) America/Araguaina
+							117 (GMT-03:00) America/Argentina/La_Rioja
+							118 (GMT-03:00) America/Argentina/Rio_Gallegos
+							119 (GMT-03:00) America/Argentina/Salta
+							120 (GMT-03:00) America/Argentina/San_Juan
+							121 (GMT-03:00) America/Argentina/San_Luis
+							122 (GMT-03:00) America/Argentina/Tucuman
+							123 (GMT-03:00) America/Argentina/Ushuaia
+							124 (GMT-04:00) America/Aruba
+							125 (GMT-03:00) America/Asuncion
+							126 (GMT-03:00) America/Bahia
+							127 (GMT-06:00) America/Bahia_Banderas
+							128 (GMT-04:00) America/Barbados
+							129 (GMT-03:00) America/Belem
+							130 (GMT-06:00) America/Belize
+							131 (GMT-04:00) America/Blanc-Sablon
+							132 (GMT-04:00) America/Boa_Vista
+							133 (GMT-05:00) America/Bogota
+							134 (GMT-06:00) America/Boise
+							135 (GMT-03:00) America/Buenos_Aires
+							136 (GMT-06:00) America/Cambridge_Bay
+							137 (GMT-04:00) America/Campo_Grande
+							138 (GMT-05:00) America/Cancun
+							139 (GMT-04:00) America/Caracas
+							140 (GMT-03:00) America/Catamarca
+							141 (GMT-03:00) America/Cayenne
+							142 (GMT-05:00) America/Cayman
+							143 (GMT-05:00) America/Chicago
+							144 (GMT-06:00) America/Chihuahua
+							145 (GMT-06:00) America/Ciudad_Juarez
+							146 (GMT-05:00) America/Coral_Harbour
+							147 (GMT-03:00) America/Cordoba
+							148 (GMT-06:00) America/Costa_Rica
+							149 (GMT-03:00) America/Coyhaique
+							150 (GMT-07:00) America/Creston
+							151 (GMT-04:00) America/Cuiaba
+							152 (GMT-04:00) America/Curacao
+							153 (GMT+00:00) America/Danmarkshavn
+							154 (GMT-07:00) America/Dawson
+							155 (GMT-07:00) America/Dawson_Creek
+							156 (GMT-06:00) America/Denver
+							157 (GMT-04:00) America/Detroit
+							158 (GMT-04:00) America/Dominica
+							159 (GMT-06:00) America/Edmonton
+							160 (GMT-05:00) America/Eirunepe
+							161 (GMT-06:00) America/El_Salvador
+							162 (GMT-07:00) America/Fort_Nelson
+							163 (GMT-03:00) America/Fortaleza
+							164 (GMT-03:00) America/Glace_Bay
+							165 (GMT-02:00) America/Godthab
+							166 (GMT-03:00) America/Goose_Bay
+							167 (GMT-04:00) America/Grand_Turk
+							168 (GMT-04:00) America/Grenada
+							169 (GMT-04:00) America/Guadeloupe
+							170 (GMT-06:00) America/Guatemala
+							171 (GMT-05:00) America/Guayaquil
+							172 (GMT-04:00) America/Guyana
+							173 (GMT-03:00) America/Halifax
+							174 (GMT-04:00) America/Havana
+							175 (GMT-07:00) America/Hermosillo
+							176 (GMT-05:00) America/Indiana/Knox
+							177 (GMT-04:00) America/Indiana/Marengo
+							178 (GMT-04:00) America/Indiana/Petersburg
+							179 (GMT-05:00) America/Indiana/Tell_City
+							180 (GMT-04:00) America/Indiana/Vevay
+							181 (GMT-04:00) America/Indiana/Vincennes
+							182 (GMT-04:00) America/Indiana/Winamac
+							183 (GMT-04:00) America/Indianapolis
+							184 (GMT-06:00) America/Inuvik
+							185 (GMT-04:00) America/Iqaluit
+							186 (GMT-05:00) America/Jamaica
+							187 (GMT-03:00) America/Jujuy
+							188 (GMT-08:00) America/Juneau
+							189 (GMT-04:00) America/Kentucky/Monticello
+							190 (GMT-04:00) America/Kralendijk
+							191 (GMT-04:00) America/La_Paz
+							192 (GMT-05:00) America/Lima
+							193 (GMT-07:00) America/Los_Angeles
+							194 (GMT-04:00) America/Louisville
+							195 (GMT-04:00) America/Lower_Princes
+							196 (GMT-03:00) America/Maceio
+							197 (GMT-06:00) America/Managua
+							198 (GMT-04:00) America/Manaus
+							199 (GMT-04:00) America/Marigot
+							200 (GMT-04:00) America/Martinique
+							201 (GMT-05:00) America/Matamoros
+							202 (GMT-07:00) America/Mazatlan
+							203 (GMT-03:00) America/Mendoza
+							204 (GMT-05:00) America/Menominee
+							205 (GMT-06:00) America/Merida
+							206 (GMT-08:00) America/Metlakatla
+							207 (GMT-06:00) America/Mexico_City
+							208 (GMT-02:00) America/Miquelon
+							209 (GMT-03:00) America/Moncton
+							210 (GMT-06:00) America/Monterrey
+							211 (GMT-03:00) America/Montevideo
+							212 (GMT-04:00) America/Montserrat
+							213 (GMT-04:00) America/Nassau
+							214 (GMT-04:00) America/New_York
+							215 (GMT-08:00) America/Nome
+							216 (GMT-02:00) America/Noronha
+							217 (GMT-05:00) America/North_Dakota/Beulah
+							218 (GMT-05:00) America/North_Dakota/Center
+							219 (GMT-05:00) America/North_Dakota/New_Salem
+							220 (GMT-05:00) America/Ojinaga
+							221 (GMT-05:00) America/Panama
+							222 (GMT-03:00) America/Paramaribo
+							223 (GMT-07:00) America/Phoenix
+							224 (GMT-04:00) America/Port_of_Spain
+							225 (GMT-04:00) America/Port-au-Prince
+							226 (GMT-04:00) America/Porto_Velho
+							227 (GMT-04:00) America/Puerto_Rico
+							228 (GMT-03:00) America/Punta_Arenas
+							229 (GMT-05:00) America/Rankin_Inlet
+							230 (GMT-03:00) America/Recife
+							231 (GMT-06:00) America/Regina
+							232 (GMT-05:00) America/Resolute
+							233 (GMT-05:00) America/Rio_Branco
+							234 (GMT-03:00) America/Santarem
+							235 (GMT-03:00) America/Santiago
+							236 (GMT-04:00) America/Santo_Domingo
+							237 (GMT-03:00) America/Sao_Paulo
+							238 (GMT-02:00) America/Scoresbysund
+							239 (GMT-08:00) America/Sitka
+							240 (GMT-04:00) America/St_Barthelemy
+							241 (GMT-02:30) America/St_Johns
+							242 (GMT-04:00) America/St_Kitts
+							243 (GMT-04:00) America/St_Lucia
+							244 (GMT-04:00) America/St_Thomas
+							245 (GMT-04:00) America/St_Vincent
+							246 (GMT-06:00) America/Swift_Current
+							247 (GMT-06:00) America/Tegucigalpa
+							248 (GMT-03:00) America/Thule
+							249 (GMT-07:00) America/Tijuana
+							250 (GMT-04:00) America/Toronto
+							251 (GMT-04:00) America/Tortola
+							252 (GMT-07:00) America/Vancouver
+							253 (GMT-07:00) America/Whitehorse
+							254 (GMT-05:00) America/Winnipeg
+							255 (GMT-08:00) America/Yakutat
+							256 (GMT+08:00) Antarctica/Casey
+							257 (GMT+07:00) Antarctica/Davis
+							258 (GMT+10:00) Antarctica/DumontDUrville
+							259 (GMT+11:00) Antarctica/Macquarie
+							260 (GMT+05:00) Antarctica/Mawson
+							261 (GMT+13:00) Antarctica/McMurdo
+							262 (GMT-03:00) Antarctica/Palmer
+							263 (GMT-03:00) Antarctica/Rothera
+							264 (GMT+03:00) Antarctica/Syowa
+							265 (GMT+00:00) Antarctica/Troll
+							266 (GMT+05:00) Antarctica/Vostok
+							267 (GMT+01:00) Arctic/Longyearbyen
+							268 (GMT+03:00) Asia/Aden
+							269 (GMT+05:00) Asia/Almaty
+							270 (GMT+03:00) Asia/Amman
+							271 (GMT+12:00) Asia/Anadyr
+							272 (GMT+05:00) Asia/Aqtau
+							273 (GMT+05:00) Asia/Aqtobe
+							274 (GMT+05:00) Asia/Ashgabat
+							275 (GMT+05:00) Asia/Atyrau
+							276 (GMT+03:00) Asia/Baghdad
+							277 (GMT+03:00) Asia/Bahrain
+							278 (GMT+04:00) Asia/Baku
+							279 (GMT+07:00) Asia/Bangkok
+							280 (GMT+07:00) Asia/Barnaul
+							281 (GMT+02:00) Asia/Beirut
+							282 (GMT+06:00) Asia/Bishkek
+							283 (GMT+08:00) Asia/Brunei
+							284 (GMT+05:30) Asia/Calcutta
+							285 (GMT+09:00) Asia/Chita
+							286 (GMT+05:30) Asia/Colombo
+							287 (GMT+03:00) Asia/Damascus
+							288 (GMT+06:00) Asia/Dhaka
+							289 (GMT+09:00) Asia/Dili
+							290 (GMT+04:00) Asia/Dubai
+							291 (GMT+05:00) Asia/Dushanbe
+							292 (GMT+02:00) Asia/Famagusta
+							293 (GMT+02:00) Asia/Gaza
+							294 (GMT+02:00) Asia/Hebron
+							295 (GMT+08:00) Asia/Hong_Kong
+							296 (GMT+07:00) Asia/Hovd
+							297 (GMT+08:00) Asia/Irkutsk
+							298 (GMT+07:00) Asia/Jakarta
+							299 (GMT+09:00) Asia/Jayapura
+							300 (GMT+02:00) Asia/Jerusalem
+							301 (GMT+04:30) Asia/Kabul
+							302 (GMT+12:00) Asia/Kamchatka
+							303 (GMT+05:00) Asia/Karachi
+							304 (GMT+05:45) Asia/Katmandu
+							305 (GMT+09:00) Asia/Khandyga
+							306 (GMT+07:00) Asia/Krasnoyarsk
+							307 (GMT+08:00) Asia/Kuala_Lumpur
+							308 (GMT+08:00) Asia/Kuching
+							309 (GMT+03:00) Asia/Kuwait
+							310 (GMT+08:00) Asia/Macau
+							311 (GMT+11:00) Asia/Magadan
+							312 (GMT+08:00) Asia/Makassar
+							313 (GMT+08:00) Asia/Manila
+							314 (GMT+04:00) Asia/Muscat
+							315 (GMT+02:00) Asia/Nicosia
+							316 (GMT+07:00) Asia/Novokuznetsk
+							317 (GMT+07:00) Asia/Novosibirsk
+							318 (GMT+06:00) Asia/Omsk
+							319 (GMT+05:00) Asia/Oral
+							320 (GMT+07:00) Asia/Phnom_Penh
+							321 (GMT+07:00) Asia/Pontianak
+							322 (GMT+09:00) Asia/Pyongyang
+							323 (GMT+03:00) Asia/Qatar
+							324 (GMT+05:00) Asia/Qostanay
+							325 (GMT+05:00) Asia/Qyzylorda
+							326 (GMT+06:30) Asia/Rangoon
+							327 (GMT+03:00) Asia/Riyadh
+							328 (GMT+07:00) Asia/Saigon
+							329 (GMT+11:00) Asia/Sakhalin
+							330 (GMT+05:00) Asia/Samarkand
+							331 (GMT+09:00) Asia/Seoul
+							332 (GMT+08:00) Asia/Shanghai
+							333 (GMT+08:00) Asia/Singapore
+							334 (GMT+11:00) Asia/Srednekolymsk
+							335 (GMT+08:00) Asia/Taipei
+							336 (GMT+05:00) Asia/Tashkent
+							337 (GMT+04:00) Asia/Tbilisi
+							338 (GMT+03:30) Asia/Tehran
+							339 (GMT+06:00) Asia/Thimphu
+							340 (GMT+09:00) Asia/Tokyo
+							341 (GMT+07:00) Asia/Tomsk
+							342 (GMT+08:00) Asia/Ulaanbaatar
+							343 (GMT+06:00) Asia/Urumqi
+							344 (GMT+10:00) Asia/Ust-Nera
+							345 (GMT+07:00) Asia/Vientiane
+							346 (GMT+10:00) Asia/Vladivostok
+							347 (GMT+09:00) Asia/Yakutsk
+							348 (GMT+05:00) Asia/Yekaterinburg
+							349 (GMT+04:00) Asia/Yerevan
+							350 (GMT-01:00) Atlantic/Azores
+							351 (GMT-03:00) Atlantic/Bermuda
+							352 (GMT+00:00) Atlantic/Canary
+							353 (GMT-01:00) Atlantic/Cape_Verde
+							354 (GMT+00:00) Atlantic/Faeroe
+							355 (GMT+00:00) Atlantic/Madeira
+							356 (GMT+00:00) Atlantic/Reykjavik
+							357 (GMT-02:00) Atlantic/South_Georgia
+							358 (GMT+00:00) Atlantic/St_Helena
+							359 (GMT-03:00) Atlantic/Stanley
+							360 (GMT+10:30) Australia/Adelaide
+							361 (GMT+10:00) Australia/Brisbane
+							362 (GMT+10:30) Australia/Broken_Hill
+							363 (GMT+09:30) Australia/Darwin
+							364 (GMT+08:45) Australia/Eucla
+							365 (GMT+11:00) Australia/Hobart
+							366 (GMT+10:00) Australia/Lindeman
+							367 (GMT+11:00) Australia/Lord_Howe
+							368 (GMT+11:00) Australia/Melbourne
+							369 (GMT+08:00) Australia/Perth
+							370 (GMT+11:00) Australia/Sydney
+							371 (GMT+01:00) Europe/Amsterdam
+							372 (GMT+01:00) Europe/Andorra
+							373 (GMT+04:00) Europe/Astrakhan
+							374 (selected) (GMT+02:00) Europe/Athens
+							375 (GMT+01:00) Europe/Belgrade
+							376 (GMT+01:00) Europe/Berlin
+							377 (GMT+01:00) Europe/Bratislava
+							378 (GMT+01:00) Europe/Brussels
+							379 (GMT+02:00) Europe/Bucharest
+							380 (GMT+01:00) Europe/Budapest
+							381 (GMT+01:00) Europe/Busingen
+							382 (GMT+02:00) Europe/Chisinau
+							383 (GMT+01:00) Europe/Copenhagen
+							384 (GMT+00:00) Europe/Dublin
+							385 (GMT+01:00) Europe/Gibraltar
+							386 (GMT+00:00) Europe/Guernsey
+							387 (GMT+02:00) Europe/Helsinki
+							388 (GMT+00:00) Europe/Isle_of_Man
+							389 (GMT+03:00) Europe/Istanbul
+							390 (GMT+00:00) Europe/Jersey
+							391 (GMT+02:00) Europe/Kaliningrad
+							392 (GMT+02:00) Europe/Kiev
+							393 (GMT+03:00) Europe/Kirov
+							394 (GMT+00:00) Europe/Lisbon
+							395 (GMT+01:00) Europe/Ljubljana
+							396 (GMT+00:00) Europe/London
+							397 (GMT+01:00) Europe/Luxembourg
+							398 (GMT+01:00) Europe/Madrid
+							399 (GMT+01:00) Europe/Malta
+							400 (GMT+02:00) Europe/Mariehamn
+							401 (GMT+03:00) Europe/Minsk
+							402 (GMT+01:00) Europe/Monaco
+							403 (GMT+03:00) Europe/Moscow
+							404 (GMT+01:00) Europe/Oslo
+							405 (GMT+01:00) Europe/Paris
+							406 (GMT+01:00) Europe/Podgorica
+							407 (GMT+01:00) Europe/Prague
+							408 (GMT+02:00) Europe/Riga
+							409 (GMT+01:00) Europe/Rome
+							410 (GMT+04:00) Europe/Samara
+							411 (GMT+01:00) Europe/San_Marino
+							412 (GMT+01:00) Europe/Sarajevo
+							413 (GMT+04:00) Europe/Saratov
+							414 (GMT+03:00) Europe/Simferopol
+							415 (GMT+01:00) Europe/Skopje
+							416 (GMT+02:00) Europe/Sofia
+							417 (GMT+01:00) Europe/Stockholm
+							418 (GMT+02:00) Europe/Tallinn
+							419 (GMT+01:00) Europe/Tirane
+							420 (GMT+04:00) Europe/Ulyanovsk
+							421 (GMT+01:00) Europe/Vaduz
+							422 (GMT+01:00) Europe/Vatican
+							423 (GMT+01:00) Europe/Vienna
+							424 (GMT+02:00) Europe/Vilnius
+							425 (GMT+03:00) Europe/Volgograd
+							426 (GMT+01:00) Europe/Warsaw
+							427 (GMT+01:00) Europe/Zagreb
+							428 (GMT+01:00) Europe/Zurich
+							429 (GMT+03:00) Indian/Antananarivo
+							430 (GMT+06:00) Indian/Chagos
+							431 (GMT+07:00) Indian/Christmas
+							432 (GMT+06:30) Indian/Cocos
+							433 (GMT+03:00) Indian/Comoro
+							434 (GMT+05:00) Indian/Kerguelen
+							435 (GMT+04:00) Indian/Mahe
+							436 (GMT+05:00) Indian/Maldives
+							437 (GMT+04:00) Indian/Mauritius
+							438 (GMT+03:00) Indian/Mayotte
+							439 (GMT+04:00) Indian/Reunion
+							440 (GMT+13:00) Pacific/Apia
+							441 (GMT+13:00) Pacific/Auckland
+							442 (GMT+11:00) Pacific/Bougainville
+							443 (GMT+13:45) Pacific/Chatham
+							444 (GMT-05:00) Pacific/Easter
+							445 (GMT+11:00) Pacific/Efate
+							446 (GMT+13:00) Pacific/Enderbury
+							447 (GMT+13:00) Pacific/Fakaofo
+							448 (GMT+12:00) Pacific/Fiji
+							449 (GMT+12:00) Pacific/Funafuti
+							450 (GMT-06:00) Pacific/Galapagos
+							451 (GMT-09:00) Pacific/Gambier
+							452 (GMT+11:00) Pacific/Guadalcanal
+							453 (GMT+10:00) Pacific/Guam
+							454 (GMT-10:00) Pacific/Honolulu
+							455 (GMT+14:00) Pacific/Kiritimati
+							456 (GMT+11:00) Pacific/Kosrae
+							457 (GMT+12:00) Pacific/Kwajalein
+							458 (GMT+12:00) Pacific/Majuro
+							459 (GMT-09:30) Pacific/Marquesas
+							460 (GMT-11:00) Pacific/Midway
+							461 (GMT+12:00) Pacific/Nauru
+							462 (GMT-11:00) Pacific/Niue
+							463 (GMT+12:00) Pacific/Norfolk
+							464 (GMT+11:00) Pacific/Noumea
+							465 (GMT-11:00) Pacific/Pago_Pago
+							466 (GMT+09:00) Pacific/Palau
+							467 (GMT-08:00) Pacific/Pitcairn
+							468 (GMT+11:00) Pacific/Ponape
+							469 (GMT+10:00) Pacific/Port_Moresby
+							470 (GMT-10:00) Pacific/Rarotonga
+							471 (GMT+10:00) Pacific/Saipan
+							472 (GMT-10:00) Pacific/Tahiti
+							473 (GMT+12:00) Pacific/Tarawa
+							474 (GMT+13:00) Pacific/Tongatapu
+							475 (GMT+10:00) Pacific/Truk
+							476 (GMT+12:00) Pacific/Wake
+							477 (GMT+12:00) Pacific/Wallis
+							478 (GMT+00:00) UTC
+							479 Other IANA timezone…
+				480 container Blitz mode settings
+					481 heading Blitz mode settings, Value: 2, ID: preferences-blitz-mode-title
+						482 text Blitz mode settings
+					483 text Pomodoros
+					484 text Use sprint and break durations instead of task EST for new Focus starts.
+					485 switch Description: Enable Pomodoros, Value: 1
+					486 text Work sprint
+					487 text Length of each Pomodoro work interval.
+					488 pop up button (collapsed, settable) Description: Pomodoro work sprint, Value: 25 mins, Secondary Actions: Expand
+						489 menu
+							490 5 mins
+							491 10 mins
+							492 15 mins
+							493 20 mins
+							494 (selected) 25 mins
+							495 30 mins
+							496 45 mins
+							497 60 mins
+					498 text Pomodoro break
+					499 text Automatic break length after a completed sprint.
+					500 pop up button (collapsed, settable) Description: Pomodoro break duration, Value: 5 mins, Secondary Actions: Expand
+						501 menu
+							502 (selected) 5 mins
+							503 10 mins
+							504 15 mins
+							505 20 mins
+							506 25 mins
+							507 30 mins
+							508 45 mins
+							509 60 mins
+					510 text Default break length
+					511 text Used by Start Break in Focus and the in-app shortcut.
+					512 pop up button (collapsed, settable) Description: Default manual break duration, Value: 10 mins, Secondary Actions: Expand
+						513 menu
+							514 5 mins
+							515 (selected) 10 mins
+							516 15 mins
+							517 20 mins
+							518 25 mins
+							519 30 mins
+							520 45 mins
+							521 60 mins
+					522 text Scrolling title on live timer
+					523 text Scroll long live-task titles instead of keeping them truncated.
+					524 switch Description: Scrolling title on live timer, Value: 1
+				525 container Alerts
+					526 heading Alerts, Value: 2, ID: preferences-alerts-title
+						527 text Alerts
+					528 text Timed alerts during a task
+					529 text Enable periodic local reminders while focused.
+					530 switch Description: Timed task alerts, Value: 1
+					531 text Task alert interval
+					532 text How often a timed task alert may occur.
+					533 pop up button (collapsed, settable) Description: Task alert interval, Value: 10 mins, Secondary Actions: Expand
+						534 menu
+							535 5 mins
+							536 (selected) 10 mins
+							537 15 mins
+							538 20 mins
+							539 25 mins
+							540 30 mins
+							541 45 mins
+							542 60 mins
+					543 text Task alert sound
+					544 text Choose a bundled local Narro sound. Starting another preview stops the current one.
+					545 pop up button (collapsed) Description: Adjust Task alert volume, Secondary Actions: Expand
+					546 button Description: Preview Melodic Bell, Help: Preview sound
+					547 pop up button (collapsed, settable) Description: Task alert sound, Value: Melodic Bell, Secondary Actions: Expand
+						548 menu
+							549 Futuristic Ding
+							550 (selected) Melodic Bell
+							551 Quick Chime
+							552 Victory Bell
+					553 text Animated flash on timer
+					554 text Briefly highlight the active task and timer when a timed alert occurs.
+					555 switch Description: Animated timer flash, Value: 1
+					556 text Notification alerts
+					557 text Allow local Windows notification alerts for relevant timer events.
+					558 switch Description: Notification alerts, Value: 1
+					559 text Notification sound
+					560 text Choose the bundled local sound used by notification-alert preferences.
+					561 pop up button (collapsed) Description: Adjust Notification sound volume, Secondary Actions: Expand
+					562 button Description: Preview Futuristic Ding, Help: Preview sound
+					563 pop up button (collapsed, settable) Description: Notification sound, Value: Futuristic Ding, Secondary Actions: Expand
+						564 menu
+							565 (selected) Futuristic Ding
+							566 Melodic Bell
+							567 Quick Chime
+							568 Victory Bell
+					569 text Schedule reminders
+					570 text Enable local reminders for scheduled tasks.
+					571 switch Description: Schedule reminders, Value: 1
+					572 text Reminder timing
+					573 text Lead time before the scheduled task.
+					574 pop up button (collapsed, settable) Description: Schedule reminder lead time, Value: 10 mins, Secondary Actions: Expand
+						575 menu
+							576 5 mins
+							577 (selected) 10 mins
+							578 15 mins
+							579 20 mins
+							580 25 mins
+							581 30 mins
+							582 45 mins
+							583 60 mins
+				584 container Celebrate task completion
+					585 heading Celebrate task completion, Value: 2, ID: preferences-celebration-title
+						586 text Celebrate task completion
+					587 text Show success screen
+					588 text Show a completion message with options for what to do next.
+					589 switch Description: Show success screen, Value: 1
+					590 text Fun GIF
+					591 text Show a brief offline celebration animation on the success screen.
+					592 switch Description: Fun GIF on success screen, Value: 1
+					593 text Success sound effect
+					594 text Control the bundled completion sound independently of the success screen.
+					595 pop up button (collapsed) Description: Adjust Success sound volume, Secondary Actions: Expand
+					596 button Description: Preview Victory Bell, Help: Preview sound
+					597 pop up button (collapsed, settable) Description: Success sound, Value: Victory Bell, Secondary Actions: Expand
+						598 menu
+							599 Futuristic Ding
+							600 Melodic Bell
+							601 Quick Chime
+							602 (selected) Victory Bell
+					603 switch Description: Success sound effect, Value: 1
+				604 container Shortcuts
+					605 heading Shortcuts, Value: 2, ID: windows-shortcuts-title
+						606 text Shortcuts
+					607 heading Global (works outside & inside Narro), Value: 3
+						608 text Global (works outside & inside Narro)
+					609 text Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
+					610 text Go to Narro
+					611 text Bring the Narro Main window to the front from any Windows app.
+					612 text Registered
+					613 text Ctrl + Shift + B
+					614 container
+						615 text Enable  Go to Narro
+						616 checkbox (settable, integer) Description: Enable Go to Narro, Value: 1
+					617 text Alternate Focus Mode
+					618 text Switch the active Focus surface between Panel and Floating Timer.
+					619 text Registered
+					620 text Ctrl + Shift + T
+					621 container
+						622 text Enable  Alternate Focus Mode
+						623 checkbox (settable, integer) Description: Enable Alternate Focus Mode, Value: 1
+					624 text Find focus timer
+					625 text Bring attention to the Floating Timer when Focus is active.
+					626 text Registered
+					627 text Ctrl + Shift + P
+					628 container
+						629 text Enable  Find focus timer
+						630 checkbox (settable, integer) Description: Enable Find focus timer, Value: 1
+					631 heading App (works only inside of Narro), Value: 3
+						632 text App (works only inside of Narro)
+					633 text These seven bindings work only when the app has keyboard focus and no text editor or dialog is active. Their shortcuts are fixed and have no on/off controls.
+					634 text Create task
+					635 text Ctrl + Alt + T
+					636 text Start break
+					637 text Ctrl + Alt + B
+					638 text Pause / resume
+					639 text Ctrl + Alt + P
+					640 text Skip task
+					641 text Ctrl + Alt + S
+					642 text Finish task
+					643 text Ctrl + Alt + F
+					644 text Notes
+					645 text Ctrl + Alt + N
+					646 text Search
+					647 text Ctrl + F
+
+The focused UI element is 5 button Close Preferences
