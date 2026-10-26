@@ -620,7 +620,11 @@ pub fn record_tray_quit_completed(
     if !matches!(restart_retention, Ok(true)) {
         write_result(
             &state,
-            if restart_retention.is_ok() { "NOT_RUN" } else { "INCONCLUSIVE" },
+            if restart_retention.is_ok() {
+                "NOT_RUN"
+            } else {
+                "INCONCLUSIVE"
+            },
             if restart_retention.is_ok() {
                 "cross-restart-placement-disabled-by-preference"
             } else {
@@ -725,7 +729,11 @@ pub fn record_timer_restore(
         if state.pending.is_some() {
             write_result(
                 &state,
-                if restart_retention.is_ok() { "NOT_RUN" } else { "INCONCLUSIVE" },
+                if restart_retention.is_ok() {
+                "NOT_RUN"
+            } else {
+                "INCONCLUSIVE"
+            },
                 "cross-restart-placement-validation-not-applicable-to-current-policy",
                 json!({ "restartPreference": restart_retention.ok() }),
             );
