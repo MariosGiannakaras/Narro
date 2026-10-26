@@ -8,7 +8,6 @@
 
 ---
 # HISTORICAL HANDOFF — original Codex PR431 safe stop before current ChatGPT changes
-CURRENT HANDOFF — Codex source remediation PR431 CI_WAIT
 
 **OWNER Codex implementation + physical (explicit user reassignment) / PHASE CI_WAIT / last reported 2026-10-26T19:14:38.676748+00:00**. [Source/browser checkpoint](work-log/evidence/user-remediation-20261026/README.md). Current source batch3/3 implemented,0/3 final native closure. PR431 branch fix/user-reported-visual-topology-20261026 exact head ad9851e4ce62e51ac6db46b8084d561da74a6d01; CI40384253669 validation+fast PASS, Windows candidate RUNNING at last observation. Full local frontend preflight/build PASS, new rendered4/4 PASS, rustfmt PASS; native local blocked by absent MSVC link.exe, no elevated token. Browser light/dark screenshots in checkpoint. No source work in other PR, no active physical app/profile/recorder. Existing six human checks6/6 remain accepted on old exact EXE; not replacement validation.
 
