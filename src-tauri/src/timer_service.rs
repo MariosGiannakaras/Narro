@@ -116,7 +116,10 @@ struct DeferredTimerReports<F: FnMut(&TimerSessionPayload)> {
 
 impl<F: FnMut(&TimerSessionPayload)> DeferredTimerReports<F> {
     fn new(emit: F) -> Self {
-        Self { emit, pending: Vec::new() }
+        Self {
+            emit,
+            pending: Vec::new(),
+        }
     }
 
     fn record(&mut self, payload: &TimerSessionPayload) {
@@ -234,7 +237,8 @@ impl TimerService {
     ) -> CommandResult<TimerSessionPayload> {
         let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
         // Declare before the mutex guard to ensure safe error-path drop order.
-        let mut reports = DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let mut state = self.state.lock().map_err(|_| {
             crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit")
@@ -263,7 +267,8 @@ impl TimerService {
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("advance_and_report");
         // Declare before the mutex guard to ensure safe error-path drop order.
-        let mut reports = DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -308,7 +313,8 @@ impl TimerService {
     ) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("handle_power_suspend");
         // Declare before the mutex guard to ensure safe error-path drop order.
-        let mut reports = DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -362,7 +368,8 @@ impl TimerService {
     ) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("handle_power_resume");
         // Declare before the mutex guard to ensure safe error-path drop order.
-        let mut reports = DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -678,7 +685,8 @@ impl TimerService {
     {
         let trace = crate::timer_diagnostics::Scope::enter("transition_if");
         // Declare before the mutex guard to ensure safe error-path drop order.
-        let mut reports = DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -1383,6 +1391,48 @@ mod tests {
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T6: &str = "2026-09-05T12:00:06Z";
+
+    #[test]
+    fn poisoned_timer_mutex_fails_closed_and_does_not_corrupt_sqlite_or_session_identity() {
+        use std::sync::Arc;
+        let (mut controller, effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        controller.checkpoint(5_000, "2026-09-05T12:00:05Z").unwrap();
+        let session = controller.snapshot().runtime.open_session_id.unwrap();
+        drop(controller);
+        drop(effects);
+
+        let service = Arc::new(
+            TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap(),
+        );
+        let injected = Arc::clone(&service);
+        let failed_worker = std::thread::spawn(move || {
+            let _held = injected.state.lock().unwrap();
+            panic!("synthetic Timer failure: test-owned mutex only");
+        });
+        assert!(failed_worker.join().is_err());
+        let refused = service.snapshot().unwrap_err();
+        assert_eq!(refused.code, "TIMER_SERVICE_LOCK_POISONED");
+        let connection = Connection::open(&path).unwrap();
+        let check: String = connection
+            .query_row("PRAGMA quick_check", [], |row| row.get(0))
+            .unwrap();
+        assert_eq!(check, "ok");
+        let open_session = get_open_session(&connection).unwrap().unwrap();
+        assert_eq!(open_session.id, session);
+        assert_eq!(open_session.duration_seconds, 5);
+        drop(connection);
+        drop(service);
+        let restarted = TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap();
+        let snapshot = restarted.snapshot().unwrap();
+        assert_eq!(snapshot.runtime.open_session_id, Some(session));
+        assert_eq!(snapshot.runtime.timer.task_id, Some(task_id));
+        assert_eq!(snapshot.runtime.timer.state, TimerStateKind::Paused);
+        drop(restarted);
+        fs::remove_file(path).unwrap();
+    }
 
     #[test]
     fn deferred_reports_publish_after_unlock_once_and_flush_on_error() {
