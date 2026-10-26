@@ -437,6 +437,16 @@ pub fn update_preference_settings(
     }
 
     let committed = snapshot(record.schema_version, record.payload, observed_autostart);
+    if prepared.patch.remember_timer_position_on_restart == Some(true) {
+        // The user may enable restart retention while the Timer is hidden.
+        // Persist the already-dragged in-process location immediately, rather
+        // than waiting for a visible Timer or a subsequent navigation.
+        if let Err(error) =
+            crate::floating_placement::sync_session_position_on_preference_change(&app_handle)
+        {
+            eprintln!("Could not sync current Timer position after enabling restart retention: {error}");
+        }
+    }
     if let Err(error) = app_handle.emit(PREFERENCES_CHANGED_EVENT, committed.clone()) {
         eprintln!("Warning: Preferences committed, but cross-window broadcast failed: {error}");
     }
