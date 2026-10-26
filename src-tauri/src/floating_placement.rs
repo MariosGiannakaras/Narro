@@ -590,11 +590,7 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
         // a mode switch, otherwise next launch wrongly treats it as dragged.
         return Ok(false);
     }
-    if preserve_preferred_placement(
-        previous.as_ref(),
-        &areas,
-        user_moved,
-    ) {
+    if preserve_preferred_placement(previous.as_ref(), &areas, user_moved) {
         return Ok(false);
     }
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
@@ -885,9 +881,15 @@ mod tests {
     fn unpinned_timer_inherits_panel_origin_on_launch_and_clamps_when_needed() {
         let left = PhysicalRect {
             position: PhysicalPoint { x: -1920, y: -120 },
-            size: PhysicalSize { width: 1920, height: 980 },
+            size: PhysicalSize {
+                width: 1920,
+                height: 980,
+            },
         };
-        let compact = PhysicalSize { width: 340, height: 110 };
+        let compact = PhysicalSize {
+            width: 340,
+            height: 110,
+        };
         let panel = PhysicalPoint { x: -1904, y: -104 };
         assert_eq!(
             first_timer_position(left, compact, panel).expect("follow Panel"),
@@ -895,7 +897,10 @@ mod tests {
         );
         let constrained = PhysicalRect {
             position: PhysicalPoint { x: 0, y: 0 },
-            size: PhysicalSize { width: 400, height: 200 },
+            size: PhysicalSize {
+                width: 400,
+                height: 200,
+            },
         };
         assert_eq!(
             first_timer_position(constrained, compact, PhysicalPoint { x: 390, y: 194 })
