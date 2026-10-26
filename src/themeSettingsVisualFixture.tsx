@@ -61,6 +61,7 @@ const preferenceSnapshot: PreferenceSettingsSnapshot = {
   general: {
     selectedMonitorKey: "fixture-monitor-secondary",
     focusPanelSide: "right",
+    rememberTimerPositionOnRestart: false,
     openOnLogin: true,
     autostartEnabled: true,
     hideTaskTimes: true,
