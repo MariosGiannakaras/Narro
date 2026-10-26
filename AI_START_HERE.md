@@ -72,6 +72,10 @@ These files have distinct jobs:
 - `reference/original-blitzit-screenshots/` — original-product visual evidence, not Narro-owned UI assets.
 - `assets/branding/` — Narro branding source material; branding may evolve and should not block unrelated engineering work unless the active slice specifically concerns packaging/visual identity.
 
+## M10 user-review hold before entry (user decision 2026-10-26)
+
+**M10 is mandatory but NOT auto-authorized by completion of M1–M9.** Once every required M1–M9 technical, exact-head CI, resulting-main, source-parity and native acceptance gate has actually closed, **STOP before M10** and provide the user a reviewable exact-build packet: `main` SHA, executable identity and access/instructions, milestone-by-milestone independently graded PASS/FAIL/OPEN/NOT RUN evidence, Windows manual review script, accepted/unresolved risks, and proposed M10 scope. The user will inspect/test this M1–M9 candidate; **only a subsequent explicit user approval to begin M10** releases the hold. Neither `continue`, 'finish project', CI green, elapsed time, nor the M9 completion event counts as approval. Do not begin/schedule/prepare a new M10 work item, count M10 progress, or freeze its release candidate while the hold is in force. M1–M9 repairs may continue as authorized; M11/M12 still have separate opt-ins. Record approval in `HANDOFF.md`, `TODO.md`, `STATUS.md` before the first M10 action; honor the separate M10 hard technical entry gate in `TODO.md` too.
+
 ## How to choose work without an external prompt
 
 Use this decision order:
