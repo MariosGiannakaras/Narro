@@ -1,0 +1,12 @@
+[
+  {
+    "path": "work-log/evidence/all-remaining-physical-20261026/main-focus/native-original.mkv",
+    "sha256": "63416700ae6e092aab76fc5ec135e089e164d5711ed6500e86f8943c2315b59b",
+    "commit": "799fd3db"
+  },
+  {
+    "path": "work-log/evidence/all-remaining-physical-20261026/resume-01/timer-boundaries/native-original.mkv",
+    "sha256": "72cc29faf1f136cd0fc9cf97a2fd1ecffc6a9ec1cae475a854f0c6dd46cb1826",
+    "commit": "799fd3db"
+  }
+]

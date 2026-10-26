@@ -1,0 +1,7542 @@
+{
+  "kind": "narro-p09-p11-dom-delivery-only",
+  "startedUtc": "2026-10-26T17:53:49.299Z",
+  "requested": [
+    "focus"
+  ],
+  "limitations": [
+    "DOM capture cannot prove an OS scan code was delivered if WebView2 consumes it first",
+    "DOM pointer callbacks do not prove a Win32 held-button state or a native move loop",
+    "Native WebView2 Find and actual HWND movement require separate original video/HWND evidence"
+  ],
+  "observations": [
+    {
+      "utc": "2026-10-26T17:53:49.317Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:49.533Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:49.750Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:49.955Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:50.231Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:50.446Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:50.652Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:50.873Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:51.088Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:51.294Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:51.503Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:51.708Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:51.982Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:52.189Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:52.465Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:52.681Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:52.892Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:53.095Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:53.391Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:53.603Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:53.952Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:54.162Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:54.371Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:54.579Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:54.784Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:54.993Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:55.198Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:55.405Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:55.732Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:55.947Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:56.155Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:56.397Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:56.862Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:57.064Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:57.275Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:57.568Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:57.782Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:57.987Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:58.192Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:58.399Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:58.602Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:58.807Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:59.012Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:59.219Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:59.426Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:59.629Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:53:59.832Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:00.037Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:00.244Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:00.452Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:00.658Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:00.863Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:01.069Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:01.274Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:01.481Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:01.687Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:01.894Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:02.100Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:02.304Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:02.511Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:02.717Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:02.923Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:03.129Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:03.335Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:03.543Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:03.749Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:03.956Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:04.165Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:04.371Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:04.583Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:04.785Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:04.993Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:05.201Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:05.408Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:05.616Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:05.822Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:06.028Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:06.230Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:06.436Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:06.640Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:06.849Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:07.054Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:07.259Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:07.465Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:07.670Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:07.876Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:08.085Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:08.288Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:08.494Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:08.700Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:08.909Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:09.115Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:09.320Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:09.523Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:09.730Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:09.937Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:10.142Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:10.346Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:10.552Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:10.759Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:10.966Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:11.172Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:11.378Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "false"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:11.583Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:11.790Z",
+      "window": "focus",
+      "events": [
+        {
+          "time": 454193.39999997616,
+          "type": "pointerdown",
+          "button": 0,
+          "buttons": 1,
+          "pointerType": "mouse",
+          "x": 170,
+          "y": 7,
+          "insideTimer": true,
+          "exactDragMarker": true,
+          "ancestorDragMarker": true,
+          "hitTag": "MAIN",
+          "hitClass": "other",
+          "hitPointerEvents": "auto",
+          "compactActions": "true",
+          "resizePending": "false",
+          "documentFocused": true
+        },
+        {
+          "time": 454197.59999996424,
+          "type": "pointermove",
+          "button": -1,
+          "buttons": 1,
+          "pointerType": "mouse",
+          "x": 70,
+          "y": 7,
+          "insideTimer": true,
+          "exactDragMarker": true,
+          "ancestorDragMarker": true,
+          "hitTag": "MAIN",
+          "hitClass": "other",
+          "hitPointerEvents": "auto",
+          "compactActions": "true",
+          "resizePending": "false",
+          "documentFocused": true
+        }
+      ],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:11.995Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:12.199Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:12.405Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:12.611Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:12.817Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:13.025Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:13.232Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:13.436Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:13.642Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:13.848Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:14.055Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:14.262Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:14.467Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:14.671Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:14.877Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:15.084Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:15.292Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:15.498Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:15.703Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:15.909Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:16.115Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:16.322Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:16.527Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:16.733Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:16.939Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:17.142Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:17.349Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:17.555Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:17.761Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:17.965Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:18.169Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:18.374Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:18.582Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:18.788Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:18.995Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:19.200Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:19.405Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:19.612Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:19.814Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:20.019Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:20.226Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:20.433Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:20.641Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:20.843Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:21.049Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:21.255Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:21.462Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:21.670Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:21.878Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:22.085Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:22.291Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:22.506Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:22.711Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:22.916Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:23.118Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:23.321Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:23.524Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:23.725Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:23.930Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:24.145Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:24.346Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:24.549Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:24.750Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:24.952Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:25.156Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:25.360Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:25.562Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:25.764Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:25.966Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:26.168Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:26.371Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:26.573Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:26.776Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:26.979Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:27.182Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:27.384Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:27.586Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:27.789Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:27.991Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:28.192Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:28.394Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:28.596Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:28.799Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:29.003Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:29.206Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:29.409Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:29.612Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:29.814Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:30.017Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:30.221Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:30.422Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:30.626Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:30.827Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:31.029Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:31.230Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:31.434Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:31.638Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:31.840Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:32.042Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:32.244Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:32.447Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:32.649Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:32.851Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:33.053Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:33.257Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:33.458Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:33.659Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:33.860Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:34.065Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:34.272Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:34.479Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:34.686Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:34.892Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:35.093Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:35.297Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:35.499Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:35.704Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:35.906Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:36.109Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:36.311Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:36.516Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:36.718Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:36.920Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:37.121Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:37.326Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:37.530Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:37.733Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:37.937Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:38.141Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:38.343Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:38.546Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:38.749Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:38.964Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:39.167Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:39.370Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:39.574Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:39.781Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:39.988Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:40.195Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:40.400Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:40.604Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:40.807Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:41.009Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:41.213Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:41.420Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:41.624Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:41.827Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:42.028Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:42.230Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:42.434Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:42.635Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:42.838Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:43.042Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:43.246Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:43.449Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:43.652Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:43.868Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:44.072Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:44.274Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:44.478Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:44.694Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:44.894Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:45.097Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:45.302Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:45.503Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:45.704Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:45.905Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:46.108Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:46.310Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:46.511Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:46.713Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:46.914Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:47.129Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:47.345Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:47.548Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:47.750Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:47.956Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:48.156Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:48.359Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:48.563Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:48.765Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:48.966Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    },
+    {
+      "utc": "2026-10-26T17:54:49.169Z",
+      "window": "focus",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/focus.html",
+        "ready": "complete",
+        "focused": true,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": true,
+        "timerRect": [
+          0,
+          0,
+          340,
+          110
+        ],
+        "screenPosition": [
+          2220,
+          0
+        ],
+        "compactActions": "true"
+      }
+    }
+  ],
+  "warnings": [],
+  "finishedUtc": "2026-10-26T17:54:49.374Z",
+  "interrupted": false
+}

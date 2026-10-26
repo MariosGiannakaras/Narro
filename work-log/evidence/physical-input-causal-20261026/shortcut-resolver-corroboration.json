@@ -1,0 +1,85 @@
+{
+  "utc": "2026-10-26T18:12:12.007Z",
+  "kind": "pure-current-source-corroboration-not-physical-pass",
+  "sourceSha256": "57c7fc8268359be58ea8bbba015dc5cf470fc004d1e6aa7274f532ac4428b249",
+  "results": [
+    {
+      "input": {
+        "key": "τ",
+        "code": "",
+        "ctrlKey": true,
+        "altKey": true,
+        "expected": null,
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": null,
+      "expected": null
+    },
+    {
+      "input": {
+        "key": "φ",
+        "code": "",
+        "ctrlKey": true,
+        "altKey": false,
+        "expected": null,
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": null,
+      "expected": null
+    },
+    {
+      "input": {
+        "key": "τ",
+        "code": "KeyT",
+        "ctrlKey": true,
+        "altKey": true,
+        "expected": "create-task",
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": "create-task",
+      "expected": "create-task"
+    },
+    {
+      "input": {
+        "key": "φ",
+        "code": "KeyF",
+        "ctrlKey": true,
+        "altKey": false,
+        "expected": "search",
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": "search",
+      "expected": "search"
+    },
+    {
+      "input": {
+        "key": "t",
+        "code": "",
+        "ctrlKey": true,
+        "altKey": true,
+        "expected": "create-task",
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": "create-task",
+      "expected": "create-task"
+    },
+    {
+      "input": {
+        "key": "f",
+        "code": "",
+        "ctrlKey": true,
+        "altKey": false,
+        "expected": "search",
+        "shiftKey": false,
+        "metaKey": false
+      },
+      "result": "search",
+      "expected": "search"
+    }
+  ]
+}

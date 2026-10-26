@@ -1,0 +1,19 @@
+import fs from 'node:fs/promises';
+import {stripTypeScriptTypes} from 'node:module';
+import crypto from 'node:crypto';
+const file='C:/Users/MariosG/.codex/worktrees/m7-native-paint/NarroUpload/src/inAppShortcuts.ts';
+const source=await fs.readFile(file,'utf8');
+const module=await import('data:text/javascript;base64,'+Buffer.from(stripTypeScriptTypes(source)).toString('base64'));
+const cases=[
+ {key:'τ',code:'',ctrlKey:true,altKey:true,expected:null},
+ {key:'φ',code:'',ctrlKey:true,altKey:false,expected:null},
+ {key:'τ',code:'KeyT',ctrlKey:true,altKey:true,expected:'create-task'},
+ {key:'φ',code:'KeyF',ctrlKey:true,altKey:false,expected:'search'},
+ {key:'t',code:'',ctrlKey:true,altKey:true,expected:'create-task'},
+ {key:'f',code:'',ctrlKey:true,altKey:false,expected:'search'}
+].map(x=>({...x,shiftKey:false,metaKey:false}));
+const results=cases.map(input=>({input,result:module.resolveInAppShortcut(input),expected:input.expected}));
+if(results.some(x=>x.result!==x.expected))throw new Error('Unexpected resolution');
+const receipt={utc:new Date().toISOString(),kind:'pure-current-source-corroboration-not-physical-pass',sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),results};
+await fs.writeFile('shortcut-resolver-corroboration.json',JSON.stringify(receipt,null,2));
+console.log('6/6 pure resolver expectations matched; no physical PASS');
