@@ -12,7 +12,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-if (-not $IsWindows -and $PSVersionTable.PSEdition -eq 'Core') {
+if ($PSVersionTable.PSEdition -eq 'Core' -and -not $IsWindows) {
     throw 'This receipt tool only runs on Windows.'
 }
 
