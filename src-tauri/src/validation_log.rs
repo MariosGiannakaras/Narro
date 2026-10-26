@@ -730,10 +730,10 @@ pub fn record_timer_restore(
             write_result(
                 &state,
                 if restart_retention.is_ok() {
-                "NOT_RUN"
-            } else {
-                "INCONCLUSIVE"
-            },
+                    "NOT_RUN"
+                } else {
+                    "INCONCLUSIVE"
+                },
                 "cross-restart-placement-validation-not-applicable-to-current-policy",
                 json!({ "restartPreference": restart_retention.ok() }),
             );
