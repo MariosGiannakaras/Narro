@@ -68,6 +68,11 @@ pub enum FocusPanelSide {
 pub struct GeneralPreferences {
     pub selected_monitor_key: Option<String>,
     pub focus_panel_side: FocusPanelSide,
+    // False preserves position during this process only; true additionally
+    // persists a deliberate Timer drag across normal application restarts.
+    // Old Preferences JSON lacks the field and safely defaults to false.
+    #[serde(default)]
+    pub remember_timer_position_on_restart: bool,
     pub open_on_login: bool,
     pub hide_task_times: bool,
     pub auto_parse_est_from_title: bool,
@@ -151,6 +156,7 @@ impl Default for PreferencesPayload {
             general: GeneralPreferences {
                 selected_monitor_key: None,
                 focus_panel_side: FocusPanelSide::Right,
+                remember_timer_position_on_restart: false,
                 open_on_login: false,
                 hide_task_times: false,
                 auto_parse_est_from_title: false,
@@ -201,11 +207,25 @@ mod tests {
     use super::*;
 
     #[test]
+    fn older_preferences_json_defaults_timer_restart_policy_to_session_only() {
+        let mut legacy = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize preferences");
+        legacy["general"]
+            .as_object_mut()
+            .expect("general payload")
+            .remove("remember_timer_position_on_restart");
+        let restored: PreferencesPayload =
+            serde_json::from_value(legacy).expect("backward-compatible preference read");
+        assert!(!restored.general.remember_timer_position_on_restart);
+    }
+
+    #[test]
     fn defaults_are_local_safe_and_match_confirmed_base_settings() {
         let defaults = PreferencesPayload::default();
         assert_eq!(defaults.general.theme, ThemePreference::System);
         assert_eq!(defaults.general.focus_panel_side, FocusPanelSide::Right);
         assert!(defaults.general.selected_monitor_key.is_none());
+        assert!(!defaults.general.remember_timer_position_on_restart);
         assert!(!defaults.general.open_on_login);
         assert!(!defaults.focus.pomodoro_enabled);
         assert_eq!(defaults.focus.default_break_seconds, 600);
