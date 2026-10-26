@@ -2392,8 +2392,8 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 #[cfg(test)]
 mod focus_position_motion_tests {
     use super::{
-        focus_panel_animation_size, interpolate_blitz_morph_rect, interpolate_focus_axis,
-        GeometryPoint, GeometryRect, GeometrySize,
+        focus_panel_animation_size, focus_panel_placement_position, interpolate_blitz_morph_rect,
+        interpolate_focus_axis, FocusPanelSide, GeometryPoint, GeometryRect, GeometrySize,
     };
 
     #[test]
@@ -2403,6 +2403,37 @@ mod focus_position_motion_tests {
         assert_eq!(error.code, "FOCUS_PRESENTATION_BUSY");
         drop(owner);
         assert!(super::presentation_guard().is_ok());
+    }
+
+    #[test]
+    fn native_panel_inset_uses_physical_pixels_from_target_monitor_dpi() {
+        let work_area = GeometryRect {
+            position: GeometryPoint { x: 0, y: 0 },
+            size: GeometrySize {
+                width: 1920,
+                height: 1040,
+            },
+        };
+        let host = GeometrySize {
+            width: 425,
+            height: 875,
+        };
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Left, 1.0)
+                .expect("one-DIP unit"),
+            GeometryPoint { x: 16, y: 16 }
+        );
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Right, 1.25)
+                .expect("125%-DPI edge spacing"),
+            GeometryPoint { x: 1475, y: 20 }
+        );
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Right, 0.0)
+                .unwrap_err()
+                .code,
+            "FOCUS_PRESENTATION_FAILED"
+        );
     }
 
     #[test]
