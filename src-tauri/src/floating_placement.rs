@@ -14,6 +14,26 @@ static MOVE_WORKER_ACTIVE: AtomicBool = AtomicBool::new(false);
 static SAVE_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
 static USER_MOVE_START: Mutex<Option<PhysicalPoint>> = Mutex::new(None);
 static USER_PLACEMENT_DIRTY: AtomicBool = AtomicBool::new(false);
+// Session-only Timer placement. A new Narro process starts with None and
+// inherits the Panel's current monitor/side/inset even if a legacy SQLite
+// placement row exists. The legacy row is left untouched.
+static SESSION_TIMER_PLACEMENT: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
+
+fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
+    SESSION_TIMER_PLACEMENT
+        .lock()
+        .map(|placement| placement.clone())
+        .map_err(|error| placement_error("read session-only Timer position", error))
+}
+
+fn set_session_timer_position(placement: SavedFloatingPlacement) -> CommandResult<()> {
+    let mut saved = SESSION_TIMER_PLACEMENT
+        .lock()
+        .map_err(|error| placement_error("update session-only Timer position", error))?;
+    *saved = Some(placement);
+    Ok(())
+}
+
 
 // OS recovery is temporary. Only a completed, non-cancelled interactive move
 // may replace a remembered position on a monitor that is currently absent.
@@ -458,9 +478,8 @@ fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult
     })
 }
 
-// With no explicit/legacy Timer preference, inherit the committed Panel
-// screen position on every app launch. Never create a durable record just
-// because a presentation transition took place.
+// With no current-process user placement, inherit the Panel origin.
+// No Timer position is read from or written to persistent storage.
 fn first_timer_position(
     work_area: PhysicalRect,
     visible_size: PhysicalSize,
@@ -470,11 +489,8 @@ fn first_timer_position(
         .map_err(|error| placement_error("clamp unpinned Timer to Panel origin", error))
 }
 
-pub(crate) fn has_saved_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
-    let connection = app_database(app_handle)?;
-    persistence::floating_placement::load(&connection)
-        .map(|saved| saved.is_some())
-        .map_err(|error| placement_error("read saved Timer position before first reveal", error))
+pub(crate) fn has_session_timer_position() -> CommandResult<bool> {
+    session_timer_position().map(|position| position.is_some())
 }
 
 pub(crate) fn planned_timer_position(
@@ -482,9 +498,7 @@ pub(crate) fn planned_timer_position(
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<PhysicalPoint> {
-    let connection = app_database(app_handle)?;
-    let saved = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("load Timer position for transition", error))?;
+    let saved = session_timer_position()?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -560,14 +574,26 @@ fn restored_position(
         .map_err(|error| placement_error("clamp restored position", error))
 }
 
-// A Timer positioned automatically from the Panel is not a user preference.
-// A recorded drag remains authoritative, including on a later application restart.
-// Existing legacy saved positions are conservatively retained as preferences.
-fn should_persist_timer_position(has_saved: bool, completed_user_move: bool) -> bool {
+// An automatic Panel → Timer transition is not a personal position. Once a
+// genuine drag has occurred, its location is remembered for this process only.
+fn should_remember_session_position(has_saved: bool, completed_user_move: bool) -> bool {
     has_saved || completed_user_move
 }
 
 pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    remember_visible_timer_position(app_handle, false)
+}
+
+// A bounded capture harness can explicitly seed a non-user position, but this
+// still only affects the current process. Production never uses that override.
+pub(crate) fn seed_capture_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    remember_visible_timer_position(app_handle, true)
+}
+
+fn remember_visible_timer_position(
+    app_handle: &tauri::AppHandle,
+    capture_seed: bool,
+) -> CommandResult<bool> {
     if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0
         || crate::windows::focus_interactive_move_active()
     {
@@ -587,14 +613,11 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     }
     let current_window = current_visible_rect(&window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
-    let connection = app_database(app_handle)?;
-    let previous = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("read preferred Timer position", error))?;
+    let previous = session_timer_position()?;
     let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
-    if !should_persist_timer_position(previous.is_some(), user_moved) {
-        // The Window can be in Timer mode due only to an automatic Panel →
-        // Timer transition; do not commit this position on Quit, Home or
-        // a mode switch, otherwise next launch wrongly treats it as dragged.
+    if !capture_seed && !should_remember_session_position(previous.is_some(), user_moved) {
+        // Never pin the automatically inherited Panel position without an
+        // actual completed native Timer drag in this application run.
         return Ok(false);
     }
     if preserve_preferred_placement(previous.as_ref(), &areas, user_moved) {
@@ -611,8 +634,7 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
         work_area: selected.rect,
         monitor_name: selected.name.clone(),
     };
-    persistence::floating_placement::save(&connection, &saved, &chrono::Utc::now().to_rfc3339())
-        .map_err(|error| placement_error("save Timer position", error))?;
+    set_session_timer_position(saved.clone())?;
     USER_PLACEMENT_DIRTY.store(false, Ordering::Release);
     crate::validation_log::record_placement_saved(app_handle, &saved);
     Ok(true)
@@ -623,9 +645,7 @@ pub fn restore_for_timer(
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<bool> {
-    let connection = app_database(app_handle)?;
-    let saved = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("load Timer position", error))?;
+    let saved = session_timer_position()?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -699,9 +719,7 @@ pub fn revalidate_visible_timer_after_display_change(
     let expanded = crate::current_focus_surface_expanded();
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
-    let connection = app_database(app_handle)?;
-    let saved = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("read Timer reconnect position", error))?;
+    let saved = session_timer_position()?;
     let preferred = if USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
         None
     } else {
@@ -917,14 +935,13 @@ mod tests {
     }
 
     #[test]
-    fn no_drag_keeps_timer_unpinned_across_programmatic_transitions_and_restart() {
-        assert!(!should_persist_timer_position(false, false));
+    fn no_drag_keeps_timer_unpinned_during_current_process() {
+        assert!(!should_remember_session_position(false, false));
         // A completed interactive drag — not an Escape-cancelled attempt —
-        // is the first event allowed to establish a durable Timer position.
-        assert!(should_persist_timer_position(false, true));
-        // Do not erase or reinterpret stored positions written by past builds.
-        assert!(should_persist_timer_position(true, false));
-        assert!(should_persist_timer_position(true, true));
+        // is the first event allowed to establish a session-only Timer position.
+        assert!(should_remember_session_position(false, true));
+        assert!(should_remember_session_position(true, false));
+        assert!(should_remember_session_position(true, true));
     }
 
     #[test]
