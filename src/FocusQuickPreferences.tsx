@@ -2,6 +2,7 @@ import { ActionIcon } from "./ActionIcon";
 import { type ReactNode, useRef, useState } from "react";
 import { findSelectedMonitor, formatInvokeError, type MonitorDescriptor } from "./diagnosticApi";
 import { applyFocusSurfacePresentation } from "./focusSurfaceModeApi";
+import { saveQuickPreferenceWithLivePlacement } from "./quickPreferenceLivePlacement";
 import {
   PreferenceSettingsRuntimeProvider,
   type PreferencePendingKey,
@@ -80,6 +81,7 @@ function QuickHeader({ onBack, saving = false }: FocusQuickPreferencesProps & { 
         className="focus-quick-preferences__back"
         aria-label="Back to Focus"
         data-focus-quick-preferences-back="true"
+        disabled={saving}
         autoFocus
         onClick={onBack}
       >
@@ -110,6 +112,7 @@ export function FocusQuickPreferencesView({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Escape") {
+      if (busy) return;
       event.preventDefault();
       event.stopPropagation();
       onBack();
@@ -269,19 +272,17 @@ function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
     setLivePlacementKey(key);
     setLivePlacementError(null);
     try {
-      const saved = await preferences.save(patch, key);
-      if (!saved) return false;
-      if (key === "monitor" || key === "side") {
-        try {
-          // The same Focus HWND remains a Panel; re-apply its committed SQLite
-          // monitor/side now rather than only after a future Main -> Panel entry.
-          await applyFocusSurfacePresentation("panel");
-        } catch (failure: unknown) {
-          setLivePlacementError("Preference saved, but the visible Panel could not be moved: " + formatInvokeError(failure));
-          return false;
-        }
+      try {
+        return await saveQuickPreferenceWithLivePlacement(
+          patch,
+          key,
+          preferences.save,
+          () => applyFocusSurfacePresentation("panel"),
+        );
+      } catch (failure: unknown) {
+        setLivePlacementError("Preference saved, but the visible Panel could not be moved: " + formatInvokeError(failure));
+        return false;
       }
-      return true;
     } finally {
       placementInFlightRef.current = false;
       setLivePlacementKey(null);
