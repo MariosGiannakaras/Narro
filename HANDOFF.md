@@ -4,6 +4,8 @@
 
 **Safe stop 2026-10-26T19:17:25.156685+00:00:** user asked to upload and finish near usage limit. All source/evidence pushed; no corrected native run occurred. Temporary preview/browser closed; no owned app/recorder/profile. [Exact final checkpoint](work-log/evidence/user-remediation-20261026/STOP_CHECKPOINT.md). CI40384253669 still running at Capture Visual Regression Fixtures, not waiting on local activity.
 
+**USER DECISION / FUTURE M10 GATE (2026-10-26):** Even when all M1–M9 technical and native acceptance gates eventually close, do not auto-enter, prepare, count or validate M10. Deliver an exact-build user-review packet and allow personal M1–M9 verification first; M10 begins only on subsequent explicit user approval, documented in TODO/HANDOFF/STATUS. This does not interrupt current PR431 remediation or authorize optional M11/M12.
+
 **ONE NEXT:** inspect exact431 head CI result (not old canceled34793058), repair only actual failed gate if any; otherwise use exact candidate artifact for protected native Preferences/Search/reconnect tests. Existing PR389/419 compositor holds/old unknown poison root remain separate; no repeat P09/P11 synthetic patch. User wants all confirmed still-open FAILs; named current-record inventory in report distinguishes unresolved causes/source-parity from fixed defects. Main docs authoritative; source remains feature PR until guarded green merge.
 
 ---
