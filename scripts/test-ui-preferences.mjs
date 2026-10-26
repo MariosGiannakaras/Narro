@@ -381,6 +381,19 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preference
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
 
+const livePanelQuickSettings = await read("src/FocusQuickPreferences.tsx");
+invariant(
+  livePanelQuickSettings.includes('saveQuickPreferenceWithLivePlacement(')
+    && livePanelQuickSettings.includes('() => applyFocusSurfacePresentation("panel")')
+    && livePanelQuickSettings.includes('pendingKey={preferences.pendingKey ?? livePlacementKey}')
+    && livePanelQuickSettings.includes('error={livePlacementError ?? preferences.error}'),
+  "Focus Quick Preferences must await saved native Panel placement and surface its failure",
+);
+invariant(
+  pkg.scripts["preflight:frontend"].includes("npm run test:quick-preference-placement"),
+  "Frontend preflight must cover committed Quick Preferences native placement ordering",
+);
+
 await import("./test-sound-volume-escape-cancel.mjs");
 await import("./test-settings-initial-read-retry.mjs");
 console.log("M8 Preferences contracts passed.");
