@@ -1,0 +1,9 @@
+import ctypes,json,datetime
+from pathlib import Path
+u=ctypes.WinDLL('user32',use_last_error=True)
+u.GetForegroundWindow.restype=ctypes.c_void_p
+u.GetWindowThreadProcessId.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_ulong)]
+u.GetKeyboardLayout.argtypes=[ctypes.c_ulong];u.GetKeyboardLayout.restype=ctypes.c_void_p
+fg=u.GetForegroundWindow();pid=ctypes.c_ulong();tid=u.GetWindowThreadProcessId(fg,ctypes.byref(pid))
+r={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'foregroundHwnd':hex(fg),'foregroundPid':pid.value,'foregroundThread':tid,'foregroundThreadKeyboardLayout':hex(u.GetKeyboardLayout(tid))}
+Path('keyboard-layout-final.json').write_text(json.dumps(r,indent=2));print(json.dumps(r))

@@ -1,0 +1,2 @@
+SQLite migration and diagnostic startup insert succeeded. ID: 941b0d5f-4222-482b-bc26-1815919c89dd
+Display topology recovery revalidated the open Focus Panel

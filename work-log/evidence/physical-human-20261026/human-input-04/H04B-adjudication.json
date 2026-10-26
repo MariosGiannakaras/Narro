@@ -1,0 +1,94 @@
+{
+  "startedUtc": "2026-10-26T18:42:48.2660919+00:00",
+  "samples": 1573,
+  "heldSamples": 176,
+  "moveLoopSamples": 151,
+  "escapeSamples": 12,
+  "heldAndEscapeSamples": 11,
+  "initialRect": [
+    1039,
+    435,
+    1379,
+    1135
+  ],
+  "maxXWhileHeld": 1581,
+  "firstMoveMs": 27996,
+  "lastMoveMs": 34190,
+  "firstEscape": {
+    "elapsedMs": 34236,
+    "targetForeground": true,
+    "foregroundPid": 47596,
+    "foregroundHwnd": "0x5209c8",
+    "focusedHwnd": "0x1a1328",
+    "focusedPid": 93972,
+    "guiFlags": 0,
+    "moveSizeHwnd": null,
+    "hwnds": [
+      {
+        "hwnd": "0x5209c8",
+        "rect": [
+          1039,
+          435,
+          1379,
+          1135
+        ]
+      },
+      {
+        "hwnd": "0x9808fa",
+        "rect": [
+          260,
+          260,
+          1276,
+          999
+        ]
+      },
+      {
+        "hwnd": "0x2d08e8",
+        "rect": [
+          0,
+          0,
+          16,
+          16
+        ]
+      },
+      {
+        "hwnd": "0x27091c",
+        "rect": [
+          0,
+          0,
+          16,
+          16
+        ]
+      }
+    ],
+    "cursor": [
+      1587,
+      508
+    ],
+    "keys": {
+      "ctrl": false,
+      "alt": false,
+      "shift": false,
+      "ctrlF": false,
+      "ctrlAltT": false,
+      "leftMouse": true,
+      "escape": true
+    }
+  },
+  "finalRect": [
+    1039,
+    435,
+    1379,
+    1135
+  ],
+  "recordingStart": {
+    "utc": "2026-10-26T18:42:27.541506+00:00",
+    "pid": 66324,
+    "physicalVirtualDesktop": {
+      "x": -1920,
+      "y": 0,
+      "width": 4480,
+      "height": 1080
+    }
+  }
+}
