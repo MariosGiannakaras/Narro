@@ -8,7 +8,7 @@ use crate::persistence::tasks::{
     active_tasks_in_bucket, complete_task, get_task, move_task, permanently_delete_task_confirmed,
     TaskStoreError,
 };
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 use std::path::PathBuf;
 use tauri::Manager;
@@ -191,7 +191,9 @@ fn move_unscheduled_task_to_lane(
             .ok_or(BoardTaskMutationError::InvalidAnchor(id));
     }
 
-    let tx = conn.transaction().map_err(TaskStoreError::from)?;
+    let tx = conn
+        .transaction_with_behavior(TransactionBehavior::Immediate)
+        .map_err(TaskStoreError::from)?;
     let current = get_task(&tx, id)?;
     validate_expected_source(&current, expected_list_id, expected_source_lane)?;
 

@@ -637,7 +637,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       sharedTimerProjection={{ payload: scopeTimer, settled: true }}
       presentationActive
       controlledExpanded
-      onRequestExpanded={async () => {}}
+      onRequestExpanded={async (expanded, prepareRenderer) => { prepareRenderer(expanded); }}
       onCompletionSuccess={(state) => { container.dataset.scopeSuccessNextTaskId = state.nextTask?.id ?? ""; }}
     />,
   ));
@@ -681,7 +681,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       sharedTimerProjection={{ payload: scopeTimer, settled: true }}
       presentationActive
       controlledExpanded
-      onRequestExpanded={async () => {}}
+      onRequestExpanded={async (expanded, prepareRenderer) => { prepareRenderer(expanded); }}
     />,
   ));
   renderFinding35Floating(); await wait(); await wait(); await wait();

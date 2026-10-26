@@ -5,7 +5,7 @@ use crate::domain::notes::{
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 const MAX_BLOCKS: usize = 512;
@@ -229,7 +229,7 @@ pub fn set_task_note(
     validate_timestamp(now)?;
     validate_note_document(&document)?;
     let content = serde_json::to_string(&document)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     validate_mutable_task(&tx, task_id)?;
     tx.execute(
         "INSERT INTO task_notes (task_id, editor_format_version, content, updated_at)
@@ -257,7 +257,7 @@ pub fn delete_task_note(
     now: &str,
 ) -> Result<bool, TaskNoteStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     validate_mutable_task(&tx, task_id)?;
     let changed = tx.execute(
         "DELETE FROM task_notes WHERE task_id = ?1",

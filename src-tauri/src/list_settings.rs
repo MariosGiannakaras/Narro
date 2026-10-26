@@ -11,7 +11,7 @@ use crate::persistence::tasks::{
     permanently_delete_archived_done_task as delete_archived_done_record, TaskStoreError,
 };
 use chrono::{DateTime, Duration, Utc};
-use rusqlite::{params, OptionalExtension};
+use rusqlite::{params, OptionalExtension, TransactionBehavior};
 use serde::Serialize;
 use std::fmt::{Display, Formatter};
 use std::path::{Component, Path, PathBuf};
@@ -295,7 +295,7 @@ pub fn archive_stale_done_tasks_at(
 
     let now_text = now.to_rfc3339();
     let cutoff_text = cutoff.to_rfc3339();
-    let tx = connection.transaction()?;
+    let tx = connection.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let changed = tx.execute(
         "UPDATE tasks
          SET archived_at = ?1, updated_at = ?1

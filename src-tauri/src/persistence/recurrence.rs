@@ -498,7 +498,7 @@ pub fn create_recurrence_rule(
         replace_existing: input.replace_existing,
     })?;
 
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let parent = validate_parent_context(&tx, input.parent_task_id, false)?;
     if parent.recurrence_rule_id.is_some()
         || get_raw_rule_for_parent(&tx, input.parent_task_id)?.is_some()
@@ -570,11 +570,7 @@ fn update_recurrence_rule_inner(
         replace_existing: input.replace_existing,
     })?;
 
-    let tx = if expected_updated_at.is_some() {
-        conn.transaction_with_behavior(TransactionBehavior::Immediate)?
-    } else {
-        conn.transaction()?
-    };
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_recurrence_rule(&tx, id)?;
     validate_parent_link(&tx, &current, false)?;
     if expected_updated_at.is_some_and(|expected| expected != current.updated_at) {
@@ -647,7 +643,7 @@ pub fn set_recurrence_rule_active(
     now: &str,
 ) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_recurrence_rule(&tx, id)?;
     validate_parent_link(&tx, &current, !is_active)?;
     if current.is_active == is_active {
@@ -679,11 +675,7 @@ fn delete_recurrence_rule_inner(
     now: &str,
 ) -> Result<(), RecurrenceStoreError> {
     validate_timestamp(now)?;
-    let tx = if expected_updated_at.is_some() {
-        conn.transaction_with_behavior(TransactionBehavior::Immediate)?
-    } else {
-        conn.transaction()?
-    };
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_recurrence_rule(&tx, id)?;
     validate_parent_link(&tx, &current, true)?;
     if expected_updated_at.is_some_and(|expected| expected != current.updated_at) {
