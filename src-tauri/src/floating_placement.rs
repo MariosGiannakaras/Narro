@@ -14,9 +14,9 @@ static MOVE_WORKER_ACTIVE: AtomicBool = AtomicBool::new(false);
 static SAVE_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
 static USER_MOVE_START: Mutex<Option<PhysicalPoint>> = Mutex::new(None);
 static USER_PLACEMENT_DIRTY: AtomicBool = AtomicBool::new(false);
-// Session-only Timer placement. A new Narro process starts with None and
-// inherits the Panel's current monitor/side/inset even if a legacy SQLite
-// placement row exists. The legacy row is left untouched.
+// Timer position always lives in memory during a process. On a fresh launch,
+// Preferences decide whether to restore an existing legacy/opt-in SQLite row.
+// Neither mode removes legacy positions.
 static SESSION_TIMER_PLACEMENT: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
 
 fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
@@ -24,6 +24,66 @@ fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
         .lock()
         .map(|placement| placement.clone())
         .map_err(|error| placement_error("read session-only Timer position", error))
+}
+
+fn remember_position_after_restart(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    let connection = app_database(app_handle)?;
+    persistence::preferences::get_preferences(&connection)
+        .map(|record| {
+            record.is_some_and(|record| record.payload.general.remember_timer_position_on_restart)
+        })
+        .map_err(|error| placement_error("read Timer restart-position preference", error))
+}
+
+fn effective_saved_placement(
+    current_session: Option<SavedFloatingPlacement>,
+    legacy: Option<SavedFloatingPlacement>,
+    remember_after_restart: bool,
+) -> Option<SavedFloatingPlacement> {
+    current_session.or_else(|| if remember_after_restart { legacy } else { None })
+}
+
+fn timer_position_for_current_policy(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<Option<SavedFloatingPlacement>> {
+    let session = session_timer_position()?;
+    if session.is_some() {
+        return Ok(session);
+    }
+    if !remember_position_after_restart(app_handle)? {
+        return Ok(None);
+    }
+    let connection = app_database(app_handle)?;
+    let previous = persistence::floating_placement::load(&connection)
+        .map_err(|error| placement_error("load opted-in Timer position", error))?;
+    Ok(effective_saved_placement(None, previous, true))
+}
+
+fn persist_session_placement_if_opted_in(
+    app_handle: &tauri::AppHandle,
+    saved: &SavedFloatingPlacement,
+) -> CommandResult<()> {
+    if remember_position_after_restart(app_handle)? {
+        let connection = app_database(app_handle)?;
+        persistence::floating_placement::save(
+            &connection,
+            saved,
+            &chrono::Utc::now().to_rfc3339(),
+        )
+        .map_err(|error| placement_error("persist opted-in Timer position", error))?;
+    }
+    Ok(())
+}
+
+// Sync after the preference commits, including a Timer currently hidden.
+// Without a user drag there is no new position to persist.
+pub(crate) fn sync_session_position_on_preference_change(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<()> {
+    if let Some(saved) = session_timer_position()? {
+        persist_session_placement_if_opted_in(app_handle, &saved)?;
+    }
+    Ok(())
 }
 
 fn set_session_timer_position(placement: SavedFloatingPlacement) -> CommandResult<()> {
@@ -489,8 +549,8 @@ fn first_timer_position(
         .map_err(|error| placement_error("clamp unpinned Timer to Panel origin", error))
 }
 
-pub(crate) fn has_session_timer_position() -> CommandResult<bool> {
-    session_timer_position().map(|position| position.is_some())
+pub(crate) fn has_effective_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    timer_position_for_current_policy(app_handle).map(|position| position.is_some())
 }
 
 pub(crate) fn planned_timer_position(
@@ -498,7 +558,7 @@ pub(crate) fn planned_timer_position(
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<PhysicalPoint> {
-    let saved = session_timer_position()?;
+    let saved = timer_position_for_current_policy(app_handle)?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -613,7 +673,7 @@ fn remember_visible_timer_position(
     }
     let current_window = current_visible_rect(&window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
-    let previous = session_timer_position()?;
+    let previous = timer_position_for_current_policy(app_handle)?;
     let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
     if !capture_seed && !should_remember_session_position(previous.is_some(), user_moved) {
         // Never pin the automatically inherited Panel position without an
@@ -635,6 +695,7 @@ fn remember_visible_timer_position(
         monitor_name: selected.name.clone(),
     };
     set_session_timer_position(saved.clone())?;
+    persist_session_placement_if_opted_in(app_handle, &saved)?;
     USER_PLACEMENT_DIRTY.store(false, Ordering::Release);
     crate::validation_log::record_placement_saved(app_handle, &saved);
     Ok(true)
@@ -645,7 +706,7 @@ pub fn restore_for_timer(
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<bool> {
-    let saved = session_timer_position()?;
+    let saved = timer_position_for_current_policy(app_handle)?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -719,7 +780,7 @@ pub fn revalidate_visible_timer_after_display_change(
     let expanded = crate::current_focus_surface_expanded();
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
-    let saved = session_timer_position()?;
+    let saved = timer_position_for_current_policy(app_handle)?;
     let preferred = if USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
         None
     } else {
@@ -902,6 +963,49 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn restart_opt_in_distinguishes_prior_disk_state_from_current_run_drag() {
+        let legacy = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: 300, y: 140 },
+            outer_size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+            work_area: PhysicalRect {
+                position: PhysicalPoint { x: 0, y: 0 },
+                size: PhysicalSize {
+                    width: 1920,
+                    height: 1040,
+                },
+            },
+            monitor_name: Some("Primary".into()),
+        };
+        assert!(effective_saved_placement(None, Some(legacy.clone()), false).is_none());
+        assert_eq!(
+            effective_saved_placement(Some(legacy.clone()), None, false)
+                .expect("session drag")
+                .position,
+            legacy.position,
+        );
+        assert_eq!(
+            effective_saved_placement(None, Some(legacy.clone()), true)
+                .expect("opted-in restore")
+                .position,
+            legacy.position,
+        );
+        let recent = SavedFloatingPlacement {
+            position: PhysicalPoint { x: 710, y: 210 },
+            ..legacy.clone()
+        };
+        assert_eq!(
+            effective_saved_placement(Some(recent.clone()), Some(legacy), true)
+                .expect("session overrides disk")
+                .position,
+            recent.position,
+        );
+    }
+
     #[test]
     fn unpinned_timer_inherits_panel_origin_on_launch_and_clamps_when_needed() {
         let left = PhysicalRect {
