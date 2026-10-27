@@ -269,8 +269,9 @@ mod native {
         };
         // Separate device-dependent bitmap; unlike CreateDIBSection this does
         // not re-declare a competing compositor module's private FFI struct.
-        let bitmap =
-            unsafe { CreateCompatibleBitmap(desktop_dc, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32) };
+        let bitmap = unsafe {
+            CreateCompatibleBitmap(desktop_dc, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32)
+        };
         let result = if bitmap.is_null() {
             None
         } else {
@@ -298,7 +299,12 @@ mod native {
                 unsafe { SetStretchBltMode(memory_dc, HALFTONE) };
                 let background_ok = unsafe {
                     PatBlt(
-                        memory_dc, 0, 0, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32, BLACKNESS,
+                        memory_dc,
+                        0,
+                        0,
+                        PREVIEW_WIDTH as i32,
+                        PREVIEW_HEIGHT as i32,
+                        BLACKNESS,
                     )
                 } != 0;
                 let sample_ok = background_ok
