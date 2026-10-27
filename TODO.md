@@ -593,7 +593,7 @@ These requirements apply to every open or reopened roadmap milestone. A later re
   - Historical evidence: Physical CI #507 visible-Timer Ctrl+Shift+P pulse and Panel-mode no-op passed; native-hidden Timer on this exact build was not retested.
   - Historical evidence: Physical Windows OS animations Off: visible-Timer Ctrl+Shift+P gave one finite pulse and returned to settled state on CI #507. The original OS setting was restored.
   - Historical evidence: CI #624 Gate 9 physical PASS: repeated visible-Timer P pulses on actual animations On and Off settled; Panel P did not change mode/session; the Off pulse followed native mode hide/show. See 2026-09-28 M7 work log.
-- [ ] Persist a safe last position and recover after monitor changes/restart.
+- [ ] Retain dragged Timer position for the current Narro process and recover safely after monitor changes; **only when the optional `Keep Timer position after restart` setting is ON** retain that position across a real Quit/new PID. Default OFF returns to the preferred Panel monitor/side/inset on each new process. The older SQLite data is preserved but ignored while OFF. PR431 source `95ef3b6d` 3/3 CI PASS; exact native current-build policy acceptance OPEN.
   - Historical evidence: Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
   - Historical evidence: Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - Historical evidence: Physical drag, Panel return/reopen, and same-monitor process restart restored the Timer at the moved position with the same paused session on CI #503.
@@ -621,7 +621,7 @@ Acceptance criteria:
 - timer remains synchronized with authoritative Rust state
 - no second focus webview is created during normal switching
 - collapsed/expanded states visually match the supplied hierarchy and density
-- saved position survives restart when still valid
+- **Default OFF:** completed Timer drag survives Panel/Compact/Expanded and Main hide/return during the same process, but real Quit/relaunch begins at the preferred Panel inset. **Opt-in ON:** saved Timer position survives real Quit/relaunch when valid. Do not reuse historical unconditional persistence PASS as evidence for this new default; both cases require separately graded current-build native acceptance.
 - lost/off-screen position is recoverable
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
