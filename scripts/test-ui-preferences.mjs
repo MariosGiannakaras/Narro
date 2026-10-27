@@ -245,6 +245,15 @@ invariant(
 );
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
+invariant(
+  rust.includes("let timer_position_sync_error =")
+    && rust.includes("if let Some(error) = timer_position_sync_error")
+    && rust.includes("The Timer restart setting was saved, but the current moved Timer position could not be saved")
+    && rust.indexOf("app_handle.emit(PREFERENCES_CHANGED_EVENT, committed.clone())")
+      < rust.indexOf("if let Some(error) = timer_position_sync_error"),
+  "Partial Timer retention sync failure must broadcast the committed preference and report a truthful error",
+);
+
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
 
 invariant(
