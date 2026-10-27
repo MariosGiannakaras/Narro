@@ -230,6 +230,51 @@ invariant(
     && sections.includes('data-saved-monitor-unavailable="__saved_monitor_unavailable__"'),
   "monitor buttons must preserve persisted identity and explicit unavailable/Automatic recovery",
 );
+const nativeMonitorDisplay = await read("src-tauri/src/monitor_display.rs");
+const nativeDescriptor = await read("src-tauri/src/windows/mod.rs");
+const quickPreferences = await read("src/FocusQuickPreferences.tsx");
+const quickCss = await read("src/focusQuickPreferences.css");
+invariant(
+  nativeDescriptor.includes("pub friendly_name: Option<String>")
+    && nativeDescriptor.includes("pub desktop_preview_data_url: Option<String>")
+    && diagnosticApi.includes("friendlyName?: string | null;")
+    && diagnosticApi.includes("desktopPreviewDataUrl?: string | null;")
+    && lib.includes("descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());")
+    && lib.includes("descriptor.desktop_preview_data_url = monitor_display::desktop_preview_data_url(")
+    && lib.includes("fn list_monitors(app_handle: tauri::AppHandle)")
+    && nativeMonitorDisplay.includes("EnumDisplayDevicesW(")
+    && nativeMonitorDisplay.includes("eq_ignore_ascii_case(display_name)")
+    && nativeMonitorDisplay.includes("active_count == 1")
+    && nativeMonitorDisplay.includes("fallback_count == 1"),
+  "U-R04 must resolve display-model labels by the exact placement adapter identity and fail closed on ambiguous devices",
+);
+invariant(
+  nativeMonitorDisplay.includes("GetDC(null_mut())")
+    && nativeMonitorDisplay.includes("CreateDIBSection(")
+    && nativeMonitorDisplay.includes("StretchBlt(")
+    && nativeMonitorDisplay.includes("SetStretchBltMode(memory_dc, HALFTONE)")
+    && nativeMonitorDisplay.includes("PREVIEW_WIDTH: u32 = 192")
+    && nativeMonitorDisplay.includes("PREVIEW_HEIGHT: u32 = 108")
+    && nativeMonitorDisplay.includes("writer.finish().ok()?;")
+    && nativeMonitorDisplay.includes("data:image/png;base64,")
+    && sections.includes('data-preference-monitor-desktop-preview="true"')
+    && quickPreferences.includes('data-focus-quick-monitor-desktop-preview="true"')
+    && sections.includes("monitor.friendlyName?.trim()")
+    && quickPreferences.includes("monitor.friendlyName?.trim()")
+    && diagnosticApi.includes("const compatible = monitors.filter((monitor) => monitor.name === savedName)"),
+  "U-R05 must capture only an ephemeral bounded native desktop image in existing frames without altering the persisted monitor key",
+);
+invariant(
+  !nativeMonitorDisplay.includes("std::fs")
+    && !nativeMonitorDisplay.includes("std::process")
+    && !nativeMonitorDisplay.includes("reqwest")
+    && sections.includes("onSave({ selectedMonitorKey: monitor.key }, \"monitor\")")
+    && quickPreferences.includes('onSave({ selectedMonitorKey: monitor.key }, "monitor")')
+    && (await read("src/preferenceSettingsSections.css")).includes(".preference-settings__monitor-preview-screen > img")
+    && quickCss.includes(".focus-quick-preferences__screen-preview > img"),
+  "monitor desktop thumbnails must be read-only, memory-only, bounded and occupy existing card geometry",
+);
+
 const monitorCss = await read("src/preferenceSettingsSections.css");
 invariant(monitorCss.includes('.preference-settings__monitor-option[data-selected="true"]')
   && monitorCss.includes('linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box'),
