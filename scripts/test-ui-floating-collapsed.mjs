@@ -84,10 +84,17 @@ for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
 }
 invariant(
-  foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
-    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
+  foundation.includes('import { waitForPresentedFrame') 
+    && presentationFrame.includes("export function waitForPresentedFrame(): Promise<void>")
+    && presentationFrame.includes("export function waitForPresentedFrameWithin(timeoutMs: number)")
+    && presentationFrame.includes("export async function waitForPresentedFrameOrThrow(timeoutMs = 1_500)")
+    && presentationFrame.includes("window.cancelAnimationFrame(firstFrame)")
+    && presentationFrame.includes("window.cancelAnimationFrame(secondFrame)")
+    && presentationFrame.includes("window.clearTimeout(timeout)")
+    && presentationFrame.includes("Math.max(0, timeoutMs)")
+    && presentationFrame.includes('throw new Error("Focus presentation did not paint within the recovery deadline.")')
     && !presentationFrame.includes("setInterval("),
-  "presentation preparation may use only the shared finite frame barrier",
+  "presentation preparation must use shared finite painted-frame barriers and cancel callbacks on a bounded hidden-WebView timeout",
 );
 
 for (const needle of [
