@@ -113,7 +113,7 @@ function DurationSelect({
 }
 
 function monitorLabel(monitor: MonitorDescriptor): string {
-  const name = monitor.name?.trim() || `Display ${monitor.index + 1}`;
+  const name = monitor.friendlyName?.trim() || `Display ${monitor.index + 1}`;
   return `${name} · ${monitor.size.width}×${monitor.size.height} · ${Math.round(monitor.scaleFactor * 100)}%`;
 }
 
@@ -171,13 +171,17 @@ export function BlitzPanelPreferenceSection({
                   onClick={() => onSave({ selectedMonitorKey: monitor.key }, "monitor")}>
                   <span className="preference-settings__monitor-preview" aria-hidden="true">
                     <span className="preference-settings__monitor-preview-screen">
-                      <span data-preference-monitor-dimensions="true">
-                        {monitor.size.width}×{monitor.size.height}
-                      </span>
+                      {monitor.desktopPreviewDataUrl ? (
+                        <img src={monitor.desktopPreviewDataUrl} alt="" draggable={false} data-preference-monitor-desktop-preview="true" />
+                      ) : (
+                        <span data-preference-monitor-dimensions="true">
+                          {monitor.size.width}×{monitor.size.height}
+                        </span>
+                      )}
                     </span>
                   </span>
-                  <strong>Screen {monitor.index + 1}</strong>
-                  <span className="type-metadata">{monitor.name?.trim() || `Display ${monitor.index + 1}`}</span>
+                  <strong>{monitor.friendlyName?.trim() || `Screen ${monitor.index + 1}`}</strong>
+                  <span className="type-metadata">{monitor.size.width}×{monitor.size.height}</span>
                 </button>
               );
             })}
