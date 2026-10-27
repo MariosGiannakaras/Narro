@@ -68,6 +68,35 @@ invariant(
   "topmost/taskbar state must be presentation attributes, not static second-window config",
 );
 
+
+const topology = read("src-tauri/src/windows/topology.rs");
+const geometry = read("src-tauri/src/windows/mod.rs");
+invariant(
+  topology.includes("WM_MOVING")
+    && topology.includes("snap_timer_moving_rect(hwnd, lparam)")
+    && topology.includes("get_window_rgn_box(hwnd, &mut region)")
+    && topology.includes("MONITOR_DEFAULTTONEAREST")
+    && topology.includes("get_dpi_for_window(hwnd)")
+    && topology.includes("crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer)")
+    && topology.includes("INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)"),
+  "native Timer-only corner snap must operate during Windows drag using the actual clipped region and current monitor DPI",
+);
+invariant(
+  geometry.includes("pub fn timer_corner_snap_position(")
+    && geometry.includes("inset_pixels.min((work_area.size.width - visible_size.width) / 2)")
+    && geometry.includes("inset_pixels.min((work_area.size.height - visible_size.height) / 2)")
+    && geometry.includes("let (Some(x), Some(y))")
+    && topology.includes("crate::FOCUS_PANEL_EDGE_INSET_DIP"),
+  "corner snapping must reuse the Panel inset on both axes and leave non-corner drags free",
+);
+invariant(
+  geometry.includes("fn timer_snap_targets_each_corner_with_panel_inset_and_visible_height()")
+    && geometry.includes("fn timer_snap_preserves_free_drag_near_edges_and_beyond_threshold()")
+    && geometry.includes("fn timer_snap_handles_negative_monitor_coordinates_and_scaled_insets()")
+    && geometry.includes("fn timer_snap_handles_cramped_invalid_and_unrepresentable_areas()"),
+  "native corner-snap geometry must have four deterministic boundary suites",
+);
+
 const dragRegionMatches = foundation.match(/data-tauri-drag-region="true"/g) ?? [];
 invariant(dragRegionMatches.length >= 3, "compact surface must expose native drag regions across non-interactive content");
 const returnButtonStart = actions.indexOf('action="return-to-panel"');
