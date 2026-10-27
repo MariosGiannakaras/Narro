@@ -74,7 +74,7 @@ const FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT: &str = "focus-surface-presentati
 const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
 // One existing 16-DIP spacing step (matching --space-4), scaled for DPI.
-const FOCUS_PANEL_EDGE_INSET_DIP: f64 = 16.0;
+pub(crate) const FOCUS_PANEL_EDGE_INSET_DIP: f64 = 16.0;
 const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
 const FOCUS_PRESENTATION_PANEL: u8 = 1;
 const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
