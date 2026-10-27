@@ -62,6 +62,8 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   // Synchronous admission owner: React pendingKey only publishes on a later render.
   const saveInFlightRef = useRef(false);
   const initialReadInFlightRef = useRef(false);
+  // Delayed initial reads cannot override newer committed cross-window events.
+  const snapshotRevisionRef = useRef(0);
 
   const refreshMonitors = async () => {
     try {
@@ -76,9 +78,11 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   useEffect(() => {
     let disposed = false;
     let stopListening: (() => void) | undefined;
+    const readStartRevision = snapshotRevisionRef.current;
 
     void listen<PreferenceSettingsSnapshot>(PREFERENCES_CHANGED_EVENT, (event) => {
       if (!disposed) {
+        snapshotRevisionRef.current += 1;
         setSnapshot(event.payload);
         setError(null);
       }
@@ -94,7 +98,9 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
     void Promise.all([getPreferenceSettings(), listPreferenceMonitors()])
       .then(([settings, monitorList]) => {
         if (disposed) return;
-        setSnapshot(settings);
+        if (snapshotRevisionRef.current === readStartRevision) {
+          setSnapshot(settings);
+        }
         setMonitors(monitorList);
         setError(null);
       })
