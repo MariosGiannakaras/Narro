@@ -162,6 +162,8 @@ invariant(
     && animatedNativeCommit.includes("std::time::Instant::now()")
     && animatedNativeCommit.includes("deadline.checked_sub(started.elapsed())")
     && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
+    && lib.includes("fn focus_motion_v4_easing(progress: f64)")
+    && lib.includes("focus_motion_v4_raster::compose_panel(")
     && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
