@@ -1,7 +1,7 @@
 //! Read-only Windows display metadata for the existing Preferences monitor cards.
 //! Device keys/placement are deliberately NOT derived from friendly labels.
 //! Desktop samples are low-resolution, ephemeral, never persisted or logged.
-use crate::windows::{PhysicalPoint, PhysicalSize};
+use crate::windows::PhysicalSize;
 
 const PREVIEW_WIDTH: u32 = 192;
 const PREVIEW_HEIGHT: u32 = 108;
@@ -53,10 +53,10 @@ pub fn friendly_name(display_name: Option<&str>) -> Option<String> {
     }
 }
 
-pub fn desktop_preview_data_url(position: PhysicalPoint, size: PhysicalSize) -> Option<String> {
+pub fn desktop_preview_data_url(display_name: Option<&str>, size: PhysicalSize) -> Option<String> {
     #[cfg(windows)]
     {
-        let pixels = native::capture_desktop_sample(position, size)?;
+        let pixels = native::capture_desktop_sample(display_name?, size)?;
         let mut png_bytes = Vec::new();
         {
             let mut encoder = png::Encoder::new(&mut png_bytes, PREVIEW_WIDTH, PREVIEW_HEIGHT);
@@ -70,14 +70,14 @@ pub fn desktop_preview_data_url(position: PhysicalPoint, size: PhysicalSize) -> 
     }
     #[cfg(not(windows))]
     {
-        let _ = (position, size);
+        let _ = (display_name, size);
         None
     }
 }
 
 #[cfg(windows)]
 mod native {
-    use super::{human_monitor_name, PhysicalPoint, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
+    use super::{human_monitor_name, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
     use std::ffi::c_void;
     use std::ptr::{null, null_mut};
 
@@ -140,12 +140,17 @@ mod native {
             device: *mut DisplayDevice,
             flags: u32,
         ) -> i32;
-        fn GetDC(window: Handle) -> Handle;
-        fn ReleaseDC(window: Handle, dc: Handle) -> i32;
+
     }
 
     #[link(name = "gdi32")]
     unsafe extern "system" {
+        fn CreateDCW(
+            driver: *const u16,
+            device: *const u16,
+            port: *const u16,
+            initial: *const c_void,
+        ) -> Handle;
         fn CreateCompatibleDC(dc: Handle) -> Handle;
         fn DeleteDC(dc: Handle) -> i32;
         fn CreateCompatibleBitmap(dc: Handle, width: i32, height: i32) -> Handle;
@@ -232,23 +237,30 @@ mod native {
         None
     }
 
-    pub fn capture_desktop_sample(position: PhysicalPoint, size: PhysicalSize) -> Option<Vec<u8>> {
+    pub fn capture_desktop_sample(display_name: &str, size: PhysicalSize) -> Option<Vec<u8>> {
         // Limit source dimensions and all coordinate conversions before GDI.
         if size.width == 0 || size.height == 0 || size.width > 16_384 || size.height > 16_384 {
             return None;
         }
         let source_width = i32::try_from(size.width).ok()?;
         let source_height = i32::try_from(size.height).ok()?;
-        position.x.checked_add(source_width)?;
-        position.y.checked_add(source_height)?;
-
-        let desktop_dc = unsafe { GetDC(null_mut()) };
+        // A primary desktop HDC can omit or mis-map pixels from another
+        // device. Acquire the exact adapter DC that owns this Tauri monitor.
+        // Do not silently fall back to primary or virtual-screen content.
+        if display_name.trim().is_empty() || display_name.contains('\0') {
+            return None;
+        }
+        let mut device = display_name.encode_utf16().collect::<Vec<_>>();
+        device.push(0);
+        let desktop_dc = unsafe {
+            CreateDCW(device.as_ptr(), device.as_ptr(), null(), null())
+        };
         if desktop_dc.is_null() {
             return None;
         }
         let memory_dc = unsafe { CreateCompatibleDC(desktop_dc) };
         if memory_dc.is_null() {
-            unsafe { ReleaseDC(null_mut(), desktop_dc) };
+            unsafe { DeleteDC(desktop_dc) };
             return None;
         }
         let mut info = BitmapInfo {
@@ -316,8 +328,8 @@ mod native {
                             dest_width as i32,
                             dest_height as i32,
                             desktop_dc,
-                            position.x,
-                            position.y,
+                            0,
+                            0,
                             source_width,
                             source_height,
                             SRCCOPY,
@@ -358,7 +370,7 @@ mod native {
         }
         unsafe {
             DeleteDC(memory_dc);
-            ReleaseDC(null_mut(), desktop_dc);
+            DeleteDC(desktop_dc);
         }
         result
     }
