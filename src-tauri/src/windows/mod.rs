@@ -57,6 +57,10 @@ pub struct MonitorDescriptor {
     pub key: String,
     pub index: usize,
     pub name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub friendly_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub desktop_preview_data_url: Option<String>,
     pub scale_factor: f64,
     pub position: PhysicalPoint,
     pub size: PhysicalSize,
