@@ -23,7 +23,7 @@ for (const [haystack, needle, label] of [
   [runtime, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list projection"],
   [runtime, "usePreferenceSettingsProjection()", "Preferences timezone projection"],
   [runtime, "reportListAccent(task.listId, listColors)", "stable-id Reports Done list accent projection"],
-  [runtime, "doneTaskPresentation(overview, locale, timeZone, listColors)", "Done rows receive existing list colors"],
+  [runtime, "doneTaskPresentation(overviewForCurrentRequest, locale, timeZone, listColors)", "Done rows receive existing list colors"],
   [runtime, "getReportOverview(reportRequest)", "typed current-request Overview aggregation invoke"],
   [runtime, "listIds: [...selectedListIds].sort()", "stable multi-select list request identity"],
   [runtime, "displayTimezone: timeZone", "authoritative display timezone request"],
@@ -230,3 +230,5 @@ assert.equal(documentStub.body.inert, true);
 console.log("Production CSV/PDF handler guards, duplicate events, failure/retry and PDF interaction restoration: PASS");
 
 console.log("Production Reports Overview runtime contracts: PASS");
+
+await import("./test-reports-overview-keyed-projection.mjs");
