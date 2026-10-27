@@ -21,8 +21,8 @@ pub mod list_builtin_icons;
 pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;
-mod monitor_display;
 mod main_focus_raster;
+mod monitor_display;
 mod normal_shutdown;
 pub mod notifications;
 pub mod persistence;
@@ -779,10 +779,8 @@ fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescr
     // Placement/monitor lookup never capture desktop content.
     for descriptor in &mut descriptors {
         descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());
-        descriptor.desktop_preview_data_url = monitor_display::desktop_preview_data_url(
-            descriptor.position,
-            descriptor.size,
-        );
+        descriptor.desktop_preview_data_url =
+            monitor_display::desktop_preview_data_url(descriptor.position, descriptor.size);
     }
     Ok(descriptors)
 }
