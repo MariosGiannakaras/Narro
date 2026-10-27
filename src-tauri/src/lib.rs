@@ -1992,10 +1992,15 @@ async fn focus_surface_prepare_mode_raster(
     }
     let target = parse_focus_surface_presentation(&presentation)?;
     let snapshot = capture_focus_native_snapshot(&window)?;
-    if snapshot.presentation.mode() == target.mode() {
+    // The protected lease also permits the TWO genuine Timer resize states.
+    // Never accept a no-op or non-Timer same-mode transition.
+    if snapshot.presentation == target
+        || (snapshot.presentation.mode() == target.mode()
+            && target.mode() != FocusSurfaceMode::Timer)
+    {
         return Err(CommandError::invalid_argument(
             "presentation",
-            "mode raster requires Panel/Timer transition",
+            "mode raster requires a real Panel/Timer or Timer resize transition",
         ));
     }
     let visible = timer_region::visible_size(&window, snapshot.presentation.region())?;
