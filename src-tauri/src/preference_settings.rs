@@ -443,8 +443,7 @@ pub fn update_preference_settings(
             // drag cannot be saved for the next process, preserve the truth:
             // broadcast the new setting, then surface a partial-save error.
             // The frontend refreshes the authoritative snapshot on rejection.
-            crate::floating_placement::sync_session_position_on_preference_change(&app_handle)
-                .err()
+            crate::floating_placement::sync_session_position_on_preference_change(&app_handle).err()
         } else {
             None
         };
