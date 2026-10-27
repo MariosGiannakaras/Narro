@@ -240,7 +240,7 @@ invariant(
     && diagnosticApi.includes("friendlyName?: string | null;")
     && diagnosticApi.includes("desktopPreviewDataUrl?: string | null;")
     && lib.includes("descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());")
-    && lib.includes("descriptor.desktop_preview_data_url = monitor_display::desktop_preview_data_url(")
+    && /descriptor\.desktop_preview_data_url\s*=\s*monitor_display::desktop_preview_data_url\(descriptor\.position,\s*descriptor\.size\)/s.test(lib)
     && lib.includes("fn list_monitors(app_handle: tauri::AppHandle)")
     && nativeMonitorDisplay.includes("EnumDisplayDevicesW(")
     && nativeMonitorDisplay.includes("eq_ignore_ascii_case(display_name)")
