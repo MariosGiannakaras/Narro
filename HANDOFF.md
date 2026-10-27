@@ -1,4 +1,14 @@
-# CURRENT HANDOFF — PR436 latest PR431 source integration 3/3 PASS; PR418 source-only CI NEXT (2026-10-27)
+# CURRENT HANDOFF — PR418 source contract green; PR419 A/B updated, exact CI not triggered (2026-10-27)
+
+**Owner / priority:** ChatGPT continues all safe source, tests, audits and CI independently of user's Windows physical checks. Current/source-only task: [PR418](https://github.com/MariosGiannakaras/Narro/pull/418) pure Motion v4 design contract at `5f0723a50aa1fe07e85211443ad63dfe17892f70` [CI40581635526](https://github.com/MariosGiannakaras/Narro/actions/runs/40581635526) **3/3 COMPLETED SUCCESS**; exact main diff five files, **zero production runtime changes**. Draft→ready-for-review was **blocked by connector safety checks**, so **OPEN/DRAFT/UNMERGED**; do NOT bypass. [PR419](https://github.com/MariosGiannakaras/Narro/pull/419) B has true two-parent merge of latest A/PR389 `ec9227a2` into B source at `7091691f`, followup latest `49ed77965b39c2ad3acdf19bc4ae090504085eb5` with regressions for accepted N28/N36 and native suspend-save/display-recovery invariants; B is now 0 commits behind latest A. **No exact new-head CI run reported by GitHub**: `NOT RUN/PENDING TRIGGER`; historical B `43adb6a9` 3/3 green is not current source. [Immutable details](work-log/2026-10-27-chatgpt-pr418-design-contract-exact-3of3-and-pr419-a-dependency-reconciliation.md). PR419 native compositor behavior remains experimental, never merged to main, A/B strict acceptance not inferred from recorded functional routes.
+
+**Other source done:** [PR436](https://github.com/MariosGiannakaras/Narro/pull/436) joined with latest PR431 in existing branch `a31d11d0`, [CI40579536904](https://github.com/MariosGiannakaras/Narro/actions/runs/40579536904) 3/3 PASS, exact source physical ZIP/PE/MSI/NSIS independently hashed PASS; [receipt](work-log/2026-10-27-chatgpt-pr436-joined-source-3of3-ci-and-exact-artifact.md). PR431 itself [CI40573065951](https://github.com/MariosGiannakaras/Narro/actions/runs/40573065951) 3/3 PASS. No branch merged into main this new stage; source audit57/57 earlier pinned versions, M1–M4 official4/10, M5–M9 OPEN, M10 explicit approval, M11/M12 dormant. User owns physical schedule; source agent does not request or await it.
+
+**ONE NEXT SOURCE OPERATION:** investigate why PR419 HEAD `49ed77965b39c2ad3acdf19bc4ae090504085eb5` has no Actions run despite source/test changes; ensure exact-head CI using permitted workflow, or explicitly retain CI NOT RUN if trigger unavailable. PR418 source-only code finished but GitHub ready/merge action safety blocked. Then continue safe independent M7 compositor/current-source interoperability review without rewriting proven A/B and PR431 behaviors or changing runtime from ambiguous video evidence.
+
+---
+
+# HISTORICAL HANDOFF — PR436 latest PR431 source integration 3/3 PASS; PR418 source-only CI NEXT (2026-10-27)
 
 **User direction/owner:** ChatGPT autonomously completes all viable Narro source/coding/CI/analysis work; **user's native Windows tests are independently owned and neither scheduled nor awaited by ChatGPT**. No M10/M11/M12. Keep CI/source gates and PR merge restrictions intact.
 
