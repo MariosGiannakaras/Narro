@@ -1,5 +1,6 @@
 use super::{
-    recover_window_top_left, timer_corner_snap_position, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize,
+    recover_window_top_left, timer_corner_snap_position, validate_work_area, PhysicalPoint,
+    PhysicalRect, PhysicalSize,
 };
 use crate::timer_service::TimerService;
 use std::ffi::c_void;
@@ -31,7 +32,6 @@ const MONITOR_DEFAULTTONEAREST: u32 = 2;
 type RawHwnd = *mut c_void;
 type SubclassProc =
     Option<unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize>;
-
 
 #[repr(C)]
 #[derive(Default, Clone, Copy)]
@@ -209,16 +209,13 @@ fn is_power_resume_event(event: usize) -> bool {
     )
 }
 
-
 /** Modify Win32's proposed WM_MOVING rectangle without moving the HWND
  * separately or involving the renderer. Region bounds (not the 700-DIP host
  * envelope) control the bottom-corner anchor. If Win32 cannot report a valid
  * DPI, monitor or committed clipped region, preserve the native free drag.
  */
 fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
-    if lparam == 0
-        || crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer)
-    {
+    if lparam == 0 || crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
         return;
     }
     let proposed = unsafe { &mut *(lparam as *mut WinRect) };
@@ -232,9 +229,7 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
         return;
     }
     let mut region = WinRect::default();
-    if unsafe { get_window_rgn_box(hwnd, &mut region) } == 0
-        || region.left != 0
-        || region.top != 0
+    if unsafe { get_window_rgn_box(hwnd, &mut region) } == 0 || region.left != 0 || region.top != 0
     {
         return;
     }
@@ -252,10 +247,9 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
         return;
     }
 
-    let (Ok(width_i32), Ok(height_i32)) = (
-        i32::try_from(visible_width),
-        i32::try_from(visible_height),
-    ) else {
+    let (Ok(width_i32), Ok(height_i32)) =
+        (i32::try_from(visible_width), i32::try_from(visible_height))
+    else {
         return;
     };
     let Some(visible_right) = proposed.left.checked_add(width_i32) else {
@@ -291,17 +285,29 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
     if dpi == 0 {
         return;
     }
-    let inset = (crate::FOCUS_PANEL_EDGE_INSET_DIP
-        * f64::from(dpi) / f64::from(USER_DEFAULT_SCREEN_DPI))
-        .round() as u32;
+    let inset = (crate::FOCUS_PANEL_EDGE_INSET_DIP * f64::from(dpi)
+        / f64::from(USER_DEFAULT_SCREEN_DPI))
+    .round() as u32;
     // A corner is acquired within two Panel-margin units on both axes.
     let anchor = timer_corner_snap_position(
         PhysicalRect {
-            position: PhysicalPoint { x: info.work.left, y: info.work.top },
-            size: PhysicalSize { width: work_width, height: work_height },
+            position: PhysicalPoint {
+                x: info.work.left,
+                y: info.work.top,
+            },
+            size: PhysicalSize {
+                width: work_width,
+                height: work_height,
+            },
         },
-        PhysicalSize { width: visible_width, height: visible_height },
-        PhysicalPoint { x: proposed.left, y: proposed.top },
+        PhysicalSize {
+            width: visible_width,
+            height: visible_height,
+        },
+        PhysicalPoint {
+            x: proposed.left,
+            y: proposed.top,
+        },
         inset,
         inset.saturating_mul(2),
     );
