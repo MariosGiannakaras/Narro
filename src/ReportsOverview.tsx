@@ -436,9 +436,9 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
           breakSeconds: reportSecondsNumber(day.breakSeconds),
         }))}
         productive={{
-          hour: formatProductiveHour(overview.productive.localHourStart, locale),
-          day: formatProductiveWeekday(overview.productive.weekdayFromMonday, locale),
-          month: formatProductiveMonth(overview.productive.monthKey, locale),
+          hour: formatProductiveHour(overviewForCurrentRequest.productive.localHourStart, locale),
+          day: formatProductiveWeekday(overviewForCurrentRequest.productive.weekdayFromMonday, locale),
+          month: formatProductiveMonth(overviewForCurrentRequest.productive.monthKey, locale),
         }}
         timeByList={timeByList}
         doneTasks={doneTaskPresentation(overviewForCurrentRequest, locale, timeZone, listColors)}
