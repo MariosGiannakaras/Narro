@@ -1,3 +1,5 @@
+**Physical verdict clarification 2026-10-27:** [Ten explicitly adjudicated current-candidate subclaims](PR431_PHYSICAL_VERDICTS_2026-10-27.md): **9 scoped PASS /1 FAIL**, reusing existing verdicts, not new testing or all-milestone acceptance. Recorded analyses and unrun variants remain separately listed. V10/P431-10 missing-monitor fallback FAIL; approved monitor name/in-frame image additions planned. Current HANDOFF gives one source-owner continuation.
+
 ## Explicit user monitor-selector additions — 2026-10-27
 
 | ID | Requirement / authority | Route and status |
