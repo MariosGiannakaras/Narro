@@ -305,4 +305,12 @@ invariant(
   "Motion v4 source must retain resulting-main N28/N36 regression gate from PR389",
 );
 
+invariant(
+  animatedNativeCommit.includes("let _save_guard = floating_placement::suspend_saves();")
+    && animatedNativeCommit.includes("let _display_recovery_guard = windows::suspend_focus_display_recovery();")
+    && animatedNativeCommit.includes("lease.native_committed = true;")
+    && animatedNativeCommit.includes('set_focus_position(&window, desired, "move protected Focus host")?;'),
+  "Motion v4 native animation must protect placement persistence and hotplug recovery until the guarded Focus move commits",
+);
+
 console.log("Single-host Focus presentation transition contracts passed.");
