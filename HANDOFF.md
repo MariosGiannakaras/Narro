@@ -1,3 +1,12 @@
+# CURRENT HANDOFF — Codex PR431 Windows acquisition PREPARED
+
+**OWNER Codex physical/evidence / PHASE PREPARED / last observed 2026-10-27T13:59:46.452265+00:00**. User requests current remaining recordings/direct visual checks and publication only. Latest main9bcb579b consumed; PR431 exact head6dce8daa, CI40502071920 independently3/3 green, artifact12734153337 ZIP2f746f7a and all3 manifest members reverified; EXE4acd49ce. Fresh root Narro-Workspace/Narro-Physical-20261027-PR431/session-01 protects originals in its OWN ledger; copied retained synthetic child04 fixture, SQLite backup quick_check=ok. No app/recorder launched yet. P431 batch0/12 new-source executions; reuse old accepted paths where not invalidated. Source ownership ChatGPT; no Narro source/config/test changes in this acquisition.
+
+**ONE NEXT:** launch session-01/launch.py, verify live image/PID, collect full/Quick Preferences/Search then same-HWND placement/Timer and Reports compatible checks. Use bounded60fps segments for transient claims and snapshots/native probes for static claims. No accepted HDMI/heldEsc repeat without actual invalidation, no simulated tray/hotplug PASS. Stop all owned processes and run ONLY this session restore-profile.py before final stop; publish whole evidence + truthful individual verdicts. A/B compositor holds/M10 user gate unchanged.
+
+---
+# HISTORICAL previous source checkpoint
+
 # CURRENT HANDOFF — PR431 exact Windows CI 3/3 + candidate integrity VERIFIED; physical acceptance OPEN (2026-10-27)
 
 **Owner / phase:** ChatGPT, **AUTOMATED_DONE / NATIVE_NOT_RUN**, completed source/contract regressions on [PR431](https://github.com/MariosGiannakaras/Narro/pull/431) existing branch `fix/user-reported-visual-topology-20261026`. **PR431 OPEN/UNMERGED**, last verified exact head **`6dce8daa27e386823abb704d31a8ffa2a7b004de`**. [Windows CI `40502071920`](https://github.com/MariosGiannakaras/Narro/actions/runs/40502071920) for this exact head **COMPLETED SUCCESS 3/3**: validation job `122182402788` PASS, fast job `122182444107` PASS, Windows candidate job `122182999202` PASS. No current-source physical/native acceptance executed or inferred.
