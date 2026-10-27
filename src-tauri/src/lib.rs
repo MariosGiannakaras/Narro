@@ -21,6 +21,7 @@ pub mod list_builtin_icons;
 pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;
+mod monitor_display;
 mod main_focus_raster;
 mod normal_shutdown;
 pub mod notifications;
@@ -579,6 +580,8 @@ fn monitor_descriptor(
         key,
         index,
         name,
+        friendly_name: None,
+        desktop_preview_data_url: None,
         scale_factor,
         position: GeometryPoint {
             x: position.x,
@@ -697,6 +700,8 @@ mod monitor_selection_tests {
             key: key.to_owned(),
             index,
             name: name.map(str::to_owned),
+            friendly_name: None,
+            desktop_preview_data_url: None,
             scale_factor: 1.0,
             position: GeometryPoint { x: 0, y: 0 },
             size: GeometrySize {
@@ -765,11 +770,21 @@ mod monitor_selection_tests {
 
 #[tauri::command]
 fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
-    enumerate_monitors(&app_handle)?
+    let monitors = enumerate_monitors(&app_handle)?;
+    let mut descriptors = monitors
         .iter()
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect()
+        .collect::<CommandResult<Vec<_>>>()?;
+    // Placement/monitor lookup never capture desktop content.
+    for descriptor in &mut descriptors {
+        descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());
+        descriptor.desktop_preview_data_url = monitor_display::desktop_preview_data_url(
+            descriptor.position,
+            descriptor.size,
+        );
+    }
+    Ok(descriptors)
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
