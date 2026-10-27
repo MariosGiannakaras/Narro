@@ -115,7 +115,7 @@ export function FloatingTimerFoundation({
   const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<
-    "idle" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
+    "idle" | "raster-preparing" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
   >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
