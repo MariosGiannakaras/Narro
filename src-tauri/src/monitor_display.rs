@@ -79,7 +79,7 @@ pub fn desktop_preview_data_url(display_name: Option<&str>, size: PhysicalSize) 
 mod native {
     use super::{human_monitor_name, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
     use std::ffi::c_void;
-    use std::ptr::{null, null_mut};
+    use std::ptr::null;
 
     type Handle = *mut c_void;
     const DISPLAY_DEVICE_ACTIVE: u32 = 0x0000_0001;
