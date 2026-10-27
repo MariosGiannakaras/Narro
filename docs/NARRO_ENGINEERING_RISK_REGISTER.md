@@ -35,7 +35,8 @@ Before a non-trivial source/config/test slice:
 1. identify the affected surface(s) and authority boundaries (renderer, coordinator, Rust/domain, SQLite, Windows/native, evidence/tooling, tracking);
 2. scan only the matching tags/rows below;
 3. carry applicable prevention invariants and guards into the implementation and validation plan;
-4. preserve existing stronger rules when they overlap.
+4. explicitly cross-check each applicable known failure family against the **scoped deep pre-physical review** for the affected behavior: existing semantic regression, negative/async/lifecycle coverage, native-only observation and any unresolved proof gap; never mark an old failure as a live defect without current evidence;
+5. preserve existing stronger rules when they overlap.
 
 After a material failure or correction:
 

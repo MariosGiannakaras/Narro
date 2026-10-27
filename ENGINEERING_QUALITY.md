@@ -38,7 +38,8 @@ Before a non-trivial source/config/test change:
 - classify the affected surfaces and state/native/persistence/tooling authorities;
 - consult only the matching risk-register tags/families rather than rereading the whole history;
 - carry any applicable prevention invariant and guard into the implementation/test plan;
-- do not rerun unrelated historical checks merely because a risk entry exists.
+- do not rerun unrelated historical checks merely because a risk entry exists;
+- explicitly map each *applicable* previous failure mechanism to its current prevention invariant, existing regression coverage, and any **missing** targeted guard before considering the correction review complete. A historical PASS is reusable only for an unaffected claim and environment; an old failure is not automatically a defect in the current source.
 
 After a material implementation, validation or process failure/correction:
 
@@ -49,6 +50,18 @@ After a material implementation, validation or process failure/correction:
 
 A risk-register control state describes prevention maturity only. It never converts an open TODO, physical Windows gate or source-parity gate to PASS.
 
+
+### Mandatory scoped deep pre-physical closure (2026-10-27)
+
+For **every non-trivial implementation or correction whose behavior needs physical Windows acceptance**, perform this review **for the affected surface and its direct/transitive dependencies**, before declaring the exact candidate ready for that physical session. This is a required engineering gate, **not** a whole-app re-audit on every edit and **not** the optional dedicated candidate-wide audit in `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md`:
+
+1. **Record and diagnose:** Resolve the requirement/finding ID, exact source SHA/build/evidence, expected versus observed behavior, accepted original-source or Narro-local decision, reproducibility and justified disposition. Separate a confirmed defect from an unproven risk, missing proof or physical-only claim. Trace UI/event/IPC/native/SQLite/OS boundaries as actually applicable and identify the authoritative state owner, alternative causes and root-cause confidence before changing behavior.
+2. **Close the dependency graph:** From the proposed diff, identify direct and transitive consumers, shared style/fixtures, renderer-to-native event ordering, stale async reads/writes, double invocation and re-entrancy, interruption/cancellation, partial effects, errors/retry/rollback, persistence/Quit/restart, accessibility/keyboard/focus, display/DPI/monitor/motion and performance where relevant. Explain any intentionally irrelevant layers rather than pretending they were tested.
+3. **Apply known failure learning:** Review only relevant `docs/NARRO_ENGINEERING_RISK_REGISTER.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, accepted physical failures, current related CI first-failure logs and canonical finding history. For each applicable mechanism, state the guarding code/test/physical probe or a concrete coverage gap. Do **not** repeat all past investigations or treat candidate patterns as proven current failures.
+4. **Repair and protect:** Implement the smallest evidence-supported state-owner fix; add deterministic semantic regressions for the original failure and credible boundary/negative/ordering/restart cases; update affected fixtures and consumers without weakening assertions. Where actual native compositor/input/OS behavior cannot be simulated, record the exact physical probe needed instead of constructing a false automation PASS.
+5. **Verify and disposition:** Review the final diff against current `main`; run narrow relevant tests followed by available preflight and exact-head required CI (validation/fast/Windows candidate as applicable). On a failure analyze the **first causal step** and repair/revalidate the replacement SHA. Record an independent verdict and evidence for implemented, tests, CI, affected visual/source parity and native Windows gates; label unavailable checks `NOT RUN` or `OPEN`. Before the physical session, hand the operator the exact artifact identity and only the impacted/missing/invalidated scenarios. Retain existing `PHYSICAL_BEFORE_MERGE` holds.
+
+The candidate is **pre-physical-ready only when every in-scope source-inspectable, testable risk has been fixed, guarded or explicitly dispositioned with evidence and an exact next proof**. This does not certify that real Windows behavior or Blitzit parity passes, and does not require physical PA tests while those are paused. After physical FAIL, return to causal analysis and strengthen the appropriate regression/risk guard; after two separately tested failures of the same criterion, apply the established repeated-failure escalation. Reuse unchanged validated claims; do not manufacture a new milestone, expensive CI stage or project-wide sweep.
 
 ### Pre-push impact and regression ownership gate (NER-003 / NER-004)
 

@@ -1,5 +1,7 @@
 # Generic continuation prompt — Codex or Antigravity
 
+> **HISTORICAL TEMPLATE — NOT CURRENT OPERATING INSTRUCTIONS (2026-10-27).** For a new agent or resumed chat, follow live `AI_START_HERE.md` and its current `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md` and `HANDOFF.md` instead. Preserve the active source/task owner and use the mandatory scoped deep pre-physical gate for substantive affected corrections. The legacy checklist below must not override current PA-01–09 `USER-PAUSED` restrictions, the per-change gate, optional milestone holds or immutable `work-log/` protocol. Do not reset ongoing branches/PRs.
+
 Use this after the initial Milestone 1 kickoff whenever switching between coding agents.
 
 ---
@@ -32,7 +34,7 @@ Work in coherent commits. Before stopping or handing to another agent, you MUST:
 - commit/push all intended changes;
 - run and record relevant tests/build/manual checks available in your environment;
 - update `TODO.md` based on evidence;
-- append a detailed entry to `WORK_LOG.md` with your agent name, commits, changed components, decisions/reasons, exact validations/results, measurements, blockers and next action;
+- create a new immutable `work-log/*.md` entry with your agent name, commits, changed components, decisions/reasons, exact validations/results, measurements, blockers and next action (do not append new work to legacy `WORK_LOG.md`);
 - update `STATUS.md` if project-level truth changed;
 - rewrite `HANDOFF.md` with the exact continuation point and remaining validation;
 - ensure no required information exists only in this chat or uncommitted local files.

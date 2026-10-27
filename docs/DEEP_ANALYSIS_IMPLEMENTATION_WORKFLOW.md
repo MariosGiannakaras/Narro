@@ -12,9 +12,17 @@ The goal is not a shallow audit followed by opportunistic fixes. The goal is an 
 
 This file does not replace the Blitzit Pass-3 corpus or the parity reconciliation workflow. It defines how implementation/reconciliation agents consume those sources and how new Narro evidence is analyzed.
 
-## Optional dedicated pre-physical readiness audit — user opt-in
+## Mandatory affected-surface deep pre-physical review — every substantive relevant fix
 
-This is an **optional, user-reserved inspection**, not a standing prerequisite, not an autonomous continuation task, and not a substitute for actual Windows physical validation. **Do not begin or resume it without a separate explicit user instruction.** Recording this optimized protocol does **not** activate the audit, M11/M12, a physical PA session, or M10's release-candidate-wide sweep. Ordinary scoped engineering review and required tests/CI remain permitted independently of this optional audit.
+**Binding clarification (2026-10-27):** For each non-trivial Narro correction or implementation whose behavior requires Windows physical acceptance, the responsible implementation agent must complete a **deep, scoped pre-physical closure** on the actual changed behavior and dependent surfaces. The review is compulsory even if the later physical session is deferred. It belongs to the normal correction cycle: **record → analyze the full relevant evidence and causal chain → correct + regression-test → deeply inspect/validate affected and downstream contracts → exact-head CI and candidate identity → separately authorized native acceptance → update prevention evidence**. Before starting CI, run narrow available checks; after exact-head CI, finalize any claim-specific readiness/invalidations. The next native operator must receive a candidate-specific evidence/probe matrix.
+
+For each affected requirement, identify exact SHA, state owner and normal/negative state routes; inspect renderer/coordinator/IPC/native/storage/OS and visual/keyboard/accessibility/persistence/restart/concurrency paths **where relevant**; reconcile overlapping findings, changed consumers and fixtures; check matching historical Narro/Blitzit risk families and why earlier guards failed; add causal regression coverage and record missing dynamic/native tests. Give each claim a separate `CONFIRMED_DEFECT / UNPROVEN_RISK / NO_FIX / NEEDS_REGRESSION_FIRST / PHYSICAL_ONLY / SOURCE_PARITY_OPEN` disposition as applicable, plus implemented/test/CI/physical evidence and the narrow next proof. Reuse unaffected accepted evidence, keep `NOT RUN` honest and do not certify physical/native compositor frames from static or CI results. See `ENGINEERING_QUALITY.md` for the mandatory candidate closure checklist.
+
+This **per-change scope** is not authorization for a whole-app pre-release sweep, M10, optional M11/M12, or paused PA-01–09. It is not a new roadmap denominator, a separate CI stage, a requirement to read all logs/paths again, or a ban on independent authorized fixes while other audits are in flight.
+
+## Optional dedicated candidate-wide pre-physical readiness audit — user opt-in
+
+This **separate candidate-wide comprehensive inspection** is an **optional, user-reserved inspection**, not a standing prerequisite, not an autonomous continuation task, and not a substitute for actual Windows physical validation. It does not waive the mandatory scoped deep pre-physical review on each affected correction above. **Do not begin or resume it without a separate explicit user instruction.** Recording this optimized protocol does **not** activate the audit, M11/M12, a physical PA session, or M10's release-candidate-wide sweep. Ordinary scoped engineering review and required tests/CI remain permitted independently of this optional audit.
 
 If the user activates the dedicated pre-physical audit after the applicable implementation and exact-head CI are ready, use the existing source/evidence/disposition workflow below with these five *additional execution controls*. They improve efficiency **without reducing required coverage, weakening proof, or turning an unobserved behavior into PASS**:
 
@@ -155,6 +163,8 @@ When raw video is re-opened for a motion-dependent question, inspect the actual 
 Evidence precedence must be explicit when source versions conflict. A convenient older reference must not override stronger current direct evidence.
 
 ## Phase D — causal tracing
+
+Before an evidence-backed fix, consult only matching Narro engineering and Blitzit-history risk families. For a recurring/related failure, record the prior missed guard, testable causal boundary, current regression owner and any physical-only reproduction still needed; don't assume identical root causes from similar symptoms.
 
 For every substantiated Narro discrepancy, trace the symptom to the narrowest causal boundary before editing.
 
