@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import fs from "node:fs";
 import {
   FocusPresentationRecoveryError,
   commitPreparedFocusPresentation,
@@ -301,3 +302,35 @@ test("failed rollback paint preserves its error and does not uncover an unpainte
   });
   assert.equal(h.calls.includes("native:panel"), false);
 });
+
+test("a failed raster acquisition cannot initiate a second native placement of the already-committed presentation", async () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  assert.match(coordinator, /rasterToken = await prepareFocusSurfaceModeRaster\(targetPresentation\)/);
+  assert.match(coordinator, /\} else if \(next !== previousPresentation\) \{\s*\/\/ Raster acquisition failed before native geometry changed/);
+  const h = harness("panel", "timerCompact", true);
+  let nativeHeld = false;
+  const failure = new Error("native outgoing capture failed");
+  h.transition.beforeNativeCommit = async () => { h.calls.push("acquire-failed"); throw failure; };
+  h.transition.beforeNativeRollback = async () => { h.calls.push("paint-previous"); };
+  h.transition.applyNativePresentation = async (requested) => {
+    if (nativeHeld || requested !== h.transition.previousPresentation) h.calls.push(`native:${requested}`);
+  };
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), (error) => error === failure);
+  assert.deepEqual(h.calls, ["ready:timerCompact", "acquire-failed", "paint-previous", "renderer:panel"]);
+  // The equivalent prepared native-lease failure path must still restore
+  // geometry rather than skipping legitimate rollback.
+  const acquired = harness("panel", "timerCompact", true);
+  acquired.transition.beforeNativeCommit = async () => {
+    nativeHeld = true;
+    throw failure;
+  };
+  acquired.transition.beforeNativeRollback = async () => { acquired.calls.push("paint-previous"); };
+  acquired.transition.applyNativePresentation = async (requested) => {
+    if (nativeHeld || requested !== acquired.transition.previousPresentation) acquired.calls.push(`native:${requested}`);
+  };
+  await assert.rejects(commitPreparedFocusPresentation(acquired.transition), (error) => error === failure);
+  assert.ok(acquired.calls.indexOf("native:panel") > acquired.calls.indexOf("paint-previous"));
+});
+
