@@ -103,12 +103,62 @@ function retryHandlerByValue(path, marker, value) {
   has(s, "[reportRequest, reportRequestKey, reportReadAttempt]", "Overview aggregation retry must reissue the same request");
   has(s, "if (disposed) return;", "Overview must discard stale reads");
   const click = retryHandlerByValue(path, "data-reports-overview-retry", "true");
-  for (const [homeError, overview, reportError, expected] of [
-    ["disk busy", null, null, [["homeError", null], ["home", null], ["homeAttempt", 4]]],
-    [null, null, "report busy", [["reportError", null], ["reportPending", true], ["reportAttempt", 4]]],
+  // Derive the callback's keyed values from the actual Reports production
+  // declarations; don't fabricate an unrelated retry/visibility state model.
+  const ast = parse(path).ast;
+  const sourceProjection = new Map();
+  walk(ast, (node) => {
+    if (ts.isVariableDeclaration(node)
+      && ["overviewForCurrentRequest", "currentReportError"].includes(node.name.getText(ast))
+      && node.initializer) {
+      sourceProjection.set(node.name.getText(ast), node.initializer.getText(ast));
+    }
+  });
+  assert.equal(sourceProjection.size, 2, "Recoverable Reports must own current-key projection and error");
+  const script = ts.transpileModule(
+    [...sourceProjection].map(([name, expression]) =>
+      `const ${name} = ${expression};`).join("\n")
+      + "\n({ overviewForCurrentRequest, currentReportError });",
+    { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None } },
+  ).outputText;
+  const keyA = "list-A-date-1", keyB = "list-B-date-2";
+  const oldOverview = { doneTasks: [{ id: "old" }] };
+  for (const scenario of [
+    {
+      homeError: "disk busy", overview: null, overviewRequestKey: null,
+      reportError: null, reportErrorKey: null, reportRequestKey: keyB,
+      expected: [["homeError", null], ["home", null], ["homeAttempt", 4]],
+    },
+    {
+      homeError: null, overview: null, overviewRequestKey: null,
+      reportError: "report busy", reportErrorKey: keyB, reportRequestKey: keyB,
+      expected: [["reportError", null], ["reportPending", true], ["reportAttempt", 4]],
+    },
+    {
+      // Failed B refresh with A retained: B must be retryable rather than
+      // rendering old A data or presenting an infinite loading state.
+      homeError: null, overview: oldOverview, overviewRequestKey: keyA,
+      reportError: "B unavailable", reportErrorKey: keyB, reportRequestKey: keyB,
+      expected: [["reportError", null], ["reportPending", true], ["reportAttempt", 4]],
+    },
+    {
+      // A stale A error cannot request a new B retry.
+      homeError: null, overview: oldOverview, overviewRequestKey: keyA,
+      reportError: "old A failed", reportErrorKey: keyA, reportRequestKey: keyB,
+      expected: [],
+    },
+    {
+      // Same-key usable Overview remains visible; the error state is not a
+      // blocking error-retry surface when the report is already current.
+      homeError: null, overview: oldOverview, overviewRequestKey: keyB,
+      reportError: "old warning", reportErrorKey: keyB, reportRequestKey: keyB,
+      expected: [],
+    },
   ]) {
+    const { expected, ...vars } = scenario;
+    const projection = vm.runInNewContext(script, vars);
     const r = recorder();
-    run(click, { homeError, overview, reportError,
+    run(click, { ...vars, ...projection,
       setHomeError: r.set("homeError"), setHome: r.set("home"),
       setHomeReadAttempt: r.set("homeAttempt"), setReportError: r.set("reportError"),
       setReportPending: r.set("reportPending"), setReportReadAttempt: r.set("reportAttempt") });
