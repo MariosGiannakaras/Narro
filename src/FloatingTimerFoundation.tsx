@@ -15,7 +15,7 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
-import { waitForPresentedFrame, waitForPresentedFrameOrThrow } from "./presentationFrame";
+import { waitForPresentedFrameOrThrow } from "./presentationFrame";
 import { measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import {
   applyTimerSessionProjection,
@@ -308,7 +308,7 @@ export function FloatingTimerFoundation({
           setExpanded(true);
           setResizePhase("prepainting");
         });
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         if (onRequestExpanded) await onRequestExpanded(true);
         else await setFloatingTimerExpanded(true);
         nativeRegionCommitted = true;
@@ -316,7 +316,7 @@ export function FloatingTimerFoundation({
           setRegionExpanded(true);
           setResizePhase("revealing-start");
         });
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         flushSync(() => setResizePhase("revealing"));
         await waitForFloatingTimerGeometryMotion();
       } else {
@@ -324,7 +324,7 @@ export function FloatingTimerFoundation({
         // before Win32 clips/restores the compact origin. The host WebView never
         // resizes or hides during this ordinary presentation change.
         flushSync(() => setResizePhase("contracting-start"));
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         flushSync(() => setResizePhase("contracting"));
         await waitForFloatingTimerGeometryMotion();
         // The compact hierarchy, not a clipped expanded hierarchy, is the
@@ -334,7 +334,7 @@ export function FloatingTimerFoundation({
           setResizePhase("clipping");
           setExpanded(false);
         });
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         const compactFrame = await captureCompactTimerFrame();
         if (onRequestExpanded) await onRequestExpanded(false, compactFrame);
         else await setFloatingTimerExpanded(false, compactFrame);

@@ -26,7 +26,7 @@ import {
 import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
 import { commitProtectedTimerResize } from "./protectedTimerResize";
-import { waitForPresentedFrame, waitForPresentedFrameOrThrow, waitForPresentedFrameWithin, waitForTimerRasterReady } from "./presentationFrame";
+import { waitForPresentedFrameOrThrow, waitForPresentedFrameWithin, waitForTimerRasterReady } from "./presentationFrame";
 import { isMotionV4Route, motionV4Duration } from "./focusMotionV4";
 import { assertMotionV4TaskIdentity, createMotionV4TimerLayout, measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import { createMotionV4PanelLayout, measureMotionV4Panel, measureMotionV4PanelTimer, type MotionV4PanelLayout } from "./focusMotionV4PanelGeometry";
@@ -124,7 +124,7 @@ export function FocusSurfaceCoordinator() {
 
   const waitForReady = useCallback(async (mode: FocusSurfaceMode) => {
     if (readinessRef.current[mode]) {
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
       return;
     }
 
@@ -143,7 +143,7 @@ export function FocusSurfaceCoordinator() {
           ));
         }, PRESENTATION_READY_TIMEOUT_MS);
       });
-      await waitForPresentedFrame();
+      await waitForPresentedFrameOrThrow();
     } finally {
       if (timeout !== undefined) window.clearTimeout(timeout);
       if (waiter) readinessWaitersRef.current[mode].delete(waiter);
@@ -158,7 +158,7 @@ export function FocusSurfaceCoordinator() {
     // Native outgoing-pixel protection is installed before this promotion.
     // CapturePreview can now read the complete incoming view behind that raster.
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
-    await waitForPresentedFrame();
+    await waitForPresentedFrameOrThrow();
   }, []);
 
   const runGeometryMotion = useCallback(async (
@@ -306,12 +306,12 @@ export function FocusSurfaceCoordinator() {
             setGeometryMotion(null);
             publishPresentation(previousPresentation);
           });
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
         },
         applyNativePresentation: async (next) => {
           if (rasterToken !== undefined) {
             await finishFocusSurfaceModeRaster(rasterToken, true);
-            await waitForPresentedFrame();
+            await waitForPresentedFrameOrThrow();
             await finishFocusSurfaceModeRaster(rasterToken);
             rasterToken = undefined;
           } else {
@@ -333,7 +333,7 @@ export function FocusSurfaceCoordinator() {
           });
         },
         afterRendererCommit: async () => {
-          await waitForPresentedFrame();
+          await waitForPresentedFrameOrThrow();
           await finishFocusSurfaceModeRaster(rasterToken!);
           rasterToken = undefined;
         },
@@ -382,7 +382,7 @@ export function FocusSurfaceCoordinator() {
       return;
     }
 
-    await waitForPresentedFrame();
+    await waitForPresentedFrameOrThrow();
     if (resumeNonce === null) {
       setTimerProjectionError(null);
       return;
