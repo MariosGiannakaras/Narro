@@ -163,6 +163,32 @@ for (const forbidden of [
   }
 }
 
+// V10/P431-10: the global shortcut reveals a hidden *Panel* first, before
+// the renderer receives the Timer-toggle event. Its hidden reveal must use
+// the same safe primary fallback as the first unpinned Timer, not abort on a
+// disconnected saved monitor. Visible Panel commands still reject stale keys.
+const shortcutShowStart = lib.indexOf("pub(crate) fn show_current_focus_surface(");
+const shortcutShowEnd = lib.indexOf("#[tauri::command]", shortcutShowStart);
+const shortcutShow = lib.slice(shortcutShowStart, shortcutShowEnd);
+const hiddenStart = lib.indexOf("fn prepare_hidden_focus_panel_for_reveal(");
+const hiddenEnd = lib.indexOf("pub(crate) fn show_current_focus_surface(", hiddenStart);
+const hiddenPreparation = lib.slice(hiddenStart, hiddenEnd);
+if (
+  shortcutShowStart < 0 || shortcutShowEnd < shortcutShowStart
+  || hiddenStart < 0 || hiddenEnd < hiddenStart
+  || !shortcutShow.includes("needs_hidden_panel_reveal_anchor(presentation, visible)")
+  || !shortcutShow.includes("prepare_hidden_focus_panel_for_reveal(app_handle, &window)?")
+  || !shortcutShow.includes("apply_focus_surface_presentation_internal(app_handle, presentation, None)?")
+  || !hiddenPreparation.includes("panel_anchor_for_initial_timer(app_handle)?")
+  || !hiddenPreparation.includes("apply_panel_native(window, work_area, scale_factor, side)")
+  || !hiddenPreparation.includes("restore_focus_native_snapshot(window, &snapshot)")
+  || !hiddenPreparation.includes("announce_focus_surface_presentation(app_handle, FocusSurfacePresentation::Panel)")
+  || !lib.includes("fn absent_monitor_fallback_applies_only_to_hidden_panel_reveal()")
+  || !lib.includes('Err(error) if error.code == "MONITOR_SELECTION_STALE"')
+) {
+  throw new Error("Hidden initial Focus shortcut must safely fall back only for unavailable saved display, preserve rollback and strict explicit placement");
+}
+
 const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");
 const savedMonitorResolution = lib.indexOf("resolve_monitor_by_key(app_handle, &monitor_key)?", savedMonitorBranch);
 const primaryFallback = lib.indexOf(".primary_monitor()", savedMonitorResolution);
