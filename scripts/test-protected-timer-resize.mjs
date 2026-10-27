@@ -67,28 +67,43 @@ test("delayed target paint cannot start animation early", async () => {
   resolve(); await pending;
 });
 
-test("application wiring uses the protected path rather than the standalone fallback", () => {
+test("production wiring retains protected Motion v4 and complete legacy Compact fallback without cross-owning leases", () => {
   const coordinator = fs.readFileSync(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8");
   const foundation = fs.readFileSync(new URL("../src/FloatingTimerFoundation.tsx", import.meta.url), "utf8");
   const subtasks = fs.readFileSync(new URL("../src/FocusLiveSubtasks.tsx", import.meta.url), "utf8");
   const native = fs.readFileSync(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8");
   assert.ok(coordinator.includes("commitProtectedTimerResize({"));
-  assert.ok(coordinator.includes("protectOutgoing: async (next) => {")
-    && coordinator.includes("const token = await prepareFocusSurfaceModeRaster(next);")
-    && coordinator.includes("return token;"),
-    "outgoing native raster must still be acquired and token returned before renderer preparation");
-  assert.ok(coordinator.includes("waitForTimerRasterReady("));
-  assert.ok(coordinator.includes('data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]'));
-  assert.ok(coordinator.includes("waitForPresentedFrameWithin,"));
-  assert.ok(subtasks.includes("data-floating-subtasks-loading="));
-  assert.ok(coordinator.includes("restoreNative: (token) => {")
-    && coordinator.includes("return finishFocusSurfaceModeRaster(token, true);"),
-    "native rollback must retain the exact protected raster restore path");
-  assert.ok(coordinator.includes("onRequestExpanded={requestTimerExpanded}"));
+  assert.ok(coordinator.includes("protectOutgoing: (next) => prepareFocusSurfaceModeRaster(next)")
+    && coordinator.includes("prepareRenderer: (next) => prepareRenderer(next === \"timerExpanded\")"),
+    "outgoing native raster must be acquired before renderer geometry changes");
+  assert.ok(coordinator.includes("waitForTimerRasterReady(")
+    && coordinator.includes('data-floating-subtasks="expanded"][data-floating-subtasks-loading="true"]')
+    && coordinator.includes("waitForPresentedFrameWithin,")
+    && subtasks.includes("data-floating-subtasks-loading="),
+    "expanded v4 raster must wait for authoritative subtask hydration and a bounded frame barrier");
+  assert.ok(coordinator.includes("const assertTask = () => assertMotionV4TaskIdentity(")
+    && coordinator.includes("assertTask();")
+    && coordinator.includes("createMotionV4TimerLayout(sourceAnchors, measureMotionV4Timer(document))"),
+    "v4 must bind its lease to the original task and use compatible measured sprite geometry");
+  assert.ok(coordinator.includes("restoreNative: (token) => finishFocusSurfaceModeRaster(token, true)")
+    && coordinator.includes("release: (token) => finishFocusSurfaceModeRaster(token)")
+    && coordinator.includes("await animateFocusSurfacePresentation(next, duration, token)"),
+    "rollback and release must retain the same protected lease token through native animation");
+  assert.ok(coordinator.includes("onRequestV4Expanded={requestTimerExpandedV4}")
+    && coordinator.includes("onRequestExpanded={requestTimerExpanded}"),
+    "measured Motion v4 and the original compact-frame fallback must both be wired");
   const body = foundation.slice(foundation.indexOf("const requestExpanded = async"));
-  assert.ok(body.indexOf("await onRequestExpanded(nextExpanded") < body.indexOf("if (nextExpanded) {"));
-  assert.ok(native.includes("if snapshot.presentation == target {"));
-  assert.ok(native.includes("else if lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer"));
+  assert.ok(body.includes("const useV4 = v4Source !== null && v4Source.taskId === liveTaskId")
+    && body.includes("await onRequestV4Expanded(nextExpanded,")
+    && body.includes("if (nextExpanded) {")
+    && body.includes("const compactFrame = await captureCompactTimerFrame()")
+    && body.includes("onRequestExpanded(false, compactFrame)"),
+    "missing or changed source task must retain full original native Compact fallback");
+  assert.ok(native.includes("if snapshot.presentation == target")
+    && native.includes("target.mode() != FocusSurfaceMode::Timer")
+    && native.includes("lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer")
+    && native.includes("lease.target.mode() != FocusSurfaceMode::Timer"),
+    "native lease permits only genuine Timer resize or Panel/Timer transition, never an unguarded same-state capture");
 });
 
 test("delayed native animation cannot publish or release early", async () => {
