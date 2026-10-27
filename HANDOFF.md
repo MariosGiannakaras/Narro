@@ -1,4 +1,9 @@
-# CURRENT HANDOFF — joint human PR431 native continuation PREPARED
+# CURRENT HANDOFF — PR431 native unavailable-monitor FAIL; source owner remediation next
+
+**CURRENT joint human native supplement 2026-10-27T15:26:04.452733+00:00; Codex FROZEN/DONE, profiles restored and no app/capture running:** [Two original videos + native report](work-log/evidence/pr431-human-20261027/README.md). Exact PR4316dce8daa/EXE4acd49ce/CI40502071920 unchanged. Real drag, same-host Panel/Compact/Expanded/Main show-minimize position retention, OFF tray Quit/restart reset and ON tray Quit/restart remembered position have scoped PASS. **P431-10 CONFIRMED FAIL:** selected LG absent at fresh hidden/unpinned OFF Timer shortcut => MONITOR_SELECTION_STALE, no primary fallback; reconnect restores same HWND on LG and preserves selected key. **Current twelve-case aggregate3 scoped PASS/8 PARTIAL/1 FAIL/0 wholly NOT RUN**, not all milestones complete. User monitor-name concern recorded separately, no proven Quit defect. No source edits/newCI/merge; PR431 remains OPEN with hold. **ONE NEXT:** ChatGPT implementation owner investigates/fixes this exact cold unavailable-monitor path, reuses successful OFF/ON/reconnect claims and conducts affected exact-build recapture; no broad repeats. Strict A/B holds and M10 approval gate unchanged.
+
+---
+# HISTORICAL PREPARED joint human PR431 native continuation
 
 **Last reported UTC 2026-10-27T15:07:36.699682+00:00; owner Codex physical + explicitly available human operator; phase PREPARED.** PR431 remains OPEN head6dce8daa27e386823abb704d31a8ffa2a7b004de; exact existing EXE4acd49ce and CI40502071920 unchanged. Fresh isolated session `E:\SystemFiles\Desktop\Narro-Workspace\Narro-Physical-20261027-PR431\session-human-02`; personal profiles backed up/quick-check OK and protected, synthetic owned profile active. No capture or app launched yet at this checkpoint. Bounded target: P431-08 real within-process drag + P431-09 OFF/ON tray Quit/relaunch position, independently scored; old accepted held Escape and general HDMI must not be repeated. Human agreed to one instruction at a time. Previous packet3 scoped PASS/7 partial/2 NOT RUN preserved.
 
@@ -7,7 +12,7 @@
 ---
 # HISTORICAL frozen preceding session
 
-# CURRENT HANDOFF — PR431 native packet FROZEN; analyze originals before repeat
+# HISTORICAL frozen PR431 native packet; analyze originals before repeat
 
 **CURRENT native acquisition2026-10-27 / Codex FROZEN 2026-10-27T14:34:47.361253+00:00:** [PR431 exact-source native packet](work-log/evidence/pr431-native-20261027/README.md), source6dce8daa/EXE4acd49ce/CI40502071920. P431 **10/12 exercised at least partly, not10 PASS**: **3 scoped PASS (01 identity,06 DPI inset,07 direct unpinned reveal),7 PARTIAL/INCONCLUSIVE (02/03/04/05/08/11/12),2 NOT RUN (09 actual tray OFF/ON,10 new hardware-unavailability path)**. Eight original videos (six useful +two recovery attempts), UIA/native/read-only DOM receipts, complete generated logs, SHA manifest and before/after owned-persistence proof. Real native keyboard via sky with read-only DOM focus succeeded despite screenshot/pointer geometry failure; no script-dispatched input. Actual light/dark Search/Preferences, live Quick placement100/125%, same-host Panel/Timer/Expanded, Reports multi-filter and one settled-ON Done acquired. Task identities unchanged; completed count+1. No blanket flicker/source parity/audio/cold-race PASS. Personal profiles restored hash-identically; all owned app/recorders stopped. PR431 remains OPEN/unmerged, A/B strict holds unchanged; no source/config/test/newCI/merge. Formal4/10, M10 user gate, M11/M12 inactive.
 
