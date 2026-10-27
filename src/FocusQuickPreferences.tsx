@@ -172,9 +172,11 @@ export function FocusQuickPreferencesView({
                   onClick={() => void onSave({ selectedMonitorKey: monitor.key }, "monitor")}
                 >
                   <span className="focus-quick-preferences__screen-preview" aria-hidden="true">
-                    <span />
+                    {monitor.desktopPreviewDataUrl ? (
+                      <img src={monitor.desktopPreviewDataUrl} alt="" draggable={false} data-focus-quick-monitor-desktop-preview="true" />
+                    ) : <span />}
                   </span>
-                  <strong>{monitor.name?.trim() || `Screen ${monitor.index + 1}`}</strong>
+                  <strong>{monitor.friendlyName?.trim() || `Screen ${monitor.index + 1}`}</strong>
                   <span className="type-metadata" data-focus-quick-screen-dimensions="true">
                     {monitor.size.width}×{monitor.size.height}
                   </span>
