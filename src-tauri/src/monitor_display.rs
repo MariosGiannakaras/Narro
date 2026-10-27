@@ -189,7 +189,10 @@ mod native {
             {
                 continue;
             }
-            let mut first_non_generic = None;
+            let mut active = None;
+            let mut active_count = 0;
+            let mut fallback = None;
+            let mut fallback_count = 0;
             for child_index in 0..16 {
                 let mut child = DisplayDevice::initialized();
                 if unsafe {
@@ -198,15 +201,24 @@ mod native {
                 {
                     break;
                 }
-                let name = human_monitor_name(&utf16_string(&child.device_string));
-                if child.state_flags & DISPLAY_DEVICE_ACTIVE != 0 && name.is_some() {
-                    return name;
-                }
-                if first_non_generic.is_none() {
-                    first_non_generic = name;
+                if let Some(name) = human_monitor_name(&utf16_string(&child.device_string)) {
+                    fallback_count += 1;
+                    fallback = Some(name.clone());
+                    if child.state_flags & DISPLAY_DEVICE_ACTIVE != 0 {
+                        active_count += 1;
+                        active = Some(name);
+                    }
                 }
             }
-            return first_non_generic;
+            // More than one candidate could name the wrong physical display.
+            // Prefer a unique active monitor; otherwise require unique child.
+            return if active_count == 1 {
+                active
+            } else if active_count == 0 && fallback_count == 1 {
+                fallback
+            } else {
+                None
+            };
         }
         None
     }
