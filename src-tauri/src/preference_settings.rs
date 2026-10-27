@@ -437,20 +437,24 @@ pub fn update_preference_settings(
     }
 
     let committed = snapshot(record.schema_version, record.payload, observed_autostart);
-    if prepared.patch.remember_timer_position_on_restart == Some(true) {
-        // The user may enable restart retention while the Timer is hidden.
-        // Persist the already-dragged in-process location immediately, rather
-        // than waiting for a visible Timer or a subsequent navigation.
-        if let Err(error) =
+    let timer_position_sync_error =
+        if prepared.patch.remember_timer_position_on_restart == Some(true) {
+            // The preference is already committed. If an existing in-session
+            // drag cannot be saved for the next process, preserve the truth:
+            // broadcast the new setting, then surface a partial-save error.
+            // The frontend refreshes the authoritative snapshot on rejection.
             crate::floating_placement::sync_session_position_on_preference_change(&app_handle)
-        {
-            eprintln!(
-                "Could not sync current Timer position after enabling restart retention: {error}"
-            );
-        }
-    }
+                .err()
+        } else {
+            None
+        };
     if let Err(error) = app_handle.emit(PREFERENCES_CHANGED_EVENT, committed.clone()) {
         eprintln!("Warning: Preferences committed, but cross-window broadcast failed: {error}");
+    }
+    if let Some(error) = timer_position_sync_error {
+        return Err(preference_error(format!(
+            "The Timer restart setting was saved, but the current moved Timer position could not be saved for the next launch: {error}"
+        )));
     }
     Ok(committed)
 }
