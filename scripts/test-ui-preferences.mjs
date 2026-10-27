@@ -249,7 +249,8 @@ invariant(
   "U-R04 must resolve display-model labels by the exact placement adapter identity and fail closed on ambiguous devices",
 );
 invariant(
-  nativeMonitorDisplay.includes("GetDC(null_mut())")
+  nativeMonitorDisplay.includes("CreateDCW(device.as_ptr(), device.as_ptr(), null(), null())")
+    && !nativeMonitorDisplay.includes("GetDC(null_mut())")
     && nativeMonitorDisplay.includes("CreateCompatibleBitmap(")
     && nativeMonitorDisplay.includes("PatBlt(")
     && nativeMonitorDisplay.includes("GetDIBits(")
