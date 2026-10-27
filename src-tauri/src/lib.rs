@@ -2397,8 +2397,28 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 mod focus_position_motion_tests {
     use super::{
         focus_panel_animation_size, focus_panel_placement_position, interpolate_blitz_morph_rect,
-        interpolate_focus_axis, FocusPanelSide, GeometryPoint, GeometryRect, GeometrySize,
+        interpolate_focus_axis, needs_hidden_panel_reveal_anchor, FocusPanelSide,
+        FocusSurfacePresentation, GeometryPoint, GeometryRect, GeometrySize,
     };
+
+    #[test]
+    fn absent_monitor_fallback_applies_only_to_hidden_panel_reveal() {
+        assert!(needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            false
+        ));
+        assert!(!needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            true
+        ));
+        for presentation in [
+            FocusSurfacePresentation::TimerCompact,
+            FocusSurfacePresentation::TimerExpanded,
+        ] {
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, false));
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, true));
+        }
+    }
 
     #[test]
     fn contending_ui_presentation_command_returns_busy_without_waiting_for_worker() {
@@ -2640,6 +2660,13 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
+fn needs_hidden_panel_reveal_anchor(
+    presentation: FocusSurfacePresentation,
+    visible: bool,
+) -> bool {
+    presentation == FocusSurfacePresentation::Panel && !visible
+}
+
 // A global shortcut must be able to reveal a hidden Panel even if the
 // *saved* Panel monitor is currently disconnected. Only this visibility
 // handoff may use the primary display temporarily; explicit Panel placement
@@ -2673,8 +2700,14 @@ pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> Comma
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let visible = window
         .is_visible()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility before Focus reveal", error))?;
-    if presentation == FocusSurfacePresentation::Panel && !visible {
+        .map_err(|error| {
+            map_window_error(
+                FOCUS_SURFACE_LABEL,
+                "read visibility before Focus reveal",
+                error,
+            )
+        })?;
+    if needs_hidden_panel_reveal_anchor(presentation, visible) {
         prepare_hidden_focus_panel_for_reveal(app_handle, &window)?;
     } else {
         apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
