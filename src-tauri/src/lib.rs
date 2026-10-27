@@ -22,6 +22,7 @@ pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;
 mod main_focus_raster;
+mod monitor_display;
 mod normal_shutdown;
 pub mod notifications;
 pub mod persistence;
@@ -579,6 +580,8 @@ fn monitor_descriptor(
         key,
         index,
         name,
+        friendly_name: None,
+        desktop_preview_data_url: None,
         scale_factor,
         position: GeometryPoint {
             x: position.x,
@@ -697,6 +700,8 @@ mod monitor_selection_tests {
             key: key.to_owned(),
             index,
             name: name.map(str::to_owned),
+            friendly_name: None,
+            desktop_preview_data_url: None,
             scale_factor: 1.0,
             position: GeometryPoint { x: 0, y: 0 },
             size: GeometrySize {
@@ -765,11 +770,19 @@ mod monitor_selection_tests {
 
 #[tauri::command]
 fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
-    enumerate_monitors(&app_handle)?
+    let monitors = enumerate_monitors(&app_handle)?;
+    let mut descriptors = monitors
         .iter()
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect()
+        .collect::<CommandResult<Vec<_>>>()?;
+    // Placement/monitor lookup never capture desktop content.
+    for descriptor in &mut descriptors {
+        descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());
+        descriptor.desktop_preview_data_url =
+            monitor_display::desktop_preview_data_url(descriptor.name.as_deref(), descriptor.size);
+    }
+    Ok(descriptors)
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
@@ -2397,8 +2410,28 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 mod focus_position_motion_tests {
     use super::{
         focus_panel_animation_size, focus_panel_placement_position, interpolate_blitz_morph_rect,
-        interpolate_focus_axis, FocusPanelSide, GeometryPoint, GeometryRect, GeometrySize,
+        interpolate_focus_axis, needs_hidden_panel_reveal_anchor, FocusPanelSide,
+        FocusSurfacePresentation, GeometryPoint, GeometryRect, GeometrySize,
     };
+
+    #[test]
+    fn absent_monitor_fallback_applies_only_to_hidden_panel_reveal() {
+        assert!(needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            false
+        ));
+        assert!(!needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            true
+        ));
+        for presentation in [
+            FocusSurfacePresentation::TimerCompact,
+            FocusSurfacePresentation::TimerExpanded,
+        ] {
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, false));
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, true));
+        }
+    }
 
     #[test]
     fn contending_ui_presentation_command_returns_busy_without_waiting_for_worker() {
@@ -2640,11 +2673,53 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
+fn needs_hidden_panel_reveal_anchor(presentation: FocusSurfacePresentation, visible: bool) -> bool {
+    presentation == FocusSurfacePresentation::Panel && !visible
+}
+
+// A global shortcut must be able to reveal a hidden Panel even if the
+// *saved* Panel monitor is currently disconnected. Only this visibility
+// handoff may use the primary display temporarily; explicit Panel placement
+// and saved monitor selection remain authoritative and unchanged. The Timer
+// toggle arrives afterwards through the existing renderer event.
+fn prepare_hidden_focus_panel_for_reveal(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+) -> CommandResult<()> {
+    let _presentation_guard = presentation_guard()?;
+    ensure_no_mode_raster()?;
+    let snapshot = capture_focus_native_snapshot(window)?;
+    let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
+    let _save_guard = floating_placement::suspend_saves();
+    if let Err(error) = apply_panel_native(window, work_area, scale_factor, side) {
+        return match restore_focus_native_snapshot(window, &snapshot) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; hidden Panel fallback rollback failed: {recovery}"),
+            )),
+        };
+    }
+    announce_focus_surface_presentation(app_handle, FocusSurfacePresentation::Panel);
+    Ok(())
+}
+
 pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> CommandResult<()> {
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
-    apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read visibility before Focus reveal",
+            error,
+        )
+    })?;
+    if needs_hidden_panel_reveal_anchor(presentation, visible) {
+        prepare_hidden_focus_panel_for_reveal(app_handle, &window)?;
+    } else {
+        apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
+    }
     show_and_focus(&window)
 }
 

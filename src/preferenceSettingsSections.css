@@ -207,6 +207,14 @@
   background: var(--color-surface-interactive);
 }
 
+.preference-settings__monitor-preview-screen > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
 .preference-settings__monitor-preview-screen > span {
   font-size: clamp(8px, .75vw, 11px);
   color: var(--color-text-primary);
