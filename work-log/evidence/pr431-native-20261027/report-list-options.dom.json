@@ -1,0 +1,196 @@
+{
+  "utc": "2026-10-27T14:19:30.915Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    Ordinary backlog item-00:00:04BreakStart breakNotesNotesResumeResumeSkipSkip taskDoneComplete t"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Return to Focus Panel",
+          "text": "Focus"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Collapse Floating Timer",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Reopen subtask: Physical acceptance first subtask",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit subtask: Physical acceptance first subtask",
+          "text": "Physical acceptance first subtask"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete subtask: Physical acceptance first subtask",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "All Lists"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": " Back"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": " Export PDF"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Overview"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Sessions Beta"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All Lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All Lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture Project"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reading & research"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Long project name for list badge and title wrapping"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Uploaded image capture list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived example"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Sep 27, 2026 – Oct 27, 2026"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Chart options",
+          "text": ""
+        },
+        {
+          "tag": "DIV",
+          "label": "Daily Tasks, Breaks and Total session time",
+          "text": "Sun, Sep 27Sun, Oct 04Sun, Oct 11Sun, Oct 18Sun, Oct 25Tue, Oct 2"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min",
+          "text": "Sun, Sep 27"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Mon, Sep 28: Tasks 20min, Breaks 5min, Total 25min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

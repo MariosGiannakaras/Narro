@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-27T14:05:32.086169+00:00",
+  "pid": 2184,
+  "source": "6dce8daa27e386823abb704d31a8ffa2a7b004de",
+  "activeExeSha256": "4acd49ce81fb3b6778457dd060941cdeb4936e0078da6074e1a19c69005728c0",
+  "windowsClientAreaAnimation": false,
+  "uiAutomation": "text works; geometry absent",
+  "screenshotErrors": [
+    "FrameArrived timed out: timed out waiting on channel",
+    "window capture timed out: timed out waiting on channel"
+  ],
+  "pointerError": "coordinate input geometry is unavailable",
+  "ownedWebviewTargets": [
+    {
+      "description": "",
+      "devtoolsFrontendUrl": "https://aka.ms/docs-landing-page/serve_rev/@aa3a7406ba8c53a83536df539f07124d73c899bd/inspector.html?ws=127.0.0.1:9234/devtools/page/B73A0E4098F4AB8193592387B6743959",
+      "id": "B73A0E4098F4AB8193592387B6743959",
+      "title": "Narro Diagnostic - Focus",
+      "type": "page",
+      "url": "http://tauri.localhost/focus.html",
+      "webSocketDebuggerUrl": "ws://127.0.0.1:9234/devtools/page/B73A0E4098F4AB8193592387B6743959"
+    },
+    {
+      "description": "",
+      "devtoolsFrontendUrl": "https://aka.ms/docs-landing-page/serve_rev/@aa3a7406ba8c53a83536df539f07124d73c899bd/inspector.html?ws=127.0.0.1:9234/devtools/page/AE6E560681423F31466937F2762E7629",
+      "id": "AE6E560681423F31466937F2762E7629",
+      "title": "Narro",
+      "type": "page",
+      "url": "http://tauri.localhost/",
+      "webSocketDebuggerUrl": "ws://127.0.0.1:9234/devtools/page/AE6E560681423F31466937F2762E7629"
+    }
+  ]
+}

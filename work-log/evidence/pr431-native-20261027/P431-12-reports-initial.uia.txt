@@ -1,0 +1,49 @@
+Window: "Narro", App: narro.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									10 group ID: root
+										11 complementary List navigation
+											12 graphic Narro
+											13 navigation Lists
+												14 button + Create new list
+												15 button All my lists
+												16 button Archived lists
+										17 section header
+											18 group Utilities
+												19 button Search
+												20 button Settings
+										21 main ID: main-content
+											962 group
+												963 heading Reports
+												964 text Loading local report history…
+										121 navigation Primary
+											122 button Home
+											123 button Reports
+								124 region
+		125 title bar (settable, string) Value: Narro
+			126 menu bar System ID: MenuBar
+				127 menu item System
+			128 button Minimize
+			129 button Maximize
+			130 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reports
+Loading local report history…
+Home
+Reports
+```

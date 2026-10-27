@@ -1,0 +1,111 @@
+{
+  "utc": "2026-10-27T14:18:11.087Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    Ordinary backlog item-00:00:04BreakStart breakNotesNotesResumeResumeSkipSkip taskDoneComplete t"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Return to Focus Panel",
+          "text": "Focus"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Collapse Floating Timer",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Reopen subtask: Physical acceptance first subtask",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit subtask: Physical acceptance first subtask",
+          "text": "Physical acceptance first subtask"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete subtask: Physical acceptance first subtask",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "INPUT",
+        "label": "Search tasks and lists",
+        "text": ""
+      },
+      "tabs": [
+        {
+          "tag": "INPUT",
+          "label": "Search tasks and lists",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Add new task"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Add new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Go to Reports"
+        }
+      ],
+      "dialogs": [
+        {
+          "label": null,
+          "text": "Search NarroCtrl+FQuick actionsAdd new taskAdd new listGo to Reports"
+        }
+      ]
+    }
+  ]
+}

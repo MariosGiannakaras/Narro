@@ -1,0 +1,236 @@
+{
+  "utc": "2026-10-27T14:15:33.293Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    CR+3All ListsTodayPreferencesHomeCompact viewEst: 30min53/55 DoneOrdinary backlog item-00:00:04"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Focus list",
+          "text": "CR+3All Lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Preferences",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Home",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Compact view",
+          "text": ""
+        },
+        {
+          "tag": "SECTION",
+          "label": "Focus queue",
+          "text": "Ordinary backlog item-00:00:04Capture Project1/1 subtasksOvertime"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit EST: 0:10:00",
+          "text": "0:10:00"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit Time Taken: 0:11:43",
+          "text": "0:11:43"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "1/1 Subtasks"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task: Weekly recurring parent",
+          "text": ""
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Weekly recurring parent",
+          "text": "Weekly recurring parent"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Make live: Weekly recurring parent",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Subtasks: Weekly recurring parent",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes: Weekly recurring parent",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Weekly recurring parent",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add task in Focus Panel",
+          "text": "+ ADD TASK"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture drag task B",
+          "text": "Capture drag task B"
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "Search"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Capture Project",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Reading & research",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Long project name for list badge and title wrapping",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Uploaded image capture list",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Archived example",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+CREATE LIST"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Home"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reports"
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

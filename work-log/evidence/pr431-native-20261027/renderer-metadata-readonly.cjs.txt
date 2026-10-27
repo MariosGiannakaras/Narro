@@ -1,0 +1,16 @@
+const fs=require('node:fs');
+(async()=>{
+ const targets=await (await fetch('http://127.0.0.1:9234/json/list')).json();
+ const results=[];
+ for(const target of targets.filter(t=>t.url.startsWith('http://tauri.localhost'))){
+  const ws=new WebSocket(target.webSocketDebuggerUrl);
+  const result=await new Promise((resolve,reject)=>{
+   const timeout=setTimeout(()=>{ws.close();reject(Error('read-only metadata timeout'));},5000);
+   ws.addEventListener('open',()=>ws.send(JSON.stringify({id:1,method:'Runtime.evaluate',params:{expression:'JSON.stringify({href:location.href,ready:document.readyState,reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches,devicePixelRatio:devicePixelRatio,documentFocused:document.hasFocus()})',returnByValue:true}})));
+   ws.addEventListener('message',ev=>{const m=JSON.parse(ev.data);if(m.id===1){clearTimeout(timeout);ws.close();resolve(m);}});
+   ws.addEventListener('error',reject);
+  });
+  results.push({targetId:target.id,url:target.url,receipt:result});
+ }
+ fs.writeFileSync('renderer-metadata-readonly.json',JSON.stringify({utc:new Date().toISOString(),results},null,2));console.log(JSON.stringify(results));
+})().catch(e=>{console.error(e);process.exitCode=1;});

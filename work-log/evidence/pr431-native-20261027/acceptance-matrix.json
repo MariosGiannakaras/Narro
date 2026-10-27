@@ -1,0 +1,59 @@
+{
+  "source": "6dce8daa27e386823abb704d31a8ffa2a7b004de",
+  "exeSha256": "4acd49ce81fb3b6778457dd060941cdeb4936e0078da6074e1a19c69005728c0",
+  "executedAtLeastPartly": 10,
+  "denominator": 12,
+  "scopedPass": 3,
+  "partialInconclusive": 7,
+  "notRun": 2,
+  "cases": [
+    {
+      "id": "P431-01",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P431-02",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-03",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-04",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-05",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-06",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P431-07",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P431-08",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-09",
+      "verdict": "NOT_RUN"
+    },
+    {
+      "id": "P431-10",
+      "verdict": "NOT_RUN"
+    },
+    {
+      "id": "P431-11",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "id": "P431-12",
+      "verdict": "INCONCLUSIVE"
+    }
+  ]
+}

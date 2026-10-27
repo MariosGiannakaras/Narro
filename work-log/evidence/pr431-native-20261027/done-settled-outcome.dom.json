@@ -1,0 +1,251 @@
+{
+  "utc": "2026-10-27T14:23:51.732Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    CR+3All ListsTodayPreferencesHomeCompact viewEst: 20min54/55 DoneTask completeWell done!Ordinar"
+      },
+      "tabs": [
+        {
+          "tag": "SECTION",
+          "label": "Focus queue",
+          "text": "Task completeWell done!Ordinary backlog itemEST 10minTaken 12min2"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Next Task"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Take a Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Close"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture drag task B",
+          "text": "Capture drag task B"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture live task — long title for compact wrapping and hover actions",
+          "text": "Capture live task — long title for compact wrapping and hover act"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Physical EST boundary resume 20261026",
+          "text": "Physical EST boundary resume 20261026"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Physical EST clean 20261026",
+          "text": "Physical EST clean 20261026"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Second task — notes and success feedback",
+          "text": "Second task — notes and success feedback"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Overdue task with age label",
+          "text": "Overdue task with age label"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Third task without estimate",
+          "text": "Third task without estimate"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture success OFF task",
+          "text": "Capture success OFF task"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Ordinary backlog item",
+          "text": "Ordinary backlog item"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Physical EST expiry 1m",
+          "text": "Physical EST expiry 1m"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Scheduled later this week",
+          "text": "Scheduled later this week"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 01 — long title for scroll",
+          "text": "Done history 01 — long title for scroll"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Weekly recurring parent",
+          "text": "Weekly recurring parent"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 02 — long title for scroll",
+          "text": "Done history 02 — long title for scroll"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 03 — long title for scroll",
+          "text": "Done history 03 — long title for scroll"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 04 — long title for scroll",
+          "text": "Done history 04 — long title for scroll"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 05 — long title for scroll",
+          "text": "Done history 05 — long title for scroll"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Done history 06 — long title for scroll",
+          "text": "Done history 06 — long title for scroll"
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "All Lists"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": " Back"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": " Export PDF"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Overview"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Sessions Beta"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All Lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Sep 27, 2026 – Oct 27, 2026"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Chart options",
+          "text": ""
+        },
+        {
+          "tag": "DIV",
+          "label": "Daily Tasks, Breaks and Total session time",
+          "text": "Sun, Sep 27Sun, Oct 04Sun, Oct 11Sun, Oct 18Sun, Oct 25Tue, Oct 2"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min",
+          "text": "Sun, Sep 27"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Mon, Sep 28: Tasks 20min, Breaks 5min, Total 25min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Thu, Oct 01: Tasks 20min, Breaks 5min, Total 25min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Sun, Oct 04: Tasks 20min, Breaks 5min, Total 25min",
+          "text": "Sun, Oct 04"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "utc": "2026-10-27T14:16:43.279Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    Ordinary backlog item-00:00:04BreakStart breakNotesNotesResumeResumeSkipSkip taskDoneComplete t"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Return to Focus Panel",
+          "text": "Focus"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Collapse Floating Timer",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Reopen subtask: Physical acceptance first subtask",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit subtask: Physical acceptance first subtask",
+          "text": "Physical acceptance first subtask"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete subtask: Physical acceptance first subtask",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "Search"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Capture Project",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Reading & research",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Long project name for list badge and title wrapping",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Uploaded image capture list",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Archived example",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+CREATE LIST"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Home"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reports"
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

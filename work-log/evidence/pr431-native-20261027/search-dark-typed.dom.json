@@ -1,0 +1,91 @@
+{
+  "utc": "2026-10-27T14:11:06.074Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "DIV",
+        "label": "Show Floating Timer actions",
+        "text": "Ordinary backlog item-00:00:04"
+      },
+      "tabs": [
+        {
+          "tag": "DIV",
+          "label": "Show Floating Timer actions",
+          "text": "Ordinary backlog item-00:00:04"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Expand Floating Timer",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "INPUT",
+        "label": "Search tasks and lists",
+        "text": ""
+      },
+      "tabs": [
+        {
+          "tag": "INPUT",
+          "label": "Search tasks and lists",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "LCapture ProjectList"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "LUploaded image capture listList"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture drag task BCapture Project · Backlog"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture drag task ACapture Project · This Week"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture drag task BCapture Project · Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture live task — long title for compact wrapping and hover act"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Capture success OFF taskCapture Project · Done"
+        }
+      ],
+      "dialogs": [
+        {
+          "label": null,
+          "text": "Search NarroCtrl+FListsLCapture ProjectListLUploaded image capture listListTasksCapture drag task BCapture Project · BacklogCapture drag task ACapture Project · This WeekCapture drag task BCapture Project · DoneCapture live task — long title for compact wrapping and hover actionsCapture Project · DoneCapture success OFF taskCapture Project · Done"
+        }
+      ]
+    }
+  ]
+}
