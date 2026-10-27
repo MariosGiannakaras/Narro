@@ -190,7 +190,7 @@ export function BlitzPanelPreferenceSection({
           ) : null}
         </div>
       </Row>
-      <Row infoGlyph title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
+      <Row infoGlyph title="Panel side" detail="Place the Focus Panel near the selected monitor's left or right edge, with a small top and side gap.">
         <div className="theme-settings__segments" role="group" aria-label="Blitz Panel Side">
           {(["left", "right"] as FocusPanelSidePreference[]).map((side) => {
             const selectedSide = snapshot.general.focusPanelSide === side;
