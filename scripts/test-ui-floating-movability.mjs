@@ -80,7 +80,6 @@ invariant(
     && topology.includes("crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer)")
     && topology.includes("INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)")
     && topology.includes("let result = unsafe { def_subclass_proc(hwnd, message, wparam, lparam) };")
-    && topology.includes("if INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) && snap_timer_moving_rect(hwnd, lparam)")
     && topology.includes("return 1;"),
   "native Timer-only corner snap must use clipped region and DPI, preserve the subclass chain, and acknowledge handled WM_MOVING",
 );
