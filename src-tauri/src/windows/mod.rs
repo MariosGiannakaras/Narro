@@ -451,7 +451,7 @@ mod tests {
                 y: 0,
             },
             size: PhysicalSize {
-                width: 200,
+                width: 400,
                 height: 400,
             },
         };
