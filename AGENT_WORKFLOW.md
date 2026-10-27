@@ -122,7 +122,7 @@ Current user direction delegates ordinary implementation and validation sequenci
 
 Do **not** spend the session repeatedly polling the same active build/candidate with no state change. Record the exact head/run once, continue dependency-safe implementation/analysis/documentation, and re-check only after substantive progress, when the CI result is required to choose the next safe action, or when new evidence/user input indicates completion. A long-running build is not a reason to idle.
 
-If user input is genuinely required, state the concrete constraint, viable options, the recommended path, and its rationale. A historical handoff instruction that demanded fresh permission solely to begin ordinary tests/CI is superseded by this policy; destructive/external actions and physical-only observation remain distinct safety/evidence boundaries; PA-01–09 native physical tests remain **USER-PAUSED until explicit reactivation** under the current 2026-10-27 project restriction. Other authorized source analysis, implementation and CI continue independently.
+If user input is genuinely required, state the concrete constraint, viable options, the recommended path, and its rationale. A historical handoff instruction that demanded fresh permission solely to begin ordinary tests/CI is superseded by this policy; destructive/external actions and physical-only observation remain distinct safety/evidence boundaries; The newer 2026-10-27 user decision makes routine PA-01–09 native physical acceptance **ACTIVE**: batch dependency-ready checks with compatible analysis/pre-physical evidence and exact-head CI, without case-by-case permission. Other safe source/CI work can continue while Windows access is pending; invasive personal-profile/OS/hardware actions still require separate safeguards/consent.
 
 ## Shared-surface scenario validation and evidence reuse (binding; 2026-10-16)
 
@@ -134,7 +134,7 @@ If user input is genuinely required, state the concrete constraint, viable optio
 4. **Reuse previously accepted evidence before asking for new tests.** Check whether an exact candidate or unchanged affected path already has valid scenario-level proof. Do not recapture valid states, exhaustively replay approved components (Spectrum Core picker, upload, 218 icons) or rerun entire milestone suites merely to satisfy a new grouping. Retest only invalidated dependencies, missing criteria, confirmed failures, and inherently new release-candidate gates; if a shared code change invalidates several claims, record exactly which ones and why.
 5. **Analyze and repair by shared cause.** Freeze an in-progress acquisition corpus before substantive analysis when its capture plan requires this. Afterward triage multiple observations together (shared state owner, renderer, CSS, IPC, persistence). Batch compatible, evidence-backed fixes and regression tests through the normal branch/PR/exact-head CI/merge/resulting-main gates; do not batch unrelated risks merely because they were recorded in one session. Reuse the corrected candidate for multiple relevant follow-up acceptance checks. Record every FAIL and its narrow required replay without resetting earlier unrelated PASS.
 
-**Dated M5 example, not a standing active instruction:** the 2026-10-16 G1–G8 grouped native plan in `work-log/2026-10-16-m5-remaining-batched-capture-plan.md` remains historical scenario evidence. Its then-current restrictions are historical, not authority for a new session. Follow live HANDOFF for the next native acceptance stage and reuse prior evidence only where valid; prior blanket PA01–09 authorization is superseded by the current **USER-PAUSED** restriction.
+**Dated M5 example, not a standing active instruction:** the 2026-10-16 G1–G8 grouped native plan in `work-log/2026-10-16-m5-remaining-batched-capture-plan.md` remains historical scenario evidence. Its then-current restrictions are historical, not authority for a new session. Follow live HANDOFF for the next native acceptance stage and reuse prior evidence only where valid; the earlier `USER-PAUSED` override is itself superseded by the user's newer 2026-10-27 **ACTIVE PA-01–09** direction; retain dated evidence, special native holds and independent M10 gate.
 
 ## User progress reporting
 
@@ -248,7 +248,7 @@ For affected features requiring physical Windows acceptance, enforce **record �
 
 This is **deep inspection of the affected behavior and dependency fan-out**, including relevant error, concurrency, restart, native, visual and accessibility states; it is neither a blanket audit of the entire application nor the separate user-opt-in dedicated candidate-wide audit. Record the exact SHA, inspected versus uncovered states, related previous failures, regression results, pending physical probes and cross-milestone invalidations; reuse still-valid evidence. An agent assigned **workflow-only** changes may edit these authoritative process documents without taking ownership of another agent's source PR, source tests, current HANDOFF or milestone counts. Follow `docs/TRACKER_STATUS_INDEX.md` and coordinate only actual conflicts.
 
-PA-01–09 are currently **USER-PAUSED**. The pre-physical analysis/automated validation gate does **not** reactivate those native tests or change personal AppData/OS permissions. Physically blocked items remain OPEN while independent code can advance. Honor candidate-specific `PHYSICAL_BEFORE_MERGE` holds.
+PA-01–09 are **ACTIVE in dependency-ordered M1–M9**. Pair the deep affected-surface analysis/pre-physical/relevant CI with compatible actual native acceptance in one Windows session when an exact candidate and operator are ready; independently grade each scenario. A physically blocking acceptance must be obtained before dependent changes/merge, while unrelated safe work may advance. No repeat case-by-case permission for ordinary isolated tests; personal AppData/OS/hardware changes retain separate protections. Preserve PR389/PR419 `PHYSICAL_BEFORE_MERGE` holds and M10's post-M9 user review/approval.
 
 ## Pre-CI discipline
 
@@ -344,7 +344,7 @@ When a user test is pending, include exact artifact/run/build identity so an old
 
 ## CI and Windows user testing
 
-Use automated Windows CI for reproducible compilation/tests. When a behavior genuinely requires an interactive Windows desktop, execute the following only under the current applicable authorization; **PA-01–09 remain USER-PAUSED**:
+Use automated Windows CI for reproducible compilation/tests. When a behavior genuinely requires an interactive Windows desktop, routine PA-01–09 is already authorized once its exact candidate/dependency/CI prerequisites and operator are ready; protect personal AppData/OS/hardware and other separately consent-gated operations:
 
 1. implement the narrowest testable path or coherent batch whose members are independently safe;
 2. run local preflight before pushing;

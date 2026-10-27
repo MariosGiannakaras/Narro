@@ -15,7 +15,7 @@
 ## Historical protocol detail and requirements (still binding except candidate identity update above)
 
 
-**Status:** PREPARED / NATIVE NOT RUN. This is a scoped final-build checklist, not a request to restart Codex's full recording campaign or to activate paused PA01–09, M11 or M12. Run only when the user has authorized the relevant final native QA and the exact combined resulting-main Windows CI/build is green. Do not modify a personal installed Narro profile or AppData without permission. Historical videos and source acceptance remain separate.
+**Status:** PREPARED / NATIVE NOT RUN. This is a scoped final-build checklist, not a request to restart Codex's full recording campaign or to activate M11 or M12. The earlier PA01–09 pause has been superseded by the 2026-10-27 active PA policy; perform only missing or invalidated physical scenarios with an exact combined resulting-main green build and available operator. Do not modify a personal installed Narro profile or AppData without permission. Historical videos and source acceptance remain separate.
 
 ## Evidence and verified implementation identity
 
