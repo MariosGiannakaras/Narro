@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-27T15:19:19.094268+00:00",
+  "general": {
+    "selected_monitor_key": "\\\\.\\DISPLAY2|-1920|0|1920|1080|-1920|0|1920|1080|3ff4000000000000",
+    "focus_panel_side": "right",
+    "remember_timer_position_on_restart": false,
+    "open_on_login": false,
+    "hide_task_times": false,
+    "auto_parse_est_from_title": false,
+    "theme": "light",
+    "timezone": "Africa/Abidjan"
+  }
+}

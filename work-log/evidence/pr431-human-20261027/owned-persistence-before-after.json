@@ -1,0 +1,48 @@
+{
+  "taskIdentitiesIdentical": true,
+  "snapshots": [
+    {
+      "label": "before",
+      "taskCount": 80,
+      "completedCount": 66,
+      "idsSha256": "64342bee0fda2d4ede30fec33d0067987743a55f93f96636c24ae13a3ddefa77",
+      "sessionCount": 122,
+      "runtimeCheckpoint": [],
+      "preferencesGeneral": {
+        "selected_monitor_key": "\\\\.\\DISPLAY1|0|0|2560|1080|0|0|2560|1080|3ff0000000000000",
+        "focus_panel_side": "right",
+        "remember_timer_position_on_restart": false,
+        "open_on_login": false,
+        "hide_task_times": false,
+        "auto_parse_est_from_title": false,
+        "theme": "light",
+        "timezone": "Africa/Abidjan"
+      }
+    },
+    {
+      "label": "after",
+      "taskCount": 80,
+      "completedCount": 66,
+      "idsSha256": "64342bee0fda2d4ede30fec33d0067987743a55f93f96636c24ae13a3ddefa77",
+      "sessionCount": 123,
+      "runtimeCheckpoint": [
+        [
+          1,
+          "eed89dc5-8e4b-495c-a5fe-40d175df30d7",
+          "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"a6dd02df-e312-4caf-b469-d9af1cbed93e\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1200000},\"phase\":\"paused\",\"total_work_ms\":268508,\"interval_work_ms\":268508}}",
+          "2026-10-27T15:22:53.707Z"
+        ]
+      ],
+      "preferencesGeneral": {
+        "selected_monitor_key": "\\\\.\\DISPLAY2|-1920|0|1920|1080|-1920|0|1920|1080|3ff4000000000000",
+        "focus_panel_side": "right",
+        "remember_timer_position_on_restart": false,
+        "open_on_login": false,
+        "hide_task_times": false,
+        "auto_parse_est_from_title": false,
+        "theme": "light",
+        "timezone": "Africa/Abidjan"
+      }
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "utc": "2026-10-27T15:22:00.687017+00:00",
+  "pid": 10120,
+  "windows": [
+    {
+      "hwnd": 131434,
+      "title": "Narro",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        26,
+        26,
+        1042,
+        765
+      ]
+    },
+    {
+      "hwnd": 329582,
+      "title": "",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        156,
+        156,
+        2076,
+        945
+      ]
+    },
+    {
+      "hwnd": 30738078,
+      "title": "Narro - Focus",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        104,
+        104,
+        444,
+        804
+      ]
+    },
+    {
+      "hwnd": 5440018,
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "hwnd": 196966,
+      "title": "",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "hwnd": 197092,
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 2623268,
+      "title": "Default IME",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "foregroundHwnd": 198046,
+  "virtualDesktop": {
+    "x": 0,
+    "y": 0,
+    "width": 2560,
+    "height": 1080
+  }
+}

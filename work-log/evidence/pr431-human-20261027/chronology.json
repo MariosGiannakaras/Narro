@@ -1,0 +1,142 @@
+[
+  {
+    "receipt": "off-initial-first-launch.json",
+    "utc": "2026-10-27T15:07:43.612879+00:00"
+  },
+  {
+    "receipt": "initial.json",
+    "utc": "2026-10-27T15:07:49.390118+00:00"
+  },
+  {
+    "receipt": "before-human-drag.json",
+    "utc": "2026-10-27T15:08:21.903369+00:00"
+  },
+  {
+    "receipt": "step02-panel.json",
+    "utc": "2026-10-27T15:09:22.154489+00:00"
+  },
+  {
+    "receipt": "step03-compact.json",
+    "utc": "2026-10-27T15:09:49.824415+00:00"
+  },
+  {
+    "receipt": "step04-dragged.json",
+    "utc": "2026-10-27T15:10:12.528523+00:00"
+  },
+  {
+    "receipt": "step05-panel-return.json",
+    "utc": "2026-10-27T15:10:41.543462+00:00"
+  },
+  {
+    "receipt": "step06-compact-return.json",
+    "utc": "2026-10-27T15:11:06.435835+00:00"
+  },
+  {
+    "receipt": "step07-expanded.json",
+    "utc": "2026-10-27T15:11:32.048803+00:00"
+  },
+  {
+    "receipt": "step08-show-main.json",
+    "utc": "2026-10-27T15:12:03.818717+00:00"
+  },
+  {
+    "receipt": "step08-show-main-later.json",
+    "utc": "2026-10-27T15:12:25.170036+00:00"
+  },
+  {
+    "receipt": "step09-main-minimized.json",
+    "utc": "2026-10-27T15:12:53.595441+00:00"
+  },
+  {
+    "receipt": "step10-before-quit.json",
+    "utc": "2026-10-27T15:13:26.840789+00:00"
+  },
+  {
+    "receipt": "step11-real-tray-exit.json",
+    "utc": "2026-10-27T15:13:54.457732+00:00"
+  },
+  {
+    "receipt": "off-relaunch-first-launch.json",
+    "utc": "2026-10-27T15:13:54.617880+00:00"
+  },
+  {
+    "receipt": "step12-off-restart.json",
+    "utc": "2026-10-27T15:14:15.860105+00:00"
+  },
+  {
+    "receipt": "step14-on-persisted.json",
+    "utc": "2026-10-27T15:15:18.421041+00:00"
+  },
+  {
+    "receipt": "step16-on-dragged.json",
+    "utc": "2026-10-27T15:16:00.566445+00:00"
+  },
+  {
+    "receipt": "step17-real-tray-exit.json",
+    "utc": "2026-10-27T15:16:26.517816+00:00"
+  },
+  {
+    "receipt": "on-relaunch-first-launch.json",
+    "utc": "2026-10-27T15:16:26.686975+00:00"
+  },
+  {
+    "receipt": "step18-on-restart.json",
+    "utc": "2026-10-27T15:16:54.118475+00:00"
+  },
+  {
+    "receipt": "frozen-after-on-restart.json",
+    "utc": "2026-10-27T15:17:11.238433+00:00"
+  },
+  {
+    "receipt": "hdmi02-screen2.json",
+    "utc": "2026-10-27T15:19:19.094268+00:00"
+  },
+  {
+    "receipt": "hdmi03-quit-problem.json",
+    "utc": "2026-10-27T15:20:04.426573+00:00"
+  },
+  {
+    "receipt": "hdmi03-tray-exit.json",
+    "utc": "2026-10-27T15:20:49.959056+00:00"
+  },
+  {
+    "receipt": "hdmi04-disconnected.json",
+    "utc": "2026-10-27T15:21:11.658160+00:00"
+  },
+  {
+    "receipt": "first-launch.json",
+    "utc": "2026-10-27T15:21:11.813286+00:00"
+  },
+  {
+    "receipt": "hdmi05-fresh-hidden.json",
+    "utc": "2026-10-27T15:21:11.965672+00:00"
+  },
+  {
+    "receipt": "hdmi05-hidden-settled.json",
+    "utc": "2026-10-27T15:21:20.130839+00:00"
+  },
+  {
+    "receipt": "hdmi05-fallback-timer.json",
+    "utc": "2026-10-27T15:21:47.986616+00:00"
+  },
+  {
+    "receipt": "hdmi05-preference-preserved.json",
+    "utc": "2026-10-27T15:21:48.105750+00:00"
+  },
+  {
+    "receipt": "hdmi05-after-settle.json",
+    "utc": "2026-10-27T15:22:00.687017+00:00"
+  },
+  {
+    "receipt": "hdmi06-reconnected.json",
+    "utc": "2026-10-27T15:22:25.787361+00:00"
+  },
+  {
+    "receipt": "hdmi06-pref-after-reconnect.json",
+    "utc": "2026-10-27T15:22:25.887293+00:00"
+  },
+  {
+    "receipt": "original-profile-restoration-proof.json",
+    "utc": "2026-10-27T15:23:05.510086+00:00"
+  }
+]

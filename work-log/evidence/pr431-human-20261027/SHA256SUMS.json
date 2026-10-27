@@ -1,0 +1,487 @@
+[
+  {
+    "path": "acceptance-supplement.json",
+    "bytes": 677,
+    "sha256": "970c749fd26eaffc2cf2e95120fa8d950397f9c9efe3921bd8a602bf5f135b4e"
+  },
+  {
+    "path": "before-human-drag.json",
+    "bytes": 1890,
+    "sha256": "b5ed320e9512c0fcb2ebd0a6b8866dc09b77e302bd59702de1ba2af7c1a17fa8"
+  },
+  {
+    "path": "chronology.json",
+    "bytes": 3579,
+    "sha256": "4369af121245e158b20acfb154fbb5950c8bb1ce76f76f489d32637bfeb0b7d7"
+  },
+  {
+    "path": "first-launch.json",
+    "bytes": 481,
+    "sha256": "0a125b115e4645619f80daa2dd61393bd2b9e1afb49362ce995a563565378274"
+  },
+  {
+    "path": "first-process.stderr.txt",
+    "bytes": 1005,
+    "sha256": "5d2d67c3443ac7f301cab811e56d029d0a81646130955bd3965a11fcf12fe235"
+  },
+  {
+    "path": "first-process.stdout.txt",
+    "bytes": 158,
+    "sha256": "9f6dc265ea3ac47b3aecd60bf099e2e2fffcfb1df6c5be30bcb0dc141b5e86b6"
+  },
+  {
+    "path": "frozen-after-on-restart.json",
+    "bytes": 1889,
+    "sha256": "44e209fdaec5e61c4bf1f8df0d542d7a23b07f4a896c4cf0057113d821e8d3c1"
+  },
+  {
+    "path": "hdmi01-settings.uia.json",
+    "bytes": 23679,
+    "sha256": "76b40e0a63a05caa104707d22281eed26e3768b64a94ea752796e4973c326190"
+  },
+  {
+    "path": "hdmi02-screen2.json",
+    "bytes": 414,
+    "sha256": "b3e1d5feef3461f6a3afe08a195597df752acc071167ad3a7f88c6bb44f88d82"
+  },
+  {
+    "path": "hdmi03-problem.png",
+    "bytes": 685717,
+    "sha256": "02c3141004fda45dd4bbe927e3a81d789b4b542b5ae327aaede8f3c41d85ddca"
+  },
+  {
+    "path": "hdmi03-quit-problem.json",
+    "bytes": 1891,
+    "sha256": "079cb4659360c261377eb8840ef2272d73b2f6d1ca2273d9389ea0d608661cbd"
+  },
+  {
+    "path": "hdmi03-tray-exit.json",
+    "bytes": 177,
+    "sha256": "6b83682fc23d82a493115fac0b7a733f5bc97b6ebc5b461551158f250efc291f"
+  },
+  {
+    "path": "hdmi04-disconnected.json",
+    "bytes": 208,
+    "sha256": "a68f522b008c8f693967283aaad0151cd880cffb4b4f3b6fcc321ae8de1d0849"
+  },
+  {
+    "path": "hdmi05-after-settle.json",
+    "bytes": 1883,
+    "sha256": "5401ee2a0e187c782c7f3916049fbaefb88f05deaa3b69763773ddd54fbeafea"
+  },
+  {
+    "path": "hdmi05-fallback-timer.json",
+    "bytes": 1883,
+    "sha256": "ad264a9b08f6516f6fe1f02f2049026ef53d56d6d6081a485d73171d9b71f48d"
+  },
+  {
+    "path": "hdmi05-fallback.png",
+    "bytes": 639468,
+    "sha256": "9f2edcef6b34b9976675682a6e14b7d02fecbc7424bf33009848071ee117eef2"
+  },
+  {
+    "path": "hdmi05-fresh-hidden.json",
+    "bytes": 1399,
+    "sha256": "661befc03517ce5120bdf810c4ee609ac075573ee23058590a2d2774db2e0a59"
+  },
+  {
+    "path": "hdmi05-hidden-settled.json",
+    "bytes": 1885,
+    "sha256": "d4a988560a694ba378a250b15d5c477c690cecbcd70332384dd6c85d8812dd0c"
+  },
+  {
+    "path": "hdmi05-preference-preserved.json",
+    "bytes": 414,
+    "sha256": "ad12dc5ee211a9e862802d8c305833dda7e47c719f1713058969c4ad4697e97e"
+  },
+  {
+    "path": "hdmi06-pref-after-reconnect.json",
+    "bytes": 414,
+    "sha256": "ec09498b3ac7eb41806e076a1c2f05d7f5b9c10a7ba7bb7b4644f6b0ab432a0e"
+  },
+  {
+    "path": "hdmi06-reconnected.json",
+    "bytes": 1886,
+    "sha256": "3cefb38b3a4aa6187778f742ca94050ed03608673173b4b5dfbcba14dbee55a5"
+  },
+  {
+    "path": "hdmi06-recovered-lg.png",
+    "bytes": 1731091,
+    "sha256": "09a765f5d59a075021398ec9c8ba2def4222146f39722bc30989b422dad751d4"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-190s.jpg",
+    "bytes": 28720,
+    "sha256": "724882eeb974e6405ac9dc15d4056db157a25d1b89e386bec9124710839a94a6"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-202s.jpg",
+    "bytes": 28704,
+    "sha256": "6ea837dee4b3924105e78e54827f1cf07846a4e1188dde3de7ba7f7988ed51cf"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-228s.jpg",
+    "bytes": 28386,
+    "sha256": "82ccb85bf7c2a4f89c13260406bbee1feb4b9f5f46e6dc6de29e958b93f504a9"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-245s.jpg",
+    "bytes": 28221,
+    "sha256": "bfebf88718c9c8c70cbebe7a45322899d554303399eab2a777450f7d1a01ef27"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-258s.jpg",
+    "bytes": 52008,
+    "sha256": "db4b9f83ca90b62896c8c2ce4027724a17d645277e2d4f3f27468ad4b7000811"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-8s.jpg",
+    "bytes": 29053,
+    "sha256": "0c3f612a8ba512a0850f854f896b756b241d803841ec740b5db3087ee6a623b5"
+  },
+  {
+    "path": "human-hidden-hdmi/derived-contact-sheet.jpg",
+    "bytes": 190340,
+    "sha256": "1b9a5a76284b93366ec49e8f34c2483150d38f8a5be86bda812653cccf62e57f"
+  },
+  {
+    "path": "human-hidden-hdmi/ffprobe.json",
+    "bytes": 1998,
+    "sha256": "dfba4d4d349e69dde8518e52993828e81e0bc6bbca3e567fe3be8c9f83efa43b"
+  },
+  {
+    "path": "human-hidden-hdmi/native-original.mkv",
+    "bytes": 56349601,
+    "sha256": "57f2bce4664326b21af71dc03b4bf8c69b55f6cdc6dc45de9b035335d94ef4da"
+  },
+  {
+    "path": "human-hidden-hdmi/start.json",
+    "bytes": 135,
+    "sha256": "c58fd0961b0b7ecbdf1c02f81ab8ef33280d8791c1a1da1bc94e355572083981"
+  },
+  {
+    "path": "human-hidden-hdmi/stderr.txt",
+    "bytes": 112,
+    "sha256": "117c227553ad003139db460de61c483fa245260e81d4e79f1ed391a4e0b972dd"
+  },
+  {
+    "path": "human-hidden-hdmi/stop.json",
+    "bytes": 54,
+    "sha256": "349b9c386c6b87df14d47eab6543effe45906ba4a1736760ec54de7f1864ea43"
+  },
+  {
+    "path": "human-off-on/derived-125s.jpg",
+    "bytes": 33116,
+    "sha256": "6a162fcff19e3de01bbbc33dbd5d3f7c0f15c2087f75b12029fce26404962347"
+  },
+  {
+    "path": "human-off-on/derived-132s.jpg",
+    "bytes": 33096,
+    "sha256": "94025a182d9b1cd54a51fb45e6b9b291b7e297f690e7088b04346cccf3e3acf4"
+  },
+  {
+    "path": "human-off-on/derived-177s.jpg",
+    "bytes": 33811,
+    "sha256": "671f162adcb311cf3744e87288a592129d138e58c8787a8f420f70e31d374e10"
+  },
+  {
+    "path": "human-off-on/derived-194s.jpg",
+    "bytes": 34028,
+    "sha256": "606ba39ba5f79bd2b53afd47e551eb09e896842b65dcb263148808c16e116f1a"
+  },
+  {
+    "path": "human-off-on/derived-208s.jpg",
+    "bytes": 33438,
+    "sha256": "e793fd933015c775436c6f55ecb288d22daa98ef9d8b6c614ee4232638aa4cd6"
+  },
+  {
+    "path": "human-off-on/derived-245s.jpg",
+    "bytes": 33981,
+    "sha256": "5ab3a2dfe2607afce4414a396509a7ffe63708a8433afaf5bbf6c378b2919401"
+  },
+  {
+    "path": "human-off-on/derived-287s.jpg",
+    "bytes": 33469,
+    "sha256": "107f51a73418a67ceccf941f651ec2a6005177279aefc2477e4faf1b4b26cad8"
+  },
+  {
+    "path": "human-off-on/derived-371s.jpg",
+    "bytes": 29912,
+    "sha256": "686b8a380e6550f5c5cc816ceff8ed7f0b5125831c17b38fdc8fe7bb209e0d64"
+  },
+  {
+    "path": "human-off-on/derived-476s.jpg",
+    "bytes": 29700,
+    "sha256": "54db9db39ac349187c1f1fe7dcccb284f46c030a06878d4bbc11f1179b6812a9"
+  },
+  {
+    "path": "human-off-on/derived-530s.jpg",
+    "bytes": 28362,
+    "sha256": "78b323eefa46c41c6486c7802d525b86cf1d1bbd46b77bf7d73712f044124ede"
+  },
+  {
+    "path": "human-off-on/derived-contact-sheet.jpg",
+    "bytes": 413073,
+    "sha256": "e74de86ed5483d51c857a47c0cfc83e7597023e7cd9a330b2f0cd5b49ec8cad5"
+  },
+  {
+    "path": "human-off-on/ffprobe.json",
+    "bytes": 1994,
+    "sha256": "f55140e34f69b8dd8fa4abf2022713fb9fa24423c02744575783cfcfa6c4b364"
+  },
+  {
+    "path": "human-off-on/native-original.mkv",
+    "bytes": 103164583,
+    "sha256": "2c11abb6eb10d3932f1474d2c33bc4f893f88458a0c72dd879bed2ced707ea6e"
+  },
+  {
+    "path": "human-off-on/start.json",
+    "bytes": 136,
+    "sha256": "7d8620639f8dbff54d3498bf66336ac1441855c84545eb85270d466870e70f86"
+  },
+  {
+    "path": "human-off-on/stderr.txt",
+    "bytes": 112,
+    "sha256": "aee23a7e5f76c2d3d993ed6a40fed2690d16552b13b00497c66224280efe6ac9"
+  },
+  {
+    "path": "human-off-on/stop.json",
+    "bytes": 54,
+    "sha256": "cc91cdf09677f2f8f73ef29a5b083a0f1ac36058d1013260ec4f3777f8a42a42"
+  },
+  {
+    "path": "initial.json",
+    "bytes": 1888,
+    "sha256": "b30ad48f06b53b31f4eadf5988e38b98865048f8d88037b50e64b18c4a5a89b5"
+  },
+  {
+    "path": "off-initial-first-launch.json",
+    "bytes": 480,
+    "sha256": "2429ae90a22c3b4ffea3645b1645959a2497e073460b5be04f1c13db64bd1030"
+  },
+  {
+    "path": "off-initial-first-process.stderr.txt",
+    "bytes": 115,
+    "sha256": "1dd7cd0f3a096fe73cbcc65f4e6faee359c621eb7d735f28cd84935ef3ba787f"
+  },
+  {
+    "path": "off-initial-first-process.stdout.txt",
+    "bytes": 99,
+    "sha256": "5c607350f4acde01fc40fbb38c0aecc9e187ee67df6af7bd27298bb3649b5ca4"
+  },
+  {
+    "path": "off-relaunch-first-launch.json",
+    "bytes": 480,
+    "sha256": "b38eecbbece7489bffe6f2da7279e57c831005e5e500289d406f499a64b5d7c2"
+  },
+  {
+    "path": "off-relaunch-first-process.stderr.txt",
+    "bytes": 115,
+    "sha256": "a6e4272b39c286e0ae932a300610296aee4d3e452ffc8e2a787eeec98ff83933"
+  },
+  {
+    "path": "off-relaunch-first-process.stdout.txt",
+    "bytes": 99,
+    "sha256": "c6f7b27323605719d3b0018cb1c2c7033c814183d3455934b28578c8dce5c2ae"
+  },
+  {
+    "path": "on-relaunch-first-launch.json",
+    "bytes": 481,
+    "sha256": "f5d8152b3e2d0f40eb4224a93a42cdd956323f324abe1d59b4f27e92209c9e5d"
+  },
+  {
+    "path": "on-relaunch-first-process.stderr.txt",
+    "bytes": 115,
+    "sha256": "ff25d6f7c50d80feeda4ac0e552cd78d636e68a590376a0f946601e016570b05"
+  },
+  {
+    "path": "on-relaunch-first-process.stdout.txt",
+    "bytes": 99,
+    "sha256": "c1db37e665a2bd577f23ac4559fb4cbac14cd268efcd2c775b70413d41c899eb"
+  },
+  {
+    "path": "original-profile-restoration-proof.json",
+    "bytes": 208,
+    "sha256": "9521a7c404a634b6640b8ae2a11d90275d744ce4efb9c873de5a03e1aa045603"
+  },
+  {
+    "path": "owned-app-pid.txt",
+    "bytes": 5,
+    "sha256": "801aaa199f1030bd990a6bd8da7e1bd76f1461bee56880924ccbd49f1166178b"
+  },
+  {
+    "path": "owned-persistence-before-after.json",
+    "bytes": 1822,
+    "sha256": "42c97feddc04fc02ed1e4e40537f11d142116e9954c73d0601752f744dca640c"
+  },
+  {
+    "path": "README.md",
+    "bytes": 7326,
+    "sha256": "e0b1a40d83ef689410340559580e8256abbd5d6fb25bc44fcd9f8b245dce2802"
+  },
+  {
+    "path": "ready.png",
+    "bytes": 670159,
+    "sha256": "d0980bdc44255aa1545cdf8a5e1456ee224fb1b793beb9221d707286e8f118b1"
+  },
+  {
+    "path": "session-meta.json",
+    "bytes": 345,
+    "sha256": "bc87ecc55eb622d839181c87c0f1ff0d74d50580059fe8eb490db66e6b79b5b2"
+  },
+  {
+    "path": "step01-board.uia.json",
+    "bytes": 55453,
+    "sha256": "ae09203c6a6398b347daf25121243578df1de538a96488f46aea3d9513896a15"
+  },
+  {
+    "path": "step02-panel.json",
+    "bytes": 1889,
+    "sha256": "c4152a8e5af7ef993afc01d94f61fa364e6c574448f431e60c6616377e1d8c2d"
+  },
+  {
+    "path": "step03-compact.json",
+    "bytes": 1886,
+    "sha256": "4f08c9079fd25ddbb6c686f4c0a53855b2a8e0494b90322038685d137da1612c"
+  },
+  {
+    "path": "step03-compact.uia.json",
+    "bytes": 1736,
+    "sha256": "10cab41a79bce198561f96342cf421b149a9111f47711aee165a6ee7dec6111e"
+  },
+  {
+    "path": "step04-dragged.json",
+    "bytes": 1887,
+    "sha256": "af8371d87ee7ec325160310a37dac3c7c1ce845b8c194bd90b5c5b6e1d523f06"
+  },
+  {
+    "path": "step05-panel-return.json",
+    "bytes": 1889,
+    "sha256": "8ca90ad6c68ac23b5f04f8e54c83f88118bf53e6ec884c4b1632864bda22127d"
+  },
+  {
+    "path": "step06-compact-return.json",
+    "bytes": 1887,
+    "sha256": "112002d681e0b00a9e3a5bcee44112531d6f25141d702e6608dc07890e54cb1c"
+  },
+  {
+    "path": "step06-compact-return.uia.json",
+    "bytes": 2244,
+    "sha256": "dbffa84c437c69710b0a058d80d6b373cc5b8fc990fbb829362b1c573ca70410"
+  },
+  {
+    "path": "step07-expanded.json",
+    "bytes": 1887,
+    "sha256": "4db3addb12720d34f1900f32dd6c28b2c17511d34becea447d698362abe60510"
+  },
+  {
+    "path": "step07-expanded.uia.json",
+    "bytes": 2345,
+    "sha256": "23a07ee94ec0751fde648b9bdca9e3cd91bf261aeb99ca8ef68570a767072abc"
+  },
+  {
+    "path": "step08-show-main-later.json",
+    "bytes": 1890,
+    "sha256": "04353b535c9f4b3a7ec708c7e371a9f1a14c9db91337b72edd792f2b063f4927"
+  },
+  {
+    "path": "step08-show-main.json",
+    "bytes": 1887,
+    "sha256": "6074595a73ee7b76825c56584053f5a886a4875cfa47834da26bb4d99be434da"
+  },
+  {
+    "path": "step08.png",
+    "bytes": 706159,
+    "sha256": "34f423d5150ed12141d41884ebd11fd51c4fd0cc4efac9cb354e8515df524799"
+  },
+  {
+    "path": "step09-main-minimized.json",
+    "bytes": 1900,
+    "sha256": "32d18a58c01c700f9d0c0b9957b985466068f497278333e0ee9344d4768f2497"
+  },
+  {
+    "path": "step10-before-quit.json",
+    "bytes": 1898,
+    "sha256": "05a40bd8d7b6f768f061aa7b1a4c50d2043069d1a55b0878f939ac80999d1ff2"
+  },
+  {
+    "path": "step10-collapsed.uia.json",
+    "bytes": 1736,
+    "sha256": "c1a51a7b925a2b4922f6d0e892a2ca6c6e31620cde37967c12ac073475a09854"
+  },
+  {
+    "path": "step11-real-tray-exit.json",
+    "bytes": 122,
+    "sha256": "8c19b9e3629b88cf193481cde9316f3242b8c39139e69658ebd123403bc79eae"
+  },
+  {
+    "path": "step12-off-restart.json",
+    "bytes": 1887,
+    "sha256": "33f6bb0d3d0c4da3389299f6d6c62e3369c53583f73808723d9530220c814d28"
+  },
+  {
+    "path": "step12-off-restart.uia.json",
+    "bytes": 1737,
+    "sha256": "037b2286c0c3461106158786e6c7e76e8950175677d7cac1aa9b64f4113740c8"
+  },
+  {
+    "path": "step13-settings.uia.json",
+    "bytes": 23679,
+    "sha256": "224290daf147109fc9ec70ba66158afa91cb9ef5f5dac5fe3ae1bfe423a99b26"
+  },
+  {
+    "path": "step14-on-persisted.json",
+    "bytes": 204,
+    "sha256": "953b007aa1b0bc04fa0d34ddcbe4b818e84b74724b5255be334508b72efd62f4"
+  },
+  {
+    "path": "step15-settings-closed.uia.json",
+    "bytes": 10124,
+    "sha256": "1f3a8ac22e95c9dd830df25b163d949f0def81b670b599ec84be5acdd33871c4"
+  },
+  {
+    "path": "step16-on-dragged.json",
+    "bytes": 1888,
+    "sha256": "1e29c29a3fe45f81ed08e10fcf3c347bf3eb8e17f7b19f018591f4965bc7d370"
+  },
+  {
+    "path": "step17-real-tray-exit.json",
+    "bytes": 122,
+    "sha256": "dfdac1d4220f5c7cc60c53da8384388d2d95bac8ec9d7526d0619801b0936f81"
+  },
+  {
+    "path": "step18-on-restart.json",
+    "bytes": 1889,
+    "sha256": "042c0966f072aca2422a3f6831f7798d123ad2b34b2cf6c4fd87f3079b2f675a"
+  },
+  {
+    "path": "step18-on-restart.uia.json",
+    "bytes": 1725,
+    "sha256": "337bf929a9e73bdff7900e3265a015c6418f6163461b93ddf035c782f992f104"
+  },
+  {
+    "path": "step18.png",
+    "bytes": 653692,
+    "sha256": "57489c5206953591ebb47dced1c44ad09fa574a4b999e644173e1b4b440861ad"
+  },
+  {
+    "path": "timer-first-fault-diagnostics/timer-diagnostics-10120.jsonl",
+    "bytes": 623,
+    "sha256": "6bc82ceba13feb91216de05c14bc67c4c6a06a2e039a1a13067aa10de3f65113"
+  },
+  {
+    "path": "timer-first-fault-diagnostics/timer-diagnostics-17764.jsonl",
+    "bytes": 623,
+    "sha256": "7b1d614eca0364966ce4191e055a700af2470916780b271fbed84c8ca48ac6e7"
+  },
+  {
+    "path": "timer-first-fault-diagnostics/timer-diagnostics-4640.jsonl",
+    "bytes": 939,
+    "sha256": "c8745c524c6a2ca7f994f1b4ae13588e575ac018f3c6d9a70ef1a2884585ade1"
+  },
+  {
+    "path": "timer-first-fault-diagnostics/timer-diagnostics-9260.jsonl",
+    "bytes": 621,
+    "sha256": "c5ccab9870d4ba817bf54e4ea5c8d97bcbd6ae8a9a937064b238db305a6b7af3"
+  }
+]

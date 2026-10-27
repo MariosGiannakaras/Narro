@@ -1,0 +1,11 @@
+{
+  "source": "6dce8daa27e386823abb704d31a8ffa2a7b004de",
+  "artifact": 12734153337,
+  "ciRun": 40502071920,
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261027-PR431\\artifact\\src-tauri\\target-physical\\release\\narro.exe",
+  "sha256": "4acd49ce81fb3b6778457dd060941cdeb4936e0078da6074e1a19c69005728c0",
+  "pid": 4640,
+  "utc": "2026-10-27T15:07:43.612879+00:00",
+  "optInTimerDiagnostics": true,
+  "stderrCapturedBeforeLaunch": true
+}
