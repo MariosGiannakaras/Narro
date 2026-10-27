@@ -314,7 +314,11 @@ export function FocusSurfaceCoordinator() {
             await waitForPresentedFrameOrThrow();
             await finishFocusSurfaceModeRaster(rasterToken);
             rasterToken = undefined;
-          } else {
+          } else if (next !== previousPresentation) {
+            // Raster acquisition failed before native geometry changed.
+            // Restoring the already-committed Panel/Timer is a no-op; a
+            // second explicit native presentation could fail on a stale
+            // selected monitor and mask the original capture error.
             await applyFocusSurfacePresentation(next);
           }
         },
