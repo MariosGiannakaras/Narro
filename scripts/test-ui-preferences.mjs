@@ -250,7 +250,9 @@ invariant(
 );
 invariant(
   nativeMonitorDisplay.includes("GetDC(null_mut())")
-    && nativeMonitorDisplay.includes("CreateDIBSection(")
+    && nativeMonitorDisplay.includes("CreateCompatibleBitmap(")
+    && nativeMonitorDisplay.includes("PatBlt(")
+    && nativeMonitorDisplay.includes("GetDIBits(")
     && nativeMonitorDisplay.includes("StretchBlt(")
     && nativeMonitorDisplay.includes("SetStretchBltMode(memory_dc, HALFTONE)")
     && nativeMonitorDisplay.includes("PREVIEW_WIDTH: u32 = 192")
