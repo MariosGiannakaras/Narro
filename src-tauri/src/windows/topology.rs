@@ -214,49 +214,49 @@ fn is_power_resume_event(event: usize) -> bool {
  * envelope) control the bottom-corner anchor. If Win32 cannot report a valid
  * DPI, monitor or committed clipped region, preserve the native free drag.
  */
-fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
+fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) -> bool {
     if lparam == 0 || crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
-        return;
+        return false;
     }
     let proposed = unsafe { &mut *(lparam as *mut WinRect) };
     let (Ok(host_width), Ok(host_height)) = (
         u32::try_from(i64::from(proposed.right) - i64::from(proposed.left)),
         u32::try_from(i64::from(proposed.bottom) - i64::from(proposed.top)),
     ) else {
-        return;
+        return false;
     };
     if host_width == 0 || host_height == 0 {
-        return;
+        return false;
     }
     let mut region = WinRect::default();
     if unsafe { get_window_rgn_box(hwnd, &mut region) } == 0 || region.left != 0 || region.top != 0
     {
-        return;
+        return false;
     }
     let (Ok(visible_width), Ok(visible_height)) = (
         u32::try_from(i64::from(region.right) - i64::from(region.left)),
         u32::try_from(i64::from(region.bottom) - i64::from(region.top)),
     ) else {
-        return;
+        return false;
     };
     if visible_width == 0
         || visible_height == 0
         || visible_width > host_width
         || visible_height > host_height
     {
-        return;
+        return false;
     }
 
     let (Ok(width_i32), Ok(height_i32)) =
         (i32::try_from(visible_width), i32::try_from(visible_height))
     else {
-        return;
+        return false;
     };
     let Some(visible_right) = proposed.left.checked_add(width_i32) else {
-        return;
+        return false;
     };
     let Some(visible_bottom) = proposed.top.checked_add(height_i32) else {
-        return;
+        return false;
     };
     let visible_rect = WinRect {
         left: proposed.left,
@@ -266,24 +266,24 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
     };
     let monitor = unsafe { monitor_from_rect(&visible_rect, MONITOR_DEFAULTTONEAREST) };
     if monitor.is_null() {
-        return;
+        return false;
     }
     let mut info = MonitorInfo {
         size: std::mem::size_of::<MonitorInfo>() as u32,
         ..MonitorInfo::default()
     };
     if unsafe { get_monitor_info(monitor, &mut info) } == 0 {
-        return;
+        return false;
     }
     let (Ok(work_width), Ok(work_height)) = (
         u32::try_from(i64::from(info.work.right) - i64::from(info.work.left)),
         u32::try_from(i64::from(info.work.bottom) - i64::from(info.work.top)),
     ) else {
-        return;
+        return false;
     };
     let dpi = unsafe { get_dpi_for_window(hwnd) };
     if dpi == 0 {
-        return;
+        return false;
     }
     let inset = (crate::FOCUS_PANEL_EDGE_INSET_DIP * f64::from(dpi)
         / f64::from(USER_DEFAULT_SCREEN_DPI))
@@ -312,18 +312,19 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
         inset.saturating_mul(2),
     );
     let Ok(Some(anchor)) = anchor else {
-        return;
+        return false;
     };
     let (Ok(right), Ok(bottom)) = (
         i32::try_from(i64::from(anchor.x) + i64::from(host_width)),
         i32::try_from(i64::from(anchor.y) + i64::from(host_height)),
     ) else {
-        return;
+        return false;
     };
     proposed.left = anchor.x;
     proposed.top = anchor.y;
     proposed.right = right;
     proposed.bottom = bottom;
+    true
 }
 
 unsafe extern "system" fn display_change_subclass_proc(
@@ -340,9 +341,13 @@ unsafe extern "system" fn display_change_subclass_proc(
             crate::floating_placement::begin_user_timer_move(app);
         }
     } else if message == WM_MOVING {
-        if INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) {
-            snap_timer_moving_rect(hwnd, lparam);
+        // Preserve the Tauri/window subclass chain before applying the final
+        // proposed rectangle; Win32 requires TRUE when WM_MOVING was handled.
+        let result = unsafe { def_subclass_proc(hwnd, message, wparam, lparam) };
+        if INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) && snap_timer_moving_rect(hwnd, lparam) {
+            return 1;
         }
+        return result;
     } else if message == WM_EXITSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
         if let Some(app) = DISPLAY_APP_HANDLE.get() {
