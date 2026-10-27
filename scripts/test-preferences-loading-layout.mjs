@@ -35,6 +35,59 @@ state = {...state, pendingKey: "monitor", error: "save failed"}; html = render()
 assert.match(html, /GeneralPreferenceRows/); assert.match(html, /save failed/);
 assert.doesNotMatch(html, /data-preferences-skeleton|Loading Preferences/);
 const quickSource = readFileSync(new URL("../src/FocusQuickPreferences.tsx", import.meta.url), "utf8");
+// Render the real Quick Preferences React owner under the same initial,
+// rejected-load, ready, and saving states as Full Preferences. Merely matching
+// source strings cannot establish that the loading branch is actually used.
+let quickState = { snapshot: null, monitors: [], loading: true, error: null, pendingKey: null,
+  save() {}, retryInitialLoad() {} };
+const quickCompiled = ts.transpileModule(quickSource, { compilerOptions: {
+  jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022,
+} }).outputText;
+const quickModule = { exports: {} };
+vm.runInNewContext(quickCompiled, { module: quickModule, exports: quickModule.exports, require(id) {
+ if (id === "react") return React;
+ if (id === "react/jsx-runtime") return jsxRuntime;
+ if (id === "./ActionIcon") return { ActionIcon: ({ name }) => React.createElement("i", { "data-icon": name }) };
+ if (id === "./diagnosticApi") return {
+   findSelectedMonitor: () => null, formatInvokeError: (error) => String(error),
+ };
+ if (id === "./focusSurfaceModeApi") return { applyFocusSurfacePresentation: async () => {} };
+ if (id === "./quickPreferenceLivePlacement") return { saveQuickPreferenceWithLivePlacement: async () => true };
+ if (id === "./PreferenceSettingsRuntime") return {
+   PreferenceSettingsRuntimeProvider: ({ children }) => children,
+   usePreferenceSettingsRuntime: () => quickState,
+ };
+ if (id.endsWith(".css")) return {};
+ throw new Error("Unexpected Quick Preferences module " + id);
+}});
+const renderQuick = () => renderToStaticMarkup(
+  React.createElement(quickModule.exports.FocusQuickPreferences, { onBack() {} }),
+);
+let quickHtml = renderQuick();
+assert.match(quickHtml, /data-focus-quick-skeleton="true"/);
+assert.match(quickHtml, /aria-label="Preparing Quick Preferences"/);
+assert.doesNotMatch(quickHtml, /Loading Quick Preferences|role="radiogroup"|data-focus-quick-preferences-retry/,
+  "Preparing Quick Preferences must not render interactive settings or Retry prematurely");
+quickState = { ...quickState, loading: false, error: "Monitor list unavailable" };
+quickHtml = renderQuick();
+assert.match(quickHtml, /role="alert"/);
+assert.match(quickHtml, /data-focus-quick-preferences-retry="true"/);
+assert.doesNotMatch(quickHtml, /data-focus-quick-skeleton|role="radiogroup"/);
+quickState = { ...quickState, snapshot: {
+  general: { selectedMonitorKey: null, focusPanelSide: "right", hideTaskTimes: false },
+  focus: { pomodoroEnabled: false },
+  alerts: { timedAlertsEnabled: false, notificationAlertsEnabled: false },
+  celebration: { showSuccessScreen: false, funGif: false },
+}, error: null };
+quickHtml = renderQuick();
+assert.match(quickHtml, /role="radiogroup"/);
+assert.match(quickHtml, /aria-label="Blitz Panel Side"/);
+assert.doesNotMatch(quickHtml, /data-focus-quick-skeleton|data-focus-quick-preferences-retry|Loading Quick Preferences/);
+quickState = { ...quickState, pendingKey: "side" };
+quickHtml = renderQuick();
+assert.match(quickHtml, /Saving…/);
+assert.match(quickHtml, /data-focus-quick-preferences-back="true" disabled=""/);
+assert.match(quickHtml, /role="radio"[^>]*disabled=""/);
 const quickCss = readFileSync(new URL("../src/focusQuickPreferences.css", import.meta.url), "utf8");
 const prefCss = readFileSync(new URL("../src/preferenceSettingsSections.css", import.meta.url), "utf8");
 assert.match(quickSource, /data-focus-quick-skeleton="true"/);
