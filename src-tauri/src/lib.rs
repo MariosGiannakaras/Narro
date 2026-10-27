@@ -1630,12 +1630,23 @@ fn render_mode_raster_frame(
         &lease.v4_panel_layout,
     ) {
         focus_motion_v4_raster::compose_panel(
-            &lease.outgoing, incoming, from_plate, to_plate, visible, progress, layout,
+            &lease.outgoing,
+            incoming,
+            from_plate,
+            to_plate,
+            visible,
+            progress,
+            layout,
         )?
     } else if let (Some(plate), Some(layout)) = (&lease.v4_plate, &lease.v4_layout) {
         focus_motion_v4_raster::compose(
-            &lease.outgoing, incoming, plate, visible, progress,
-            lease.target == FocusSurfacePresentation::TimerExpanded, layout,
+            &lease.outgoing,
+            incoming,
+            plate,
+            visible,
+            progress,
+            lease.target == FocusSurfacePresentation::TimerExpanded,
+            layout,
         )?
     } else {
         focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
