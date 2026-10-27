@@ -144,6 +144,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const [overviewRequestKey, setOverviewRequestKey] = useState<string | null>(null);
   const [reportPending, setReportPending] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
+  const [reportErrorKey, setReportErrorKey] = useState<string | null>(null);
   const [reportReadAttempt, setReportReadAttempt] = useState(0);
   const [exportPending, setExportPending] = useState(false);
   // A single Export can create a distinct PDF and temporarily lock body interaction.
@@ -176,9 +177,12 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     () => reportRequest === null ? null : JSON.stringify(reportRequest),
     [reportRequest],
   );
-  const overviewCurrent = reportRequestKey !== null
-    && overviewRequestKey === reportRequestKey
-    && !reportPending;
+  // A newly selected filter/date/timezone must never label previous metrics.
+  // Retain same-key results during refresh, but do not expose another key.
+  const overviewForCurrentRequest = reportRequestKey !== null
+    && overviewRequestKey === reportRequestKey ? overview : null;
+  const overviewCurrent = overviewForCurrentRequest !== null && !reportPending;
+  const currentReportError = reportErrorKey === reportRequestKey ? reportError : null;
 
   useEffect(() => {
     let disposed = false;
@@ -214,11 +218,13 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         if (disposed) return;
         setOverview(payload);
         setOverviewRequestKey(reportRequestKey);
+        setReportErrorKey(null);
         setReportError(null);
       })
       .catch((failure: unknown) => {
         if (disposed) return;
         setOverviewRequestKey(null);
+        setReportErrorKey(reportRequestKey);
         setReportError(formatInvokeError(failure));
       })
       .finally(() => {
@@ -359,14 +365,14 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     }
   };
 
-  const blockingError = preferences.error || homeError || (overview === null ? reportError : null);
+  const blockingError = preferences.error || homeError || (overviewForCurrentRequest === null ? currentReportError : null);
   if (blockingError) {
     return (
       <section className="reports-overview reports-overview--state" data-reports-overview-state="error" role="alert">
         <h1>Reports</h1>
         <p>Reports could not be loaded from local data.</p>
         <code>{blockingError}</code>
-        {(homeError || (overview === null && reportError)) ? (
+        {(homeError || (overviewForCurrentRequest === null && currentReportError)) ? (
           <button type="button" className="motion-interactive" data-reports-overview-retry="true"
             onClick={() => {
               if (homeError) {
@@ -374,7 +380,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
                 setHome(null);
                 setHomeReadAttempt((attempt) => attempt + 1);
               }
-              if (overview === null && reportError) {
+              if (overviewForCurrentRequest === null && currentReportError) {
                 setReportError(null);
                 setReportPending(true);
                 setReportReadAttempt((attempt) => attempt + 1);
@@ -388,7 +394,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     );
   }
 
-  if (!preferences.settled || home === null || appliedRange === null || overview === null) {
+  if (!preferences.settled || home === null || appliedRange === null || overviewForCurrentRequest === null) {
     return (
       <section className="reports-overview reports-overview--state" data-reports-overview-state="loading" aria-live="polite">
         <h1>Reports</h1>
@@ -398,7 +404,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   }
 
   const listColors = new Map(home.lists.map((list) => [list.id, list.color]));
-  const timeByList: ReportsListTime[] = overview.timeByList.map((row) => ({
+  const timeByList: ReportsListTime[] = overviewForCurrentRequest.timeByList.map((row) => ({
     id: row.listId,
     title: row.listTitle,
     color: listColors.get(row.listId) ?? null,
@@ -422,8 +428,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         </p>
       ) : null}
       <ReportsOverviewView
-        metrics={buildMetrics(overview)}
-        chartDays={overview.dailySeries.map((day) => ({
+        metrics={buildMetrics(overviewForCurrentRequest)}
+        chartDays={overviewForCurrentRequest.dailySeries.map((day) => ({
           id: day.localDate,
           label: formatReportDayLabel(day.localDate, locale),
           taskSeconds: reportSecondsNumber(day.taskSeconds),
@@ -435,7 +441,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
           month: formatProductiveMonth(overview.productive.monthKey, locale),
         }}
         timeByList={timeByList}
-        doneTasks={doneTaskPresentation(overview, locale, timeZone, listColors)}
+        doneTasks={doneTaskPresentation(overviewForCurrentRequest, locale, timeZone, listColors)}
         listLabel={listLabel}
         selectedListIds={selectedListIds}
         listOptions={listOptions}
@@ -445,8 +451,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
         datePickerOpen={datePickerOpen}
         visibleSeries={visibleSeries}
         punctuality={{
-          earlyPercent: overview.punctuality.earlyPercent ?? 0,
-          latePercent: overview.punctuality.latePercent ?? 0,
+          earlyPercent: overviewForCurrentRequest.punctuality.earlyPercent ?? 0,
+          latePercent: overviewForCurrentRequest.punctuality.latePercent ?? 0,
         }}
         exportDisabled={exportPending || !overviewCurrent}
         exportPending={exportPending}
