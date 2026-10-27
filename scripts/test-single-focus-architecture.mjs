@@ -16,6 +16,7 @@ const topology = read("src-tauri/src/windows/topology.rs");
 const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
 const focusEntry = read("src/focus.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const motionV4 = read("src/focusMotionV4.ts");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const completionSuccess = read("src/FocusCompletionSuccess.tsx");
 const completionSuccessCss = read("src/focusCompletionSuccess.css");
@@ -100,24 +101,32 @@ invariant(
 );
 
 invariant(
-  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
-    && coordinator.includes("animateNativePresentation: (next) =>")
+  coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
-    && coordinator.includes("runConcurrentMotion: () =>")
+    && coordinator.includes("runConcurrentMotion: () => runGeometryMotion(previousPresentation, targetPresentation)")
+    && coordinator.includes("motionV4Duration(")
+    && !coordinator.includes("window.setTimeout(resolve, durationMs)")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
     && presentationTransition.includes("await Promise.allSettled([")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 1ms")
+    && motionV4.includes("MOTION_V4_DURATION_MS = 500")
+    && motionV4.includes("MOTION_V4_REDUCED_DURATION_MS = 1")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
-    && lib.includes("fluent_point_to_point_easing")
+    && lib.includes("fluent_point_to_point_easing(elapsed)")
+    && lib.includes("focus_motion_v4_easing(elapsed)")
+    && lib.includes("lease.v4_panel_from_plate.is_some()")
+    && lib.includes("lease.v4_plate.is_some()")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)")
     && coordinator.includes("afterRendererCommit: async () =>")
     && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
     && !coordinatorCss.includes("inset(0 0 590px")
     && !coordinatorCss.includes("inset(0 0 400px"),
-  "Panel/Timer switching must coordinate finite Fluent point-to-point same-WebView geometry and native position continuity",
+  "Panel/Timer must preserve one guarded native clock: 500ms/1ms Motion v4 for staged plates, Fluent fallback for ordinary protected raster, with same-WebView paint and rollback",
 );
+
 invariant(
   coordinatorCss.includes("--focus-visible-height: 700px")
     && coordinatorCss.includes('--focus-visible-height: 110px')
