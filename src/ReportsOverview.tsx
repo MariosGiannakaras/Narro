@@ -182,7 +182,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const overviewForCurrentRequest = reportRequestKey !== null
     && overviewRequestKey === reportRequestKey ? overview : null;
   const overviewCurrent = overviewForCurrentRequest !== null && !reportPending;
-  const currentReportError = reportErrorKey === reportRequestKey ? reportError : null;
+  const currentReportError = reportRequestKey !== null && reportErrorKey === reportRequestKey ? reportError : null;
 
   useEffect(() => {
     let disposed = false;
@@ -413,9 +413,9 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
 
   return (
     <>
-      {reportError ? (
+      {currentReportError ? (
         <p className="reports-overview__runtime-error" role="status">
-          Latest report refresh failed: {reportError}
+          Latest report refresh failed: {currentReportError}
         </p>
       ) : null}
       {exportError ? (
