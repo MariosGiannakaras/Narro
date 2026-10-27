@@ -780,7 +780,7 @@ fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescr
     for descriptor in &mut descriptors {
         descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());
         descriptor.desktop_preview_data_url =
-            monitor_display::desktop_preview_data_url(descriptor.position, descriptor.size);
+            monitor_display::desktop_preview_data_url(descriptor.name.as_deref(), descriptor.size);
     }
     Ok(descriptors)
 }
