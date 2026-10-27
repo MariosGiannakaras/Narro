@@ -2640,11 +2640,45 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
+// A global shortcut must be able to reveal a hidden Panel even if the
+// *saved* Panel monitor is currently disconnected. Only this visibility
+// handoff may use the primary display temporarily; explicit Panel placement
+// and saved monitor selection remain authoritative and unchanged. The Timer
+// toggle arrives afterwards through the existing renderer event.
+fn prepare_hidden_focus_panel_for_reveal(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+) -> CommandResult<()> {
+    let _presentation_guard = presentation_guard()?;
+    ensure_no_mode_raster()?;
+    let snapshot = capture_focus_native_snapshot(window)?;
+    let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
+    let _save_guard = floating_placement::suspend_saves();
+    if let Err(error) = apply_panel_native(window, work_area, scale_factor, side) {
+        return match restore_focus_native_snapshot(window, &snapshot) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; hidden Panel fallback rollback failed: {recovery}"),
+            )),
+        };
+    }
+    announce_focus_surface_presentation(app_handle, FocusSurfacePresentation::Panel);
+    Ok(())
+}
+
 pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> CommandResult<()> {
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
-    apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility before Focus reveal", error))?;
+    if presentation == FocusSurfacePresentation::Panel && !visible {
+        prepare_hidden_focus_panel_for_reveal(app_handle, &window)?;
+    } else {
+        apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
+    }
     show_and_focus(&window)
 }
 
