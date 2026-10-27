@@ -252,9 +252,7 @@ mod native {
         }
         let mut device = display_name.encode_utf16().collect::<Vec<_>>();
         device.push(0);
-        let desktop_dc = unsafe {
-            CreateDCW(device.as_ptr(), device.as_ptr(), null(), null())
-        };
+        let desktop_dc = unsafe { CreateDCW(device.as_ptr(), device.as_ptr(), null(), null()) };
         if desktop_dc.is_null() {
             return None;
         }
