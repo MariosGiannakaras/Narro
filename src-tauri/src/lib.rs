@@ -2660,10 +2660,7 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
-fn needs_hidden_panel_reveal_anchor(
-    presentation: FocusSurfacePresentation,
-    visible: bool,
-) -> bool {
+fn needs_hidden_panel_reveal_anchor(presentation: FocusSurfacePresentation, visible: bool) -> bool {
     presentation == FocusSurfacePresentation::Panel && !visible
 }
 
@@ -2698,15 +2695,13 @@ pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> Comma
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
-    let visible = window
-        .is_visible()
-        .map_err(|error| {
-            map_window_error(
-                FOCUS_SURFACE_LABEL,
-                "read visibility before Focus reveal",
-                error,
-            )
-        })?;
+    let visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read visibility before Focus reveal",
+            error,
+        )
+    })?;
     if needs_hidden_panel_reveal_anchor(presentation, visible) {
         prepare_hidden_focus_panel_for_reveal(app_handle, &window)?;
     } else {
