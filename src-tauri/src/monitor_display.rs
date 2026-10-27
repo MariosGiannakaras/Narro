@@ -88,7 +88,6 @@ mod native {
     const HALFTONE: i32 = 4;
 
     #[repr(C)]
-    #[derive(Default)]
     struct DisplayDevice {
         cb: u32,
         device_name: [u16; 32],
@@ -102,7 +101,11 @@ mod native {
         fn initialized() -> Self {
             Self {
                 cb: std::mem::size_of::<Self>() as u32,
-                ..Self::default()
+                device_name: [0; 32],
+                device_string: [0; 128],
+                state_flags: 0,
+                device_id: [0; 128],
+                device_key: [0; 128],
             }
         }
     }
