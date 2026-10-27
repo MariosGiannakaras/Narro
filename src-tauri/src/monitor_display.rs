@@ -63,7 +63,9 @@ pub fn desktop_preview_data_url(position: PhysicalPoint, size: PhysicalSize) -> 
             let mut encoder = png::Encoder::new(&mut png_bytes, PREVIEW_WIDTH, PREVIEW_HEIGHT);
             encoder.set_color(png::ColorType::Rgba);
             encoder.set_depth(png::BitDepth::Eight);
-            encoder.write_header().ok()?.write_image_data(&pixels).ok()?;
+            let mut writer = encoder.write_header().ok()?;
+            writer.write_image_data(&pixels).ok()?;
+            writer.finish().ok()?;
         }
         Some(format!("data:image/png;base64,{}", base64(&png_bytes)))
     }
@@ -256,6 +258,26 @@ mod native {
         let result = if bitmap.is_null() || bits.is_null() {
             None
         } else {
+            let len = (PREVIEW_WIDTH * PREVIEW_HEIGHT * 4) as usize;
+            // Opaque black letterboxing, preserving physical monitor aspect ratio.
+            unsafe { std::slice::from_raw_parts_mut(bits.cast::<u8>(), len) }.fill(0);
+            let (dest_width, dest_height) = if u64::from(size.width) * u64::from(PREVIEW_HEIGHT)
+                > u64::from(size.height) * u64::from(PREVIEW_WIDTH)
+            {
+                (
+                    PREVIEW_WIDTH,
+                    (u64::from(size.height) * u64::from(PREVIEW_WIDTH)
+                        / u64::from(size.width)).max(1) as u32,
+                )
+            } else {
+                (
+                    (u64::from(size.width) * u64::from(PREVIEW_HEIGHT)
+                        / u64::from(size.height)).max(1) as u32,
+                    PREVIEW_HEIGHT,
+                )
+            };
+            let dest_x = (PREVIEW_WIDTH - dest_width) / 2;
+            let dest_y = (PREVIEW_HEIGHT - dest_height) / 2;
             let previous = unsafe { SelectObject(memory_dc, bitmap) };
             let result = if previous.is_null() || previous as isize == -1 {
                 None
@@ -263,14 +285,14 @@ mod native {
                 unsafe { SetStretchBltMode(memory_dc, HALFTONE) };
                 if unsafe {
                     StretchBlt(
-                        memory_dc, 0, 0, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32,
+                        memory_dc, dest_x as i32, dest_y as i32,
+                        dest_width as i32, dest_height as i32,
                         desktop_dc, position.x, position.y, source_width, source_height, SRCCOPY,
                     )
                 } == 0
                 {
                     None
                 } else {
-                    let len = (PREVIEW_WIDTH * PREVIEW_HEIGHT * 4) as usize;
                     // Bitmap is still selected and allocated for the duration of this copy.
                     let bgra = unsafe { std::slice::from_raw_parts(bits.cast::<u8>(), len) };
                     let mut rgba = Vec::with_capacity(len);
