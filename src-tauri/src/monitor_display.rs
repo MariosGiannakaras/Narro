@@ -86,6 +86,7 @@ mod native {
     const DISPLAY_DEVICE_ATTACHED_TO_DESKTOP: u32 = 0x0000_0001;
     const SRCCOPY: u32 = 0x00CC_0020;
     const HALFTONE: i32 = 4;
+    const BLACKNESS: u32 = 0x0000_0042;
 
     #[repr(C)]
     struct DisplayDevice {
@@ -147,14 +148,17 @@ mod native {
     unsafe extern "system" {
         fn CreateCompatibleDC(dc: Handle) -> Handle;
         fn DeleteDC(dc: Handle) -> i32;
-        fn CreateDIBSection(
+        fn CreateCompatibleBitmap(dc: Handle, width: i32, height: i32) -> Handle;
+        fn PatBlt(dc: Handle, x: i32, y: i32, width: i32, height: i32, operation: u32) -> i32;
+        fn GetDIBits(
             dc: Handle,
-            info: *const BitmapInfo,
+            bitmap: Handle,
+            first_scan: u32,
+            scan_lines: u32,
+            pixels: *mut c_void,
+            info: *mut BitmapInfo,
             usage: u32,
-            pixels: *mut Handle,
-            section: Handle,
-            offset: u32,
-        ) -> Handle;
+        ) -> i32;
         fn SelectObject(dc: Handle, object: Handle) -> Handle;
         fn DeleteObject(object: Handle) -> i32;
         fn SetStretchBltMode(dc: Handle, mode: i32) -> i32;
@@ -247,7 +251,7 @@ mod native {
             unsafe { ReleaseDC(null_mut(), desktop_dc) };
             return None;
         }
-        let info = BitmapInfo {
+        let mut info = BitmapInfo {
             header: BitmapInfoHeader {
                 size: std::mem::size_of::<BitmapInfoHeader>() as u32,
                 width: PREVIEW_WIDTH as i32,
@@ -263,14 +267,13 @@ mod native {
             },
             colors: [0; 3],
         };
-        let mut bits: Handle = null_mut();
-        let bitmap = unsafe { CreateDIBSection(desktop_dc, &info, 0, &mut bits, null_mut(), 0) };
-        let result = if bitmap.is_null() || bits.is_null() {
+        // Separate device-dependent bitmap; unlike CreateDIBSection this does
+        // not re-declare a competing compositor module's private FFI struct.
+        let bitmap =
+            unsafe { CreateCompatibleBitmap(desktop_dc, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32) };
+        let result = if bitmap.is_null() {
             None
         } else {
-            let len = (PREVIEW_WIDTH * PREVIEW_HEIGHT * 4) as usize;
-            // Opaque black letterboxing, preserving physical monitor aspect ratio.
-            unsafe { std::slice::from_raw_parts_mut(bits.cast::<u8>(), len) }.fill(0);
             let (dest_width, dest_height) = if u64::from(size.width) * u64::from(PREVIEW_HEIGHT)
                 > u64::from(size.height) * u64::from(PREVIEW_WIDTH)
             {
@@ -289,41 +292,60 @@ mod native {
             let dest_x = (PREVIEW_WIDTH - dest_width) / 2;
             let dest_y = (PREVIEW_HEIGHT - dest_height) / 2;
             let previous = unsafe { SelectObject(memory_dc, bitmap) };
-            let result = if previous.is_null() || previous as isize == -1 {
+            if previous.is_null() || previous as isize == -1 {
                 None
             } else {
                 unsafe { SetStretchBltMode(memory_dc, HALFTONE) };
-                if unsafe {
-                    StretchBlt(
-                        memory_dc,
-                        dest_x as i32,
-                        dest_y as i32,
-                        dest_width as i32,
-                        dest_height as i32,
-                        desktop_dc,
-                        position.x,
-                        position.y,
-                        source_width,
-                        source_height,
-                        SRCCOPY,
+                let background_ok = unsafe {
+                    PatBlt(
+                        memory_dc, 0, 0, PREVIEW_WIDTH as i32, PREVIEW_HEIGHT as i32, BLACKNESS,
                     )
-                } == 0
-                {
-                    None
-                } else {
-                    // Bitmap is still selected and allocated for the duration of this copy.
-                    let bgra = unsafe { std::slice::from_raw_parts(bits.cast::<u8>(), len) };
-                    let mut rgba = Vec::with_capacity(len);
-                    for pixel in bgra.chunks_exact(4) {
-                        rgba.extend_from_slice(&[pixel[2], pixel[1], pixel[0], 255]);
-                    }
-                    Some(rgba)
-                }
-            };
-            if !previous.is_null() && previous as isize != -1 {
+                } != 0;
+                let sample_ok = background_ok
+                    && unsafe {
+                        StretchBlt(
+                            memory_dc,
+                            dest_x as i32,
+                            dest_y as i32,
+                            dest_width as i32,
+                            dest_height as i32,
+                            desktop_dc,
+                            position.x,
+                            position.y,
+                            source_width,
+                            source_height,
+                            SRCCOPY,
+                        )
+                    } != 0;
+                // GetDIBits requires the source bitmap to be deselected.
                 unsafe { SelectObject(memory_dc, previous) };
+                if sample_ok {
+                    let len = (PREVIEW_WIDTH * PREVIEW_HEIGHT * 4) as usize;
+                    let mut bgra = vec![0_u8; len];
+                    let read = unsafe {
+                        GetDIBits(
+                            desktop_dc,
+                            bitmap,
+                            0,
+                            PREVIEW_HEIGHT,
+                            bgra.as_mut_ptr().cast(),
+                            &mut info,
+                            0,
+                        )
+                    };
+                    if read != PREVIEW_HEIGHT as i32 {
+                        None
+                    } else {
+                        let mut rgba = Vec::with_capacity(len);
+                        for pixel in bgra.as_chunks::<4>().0 {
+                            rgba.extend_from_slice(&[pixel[2], pixel[1], pixel[0], 255]);
+                        }
+                        Some(rgba)
+                    }
+                } else {
+                    None
+                }
             }
-            result
         };
         if !bitmap.is_null() {
             unsafe { DeleteObject(bitmap) };
