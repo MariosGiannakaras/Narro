@@ -252,10 +252,16 @@ fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) {
         return;
     }
 
-    let Some(visible_right) = proposed.left.checked_add(visible_width as i32) else {
+    let (Ok(width_i32), Ok(height_i32)) = (
+        i32::try_from(visible_width),
+        i32::try_from(visible_height),
+    ) else {
         return;
     };
-    let Some(visible_bottom) = proposed.top.checked_add(visible_height as i32) else {
+    let Some(visible_right) = proposed.left.checked_add(width_i32) else {
+        return;
+    };
+    let Some(visible_bottom) = proposed.top.checked_add(height_i32) else {
         return;
     };
     let visible_rect = WinRect {
