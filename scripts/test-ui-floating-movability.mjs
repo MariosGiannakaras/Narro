@@ -11,6 +11,7 @@ const focusCapability = JSON.parse(read("src-tauri/capabilities/focus-surface.js
 const lib = read("src-tauri/src/lib.rs");
 const placement = read("src-tauri/src/floating_placement.rs");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const actions = read("src/FocusLiveActions.tsx");
 const foundationCss = read("src/floatingTimerFoundation.css");
 const modeApi = read("src/focusSurfaceModeApi.ts");
@@ -97,6 +98,39 @@ invariant(
     && geometry.includes("fn timer_snap_handles_negative_monitor_coordinates_and_scaled_insets()")
     && geometry.includes("fn timer_snap_handles_cramped_invalid_and_unrepresentable_areas()"),
   "native corner-snap geometry must have four deterministic boundary suites",
+);
+
+// Source-integrity regression for future experimental Motion v4 integration.
+// The current Timer collapse hands a fully painted 110px compact frame through
+// React -> coordinator -> IPC -> native owner. Motion v4 may replace that path
+// with a protected raster lease, but must never silently drop *both* paths.
+const compactFrameHandoff =
+  foundation.includes("const compactFrame = await captureCompactTimerFrame();")
+  && foundation.includes("onRequestExpanded(false, compactFrame)")
+  && foundation.includes("setFloatingTimerExpanded(false, compactFrame)")
+  && coordinator.includes("compactFrame?: number[]")
+  && coordinator.includes("applyFocusSurfacePresentation(presentation, compactFrame)")
+  && modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation, compactFrame })')
+  && lib.includes("compact_frame.is_some() && target != FocusSurfacePresentation::TimerCompact")
+  && lib.includes("apply_timer_native(app_handle, window, previous, target, compact_frame)");
+const protectedRasterHandoff =
+  foundation.includes("onRequestExpanded(nextExpanded")
+  && coordinator.includes("prepareFocusSurfaceModeRaster(target)")
+  && coordinator.includes("finishFocusSurfaceModeRaster(")
+  && coordinator.includes("animateFocusSurfacePresentation(next, duration, token)")
+  && lib.includes("focus_surface_prepare_mode_raster")
+  && lib.includes("focus_surface_animate_presentation")
+  && lib.includes("restore_focus_native_snapshot_protected");
+invariant(
+  compactFrameHandoff || protectedRasterHandoff,
+  "Timer Compact renderer-to-native handoff must preserve either the captured compact frame or a guarded raster lease with rollback",
+);
+invariant(
+  coordinator.includes("onRequestExpanded={requestTimerExpanded}")
+    && foundation.includes("resizeRequestInFlightRef.current = true")
+    && foundation.includes("onResizePendingChange?.(true)")
+    && foundation.includes("onResizePendingChange?.(false)"),
+  "Timer native resize admission and focus/accessibility busy state must remain single-flight through its final settlement",
 );
 
 const dragRegionMatches = foundation.match(/data-tauri-drag-region="true"/g) ?? [];
