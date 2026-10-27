@@ -236,6 +236,11 @@ invariant(monitorCss.includes('.preference-settings__monitor-option[data-selecte
   "monitor selected border must use calibrated existing accent gradient",
 );
 invariant(
+  sections.includes("with a small top and side gap.")
+    && !sections.includes("work-area edge."),
+  "Panel placement Preferences copy must reflect the nonzero native edge inset, not claim flush alignment",
+);
+invariant(
   sections.includes('checked={snapshot.general.rememberTimerPositionOnRestart}')
     && sections.includes('onSave({ rememberTimerPositionOnRestart }, "timerPositionRestart")')
     && api.includes("rememberTimerPositionOnRestart: boolean;")
