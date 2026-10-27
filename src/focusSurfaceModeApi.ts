@@ -43,7 +43,7 @@ export async function prepareFocusSurfaceModeRaster(presentation: FocusSurfacePr
 /** Optional plates live only under an already acquired native raster lease. */
 export async function prepareFocusMotionV4Plate(
   rasterToken: number,
-  layout: import("./focusMotionV4Geometry").MotionV4TimerLayout,
+  layout: import("./focusMotionV4Geometry").MotionV4RasterLayout,
 ): Promise<void> {
   await invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout });
 }
