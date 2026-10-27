@@ -456,27 +456,29 @@ pub(crate) fn compose_panel(
     if eased <= 0.0 || eased >= 1.0 {
         return focus_mode_raster::compose(outgoing, incoming, visible, eased);
     }
-    // One naturally clipped clean background is authoritative; blend only
-    // the other *text-free* shell inside its own actual visible region.
-    let mut frame = focus_mode_raster::compose(from_plate, to_plate, visible, eased)?;
+    // The taller cleanplate owns the entire intermediate envelope. The
+    // shorter view is physically clipped to its real source/target extent.
+    // Blending two *fully resampled* screenshots would ghost the short
+    // Timer shell below its 110px boundary during Panel contraction.
     let expanding = to_height > from_height;
-    let (background, opacity, height) = if expanding {
-        (from_plate, 1.0 - eased, from_height)
+    let (full_plate, short_plate, opacity, short_height) = if expanding {
+        (to_plate, from_plate, 1.0 - eased, from_height)
     } else {
-        (to_plate, eased, to_height)
+        (from_plate, to_plate, eased, to_height)
     };
-    let background_rect = Rect {
+    let mut frame = focus_mode_raster::compose(full_plate, full_plate, visible, eased)?;
+    let short_rect = Rect {
         x: 0.0,
         y: 0.0,
         width: TIMER_WIDTH,
-        height,
+        height: short_height,
     };
     blit(
         &mut frame,
         visible,
-        background,
-        &background_rect,
-        &background_rect,
+        short_plate,
+        &short_rect,
+        &short_rect,
         opacity,
     );
     blit(
@@ -630,6 +632,33 @@ mod tests {
             channel(15, 11),
             39,
             "the target Timer title does not exist as a duplicate sprite"
+        );
+        // Reverse direction: a short source cannot leak its text-free
+        // pixels into the newly exposed Panel region below 110px either.
+        let reverse = PanelLayout {
+            title: SharedRect {
+                from: l.title.to.clone(),
+                to: l.title.from.clone(),
+            },
+            timer: SharedRect {
+                from: l.timer.to.clone(),
+                to: l.timer.from.clone(),
+            },
+        };
+        let expanding_frame = compose_panel(
+            &compact,
+            &panel,
+            &compact_plate,
+            &panel_plate,
+            tauri::PhysicalSize::new(340, 405),
+            0.5,
+            &reverse,
+        )
+        .unwrap();
+        assert_eq!(
+            expanding_frame[(130 * 340 + 15) * 4],
+            33,
+            "the short Compact cleanplate never bleeds below 110px into the Panel",
         );
         let mut invalid_layout = l;
         invalid_layout.timer.to.x = 40.0;
