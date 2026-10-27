@@ -1,0 +1,28 @@
+# PR418 pure Motion v4 contract exact CI and PR419 late-A source reconciliation (2026-10-27)
+
+**Owner:** ChatGPT independent source/CI. **Latest user instruction:** finish safe coding/analysis/CI independently without coordinating, scheduling, waiting for or operating native Windows physical testing. No M10 or optional M11/M12 activated.
+
+## PR418: design reference, not production compositor
+
+- Original PR418 head `c54329530b3a022d121f277d0357bdbe83827d54` had old exact CI green but was ~447 main commits behind and conflicted in package.json. This is pure TS choreography model/Node test/reference HTML/docs, not production React/native runtime.
+- Safely constructed current-main-based tree with original **four pure source/test/design files** plus only additive `test:focus-motion-v4` script and an invocation in current `preflight:frontend` script (preserving all 129 prior scripts); created true two-parent commit `5f0723a50aa1fe07e85211443ad63dfe17892f70`, PR418 original parent first and current main `187e13f30bc43b2b1808ddc3e8f7274997a07152` second. Updated original `design/m7-motion-v4-source-contract` branch under expected-old-head guard, no new branch/PR.
+- Compared exact PR418 source to main: five files only: `src/focusMotionV4.ts`, `scripts/test-focus-motion-v4.mjs`, `reference/narro-motion-v4.html`, `docs/NARRO_MOTION_V4_CODE_HANDOFF.md`, additive `package.json`. No app runtime source changed.
+- Exact [GitHub Actions run 40581635526](https://github.com/MariosGiannakaras/Narro/actions/runs/40581635526) at **`5f0723a50aa1fe07e85211443ad63dfe17892f70`: validation PASS, fast PASS, windows-candidate PASS (3/3 COMPLETED SUCCESS)** including existing full Rust/visual/package gates. This validates original pure design model, not Motion v4 native runtime or visual fidelity.
+- Attempt to mark this draft PR ready-for-review returned connector **SAFETY_CHECK_BLOCKED**; this is a real action blocker. **No merge performed, no resulting-main CI**, do not bypass the safety check by a different route. PR418 remains draft OPEN with exact head green; main remains unaffected by PR418 source.
+
+## PR419: preserve experimental B while reconciling the latest A guard
+
+- PR389 A native comparator head `ec9227a2e09a69c380d4605aaf9623bdd9b9c394`; historical PR419 B head `43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9`, old CI [40084666277](https://github.com/MariosGiannakaras/Narro/actions/runs/40084666277) 3/3 green, scoped native A/B functional 8/8 each but strict compositor visual approval remains separate. Git compare B to A was behind 5 commits; exact A-only diff modifies Rust `focus_layered_raster.rs`, `focus_webview.rs`, `lib.rs` and two source contract scripts, mostly rustfmt and removal of obsolete layered-raster re-sync.
+- Read B actual files and confirmed the functional A fixes **already present in B**: `timerResizePending` inert guard, native move-owner-and-popup atomic placement, no `sync_owner_position` helper/export, already properly formatted native owner trace, and `test:recorded-n28-n36` included in B preflight. Only A acceptance assertion was missing from B script.
+- Reconciled existing B branch with A head using **two-parent commit** `7091691fbe2c6680c37344988567db7de920ee23` first-parent B, second-parent latest A. Source tree B unchanged except additive `scripts/test-ui-focus-surface-transition.mjs` assertion that N28/N36 preflight remains included. Verified `compare(A,B)` now `ahead 95, behind 0`; no main merge or copy of older A code over advanced B compositor.
+- Followup source contract commit **`49ed77965b39c2ad3acdf19bc4ae090504085eb5`** on same PR419 branch adds an explicit native 500 ms raster transaction invariant: Timer position saves and display topology recovery suspended during protected native animation until committed HWND/popup move. This guards a verified B source boundary without modifying production app or old A/B recorded video evidence.
+- At receipt creation, new-head PR419 GitHub Windows CI **NOT YET REPORTED** by Actions; old B head success does NOT certify the new source. Treat CI as pending/NOT RUN rather than inventing PASS. Native strict 8/8 visual holds remain independent, no merged B release.
+
+## Exact next independent source actions
+
+1. Verify whether PR419 head `49ed77965b39c2ad3acdf19bc4ae090504085eb5` spawned an exact-head Windows CI; if not, identify workflow trigger problem without claiming CI PASS or bypassing safety restrictions; source implementation remains complete but new SHA unvalidated.
+2. PR418 source-only CI is DONE 3/3; its draft→ready action is safety blocked. Preserve branch and docs; do not merge PR418 into main without permitted workflow.
+3. Current PR436 joined PR431 source `a31d11d0b0c1304eb3ac201ad708954fcb303c91` CI40579536904 already **3/3 SUCCESS**, physical build ZIP/manifest/member hashes independently verified in [immutable receipt](2026-10-27-chatgpt-pr436-joined-source-3of3-ci-and-exact-artifact.md). Leave PR431/436/389/419 main-merge holds untouched.
+4. Source review of experimental B shows a real future merge integration requirement: PR419 old Panel uses flush `focus_panel_edge_position` while newer PR431 uses the user-approved DPI-scaled 16-DIP Panel inset and changed Timer persistence/hotplug owner. Never overwrite the newer source with an older B lib.rs. No speculative cross-display motion fix without reproducible evidence; preserve task/time rollback and compositor invariants.
+
+Formal milestones: M1–M4 accepted 4/10, M5–M9 open; M10 separately approved after gates, optional M11/M12 dormant.
