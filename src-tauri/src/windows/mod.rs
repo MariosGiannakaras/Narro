@@ -201,6 +201,73 @@ pub fn focus_panel_inset_position(
     clamp_top_left(work_area, window_size, desired)
 }
 
+
+/** Snap only near a genuine corner of the *visible* Timer, never the 700-DIP
+ * persistent HWND. The Panel's physical inset is provided by the caller.
+ * An oversized region cannot acquire a corner until display recovery fits it.
+ */
+pub fn timer_corner_snap_position(
+    work_area: PhysicalRect,
+    visible_size: PhysicalSize,
+    proposed: PhysicalPoint,
+    inset_pixels: u32,
+    snap_radius_pixels: u32,
+) -> Result<Option<PhysicalPoint>, WindowGeometryError> {
+    validate_work_area(work_area)?;
+    if visible_size.width == 0 || visible_size.height == 0 {
+        return Err(WindowGeometryError::EmptyWindow);
+    }
+    if visible_size.width > work_area.size.width
+        || visible_size.height > work_area.size.height
+    {
+        return Ok(None);
+    }
+
+    let (min_x, max_x) = axis_bounds(
+        work_area.position.x,
+        work_area.size.width,
+        visible_size.width,
+    )?;
+    let (min_y, max_y) = axis_bounds(
+        work_area.position.y,
+        work_area.size.height,
+        visible_size.height,
+    )?;
+    // Match the Panel inset and reduce it symmetrically on cramped work areas.
+    let inset_x = i64::from(
+        inset_pixels.min((work_area.size.width - visible_size.width) / 2),
+    );
+    let inset_y = i64::from(
+        inset_pixels.min((work_area.size.height - visible_size.height) / 2),
+    );
+    let left = i64::from(min_x) + inset_x;
+    let right = i64::from(max_x) - inset_x;
+    let top = i64::from(min_y) + inset_y;
+    let bottom = i64::from(max_y) - inset_y;
+    let radius = i64::from(snap_radius_pixels);
+    let near_anchor = |proposed: i32, low: i64, high: i64| -> Option<i64> {
+        let low_distance = (i64::from(proposed) - low).abs();
+        let high_distance = (i64::from(proposed) - high).abs();
+        if low_distance <= radius && low_distance <= high_distance {
+            Some(low)
+        } else if high_distance <= radius {
+            Some(high)
+        } else {
+            None
+        }
+    };
+    let (Some(x), Some(y)) = (
+        near_anchor(proposed.x, left, right),
+        near_anchor(proposed.y, top, bottom),
+    ) else {
+        return Ok(None);
+    };
+    Ok(Some(PhysicalPoint {
+        x: i32::try_from(x).map_err(|_| WindowGeometryError::CoordinateOverflow)?,
+        y: i32::try_from(y).map_err(|_| WindowGeometryError::CoordinateOverflow)?,
+    }))
+}
+
 pub fn recover_window_top_left(
     current_window: PhysicalRect,
     work_areas: &[PhysicalRect],
@@ -250,6 +317,131 @@ mod tests {
             height: 1040,
         },
     };
+
+    #[test]
+    fn timer_snap_targets_each_corner_with_panel_inset_and_visible_height() {
+        let area = PRIMARY_WORK_AREA;
+        let compact = PhysicalSize { width: 340, height: 110 };
+        let expanded = PhysicalSize { width: 340, height: 300 };
+        for (proposed, expected) in [
+            (PhysicalPoint { x: 34, y: 9 }, PhysicalPoint { x: 16, y: 16 }),
+            (PhysicalPoint { x: 1550, y: 34 }, PhysicalPoint { x: 1564, y: 16 }),
+            (PhysicalPoint { x: 12, y: 926 }, PhysicalPoint { x: 16, y: 914 }),
+            (PhysicalPoint { x: 1582, y: 898 }, PhysicalPoint { x: 1564, y: 914 }),
+        ] {
+            assert_eq!(
+                timer_corner_snap_position(area, compact, proposed, 16, 32),
+                Ok(Some(expected))
+            );
+        }
+        assert_eq!(
+            timer_corner_snap_position(
+                area,
+                expanded,
+                PhysicalPoint { x: 1560, y: 735 },
+                16,
+                32,
+            ),
+            Ok(Some(PhysicalPoint { x: 1564, y: 724 }))
+        );
+    }
+
+    #[test]
+    fn timer_snap_preserves_free_drag_near_edges_and_beyond_threshold() {
+        let size = PhysicalSize { width: 340, height: 110 };
+        for proposed in [
+            PhysicalPoint { x: 16, y: 400 },
+            PhysicalPoint { x: 400, y: 16 },
+            PhysicalPoint { x: 49, y: 16 },
+            PhysicalPoint { x: 16, y: 49 },
+            PhysicalPoint { x: 500, y: 500 },
+        ] {
+            assert_eq!(
+                timer_corner_snap_position(PRIMARY_WORK_AREA, size, proposed, 16, 32),
+                Ok(None)
+            );
+        }
+        assert_eq!(
+            timer_corner_snap_position(
+                PRIMARY_WORK_AREA,
+                size,
+                PhysicalPoint { x: 48, y: 48 },
+                16,
+                32,
+            ),
+            Ok(Some(PhysicalPoint { x: 16, y: 16 }))
+        );
+    }
+
+    #[test]
+    fn timer_snap_handles_negative_monitor_coordinates_and_scaled_insets() {
+        let area = PhysicalRect {
+            position: PhysicalPoint { x: -1600, y: -100 },
+            size: PhysicalSize { width: 1600, height: 900 },
+        };
+        let size = PhysicalSize { width: 340, height: 300 };
+        assert_eq!(
+            timer_corner_snap_position(
+                area,
+                size,
+                PhysicalPoint { x: -370, y: 463 },
+                24,
+                48,
+            ),
+            Ok(Some(PhysicalPoint { x: -364, y: 476 }))
+        );
+        assert_eq!(
+            timer_corner_snap_position(
+                area,
+                size,
+                PhysicalPoint { x: -1570, y: -85 },
+                24,
+                48,
+            ),
+            Ok(Some(PhysicalPoint { x: -1576, y: -76 }))
+        );
+    }
+
+    #[test]
+    fn timer_snap_handles_cramped_invalid_and_unrepresentable_areas() {
+        let size = PhysicalSize { width: 340, height: 110 };
+        let cramped = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize { width: 354, height: 118 },
+        };
+        assert_eq!(
+            timer_corner_snap_position(
+                cramped, size, PhysicalPoint { x: 0, y: 0 }, 16, 32
+            ),
+            Ok(Some(PhysicalPoint { x: 7, y: 4 }))
+        );
+        let smaller = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize { width: 200, height: 100 },
+        };
+        assert_eq!(
+            timer_corner_snap_position(smaller, size, PhysicalPoint { x: 0, y: 0 }, 16, 32),
+            Ok(None)
+        );
+        assert_eq!(
+            timer_corner_snap_position(
+                PRIMARY_WORK_AREA,
+                PhysicalSize { width: 0, height: 110 },
+                PhysicalPoint { x: 0, y: 0 },
+                16,
+                32,
+            ),
+            Err(WindowGeometryError::EmptyWindow)
+        );
+        let overflow = PhysicalRect {
+            position: PhysicalPoint { x: i32::MAX - 5, y: 0 },
+            size: PhysicalSize { width: 200, height: 400 },
+        };
+        assert_eq!(
+            timer_corner_snap_position(overflow, size, overflow.position, 16, 32),
+            Err(WindowGeometryError::CoordinateOverflow)
+        );
+    }
 
     #[test]
     fn panel_inset_respects_both_edges_and_top_on_primary_and_negative_monitors() {
