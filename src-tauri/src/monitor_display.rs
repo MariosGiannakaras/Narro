@@ -19,8 +19,7 @@ fn human_monitor_name(label: &str) -> Option<String> {
 }
 
 fn base64(data: &[u8]) -> String {
-    const TABLE: &[u8; 64] =
-        b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const TABLE: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let mut output = String::with_capacity(data.len().div_ceil(3) * 4);
     for block in data.chunks(3) {
         let n = (u32::from(block[0]) << 16)
@@ -172,7 +171,10 @@ mod native {
     }
 
     fn utf16_string(value: &[u16]) -> String {
-        let len = value.iter().position(|&character| character == 0).unwrap_or(value.len());
+        let len = value
+            .iter()
+            .position(|&character| character == 0)
+            .unwrap_or(value.len());
         String::from_utf16_lossy(&value[..len])
     }
 
@@ -223,14 +225,9 @@ mod native {
         None
     }
 
-    pub fn capture_desktop_sample(
-        position: PhysicalPoint,
-        size: PhysicalSize,
-    ) -> Option<Vec<u8>> {
+    pub fn capture_desktop_sample(position: PhysicalPoint, size: PhysicalSize) -> Option<Vec<u8>> {
         // Limit source dimensions and all coordinate conversions before GDI.
-        if size.width == 0 || size.height == 0
-            || size.width > 16_384 || size.height > 16_384
-        {
+        if size.width == 0 || size.height == 0 || size.width > 16_384 || size.height > 16_384 {
             return None;
         }
         let source_width = i32::try_from(size.width).ok()?;
@@ -264,9 +261,7 @@ mod native {
             colors: [0; 3],
         };
         let mut bits: Handle = null_mut();
-        let bitmap = unsafe {
-            CreateDIBSection(desktop_dc, &info, 0, &mut bits, null_mut(), 0)
-        };
+        let bitmap = unsafe { CreateDIBSection(desktop_dc, &info, 0, &mut bits, null_mut(), 0) };
         let result = if bitmap.is_null() || bits.is_null() {
             None
         } else {
@@ -278,13 +273,13 @@ mod native {
             {
                 (
                     PREVIEW_WIDTH,
-                    (u64::from(size.height) * u64::from(PREVIEW_WIDTH)
-                        / u64::from(size.width)).max(1) as u32,
+                    (u64::from(size.height) * u64::from(PREVIEW_WIDTH) / u64::from(size.width))
+                        .max(1) as u32,
                 )
             } else {
                 (
-                    (u64::from(size.width) * u64::from(PREVIEW_HEIGHT)
-                        / u64::from(size.height)).max(1) as u32,
+                    (u64::from(size.width) * u64::from(PREVIEW_HEIGHT) / u64::from(size.height))
+                        .max(1) as u32,
                     PREVIEW_HEIGHT,
                 )
             };
@@ -297,9 +292,17 @@ mod native {
                 unsafe { SetStretchBltMode(memory_dc, HALFTONE) };
                 if unsafe {
                     StretchBlt(
-                        memory_dc, dest_x as i32, dest_y as i32,
-                        dest_width as i32, dest_height as i32,
-                        desktop_dc, position.x, position.y, source_width, source_height, SRCCOPY,
+                        memory_dc,
+                        dest_x as i32,
+                        dest_y as i32,
+                        dest_width as i32,
+                        dest_height as i32,
+                        desktop_dc,
+                        position.x,
+                        position.y,
+                        source_width,
+                        source_height,
+                        SRCCOPY,
                     )
                 } == 0
                 {
@@ -345,9 +348,18 @@ mod tests {
 
     #[test]
     fn name_is_real_hardware_description_or_truthfully_absent() {
-        for fallback in ["", "  ", "Generic PnP Monitor", "generic non-pnp monitor", "Default Monitor"] {
+        for fallback in [
+            "",
+            "  ",
+            "Generic PnP Monitor",
+            "generic non-pnp monitor",
+            "Default Monitor",
+        ] {
             assert_eq!(human_monitor_name(fallback), None);
         }
-        assert_eq!(human_monitor_name(" LG UltraFine 27U "), Some("LG UltraFine 27U".to_owned()));
+        assert_eq!(
+            human_monitor_name(" LG UltraFine 27U "),
+            Some("LG UltraFine 27U".to_owned())
+        );
     }
 }
