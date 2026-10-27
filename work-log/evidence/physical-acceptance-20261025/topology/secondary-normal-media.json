@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Narro Diagnostic - Focus",
+    "result": {
+      "id": 1,
+      "result": {
+        "result": {
+          "type": "string",
+          "value": "{\"url\":\"http://tauri.localhost/focus.html\",\"reduced\":false,\"scale\":1.25}"
+        }
+      }
+    }
+  },
+  {
+    "title": "Narro",
+    "result": {
+      "id": 1,
+      "result": {
+        "result": {
+          "type": "string",
+          "value": "{\"url\":\"http://tauri.localhost/\",\"reduced\":false,\"scale\":1}"
+        }
+      }
+    }
+  }
+]

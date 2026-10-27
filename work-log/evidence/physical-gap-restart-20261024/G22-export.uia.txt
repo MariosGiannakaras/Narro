@@ -1,0 +1,20 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+						13 region
+							14 region
+								15 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+								16 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				4 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+The focused UI element is 8 pane Narro.

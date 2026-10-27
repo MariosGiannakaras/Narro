@@ -1,0 +1,70 @@
+Window: "Narro - Focus", App: narro.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									10 group ID: root
+										11 main
+											351 main
+												669 region Quick Preferences
+													670 section header
+														671 button Back to Focus
+														672 text Menu
+														673 heading Quick Preferences ID: focus-quick-preferences-title
+													674 text Hide est/done times
+													675 switch (settable, string) Hide est/done times on tasks
+													676 region Screen
+														677 heading Screen ID: focus-quick-screen-title
+														678 radio group (settable, string) Focus Panel screen
+															679 radio button (selectable, settable, string) Automatic Primary display
+															680 radio button (selectable, settable, string) \\.\DISPLAY1 2560×1080
+															681 radio button (selectable, settable, string) \\.\DISPLAY2 1920×1080
+													682 text Blitz Panel Side
+													683 group Blitz Panel Side
+														684 toggle button Left
+														685 toggle button Right
+													686 text Pomodoros
+													687 switch (settable, string) Pomodoros
+													688 text Timed alerts during a task
+													689 switch (settable, string) Timed alerts during a task
+													690 text Notification Alerts
+													691 switch (settable, string) Notification Alerts
+													692 text Show success screen
+													693 switch (settable, string) Show success screen
+													694 text Fun gif on success screen
+													695 switch (settable, string) Fun gif on success screen
+								330 region
+
+Document text: ```
+Back to Focus
+Menu
+Quick Preferences
+Hide est/done times
+Hide est/done times on tasks
+Screen
+Automatic
+Primary display
+\\.\DISPLAY1
+2560×1080
+\\.\DISPLAY2
+1920×1080
+Blitz Panel Side
+Left
+Right
+Pomodoros
+Pomodoros
+Timed alerts during a task
+Timed alerts during a task
+Notification Alerts
+Notification Alerts
+Show success screen
+Show success screen
+Fun gif on success screen
+Fun gif on success screen
+```

@@ -1,0 +1,59 @@
+{"utc":"2026-10-24T20:15:55.290Z","action":"Maximize main"}
+{"utc":"2026-10-24T20:16:05.543Z","action":"Preferences for one-minute actual break and display selection"}
+{"utc":"2026-10-24T20:16:21.401Z","action":"Select second monitor 1920x1080 at125%"}
+{"utc":"2026-10-24T20:16:21.859Z","action":"Reveal Capture Project Open"}
+{"utc":"2026-10-24T20:16:22.278Z","action":"Open Capture Project"}
+{"utc":"2026-10-24T20:16:31.707Z","action":"Click visible Capture Project Open"}
+{"utc":"2026-10-24T20:17:16.371Z","action":"Recovery maximize"}
+{"utc":"2026-10-24T20:17:16.920Z","action":"Recovery reveal Project"}
+{"utc":"2026-10-24T20:17:17.454Z","action":"Recovery open Project"}
+{"utc":"2026-10-24T20:17:23.164Z","action":"Enter paused Focus after recovery"}
+{"utc":"2026-10-24T20:17:37.230Z","action":"G25 reduced Panel to Compact populated completed subtask"}
+{"utc":"2026-10-24T20:18:00.623Z","action":"G25 B02 reduced Compact to Expanded with QPC screen sampler"}
+{"utc":"2026-10-24T20:18:19.043Z","action":"G25 Expanded to Compact actual Collapse Floating Timer"}
+{"utc":"2026-10-24T20:18:28.529Z","action":"G25 Compact to Panel via confirmed global shortcut"}
+{"utc":"2026-10-24T20:18:51.979Z","action":"G24 normal Panel to Compact with populated completed subtask"}
+{"utc":"2026-10-24T20:19:06.174Z","action":"G24 normal Compact to Expanded with sampler ready"}
+{"utc":"2026-10-24T20:19:13.668Z","action":"G24 normal Expanded to Compact"}
+{"utc":"2026-10-24T20:19:50.989Z","action":"G26 prepare paused floating-only quiet sample; recorder stopped"}
+{"utc":"2026-10-24T20:20:53.169Z","action":"G27 Bring Main with global shortcut while compact remains"}
+{"utc":"2026-10-24T20:21:08.153Z","action":"G27 launch owned blank Notepad foreground comparator"}
+{"utc":"2026-10-24T20:21:21.568Z","action":"G27 maximize blank Notepad using visible title bar"}
+{"utc":"2026-10-24T20:21:40.465Z","action":"G27 Home to Main for minimize restore and break Preferences"}
+{"utc":"2026-10-24T20:21:45.434Z","action":"G27 minimize Main through title bar"}
+{"utc":"2026-10-24T20:21:52.963Z","action":"G27 restore minimized Main with SKY activation"}
+{"utc":"2026-10-24T20:21:53.802Z","action":"G29 open Preferences to set one-minute manual break"}
+{"utc":"2026-10-24T20:21:59.572Z","action":"Maximize restored Main"}
+{"utc":"2026-10-24T20:22:04.457Z","action":"G29 Preferences"}
+{"utc":"2026-10-24T20:22:11.091Z","action":"G29 choose minimum available real manual break"}
+{"utc":"2026-10-24T20:22:26.491Z","action":"G29 manual duration combo"}
+{"utc":"2026-10-24T20:22:34.740Z","action":"G29 reenter paused Focus"}
+{"utc":"2026-10-24T20:22:51.618Z","action":"G29 Start manual Break while work paused; actual UI minimum5min"}
+{"utc":"2026-10-24T20:22:57.121Z","action":"G29 move pointer/focus outside live card for countdown comparator"}
+{"utc":"2026-10-24T20:23:11.857Z","action":"Reveal work live-card actions for actual Start Break button"}
+{"utc":"2026-10-24T20:23:19.874Z","action":"G29 actual visible Start Break button from paused work"}
+{"utc":"2026-10-24T20:23:24.282Z","action":"G29 mouse/focus away from live break card"}
+{"utc":"2026-10-24T20:23:56.166Z","action":"Dual monitor shared evidence: Home while Break running"}
+{"utc":"2026-10-24T20:24:02.070Z","action":"Dual running Break: Preferences display change"}
+{"utc":"2026-10-24T20:24:09.014Z","action":"Dual select Screen1"}
+{"utc":"2026-10-24T20:24:09.549Z","action":"Dual select Right edge"}
+{"utc":"2026-10-24T20:24:10.091Z","action":"Dual reenter running Break on primary Right"}
+{"utc":"2026-10-24T20:24:27.401Z","action":"Dual Home while actual Break continues"}
+{"utc":"2026-10-24T20:24:32.166Z","action":"Dual Preferences for second-monitor Right"}
+{"utc":"2026-10-24T20:24:38.820Z","action":"Dual Screen2 retaining Right edge"}
+{"utc":"2026-10-24T20:24:45.442Z","action":"Dual reenter Break secondary Right"}
+{"utc":"2026-10-24T20:25:05.669Z","action":"Dual Home for second-monitor Left edge"}
+{"utc":"2026-10-24T20:25:12.736Z","action":"Dual Preferences for secondary Left"}
+{"utc":"2026-10-24T20:25:16.919Z","action":"Dual secondary Left edge"}
+{"utc":"2026-10-24T20:25:33.599Z","action":"Dual reenter Break secondary Left"}
+{"utc":"2026-10-24T20:28:37.463Z","action":"G29 real wall-clock break deadline reached without clock/DB manipulation"}
+{"utc":"2026-10-24T20:28:50.812Z","action":"G29 observation: real expiry auto-returned previously paused work as Pomodoro Work; not PASS"}
+{"utc":"2026-10-24T20:28:50.916Z","action":"Recovery reveal actions after unexpected running work"}
+{"utc":"2026-10-24T20:28:55.416Z","action":"Recovery actual Pause after real expiry"}
+{"utc":"2026-10-24T20:29:16.867Z","action":"A maximize control"}
+{"utc":"2026-10-24T20:29:23.754Z","action":"A reveal Capture Project Open"}
+{"utc":"2026-10-24T20:29:24.182Z","action":"A open Capture Project"}
+{"utc":"2026-10-24T20:29:31.549Z","action":"G28 enter A control existing paused focus"}
+{"utc":"2026-10-24T20:29:37.044Z","action":"G28 A Panel to Compact preparation"}
+{"utc":"2026-10-24T20:29:51.487Z","action":"G28 A02 normal actual Compact to Expanded after QPC sampler ready"}
+{"utc":"2026-10-24T20:29:58.436Z","action":"G28 A02 actual control expanded; end useful acquisition"}

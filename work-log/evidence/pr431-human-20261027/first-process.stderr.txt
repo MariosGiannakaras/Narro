@@ -1,0 +1,6 @@
+Focus toggle shortcut could not show the surface: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus toggle shortcut could not show the surface: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus toggle shortcut could not show the surface: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus toggle shortcut could not show the surface: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+Focus toggle shortcut could not show the surface: [MONITOR_SELECTION_STALE] the selected monitor is no longer present in the current display topology; refresh monitors and retry
+[1027/172253.739:ERROR:ui\gfx\win\window_impl.cc:172] Failed to unregister class Chrome_WidgetWin_0. Error = 1412

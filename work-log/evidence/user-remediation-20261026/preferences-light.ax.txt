@@ -1,0 +1,82 @@
+Browser tab: 1, Title: "Narro Theme Settings Fixture", URL: "http://127.0.0.1:4189/theme-settings-fixture.html?preference=light&preferencesDialog=1".
+1 AXWebArea Narro Theme Settings Fixture, URL: 127.0.0.1:4189/theme-settings-fixture.html?preference=light&preferencesDialog=1
+	2 container root
+		3 button Reopen Preferences
+		4 container
+			5 button
+			6 container
+				7 heading 1
+				8 heading 2
+				9 button
+				10 container
+					11 checkbox 0
+					12 checkbox 0
+					13 checkbox 1
+				14 container
+					15 checkbox 0
+					16 checkbox 1
+				17 heading 2
+				18 container
+					19 checkbox 0
+					20 checkbox 0
+					21 checkbox 1
+				22 switch 1
+				23 switch 1
+				24 switch 1
+				25 heading 2
+				26 pop up button (collapsed) Secondary Actions: Expand
+					27 menu
+						28 (selected)
+				29 heading 2
+				30 switch 1
+				31 pop up button (collapsed) Secondary Actions: Expand
+					32 menu
+						33 (selected)
+				34 pop up button (collapsed) Secondary Actions: Expand
+					35 menu
+						36 (selected)
+				37 pop up button (collapsed) Secondary Actions: Expand
+					38 menu
+						39 (selected)
+				40 switch 1
+				41 heading 2
+				42 switch 1
+				43 pop up button (collapsed) Secondary Actions: Expand
+					44 menu
+						45 (selected)
+				46 pop up button (collapsed) Secondary Actions: Expand
+				47 button
+				48 pop up button (collapsed) Secondary Actions: Expand
+					49 menu
+						50 (selected)
+				51 switch 1
+				52 switch 1
+				53 pop up button (collapsed) Secondary Actions: Expand
+				54 button
+				55 pop up button (collapsed) Secondary Actions: Expand
+					56 menu
+						57 (selected)
+				58 switch 1
+				59 pop up button (collapsed) Secondary Actions: Expand
+					60 menu
+						61 (selected)
+				62 heading 2
+				63 switch 1
+				64 switch 1
+				65 pop up button (collapsed) Secondary Actions: Expand
+				66 button
+				67 pop up button (collapsed) Secondary Actions: Expand
+					68 menu
+						69 (selected)
+				70 switch 1
+				71 heading 2
+				72 heading 3
+				73 container
+					74 checkbox 1
+				75 container
+					76 checkbox 1
+				77 container
+					78 checkbox 1
+				79 heading 3
+
+The focused UI element is 5 button

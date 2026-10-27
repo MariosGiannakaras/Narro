@@ -1,0 +1,34 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		2 pane
+			3 pane Narro Diagnostic - Focus
+				4 pane (disabled)
+				5 region Narro Diagnostic - Focus - Web content
+					6 region
+						7 region
+						8 region
+							9 region
+								10 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									11 group ID: root
+										12 main
+											14 main Floating Timer
+												15 group Show Floating Timer actions
+													16 text Ordinary backlog item
+													17 group Overtime paused: -00:00:04
+														18 text -00:00:04
+												19 region Subtasks for Ordinary backlog item
+													20 group Floating Timer subtask summary
+														21 progress indicator 1 of 1 subtasks complete Value: 1
+														22 text 1/1 Subtasks
+														23 button Add subtask for Ordinary backlog item
+														24 button Expand Floating Timer
+								13 region
+
+Document text: ```
+Ordinary backlog item
+-00:00:04
+1 of 1 subtasks complete
+1/1 Subtasks
++
+Expand Floating Timer
+```

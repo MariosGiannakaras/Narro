@@ -1,0 +1,44 @@
+{
+  "utc": "2026-10-26T18:48:40.953078+00:00",
+  "batchProgress": {
+    "scopedPass": 6,
+    "total": 6
+  },
+  "source": "efe6cadd8fb7d1a4785cd584c6d3d18e17523142",
+  "checks": [
+    {
+      "id": "H01",
+      "requirement": "P11 actual Ctrl+F",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "H02",
+      "requirement": "P11 actual Ctrl+Alt+T outcome; key metadata not captured",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "H03",
+      "requirement": "P09 sustained drag",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "H04B",
+      "requirement": "P20 held drag Escape cancellation",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "H05",
+      "requirement": "P18 actual tray Quit/relaunch/explicit shortcut Timer return",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "H06",
+      "requirement": "P19 actual HDMI unplug/replug recovery",
+      "result": "PASS_SCOPED"
+    }
+  ],
+  "milestonesAccepted": 4,
+  "milestoneDenominator": 10,
+  "m10Entry": "GATED",
+  "sourceParityAdvanced": false
+}

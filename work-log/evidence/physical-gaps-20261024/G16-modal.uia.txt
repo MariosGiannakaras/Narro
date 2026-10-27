@@ -1,0 +1,157 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+							13 region
+								14 region
+								15 region
+									16 region
+										17 region
+											18 region
+												19 region
+												20 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													21 group ID: root
+														22 complementary List navigation
+															23 graphic Narro
+															24 navigation Lists
+																25 button + Create new list
+																26 button All my lists
+																27 button Archived lists
+														28 section header
+															29 group Utilities
+																30 button Search
+																31 button Settings
+														32 main ID: main-content
+															2203 region Archived items
+																2204 section header
+																	2205 text ARCHIVE
+																	2206 heading Archived items ID: archive-panel-title
+																2207 tab Archive sections
+																	2208 tab item (selectable) Archived lists ID: archive-lists-tab
+																	2209 tab item (selectable) Archived done tasks ID: archive-done-tab
+																2210 tab panel Archived lists ID: archive-lists-tabpanel
+																	2211 region Archived lists
+																		2212 text Your archived lists
+																		2225 text No archived lists found
+																		2226 text Looks like you do not have any archived lists at this moment.
+														116 navigation Primary
+															117 button Home
+															118 button Reports
+														2334 dialog Windows Shortcuts Secondary Actions: Raise
+															2335 header
+																2336 heading Windows Shortcuts ID: windows-shortcuts-dialog-title
+																2337 button Close Windows Shortcuts
+															2338 region Shortcuts
+																2339 heading Shortcuts ID: windows-shortcuts-title
+																2342 heading Global (works outside & inside Narro)
+																2343 text Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
+																2344 text Go to Narro
+																2345 text Bring the Narro Main window to the front from any Windows app.
+																2346 status
+																	2347 text Disabled
+																2348 text Ctrl + Shift + B
+																2349 text Enable
+																2350 text Go to Narro
+																2351 check box (settable, string) Enable Go to Narro
+																2352 text Alternate Focus Mode
+																2353 text Switch the active Focus surface between Panel and Floating Timer.
+																2354 status
+																	2355 text Registered
+																2356 text Ctrl + Shift + T
+																2357 text Enable
+																2358 text Alternate Focus Mode
+																2359 check box (settable, string) Enable Alternate Focus Mode
+																2360 text Find focus timer
+																2361 text Bring attention to the Floating Timer when Focus is active.
+																2362 status
+																	2363 text Registered
+																2364 text Ctrl + Shift + P
+																2365 text Enable
+																2366 text Find focus timer
+																2367 check box (settable, string) Enable Find focus timer
+																2368 heading App (works only inside of Narro)
+																2369 text These seven bindings work only when the app has keyboard focus and no text editor or dialog is active. Their shortcuts are fixed and have no on/off controls.
+																2370 text Create task
+																2371 text Ctrl + Alt + T
+																2372 text Start break
+																2373 text Ctrl + Alt + B
+																2374 text Pause / resume
+																2375 text Ctrl + Alt + P
+																2376 text Skip task
+																2377 text Ctrl + Alt + S
+																2378 text Finish task
+																2379 text Ctrl + Alt + F
+																2380 text Notes
+																2381 text Ctrl + Alt + N
+																2382 text Search
+																2383 text Ctrl + F
+								119 region
+						120 region
+						121 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				808 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+ARCHIVE
+Archived items
+Archived lists
+Archived done tasks
+Your archived lists
+No archived lists found
+Looks like you do not have any archived lists at this moment.
+Home
+Reports
+Windows Shortcuts
+Close Windows Shortcuts
+Shortcuts
+Global (works outside & inside Narro)
+Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
+Go to Narro
+Bring the Narro Main window to the front from any Windows app.
+Disabled
+Ctrl + Shift + B
+Enable Go to Narro
+￼
+Alternate Focus Mode
+Switch the active Focus surface between Panel and Floating Timer.
+Registered
+Ctrl + Shift + T
+Enable Alternate Focus Mode
+￼
+Find focus timer
+Bring attention to the Floating Timer when Focus is active.
+Registered
+Ctrl + Shift + P
+Enable Find focus timer
+￼
+App (works only inside of Narro)
+These seven bindings work only when the app has keyboard focus and no text editor or dialog is active. Their shortcuts are fixed and have no on/off controls.
+Create task
+Ctrl + Alt + T
+Start break
+Ctrl + Alt + B
+Pause / resume
+Ctrl + Alt + P
+Skip task
+Ctrl + Alt + S
+Finish task
+Ctrl + Alt + F
+Notes
+Ctrl + Alt + N
+Search
+Ctrl + F
+```

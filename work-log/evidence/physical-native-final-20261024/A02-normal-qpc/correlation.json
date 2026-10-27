@@ -1,0 +1,5337 @@
+[
+  {
+    "frame": "frame-000.png",
+    "before": 2219063394846,
+    "after": 2219063776398,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-001.png",
+    "before": 2219064291639,
+    "after": 2219064770642,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-002.png",
+    "before": 2219064988789,
+    "after": 2219065350913,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-003.png",
+    "before": 2219065588113,
+    "after": 2219065949423,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-004.png",
+    "before": 2219066188249,
+    "after": 2219066546501,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-005.png",
+    "before": 2219066810754,
+    "after": 2219067117756,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-006.png",
+    "before": 2219067312191,
+    "after": 2219067695934,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-007.png",
+    "before": 2219067890077,
+    "after": 2219068258296,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-008.png",
+    "before": 2219068491616,
+    "after": 2219068862732,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-009.png",
+    "before": 2219069260580,
+    "after": 2219069504510,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-010.png",
+    "before": 2219069796024,
+    "after": 2219070112181,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-011.png",
+    "before": 2219070393047,
+    "after": 2219070771700,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-012.png",
+    "before": 2219070992823,
+    "after": 2219071277911,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-013.png",
+    "before": 2219071492642,
+    "after": 2219071854892,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-014.png",
+    "before": 2219072097986,
+    "after": 2219072425133,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-015.png",
+    "before": 2219072798188,
+    "after": 2219073105850,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-016.png",
+    "before": 2219073298680,
+    "after": 2219073600589,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-017.png",
+    "before": 2219073800520,
+    "after": 2219074198277,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-018.png",
+    "before": 2219074399130,
+    "after": 2219074766266,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-019.png",
+    "before": 2219074999943,
+    "after": 2219075366554,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-020.png",
+    "before": 2219075599897,
+    "after": 2219075983642,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-021.png",
+    "before": 2219076200231,
+    "after": 2219076627476,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-022.png",
+    "before": 2219076899784,
+    "after": 2219077254345,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-023.png",
+    "before": 2219077521665,
+    "after": 2219077937970,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-024.png",
+    "before": 2219078215263,
+    "after": 2219078544397,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-025.png",
+    "before": 2219078811568,
+    "after": 2219079107264,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-026.png",
+    "before": 2219079303226,
+    "after": 2219079704385,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-027.png",
+    "before": 2219080016594,
+    "after": 2219080344362,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-028.png",
+    "before": 2219080607097,
+    "after": 2219080874676,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-029.png",
+    "before": 2219081103724,
+    "after": 2219081445523,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-030.png",
+    "before": 2219081698442,
+    "after": 2219082104368,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-031.png",
+    "before": 2219082308829,
+    "after": 2219082725425,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-032.png",
+    "before": 2219082926085,
+    "after": 2219083282866,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-033.png",
+    "before": 2219083508714,
+    "after": 2219083878240,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-034.png",
+    "before": 2219084109194,
+    "after": 2219084444891,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-035.png",
+    "before": 2219084710551,
+    "after": 2219085039810,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-036.png",
+    "before": 2219085319109,
+    "after": 2219085625485,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-037.png",
+    "before": 2219085812023,
+    "after": 2219086286019,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-038.png",
+    "before": 2219086510389,
+    "after": 2219086893005,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-039.png",
+    "before": 2219087125761,
+    "after": 2219087470490,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-040.png",
+    "before": 2219087725085,
+    "after": 2219088044502,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-041.png",
+    "before": 2219088425937,
+    "after": 2219088771956,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-042.png",
+    "before": 2219089115802,
+    "after": 2219089439740,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-043.png",
+    "before": 2219089615452,
+    "after": 2219089869753,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-044.png",
+    "before": 2219090089765,
+    "after": 2219090450083,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-045.png",
+    "before": 2219090687325,
+    "after": 2219091041074,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-046.png",
+    "before": 2219091287247,
+    "after": 2219091528953,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-047.png",
+    "before": 2219091789991,
+    "after": 2219092190855,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-048.png",
+    "before": 2219092386897,
+    "after": 2219092764370,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-049.png",
+    "before": 2219092967330,
+    "after": 2219093348984,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-050.png",
+    "before": 2219093567339,
+    "after": 2219093923300,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-051.png",
+    "before": 2219094167958,
+    "after": 2219094516060,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-052.png",
+    "before": 2219094868861,
+    "after": 2219095271826,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-053.png",
+    "before": 2219095458069,
+    "after": 2219095794137,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-054.png",
+    "before": 2219096052665,
+    "after": 2219096319297,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-055.png",
+    "before": 2219096549716,
+    "after": 2219096977639,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-056.png",
+    "before": 2219097151418,
+    "after": 2219097601785,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-057.png",
+    "before": 2219097942037,
+    "after": 2219098276500,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-058.png",
+    "before": 2219098538460,
+    "after": 2219098939284,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-059.png",
+    "before": 2219099235423,
+    "after": 2219099605216,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-060.png",
+    "before": 2219099840594,
+    "after": 2219100097073,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-061.png",
+    "before": 2219100338348,
+    "after": 2219100699914,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-062.png",
+    "before": 2219100953228,
+    "after": 2219101257304,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-063.png",
+    "before": 2219101454746,
+    "after": 2219101853012,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-064.png",
+    "before": 2219102042880,
+    "after": 2219102427668,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-065.png",
+    "before": 2219102645153,
+    "after": 2219103019093,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-066.png",
+    "before": 2219103265829,
+    "after": 2219103593569,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-067.png",
+    "before": 2219103848837,
+    "after": 2219104189293,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-068.png",
+    "before": 2219104448941,
+    "after": 2219104703333,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-069.png",
+    "before": 2219104949409,
+    "after": 2219105366808,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-070.png",
+    "before": 2219105550916,
+    "after": 2219105972353,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-071.png",
+    "before": 2219106252612,
+    "after": 2219106635382,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-072.png",
+    "before": 2219106854491,
+    "after": 2219107252479,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-073.png",
+    "before": 2219107454001,
+    "after": 2219107813445,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-074.png",
+    "before": 2219108054433,
+    "after": 2219108457468,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-075.png",
+    "before": 2219108733903,
+    "after": 2219109036466,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-076.png",
+    "before": 2219109335477,
+    "after": 2219109611429,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-077.png",
+    "before": 2219109836964,
+    "after": 2219110218573,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-078.png",
+    "before": 2219110433493,
+    "after": 2219110770698,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-079.png",
+    "before": 2219110984657,
+    "after": 2219111370160,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-080.png",
+    "before": 2219111684634,
+    "after": 2219112107538,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-081.png",
+    "before": 2219112284720,
+    "after": 2219112613367,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-082.png",
+    "before": 2219112885206,
+    "after": 2219113205686,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-083.png",
+    "before": 2219113490264,
+    "after": 2219113782998,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-084.png",
+    "before": 2219114088304,
+    "after": 2219114371976,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-085.png",
+    "before": 2219114684572,
+    "after": 2219115009489,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-086.png",
+    "before": 2219115204477,
+    "after": 2219115618026,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-087.png",
+    "before": 2219115887365,
+    "after": 2219116325255,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-088.png",
+    "before": 2219116581089,
+    "after": 2219116950896,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-089.png",
+    "before": 2219117180012,
+    "after": 2219117464650,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-090.png",
+    "before": 2219117680942,
+    "after": 2219118074641,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-091.png",
+    "before": 2219118280320,
+    "after": 2219118754366,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-092.png",
+    "before": 2219119003287,
+    "after": 2219119397938,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-093.png",
+    "before": 2219119680529,
+    "after": 2219120041478,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-094.png",
+    "before": 2219120280604,
+    "after": 2219120600600,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-095.png",
+    "before": 2219120880969,
+    "after": 2219121154106,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-096.png",
+    "before": 2219121359141,
+    "after": 2219121782972,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-097.png",
+    "before": 2219122186341,
+    "after": 2219122481706,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-098.png",
+    "before": 2219122683565,
+    "after": 2219123106320,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-099.png",
+    "before": 2219123283360,
+    "after": 2219123614772,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-100.png",
+    "before": 2219123943860,
+    "after": 2219124251056,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-101.png",
+    "before": 2219124503952,
+    "after": 2219124891005,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-102.png",
+    "before": 2219125194336,
+    "after": 2219125523586,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-103.png",
+    "before": 2219125829457,
+    "after": 2219126311190,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-104.png",
+    "before": 2219126614259,
+    "after": 2219127015134,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [],
+    "next": {
+      "details": {
+        "data": {
+          "durationMs": 250,
+          "from": "timerCompact",
+          "to": "timerExpanded"
+        },
+        "elapsedUs": 4
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127502441,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.begin",
+      "utc": "2026-10-24T20:29:51.861Z"
+    }
+  },
+  {
+    "frame": "frame-105.png",
+    "before": 2219127278694,
+    "after": 2219127705656,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerCompact"
+        },
+        "elapsedUs": 266762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2218985458339,
+      "rasterToken": 1,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:37.656Z"
+    },
+    "during": [
+      {
+        "details": {
+          "data": {
+            "durationMs": 250,
+            "from": "timerCompact",
+            "to": "timerExpanded"
+          },
+          "elapsedUs": 4
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219127502441,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.begin",
+        "utc": "2026-10-24T20:29:51.861Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 2.360343319195521e-06,
+            "elapsedMs": 0.0012,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 0
+          },
+          "elapsedUs": 9632
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219127598710,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:51.870Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 0
+          },
+          "elapsedUs": 11706
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219127619465,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:51.872Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 2.360343319195521e-06,
+            "elapsedMs": 0.0012,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 0
+          },
+          "elapsedUs": 11729
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219127619666,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:51.872Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 2.360343319195521e-06,
+            "elapsedMs": 0.0012,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 0
+          },
+          "elapsedUs": 12015
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219127622546,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:51.873Z"
+      }
+    ],
+    "next": {
+      "details": {
+        "data": {
+          "easedProgress": 0.06634246436392482,
+          "elapsedMs": 15.408399999999999,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 1
+        },
+        "elapsedUs": 25049
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219127752916,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:51.886Z"
+    }
+  },
+  {
+    "frame": "frame-106.png",
+    "before": 2219128100191,
+    "after": 2219128449990,
+    "previous": {
+      "details": {
+        "data": {
+          "easedProgress": 0.25075028209235367,
+          "elapsedMs": 47.052499999999995,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 3
+        },
+        "elapsedUs": 56685
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219128069242,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:51.917Z"
+    },
+    "during": [
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 3
+          },
+          "elapsedUs": 60983
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128112236,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:51.922Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.25075028209235367,
+            "elapsedMs": 47.052499999999995,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 3
+          },
+          "elapsedUs": 61008
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128112461,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:51.922Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.25075028209235367,
+            "elapsedMs": 47.052499999999995,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 3
+          },
+          "elapsedUs": 67637
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128178759,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:51.928Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.39066877169944914,
+            "elapsedMs": 62.1236,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 4
+          },
+          "elapsedUs": 71757
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128220016,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:51.932Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 4
+          },
+          "elapsedUs": 78684
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128289233,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:51.939Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.39066877169944914,
+            "elapsedMs": 62.1236,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 4
+          },
+          "elapsedUs": 78702
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128289389,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:51.939Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.39066877169944914,
+            "elapsedMs": 62.1236,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 4
+          },
+          "elapsedUs": 78983
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128292232,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:51.940Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.6388362749686098,
+            "elapsedMs": 78.2603,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 5
+          },
+          "elapsedUs": 87893
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128381325,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:51.949Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 5
+          },
+          "elapsedUs": 91648
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128418876,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:51.952Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.6388362749686098,
+            "elapsedMs": 78.2603,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 5
+          },
+          "elapsedUs": 91665
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128419025,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:51.952Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.6388362749686098,
+            "elapsedMs": 78.2603,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 5
+          },
+          "elapsedUs": 91980
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128422189,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:51.953Z"
+      }
+    ],
+    "next": {
+      "details": {
+        "data": {
+          "easedProgress": 0.8340216992465184,
+          "elapsedMs": 98.3044,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 6
+        },
+        "elapsedUs": 107938
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219128581776,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:51.969Z"
+    }
+  },
+  {
+    "frame": "frame-107.png",
+    "before": 2219128703135,
+    "after": 2219129140551,
+    "previous": {
+      "details": {
+        "data": {
+          "easedProgress": 0.8800135997314291,
+          "elapsedMs": 109.2801,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 7
+        },
+        "elapsedUs": 118915
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219128691558,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:51.980Z"
+    },
+    "during": [
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 7
+          },
+          "elapsedUs": 145482
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128957211,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.006Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.8800135997314291,
+            "elapsedMs": 109.2801,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 7
+          },
+          "elapsedUs": 145500
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128957382,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.006Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.8800135997314291,
+            "elapsedMs": 109.2801,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 7
+          },
+          "elapsedUs": 145743
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128959820,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.006Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.941445157768993,
+            "elapsedMs": 136.14270000000002,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 8
+          },
+          "elapsedUs": 145770
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219128960064,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:52.006Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 8
+          },
+          "elapsedUs": 150631
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129008715,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.011Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.941445157768993,
+            "elapsedMs": 136.14270000000002,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 8
+          },
+          "elapsedUs": 150663
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129009041,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.011Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.941445157768993,
+            "elapsedMs": 136.14270000000002,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 8
+          },
+          "elapsedUs": 150894
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129011353,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.012Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.948920422953915,
+            "elapsedMs": 141.2907,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 9
+          },
+          "elapsedUs": 150918
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129011560,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:52.012Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 9
+          },
+          "elapsedUs": 158198
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129084367,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.019Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.948920422953915,
+            "elapsedMs": 141.2907,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 9
+          },
+          "elapsedUs": 158217
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129084574,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.019Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.948920422953915,
+            "elapsedMs": 141.2907,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 9
+          },
+          "elapsedUs": 158395
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129086337,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.019Z"
+      }
+    ],
+    "next": {
+      "details": {
+        "data": {
+          "easedProgress": 0.9659936493365062,
+          "elapsedMs": 156.1265,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 10
+        },
+        "elapsedUs": 165762
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219129160021,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:52.026Z"
+    }
+  },
+  {
+    "frame": "frame-108.png",
+    "before": 2219129370267,
+    "after": 2219129699293,
+    "previous": {
+      "details": {
+        "data": {
+          "easedProgress": 0.9815054768618394,
+          "elapsedMs": 176.1525,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 11
+        },
+        "elapsedUs": 185785
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219129360238,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.before-raster",
+      "utc": "2026-10-24T20:29:52.046Z"
+    },
+    "during": [
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 11
+          },
+          "elapsedUs": 190035
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129402734,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.051Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9815054768618394,
+            "elapsedMs": 176.1525,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 11
+          },
+          "elapsedUs": 190051
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129402891,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.051Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9815054768618394,
+            "elapsedMs": 176.1525,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 11
+          },
+          "elapsedUs": 190265
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129405024,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.051Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9874526900860148,
+            "elapsedMs": 187.2329,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 12
+          },
+          "elapsedUs": 196868
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129471120,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:52.058Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 12
+          },
+          "elapsedUs": 200427
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129506661,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.061Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9874526900860148,
+            "elapsedMs": 187.2329,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 12
+          },
+          "elapsedUs": 200447
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129506840,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.061Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9874526900860148,
+            "elapsedMs": 187.2329,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 12
+          },
+          "elapsedUs": 200652
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129508905,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.061Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 0.9947350282484093,
+            "elapsedMs": 207.2217,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 13
+          },
+          "elapsedUs": 216857
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219129670974,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:52.078Z"
+      }
+    ],
+    "next": {
+      "details": {
+        "data": {
+          "source": "incoming",
+          "step": 13
+        },
+        "elapsedUs": 224190
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219129744299,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.raster-source",
+      "utc": "2026-10-24T20:29:52.085Z"
+    }
+  },
+  {
+    "frame": "frame-109.png",
+    "before": 2219130052798,
+    "after": 2219130444592,
+    "previous": {
+      "details": {
+        "data": {
+          "easedProgress": 0.9993498870774117,
+          "elapsedMs": 234.0523,
+          "requestedOwnerPosition": {
+            "x": 2220,
+            "y": 0
+          },
+          "step": 15
+        },
+        "elapsedUs": 245319
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219129955556,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.after-move",
+      "utc": "2026-10-24T20:29:52.106Z"
+    },
+    "during": [
+      {
+        "details": {
+          "data": {
+            "easedProgress": 1.0,
+            "elapsedMs": 254.09019999999998,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 16
+          },
+          "elapsedUs": 263725
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219130139686,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.before-raster",
+        "utc": "2026-10-24T20:29:52.124Z"
+      },
+      {
+        "details": {
+          "data": {
+            "source": "incoming",
+            "step": 16
+          },
+          "elapsedUs": 277061
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219130272993,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.raster-source",
+        "utc": "2026-10-24T20:29:52.138Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 1.0,
+            "elapsedMs": 254.09019999999998,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 16
+          },
+          "elapsedUs": 277081
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219130273175,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-raster",
+        "utc": "2026-10-24T20:29:52.138Z"
+      },
+      {
+        "details": {
+          "data": {
+            "easedProgress": 1.0,
+            "elapsedMs": 254.09019999999998,
+            "requestedOwnerPosition": {
+              "x": 2220,
+              "y": 0
+            },
+            "step": 16
+          },
+          "elapsedUs": 277303
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219130275398,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.after-move",
+        "utc": "2026-10-24T20:29:52.138Z"
+      },
+      {
+        "details": {
+          "data": {
+            "target": "timerExpanded"
+          },
+          "elapsedUs": 278987
+        },
+        "processId": 18316,
+        "qpcFrequency": 10000000,
+        "qpcTicks": 2219130292252,
+        "rasterToken": 2,
+        "schemaVersion": 1,
+        "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+        "stage": "native.committed",
+        "utc": "2026-10-24T20:29:52.140Z"
+      }
+    ],
+    "next": null
+  },
+  {
+    "frame": "frame-110.png",
+    "before": 2219130681056,
+    "after": 2219130963492,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerExpanded"
+        },
+        "elapsedUs": 278987
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219130292252,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:52.140Z"
+    },
+    "during": [],
+    "next": null
+  },
+  {
+    "frame": "frame-111.png",
+    "before": 2219131245633,
+    "after": 2219131548540,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerExpanded"
+        },
+        "elapsedUs": 278987
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219130292252,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:52.140Z"
+    },
+    "during": [],
+    "next": null
+  },
+  {
+    "frame": "frame-112.png",
+    "before": 2219131852481,
+    "after": 2219132192393,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerExpanded"
+        },
+        "elapsedUs": 278987
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219130292252,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:52.140Z"
+    },
+    "during": [],
+    "next": null
+  },
+  {
+    "frame": "frame-113.png",
+    "before": 2219132572137,
+    "after": 2219132953888,
+    "previous": {
+      "details": {
+        "data": {
+          "target": "timerExpanded"
+        },
+        "elapsedUs": 278987
+      },
+      "processId": 18316,
+      "qpcFrequency": 10000000,
+      "qpcTicks": 2219130292252,
+      "rasterToken": 2,
+      "schemaVersion": 1,
+      "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+      "stage": "native.committed",
+      "utc": "2026-10-24T20:29:52.140Z"
+    },
+    "during": [],
+    "next": null
+  }
+]

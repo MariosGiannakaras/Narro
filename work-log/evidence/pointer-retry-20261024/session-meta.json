@@ -1,0 +1,13 @@
+{
+  "state": "ARTIFACT_VERIFIED",
+  "source": "cdaf85b3c20028a78d17f75f5700e652e7147f7e",
+  "run": 39921466242,
+  "artifactId": 12488287273,
+  "zipSha256": "2c21b72b312a3aa80afa76c9e88a054ad2d7fd687a6151add9a60d104d163b40",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Batch-20261023\\main\\artifact\\src-tauri\\target-physical\\release\\narro-m7-validation.exe",
+  "sha256": "2c8b091f6bea079196f7b068c303749417bd80a3529230fb8c6ed0f93d386765",
+  "crc": "PASS",
+  "sourceShaEmbedded": true,
+  "physicalExecutable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Batch-20261023\\main\\artifact\\src-tauri\\target-physical\\release\\narro.exe",
+  "loggingNameCopyByteIdentical": true
+}

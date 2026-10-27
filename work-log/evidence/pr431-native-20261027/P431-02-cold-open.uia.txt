@@ -1,0 +1,220 @@
+Window: "Narro", App: narro.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									10 group ID: root
+										11 complementary List navigation
+											12 graphic Narro
+											13 navigation Lists
+												14 button + Create new list
+												15 button All my lists
+												16 button Archived lists
+										17 section header
+											18 group Utilities
+												19 button Search
+												20 button Settings
+										21 main ID: main-content
+											22 region Good afternoon
+												23 section header
+													24 text HOME
+													25 heading Good afternoon ID: home-title
+													26 text Plan the next work that deserves your attention.
+												27 region Your Lists
+													28 heading Your Lists ID: home-lists-title
+													29 text Lists with your upcoming tasks
+													30 article
+														31 section header
+															32 heading All Lists
+														33 group All Lists task preview
+															34 text Capture drag task A
+															35 text Scheduled future backlog
+															36 text 10m
+															37 text Ordinary backlog item
+															38 text 10m
+															39 text Capture drag task B
+															40 button Open
+														41 section footer
+															42 text 14 pending tasks
+															43 text Est:
+															44 text 2h 10m
+													45 article
+														46 section header
+															47 heading Capture Project
+															48 button More actions for Capture Project
+														49 group Capture Project task preview
+															50 text Capture drag task A
+															51 text Scheduled future backlog
+															52 text 10m
+															53 text Ordinary backlog item
+															54 text 10m
+															55 text Capture drag task B
+															56 button Open
+														57 section footer
+															58 text 5 pending tasks
+															59 text Est:
+															60 text 40m
+													61 article
+														62 section header
+															63 heading Reading & research
+															64 button More actions for Reading & research
+														65 group Reading & research task preview
+															66 text Reading & research task 1
+															67 text 5m
+															68 text Reading & research task 2
+															69 text 10m
+															70 text Reading & research task 3
+															71 text 15m
+															72 button Open
+														73 section footer
+															74 text 3 pending tasks
+															75 text Est:
+															76 text 30m
+													77 article
+														78 section header
+															79 heading Long project name for list badge and title wrapping
+															80 button More actions for Long project name for list badge and title wrapping
+														81 group Long project name for list badge and title wrapping task preview
+															82 text Long project name for list badge and title wrapping task 1
+															83 text 5m
+															84 text Long project name for list badge and title wrapping task 2
+															85 text 10m
+															86 text Long project name for list badge and title wrapping task 3
+															87 text 15m
+															88 button Open
+														89 section footer
+															90 text 3 pending tasks
+															91 text Est:
+															92 text 30m
+													93 article
+														94 section header
+															95 heading Uploaded image capture list
+															96 button More actions for Uploaded image capture list
+														97 group Uploaded image capture list task preview
+															98 text No pending task previews
+															99 button Open
+														100 section footer
+															101 text 0 pending tasks
+															102 text Est:
+															103 text —
+													104 article
+														105 section header
+															106 heading Archived example
+															107 button More actions for Archived example
+														108 group Archived example task preview
+															109 text Archived example task 1
+															110 text 5m
+															111 text Archived example task 2
+															112 text 10m
+															113 text Archived example task 3
+															114 text 15m
+															115 button Open
+														116 section footer
+															117 text 3 pending tasks
+															118 text Est:
+															119 text 30m
+													120 button CREATE LIST
+										121 navigation Primary
+											122 button Home
+											123 button Reports
+										131 dialog Preferences Secondary Actions: Raise
+											132 button Close Preferences
+											133 region Preferences
+												134 section header
+													135 heading Preferences ID: theme-settings-title
+													136 text Manage Narro's local Windows appearance and shortcuts.
+												137 status Preparing preferences
+								124 region
+		125 title bar (settable, string) Value: Narro
+			126 menu bar System ID: MenuBar
+				127 menu item System
+			128 button Minimize
+			129 button Maximize
+			130 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+HOME
+Good afternoon
+Plan the next work that deserves your attention.
+Your Lists
+Lists with your upcoming tasks
+All Lists
+Capture drag task A
+Scheduled future backlog
+10m
+Ordinary backlog item
+10m
+Capture drag task B
+Open
+14 pending tasks
+Est: 2h 10m
+Capture Project
+More actions for Capture Project
+Capture drag task A
+Scheduled future backlog
+10m
+Ordinary backlog item
+10m
+Capture drag task B
+Open
+5 pending tasks
+Est: 40m
+Reading & research
+More actions for Reading & research
+Reading & research task 1
+5m
+Reading & research task 2
+10m
+Reading & research task 3
+15m
+Open
+3 pending tasks
+Est: 30m
+Long project name for list badge and title wrappingLong project name for list badg…
+More actions for Long project name for list badge and title wrapping
+Long project name for list badge and title wrapping task 1Long project name for list badge a…
+5m
+Long project name for list badge and title wrapping task 2Long project name for list badge …
+10m
+Long project name for list badge and title wrapping task 3Long project name for list badge …
+15m
+Open
+3 pending tasks
+Est: 30m
+Uploaded image capture list
+More actions for Uploaded image capture list
+No pending task previews
+Open
+0 pending tasks
+Est: —
+Archived example
+More actions for Archived example
+Archived example task 1
+5m
+Archived example task 2
+10m
+Archived example task 3
+15m
+Open
+3 pending tasks
+Est: 30m
+CREATE LIST
+Home
+Reports
+Close Preferences
+Preferences
+Manage Narro's local Windows appearance and shortcuts.
+Preparing preferences
+```

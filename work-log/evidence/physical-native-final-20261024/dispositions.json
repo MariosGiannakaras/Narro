@@ -1,0 +1,31 @@
+{
+  "G24": {
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": "README.md"
+  },
+  "G25": {
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": "README.md"
+  },
+  "G26": {
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": "README.md"
+  },
+  "G27": {
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": "README.md"
+  },
+  "G28": {
+    "state": "ACQUIRED_REVIEW_PENDING",
+    "evidence": "README.md"
+  },
+  "G29": {
+    "state": "ACQUIRED_ADVERSE_OBSERVATION_RECONCILE_POMODORO",
+    "evidence": "README.md"
+  },
+  "G33": {
+    "state": "PARTIAL_DUAL_NATIVE_DPI_ACQUIRED",
+    "evidence": "README.md",
+    "scope": "Actual100/125percent two-display placement acquired; physical unplug/wake and explicit OS scaling change not run"
+  }
+}

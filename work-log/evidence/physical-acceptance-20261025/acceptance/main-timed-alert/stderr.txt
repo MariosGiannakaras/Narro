@@ -1,0 +1,1 @@
+[in#0/gdigrab @ 00000204ca8cf500] Stream #0: not enough frames to estimate rate; consider increasing probesize

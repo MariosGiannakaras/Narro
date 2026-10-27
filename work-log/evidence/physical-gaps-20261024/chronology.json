@@ -1,0 +1,652 @@
+[
+  {
+    "utc": "2026-10-24T13:52:25.155Z",
+    "action": "G image maximize",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 26.062
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:52:25.676Z",
+    "action": "G image list menu",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 26.583
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:52:26.136Z",
+    "action": "G image edit",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 27.043
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:52:41.575Z",
+    "action": "G03 select invalid.png",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 42.482
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:53:43.518Z",
+    "action": "G03 retry menu",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 104.425
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:53:43.930Z",
+    "action": "G03 retry editor",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 104.837
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:53:44.403Z",
+    "action": "G03 native selector retry",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 105.31
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:55:15.228Z",
+    "action": "Native filename direct keys required English keyboard layout",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 196.135
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:55:30.082Z",
+    "action": "G03 submit confirmed invalid.png path",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 210.989
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:56:28.691Z",
+    "action": "G04 native select oversize.png",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 269.598
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:56:49.530Z",
+    "action": "G01 native select valid.jpg",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 290.437
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:56:54.305Z",
+    "action": "G01 save JPEG",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "images",
+        "seconds": 295.212
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:56:55.131Z",
+    "action": "G02 menu",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T13:56:55.474Z",
+    "action": "G02 edit",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T13:57:51.509Z",
+    "action": "G02 actual menu",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 34.381
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:57:58.184Z",
+    "action": "G02 actual editor",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 41.056
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:57:58.831Z",
+    "action": "G02 native select valid.svg",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 41.703
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:58:18.120Z",
+    "action": "G02/G05 save SVG replacement",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 60.992
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:58:42.575Z",
+    "action": "G06 hover Capture Project",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 85.447
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:58:43.028Z",
+    "action": "G06 Open Capture Project",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 85.9
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:58:43.811Z",
+    "action": "G06 recurrence editor",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 86.683
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T13:59:22.758Z",
+    "action": "G06 hover project preview",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 125.63
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:00:05.188Z",
+    "action": "G06 visible Open actual",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 168.06
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:00:16.296Z",
+    "action": "G06 recurring Custom",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 179.168
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:00:38.864Z",
+    "action": "G06 Custom activate",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 201.736
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:01:35.949Z",
+    "action": "G17 Preferences",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 258.821
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:02:02.166Z",
+    "action": "G17 choose first explicit timezone",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "image-and-persistence",
+        "seconds": 285.038
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:02:25.366Z",
+    "action": "G17 explicit timezone select",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:25.894Z",
+    "action": "G18 left edge",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:26.202Z",
+    "action": "G18 Screen1 explicit",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:38.911Z",
+    "action": "G18 Left after save settles",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:39.815Z",
+    "action": "G18 Screen1 after save settles",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:40.858Z",
+    "action": "close Preferences gap batch",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:02:41.414Z",
+    "action": "G06 recurrence Edit text",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:03:54.645Z",
+    "action": "G07 Archived lists",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:04:02.435Z",
+    "action": "G07 Unarchive existing fixture",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:04:21.574Z",
+    "action": "G07 reveal archive actions",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:04:33.648Z",
+    "action": "G07 visible Unarchive",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:04:34.473Z",
+    "action": "G16 settings",
+    "recordingOffsetsApprox": []
+  },
+  {
+    "utc": "2026-10-24T14:05:17.687Z",
+    "action": "G16 View shortcuts actual",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 9.674
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:05:40.200Z",
+    "action": "G16 visible View shortcuts",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 32.187
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:06:16.060Z",
+    "action": "G13 task volume open",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 68.047
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:06:32.762Z",
+    "action": "G13 actual task volume",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 84.749
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:07:14.243Z",
+    "action": "G13 controlled write lock; arrow while pending",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 126.23
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:08:02.498Z",
+    "action": "G14 notification volume",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preferences",
+        "seconds": 174.485
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:08:46.232Z",
+    "action": "G14 controlled lock notification Down/Up",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 10.331
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:01.930Z",
+    "action": "G15 success popup",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 26.029
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:02.271Z",
+    "action": "G15 controlled lock success Down/Up",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 26.37
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:40.779Z",
+    "action": "close prefs after fault cases",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 64.878
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:41.000Z",
+    "action": "G06 Home",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 65.099
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:41.614Z",
+    "action": "G06 reveal project",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 65.713
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:42.434Z",
+    "action": "G06 Open project",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 66.533
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:09:43.171Z",
+    "action": "G06 recurring Task actions",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 67.27
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:10:05.935Z",
+    "action": "G06 Update Recurring",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 90.034
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:11:02.155Z",
+    "action": "G06 change recurrence pattern",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 146.254
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:11:02.931Z",
+    "action": "G06 save changed recurrence without replacing occurrences",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 147.03
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:11:27.504Z",
+    "action": "G08-G12 enter paused Focus",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 171.603
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:11:38.246Z",
+    "action": "G08 Notes open",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 182.345
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:11:54.863Z",
+    "action": "G08 replace synthetic Task note through accessible editor",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 198.962
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:12:08.602Z",
+    "action": "G08 Save note",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 212.701
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:12:09.424Z",
+    "action": "G08 close notes",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 213.523
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:12:09.909Z",
+    "action": "G09 expand subtask",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 214.008
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:12:49.170Z",
+    "action": "G09 cancel unintended Time Taken edit unchanged",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 253.269
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:12:49.836Z",
+    "action": "G09 actual subtask expansion",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 253.935
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:13:29.055Z",
+    "action": "G09 complete existing subtask",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 293.154
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:13:29.615Z",
+    "action": "G10 in-app pause/resume keyboard on persistent Focus host",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "preference-failures",
+        "seconds": 293.714
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:14:28.186Z",
+    "action": "G25 Panel to compact populated reduced",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 1.505
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:14:51.237Z",
+    "action": "G25 compact to expanded",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 24.556
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:15:26.202Z",
+    "action": "G25 expanded to compact",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 59.521
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:15:26.947Z",
+    "action": "G25 compact to Panel",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 60.266
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:16:10.891Z",
+    "action": "USER LIMIT WRAP: no new cases; freeze current populated reduced cycle",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 104.21
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-24T14:16:10.960Z",
+    "action": "Restored keyboard layout using reverse Alt+Shift before cleanup",
+    "recordingOffsetsApprox": [
+      {
+        "segment": "B-populated-reduced",
+        "seconds": 104.279
+      }
+    ]
+  }
+]

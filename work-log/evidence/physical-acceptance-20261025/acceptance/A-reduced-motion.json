@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Narro Diagnostic - Focus",
+    "media": "reduce",
+    "actual": {
+      "id": 2,
+      "result": {
+        "result": {
+          "type": "boolean",
+          "value": true
+        }
+      }
+    }
+  },
+  {
+    "title": "Narro",
+    "media": "reduce",
+    "actual": {
+      "id": 2,
+      "result": {
+        "result": {
+          "type": "boolean",
+          "value": true
+        }
+      }
+    }
+  }
+]

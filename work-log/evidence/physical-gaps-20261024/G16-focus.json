@@ -1,0 +1,52 @@
+[
+  {
+    "direction": "Tab",
+    "step": 0,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 1,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 2,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 3,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 4,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 5,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 6,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "Tab",
+    "step": 7,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "ShiftTab",
+    "step": 0,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  },
+  {
+    "direction": "ShiftTab",
+    "step": 1,
+    "focused": "20 document Narro Value: http://tauri.localhost/ ID: RootWebArea"
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "archiveSha256": "5f5958e1fd1a70b87916e91190363bd73157ad636990adf78133b79d8fc07022",
+  "method": "Concatenate parts in numeric order as binary to recover the original ZIP, then verify this hash.",
+  "parts": [
+    {
+      "path": "analysis-v2.zip.part000",
+      "bytes": 41943040,
+      "sha256": "e54ddeb2e9cc7eb9b997aec8bb08361052198e7d07c5f7c15a40511e52593cca"
+    },
+    {
+      "path": "analysis-v2.zip.part001",
+      "bytes": 41943040,
+      "sha256": "f3e630b3a50661fc133428a746c28c03ae41acda5c8eddf88bf6434b96e29653"
+    },
+    {
+      "path": "analysis-v2.zip.part002",
+      "bytes": 41943040,
+      "sha256": "0ed33c6bd84b286eea36fd3855eb9b7b8c3c386f5981eab4fc205757a36a226e"
+    },
+    {
+      "path": "analysis-v2.zip.part003",
+      "bytes": 41943040,
+      "sha256": "dcff23117ea46828d4687e4a59a5ce1d4ff653b6fe220b46aafc6323f4bad6b0"
+    },
+    {
+      "path": "analysis-v2.zip.part004",
+      "bytes": 41943040,
+      "sha256": "172ae31b3dcae3ba0175e785c5b4caad416c236ae9b65a451b81deb8968ae7c1"
+    },
+    {
+      "path": "analysis-v2.zip.part005",
+      "bytes": 41943040,
+      "sha256": "61b46db5f946b57e557db11b16089082207791993d397b0bc4fb9489f14eff08"
+    },
+    {
+      "path": "analysis-v2.zip.part006",
+      "bytes": 41943040,
+      "sha256": "bb8c5729c6accb6eb5bd49361463a11620433be36b11d0dfe2a7482b459108a6"
+    },
+    {
+      "path": "analysis-v2.zip.part007",
+      "bytes": 41943040,
+      "sha256": "75cc400abcfd0e79fb37a9ef21d68a70b48c7ef53ec6b609f8e9f04024327764"
+    },
+    {
+      "path": "analysis-v2.zip.part008",
+      "bytes": 41943040,
+      "sha256": "aae3e0fda0a5a1165491037453f355fec693e5f845c11ba44a123dfc35f7f506"
+    },
+    {
+      "path": "analysis-v2.zip.part009",
+      "bytes": 34692215,
+      "sha256": "7ec51fc4e4dd25d5157f9b0d67bf831bb50a426003beaaa57e531ecfc0a7d45f"
+    }
+  ]
+}

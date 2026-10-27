@@ -1,0 +1,4 @@
+{
+  "note": "Verified physical narro.exe does not generate the named M7 validation log folder in this session; whole generated stdout/stderr and opt-in diagnostics are included.",
+  "namedM7LogFolderExists": false
+}

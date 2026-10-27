@@ -1,0 +1,123 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1033 pane NarroFocusRegionFrame
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+													15 group ID: root
+														16 main
+								316 region
+						317 region
+						318 region
+
+Document text: ```
+Capture ProjectC…
+Today
+Preferences
+Home
+Compact view
+Est: 10min
+31/33 Done
+Capture drag task B
+03:16
+POMO
+Pomodoro Work
+EST
+—
+Time Taken
+1:01:30
+0 of 0 subtasks complete
+Subtasks
++
+Start break
+Notes
+Pause
+Skip task
+Complete task
+Ordinary backlog item
+2d ago
+Oct 24, 2026
+1/1 subtasks
+￼
++ ADD TASK
+0 Scheduled tasks
+31 Done
+Capture live task — long title for compact wrapping and hover actions
+2/4 subtasks
+5min
+Second task — notes and success feedback
+2min
+Overdue task with age label
+Oct 18, 2026
+1hr 2min
+Third task without estimate
+2hr 2min
+Capture success OFF task
+1min
+Scheduled later this week
+Oct 22, 2026
+1/1 subtasks
+1min
+Done history 01 — long title for scroll
+10min
+Weekly recurring parent
+Oct 20, 2026
+5min
+Done history 02 — long title for scroll
+10min
+Done history 03 — long title for scroll
+10min
+Done history 04 — long title for scroll
+10min
+Done history 05 — long title for scroll
+10min
+Done history 06 — long title for scroll
+10min
+Done history 07 — long title for scroll
+10min
+Done history 08 — long title for scroll
+10min
+Done history 09 — long title for scroll
+10min
+Done history 10 — long title for scroll
+10min
+Done history 11 — long title for scroll
+10min
+Done history 12 — long title for scroll
+10min
+Done history 13 — long title for scroll
+10min
+Done history 14 — long title for scroll
+10min
+Done history 15 — long title for scroll
+10min
+Done history 16 — long title for scroll
+10min
+Done history 17 — long title for scroll
+10min
+Done history 18 — long title for scroll
+10min
+Done history 19 — long title for scroll
+10min
+Done history 20 — long title for scroll
+10min
+Done history 21 — long title for scroll
+10min
+Done history 22 — long title for scroll
+10min
+Done history 23 — long title for scroll
+10min
+Done history 24 — long title for scroll
+10min
+```

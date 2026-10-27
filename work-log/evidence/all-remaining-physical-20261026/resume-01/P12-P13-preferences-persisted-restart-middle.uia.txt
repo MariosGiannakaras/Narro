@@ -1,0 +1,401 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									10 group ID: root
+										11 complementary List navigation
+											12 graphic Narro
+											13 navigation Lists
+												14 button + Create new list
+												15 button All my lists
+												16 button Archived lists
+										17 section header
+											18 group Utilities
+												19 button Search
+												20 button Settings
+										21 main ID: main-content
+											22 region Good afternoon
+												23 section header
+													24 text HOME
+													25 heading Good afternoon ID: home-title
+													26 text Plan the next work that deserves your attention.
+												27 region Your Lists
+													28 heading Your Lists ID: home-lists-title
+													29 text Lists with your upcoming tasks
+													30 article
+														31 section header
+															32 heading All Lists
+														33 group All Lists task preview
+															34 text Capture drag task B
+															35 text 1m
+															36 text Capture drag task A
+															37 text Scheduled future backlog
+															38 text 10m
+															39 text Ordinary backlog item
+															40 text 10m
+															41 button Open
+														42 section footer
+															43 text 14 pending tasks
+															44 text Est:
+															45 text 1h 51m
+													46 article
+														47 section header
+															48 heading Capture Project
+															49 button More actions for Capture Project
+														50 group Capture Project task preview
+															51 text Capture drag task B
+															52 text 1m
+															53 text Capture drag task A
+															54 text Scheduled future backlog
+															55 text 10m
+															56 text Ordinary backlog item
+															57 text 10m
+															58 button Open
+														59 section footer
+															60 text 5 pending tasks
+															61 text Est:
+															62 text 21m
+													63 article
+														64 section header
+															65 heading Reading & research
+															66 button More actions for Reading & research
+														67 group Reading & research task preview
+															68 text Reading & research task 1
+															69 text 5m
+															70 text Reading & research task 2
+															71 text 10m
+															72 text Reading & research task 3
+															73 text 15m
+															74 button Open
+														75 section footer
+															76 text 3 pending tasks
+															77 text Est:
+															78 text 30m
+													79 article
+														80 section header
+															81 heading Long project name for list badge and title wrapping
+															82 button More actions for Long project name for list badge and title wrapping
+														83 group Long project name for list badge and title wrapping task preview
+															84 text Long project name for list badge and title wrapping task 1
+															85 text 5m
+															86 text Long project name for list badge and title wrapping task 2
+															87 text 10m
+															88 text Long project name for list badge and title wrapping task 3
+															89 text 15m
+															90 button Open
+														91 section footer
+															92 text 3 pending tasks
+															93 text Est:
+															94 text 30m
+													95 article
+														96 section header
+															97 heading Uploaded image capture list
+															98 button More actions for Uploaded image capture list
+														99 group Uploaded image capture list task preview
+															100 text No pending task previews
+															101 button Open
+														102 section footer
+															103 text 0 pending tasks
+															104 text Est:
+															105 text —
+													106 article
+														107 section header
+															108 heading Archived example
+															109 button More actions for Archived example
+														110 group Archived example task preview
+															111 text Archived example task 1
+															112 text 5m
+															113 text Archived example task 2
+															114 text 10m
+															115 text Archived example task 3
+															116 text 15m
+															117 button Open
+														118 section footer
+															119 text 3 pending tasks
+															120 text Est:
+															121 text 30m
+													122 button CREATE LIST
+										123 navigation Primary
+											124 button Home
+											125 button Reports
+										133 dialog Preferences Secondary Actions: Raise
+											134 button Close Preferences
+											135 region Preferences
+												136 section header
+													137 heading Preferences ID: theme-settings-title
+													138 text Manage Narro's local Windows appearance and shortcuts.
+												153 region Blitz Panel
+													154 heading Blitz Panel ID: preferences-blitz-panel-title
+													155 button Refresh displays
+													156 text Monitor
+													157 text Choose which Windows work area owns the Focus Panel.
+													158 group Focus Panel monitor
+														159 toggle button Automatic Primary display
+															160 text Automatic
+															161 text Primary display
+														162 toggle button Screen 1: \\.\DISPLAY1 · 2560×1080 · 100%
+															163 text Screen
+															164 text 1
+															165 text \\.\DISPLAY1
+														166 toggle button Screen 2: \\.\DISPLAY2 · 1920×1080 · 125%
+															167 text Screen
+															168 text 2
+															169 text \\.\DISPLAY2
+													170 text Panel side
+													171 text Anchor the Focus Panel to the selected monitor's work-area edge.
+													172 group Blitz Panel Side
+														173 toggle button Left
+														174 toggle button Right
+												141 region General
+													142 heading General ID: theme-general-title
+													143 text Theme
+													144 text System follows your current Windows light or dark preference.
+													145 group Theme
+														146 toggle button System theme — Follow your Windows color mode
+														147 toggle button Dark theme — Use Narro's dark surfaces
+														148 toggle button Light theme — Use Narro's light surfaces
+													175 text Start with Windows
+													176 text Start Narro automatically when Windows starts.
+													177 switch (settable, string) Start Narro with Windows
+													178 text Hide EST / Time Taken
+													179 text Keep task timing quieter until you hover or focus a task.
+													180 switch (settable, string) Hide task EST and Time Taken
+													181 text Auto-parse EST from title
+													182 text Recognize a supported estimate suffix when creating a task.
+													183 switch (settable, string) Auto-parse EST from task title
+												184 region Time
+													185 heading Time ID: theme-time-title
+													186 text Timezone
+													187 text Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+													188 combo box (settable, string) Display timezone Value: (GMT+00:00) Africa/Abidjan
+												189 region Blitz mode settings
+													190 heading Blitz mode settings ID: preferences-blitz-mode-title
+													191 text Pomodoros
+													192 text Use sprint and break durations instead of task EST for new Focus starts.
+													193 switch (settable, string) Enable Pomodoros
+													194 text Default break length
+													195 text Used by Start Break in Focus and the in-app shortcut.
+													196 combo box (settable, string) Default manual break duration Value: 10 mins
+													197 text Scrolling title on live timer
+													198 text Scroll long live-task titles instead of keeping them truncated.
+													199 switch (settable, string) Scrolling title on live timer
+												200 region Alerts
+													201 heading Alerts ID: preferences-alerts-title
+													202 text Timed alerts during a task
+													203 text Enable periodic local reminders while focused.
+													204 switch (settable, string) Timed task alerts
+													205 text Task alert interval
+													206 text How often a timed task alert may occur.
+													207 combo box (settable, string) Task alert interval Value: 5 mins
+													208 text Task alert sound
+													209 text Choose a bundled local Narro sound. Starting another preview stops the current one.
+													210 button Adjust Task alert volume
+													211 button Preview Melodic Bell Description: Preview sound
+													212 combo box (settable, string) Task alert sound Value: Melodic Bell
+													213 text Animated flash on timer
+													214 text Briefly highlight the active task and timer when a timed alert occurs.
+													215 switch (settable, string) Animated timer flash
+													216 text Notification alerts
+													217 text Allow local Windows notification alerts for relevant timer events.
+													218 switch (settable, string) Notification alerts
+													219 text Notification sound
+													220 text Choose the bundled local sound used by notification-alert preferences.
+													221 button Adjust Notification sound volume
+													222 button Preview Futuristic Ding Description: Preview sound
+													223 combo box (settable, string) Notification sound Value: Futuristic Ding
+													224 text Schedule reminders
+													225 text Enable local reminders for scheduled tasks.
+													226 switch (settable, string) Schedule reminders
+												227 region Celebrate task completion
+													228 heading Celebrate task completion ID: preferences-celebration-title
+													229 text Show success screen
+													230 text Show a completion message with options for what to do next.
+													231 switch (settable, string) Show success screen
+													232 text Success sound effect
+													233 text Control the bundled completion sound independently of the success screen.
+													234 button Adjust Success sound volume
+													235 button Preview Victory Bell Description: Preview sound
+													236 combo box (settable, string) Success sound Value: Victory Bell
+													237 switch (settable, string) Success sound effect
+												149 region Shortcuts
+													150 heading Shortcuts ID: theme-shortcuts-title
+													151 button View shortcuts
+													152 text Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+								126 region
+		127 title bar (settable, string) Value: Narro
+			128 menu bar System ID: MenuBar
+				129 menu item System
+			130 button Minimize
+			131 button Restore
+			132 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+HOME
+Good afternoon
+Plan the next work that deserves your attention.
+Your Lists
+Lists with your upcoming tasks
+All Lists
+Capture drag task B
+1m
+Capture drag task A
+Scheduled future backlogScheduled future b…
+10m
+Ordinary backlog itemOrdinary backlog it…
+10m
+Open
+14 pending tasks
+Est: 1h 51m
+Capture Project
+More actions for Capture Project
+Capture drag task B
+1m
+Capture drag task A
+Scheduled future backlogScheduled future b…
+10m
+Ordinary backlog itemOrdinary backlog it…
+10m
+Open
+5 pending tasks
+Est: 21m
+Reading & research
+More actions for Reading & research
+Reading & research task 1Reading & research …
+5m
+Reading & research task 2Reading & research…
+10m
+Reading & research task 3Reading & research…
+15m
+Open
+3 pending tasks
+Est: 30m
+Long project name for list badge and title wrappingLong project nam…
+More actions for Long project name for list badge and title wrapping
+Long project name for list badge and title wrapping task 1Long project name f…
+5m
+Long project name for list badge and title wrapping task 2Long project name …
+10m
+Long project name for list badge and title wrapping task 3Long project name …
+15m
+Open
+3 pending tasks
+Est: 30m
+Uploaded image capture listUploaded image c…
+More actions for Uploaded image capture list
+No pending task previews
+Open
+0 pending tasks
+Est: —
+Archived example
+More actions for Archived example
+Archived example task 1Archived example ta…
+5m
+Archived example task 2Archived example t…
+10m
+Archived example task 3Archived example t…
+15m
+Open
+3 pending tasks
+Est: 30m
+CREATE LIST
+Home
+Reports
+Close Preferences
+Preferences
+Manage Narro's local Windows appearance and shortcuts.
+Blitz Panel
+Refresh displays
+Monitor
+Choose which Windows work area owns the Focus Panel.
+Automatic
+Primary display
+Screen 1
+\\.\DISPLAY1
+Screen 2
+\\.\DISPLAY2
+Panel side
+Anchor the Focus Panel to the selected monitor's work-area edge.
+Left
+Right
+General
+Theme
+System follows your current Windows light or dark preference.
+System theme — Follow your Windows color mode
+Dark theme — Use Narro's dark surfaces
+Light theme — Use Narro's light surfaces
+Start with Windows
+Start Narro automatically when Windows starts.
+Start Narro with Windows
+Hide EST / Time Taken
+Keep task timing quieter until you hover or focus a task.
+Hide task EST and Time Taken
+Auto-parse EST from title
+Recognize a supported estimate suffix when creating a task.
+Auto-parse EST from task title
+Time
+Timezone
+Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+Display timezone
+Blitz mode settings
+Pomodoros
+Use sprint and break durations instead of task EST for new Focus starts.
+Enable Pomodoros
+Default break length
+Used by Start Break in Focus and the in-app shortcut.
+Default manual break duration
+Scrolling title on live timer
+Scroll long live-task titles instead of keeping them truncated.
+Scrolling title on live timer
+Alerts
+Timed alerts during a task
+Enable periodic local reminders while focused.
+Timed task alerts
+Task alert interval
+How often a timed task alert may occur.
+Task alert interval
+Task alert sound
+Choose a bundled local Narro sound. Starting another preview stops the current one.
+Adjust Task alert volume
+Preview Melodic Bell
+Task alert sound
+Animated flash on timer
+Briefly highlight the active task and timer when a timed alert occurs.
+Animated timer flash
+Notification alerts
+Allow local Windows notification alerts for relevant timer events.
+Notification alerts
+Notification sound
+Choose the bundled local sound used by notification-alert preferences.
+Adjust Notification sound volume
+Preview Futuristic Ding
+Notification sound
+Schedule reminders
+Enable local reminders for scheduled tasks.
+Schedule reminders
+Celebrate task completion
+Show success screen
+Show a completion message with options for what to do next.
+Show success screen
+Success sound effect
+Control the bundled completion sound independently of the success screen.
+Adjust Success sound volume
+Preview Victory Bell
+Success sound
+Success sound effect
+Shortcuts
+View shortcuts
+Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+```

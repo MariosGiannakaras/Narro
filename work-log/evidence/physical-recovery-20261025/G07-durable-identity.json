@@ -1,0 +1,52 @@
+{
+  "syntheticOnly": true,
+  "listBefore": [
+    [
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example",
+      null
+    ]
+  ],
+  "listAfter": [
+    [
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example",
+      null
+    ]
+  ],
+  "tasksBefore": [
+    [
+      "420ef675-ca9a-4909-991e-ebef56f8cfbd",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 3"
+    ],
+    [
+      "62b0068e-34b0-4e45-9094-d739395181a1",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 1"
+    ],
+    [
+      "7724a2b6-ef83-4f02-86f0-5d01b43bc145",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 2"
+    ]
+  ],
+  "tasksAfter": [
+    [
+      "420ef675-ca9a-4909-991e-ebef56f8cfbd",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 3"
+    ],
+    [
+      "62b0068e-34b0-4e45-9094-d739395181a1",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 1"
+    ],
+    [
+      "7724a2b6-ef83-4f02-86f0-5d01b43bc145",
+      "a83a9c01-d4ab-4087-8424-610e56f1ebe7",
+      "Archived example task 2"
+    ]
+  ],
+  "sameIdentityAndChildren": true
+}

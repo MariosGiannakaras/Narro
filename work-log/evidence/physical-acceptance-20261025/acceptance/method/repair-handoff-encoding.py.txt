@@ -1,0 +1,3 @@
+from pathlib import Path
+import subprocess
+repo=Path(r'C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload');p=repo/'HANDOFF.md';assert p.stat().st_size==0;p.write_bytes(subprocess.check_output(['git','show','HEAD^:HANDOFF.md'],cwd=repo));s=(Path(__file__).parent/'checkpoint-frozen.py').read_text(encoding='utf-8-sig').replace('p.read_text()','p.read_text(encoding="utf-8")').replace("1))","1),encoding='utf-8')");exec(compile(s,'checkpoint-frozen-utf8','exec'))

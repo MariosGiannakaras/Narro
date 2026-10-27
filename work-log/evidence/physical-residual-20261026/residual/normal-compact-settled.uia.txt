@@ -1,0 +1,56 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+													15 group ID: root
+														16 main
+															758 main Floating Timer
+																759 group Show Floating Timer actions
+																	760 text Ordinary backlog item
+																	761 group Pomodoro paused: 03:29 remaining
+																		762 text 03:29
+																763 group Floating Timer actions
+																	764 button Start break
+																	765 button Notes
+																	766 button Resume
+																	767 button Skip task
+																	768 button Complete task
+																	769 button Return to Focus Panel
+																770 region Subtasks for Ordinary backlog item
+																	771 group Floating Timer subtask summary
+																		772 progress indicator 1 of 1 subtasks complete Value: 1
+																		773 text 1/1 Subtasks
+																		774 button Add subtask for Ordinary backlog item
+																		775 button Expand Floating Timer
+																		776 tool tip Expand Floating Timer
+								316 region
+						317 region
+						318 region
+
+Document text: ```
+Ordinary backlog item
+03:29
+Start break
+Notes
+Resume
+Skip task
+Complete task
+Return to Focus Panel
+1 of 1 subtasks complete
+1/1 Subtasks
++
+Expand Floating Timer
+Expand Floating Timer
+```

@@ -1,0 +1,3 @@
+Browser tab: 1, Title: "Narro Search Palette Fixture", URL: "http://127.0.0.1:4189/search-palette-fixture.html?theme=light&mode=empty".
+There has been no change in the accessibility tree.
+The focused UI element is 46 search text field (settable) Search tasks and lists

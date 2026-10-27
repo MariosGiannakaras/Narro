@@ -1,0 +1,234 @@
+Window: "Narro", App: narro.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									10 group ID: root
+										11 complementary List navigation
+											12 graphic Narro
+											13 navigation Lists
+												14 button + Create new list
+												15 button All my lists
+												16 button Archived lists
+										17 section header
+											18 group Utilities
+												19 button Search
+												20 button Settings
+										21 main ID: main-content
+											1490 region Reports
+												1491 section header
+													1492 button BACK
+													1493 heading Reports ID: reports-overview-title
+													1494 button Export PDF
+												1495 tab Reports
+													1496 tab item (selectable) Overview
+													1497 tab item (selectable) Sessions BETA
+												1498 button Selected 2 lists
+												1499 list (settable, string) Filter reports by list ID: reports-overview-list-menu
+													1500 option (selectable) All Lists
+													1501 option (selectable) Capture Project
+													1502 option (selectable) Reading & research
+													1503 option (selectable) Long project name for list badge and title wrapping
+													1504 option (selectable) Uploaded image capture list
+													1505 option (selectable) Archived example
+												1506 button Sep 27, 2026 – Oct 27, 2026
+												1507 article
+													1508 text Total work days
+													1509 text 8
+													1510 text 8 active days
+												1511 article
+													1512 text Total tasks done
+													1513 text 8
+													1514 text 1.0 avg / active day
+												1515 article
+													1516 text Total time worked
+													1517 text 2hr 40min
+													1518 text 20min avg / active day
+												1519 article
+													1520 text Avg. Time per task
+													1521 text 20min
+													1522 text includes partial tasks
+												1523 region TIME BY DAY
+													1524 text PRODUCTIVITY
+													1525 heading TIME BY DAY ID: reports-productivity-title
+													1526 button Chart options
+													1527 region Daily Tasks, Breaks and Total session time
+														1528 button Sun, Sep 27: Tasks 0min, Breaks 0min, Total 0min
+														1529 button Mon, Sep 28: Tasks 20min, Breaks 0min, Total 20min
+														1530 button Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min
+														1531 button Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min
+														1532 button Thu, Oct 01: Tasks 20min, Breaks 0min, Total 20min
+														1533 button Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min
+														1534 button Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min
+														1535 button Sun, Oct 04: Tasks 20min, Breaks 0min, Total 20min
+														1536 button Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min
+														1537 button Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min
+														1538 button Wed, Oct 07: Tasks 20min, Breaks 0min, Total 20min
+														1539 button Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min
+														1540 button Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min
+														1541 button Sat, Oct 10: Tasks 20min, Breaks 0min, Total 20min
+														1542 button Sun, Oct 11: Tasks 0min, Breaks 0min, Total 0min
+														1543 button Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min
+														1544 button Tue, Oct 13: Tasks 20min, Breaks 0min, Total 20min
+														1545 button Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min
+														1546 button Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min
+														1547 button Fri, Oct 16: Tasks 20min, Breaks 0min, Total 20min
+														1548 button Sat, Oct 17: Tasks 0min, Breaks 0min, Total 0min
+														1549 button Sun, Oct 18: Tasks 0min, Breaks 0min, Total 0min
+														1550 button Mon, Oct 19: Tasks 20min, Breaks 0min, Total 20min
+														1551 button Tue, Oct 20: Tasks 0min, Breaks 0min, Total 0min
+														1552 button Wed, Oct 21: Tasks 0min, Breaks 0min, Total 0min
+														1553 button Thu, Oct 22: Tasks 0min, Breaks 0min, Total 0min
+														1554 button Fri, Oct 23: Tasks 0min, Breaks 0min, Total 0min
+														1555 button Sat, Oct 24: Tasks 0min, Breaks 0min, Total 0min
+														1556 button Sun, Oct 25: Tasks 0min, Breaks 0min, Total 0min
+														1557 button Mon, Oct 26: Tasks 0min, Breaks 0min, Total 0min
+														1558 button Tue, Oct 27: Tasks 0min, Breaks 0min, Total 0min
+													1559 group Chart legend
+														1560 toggle button TASKS
+														1561 toggle button BREAKS
+														1562 toggle button TOTAL
+												1563 article
+													1564 text Most Productive hour
+													1565 text 10 AM–11 AM
+												1566 article
+													1567 text Most Productive day
+													1568 text Monday
+												1569 article
+													1570 text Most Productive month
+													1571 text Oct 26
+												1572 region TIME BY LIST
+													1573 heading TIME BY LIST ID: reports-time-by-list-title
+													1574 text Total Time:
+													1575 text 2hr 40min
+													1576 text Reading & research
+													1577 text 2hr 40min
+													1578 text 100
+													1579 text %
+												1580 region DONE TASKS
+													1581 heading DONE TASKS ID: reports-done-title
+													1582 group Completion punctuality
+														1583 text ● Early
+														1584 text 100.00
+														1585 text %
+														1586 text ● Late
+														1587 text 0.00
+														1588 text %
+													1589 region Done Tasks
+														1590 section header
+															1591 text Oct 19, 2026
+															1592 text 1
+															1593 text 
+															1594 text task
+														1595 article
+															1596 text Report sample day 1
+															1597 text Reading & research
+															1598 text 10min early
+															1599 text Time Taken
+															1600 text 20min
+														1601 section header
+															1602 text Oct 16, 2026
+															1603 text 1
+															1604 text 
+															1605 text task
+														1606 article
+															1607 text Report sample day 4
+															1608 text Reading & research
+															1609 text 10min early
+															1610 text Time Taken
+															1611 text 20min
+														1612 section header
+															1613 text Oct 13, 2026
+															1614 text 1
+															1615 text 
+															1616 text task
+														1617 article
+															1618 text Report sample day 7
+															1619 text Reading & research
+															1620 text 10min early
+															1621 text Time Taken
+															1622 text 20min
+														1623 section header
+															1624 text Oct 10, 2026
+															1625 text 1
+															1626 text 
+															1627 text task
+														1628 article
+															1629 text Report sample day 10
+															1630 text Reading & research
+															1631 text 10min early
+															1632 text Time Taken
+															1633 text 20min
+														1634 section header
+															1635 text Oct 07, 2026
+															1636 text 1
+															1637 text 
+															1638 text task
+														1639 article
+															1640 text Report sample day 13
+															1641 text Reading & research
+															1642 text 10min early
+															1643 text Time Taken
+															1644 text 20min
+														1645 section header
+															1646 text Oct 04, 2026
+															1647 text 1
+															1648 text 
+															1649 text task
+														1650 article
+															1651 text Report sample day 16
+															1652 text Reading & research
+															1653 text 10min early
+															1654 text Time Taken
+															1655 text 20min
+														1656 section header
+															1657 text Oct 01, 2026
+															1658 text 1
+															1659 text 
+															1660 text task
+														1661 article
+															1662 text Report sample day 19
+															1663 text Reading & research
+															1664 text 10min early
+															1665 text Time Taken
+															1666 text 20min
+														1667 section header
+															1668 text Sep 28, 2026
+															1669 text 1
+															1670 text 
+															1671 text task
+														1672 article
+															1673 text Report sample day 22
+															1674 text Reading & research
+															1675 text 10min early
+															1676 text Time Taken
+															1677 text 20min
+										121 navigation Primary
+											122 button Home
+											123 button Reports
+								124 region
+		125 title bar (settable, string) Value: Narro
+			126 menu bar System ID: MenuBar
+				127 menu item System
+			128 button Minimize
+			129 button Maximize
+			130 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reports
+Loading local report history…
+Home
+Reports
+```

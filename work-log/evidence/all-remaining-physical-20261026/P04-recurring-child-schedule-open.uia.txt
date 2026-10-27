@@ -1,0 +1,1009 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		5 pane
+			6 pane Narro
+				7 pane (disabled)
+				8 region Narro - Web content
+					9 region
+						10 region
+							11 region
+								12 region
+								13 region
+									14 region
+										15 region
+											16 region
+												17 region
+												18 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													4477 group ID: root
+														4478 complementary List navigation
+															4479 graphic Narro
+															4480 navigation Lists
+																4481 button + Create new list
+																4482 button All my lists
+																4483 button Archived lists
+														4484 section header
+															4485 group Utilities
+																4486 button Search
+																4487 button Settings
+														4488 main ID: main-content
+															5383 region Capture Project
+																5385 text Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+																5386 group
+																5387 section header
+																	5388 text PLANNING
+																	5389 heading Capture Project ID: list-board-title
+																	5390 text List
+																	5391 button Planning list
+																		5392 text Capture Project
+																	5393 text Plan this list across Backlog, This Week, Today, and Done.
+																5394 region Backlog
+																	5395 section header
+																		5396 heading Backlog ID: list-board-backlog
+																		5397 text 2 tasks
+																		5398 text Est:
+																		5399 text 10m
+																	5400 button (disabled) Add task to top of Backlog
+																	5401 list Backlog tasks
+																		5402 list item Capture drag task BEst: —Taken: 0mAdd notesSubtasks
+																			5403 article
+																				6263 text Capture drag task B
+																				6264 text Est
+																				6265 text :
+																				6266 text —
+																				6267 text Taken
+																				6268 text :
+																				6269 text 0m
+																				5409 button (disabled) Expand notes for Capture drag task B
+																				5410 button (disabled) Expand subtasks for Capture drag task B
+																				5411 progress indicator 0 of 0 subtasks complete Value: 0
+																				5412 text Subtasks
+																		5413 heading Recurring tasks
+																		5414 list item Weekly recurring parentCustomEst: 20mTaken: 0mAdd notesSubtasks
+																			5415 article
+																				6270 text Weekly recurring parent
+																				6271 text Custom
+																				6272 text Est
+																				6273 text :
+																				6274 text 20m
+																				6275 text Taken
+																				6276 text :
+																				6277 text 0m
+																				5420 button (disabled) Expand notes for Weekly recurring parent
+																				5421 button (disabled) Expand subtasks for Weekly recurring parent
+																				5422 progress indicator 0 of 0 subtasks complete Value: 0
+																				5423 text Subtasks
+																		5424 heading 1 Scheduled task in backlog
+																		5425 list item Scheduled future backlogScheduledNov 4, 2026Est: 10mTaken: 0mAdd notesSubtasks
+																			5426 article
+																				6278 text Scheduled future backlog
+																				6279 text Scheduled
+																				6280 text Nov 4, 2026
+																				6281 text Est
+																				6282 text :
+																				6283 text 10m
+																				6284 text Taken
+																				6285 text :
+																				6286 text 0m
+																				5432 button (disabled) Expand notes for Scheduled future backlog
+																				5433 button (disabled) Expand subtasks for Scheduled future backlog
+																				5434 progress indicator 0 of 0 subtasks complete Value: 0
+																				5435 text Subtasks
+																	5436 button (disabled) Add task to Backlog
+																5437 region This Week
+																	5438 section header
+																		5439 heading This Week ID: list-board-this-week
+																		5440 text 1 task
+																		5441 group 0 of 1 tasks done
+																			5442 text 0
+																			5443 text /
+																			5444 text 1
+																			5445 text Done
+																		5446 text Est:
+																		5447 text —
+																	5448 button (disabled) Add task to top of This Week
+																	5449 list This Week tasks
+																		5450 list item Capture drag task AEst: —Taken: 1h 1mAdd notesSubtasks
+																			5451 article
+																				6287 text Capture drag task A
+																				6288 text Est
+																				6289 text :
+																				6290 text —
+																				6291 text Taken
+																				6292 text :
+																				6293 text 1h 1m
+																				5462 button (disabled) Expand notes for Capture drag task A
+																				5463 button (disabled) Expand subtasks for Capture drag task A
+																				5464 progress indicator 0 of 0 subtasks complete Value: 0
+																				5465 text Subtasks
+																	5466 button (disabled) Add task to This Week
+																5467 region Today
+																	5468 section header
+																		5469 heading Today ID: list-board-today
+																		5470 text 2 tasks
+																		5471 group 0 of 2 tasks done
+																			5472 text 0
+																			5473 text /
+																			5474 text 2
+																			5475 text Done
+																		5476 text Est:
+																		5477 text 9m
+																	5478 button (disabled) Add task to top of Today
+																	5479 list Today tasks
+																		5480 list item Capture drag task BLive · PausedEst: —Taken: 1h 2mAdd notesSubtasks
+																			5481 article
+																				5805 text Capture drag task B
+																				5806 text Live · Paused
+																				6294 text Est
+																				6295 text :
+																				6296 text —
+																				6297 text Taken
+																				6298 text :
+																				6299 text 1h 2m
+																				5487 button (disabled) Expand notes for Capture drag task B
+																				5488 button (disabled) Expand subtasks for Capture drag task B
+																				5489 progress indicator 0 of 0 subtasks complete Value: 0
+																				5490 text Subtasks
+																		5491 heading 1 Scheduled task today
+																		5492 list item Ordinary backlog itemOverdueOct 24, 2026Est: 10mTaken: 2mAdd notes1/1 Subtasks
+																			5493 article
+																				6300 text Ordinary backlog item
+																				6301 text Overdue
+																				6302 text Oct 24, 2026
+																				6303 text Est
+																				6304 text :
+																				6305 text 10m
+																				6306 text Taken
+																				6307 text :
+																				6308 text 2m
+																				5501 button (disabled) Expand notes for Ordinary backlog item
+																				5502 button (disabled) Expand subtasks for Ordinary backlog item
+																				5503 progress indicator 1 of 1 subtasks complete Value: 1
+																				5504 text 1/1 Subtasks
+																	5505 button (disabled) Add task to Today
+																	5506 region Blitz entry
+																		5507 button Blitz now
+																		5813 group
+																			5814 text Blitz is already active.
+																5508 region Done
+																	5509 section header
+																		5510 heading Done ID: list-board-done
+																		5511 text 31 completed this month
+																		5512 text Est:
+																		5513 text 15h 21m
+																	5514 list Done tasks
+																		5515 heading Oct 23, 2026, 4 tasks
+																		5516 list item Overdue task with age labelScheduledOct 18, 2026Est: 5mTaken: 1h 3mAdd notesSubtasks
+																			5517 article
+																				6309 text Overdue task with age label
+																				5519 text Scheduled
+																				5520 text Oct 18, 2026
+																				6310 text Est
+																				6311 text :
+																				6312 text 5m
+																				6313 text Taken
+																				6314 text :
+																				6315 text 1h 3m
+																				5523 button (disabled) Expand notes for Overdue task with age label
+																				5524 button (disabled) Expand subtasks for Overdue task with age label
+																				5525 progress indicator 0 of 0 subtasks complete Value: 0
+																				5526 text Subtasks
+																		5527 list item Capture success OFF taskEst: —Taken: 1mAdd notesSubtasks
+																			5528 article
+																				6316 text Capture success OFF task
+																				6317 text Est
+																				6318 text :
+																				6319 text —
+																				6320 text Taken
+																				6321 text :
+																				6322 text 1m
+																				5532 button (disabled) Expand notes for Capture success OFF task
+																				5533 button (disabled) Expand subtasks for Capture success OFF task
+																				5534 progress indicator 0 of 0 subtasks complete Value: 0
+																				5535 text Subtasks
+																		5536 list item Scheduled later this weekScheduledOct 22, 2026Est: 10mTaken: 1mAdd notes1/1 Subtasks
+																			5537 article
+																				6323 text Scheduled later this week
+																				5539 text Scheduled
+																				5540 text Oct 22, 2026
+																				6324 text Est
+																				6325 text :
+																				6326 text 10m
+																				6327 text Taken
+																				6328 text :
+																				6329 text 1m
+																				5543 button (disabled) Expand notes for Scheduled later this week
+																				5544 button (disabled) Expand subtasks for Scheduled later this week
+																				5545 progress indicator 1 of 1 subtasks complete Value: 1
+																				5546 text 1/1 Subtasks
+																		5547 list item Weekly recurring parentScheduled · OccurrenceOct 20, 2026Est: 20mTaken: 6mAdd notesSubtasks
+																			5548 article
+																				6330 edit (settable, string) Task title Value: Weekly recurring parent
+																				6331 button Cancel title edit
+																				6332 button Save task title
+																				5550 text Scheduled · Occurrence
+																				5551 text Oct 20, 2026
+																				6333 text Est
+																				6334 text :
+																				6335 text 20m
+																				6336 text Taken
+																				6337 text :
+																				6338 text 6m
+																				5554 button (disabled) Expand notes for Weekly recurring parent
+																				5555 button (disabled) Expand subtasks for Weekly recurring parent
+																				5556 progress indicator 0 of 0 subtasks complete Value: 0
+																				5557 text Subtasks
+																		5558 heading Oct 20, 2026, 9 tasks
+																		5559 list item Capture live task — long title for compact wrapping and hover actionsCapture live task — long title for compact wrapping a…Est: 1mTaken: 5mAdd notes2/4 Subtasks
+																			5560 article
+																				6339 text Capture live task — long title for compact wrapping and hover actions
+																				6340 text Est
+																				6341 text :
+																				6342 text 1m
+																				6343 text Taken
+																				6344 text :
+																				6345 text 5m
+																				5564 button (disabled) Expand notes for Capture live task — long title for compact wrapping and hover actions
+																				5565 button (disabled) Expand subtasks for Capture live task — long title for compact wrapping and hover actions
+																				5566 progress indicator 2 of 4 subtasks complete Value: 2
+																				5567 text 2/4 Subtasks
+																		5568 list item Second task — notes and success feedbackEst: 8h 45mTaken: 3mAdd notesSubtasks
+																			5569 article
+																				6346 text Second task — notes and success feedback
+																				6347 text Est
+																				6348 text :
+																				6349 text 8h 45m
+																				6350 text Taken
+																				6351 text :
+																				6352 text 3m
+																				5573 button (disabled) Expand notes for Second task — notes and success feedback
+																				5574 button (disabled) Expand subtasks for Second task — notes and success feedback
+																				5575 progress indicator 0 of 0 subtasks complete Value: 0
+																				5576 text Subtasks
+																		5577 list item Third task without estimateEst: —Taken: 2h 3mAdd notesSubtasks
+																			5578 article
+																				6353 text Third task without estimate
+																				6354 text Est
+																				6355 text :
+																				6356 text —
+																				6357 text Taken
+																				6358 text :
+																				6359 text 2h 3m
+																				5582 button (disabled) Expand notes for Third task without estimate
+																				5583 button (disabled) Expand subtasks for Third task without estimate
+																				5584 progress indicator 0 of 0 subtasks complete Value: 0
+																				5585 text Subtasks
+																		5586 list item Done history 01 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5587 article
+																				6360 text Done history 01 — long title for scroll
+																				6361 text Est
+																				6362 text :
+																				6363 text 15m
+																				6364 text Taken
+																				6365 text :
+																				6366 text 10m
+																				5591 button (disabled) Expand notes for Done history 01 — long title for scroll
+																				5592 button (disabled) Expand subtasks for Done history 01 — long title for scroll
+																				5593 progress indicator 0 of 0 subtasks complete Value: 0
+																				5594 text Subtasks
+																		5595 list item Done history 02 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5596 article
+																				6367 text Done history 02 — long title for scroll
+																				6368 text Est
+																				6369 text :
+																				6370 text 15m
+																				6371 text Taken
+																				6372 text :
+																				6373 text 10m
+																				5600 button (disabled) Expand notes for Done history 02 — long title for scroll
+																				5601 button (disabled) Expand subtasks for Done history 02 — long title for scroll
+																				5602 progress indicator 0 of 0 subtasks complete Value: 0
+																				5603 text Subtasks
+																		5604 list item Done history 03 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5605 article
+																				6374 text Done history 03 — long title for scroll
+																				6375 text Est
+																				6376 text :
+																				6377 text 15m
+																				6378 text Taken
+																				6379 text :
+																				6380 text 10m
+																				5609 button (disabled) Expand notes for Done history 03 — long title for scroll
+																				5610 button (disabled) Expand subtasks for Done history 03 — long title for scroll
+																				5611 progress indicator 0 of 0 subtasks complete Value: 0
+																				5612 text Subtasks
+																		5613 list item Done history 04 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5614 article
+																				6381 text Done history 04 — long title for scroll
+																				6382 text Est
+																				6383 text :
+																				6384 text 15m
+																				6385 text Taken
+																				6386 text :
+																				6387 text 10m
+																				5618 button (disabled) Expand notes for Done history 04 — long title for scroll
+																				5619 button (disabled) Expand subtasks for Done history 04 — long title for scroll
+																				5620 progress indicator 0 of 0 subtasks complete Value: 0
+																				5621 text Subtasks
+																		5622 list item Done history 05 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5623 article
+																				6388 text Done history 05 — long title for scroll
+																				6389 text Est
+																				6390 text :
+																				6391 text 15m
+																				6392 text Taken
+																				6393 text :
+																				6394 text 10m
+																				5627 button (disabled) Expand notes for Done history 05 — long title for scroll
+																				5628 button (disabled) Expand subtasks for Done history 05 — long title for scroll
+																				5629 progress indicator 0 of 0 subtasks complete Value: 0
+																				5630 text Subtasks
+																		5631 list item Done history 06 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5632 article
+																				6395 text Done history 06 — long title for scroll
+																				6396 text Est
+																				6397 text :
+																				6398 text 15m
+																				6399 text Taken
+																				6400 text :
+																				6401 text 10m
+																				5636 button (disabled) Expand notes for Done history 06 — long title for scroll
+																				5637 button (disabled) Expand subtasks for Done history 06 — long title for scroll
+																				5638 progress indicator 0 of 0 subtasks complete Value: 0
+																				5639 text Subtasks
+																		5640 heading Oct 19, 2026, 6 tasks
+																		5641 list item Done history 07 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5642 article
+																				6402 text Done history 07 — long title for scroll
+																				6403 text Est
+																				6404 text :
+																				6405 text 15m
+																				6406 text Taken
+																				6407 text :
+																				6408 text 10m
+																				5646 button (disabled) Expand notes for Done history 07 — long title for scroll
+																				5647 button (disabled) Expand subtasks for Done history 07 — long title for scroll
+																				5648 progress indicator 0 of 0 subtasks complete Value: 0
+																				5649 text Subtasks
+																		5650 list item Done history 08 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5651 article
+																				6409 text Done history 08 — long title for scroll
+																				6410 text Est
+																				6411 text :
+																				6412 text 15m
+																				6413 text Taken
+																				6414 text :
+																				6415 text 10m
+																				5655 button (disabled) Expand notes for Done history 08 — long title for scroll
+																				5656 button (disabled) Expand subtasks for Done history 08 — long title for scroll
+																				5657 progress indicator 0 of 0 subtasks complete Value: 0
+																				5658 text Subtasks
+																		5659 list item Done history 09 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5660 article
+																				6416 text Done history 09 — long title for scroll
+																				6417 text Est
+																				6418 text :
+																				6419 text 15m
+																				6420 text Taken
+																				6421 text :
+																				6422 text 10m
+																				5664 button (disabled) Expand notes for Done history 09 — long title for scroll
+																				5665 button (disabled) Expand subtasks for Done history 09 — long title for scroll
+																				5666 progress indicator 0 of 0 subtasks complete Value: 0
+																				5667 text Subtasks
+																		5668 list item Done history 10 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5669 article
+																				6423 text Done history 10 — long title for scroll
+																				6424 text Est
+																				6425 text :
+																				6426 text 15m
+																				6427 text Taken
+																				6428 text :
+																				6429 text 10m
+																				5673 button (disabled) Expand notes for Done history 10 — long title for scroll
+																				5674 button (disabled) Expand subtasks for Done history 10 — long title for scroll
+																				5675 progress indicator 0 of 0 subtasks complete Value: 0
+																				5676 text Subtasks
+																		5677 list item Done history 11 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5678 article
+																				6430 text Done history 11 — long title for scroll
+																				6431 text Est
+																				6432 text :
+																				6433 text 15m
+																				6434 text Taken
+																				6435 text :
+																				6436 text 10m
+																				5682 button (disabled) Expand notes for Done history 11 — long title for scroll
+																				5683 button (disabled) Expand subtasks for Done history 11 — long title for scroll
+																				5684 progress indicator 0 of 0 subtasks complete Value: 0
+																				5685 text Subtasks
+																		5686 list item Done history 12 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5687 article
+																				6437 text Done history 12 — long title for scroll
+																				6438 text Est
+																				6439 text :
+																				6440 text 15m
+																				6441 text Taken
+																				6442 text :
+																				6443 text 10m
+																				5691 button (disabled) Expand notes for Done history 12 — long title for scroll
+																				5692 button (disabled) Expand subtasks for Done history 12 — long title for scroll
+																				5693 progress indicator 0 of 0 subtasks complete Value: 0
+																				5694 text Subtasks
+																		5695 heading Oct 18, 2026, 6 tasks
+																		5696 list item Done history 13 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5697 article
+																				6444 text Done history 13 — long title for scroll
+																				6445 text Est
+																				6446 text :
+																				6447 text 15m
+																				6448 text Taken
+																				6449 text :
+																				6450 text 10m
+																				5701 button (disabled) Expand notes for Done history 13 — long title for scroll
+																				5702 button (disabled) Expand subtasks for Done history 13 — long title for scroll
+																				5703 progress indicator 0 of 0 subtasks complete Value: 0
+																				5704 text Subtasks
+																		5705 list item Done history 14 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5706 article
+																				6451 text Done history 14 — long title for scroll
+																				6452 text Est
+																				6453 text :
+																				6454 text 15m
+																				6455 text Taken
+																				6456 text :
+																				6457 text 10m
+																				5710 button (disabled) Expand notes for Done history 14 — long title for scroll
+																				5711 button (disabled) Expand subtasks for Done history 14 — long title for scroll
+																				5712 progress indicator 0 of 0 subtasks complete Value: 0
+																				5713 text Subtasks
+																		5714 list item Done history 15 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5715 article
+																				6458 text Done history 15 — long title for scroll
+																				6459 text Est
+																				6460 text :
+																				6461 text 15m
+																				6462 text Taken
+																				6463 text :
+																				6464 text 10m
+																				5719 button (disabled) Expand notes for Done history 15 — long title for scroll
+																				5720 button (disabled) Expand subtasks for Done history 15 — long title for scroll
+																				5721 progress indicator 0 of 0 subtasks complete Value: 0
+																				5722 text Subtasks
+																		5723 list item Done history 16 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5724 article
+																				6465 text Done history 16 — long title for scroll
+																				6466 text Est
+																				6467 text :
+																				6468 text 15m
+																				6469 text Taken
+																				6470 text :
+																				6471 text 10m
+																				5728 button (disabled) Expand notes for Done history 16 — long title for scroll
+																				5729 button (disabled) Expand subtasks for Done history 16 — long title for scroll
+																				5730 progress indicator 0 of 0 subtasks complete Value: 0
+																				5731 text Subtasks
+																		5732 list item Done history 17 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5733 article
+																				6472 text Done history 17 — long title for scroll
+																				6473 text Est
+																				6474 text :
+																				6475 text 15m
+																				6476 text Taken
+																				6477 text :
+																				6478 text 10m
+																				5737 button (disabled) Expand notes for Done history 17 — long title for scroll
+																				5738 button (disabled) Expand subtasks for Done history 17 — long title for scroll
+																				5739 progress indicator 0 of 0 subtasks complete Value: 0
+																				5740 text Subtasks
+																		5741 list item Done history 18 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5742 article
+																				6479 text Done history 18 — long title for scroll
+																				6480 text Est
+																				6481 text :
+																				6482 text 15m
+																				6483 text Taken
+																				6484 text :
+																				6485 text 10m
+																				5746 button (disabled) Expand notes for Done history 18 — long title for scroll
+																				5747 button (disabled) Expand subtasks for Done history 18 — long title for scroll
+																				5748 progress indicator 0 of 0 subtasks complete Value: 0
+																				5749 text Subtasks
+																		5750 heading Oct 17, 2026, 6 tasks
+																		5751 list item Done history 19 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5752 article
+																				6486 text Done history 19 — long title for scroll
+																				6487 text Est
+																				6488 text :
+																				6489 text 15m
+																				6490 text Taken
+																				6491 text :
+																				6492 text 10m
+																				5756 button (disabled) Expand notes for Done history 19 — long title for scroll
+																				5757 button (disabled) Expand subtasks for Done history 19 — long title for scroll
+																				5758 progress indicator 0 of 0 subtasks complete Value: 0
+																				5759 text Subtasks
+																		5760 list item Done history 20 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5761 article
+																				6493 text Done history 20 — long title for scroll
+																				6494 text Est
+																				6495 text :
+																				6496 text 15m
+																				6497 text Taken
+																				6498 text :
+																				6499 text 10m
+																				5765 button (disabled) Expand notes for Done history 20 — long title for scroll
+																				5766 button (disabled) Expand subtasks for Done history 20 — long title for scroll
+																				5767 progress indicator 0 of 0 subtasks complete Value: 0
+																				5768 text Subtasks
+																		5769 list item Done history 21 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5770 article
+																				6500 text Done history 21 — long title for scroll
+																				6501 text Est
+																				6502 text :
+																				6503 text 15m
+																				6504 text Taken
+																				6505 text :
+																				6506 text 10m
+																				5774 button (disabled) Expand notes for Done history 21 — long title for scroll
+																				5775 button (disabled) Expand subtasks for Done history 21 — long title for scroll
+																				5776 progress indicator 0 of 0 subtasks complete Value: 0
+																				5777 text Subtasks
+																		5778 list item Done history 22 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5779 article
+																				6507 text Done history 22 — long title for scroll
+																				6508 text Est
+																				6509 text :
+																				6510 text 15m
+																				6511 text Taken
+																				6512 text :
+																				6513 text 10m
+																				5783 button (disabled) Expand notes for Done history 22 — long title for scroll
+																				5784 button (disabled) Expand subtasks for Done history 22 — long title for scroll
+																				5785 progress indicator 0 of 0 subtasks complete Value: 0
+																				5786 text Subtasks
+																		5787 list item Done history 23 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5788 article
+																				6514 text Done history 23 — long title for scroll
+																				6515 text Est
+																				6516 text :
+																				6517 text 15m
+																				6518 text Taken
+																				6519 text :
+																				6520 text 10m
+																				5792 button (disabled) Expand notes for Done history 23 — long title for scroll
+																				5793 button (disabled) Expand subtasks for Done history 23 — long title for scroll
+																				5794 progress indicator 0 of 0 subtasks complete Value: 0
+																				5795 text Subtasks
+																		5796 list item Done history 24 — long title for scrollEst: 15mTaken: 10mAdd notesSubtasks
+																			5797 article
+																				6521 text Done history 24 — long title for scroll
+																				6522 text Est
+																				6523 text :
+																				6524 text 15m
+																				6525 text Taken
+																				6526 text :
+																				6527 text 10m
+																				5801 button (disabled) Expand notes for Done history 24 — long title for scroll
+																				5802 button (disabled) Expand subtasks for Done history 24 — long title for scroll
+																				5803 progress indicator 0 of 0 subtasks complete Value: 0
+																				5804 text Subtasks
+														4882 navigation Primary
+															4883 button Home
+															4884 button Reports
+								779 region
+						780 region
+						781 region
+		782 title bar (settable, string) Value: Narro
+			783 menu bar System ID: MenuBar
+				784 menu item System
+			785 button Minimize
+			786 button Restore
+			787 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+Reorder an unscheduled task with Alt plus Up or Down. Move it between Backlog, This Week, and Today with Alt plus Left or Right.
+￼
+PLANNING
+Capture Project
+List
+Capture Project
+Plan this list across Backlog, This Week, Today, and Done.
+Backlog
+2 tasks
+Est: 10m
+ADD TO TOP
+Complete task: Capture drag task B
+Capture drag task B
+Schedule / Repeat
+Est:
+—
+Taken:
+0m
+Add notes
+Expand subtasks for Capture drag task B
+0 of 0 subtasks complete
+Subtasks
+Recurring tasks
+Weekly recurring parent
+Custom · Edit
+Est:
+20m
+Taken:
+0m
+Add notes
+Expand subtasks for Weekly recurring parent
+0 of 0 subtasks complete
+Subtasks
+1 Scheduled task in backlog
+Complete task: Scheduled future backlog
+Scheduled future backlog
+Scheduled
+Nov 4, 2026
+Est:
+10m
+Taken:
+0m
+Add notes
+Expand subtasks for Scheduled future backlog
+0 of 0 subtasks complete
+Subtasks
+ADD TASK
+This Week
+1 task
+0/1 Done
+Est: —
+ADD TO TOP
+Complete task: Capture drag task A
+Capture drag task A
+Schedule / Repeat
+Est:
+—
+Taken:
+1h 1m
+Add notes
+Expand subtasks for Capture drag task A
+0 of 0 subtasks complete
+Subtasks
+ADD TASK
+Today
+2 tasks
+0/2 Done
+Est: 9m
+ADD TO TOP
+Complete task: Capture drag task B
+Capture drag task B
+Live · Paused
+Est:
+—
+Taken:
+1h 2m
+Add notes
+Expand subtasks for Capture drag task B
+0 of 0 subtasks complete
+Subtasks
+1 Scheduled task today
+Complete task: Ordinary backlog item
+Ordinary backlog item
+Overdue
+Oct 24, 2026
+Est:
+10m
+Taken:
+2m
+Add notes
+Expand subtasks for Ordinary backlog item
+1 of 1 subtasks complete
+1/1 Subtasks
+ADD TASK
+Blitz now
+Blitz is already active.
+Done
+31 completed this month
+Est: 15h 21m
+Oct 23, 2026
+4 tasks
+Overdue task with age label
+Scheduled
+Oct 18, 2026
+Est:
+5m
+Taken:
+1h 3m
+Add notes
+Expand subtasks for Overdue task with age label
+0 of 0 subtasks complete
+Subtasks
+Capture success OFF task
+Est:
+—
+Taken:
+1m
+Add notes
+Expand subtasks for Capture success OFF task
+0 of 0 subtasks complete
+Subtasks
+Scheduled later this week
+Scheduled
+Oct 22, 2026
+Est:
+10m
+Taken:
+1m
+Add notes
+Expand subtasks for Scheduled later this week
+1 of 1 subtasks complete
+1/1 Subtasks
+Weekly recurring parent
+Subtasks
+Notes
+Task actions
+Scheduled · Occurrence
+Oct 20, 2026
+Est:
+20m
+Taken:
+6m
+Add notes
+Expand subtasks for Weekly recurring parent
+0 of 0 subtasks complete
+Subtasks
+Oct 20, 2026
+9 tasks
+Capture live task — long title for compact wrapping and hover actionsCapture live task — long title for compact wrapping a…
+Est:
+1m
+Taken:
+5m
+Add notes
+Expand subtasks for Capture live task — long title for compact wrapping and hover actions
+2 of 4 subtasks complete
+2/4 Subtasks
+Second task — notes and success feedback
+Est:
+8h 45m
+Taken:
+3m
+Add notes
+Expand subtasks for Second task — notes and success feedback
+0 of 0 subtasks complete
+Subtasks
+Third task without estimate
+Est:
+—
+Taken:
+2h 3m
+Add notes
+Expand subtasks for Third task without estimate
+0 of 0 subtasks complete
+Subtasks
+Done history 01 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 01 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 02 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 02 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 03 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 03 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 04 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 04 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 05 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 05 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 06 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 06 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Oct 19, 2026
+6 tasks
+Done history 07 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 07 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 08 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 08 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 09 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 09 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 10 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 10 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 11 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 11 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 12 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 12 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Oct 18, 2026
+6 tasks
+Done history 13 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 13 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 14 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 14 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 15 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 15 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 16 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 16 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 17 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 17 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 18 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 18 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Oct 17, 2026
+6 tasks
+Done history 19 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 19 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 20 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 20 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 21 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 21 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 22 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 22 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 23 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 23 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Done history 24 — long title for scroll
+Est:
+15m
+Taken:
+10m
+Add notes
+Expand subtasks for Done history 24 — long title for scroll
+0 of 0 subtasks complete
+Subtasks
+Home
+Reports
+```

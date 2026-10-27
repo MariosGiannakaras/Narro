@@ -1,0 +1,20 @@
+from pathlib import Path
+import json,wave,hashlib,subprocess,math
+import numpy as np
+from PIL import Image,ImageDraw
+r=Path(__file__).parent;a=r/'alert-analysis';a.mkdir(exist_ok=True)
+with wave.open(str(r/'standard-alert-loopback.wav'),'rb') as w:
+ pcm=w.readframes(w.getnframes());samples=np.frombuffer(pcm,dtype=np.int16);v={'channels':w.getnchannels(),'rate':w.getframerate(),'frames':w.getnframes(),'seconds':w.getnframes()/w.getframerate(),'peak':int(np.max(np.abs(samples.astype(np.int32)))),'rms':float(np.sqrt(np.mean(samples.astype(np.float64)**2))),'nonzeroSamples':int(np.count_nonzero(samples)),'originalWavSha256':hashlib.sha256((r/'standard-alert-loopback.wav').read_bytes()).hexdigest(),'pcmSha256':hashlib.sha256(pcm).hexdigest(),'timingLimit':'Loopback stream omits silent intervals; callbacks had no wall-clock timestamps. Wave duration is captured audio, not elapsed session duration.'}
+(a/'audio-proof.json').write_text(json.dumps(v,indent=2),encoding='utf-8');print(v)
+subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-i',str(r/'standard-alert-loopback.wav'),str(a/'standard-alert-loopback.flac')],check=True)
+subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-ss','279.8','-i',str(r/'standard-alert-boundary/native-original.mkv'),'-vf','crop=340:700:1920:0','-frames:v','180','-fps_mode','passthrough',str(a/'frame-%03d.png')],check=True)
+unique=[];prev=None
+for n,p in enumerate(sorted(a.glob('frame-*.png'))):
+ digest=hashlib.sha256(Image.open(p).tobytes()).hexdigest()
+ if digest!=prev:unique.append((n,p));prev=digest
+for part in range(math.ceil(len(unique)/36)):
+ chosen=unique[part*36:(part+1)*36];sheet=Image.new('RGB',(1020,6*372),(25,25,25));dr=ImageDraw.Draw(sheet)
+ for i,(n,p) in enumerate(chosen):
+  x=(i%6)*170;y=(i//6)*372;sheet.paste(Image.open(p).resize((170,350)),(x,y));dr.text((x+2,y+351),f'#{n} t{279.8+n/60:.3f}',fill='white')
+ sheet.save(a/('sheet-'+str(part+1)+'.jpg'),quality=95)
+print('flashFrames',len(unique))

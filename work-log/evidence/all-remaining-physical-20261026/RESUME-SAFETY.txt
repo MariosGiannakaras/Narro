@@ -1,0 +1,1 @@
+Original profiles restored after pause at 07:55Z; resume-01 now owns separate protection ledger. Never replay original isolation. Inspect resume-01 ledger/process before restoring or launching.

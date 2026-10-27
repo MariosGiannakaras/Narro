@@ -1,0 +1,538 @@
+[
+  {
+    "utc": "2026-10-25T10:34:41.760Z",
+    "action": "First PID maximize",
+    "coverage": [
+      {
+        "segment": "first-launch-recovery",
+        "approxOffsetSeconds": 10.51
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:34:55.466Z",
+    "action": "First PID Preferences before Screen2 to Board reproduction",
+    "coverage": [
+      {
+        "segment": "first-launch-recovery",
+        "approxOffsetSeconds": 24.216
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:35:08.187Z",
+    "action": "First PID Screen2 selection same failing historical path",
+    "coverage": [
+      {
+        "segment": "first-launch-recovery",
+        "approxOffsetSeconds": 36.937
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:35:08.710Z",
+    "action": "First PID reveal Project Open",
+    "coverage": [
+      {
+        "segment": "first-launch-recovery",
+        "approxOffsetSeconds": 37.46
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:35:09.061Z",
+    "action": "First PID open Board after display selection",
+    "coverage": [
+      {
+        "segment": "first-launch-recovery",
+        "approxOffsetSeconds": 37.811
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:36:05.242Z",
+    "action": "G13-G16 shared Preferences",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 0.768
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:39:26.635Z",
+    "action": "G13 open task volume",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 202.161
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:39:41.730Z",
+    "action": "G13 focus range under held synthetic database lock",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 217.256
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:39:41.946Z",
+    "action": "G13 Down on focused range during pending save",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 217.472
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:39:58.819Z",
+    "action": "G14 open notification volume",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 234.345
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:09.418Z",
+    "action": "G14 focus notification range under synthetic lock",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 244.944
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 5.31
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:09.942Z",
+    "action": "G14 notification Down pending save",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 245.468
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 5.834
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:23.775Z",
+    "action": "Scroll to success and shortcuts",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 259.301
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 19.667
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:30.970Z",
+    "action": "G15 open success volume",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 266.496
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 26.862
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:38.177Z",
+    "action": "G15 focus success range under synthetic lock",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 273.703
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 34.069
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:38.623Z",
+    "action": "G15 success Down pending save",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 274.149
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 34.515
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:56.232Z",
+    "action": "G16 View shortcuts native",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 291.758
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 52.124
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:57.641Z",
+    "action": "G16 forward Tab wrap",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 293.167
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 53.533
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:40:57.879Z",
+    "action": "G16 reverse Tab wrap",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus",
+        "approxOffsetSeconds": 293.405
+      },
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 53.771
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:06.761Z",
+    "action": "G16 Tab 1",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 62.653
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:06.854Z",
+    "action": "G16 Tab 2",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 62.746
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:06.946Z",
+    "action": "G16 Tab 3",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 62.838
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:07.048Z",
+    "action": "G16 Tab 4",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 62.94
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:07.539Z",
+    "action": "G16 ShiftTab 1",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 63.431
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:07.638Z",
+    "action": "G16 ShiftTab 2",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 63.53
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:07.737Z",
+    "action": "G16 ShiftTab 3",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 63.629
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:07.832Z",
+    "action": "G16 ShiftTab 4",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 63.724
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:08.257Z",
+    "action": "G16 Escape closes shortcuts",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 64.149
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:16.158Z",
+    "action": "G07 Home lists",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 72.05
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:20.678Z",
+    "action": "G07 Archived example menu",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 76.57
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:28.430Z",
+    "action": "G07 forward Archive List",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 84.322
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:29.085Z",
+    "action": "G07 open Archived lists",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 84.977
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:35.105Z",
+    "action": "G07 reveal archived list actions",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 90.997
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:39.155Z",
+    "action": "G07 Unarchive Archived example",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 95.047
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:39.500Z",
+    "action": "G07 return Home restored",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 95.392
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:40.086Z",
+    "action": "G20 Reports",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 95.978
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:45.737Z",
+    "action": "G20 Sessions tab",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 101.629
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:53.040Z",
+    "action": "G20 edit Capture drag task A session menu",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 108.932
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:41:57.702Z",
+    "action": "G20 Edit existing session",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 113.594
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:03.171Z",
+    "action": "G20 End time editor",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 119.063
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:11.108Z",
+    "action": "G20 select hour segment 08PM",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 127.0
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:11.778Z",
+    "action": "G20 select minute segment 28",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 127.67
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:25.724Z",
+    "action": "G20 keyboard Home Down Right Up on native time input",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 141.616
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:31.290Z",
+    "action": "G20 save verified19:29 end for19:27 start",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 147.182
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:42:32.208Z",
+    "action": "G20 close task sessions",
+    "coverage": [
+      {
+        "segment": "preferences-native-focus-2",
+        "approxOffsetSeconds": 148.1
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:43:21.787Z",
+    "action": "G16 focused-child disambiguation Settings",
+    "coverage": [
+      {
+        "segment": "shortcuts-disambiguation",
+        "approxOffsetSeconds": 0.854
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:43:29.321Z",
+    "action": "G16 distinct-child capture open",
+    "coverage": [
+      {
+        "segment": "shortcuts-disambiguation",
+        "approxOffsetSeconds": 8.388
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:43:29.564Z",
+    "action": "G16 detailed reverse first to last",
+    "coverage": [
+      {
+        "segment": "shortcuts-disambiguation",
+        "approxOffsetSeconds": 8.631
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:43:35.228Z",
+    "action": "G16 detailed forward last to first",
+    "coverage": [
+      {
+        "segment": "shortcuts-disambiguation",
+        "approxOffsetSeconds": 14.295
+      }
+    ]
+  },
+  {
+    "utc": "2026-10-25T10:43:42.946Z",
+    "action": "G16 detailed Escape return",
+    "coverage": [
+      {
+        "segment": "shortcuts-disambiguation",
+        "approxOffsetSeconds": 22.013
+      }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+from pathlib import Path
+import json,math
+from PIL import Image,ImageDraw
+r=Path(__file__).parent;out=r/'analysis-qpc';out.mkdir(exist_ok=True)
+def read(p):
+ b=p.read_bytes();return json.loads(b.decode('utf-16' if b[:2] in [b'\xff\xfe',b'\xfe\xff'] else 'utf-8-sig'))
+cases=json.loads((r/'analysis-v2/cases.json').read_text(encoding='utf-8'))
+for c in cases:
+ name=c['case'];segment=name.rsplit('-',1)[0];frames=read(r/(segment+'-frames.json'));begin=c['begin']['qpcTicks'];end=c['commit']['qpcTicks'];before=[f for f in frames if f['captureQpcAfter']<begin][-4:];during=[f for f in frames if f['captureQpcBefore']<=end and f['captureQpcAfter']>=begin];after=[f for f in frames if f['captureQpcBefore']>end][:4];chosen=before+during+after
+ sheet=Image.new('RGB',(1360,math.ceil(len(chosen)/4)*724),(30,30,30));dr=ImageDraw.Draw(sheet)
+ for i,f in enumerate(chosen):
+  x=(i%4)*340;y=(i//4)*724;sheet.paste(Image.open(r/(segment+'-qpc')/f['fileName']),(x,y));dr.text((x+3,y+701),f"{name} #{f['index']} x{f['native']['window']['x']}",fill='white')
+ sheet.save(out/(name+'.jpg'),quality=95)
+ print(name,'selected',len(chosen))

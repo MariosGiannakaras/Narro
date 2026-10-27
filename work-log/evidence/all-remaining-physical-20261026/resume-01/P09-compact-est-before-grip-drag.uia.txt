@@ -1,0 +1,34 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+									10 group ID: root
+										11 main
+											510 main Floating Timer
+												511 group Show Floating Timer actions
+													512 text Physical EST clean 20261026
+													513 group Running: 00:30 remaining
+														514 text 00:30
+												515 region Subtasks for Physical EST clean 20261026
+													516 group Floating Timer subtask summary
+														517 progress indicator 0 of 0 subtasks complete Value: 0
+														518 text Subtasks
+														519 button Add subtask for Physical EST clean 20261026
+														520 button Expand Floating Timer
+								325 region
+
+Document text: ```
+Physical EST clean 20261026
+00:30
+0 of 0 subtasks complete
+Subtasks
++
+Expand Floating Timer
+```

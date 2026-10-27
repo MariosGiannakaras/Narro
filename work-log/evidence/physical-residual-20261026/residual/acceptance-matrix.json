@@ -1,0 +1,22 @@
+{
+  "scope": "Only residual A compositor present and input ownership; accepted16 functional routes not repeated wholesale",
+  "cases": [
+    {
+      "id": "A-DWM",
+      "criterion": "A02 expanded and collapse native present, semantic title/raster integrity",
+      "evidence": "DesktopComposition ETL + original60fps + native traces"
+    },
+    {
+      "id": "A-INPUT",
+      "criterion": "Actual focus/keyboard pointer click ownership at expanded/compact stable endpoints",
+      "evidence": "Native UIA/screenshots and read-only native probes"
+    },
+    {
+      "id": "A-WINDOW",
+      "criterion": "Affected topmost/Main hide/return behavior",
+      "evidence": "Native probes + original video"
+    }
+  ],
+  "deferred": "Timer drag, tray Quit, held Escape, physical HDMI remain user-deferred; do not silently accept",
+  "profile": "Use synthetic fixture; restore originals at freeze"
+}

@@ -1,0 +1,4 @@
+$r=Split-Path -Parent $MyInvocation.MyCommand.Path
+wpr -status *> (Join-Path $r 'final-wpr-status.txt')
+logman query -ets *> (Join-Path $r 'final-etw-status-private.txt')
+@{utc=[DateTime]::UtcNow.ToString('o');wprStatus=(Get-Content (Join-Path $r 'final-wpr-status.txt') -Raw);ownedProviderSessionStillPresent=[bool](Select-String -LiteralPath (Join-Path $r 'final-etw-status-private.txt') -Pattern 'NarroResidualDwm20261026');ownedWprCollectorsStillPresent=[bool](Select-String -LiteralPath (Join-Path $r 'final-etw-status-private.txt') -Pattern 'WPR_initiated_WprApp')} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $r 'final-capture-cleanup-proof.json') -Encoding UTF8

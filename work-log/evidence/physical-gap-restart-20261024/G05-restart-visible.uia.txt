@@ -1,0 +1,209 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+						13 region
+							14 region
+								15 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									17 group ID: root
+										18 complementary List navigation
+											19 graphic Narro
+											20 navigation Lists
+												21 button + Create new list
+												22 button All my lists
+												23 button Archived lists
+										24 section header
+											25 group Utilities
+												26 button Search
+												27 button Settings
+										28 main ID: main-content
+											29 region Good evening
+												30 section header
+													31 text HOME
+													32 heading Good evening ID: home-title
+													33 text Plan the next work that deserves your attention.
+												34 region Your Lists
+													35 heading Your Lists ID: home-lists-title
+													36 text Lists with your upcoming tasks
+													37 article
+														38 section header
+															39 heading All Lists
+														40 group All Lists task preview
+															41 text Capture drag task B
+															42 text Capture drag task A
+															43 text Scheduled future backlog
+															44 text 10m
+															45 text Ordinary backlog item
+															46 text 10m
+															47 button Open
+														48 section footer
+															49 text 14 pending tasks
+															50 text Est:
+															51 text 1h 50m
+													52 article
+														53 section header
+															54 heading Capture Project
+															55 button More actions for Capture Project
+														56 group Capture Project task preview
+															57 text Capture drag task B
+															58 text Capture drag task A
+															59 text Scheduled future backlog
+															60 text 10m
+															61 text Ordinary backlog item
+															62 text 10m
+															63 button Open
+														64 section footer
+															65 text 5 pending tasks
+															66 text Est:
+															67 text 20m
+													68 article
+														69 section header
+															70 heading Reading & research
+															71 button More actions for Reading & research
+														72 group Reading & research task preview
+															73 text Reading & research task 1
+															74 text 5m
+															75 text Reading & research task 2
+															76 text 10m
+															77 text Reading & research task 3
+															78 text 15m
+															79 button Open
+														80 section footer
+															81 text 3 pending tasks
+															82 text Est:
+															83 text 30m
+													84 article
+														85 section header
+															86 heading Long project name for list badge and title wrapping
+															87 button More actions for Long project name for list badge and title wrapping
+														88 group Long project name for list badge and title wrapping task preview
+															89 text Long project name for list badge and title wrapping task 1
+															90 text 5m
+															91 text Long project name for list badge and title wrapping task 2
+															92 text 10m
+															93 text Long project name for list badge and title wrapping task 3
+															94 text 15m
+															95 button Open
+														96 section footer
+															97 text 3 pending tasks
+															98 text Est:
+															99 text 30m
+													100 article
+														101 section header
+															102 heading Uploaded image capture list
+															103 button More actions for Uploaded image capture list
+														104 group Uploaded image capture list task preview
+															105 text No pending task previews
+															106 button Open
+														107 section footer
+															108 text 0 pending tasks
+															109 text Est:
+															110 text —
+													111 article
+														112 section header
+															113 heading Archived example
+															114 button More actions for Archived example
+														115 group Archived example task preview
+															116 text Archived example task 1
+															117 text 5m
+															118 text Archived example task 2
+															119 text 10m
+															120 text Archived example task 3
+															121 text 15m
+															122 button Open
+														123 section footer
+															124 text 3 pending tasks
+															125 text Est:
+															126 text 30m
+													127 button CREATE LIST
+										128 navigation Primary
+											129 button Home
+											130 button Reports
+								16 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				4 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+HOME
+Good evening
+Plan the next work that deserves your attention.
+Your Lists
+Lists with your upcoming tasks
+All Lists
+Capture drag task B
+Capture drag task A
+Scheduled future backlogScheduled future b…
+10m
+Ordinary backlog itemOrdinary backlog it…
+10m
+Open
+14 pending tasks
+Est: 1h 50m
+Capture Project
+More actions for Capture Project
+Capture drag task B
+Capture drag task A
+Scheduled future backlogScheduled future b…
+10m
+Ordinary backlog itemOrdinary backlog it…
+10m
+Open
+5 pending tasks
+Est: 20m
+Reading & research
+More actions for Reading & research
+Reading & research task 1Reading & research …
+5m
+Reading & research task 2Reading & research…
+10m
+Reading & research task 3Reading & research…
+15m
+Open
+3 pending tasks
+Est: 30m
+Long project name for list badge and title wrappingLong project nam…
+More actions for Long project name for list badge and title wrapping
+Long project name for list badge and title wrapping task 1Long project name f…
+5m
+Long project name for list badge and title wrapping task 2Long project name …
+10m
+Long project name for list badge and title wrapping task 3Long project name …
+15m
+Open
+3 pending tasks
+Est: 30m
+Uploaded image capture listUploaded image c…
+More actions for Uploaded image capture list
+No pending task previews
+Open
+0 pending tasks
+Est: —
+Archived example
+More actions for Archived example
+Archived example task 1Archived example ta…
+5m
+Archived example task 2Archived example t…
+10m
+Archived example task 3Archived example t…
+15m
+Open
+3 pending tasks
+Est: 30m
+CREATE LIST
+Home
+Reports
+```

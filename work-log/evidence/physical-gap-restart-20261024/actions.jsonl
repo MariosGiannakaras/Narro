@@ -1,0 +1,51 @@
+{"utc":"2026-10-24T19:20:53.070Z","action":"Restart maximize"}
+{"utc":"2026-10-24T19:21:28.535Z","action":"restart reveal Capture Project"}
+{"utc":"2026-10-24T19:21:29.267Z","action":"restart Open Capture Project"}
+{"utc":"2026-10-24T19:21:30.108Z","action":"restart recurring task menu"}
+{"utc":"2026-10-24T19:21:30.659Z","action":"restart Update Recurring"}
+{"utc":"2026-10-24T19:21:37.984Z","action":"restart close schedule"}
+{"utc":"2026-10-24T19:21:38.532Z","action":"restart Preferences"}
+{"utc":"2026-10-24T19:22:10.663Z","action":"restart close Preferences"}
+{"utc":"2026-10-24T19:22:11.051Z","action":"restart enter paused Focus"}
+{"utc":"2026-10-24T19:22:12.208Z","action":"restart Notes"}
+{"utc":"2026-10-24T19:22:47.672Z","action":"G11 larger Notes editor"}
+{"utc":"2026-10-24T19:23:03.657Z","action":"G11 drag larger Notes resize handle; not Timer/window drag"}
+{"utc":"2026-10-24T19:23:38.782Z","action":"G12 Home while work paused"}
+{"utc":"2026-10-24T19:23:39.889Z","action":"G12 reveal Capture Project"}
+{"utc":"2026-10-24T19:23:40.639Z","action":"G12 Open board"}
+{"utc":"2026-10-24T19:23:41.517Z","action":"G12 reenter Focus"}
+{"utc":"2026-10-24T19:25:06.015Z","action":"G05 Home for actual replacement save"}
+{"utc":"2026-10-24T19:25:07.154Z","action":"G05 image menu"}
+{"utc":"2026-10-24T19:25:07.813Z","action":"G05 Edit List"}
+{"utc":"2026-10-24T19:25:38.083Z","action":"G05 actual Main Home route"}
+{"utc":"2026-10-24T19:25:39.182Z","action":"G05 actual image menu"}
+{"utc":"2026-10-24T19:25:39.776Z","action":"G05 actual Edit List"}
+{"utc":"2026-10-24T19:26:04.637Z","action":"G05 temporary English layout; direct filename keystrokes"}
+{"utc":"2026-10-24T19:26:19.453Z","action":"G05 click actual visible Save changes"}
+{"utc":"2026-10-24T19:26:20.460Z","action":"G05 restored prior Greek layout; stop before same EXE relaunch"}
+{"utc":"2026-10-24T19:26:32.074Z","action":"G05 replacement restart maximize"}
+{"utc":"2026-10-24T19:27:02.922Z","action":"G19-G23 Reports"}
+{"utc":"2026-10-24T19:27:11.714Z","action":"G19 Sessions tab"}
+{"utc":"2026-10-24T19:27:12.398Z","action":"G19 Add Session"}
+{"utc":"2026-10-24T19:27:33.496Z","action":"G19 task chooser"}
+{"utc":"2026-10-24T19:28:56.398Z","action":"G19 End hour segment"}
+{"utc":"2026-10-24T19:29:05.157Z","action":"G19 save actual one-minute session"}
+{"utc":"2026-10-24T19:29:28.130Z","action":"G20 actions for newly created session"}
+{"utc":"2026-10-24T19:29:37.524Z","action":"G20 Edit new session"}
+{"utc":"2026-10-24T19:30:02.959Z","action":"G20 end time editor"}
+{"utc":"2026-10-24T19:30:33.740Z","action":"G20 minute segment"}
+{"utc":"2026-10-24T19:30:34.347Z","action":"G20 Save session end time"}
+{"utc":"2026-10-24T19:31:05.879Z","action":"G20 normalize fixture end time"}
+{"utc":"2026-10-24T19:31:06.556Z","action":"G20 save final two-minute duration"}
+{"utc":"2026-10-24T19:31:07.881Z","action":"G21 Export CSV"}
+{"utc":"2026-10-24T19:31:23.643Z","action":"G21 close task session detail"}
+{"utc":"2026-10-24T19:31:24.201Z","action":"G21 actual Export CSV"}
+{"utc":"2026-10-24T19:32:24.099Z","action":"G22 Overview"}
+{"utc":"2026-10-24T19:32:24.841Z","action":"G22 Export PDF"}
+{"utc":"2026-10-24T19:33:34.233Z","action":"G23 Overview list filter"}
+{"utc":"2026-10-24T19:34:03.359Z","action":"G23 actual list filter below export feedback"}
+{"utc":"2026-10-24T19:34:29.966Z","action":"G23 date range"}
+{"utc":"2026-10-24T19:35:16.442Z","action":"G23 choose visible Capture Project option"}
+{"utc":"2026-10-24T19:35:17.369Z","action":"G23 actual date-range button"}
+{"utc":"2026-10-24T19:35:40.969Z","action":"G23 This week preset"}
+{"utc":"2026-10-24T19:35:41.374Z","action":"G23 Apply weekly range"}

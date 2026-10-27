@@ -1,0 +1,186 @@
+{
+  "utc": "2026-10-27T14:15:06.426Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": "Back to Focus",
+        "text": ""
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Back to Focus",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Hide est/done times on tasks",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "AutomaticPrimary display"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "\\\\.\\DISPLAY12560×1080"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "\\\\.\\DISPLAY21920×1080"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Left"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Right"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Pomodoros",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Timed alerts during a task",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notification Alerts",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Show success screen",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Fun gif on success screen",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "Search"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Capture Project",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Reading & research",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Long project name for list badge and title wrapping",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Uploaded image capture list",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Archived example",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+CREATE LIST"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Home"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reports"
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

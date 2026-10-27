@@ -1,0 +1,11 @@
+from pathlib import Path
+import math
+from PIL import Image,ImageDraw
+r=Path(__file__).parent
+for name in ['A-normal-3','B-normal-3']:
+ folder=r/'analysis-v2'/name;files=sorted(folder.glob('frame-*.png'))
+ for part in range(math.ceil(len(files)/32)):
+  chosen=files[part*32:(part+1)*32];sheet=Image.new('RGB',(1360,8*202),(20,20,20));dr=ImageDraw.Draw(sheet)
+  for i,p in enumerate(chosen):
+   x=(i%4)*340;y=(i//4)*202;sheet.paste(Image.open(p).crop((340,0,680,180)),(x,y));dr.text((x+3,y+181),f'{name} {p.name}',fill='white')
+  sheet.save(r/'analysis-v2'/(name+'-headers-'+str(part+1)+'.jpg'),quality=95)

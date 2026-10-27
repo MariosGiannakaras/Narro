@@ -1,0 +1,10 @@
+from pathlib import Path
+import sqlite3,json,datetime
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());c=sqlite3.connect((Path(l['namespaces'][0]['active'])/'narro.db').as_uri()+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+v=[dict(x) for x in c.execute('select * from sessions where task_id=?',('f2313b50-977b-46c9-9db2-f5aa1840ccb3',))];assert any(x['duration_seconds']==120 for x in v);(r/'G20-durable-session.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'syntheticOnly':True,'sessions':v},indent=2));print(json.dumps(v))
+for name in ['G13','G14','G15','G16']:
+ rows=[json.loads(x) for x in (r/(name+'-focus.jsonl')).read_text().splitlines()];out=[];prev=None
+ for row in rows:
+  z=row['result'];key=json.dumps(z,sort_keys=True)
+  if key!=prev:out.append(row);prev=key
+ (r/(name+'-focus-transitions.json')).write_text(json.dumps(out,indent=2));print(name,json.dumps(out)[:7500])

@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-27T14:07:17.102Z",
+  "results": [
+    {
+      "targetId": "B73A0E4098F4AB8193592387B6743959",
+      "url": "http://tauri.localhost/focus.html",
+      "receipt": {
+        "id": 1,
+        "result": {
+          "result": {
+            "type": "string",
+            "value": "{\"href\":\"http://tauri.localhost/focus.html\",\"ready\":\"complete\",\"reducedMotion\":true,\"devicePixelRatio\":1.25,\"documentFocused\":true}"
+          }
+        }
+      }
+    },
+    {
+      "targetId": "AE6E560681423F31466937F2762E7629",
+      "url": "http://tauri.localhost/",
+      "receipt": {
+        "id": 1,
+        "result": {
+          "result": {
+            "type": "string",
+            "value": "{\"href\":\"http://tauri.localhost/\",\"ready\":\"complete\",\"reducedMotion\":true,\"devicePixelRatio\":1,\"documentFocused\":false}"
+          }
+        }
+      }
+    }
+  ]
+}

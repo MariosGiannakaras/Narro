@@ -1,0 +1,13 @@
+{
+  "currentSessionId": "470bffaa-7a20-4edd-94a3-cd490481460c",
+  "generatedUtc": "2026-10-24T20:29:03.468Z",
+  "metrics": {
+    "qualifyingMoveThresholdPx": 64
+  },
+  "pendingSourceSessionId": null,
+  "reason": "waiting-for-qualifying-timer-drag",
+  "schemaVersion": 1,
+  "sourceSha": "ec9227a2e09a69c380d4605aaf9623bdd9b9c394",
+  "status": "PENDING",
+  "test": "M7-C5-saved-placement-restart"
+}

@@ -1,0 +1,6 @@
+from pathlib import Path
+import json,os,subprocess,hashlib,datetime
+r=Path(__file__).parent;m=json.loads((r/'session-meta.json').read_text());l=json.loads((r/'profile-protection-private.json').read_text());assert l['state']=='OWNED_PROFILE_ACTIVE';assert hashlib.sha256(Path(m['executable']).read_bytes()).hexdigest()==m['sha256']
+env=os.environ.copy();env['RUST_BACKTRACE']='full';env['NARRO_TIMER_DIAGNOSTICS_DIR']=str(r/'timer-first-fault-diagnostics')
+with (r/'first-process.stdout.txt').open('wb') as out,(r/'first-process.stderr.txt').open('wb') as err:p=subprocess.Popen([m['executable']],env=env,stdout=out,stderr=err)
+(r/'owned-app-pid.txt').write_text(str(p.pid));m.update({'pid':p.pid,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'optInTimerDiagnostics':True,'stderrCapturedBeforeLaunch':True});(r/'first-launch.json').write_text(json.dumps(m,indent=2),encoding='utf-8');print(p.pid)

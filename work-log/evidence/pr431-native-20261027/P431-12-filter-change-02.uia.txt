@@ -1,0 +1,171 @@
+Window: "Narro", App: narro.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			2 pane Narro
+				3 pane (disabled)
+				4 region Narro - Web content
+					5 region
+						6 region
+						7 region
+							8 region
+								9 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									10 group ID: root
+										11 complementary List navigation
+											12 graphic Narro
+											13 navigation Lists
+												14 button + Create new list
+												15 button All my lists
+												16 button Archived lists
+										17 section header
+											18 group Utilities
+												19 button Search
+												20 button Settings
+										21 main ID: main-content
+											1487 group
+												1488 heading Reports
+												1489 text Loading local report history…
+										121 navigation Primary
+											122 button Home
+											123 button Reports
+								124 region
+		125 title bar (settable, string) Value: Narro
+			126 menu bar System ID: MenuBar
+				127 menu item System
+			128 button Minimize
+			129 button Maximize
+			130 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+BACK
+Reports
+Export PDF
+Overview
+Sessions BETA
+Selected 2 lists
+All Lists
+Capture Project
+Reading & research
+Long project name for list badge and title wrapping
+Uploaded image capture list
+Archived example
+Sep 27, 2026 – Oct 27, 2026
+Total work days
+8
+8 active days
+Total tasks done
+8
+1.0 avg / active day
+Total time worked
+2hr 40min
+20min avg / active day
+Avg. Time per task
+20min
+includes partial tasks
+PRODUCTIVITY
+TIME BY DAY
+Chart options
+Sun, Sep 27
+Mon, Sep 28: Tasks 20min, Breaks 0min, Total 20min
+Tue, Sep 29: Tasks 0min, Breaks 0min, Total 0min
+Wed, Sep 30: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 01: Tasks 20min, Breaks 0min, Total 20min
+Fri, Oct 02: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 03: Tasks 0min, Breaks 0min, Total 0min
+Sun, Oct 04
+Mon, Oct 05: Tasks 0min, Breaks 0min, Total 0min
+Tue, Oct 06: Tasks 0min, Breaks 0min, Total 0min
+Wed, Oct 07: Tasks 20min, Breaks 0min, Total 20min
+Thu, Oct 08: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 09: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 10: Tasks 20min, Breaks 0min, Total 20min
+Sun, Oct 11
+Mon, Oct 12: Tasks 0min, Breaks 0min, Total 0min
+Tue, Oct 13: Tasks 20min, Breaks 0min, Total 20min
+Wed, Oct 14: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 15: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 16: Tasks 20min, Breaks 0min, Total 20min
+Sat, Oct 17: Tasks 0min, Breaks 0min, Total 0min
+Sun, Oct 18
+Mon, Oct 19: Tasks 20min, Breaks 0min, Total 20min
+Tue, Oct 20: Tasks 0min, Breaks 0min, Total 0min
+Wed, Oct 21: Tasks 0min, Breaks 0min, Total 0min
+Thu, Oct 22: Tasks 0min, Breaks 0min, Total 0min
+Fri, Oct 23: Tasks 0min, Breaks 0min, Total 0min
+Sat, Oct 24: Tasks 0min, Breaks 0min, Total 0min
+Sun, Oct 25
+Mon, Oct 26: Tasks 0min, Breaks 0min, Total 0min
+Tue, Oct 27
+TASKS
+BREAKS
+TOTAL
+Most Productive hour
+10 AM–11 AM
+Most Productive day
+Monday
+Most Productive month
+Oct 26
+TIME BY LIST
+Total Time: 2hr 40min
+Reading & research
+2hr 40min
+100%
+DONE TASKS
+● Early 100.00%
+● Late 0.00%
+Oct 19, 2026
+1 task
+Report sample day 1
+Reading & research
+10min early
+Time Taken 20min
+Oct 16, 2026
+1 task
+Report sample day 4
+Reading & research
+10min early
+Time Taken 20min
+Oct 13, 2026
+1 task
+Report sample day 7
+Reading & research
+10min early
+Time Taken 20min
+Oct 10, 2026
+1 task
+Report sample day 10
+Reading & research
+10min early
+Time Taken 20min
+Oct 07, 2026
+1 task
+Report sample day 13
+Reading & research
+10min early
+Time Taken 20min
+Oct 04, 2026
+1 task
+Report sample day 16
+Reading & research
+10min early
+Time Taken 20min
+Oct 01, 2026
+1 task
+Report sample day 19
+Reading & research
+10min early
+Time Taken 20min
+Sep 28, 2026
+1 task
+Report sample day 22
+Reading & research
+10min early
+Time Taken 20min
+Home
+Reports
+```

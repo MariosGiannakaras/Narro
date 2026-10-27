@@ -22,6 +22,8 @@ Normal bootstrap remains:
 
 When work touches a user-visible surface, Blitzit parity, source evidence, physical visual validation, or a broad set of corrective findings, continue through this map before claiming the surface complete. Use `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` for the binding analysis → disposition → causal tracing → implementation campaign standard.
 
+**ChatGPT analysis of repository videos (standing user preference, 2026-10-24):** when original MKV/MP4 binaries are inaccessible through ordinary GitHub file reads, prefer the proven **temporary, analysis-only GitHub Actions original-byte artifact bridge**; download and inspect the real videos and PTS before visual/motion claims. **Adobe is optional, not needed for this path; do not use Canva.** Reuse an existing nonexpired artifact before creating a new run. Procedure and examples: [Windows UI video review — ChatGPT video-analysis access](WINDOWS_UI_VIDEO_REVIEW.md#chatgpt-video-analysis-access-github-artifact-first-standing-user-preference-2026-10-24). No product-code edits, source-parity or physical PASS implied.
+
 ## Evidence layers
 
 | Layer | Canonical files | Authoritative for | Not authoritative for |

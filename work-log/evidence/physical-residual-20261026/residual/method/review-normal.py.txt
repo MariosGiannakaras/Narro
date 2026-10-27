@@ -1,0 +1,20 @@
+from pathlib import Path
+import json,datetime,subprocess,shutil
+from PIL import Image,ImageDraw
+r=Path(__file__).parent;out=r/'review-normal';out.mkdir(exist_ok=True)
+start=datetime.datetime.fromisoformat(json.loads((r/'A-present-normal/start.json').read_text())['utc'])
+rows=[json.loads(x) for x in (r/'native-traces-A/focus-transition-trace.jsonl').read_text().splitlines()]
+for token in (9,10):
+ e=next(x for x in rows if x['stage']=='native.begin' and x['rasterToken']==token)
+ offset=(datetime.datetime.fromisoformat(e['utc'].replace('Z','+00:00'))-start).total_seconds()-.65
+ frames=out/str(token);frames.mkdir(exist_ok=True)
+ subprocess.run([shutil.which('ffmpeg'),'-hide_banner','-loglevel','error','-ss',str(offset),'-i',str(r/'A-present-normal/native-original.mkv'),'-t','1.8','-vf','crop=340:180:2220:0','-fps_mode','passthrough',str(frames/'frame-%03d.png')],check=True)
+ files=sorted(frames.glob('frame-*.png'))
+ for n in range(0,len(files),48):
+  sheet=Image.new('RGB',(340*6,200*8),'#dddddd');d=ImageDraw.Draw(sheet)
+  for j,p in enumerate(files[n:n+48]):
+   x=(j%6)*340;y=(j//6)*200
+   with Image.open(p) as im:sheet.paste(im,(x,y+20))
+   d.text((x+3,y+3),f'{token} original frame {n+j+1}',fill='black')
+  sheet.save(out/f'token-{token}-{n//48}.jpg',quality=94)
+ print(token,len(files),offset)

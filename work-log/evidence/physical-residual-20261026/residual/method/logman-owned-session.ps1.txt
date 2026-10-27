@@ -1,0 +1,4 @@
+param([string]$Mode)
+$r=Split-Path -Parent $MyInvocation.MyCommand.Path
+if ($Mode -eq 'start') { logman start NarroResidualDwm20261026 -p Microsoft-Windows-Dwm-Core 0x1ffff 5 -bs 64 -nb 16 64 -o (Join-Path $r 'A-dwm-provider.etl') -ets *> (Join-Path $r 'logman-start.txt') } else { logman stop NarroResidualDwm20261026 -ets *> (Join-Path $r 'logman-stop.txt') }
+@{mode=$Mode;utc=[DateTime]::UtcNow.ToString('o');exit=$LASTEXITCODE} | ConvertTo-Json | Set-Content -Encoding UTF8 -LiteralPath (Join-Path $r ('logman-'+$Mode+'.json'))

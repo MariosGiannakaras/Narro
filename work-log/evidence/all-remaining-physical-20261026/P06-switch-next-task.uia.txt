@@ -1,0 +1,216 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+													15 group ID: root
+														16 main
+															760 main
+																761 section header
+																	762 button Focus list
+																		763 text Capture Project
+																	764 heading Today
+																	765 group Focus Panel quick controls
+																		766 button Preferences
+																		767 button Home
+																		768 button Compact view
+																769 region Today progress
+																	770 text Est:
+																	771 text 10min
+																	772 text 31
+																	773 text /
+																	774 text 33
+																	775 text Done
+																776 region Focus queue
+																	777 article
+																		778 text Ordinary backlog item
+																		779 group Pomodoro paused: 03:21 remaining
+																			780 text 03:21
+																		781 group Pomodoro mode
+																			782 text POMO
+																		783 text Pomodoro Paused
+																		784 region Live task time details
+																			785 text EST
+																			786 button Edit EST: 0:10:00
+																			787 text Time Taken
+																			788 button Edit Time Taken: 0:01:39
+																		789 region Subtasks for Ordinary backlog item
+																			790 progress indicator 1 of 1 subtasks complete Value: 1
+																			791 button 1/1 Subtasks
+																			792 button Add subtask for Ordinary backlog item
+																			938 list Subtasks for Ordinary backlog item
+																				939 list item Physical acceptance first subtaskPhysical acceptance first s…
+																					940 button Reopen subtask: Physical acceptance first subtask
+																					941 button Physical acceptance first subtask Description: Physical acceptance first subtask
+																					942 button (disabled) Move subtask up: Physical acceptance first subtask
+																					943 button (disabled) Move subtask down: Physical acceptance first subtask
+																					944 button Delete subtask: Physical acceptance first subtask
+																			945 edit (settable, string) New subtask for Ordinary backlog item Description: Enter subtask task title*
+																			946 button (disabled) Clear new subtask draft
+																		793 group Live task actions
+																			794 button Start break
+																			795 button Notes
+																			796 button Resume
+																			797 button Skip task
+																			798 button Complete task
+																	799 article
+																		955 button Complete task: Capture drag task B
+																		800 group Task title: Capture drag task B
+																			801 text Capture drag task B
+																		960 tool tip Capture drag task B
+																		956 button Make live: Capture drag task B
+																		957 button Subtasks: Capture drag task B
+																		958 button Notes: Capture drag task B
+																		959 button More actions for Capture drag task B
+																	802 button Add task in Focus Panel
+																	803 region 0 Scheduled tasks
+																		804 heading 0 Scheduled tasks ID: focus-scheduled-title
+																	805 region 31 Done
+																		806 heading 31 Done ID: focus-done-title
+																		807 article
+																			808 group Task title: Capture live task — long title for compact wrapping and hover actions
+																				809 text Capture live task — long title for compact wrapping and hover actions
+																			810 text 2/4 subtasks
+																			811 text 5min
+																		812 article
+																			813 group Task title: Second task — notes and success feedback
+																				814 text Second task — notes and success feedback
+																			815 text 2min
+																		816 article
+																			817 group Task title: Overdue task with age label
+																				818 text Overdue task with age label
+																			819 text Oct 18, 2026
+																			820 text 1hr 2min
+																		821 article
+																			822 group Task title: Third task without estimate
+																				823 text Third task without estimate
+																			824 text 2hr 2min
+																		825 article
+																			826 group Task title: Capture success OFF task
+																				827 text Capture success OFF task
+																			828 text 1min
+																		829 article
+																			830 group Task title: Scheduled later this week
+																				831 text Scheduled later this week
+																			832 text Oct 22, 2026
+																			833 text 1/1 subtasks
+																			834 text 1min
+																		835 article
+																			836 group Task title: Done history 01 — long title for scroll
+																				837 text Done history 01 — long title for scroll
+																			838 text 10min
+																		839 article
+																			840 group Task title: Weekly recurring parent
+																				841 text Weekly recurring parent
+																			842 text Oct 20, 2026
+																			843 text 5min
+																		844 article
+																			845 group Task title: Done history 02 — long title for scroll
+																				846 text Done history 02 — long title for scroll
+																			847 text 10min
+																		848 article
+																			849 group Task title: Done history 03 — long title for scroll
+																				850 text Done history 03 — long title for scroll
+																			851 text 10min
+																		852 article
+																			853 group Task title: Done history 04 — long title for scroll
+																				854 text Done history 04 — long title for scroll
+																			855 text 10min
+																		856 article
+																			857 group Task title: Done history 05 — long title for scroll
+																				858 text Done history 05 — long title for scroll
+																			859 text 10min
+																		860 article
+																			861 group Task title: Done history 06 — long title for scroll
+																				862 text Done history 06 — long title for scroll
+																			863 text 10min
+																		864 article
+																			865 group Task title: Done history 07 — long title for scroll
+																				866 text Done history 07 — long title for scroll
+																			867 text 10min
+																		868 article
+																			869 group Task title: Done history 08 — long title for scroll
+																				870 text Done history 08 — long title for scroll
+																			871 text 10min
+																		872 article
+																			873 group Task title: Done history 09 — long title for scroll
+																				874 text Done history 09 — long title for scroll
+																			875 text 10min
+																		876 article
+																			877 group Task title: Done history 10 — long title for scroll
+																				878 text Done history 10 — long title for scroll
+																			879 text 10min
+																		880 article
+																			881 group Task title: Done history 11 — long title for scroll
+																				882 text Done history 11 — long title for scroll
+																			883 text 10min
+																		884 article
+																			885 group Task title: Done history 12 — long title for scroll
+																				886 text Done history 12 — long title for scroll
+																			887 text 10min
+																		888 article
+																			889 group Task title: Done history 13 — long title for scroll
+																				890 text Done history 13 — long title for scroll
+																			891 text 10min
+																		892 article
+																			893 group Task title: Done history 14 — long title for scroll
+																				894 text Done history 14 — long title for scroll
+																			895 text 10min
+																		896 article
+																			897 group Task title: Done history 15 — long title for scroll
+																				898 text Done history 15 — long title for scroll
+																			899 text 10min
+																		900 article
+																			901 group Task title: Done history 16 — long title for scroll
+																				902 text Done history 16 — long title for scroll
+																			903 text 10min
+																		904 article
+																			905 group Task title: Done history 17 — long title for scroll
+																				906 text Done history 17 — long title for scroll
+																			907 text 10min
+																		908 article
+																			909 group Task title: Done history 18 — long title for scroll
+																				910 text Done history 18 — long title for scroll
+																			911 text 10min
+																		912 article
+																			913 group Task title: Done history 19 — long title for scroll
+																				914 text Done history 19 — long title for scroll
+																			915 text 10min
+																		916 article
+																			917 group Task title: Done history 20 — long title for scroll
+																				918 text Done history 20 — long title for scroll
+																			919 text 10min
+																		920 article
+																			921 group Task title: Done history 21 — long title for scroll
+																				922 text Done history 21 — long title for scroll
+																			923 text 10min
+																		924 article
+																			925 group Task title: Done history 22 — long title for scroll
+																				926 text Done history 22 — long title for scroll
+																			927 text 10min
+																		928 article
+																			929 group Task title: Done history 23 — long title for scroll
+																				930 text Done history 23 — long title for scroll
+																			931 text 10min
+																		932 article
+																			933 group Task title: Done history 24 — long title for scroll
+																				934 text Done history 24 — long title for scroll
+																			935 text 10min
+								316 region
+						317 region
+						318 region
+
+Document text: ```
+New subtask for Ordinary backlog item
+```

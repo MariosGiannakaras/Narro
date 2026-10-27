@@ -1,0 +1,30 @@
+{
+  "preferences": [
+    {
+      "id": 1,
+      "schema_version": 5,
+      "payload_json": "{\"general\":{\"selected_monitor_key\":\"\\\\\\\\.\\\\DISPLAY1|0|0|2560|1080|0|0|2560|1080|3ff0000000000000\",\"focus_panel_side\":\"left\",\"open_on_login\":false,\"hide_task_times\":false,\"auto_parse_est_from_title\":false,\"theme\":\"system\",\"timezone\":\"Africa/Abidjan\"},\"focus\":{\"pomodoro_enabled\":true,\"pomodoro_work_seconds\":300,\"pomodoro_break_seconds\":300,\"default_break_seconds\":600,\"scrolling_title\":false,\"sleep_accounting_policy\":\"exclude\"},\"shortcuts\":{\"go_to_narro_enabled\":false,\"toggle_focus_mode_enabled\":true,\"find_focus_timer_enabled\":true},\"alerts\":{\"timed_alerts_enabled\":true,\"task_alert_interval_seconds\":300,\"task_alert_sound\":null,\"task_alert_volume_percent\":70,\"animated_timer_flash\":true,\"notification_alerts_enabled\":true,\"notification_sound\":null,\"notification_volume_percent\":95,\"schedule_reminders_enabled\":false,\"reminder_lead_seconds\":600},\"celebration\":{\"show_success_screen\":false,\"fun_gif\":false,\"success_sound_enabled\":true,\"success_sound\":null,\"success_sound_volume_percent\":90}}",
+      "updated_at": "2026-10-24T14:08:03.439580600+00:00"
+    }
+  ],
+  "timer_runtime_checkpoint": [
+    {
+      "singleton": 1,
+      "session_id": "03c65505-b78e-4c45-8435-8c63a2e21ee6",
+      "payload_json": "{\"version\":1,\"closed_work_seconds\":90,\"closed_break_seconds\":36,\"committed_break_ms\":36173,\"state\":{\"kind\":\"work\",\"task_id\":\"5c07cffd-6063-4c0c-8a1e-d9c991765c10\",\"mode\":{\"kind\":\"pomodoro\",\"work_ms\":300000,\"break_ms\":300000},\"phase\":\"running\",\"total_work_ms\":181895,\"interval_work_ms\":181895}}",
+      "updated_at": "2026-10-25T11:06:14.926Z"
+    }
+  ],
+  "timed_alert_runs": [
+    {
+      "task_id": "5c07cffd-6063-4c0c-8a1e-d9c991765c10",
+      "run_id": "03c65505-b78e-4c45-8435-8c63a2e21ee6",
+      "interval_seconds": 300,
+      "next_boundary_seconds": 391,
+      "last_observed_work_seconds": 205,
+      "was_enabled": 1,
+      "updated_at": "2026-10-25T11:06:38.279Z"
+    }
+  ],
+  "timed_alert_effects": []
+}

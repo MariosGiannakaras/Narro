@@ -1,0 +1,34 @@
+﻿{
+    "wprStatus":  {
+                      "value":  "\r\nMicrosoft Windows Performance Recorder Version 10.0.19041 (CoreSystem)\r\nCopyright (c) 2019 Microsoft Corporation. All rights reserved.\r\n\r\nWPR is not recording\r\n",
+                      "PSPath":  "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261026-Residual\\final-wpr-status.txt",
+                      "PSParentPath":  "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261026-Residual",
+                      "PSChildName":  "final-wpr-status.txt",
+                      "PSDrive":  {
+                                      "CurrentLocation":  "",
+                                      "Name":  "E",
+                                      "Provider":  "Microsoft.PowerShell.Core\\FileSystem",
+                                      "Root":  "E:\\",
+                                      "Description":  "DATA",
+                                      "MaximumSize":  null,
+                                      "Credential":  "System.Management.Automation.PSCredential",
+                                      "DisplayRoot":  null
+                                  },
+                      "PSProvider":  {
+                                         "ImplementingType":  "Microsoft.PowerShell.Commands.FileSystemProvider",
+                                         "HelpFile":  "System.Management.Automation.dll-Help.xml",
+                                         "Name":  "FileSystem",
+                                         "PSSnapIn":  "Microsoft.PowerShell.Core",
+                                         "ModuleName":  "Microsoft.PowerShell.Core",
+                                         "Module":  null,
+                                         "Description":  "",
+                                         "Capabilities":  52,
+                                         "Home":  "C:\\Users\\MariosG",
+                                         "Drives":  "C E F G"
+                                     },
+                      "ReadCount":  1
+                  },
+    "ownedProviderSessionStillPresent":  false,
+    "utc":  "2026-10-25T23:15:33.0374879Z",
+    "ownedWprCollectorsStillPresent":  false
+}

@@ -1,0 +1,1343 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+						13 region
+							14 region
+								15 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+									17 group ID: root
+										18 complementary List navigation
+											19 graphic Narro
+											20 navigation Lists
+												21 button + Create new list
+												22 button All my lists
+												23 button Archived lists
+										24 section header
+											25 group Utilities
+												26 button Search
+												27 button Settings
+										28 main ID: main-content
+											539 section header
+												540 button BACK
+												541 heading Reports
+												542 button + Add Session
+												543 button Export .csv
+											544 tab Reports
+												545 tab item (selectable) Overview
+												546 tab item (selectable) Sessions BETA
+											547 button All Lists
+											548 toggle button Hide Break sessions
+											549 button Sep 24, 2026 – Oct 24, 2026
+											550 article
+												551 text Total Time
+												552 text 10hr 19min
+											553 article
+												554 text Total Tasks
+												555 text 42
+											556 article
+												557 text Total Sessions
+												558 text 66
+											559 section header
+												560 text Oct 24, 2026
+												561 text 5
+												562 text 
+												563 text sessions
+											1268 article
+												1269 text Capture drag task A
+												1270 text Capture Project
+												1271 text Session 01
+												1272 text Oct 24, 2026
+												1273 text 7:27 PM
+												1274 button 7:28 PM
+												1275 text 1min
+												1276 button Session actions for Capture drag task A
+											564 article
+												565 text Break
+												566 text Capture Project
+												567 text Break
+												568 text Oct 24, 2026
+												569 text 1:26 PM
+												570 button 1:26 PM
+												571 text 0min
+												572 button Session actions for Break
+											573 article
+												574 text Ordinary backlog item
+												575 text Capture Project
+												576 text Session 02
+												577 text Oct 24, 2026
+												578 text 1:03 PM
+												579 button 1:26 PM
+												580 text 0min
+												581 button Session actions for Ordinary backlog item
+											582 article
+												583 text Break
+												584 text Capture Project
+												585 text Break
+												586 text Oct 24, 2026
+												587 text 1:03 PM
+												588 button 1:03 PM
+												589 text 0min
+												590 button Session actions for Break
+											591 article
+												592 text Ordinary backlog item
+												593 text Capture Project
+												594 text Session 01
+												595 text Oct 24, 2026
+												596 text 6:58 AM
+												597 button 1:03 PM
+												598 text 2min
+												599 button Session actions for Ordinary backlog item
+											600 section header
+												601 text Oct 23, 2026
+												602 text 6
+												603 text 
+												604 text sessions
+											605 article
+												606 text Capture success OFF task
+												607 text Capture Project
+												608 text Session 01
+												609 text Oct 23, 2026
+												610 text 6:17 PM
+												611 button 6:17 PM
+												612 text 0min
+												613 button Session actions for Capture success OFF task
+											614 article
+												615 text Scheduled later this week
+												616 text Capture Project
+												617 text Session 02
+												618 text Oct 23, 2026
+												619 text 6:15 PM
+												620 button 6:16 PM
+												621 text 0min
+												622 button Session actions for Scheduled later this week
+											623 article
+												624 text Break
+												625 text Capture Project
+												626 text Break
+												627 text Oct 23, 2026
+												628 text 6:15 PM
+												629 button 6:15 PM
+												630 text 0min
+												631 button Session actions for Break
+											632 article
+												633 text Scheduled later this week
+												634 text Capture Project
+												635 text Session 01
+												636 text Oct 23, 2026
+												637 text 6:13 PM
+												638 button 6:15 PM
+												639 text 0min
+												640 button Session actions for Scheduled later this week
+											641 article
+												642 text Overdue task with age label
+												643 text Capture Project
+												644 text Session 03
+												645 text Oct 23, 2026
+												646 text 6:06 PM
+												647 button 7:05 PM
+												648 text 59min
+												649 button Session actions for Overdue task with age label
+											650 article
+												651 text Overdue task with age label
+												652 text Capture Project
+												653 text Session 02
+												654 text Oct 23, 2026
+												655 text 2:07 PM
+												656 button 2:07 PM
+												657 text 0min
+												658 button Session actions for Overdue task with age label
+											659 section header
+												660 text Oct 20, 2026
+												661 text 19
+												662 text 
+												663 text sessions
+											664 article
+												665 text Weekly recurring parent
+												666 text Capture Project
+												667 text Session 02
+												668 text Oct 20, 2026
+												669 text 1:55 PM
+												670 button 2:07 PM
+												671 text 0min
+												672 button Session actions for Weekly recurring parent
+											673 article
+												674 text Break
+												675 text Capture Project
+												676 text Break
+												677 text Oct 20, 2026
+												678 text 1:50 PM
+												679 button 1:55 PM
+												680 text 5min
+												681 button Session actions for Break
+											682 article
+												683 text Weekly recurring parent
+												684 text Capture Project
+												685 text Session 01
+												686 text Oct 20, 2026
+												687 text 1:45 PM
+												688 button 1:50 PM
+												689 text 5min
+												690 button Session actions for Weekly recurring parent
+											691 article
+												692 text Third task without estimate
+												693 text Capture Project
+												694 text Session 04
+												695 text Oct 20, 2026
+												696 text 1:43 PM
+												697 button 2:43 PM
+												698 text 1hr
+												699 button Session actions for Third task without estimate
+											700 article
+												701 text Third task without estimate
+												702 text Capture Project
+												703 text Session 03
+												704 text Oct 20, 2026
+												705 text 1:35 PM
+												706 button 2:35 PM
+												707 text 1hr
+												708 button Session actions for Third task without estimate
+											709 article
+												710 text Overdue task with age label
+												711 text Capture Project
+												712 text Session 01
+												713 text Oct 20, 2026
+												714 text 12:54 PM
+												715 button 1:45 PM
+												716 text 3min
+												717 button Session actions for Overdue task with age label
+											718 article
+												719 text Third task without estimate
+												720 text Capture Project
+												721 text Session 02
+												722 text Oct 20, 2026
+												723 text 12:42 PM
+												724 button 12:45 PM
+												725 text 0min
+												726 button Session actions for Third task without estimate
+											727 article
+												728 text Break
+												729 text Capture Project
+												730 text Break
+												731 text Oct 20, 2026
+												732 text 12:42 PM
+												733 button 12:42 PM
+												734 text 0min
+												735 button Session actions for Break
+											736 article
+												737 text Third task without estimate
+												738 text Capture Project
+												739 text Session 01
+												740 text Oct 20, 2026
+												741 text 12:40 PM
+												742 button 12:42 PM
+												743 text 2min
+												744 button Session actions for Third task without estimate
+											745 article
+												746 text Second task — notes and success feedback
+												747 text Capture Project
+												748 text Session 01
+												749 text Oct 20, 2026
+												750 text 12:38 PM
+												751 button 12:40 PM
+												752 text 2min
+												753 button Session actions for Second task — notes and success feedback
+											754 article
+												755 text Capture live task — long title for compact wrapping and hover actions
+												756 text Capture Project
+												757 text Session 02
+												758 text Oct 20, 2026
+												759 text 12:37 PM
+												760 button 12:37 PM
+												761 text 0min
+												762 button Session actions for Capture live task — long title for compact wrapping and hover actions
+											763 article
+												764 text Break
+												765 text Capture Project
+												766 text Break
+												767 text Oct 20, 2026
+												768 text 12:37 PM
+												769 button 12:37 PM
+												770 text 1min
+												771 button Session actions for Break
+											772 article
+												773 text Capture live task — long title for compact wrapping and hover actions
+												774 text Capture Project
+												775 text Session 01
+												776 text Oct 20, 2026
+												777 text 12:25 PM
+												778 button 12:37 PM
+												779 text 5min
+												780 button Session actions for Capture live task — long title for compact wrapping and hover actions
+											781 article
+												782 text Done history 01 — long title for scroll
+												783 text Capture Project
+												784 text Session 01
+												785 text Oct 20, 2026
+												786 text 9:00 AM
+												787 button 9:10 AM
+												788 text 10min
+												789 button Session actions for Done history 01 — long title for scroll
+											790 article
+												791 text Done history 03 — long title for scroll
+												792 text Capture Project
+												793 text Session 01
+												794 text Oct 20, 2026
+												795 text 9:00 AM
+												796 button 9:10 AM
+												797 text 10min
+												798 button Session actions for Done history 03 — long title for scroll
+											799 article
+												800 text Done history 06 — long title for scroll
+												801 text Capture Project
+												802 text Session 01
+												803 text Oct 20, 2026
+												804 text 9:00 AM
+												805 button 9:10 AM
+												806 text 10min
+												807 button Session actions for Done history 06 — long title for scroll
+											808 article
+												809 text Done history 05 — long title for scroll
+												810 text Capture Project
+												811 text Session 01
+												812 text Oct 20, 2026
+												813 text 9:00 AM
+												814 button 9:10 AM
+												815 text 10min
+												816 button Session actions for Done history 05 — long title for scroll
+											817 article
+												818 text Done history 02 — long title for scroll
+												819 text Capture Project
+												820 text Session 01
+												821 text Oct 20, 2026
+												822 text 9:00 AM
+												823 button 9:10 AM
+												824 text 10min
+												825 button Session actions for Done history 02 — long title for scroll
+											826 article
+												827 text Done history 04 — long title for scroll
+												828 text Capture Project
+												829 text Session 01
+												830 text Oct 20, 2026
+												831 text 9:00 AM
+												832 button 9:10 AM
+												833 text 10min
+												834 button Session actions for Done history 04 — long title for scroll
+											835 section header
+												836 text Oct 19, 2026
+												837 text 8
+												838 text 
+												839 text sessions
+											840 article
+												841 text Break
+												842 text Break
+												843 text Break
+												844 text Oct 19, 2026
+												845 text 10:20 AM
+												846 button 10:25 AM
+												847 text 5min
+												848 button Session actions for Break
+											849 article
+												850 text Report sample day 1
+												851 text Reading & research
+												852 text Session 01
+												853 text Oct 19, 2026
+												854 text 10:00 AM
+												855 button 10:20 AM
+												856 text 20min
+												857 button Session actions for Report sample day 1
+											858 article
+												859 text Done history 09 — long title for scroll
+												860 text Capture Project
+												861 text Session 01
+												862 text Oct 19, 2026
+												863 text 9:00 AM
+												864 button 9:10 AM
+												865 text 10min
+												866 button Session actions for Done history 09 — long title for scroll
+											867 article
+												868 text Done history 07 — long title for scroll
+												869 text Capture Project
+												870 text Session 01
+												871 text Oct 19, 2026
+												872 text 9:00 AM
+												873 button 9:10 AM
+												874 text 10min
+												875 button Session actions for Done history 07 — long title for scroll
+											876 article
+												877 text Done history 10 — long title for scroll
+												878 text Capture Project
+												879 text Session 01
+												880 text Oct 19, 2026
+												881 text 9:00 AM
+												882 button 9:10 AM
+												883 text 10min
+												884 button Session actions for Done history 10 — long title for scroll
+											885 article
+												886 text Done history 12 — long title for scroll
+												887 text Capture Project
+												888 text Session 01
+												889 text Oct 19, 2026
+												890 text 9:00 AM
+												891 button 9:10 AM
+												892 text 10min
+												893 button Session actions for Done history 12 — long title for scroll
+											894 article
+												895 text Done history 11 — long title for scroll
+												896 text Capture Project
+												897 text Session 01
+												898 text Oct 19, 2026
+												899 text 9:00 AM
+												900 button 9:10 AM
+												901 text 10min
+												902 button Session actions for Done history 11 — long title for scroll
+											903 article
+												904 text Done history 08 — long title for scroll
+												905 text Capture Project
+												906 text Session 01
+												907 text Oct 19, 2026
+												908 text 9:00 AM
+												909 button 9:10 AM
+												910 text 10min
+												911 button Session actions for Done history 08 — long title for scroll
+											912 section header
+												913 text Oct 18, 2026
+												914 text 6
+												915 text 
+												916 text sessions
+											917 article
+												918 text Done history 13 — long title for scroll
+												919 text Capture Project
+												920 text Session 01
+												921 text Oct 18, 2026
+												922 text 9:00 AM
+												923 button 9:10 AM
+												924 text 10min
+												925 button Session actions for Done history 13 — long title for scroll
+											926 article
+												927 text Done history 18 — long title for scroll
+												928 text Capture Project
+												929 text Session 01
+												930 text Oct 18, 2026
+												931 text 9:00 AM
+												932 button 9:10 AM
+												933 text 10min
+												934 button Session actions for Done history 18 — long title for scroll
+											935 article
+												936 text Done history 15 — long title for scroll
+												937 text Capture Project
+												938 text Session 01
+												939 text Oct 18, 2026
+												940 text 9:00 AM
+												941 button 9:10 AM
+												942 text 10min
+												943 button Session actions for Done history 15 — long title for scroll
+											944 article
+												945 text Done history 16 — long title for scroll
+												946 text Capture Project
+												947 text Session 01
+												948 text Oct 18, 2026
+												949 text 9:00 AM
+												950 button 9:10 AM
+												951 text 10min
+												952 button Session actions for Done history 16 — long title for scroll
+											953 article
+												954 text Done history 17 — long title for scroll
+												955 text Capture Project
+												956 text Session 01
+												957 text Oct 18, 2026
+												958 text 9:00 AM
+												959 button 9:10 AM
+												960 text 10min
+												961 button Session actions for Done history 17 — long title for scroll
+											962 article
+												963 text Done history 14 — long title for scroll
+												964 text Capture Project
+												965 text Session 01
+												966 text Oct 18, 2026
+												967 text 9:00 AM
+												968 button 9:10 AM
+												969 text 10min
+												970 button Session actions for Done history 14 — long title for scroll
+											971 section header
+												972 text Oct 17, 2026
+												973 text 6
+												974 text 
+												975 text sessions
+											976 article
+												977 text Done history 20 — long title for scroll
+												978 text Capture Project
+												979 text Session 01
+												980 text Oct 17, 2026
+												981 text 9:00 AM
+												982 button 9:10 AM
+												983 text 10min
+												984 button Session actions for Done history 20 — long title for scroll
+											985 article
+												986 text Done history 21 — long title for scroll
+												987 text Capture Project
+												988 text Session 01
+												989 text Oct 17, 2026
+												990 text 9:00 AM
+												991 button 9:10 AM
+												992 text 10min
+												993 button Session actions for Done history 21 — long title for scroll
+											994 article
+												995 text Done history 22 — long title for scroll
+												996 text Capture Project
+												997 text Session 01
+												998 text Oct 17, 2026
+												999 text 9:00 AM
+												1000 button 9:10 AM
+												1001 text 10min
+												1002 button Session actions for Done history 22 — long title for scroll
+											1003 article
+												1004 text Done history 19 — long title for scroll
+												1005 text Capture Project
+												1006 text Session 01
+												1007 text Oct 17, 2026
+												1008 text 9:00 AM
+												1009 button 9:10 AM
+												1010 text 10min
+												1011 button Session actions for Done history 19 — long title for scroll
+											1012 article
+												1013 text Done history 24 — long title for scroll
+												1014 text Capture Project
+												1015 text Session 01
+												1016 text Oct 17, 2026
+												1017 text 9:00 AM
+												1018 button 9:10 AM
+												1019 text 10min
+												1020 button Session actions for Done history 24 — long title for scroll
+											1021 article
+												1022 text Done history 23 — long title for scroll
+												1023 text Capture Project
+												1024 text Session 01
+												1025 text Oct 17, 2026
+												1026 text 9:00 AM
+												1027 button 9:10 AM
+												1028 text 10min
+												1029 button Session actions for Done history 23 — long title for scroll
+											1030 section header
+												1031 text Oct 16, 2026
+												1032 text 2
+												1033 text 
+												1034 text sessions
+											1035 article
+												1036 text Break
+												1037 text Break
+												1038 text Break
+												1039 text Oct 16, 2026
+												1040 text 10:20 AM
+												1041 button 10:25 AM
+												1042 text 5min
+												1043 button Session actions for Break
+											1044 article
+												1045 text Report sample day 4
+												1046 text Reading & research
+												1047 text Session 01
+												1048 text Oct 16, 2026
+												1049 text 10:00 AM
+												1050 button 10:20 AM
+												1051 text 20min
+												1052 button Session actions for Report sample day 4
+											1053 section header
+												1054 text Oct 13, 2026
+												1055 text 2
+												1056 text 
+												1057 text sessions
+											1058 article
+												1059 text Break
+												1060 text Break
+												1061 text Break
+												1062 text Oct 13, 2026
+												1063 text 10:20 AM
+												1064 button 10:25 AM
+												1065 text 5min
+												1066 button Session actions for Break
+											1067 article
+												1068 text Report sample day 7
+												1069 text Reading & research
+												1070 text Session 01
+												1071 text Oct 13, 2026
+												1072 text 10:00 AM
+												1073 button 10:20 AM
+												1074 text 20min
+												1075 button Session actions for Report sample day 7
+											1076 section header
+												1077 text Oct 10, 2026
+												1078 text 2
+												1079 text 
+												1080 text sessions
+											1081 article
+												1082 text Break
+												1083 text Break
+												1084 text Break
+												1085 text Oct 10, 2026
+												1086 text 10:20 AM
+												1087 button 10:25 AM
+												1088 text 5min
+												1089 button Session actions for Break
+											1090 article
+												1091 text Report sample day 10
+												1092 text Reading & research
+												1093 text Session 01
+												1094 text Oct 10, 2026
+												1095 text 10:00 AM
+												1096 button 10:20 AM
+												1097 text 20min
+												1098 button Session actions for Report sample day 10
+											1099 section header
+												1100 text Oct 07, 2026
+												1101 text 2
+												1102 text 
+												1103 text sessions
+											1104 article
+												1105 text Break
+												1106 text Break
+												1107 text Break
+												1108 text Oct 07, 2026
+												1109 text 10:20 AM
+												1110 button 10:25 AM
+												1111 text 5min
+												1112 button Session actions for Break
+											1113 article
+												1114 text Report sample day 13
+												1115 text Reading & research
+												1116 text Session 01
+												1117 text Oct 07, 2026
+												1118 text 10:00 AM
+												1119 button 10:20 AM
+												1120 text 20min
+												1121 button Session actions for Report sample day 13
+											1122 section header
+												1123 text Oct 04, 2026
+												1124 text 2
+												1125 text 
+												1126 text sessions
+											1127 article
+												1128 text Break
+												1129 text Break
+												1130 text Break
+												1131 text Oct 04, 2026
+												1132 text 10:20 AM
+												1133 button 10:25 AM
+												1134 text 5min
+												1135 button Session actions for Break
+											1136 article
+												1137 text Report sample day 16
+												1138 text Reading & research
+												1139 text Session 01
+												1140 text Oct 04, 2026
+												1141 text 10:00 AM
+												1142 button 10:20 AM
+												1143 text 20min
+												1144 button Session actions for Report sample day 16
+											1145 section header
+												1146 text Oct 01, 2026
+												1147 text 2
+												1148 text 
+												1149 text sessions
+											1150 article
+												1151 text Break
+												1152 text Break
+												1153 text Break
+												1154 text Oct 01, 2026
+												1155 text 10:20 AM
+												1156 button 10:25 AM
+												1157 text 5min
+												1158 button Session actions for Break
+											1159 article
+												1160 text Report sample day 19
+												1161 text Reading & research
+												1162 text Session 01
+												1163 text Oct 01, 2026
+												1164 text 10:00 AM
+												1165 button 10:20 AM
+												1166 text 20min
+												1167 button Session actions for Report sample day 19
+											1168 section header
+												1169 text Sep 28, 2026
+												1170 text 2
+												1171 text 
+												1172 text sessions
+											1173 article
+												1174 text Break
+												1175 text Break
+												1176 text Break
+												1177 text Sep 28, 2026
+												1178 text 10:20 AM
+												1179 button 10:25 AM
+												1180 text 5min
+												1181 button Session actions for Break
+											1182 article
+												1183 text Report sample day 22
+												1184 text Reading & research
+												1185 text Session 01
+												1186 text Sep 28, 2026
+												1187 text 10:00 AM
+												1188 button 10:20 AM
+												1189 text 20min
+												1190 button Session actions for Report sample day 22
+											1191 section header
+												1192 text Sep 25, 2026
+												1193 text 2
+												1194 text 
+												1195 text sessions
+											1196 article
+												1197 text Break
+												1198 text Break
+												1199 text Break
+												1200 text Sep 25, 2026
+												1201 text 10:20 AM
+												1202 button 10:25 AM
+												1203 text 5min
+												1204 button Session actions for Break
+											1205 article
+												1206 text Report sample day 25
+												1207 text Reading & research
+												1208 text Session 01
+												1209 text Sep 25, 2026
+												1210 text 10:00 AM
+												1211 button 10:20 AM
+												1212 text 20min
+												1213 button Session actions for Report sample day 25
+											1280 dialog Capture drag task A Secondary Actions: Raise
+												1281 section header
+													1282 heading Capture drag task A ID: report-task-sessions-title
+													1283 text Capture Project
+													1284 text 1
+													1285 text Sessions
+													1286 text 1min
+													1287 button Close task session detail
+												1288 button + Add Session
+												1289 article
+													1290 text Capture drag task A
+													1291 text Capture Project
+													1292 text Session 01
+													1293 text Oct 24, 2026
+													1294 text 7:27 PM
+													1298 time picker (settable, string) End time for Capture drag task A Value: 19:28
+														1299 spin button (settable, float) Hours End time for Capture drag task A Description: -- Value: 7
+														1300 text :
+														1301 spin button (settable, float) Minutes End time for Capture drag task A Description: -- Value: 28
+														1302 text 
+														1303 spin button (settable, float) AM/PM End time for Capture drag task A Description: -- Value: 2
+														1304 button Show time picker End time for Capture drag task A Description: Show time picker End time for Capture drag task A ID: picker
+													1305 button Save session end time
+													1296 text 1min
+													1297 button Session actions for Capture drag task A
+										128 navigation Primary
+											129 button Home
+											130 button Reports
+								16 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				4 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+BACK
+Reports
++ Add Session
+Export .csv
+Overview
+Sessions BETA
+All Lists
+Hide Break sessions
+Sep 24, 2026 – Oct 24, 2026
+Total Time
+10hr 19min
+Total Tasks
+42
+Total Sessions
+66
+Oct 24, 2026
+5 sessions
+Capture drag task A
+Capture Project
+Session 01
+Oct 24, 2026
+7:27 PM
+7:28 PM
+1min
+Session actions for Capture drag task A
+Break
+Capture Project
+Break
+Oct 24, 2026
+1:26 PM
+1:26 PM
+0min
+Session actions for Break
+Ordinary backlog item
+Capture Project
+Session 02
+Oct 24, 2026
+1:03 PM
+1:26 PM
+0min
+Session actions for Ordinary backlog item
+Break
+Capture Project
+Break
+Oct 24, 2026
+1:03 PM
+1:03 PM
+0min
+Session actions for Break
+Ordinary backlog item
+Capture Project
+Session 01
+Oct 24, 2026
+6:58 AM
+1:03 PM
+2min
+Session actions for Ordinary backlog item
+Oct 23, 2026
+6 sessions
+Capture success OFF task
+Capture Project
+Session 01
+Oct 23, 2026
+6:17 PM
+6:17 PM
+0min
+Session actions for Capture success OFF task
+Scheduled later this week
+Capture Project
+Session 02
+Oct 23, 2026
+6:15 PM
+6:16 PM
+0min
+Session actions for Scheduled later this week
+Break
+Capture Project
+Break
+Oct 23, 2026
+6:15 PM
+6:15 PM
+0min
+Session actions for Break
+Scheduled later this week
+Capture Project
+Session 01
+Oct 23, 2026
+6:13 PM
+6:15 PM
+0min
+Session actions for Scheduled later this week
+Overdue task with age label
+Capture Project
+Session 03
+Oct 23, 2026
+6:06 PM
+7:05 PM
+59min
+Session actions for Overdue task with age label
+Overdue task with age label
+Capture Project
+Session 02
+Oct 23, 2026
+2:07 PM
+2:07 PM
+0min
+Session actions for Overdue task with age label
+Oct 20, 2026
+19 sessions
+Weekly recurring parent
+Capture Project
+Session 02
+Oct 20, 2026
+1:55 PM
+2:07 PM
+0min
+Session actions for Weekly recurring parent
+Break
+Capture Project
+Break
+Oct 20, 2026
+1:50 PM
+1:55 PM
+5min
+Session actions for Break
+Weekly recurring parent
+Capture Project
+Session 01
+Oct 20, 2026
+1:45 PM
+1:50 PM
+5min
+Session actions for Weekly recurring parent
+Third task without estimate
+Capture Project
+Session 04
+Oct 20, 2026
+1:43 PM
+2:43 PM
+1hr
+Session actions for Third task without estimate
+Third task without estimate
+Capture Project
+Session 03
+Oct 20, 2026
+1:35 PM
+2:35 PM
+1hr
+Session actions for Third task without estimate
+Overdue task with age label
+Capture Project
+Session 01
+Oct 20, 2026
+12:54 PM
+1:45 PM
+3min
+Session actions for Overdue task with age label
+Third task without estimate
+Capture Project
+Session 02
+Oct 20, 2026
+12:42 PM
+12:45 PM
+0min
+Session actions for Third task without estimate
+Break
+Capture Project
+Break
+Oct 20, 2026
+12:42 PM
+12:42 PM
+0min
+Session actions for Break
+Third task without estimate
+Capture Project
+Session 01
+Oct 20, 2026
+12:40 PM
+12:42 PM
+2min
+Session actions for Third task without estimate
+Second task — notes and success feedback
+Capture Project
+Session 01
+Oct 20, 2026
+12:38 PM
+12:40 PM
+2min
+Session actions for Second task — notes and success feedback
+Capture live task — long title for compact wrapping and hover actions
+Capture Project
+Session 02
+Oct 20, 2026
+12:37 PM
+12:37 PM
+0min
+Session actions for Capture live task — long title for compact wrapping and hover actions
+Break
+Capture Project
+Break
+Oct 20, 2026
+12:37 PM
+12:37 PM
+1min
+Session actions for Break
+Capture live task — long title for compact wrapping and hover actions
+Capture Project
+Session 01
+Oct 20, 2026
+12:25 PM
+12:37 PM
+5min
+Session actions for Capture live task — long title for compact wrapping and hover actions
+Done history 01 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 01 — long title for scroll
+Done history 03 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 03 — long title for scroll
+Done history 06 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 06 — long title for scroll
+Done history 05 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 05 — long title for scroll
+Done history 02 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 02 — long title for scroll
+Done history 04 — long title for scroll
+Capture Project
+Session 01
+Oct 20, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 04 — long title for scroll
+Oct 19, 2026
+8 sessions
+Break
+Break
+Break
+Oct 19, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 1
+Reading & research
+Session 01
+Oct 19, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 1
+Done history 09 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 09 — long title for scroll
+Done history 07 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 07 — long title for scroll
+Done history 10 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 10 — long title for scroll
+Done history 12 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 12 — long title for scroll
+Done history 11 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 11 — long title for scroll
+Done history 08 — long title for scroll
+Capture Project
+Session 01
+Oct 19, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 08 — long title for scroll
+Oct 18, 2026
+6 sessions
+Done history 13 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 13 — long title for scroll
+Done history 18 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 18 — long title for scroll
+Done history 15 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 15 — long title for scroll
+Done history 16 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 16 — long title for scroll
+Done history 17 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 17 — long title for scroll
+Done history 14 — long title for scroll
+Capture Project
+Session 01
+Oct 18, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 14 — long title for scroll
+Oct 17, 2026
+6 sessions
+Done history 20 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 20 — long title for scroll
+Done history 21 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 21 — long title for scroll
+Done history 22 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 22 — long title for scroll
+Done history 19 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 19 — long title for scroll
+Done history 24 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 24 — long title for scroll
+Done history 23 — long title for scroll
+Capture Project
+Session 01
+Oct 17, 2026
+9:00 AM
+9:10 AM
+10min
+Session actions for Done history 23 — long title for scroll
+Oct 16, 2026
+2 sessions
+Break
+Break
+Break
+Oct 16, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 4
+Reading & research
+Session 01
+Oct 16, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 4
+Oct 13, 2026
+2 sessions
+Break
+Break
+Break
+Oct 13, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 7
+Reading & research
+Session 01
+Oct 13, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 7
+Oct 10, 2026
+2 sessions
+Break
+Break
+Break
+Oct 10, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 10
+Reading & research
+Session 01
+Oct 10, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 10
+Oct 07, 2026
+2 sessions
+Break
+Break
+Break
+Oct 07, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 13
+Reading & research
+Session 01
+Oct 07, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 13
+Oct 04, 2026
+2 sessions
+Break
+Break
+Break
+Oct 04, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 16
+Reading & research
+Session 01
+Oct 04, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 16
+Oct 01, 2026
+2 sessions
+Break
+Break
+Break
+Oct 01, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 19
+Reading & research
+Session 01
+Oct 01, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 19
+Sep 28, 2026
+2 sessions
+Break
+Break
+Break
+Sep 28, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 22
+Reading & research
+Session 01
+Sep 28, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 22
+Sep 25, 2026
+2 sessions
+Break
+Break
+Break
+Sep 25, 2026
+10:20 AM
+10:25 AM
+5min
+Session actions for Break
+Report sample day 25
+Reading & research
+Session 01
+Sep 25, 2026
+10:00 AM
+10:20 AM
+20min
+Session actions for Report sample day 25
+Capture drag task A
+Capture Project
+1 Sessions
+1min
+Close task session detail
++ Add Session
+Capture drag task A
+Capture Project
+Session 01
+Oct 24, 2026
+7:27 PM
+Hours End time for Capture drag task A
+:
+Minutes End time for Capture drag task A 
+AM/PM End time for Capture drag task A
+￼
+Save session end time
+1min
+Session actions for Capture drag task A
+Home
+Reports
+```

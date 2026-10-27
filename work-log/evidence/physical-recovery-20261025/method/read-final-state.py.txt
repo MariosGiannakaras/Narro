@@ -1,0 +1,10 @@
+from pathlib import Path
+import sqlite3,json,datetime
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());p=Path(l['namespaces'][0]['active'])/'narro.db';c=sqlite3.connect(p.as_uri()+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+result={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'syntheticOnly':True,'quickCheck':c.execute('pragma quick_check').fetchone()[0]}
+for t in ['lists','tasks','sessions']:
+ try:
+  cols=[x[1] for x in c.execute('pragma table_info('+t+')')];result[t+'Columns']=cols
+  result[t]=[dict(x) for x in c.execute('select * from '+t) if 'Archived example' in str(tuple(x)) or 'Capture drag task A' in str(tuple(x))]
+ except Exception as e:result[t+'Error']=str(e)
+(r/'synthetic-final-state.json').write_text(json.dumps(result,indent=2));print(json.dumps(result)[:7000])

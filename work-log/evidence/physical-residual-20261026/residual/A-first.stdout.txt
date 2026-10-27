@@ -1,0 +1,1 @@
+SQLite migration and diagnostic startup insert succeeded. ID: 2462a02b-29da-42c1-9a79-bd77fefd70d1

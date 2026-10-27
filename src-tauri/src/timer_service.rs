@@ -15,8 +15,9 @@ use crate::persistence::pomodoro_effects::{
 use crate::persistence::preferences::get_preferences;
 use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
 use crate::persistence::timed_alert_effects::{
-    claim_pending_timed_alerts, observe_timed_alert_run, retire_timed_alert_run, TimedAlertEffect,
-    TimedAlertObservation,
+    claim_pending_timed_alerts, observe_timed_alert_run,
+    reconcile_timed_alert_cursor_after_authoritative_rebase, retire_timed_alert_run,
+    TimedAlertEffect, TimedAlertObservation,
 };
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
@@ -115,21 +116,56 @@ impl TimerService {
         connection: Connection,
         wall_time: &str,
     ) -> Result<Self, TimerServiceRecoverError> {
+        let trace = crate::timer_diagnostics::Scope::enter("recover_at");
+        trace.stage("effects-open");
         let database_path = connection
             .path()
             .filter(|path| !path.is_empty())
             .map(str::to_owned)
             .ok_or(TimerServiceRecoverError::DatabasePathUnavailable)?;
-        let effects_connection =
+        let mut effects_connection =
             Connection::open(database_path).map_err(TimerServiceRecoverError::EffectsConnection)?;
         configure_connection(&effects_connection)
             .map_err(TimerServiceRecoverError::EffectsConfiguration)?;
+        trace.stage("effects-recovery");
         let recovered_awaiting_resume =
             awaiting_resume_for_current_open_work_session(&effects_connection)
                 .map_err(TimerServiceRecoverError::EffectsRecovery)?;
 
         let monotonic_origin = Instant::now();
+        trace.stage("controller-recovery");
         let controller = TimerController::recover(connection, 0, wall_time)?;
+        // The durable alert cursor may have observed more elapsed work than the
+        // last timer checkpoint before a crash/restart. Reconcile its observation
+        // *only for the same persisted session*; keep its next boundary and any
+        // claimed effects so the older alert cannot fire twice.
+        let recovered_timer = controller.snapshot().runtime;
+        if let (Some(task_id), Some(session_id)) = (
+            recovered_timer.timer.task_id,
+            recovered_timer.open_session_id,
+        ) {
+            match reconcile_timed_alert_cursor_after_authoritative_rebase(
+                &mut effects_connection,
+                task_id,
+                session_id,
+                work_elapsed_seconds(&controller.snapshot()),
+                wall_time,
+            ) {
+                Ok(true) => eprintln!(
+                    "Timed-alert cursor reconciled with recovered timer checkpoint; prior notification boundary preserved"
+                ),
+                Ok(false) => {}
+                Err(error) => eprintln!(
+                    "Timed-alert recovery reconciliation failed; original cursor retained: {error}"
+                ),
+            }
+        }
+        trace.stage("construct-locks");
+        crate::timer_diagnostics::milestone(
+            "timer-recovery-completed",
+            "recover_at",
+            "construct-locks",
+        );
         Ok(Self {
             state: Mutex::new(TimerServiceState {
                 controller,
@@ -146,10 +182,13 @@ impl TimerService {
     }
 
     pub fn snapshot(&self) -> CommandResult<TimerSessionPayload> {
+        let trace = crate::timer_diagnostics::Scope::enter("snapshot");
+        trace.stage("lock-state");
         let state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "snapshot"))?;
+        trace.stage("decorate-snapshot");
         decorate_timer_payload(
             &state.effects_connection,
             state.controller.snapshot(),
@@ -163,10 +202,11 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<TimerSessionPayload> {
-        let mut state = self
-            .state
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
+        trace.stage("lock-state");
+        let mut state = self.state.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit")
+        })?;
         let raw_ms = self.raw_now_ms()?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let wall_time = current_wall_time();
@@ -176,6 +216,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("persist-final-checkpoint");
         checkpoint_runtime_before_exit(
             controller,
             effects_connection,
@@ -188,12 +229,14 @@ impl TimerService {
     }
 
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("advance_and_report");
+        trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "advance_and_report"))?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
@@ -202,6 +245,7 @@ impl TimerService {
             ..
         } = &mut *state;
 
+        trace.stage("advance-and-persist-boundary");
         advance_controller_to(
             controller,
             effects_connection,
@@ -210,10 +254,12 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("claim-effects");
         let projection = controller.snapshot();
         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        trace.stage("release-lock");
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
@@ -225,12 +271,14 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_suspend");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "handle_power_suspend"))?;
         if state.clock.is_suspended() {
             return Ok(());
         }
@@ -245,6 +293,7 @@ impl TimerService {
             observed_ms,
             ..
         } = &mut *state;
+        trace.stage("advance-before-suspend");
         advance_controller_to(
             controller,
             effects_connection,
@@ -253,6 +302,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-suspend-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -272,16 +322,19 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         power_tick_ms: u64,
     ) -> CommandResult<()> {
+        let trace = crate::timer_diagnostics::Scope::enter("handle_power_resume");
+        trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "handle_power_resume"))?;
         if !state.clock.is_suspended() {
             return Ok(());
         }
 
+        trace.stage("read-sleep-policy");
         let policy = active_sleep_policy(&state.controller, &state.effects_connection)?;
         let now_ms = state
             .clock
@@ -294,6 +347,7 @@ impl TimerService {
             recovered_awaiting_resume,
             ..
         } = &mut *state;
+        trace.stage("advance-after-resume");
         advance_controller_to(
             controller,
             effects_connection,
@@ -302,6 +356,7 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        trace.stage("persist-resume-checkpoint");
         controller
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
@@ -349,10 +404,9 @@ impl TimerService {
     }
 
     pub fn focus_home_pause_nonce(&self) -> CommandResult<Option<u64>> {
-        let lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "focus_home_pause_nonce")
+        })?;
         Ok(lease.as_ref().map(|current| current.nonce))
     }
 
@@ -360,21 +414,22 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<Option<TimerSessionPayload>> {
+        let trace = crate::timer_diagnostics::Scope::enter("pause_for_focus_home");
+        trace.stage("lock-home-gate");
         // Serialize only Home-pause provenance operations. Do not hold the lease
         // mutex across SQLite, event publication or native notification work.
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "pause_for_focus_home")
+        })?;
         let nonce = self.next_focus_home_pause_nonce()?;
         let existing_lease = {
-            let lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            let lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+            })?;
             *lease
         };
 
+        trace.stage("pause-transaction");
         let payload = self.transition_if(
             app_handle,
             |before| {
@@ -411,10 +466,10 @@ impl TimerService {
             renew_focus_home_pause_lease(existing_lease, &current, nonce)
         };
 
-        let mut lease = self
-            .focus_home_pause_lease
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        trace.stage("persist-pause-provenance");
+        let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_lease", "pause_for_focus_home")
+        })?;
         *lease = next_lease;
         Ok(payload)
     }
@@ -424,15 +479,19 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         expected_nonce: Option<u64>,
     ) -> CommandResult<Option<TimerSessionPayload>> {
-        let _home_pause_gate = self
-            .focus_home_pause_gate
-            .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let trace = crate::timer_diagnostics::Scope::enter("resume_focus_home_pause");
+        trace.stage("lock-home-gate");
+        let _home_pause_gate = self.focus_home_pause_gate.lock().map_err(|_| {
+            crate::timer_diagnostics::poisoned("focus_home_pause_gate", "resume_focus_home_pause")
+        })?;
+        trace.stage("consume-pause-provenance");
         let lease = {
-            let mut lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            let mut lease = self.focus_home_pause_lease.lock().map_err(|_| {
+                crate::timer_diagnostics::poisoned(
+                    "focus_home_pause_lease",
+                    "resume_focus_home_pause",
+                )
+            })?;
             if let (Some(expected), Some(current)) = (expected_nonce, lease.as_ref()) {
                 if current.nonce != expected {
                     return Ok(None);
@@ -444,6 +503,7 @@ impl TimerService {
             return Ok(None);
         };
 
+        trace.stage("resume-transaction");
         self.transition_if(
             app_handle,
             move |before| focus_home_pause_lease_matches(lease, before),
@@ -575,12 +635,15 @@ impl TimerService {
         ) -> Result<TimerSessionPayload, TimerControllerError>,
         P: FnOnce(&TimerSessionPayload) -> bool,
     {
+        let trace = crate::timer_diagnostics::Scope::enter("transition_if");
+        trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
+        trace.stage("lock-state");
         let mut state = self
             .state
             .lock()
-            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            .map_err(|_| crate::timer_diagnostics::poisoned("state", "transition_if"))?;
         let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
@@ -592,6 +655,7 @@ impl TimerService {
 
         // Catch up every automatic boundary first. Decisions are persisted before each due boundary,
         // while events are reported only after the timer/session transition commits.
+        trace.stage("advance-and-persist-boundary");
         advance_controller_to(
             controller,
             effects_connection,
@@ -601,6 +665,7 @@ impl TimerService {
             |payload| report_timer_change(app_handle, payload),
         )?;
 
+        trace.stage("claim-prior-effects");
         let before_transition = controller.snapshot();
         observe_timed_alerts_best_effort(effects_connection, &before_transition, false, &wall_time);
         let mut timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
@@ -613,8 +678,10 @@ impl TimerService {
             return Ok(None);
         }
 
+        trace.stage("apply-authoritative-transition");
         let payload =
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
+        trace.stage("reconcile-after-commit");
         *observed_ms = now_ms;
         *recovered_awaiting_resume &= is_paused_pomodoro_projection(&payload);
         reconcile_timed_alert_transition_best_effort(effects_connection, &payload, &wall_time);
@@ -622,10 +689,17 @@ impl TimerService {
             effects_connection,
             &wall_time,
         ));
+        trace.stage("decorate-after-commit");
         let payload =
             decorate_timer_payload(effects_connection, payload, *recovered_awaiting_resume)?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        trace.stage("publish-after-lock-release");
         drop(state);
+        crate::timer_diagnostics::milestone(
+            "timer-transition-return",
+            "transition_if",
+            "after-lock-release",
+        );
 
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);
@@ -1411,6 +1485,131 @@ mod tests {
         );
         drop(controller);
         drop(effects);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn recovered_timer_checkpoint_rebases_cursor_without_replaying_delivered_alert() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .expect("start authoritative work");
+        controller
+            .pause(91_000, "2026-09-05T12:01:31Z")
+            .expect("checkpoint an authoritative 91-second pause");
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+
+        let observed = |seconds, reset_run| TimedAlertObservation {
+            task_id,
+            seed_run_id: session_id,
+            work_elapsed_seconds: seconds,
+            enabled: true,
+            interval_seconds: 60,
+            reset_run,
+        };
+        observe_timed_alert_run(&mut effects, observed(0, true), T0).unwrap();
+        observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap();
+        let first = claim_pending_timed_alerts(&mut effects, T0).unwrap();
+        assert_eq!(first.len(), 1);
+        assert_eq!(first[0].boundary_seconds, 60);
+
+        drop(effects);
+        drop(controller);
+        let conn = Connection::open(&path).unwrap();
+        let service = TimerService::recover_at(conn, "2026-09-05T12:02:00Z")
+            .expect("recover timer without losing the durable notification watermark");
+        assert_eq!(
+            service.snapshot().unwrap().runtime.timer.work_elapsed_ms,
+            91_000
+        );
+        let mut independent = Connection::open(&path).unwrap();
+        configure_connection(&independent).unwrap();
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(91, false), T0).unwrap(),
+            0,
+            "the recovered cursor must no longer repeatedly reject the checkpoint"
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(119, false), T0).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut independent, observed(120, false), T0).unwrap(),
+            1
+        );
+        let second = claim_pending_timed_alerts(&mut independent, T0).unwrap();
+        assert_eq!(second.len(), 1);
+        assert_eq!(second[0].boundary_seconds, 120);
+        drop(independent);
+        drop(service);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn time_taken_metadata_edit_does_not_rewind_authoritative_alert_cursor() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        initialize_preferences(&mut effects, T0).unwrap();
+        mutate_preferences(&mut effects, "2026-09-05T12:00:01Z", |preferences| {
+            preferences.alerts.timed_alerts_enabled = true;
+            preferences.alerts.task_alert_interval_seconds = 60;
+        })
+        .unwrap();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        controller.pause(95_000, "2026-09-05T12:01:35Z").unwrap();
+        let session_id = controller.snapshot().runtime.open_session_id.unwrap();
+        let observed = |seconds, reset_run| TimedAlertObservation {
+            task_id,
+            seed_run_id: session_id,
+            work_elapsed_seconds: seconds,
+            enabled: true,
+            interval_seconds: 60,
+            reset_run,
+        };
+        observe_timed_alert_run(&mut effects, observed(0, true), T0).unwrap();
+        observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap();
+        assert_eq!(
+            claim_pending_timed_alerts(&mut effects, T0).unwrap().len(),
+            1
+        );
+
+        let rebased = controller
+            .set_time_taken_while_paused(
+                task_id,
+                95,
+                SetTaskTimeTakenInput { total_seconds: 91 },
+                95_000,
+                "2026-09-05T12:01:35Z",
+            )
+            .expect("commit a lower authoritative Time Taken value");
+        assert!(matches!(
+            rebased.change.as_ref(),
+            Some(TimerSessionChange::TimeTakenRebased { .. })
+        ));
+        assert_eq!(
+            rebased.runtime.timer.work_elapsed_ms, 95_000,
+            "editing task-level Time Taken must never rebase authoritative timer elapsed"
+        );
+        assert_eq!(rebased.runtime.open_session_id, Some(session_id));
+        reconcile_timed_alert_transition_best_effort(
+            &mut effects,
+            &rebased,
+            "2026-09-05T12:01:35Z",
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut effects, observed(95, false), T0).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe_timed_alert_run(&mut effects, observed(120, false), T0).unwrap(),
+            1
+        );
+        let next = claim_pending_timed_alerts(&mut effects, T0).unwrap();
+        assert_eq!(next.len(), 1);
+        assert_eq!(next[0].boundary_seconds, 120);
+        drop(effects);
+        drop(controller);
         fs::remove_file(path).unwrap();
     }
 

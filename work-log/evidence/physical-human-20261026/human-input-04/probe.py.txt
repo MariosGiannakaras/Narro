@@ -1,0 +1,17 @@
+from pathlib import Path
+import ctypes as c,ctypes.wintypes as w,json,datetime,sys
+r=Path(__file__).parent;u=c.windll.user32
+u.SetProcessDpiAwarenessContext(c.c_void_p(-4))
+owned=int((r/'owned-app-pid.txt').read_text());rows=[]
+callback=c.WINFUNCTYPE(w.BOOL,w.HWND,w.LPARAM)
+@callback
+def visit(hwnd,_):
+ pid=w.DWORD();u.GetWindowThreadProcessId(hwnd,c.byref(pid))
+ if pid.value!=owned:return True
+ title=c.create_unicode_buffer(512);u.GetWindowTextW(hwnd,title,512)
+ rect=w.RECT();u.GetWindowRect(hwnd,c.byref(rect))
+ rows.append({'hwnd':hwnd,'title':title.value,'visible':bool(u.IsWindowVisible(hwnd)),'minimized':bool(u.IsIconic(hwnd)),'dpi':u.GetDpiForWindow(hwnd),'topmost':bool(u.GetWindowLongW(hwnd,-20)&8),'rect':[rect.left,rect.top,rect.right,rect.bottom]})
+ return True
+u.EnumWindows(visit,0)
+proof={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'pid':owned,'windows':rows,'foregroundHwnd':u.GetForegroundWindow(),'virtualDesktop':{k:u.GetSystemMetrics(i) for k,i in [('x',76),('y',77),('width',78),('height',79)]}}
+(r/(sys.argv[1]+'.json')).write_text(json.dumps(proof,indent=2));print(json.dumps(proof))

@@ -1,0 +1,379 @@
+[
+  {
+    "utc": "2026-10-25T10:40:55.325Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Success sound volume",
+        "text": "",
+        "value": "90",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Success sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Success sound volume",
+          "text": "",
+          "value": "90",
+          "disabled": false,
+          "ariaDisabled": null,
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:55.771Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Adjust Success sound volume",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:56.605Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Close Windows Shortcuts",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:57.727Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "checkbox",
+        "label": null,
+        "text": "",
+        "value": "on",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:57.966Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Close Windows Shortcuts",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:06.844Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "checkbox",
+        "label": null,
+        "text": "",
+        "value": "on",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:07.063Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Close Windows Shortcuts",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:07.628Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "checkbox",
+        "label": null,
+        "text": "",
+        "value": "on",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:07.840Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Close Windows Shortcuts",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "windows-shortcuts-dialog-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:08.283Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Close Preferences",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:15.892Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": null,
+        "text": "Settings",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:16.429Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": null,
+        "text": "Home",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:20.862Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": null,
+        "text": "Edit List",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": -1
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:28.634Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "type": null,
+        "label": null,
+        "text": "\n    + Create new listAll my listsArchived listsSearchSettingsHomeGood afternoon",
+        "ariaDisabled": null,
+        "tabIndex": -1
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:29.191Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": null,
+        "text": "Archived lists",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  },
+  {
+    "utc": "2026-10-25T10:41:35.249Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "DIV",
+        "id": "archive-lists-tabpanel",
+        "type": null,
+        "label": null,
+        "text": "Your archived listsRestore a list to return it to your active workspace. Permane",
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [],
+      "ranges": []
+    }
+  }
+]

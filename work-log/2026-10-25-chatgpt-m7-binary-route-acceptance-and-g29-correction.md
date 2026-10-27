@@ -1,0 +1,26 @@
+# Exact A/B route verdicts and corrective batch — 2026-10-25
+
+**Owner:** ChatGPT source/evidence; user explicitly requested binary adjudication of the already-recorded videos and grouped justified fixes. **No new video acquisition.** Reused frozen originals, 17-case PTS/trace report, 16 individual framesheets and 25 extracted original-source sheets from the completed isolated analysis workflow [40200197836](https://github.com/MariosGiannakaras/Narro/actions/runs/40200197836), including A/B normal Compact→Expanded native Timer ROI. Previous full-original A02 analysis [G28](2026-10-25-chatgpt-g28-continuous-original-dual-display-visual-qpc-crosscheck.md) also reused; no previous success/failure overwritten.
+
+## Binary adjudication — specify which predicate PASS/FAIL refers to
+
+A `PASS` for **recorded functional route** means a matching exact-binary native transaction begins and commits, with observed preserved semantic task/title and correct visible endpoint, no *observed* persistent blank or duplicate title in the reviewed actual 60fps frames. It is **not** a claim that every subframe was seen, that user drag/keyboard/topmost was exercised, or that motion exactly matches original Blitzit.
+
+| Candidate | Normal Panel→Compact | Normal Compact→Expanded (A02) | Normal Expanded→Compact | Normal Compact→Panel | Reduced Panel→Compact | Reduced Compact→Expanded | Reduced Expanded→Compact | Reduced Compact→Panel | Route predicate |
+|---|---|---|---|---|---|---|---|---|---|
+| A PR389 `ec9227a2` / EXE `08a7e1d6` | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | **8/8 PASS recorded functional routes** |
+| B PR419 `43adb6a9` / EXE `8436d89b` | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | **8/8 PASS recorded functional routes** |
+
+**Strict full-candidate physical-before-merge gate: FAIL (acceptance not satisfied) for A and FAIL for B at this checkpoint.** This is a binary **gate verdict**, **not** a claim that 16 visually observed routes malfunctioned. The same frozen evidence cannot resolve all required temporal DWM/present ordering, pixel-exact first mixed-frame absence, affected real drag/focus/keyboard/topmost, and full parity. B additionally depends on unmerged A. No fresh original-video pixel or runtime event proves a **new** ghosting code defect. The historical A02 duplicate-title FAIL is a real previous-build occurrence; it is not a FAIL reproduced on this exact A/B. Do not invent remedial compositor code solely from an unmet proof gate.
+
+**Audio T-1:** single claimed recovered 391→691 alarm and visibly transient task-outline flash plus non-silent loopback: PASS for those **scoped** facts; exact human-audible sound identity/fidelity is NOT TESTED and cannot be assigned product PASS or FAIL from these pixels/wave amplitudes. **Legacy first-B timer-lock**: user-visible symptom FAIL on old B process; first fault cause unknown, not reproduced in subsequent current-main session; do not claim remedied.
+
+## Confirmed code issue that can be corrected now — G29
+
+Native G29 actual original record showed a manual 5-minute Break initiated while the authoritative Pomodoro work was PAUSED, yet the natural expiry switched work to RUNNING without a user Resume. Current `src-tauri/src/timer/mod.rs` previously stored the original work phase only as `paused_variant()` and then unconditionally invoked `running_variant()` for manual-break completion. This is an **observed state mismatch / user-agency defect**, unlike uncertain A02 compositor causality.
+
+[PR427](https://github.com/MariosGiannakaras/Narro/pull/427) on existing main-source branch `fix/timer-manual-break-pause-20261025` implements the bounded Narro-local policy: a manual Break from **RUNNING** returns to RUNNING, from **PAUSED** returns to PAUSED, automatic Pomodoro Break still pauses, Skip still pauses, and no Break duration counts as work. The timer's pre-break resume intent is durably checkpointed as an optional field in version-1 JSON; legacy missing field preserves historical behavior to avoid arbitrary reinterpretation of prior persisted sessions. Regression tests cover natural late expiry, Finish/Skip from paused, restart at mid-break and legacy decoding. No SQLite schema migration, no arbitrary UI changes. **Exact candidate head `46df290aca8412ae5e3ed280a15859c68d828f22`; run `40226197166` was in progress on initial observation.** CI / merge / resulting-main / real Windows acceptance must be recorded separately from source implementation.
+
+Other observed issues already corrected and merged (N28, N36, timed-alert stale cursor) are not patched twice. Original-B mutex poison remains a proven symptom with no recorded initial panic, so a guessed mutex reset or speculative source change would be unsafe. M1–M4 **4/10 accepted** unchanged; M10 gated, optional M11/M12 inactive.
+
+**Single next operation:** inspect exact-head PR427 Windows CI completion; on failure inspect first failing job, correct same PR with causal regression; on 3/3 success use guarded merge and verify resulting main. Independent physical operator must accept or reject only the remaining explicit strict M7 criteria using existing exact-source videos and narrowly missing physical proof. 

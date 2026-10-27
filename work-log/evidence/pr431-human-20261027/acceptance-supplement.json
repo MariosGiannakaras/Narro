@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-27T15:26:04.452733+00:00",
+  "candidateSource": "6dce8daa27e386823abb704d31a8ffa2a7b004de",
+  "fullCaseAggregate": {
+    "scopedPass": 3,
+    "partial": 8,
+    "fail": 1,
+    "notRun": 0
+  },
+  "changedCases": {
+    "P431-08": "PARTIAL full; real drag/mode/main position subclaims PASS",
+    "P431-09": "PARTIAL; OFF/ON core tray restart PASS; hidden-toggle NOT RUN",
+    "P431-10": "FAIL unavailable selected monitor blocks hidden Timer with MONITOR_SELECTION_STALE; reconnect scoped PASS"
+  },
+  "remainingCases": "Use preceding pr431-native-20261027/acceptance-matrix.json unchanged",
+  "newConfirmedDefects": 1,
+  "codeChanges": false
+}

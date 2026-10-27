@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-25T10:43:00.476973+00:00",
+  "syntheticOnly": true,
+  "sessions": [
+    {
+      "id": "8ce2eb6e-dd51-49ef-8175-1daabf9a0908",
+      "task_id": "f2313b50-977b-46c9-9db2-f5aa1840ccb3",
+      "kind": "work",
+      "started_at": "2026-10-24T19:27:00.000Z",
+      "ended_at": "2026-10-24T19:29:00.000Z",
+      "duration_seconds": 120,
+      "source": "edit",
+      "created_at": "2026-10-24T19:29:05.255368500+00:00",
+      "updated_at": "2026-10-25T10:42:31.413445+00:00",
+      "sleep_accounting_policy": "exclude"
+    }
+  ]
+}

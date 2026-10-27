@@ -1,0 +1,4616 @@
+{
+  "kind": "narro-p09-p11-dom-delivery-only",
+  "startedUtc": "2026-10-26T17:51:46.183Z",
+  "requested": [
+    "main"
+  ],
+  "limitations": [
+    "DOM capture cannot prove an OS scan code was delivered if WebView2 consumes it first",
+    "DOM pointer callbacks do not prove a Win32 held-button state or a native move loop",
+    "Native WebView2 Find and actual HWND movement require separate original video/HWND evidence"
+  ],
+  "observations": [
+    {
+      "utc": "2026-10-26T17:51:46.195Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:46.412Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:46.620Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:46.828Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:47.036Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:47.241Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:47.448Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:47.655Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:47.860Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:48.066Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:48.272Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:48.476Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:48.683Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:48.889Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:49.095Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:49.302Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:49.506Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:49.712Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:49.919Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:50.126Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:50.332Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:50.538Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:50.747Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:50.953Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:51.159Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:51.365Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:51.571Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:51.779Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:51.985Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:52.190Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:52.396Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:52.601Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:52.806Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:53.012Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:53.219Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:53.425Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:53.632Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:53.837Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:54.041Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:54.249Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:54.453Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:54.660Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:54.873Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:55.074Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:55.279Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:55.486Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:55.690Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:55.897Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:56.104Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:56.311Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:56.517Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:56.722Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:56.929Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:57.136Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:57.341Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:57.546Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:57.750Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:57.956Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:58.163Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:58.370Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:58.577Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:58.783Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:58.988Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:59.195Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:59.399Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:59.606Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:51:59.810Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:00.015Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:00.220Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:00.425Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:00.634Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:00.837Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:01.043Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:01.249Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:01.453Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:01.659Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:01.862Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:02.066Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:02.273Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:02.479Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:02.684Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:02.888Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:03.093Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:03.296Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:03.505Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:03.712Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:03.915Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:04.120Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:04.326Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:04.532Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:04.736Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:04.943Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:05.149Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:05.355Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:05.562Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:05.767Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:05.972Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:06.176Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:06.381Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:06.585Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:06.793Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:06.999Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:07.205Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:07.412Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:07.616Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:07.822Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:08.026Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:08.232Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:08.438Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:08.645Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:08.849Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:09.056Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:09.261Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:09.466Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:09.671Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:09.876Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:10.085Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:10.290Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:10.496Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:10.702Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:10.909Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:11.115Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:11.319Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:11.523Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:11.729Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:11.934Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:12.141Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:12.348Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:12.552Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:12.757Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:12.961Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:13.167Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:13.374Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:13.578Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:13.784Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:13.990Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:14.197Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:14.404Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:14.611Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:14.815Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:15.020Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:15.225Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:15.429Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:15.636Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:15.839Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:16.044Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:16.249Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:16.456Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:16.662Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:16.866Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:17.074Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:17.281Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:17.490Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:17.697Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:17.905Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:18.107Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:18.313Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:18.520Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:18.728Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:18.934Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:19.138Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:19.344Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:19.551Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:19.757Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:19.964Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:20.169Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:20.376Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:20.581Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:20.787Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:20.993Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:21.198Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:21.402Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:21.608Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:21.816Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:22.020Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:22.225Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:22.430Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:22.635Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:22.841Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:23.047Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:23.254Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:23.459Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:23.664Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:23.872Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:24.078Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:24.284Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:24.488Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:24.695Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:24.902Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:25.109Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:25.314Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:25.519Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:25.725Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:25.934Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:26.141Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:26.348Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:26.553Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:26.757Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:26.962Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:27.169Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:27.375Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:27.579Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:27.786Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:27.990Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:28.197Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:28.405Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:28.610Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:28.816Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:29.022Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:29.228Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:29.433Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:29.637Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:29.842Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:30.047Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:30.252Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:30.460Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:30.667Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:30.872Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    },
+    {
+      "utc": "2026-10-26T17:52:31.078Z",
+      "window": "main",
+      "events": [],
+      "dropped": 0,
+      "state": {
+        "path": "/",
+        "ready": "complete",
+        "focused": false,
+        "visibility": "visible",
+        "modal": false,
+        "activeEditable": false,
+        "timerPresent": false,
+        "timerRect": null,
+        "screenPosition": [
+          138,
+          161
+        ],
+        "compactActions": null
+      }
+    }
+  ],
+  "warnings": [],
+  "finishedUtc": "2026-10-26T17:52:31.282Z",
+  "interrupted": false
+}

@@ -1,0 +1,7 @@
+{"utc":"2026-10-26T18:21:48.790Z","action":"H01-clean-focused-before-cue","window":5178542}
+{"utc":"2026-10-26T18:22:35.274Z","action":"H01-after-human-CtrlF","window":5178542}
+{"utc":"2026-10-26T18:23:14.839Z","action":"H02-clean-before-cue","window":5178542}
+{"utc":"2026-10-26T18:24:00.473Z","action":"H02-after-human-CtrlAltT","window":5178542}
+{"utc":"2026-10-26T18:24:21.920Z","action":"H02-cancelled-empty-form","window":5178542}
+{"utc":"2026-10-26T18:25:10.236Z","action":"H03-compact-before-physical-drag","window":4393696}
+{"utc":"2026-10-26T18:28:18.809Z","action":"H03-after-human-drag","window":4393696}

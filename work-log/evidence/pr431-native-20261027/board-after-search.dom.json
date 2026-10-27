@@ -1,0 +1,196 @@
+{
+  "utc": "2026-10-27T14:18:38.188Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    Ordinary backlog item-00:00:04BreakStart breakNotesNotesResumeResumeSkipSkip taskDoneComplete t"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Return to Focus Panel",
+          "text": "Focus"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Ordinary backlog item",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Collapse Floating Timer",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Reopen subtask: Physical acceptance first subtask",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit subtask: Physical acceptance first subtask",
+          "text": "Physical acceptance first subtask"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete subtask: Physical acceptance first subtask",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    + Create new listAll my listsArchived listsSearchSettingsReorder an unscheduled task with Alt p"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Planning list",
+          "text": "CCapture Project"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add task to top of Backlog",
+          "text": "+ ADD TO TOP"
+        },
+        {
+          "tag": "DIV",
+          "label": null,
+          "text": "1Capture drag task BSubtasksNotesMove task one lane rightSchedule"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task: Capture drag task B",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit task title: Capture drag task B",
+          "text": "Capture drag task B"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Subtasks",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Move task one lane right",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Task actions",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Schedule / Repeat"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit Est: —",
+          "text": "Est: —"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit Taken: 0m",
+          "text": "Taken: 0m"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Expand notes for Capture drag task B",
+          "text": "Add notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Expand subtasks for Capture drag task B",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit task title: Weekly recurring parent",
+          "text": "Weekly recurring parent"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Subtasks",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "source-identical-post-merge-ci-request",
+  "createdDate": "2026-10-25",
+  "owner": "ChatGPT pre-physical G16 regression coverage",
+  "scope": "documentation/evidence only, no application production change",
+  "pullRequest": 424,
+  "pullRequestHead": "7748d601bd9dd7958a848fbe95fb08bd8d9d897f",
+  "pullRequestCi": {
+    "runId": 40174976404,
+    "validation": "PASS",
+    "fast": "PASS",
+    "windowsCandidate": "PASS"
+  },
+  "guardedMergeSha": "ea0ac74130be2bbf47b8a4a42ab1385ebe5a9c53",
+  "sourceBlobs": {
+    "src/themeSettingsVisualFixture.tsx": "92436a581210f20c7edd027e4d5932d569a4b0d0",
+    "scripts/validate-theme-settings-captures.mjs": "e4657d8366098db5a253ba0b1944e362d5072369"
+  },
+  "why": "Initial squash merge contained the literal [skip ci] token in an incorporated prior commit subject; no workflow run exists at the exact merge SHA. An evidence-only JSON change to main triggers the normal source-identical post-merge Windows CI workflow without changing production source.",
+  "resultingMainCiAtRequest": "NOT RUN",
+  "physicalWindowsAcceptance": "NOT RUN",
+  "remainingTimerRootCause": "OPEN",
+  "strictM7AAndBPhysicalBeforeMerge": "OPEN"
+}

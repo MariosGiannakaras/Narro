@@ -1,0 +1,215 @@
+Files Processed:
+	E:\SystemFiles\Desktop\Narro-Workspace\Narro-Physical-20261026-Residual\A-dwm-provider.etl
+Total Buffers Processed 2331
+Total Events  Processed 1325164
+Total Events  Lost      0
+Start Time              , 26  2026
+End Time                , 26  2026
+Elapsed Time            57 sec
++-------------------------------------------------------------------------------------------------------------------------+
+|Event Count   Event Name           Task            Opcode          Version         Guid                                  |
++-------------------------------------------------------------------------------------------------------------------------+
+|          1   EventTrace           0               PartitionInfoExtension 2               {68fdd900-4a3e-11d1-84f4-0000f80464e3}|
+|          1   EventTrace           0               Header          2               {68fdd900-4a3e-11d1-84f4-0000f80464e3}|
+|         33   Microsoft-Windows-Dwm-Core  53              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|          1   Microsoft-Windows-Dwm-Core  101             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|          1   Microsoft-Windows-Dwm-Core  101             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        120   Microsoft-Windows-Dwm-Core  30              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  137             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  138             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  138             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  137             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         12   Microsoft-Windows-Dwm-Core  27              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         12   Microsoft-Windows-Dwm-Core  27              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         45   Microsoft-Windows-Dwm-Core  54              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         71   Microsoft-Windows-Dwm-Core  22              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         33   Microsoft-Windows-Dwm-Core  50              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         34   Microsoft-Windows-Dwm-Core  49              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        132   Microsoft-Windows-Dwm-Core  298             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       2370   Microsoft-Windows-Dwm-Core  81              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        148   Microsoft-Windows-Dwm-Core  127             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        188   Microsoft-Windows-Dwm-Core  236             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        817   Microsoft-Windows-Dwm-Core  34              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  9               Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  10              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  10              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  2               Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  231             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  230             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  229             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  228             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  226             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  2               Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  4               Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  11              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  11              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  13              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  37              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  235             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  89              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  147             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  147             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  304             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  147             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  37              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  13              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  5               Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  12              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  114             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  36              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      16426   Microsoft-Windows-Dwm-Core  32              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      28056   Microsoft-Windows-Dwm-Core  116             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|     186372   Microsoft-Windows-Dwm-Core  243             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|     214428   Microsoft-Windows-Dwm-Core  115             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      72538   Microsoft-Windows-Dwm-Core  32              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      72538   Microsoft-Windows-Dwm-Core  32              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  128             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  28              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  135             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  135             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  36              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  114             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  146             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  29              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      56112   Microsoft-Windows-Dwm-Core  29              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  29              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  146             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  35              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      33645   Microsoft-Windows-Dwm-Core  244             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  35              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  232             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  232             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  67              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  67              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  125             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  125             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  39              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      34427   Microsoft-Windows-Dwm-Core  283             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  39              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  126             Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  126             Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  38              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  63              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  38              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  34              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  272             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  34              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  12              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  219             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  11              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  109             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  66              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      16426   Microsoft-Windows-Dwm-Core  3               Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  132             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  15              Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  86              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  85              Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  134             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  133             Info            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  15              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  66              Start           0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  9               Stop            0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
++-------------------------------------------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------+
+|Event Count   Event Name           Event ID        Version         Guid                                  |
++---------------------------------------------------------------------------------------------------------+
+|          2   EventTrace           0               2               {68fdd900-4a3e-11d1-84f4-0000f80464e3}|
+|      16426   Microsoft-Windows-Dwm-Core  1               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  2               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  6               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  7               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  8               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  9               0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  10              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  11              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  12              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  13              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  14              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  15              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  16              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  19              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  21              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         71   Microsoft-Windows-Dwm-Core  33              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         12   Microsoft-Windows-Dwm-Core  40              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         12   Microsoft-Windows-Dwm-Core  41              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  42              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  43              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      56112   Microsoft-Windows-Dwm-Core  44              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  45              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        120   Microsoft-Windows-Dwm-Core  46              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      72538   Microsoft-Windows-Dwm-Core  49              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      16426   Microsoft-Windows-Dwm-Core  50              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      72538   Microsoft-Windows-Dwm-Core  51              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  54              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        817   Microsoft-Windows-Dwm-Core  55              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  56              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  57              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  58              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  59              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  60              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  61              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  62              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  63              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  64              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  65              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  66              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  68              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  79              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  80              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         34   Microsoft-Windows-Dwm-Core  83              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         33   Microsoft-Windows-Dwm-Core  84              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         33   Microsoft-Windows-Dwm-Core  87              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         45   Microsoft-Windows-Dwm-Core  88              0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  110             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  111             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  112             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  113             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  114             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       2370   Microsoft-Windows-Dwm-Core  133             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  137             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  138             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  141             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|          1   Microsoft-Windows-Dwm-Core  153             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|          1   Microsoft-Windows-Dwm-Core  154             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  169             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  180             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      14028   Microsoft-Windows-Dwm-Core  181             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|     214428   Microsoft-Windows-Dwm-Core  182             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      28056   Microsoft-Windows-Dwm-Core  183             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  192             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  193             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  194             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  195             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        148   Microsoft-Windows-Dwm-Core  196             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  197             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  202             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  203             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  204             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  205             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  206             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  208             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  209             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  210             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|         55   Microsoft-Windows-Dwm-Core  211             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  221             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  222             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  223             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  224             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  225             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  303             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  311             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  313             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  314             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  315             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  316             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  317             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  318             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  322             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        188   Microsoft-Windows-Dwm-Core  323             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|     186372   Microsoft-Windows-Dwm-Core  333             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      33645   Microsoft-Windows-Dwm-Core  334             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  371             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|      34427   Microsoft-Windows-Dwm-Core  385             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|        132   Microsoft-Windows-Dwm-Core  405             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
+|       8213   Microsoft-Windows-Dwm-Core  414             0               {9e9bba3c-2e38-40cb-99f4-9e8281425164}|
++---------------------------------------------------------------------------------------------------------+

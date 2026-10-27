@@ -1,0 +1,153 @@
+[
+  {
+    "utc": "2026-10-25T10:40:04.167Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Notification sound volume",
+        "text": "",
+        "value": "95",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Notification sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Notification sound volume",
+          "text": "",
+          "value": "95",
+          "disabled": false,
+          "ariaDisabled": null,
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:10.072Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Notification sound volume",
+        "text": "",
+        "value": "90",
+        "disabled": false,
+        "ariaDisabled": "true",
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Notification sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Notification sound volume",
+          "text": "",
+          "value": "90",
+          "disabled": false,
+          "ariaDisabled": "true",
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:15.643Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "type": "range",
+        "label": "Notification sound volume",
+        "text": "",
+        "value": "95",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        },
+        {
+          "label": "Notification sound volume adjustment",
+          "labelledby": null,
+          "containsFocus": true
+        }
+      ],
+      "ranges": [
+        {
+          "tag": "INPUT",
+          "id": "",
+          "type": "range",
+          "label": "Notification sound volume",
+          "text": "",
+          "value": "95",
+          "disabled": false,
+          "ariaDisabled": null,
+          "tabIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "utc": "2026-10-25T10:40:23.020Z",
+    "target": "28869ACC282CA9F1EE4F3E1525ED5343",
+    "result": {
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "type": "button",
+        "label": "Adjust Notification sound volume",
+        "text": "",
+        "value": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "tabIndex": 0
+      },
+      "dialogs": [
+        {
+          "label": null,
+          "labelledby": "theme-settings-title",
+          "containsFocus": true
+        }
+      ],
+      "ranges": []
+    }
+  }
+]

@@ -1,0 +1,5 @@
+from pathlib import Path
+import json,sqlite3,shutil
+r=Path(__file__).parent;l=json.loads((r/'profile-protection-private.json').read_text());old=json.loads((r.parent/'Narro-Physical-20261024-Gap-Restart/profile-protection-private.json').read_text());a=Path(old['namespaces'][0]['retainedPostfix']);b=Path(l['namespaces'][0]['active']);s=sqlite3.connect((a/'narro.db').as_uri()+'?mode=ro',uri=True);t=sqlite3.connect(b/'narro.db');s.backup(t);print('quick_check',t.execute('pragma quick_check').fetchone()[0]);print('tables',[x[0] for x in t.execute("select name from sqlite_master where type='table'")]);s.close();t.close()
+if (a/'list-icons').exists():shutil.copytree(a/'list-icons',b/'list-icons')
+(r/'seed-proof.json').write_text(json.dumps({'fixtureOnly':True,'originSession':'Narro-Physical-20261024-Gap-Restart','sqliteQuickCheck':'ok'}))

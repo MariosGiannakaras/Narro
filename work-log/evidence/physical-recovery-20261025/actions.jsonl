@@ -1,0 +1,50 @@
+{"utc":"2026-10-25T10:34:41.760Z","action":"First PID maximize"}
+{"utc":"2026-10-25T10:34:55.466Z","action":"First PID Preferences before Screen2 to Board reproduction"}
+{"utc":"2026-10-25T10:35:08.187Z","action":"First PID Screen2 selection same failing historical path"}
+{"utc":"2026-10-25T10:35:08.710Z","action":"First PID reveal Project Open"}
+{"utc":"2026-10-25T10:35:09.061Z","action":"First PID open Board after display selection"}
+{"utc":"2026-10-25T10:36:05.242Z","action":"G13-G16 shared Preferences"}
+{"utc":"2026-10-25T10:39:26.635Z","action":"G13 open task volume"}
+{"utc":"2026-10-25T10:39:41.730Z","action":"G13 focus range under held synthetic database lock"}
+{"utc":"2026-10-25T10:39:41.946Z","action":"G13 Down on focused range during pending save"}
+{"utc":"2026-10-25T10:39:58.819Z","action":"G14 open notification volume"}
+{"utc":"2026-10-25T10:40:09.418Z","action":"G14 focus notification range under synthetic lock"}
+{"utc":"2026-10-25T10:40:09.942Z","action":"G14 notification Down pending save"}
+{"utc":"2026-10-25T10:40:23.775Z","action":"Scroll to success and shortcuts"}
+{"utc":"2026-10-25T10:40:30.970Z","action":"G15 open success volume"}
+{"utc":"2026-10-25T10:40:38.177Z","action":"G15 focus success range under synthetic lock"}
+{"utc":"2026-10-25T10:40:38.623Z","action":"G15 success Down pending save"}
+{"utc":"2026-10-25T10:40:56.232Z","action":"G16 View shortcuts native"}
+{"utc":"2026-10-25T10:40:57.641Z","action":"G16 forward Tab wrap"}
+{"utc":"2026-10-25T10:40:57.879Z","action":"G16 reverse Tab wrap"}
+{"utc":"2026-10-25T10:41:06.761Z","action":"G16 Tab 1"}
+{"utc":"2026-10-25T10:41:06.854Z","action":"G16 Tab 2"}
+{"utc":"2026-10-25T10:41:06.946Z","action":"G16 Tab 3"}
+{"utc":"2026-10-25T10:41:07.048Z","action":"G16 Tab 4"}
+{"utc":"2026-10-25T10:41:07.539Z","action":"G16 ShiftTab 1"}
+{"utc":"2026-10-25T10:41:07.638Z","action":"G16 ShiftTab 2"}
+{"utc":"2026-10-25T10:41:07.737Z","action":"G16 ShiftTab 3"}
+{"utc":"2026-10-25T10:41:07.832Z","action":"G16 ShiftTab 4"}
+{"utc":"2026-10-25T10:41:08.257Z","action":"G16 Escape closes shortcuts"}
+{"utc":"2026-10-25T10:41:16.158Z","action":"G07 Home lists"}
+{"utc":"2026-10-25T10:41:20.678Z","action":"G07 Archived example menu"}
+{"utc":"2026-10-25T10:41:28.430Z","action":"G07 forward Archive List"}
+{"utc":"2026-10-25T10:41:29.085Z","action":"G07 open Archived lists"}
+{"utc":"2026-10-25T10:41:35.105Z","action":"G07 reveal archived list actions"}
+{"utc":"2026-10-25T10:41:39.155Z","action":"G07 Unarchive Archived example"}
+{"utc":"2026-10-25T10:41:39.500Z","action":"G07 return Home restored"}
+{"utc":"2026-10-25T10:41:40.086Z","action":"G20 Reports"}
+{"utc":"2026-10-25T10:41:45.737Z","action":"G20 Sessions tab"}
+{"utc":"2026-10-25T10:41:53.040Z","action":"G20 edit Capture drag task A session menu"}
+{"utc":"2026-10-25T10:41:57.702Z","action":"G20 Edit existing session"}
+{"utc":"2026-10-25T10:42:03.171Z","action":"G20 End time editor"}
+{"utc":"2026-10-25T10:42:11.108Z","action":"G20 select hour segment 08PM"}
+{"utc":"2026-10-25T10:42:11.778Z","action":"G20 select minute segment 28"}
+{"utc":"2026-10-25T10:42:25.724Z","action":"G20 keyboard Home Down Right Up on native time input"}
+{"utc":"2026-10-25T10:42:31.290Z","action":"G20 save verified19:29 end for19:27 start"}
+{"utc":"2026-10-25T10:42:32.208Z","action":"G20 close task sessions"}
+{"utc":"2026-10-25T10:43:21.787Z","action":"G16 focused-child disambiguation Settings"}
+{"utc":"2026-10-25T10:43:29.321Z","action":"G16 distinct-child capture open"}
+{"utc":"2026-10-25T10:43:29.564Z","action":"G16 detailed reverse first to last"}
+{"utc":"2026-10-25T10:43:35.228Z","action":"G16 detailed forward last to first"}
+{"utc":"2026-10-25T10:43:42.946Z","action":"G16 detailed Escape return"}

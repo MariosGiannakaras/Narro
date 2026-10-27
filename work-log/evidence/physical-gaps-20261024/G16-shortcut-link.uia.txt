@@ -1,0 +1,264 @@
+Window: "Narro", App: narro-m7-validation.exe.
+	0 window Narro Secondary Actions: Raise
+		1 pane
+			8 pane Narro
+				9 pane (disabled)
+				10 region Narro - Web content
+					11 region
+						12 region
+							13 region
+								14 region
+								15 region
+									16 region
+										17 region
+											18 region
+												19 region
+												20 document Narro Value: http://tauri.localhost/ ID: RootWebArea
+													21 group ID: root
+														22 complementary List navigation
+															23 graphic Narro
+															24 navigation Lists
+																25 button + Create new list
+																26 button All my lists
+																27 button Archived lists
+														28 section header
+															29 group Utilities
+																30 button Search
+																31 button Settings
+														32 main ID: main-content
+															2203 region Archived items
+																2204 section header
+																	2205 text ARCHIVE
+																	2206 heading Archived items ID: archive-panel-title
+																2207 tab Archive sections
+																	2208 tab item (selectable) Archived lists ID: archive-lists-tab
+																	2209 tab item (selectable) Archived done tasks ID: archive-done-tab
+																2210 tab panel Archived lists ID: archive-lists-tabpanel
+																	2211 region Archived lists
+																		2212 text Your archived lists
+																		2225 text No archived lists found
+																		2226 text Looks like you do not have any archived lists at this moment.
+														116 navigation Primary
+															117 button Home
+															118 button Reports
+														2227 dialog Preferences Secondary Actions: Raise
+															2228 button Close Preferences
+															2229 region Preferences
+																2230 section header
+																	2231 heading Preferences ID: theme-settings-title
+																	2232 text Manage Narro's local Windows appearance and shortcuts.
+																2247 region Blitz Panel
+																	2248 heading Blitz Panel ID: preferences-blitz-panel-title
+																	2249 button Refresh displays
+																	2250 text Monitor
+																	2251 text Choose which Windows work area owns the Focus Panel.
+																	2252 group Focus Panel monitor
+																		2253 toggle button Automatic Primary display
+																			2254 text Automatic
+																			2255 text Primary display
+																		2256 toggle button Screen 1: \\.\DISPLAY1 · 2560×1080 · 100%
+																			2257 text Screen
+																			2258 text 1
+																			2259 text \\.\DISPLAY1
+																	2260 text Panel side
+																	2261 text Anchor the Focus Panel to the selected monitor's work-area edge.
+																	2262 group Blitz Panel Side
+																		2263 toggle button Left
+																		2264 toggle button Right
+																2235 region General
+																	2236 heading General ID: theme-general-title
+																	2237 text Theme
+																	2238 text System follows your current Windows light or dark preference.
+																	2239 group Theme
+																		2240 toggle button System theme — Follow your Windows color mode
+																		2241 toggle button Dark theme — Use Narro's dark surfaces
+																		2242 toggle button Light theme — Use Narro's light surfaces
+																	2265 text Start with Windows
+																	2266 text Start Narro automatically when Windows starts.
+																	2267 switch (settable, string) Start Narro with Windows
+																	2268 text Hide EST / Time Taken
+																	2269 text Keep task timing quieter until you hover or focus a task.
+																	2270 switch (settable, string) Hide task EST and Time Taken
+																	2271 text Auto-parse EST from title
+																	2272 text Recognize a supported estimate suffix when creating a task.
+																	2273 switch (settable, string) Auto-parse EST from task title
+																2274 region Time
+																	2275 heading Time ID: theme-time-title
+																	2276 text Timezone
+																	2277 text Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+																	2278 combo box (settable, string) Display timezone Value: (GMT+00:00) Africa/Abidjan
+																2279 region Blitz mode settings
+																	2280 heading Blitz mode settings ID: preferences-blitz-mode-title
+																	2281 text Pomodoros
+																	2282 text Use sprint and break durations instead of task EST for new Focus starts.
+																	2283 switch (settable, string) Enable Pomodoros
+																	2284 text Work sprint
+																	2285 text Length of each Pomodoro work interval.
+																	2286 combo box (settable, string) Pomodoro work sprint Value: 5 mins
+																	2287 text Pomodoro break
+																	2288 text Automatic break length after a completed sprint.
+																	2289 combo box (settable, string) Pomodoro break duration Value: 5 mins
+																	2290 text Default break length
+																	2291 text Used by Start Break in Focus and the in-app shortcut.
+																	2292 combo box (settable, string) Default manual break duration Value: 10 mins
+																	2293 text Scrolling title on live timer
+																	2294 text Scroll long live-task titles instead of keeping them truncated.
+																	2295 switch (settable, string) Scrolling title on live timer
+																2296 region Alerts
+																	2297 heading Alerts ID: preferences-alerts-title
+																	2298 text Timed alerts during a task
+																	2299 text Enable periodic local reminders while focused.
+																	2300 switch (settable, string) Timed task alerts
+																	2301 text Task alert interval
+																	2302 text How often a timed task alert may occur.
+																	2303 combo box (settable, string) Task alert interval Value: 5 mins
+																	2304 text Task alert sound
+																	2305 text Choose a bundled local Narro sound. Starting another preview stops the current one.
+																	2306 button Adjust Task alert volume
+																	2307 button Preview Melodic Bell Description: Preview sound
+																	2308 combo box (settable, string) Task alert sound Value: Melodic Bell
+																	2309 text Animated flash on timer
+																	2310 text Briefly highlight the active task and timer when a timed alert occurs.
+																	2311 switch (settable, string) Animated timer flash
+																	2312 text Notification alerts
+																	2313 text Allow local Windows notification alerts for relevant timer events.
+																	2314 switch (settable, string) Notification alerts
+																	2315 text Notification sound
+																	2316 text Choose the bundled local sound used by notification-alert preferences.
+																	2317 button Adjust Notification sound volume
+																	2318 button Preview Futuristic Ding Description: Preview sound
+																	2319 combo box (settable, string) Notification sound Value: Futuristic Ding
+																	2320 text Schedule reminders
+																	2321 text Enable local reminders for scheduled tasks.
+																	2322 switch (settable, string) Schedule reminders
+																2323 region Celebrate task completion
+																	2324 heading Celebrate task completion ID: preferences-celebration-title
+																	2325 text Show success screen
+																	2326 text Show a completion message with options for what to do next.
+																	2327 switch (settable, string) Show success screen
+																	2328 text Success sound effect
+																	2329 text Control the bundled completion sound independently of the success screen.
+																	2330 button Adjust Success sound volume
+																	2331 button Preview Victory Bell Description: Preview sound
+																	2332 combo box (settable, string) Success sound Value: Victory Bell
+																	2333 switch (settable, string) Success sound effect
+																2243 region Shortcuts
+																	2244 heading Shortcuts ID: theme-shortcuts-title
+																	2245 button View shortcuts
+																	2246 text Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+								119 region
+						120 region
+						121 region
+		2 title bar (settable, string) Value: Narro
+			3 menu bar System ID: MenuBar
+				808 menu item System
+			5 button Minimize
+			6 button Restore
+			7 button Close
+
+Document text: ```
+￼
++ Create new list
+All my lists
+Archived lists
+Search
+Settings
+ARCHIVE
+Archived items
+Archived lists
+Archived done tasks
+Your archived lists
+No archived lists found
+Looks like you do not have any archived lists at this moment.
+Home
+Reports
+Close Preferences
+Preferences
+Manage Narro's local Windows appearance and shortcuts.
+Blitz Panel
+Refresh displays
+Monitor
+Choose which Windows work area owns the Focus Panel.
+Automatic
+Primary display
+Screen 1
+\\.\DISPLAY1
+Panel side
+Anchor the Focus Panel to the selected monitor's work-area edge.
+Left
+Right
+General
+Theme
+System follows your current Windows light or dark preference.
+System theme — Follow your Windows color mode
+Dark theme — Use Narro's dark surfaces
+Light theme — Use Narro's light surfaces
+Start with Windows
+Start Narro automatically when Windows starts.
+Start Narro with Windows
+Hide EST / Time Taken
+Keep task timing quieter until you hover or focus a task.
+Hide task EST and Time Taken
+Auto-parse EST from title
+Recognize a supported estimate suffix when creating a task.
+Auto-parse EST from task title
+Time
+Timezone
+Select a time zone for reports and scheduled tasks, or follow your Windows time zone.
+Display timezone
+Blitz mode settings
+Pomodoros
+Use sprint and break durations instead of task EST for new Focus starts.
+Enable Pomodoros
+Work sprint
+Length of each Pomodoro work interval.
+Pomodoro work sprint
+Pomodoro break
+Automatic break length after a completed sprint.
+Pomodoro break duration
+Default break length
+Used by Start Break in Focus and the in-app shortcut.
+Default manual break duration
+Scrolling title on live timer
+Scroll long live-task titles instead of keeping them truncated.
+Scrolling title on live timer
+Alerts
+Timed alerts during a task
+Enable periodic local reminders while focused.
+Timed task alerts
+Task alert interval
+How often a timed task alert may occur.
+Task alert interval
+Task alert sound
+Choose a bundled local Narro sound. Starting another preview stops the current one.
+Adjust Task alert volume
+Preview Melodic Bell
+Task alert sound
+Animated flash on timer
+Briefly highlight the active task and timer when a timed alert occurs.
+Animated timer flash
+Notification alerts
+Allow local Windows notification alerts for relevant timer events.
+Notification alerts
+Notification sound
+Choose the bundled local sound used by notification-alert preferences.
+Adjust Notification sound volume
+Preview Futuristic Ding
+Notification sound
+Schedule reminders
+Enable local reminders for scheduled tasks.
+Schedule reminders
+Celebrate task completion
+Show success screen
+Show a completion message with options for what to do next.
+Show success screen
+Success sound effect
+Control the bundled completion sound independently of the success screen.
+Adjust Success sound volume
+Preview Victory Bell
+Success sound
+Success sound effect
+Shortcuts
+View shortcuts
+Review the three global shortcuts and seven fixed in-app bindings in a dedicated window.
+```

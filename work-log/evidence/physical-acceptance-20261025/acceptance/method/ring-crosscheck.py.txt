@@ -1,0 +1,12 @@
+from pathlib import Path
+import json
+import numpy as np
+from PIL import Image
+r=Path(__file__).parent;cs=json.loads((r/'analysis-v2/cases.json').read_text(encoding='utf-8'));out=[]
+for c in cs:
+ if c['case'] not in ['A-normal-3','B-normal-3']:continue
+ seg=c['case'].rsplit('-',1)[0];b=(r/(seg+'-frames.json')).read_bytes();frames=json.loads(b.decode('utf-16' if b[:2]==b'\xff\xfe' else 'utf-8-sig'));nextcase=next(x for x in cs if x['case']==seg+'-4');chosen=[f for f in frames if c['commit']['qpcTicks']+2000000<f['captureQpcBefore']<nextcase['begin']['qpcTicks']-3000000];rows=[]
+ for f in chosen:
+  im=np.array(Image.open(r/(seg+'-qpc')/f['fileName']).convert('RGB').crop((8,54,46,96))).astype(float);count=int(((im[:,:,1]>110)&(im[:,:,1]>im[:,:,0]*1.3)&(im[:,:,2]>im[:,:,0]*1.2)).sum());rows.append({'frame':f['fileName'],'greenPixels':count,'qpc':f['captureQpcBefore']})
+ out.append({'case':c['case'],'samples':len(rows),'minGreen':min((x['greenPixels'] for x in rows),default=None),'zeroes':[x for x in rows if x['greenPixels']<10],'all':rows});print(c['case'],len(rows),'minGreen',out[-1]['minGreen'],'zeroes',len(out[-1]['zeroes']))
+(r/'analysis-qpc/ring-crosscheck.json').write_text(json.dumps(out,indent=2),encoding='utf-8')

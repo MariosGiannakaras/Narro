@@ -1,0 +1,22 @@
+from pathlib import Path
+import xml.etree.ElementTree as ET,json,collections
+r=Path(__file__).parent;ns={'e':'http://schemas.microsoft.com/win/2004/08/events/event'}
+counts=collections.Counter();matched=[];hints=[];total=0
+intervals=[('A02','2026-10-25T23:03:50','2026-10-25T23:03:53'),('collapse','2026-10-25T23:03:57','2026-10-25T23:04:00')]
+for _,event in ET.iterparse(r/'dwm-events.xml',events=('end',)):
+ if event.tag!='{'+ns['e']+'}Event':continue
+ total+=1;system=event.find('e:System',ns)
+ provider=system.find('e:Provider',ns) if system is not None else None
+ tm=system.find('e:TimeCreated',ns) if system is not None else None
+ utc=tm.get('SystemTime','') if tm is not None else ''
+ if provider is not None and provider.get('Name')=='Microsoft-Windows-Dwm-Core':
+  for label,lo,hi in intervals:
+   if lo<=utc[:19]<=hi:counts[label]+=1
+  data=[(x.get('Name',''),x.text or '') for x in event.findall('e:EventData/e:Data',ns)]
+  hit=any((v.strip().lower() in ['2820546',hex(2820546),'75924',hex(75924)] or (v.lower().startswith('0x') and v.lower().lstrip('0x').lstrip('0')==format(2820546,'x'))) for k,v in data)
+  if hit and len(matched)<30:matched.append({'utc':utc,'eventId':system.findtext('e:EventID',default='',namespaces=ns),'data':data})
+  if not hints and data and any('hwnd' in k.lower() or 'window' in k.lower() for k,v in data):hints.append({'utc':utc,'data':data})
+ event.clear()
+proof={'totalDecodedEvents':total,'DwmEventsInUtcSecondBrackets':dict(counts),'targetPid':75924,'targetHwnd':2820546,'matchedPayloadExamples':matched,'windowPayloadExample':hints,'limits':'Second-level UTC bracketing is not subframe synchronization. Event activity and lost=0 do not themselves establish pixel provenance or universal absence of ghosting. Tracerpt reported schema mismatch; raw ETL preserved.'}
+(r/'dwm-correlation.json').write_text(json.dumps(proof,indent=2),encoding='utf-8')
+print(json.dumps({'events':total,'brackets':dict(counts),'matchedExamples':len(matched)}))

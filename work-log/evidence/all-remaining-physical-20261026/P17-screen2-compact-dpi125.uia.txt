@@ -1,0 +1,41 @@
+Window: "Narro - Focus", App: narro-m7-validation.exe.
+	0 window Narro - Focus Secondary Actions: Raise
+		1 pane
+			2 pane Narro Diagnostic - Focus
+				3 pane (disabled)
+				4 region Narro Diagnostic - Focus - Web content
+					5 region
+						6 region
+							7 region
+								8 region
+								9 region
+									10 region
+										11 region
+											12 region
+												13 region
+												14 document Narro Diagnostic - Focus Value: http://tauri.localhost/focus.html ID: RootWebArea
+													15 group ID: root
+														16 main
+															1216 main Floating Timer
+																1217 group Show Floating Timer actions
+																	1218 text Capture drag task B
+																	1219 group Pomodoro work: 01:56 remaining
+																		1220 text 01:56
+																1221 region Subtasks for Capture drag task B
+																	1222 group Floating Timer subtask summary
+																		1223 progress indicator 0 of 0 subtasks complete Value: 0
+																		1224 text Subtasks
+																		1225 button Add subtask for Capture drag task B
+																		1226 button Expand Floating Timer
+								316 region
+						317 region
+						318 region
+
+Document text: ```
+Capture drag task B
+01:56
+0 of 0 subtasks complete
+Subtasks
++
+Expand Floating Timer
+```
