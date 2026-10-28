@@ -1,4 +1,11 @@
-# CURRENT HANDOFF — PR437 software topology supplement
+# CURRENT HANDOFF — PR437 cold software-topology supplement
+
+**2026-10-28; FROZEN/DONE:** [Cold-start recording, HWND probes, preferences and result](work-log/evidence/pr437-cold-software-topology-20261028/README.md). Exact PR437 head `2fc7881c` / EXE `2e6eeed8` / CI40648025484 3/3. With DISPLAY2 selected and remembered-position OFF, `/internal` removed it from the active topology *before process launch*. First Ctrl+Shift+T displayed the compact Timer on the primary: **software cold fallback PASS scoped**. `/clone` → `/extend` restored both displays; same HWND stayed primary. Timer had never been placed on LG in this run, so U-R03 original-on-LG return remains OPEN. Physical HDMI J03/J04 still NOT RUN on this candidate. [Previous software test](work-log/evidence/pr437-software-topology-20261028/README.md) passed with app already running before deactivation. Both personal profiles restored hash-identically, app/recorder stopped, original display layout restored. No source edits/new CI. J01 and J05 FAIL; M1–M4 4/10 and M5–M9 OPEN; M10 hard entry preserved.
+
+**ONE NEXT — source owner:** fix J05 and J01 on PR437 and assess Time Taken semantics; batch regressions and exact-head CI. Consume both software topology tests; original-on-LG return and physical HDMI remain open. A/PR389 and B/PR419 holds are separate.
+
+---
+# HISTORICAL HANDOFF — PR437 software topology supplement
 
 **2026-10-28; FROZEN/DONE:** [Original recording, HWND probes, synthetic preferences and results](work-log/evidence/pr437-software-topology-20261028/README.md). Exact PR437 `2fc7881c` / EXE `2e6eeed8` / CI40648025484 3/3. With DISPLAY2 selected and remembered-position OFF, process launched while both were active; logical `/internal` disabled second display, then first Ctrl+Shift+T showed compact paused Timer on primary: **software fallback PASS scoped**. `/clone` → `/extend` restored original two-monitor layout; same Timer HWND stayed on primary and selected DISPLAY2 key persisted. It was not originally positioned on LG in this run: preserve U-R03 original-position restoration as OPEN. Physical HDMI J03/J04 remain NOT RUN on this exact candidate; app-start-while-display-absent also not tested. Original personal profiles restored hash-identically, no recorder/app running. No source edits/CI; J01/J05 FAIL unchanged, M1–M4 4/10 and M5–M9 OPEN; M10 hard entry intact.
 
