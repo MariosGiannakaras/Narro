@@ -1,0 +1,24 @@
+{
+  "utc": "2026-10-28T09:53:17.370635+00:00",
+  "description": "two simultaneous actual primary-monitor ROI capture mechanisms",
+  "roiPhysicalPrimary": [
+    2140,
+    0,
+    2560,
+    900
+  ],
+  "start": {
+    "gdi": {
+      "utc": "2026-10-28T09:53:17.370635+00:00",
+      "monotonicNs": 11370031000000,
+      "pid": 15936
+    },
+    "dda": {
+      "utc": "2026-10-28T09:53:17.380635+00:00",
+      "monotonicNs": 11370031000000,
+      "pid": 1236
+    }
+  },
+  "maximumWallSeconds": 35,
+  "ddaDupFrames": false
+}

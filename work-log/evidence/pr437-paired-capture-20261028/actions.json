@@ -1,0 +1,34 @@
+[
+  {
+    "label": "panel_to_compact_1",
+    "actionUtc": "2026-10-28T09:53:41.099Z",
+    "observedUtc": "2026-10-28T09:53:42.178Z",
+    "expected": "Expand Floating Timer",
+    "observed": true,
+    "excerpt": "J06 next task 20261028\n06:01\n0 of 0 subtasks complete\nSubtasks\n+\nExpand Floating Timer"
+  },
+  {
+    "label": "compact_to_panel_1",
+    "actionUtc": "2026-10-28T09:53:42.178Z",
+    "observedUtc": "2026-10-28T09:53:43.248Z",
+    "expected": "Time Taken",
+    "observed": true,
+    "excerpt": "All ListsA…\nToday\nPreferences\nHome\nCompact view\nEst: —\n55/56 Done\nJ06 next task 20261028\n06:01\nCapture ProjectCapture Pro…\nPaused\nEST\n—\nTime Taken\n0:06:01\n0 of 0 subtasks complete\nSubtasks\n+\nStart break\nNotes\nResume\nSkip task\nComplete task\n+ ADD TASK\n0 Scheduled tasks\n55 Done\nCapture drag task B\nCapture ProjectCapture Pro…\n1hr 6min\nCapture live task — long title for compact long title for compac…wrapping and hover actions\nCapture ProjectCapture P"
+  },
+  {
+    "label": "panel_to_compact_2",
+    "actionUtc": "2026-10-28T09:53:43.248Z",
+    "observedUtc": "2026-10-28T09:53:44.263Z",
+    "expected": "Expand Floating Timer",
+    "observed": true,
+    "excerpt": "J06 next task 20261028\n06:01\n0 of 0 subtasks complete\nSubtasks\n+\nExpand Floating Timer"
+  },
+  {
+    "label": "compact_to_panel_2",
+    "actionUtc": "2026-10-28T09:53:44.263Z",
+    "observedUtc": "2026-10-28T09:53:45.332Z",
+    "expected": "Time Taken",
+    "observed": true,
+    "excerpt": "All ListsA…\nToday\nPreferences\nHome\nCompact view\nEst: —\n55/56 Done\nJ06 next task 20261028\n06:01\nCapture ProjectCapture Pro…\nPaused\nEST\n—\nTime Taken\n0:06:01\n0 of 0 subtasks complete\nSubtasks\n+\nStart break\nNotes\nResume\nSkip task\nComplete task\n+ ADD TASK\n0 Scheduled tasks\n55 Done\nCapture drag task B\nCapture ProjectCapture Pro…\n1hr 6min\nCapture live task — long title for compact long title for compac…wrapping and hover actions\nCapture ProjectCapture P"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "purpose": "user-requested better-cadence reproduction and independent desktop capture comparison",
+  "source": "2fc7881c9a13a355daf5c69516ef34313ff00b31",
+  "exeSha256": "2e6eeed8b757e773d5ffdc217b4874f95beed9ad543731958c041a3539a2ee7f",
+  "roiPhysicalPrimary": [
+    2140,
+    0,
+    2560,
+    900
+  ],
+  "methods": [
+    "GDI ROI 60fps requested",
+    "Desktop Duplication ROI with dup_frames=0"
+  ],
+  "oneTarget": "primary100% reduced-motion Panel-to-compact duplicate, reverse also observed",
+  "limits": "actual PTS cadence and ffmpeg exit checked; no hardware cable or source changes"
+}
