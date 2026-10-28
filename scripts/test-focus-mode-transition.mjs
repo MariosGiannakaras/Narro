@@ -361,6 +361,11 @@ test("a same-tick Timer resize blocks both direct presentation and keyboard task
       + "\nrequestMode;",
     {
       useCallback: (callback) => callback,
+      // The extracted real callback's dependency array is evaluated when it is created.
+      prepareGeometryMotion: () => {},
+      publishPresentation: () => {},
+      runGeometryMotion: () => {},
+      waitForReady: () => {},
       presentationHydrated: true,
       quickTaskAfterPanelRef: { current: false },
       presentationRef: { current: "timerCompact" },
