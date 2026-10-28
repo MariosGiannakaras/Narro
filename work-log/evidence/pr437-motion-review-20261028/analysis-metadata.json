@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-28T09:35:29.422811+00:00",
+  "sourceSha": "2fc7881c9a13a355daf5c69516ef34313ff00b31",
+  "originalVideoSha256": "981e00641b0247fb33932ceb7b37a5705d8b34cf19fef4746f554c44d2e440bc",
+  "method": "actual 60fps original crops; 10fps overviews and 20ms-spaced decoded individual samples",
+  "case": "J05",
+  "verdict": "FAIL",
+  "specific": "duplicate title and timer in Panel-to-compact at primary100% and LG125% reduced motion",
+  "approxPTSSeconds": {
+    "lgDuplicate": 72.22,
+    "lgBlankTitle": 72.08,
+    "primaryDuplicateStartSample": 233.5,
+    "primaryDuplicateEndSample": 233.6
+  },
+  "originalVideoUnchanged": true,
+  "sameFocusHwnd": 197988
+}

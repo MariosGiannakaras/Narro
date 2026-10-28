@@ -1,0 +1,77 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 8,
+    "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+  },
+  {
+    "path": "analysis-metadata.json",
+    "bytes": 684,
+    "sha256": "f519a15dceb70c2d18e430ea7b5382e97c2dd2976c8c63d68f3fb55815d0a95b"
+  },
+  {
+    "path": "lg-60fps-8samples.png",
+    "bytes": 167390,
+    "sha256": "1765be5385c44c2d61e8aa72ea9bf75089b358180345198710ed9d09406434bc"
+  },
+  {
+    "path": "LG-72.10.png",
+    "bytes": 52857,
+    "sha256": "20c212f73a057b4486dfa35a87dac557b8f2bf1668d86c1d679ab8b10daa3e02"
+  },
+  {
+    "path": "LG-72.12.png",
+    "bytes": 51266,
+    "sha256": "49461e873f826303da5c430fad4909f6a1512b0fd6cda85fdf1f3d73622595df"
+  },
+  {
+    "path": "lg-first-timer-10fps-contact.jpg",
+    "bytes": 233065,
+    "sha256": "2dda1e590f828f9c9b59ce59c23b3123a7e1a864b06c3b074c5f26de2e1ea3e1"
+  },
+  {
+    "path": "lg-sample-72.22.png",
+    "bytes": 45912,
+    "sha256": "ff04e8087e5aa56fc3594e956b918a11d3741e60ec04698d527906fd6ac5a650"
+  },
+  {
+    "path": "lg-timer-to-panel-10fps-contact.jpg",
+    "bytes": 319388,
+    "sha256": "bfa5300ba87fadea122d0bee81fa4b18cb5d40592ed7298986842cb83dcd856f"
+  },
+  {
+    "path": "PRIMARY-233.60.png",
+    "bytes": 40373,
+    "sha256": "0a2067240ae750f347f597ce6326cbd31398d070b3718439a04996129d9e27db"
+  },
+  {
+    "path": "PRIMARY-233.62.png",
+    "bytes": 31429,
+    "sha256": "ba6124abf1342ad0008ed50020bf44c937963a3a894582463bdf6d3853612bdb"
+  },
+  {
+    "path": "primary-60fps-12samples.png",
+    "bytes": 140352,
+    "sha256": "c5fa2263e3bb8c70411a5b312fdf318219ae6830f2e66ce71f2581acc6a32605"
+  },
+  {
+    "path": "primary-panel-to-timer-10fps-contact.jpg",
+    "bytes": 419267,
+    "sha256": "b40a82084101d69c8f656fcf6ab41deee7e3ca52fcb828909563cdaa9c967ded"
+  },
+  {
+    "path": "primary-sample-233.5.png",
+    "bytes": 40402,
+    "sha256": "3c71c8056d93ea695a5fd94f1a912938b0526b825dffba8e29e0ce3d7a7fe8d8"
+  },
+  {
+    "path": "primary-timer-to-expanded-10fps-contact.jpg",
+    "bytes": 370938,
+    "sha256": "b9ddc95cf4c0e56a45ddaeb93ab01ac0da5d8f627bf692d6ea2ced4eaa5651f9"
+  },
+  {
+    "path": "README.md",
+    "bytes": 4692,
+    "sha256": "db6ed9aedbbda670c505bfeae7c721f24f912d5e5af4a91f66b756bca9f0d236"
+  }
+]
