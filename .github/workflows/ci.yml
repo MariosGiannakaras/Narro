@@ -2,7 +2,9 @@ name: Windows CI
 
 on:
   push:
-    branches: [ "main" ]
+    # Validate the isolated Motion v4 B comparator directly despite its
+    # intentional merge conflicts with main; do not change A/B source identity.
+    branches: [ "main", "feature/m7-motion-v4-ab-candidate" ]
     # Keep tracking Markdown cheap, but rebuild when bundled validation docs change.
     paths:
       - "**"
