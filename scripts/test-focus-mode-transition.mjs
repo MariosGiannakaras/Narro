@@ -569,3 +569,50 @@ test("presentation listener rejection still hydrates from native authority and p
   assert.deepEqual(disposed.failures, []);
   assert.equal(disposed.hydratedRef.current, false);
 });
+
+
+test("live Timer projection publishes synchronous task revisions before batched React state commits", () => {
+  const source = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  const start = source.indexOf("  const publishTimerProjection = useCallback(");
+  const end = source.indexOf("\n\n  const setTimerResizeBusy = useCallback(", start);
+  assert.ok(start >= 0 && end > start, "real shared Timer projection publisher must be extractable");
+  const actual = ts.transpileModule(source.slice(start, end), {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+  }).outputText;
+
+  const latest = { current: null };
+  const queued = [];
+  const publish = vm.runInNewContext(actual + "\npublishTimerProjection;", {
+    useCallback: (callback) => callback,
+    timerProjectionRef: latest,
+    applyTimerSessionProjection: (current, incoming) =>
+      current === null || incoming.revision >= current.revision ? incoming : current,
+    // Simulate a React root batching queued updates until *after* the native
+    // listener has already delivered more than one session projection.
+    setTimerProjection: (next) => { queued.push(next); },
+  });
+
+  const initial = { revision: 10, runtime: { timer: { task_id: "old-task" } } };
+  const later = { revision: 12, runtime: { timer: { task_id: "next-task" } } };
+  const outdated = { revision: 11, runtime: { timer: { task_id: "old-task" } } };
+  publish(initial);
+  assert.equal(latest.current, initial, "the first event must advance the task identity synchronously");
+  publish(later);
+  assert.equal(latest.current, later, "the new task must be immediately visible to raster/task guards");
+  publish(outdated);
+  assert.equal(latest.current, later, "an old event must not roll back the latest authority");
+  assert.deepEqual(queued, [initial, later, later]);
+  assert.ok(queued.every((value) => typeof value !== "function"),
+    "the ref must not be mutated later inside a queued React functional updater");
+  for (const required of [
+    "publishTimerProjection(incoming)",
+    "publishTimerProjection(resumed)",
+    "publishTimerProjection(payload)",
+  ]) {
+    assert.ok(source.includes(required), "all three production session readers must share the synchronous owner: " + required);
+  }
+  assert.ok(!source.includes("setTimerProjection((current)"),
+    "no alternative asynchronous updater may mutate the task identity ref");
+});

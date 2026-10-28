@@ -114,6 +114,15 @@ export function FocusSurfaceCoordinator() {
     setPresentation(next);
   }, []);
 
+  // Timer task identity must advance before React processes the queued render:
+  // native session events can arrive during a protected raster transition.
+  // One synchronous revision owner is shared by live, resume and Next Task.
+  const publishTimerProjection = useCallback((incoming: TimerSessionPayload) => {
+    const next = applyTimerSessionProjection(timerProjectionRef.current, incoming);
+    timerProjectionRef.current = next;
+    setTimerProjection(next);
+  }, []);
+
   const setTimerResizeBusy = useCallback((pending: boolean) => {
     timerResizePendingRef.current = pending;
     setTimerResizePending(pending);
@@ -186,11 +195,7 @@ export function FocusSurfaceCoordinator() {
     void connectLiveTimerSessionProjection(
       (incoming) => {
         if (disposed) return;
-        setTimerProjection((current) => {
-          const next = applyTimerSessionProjection(current, incoming);
-          timerProjectionRef.current = next;
-          return next;
-        });
+        publishTimerProjection(incoming);
         setTimerProjectionError(null);
       },
       (failure) => {
@@ -215,7 +220,7 @@ export function FocusSurfaceCoordinator() {
       disposed = true;
       disconnect?.();
     };
-  }, []);
+  }, [publishTimerProjection]);
 
   const requestMode = useCallback(async (targetMode: FocusSurfaceMode, quickTask = false) => {
     if (!presentationHydrated) {
@@ -425,11 +430,7 @@ export function FocusSurfaceCoordinator() {
       }
       const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
-        setTimerProjection((current) => {
-          const next = applyTimerSessionProjection(current, resumed);
-          timerProjectionRef.current = next;
-          return next;
-        });
+        publishTimerProjection(resumed);
       }
       setTimerProjectionError(null);
     } catch (failure: unknown) {
@@ -439,7 +440,7 @@ export function FocusSurfaceCoordinator() {
           : `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
       );
     }
-  }, []);
+  }, [publishTimerProjection]);
 
   const requestTimerExpanded = useCallback(async (expanded: boolean, prepareRenderer: (expanded: boolean) => void, sourceAnchors: MotionV4MeasuredTimer | null) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
@@ -805,11 +806,7 @@ export function FocusSurfaceCoordinator() {
         throw new Error("Another Focus task is already active. Close this success screen to continue.");
       }
       const payload = await startTimerTask(success.nextTask.id, success.nextTask.mode);
-      setTimerProjection((current) => {
-        const next = applyTimerSessionProjection(current, payload);
-        timerProjectionRef.current = next;
-        return next;
-      });
+      publishTimerProjection(payload);
       setCompletionSuccess(null);
       setPanelRefreshKey((value) => value + 1);
       setTimerRefreshKey((value) => value + 1);
