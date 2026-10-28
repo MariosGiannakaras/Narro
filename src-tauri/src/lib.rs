@@ -935,6 +935,19 @@ fn preferred_focus_panel_work_area(
     Ok((descriptor.work_area, descriptor.scale_factor, side))
 }
 
+// Unlike the temporary primary fallback, this returns None when the chosen
+// monitor is absent. A live unpinned Timer must retain its original monitor
+// anchor through such a topology change, without persisting a new user drag.
+pub(crate) fn selected_focus_panel_work_area(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<Option<GeometryRect>> {
+    match preferred_focus_panel_work_area(app_handle) {
+        Ok((work_area, _, _)) => Ok(Some(work_area)),
+        Err(error) if error.code == "MONITOR_SELECTION_STALE" => Ok(None),
+        Err(error) => Err(error),
+    }
+}
+
 // An unpinned Timer may be opened by shortcut before the Panel was ever
 // shown. A temporarily disconnected saved Panel monitor must not make that
 // first Timer reveal fail. Keep the saved preference intact for hotplug return.

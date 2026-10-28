@@ -18,6 +18,25 @@ static USER_PLACEMENT_DIRTY: AtomicBool = AtomicBool::new(false);
 // Preferences decide whether to restore an existing legacy/opt-in SQLite row.
 // Neither mode removes legacy positions.
 static SESSION_TIMER_PLACEMENT: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
+// A non-persistent return anchor for an automatically positioned Timer.
+// Programmatic fallback movement must not turn into a personal drag or erase
+// the original target while its display is temporarily unavailable.
+static UNPINNED_TIMER_RETURN: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
+
+fn unpinned_timer_return() -> CommandResult<Option<SavedFloatingPlacement>> {
+    UNPINNED_TIMER_RETURN
+        .lock()
+        .map(|anchor| anchor.clone())
+        .map_err(|error| placement_error("read temporary Timer return anchor", error))
+}
+
+fn set_unpinned_timer_return(anchor: SavedFloatingPlacement) -> CommandResult<()> {
+    let mut current = UNPINNED_TIMER_RETURN
+        .lock()
+        .map_err(|error| placement_error("update temporary Timer return anchor", error))?;
+    *current = Some(anchor);
+    Ok(())
+}
 
 fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
     SESSION_TIMER_PLACEMENT
@@ -519,6 +538,27 @@ fn preserve_preferred_placement(
     !user_moved && saved.is_some_and(|saved| preferred_monitor(saved, areas).is_none())
 }
 
+// Only return an unpinned Timer to its prior screen when that screen is still
+// the user's selected monitor. An absent selected monitor may not be resolved
+// until it returns; a completed user drag always supersedes this anchor.
+fn eligible_unpinned_return<'a>(
+    anchor: Option<&'a SavedFloatingPlacement>,
+    current_preference: Option<PhysicalRect>,
+    areas: &[WorkArea],
+    user_moved: bool,
+) -> Option<&'a SavedFloatingPlacement> {
+    if user_moved {
+        return None;
+    }
+    let anchor = anchor?;
+    match current_preference {
+        Some(selected) if preferred_monitor(anchor, areas).map(|area| area.rect) != Some(selected) => {
+            None
+        }
+        _ => Some(anchor),
+    }
+}
+
 fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult<PhysicalSize> {
     if !area.scale_factor.is_finite() || area.scale_factor <= 0.0 {
         return Err(placement_error(
@@ -733,6 +773,27 @@ pub fn restore_for_timer(
         }
     }
     let actual = confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    if saved.is_none() && !USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
+        // This is a process-only return point, not an opt-in restart position.
+        // Do not overwrite it with the primary fallback while the selected
+        // monitor is missing. A later explicit monitor selection can replace it.
+        match crate::selected_focus_panel_work_area(app_handle) {
+            Ok(Some(selected_preference)) if selected_preference == selected.rect => {
+                let anchor = SavedFloatingPlacement {
+                    version: SavedFloatingPlacement::VERSION,
+                    position: actual.position,
+                    outer_size: actual.size,
+                    work_area: selected.rect,
+                    monitor_name: selected.name.clone(),
+                };
+                if let Err(error) = set_unpinned_timer_return(anchor) {
+                    eprintln!("Could not retain temporary Timer return anchor: {error}");
+                }
+            }
+            Ok(_) => {}
+            Err(error) => eprintln!("Could not inspect Timer return monitor preference: {error}"),
+        }
+    }
     let expected_position = match saved.as_ref() {
         Some(saved) => restored_position(saved, selected.rect, actual.size)?,
         None => actual.position,
@@ -778,18 +839,33 @@ pub fn revalidate_visible_timer_after_display_change(
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
     let saved = timer_position_for_current_policy(app_handle)?;
-    let preferred = if USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
-        None
+    let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
+    let unpinned_return = if saved.is_none() {
+        unpinned_timer_return()?
     } else {
-        saved
-            .as_ref()
-            .and_then(|saved| preferred_monitor(saved, &areas))
+        None
     };
+    let preference_area = if saved.is_none() {
+        crate::selected_focus_panel_work_area(app_handle)?
+    } else {
+        None
+    };
+    let return_anchor = if saved.is_some() {
+        if user_moved { None } else { saved.as_ref() }
+    } else {
+        eligible_unpinned_return(
+            unpinned_return.as_ref(),
+            preference_area,
+            &areas,
+            user_moved,
+        )
+    };
+    let preferred = return_anchor.and_then(|anchor| preferred_monitor(anchor, &areas));
     let selected =
         preferred.unwrap_or_else(|| best_work_area_for_window(previous, &areas, &fallback));
-    let desired = match (preferred, saved.as_ref()) {
-        (Some(_), Some(saved)) => restored_position(
-            saved,
+    let desired = match (preferred, return_anchor) {
+        (Some(_), Some(anchor)) => restored_position(
+            anchor,
             selected.rect,
             timer_visible_size_for_area(selected, expanded)?,
         )?,
@@ -1078,6 +1154,55 @@ mod tests {
             true
         ));
         assert!(!preserve_preferred_placement(None, &reconnected, false));
+    }
+
+    #[test]
+    fn unpinned_timer_restores_selected_screen_without_creating_a_user_position() {
+        let primary = area("primary", 0, 2560);
+        let secondary = area("LG", -1920, 1920);
+        let anchor = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: -445, y: 20 },
+            outer_size: PhysicalSize {
+                width: 425,
+                height: 875,
+            },
+            work_area: secondary.rect,
+            monitor_name: Some("LG".into()),
+        };
+        let detached = [primary.clone()];
+        let pending = eligible_unpinned_return(Some(&anchor), None, &detached, false)
+            .expect("retain unpinned anchor while selected monitor is absent");
+        assert!(preferred_monitor(pending, &detached).is_none());
+
+        let restored = [primary.clone(), secondary.clone()];
+        let eligible = eligible_unpinned_return(
+            Some(&anchor),
+            Some(secondary.rect),
+            &restored,
+            false,
+        )
+        .expect("original selected monitor returned");
+        let target = preferred_monitor(eligible, &restored).expect("return to LG");
+        assert_eq!(
+            restored_position(eligible, target.rect, anchor.outer_size).expect("restore position"),
+            anchor.position
+        );
+
+        assert!(eligible_unpinned_return(
+            Some(&anchor),
+            Some(primary.rect),
+            &restored,
+            false
+        )
+        .is_none(), "a changed selected monitor supersedes the old return target");
+        assert!(eligible_unpinned_return(
+            Some(&anchor),
+            Some(secondary.rect),
+            &restored,
+            true
+        )
+        .is_none(), "a user drag on the fallback screen wins");
     }
 
     #[test]
