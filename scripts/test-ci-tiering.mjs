@@ -22,7 +22,13 @@ const requiredBundledDocs = [
   "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md",
 ];
 for (const event of ["push", "pull_request"]) {
-  const prefix = "  " + event + ":\n    branches: [ \"main\" ]\n    paths:\n"
+  // The B comparator must run exact-source CI even when its intentional
+  // conflicts with main block pull_request runs. Restrict this exception to
+  // the one experimental push branch; retain main and all path constraints.
+  const expectedBranches = event === "push"
+    ? '    branches: [ "main", "feature/m7-motion-v4-ab-candidate" ]\n'
+    : '    branches: [ "main" ]\n';
+  const prefix = "  " + event + ":\n" + expectedBranches + "    paths:\n"
     + '      - "**"\n      - "!**/*.md"\n';
   invariant(triggerBlock.includes(prefix), event + " must include source but exclude tracking Markdown");
   const start = triggerBlock.indexOf(prefix) + prefix.length;
