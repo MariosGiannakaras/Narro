@@ -552,7 +552,9 @@ fn eligible_unpinned_return<'a>(
     }
     let anchor = anchor?;
     match current_preference {
-        Some(selected) if preferred_monitor(anchor, areas).map(|area| area.rect) != Some(selected) => {
+        Some(selected)
+            if preferred_monitor(anchor, areas).map(|area| area.rect) != Some(selected) =>
+        {
             None
         }
         _ => Some(anchor),
@@ -851,7 +853,11 @@ pub fn revalidate_visible_timer_after_display_change(
         None
     };
     let return_anchor = if saved.is_some() {
-        if user_moved { None } else { saved.as_ref() }
+        if user_moved {
+            None
+        } else {
+            saved.as_ref()
+        }
     } else {
         eligible_unpinned_return(
             unpinned_return.as_ref(),
@@ -1176,33 +1182,24 @@ mod tests {
         assert!(preferred_monitor(pending, &detached).is_none());
 
         let restored = [primary.clone(), secondary.clone()];
-        let eligible = eligible_unpinned_return(
-            Some(&anchor),
-            Some(secondary.rect),
-            &restored,
-            false,
-        )
-        .expect("original selected monitor returned");
+        let eligible =
+            eligible_unpinned_return(Some(&anchor), Some(secondary.rect), &restored, false)
+                .expect("original selected monitor returned");
         let target = preferred_monitor(eligible, &restored).expect("return to LG");
         assert_eq!(
             restored_position(eligible, target.rect, anchor.outer_size).expect("restore position"),
             anchor.position
         );
 
-        assert!(eligible_unpinned_return(
-            Some(&anchor),
-            Some(primary.rect),
-            &restored,
-            false
-        )
-        .is_none(), "a changed selected monitor supersedes the old return target");
-        assert!(eligible_unpinned_return(
-            Some(&anchor),
-            Some(secondary.rect),
-            &restored,
-            true
-        )
-        .is_none(), "a user drag on the fallback screen wins");
+        assert!(
+            eligible_unpinned_return(Some(&anchor), Some(primary.rect), &restored, false).is_none(),
+            "a changed selected monitor supersedes the old return target"
+        );
+        assert!(
+            eligible_unpinned_return(Some(&anchor), Some(secondary.rect), &restored, true)
+                .is_none(),
+            "a user drag on the fallback screen wins"
+        );
     }
 
     #[test]
