@@ -22,10 +22,10 @@ fn human_monitor_name(label: &str) -> Option<String> {
 // when *all* active targets mapped to that source agree on a real name.
 fn unique_target_model(names: &[Option<String>]) -> Option<String> {
     let first = names.first()?.as_deref()?;
-    if names
-        .iter()
-        .all(|name| name.as_deref().is_some_and(|value| value.eq_ignore_ascii_case(first)))
-    {
+    if names.iter().all(|name| {
+        name.as_deref()
+            .is_some_and(|value| value.eq_ignore_ascii_case(first))
+    }) {
         Some(first.to_owned())
     } else {
         None
@@ -91,8 +91,8 @@ pub fn desktop_preview_data_url(display_name: Option<&str>, size: PhysicalSize) 
 
 #[cfg(windows)]
 mod native {
-    use super::{human_monitor_name, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
     use super::unique_target_model;
+    use super::{human_monitor_name, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
     use std::ffi::c_void;
     use std::ptr::null;
     use windows::Win32::Devices::Display::{

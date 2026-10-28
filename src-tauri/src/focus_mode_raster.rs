@@ -128,11 +128,7 @@ pub(crate) fn compose_single_semantic_surface(
     if !progress.is_finite() || !(0.0..=1.0).contains(&progress) {
         return Err(invalid());
     }
-    let source = if progress < 0.5 {
-        outgoing
-    } else {
-        incoming
-    };
+    let source = if progress < 0.5 { outgoing } else { incoming };
     compose(source, source, visible, progress)
 }
 
