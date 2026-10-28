@@ -1,4 +1,18 @@
-# CURRENT HANDOFF — PR437 U-R03/J01/J05 source repair, exact-head CI PENDING
+# CURRENT HANDOFF — PR437 U-R03/J01/J05 exact-head CI PASS, focused physical acceptance OPEN
+
+**2026-10-28; owner ChatGPT source; phase CI_WAIT→DONE (CI only).** PR437 DRAFT/OPEN, branch `integration/m7-v4-current-timer-20261027`, exact head `41e8ff8ad8584b74821f3185401ed0c9740fc991`. [Run 40677357491](https://github.com/MariosGiannakaras/Narro/actions/runs/40677357491) **COMPLETED SUCCESS 3/3** on that SHA: validation job `122779061226`, fast `122779112673`, Windows candidate `122779703931`. Rust tests, formatting, Clippy, frontend/contract checks and Windows release packaging completed successfully in the jobs. No newer PR head was observed during this checkpoint.
+
+**Candidate artifacts published (GitHub-reported metadata, not independently downloaded/hashed in this checkpoint):** physical ZIP `12812013589` 15,957,722 bytes, published SHA256 `8342835987274ad6e0893306ab7ad14ef6f90b66359669ef4305d58f4651356f`; M1 diagnostic ZIP `12812687753` 5,914,850 bytes, published SHA256 `dbb1ed6f9ca1749f548b9e38d99634ae19dd8d792ef25d7c0ab2865141ccd5a1`. Other visual/runtime/validation ZIPs also published. [Immutable check record](work-log/2026-10-28-chatgpt-pr437-ur03-j01-j05-exact-head-ci-and-physical-hold.md).
+
+**In-scope source:** U-R03 process-only unpinned Timer return anchor, allowing changed selection or genuine user drag to override; J01 exact-source QueryDisplayConfig target model with unambiguous fallback; J05 single-semantic-surface fallback when measured transition plates are unavailable. Existing matching Rust regression tests passed in the current Windows candidate job. Source build PASS does not certify runtime behavior or perceptual parity.
+
+**Physical:** U-R03/J01/J05 native retest on this new executable **NOT RUN**; old head `2fc7881c` U-R03/J01/J05 FAIL remains historical. Physical HDMI J03/J04 **NOT RUN**; J02/J06 old scoped results retain their limits. Source stack PR389/419 compositor before-merge holds and PR431/436/437 dependent holds remain OPEN; no merge. PA-01–09 remains USER-PAUSED under the current project constraint; do not install/run/edit personal AppData without separate authorization. M1–M4 4/10 accepted, M5–M9 OPEN; M10 requires post-M9 review and explicit approval; M11/M12 inactive.
+
+**ONE NEXT — source owner:** complete any still-missing impacted-surface prephysical review and independently verify exact-head artifact provenance; then hand off focused U-R03/J01/J05 new-build physical scenarios to an authorized Windows operator. Keep PR437 draft/unmerged until independently evidenced required gates PASS; assess running Time Taken separately.
+
+---
+
+# HISTORICAL HANDOFF — PR437 U-R03/J01/J05 source repair, exact-head CI PENDING
 
 **2026-10-28; owner ChatGPT source; PR437 OPEN/DRAFT; current branch `integration/m7-v4-current-timer-20261027`, HEAD `41e8ff8ad8584b74821f3185401ed0c9740fc991`.** Exact-head CI `40677357491`: **IN PROGRESS** (no 3/3 PASS claim). Immediate predecessor head `38148dfc` run `40677064127`: validation **PASS**, fast **FAIL** on three Rust formatting diffs, Windows candidate **SKIPPED**; those exact diffs are corrected in this head. No merge or physical Windows acceptance on the changed candidate. Previous intermediate head `3ef47c71` CI `40675961652`: validation/fast **PASS**, Windows candidate **CANCELLED** on superseding branch update, not PASS. First attempt `47c42de6` CI `40675546173`: validation PASS, fast FAIL (Rust formatting), Windows SKIPPED; replaced with the formatted successor.
 
@@ -10,7 +24,7 @@
 
 ---
 
-# CURRENT HANDOFF — PR437 U-R03 software topology return FAIL
+# HISTORICAL HANDOFF — PR437 U-R03 software topology return FAIL
 
 **2026-10-28; FROZEN/DONE:** [Video, original/restored screenshots, HWND probes and result](work-log/evidence/pr437-software-return-20261028/README.md). Exact PR437 `2fc7881c` / EXE `2e6eeed8` / CI40648025484 3/3. Synthetic DISPLAY2 selected/OFF: Timer initially on LG DISPLAY2 HWND264082 rect [-445,20,-20,895], `/internal` recovery to primary rect [0,20,340,720] (**scoped fallback PASS**), `/clone`→`/extend` restored both displays, but after seven seconds same HWND remained on primary rect [0,20,340,720] despite no user reposition and selection persisted. **U-R03 software topology return FAIL** against documented user expectation; delayed behavior beyond observation is untested. Physical HDMI J03/J04 remain NOT RUN on this candidate. Earlier [cold software fallback PASS](work-log/evidence/pr437-cold-software-topology-20261028/README.md) and [running-app fallback PASS](work-log/evidence/pr437-software-topology-20261028/README.md) remain scoped. Personal profiles restored hash-identically, recorder/app stopped and display layout restored. J01/J05 FAIL remain; M1–M4 4/10 / M5–M9 OPEN; M10 hard entry preserved.
 
