@@ -1,0 +1,17 @@
+[
+  {
+    "requestedSeekSeconds": "72.22",
+    "actualSourceFramePtsSeconds": "72.233",
+    "showinfo": "[Parsed_showinfo_0 @ 0000027950b92b80] n:   0 pts:  72233 pts_time:72.233  duration:     16 duration_time:0.016   fmt:yuv420p cl:left sar:0/1 s:4480x1080 i:P iskey:1 type:I checksum:825077B1 plane_checksum:[0B5671CC F5569153 B68E7483] mean:[84 127 130] stdev:[78.5 5.9 12.7]"
+  },
+  {
+    "requestedSeekSeconds": "233.50",
+    "actualSourceFramePtsSeconds": "233.55",
+    "showinfo": "[Parsed_showinfo_0 @ 00000186d94feec0] n:   0 pts: 233550 pts_time:233.55  duration:     16 duration_time:0.016   fmt:yuv420p cl:left sar:0/1 s:4480x1080 i:P iskey:0 type:P checksum:6BE2ED13 plane_checksum:[76E97A7F 2E2D705D A1480237] mean:[79 127 130] stdev:[75.0 5.9 12.7]"
+  },
+  {
+    "requestedSeekSeconds": "233.60",
+    "actualSourceFramePtsSeconds": "233.6",
+    "showinfo": "[Parsed_showinfo_0 @ 0000019debcde5c0] n:   0 pts: 233600 pts_time:233.6   duration:     16 duration_time:0.016   fmt:yuv420p cl:left sar:0/1 s:4480x1080 i:P iskey:0 type:P checksum:A75DEC9A plane_checksum:[F99779E6 2E2D705D 7F140257] mean:[79 127 130] stdev:[75.0 5.9 12.7]"
+  }
+]
