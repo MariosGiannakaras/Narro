@@ -620,7 +620,13 @@ export function FocusSurfaceCoordinator() {
         void reconcileAuthoritativePresentation();
       })
       .catch((failure: unknown) => {
-        if (!disposed) setTransitionError(formatInvokeError(failure));
+        if (!disposed) {
+          setTransitionError(formatInvokeError(failure));
+          // If event subscription fails, a one-shot native snapshot still
+          // permits initial Focus hydration. Keep the listener error visible:
+          // subsequent external invalidation events cannot be observed.
+          void reconcileAuthoritativePresentation();
+        }
       });
 
     return () => {
