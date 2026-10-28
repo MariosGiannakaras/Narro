@@ -591,7 +591,12 @@ export function FocusSurfaceCoordinator() {
 
     void subscribe<number>("focus-timer-find-requested", (sequence) => {
       if (!Number.isSafeInteger(sequence) || sequence <= lastFindRequestRef.current) return;
-      if (!presentationHydratedRef.current) {
+      // Native Find can arrive while the Focus host is switching or the
+      // Timer raster is protected. Keep the newest request until the existing
+      // post-transition effect can deliver its visible attention pulse.
+      if (!presentationHydratedRef.current
+        || transitionGateRef.current
+        || timerResizePendingRef.current) {
         deferredFindSequenceRef.current = Math.max(
           deferredFindSequenceRef.current ?? 0,
           sequence,

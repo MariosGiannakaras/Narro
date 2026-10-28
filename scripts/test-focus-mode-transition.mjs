@@ -412,3 +412,92 @@ test("a same-tick Timer resize blocks both direct presentation and keyboard task
   assert.equal(messages.length, 2);
   assert.equal(messages[1], "Quick task creation is unavailable while the Focus surface is changing.");
 });
+
+
+test("native Find Timer defers and replays the latest sequence across protected Focus transitions", () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  const extract = (start, end) => {
+    const begin = coordinator.indexOf(start);
+    const finish = coordinator.indexOf(end, begin + start.length);
+    assert.ok(begin >= 0 && finish > begin, "real Find handler/effect must be located");
+    return ts.transpileModule(coordinator.slice(begin, finish), {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+    }).outputText;
+  };
+  const pulses = [];
+  const lastFindRequestRef = { current: 0 };
+  const deferredFindSequenceRef = { current: null };
+  const transitionGateRef = { current: true };
+  const timerResizePendingRef = { current: false };
+  const presentationRef = { current: "timerCompact" };
+  let handleFind;
+  const common = {
+    lastFindRequestRef, deferredFindSequenceRef, transitionGateRef,
+    timerResizePendingRef, presentationRef,
+    focusSurfaceModeOf: (p) => p === "panel" ? "panel" : "timer",
+    setFindTimerPulse: (value) => pulses.push(value),
+  };
+  vm.runInNewContext(
+    extract('    void subscribe<number>("focus-timer-find-requested", (sequence) => {',
+      "\n\n    return () => {\n      disposed = true;")
+      + "\n",
+    {
+      ...common,
+      presentationHydratedRef: { current: true },
+      subscribe: (eventName, callback) => {
+        assert.equal(eventName, "focus-timer-find-requested");
+        handleFind = callback;
+      },
+    },
+  );
+  assert.equal(typeof handleFind, "function");
+  handleFind(1);
+  assert.equal(lastFindRequestRef.current, 0);
+  assert.equal(deferredFindSequenceRef.current, 1);
+  assert.deepEqual(pulses, []);
+
+  const replay = (transitionPending, timerResizePending) => {
+    vm.runInNewContext(
+      extract(
+        "  useEffect(() => {\n    if (!presentationHydrated || transitionPending || timerResizePending) return;",
+        "\n\n  useEffect(() => {\n    if (\n      !presentationHydrated",
+      ),
+      {
+        ...common,
+        useEffect: (callback) => callback(),
+        presentationHydrated: true,
+        transitionPending,
+        timerResizePending,
+        deferredPanelResumeNonceRef: { current: undefined },
+        deferredToggleSequenceRef: { current: null },
+        lastToggleRequestRef: { current: 0 },
+        timerProjectionRef: { current: null },
+        handleBlitzPanelRequest: () => {},
+      },
+    );
+  };
+  replay(true, false);
+  assert.deepEqual(pulses, []);
+  transitionGateRef.current = false;
+  replay(false, false);
+  assert.deepEqual(pulses, [1]);
+  assert.equal(lastFindRequestRef.current, 1);
+  assert.equal(deferredFindSequenceRef.current, null);
+
+  handleFind(1); // delivered sequence must not pulse twice
+  assert.deepEqual(pulses, [1]);
+  timerResizePendingRef.current = true;
+  handleFind(2);
+  handleFind(3); // coalesce repeated native trigger while resizing
+  assert.equal(deferredFindSequenceRef.current, 3);
+  assert.equal(lastFindRequestRef.current, 1);
+  replay(false, true);
+  assert.deepEqual(pulses, [1]);
+  timerResizePendingRef.current = false;
+  replay(false, false);
+  assert.deepEqual(pulses, [1, 3]);
+  assert.equal(lastFindRequestRef.current, 3);
+  assert.equal(deferredFindSequenceRef.current, null);
+});
