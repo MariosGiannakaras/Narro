@@ -622,7 +622,7 @@ export function FocusSurfaceCoordinator() {
       .catch((failure: unknown) => {
         if (!disposed) {
           setTransitionError(formatInvokeError(failure));
-          // If event subscription fails, a one-shot native snapshot still
+          // If native listener setup fails, a one-shot snapshot still
           // permits initial Focus hydration. Keep the listener error visible:
           // subsequent external invalidation events cannot be observed.
           void reconcileAuthoritativePresentation();
@@ -883,7 +883,7 @@ export function FocusSurfaceCoordinator() {
           data-focus-presentation="timer"
           data-focus-visibility={timerActive ? "active" : "preparing"}
           aria-hidden={timerActive && completionSuccess === null ? undefined : true}
-          inert={!timerActive || transitionPending || completionSuccess !== null}
+          inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}

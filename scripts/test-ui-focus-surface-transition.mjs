@@ -117,7 +117,7 @@ invariant(
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
