@@ -235,3 +235,16 @@ invariant(
 );
 
 console.log("Single-host Focus presentation transition contracts passed.");
+
+invariant(
+  coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
+    && floatingTimer.includes("restoreResizeTriggerFocus")
+    && floatingTimer.includes('document.activeElement.dataset.floatingSubtaskControl === "expand"')
+    && floatingTimer.includes("!document.hasFocus()")
+    && floatingTimer.includes('!trigger.closest("[inert]")')
+    && floatingTimer.includes('trigger.focus({ preventScroll: true })')
+    && floatingTimer.includes('document.activeElement !== document.body')
+    && floatingTimer.includes('document.activeElement !== document.documentElement')
+    && coordinator.includes('onResizePendingChange={setTimerResizeBusy}'),
+  "native Timer resize must restore only the initiating keyboard control after the inert boundary clears",
+);

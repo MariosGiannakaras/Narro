@@ -279,6 +279,12 @@ export function FloatingTimerFoundation({
     // same-task measured source layout is available.
     const v4Source = onRequestV4Expanded ? measureMotionV4Timer(document) : null;
     const useV4 = v4Source !== null && v4Source.taskId === liveTaskId;
+    // The parent marks the entire Timer subtree inert while native pixels
+    // protect its resize. Remember only the actual initiating expand control
+    // so keyboard focus can recover if inert moved focus onto the document.
+    const restoreResizeTriggerFocus =
+      document.activeElement instanceof HTMLButtonElement
+      && document.activeElement.dataset.floatingSubtaskControl === "expand";
     resizeRequestInFlightRef.current = true;
     onResizePendingChange?.(true);
     setResizePending(true);
@@ -358,6 +364,23 @@ export function FloatingTimerFoundation({
       onResizePendingChange?.(false);
       setResizePhase("idle");
       setResizePending(false);
+      if (restoreResizeTriggerFocus) {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            // Never steal focus if the user moved it, the surface is no
+            // longer focused, or the resize action remains blocked.
+            if (!document.hasFocus()
+              || (document.activeElement !== document.body
+                && document.activeElement !== document.documentElement)) return;
+            const trigger = document.querySelector<HTMLButtonElement>(
+              '.floating-timer-foundation [data-floating-subtask-control="expand"]',
+            );
+            if (trigger && !trigger.disabled && !trigger.closest("[inert]")) {
+              trigger.focus({ preventScroll: true });
+            }
+          });
+        });
+      }
     }
   };
 
