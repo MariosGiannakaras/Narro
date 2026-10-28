@@ -501,3 +501,71 @@ test("native Find Timer defers and replays the latest sequence across protected 
   assert.equal(lastFindRequestRef.current, 3);
   assert.equal(deferredFindSequenceRef.current, null);
 });
+
+
+test("presentation listener rejection still hydrates from native authority and preserves an observable error", async () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  const startMarker = "  useEffect(() => {\n    let disposed = false;\n    let stopListening: (() => void) | undefined;";
+  const endMarker = "\n\n  useEffect(() => {\n    if (!presentationHydrated || transitionPending || timerResizePending) return;";
+  const start = coordinator.indexOf(startMarker);
+  const end = coordinator.indexOf(endMarker, start + startMarker.length);
+  assert.ok(start >= 0 && end > start, "actual presentation listener lifecycle must exist");
+  const realEffect = ts.transpileModule(coordinator.slice(start, end), {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+  }).outputText;
+
+  const run = async (listenerFails, disposeImmediately = false) => {
+    const order = [];
+    const failures = [];
+    let cleanup;
+    const hydratedRef = { current: false };
+    const listenerError = new Error("event listener unavailable");
+    vm.runInNewContext(realEffect, {
+      useEffect: (callback) => { cleanup = callback(); },
+      listen: () => {
+        order.push("listen");
+        return listenerFails
+          ? Promise.reject(listenerError)
+          : Promise.resolve(() => { order.push("unlisten"); });
+      },
+      FOCUS_PRESENTATION_CHANGED_EVENT: "focus-surface-presentation-changed",
+      getFocusSurfacePresentation: async () => {
+        order.push("native-snapshot");
+        return "timerCompact";
+      },
+      presentationReconcileRevisionRef: { current: 0 },
+      transitionGateRef: { current: false },
+      publishPresentation: (presentation) => order.push("renderer:" + presentation),
+      presentationHydratedRef: hydratedRef,
+      setPresentationHydrated: (hydrated) => order.push("hydrated:" + hydrated),
+      setTransitionError: (message) => failures.push(message),
+      formatInvokeError: (error) => error.message,
+    });
+    assert.equal(typeof cleanup, "function");
+    if (disposeImmediately) cleanup();
+    await new Promise((resolve) => setImmediate(resolve));
+    if (!disposeImmediately) cleanup();
+    return { order, failures, hydratedRef };
+  };
+
+  const normal = await run(false);
+  assert.deepEqual(normal.order.slice(0, 4), [
+    "listen", "native-snapshot", "renderer:timerCompact", "hydrated:true",
+  ], "successful subscription must precede initial authoritative snapshot");
+  assert.deepEqual(normal.failures, []);
+  assert.equal(normal.hydratedRef.current, true);
+
+  const failedListener = await run(true);
+  assert.deepEqual(failedListener.order, [
+    "listen", "native-snapshot", "renderer:timerCompact", "hydrated:true",
+  ], "listener failure must not leave the surface inert if native snapshot succeeds");
+  assert.deepEqual(failedListener.failures, ["event listener unavailable"]);
+  assert.equal(failedListener.hydratedRef.current, true);
+
+  const disposed = await run(true, true);
+  assert.deepEqual(disposed.order, ["listen"]);
+  assert.deepEqual(disposed.failures, []);
+  assert.equal(disposed.hydratedRef.current, false);
+});
