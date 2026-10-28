@@ -1,0 +1,95 @@
+{
+  "originalSHA256": "11825CB78575D9099AED8F13D16F78B03C20A1A0EBC809CF78B406FB2F25F5F8",
+  "candidateSHA256": "9D883BD68043E82CC16423B4238A26634EF2228643C17BF472AC54BB56F1E8AB",
+  "sourceBytes": 1551152,
+  "candidateBytes": 1536000,
+  "callbackRVA": 271497,
+  "vtableRVA": 1236680,
+  "successTailRVA": 284161,
+  "newSectionRVA": 1564672,
+  "newSectionRaw": 1535488,
+  "workerEnd": 201,
+  "unwindOffset": 204,
+  "changes": [
+    {
+      "name": "section-count",
+      "offset": 134,
+      "original": "0a00",
+      "patched": "0b00"
+    },
+    {
+      "name": "code-size",
+      "offset": 156,
+      "original": "00681200",
+      "patched": "006a1200"
+    },
+    {
+      "name": "image-size",
+      "offset": 208,
+      "original": "00e01700",
+      "patched": "00f01700"
+    },
+    {
+      "name": "checksum",
+      "offset": 216,
+      "original": "6db81700",
+      "patched": "00000000"
+    },
+    {
+      "name": "remove-invalid-certificate-directory",
+      "offset": 296,
+      "original": "006e1700303d0000",
+      "patched": "0000000000000000"
+    },
+    {
+      "name": "worker-section",
+      "offset": 792,
+      "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "patched": "2e63757731300000dc00000000e0170000020000006e170000000000000000000000000020000060"
+    },
+    {
+      "name": "busy-success-return",
+      "offset": 268480,
+      "original": "5b310000",
+      "patched": "3d310000"
+    },
+    {
+      "name": "worker-one-shot",
+      "offset": 268495,
+      "original": "740d",
+      "patched": "eb0d"
+    },
+    {
+      "name": "callback-vtable",
+      "offset": 1231048,
+      "original": "8924044001000000",
+      "patched": "00e0174001000000"
+    },
+    {
+      "name": "unwind-directory-size",
+      "offset": 292,
+      "original": "d8840000",
+      "patched": "f0840000"
+    },
+    {
+      "name": "pdata-virtual-size",
+      "offset": 520,
+      "original": "d8840000",
+      "patched": "f0840000"
+    },
+    {
+      "name": "worker-unwind-entries",
+      "offset": 1406168,
+      "original": "000000000000000000000000000000000000000000000000",
+      "patched": "00e0170072e01700cce0170080e01700c9e01700d4e01700"
+    }
+  ],
+  "removedCertificateOverlayBytes": 15664,
+  "wrapperHex": "534883ec304889cb488b5108f00fba6a1008723a488b01ff500831c931d24c8d055b0000004989d948c74424200000000048c744242800000000ff15d88fffff4885c074114889c1ff158a8fffff31c04883c4305bc3488b4308c64011004889d9488b01ff5010b8054000804883c4305bc3cccccccccccccccccccccccccccc534883ec204889cbb901000000ff159d8effff85c078194889d9e8ea43ecff4889d9488b03ff5010ff158a8effffeb11488b4308c64011004889d9488b03ff501031c04883c4205bc300000001050200055201300105020005320130",
+  "imports": {
+    "CreateThread": 1536024,
+    "CloseHandle": 1535960,
+    "RoInitialize": 1535792,
+    "RoUninitialize": 1535800
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "candidateSHA256": "9D883BD68043E82CC16423B4238A26634EF2228643C17BF472AC54BB56F1E8AB",
+  "peWarnings": [],
+  "changedOriginalBytes": 48,
+  "allowedChangeRegions": 12,
+  "originalCallbackInstructionsChanged": 2,
+  "newSection": "RX (not writable)",
+  "importTargets": [
+    {
+      "instruction": "0x17e03a",
+      "target": "CreateThread"
+    },
+    {
+      "instruction": "0x17e048",
+      "target": "CloseHandle"
+    },
+    {
+      "instruction": "0x17e08d",
+      "target": "RoInitialize"
+    },
+    {
+      "instruction": "0x17e09a",
+      "target": "original callback"
+    },
+    {
+      "instruction": "0x17e0a8",
+      "target": "RoUninitialize"
+    }
+  ],
+  "certificateRemoved": true
+}

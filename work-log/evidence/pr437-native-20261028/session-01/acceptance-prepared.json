@@ -1,0 +1,36 @@
+{
+  "source": "2fc7881c9a13a355daf5c69516ef34313ff00b31",
+  "utc": "2026-10-28T08:52:27.126007+00:00",
+  "cases": [
+    {
+      "id": "J01",
+      "requirement": "Actual physical monitor friendly names in full and Quick Preferences",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "J02",
+      "requirement": "Matching desktop snapshots inside existing frames in full and Quick Preferences; no added UI",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "J03",
+      "requirement": "Fresh hidden OFF Timer primary fallback while selected LG absent",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "J04",
+      "requirement": "Reconnect recovery and preserved selected monitor preference",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "J05",
+      "requirement": "Integrated Panel/Compact/Expanded task/time/host and visual transitions",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "J06",
+      "requirement": "Once-only Done and next-task immediate identity/revision on integrated candidate",
+      "status": "NOT_RUN"
+    }
+  ]
+}

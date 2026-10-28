@@ -1,0 +1,74 @@
+{
+  "utc": "2026-10-28T09:22:46.180932+00:00",
+  "before": {
+    "stage": "before",
+    "taskCount": 80,
+    "completedCount": 66,
+    "namedTasks": [
+      {
+        "id": "a6dd02df-e312-4caf-b469-d9af1cbed93e",
+        "title": "Weekly recurring parent",
+        "completed_at": null
+      },
+      {
+        "id": "bf70d1ff-75f0-40a7-96bc-315a061c81c1",
+        "title": "Weekly recurring parent",
+        "completed_at": null
+      },
+      {
+        "id": "d9ad192d-f28b-479d-98db-4960831261fc",
+        "title": "Weekly recurring parent",
+        "completed_at": "2026-10-23T14:07:05.492Z"
+      }
+    ],
+    "sessionCount": 123,
+    "runtimeCheckpoint": [
+      [
+        1,
+        "eed89dc5-8e4b-495c-a5fe-40d175df30d7",
+        "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"a6dd02df-e312-4caf-b469-d9af1cbed93e\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1200000},\"phase\":\"paused\",\"total_work_ms\":268508,\"interval_work_ms\":268508}}",
+        "2026-10-28T08:52:36.417Z"
+      ]
+    ]
+  },
+  "after": {
+    "stage": "after",
+    "taskCount": 81,
+    "completedCount": 67,
+    "namedTasks": [
+      {
+        "id": "a6dd02df-e312-4caf-b469-d9af1cbed93e",
+        "title": "Weekly recurring parent",
+        "completed_at": "2026-10-28T09:14:57.808Z"
+      },
+      {
+        "id": "bf70d1ff-75f0-40a7-96bc-315a061c81c1",
+        "title": "Weekly recurring parent",
+        "completed_at": null
+      },
+      {
+        "id": "cd350330-eb4e-4959-9231-fbfc935e04e4",
+        "title": "J06 next task 20261028",
+        "completed_at": null
+      },
+      {
+        "id": "d9ad192d-f28b-479d-98db-4960831261fc",
+        "title": "Weekly recurring parent",
+        "completed_at": "2026-10-23T14:07:05.492Z"
+      }
+    ],
+    "sessionCount": 124,
+    "runtimeCheckpoint": [
+      [
+        1,
+        "0dedd038-1593-4c0c-bb68-87b1935c424c",
+        "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"cd350330-eb4e-4959-9231-fbfc935e04e4\",\"mode\":{\"kind\":\"count_up\"},\"phase\":\"running\",\"total_work_ms\":361522,\"interval_work_ms\":361522}}",
+        "2026-10-28T09:21:17.838Z"
+      ]
+    ]
+  },
+  "newTaskIds": [
+    "cd350330-eb4e-4959-9231-fbfc935e04e4"
+  ],
+  "lostTaskIds": []
+}

@@ -1,0 +1,236 @@
+{
+  "utc": "2026-10-28T09:03:52.213Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "INPUT",
+        "label": null,
+        "text": ""
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Focus list",
+          "text": "CR+3All Lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Preferences",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Home",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Compact view",
+          "text": ""
+        },
+        {
+          "tag": "SECTION",
+          "label": "Focus queue",
+          "text": "Weekly recurring parent15:32Capture ProjectPausedEST0:20:00Time T"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit EST: 0:20:00",
+          "text": "0:20:00"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Edit Time Taken: 0:04:28",
+          "text": "0:04:28"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Subtasks"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Weekly recurring parent",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Start break",
+          "text": "Break"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Notes",
+          "text": "Notes"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Resume",
+          "text": "Resume"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Skip task",
+          "text": "Skip"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Complete task",
+          "text": "Done"
+        },
+        {
+          "tag": "SELECT",
+          "label": null,
+          "text": "Choose listCapture ProjectReading & researchLong project name for"
+        },
+        {
+          "tag": "INPUT",
+          "label": null,
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Cancel"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture drag task B",
+          "text": "Capture drag task B"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Capture live task — long title for compact wrapping and hover actions",
+          "text": "Capture live task — long title for compact wrapping and hover act"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Physical EST boundary resume 20261026",
+          "text": "Physical EST boundary resume 20261026"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Physical EST clean 20261026",
+          "text": "Physical EST clean 20261026"
+        },
+        {
+          "tag": "SPAN",
+          "label": "Task title: Second task — notes and success feedback",
+          "text": "Second task — notes and success feedback"
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "Settings"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Capture Project",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Reading & research",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Long project name for list badge and title wrapping",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Uploaded image capture list",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Archived example",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+CREATE LIST"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Home"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reports"
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

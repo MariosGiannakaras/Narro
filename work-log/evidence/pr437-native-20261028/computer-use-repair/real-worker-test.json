@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "realWorkers": 20,
+  "reentryCalls": 1000,
+  "allWorkersMTA": true,
+  "callbackReturnedWhileWorkerBlocked": true,
+  "retainedReferencesAfterCompletion": 0,
+  "allThreadHandlesClosed": true,
+  "releaseBeforeCOMTeardown": true,
+  "COMInitializationFailure": "PASS",
+  "threadCreationFailure": "PASS",
+  "maximumCallbackMs": 0.063,
+  "capturesTested": false
+}

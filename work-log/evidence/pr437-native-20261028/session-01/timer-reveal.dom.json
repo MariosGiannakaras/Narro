@@ -1,0 +1,141 @@
+{
+  "utc": "2026-10-28T08:58:57.800Z",
+  "results": [
+    {
+      "url": "http://tauri.localhost/focus.html",
+      "focused": true,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BODY",
+        "label": null,
+        "text": "\n    Weekly recurring parent15:32BreakStart breakNotesNotesResumeResumeSkipSkip taskDoneComplete tas"
+      },
+      "tabs": [
+        {
+          "tag": "DIV",
+          "label": "Show Floating Timer actions",
+          "text": "Weekly recurring parent15:32"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add subtask for Weekly recurring parent",
+          "text": "+"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Expand Floating Timer",
+          "text": ""
+        }
+      ],
+      "dialogs": []
+    },
+    {
+      "url": "http://tauri.localhost/",
+      "focused": false,
+      "reducedMotion": true,
+      "active": {
+        "tag": "BUTTON",
+        "label": null,
+        "text": "Settings"
+      },
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+ Create new list"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "All my lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Archived lists"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Search"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Settings"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Capture Project",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Reading & research",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Long project name for list badge and title wrapping",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Uploaded image capture list",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": "More actions for Archived example",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Open"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "+CREATE LIST"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Home"
+        },
+        {
+          "tag": "BUTTON",
+          "label": null,
+          "text": "Reports"
+        }
+      ],
+      "dialogs": []
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "callbackBodyByteIdenticalToPreviouslyValidated": true,
+  "callbackRva": 271497,
+  "callbackBytes": 13978,
+  "sectionCodeComparisons": [
+    {
+      "name": ".text",
+      "identical": true
+    },
+    {
+      "name": ".data",
+      "identical": true
+    },
+    {
+      "name": ".rdata",
+      "identical": true
+    },
+    {
+      "name": ".pdata",
+      "identical": true
+    },
+    {
+      "name": ".xdata",
+      "identical": true
+    },
+    {
+      "name": ".bss",
+      "identical": true
+    },
+    {
+      "name": ".idata",
+      "identical": true
+    },
+    {
+      "name": ".CRT",
+      "identical": true
+    },
+    {
+      "name": ".tls",
+      "identical": true
+    },
+    {
+      "name": ".reloc",
+      "identical": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-28T09:26:52.287863+00:00",
+  "head": "2fc7881c9a13a355daf5c69516ef34313ff00b31",
+  "exeSha256": "2e6eeed8b757e773d5ffdc217b4874f95beed9ad543731958c041a3539a2ee7f",
+  "acquiredAtLeastPartly": 4,
+  "denominator": 6,
+  "cases": {
+    "J01": {
+      "overall": "FAIL",
+      "primaryName": "PASS",
+      "lgTvName": "FAIL"
+    },
+    "J02": {
+      "overall": "PARTIAL",
+      "connectedSnapshotsMappingFrame": "PASS",
+      "unavailableReconnectFreshness": "NOT_RUN"
+    },
+    "J03": {
+      "overall": "NOT_RUN"
+    },
+    "J04": {
+      "overall": "NOT_RUN"
+    },
+    "J05": {
+      "overall": "PARTIAL",
+      "sameHostTaskPausedEndpoint": "PASS",
+      "normalMotionAndFullContinuousFrames": "OPEN"
+    },
+    "J06": {
+      "overall": "PARTIAL",
+      "doneOnceNextTaskEventualIdentity": "PASS",
+      "immediateRevisionInterleaving": "NOT_PROVEN",
+      "liveTimeTakenDisplay": "OBSERVED_DISCREPANCY_SOURCE_DISPOSITION_OPEN"
+    }
+  }
+}

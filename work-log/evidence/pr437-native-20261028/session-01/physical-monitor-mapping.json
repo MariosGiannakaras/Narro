@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-28T09:23:25.636093+00:00",
+  "adapters": [
+    {
+      "deviceName": "\\\\.\\DISPLAY1",
+      "description": "Radeon RX 570 Series",
+      "stateFlags": 524293,
+      "monitors": [
+        {
+          "deviceName": "\\\\.\\DISPLAY1\\Monitor0",
+          "description": "LG ULTRAGEAR(DisplayPort)",
+          "deviceId": "MONITOR\\GSM773B\\{4d36e96e-e325-11ce-bfc1-08002be10318}\\0001",
+          "stateFlags": 3
+        }
+      ]
+    },
+    {
+      "deviceName": "\\\\.\\DISPLAY2",
+      "description": "Radeon RX 570 Series",
+      "stateFlags": 524289,
+      "monitors": [
+        {
+          "deviceName": "\\\\.\\DISPLAY2\\Monitor0",
+          "description": "Generic PnP Monitor",
+          "deviceId": "MONITOR\\GSM59C6\\{4d36e96e-e325-11ce-bfc1-08002be10318}\\0006",
+          "stateFlags": 3
+        }
+      ]
+    }
+  ]
+}
