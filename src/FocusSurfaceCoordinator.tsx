@@ -340,8 +340,8 @@ export function FocusSurfaceCoordinator() {
             await finishFocusSurfaceModeRaster(rasterToken);
             rasterToken = undefined;
           } else if (next !== previousPresentation) {
-            // Failed raster acquisition has not changed the native presentation;
-            // do not issue a second placement while rolling back its error.
+            // Raster acquisition failed before native geometry changed;
+            // restoring the already-owned presentation must not issue an extra placement.
             await applyFocusSurfacePresentation(next);
           }
         },
