@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import fs from "node:fs";
+import vm from "node:vm";
+import ts from "typescript";
 import {
   FocusPresentationRecoveryError,
   commitPreparedFocusPresentation,
@@ -300,4 +303,112 @@ test("failed rollback paint preserves its error and does not uncover an unpainte
     return true;
   });
   assert.equal(h.calls.includes("native:panel"), false);
+});
+
+test("a failed raster acquisition cannot initiate a second native placement of the already-committed presentation", async () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  assert.match(coordinator, /rasterToken = await prepareFocusSurfaceModeRaster\(targetPresentation\)/);
+  assert.match(coordinator, /\} else if \(next !== previousPresentation\) \{\s*\/\/ Raster acquisition failed before native geometry changed/);
+  const h = harness("panel", "timerCompact", true);
+  let nativeHeld = false;
+  const failure = new Error("native outgoing capture failed");
+  h.transition.beforeNativeCommit = async () => { h.calls.push("acquire-failed"); throw failure; };
+  h.transition.beforeNativeRollback = async () => { h.calls.push("paint-previous"); };
+  h.transition.applyNativePresentation = async (requested) => {
+    if (nativeHeld || requested !== h.transition.previousPresentation) h.calls.push(`native:${requested}`);
+  };
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), (error) => error === failure);
+  assert.deepEqual(h.calls, ["ready:timerCompact", "acquire-failed", "paint-previous", "renderer:panel"]);
+  // The equivalent prepared native-lease failure path must still restore
+  // geometry rather than skipping legitimate rollback.
+  const acquired = harness("panel", "timerCompact", true);
+  acquired.transition.beforeNativeCommit = async () => {
+    nativeHeld = true;
+    throw failure;
+  };
+  acquired.transition.beforeNativeRollback = async () => { acquired.calls.push("paint-previous"); };
+  acquired.transition.applyNativePresentation = async (requested) => {
+    if (nativeHeld || requested !== acquired.transition.previousPresentation) acquired.calls.push(`native:${requested}`);
+  };
+  await assert.rejects(commitPreparedFocusPresentation(acquired.transition), (error) => error === failure);
+  assert.ok(acquired.calls.indexOf("native:panel") > acquired.calls.indexOf("paint-previous"));
+});
+
+
+
+test("a same-tick Timer resize blocks both direct presentation and keyboard task requests", async () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  const extract = (startMarker, endMarker) => {
+    const start = coordinator.indexOf(startMarker);
+    const end = coordinator.indexOf(endMarker, start);
+    assert.ok(start >= 0 && end > start, "actual Focus handler must be extractable");
+    return ts.transpileModule(coordinator.slice(start, end), {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+    }).outputText;
+  };
+
+  // React may batch setState during the resize's own input event. The parent's
+  // synchronous ref is already true before the previous render's closures
+  // observe timerResizePending=true.
+  const messages = [];
+  const ref = { current: true };
+  const requestMode = vm.runInNewContext(
+    extract("  const requestMode = useCallback(async (", "\n  requestModeRef.current = requestMode;")
+      + "\nrequestMode;",
+    {
+      useCallback: (callback) => callback,
+      // The extracted real callback's dependency array is evaluated when it is created.
+      prepareGeometryMotion: () => {},
+      publishPresentation: () => {},
+      runGeometryMotion: () => {},
+      waitForReady: () => {},
+      presentationHydrated: true,
+      quickTaskAfterPanelRef: { current: false },
+      presentationRef: { current: "timerCompact" },
+      focusSurfaceModeOf: (value) => value === "panel" ? "panel" : "timer",
+      pendingModeRef: { current: null },
+      transitionGateRef: { current: false },
+      timerResizePending: false, // stale React state from previous render
+      timerResizePendingRef: ref,
+      setShortcutStatus: (value) => messages.push(value),
+    },
+  );
+  await requestMode("panel", true);
+  assert.deepEqual(messages, [
+    "Quick task creation is unavailable while the Focus surface is changing.",
+  ], "the immediate resize ref must reject a new transition before its first await");
+
+  let startedTaskCreation = false;
+  let requestedMode = false;
+  const onKeyDown = vm.runInNewContext(
+    extract("    const onKeyDown = (event: KeyboardEvent) => {",
+      '    window.addEventListener("keydown", onKeyDown);')
+      + "\nonKeyDown;",
+    {
+      resolveInAppShortcut: () => "create-task",
+      completionSuccess: null,
+      hasActiveModalShortcutBoundary: () => false,
+      isEditableShortcutTarget: () => false,
+      presentationHydrated: true,
+      transitionGateRef: { current: false },
+      timerResizePending: false, // same stale render's keyboard listener
+      timerResizePendingRef: ref,
+      setShortcutStatus: (value) => messages.push(value),
+      setQuickTaskOpen: () => { startedTaskCreation = true; },
+      requestModeRef: { current: () => { requestedMode = true; } },
+      presentationRef: { current: "timerCompact" },
+      focusSurfaceModeOf: () => "timer",
+    },
+  );
+  const event = { defaultPrevented: false, target: null, preventDefault() { this.defaultPrevented = true; } };
+  onKeyDown(event);
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(startedTaskCreation, false);
+  assert.equal(requestedMode, false);
+  assert.equal(messages.length, 2);
+  assert.equal(messages[1], "Quick task creation is unavailable while the Focus surface is changing.");
 });

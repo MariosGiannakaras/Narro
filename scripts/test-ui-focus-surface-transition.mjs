@@ -137,7 +137,8 @@ invariant(
 );
 invariant(
   coordinator.includes("completionSuccess !== null || hasActiveModalShortcutBoundary()")
-    && coordinator.includes("[presentationHydrated, timerResizePending, completionSuccess]"),
+    && coordinator.includes("if (transitionGateRef.current || timerResizePendingRef.current)")
+    && coordinator.includes("[presentationHydrated, completionSuccess]"),
   "B63 inline success must block new global quick-task shortcuts until next/close",
 );
 invariant(
