@@ -1,0 +1,45 @@
+[
+  {
+    "event": "record_started",
+    "utc": "2026-10-28T10:26:01.546752+00:00",
+    "pid": 13696
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:26:04.842636+00:00",
+    "mode": "/internal",
+    "exit": 0
+  },
+  {
+    "event": "fallback-primary",
+    "utc": "2026-10-28T10:26:09.965160+00:00"
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:26:14.428057+00:00",
+    "mode": "/clone",
+    "exit": 0
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:26:19.735698+00:00",
+    "mode": "/extend",
+    "exit": 0
+  },
+  {
+    "event": "return-restored",
+    "utc": "2026-10-28T10:26:26.882560+00:00"
+  },
+  {
+    "event": "record_stopped",
+    "utc": "2026-10-28T10:26:27.145955+00:00",
+    "exit": 0
+  },
+  {
+    "event": "profile_restore",
+    "utc": "2026-10-28T10:26:32.516367+00:00",
+    "exit": 0,
+    "output": "{\"state\": \"ORIGINAL_PROFILES_RESTORED\", \"hashIdentical\": true, \"originalDbSha256\": \"238f4b9ca4f40a299ae09685f43aae44e18ec840a5e1060518a0a7c37e2c6183\"}\n",
+    "stderr": ""
+  }
+]
