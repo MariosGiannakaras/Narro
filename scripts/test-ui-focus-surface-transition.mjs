@@ -15,6 +15,7 @@ const lib = read("src-tauri/src/lib.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const cargoToml = read("src-tauri/Cargo.toml");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const floatingTimer = read("src/FloatingTimerFoundation.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const focusEntry = read("src/focus.tsx");
 const focusDocumentCss = read("src/focusDocument.css");
