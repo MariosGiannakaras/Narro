@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs";
+import vm from "node:vm";
+import ts from "typescript";
 import {
   FocusPresentationRecoveryError,
   commitPreparedFocusPresentation,
@@ -334,3 +336,74 @@ test("a failed raster acquisition cannot initiate a second native placement of t
   assert.ok(acquired.calls.indexOf("native:panel") > acquired.calls.indexOf("paint-previous"));
 });
 
+
+
+test("a same-tick Timer resize blocks both direct presentation and keyboard task requests", async () => {
+  const coordinator = fs.readFileSync(
+    new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
+  );
+  const extract = (startMarker, endMarker) => {
+    const start = coordinator.indexOf(startMarker);
+    const end = coordinator.indexOf(endMarker, start);
+    assert.ok(start >= 0 && end > start, "actual Focus handler must be extractable");
+    return ts.transpileModule(coordinator.slice(start, end), {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
+    }).outputText;
+  };
+
+  // React may batch setState during the resize's own input event. The parent's
+  // synchronous ref is already true before the previous render's closures
+  // observe timerResizePending=true.
+  const messages = [];
+  const ref = { current: true };
+  const requestMode = vm.runInNewContext(
+    extract("  const requestMode = useCallback(async (", "\n  requestModeRef.current = requestMode;")
+      + "\nrequestMode;",
+    {
+      useCallback: (callback) => callback,
+      presentationHydrated: true,
+      quickTaskAfterPanelRef: { current: false },
+      presentationRef: { current: "timerCompact" },
+      focusSurfaceModeOf: (value) => value === "panel" ? "panel" : "timer",
+      pendingModeRef: { current: null },
+      transitionGateRef: { current: false },
+      timerResizePending: false, // stale React state from previous render
+      timerResizePendingRef: ref,
+      setShortcutStatus: (value) => messages.push(value),
+    },
+  );
+  await requestMode("panel", true);
+  assert.deepEqual(messages, [
+    "Quick task creation is unavailable while the Focus surface is changing.",
+  ], "the immediate resize ref must reject a new transition before its first await");
+
+  let startedTaskCreation = false;
+  let requestedMode = false;
+  const onKeyDown = vm.runInNewContext(
+    extract("    const onKeyDown = (event: KeyboardEvent) => {",
+      '    window.addEventListener("keydown", onKeyDown);')
+      + "\nonKeyDown;",
+    {
+      resolveInAppShortcut: () => "create-task",
+      completionSuccess: null,
+      hasActiveModalShortcutBoundary: () => false,
+      isEditableShortcutTarget: () => false,
+      presentationHydrated: true,
+      transitionGateRef: { current: false },
+      timerResizePending: false, // same stale render's keyboard listener
+      timerResizePendingRef: ref,
+      setShortcutStatus: (value) => messages.push(value),
+      setQuickTaskOpen: () => { startedTaskCreation = true; },
+      requestModeRef: { current: () => { requestedMode = true; } },
+      presentationRef: { current: "timerCompact" },
+      focusSurfaceModeOf: () => "timer",
+    },
+  );
+  const event = { defaultPrevented: false, target: null, preventDefault() { this.defaultPrevented = true; } };
+  onKeyDown(event);
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(startedTaskCreation, false);
+  assert.equal(requestedMode, false);
+  assert.equal(messages.length, 2);
+  assert.equal(messages[1], "Quick task creation is unavailable while the Focus surface is changing.");
+});

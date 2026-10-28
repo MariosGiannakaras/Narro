@@ -224,7 +224,7 @@ export function FocusSurfaceCoordinator() {
       return;
     }
 
-    if (transitionGateRef.current || timerResizePending) {
+    if (transitionGateRef.current || timerResizePendingRef.current) {
       if (quickTask) {
         quickTaskAfterPanelRef.current = false;
         setShortcutStatus("Quick task creation is unavailable while the Focus surface is changing.");
@@ -370,7 +370,7 @@ export function FocusSurfaceCoordinator() {
       transitionGateRef.current = false;
       setTransitionPending(false);
     }
-  }, [presentationHydrated, prepareGeometryMotion, publishPresentation, runGeometryMotion, timerResizePending, waitForReady]);
+  }, [presentationHydrated, prepareGeometryMotion, publishPresentation, runGeometryMotion, waitForReady]);
 
   requestModeRef.current = requestMode;
 
@@ -709,7 +709,7 @@ export function FocusSurfaceCoordinator() {
         return;
       }
 
-      if (transitionGateRef.current || timerResizePending) {
+      if (transitionGateRef.current || timerResizePendingRef.current) {
         setShortcutStatus("Quick task creation is unavailable while the Focus surface is changing.");
         return;
       }
@@ -724,7 +724,7 @@ export function FocusSurfaceCoordinator() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [presentationHydrated, timerResizePending, completionSuccess]);
+  }, [presentationHydrated, completionSuccess]);
 
   useEffect(() => {
     if (!shortcutStatus) return;
