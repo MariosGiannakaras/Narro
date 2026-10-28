@@ -1661,6 +1661,17 @@ fn render_mode_raster_frame(
             lease.target == FocusSurfacePresentation::TimerExpanded,
             layout,
         )?
+    } else if lease.snapshot.presentation.mode() != lease.target.mode() {
+        // The optional measured Panel/Timer cleanplates can be unavailable
+        // during a task-title marquee or a stale capture. Blending entire
+        // endpoint screenshots would draw the same semantic title and time
+        // twice. Keep a single intact source until the target takes over.
+        focus_mode_raster::compose_single_semantic_surface(
+            &lease.outgoing,
+            incoming,
+            visible,
+            progress,
+        )?
     } else {
         focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
     };

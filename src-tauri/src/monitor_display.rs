@@ -18,6 +18,20 @@ fn human_monitor_name(label: &str) -> Option<String> {
     Some(label.to_owned())
 }
 
+// Cloned displays may share a GDI source. Report a hardware model only
+// when *all* active targets mapped to that source agree on a real name.
+fn unique_target_model(names: &[Option<String>]) -> Option<String> {
+    let first = names.first()?.as_deref()?;
+    if names
+        .iter()
+        .all(|name| name.as_deref().is_some_and(|value| value.eq_ignore_ascii_case(first)))
+    {
+        Some(first.to_owned())
+    } else {
+        None
+    }
+}
+
 fn base64(data: &[u8]) -> String {
     const TABLE: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let mut output = String::with_capacity(data.len().div_ceil(3) * 4);
@@ -78,8 +92,15 @@ pub fn desktop_preview_data_url(display_name: Option<&str>, size: PhysicalSize) 
 #[cfg(windows)]
 mod native {
     use super::{human_monitor_name, PhysicalSize, PREVIEW_HEIGHT, PREVIEW_WIDTH};
+    use super::unique_target_model;
     use std::ffi::c_void;
     use std::ptr::null;
+    use windows::Win32::Devices::Display::{
+        DisplayConfigGetDeviceInfo, GetDisplayConfigBufferSizes, QueryDisplayConfig,
+        DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME, DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
+        DISPLAYCONFIG_MODE_INFO, DISPLAYCONFIG_PATH_INFO, DISPLAYCONFIG_SOURCE_DEVICE_NAME,
+        DISPLAYCONFIG_TARGET_DEVICE_NAME, QDC_ONLY_ACTIVE_PATHS,
+    };
 
     type Handle = *mut c_void;
     const DISPLAY_DEVICE_ACTIVE: u32 = 0x0000_0001;
@@ -190,7 +211,78 @@ mod native {
         String::from_utf16_lossy(&value[..len])
     }
 
+    // QueryDisplayConfig correlates an active GDI source (DISPLAYx) with
+    // its actual display target(s). Target names come from Windows' EDID-backed
+    // device metadata. No screen-index or work-area guess is involved.
+    fn active_display_config_name(display_name: &str) -> Option<String> {
+        if display_name.trim().is_empty() || display_name.contains('\0') {
+            return None;
+        }
+        for _ in 0..3 {
+            let mut path_count = 0;
+            let mut mode_count = 0;
+            let status = unsafe {
+                GetDisplayConfigBufferSizes(QDC_ONLY_ACTIVE_PATHS, &mut path_count, &mut mode_count)
+            };
+            if status.0 != 0 {
+                return None;
+            }
+            if path_count == 0 || path_count > 64 || mode_count > 256 {
+                return None;
+            }
+            let mut paths = vec![DISPLAYCONFIG_PATH_INFO::default(); path_count as usize];
+            let mut modes = vec![DISPLAYCONFIG_MODE_INFO::default(); mode_count as usize];
+            let status = unsafe {
+                QueryDisplayConfig(
+                    QDC_ONLY_ACTIVE_PATHS,
+                    &mut path_count,
+                    paths.as_mut_ptr(),
+                    &mut mode_count,
+                    modes.as_mut_ptr(),
+                    None,
+                )
+            };
+            if status.0 == 122 {
+                // A hotplug may change buffer sizes between the two queries.
+                continue;
+            }
+            if status.0 != 0 {
+                return None;
+            }
+            let mut matching_targets = Vec::new();
+            for path in paths.into_iter().take(path_count as usize) {
+                let mut source = DISPLAYCONFIG_SOURCE_DEVICE_NAME::default();
+                source.header.r#type = DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME;
+                source.header.size = std::mem::size_of::<DISPLAYCONFIG_SOURCE_DEVICE_NAME>() as u32;
+                source.header.adapterId = path.sourceInfo.adapterId;
+                source.header.id = path.sourceInfo.id;
+                if unsafe { DisplayConfigGetDeviceInfo(&mut source.header) } != 0 {
+                    return None;
+                }
+                if !utf16_string(&source.viewGdiDeviceName).eq_ignore_ascii_case(display_name) {
+                    continue;
+                }
+                let mut target = DISPLAYCONFIG_TARGET_DEVICE_NAME::default();
+                target.header.r#type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
+                target.header.size = std::mem::size_of::<DISPLAYCONFIG_TARGET_DEVICE_NAME>() as u32;
+                target.header.adapterId = path.targetInfo.adapterId;
+                target.header.id = path.targetInfo.id;
+                if unsafe { DisplayConfigGetDeviceInfo(&mut target.header) } != 0 {
+                    return None;
+                }
+                matching_targets.push(human_monitor_name(&utf16_string(
+                    &target.monitorFriendlyDeviceName,
+                )));
+            }
+            return unique_target_model(&matching_targets);
+        }
+        None
+    }
+
     pub fn friendly_name(display_name: &str) -> Option<String> {
+        if let Some(name) = active_display_config_name(display_name) {
+            return Some(name);
+        }
         // Match the SAME adapter name used by Tauri (e.g. \\.\DISPLAY2).
         // Never map by enumeration index, screen position or a guessed model.
         for adapter_index in 0..32 {
@@ -385,6 +477,25 @@ mod tests {
         assert_eq!(base64(b"fo"), "Zm8=");
         assert_eq!(base64(b"foo"), "Zm9v");
         assert_eq!(base64(&[0, 255, 127]), "AP9/");
+    }
+
+    #[test]
+    fn cloned_or_ambiguous_active_display_sources_never_guess_a_monitor_model() {
+        use super::unique_target_model;
+        assert_eq!(
+            unique_target_model(&[Some("2D FHD LG TV".into())]).as_deref(),
+            Some("2D FHD LG TV")
+        );
+        assert_eq!(
+            unique_target_model(&[Some("LG TV".into()), Some("lg tv".into())]).as_deref(),
+            Some("LG TV")
+        );
+        assert_eq!(
+            unique_target_model(&[Some("LG TV".into()), Some("Other screen".into())]),
+            None
+        );
+        assert_eq!(unique_target_model(&[Some("LG TV".into()), None]), None);
+        assert_eq!(unique_target_model(&[]), None);
     }
 
     #[test]
