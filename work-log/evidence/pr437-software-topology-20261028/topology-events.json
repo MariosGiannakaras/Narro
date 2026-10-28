@@ -1,0 +1,34 @@
+[
+  {
+    "event": "record_started",
+    "utc": "2026-10-28T10:20:58.458723+00:00",
+    "pid": 8668
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:21:01.756275+00:00",
+    "mode": "/internal",
+    "exit": 0
+  },
+  {
+    "event": "inactive_probe",
+    "utc": "2026-10-28T10:21:03.906739+00:00"
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:21:24.143106+00:00",
+    "mode": "/clone",
+    "exit": 0
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-28T10:21:29.366267+00:00",
+    "mode": "/extend",
+    "exit": 0
+  },
+  {
+    "event": "record_stopped",
+    "utc": "2026-10-28T10:21:35.927904+00:00",
+    "exit": 0
+  }
+]
