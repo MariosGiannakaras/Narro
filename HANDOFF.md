@@ -1,4 +1,11 @@
-# CURRENT HANDOFF — PR437 two native FAILs; first-paint PASS and capture-rate correction
+# CURRENT HANDOFF — PR437 independent capture retest PREPARED
+
+**Last reported UTC 2026-10-28T09:51:08.417742+00:00; owner Codex physical; PREPARED.** User explicitly asks whether low frame cadence could explain the recorded duplicate and authorizes a more reliable retest. Exact PR437 head2fc7881c / EXE2e6eeed8 / CI40648025484 unchanged. Fresh `E:\SystemFiles\Desktop\Narro-Workspace\Narro-Physical-20261028-PR437\session-highfps-03` profile protected, backup quick_check OK; no app/capture launched yet. Primary100% right-side Focus ROI[2140,0,2560,900], two simultaneous independent GDI and Desktop Duplication captures (DDA `dup_frames=0`); static benchmark separately ~50/~55 recorded frames/s, actual action-interval PTS must be measured, not inferred. Auto-stop after35s and freeze promptly. No other monitor/hardware changes or user actions.
+
+**ONE NEXT:** launch same verified executable, establish paused task in Panel, run focused capture of Panel→compact and reverse in both mechanisms; compare original frame timestamps and visually matching duplicated/missing content. Preserve exact source/method and first discrepant frame, allow INCONCLUSIVE if capture differs/insufficient. Stop all owned capture/app, restore current personal profiles hash-identically, publish raw videos, frame evidence, statuses and handoff. No source/config/test/new CI/merge; P431/M7 and all other gates unchanged pending evidence, M10 hard entry preserved.
+
+---
+# HISTORICAL prior user-requested high-cadence retest
 
 **Last reported UTC 2026-10-28T09:42:54.169651+00:00; owner Codex physical/evidence, phase FROZEN/DONE.** Latest PR437 live-verified OPEN/unmerged head2fc7881c9a13a355daf5c69516ef34313ff00b31 / EXE2e6eeed8b757e773d5ffdc217b4874f95beed9ad543731958c041a3539a2ee7f / CI40648025484 3/3. Both personal profiles restored hash-identically; no owned Narro/recorder running. User currently has no physical access; do not ask for cable or manual clicks until availability changes.
 
