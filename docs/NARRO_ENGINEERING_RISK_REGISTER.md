@@ -97,6 +97,8 @@ Evidence:
 
 ### NER-002 — stop symptom-patch loops
 
+**2026-10-29 J05 boundary refinement:** read-only DOM/native/video correlation on PR43741e8ff8a found preparing WebView content exposed while the full-size GDI child raster still existed. A present/first child HWND is not proof it shields a WebView compositor. Compare a materially different finite owned popup above the same persistent host, retaining source/native/physical claim separation; exact new candidate1dd54ed8 still needs continuous native validation. When pairing host/raster movement, retain the existing WebView parent-position notification after genuine movement and avoid redundant stationary moves. Native ownership/style/negative-origin/expiry tests support this candidate but cannot establish visual continuity. [Causal trace](../work-log/evidence/pr437-causal-transition-20261029/README.md), [correction and impact](../work-log/2026-10-29-codex-j05-owned-overlay-source-preflight.md).
+
 Gate 7 physically failed on multiple separately corrected, exact-CI-green builds with different visible signatures. The project therefore added the repeated-failure escalation now embedded in `AGENTS.md`: after the threshold, stop successive tiny fixes and reassess composition/architecture using the same acceptance criterion.
 
 Evidence:
