@@ -1623,6 +1623,7 @@ fn render_mode_raster_frame(
     lease: &FocusModeRaster,
     incoming: &focus_mode_raster::Image,
     progress: f64,
+    position: Option<GeometryPoint>,
 ) -> CommandResult<()> {
     let scale = window
         .scale_factor()
@@ -1675,7 +1676,11 @@ fn render_mode_raster_frame(
     } else {
         focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
     };
-    lease.hold.replace_transition_frame(visible, frame)
+    lease.hold.replace_transition_frame_at(
+        visible,
+        frame,
+        position.map(|point| tauri::PhysicalPosition::new(point.x, point.y)),
+    )
 }
 
 fn animate_focus_surface_presentation_internal(
@@ -1762,15 +1767,16 @@ fn animate_focus_surface_presentation_internal(
             }
             Ok(value.round() as i32)
         };
-        set_focus_position(
+        render_mode_raster_frame(
             &window,
-            GeometryPoint {
+            lease,
+            &incoming,
+            progress,
+            Some(GeometryPoint {
                 x: axis(start.x, target_position.x)?,
                 y: axis(start.y, target_position.y)?,
-            },
-            "move protected Focus host",
+            }),
         )?;
-        render_mode_raster_frame(&window, lease, &incoming, progress)?;
         if progress >= 1.0 {
             break;
         }
@@ -1790,7 +1796,7 @@ fn animate_focus_surface_presentation_internal(
     } else {
         floating_placement::restore_for_timer(app_handle, &window, target.expanded())?;
     }
-    render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
+    render_mode_raster_frame(&window, lease, &incoming, 1.0, None)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
     announce_focus_surface_presentation(app_handle, target);

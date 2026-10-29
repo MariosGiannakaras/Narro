@@ -308,7 +308,7 @@ test("failed rollback paint preserves its error and does not uncover an unpainte
 test("a failed raster acquisition cannot initiate a second native placement of the already-committed presentation", async () => {
   const coordinator = fs.readFileSync(
     new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
-  );
+  ).replace(/\r\n/g, "\n");
   assert.match(coordinator, /rasterToken = await prepareFocusSurfaceModeRaster\(targetPresentation\)/);
   assert.match(coordinator, /\} else if \(next !== previousPresentation\) \{\s*\/\/ Raster acquisition failed before native geometry changed/);
   const h = harness("panel", "timerCompact", true);
@@ -341,7 +341,7 @@ test("a failed raster acquisition cannot initiate a second native placement of t
 test("a same-tick Timer resize blocks both direct presentation and keyboard task requests", async () => {
   const coordinator = fs.readFileSync(
     new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
-  );
+  ).replace(/\r\n/g, "\n");
   const extract = (startMarker, endMarker) => {
     const start = coordinator.indexOf(startMarker);
     const end = coordinator.indexOf(endMarker, start);
@@ -417,7 +417,7 @@ test("a same-tick Timer resize blocks both direct presentation and keyboard task
 test("native Find Timer defers and replays the latest sequence across protected Focus transitions", () => {
   const coordinator = fs.readFileSync(
     new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
-  );
+  ).replace(/\r\n/g, "\n");
   const extract = (start, end) => {
     const begin = coordinator.indexOf(start);
     const finish = coordinator.indexOf(end, begin + start.length);
@@ -506,7 +506,7 @@ test("native Find Timer defers and replays the latest sequence across protected 
 test("presentation listener rejection still hydrates from native authority and preserves an observable error", async () => {
   const coordinator = fs.readFileSync(
     new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
-  );
+  ).replace(/\r\n/g, "\n");
   const startMarker = "  useEffect(() => {\n    let disposed = false;\n    let stopListening: (() => void) | undefined;";
   const endMarker = "\n\n  useEffect(() => {\n    if (!presentationHydrated || transitionPending || timerResizePending) return;";
   const start = coordinator.indexOf(startMarker);
@@ -574,7 +574,7 @@ test("presentation listener rejection still hydrates from native authority and p
 test("live Timer projection publishes synchronous task revisions before batched React state commits", () => {
   const source = fs.readFileSync(
     new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8",
-  );
+  ).replace(/\r\n/g, "\n");
   const start = source.indexOf("  const publishTimerProjection = useCallback(");
   const end = source.indexOf("\n\n  const setTimerResizeBusy = useCallback(", start);
   assert.ok(start >= 0 && end > start, "real shared Timer projection publisher must be extractable");

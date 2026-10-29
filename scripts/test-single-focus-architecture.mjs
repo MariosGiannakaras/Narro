@@ -11,6 +11,7 @@ const lib = read("src-tauri/src/lib.rs");
 const shutdown = read("src-tauri/src/normal_shutdown.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const region = read("src-tauri/src/timer_region.rs");
+const frameHold = read("src-tauri/src/focus_frame_hold.rs");
 const placement = read("src-tauri/src/floating_placement.rs");
 const topology = read("src-tauri/src/windows/topology.rs");
 const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
@@ -351,7 +352,9 @@ invariant(
     && placement.includes("pub(crate) fn planned_timer_position(")
     && lib.includes("fn animate_focus_surface_presentation_internal(")
     && lib.includes("windows::suspend_focus_display_recovery()")
-    && lib.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && /render_mode_raster_frame\(\s*&window,\s*lease,\s*&incoming,\s*progress,\s*Some\(GeometryPoint/.test(lib)
+    && frameHold.includes("BeginDeferWindowPos(2)")
+    && frameHold.includes("EndDeferWindowPos(batch)")
     && lib.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
     && lib.includes("restore_focus_native_snapshot_protected")
     && !lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),

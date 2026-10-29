@@ -166,7 +166,10 @@ invariant(
     && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
     && lib.includes("fn focus_motion_v4_easing(progress: f64)")
     && lib.includes("focus_motion_v4_raster::compose_panel(")
-    && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && /render_mode_raster_frame\(\s*&window,\s*lease,\s*&incoming,\s*progress,\s*Some\(GeometryPoint/.test(animatedNativeCommit)
+    && lib.includes("lease.hold.replace_transition_frame_at(")
+    && frameHold.includes("BeginDeferWindowPos(2)")
+    && frameHold.includes("EndDeferWindowPos(batch)")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
@@ -193,8 +196,20 @@ invariant(
     && finishRaster.includes("lease.token != raster_token")
     && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
     && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
-    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
+    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000, true)")
+    && frameHold.includes("begin_with_lifetime(window, visible, png, HOLD_MS, false)"),
   "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
+);
+invariant(
+  frameHold.includes('const MODE_CLASS: &str = "NarroFocusTransitionFrame";')
+    && frameHold.includes("if overlay { 0x080000a0 } else { 4 }")
+    && frameHold.includes("if overlay { 0x80000000 } else { 0x44000000 }")
+    && frameHold.includes("GetWindow(found, 4)")
+    && frameHold.includes("owned.is_none_or(|id| found as usize == id)")
+    && frameHold.includes("mode_raster_is_owned_nonactivating_popup_and_region_hold_stays_child")
+    && frameHold.includes("paired_host_overlay_move_preserves_negative_screen_origin_and_extent")
+    && frameHold.includes("expired_or_other_owner_raster_is_never_selected_for_cleanup"),
+  "mode prepaint must be covered above WebView composition by an exact-owned nonactivating popup; regular region holds stay children and native regression cases remain present",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
