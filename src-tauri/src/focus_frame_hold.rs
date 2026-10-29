@@ -42,6 +42,18 @@ mod native {
         y: i32,
     }
     #[repr(C)]
+    struct Size {
+        width: i32,
+        height: i32,
+    }
+    #[repr(C)]
+    struct Blend {
+        operation: u8,
+        flags: u8,
+        alpha: u8,
+        format: u8,
+    }
+    #[repr(C)]
     struct Paint {
         dc: Handle,
         erase: i32,
@@ -138,6 +150,17 @@ mod native {
             flags: u32,
         ) -> Handle;
         fn EndDeferWindowPos(batch: Handle) -> i32;
+        fn UpdateLayeredWindow(
+            window: Handle,
+            target_dc: Handle,
+            position: *const Point,
+            size: *const Size,
+            source_dc: Handle,
+            source: *const Point,
+            color_key: u32,
+            blend: *const Blend,
+            flags: u32,
+        ) -> i32;
     }
     #[link(name = "gdi32")]
     unsafe extern "system" {
@@ -172,6 +195,11 @@ mod native {
         ) -> Handle;
         fn DeleteObject(object: Handle) -> i32;
         fn DeleteDC(dc: Handle) -> i32;
+        fn GetRegionData(region: Handle, size: u32, data: *mut c_void) -> u32;
+        #[cfg(test)]
+        fn PtInRegion(region: Handle, x: i32, y: i32) -> i32;
+        #[cfg(test)]
+        fn GetObjectW(object: Handle, size: i32, output: *mut c_void) -> i32;
     }
     #[link(name = "kernel32")]
     unsafe extern "system" {
@@ -200,6 +228,7 @@ mod native {
         original: Handle,
         width: i32,
         height: i32,
+        layered: bool,
     }
     impl Drop for Pixels {
         fn drop(&mut self) {
@@ -224,7 +253,7 @@ mod native {
             // This raster is purely visual; the actual React controls retain
             // pointer/keyboard ownership on the same parent/UI thread.
             WM_NCHITTEST => -1,
-            WM_PAINT if !pixels.is_null() => {
+            WM_PAINT if !pixels.is_null() && !(*pixels).layered => {
                 let mut paint: Paint = std::mem::zeroed();
                 let dc = BeginPaint(hwnd, &mut paint);
                 let image = &*pixels;
@@ -308,6 +337,125 @@ mod native {
         }
     }
 
+    // Preserve exactly the existing Win32 rounded region, but carry its shape
+    // in the bitmap alpha so extent and pixels can be published in one call.
+    // Region bands avoid a per-pixel Win32 call or an invented corner geometry.
+    fn layered_bgra(
+        width: i32,
+        height: i32,
+        diameter: i32,
+        bytes: &[u8],
+    ) -> CommandResult<Vec<u8>> {
+        if width <= 0
+            || height <= 0
+            || width > 4096
+            || height > 4096
+            || diameter <= 0
+            || bytes.len() != width as usize * height as usize * 4
+        {
+            return Err(failure("invalid layered raster pixels"));
+        }
+        let region = unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+        if region.is_null() {
+            return Err(failure("create layered raster shape"));
+        }
+        let result = (|| {
+            let size = unsafe { GetRegionData(region, 0, ptr::null_mut()) };
+            if !(32..=1_048_576).contains(&size) {
+                return Err(failure("invalid layered region data size"));
+            }
+            let mut data = vec![0u8; size as usize];
+            if unsafe { GetRegionData(region, size, data.as_mut_ptr().cast()) } != size {
+                return Err(failure("read layered raster shape"));
+            }
+            let word =
+                |offset: usize| u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap());
+            let count = word(8) as usize;
+            if word(0) != 32 || word(4) != 1 || count > (data.len() - 32) / 16 {
+                return Err(failure("invalid layered region bands"));
+            }
+            let mut output = vec![0u8; bytes.len()];
+            for index in 0..count {
+                let offset = 32 + index * 16;
+                let rect = [
+                    word(offset) as i32,
+                    word(offset + 4) as i32,
+                    word(offset + 8) as i32,
+                    word(offset + 12) as i32,
+                ];
+                if rect[0] < 0
+                    || rect[1] < 0
+                    || rect[2] < rect[0]
+                    || rect[3] < rect[1]
+                    || rect[2] > width + 1
+                    || rect[3] > height + 1
+                {
+                    return Err(failure("out-of-bounds layered region band"));
+                }
+                for y in rect[1].min(height)..rect[3].min(height) {
+                    let start = (y as usize * width as usize + rect[0].min(width) as usize) * 4;
+                    let end = (y as usize * width as usize + rect[2].min(width) as usize) * 4;
+                    for (source, target) in bytes[start..end]
+                        .as_chunks::<4>()
+                        .0
+                        .iter()
+                        .zip(output[start..end].as_chunks_mut::<4>().0.iter_mut())
+                    {
+                        let alpha = u16::from(source[3]);
+                        for channel in 0..3 {
+                            target[channel] =
+                                ((u16::from(source[channel]) * alpha + 127) / 255) as u8;
+                        }
+                        target[3] = source[3];
+                    }
+                }
+            }
+            Ok(output)
+        })();
+        unsafe {
+            DeleteObject(region);
+        }
+        result
+    }
+
+    fn update_layered_bitmap(
+        parent: Handle,
+        raster: Handle,
+        source_dc: Handle,
+        width: i32,
+        height: i32,
+    ) -> CommandResult<()> {
+        let mut origin = Point::default();
+        if unsafe { ClientToScreen(parent, &mut origin) } == 0 {
+            return Err(failure("read atomic raster origin"));
+        }
+        let size = Size { width, height };
+        let source = Point::default();
+        let blend = Blend {
+            operation: 0,
+            flags: 0,
+            alpha: 255,
+            format: 1,
+        };
+        if unsafe {
+            UpdateLayeredWindow(
+                raster,
+                ptr::null_mut(),
+                &origin,
+                &size,
+                source_dc,
+                &source,
+                0,
+                &blend,
+                2,
+            )
+        } == 0
+        {
+            return Err(failure("publish atomic raster pixels and extent"));
+        }
+        Ok(())
+    }
+
     // Move the real host and its pixel-only popup in one GUI-thread batch.
     // Child coordinates are client-relative; owned popup coordinates are
     // physical screen coordinates, including negative monitor origins.
@@ -319,6 +467,9 @@ mod native {
         height: i32,
         position: Option<tauri::PhysicalPosition<i32>>,
     ) -> CommandResult<bool> {
+        // A layered popup publishes its new extent together with its pixels.
+        // Moving the pair must never resize that popup with stale pixels.
+        let raster_flags = if overlay { 0x51 } else { 0x50 };
         let mut origin = Point::default();
         if overlay && unsafe { ClientToScreen(parent, &mut origin) } == 0 {
             return Err(failure("read transition overlay client origin"));
@@ -367,7 +518,7 @@ mod native {
                     origin.y,
                     width,
                     height,
-                    0x50,
+                    raster_flags,
                 )
             };
             if batch.is_null() || unsafe { EndDeferWindowPos(batch) } == 0 {
@@ -381,7 +532,7 @@ mod native {
                 origin.y,
                 width,
                 height,
-                0x50,
+                raster_flags,
             )
         } == 0
         {
@@ -405,6 +556,121 @@ mod native {
             }
             Ok(())
         })
+    }
+
+    fn replace_raster(
+        parent: usize,
+        child_id: usize,
+        overlay: bool,
+        visible: tauri::PhysicalSize<u32>,
+        bytes: Vec<u8>,
+        diameter: i32,
+        position: Option<tauri::PhysicalPosition<i32>>,
+    ) -> CommandResult<bool> {
+        if visible.width == 0
+            || visible.height == 0
+            || visible.width > 4096
+            || visible.height > 4096
+            || bytes.len() != visible.width as usize * visible.height as usize * 4
+        {
+            return Err(failure("invalid replacement raster pixels"));
+        }
+        let width = visible.width as i32;
+        let height = visible.height as i32;
+        let bytes = if overlay {
+            layered_bgra(width, height, diameter, &bytes)?
+        } else {
+            bytes
+        };
+        let child = find_raster(parent as Handle, Some(child_id), overlay);
+        if child.is_null() || child as usize != child_id {
+            return Err(failure("transition raster expired or superseded"));
+        }
+        let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
+        if pixels.is_null() {
+            return Err(failure("transition raster has no pixels"));
+        }
+        let image = unsafe { &mut *pixels };
+        let previous = tauri::PhysicalSize::new(image.width as u32, image.height as u32);
+        let info = BitmapInfo {
+            size: 40,
+            width,
+            height: -height,
+            planes: 1,
+            bits: 32,
+            compression: 0,
+            image_size: bytes.len() as u32,
+            x_pels: 0,
+            y_pels: 0,
+            colors_used: 0,
+            colors_important: 0,
+            color: 0,
+        };
+        let mut bits = ptr::null_mut();
+        let bitmap = unsafe { CreateDIBSection(image.dc, &info, 0, &mut bits, ptr::null_mut(), 0) };
+        if bitmap.is_null() || bits.is_null() {
+            if !bitmap.is_null() {
+                unsafe {
+                    DeleteObject(bitmap);
+                }
+            }
+            return Err(failure("allocate transition bitmap"));
+        }
+        unsafe {
+            ptr::copy_nonoverlapping(bytes.as_ptr(), bits.cast(), bytes.len());
+        }
+        let old = unsafe { SelectObject(image.dc, bitmap) };
+        if old.is_null() || old as isize == -1 {
+            unsafe {
+                DeleteObject(bitmap);
+            }
+            return Err(failure("select transition bitmap"));
+        }
+        unsafe {
+            DeleteObject(image.bitmap);
+        }
+        image.bitmap = bitmap;
+        image.width = width;
+        image.height = height;
+        // Do not retain a mutable Pixels borrow across reentrant window messages.
+        let source_dc = image.dc;
+        if overlay {
+            // Contract the real host first while the old popup still covers it.
+            // The new popup pixels/extent then appear together; only afterward
+            // may the real host expose any larger target area behind that shield.
+            let intersection = tauri::PhysicalSize::new(
+                previous.width.min(visible.width),
+                previous.height.min(visible.height),
+            );
+            crate::timer_region::apply_native_rect(parent, intersection, false)?;
+            let moved = position_raster(parent as Handle, child, true, width, height, position)?;
+            update_layered_bitmap(parent as Handle, child, source_dc, width, height)?;
+            crate::timer_region::apply_native_rect(parent, visible, false)?;
+            unsafe {
+                DwmFlush();
+            }
+            return Ok(moved);
+        }
+        let region = unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+        if region.is_null() {
+            return Err(failure("create transition child envelope"));
+        }
+        if unsafe { SetWindowRgn(child, region, 0) } == 0 {
+            unsafe {
+                DeleteObject(region);
+            }
+            return Err(failure("apply transition child envelope"));
+        }
+        // Install the complete bitmap and child geometry BEFORE exposing
+        // the matching parent region, all on the same window thread.
+        let moved = position_raster(parent as Handle, child, overlay, width, height, position)?;
+        crate::timer_region::apply_native_rect(parent, visible, false)?;
+        unsafe {
+            InvalidateRect(child, ptr::null(), 0);
+            UpdateWindow(child);
+            DwmFlush();
+        }
+        Ok(moved)
     }
 
     pub struct Hold {
@@ -452,8 +718,6 @@ mod native {
             {
                 return Err(failure("invalid transition frame"));
             }
-            let width = visible.width as i32;
-            let height = visible.height as i32;
             let child_id = self.child;
             let overlay = self.overlay;
             let scale = self
@@ -462,78 +726,9 @@ mod native {
                 .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
             let diameter = (32.0 * scale).round() as i32;
             let moved = on_window_thread(&self.window, move |parent| {
-                let child = find_raster(parent as Handle, Some(child_id), overlay);
-                if child.is_null() || child as usize != child_id {
-                    return Err(failure("transition raster expired or superseded"));
-                }
-                let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
-                if pixels.is_null() {
-                    return Err(failure("transition raster has no pixels"));
-                }
-                let image = unsafe { &mut *pixels };
-                let info = BitmapInfo {
-                    size: 40,
-                    width,
-                    height: -height,
-                    planes: 1,
-                    bits: 32,
-                    compression: 0,
-                    image_size: bytes.len() as u32,
-                    x_pels: 0,
-                    y_pels: 0,
-                    colors_used: 0,
-                    colors_important: 0,
-                    color: 0,
-                };
-                let mut bits = ptr::null_mut();
-                let bitmap =
-                    unsafe { CreateDIBSection(image.dc, &info, 0, &mut bits, ptr::null_mut(), 0) };
-                if bitmap.is_null() || bits.is_null() {
-                    if !bitmap.is_null() {
-                        unsafe {
-                            DeleteObject(bitmap);
-                        }
-                    }
-                    return Err(failure("allocate transition bitmap"));
-                }
-                unsafe {
-                    ptr::copy_nonoverlapping(bytes.as_ptr(), bits.cast(), bytes.len());
-                }
-                let old = unsafe { SelectObject(image.dc, bitmap) };
-                if old.is_null() || old as isize == -1 {
-                    unsafe {
-                        DeleteObject(bitmap);
-                    }
-                    return Err(failure("select transition bitmap"));
-                }
-                unsafe {
-                    DeleteObject(image.bitmap);
-                }
-                image.bitmap = bitmap;
-                image.width = width;
-                image.height = height;
-                let region =
-                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
-                if region.is_null() {
-                    return Err(failure("create transition child envelope"));
-                }
-                if unsafe { SetWindowRgn(child, region, 0) } == 0 {
-                    unsafe {
-                        DeleteObject(region);
-                    }
-                    return Err(failure("apply transition child envelope"));
-                }
-                // Install the complete bitmap and child geometry BEFORE exposing
-                // the matching parent region, all on the same window thread.
-                let moved =
-                    position_raster(parent as Handle, child, overlay, width, height, position)?;
-                crate::timer_region::apply_native_rect(parent, visible, false)?;
-                unsafe {
-                    InvalidateRect(child, ptr::null(), 0);
-                    UpdateWindow(child);
-                    DwmFlush();
-                }
-                Ok(moved)
+                replace_raster(
+                    parent, child_id, overlay, visible, bytes, diameter, position,
+                )
             })?;
             if moved {
                 crate::focus_webview::notify_parent_position_changed(&self.window)
@@ -593,6 +788,11 @@ mod native {
         {
             return Err(failure("invalid raster pixels or lifetime"));
         }
+        let bytes = if overlay {
+            layered_bgra(width, height, diameter, &bytes)?
+        } else {
+            bytes
+        };
         let name = wide(if overlay { MODE_CLASS } else { CLASS });
         let instance = unsafe { GetModuleHandleW(ptr::null()) };
         let class = WindowClass {
@@ -618,6 +818,7 @@ mod native {
             original: ptr::null_mut(),
             width,
             height,
+            layered: overlay,
         };
         if pixels.dc.is_null() {
             return Err(failure("create raster DC"));
@@ -652,7 +853,7 @@ mod native {
         }
         let child = unsafe {
             CreateWindowExW(
-                if overlay { 0x080000a0 } else { 4 },
+                if overlay { 0x080800a0 } else { 4 },
                 name.as_ptr(),
                 name.as_ptr(),
                 if overlay { 0x80000000 } else { 0x44000000 },
@@ -673,23 +874,31 @@ mod native {
             SetWindowLongPtrW(child, USER_DATA, Box::into_raw(Box::new(pixels)) as isize);
         }
         let installed = (|| {
-            let region =
-                unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
-            if region.is_null() {
-                return Err(failure("create raster clipping"));
-            }
-            if unsafe { SetWindowRgn(child, region, 0) } == 0 {
-                unsafe {
-                    DeleteObject(region);
+            if !overlay {
+                let region =
+                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+                if region.is_null() {
+                    return Err(failure("create raster clipping"));
                 }
-                return Err(failure("clip raster child"));
+                if unsafe { SetWindowRgn(child, region, 0) } == 0 {
+                    unsafe {
+                        DeleteObject(region);
+                    }
+                    return Err(failure("clip raster child"));
+                }
+            } else {
+                // Layered contents are complete before this HWND's first show.
+                let image = unsafe { &*(GetWindowLongPtrW(child, USER_DATA) as *const Pixels) };
+                update_layered_bitmap(parent as Handle, child, image.dc, width, height)?;
             }
             if unsafe { SetTimer(child, 1, lifetime_ms, ptr::null_mut()) } == 0 {
                 return Err(failure("arm finite raster expiry"));
             }
             position_raster(parent as Handle, child, overlay, width, height, None)?;
             unsafe {
-                UpdateWindow(child);
+                if !overlay {
+                    UpdateWindow(child);
+                }
                 DwmFlush();
             }
             Ok(child as usize)
@@ -797,27 +1006,35 @@ mod native {
                 0x080000a0,
                 "no activation, taskbar or pointer owner"
             );
+            assert_ne!(ex & 0x80000, 0, "mode pixels/extent are layered together");
+            assert_eq!(
+                unsafe { GetWindowLongPtrW(child.0, -20) } & 0x80000,
+                0,
+                "ordinary short child holds keep their existing paint path"
+            );
         }
 
         #[test]
         fn paired_host_overlay_move_preserves_negative_screen_origin_and_extent() {
             let owner = parent();
             let overlay = raster(&owner, true);
-            assert!(position_raster(
-                owner.0,
-                overlay.0,
+            assert!(replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
                 true,
-                425,
-                875,
+                tauri::PhysicalSize::new(425, 875),
+                [30, 20, 10, 255].repeat(425 * 875),
+                40,
                 Some(tauri::PhysicalPosition::new(-445, 20)),
             )
             .expect("paired move"));
-            assert!(!position_raster(
-                owner.0,
-                overlay.0,
+            assert!(!replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
                 true,
-                425,
-                875,
+                tauri::PhysicalSize::new(425, 875),
+                [30, 20, 10, 255].repeat(425 * 875),
+                40,
                 Some(tauri::PhysicalPosition::new(-445, 20)),
             )
             .expect("stationary frame does not move the host again"));
@@ -831,12 +1048,13 @@ mod native {
                 (actual.right - actual.left, actual.bottom - actual.top),
                 (425, 875)
             );
-            position_raster(
-                owner.0,
-                overlay.0,
+            replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
                 true,
-                340,
-                110,
+                tauri::PhysicalSize::new(340, 110),
+                [30, 20, 10, 255].repeat(340 * 110),
+                32,
                 Some(tauri::PhysicalPosition::new(2204, 16)),
             )
             .expect("return move");
@@ -850,6 +1068,132 @@ mod native {
                 ),
                 (2204, 16, 340, 110)
             );
+            let host = rect(owner.0);
+            assert_eq!(
+                (host.right - host.left, host.bottom - host.top),
+                (340, 700),
+                "normal mode changes must not resize the real host"
+            );
+        }
+
+        #[test]
+        fn layered_shape_matches_native_region_and_premultiplies_once() {
+            for (width, height, diameter) in [(340, 110, 32), (425, 375, 40)] {
+                let input = [200, 100, 50, 128].repeat(width as usize * height as usize);
+                let output = layered_bgra(width, height, diameter, &input).unwrap();
+                let region =
+                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+                assert!(!region.is_null());
+                for y in 0..height {
+                    for x in 0..width {
+                        let offset = (y as usize * width as usize + x as usize) * 4;
+                        let expected = if unsafe { PtInRegion(region, x, y) } != 0 {
+                            [100, 50, 25, 128]
+                        } else {
+                            [0; 4]
+                        };
+                        assert_eq!(
+                            &output[offset..offset + 4],
+                            &expected,
+                            "native mask at{x},{y}"
+                        );
+                    }
+                }
+                unsafe {
+                    DeleteObject(region);
+                }
+            }
+            assert!(layered_bgra(340, 110, 32, &[0; 4]).is_err());
+            assert!(layered_bgra(0, 110, 32, &[]).is_err());
+            assert!(layered_bgra(1, 1, 0, &[0; 4]).is_err());
+        }
+
+        #[test]
+        fn production_layered_replacement_owns_new_pixels_and_rejects_stale_or_invalid_input() {
+            #[repr(C)]
+            #[derive(Default)]
+            struct Bitmap {
+                kind: i32,
+                width: i32,
+                height: i32,
+                row_bytes: i32,
+                planes: u16,
+                bits: u16,
+                data: Handle,
+            }
+            let owner = parent();
+            let overlay = raster(&owner, true);
+            for (width, height, color) in [
+                (340, 300, [60, 40, 20, 255]),
+                (340, 110, [200, 100, 50, 128]),
+            ] {
+                replace_raster(
+                    owner.0 as usize,
+                    overlay.0 as usize,
+                    true,
+                    tauri::PhysicalSize::new(width, height),
+                    color.repeat(width as usize * height as usize),
+                    32,
+                    None,
+                )
+                .expect("publish actual installed mode raster");
+                let actual = rect(overlay.0);
+                assert_eq!(
+                    (actual.right - actual.left, actual.bottom - actual.top),
+                    (width as i32, height as i32)
+                );
+                let image = unsafe { &*(GetWindowLongPtrW(overlay.0, USER_DATA) as *const Pixels) };
+                let mut bitmap = Bitmap::default();
+                let size = std::mem::size_of::<Bitmap>() as i32;
+                assert_eq!(
+                    unsafe { GetObjectW(image.bitmap, size, (&mut bitmap as *mut Bitmap).cast()) },
+                    size
+                );
+                assert_eq!(
+                    (bitmap.width, bitmap.height, bitmap.bits),
+                    (width as i32, height as i32, 32)
+                );
+                assert!(!bitmap.data.is_null());
+                let offset = ((height / 2 * width + width / 2) * 4) as usize;
+                let center =
+                    unsafe { std::slice::from_raw_parts(bitmap.data.cast::<u8>().add(offset), 4) };
+                let expected = if color[3] == 255 {
+                    color
+                } else {
+                    [100, 50, 25, 128]
+                };
+                assert_eq!(
+                    center, &expected,
+                    "the production DC owns the new premultiplied image"
+                );
+            }
+            let before = rect(overlay.0);
+            assert!(replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(340, 110),
+                vec![0; 4],
+                32,
+                None
+            )
+            .is_err());
+            let after = rect(overlay.0);
+            assert_eq!(
+                (before.left, before.top, before.right, before.bottom),
+                (after.left, after.top, after.right, after.bottom)
+            );
+            let other = parent();
+            assert!(replace_raster(
+                other.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(340, 110),
+                vec![255; 340 * 110 * 4],
+                32,
+                None
+            )
+            .is_err());
         }
 
         #[test]

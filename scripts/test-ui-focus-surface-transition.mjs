@@ -204,7 +204,7 @@ invariant(
 );
 invariant(
   frameHold.includes('const MODE_CLASS: &str = "NarroFocusTransitionFrame";')
-    && frameHold.includes("if overlay { 0x080000a0 } else { 4 }")
+    && frameHold.includes("if overlay { 0x080800a0 } else { 4 }")
     && frameHold.includes("if overlay { 0x80000000 } else { 0x44000000 }")
     && frameHold.includes("GetWindow(found, 4)")
     && frameHold.includes("owned.is_none_or(|id| found as usize == id)")
