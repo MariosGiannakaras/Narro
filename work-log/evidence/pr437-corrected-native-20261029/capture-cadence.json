@@ -1,0 +1,46 @@
+[
+  {
+    "label": "secondary-reduced-sequence",
+    "method": "gdi",
+    "frames": 835,
+    "first": 0.0,
+    "last": 13.945,
+    "averageOutputFps": 59.806382215847975,
+    "medianPositiveGap": 0.018000000000000238,
+    "maxGap": 0.03700000000000081,
+    "nonIncreasingGaps": 76
+  },
+  {
+    "label": "secondary-reduced-sequence",
+    "method": "dda",
+    "frames": 787,
+    "first": 0.0,
+    "last": 13.917,
+    "averageOutputFps": 56.47768915714594,
+    "medianPositiveGap": 0.016999999999999904,
+    "maxGap": 0.034000000000000696,
+    "nonIncreasingGaps": 126
+  },
+  {
+    "label": "primary-reduced",
+    "method": "gdi",
+    "frames": 871,
+    "first": 0.0,
+    "last": 14.526,
+    "averageOutputFps": 59.89260636100785,
+    "medianPositiveGap": 0.017999999999998906,
+    "maxGap": 0.03500000000000014,
+    "nonIncreasingGaps": 86
+  },
+  {
+    "label": "primary-reduced",
+    "method": "dda",
+    "frames": 862,
+    "first": 0.0,
+    "last": 14.95,
+    "averageOutputFps": 57.59197324414716,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.034000000000000696,
+    "nonIncreasingGaps": 52
+  }
+]

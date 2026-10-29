@@ -1,0 +1,62 @@
+[
+  {
+    "utc": "2026-10-29T00:42:12.766Z",
+    "action": "secondary-reduced panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:42:23.973Z",
+    "action": "secondary-reduced compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-29T00:42:38.065Z",
+    "action": "secondary-reduced expand control y75"
+  },
+  {
+    "utc": "2026-10-29T00:43:20.006Z",
+    "action": "secondary-reduced-sequence compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T00:43:21.460Z",
+    "action": "secondary-reduced-sequence panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:43:22.826Z",
+    "action": "secondary-reduced-sequence compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T00:43:24.177Z",
+    "action": "secondary-reduced-sequence panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:44:05.807Z",
+    "action": "secondary-normal compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T00:44:07.178Z",
+    "action": "secondary-normal panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:44:08.547Z",
+    "action": "secondary-normal compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T00:44:09.883Z",
+    "action": "secondary-normal panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:46:18.543Z",
+    "action": "primary-reduced panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:46:19.924Z",
+    "action": "primary-reduced compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T00:46:21.294Z",
+    "action": "primary-reduced panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T00:46:22.643Z",
+    "action": "primary-reduced compact_to_panel"
+  }
+]

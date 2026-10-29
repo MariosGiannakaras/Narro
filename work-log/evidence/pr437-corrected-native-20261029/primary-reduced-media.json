@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-29T00:46:09.623Z",
+  "response": {
+    "id": 1,
+    "result": {
+      "result": {
+        "type": "string",
+        "value": "{\"reduced\":true,\"dpr\":1}"
+      }
+    }
+  }
+}

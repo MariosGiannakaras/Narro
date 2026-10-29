@@ -1,3 +1,9 @@
+# Current Windows supplement — 2026-10-29
+
+[Corrected PR437 native evidence](../work-log/evidence/pr437-corrected-native-20261029/README.md) now supersedes changed-head NOT RUN solely for tested J01/U-R03/J05 subclaims: model labels full/quick PASS scoped; software return and user-drag override PASS scoped; reduced-motion duplicate title/time FAIL on both100%/125% and both desktop capture APIs. Normal-motion, real HDMI, error variants and other gates remain OPEN/NOT RUN. User resumed work; this protected session is finished and profiles/layout/animation restored. Current HANDOFF routes J05 to source owner; no source edits/CI/merge/counter changes. Earlier 59-cell counts remain documentary, not a count of new physical tests.
+
+---
+
 # M5–M9 source-readiness register — 2026-10-27
 
 ## 2026-10-28 live correction — exclude already validated work, preserve only evidence gaps

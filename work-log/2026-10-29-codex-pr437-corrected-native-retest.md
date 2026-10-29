@@ -1,0 +1,5 @@
+# Corrected PR437 native acceptance — 2026-10-29
+
+User resumed remaining work. Current main synchronized without altering the old dirty primary checkout. Exact PR43741e8ff8a/CI40677357491 verified; physical EXE3c14067a independently ZIP SHA/CRC and EXE SHA checked before launch. [Full immutable report, originals, frame timings and safety proof](evidence/pr437-corrected-native-20261029/README.md).
+
+Three corrected feature scenarios exercised: J01 connected full/quick model labels PASS scoped; U-R03 software return to original LG and genuine snapped user-move override PASS scoped; J05 Panel→compact semantic duplicate FAIL at100% and125%, both GDI and DDA. Normal-motion attempt actually remained reduced=true; no false normal-motion PASS. Real HDMI NOT RUN. App profile restored hash-identically after narrow owned WebView lock cleanup; original dual-display geometry and animation restored; captures/app stopped. No source/config/test/new CI/merge or milestone advance. Source owner must inspect active raster path, not assume missing-plate fix was executed or count two APIs as two corrected builds. All unchanged prior accepted claims retained with their scopes.

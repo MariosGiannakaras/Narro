@@ -1,0 +1,38 @@
+[
+  {
+    "event": "record_started",
+    "utc": "2026-10-29T00:47:35.356430+00:00",
+    "pid": 14140
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-29T00:47:38.614092+00:00",
+    "mode": "/internal",
+    "exit": 0
+  },
+  {
+    "event": "fallback-primary",
+    "utc": "2026-10-29T00:47:43.755171+00:00"
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-29T00:48:04.006423+00:00",
+    "mode": "/clone",
+    "exit": 0
+  },
+  {
+    "event": "switch",
+    "utc": "2026-10-29T00:48:09.898056+00:00",
+    "mode": "/extend",
+    "exit": 0
+  },
+  {
+    "event": "return-restored",
+    "utc": "2026-10-29T00:48:17.018656+00:00"
+  },
+  {
+    "event": "record_stopped",
+    "utc": "2026-10-29T00:48:17.393364+00:00",
+    "exit": 0
+  }
+]
