@@ -1,0 +1,42 @@
+[
+  {
+    "name": "reduced125-clipped-header.png",
+    "group": "R125",
+    "method": "gdi",
+    "action": "panel_to_compact",
+    "file": "0072.png",
+    "pts": 9.0
+  },
+  {
+    "name": "reduced125-clipped-header-dda.png",
+    "group": "R125",
+    "method": "dda",
+    "action": "panel_to_compact",
+    "file": "0069.png",
+    "pts": 8.95
+  },
+  {
+    "name": "normal125-return-double-title.png",
+    "group": "N125",
+    "method": "gdi",
+    "action": "compact_to_panel",
+    "file": "0076.png",
+    "pts": 30.767
+  },
+  {
+    "name": "reduced125-return-double-title.png",
+    "group": "R125",
+    "method": "gdi",
+    "action": "compact_to_panel",
+    "file": "0080.png",
+    "pts": 31.217
+  },
+  {
+    "name": "normal100-gdi-only-blank.png",
+    "group": "N100",
+    "method": "gdi",
+    "action": "compact_to_expanded",
+    "file": "0049.png",
+    "pts": 40.817
+  }
+]

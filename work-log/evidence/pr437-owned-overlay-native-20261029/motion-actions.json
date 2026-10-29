@@ -1,0 +1,92 @@
+[
+  {
+    "utc": "2026-10-29T11:38:41.707Z",
+    "group": "N100",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:39:02.343Z",
+    "group": "N100",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-29T11:39:09.792Z",
+    "group": "N100",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:39:18.887Z",
+    "group": "N100",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T11:40:32.156Z",
+    "group": "N100-tail",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:40:38.517Z",
+    "group": "N100-tail",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T11:41:16.151Z",
+    "group": "N125",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:41:23.465Z",
+    "group": "N125",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-29T11:41:29.533Z",
+    "group": "N125",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:41:36.355Z",
+    "group": "N125",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T11:42:49.710Z",
+    "group": "R125",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:42:56.944Z",
+    "group": "R125",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-29T11:43:03.313Z",
+    "group": "R125",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:43:11.806Z",
+    "group": "R125",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-29T11:44:30.886Z",
+    "group": "R100",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:44:37.681Z",
+    "group": "R100",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-29T11:44:43.559Z",
+    "group": "R100",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-29T11:44:51.700Z",
+    "group": "R100",
+    "action": "compact_to_panel"
+  }
+]

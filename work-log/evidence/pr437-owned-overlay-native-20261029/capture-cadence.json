@@ -1,0 +1,112 @@
+[
+  {
+    "group": "N100",
+    "method": "gdi",
+    "frames": 2703,
+    "first": 0.0,
+    "last": 45.467,
+    "averageOutputFps": 59.42771680559527,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.04200000000000159,
+    "nonIncreasingGaps": 0
+  },
+  {
+    "group": "N100",
+    "method": "dda",
+    "frames": 2582,
+    "first": 0.0,
+    "last": 45.883,
+    "averageOutputFps": 56.25177080836039,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.034000000000006025,
+    "nonIncreasingGaps": 27
+  },
+  {
+    "group": "N100-tail",
+    "method": "gdi",
+    "frames": 1205,
+    "first": 0.0,
+    "last": 22.733,
+    "averageOutputFps": 52.96265341134034,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 21
+  },
+  {
+    "group": "N100-tail",
+    "method": "dda",
+    "frames": 1296,
+    "first": 0.0,
+    "last": 23.2,
+    "averageOutputFps": 55.81896551724138,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 72
+  },
+  {
+    "group": "N125",
+    "method": "gdi",
+    "frames": 1908,
+    "first": 0.0,
+    "last": 32.05,
+    "averageOutputFps": 59.50078003120125,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 0
+  },
+  {
+    "group": "N125",
+    "method": "dda",
+    "frames": 1905,
+    "first": 0.0,
+    "last": 32.483,
+    "averageOutputFps": 58.61527568266479,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 408
+  },
+  {
+    "group": "R125",
+    "method": "gdi",
+    "frames": 1899,
+    "first": 0.0,
+    "last": 32.05,
+    "averageOutputFps": 59.21996879875196,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 24
+  },
+  {
+    "group": "R125",
+    "method": "dda",
+    "frames": 1792,
+    "first": 0.0,
+    "last": 32.517,
+    "averageOutputFps": 55.078881815665646,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 270
+  },
+  {
+    "group": "R100",
+    "method": "gdi",
+    "frames": 1989,
+    "first": 0.0,
+    "last": 33.581,
+    "averageOutputFps": 59.200142937970874,
+    "medianPositiveGap": 0.022999999999999687,
+    "maxGap": 0.0470000000000006,
+    "nonIncreasingGaps": 550
+  },
+  {
+    "group": "R100",
+    "method": "dda",
+    "frames": 1960,
+    "first": 0.0,
+    "last": 34.033,
+    "averageOutputFps": 57.56177827402815,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.034000000000006025,
+    "nonIncreasingGaps": 420
+  }
+]

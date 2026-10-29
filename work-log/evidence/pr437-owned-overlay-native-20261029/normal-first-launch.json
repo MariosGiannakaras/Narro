@@ -1,0 +1,15 @@
+{
+  "source": "1dd54ed8c3144498a2aaedaa9d59e2caa13731c7",
+  "artifact": 12892659781,
+  "ciRun": 40862716381,
+  "runAttempt": 1,
+  "artifactBytes": 16030920,
+  "artifactSha256": "3bcc76b8452e781f417f80d838fba08342ffc3ac127e70571381e7791607867b",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261029-PR437\\owned-overlay-1dd54ed8\\artifact\\src-tauri\\target-physical\\release\\narro.exe",
+  "sha256": "dd95c060ee2913153cbf220e85b3080b2fdaa943c7685f29cd6c80409340cc57",
+  "verifiedMembers": 3,
+  "utc": "2026-10-29T11:36:54.951038+00:00",
+  "pid": 21380,
+  "optInTimerDiagnostics": true,
+  "stderrCapturedBeforeLaunch": true
+}
