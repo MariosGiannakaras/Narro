@@ -1,6 +1,8 @@
 # HANDOFF — Codex owns J05 corrective source slice
 
-**Last reported: 2026-10-29; owner Codex source + Windows; phase ANALYZING.** User explicitly reassigned the correction with “Συνέχισε, κάντα εσύ” after the source-ownership handoff. Codex now owns the bounded J05 diagnosis/source/regression/CI/native replay on existing PR437, preserving passing J01/U-R03. Checkpoints 0/5: causal diagnosis/alternative review; correction+regressions; local preflight; exact-head CI; affected Windows recapture. Current PR437 head41e8ff8a unchanged; no app or recorder running, personal profiles restored. No source edit/new CI yet.
+**Last reported: 2026-10-29; owner Codex source + Windows; phase FIXING.** User explicitly reassigned the correction with “Συνέχισε, κάντα εσύ” after the source-ownership handoff. Codex now owns the bounded J05 diagnosis/source/regression/CI/native replay on existing PR437, preserving passing J01/U-R03. Checkpoints 1/5: causal diagnosis/alternative review; correction+regressions; local preflight; exact-head CI; affected Windows recapture. Current PR437 head41e8ff8a unchanged; no app or recorder running, personal profiles restored. Causal diagnosis and materially different alternative selected; no source edit/new CI yet.
+
+**Causal checkpoint:** [DOM/native/capture trace and alternatives](work-log/evidence/pr437-causal-transition-20261029/README.md). Preparing WebView leaks while child GDI raster exists; chosen finite owned-popup coverage for mode transactions, preserving same Focus WebView, regular child holds, existing raster timing and domain state. Implement paired parent/overlay movement, exact ownership/expiry cleanup, regressions; no fix or native PASS yet.
 
 ## Exact candidate and independent results
 
