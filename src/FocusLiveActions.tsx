@@ -229,7 +229,10 @@ export function FocusLiveActions({
     ? preferences.snapshot.focus.defaultBreakSeconds * 1_000
     : null;
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
-  const showSuccessScreen = preferences.snapshot?.celebration.showSuccessScreen ?? true;
+  // Do not commit Done while the saved celebration/sound policy is unknown.
+  // An unavailable Preferences read still permits Done with no optional effects.
+  const doneSettingsPending = !fixtureMode && !preferences.settled;
+  const showSuccessScreen = preferences.snapshot?.celebration.showSuccessScreen ?? Boolean(fixtureMode);
 
   useEffect(() => {
     const previousTimerState = previousTimerStateRef.current;
@@ -345,7 +348,7 @@ export function FocusLiveActions({
   };
 
   const handleDone = async () => {
-    if (!beginMutation("done")) return;
+    if (doneSettingsPending || !beginMutation("done")) return;
     let ownsCompletionIntent = false;
     try {
       const [freshBoard, authoritative] = await Promise.all([
@@ -679,7 +682,7 @@ export function FocusLiveActions({
               type="button"
               data-focus-action="done"
                 aria-label="Complete task"
-              disabled={busy || !state.doneEnabled}
+              disabled={busy || !state.doneEnabled || doneSettingsPending}
               onClick={() => void handleDone()}
             >
                 <FloatingActionIcon kind="done" />
@@ -743,7 +746,7 @@ export function FocusLiveActions({
             label="Complete task"
             pillLabel="Done"
             icon="done"
-            disabled={busy || !state.doneEnabled}
+            disabled={busy || !state.doneEnabled || doneSettingsPending}
             onClick={() => void handleDone()}
           />
           <FloatingActionButton

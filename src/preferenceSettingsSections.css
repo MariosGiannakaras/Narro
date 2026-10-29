@@ -207,6 +207,14 @@
   background: var(--color-surface-interactive);
 }
 
+.preference-settings__monitor-preview-screen > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
 .preference-settings__monitor-preview-screen > span {
   font-size: clamp(8px, .75vw, 11px);
   color: var(--color-text-primary);
@@ -371,6 +379,92 @@
   }
 
   .preference-settings__sound-control {
+    width: 100%;
+  }
+}
+
+/* Inert first-paint placeholders preserve the monitor/general visual hierarchy
+   while the authoritative settings and monitor list resolve together. */
+.preference-settings__skeleton-section {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.preference-settings__skeleton-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-5);
+  min-height: 44px;
+}
+
+.preference-settings__skeleton-monitors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: min(24rem, 45vw);
+}
+
+.preference-settings__skeleton-monitor {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-raised);
+}
+
+.preference-settings__skeleton-screen {
+  display: block;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+}
+
+.preference-settings__skeleton-line,
+.preference-settings__skeleton-control,
+.preference-settings__skeleton-switch {
+  display: block;
+  min-height: var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-interactive);
+}
+
+.preference-settings__skeleton-control {
+  width: 12rem;
+  min-height: 2rem;
+}
+
+.preference-settings__skeleton-switch {
+  width: 2.6rem;
+  min-height: 1.5rem;
+  border-radius: 999px;
+}
+
+@keyframes narro-preferences-ready {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.theme-settings__ready {
+  animation: narro-preferences-ready var(--motion-duration-inline) var(--motion-ease-enter) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-settings__ready {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .preference-settings__skeleton-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preference-settings__skeleton-monitors {
     width: 100%;
   }
 }

@@ -56,6 +56,14 @@ for (const needle of [
   invariant(placement.includes(needle), `placement layer is missing ${needle}`);
 }
 invariant(
+  placement.includes("SESSION_TIMER_PLACEMENT")
+    && placement.includes("timer_position_for_current_policy(app_handle)")
+    && placement.includes("remember_position_after_restart(app_handle)")
+    && placement.includes("persist_session_placement_if_opted_in(app_handle, &saved)")
+    && !placement.includes("pub(crate) fn has_saved_timer_position("),
+  "Timer session geometry must override disk, with restart persistence only by explicit preference",
+);
+invariant(
   lib.includes("set_always_on_top(timer)") && lib.includes("set_skip_taskbar(timer)"),
   "topmost/taskbar state must be presentation attributes, not static second-window config",
 );
