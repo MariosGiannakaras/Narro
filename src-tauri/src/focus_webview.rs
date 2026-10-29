@@ -16,7 +16,7 @@ pub(crate) fn set_physical_position(window: &WebviewWindow, x: i32, y: i32) -> R
 }
 
 #[cfg(windows)]
-fn notify_parent_position_changed(window: &WebviewWindow) -> Result<(), String> {
+pub(crate) fn notify_parent_position_changed(window: &WebviewWindow) -> Result<(), String> {
     let label = window.label().to_string();
     let callback_label = label.clone();
 
@@ -34,6 +34,6 @@ fn notify_parent_position_changed(window: &WebviewWindow) -> Result<(), String> 
 }
 
 #[cfg(not(windows))]
-fn notify_parent_position_changed(_window: &WebviewWindow) -> Result<(), String> {
+pub(crate) fn notify_parent_position_changed(_window: &WebviewWindow) -> Result<(), String> {
     Ok(())
 }

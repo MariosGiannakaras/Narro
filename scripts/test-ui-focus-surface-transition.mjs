@@ -170,6 +170,8 @@ invariant(
     && lib.includes("lease.hold.replace_transition_frame_at(")
     && frameHold.includes("BeginDeferWindowPos(2)")
     && frameHold.includes("EndDeferWindowPos(batch)")
+    && frameHold.includes("if moved {")
+    && frameHold.includes("crate::focus_webview::notify_parent_position_changed(&self.window)")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",

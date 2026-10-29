@@ -318,17 +318,18 @@ mod native {
         width: i32,
         height: i32,
         position: Option<tauri::PhysicalPosition<i32>>,
-    ) -> CommandResult<()> {
+    ) -> CommandResult<bool> {
         let mut origin = Point::default();
         if overlay && unsafe { ClientToScreen(parent, &mut origin) } == 0 {
             return Err(failure("read transition overlay client origin"));
         }
-        if let Some(position) = position {
+        let mut current = Rect::default();
+        if position.is_some() && unsafe { GetWindowRect(parent, &mut current) } == 0 {
+            return Err(failure("read transition host position"));
+        }
+        let moved = position.is_some_and(|point| point.x != current.left || point.y != current.top);
+        if let Some(position) = position.filter(|_| moved) {
             if overlay {
-                let mut current = Rect::default();
-                if unsafe { GetWindowRect(parent, &mut current) } == 0 {
-                    return Err(failure("read transition host position"));
-                }
                 origin.x = i32::try_from(
                     i64::from(origin.x) + i64::from(position.x) - i64::from(current.left),
                 )
@@ -386,7 +387,7 @@ mod native {
         {
             return Err(failure("present Focus raster"));
         }
-        Ok(())
+        Ok(moved)
     }
 
     pub fn clear(window: &tauri::WebviewWindow) -> CommandResult<()> {
@@ -460,7 +461,7 @@ mod native {
                 .scale_factor()
                 .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
             let diameter = (32.0 * scale).round() as i32;
-            on_window_thread(&self.window, move |parent| {
+            let moved = on_window_thread(&self.window, move |parent| {
                 let child = find_raster(parent as Handle, Some(child_id), overlay);
                 if child.is_null() || child as usize != child_id {
                     return Err(failure("transition raster expired or superseded"));
@@ -524,15 +525,21 @@ mod native {
                 }
                 // Install the complete bitmap and child geometry BEFORE exposing
                 // the matching parent region, all on the same window thread.
-                position_raster(parent as Handle, child, overlay, width, height, position)?;
+                let moved =
+                    position_raster(parent as Handle, child, overlay, width, height, position)?;
                 crate::timer_region::apply_native_rect(parent, visible, false)?;
                 unsafe {
                     InvalidateRect(child, ptr::null(), 0);
                     UpdateWindow(child);
                     DwmFlush();
                 }
-                Ok(())
-            })
+                Ok(moved)
+            })?;
+            if moved {
+                crate::focus_webview::notify_parent_position_changed(&self.window)
+                    .map_err(|error| CommandError::new("FOCUS_FRAME_HOLD_FAILED", error))?;
+            }
+            Ok(())
         }
         // The one-shot native timer now owns cleanup. No GUI-thread sleep,
         // renderer authority, domain-state delay or continuous polling.
@@ -796,7 +803,7 @@ mod native {
         fn paired_host_overlay_move_preserves_negative_screen_origin_and_extent() {
             let owner = parent();
             let overlay = raster(&owner, true);
-            position_raster(
+            assert!(position_raster(
                 owner.0,
                 overlay.0,
                 true,
@@ -804,7 +811,16 @@ mod native {
                 875,
                 Some(tauri::PhysicalPosition::new(-445, 20)),
             )
-            .expect("paired move");
+            .expect("paired move"));
+            assert!(!position_raster(
+                owner.0,
+                overlay.0,
+                true,
+                425,
+                875,
+                Some(tauri::PhysicalPosition::new(-445, 20)),
+            )
+            .expect("stationary frame does not move the host again"));
             let host = rect(owner.0);
             let actual = rect(overlay.0);
             let mut client = Point::default();
