@@ -1,10 +1,14 @@
 # HANDOFF — Codex owns J05 corrective source slice
 
-**Last reported: 2026-10-29; owner Codex source + Windows; phase FIXING.** User explicitly reassigned the correction with “Συνέχισε, κάντα εσύ” after the source-ownership handoff. Codex now owns the bounded J05 diagnosis/source/regression/CI/native replay on existing PR437, preserving passing J01/U-R03. Checkpoints 1/5: causal diagnosis/alternative review; correction+regressions; local preflight; exact-head CI; affected Windows recapture. Current PR437 head41e8ff8a unchanged; no app or recorder running, personal profiles restored. Causal diagnosis and materially different alternative selected; no source edit/new CI yet.
+**Last reported: 2026-10-29; owner Codex source + Windows; phase CI_WAIT. Checkpoints 3/5:** causal diagnosis/alternative review, correction/regressions and available local preflight complete. Final PR437 head `1dd54ed8c3144498a2aaedaa9d59e2caa13731c7`, [CI40862716381](https://github.com/MariosGiannakaras/Narro/actions/runs/40862716381): validation/fast PASS, Windows candidate IN PROGRESS. No whole-run PASS or new artifact/native acceptance yet. No app/recorder running; original profiles and OS animation setting restored.
 
-**Causal checkpoint:** [DOM/native/capture trace and alternatives](work-log/evidence/pr437-causal-transition-20261029/README.md). Preparing WebView leaks while child GDI raster exists; chosen finite owned-popup coverage for mode transactions, preserving same Focus WebView, regular child holds, existing raster timing and domain state. Implement paired parent/overlay movement, exact ownership/expiry cleanup, regressions; no fix or native PASS yet.
+**Correction submitted:** finite owned nonactivating popup covers mode/resize preparation above the same Focus WebView; ordinary short region holds remain children. Host/overlay move in one GUI batch, with WebView2 parent-position notification after genuine movement. Native ownership/negative-origin/expiry tests added. Local complete frontend preflight/production build and Rust formatting PASS; local native NOT RUN (missing MSVC link.exe). [Source/impact/preflight receipt](work-log/2026-10-29-codex-j05-owned-overlay-source-preflight.md). [Causal trace and alternatives](work-log/evidence/pr437-causal-transition-20261029/README.md).
 
-## Exact candidate and independent results
+**Normal-motion capability solved:** setting actual Windows client-area animation before fresh process launch yields WebView `reduced=false`; setting it after launch had left the old WebView reduced=true. Original flag false and profiles restored. No debugger media override used. This is environment capability proof, not normal-motion acceptance of the new candidate.
+
+**ONE NEXT:** inspect exact CI40862716381 on final1dd54ed8, repair first evidenced failure if any; otherwise verify current artifact identity and run normal/reduced fresh launches on primary100% and LG125%, Panel↔compact↔expanded, exact HWND/task/clock and complete release/no residual native raster. Preserve J01/U-R03 scoped PASS where unaffected. Do not merge the protected stack from source/CI alone.
+
+## Historical physical baseline — 41e8ff8a (not the new candidate)
 
 PR437 `integration/m7-v4-current-timer-20261027` remains OPEN/DRAFT/UNMERGED, head `41e8ff8ad8584b74821f3185401ed0c9740fc991`; exact CI40677357491 3/3 SUCCESS. Physical ZIP12812013589 digest `8342835987274ad6e0893306ab7ad14ef6f90b66359669ef4305d58f4651356f`, EXE `3c14067a28aea1a594546b888e9dbc688ed4374d0f698cef2c6c5986abbdc002` independently verified on Windows before launch. [All recordings, frame evidence, PTS, HWND and outcomes](work-log/evidence/pr437-corrected-native-20261029/README.md).
 
@@ -14,7 +18,7 @@ PR437 `integration/m7-v4-current-timer-20261027` remains OPEN/DRAFT/UNMERGED, he
 - **J05 FAIL:** reduced-motion Panel→compact still renders the same title/time in both presentations at once on primary100% and LG125%, observed independently in original GDI and DDA videos. Exact examples: primary GDI PTS9.211 / DDA9.150; secondary GDI10.236 / DDA10.183. Endpoint task/paused06:01 and HWND retained; no general motion/parity PASS. Normal-motion, all reverse/expansion and other variants remain separately open. Folder named `secondary-normal` actually probed reduced=true and must not be treated as normal-motion evidence.
 - Source triage: current source fixes only the missing-cleanplate fallback; measured v4 composition remains. Which path rendered the duplicates is unproven. Do not speculate another fallback-only fix; trace actual lease/plate/layout path at first bad frame.
 
-## NEXT AGENT ACTION — Codex corrective owner
+## Historical diagnosis plan — superseded by ONE NEXT above
 
 1. Diagnose J05 on existing PR437 using the new exact-build originals and frame PTS; trace whether measured plate/sprite composition or another native presentation boundary paints duplicate semantic content. Reconcile prior failed-build history with the repeated-failure escalation rule; do not count two recording APIs as two corrected builds.
 2. Implement only the evidenced causal correction with meaningful dependency/regression coverage and scoped prephysical review. Preserve J01 model mapping, U-R03 successful return/user-move override and approved UI. Batch source preflight and exact-head CI; then recapture only impacted native requirements. Do not merge protected PR437/PR431/PR436 stack on source/CI alone.
@@ -22,7 +26,7 @@ PR437 `integration/m7-v4-current-timer-20261027` remains OPEN/DRAFT/UNMERGED, he
 
 ## Remaining independent gates / user action
 
-- Normal motion: Windows native client-area setting changed but actual WebView media remained reduced=true; debugging media emulation was rejected before execution, Windows Settings did not expose a targetable window. No normal-motion PASS. Original setting restored.
+- Normal-motion execution on the new candidate remains NOT RUN; the environment capability is now available through the standard OS setting before fresh launch. The earlier after-launch failure is historical.
 - Physical HDMI remains NOT RUN on current candidate; requires actual hardware action if still needed after software evidence reconciliation. No immediate user action requested while J05 needs source repair.
 - Strict A/PR389 and B/PR419 eight-case compositor acceptance, dependent snapping/stack and remaining deduplicated M5/M6/M8/M9 gates remain independent. Formal M1–M4 accepted **4/10**, M5–M9 OPEN; M10 hard entry/user approval and M11/M12 inactive unchanged.
 - Old 2fc7881c FAILs remain historical. Earlier J02/J06 and first-paint scoped PASS remain valid where unchanged. The prior Windows-only run made no source changes; this new user instruction explicitly transfers the bounded J05 corrective slice to Codex.
