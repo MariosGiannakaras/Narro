@@ -1,4 +1,12 @@
-# Current — PP44-F01 source repair CI and artifact verified (2026-10-30)
+# Current — process/workflow correctness audit (2026-10-30)
+
+[Workflow audit findings and commit-level remediation](work-log/2026-10-30-chatgpt-workflow-governance-risk-routing-native-safety-audit.md): corrected 2026-10-23 stale current PR389 source pointers; removed repeated bootstrap conflict in `AGENT_WORKFLOW` and `.github/copilot-instructions`; clarified independent PR389/PR419 physical holds; active PA-01–09 remains as authorized. The separate [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) `b93235a9fe2f651f86b347142858b9f590ea4e5a` guards NER-005/006 risk routing and physical preparation default private AppData safety. Previous CI41045067289 **FAIL** at stale literal PA wording; replacement [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation PASS, fast PASS, Windows PENDING** at last inspection; no merge yet. No actual Windows app/profile touched; physical NOT RUN.
+
+Existing PR437 source fix `63234502` retains exact CI41035287020 **3/3 PASS** and verified artifacts; unrelated native PR389/419/431/436 holds unchanged. PA-01–09 **ACTIVE**, missing native evidence NOT RUN; formal milestones M1–M4 **4/10**, M5–M9 OPEN, M10 gated, M11/M12 opt-in inactive.
+
+---
+
+# HISTORICAL 2026-10-30 — PP44-F01 source repair CI and artifact verified
 
 Existing [PR437](https://github.com/MariosGiannakaras/Narro/pull/437), exact source **632345026d9c693613a3a0b3e9a8105740fcc6af**, stays DRAFT/UNMERGED. Valid historical closed-work edit/delete now transactionally prevents negative effective Time Taken after manual lowering; the three added actual Rust tests all **PASS**. Exact [CI41035287020](https://github.com/MariosGiannakaras/Narro/actions/runs/41035287020): validation/fast/Windows **3/3 SUCCESS**; Rust library tests483 PASS/0 FAIL; Clippy, visual fixture, packaging and diagnostics PASS. Independent downloaded ZIP/CRC/manifests **PASS** for physical ID12968772574, M7 validation12968099306, M1 diagnostic12969565831; 3+2+7 manifest members match source/run/hash, physical and M7 validation EXEs are byte-identical SHA256 `1f2d90241259dd0ae0216ab000455d8140b7e55406370f9d5948417f2096e878`. [Immutable receipt](work-log/2026-10-30-chatgpt-pr437-pp44-f01-exact-ci-and-artifact-closure.md).
 
