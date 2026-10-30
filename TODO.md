@@ -1,4 +1,13 @@
-# Current action — workflow/handoff/physical-preparer guard PR444
+# Current audit disposition — workflow/physical safety (2026-10-30)
+
+- [x] Repeat scoped workflow audit with exact current PR444/source, actual GitHub run status, two CI workflow files, source/test contracts, NER routing and PA authorization. [Findings and proposals](work-log/2026-10-30-chatgpt-workflow-reaudit-pr444-postci-findings.md).
+- [x] Latest [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) `b93235a9` [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545): validation/fast/Windows **3/3 SUCCESS**; previous fast failures remain historical FAIL. **No merge**; no Windows native PowerShell/app test observed.
+- [ ] **PROPOSED, not executed by this audit:** RA-01–04 actual isolated-profile/backup confidentiality/provenance and real PowerShell negative-path guard on same PR444 branch; then new exact-head CI. RA-05–06 precise risk routing plus cheap docs-only governance check; RA-07 bounded historical/unknown CI-learning triage; RA-08/09 documentation and action modernization only as independently justified.
+- [ ] PA-01–09 **ACTIVE** and missing native candidate cases **NOT RUN**; PR437 Taken/Reports and motion/SNAP plus independent PR389/419 strict native holds remain OPEN. No M10/M11/M12 activation or roadmap milestone count change.
+
+---
+
+# HISTORICAL 2026-10-30 — workflow/handoff/physical-preparer guard PR444 CI pending
 
 - [x] Inspect the two CI workflow YAMLs and active governance/physical handoff paths; confirm and correct stale PR389 current build, startup/resume instructions, PR389/419 independent native holds. [Exact audit](work-log/2026-10-30-chatgpt-workflow-governance-risk-routing-native-safety-audit.md).
 - [x] Submit [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) head `b93235a9fe2f651f86b347142858b9f590ea4e5a`: risk-route canonical instructions to NER-005/006 and guard default private AppData handling/EXE identity in physical preparer with regression contracts.
