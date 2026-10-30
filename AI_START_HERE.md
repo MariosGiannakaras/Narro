@@ -36,9 +36,9 @@ Before asking the user what to do next, do all of the following:
 2. Read `AGENTS.md` completely.
 3. Read `ENGINEERING_QUALITY.md` completely. Its validation, error-model, robustness and pre-CI rules apply to every implementation slice.
 4. Read `AGENT_WORKFLOW.md` completely.
-5. Read `HANDOFF.md` completely. This is the **current continuation point**.
-6. Read the active milestone section in `TODO.md`.
-7. Read `STATUS.md` for durable project-level truth and validated architecture/capability decisions.
+5. Read only the **active top section** of `HANDOFF.md` (up to its first `---` separator). This is the **current continuation point**. Historical sections are not an active queue; open them only when an exact evidence gap requires it.
+6. Read the **active top section** of `TODO.md` and the **specific relevant milestone heading/section**, not the entire milestone ledger or dated historical checkpoints.
+7. Read the **active top section** of `STATUS.md` first; open only the relevant durable capability/architecture section or cited immutable receipt when required. Never reread its dated history by default.
 8. Inspect the implementation/tests/files referenced by `HANDOFF.md`; never trust a summary without checking repository reality.
 9. Read only the product/architecture/evidence docs relevant to the active slice. For user-visible, Blitzit-parity, source-evidence, physical visual-validation, or broad multi-finding remediation work, start evidence discovery from `docs/EVIDENCE_ROUTING_MAP.md` and follow `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` so deeper canonical evidence and cross-finding causal analysis are not skipped.
 10. Inspect the newest relevant files in `work-log/` when recent rationale/validation evidence is needed. Use root `WORK_LOG.md` only for older legacy history.
