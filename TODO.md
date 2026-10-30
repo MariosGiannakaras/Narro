@@ -1,4 +1,11 @@
-# Pre-physical audit — 2026-10-30, source44a22f2a unchanged
+# Current task — PP44-F01 transactional repair awaiting exact-head validation
+
+- [ ] **PP44-F01 (M5+M9):** existing PR437 `0e8b960b` source and three Rust regressions submitted; nonnegative-time floor is enforced transactionally after closed work history edit/delete. **CI41034895148 QUEUED/PENDING**, local Rust/native tests NOT RUN, Windows physical NOT RUN, merge NOT DONE. Check exact CI; keep the checkbox open until appropriate validation and acceptance. [Repair evidence](work-log/2026-10-30-chatgpt-pp44-f01-persistence-repair-submitted.md).
+- [ ] Continue only other dependency-safe source work; do not infer native Timer movement success, waive PR389/419 protected holds or enter M10/M11/M12.
+
+---
+
+# Historical pre-physical audit (before PP44-F01 repair) — source44a22f2a
 
 Review complete10/10 source domains:9 scoped PASS /1 confirmed FAIL **PP44-F01 (M5/M9)**. Manual Taken lowering then historical edit/delete can commit a negative effective total; actual SQLite/production SQL2 FAIL +4 PASS controls, reader/Board failure source-traced. **No correction applied; integrated physical readiness NOT READY.** [Full audit/reproducer/results](work-log/evidence/pr437-prephysical-audit-20261030/README.md). Exact CI41031984280 validation/fast PASS, Windows Rust/check/Clippy PASS but full job still IN PROGRESS at last snapshot; user says do not wait, other chat consumes it. No physical execution, source/approved UX modification, merge or milestone advance. HANDOFF owns continuation.
 
