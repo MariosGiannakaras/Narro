@@ -150,6 +150,32 @@ The exact source/run and historical physically observed failures/retesting were 
 
 **Baseline status summary:** `ELIGIBLE` 25 files / 5 groups / 149127296 B; `HOLD` 411 files / 66 groups / 7474378585 B; `REVIEW` 264 files / 43 groups / 793959496 B. Sum = **700/700** files. `HOLD` and `REVIEW` may change through future **evidence-based** decisions, but the baseline denominator remains 700.
 
+## Batch 2 consumer audit — frozen before PR459 (2026-10-30)
+
+**User-requested sequence:** first inspect **all 43 baseline REVIEW families/264 video+ZIP paths** by Git-tree path/SHA/size grouping; then identify consumers of candidate families using native/CI reports, unreviewed evidence README and current exact PR holds. Group names and dates alone are **never** deletion proof. The 43 family scan is a **metadata inventory**, not 264 individually inspected video/audio contents. Unresolved files are retained rather than called clean.
+
+**Three individually supported Narro archive retirements, not active original native films:**
+
+| Exact path from `work-log/evidence/` | Size B | Provenance / retained consumer | Decision |
+| --- | ---: | --- | --- |
+| `pa351-preflight/fast-frontend-dist.zip` | 347,900 | Historical early PR351/CI38519177394 frontend/86-entry package; exact independent verification remains in `fast-independent-verification.json`, preflight logs and actual production RED/GREEN HTML. PR351 head `372da50b` later merged, CI38521066086 completed SUCCESS. Original interim ZIP recoverable from Git. | ELIGIBLE |
+| `pa354-ci-first-failure-20261014/ci-failure-diagnostics.zip` | 4,943,041 | Historical PR354 CI38571856805 first visual-fixture readiness failure; standalone failed-step log, original screenshot and `failure-provenance.json` retained, plus immutable causal report `work-log/2026-10-14-pa354-first-ci-fixture-failure.md`. Corrected PR354 `7647ffab` merged, CI38614321520 SUCCESS. ZIP not an active physical artifact. | ELIGIBLE |
+| `pr359-ci-readiness-20261016/original-failure-artifact-extracted-repacked.zip` | 1,333,361 | Historical failed run38856507685 repacked diagnostic (not the original provider ZIP); original failed PNG, first-failure job JSON, reproduction budget HTML/PNGs, semantic-ready screenshots/diagnostics and immutable causal report retained. Corrected PR359 `055350d6` merged, run38857668558 SUCCESS. | ELIGIBLE |
+
+**Bulk batch allowance: 3/3 exact paths / 6,624,302 logical B; all other baseline REVIEW paths excluded from deletion pending actual consumer clearance.** The 3 source/run corrected-head CI SUCCESS results have been checked against the actual GitHub workflow run statuses. The failed historical runs remain FAIL; removing redundant superseded diagnostics does not change that fact or mark native PASS. Recovery commit before PR459 is the exact `main` SHA at deletion creation, preserving these paths and Git blobs. There has been no source/config/test edit, no new CI, and no native execution for this batch.
+
+**Ten REVIEW paths explicitly reclassified to HOLD after reading source consumer evidence:**
+
+- `m7-pr235-native-capture-only-20261005` **3 media/ZIP paths / 48,476,645 B**: `README.md` declares entire CI953 capture RAW_UNREVIEWED, 61 actions, no physical/subcase verdict, so entire MKV, full MP4, source logs ZIP stay needed.
+- `pointer-analysis-20261024` **3 ROI/method ZIP paths / 103,473,357 B**: `README.md` documents N09 scoped PASS, **N10 PENDING**, exact PTS/frame accounting and unique native ROI proofs; preserve method and original-pixel extracts until pending consumer disposition.
+- `pr358-native-20261016` **4 media/ZIP paths / 127,455,335 B**: `README.md` and `work-log/2026-10-16-pr358-native-acceptance-and-subtask-focus-failure.md` bind original 60fps recording and raw-byte ZIP to bounded native M5 findings and a source failure; the original cannot be assumed replaced by the re-encoded playback or earlier later source build.
+
+**Current reviewed disposition before PR459:** of the **675 still tracked baseline files**, 3 ELIGIBLE /6,624,302 B, **421 HOLD /7,753,783,922 B**, **251 REVIEW_REQUIRED /507,929,857 B**. These numbers supersede the **frozen pre-PR458 snapshot** `411 HOLD +264 REVIEW` but do not change the immutable initial cohort denominator **700**. The original full-family table above retains its 2026-10-30 PR458 frozen classification; these three exact HOLD overrides and three ELIGIBLE item overrides are binding current deltas. No other REVIEW family was cleared by a name/extension-only scan.
+
+**Next step already authorized:** batch delete precisely those 3 ZIP paths in one expected-head guarded archival PR after verification of the current base and exact Git diff, then inspect the resulting main and record **28/700 retired, 672/700 remaining** only after real merge. Continue independent subsequent review of remaining 251 unknown entries, not blanket deletion.
+
+---
+
 ## Current progress and next safe operation
 
 **VERIFIED AFTER MERGE:** [PR458](https://github.com/MariosGiannakaras/Narro/pull/458) exact head `8338485c54e8da99e41f047382bc21ec0067b376`, expected-head-guarded squash merge `60844c254f37ee821388b417015be319b995e462`, **25/700 retired**, **675/700 remain**. GitHub exact compare: 25 removals and zero other changes. Post-merge full recursive Git tree `truncated:false`: **19,106 blobs / 11,190,388,083 B**, `work-log/evidence/` **17,277 / 10,917,872,285 B**. Full 700-item baseline cohort now has **675 files / 8,268,338,081 B**: **411 HOLD / 7,474,378,585 B**, **264 REVIEW / 793,959,496 B**; the removed 25 total 149,127,296 B. Every targeted old ZIP path is absent, all five preserved folder counts match **2/9/2/8/9** (30 provenance files). Unchanged exact Git trees: `reference/` `46dea0c640cbfc17003acf439d96f503a5c39410`, `src/` `715f8a0acc5bab9a170d3c55d683f3dcb64d0e90`, `src-tauri/` `d15e3d16751fee44dc494b406235e482011022c5`, `tests/` `229d81ddd95bfae21db7c05e60452e02ca1a0709`. CI/native NOT RUN (deletion-only `[skip ci]`), no code/feature/physical PASS. Cumulative verified retirements **PR445–458: 19,326 paths / 5,735,024,312 B** outside/including this batch; never add those 19,301 earlier removals to the fixed 700 baseline cohort. No shared Git history storage reclaimed.
