@@ -597,9 +597,13 @@ mod tests {
         c.advance(70000, T2).unwrap();
         assert_eq!(displayed_taken(&c), "7");
         c.skip_break(71000, T2).unwrap();
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Paused);
         c.advance(72000, T2).unwrap();
+        assert_eq!(displayed_taken(&c), "7");
+        c.resume(72000, T2).unwrap();
+        c.advance(73000, T2).unwrap();
         assert_eq!(displayed_taken(&c), "8");
-        c.pause(72000, T2).unwrap();
+        c.pause(73000, T2).unwrap();
         let mut recovered = TimerController::recover(c.connection, 0, T2).unwrap();
         assert_eq!(displayed_taken(&recovered), "8");
         recovered.advance(100000, T2).unwrap();
@@ -720,12 +724,18 @@ mod tests {
             (2000, "2"),
             (2500, "2"),
             (3000, "2"),
-            (4000, "3"),
-            (5000, "4"),
+            (4000, "2"),
         ] {
             c.advance(ms, T1).unwrap();
             assert_eq!(displayed_taken(&c), total);
         }
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Paused);
+        c.resume(4000, T1).unwrap();
+        c.advance(5000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "3");
+        c.advance(6000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "4");
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Break);
     }
 
     fn fixture() -> (Connection, ListId, TaskId, TaskId) {
