@@ -62,6 +62,7 @@ export function selectLearningRisks(changed) {
   if (harness) ids.add("NER-004");
   if (tracking) { ids.add("NER-005"); ids.add("NER-006"); }
   if (state) { ids.add("NER-009"); ids.add("NER-014"); }
+  if (any(/^src-tauri\/src\/(persistence\/(sessions|task_metadata|tasks)\.rs|report_commands\.rs)$/)) ids.add("NER-015");
   if (native) { ids.add("NER-001"); ids.add("NER-010"); }
   if (ci) { ids.add("NER-003"); ids.add("NER-011"); ids.add("NER-012"); }
   if (runtime) ids.add("NER-012");
