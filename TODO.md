@@ -1,4 +1,14 @@
-# Current audit disposition — workflow/physical safety (2026-10-30)
+# CURRENT — finish existing PR444 normal-profile PA workflow and handoff
+
+- [x] Respect latest user decision: normal Windows Narro data are disposable; remove needless isolated account, temporary DB and backup requirements. Keep stop-before-Narro-reset, restart-persistence and unrelated data/OS boundaries.
+- [x] Apply minimal scoped source changes on **existing [PR444](https://github.com/MariosGiannakaras/Narro/pull/444)** head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be`: PowerShell script, PID/path/SHA verification, risk routing, existing JS regression contracts. No product source changes. Align live process/operator docs.
+- [x] Exact-head [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) validation and fast **PASS**, prior fast FAIL at older head retained historically.
+- [ ] Current Windows candidate **RUNNING / NOT PASS** on exact head; after success perform reviewed expected-head PR444 merge and verify resulting-main, or diagnose failed step with new exact-head retry on same branch.
+- [ ] PA-01–09 actual Windows tests **ACTIVE / NOT RUN**, independent PR437 and PR389/419 native holds unchanged, no M10/M11 activation. These are roadmap acceptance, not an extra PR444 governance/integration blocker.
+
+---
+
+# HISTORICAL 2026-10-30 — workflow/physical safety audit before simplification
 
 - [x] Repeat scoped workflow audit with exact current PR444/source, actual GitHub run status, two CI workflow files, source/test contracts, NER routing and PA authorization. [Findings and proposals](work-log/2026-10-30-chatgpt-workflow-reaudit-pr444-postci-findings.md).
 - [x] Latest [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) `b93235a9` [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545): validation/fast/Windows **3/3 SUCCESS**; previous fast failures remain historical FAIL. **No merge**; no Windows native PowerShell/app test observed.
