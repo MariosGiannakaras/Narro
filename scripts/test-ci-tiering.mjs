@@ -16,15 +16,16 @@ function invariant(condition, message) {
 const physicalPreparation = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
 for (const required of [
   '[switch]$BackupProductionData',
-  'if ($BackupProductionData -and $productionDataExists) {',
+  'if ($BackupProductionData -and $productionRoamingDataExists) {',
   'if ($Launch -and $productionDataExists) {',
+  '$productionDataExists = $productionRoamingDataExists -or $productionLocalDataExists',
   'if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {',
   'PA-01–PA-09 ACTIVE',
   'docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md',
 ]) invariant(physicalPreparation.includes(required),
   "physical session preparer missing user-data/exact-build guard: " + required);
 invariant(
-  /if \(\$BackupProductionData -and \$productionDataExists\) \{\s*Copy-Item -LiteralPath \$productionAppDataDir/.test(physicalPreparation),
+  /if \(\$BackupProductionData -and \$productionRoamingDataExists\) \{\s*Copy-Item -LiteralPath \$productionAppDataDir/.test(physicalPreparation),
   "production AppData copy must be explicitly opt-in",
 );
 invariant(
