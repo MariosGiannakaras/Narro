@@ -1,10 +1,10 @@
-# CURRENT — verify resulting-main CI and close PR444 workflow slice
+# CURRENT — PR444 workflow DONE; return to independent physical acceptance
 
-- [x] On [PR444](https://github.com/MariosGiannakaras/Narro/pull/444), remove unnecessary isolated Windows profile / temporary DB / automatic backup and use ordinary-profile Narro-only disposable test data. Retain PID/path/executable SHA-256, no unrelated OS/data changes.
-- [x] Exact head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt2 **3/3 SUCCESS**; first attempt Windows visual fixture FAIL remains a separate historical FAIL.
-- [x] Expected-head guarded PR444 squash merge **`f8ce9343356bd0d20b54cb48aa2cf9fb7aef9ecf`**, changed scripts/tests blob hashes **5/5 identical** on merged main.
-- [ ] Resulting-main [CI41054758746](https://github.com/MariosGiannakaras/Narro/actions/runs/41054758746) validation PASS, fast PASS, Windows **RUNNING**. On PASS, immutable closure/handoff and task complete; if FAIL, inspect first failing step and act on evidenced cause.
-- [ ] Separate roadmap-native PA-01–09 **ACTIVE / NOT RUN** missing cases; PR437 physical, PR389/419 strict native holds remain OPEN. Do not count these as a failure of this independent PR444 workflow slice, do not activate M10/M11/M12.
+- [x] [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) existing workflow/PA script simplification per user's normal-profile/disposable-Narro-data instruction; no extra Windows account, temporary DB or backup.
+- [x] Exact PR head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt2 **3/3 PASS**; attempt1 Windows fixture FAIL retained as history.
+- [x] Expected-head guarded merge `f8ce9343356bd0d20b54cb48aa2cf9fb7aef9ecf`, changed scripts/tests 5/5 Git blob match between exact-green PR head and merge `main`.
+- [x] Resulting-main [CI41054758746](https://github.com/MariosGiannakaras/Narro/actions/runs/41054758746), exact merge SHA **validation/fast/Windows 3/3 SUCCESS**. [Immutable closure](work-log/2026-10-30-chatgpt-pr444-merged-resulting-main-ci-closure.md). **PR444 workflow work complete — no further task or CI pending here.**
+- [ ] **Separate roadmap/native next:** PR437 actual Windows PP44-F01 Taken/Reports edit/delete/restart and M7 Panel/Timer movement/SNAP evidence **NOT RUN**; Codex/Windows operator with regular Narro test data executes uncovered cases. PR389 and PR419 independently strict native 8/8 `PHYSICAL_BEFORE_MERGE` still OPEN. PA-01–09 ACTIVE, not USER-PAUSED. M1–M4 accepted 4/10, M5–M9 OPEN; M10 gated, M11/M12 inactive.
 
 ---
 
