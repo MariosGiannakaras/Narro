@@ -82,7 +82,7 @@ for (const id of ["PA-01", "PA-02", "PA-03", "PA-04", "PA-05", "PA-06", "PA-07",
   previous = offset;
 }
 for (const phrase of [
-  "AUTHORIZED by the user", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
+  "PA-01–PA-09 ACTIVE", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
   "Codex captures continuous time-stamped video", "DO NOT demand video solely", "125%",
   "HWND/UIA", "NSIS/MSI", "production", "M11 remains inactive",
 ]) assert(checklist.includes(phrase), "Missing resumed PA protocol guard: " + phrase);
@@ -91,7 +91,11 @@ assert(!checklist.includes("covers ONLY the remaining C5")
   "Do not regress to obsolete C5-only or PA user-pause scope");
 assert(physicalScript.includes("Get-FileHash -Algorithm SHA256")
   && physicalScript.includes("production-appdata-backup")
+  && physicalScript.includes("if ($BackupProductionData -and $productionRoamingDataExists)")
+  && physicalScript.includes("if ($Launch -and $productionDataExists)")
+  && physicalScript.includes("$productionDataExists = $productionRoamingDataExists -or $productionLocalDataExists")
+  && physicalScript.includes("if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256))")
   && physicalScript.includes("if ($Launch)"),
-  "Retain strong executable hash, production backup, and explicit launch opt-in");
+  "Retain exact-executable SHA guard, separately opt-in backup, Roaming/Local isolation, and explicit launch opt-in");
 
 console.log("Merged A01–A10 CI and resumed PA-01–PA-09 static/motion routing contracts passed.");
