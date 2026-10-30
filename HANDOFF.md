@@ -6,6 +6,8 @@
 
 **Docs:** [AI_START_HERE.md](AI_START_HERE.md), [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md), [current PA packet](docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md), [tracker index](docs/TRACKER_STATUS_INDEX.md) now record user authorization; historic run reports remain immutable. Physical Windows operation from this chat **NOT RUN**; PA-01–09 **ACTIVE**. PR437/389/419 native holds and M10/M11 remain unchanged.
 
+**UPDATED VALIDATION 2026-10-30:** Exact PR444 head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be`, CI [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) **attempt1: validation PASS, fast PASS, Windows FAIL** on unrelated unchanged `task-scheduling-no-repeat-light` screenshot readiness (8/8 attempts, first error `capture-visual-fixtures.ps1:134`; no confirmed cause). **Attempt2 targeted Windows job rerun** requested successfully, latest Windows job `124048049971` **RUNNING / NOT PASS**. Current exact run supersedes older pre-retry text below. [Immutable root/history and CI receipt](work-log/2026-10-30-chatgpt-pr444-origin-of-backup-and-ci-visual-retry.md). Do not merge pending successful exact retry.
+
 **ONE NEXT:** Observe exact PR444 [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) after it changes state; diagnose first causal FAIL and repair same branch, or on exact 3/3 SUCCESS verify live PR head and reviewed diff, guarded merge **PR444 only** (not PR437/389/419), verify resulting-main CI/source identity and publish final immutable log/current HANDOFF/TODO/STATUS. Do not claim this workflow is complete before successful integration.
 
 ---
