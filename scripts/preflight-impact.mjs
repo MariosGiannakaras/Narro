@@ -75,6 +75,23 @@ export function selectLearningRisks(changed) {
   };
 }
 
+/**
+ * Surface the live register's actual prevention text, not just a list of IDs.
+ * Fail closed for renamed/missing/duplicated rows so a stale mapping cannot
+ * silently suggest that an unreviewed historical guard has been applied.
+ */
+export function learningControls(ids, markdown) {
+  const rows = markdown.split(/\r?\n/).filter(line => /^\| \*\*NER-\d+\*\* \|/.test(line));
+  return ids.map(id => {
+    const hits = rows.filter(line => line.startsWith("| **" + id + "** |"));
+    if (hits.length !== 1) throw Error("Missing or duplicated risk-register row: " + id);
+    const cells = hits[0].split("|").map(cell => cell.trim());
+    if (cells.length !== 7 || !cells[4] || !cells[5])
+      throw Error("Invalid risk-register prevention row: " + id);
+    return { id, trigger: cells[2], preventionGuard: cells[4], state: cells[5] };
+  });
+}
+
 export function parseChangedPaths(argv, git) {
   let base = "main", files = null, run = false;
   for (let i = 0; i < argv.length; i++) {
@@ -104,7 +121,10 @@ function main() {
     .map(name => [`scripts/${name}`, readFileSync(path.join(root, "scripts", name), "utf8")]));
   const result = selectImpactedTests(changed, bodies, pkg.scripts);
   const learning = selectLearningRisks(changed);
+  const register = readFileSync(path.join(root, "docs", "NARRO_ENGINEERING_RISK_REGISTER.md"), "utf8");
+  const controls = learningControls(learning.riskFamiliesToReview, register);
   console.log(JSON.stringify({ base, explicit, changed, ...result, ...learning,
+    learningControls: controls,
     mandatoryAggregate: "npm run preflight:frontend",
     hint: "Review unmapped and indirect CSS/runtime consumers manually; local PASS is not CI/physical PASS" }, null, 2));
   if (!run) return;
