@@ -79,9 +79,9 @@ On **every resumed turn**, consult last concrete results before broad repository
 2. Read `AI_START_HERE.md`.
 3. Read `AGENTS.md`.
 4. Read `ENGINEERING_QUALITY.md`.
-5. Read `HANDOFF.md` completely.
-6. Read the active milestone in `TODO.md`.
-7. Read `STATUS.md`.
+5. Read the single **active top block of `HANDOFF.md` before its first `---` separator**, then expand historical sections only if a current claim explicitly depends on them.
+6. Read the active top block and **only the relevant milestone section** of `TODO.md`; dated checkpoints are historical evidence, not competing tasks.
+7. Read the **active top block of `STATUS.md`**, then inspect only a relevant architecture/capability section or cited receipt if needed.
 8. Inspect the implementation/tests/CI referenced by the handoff.
 9. Read only the relevant specs/evidence.
 10. Read the newest relevant files under `work-log/` when recent rationale/evidence is needed; use root `WORK_LOG.md` only for older legacy history.
@@ -332,7 +332,7 @@ Never overwrite another work-log entry. Corrections get a new file. Root `WORK_L
 
 ## HANDOFF.md protocol
 
-Keep `HANDOFF.md` short and operational. It must clearly contain:
+Keep the **active top block** of `HANDOFF.md` short and operational; older explicitly marked `HISTORICAL` snapshots below its first separator are retained for provenance but are **not** routine startup reading. It must clearly contain:
 
 - current milestone/slice;
 - current compact user-facing progress line (or the authoritative source values needed to derive it), including active milestone/roadmap size, active small-slice progress, and active-milestone top-level TODO progress;
