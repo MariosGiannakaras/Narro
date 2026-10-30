@@ -151,3 +151,13 @@ test("missing, malformed and empty step timestamps fail closed, not full-job fal
   assert.equal(failedStepLog("Diff in /tmp/src-tauri/src/lib.rs:12:",
     { started_at: "2026-10-30T09:39:36Z", completed_at: "2026-10-30T09:39:38Z" }), null);
 });
+
+test("failed-step completion timestamp includes subsecond diagnostics", () => {
+  const s = failedStepLog(
+    "2026-10-30T09:39:37.7214429Z Diff in /tmp/src-tauri/src/lib.rs:7:\n" +
+    "2026-10-30T09:39:38.0100000Z Error: later cleanup",
+    { started_at: "2026-10-30T09:39:37Z", completed_at: "2026-10-30T09:39:37Z" }
+  );
+  assert.match(s, /Diff in/);
+  assert.ok(!s.includes("later cleanup"));
+});
