@@ -36,6 +36,10 @@ pub(crate) struct TimeTakenProjectionCache {
 }
 
 impl TimeTakenProjectionCache {
+    pub fn history_revision(&self) -> Option<u64> {
+        self.basis.as_ref().map(|(key, _)| key.history_revision)
+    }
+
     pub fn refresh<F>(&mut self, key: Option<BasisKey>, read: F)
     where
         F: FnOnce() -> Result<u64, &'static str>,
@@ -73,11 +77,13 @@ impl TimeTakenProjectionCache {
         Some(match result {
             Ok(total) => LiveTimeTakenProjection {
                 task_id: key.task_id,
+                history_revision: key.history_revision.to_string(),
                 seconds: Some(total.to_string()),
                 error: None,
             },
             Err(code) => LiveTimeTakenProjection {
                 task_id: key.task_id,
+                history_revision: key.history_revision.to_string(),
                 seconds: None,
                 error: Some(code.into()),
             },

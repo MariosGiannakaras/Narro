@@ -290,6 +290,7 @@ impl TimerService {
             controller,
             effects_connection,
             observed_ms,
+            recovered_awaiting_resume,
             ..
         } = &mut *state;
 
@@ -300,6 +301,12 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
+            |payload| reports.record(payload),
+        )?;
+        record_time_taken_history_projection(
+            controller,
+            effects_connection,
+            *recovered_awaiting_resume,
             |payload| reports.record(payload),
         )?;
         trace.stage("claim-effects");
@@ -912,6 +919,21 @@ fn focus_home_pause_lease_matches(
         )
 }
 
+fn record_time_taken_history_projection(
+    controller: &mut TimerController,
+    effects_connection: &Connection,
+    recovered_awaiting_resume: bool,
+    mut report: impl FnMut(&TimerSessionPayload),
+) -> CommandResult<()> {
+    if let Some(payload) = controller.pending_time_taken_history_projection() {
+        let payload =
+            decorate_timer_payload(effects_connection, payload, recovered_awaiting_resume)?;
+        report(&payload);
+        controller.acknowledge_time_taken_history_projection();
+    }
+    Ok(())
+}
+
 fn decorate_timer_payload(
     effects_connection: &Connection,
     mut payload: TimerSessionPayload,
@@ -1400,6 +1422,75 @@ mod tests {
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T6: &str = "2026-09-05T12:00:06Z";
+
+    #[test]
+    fn paused_history_receipt_reaches_event_publication_once_and_preserves_resume_policy() {
+        for mode in [
+            TimerMode::CountUp,
+            TimerMode::Pomodoro {
+                work_ms: 10_000,
+                break_ms: 5_000,
+            },
+        ] {
+            let (mut controller, mut effects, task_id, path) = fixture();
+            controller.start_task(task_id, mode, 0, T0).unwrap();
+            controller.pause(1500, T0).unwrap();
+            let before = controller.snapshot();
+            crate::persistence::sessions::create_manual_work_session(
+                &mut effects,
+                task_id,
+                "2026-09-05T11:58:00Z",
+                T0,
+                90,
+                T0,
+            )
+            .unwrap();
+            controller.time_taken_invalidator().invalidate();
+            controller.advance(2000, T6).unwrap();
+            let pomodoro = matches!(mode, TimerMode::Pomodoro { .. });
+            let mut emitted = Vec::new();
+            if pomodoro {
+                // Decoration failure must not consume the publication receipt.
+                let unavailable = Connection::open_in_memory().unwrap();
+                assert!(record_time_taken_history_projection(
+                    &mut controller,
+                    &unavailable,
+                    false,
+                    |p| emitted.push(p.clone()),
+                )
+                .is_err());
+                assert!(emitted.is_empty());
+                assert!(controller.pending_time_taken_history_projection().is_some());
+            }
+            record_time_taken_history_projection(&mut controller, &effects, pomodoro, |p| {
+                emitted.push(p.clone())
+            })
+            .unwrap();
+            assert_eq!(emitted.len(), 1);
+            assert_eq!(emitted[0].revision, before.revision);
+            assert_eq!(emitted[0].runtime, before.runtime);
+            assert!(emitted[0].change.is_none());
+            assert_eq!(emitted[0].awaiting_resume, pomodoro);
+            assert_eq!(
+                emitted[0]
+                    .live_time_taken
+                    .as_ref()
+                    .unwrap()
+                    .seconds
+                    .as_deref(),
+                Some("91")
+            );
+            controller.advance(3000, T6).unwrap();
+            record_time_taken_history_projection(&mut controller, &effects, pomodoro, |p| {
+                emitted.push(p.clone())
+            })
+            .unwrap();
+            assert_eq!(emitted.len(), 1, "no idle publication or database polling");
+            drop(effects);
+            drop(controller);
+            fs::remove_file(path).unwrap();
+        }
+    }
 
     #[test]
     fn poisoned_timer_mutex_fails_closed_and_does_not_corrupt_sqlite_or_session_identity() {

@@ -81,6 +81,7 @@ pub struct TimerController {
     published_runtime: TimerRuntimeSnapshot,
     time_taken_cache: TimeTakenProjectionCache,
     time_taken_invalidation: TimeTakenInvalidation,
+    time_taken_history_dirty: bool,
 }
 
 impl TimerController {
@@ -98,6 +99,7 @@ impl TimerController {
             published_runtime,
             time_taken_cache: TimeTakenProjectionCache::default(),
             time_taken_invalidation: TimeTakenInvalidation::default(),
+            time_taken_history_dirty: false,
         };
         controller.refresh_time_taken_basis();
         Ok(controller)
@@ -118,6 +120,14 @@ impl TimerController {
         self.time_taken_invalidation.clone()
     }
 
+    pub(crate) fn pending_time_taken_history_projection(&self) -> Option<TimerSessionPayload> {
+        self.time_taken_history_dirty.then(|| self.snapshot())
+    }
+
+    pub(crate) fn acknowledge_time_taken_history_projection(&mut self) {
+        self.time_taken_history_dirty = false;
+    }
+
     fn time_taken_basis_key(&self) -> Option<BasisKey> {
         Some(BasisKey {
             task_id: self.published_runtime.timer.task_id?,
@@ -133,6 +143,14 @@ impl TimerController {
     /// successful Timer mutation, and is retried on the next changed basis.
     fn refresh_time_taken_basis(&mut self) {
         let key = self.time_taken_basis_key();
+        if let Some(key) = key {
+            self.time_taken_history_dirty |= self
+                .time_taken_cache
+                .history_revision()
+                .is_some_and(|previous| previous != key.history_revision);
+        } else {
+            self.time_taken_history_dirty = false;
+        }
         let connection = &self.connection;
         self.time_taken_cache.refresh(key, || {
             let key = key.ok_or("LIVE_TIME_TAKEN_UNAVAILABLE")?;
@@ -507,6 +525,9 @@ impl TimerController {
         self.revision = revision;
         self.published_runtime = runtime.clone();
         self.refresh_time_taken_basis();
+        // A semantic payload already carries this refreshed display basis to
+        // all subscribers. Ordinary advances/checkpoints keep the receipt dirty.
+        self.acknowledge_time_taken_history_projection();
         self.with_live_time_taken(TimerSessionPayload::changed(revision, runtime, change))
     }
 }
@@ -736,6 +757,50 @@ mod tests {
         c.advance(6000, T1).unwrap();
         assert_eq!(displayed_taken(&c), "4");
         assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Break);
+    }
+
+    #[test]
+    fn paused_history_refresh_is_publishable_once_without_a_timer_transition() {
+        let (conn, _, task, _) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
+        c.pause(1500, T1).unwrap();
+        let before = c.snapshot();
+        crate::persistence::sessions::create_manual_work_session(
+            &mut c.connection,
+            task,
+            "2026-09-05T11:58:00Z",
+            T0,
+            90,
+            T1,
+        )
+        .unwrap();
+        c.time_taken_invalidator().invalidate();
+        // Even an explicit checkpoint consuming the refresh must retain the
+        // publication receipt: paused renderers deliberately do not poll.
+        c.checkpoint(2000, T1).unwrap();
+        assert!(c.advance(3000, T1).unwrap().is_none());
+        let event = c.pending_time_taken_history_projection().unwrap();
+        assert_eq!(event.revision, before.revision);
+        assert_eq!(event.runtime, before.runtime);
+        assert!(event.change.is_none());
+        assert_eq!(
+            event.live_time_taken.unwrap().seconds.as_deref(),
+            Some("91")
+        );
+        c.acknowledge_time_taken_history_projection();
+        c.advance(4000, T1).unwrap();
+        assert!(c.pending_time_taken_history_projection().is_none());
+
+        c.time_taken_invalidator().invalidate();
+        c.advance(5000, T1).unwrap();
+        assert!(c.pending_time_taken_history_projection().is_some());
+        let resumed = c.resume(5000, T1).unwrap();
+        assert_eq!(
+            resumed.live_time_taken.unwrap().seconds.as_deref(),
+            Some("91")
+        );
+        assert!(c.pending_time_taken_history_projection().is_none());
     }
 
     fn fixture() -> (Connection, ListId, TaskId, TaskId) {

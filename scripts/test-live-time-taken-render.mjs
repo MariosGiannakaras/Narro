@@ -44,3 +44,27 @@ assert.match(render(live("18446744073709551615")),/>5124095576030431:00:15<\//,"
 const paused={...live("905"),runtime:{...timer.runtime,timer:{...timer.runtime.timer,state:"paused"}}};
 assert.match(render(paused,{fixtureMode:true,fixtureEditor:"time_taken"}),/value="0:15:00"/,"edit draft/CAS remains durable900 rather than live905");
 console.log("Production live Time Taken render: native samples, same-task binding, durable editor, read errors and integer precision PASS.");
+
+// Exercise the real event/snapshot reducer with native history generations.
+// Paused renderers do not poll, so a late response must not undo the one event.
+const apiBundle=await build({
+  entryPoints:["src/timerSessionApi.ts"],bundle:true,write:false,format:"cjs",platform:"node",
+  plugins:[{name:"isolated-native-transport",setup(b){
+    b.onResolve({filter:/^(@tauri-apps\/api\/(core|event)|\.\/boardInvalidation)$/},args=>({path:args.path,namespace:"transport"}));
+    b.onLoad({filter:/.*/,namespace:"transport"},()=>({contents:"export const invoke=()=>{throw new Error('unexpected invoke')};export const listen=invoke;export const emitBoardInvalidated=invoke;",loader:"js"}));
+  }}],
+});
+const apiMod={exports:{}};
+vm.runInNewContext(apiBundle.outputFiles[0].text,{module:apiMod,exports:apiMod.exports,console});
+const {applyTimerSessionProjection}=apiMod.exports;
+const generation=(historyRevision,error=null)=>({...paused,liveTimeTaken:{taskId:"active",historyRevision,seconds:error?null:"905",error}});
+const first=generation("9007199254740993"),next=generation("9007199254740994");
+assert.equal(applyTimerSessionProjection(next,first),next,"late older history cannot overwrite current paused metric");
+assert.equal(applyTimerSessionProjection(first,next),next,"newer history event accepted without a timer transition");
+const pending=generation(next.liveTimeTaken.historyRevision,"LIVE_TIME_TAKEN_PENDING");
+assert.equal(applyTimerSessionProjection(next,pending),next,"late pending snapshot cannot erase refreshed equal-history event");
+assert.equal(applyTimerSessionProjection(pending,next),next,"ready event replaces pending equal-history snapshot");
+const resumed={...first,revision:paused.revision+1};
+assert.equal(applyTimerSessionProjection(next,resumed),resumed,"semantic timer revision keeps priority over history ordering");
+assert.equal(applyTimerSessionProjection(resumed,next),resumed,"history ordering cannot resurrect an older timer revision");
+console.log("Production Timer projection reducer: paused history events, late snapshots, semantic priority and lossless generations PASS.");

@@ -10,6 +10,7 @@ pub const TIMER_SESSION_EVENT_NAME: &str = "timer-session-changed";
 #[serde(rename_all = "camelCase")]
 pub struct LiveTimeTakenProjection {
     pub task_id: TaskId,
+    pub history_revision: String,
     pub seconds: Option<String>,
     pub error: Option<String>,
 }
