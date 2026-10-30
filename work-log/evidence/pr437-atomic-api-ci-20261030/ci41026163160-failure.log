@@ -1,0 +1,56 @@
+windows-candidate	Run Clippy	﻿2026-10-30T08:27:56.9768890Z ##[group]Run npm run check:rust:clippy
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9769526Z ^[[36;1mnpm run check:rust:clippy^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9845583Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9845993Z env:
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9846213Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9846506Z   CARGO_INCREMENTAL: 0
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9846735Z   CARGO_TERM_COLOR: always
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9846984Z   CACHE_ON_FAILURE: false
+windows-candidate	Run Clippy	2026-10-30T08:27:56.9847208Z ##[endgroup]
+windows-candidate	Run Clippy	2026-10-30T08:27:57.6980208Z 
+windows-candidate	Run Clippy	2026-10-30T08:27:57.6981015Z > narro@0.1.0 check:rust:clippy
+windows-candidate	Run Clippy	2026-10-30T08:27:57.6982096Z > cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+windows-candidate	Run Clippy	2026-10-30T08:27:57.6982711Z 
+windows-candidate	Run Clippy	2026-10-30T08:27:58.6227212Z ^[[1m^[[92m   Compiling^[[0m narro v0.1.0 (D:\a\Narro\Narro\src-tauri)
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8573204Z ^[[1m^[[91merror^[[0m^[[1m^[[97m: use of deprecated method `std::sync::atomic::Atomic::<u64>::fetch_update`: renamed to `try_update` for consistency^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8575533Z   ^[[1m^[[96m--> ^[[0msrc\persistence\live_time_taken_projection.rs:17:14
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8576508Z    ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8577901Z ^[[1m^[[96m17^[[0m ^[[1m^[[96m|^[[0m             .fetch_update(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8579464Z    ^[[1m^[[96m|^[[0m              ^[[1m^[[91m^^^^^^^^^^^^^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8580114Z    ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8580872Z    ^[[1m^[[96m= ^[[0m^[[1m^[[97mnote^[[0m: `-D deprecated` implied by `-D warnings`
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8582058Z    ^[[1m^[[96m= ^[[0m^[[1m^[[97mhelp^[[0m: to override `-D warnings` add `#[allow(deprecated)]`
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8583169Z ^[[1m^[[96mhelp^[[0m: replace the use of the deprecated method
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8583887Z    ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8585184Z ^[[1m^[[96m17^[[0m ^[[91m- ^[[0m            .^[[91mfetch_update^[[0m(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8587107Z ^[[1m^[[96m17^[[0m ^[[92m+ ^[[0m            .^[[92mtry_update^[[0m(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8588124Z    ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:03.8588356Z 
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8596847Z ^[[1m^[[91merror^[[0m^[[1m^[[97m: use of deprecated method `std::sync::atomic::Atomic::<u32>::fetch_update`: renamed to `try_update` for consistency^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8599930Z    ^[[1m^[[96m--> ^[[0msrc\windows\move_trace.rs:234:10
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8600656Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8602007Z ^[[1m^[[96m234^[[0m ^[[1m^[[96m|^[[0m         .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8602632Z     ^[[1m^[[96m|^[[0m          ^[[1m^[[91m^^^^^^^^^^^^^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8603003Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8603424Z ^[[1m^[[96mhelp^[[0m: replace the use of the deprecated method
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8603822Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8604480Z ^[[1m^[[96m234^[[0m ^[[91m- ^[[0m        .^[[91mfetch_update^[[0m(Ordering::Relaxed, Ordering::Relaxed, |n| {
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8605391Z ^[[1m^[[96m234^[[0m ^[[92m+ ^[[0m        .^[[92mtry_update^[[0m(Ordering::Relaxed, Ordering::Relaxed, |n| {
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8605910Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8606048Z 
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8618743Z ^[[1m^[[91merror^[[0m^[[1m^[[97m: use of deprecated method `std::sync::atomic::Atomic::<u32>::fetch_update`: renamed to `try_update` for consistency^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8619589Z    ^[[1m^[[96m--> ^[[0msrc\windows\move_trace.rs:302:14
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8619972Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8635142Z ^[[1m^[[96m302^[[0m ^[[1m^[[96m|^[[0m             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8636350Z     ^[[1m^[[96m|^[[0m              ^[[1m^[[91m^^^^^^^^^^^^^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8636989Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8637653Z ^[[1m^[[96mhelp^[[0m: replace the use of the deprecated method
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8638329Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8639598Z ^[[1m^[[96m302^[[0m ^[[91m- ^[[0m            .^[[91mfetch_update^[[0m(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8645969Z ^[[1m^[[96m302^[[0m ^[[92m+ ^[[0m            .^[[92mtry_update^[[0m(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1));
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8646868Z     ^[[1m^[[96m|^[[0m
+windows-candidate	Run Clippy	2026-10-30T08:28:04.8647073Z 
+windows-candidate	Run Clippy	2026-10-30T08:28:09.3461543Z ^[[1m^[[91merror^[[0m: could not compile `narro` (lib) due to 3 previous errors
+windows-candidate	Run Clippy	2026-10-30T08:28:09.3462837Z ^[[1m^[[93mwarning^[[0m: build failed, waiting for other jobs to finish...
+windows-candidate	Run Clippy	2026-10-30T08:28:11.5003575Z ^[[1m^[[91merror^[[0m: could not compile `narro` (lib test) due to 3 previous errors
+windows-candidate	Run Clippy	2026-10-30T08:28:11.5942078Z ##[error]Process completed with exit code 1.
