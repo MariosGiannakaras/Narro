@@ -590,7 +590,6 @@ pub fn create_manual_work_session(
     Ok(created)
 }
 
-
 /**
  * Historical work edits change the session ledger but retain the user's signed
  * Time Taken adjustment. If the removed work exceeds the remaining effective
@@ -607,7 +606,9 @@ fn preserve_nonnegative_time_taken_after_history_mutation(
     if session.kind != SessionKind::Work {
         return Ok(());
     }
-    let task_id = session.task_id.ok_or(SessionStoreError::InvalidSessionShape)?;
+    let task_id = session
+        .task_id
+        .ok_or(SessionStoreError::InvalidSessionShape)?;
     let (persisted, adjustment): (i64, i64) = conn.query_row(
         "SELECT
             (SELECT COALESCE(SUM(duration_seconds), 0)
@@ -969,7 +970,6 @@ mod tests {
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 300);
     }
 
-
     #[test]
     fn lowered_manual_taken_remains_readable_after_closed_history_edit_or_delete() {
         for mutation in ["edit", "delete"] {
@@ -1020,12 +1020,14 @@ mod tests {
         for desired in [90_u32, 100_u32] {
             for mutation in ["edit", "delete"] {
                 let (mut conn, task_id) = fixture();
-                let history = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1)
-                    .unwrap();
+                let history =
+                    create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1).unwrap();
                 set_task_time_taken(
                     &mut conn,
                     task_id,
-                    SetTaskTimeTakenInput { total_seconds: desired },
+                    SetTaskTimeTakenInput {
+                        total_seconds: desired,
+                    },
                     T2,
                 )
                 .unwrap();
@@ -1044,8 +1046,7 @@ mod tests {
                     delete_closed_session_if_expected(&mut conn, history.id, &history.updated_at)
                         .unwrap();
                 }
-                let expected = u64::from(desired - 90)
-                    + if mutation == "edit" { 1 } else { 0 };
+                let expected = u64::from(desired - 90) + if mutation == "edit" { 1 } else { 0 };
                 assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), expected);
                 let adjustment: i64 = conn
                     .query_row(
@@ -1076,14 +1077,16 @@ mod tests {
             Err(SessionStoreError::StaleVersion { .. })
         ));
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 5);
-        assert_eq!(sessions_for_task(&conn, task_id).unwrap()[0].duration_seconds, 90);
+        assert_eq!(
+            sessions_for_task(&conn, task_id).unwrap()[0].duration_seconds,
+            90
+        );
     }
 
     #[test]
     fn only_work_history_reconciles_taken_and_new_work_recovers_from_zero() {
         let (mut conn, task_id) = fixture();
-        let prior_work = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1)
-            .unwrap();
+        let prior_work = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1).unwrap();
         set_task_time_taken(
             &mut conn,
             task_id,
