@@ -84,7 +84,7 @@ for (const id of ["PA-01", "PA-02", "PA-03", "PA-04", "PA-05", "PA-06", "PA-07",
 for (const phrase of [
   "PA-01–PA-09 ACTIVE", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
   "Codex captures continuous time-stamped video", "DO NOT demand video solely", "125%",
-  "HWND/UIA", "NSIS/MSI", "production", "M11 remains inactive",
+  "HWND/UIA", "NSIS/MSI", "Narro test data:", "M11 remains inactive",
 ]) assert(checklist.includes(phrase), "Missing resumed PA protocol guard: " + phrase);
 assert(!checklist.includes("covers ONLY the remaining C5")
   && !checklist.includes("until the user expressly authorizes"),
