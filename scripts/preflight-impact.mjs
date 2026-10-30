@@ -56,7 +56,10 @@ export function selectLearningRisks(changed) {
   const harness = any(/^scripts\/.*(capture|visual|fixture|readiness|navigation|preflight)/i);
   const state = any(/^(src\/|src-tauri\/).*(timer|session|report|task|board|focus)/i);
   const native = any(/^src-tauri\/src\/.*(floating|overlay|raster|placement|monitor|window)/i);
-  const tracking = any(/^(HANDOFF|STATUS|TODO|AI_START_HERE|AGENT_WORKFLOW)\.md$|^docs\/(TRACKER_STATUS_INDEX|CI_VALIDATION_STRATEGY)\.md$/);
+  // Critical process files must trigger the same stale-handoff/current-truth
+  // review as HANDOFF/TODO. Historical work logs intentionally do not:
+  // those are immutable evidence, never current operating instructions.
+  const tracking = any(/^(AGENTS|ENGINEERING_QUALITY|HANDOFF|STATUS|TODO|AI_START_HERE|AGENT_WORKFLOW)\.md$|^docs\/(TRACKER_STATUS_INDEX|CI_VALIDATION_STRATEGY|DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW|CODEX_M5_M9_RECORDING_PACKET_2026-10-27|CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION)\.md$|^\.github\/copilot-instructions\.md$/);
   const ids = new Set();
   if (runtime) ids.add("NER-003");
   if (harness) ids.add("NER-004");
