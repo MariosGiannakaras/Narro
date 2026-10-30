@@ -40,9 +40,16 @@ if ([string]::IsNullOrWhiteSpace($roamingRoot)) {
     throw "Windows did not resolve the Roaming AppData directory."
 }
 $productionAppDataDir = Join-Path $roamingRoot "com.mariosg.Narro"
+$localRoot = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
+if ([string]::IsNullOrWhiteSpace($localRoot)) {
+    throw "Windows did not resolve the Local AppData directory."
+}
+$productionLocalAppDataDir = Join-Path $localRoot "com.mariosg.Narro"
 $backupDir = Join-Path $sessionDir "production-appdata-backup"
 $backupFiles = @()
-$productionDataExists = Test-Path $productionAppDataDir -PathType Container
+$productionRoamingDataExists = Test-Path $productionAppDataDir -PathType Container
+$productionLocalDataExists = Test-Path $productionLocalAppDataDir -PathType Container
+$productionDataExists = $productionRoamingDataExists -or $productionLocalDataExists
 
 # A backup is never implicit: even preparation without -Launch must not
 # copy, enumerate or hash the private production database by default.
@@ -50,7 +57,7 @@ $productionDataExists = Test-Path $productionAppDataDir -PathType Container
 if ($Launch -and $productionDataExists) {
     throw "Refusing to launch against existing Narro production AppData. Use an isolated Windows user/profile with no production data."
 }
-if ($BackupProductionData -and $productionDataExists) {
+if ($BackupProductionData -and $productionRoamingDataExists) {
     Copy-Item -LiteralPath $productionAppDataDir -Destination $backupDir -Recurse -Force
     $backupFiles = @(
         Get-ChildItem -LiteralPath $productionAppDataDir -File -Recurse -Force |
@@ -103,6 +110,9 @@ $manifest = [ordered]@{
     productionData = [ordered]@{
         identifier = "com.mariosg.Narro"
         appDataDir = $productionAppDataDir
+        localAppDataDir = $productionLocalAppDataDir
+        roamingExistedBeforeSession = $productionRoamingDataExists
+        localExistedBeforeSession = $productionLocalDataExists
         existedBeforeSession = $productionDataExists
         backupRequested = [bool]$BackupProductionData
         backupDirectory = if (Test-Path $backupDir -PathType Container) { $backupDir } else { $null }
@@ -116,7 +126,7 @@ $manifest | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 (Join-Path $se
 $backupStatus = if (Test-Path $backupDir -PathType Container) {
     "Created production AppData safety backup: $backupDir ($($backupFiles.Count) file(s))."
 } elseif ($productionDataExists) {
-    "Existing production AppData detected; NOT copied. An isolated Windows profile is required for -Launch."
+    "Existing Roaming or Local production AppData detected; NOT copied. An isolated Windows profile is required for -Launch."
 } else {
     "No pre-existing production AppData directory was present; no data backup was needed."
 }
