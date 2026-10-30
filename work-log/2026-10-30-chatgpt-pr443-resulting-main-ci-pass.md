@@ -1,0 +1,13 @@
+# PR443 resulting-main CI closure — 2026-10-30
+
+Task owner: ChatGPT, independent failure-learning infrastructure; this receipt closes PR443 only, **not** PR437's product/native acceptance or Narro milestones.
+
+- [PR443](https://github.com/MariosGiannakaras/Narro/pull/443): **MERGED** by expected-head-guarded squash, exact accepted PR head `c37674df9b963a2177848ffb812330b8718dfb8b`, merge SHA `4c61d5ba7789ee5988f4bdf74c16a7f90358260a`.
+- Exact PR-head [Windows CI 41037567334](https://github.com/MariosGiannakaras/Narro/actions/runs/41037567334): **3/3 SUCCESS** (validation-gate, fast-gate, windows-candidate). [CI Failure Learning 41037567402](https://github.com/MariosGiannakaras/Narro/actions/runs/41037567402): offline-tests **SUCCESS** (recurrence-scan **SKIPPED**, expected for PR event).
+- Exact **resulting-main** [Windows CI 41041563478](https://github.com/MariosGiannakaras/Narro/actions/runs/41041563478): **COMPLETED SUCCESS, attempt 1, source SHA `4c61d5ba7789ee5988f4bdf74c16a7f90358260a`, 3/3 PASS** (validation-gate, fast-gate and windows-candidate). This confirms the actual merge-source CI, not just the PR source.
+- The seven PR443 changed Git blobs were compared against the approved PR head on newer `main` `25d2084be0569fd637a1883ab5d5ab1da523cbca`: **7/7 exact blob SHA matches**, including `ENGINEERING_QUALITY.md`, `docs/NARRO_ENGINEERING_RISK_REGISTER.md`, `scripts/ci-learning.mjs`, `scripts/preflight-impact.mjs`, `scripts/test-ci-learning.mjs`, `scripts/test-preflight-impact.mjs` and `work-log/2026-10-30-chatgpt-ci-learning-precision-risk-prepush.md`. The 14 subsequent main commits from the merge through this checked main modified only other workflow/tracking/evidence documents, so this validated source remains present.
+- No additional fix is warranted **by this run**: no failing step, no evidenced new defect in the changed scripts. This is *not* proof that classification covers every historical CI failure, that the AI agent consistently applies every risk rule, or that UI/native behavior/source parity has physical PASS.
+- No physical Windows app run, install or profile mutation performed here. Current `HANDOFF.md`, `STATUS.md`, `TODO.md` continue to own separate PR437 native acceptance, with M10 and optional stages still gated. Do not rewrite their newer tracking state or touch immutable previous receipts.
+- **PR443 closure: DONE.** No pending task in this scope. Resume the separately owned PR437 native operator/physical validation from live `HANDOFF.md` only when appropriate; do not reopen CI-learning or rerun PR443 merely because this receipt has been added.
+
+This is an immutable historical receipt, so follow-on validations must be recorded separately rather than editing it.
