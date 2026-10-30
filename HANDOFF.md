@@ -1,4 +1,10 @@
-# HANDOFF - J05 atomic candidate native retest frozen
+# HANDOFF - native keyboard-movement admission prepared
+
+**NOW 2026-10-30 / owner Codex Windows / phase PREPARED.** Existing PR437bd86a7ad / CI40976747495 SUCCESS / EXE12a03041 unchanged. Previous J05 four-group campaign remains frozen **4/4 PASS**. New bounded admission uses normal Windows Alt+Space→Move keyboard route **only if the actual Timer exposes it**, to establish actual HWND displacement before recording differing-position transitions. This cannot accept pointer drag/snapping. New central root `E:/SystemFiles/Desktop/Narro-Workspace/Narro-Physical-20261030-PR437-Move`, ACCEPTANCE.md prepared; no profile mutation/app/recording at this checkpoint.
+
+**NEXT:** fresh profile protection, animation watchdog and same verified EXE; inspect actual native menu through Computer Use. If Move unavailable, stop that path once and preserve NOT RUN. If displacement is observed, acquire normal100%/125% differing-position paired routes, independently grade and restore original profile/animation before analysis. On interruption inspect the new root ledger/PID/partial media before replay. Do not touch restored old campaign ledger or repeat stationary four-group checks. No source patch/new CI/merge or optional milestone.
+
+## Historical completed J05 atomic candidate native retest
 
 **NOW 2026-10-30T00:40Z / owner Codex source + Windows / phase FROZEN.** PR437 exact head `bd86a7adef8aa2d197616e86de9d79c4aef86127`, CI40976747495 **3/3 SUCCESS**, physical artifact12944400152 / EXE SHA256 `12a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44`. New acquisition **4/4**, analysis **4/4**, **4 scoped groups PASS /16 direction observations PASS** (normal/reduced100%/125%, Panel→compact→expanded-subtasks→compact→Panel). [Originals/actual PTS/native receipts/separate outcomes](work-log/evidence/pr437-atomic-native-20261030/README.md). Old1dd54ed8 four FAILs remain historical, not current-candidate results. The provisional live duplicate interpretation was withdrawn after native-resolution old/new comparison; no speculative new patch.
 
