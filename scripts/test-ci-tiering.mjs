@@ -10,6 +10,30 @@ function invariant(condition, message) {
   if (!condition) throw new Error(`CI tiering contract failed: ${message}`);
 }
 
+// Physical-session preparation must use the ordinary Windows profile with
+// user-authorized Narro test data. No private-data backups, isolated-account
+// ceremony or implicit data deletion. Keep exact binary/PID admission guards.
+const physicalPreparation = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
+for (const required of [
+  'PA-01–PA-09 ACTIVE',
+  'docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md',
+  'normal Windows profile',
+  'no backup, alternate profile or automatic reset',
+  'if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {',
+  'if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id)',
+  'Get-Process -Id $process.Id -ErrorAction Stop',
+  '[IO.Path]::GetFullPath($actual)',
+  'Get-FileHash -Algorithm SHA256 -LiteralPath $actual',
+  'if ($runningHash -ne $hash)',
+]) invariant(physicalPreparation.includes(required),
+  "physical session preparer missing normal-profile or source/PID identity contract: " + required);
+for (const forbidden of [
+  "BackupProductionData", "Copy-Item -LiteralPath $productionAppDataDir",
+  "production-appdata-backup", "isolated test profile",
+  "Refusing to launch against existing Narro production AppData",
+]) invariant(!physicalPreparation.includes(forbidden),
+  "obsolete forced isolation/backup must not return: " + forbidden);
+
 // GitHub evaluates ordered positive/negative path patterns. Tracking-only
 // Markdown must not launch expensive Windows CI; the docs actually shipped in
 // validation artifacts must not be silently excluded.

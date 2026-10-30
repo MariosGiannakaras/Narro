@@ -40,6 +40,37 @@ assert.ok(toolingRisk.riskFamiliesToReview.includes("NER-011"));
 assert.ok(toolingRisk.riskFamiliesToReview.includes("NER-012"));
 const trackingRisk = selectLearningRisks(["HANDOFF.md"]);
 assert.deepEqual(trackingRisk.riskFamiliesToReview, ["NER-005", "NER-006"]);
+// All current workflow/instruction entrypoints must prompt a review of
+// current-truth/branch protections; immutable past receipts do not.
+for (const file of [
+  "AGENTS.md",
+  "ENGINEERING_QUALITY.md",
+  "AI_START_HERE.md",
+  "AGENT_WORKFLOW.md",
+  "docs/TRACKER_STATUS_INDEX.md",
+  "docs/CI_VALIDATION_STRATEGY.md",
+  "docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md",
+  "docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md",
+  "docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md",
+  ".github/copilot-instructions.md",
+  "docs\\TRACKER_STATUS_INDEX.md",
+]) {
+  assert.deepEqual(selectLearningRisks([file]).riskFamiliesToReview,
+    ["NER-005", "NER-006"], "missed workflow-risk routing: " + file);
+}
+assert.deepEqual(selectLearningRisks(["work-log/2026-10-23-frozen.md"]).riskFamiliesToReview, []);
+const physicalRisk = selectLearningRisks(["scripts/prepare-m7-physical-session.ps1"]);
+assert.deepEqual(physicalRisk.riskFamiliesToReview,
+  ["NER-003", "NER-005", "NER-006", "NER-011", "NER-012"]);
+for (const path of ["scripts/test-ci-tiering.mjs",
+  "scripts/test-merged-prephysical-ci-coverage.mjs"]) {
+  const risk = selectLearningRisks([path]);
+  for (const id of ["NER-003", "NER-011", "NER-012"]) {
+    assert.ok(risk.riskFamiliesToReview.includes(id), path + ": " + id);
+  }
+}
+
+
 assert.equal(trackingRisk.mandatoryRustFormatOnRun, false);
 assert.deepEqual(selectLearningRisks([]).riskFamiliesToReview, []);
 const register = readFileSync(new URL("../docs/NARRO_ENGINEERING_RISK_REGISTER.md", import.meta.url), "utf8");

@@ -82,16 +82,25 @@ for (const id of ["PA-01", "PA-02", "PA-03", "PA-04", "PA-05", "PA-06", "PA-07",
   previous = offset;
 }
 for (const phrase of [
-  "AUTHORIZED by the user", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
+  "PA-01–PA-09 ACTIVE", "OPEN/NOT RUN", "ChatGPT compares existing exact-build Windows screenshots",
   "Codex captures continuous time-stamped video", "DO NOT demand video solely", "125%",
-  "HWND/UIA", "NSIS/MSI", "production", "M11 remains inactive",
+  "HWND/UIA", "NSIS/MSI", "Narro test data:", "M11 remains inactive",
 ]) assert(checklist.includes(phrase), "Missing resumed PA protocol guard: " + phrase);
 assert(!checklist.includes("covers ONLY the remaining C5")
   && !checklist.includes("until the user expressly authorizes"),
   "Do not regress to obsolete C5-only or PA user-pause scope");
 assert(physicalScript.includes("Get-FileHash -Algorithm SHA256")
-  && physicalScript.includes("production-appdata-backup")
-  && physicalScript.includes("if ($Launch)"),
-  "Retain strong executable hash, production backup, and explicit launch opt-in");
+  && physicalScript.includes('if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256))')
+  && physicalScript.includes('if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id)')
+  && physicalScript.includes('Get-Process -Id $process.Id -ErrorAction Stop')
+  && physicalScript.includes('if ($runningHash -ne $hash)')
+  && physicalScript.includes('if ($Launch)'),
+  "Retain exact-source hash, launched PID/path/hash and explicit launch acceptance guards");
+assert(checklist.includes("normal Windows profile")
+  && checklist.includes("no backup, alternate profile or automatic reset")
+  && !physicalScript.includes("BackupProductionData")
+  && !physicalScript.includes("production-appdata-backup"),
+  "Do not reinstate unnecessary test-profile/backup requirements");
+
 
 console.log("Merged A01–A10 CI and resumed PA-01–PA-09 static/motion routing contracts passed.");

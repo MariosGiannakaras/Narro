@@ -21,6 +21,9 @@ if ($existing.Count -gt 0) {
 }
 
 $hash = (Get-FileHash -Algorithm SHA256 -Path $exe).Hash.ToLowerInvariant()
+if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
+    throw "Launching a physical candidate requires -ExpectedSha256 from its exact verified CI artifact."
+}
 if (-not [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
     $expected = $ExpectedSha256.Trim().ToLowerInvariant()
     if ($expected -notmatch '^[0-9a-f]{64}$') {
@@ -29,30 +32,6 @@ if (-not [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
     if ($hash -ne $expected) {
         throw "Executable SHA-256 mismatch. Expected $expected but found $hash."
     }
-}
-
-$roamingRoot = [Environment]::GetFolderPath([Environment+SpecialFolder]::ApplicationData)
-if ([string]::IsNullOrWhiteSpace($roamingRoot)) {
-    throw "Windows did not resolve the Roaming AppData directory."
-}
-$productionAppDataDir = Join-Path $roamingRoot "com.mariosg.Narro"
-$backupDir = Join-Path $sessionDir "production-appdata-backup"
-$backupFiles = @()
-
-if (Test-Path $productionAppDataDir -PathType Container) {
-    Copy-Item -LiteralPath $productionAppDataDir -Destination $backupDir -Recurse -Force
-    $backupFiles = @(
-        Get-ChildItem -LiteralPath $productionAppDataDir -File -Recurse -Force |
-            Sort-Object FullName |
-            ForEach-Object {
-                $relative = $_.FullName.Substring($productionAppDataDir.Length).TrimStart([char[]]"\\/")
-                [ordered]@{
-                    relativePath = $relative
-                    length = $_.Length
-                    sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
-                }
-            }
-    )
 }
 
 $os = Get-CimInstance Win32_OperatingSystem
@@ -89,41 +68,29 @@ $manifest = [ordered]@{
         buildNumber = $os.BuildNumber
     }
     monitors = $monitors
-    productionData = [ordered]@{
-        identifier = "com.mariosg.Narro"
-        appDataDir = $productionAppDataDir
-        existedBeforeSession = (Test-Path $productionAppDataDir -PathType Container)
-        backupDirectory = if (Test-Path $backupDir -PathType Container) { $backupDir } else { $null }
-        fileCount = $backupFiles.Count
-        files = $backupFiles
-    }
-    note = "Production Roaming AppData was snapshotted while Narro was not running. Keep this backup until the physical session is accepted. Do not restore it over a running Narro process."
+    dataPolicy = "User-authorized disposable Narro test data in the normal Windows profile; no automatic backup or reset"
+
 }
 $manifest | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 (Join-Path $sessionDir "environment.json")
-
-$backupStatus = if (Test-Path $backupDir -PathType Container) {
-    "Created production AppData safety backup: $backupDir ($($backupFiles.Count) file(s))."
-} else {
-    "No pre-existing production AppData directory was present; no data backup was needed."
-}
 
 $checklist = @"
 # Narro consolidated Windows physical acceptance — PA-01–PA-08
 
 Executable SHA-256: $hash
 Evidence directory: $sessionDir
-Production AppData: $productionAppDataDir
-$backupStatus
+Narro test data: normal Windows profile; no backup, alternate profile or automatic reset.
 
-STATUS: PA-01–PA-09 AUTHORIZED by the user on 2026-10-22; individual cases remain OPEN/NOT RUN until evidenced.
+STATUS: PA-01–PA-09 ACTIVE by the newer user decision on 2026-10-27; individual cases remain OPEN/NOT RUN until evidenced.
 ChatGPT owns static source-vs-Narro screenshot/icon/layout checks and all implementation. Codex
 owns only actual native Windows interactions, continuous motion/video, OS state and packaging
 acceptance after ChatGPT's corrected candidate passes exact source Windows CI. This script
-only prepares a case manifest; actual app launch is still opt-in (-Launch) and production
-AppData must not be overwritten or used for speculative fixture testing.
-Use -ExpectedSha256 to verify the exact resulting-main release before any physical session.
-Preserve the backup and environment.json; prefer disposable test data/profile and avoid
-altering the user's live data. Record monitor identity, DPI, Windows build, theme and motion.
+prepares a case manifest; actual app launch is still opt-in (-Launch).
+Use -ExpectedSha256 to verify the exact CI candidate (merged or unmerged) before any physical session.
+The user explicitly authorized using the normal Windows profile and treating Narro app data as test data.
+No separate profile, temporary DB, automatic backups or test-data protection workflow is required.
+A clean-state test may reset only Narro app data while Narro is stopped; preserve it for persistence/restart tests.
+Never modify unrelated personal files, OS settings or hardware outside the separately approved test scope.
+Record monitor identity, DPI, Windows build, theme and motion.
 For PA-01 and PA-02 native transitions, timer expiry/action timing and other motion,
 Codex captures continuous time-stamped video with aligned HWND/UIA, screenshots and logs.
 For static icons, colors, card geometry, single-frame state and source screenshot parity,
@@ -157,10 +124,10 @@ PASS requires direct evidence from this exact binary; CI/fixtures are not a phys
 
 ## PA-07 — normal quit/restart, persistence and Timer position
 - [ ] Quit via tray, relaunch this exact executable, verify timer/session/data recovery.
-- [ ] Confirm Timer restores to a safe visible placement; preserve original AppData backup.
+- [ ] Confirm Timer restores to a safe visible placement with persisted Narro test data.
 
 ## PA-08 — genuine NSIS/MSI installation
-- [ ] With explicit installer authorization and protected data, smoke-test both actual installers.
+- [ ] When the milestone requires it, smoke-test the real installers with Narro test data; follow separate OS/install safeguards.
 - [ ] Verify installer/release identity and safe launch/uninstall behavior; otherwise NOT RUN.
 
 ## PA-09 — separate existing-evidence Blitzit comparison, NOT a PA-01–PA-08 PASS
@@ -172,26 +139,34 @@ PASS requires direct evidence from this exact binary; CI/fixtures are not a phys
 
 ## Results and safeguards
 - [ ] For each PA record PASS/FAIL/INCONCLUSIVE/NOT RUN with timestamps and evidence links.
-- [ ] If data appears damaged, stop Narro, preserve evidence and restore backup ONLY while stopped.
+- [ ] For clean-state tests, reset only Narro test data while the app is stopped; for persistence tests retain it across restart.
 - [ ] Never infer physical PASS from a successful build or visual fixture.
-- [ ] Do not restore production data merely because a test passed.
-- [ ] Follow docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md and
-      docs/PRE_CODEX_RISK_AUDIT_2026-10-11.md for full scenario details.
+- [ ] Do not reset any data or mark a case PASS merely because the test passed CI.
+- [ ] Follow docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md for the current
+      exact-head native candidate and case scope; older checklists are historical.
 "@
 $checklist | Set-Content -Encoding UTF8 (Join-Path $sessionDir "checklist.md")
 
 Write-Host "Prepared M7 final physical evidence session:"
 Write-Host "  $sessionDir"
 Write-Host "Executable SHA-256: $hash"
-Write-Host $backupStatus
 
 if ($Launch) {
     $process = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru
     Start-Sleep -Seconds 2
     $running = @(Get-Process -Name "narro" -ErrorAction SilentlyContinue)
-    if ($running.Count -ne 1) {
-        Write-Warning "Expected exactly one Narro process after launch; observed $($running.Count)."
-    } else {
-        Write-Host "Narro launched as PID $($running[0].Id). Begin the recording and follow checklist.md."
+    if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id) {
+        throw "Narro launch identity mismatch: started PID $($process.Id), observed $($running.Count) Narro process(es). Do not score native acceptance."
     }
+    $actual = (Get-Process -Id $process.Id -ErrorAction Stop).Path
+    if ([string]::IsNullOrWhiteSpace($actual) -or
+        -not [string]::Equals([IO.Path]::GetFullPath($actual), [IO.Path]::GetFullPath($exe), [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Running Narro executable path does not match the verified candidate. Do not score native acceptance."
+    }
+    $runningHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $actual).Hash.ToLowerInvariant()
+    if ($runningHash -ne $hash) {
+        throw "Running Narro executable hash does not match verified candidate. Do not score native acceptance."
+    }
+    Write-Host "Verified running Narro PID $($process.Id) at $actual, SHA-256: $runningHash"
+    Write-Host "Begin recording and follow checklist.md."
 }

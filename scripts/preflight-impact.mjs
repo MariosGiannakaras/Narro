@@ -51,16 +51,25 @@ export function selectLearningRisks(changed) {
   const paths = changed.map(file => file.replaceAll("\\", "/"));
   const any = pattern => paths.some(file => pattern.test(file));
   const rust = any(/^(src-tauri\/.*\.rs|src-tauri\/Cargo\.(toml|lock))$/);
-  const ci = any(/^(\.github\/workflows\/|scripts\/(ci-learning|test-ci-learning|preflight-impact|test-preflight-impact)\.mjs$)/);
+  const ci = any(/^(\.github\/workflows\/|scripts\/(ci-learning|test-ci-learning|preflight-impact|test-preflight-impact|test-ci-tiering|test-merged-prephysical-ci-coverage)\.mjs$)/);
+  const physicalWorkflow = any(/^scripts\/prepare-m7-physical-session\.ps1$/);
   const runtime = any(/^(src\/|src-tauri\/|scripts\/|\.github\/workflows\/)/);
   const harness = any(/^scripts\/.*(capture|visual|fixture|readiness|navigation|preflight)/i);
   const state = any(/^(src\/|src-tauri\/).*(timer|session|report|task|board|focus)/i);
   const native = any(/^src-tauri\/src\/.*(floating|overlay|raster|placement|monitor|window)/i);
-  const tracking = any(/^(HANDOFF|STATUS|TODO|AI_START_HERE|AGENT_WORKFLOW)\.md$|^docs\/(TRACKER_STATUS_INDEX|CI_VALIDATION_STRATEGY)\.md$/);
+  // Critical process files must trigger the same stale-handoff/current-truth
+  // review as HANDOFF/TODO. Historical work logs intentionally do not:
+  // those are immutable evidence, never current operating instructions.
+  const tracking = any(/^(AGENTS|ENGINEERING_QUALITY|HANDOFF|STATUS|TODO|AI_START_HERE|AGENT_WORKFLOW)\.md$|^docs\/(TRACKER_STATUS_INDEX|CI_VALIDATION_STRATEGY|DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW|CODEX_M5_M9_RECORDING_PACKET_2026-10-27|CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION)\.md$|^\.github\/copilot-instructions\.md$/);
   const ids = new Set();
   if (runtime) ids.add("NER-003");
   if (harness) ids.add("NER-004");
   if (tracking) { ids.add("NER-005"); ids.add("NER-006"); }
+  // Windows operator admission/launch is a workflow and evidence-provenance
+  // change, not just an arbitrary script/runtime modification.
+  if (physicalWorkflow) {
+    ids.add("NER-005"); ids.add("NER-006"); ids.add("NER-011"); ids.add("NER-012");
+  }
   if (state) { ids.add("NER-009"); ids.add("NER-014"); }
   if (any(/^src-tauri\/src\/(persistence\/(sessions|task_metadata|tasks)\.rs|report_commands\.rs)$/)) ids.add("NER-015");
   if (native) { ids.add("NER-001"); ids.add("NER-010"); }
