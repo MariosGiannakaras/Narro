@@ -1,4 +1,14 @@
-# CURRENT — PR444 workflow DONE; return to independent physical acceptance
+# CURRENT — evidence-retention cleanup PR445–451 merged; remaining archival inventory OPEN
+
+- [x] PR445 retention/prevention: original Blitzit media protected regardless of folder; new Narro captures ignored by default; transient successful CI visual artifacts expire sooner; exact-head [CI41075618732](https://github.com/MariosGiannakaras/Narro/actions/runs/41075618732) **3/3 PASS**.
+- [x] PR446–451: After merged retention-policy PR445 and evidence-only deletion PR446–451: **18,392 Narro-generated files / 3,023,004,196 logical bytes** retired from current checkout. PR449 merge `84b781f78718bc2be46a11a91bd6683b2e2370fd` (2,820 CI911/CI942 derived PNGs), PR450 merge `b1905f528b3ff0d718f8f422428bde7dddde7fcd` (24 obsolete CI893 long MP4 parts), PR451 merge `56c8cfbfc456a5978bcd7268d11765d435b8d698` (five CI884 full-video segments). Earlier PR446–448 are merged. Evidence receipts: `work-log/2026-10-30-chatgpt-ci911-ci942-derived-frames-cleanup.md`, `work-log/2026-10-30-chatgpt-ci893-retired-full-video.md`, `work-log/2026-10-30-chatgpt-ci884-retired-full-video.md`, plus prior PR446–448 work logs. Historical binaries remain restorable from pinned pre-deletion Git commits; no history rewrite.
+- [x] Verify strict deletion-path allowlists, surviving compact evidence/provenance/source retrieval, and unmodified `reference/`/`src/`/`src-tauri/`/`tests/` trees. No physical Windows tests for deletion-only PRs (`NOT RUN`); historical Git objects still exist.
+- [ ] Remaining `work-log/` **13,636,217,462 bytes / 19,234 files** includes potentially active/original/critical evidence; assess each candidate against current PR/native/test consumers and original Blitzit provenance before deleting. Do not equate all remaining media with waste.
+- [ ] Independent dependency-ordered PR437 native acceptance and PR389/419 specific physical-before-merge holds remain OPEN / NOT RUN here. Roadmap M1–M4 **4/10** accepted, M5–M9 OPEN; M10 gated; M11/M12 inactive.
+
+---
+
+# HISTORICAL — PR444 workflow DONE; return to independent physical acceptance
 
 - [x] [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) existing workflow/PA script simplification per user's normal-profile/disposable-Narro-data instruction; no extra Windows account, temporary DB or backup.
 - [x] Exact PR head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt2 **3/3 PASS**; attempt1 Windows fixture FAIL retained as history.

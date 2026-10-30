@@ -1,4 +1,14 @@
-# CURRENT — PR444 workflow implementation DONE / merged and resulting-main validated (2026-10-30)
+# CURRENT — evidence cleanup PR445–451 verified / remaining historical inventory OPEN (2026-10-30)
+
+After merged retention-policy PR445 and evidence-only deletion PR446–451: **18,392 Narro-generated files / 3,023,004,196 logical bytes** retired from current checkout. PR449 merge `84b781f78718bc2be46a11a91bd6683b2e2370fd` (2,820 CI911/CI942 derived PNGs), PR450 merge `b1905f528b3ff0d718f8f422428bde7dddde7fcd` (24 obsolete CI893 long MP4 parts), PR451 merge `56c8cfbfc456a5978bcd7268d11765d435b8d698` (five CI884 full-video segments). Earlier PR446–448 are merged. Evidence receipts: `work-log/2026-10-30-chatgpt-ci911-ci942-derived-frames-cleanup.md`, `work-log/2026-10-30-chatgpt-ci893-retired-full-video.md`, `work-log/2026-10-30-chatgpt-ci884-retired-full-video.md`, plus prior PR446–448 work logs. Historical binaries remain restorable from pinned pre-deletion Git commits; no history rewrite.
+
+Protected `reference/` Git tree `46dea0c640cbfc17003acf439d96f503a5c39410` byte-identical across deletion series; `src/`, `src-tauri/` and `tests/` likewise unchanged. PR445 exact-head [CI41075618732](https://github.com/MariosGiannakaras/Narro/actions/runs/41075618732) validation/fast/Windows **3/3 SUCCESS**. Evidence-only PR446–451 used `[skip ci]` and strict path/tree validation, not Windows-native application tests (**NOT RUN**). Historical recovery commits documented in immutable receipts; no Git history rewrite. Current `work-log/` still has **19,234 tracked files / 13,636,217,462 logical bytes**, *not assumed automatically removable*. Remaining cleanups require active-consumer/provenance classification.
+
+Independently, PR437 PP44-F01/M7 and PA-01–09 native acceptance remain **NOT RUN/OPEN** in this cleanup session; PR389/419 separate strict compositor holds remain. M1–M4 **4/10** accepted, M5–M9 OPEN, M10 user approval still required, M11/M12 inactive.
+
+---
+
+# HISTORICAL — PR444 workflow implementation DONE / merged and resulting-main validated (2026-10-30)
 
 [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) exact head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be`, expected-head guarded squash **MERGED** `f8ce9343356bd0d20b54cb48aa2cf9fb7aef9ecf`. PR exact [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt2 **3/3 PASS**, first attempt visual readiness FAIL retained historically. Resulting-main [CI41054758746](https://github.com/MariosGiannakaras/Narro/actions/runs/41054758746) **validation/fast/Windows 3/3 SUCCESS**, exact merge SHA. All changed source/test Git blobs 5/5 identical between PR head and merged main. [Full immutable evidence](work-log/2026-10-30-chatgpt-pr444-merged-resulting-main-ci-closure.md).
 
