@@ -1,7 +1,7 @@
-# Current task — PP44-F01 transactional repair awaiting exact-head validation
+# Current task — PP44-F01 replacement source awaiting Windows validation
 
-- [ ] **PP44-F01 (M5+M9):** existing PR437 `0e8b960b` source and three Rust regressions submitted; nonnegative-time floor is enforced transactionally after closed work history edit/delete. **CI41034895148 QUEUED/PENDING**, local Rust/native tests NOT RUN, Windows physical NOT RUN, merge NOT DONE. Check exact CI; keep the checkbox open until appropriate validation and acceptance. [Repair evidence](work-log/2026-10-30-chatgpt-pp44-f01-persistence-repair-submitted.md).
-- [ ] Continue only other dependency-safe source work; do not infer native Timer movement success, waive PR389/419 protected holds or enter M10/M11/M12.
+- [ ] **PP44-F01 / M5+M9:** same existing draft PR437 exact head `63234502` implements transactional nonnegative Time Taken after closed work history edit/delete and adds three Rust tests. [CI41035287020](https://github.com/MariosGiannakaras/Narro/actions/runs/41035287020): validation PASS, fast PASS, Windows IN PROGRESS (**NOT YET native-test PASS**). Previous run41034895148 fast formatting FAIL was replaced; earlier44a 41031984280 3/3 SUCCESS is not new fix validation. Record Windows result and artifact, preserve separate physical/merge holds. [Repair log](work-log/2026-10-30-chatgpt-pp44-f01-persistence-repair-submitted.md).
+- [ ] Physical/PA-01–09 USER-PAUSED; differing-position/SNAP/hardware and PR389/419 A/B holds remain. No M10/M11/M12 entry.
 
 ---
 
