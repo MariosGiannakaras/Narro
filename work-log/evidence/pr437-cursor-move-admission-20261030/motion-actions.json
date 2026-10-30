@@ -1,0 +1,12 @@
+[
+  {
+    "utc": "2026-10-30T06:53:10.973Z",
+    "group": "CURSOR125",
+    "action": "select_native_move"
+  },
+  {
+    "utc": "2026-10-30T06:53:36.691Z",
+    "group": "CURSOR125",
+    "action": "native_move_pointer_commit"
+  }
+]

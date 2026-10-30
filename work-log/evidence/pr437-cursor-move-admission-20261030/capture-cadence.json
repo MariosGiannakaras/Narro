@@ -1,0 +1,74 @@
+[
+  {
+    "group": "CURSOR125",
+    "method": "gdi",
+    "frames": 3010,
+    "first": 0.0,
+    "last": 90.25,
+    "maximumPositiveGap": 0.05000000000000426,
+    "medianPositiveGap": 0.03300000000000125,
+    "nonIncreasing": 0,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 597,
+        "pts": 18.05
+      },
+      {
+        "index": 1200,
+        "pts": 36.1
+      },
+      {
+        "index": 1803,
+        "pts": 54.133
+      },
+      {
+        "index": 2404,
+        "pts": 72.2
+      },
+      {
+        "index": 3009,
+        "pts": 90.25
+      }
+    ]
+  },
+  {
+    "group": "CURSOR125",
+    "method": "dda",
+    "frames": 5010,
+    "first": 0.0,
+    "last": 90.233,
+    "maximumPositiveGap": 0.05000000000000071,
+    "medianPositiveGap": 0.016999999999995907,
+    "nonIncreasing": 221,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 1005,
+        "pts": 18.05
+      },
+      {
+        "index": 2002,
+        "pts": 36.1
+      },
+      {
+        "index": 3010,
+        "pts": 54.133
+      },
+      {
+        "index": 4013,
+        "pts": 72.183
+      },
+      {
+        "index": 5009,
+        "pts": 90.233
+      }
+    ]
+  }
+]

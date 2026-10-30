@@ -1,0 +1,290 @@
+[
+  {
+    "group": "MENU",
+    "method": "gdi",
+    "frames": 3007,
+    "first": 0.0,
+    "last": 90.283,
+    "maximumPositiveGap": 0.067,
+    "medianPositiveGap": 0.03300000000000125,
+    "nonIncreasing": 0,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 597,
+        "pts": 18.05
+      },
+      {
+        "index": 1198,
+        "pts": 36.1
+      },
+      {
+        "index": 1798,
+        "pts": 54.183
+      },
+      {
+        "index": 2403,
+        "pts": 72.217
+      },
+      {
+        "index": 3006,
+        "pts": 90.283
+      }
+    ]
+  },
+  {
+    "group": "MENU",
+    "method": "dda",
+    "frames": 5004,
+    "first": 0.0,
+    "last": 90.283,
+    "maximumPositiveGap": 0.05000000000000071,
+    "medianPositiveGap": 0.017000000000003013,
+    "nonIncreasing": 1217,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 1008,
+        "pts": 18.05
+      },
+      {
+        "index": 1990,
+        "pts": 36.117
+      },
+      {
+        "index": 3002,
+        "pts": 54.167
+      },
+      {
+        "index": 4005,
+        "pts": 72.233
+      },
+      {
+        "index": 5003,
+        "pts": 90.283
+      }
+    ]
+  },
+  {
+    "group": "MENU2",
+    "method": "gdi",
+    "frames": 1076,
+    "first": 0.0,
+    "last": 32.467,
+    "maximumPositiveGap": 0.05000000000000071,
+    "medianPositiveGap": 0.03300000000000036,
+    "nonIncreasing": 0,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 212,
+        "pts": 6.483
+      },
+      {
+        "index": 424,
+        "pts": 12.983
+      },
+      {
+        "index": 641,
+        "pts": 19.467
+      },
+      {
+        "index": 859,
+        "pts": 25.967
+      },
+      {
+        "index": 1075,
+        "pts": 32.467
+      }
+    ]
+  },
+  {
+    "group": "MENU2",
+    "method": "dda",
+    "frames": 1819,
+    "first": 0.0,
+    "last": 32.517,
+    "maximumPositiveGap": 0.05000000000000071,
+    "medianPositiveGap": 0.017000000000000348,
+    "nonIncreasing": 443,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 361,
+        "pts": 6.5
+      },
+      {
+        "index": 724,
+        "pts": 13.0
+      },
+      {
+        "index": 1086,
+        "pts": 19.517
+      },
+      {
+        "index": 1451,
+        "pts": 26.017
+      },
+      {
+        "index": 1818,
+        "pts": 32.517
+      }
+    ]
+  },
+  {
+    "group": "MENU3",
+    "method": "gdi",
+    "frames": 2013,
+    "first": 0.0,
+    "last": 61.85,
+    "maximumPositiveGap": 0.05000000000000426,
+    "medianPositiveGap": 0.03300000000000125,
+    "nonIncreasing": 0,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 401,
+        "pts": 12.383
+      },
+      {
+        "index": 806,
+        "pts": 24.733
+      },
+      {
+        "index": 1209,
+        "pts": 37.1
+      },
+      {
+        "index": 1604,
+        "pts": 49.467
+      },
+      {
+        "index": 2012,
+        "pts": 61.85
+      }
+    ]
+  },
+  {
+    "group": "MENU3",
+    "method": "dda",
+    "frames": 3458,
+    "first": 0.0,
+    "last": 61.867,
+    "maximumPositiveGap": 0.034000000000006025,
+    "medianPositiveGap": 0.01699999999999946,
+    "nonIncreasing": 25,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 688,
+        "pts": 12.367
+      },
+      {
+        "index": 1384,
+        "pts": 24.75
+      },
+      {
+        "index": 2076,
+        "pts": 37.117
+      },
+      {
+        "index": 2762,
+        "pts": 49.5
+      },
+      {
+        "index": 3457,
+        "pts": 61.867
+      }
+    ]
+  },
+  {
+    "group": "CONTROL",
+    "method": "gdi",
+    "frames": 1935,
+    "first": 0.0,
+    "last": 64.933,
+    "maximumPositiveGap": 0.05000000000000426,
+    "medianPositiveGap": 0.03300000000000125,
+    "nonIncreasing": 0,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 385,
+        "pts": 12.983
+      },
+      {
+        "index": 773,
+        "pts": 25.983
+      },
+      {
+        "index": 1157,
+        "pts": 38.967
+      },
+      {
+        "index": 1544,
+        "pts": 51.95
+      },
+      {
+        "index": 1934,
+        "pts": 64.933
+      }
+    ]
+  },
+  {
+    "group": "CONTROL",
+    "method": "dda",
+    "frames": 3668,
+    "first": 0.0,
+    "last": 64.967,
+    "maximumPositiveGap": 0.034000000000006025,
+    "medianPositiveGap": 0.01699999999999946,
+    "nonIncreasing": 298,
+    "overviewFrames": [
+      {
+        "index": 0,
+        "pts": 0.0
+      },
+      {
+        "index": 742,
+        "pts": 13.0
+      },
+      {
+        "index": 1478,
+        "pts": 25.983
+      },
+      {
+        "index": 2201,
+        "pts": 38.983
+      },
+      {
+        "index": 2937,
+        "pts": 51.967
+      },
+      {
+        "index": 3667,
+        "pts": 64.967
+      }
+    ]
+  }
+]

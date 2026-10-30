@@ -1,0 +1,139 @@
+{
+  "utc": "2026-10-30T06:52:35.051993+00:00",
+  "pid": 16660,
+  "windows": [
+    {
+      "hwnd": 3212746,
+      "title": "",
+      "visible": true,
+      "minimized": false,
+      "dpi": 120,
+      "topmost": true,
+      "rect": [
+        -436,
+        57,
+        -227,
+        214
+      ]
+    },
+    {
+      "hwnd": 1507856,
+      "title": "",
+      "visible": true,
+      "minimized": false,
+      "dpi": 120,
+      "topmost": true,
+      "rect": [
+        -436,
+        57,
+        -222,
+        219
+      ]
+    },
+    {
+      "hwnd": 526000,
+      "title": "Narro - Focus",
+      "visible": true,
+      "minimized": false,
+      "dpi": 120,
+      "topmost": true,
+      "rect": [
+        -445,
+        20,
+        -20,
+        895
+      ]
+    },
+    {
+      "hwnd": 2098856,
+      "title": "Narro",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        78,
+        78,
+        1094,
+        817
+      ]
+    },
+    {
+      "hwnd": 3802914,
+      "title": "",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        208,
+        208,
+        2128,
+        997
+      ]
+    },
+    {
+      "hwnd": 3473860,
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "hwnd": 6095422,
+      "title": "",
+      "visible": true,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": false,
+      "rect": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "hwnd": 27920100,
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": true,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "hwnd": 3410242,
+      "title": "Default IME",
+      "visible": false,
+      "minimized": false,
+      "dpi": 96,
+      "topmost": true,
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "foregroundHwnd": 526000,
+  "virtualDesktop": {
+    "x": -1920,
+    "y": 0,
+    "width": 4480,
+    "height": 1080
+  }
+}
