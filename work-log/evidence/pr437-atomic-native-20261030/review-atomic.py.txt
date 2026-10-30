@@ -1,0 +1,25 @@
+from pathlib import Path
+import datetime,json,subprocess,statistics,math
+from PIL import Image,ImageDraw
+r=Path(__file__).parent/'candidate-bd86a7ad';acts=json.loads((r/'motion-actions.json').read_text());summary=[]
+for label in ['N100','N125','R100','R125','RMOVE']:
+    d=r/label;meta=json.loads((d/'start.json').read_text())
+    for method in ['gdi','dda']:
+        video=d/(method+'-original.mkv')
+        raw=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0','-show_frames','-show_entries','frame=best_effort_timestamp_time','-of','json',str(video)]))
+        pts=[float(f['best_effort_timestamp_time']) for f in raw['frames'] if 'best_effort_timestamp_time' in f];gaps=[b-a for a,b in zip(pts,pts[1:])];positive=[x for x in gaps if x>0]
+        stats={'group':label,'method':method,'frames':len(pts),'first':pts[0],'last':pts[-1],'averageOutputFps':(len(pts)-1)/(pts[-1]-pts[0]),'medianPositiveGap':statistics.median(positive),'maxGap':max(positive),'nonIncreasingGaps':sum(x<=0 for x in gaps)}
+        (d/(method+'-frame-times.json')).write_text(json.dumps({'statistics':stats,'pts':pts},indent=2));summary.append(stats)
+        for a in [a for a in acts if a['group']==label]:
+            offset=(datetime.datetime.fromisoformat(a['utc'].replace('Z','+00:00'))-datetime.datetime.fromisoformat(meta['start'][method]['utc'])).total_seconds()
+            if offset>pts[-1] or offset<0:continue
+            lo=max(0,offset-.8);hi=min(pts[-1],offset+1.4);chosen=[p for p in pts if lo<=p<=hi];dest=d/(method+'-'+a['action']+'-frames');dest.mkdir(exist_ok=True)
+            filt=f'select=between(t\\,{lo}\\,{hi}),crop={380 if label=="RMOVE" else "iw"}:420:0:0'
+            subprocess.run(['ffmpeg','-v','error','-i',str(video),'-vf',filt,'-fps_mode','passthrough','-y',str(dest/'%04d.png')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+            imgs=sorted(dest.glob('*.png'));assert len(imgs)==len(chosen),(label,method,len(imgs),len(chosen))
+            cols=12;tw=160;th=118;canvas=Image.new('RGB',(cols*tw,math.ceil(len(imgs)/cols)*th),'#333');draw=ImageDraw.Draw(canvas)
+            for idx,(p,t) in enumerate(zip(imgs,chosen)):
+                im=Image.open(p).convert('RGB');im.thumbnail((tw,98));x=idx%cols*tw;y=idx//cols*th;canvas.paste(im,(x,y+18));draw.text((x+2,y+2),f'{idx:03d} {t:.3f}',fill='white')
+            name=method+'-'+a['action'];canvas.save(d/(name+'-allframes.jpg'),quality=94)
+            (d/(name+'-review.json')).write_text(json.dumps({'action':a,'approximateOffset':offset,'lower':lo,'upper':hi,'frames':[{'file':p.name,'pts':t} for p,t in zip(imgs,chosen)]},indent=2))
+(r/'capture-cadence.json').write_text(json.dumps(summary,indent=2));print(json.dumps(summary,indent=2))

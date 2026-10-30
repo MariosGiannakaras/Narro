@@ -1,0 +1,97 @@
+[
+  {
+    "utc": "2026-10-30T00:23:38.329Z",
+    "group": "N125",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:23:45.873Z",
+    "group": "N125",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-30T00:23:51.367Z",
+    "group": "N125",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:23:58.318Z",
+    "group": "N125",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-30T00:24:39.068Z",
+    "group": "N100",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:24:44.559Z",
+    "group": "N100",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-30T00:24:50.500Z",
+    "group": "N100",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:24:58.633Z",
+    "group": "N100",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-30T00:25:43.055Z",
+    "group": "R100",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:25:48.983Z",
+    "group": "R100",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-30T00:25:55.092Z",
+    "group": "R100",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:26:02.326Z",
+    "group": "R100",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-30T00:26:41.941Z",
+    "group": "R125",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:26:50.365Z",
+    "group": "R125",
+    "action": "compact_to_expanded"
+  },
+  {
+    "utc": "2026-10-30T00:26:56.572Z",
+    "group": "R125",
+    "action": "expanded_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:27:04.096Z",
+    "group": "R125",
+    "action": "compact_to_panel"
+  },
+  {
+    "utc": "2026-10-30T00:28:11.517Z",
+    "group": "RMOVE",
+    "action": "panel_to_compact"
+  },
+  {
+    "utc": "2026-10-30T00:28:20.742Z",
+    "group": "RMOVE",
+    "action": "supported_timer_drag"
+  },
+  {
+    "utc": "2026-10-30T00:28:31.087Z",
+    "group": "RMOVE",
+    "action": "compact_to_panel"
+  }
+]

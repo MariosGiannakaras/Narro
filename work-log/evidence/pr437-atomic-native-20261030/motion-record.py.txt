@@ -1,0 +1,17 @@
+from pathlib import Path
+import subprocess,time,datetime,json,sys
+r=Path(__file__).parent;label=sys.argv[1];secondary=sys.argv[2]=='secondary';d=r/label;d.mkdir(exist_ok=False)
+x=-460 if secondary else 2140; width=460 if secondary else 420;height=920 if secondary else 900;localx=1460 if secondary else 2140
+if sys.argv[2]=='primary-full':x=0;width=2560;height=1080;localx=0
+opts={'gdi':['-f','gdigrab','-framerate','60','-offset_x',str(x),'-offset_y','0','-video_size',f'{width}x{height}','-draw_mouse','1','-i','desktop'],'dda':['-f','lavfi','-i',f'ddagrab=output_idx={1 if secondary else 0}:framerate=60:video_size={width}x{height}:offset_x={localx}:offset_y=0:draw_mouse=1:dup_frames=0,hwdownload,format=bgra']}
+ps={};handles={};meta={'label':label,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source':'bd86a7adef8aa2d197616e86de9d79c4aef86127','roi':[x,0,width,height],'secondary':secondary,'start':{},'maxWallSeconds':90}
+for n,args in opts.items():
+ handles[n]=(d/(n+'-stderr.txt')).open('wb');meta['start'][n]={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()};ps[n]=subprocess.Popen(['ffmpeg','-hide_banner','-loglevel','warning']+args+['-t','100','-fps_mode','passthrough','-c:v','libx264','-preset','ultrafast','-crf','18','-pix_fmt','yuv420p','-y',str(d/(n+'-original.mkv'))],stdin=subprocess.PIPE,stdout=subprocess.DEVNULL,stderr=handles[n],creationflags=0x08000000);meta['start'][n]['pid']=ps[n].pid
+(d/'start.json').write_text(json.dumps(meta,indent=2));end=time.monotonic()+90
+while time.monotonic()<end and not (d/'stop.flag').exists() and any(p.poll() is None for p in ps.values()):time.sleep(.1)
+for n,p in ps.items():
+ if p.poll() is None:
+  try:p.communicate(b'q\n',timeout=10)
+  except Exception:p.kill();p.wait()
+ handles[n].close();meta['start'][n]['exit']=p.returncode
+meta['stoppedUtc']=datetime.datetime.now(datetime.timezone.utc).isoformat();(d/'stop.json').write_text(json.dumps(meta,indent=2))

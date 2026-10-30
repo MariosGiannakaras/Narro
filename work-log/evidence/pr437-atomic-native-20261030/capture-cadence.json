@@ -1,0 +1,112 @@
+[
+  {
+    "group": "N100",
+    "method": "gdi",
+    "frames": 1706,
+    "first": 0.0,
+    "last": 29.467,
+    "averageOutputFps": 57.861336410221604,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 40
+  },
+  {
+    "group": "N100",
+    "method": "dda",
+    "frames": 1692,
+    "first": 0.0,
+    "last": 29.883,
+    "averageOutputFps": 56.58735736037212,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.049999999999998934,
+    "nonIncreasingGaps": 147
+  },
+  {
+    "group": "N125",
+    "method": "gdi",
+    "frames": 1859,
+    "first": 0.0,
+    "last": 30.982,
+    "averageOutputFps": 59.97030533858369,
+    "medianPositiveGap": 0.018000000000000016,
+    "maxGap": 0.036000000000001364,
+    "nonIncreasingGaps": 155
+  },
+  {
+    "group": "N125",
+    "method": "dda",
+    "frames": 1746,
+    "first": 0.0,
+    "last": 31.45,
+    "averageOutputFps": 55.48489666136725,
+    "medianPositiveGap": 0.016999999999999904,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 348
+  },
+  {
+    "group": "R100",
+    "method": "gdi",
+    "frames": 1768,
+    "first": 0.0,
+    "last": 29.45,
+    "averageOutputFps": 60.0,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 14
+  },
+  {
+    "group": "R100",
+    "method": "dda",
+    "frames": 1627,
+    "first": 0.0,
+    "last": 29.4,
+    "averageOutputFps": 55.30612244897959,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.03400000000000247,
+    "nonIncreasingGaps": 94
+  },
+  {
+    "group": "R125",
+    "method": "gdi",
+    "frames": 2013,
+    "first": 0.0,
+    "last": 34.081,
+    "averageOutputFps": 59.0358264135442,
+    "medianPositiveGap": 0.027000000000001023,
+    "maxGap": 0.054999999999999716,
+    "nonIncreasingGaps": 760
+  },
+  {
+    "group": "R125",
+    "method": "dda",
+    "frames": 1906,
+    "first": 0.0,
+    "last": 34.05,
+    "averageOutputFps": 55.947136563876654,
+    "medianPositiveGap": 0.016999999999999904,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 371
+  },
+  {
+    "group": "RMOVE",
+    "method": "gdi",
+    "frames": 934,
+    "first": 0.0,
+    "last": 30.9,
+    "averageOutputFps": 30.194174757281555,
+    "medianPositiveGap": 0.03300000000000125,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 0
+  },
+  {
+    "group": "RMOVE",
+    "method": "dda",
+    "frames": 1755,
+    "first": 0.0,
+    "last": 31.433,
+    "averageOutputFps": 55.80122800878058,
+    "medianPositiveGap": 0.01699999999999946,
+    "maxGap": 0.05000000000000071,
+    "nonIncreasingGaps": 267
+  }
+]

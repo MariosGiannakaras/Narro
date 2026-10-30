@@ -1,0 +1,42 @@
+[
+  {
+    "file": "N100-gdi-compact_to_panel-0086.png",
+    "video": "N100/gdi-original.mkv",
+    "pts": 28.333
+  },
+  {
+    "file": "N100-dda-compact_to_panel-0078.png",
+    "video": "N100/dda-original.mkv",
+    "pts": 28.25
+  },
+  {
+    "file": "N125-gdi-compact_to_panel-0065.png",
+    "video": "N125/gdi-original.mkv",
+    "pts": 29.714
+  },
+  {
+    "file": "N125-dda-compact_to_panel-0079.png",
+    "video": "N125/dda-original.mkv",
+    "pts": 29.617
+  },
+  {
+    "file": "R100-gdi-compact_to_panel-0076.png",
+    "video": "R100/gdi-original.mkv",
+    "pts": 27.867
+  },
+  {
+    "file": "R100-dda-compact_to_panel-0065.png",
+    "video": "R100/dda-original.mkv",
+    "pts": 27.8
+  },
+  {
+    "file": "R125-gdi-compact_to_panel-0078.png",
+    "video": "R125/gdi-original.mkv",
+    "pts": 32.757
+  },
+  {
+    "file": "R125-dda-compact_to_panel-0071.png",
+    "video": "R125/dda-original.mkv",
+    "pts": 32.7
+  }
+]

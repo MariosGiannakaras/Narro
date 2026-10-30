@@ -1,0 +1,78 @@
+{
+  "receipt": {
+    "source": "bd86a7adef8aa2d197616e86de9d79c4aef86127",
+    "artifact": 12944400152,
+    "ciRun": 40976747495,
+    "runAttempt": 1,
+    "artifactBytes": 16020572,
+    "artifactSha256": "946b5b69261aa42b4ad2720eacfe45fef664406fdf6c56ae950a1757aeff97fd",
+    "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261030-PR437-Atomic\\candidate-bd86a7ad\\artifact\\src-tauri\\target-physical\\release\\narro.exe",
+    "sha256": "12a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44",
+    "verifiedMembers": 3,
+    "utc": "2026-10-30T00:22:15.094926+00:00"
+  },
+  "githubArtifact": {
+    "id": 12944400152,
+    "node_id": "MDg6QXJ0aWZhY3QxMjk0NDQwMDE1Mg==",
+    "name": "narro-m7-physical-windows-x64",
+    "size_in_bytes": 16020572,
+    "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/12944400152",
+    "archive_download_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/12944400152/zip",
+    "expired": false,
+    "digest": "sha256:946b5b69261aa42b4ad2720eacfe45fef664406fdf6c56ae950a1757aeff97fd",
+    "created_at": "2026-10-30T00:16:49Z",
+    "updated_at": "2026-10-30T00:16:49Z",
+    "expires_at": "2027-01-27T23:59:18Z",
+    "workflow_run": {
+      "id": 40976747495,
+      "repository_id": 1334565718,
+      "head_repository_id": 1334565718,
+      "head_branch": "integration/m7-v4-current-timer-20261027",
+      "head_sha": "bd86a7adef8aa2d197616e86de9d79c4aef86127"
+    }
+  },
+  "manifest": {
+    "schema": "narro-ci-artifact-provenance/v1",
+    "kind": "physical",
+    "sourceSha": "bd86a7adef8aa2d197616e86de9d79c4aef86127",
+    "githubRunId": "40976747495",
+    "githubRunAttempt": 1,
+    "files": [
+      {
+        "path": "src-tauri/target-physical/release/bundle/msi/Narro_0.1.0_x64_en-US.msi",
+        "bytes": 6041600,
+        "sha256": "19cd65c06365c8dc83b8d01fe094bc65abf56484df6b76c32cf30c8667b6885f"
+      },
+      {
+        "path": "src-tauri/target-physical/release/bundle/nsis/Narro_0.1.0_x64-setup.exe",
+        "bytes": 4295890,
+        "sha256": "11bdf4b6b3e1e8adbdd16add3a1905344f1e5748b7fe87e0fba405288c578ab4"
+      },
+      {
+        "path": "src-tauri/target-physical/release/narro.exe",
+        "bytes": 16550912,
+        "sha256": "12a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44"
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "name": "validation-gate",
+      "id": 123806565083,
+      "conclusion": "success",
+      "head_sha": "bd86a7adef8aa2d197616e86de9d79c4aef86127"
+    },
+    {
+      "name": "fast-gate",
+      "id": 123806607286,
+      "conclusion": "success",
+      "head_sha": "bd86a7adef8aa2d197616e86de9d79c4aef86127"
+    },
+    {
+      "name": "windows-candidate",
+      "id": 123806973173,
+      "conclusion": "success",
+      "head_sha": "bd86a7adef8aa2d197616e86de9d79c4aef86127"
+    }
+  ]
+}

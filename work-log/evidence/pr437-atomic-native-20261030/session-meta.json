@@ -1,0 +1,12 @@
+{
+  "source": "bd86a7adef8aa2d197616e86de9d79c4aef86127",
+  "artifact": 12944400152,
+  "ciRun": 40976747495,
+  "runAttempt": 1,
+  "artifactBytes": 16020572,
+  "artifactSha256": "946b5b69261aa42b4ad2720eacfe45fef664406fdf6c56ae950a1757aeff97fd",
+  "executable": "E:\\SystemFiles\\Desktop\\Narro-Workspace\\Narro-Physical-20261030-PR437-Atomic\\candidate-bd86a7ad\\artifact\\src-tauri\\target-physical\\release\\narro.exe",
+  "sha256": "12a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44",
+  "verifiedMembers": 3,
+  "utc": "2026-10-30T00:22:15.094926+00:00"
+}
