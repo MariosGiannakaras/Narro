@@ -205,6 +205,14 @@ The exact source/run and historical physically observed failures/retesting were 
 
 ---
 
+## Batch 5 — last 25 individual source/consumer reviews (BEFORE any additional deletion)
+
+[Immutable pre-delete 25-path audit](../work-log/2026-10-30-chatgpt-cleanup-batch5-last25-predelete-audit.md) based on main `0355013fdd5edda36fc7192cc1006710d2cb9cab` and exact Git tree. All **25/25** formerly REVIEW_REQUIRED paths /58,405,678 B individually classified: **24 HOLD /58,403,258 B** (original source MKVs, raw-byte native provenance and unique diagnostic/reproducible ZIPs, no established safe replacement), **1 ELIGIBLE /2,420 B**: `remaining-capture-intake-20261021/resumed-intake/executed-profile-protection-helpers.zip`. Frozen SHA256 manifest and Git blob identify it as **byte-identical** to retained `paused-intake/executed-profile-protection-helpers.zip`; independent session metadata and evidence retained. No original capture or Blitzit media deletion permitted.
+
+**Pre-deletion meter unchanged:** 31/700 removed; 669 tracked = **668 HOLD /8,214,457,803 B +1 ELIGIBLE /2,420 B**. After and only after a verified merge of the **single** proposed ZIP: 32/700 retired, 668 HOLD, 0 REVIEW_REQUIRED. Original Git blobs recoverable from this main ref; no remote object storage saving implied. Original README/manifest and older work logs unchanged.
+
+---
+
 ## PR459 result — verified bulk deletion after the batch-two audit
 
 - [PR459](https://github.com/MariosGiannakaras/Narro/pull/459) exact head `91f8fc095b15caf0da1c6e67bb6cd603269cf087`, expected-head guarded squash merge **`8b8192def280acc0afdffcb190e2aeabb73fa3ba`**. GitHub exact source base→head and base→merge comparison confirmed **3/3 approved ZIP paths removed, no other changes**. Original binary bytes recoverable from pre-deletion `main` `f33482fd4b6cc0e931721ad4262e66ed169ec3f4`; retained CI/source-native receipts provide hash and causal history.
