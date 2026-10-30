@@ -1,4 +1,10 @@
-# Pre-physical audit — 2026-10-30, source44a22f2a unchanged
+# Current — PP44-F01 replacement submitted, 2026-10-30
+
+Existing [PR437](https://github.com/MariosGiannakaras/Narro/pull/437) source `0e8b960b9eb3a6f7fbefd9be85151985921573fe` contains one-file transactional persistence fix and three authored Rust regression tests for the reproduced historical-edit/delete negative Time Taken failure. **Implementation SUBMITTED; validation PENDING / physical NOT RUN; not accepted or merged.** Exact [CI41034895148](https://github.com/MariosGiannakaras/Narro/actions/runs/41034895148) QUEUED at last check. Previous44a CI41031984280 validation/fast PASS, Windows still IN PROGRESS; not replacement evidence. [Immutable repair log](work-log/2026-10-30-chatgpt-pp44-f01-persistence-repair-submitted.md). M1–M4 accepted4/10 unchanged; M5–M9 OPEN; PR437/389/419 physical holds unchanged. PA-01–09 USER-PAUSED; M10 not authorized; M11/M12 inactive.
+
+---
+
+# Historical pre-physical audit (before PP44-F01 repair) — source44a22f2a
 
 Review complete10/10 source domains:9 scoped PASS /1 confirmed FAIL **PP44-F01 (M5/M9)**. Manual Taken lowering then historical edit/delete can commit a negative effective total; actual SQLite/production SQL2 FAIL +4 PASS controls, reader/Board failure source-traced. **No correction applied; integrated physical readiness NOT READY.** [Full audit/reproducer/results](work-log/evidence/pr437-prephysical-audit-20261030/README.md). Exact CI41031984280 validation/fast PASS, Windows Rust/check/Clippy PASS but full job still IN PROGRESS at last snapshot; user says do not wait, other chat consumes it. No physical execution, source/approved UX modification, merge or milestone advance. HANDOFF owns continuation.
 
