@@ -1,4 +1,10 @@
-# Current — workflow re-audit and exact PR444 CI3/3 (2026-10-30)
+# CURRENT — PR444 normal-profile PA workflow replacement candidate (2026-10-30)
+
+[PR444](https://github.com/MariosGiannakaras/Narro/pull/444) existing branch `fix/workflow-risk-routing-20261030` head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` changes only workflow/PowerShell preparation and existing tests. User now explicitly authorizes regular Windows profile with disposable Narro-only data, **no additional test profile, temporary DB or automatic backup**. On `-Launch`, validate exact EXE hash, running PID/path/hash. [Exact CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) **validation/fast SUCCESS, Windows RUNNING** at last verification; earlier CI3/3 at b93235 was correct only for its *older* source. PR444 OPEN/UNMERGED. No native Windows execution in this chat; PA-01–09 ACTIVE with case-level NOT RUN, independent native-held PR437/389/419 unchanged. M1–M4 accepted 4/10; M5–M9 OPEN, M10 user gate, M11/M12 inactive.
+
+---
+
+# HISTORICAL 2026-10-30 — workflow re-audit and earlier PR444 CI3/3
 
 [Detailed source/CI risk re-audit](work-log/2026-10-30-chatgpt-workflow-reaudit-pr444-postci-findings.md): current PR444 head `b93235a9fe2f651f86b347142858b9f590ea4e5a` [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation, fast, Windows candidate all SUCCESS (3/3)**, OPEN/UNMERGED. Confirmed source-level residual safety checks are insufficient to prove isolated Windows profile, private Roaming-only backup completeness/protection, actual launched PID/hash identity and real PowerShell negative-path behavior; **no actual native failure tested**. Additional routing and governance-only lint gaps, bounded CI-learning 133 eligible/60 sampled/8 unclassified/6 candidate families, tracker-volume and runner action maintenance proposals in audit. No new source implementation/merge or personal data access undertaken by re-audit.
 
