@@ -59,6 +59,17 @@ for (const file of [
     ["NER-005", "NER-006"], "missed workflow-risk routing: " + file);
 }
 assert.deepEqual(selectLearningRisks(["work-log/2026-10-23-frozen.md"]).riskFamiliesToReview, []);
+const physicalRisk = selectLearningRisks(["scripts/prepare-m7-physical-session.ps1"]);
+assert.deepEqual(physicalRisk.riskFamiliesToReview,
+  ["NER-003", "NER-005", "NER-006", "NER-011", "NER-012"]);
+for (const path of ["scripts/test-ci-tiering.mjs",
+  "scripts/test-merged-prephysical-ci-coverage.mjs"]) {
+  const risk = selectLearningRisks([path]);
+  for (const id of ["NER-003", "NER-011", "NER-012"]) {
+    assert.ok(risk.riskFamiliesToReview.includes(id), path + ": " + id);
+  }
+}
+
 
 assert.equal(trackingRisk.mandatoryRustFormatOnRun, false);
 assert.deepEqual(selectLearningRisks([]).riskFamiliesToReview, []);
