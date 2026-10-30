@@ -183,10 +183,10 @@ for (const artifact of ["narro-m5-visual-regression", "narro-m7-focus-runtime-vi
   invariant(block.includes("retention-days: 1"),
     "successful visual capture must use short retention: " + artifact);
 }
-const evidenceIgnore = fs.readFileSync(".gitignore", "utf8");
-invariant(/^work-log\\/evidence\\/\\*\\*$/m.test(evidenceIgnore),
+const evidenceIgnore = fs.readFileSync(".gitignore", "utf8").split("\n");
+invariant(evidenceIgnore.includes("work-log/evidence/**"),
   "new generated Narro evidence must be ignored by default");
-invariant(!/^reference\\//m.test(evidenceIgnore),
+invariant(!evidenceIgnore.some(line => line.startsWith("reference/")),
   "original Blitzit sources must never enter an evidence ignore rule");
 
 const focusUpload = candidateBlock.slice(
