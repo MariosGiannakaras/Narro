@@ -1,7 +1,7 @@
 # Current PP44-F01 source correction — automated validated, native acceptance OPEN
 
 - [x] **PP44-F01 / M5+M9 source repair:** closed work history edit/delete transactionally protects nonnegative effective Time Taken after manual reduction, retaining CAS and raw ledger; 3 real Rust regressions **PASS** on PR437 exact head `63234502`. [CI41035287020](https://github.com/MariosGiannakaras/Narro/actions/runs/41035287020) validation/fast/Windows **3/3 SUCCESS**, Rust library483/483 PASS. Independently verified physical/M7/M1 artifacts (3/3+2/2+7/7 manifest members); [receipt](work-log/2026-10-30-chatgpt-pr437-pp44-f01-exact-ci-and-artifact-closure.md). This checks only the **source+automated** repair, not the milestones.
-- [ ] **PP44-F01 impacted native Taken/Reports acceptance:** exact-build actual Windows edits/delete/reload/Board/Reports/restart **NOT RUN**. PA-01–09 USER-PAUSED; no physical PASS until separately authorized and observed.
+- [ ] **PP44-F01 impacted native Taken/Reports acceptance:** exact-build actual Windows edits/delete/reload/Board/Reports/restart **NOT RUN**. PA-01–09 **ACTIVE under the user's 2026-10-27 authorization** (`AI_START_HERE.md`); **NOT RUN** here. Schedule when dependencies, exact-build CI/artifact and Windows operator are ready, without case-by-case reapproval; no physical PASS until observed and recorded.
 - [ ] PR437 native movement/differing-position/SNAP/hardware plus separate PR389/419 strict A/B holds remain OPEN; **do not merge** from 3/3 CI alone. No M10/M11/M12 entry.
 
 ---
