@@ -1,11 +1,10 @@
-# CURRENT — PR460 merged 31/700; review next archival batch
+# CURRENT — PR460 merged 31/700; batch 4 retains 223 originals/native paths
 
-- [x] [Fixed 700-file archival ledger](docs/EVIDENCE_CLEANUP_INVENTORY.md), and PR458 (25 legacy CI ZIPs /149,127,296 B), PR459 (3 superseded CI ZIPs /6,624,302 B) previously verified merged with originals/native evidence retained.
-- [x] [PR460](https://github.com/MariosGiannakaras/Narro/pull/460) exact head `006adb7e2a8195734c0c1217c7648152f6bfac37`: previously blocked platform action later **successfully merged** with expected-head guard as `982ab012131cabc141ffc0aeb395ac65426f462b`. Removed only three verified Narro remux derivative MP4 paths /47,253,556 B; full source MKVs preserved. [Immutable closure](work-log/2026-10-30-chatgpt-pr460-merged-resulting-main.md).
-- [x] **Verified current meter: 31/700 removed, 669 remain =421 HOLD +248 REVIEW_REQUIRED**; 669 retained cohort files /8,214,460,223 B. Resulting `main` full tree `truncated:false`: 19,103 blobs /11,136,539,529 B; source/test/reference trees unchanged. PR445–460 cumulative 19,332 deleted checkout files /5,788,902,170 B; Git history not rewritten. No deletion-only new CI/native: NOT RUN.
-- [ ] Analyze remaining **248 REVIEW_REQUIRED** old Narro video/ZIP paths by source/original provenance, historic consumer and outstanding native claims in bounded groups. All **421 HOLD** and original Blitzit source evidence protected. Only after verified allowlist create the next reversible batch PR, exact-head guarded merge and resulting-main proof.
-- [ ] PA-01–09 missing native NOT RUN; PR389/419 strict 8/8 physical-before-merge OPEN, PR437 Time Taken/Timer movement native OPEN; accepted M1–M4 **4/10**, M5–M9 OPEN; M10 user gate, M11/M12 dormant.
-
+- [x] [Fixed 700-file archival ledger](docs/EVIDENCE_CLEANUP_INVENTORY.md): PR458/459 retired 28 older Narro CI ZIP paths, PR460 guarded-merged 3 original-retained MP4 convenience remux paths /47,253,556 B. PR460 head `006adb7e2a8195734c0c1217c7648152f6bfac37` resulting main `982ab012131cabc141ffc0aeb395ac65426f462b`; [immutable verification](work-log/2026-10-30-chatgpt-pr460-merged-resulting-main.md). Exact main full recursive tree after PR460 19,103 files /11,136,539,529 B, original MKVs and source/test/reference Git tree hashes unchanged.
+- [x] **31/700 deleted, 669 intact** (not all deletion eligible); PR445–460 cumulative **19,332 checkout paths /5,788,902,170 B** logical retirement, no Git history rewrite.
+- [x] **Batch-four grouped 20-family provenance/consumer review**, 223 original/native evidence paths /402,270,623 B reclassified **HOLD, NOT DELETED**. [Immutable audit and CI942 source-part absence](work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md). Current survivors: **644 HOLD /8,156,054,545 B, 25 REVIEW_REQUIRED /58,405,678 B**.
+- [ ] Inspect final **25 REVIEW_REQUIRED** paths by original/derivative provenance and current consumer; authorize any specific reversible deletion only after exact proof. All **644 HOLD**, original Blitzit, CI944/950/953/capture57, original PA/native and PR389/419/437 acceptance evidence protected.
+- [ ] Missing PA-01–09 physical NOT RUN, PR389/419 compositor strict 8/8 and PR437 Timer/movement native OPEN; accepted M1–M4 4/10, M5–M9 OPEN; M10 approval gate, M11/M12 dormant. Archival-only new CI/native **NOT RUN**.
 
 ---
 
