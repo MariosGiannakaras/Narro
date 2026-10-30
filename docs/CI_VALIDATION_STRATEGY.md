@@ -24,7 +24,7 @@ If the later physical run fails:
 5. merge the correction;
 6. repeat only the affected physical portion unless evidence requires a broader rerun.
 
-Do not keep ordinary automated-green PRs open just because an unrelated milestone physical checklist is not finished. For a documented exceptional `PHYSICAL_BEFORE_MERGE` native-risk hold, branch age alone is **not** evidence for lifting the hold; schedule specific physical acceptance, keep source ownership and head identity clear, and avoid adding unrelated branch scope. PR389 currently qualifies due to previously verified 4/8 native failure on the same compositor surface and untested replacement; the next successful 8/8 exact-candidate native acceptance ends the hold.
+Do not keep ordinary automated-green PRs open just because an unrelated milestone physical checklist is not finished. For a documented exceptional `PHYSICAL_BEFORE_MERGE` native-risk hold, branch age alone is **not** evidence for lifting the hold; schedule specific physical acceptance, keep source ownership and head identity clear, and avoid adding unrelated branch scope. PR389 qualifies due to its previously verified 4/8 native compositor failure and untested replacement; dependent PR419 retains a **separate** strict 8/8 A/B comparator hold. Neither hold ends from successful CI or another branch's executable. Require each exact candidate's stipulated physical acceptance or a freshly documented risk decision before guarded integration; the normal automated-green merge policy still applies to unrelated PRs.
 
 ## 2. Branch lifecycle
 
