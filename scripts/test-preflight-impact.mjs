@@ -29,7 +29,7 @@ assert.throws(()=>parseChangedPaths(["--wrong"],()=>({})),/Unknown/);
 console.log("Pre-push impact: CSS, transitive CDP helper, task SVG, unmapped and git diff PASS");
 
 const rustRisk = selectLearningRisks(["src-tauri\\src\\persistence\\sessions.rs"]);
-assert.deepEqual(rustRisk.riskFamiliesToReview, ["NER-003", "NER-009", "NER-012", "NER-014"]);
+assert.deepEqual(rustRisk.riskFamiliesToReview, ["NER-003", "NER-009", "NER-012", "NER-014", "NER-015"]);
 assert.equal(rustRisk.mandatoryRustFormatOnRun, true);
 assert.deepEqual(rustRisk.additionalRustChecksToRunWhereAvailable,
   ["check:rust", "check:rust:clippy", "test:rust"]);
