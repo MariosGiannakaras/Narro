@@ -172,6 +172,23 @@ invariant(
   "windows-candidate must reuse the fast gate instead of repeating the full frontend/static suite",
 );
 
+// Short-lived visual capture outputs must not accumulate after successful CI.
+// Exact-build physical executables are intentionally NOT covered by this limit.
+for (const artifact of ["narro-m5-visual-regression", "narro-m7-focus-runtime-visual"]) {
+  const start = candidateBlock.indexOf("        name: " + artifact);
+  invariant(start >= 0, "missing visual artifact: " + artifact);
+  const remainder = candidateBlock.slice(start);
+  const nextStep = remainder.indexOf("\n    - name:");
+  const block = nextStep >= 0 ? remainder.slice(0, nextStep) : remainder;
+  invariant(block.includes("retention-days: 1"),
+    "successful visual capture must use short retention: " + artifact);
+}
+const evidenceIgnore = fs.readFileSync(".gitignore", "utf8");
+invariant(/^work-log\\/evidence\\/\\*\\*$/m.test(evidenceIgnore),
+  "new generated Narro evidence must be ignored by default");
+invariant(!/^reference\\//m.test(evidenceIgnore),
+  "original Blitzit sources must never enter an evidence ignore rule");
+
 const focusUpload = candidateBlock.slice(
   candidateBlock.indexOf("    - name: Upload Packaged Focus Runtime Visual Artifact"),
   candidateBlock.indexOf("    - name: Build Physical Validation Release"),
