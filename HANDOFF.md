@@ -1,4 +1,16 @@
-# HANDOFF — PP44-F01 source repair verified; PR437 physical holds remain
+# HANDOFF — workflow governance / PA preparer safety PR444, CI in progress
+
+**AS OF 2026-10-30 / OWNER ChatGPT workflow-harness fix / PHASE CI_WAIT.** [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) OPEN/UNMERGED, branch `fix/workflow-risk-routing-20261030`, head **b93235a9fe2f651f86b347142858b9f590ea4e5a**. Corrects missing NER-005/006 routing of current workflow documents; adds privacy-by-default to physical preparer (backup only explicit opt-in, reject launch when personal Roaming/Local Narro data exists, require exact EXE SHA for launch), with bounded regression tests. [Immutable verified audit](work-log/2026-10-30-chatgpt-workflow-governance-risk-routing-native-safety-audit.md). No application feature source changed.
+
+**CI:** first source run [41045067289](https://github.com/MariosGiannakaras/Narro/actions/runs/41045067289) **validation PASS / fast FAIL** for stale `AUTHORIZED by the user` literal test / Windows SKIPPED. Corrected actual contract in new head; current [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation PASS / fast PASS / Windows QUEUED-PENDING** at last observation. Do not infer 3/3 or native PASS. Documentation fixes already on `main` in current entrypoint, stale tracker links, independent PR389/419 holds, and PR444 audit log; historical logs left intact.
+
+**Parallel held acceptance:** [PR437](https://github.com/MariosGiannakaras/Narro/pull/437) head `632345026d9c693613a3a0b3e9a8105740fcc6af` CI41035287020 **3/3 PASS** + independent physical artifact SHA check; PP44-F01 source fix verified, impacted native edit/delete/Board/Reports and M7 movement/SNAP still **NOT RUN**. PR389 and PR419 each strict native `PHYSICAL_BEFORE_MERGE` OPEN; PR431/436 unmerged. PA-01–09 **ACTIVE (user decision 2026-10-27)**, with missing physical cases NOT RUN until exact binary/operator available. No change to M1–M4 accepted **4/10**, M5–M9 OPEN, M10 user gate, M11/M12 inactive. No personal AppData/Windows operation performed here.
+
+**ONE NEXT:** Read exact-head PR444 run **41045291545** Windows candidate result. If FAIL, inspect first causal step and fix this branch with focused regression; if 3/3 PASS, verify exact PR head/diff, guarded merge independent workflow slice only when appropriate, then validate resulting-main CI and source identity. Retain PR437/389/419 physical holds and use [operator packet](docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md) when Windows access is actually available. Do not rebootstrap or repeat completed audits.
+
+---
+
+# HISTORICAL 2026-10-30 — PP44-F01 source repair verified; PR437 physical holds remain
 
 **NOW 2026-10-30 / OWNER ChatGPT source repair / PHASE NATIVE ACCEPTANCE ACTIVE, awaiting exact-candidate Windows operator.** Existing [PR437](https://github.com/MariosGiannakaras/Narro/pull/437) **DRAFT/UNMERGED**, branch `integration/m7-v4-current-timer-20261027`, exact head **632345026d9c693613a3a0b3e9a8105740fcc6af**. PP44-F01 M5/M9 historical work session edit/delete underflow fixed transactionally in `src-tauri/src/persistence/sessions.rs`; 3 meaningful Rust regression tests. Fix source/automated validation **PASS**; this does **not** close physical acceptance. [Full immutable CI/artifact receipt](work-log/2026-10-30-chatgpt-pr437-pp44-f01-exact-ci-and-artifact-closure.md).
 
