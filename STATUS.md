@@ -1,4 +1,12 @@
-# Current — process/workflow correctness audit (2026-10-30)
+# Current — workflow re-audit and exact PR444 CI3/3 (2026-10-30)
+
+[Detailed source/CI risk re-audit](work-log/2026-10-30-chatgpt-workflow-reaudit-pr444-postci-findings.md): current PR444 head `b93235a9fe2f651f86b347142858b9f590ea4e5a` [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation, fast, Windows candidate all SUCCESS (3/3)**, OPEN/UNMERGED. Confirmed source-level residual safety checks are insufficient to prove isolated Windows profile, private Roaming-only backup completeness/protection, actual launched PID/hash identity and real PowerShell negative-path behavior; **no actual native failure tested**. Additional routing and governance-only lint gaps, bounded CI-learning 133 eligible/60 sampled/8 unclassified/6 candidate families, tracker-volume and runner action maintenance proposals in audit. No new source implementation/merge or personal data access undertaken by re-audit.
+
+Previous PR444 fast runs41044834254 and41045067289 remain historical FAIL. Existing PR437 `63234502` CI41035287020 3/3 PASS, original native holds OPEN; PA-01–09 ACTIVE, missing native tests NOT RUN; M1–M4 accepted4/10, M5–M9 OPEN, M10 approval gate, M11/M12 inactive.
+
+---
+
+# HISTORICAL 2026-10-30 — process/workflow correctness audit (initial pre-Windows checkpoint)
 
 [Workflow audit findings and commit-level remediation](work-log/2026-10-30-chatgpt-workflow-governance-risk-routing-native-safety-audit.md): corrected 2026-10-23 stale current PR389 source pointers; removed repeated bootstrap conflict in `AGENT_WORKFLOW` and `.github/copilot-instructions`; clarified independent PR389/PR419 physical holds; active PA-01–09 remains as authorized. The separate [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) `b93235a9fe2f651f86b347142858b9f590ea4e5a` guards NER-005/006 risk routing and physical preparation default private AppData safety. Previous CI41045067289 **FAIL** at stale literal PA wording; replacement [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation PASS, fast PASS, Windows PENDING** at last inspection; no merge yet. No actual Windows app/profile touched; physical NOT RUN.
 
