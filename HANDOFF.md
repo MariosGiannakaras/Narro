@@ -1,4 +1,16 @@
-# HANDOFF — PR444 workflow re-audit complete; CI3/3 green, native-preparer risks unverified
+# HANDOFF — PR444 simplified normal-profile Windows PA workflow, exact CI running
+
+**AS OF 2026-10-30 / OWNER ChatGPT workflow implementation / PHASE CI_WAIT.** User explicitly authorized using the **ordinary Windows account** with disposable Narro-only data and **no isolated account, temporary DB, prophylactic backup or case-by-case approval**. Preserve actual per-case persistence and stop Narro before any Narro-data reset; unrelated files/OS/hardware still protected.
+
+[PR444](https://github.com/MariosGiannakaras/Narro/pull/444), branch `fix/workflow-risk-routing-20261030`, exact source head **`da9ce3a1f7a83d5b3a613badbd03596fcdef14be`**, [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) **RUNNING** on latest observation (**not PASS**). Changed only the existing physical session preparer, three existing JavaScript contract/risk tests and risk routing. Removed mandatory profile/backup machinery, added launched PID+path+EXE SHA checks, retained `-Launch` and verified `-ExpectedSha256`; normal Narro AppData testing allowed. CI41050097420 **FAST FAIL** at outdated `production` checklist literal; corrected on exact new head; earlier CI3/3 at b93235 is historical and not proof for this head.
+
+**Docs:** [AI_START_HERE.md](AI_START_HERE.md), [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md), [current PA packet](docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md), [tracker index](docs/TRACKER_STATUS_INDEX.md) now record user authorization; historic run reports remain immutable. Physical Windows operation from this chat **NOT RUN**; PA-01–09 **ACTIVE**. PR437/389/419 native holds and M10/M11 remain unchanged.
+
+**ONE NEXT:** Observe exact PR444 [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) after it changes state; diagnose first causal FAIL and repair same branch, or on exact 3/3 SUCCESS verify live PR head and reviewed diff, guarded merge **PR444 only** (not PR437/389/419), verify resulting-main CI/source identity and publish final immutable log/current HANDOFF/TODO/STATUS. Do not claim this workflow is complete before successful integration.
+
+---
+
+# HISTORICAL 2026-10-30 — PR444 post-audit checkpoint before user clarified Narro test-data policy
 
 **AS OF 2026-10-30 / OWNER ChatGPT workflow audit / PHASE DONE (audit-only).** [PR444](https://github.com/MariosGiannakaras/Narro/pull/444) OPEN/UNMERGED, branch `fix/workflow-risk-routing-20261030`, exact head **b93235a9fe2f651f86b347142858b9f590ea4e5a**. [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation/fast/Windows 3/3 SUCCESS** at exact head. Earlier runs41044834254 and41045067289 fast **FAIL** (obsolete literal PA authorization), retained historically. Latest run published six CI artifacts, **not independently byte-reverified in this audit**. No source edit/merge/native execution in this re-audit.
 
