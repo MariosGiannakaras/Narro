@@ -8,6 +8,8 @@
 
 [Detailed source/CI risk re-audit](work-log/2026-10-30-chatgpt-workflow-reaudit-pr444-postci-findings.md): current PR444 head `b93235a9fe2f651f86b347142858b9f590ea4e5a` [CI41045291545](https://github.com/MariosGiannakaras/Narro/actions/runs/41045291545) **validation, fast, Windows candidate all SUCCESS (3/3)**, OPEN/UNMERGED. Confirmed source-level residual safety checks are insufficient to prove isolated Windows profile, private Roaming-only backup completeness/protection, actual launched PID/hash identity and real PowerShell negative-path behavior; **no actual native failure tested**. Additional routing and governance-only lint gaps, bounded CI-learning 133 eligible/60 sampled/8 unclassified/6 candidate families, tracker-volume and runner action maintenance proposals in audit. No new source implementation/merge or personal data access undertaken by re-audit.
 
+**Latest exact CI:** run41050335736 attempt1 validation PASS, fast PASS, Windows **FAIL** in visual fixture `task-scheduling-no-repeat-light` (readiness exhausted after eight tries), unrelated fixture path unchanged by PR444; attempt2 Windows-only retry **RUNNING / NOT PASS**. Source-level causation unproven. [Root and CI receipt](work-log/2026-10-30-chatgpt-pr444-origin-of-backup-and-ci-visual-retry.md).
+
 Previous PR444 fast runs41044834254 and41045067289 remain historical FAIL. Existing PR437 `63234502` CI41035287020 3/3 PASS, original native holds OPEN; PA-01–09 ACTIVE, missing native tests NOT RUN; M1–M4 accepted4/10, M5–M9 OPEN, M10 approval gate, M11/M12 inactive.
 
 ---
