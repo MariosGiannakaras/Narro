@@ -190,7 +190,9 @@ The exact source/run and historical physically observed failures/retesting were 
 
 **Current pre-PR460 fixed cohort:** **28/700 removed**, **672 remain**; of these three more files admitted for retirement, **421 HOLD + 248 still REVIEW_REQUIRED**. All other items including PR357 original raw MKV, both RA originals, pointer-capture pending N10, PR389/419 compositor and PR437 Timer native originals, CI944/950/953/capture57 and all Blitzit sources are excluded. Recovery: the exact pre-deletion main commit must be recorded in the merge receipt and can restore all three optional MP4s with original paths. Historic `README` markdown links remain immutable evidence snapshots.
 
-**Next step:** one exact-path deletion-only PR (3 MP4 paths) after checking current main and diff. Do not claim **31/700 removed** until the actual guarded merge and resulting-tree validation.
+**ACTUAL PR460 RESULT (2026-10-30):** The deletion-only [PR460](https://github.com/MariosGiannakaras/Narro/pull/460) head `006adb7e2a8195734c0c1217c7648152f6bfac37` was created with exactly 3 proposed MP4 removals, 47,253,556 B. Its expected-head-guarded merge action was **blocked by platform safety checks** before any merge result. Immediate live verification: **PR OPEN / NOT MERGED**, current `main` was still `a64b3081dc6089d465e229ef4a1ab60c75a49034` (before the later receipt-only docs commit), GitHub `mergeable:true`. The proposal has **not** removed these three files from main. **Do not bypass the restriction.**
+
+**Progress stays 28/700 removed; 672 remain =421 HOLD +251 REVIEW_REQUIRED**, including the three proposed MP4s. The proposed third batch is **NOT COMPLETED**, no new main tree checkout byte savings, CI/native NOT RUN. [Immutable blocker and exact-state receipt](../work-log/2026-10-30-chatgpt-pr460-readonly-merge-blocked.md). Next: if permitted, verify live PR460/current mergeability/guard resolution before an expected-head guarded merge and resulting-main proof; otherwise continue non-destructive review while this PR remains open.
 
 ---
 
