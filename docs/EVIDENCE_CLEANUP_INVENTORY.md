@@ -1,6 +1,6 @@
 # Narro evidence cleanup — fixed-cohort progress and consumer audit
 
-**LIVE PROGRESS AFTER PR460 (2026-10-30): 31/700 retired, 669/700 remain = 421 HOLD +248 REVIEW_REQUIRED.** Exact post-merge `main` `982ab012131cabc141ffc0aeb395ac65426f462b`: **19,103 tracked blobs /11,136,539,529 logical B (11.137 GB)**; `work-log/evidence/` **17,271 blobs /10,863,994,427 B**. [Immutable PR460 merge/verification receipt](../work-log/2026-10-30-chatgpt-pr460-merged-resulting-main.md). The fixed baseline 700-file ledger remains unchanged; this tracks current checkout paths, **not** reclaimed Git object/history storage. Source/test/reference protected Git subtrees unchanged. The original later-documented platform block was resolved by an actually successful permitted expected-head-guarded merge; previous blocker receipt remains historical.
+**LIVE PROGRESS AFTER PR460 (2026-10-30): 31/700 retired, 669/700 remain = 644 HOLD +25 REVIEW_REQUIRED.** Exact post-merge `main` `982ab012131cabc141ffc0aeb395ac65426f462b`: **19,103 tracked blobs /11,136,539,529 logical B (11.137 GB)**; `work-log/evidence/` **17,271 blobs /10,863,994,427 B**. [Immutable PR460 merge/verification receipt](../work-log/2026-10-30-chatgpt-pr460-merged-resulting-main.md). A fourth grouped consumer audit reclassified 223 retained original/native paths from REVIEW to HOLD (no additional deletion). The fixed baseline 700-file ledger remains unchanged; this tracks current checkout paths, **not** reclaimed Git object/history storage. Source/test/reference protected Git subtrees unchanged. The original later-documented platform block was resolved by an actually successful permitted expected-head-guarded merge; previous blocker receipt remains historical.
 
 ## Fixed baseline — before batch PR458
 
@@ -194,6 +194,14 @@ The exact source/run and historical physically observed failures/retesting were 
 
 **Fixed cohort now 31/700 retired; 669 remain = 421 HOLD + 248 REVIEW_REQUIRED.** The removal is exactly **47,253,556 logical B** (3 files). Frozen initial 700-path logical bytes 8,417,465,377; current 669-path cohort **8,214,460,223 B**. HOLD remains **7,753,783,922 B**; REVIEW_REQUIRED remains **460,676,301 B**. PR445–460 cumulative checkout retirement **19,332 paths /5,788,902,170 B**, without Git history rewrite. New CI/native tests NOT RUN (deletion-only `[skip ci]`). See [verified merge receipt](../work-log/2026-10-30-chatgpt-pr460-merged-resulting-main.md).
 
+
+---
+
+## Batch 4 — 223 additional paths protected after grouped review (2026-10-30)
+
+**Post-PR460 current classification: 31/700 actually removed, 669 remain = 644 HOLD /8,156,054,545 B +25 REVIEW_REQUIRED /58,405,678 B.** The **223 paths /402,270,623 B newly moved from REVIEW to HOLD** are unchanged and remain checked into Git; no additional deletion or storage savings from review. Exact 20 family names, frozen baseline counts and consumer reasons: [immutable Batch-4 retention audit](../work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md). In particular CI942's claimed original 422 MB raw video parts are absent from the current tracked Git tree; its 4 surviving clipped videos must not be removed just because the README historically says a full recording was captured.
+
+**NEXT:** review the **25 remaining REVIEW_REQUIRED** paths one by one for possible original/copy elimination, with original source and current physical consumer proof before an allowlist. Protected 644 are not queued for deletion.
 
 ---
 
