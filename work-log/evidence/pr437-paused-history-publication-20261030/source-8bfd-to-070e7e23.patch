@@ -1,0 +1,348 @@
+diff --git a/scripts/test-live-time-taken-render.mjs b/scripts/test-live-time-taken-render.mjs
+index d3f6da37..ab6243b8 100644
+--- a/scripts/test-live-time-taken-render.mjs
++++ b/scripts/test-live-time-taken-render.mjs
+@@ -44,3 +44,27 @@ assert.match(render(live("18446744073709551615")),/>5124095576030431:00:15<\//,"
+ const paused={...live("905"),runtime:{...timer.runtime,timer:{...timer.runtime.timer,state:"paused"}}};
+ assert.match(render(paused,{fixtureMode:true,fixtureEditor:"time_taken"}),/value="0:15:00"/,"edit draft/CAS remains durable900 rather than live905");
+ console.log("Production live Time Taken render: native samples, same-task binding, durable editor, read errors and integer precision PASS.");
++
++// Exercise the real event/snapshot reducer with native history generations.
++// Paused renderers do not poll, so a late response must not undo the one event.
++const apiBundle=await build({
++  entryPoints:["src/timerSessionApi.ts"],bundle:true,write:false,format:"cjs",platform:"node",
++  plugins:[{name:"isolated-native-transport",setup(b){
++    b.onResolve({filter:/^(@tauri-apps\/api\/(core|event)|\.\/boardInvalidation)$/},args=>({path:args.path,namespace:"transport"}));
++    b.onLoad({filter:/.*/,namespace:"transport"},()=>({contents:"export const invoke=()=>{throw new Error('unexpected invoke')};export const listen=invoke;export const emitBoardInvalidated=invoke;",loader:"js"}));
++  }}],
++});
++const apiMod={exports:{}};
++vm.runInNewContext(apiBundle.outputFiles[0].text,{module:apiMod,exports:apiMod.exports,console});
++const {applyTimerSessionProjection}=apiMod.exports;
++const generation=(historyRevision,error=null)=>({...paused,liveTimeTaken:{taskId:"active",historyRevision,seconds:error?null:"905",error}});
++const first=generation("9007199254740993"),next=generation("9007199254740994");
++assert.equal(applyTimerSessionProjection(next,first),next,"late older history cannot overwrite current paused metric");
++assert.equal(applyTimerSessionProjection(first,next),next,"newer history event accepted without a timer transition");
++const pending=generation(next.liveTimeTaken.historyRevision,"LIVE_TIME_TAKEN_PENDING");
++assert.equal(applyTimerSessionProjection(next,pending),next,"late pending snapshot cannot erase refreshed equal-history event");
++assert.equal(applyTimerSessionProjection(pending,next),next,"ready event replaces pending equal-history snapshot");
++const resumed={...first,revision:paused.revision+1};
++assert.equal(applyTimerSessionProjection(next,resumed),resumed,"semantic timer revision keeps priority over history ordering");
++assert.equal(applyTimerSessionProjection(resumed,next),resumed,"history ordering cannot resurrect an older timer revision");
++console.log("Production Timer projection reducer: paused history events, late snapshots, semantic priority and lossless generations PASS.");
+diff --git a/src-tauri/src/domain/timer_events.rs b/src-tauri/src/domain/timer_events.rs
+index 44b76745..dee69a16 100644
+--- a/src-tauri/src/domain/timer_events.rs
++++ b/src-tauri/src/domain/timer_events.rs
+@@ -10,6 +10,7 @@ pub const TIMER_SESSION_EVENT_NAME: &str = "timer-session-changed";
+ #[serde(rename_all = "camelCase")]
+ pub struct LiveTimeTakenProjection {
+     pub task_id: TaskId,
++    pub history_revision: String,
+     pub seconds: Option<String>,
+     pub error: Option<String>,
+ }
+diff --git a/src-tauri/src/persistence/live_time_taken_projection.rs b/src-tauri/src/persistence/live_time_taken_projection.rs
+index ca534aad..f7d107d7 100644
+--- a/src-tauri/src/persistence/live_time_taken_projection.rs
++++ b/src-tauri/src/persistence/live_time_taken_projection.rs
+@@ -36,6 +36,10 @@ pub(crate) struct TimeTakenProjectionCache {
+ }
+ 
+ impl TimeTakenProjectionCache {
++    pub fn history_revision(&self) -> Option<u64> {
++        self.basis.as_ref().map(|(key, _)| key.history_revision)
++    }
++
+     pub fn refresh<F>(&mut self, key: Option<BasisKey>, read: F)
+     where
+         F: FnOnce() -> Result<u64, &'static str>,
+@@ -73,11 +77,13 @@ impl TimeTakenProjectionCache {
+         Some(match result {
+             Ok(total) => LiveTimeTakenProjection {
+                 task_id: key.task_id,
++                history_revision: key.history_revision.to_string(),
+                 seconds: Some(total.to_string()),
+                 error: None,
+             },
+             Err(code) => LiveTimeTakenProjection {
+                 task_id: key.task_id,
++                history_revision: key.history_revision.to_string(),
+                 seconds: None,
+                 error: Some(code.into()),
+             },
+diff --git a/src-tauri/src/persistence/timer_controller.rs b/src-tauri/src/persistence/timer_controller.rs
+index 22f0b56b..83e6e782 100644
+--- a/src-tauri/src/persistence/timer_controller.rs
++++ b/src-tauri/src/persistence/timer_controller.rs
+@@ -81,6 +81,7 @@ pub struct TimerController {
+     published_runtime: TimerRuntimeSnapshot,
+     time_taken_cache: TimeTakenProjectionCache,
+     time_taken_invalidation: TimeTakenInvalidation,
++    time_taken_history_dirty: bool,
+ }
+ 
+ impl TimerController {
+@@ -98,6 +99,7 @@ impl TimerController {
+             published_runtime,
+             time_taken_cache: TimeTakenProjectionCache::default(),
+             time_taken_invalidation: TimeTakenInvalidation::default(),
++            time_taken_history_dirty: false,
+         };
+         controller.refresh_time_taken_basis();
+         Ok(controller)
+@@ -118,6 +120,14 @@ impl TimerController {
+         self.time_taken_invalidation.clone()
+     }
+ 
++    pub(crate) fn pending_time_taken_history_projection(&self) -> Option<TimerSessionPayload> {
++        self.time_taken_history_dirty.then(|| self.snapshot())
++    }
++
++    pub(crate) fn acknowledge_time_taken_history_projection(&mut self) {
++        self.time_taken_history_dirty = false;
++    }
++
+     fn time_taken_basis_key(&self) -> Option<BasisKey> {
+         Some(BasisKey {
+             task_id: self.published_runtime.timer.task_id?,
+@@ -133,6 +143,14 @@ impl TimerController {
+     /// successful Timer mutation, and is retried on the next changed basis.
+     fn refresh_time_taken_basis(&mut self) {
+         let key = self.time_taken_basis_key();
++        if let Some(key) = key {
++            self.time_taken_history_dirty |= self
++                .time_taken_cache
++                .history_revision()
++                .is_some_and(|previous| previous != key.history_revision);
++        } else {
++            self.time_taken_history_dirty = false;
++        }
+         let connection = &self.connection;
+         self.time_taken_cache.refresh(key, || {
+             let key = key.ok_or("LIVE_TIME_TAKEN_UNAVAILABLE")?;
+@@ -507,6 +525,9 @@ impl TimerController {
+         self.revision = revision;
+         self.published_runtime = runtime.clone();
+         self.refresh_time_taken_basis();
++        // A semantic payload already carries this refreshed display basis to
++        // all subscribers. Ordinary advances/checkpoints keep the receipt dirty.
++        self.acknowledge_time_taken_history_projection();
+         self.with_live_time_taken(TimerSessionPayload::changed(revision, runtime, change))
+     }
+ }
+@@ -738,6 +759,50 @@ mod tests {
+         assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Break);
+     }
+ 
++    #[test]
++    fn paused_history_refresh_is_publishable_once_without_a_timer_transition() {
++        let (conn, _, task, _) = fixture();
++        let mut c = TimerController::recover(conn, 0, T0).unwrap();
++        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
++        c.pause(1500, T1).unwrap();
++        let before = c.snapshot();
++        crate::persistence::sessions::create_manual_work_session(
++            &mut c.connection,
++            task,
++            "2026-09-05T11:58:00Z",
++            T0,
++            90,
++            T1,
++        )
++        .unwrap();
++        c.time_taken_invalidator().invalidate();
++        // Even an explicit checkpoint consuming the refresh must retain the
++        // publication receipt: paused renderers deliberately do not poll.
++        c.checkpoint(2000, T1).unwrap();
++        assert!(c.advance(3000, T1).unwrap().is_none());
++        let event = c.pending_time_taken_history_projection().unwrap();
++        assert_eq!(event.revision, before.revision);
++        assert_eq!(event.runtime, before.runtime);
++        assert!(event.change.is_none());
++        assert_eq!(
++            event.live_time_taken.unwrap().seconds.as_deref(),
++            Some("91")
++        );
++        c.acknowledge_time_taken_history_projection();
++        c.advance(4000, T1).unwrap();
++        assert!(c.pending_time_taken_history_projection().is_none());
++
++        c.time_taken_invalidator().invalidate();
++        c.advance(5000, T1).unwrap();
++        assert!(c.pending_time_taken_history_projection().is_some());
++        let resumed = c.resume(5000, T1).unwrap();
++        assert_eq!(
++            resumed.live_time_taken.unwrap().seconds.as_deref(),
++            Some("91")
++        );
++        assert!(c.pending_time_taken_history_projection().is_none());
++    }
++
+     fn fixture() -> (Connection, ListId, TaskId, TaskId) {
+         let mut connection = Connection::open_in_memory().unwrap();
+         run_migrations(&mut connection).unwrap();
+diff --git a/src-tauri/src/timer_service.rs b/src-tauri/src/timer_service.rs
+index 4157a02c..72bc31fd 100644
+--- a/src-tauri/src/timer_service.rs
++++ b/src-tauri/src/timer_service.rs
+@@ -290,6 +290,7 @@ impl TimerService {
+             controller,
+             effects_connection,
+             observed_ms,
++            recovered_awaiting_resume,
+             ..
+         } = &mut *state;
+ 
+@@ -302,6 +303,12 @@ impl TimerService {
+             &wall_time,
+             |payload| reports.record(payload),
+         )?;
++        record_time_taken_history_projection(
++            controller,
++            effects_connection,
++            *recovered_awaiting_resume,
++            |payload| reports.record(payload),
++        )?;
+         trace.stage("claim-effects");
+         let projection = controller.snapshot();
+         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
+@@ -912,6 +919,21 @@ fn focus_home_pause_lease_matches(
+         )
+ }
+ 
++fn record_time_taken_history_projection(
++    controller: &mut TimerController,
++    effects_connection: &Connection,
++    recovered_awaiting_resume: bool,
++    mut report: impl FnMut(&TimerSessionPayload),
++) -> CommandResult<()> {
++    if let Some(payload) = controller.pending_time_taken_history_projection() {
++        let payload =
++            decorate_timer_payload(effects_connection, payload, recovered_awaiting_resume)?;
++        report(&payload);
++        controller.acknowledge_time_taken_history_projection();
++    }
++    Ok(())
++}
++
+ fn decorate_timer_payload(
+     effects_connection: &Connection,
+     mut payload: TimerSessionPayload,
+@@ -1401,6 +1423,75 @@ mod tests {
+     const T0: &str = "2026-09-05T12:00:00Z";
+     const T6: &str = "2026-09-05T12:00:06Z";
+ 
++    #[test]
++    fn paused_history_receipt_reaches_event_publication_once_and_preserves_resume_policy() {
++        for mode in [
++            TimerMode::CountUp,
++            TimerMode::Pomodoro {
++                work_ms: 10_000,
++                break_ms: 5_000,
++            },
++        ] {
++            let (mut controller, mut effects, task_id, path) = fixture();
++            controller.start_task(task_id, mode, 0, T0).unwrap();
++            controller.pause(1500, T0).unwrap();
++            let before = controller.snapshot();
++            crate::persistence::sessions::create_manual_work_session(
++                &mut effects,
++                task_id,
++                "2026-09-05T11:58:00Z",
++                T0,
++                90,
++                T0,
++            )
++            .unwrap();
++            controller.time_taken_invalidator().invalidate();
++            controller.advance(2000, T6).unwrap();
++            let pomodoro = matches!(mode, TimerMode::Pomodoro { .. });
++            let mut emitted = Vec::new();
++            if pomodoro {
++                // Decoration failure must not consume the publication receipt.
++                let unavailable = Connection::open_in_memory().unwrap();
++                assert!(record_time_taken_history_projection(
++                    &mut controller,
++                    &unavailable,
++                    false,
++                    |p| emitted.push(p.clone()),
++                )
++                .is_err());
++                assert!(emitted.is_empty());
++                assert!(controller.pending_time_taken_history_projection().is_some());
++            }
++            record_time_taken_history_projection(&mut controller, &effects, pomodoro, |p| {
++                emitted.push(p.clone())
++            })
++            .unwrap();
++            assert_eq!(emitted.len(), 1);
++            assert_eq!(emitted[0].revision, before.revision);
++            assert_eq!(emitted[0].runtime, before.runtime);
++            assert!(emitted[0].change.is_none());
++            assert_eq!(emitted[0].awaiting_resume, pomodoro);
++            assert_eq!(
++                emitted[0]
++                    .live_time_taken
++                    .as_ref()
++                    .unwrap()
++                    .seconds
++                    .as_deref(),
++                Some("91")
++            );
++            controller.advance(3000, T6).unwrap();
++            record_time_taken_history_projection(&mut controller, &effects, pomodoro, |p| {
++                emitted.push(p.clone())
++            })
++            .unwrap();
++            assert_eq!(emitted.len(), 1, "no idle publication or database polling");
++            drop(effects);
++            drop(controller);
++            fs::remove_file(path).unwrap();
++        }
++    }
++
+     #[test]
+     fn poisoned_timer_mutex_fails_closed_and_does_not_corrupt_sqlite_or_session_identity() {
+         use std::sync::Arc;
+diff --git a/src/timerSessionApi.ts b/src/timerSessionApi.ts
+index 187e1be4..9c4ba700 100644
+--- a/src/timerSessionApi.ts
++++ b/src/timerSessionApi.ts
+@@ -84,7 +84,7 @@ export type TimerSessionPayload = {
+   awaitingResume: boolean;
+   change: TimerSessionChange | null;
+   /** Native display projection; persisted board value remains the edit CAS basis. */
+-  liveTimeTaken?: { taskId: string; seconds: string | null; error: string | null };
++  liveTimeTaken?: { taskId: string; historyRevision?: string; seconds: string | null; error: string | null };
+ };
+ 
+ export type SetPausedTimerEstimateRequest = {
+@@ -104,7 +104,26 @@ export function applyTimerSessionProjection(
+   current: TimerSessionPayload | null,
+   incoming: TimerSessionPayload,
+ ): TimerSessionPayload {
+-  if (current === null || incoming.revision >= current.revision) {
++  if (current === null || incoming.revision > current.revision) {
++    return incoming;
++  }
++  if (incoming.revision === current.revision) {
++    const previous = current.liveTimeTaken;
++    const next = incoming.liveTimeTaken;
++    if (previous?.taskId === current.runtime.timer.task_id
++      && next?.taskId === incoming.runtime.timer.task_id
++      && previous?.taskId === next?.taskId
++      && previous?.historyRevision !== undefined && /^\d+$/.test(previous.historyRevision)
++      && next?.historyRevision !== undefined && /^\d+$/.test(next.historyRevision)) {
++      const oldHistory = BigInt(previous.historyRevision);
++      const newHistory = BigInt(next.historyRevision);
++      if (newHistory < oldHistory) return current;
++      // An in-flight memory snapshot can observe invalidation before the native
++      // basis refresh. It must not overwrite an already refreshed equal-history
++      // event when asynchronous replies arrive out of order.
++      if (newHistory === oldHistory && next.error === "LIVE_TIME_TAKEN_PENDING"
++        && previous.error !== "LIVE_TIME_TAKEN_PENDING") return current;
++    }
+     return incoming;
+   }
+   return current;

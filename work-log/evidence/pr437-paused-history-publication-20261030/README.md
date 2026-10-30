@@ -1,0 +1,23 @@
+# Paused history publication and late-response closure
+
+Local source checkpoint `070e7e233f20047e293ab53bc0646330efb34ee4`, six-path supplement to8bfd7575 on existing PR437 branch. At packet publication it is **not pushed**: existing CI41027738611 on8bfd7575 continues unchanged; no overlapping generation or cancelled run. Complete source patch is published here so the work can be recovered from GitHub even before that push. No new native claim, app/profile/recording or source merge.
+
+## Confirmed source-level causal gap
+
+The native cache refreshed external history changes during background advance, but an unchanged Timer state/session returned no semantic event. `connectLiveTimerSessionProjection` intentionally stops snapshot sampling while paused/Time's Up; FocusPanel's board-invalidation path refreshes the board only. The newly authoritative native Taken value could therefore remain invisible indefinitely in a paused surface, overriding a freshly read board total with an older payload. This is demonstrated by code flow, not a new physical observation.
+
+The controller now retains a one-shot display publication receipt when committed external history changes the cached basis, including when a checkpoint consumed that refresh first. The background service queues a decorated `change:null` snapshot and acknowledges only after successful decoration/queueing; existing DeferredTimerReports emits after releasing its state mutex. No Timer revision, session, phase, raw elapsed, countdown or ledger mutation. A semantic payload already carrying the refreshed basis clears the duplicate receipt. Ordinary ticks with no history change do no additional SQL or events. Recovered Pomodoro awaiting-resume is preserved; decoration failure leaves the receipt pending.
+
+Cross-thread replies can reorder same-Timer-revision history snapshots/events. Native DTO now carries lossless historyRevision text. The production projection reducer rejects an older history generation for the same task/revision, and rejects a late PENDING snapshot after a ready equal-generation result. Semantic Timer revisions retain priority. No extra renderer polling/interval/subscription is introduced; existing shared Focus owner consumes the same Timer event. Approved UI/Spectrum/ledger semantics remain unchanged.
+
+## Regression and validation
+
+- New real controller case: paused raw1.5s + committed90s history; checkpoint consumes cache refresh, later advance still exposes exactly one91s snapshot with identical Timer revision/runtime and change:null; ack removes repeat; semantic Resume carries and clears duplicate receipt.
+- New actual service publication helper case in CountUp and Pomodoro: real separate SQLite history writer, native cache refresh, exactly one event, preserved paused identity/revision and recovered awaiting-resume; missing effects schema fails decoration without consuming the receipt, then valid retry succeeds.
+- Extended actual timerSessionApi reducer execution: >2^53 lossless history generations, old/new event ordering, late pending-versus-ready snapshot ordering and higher/lower semantic Timer revision priority. This uses the actual bundled production reducer; only native transport is stubbed.
+- PASS: narrow Reports/Focus/metrics/timed-alert contracts, actual live metrics/reducer execution, Rust formatting, source whitespace, final **complete frontend preflight plus TypeScript/Vite build**. Full final log and14-path source hashes included. Independent canonical-LF clone; no in-place source normalization.
+- NOT RUN: full local native tests (MSVC linker absent). Two added Rust cases require the next exact-head Windows CI; prior8bfd CI results cannot execute this supplement. Existing baseline12 new tests and remaining native holds remain separately identified.
+
+The source-inspectable dependency review covers paused/running/Time's Up sampling policy, native refresh/semantic publication/checkpoint, independent Reports signal, mutex-release event ordering, one-shot/error recovery, Pomodoro decoration, same-revision cross-thread stale responses, editor CAS and semantic revision ownership. New renderer generation checks do not change product appearance or source parity; this is Narro correctness/freshness, NER-014 prevention. Native targeted follow-up must include Reports mutation while Focus stays paused, plus the already prepared running/manual/break/move-trace journey. Do not physically run8bfd as acceptance for070e.
+
+Next after CI41027738611 completes: push this already locally validated checkpoint on the existing PR437, record its one new exact-head CI; consume actual Windows tests/artifact before a fresh protected native session. No M10/optional advancement or merge from source alone.
