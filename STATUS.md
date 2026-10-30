@@ -1,6 +1,8 @@
-# CURRENT — PR444 normal-profile PA workflow replacement candidate (2026-10-30)
+# CURRENT — PR444 merged, exact source blobs verified, resulting-main CI pending (2026-10-30)
 
-[PR444](https://github.com/MariosGiannakaras/Narro/pull/444) existing branch `fix/workflow-risk-routing-20261030` head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` changes only workflow/PowerShell preparation and existing tests. User now explicitly authorizes regular Windows profile with disposable Narro-only data, **no additional test profile, temporary DB or automatic backup**. On `-Launch`, validate exact EXE hash, running PID/path/hash. [Exact CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) **validation/fast SUCCESS, Windows RUNNING** at last verification; earlier CI3/3 at b93235 was correct only for its *older* source. PR444 OPEN/UNMERGED. No native Windows execution in this chat; PA-01–09 ACTIVE with case-level NOT RUN, independent native-held PR437/389/419 unchanged. M1–M4 accepted 4/10; M5–M9 OPEN, M10 user gate, M11/M12 inactive.
+[PR444](https://github.com/MariosGiannakaras/Narro/pull/444) expected-head guarded squash **MERGED** to `main` commit `f8ce9343356bd0d20b54cb48aa2cf9fb7aef9ecf`; exact source `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) **attempt 2 3/3 SUCCESS**, previous attempt 1 visual fixture FAIL remains historical FAIL. **Five changed source/test blobs match merged main 5/5**. Resulting-main [CI41054758746](https://github.com/MariosGiannakaras/Narro/actions/runs/41054758746): validation PASS, fast PASS, Windows candidate **IN PROGRESS** (do not imply 3/3). Only existing workflow/PowerShell/test scripts changed; no Narro product functionality modified. User-authorized regular Windows Narro data; no extra isolation/backup.
+
+PA-01–09 **ACTIVE**, actual native acceptance **NOT RUN** here. PR437 separate source/CI PASS but physical OPEN; PR389/419 independent strict native holds; M1–M4 **4/10**, M5–M9 OPEN, M10 gate, M11/M12 inactive.
 
 ---
 
