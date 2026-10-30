@@ -1,0 +1,10 @@
+{
+  ".gitattributes": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+  "cargo-check.log": "689057f7037c2becc0054027835b6e7d099bbfc0806aa5a54da0fd1b647adef2",
+  "frontend-preflight-final.log": "22f94c5b977a7eefe8bcb542288d87fbb6134effe9af0ac0d731d88144c6cac3",
+  "frontend-preflight.log": "fcf08292dab5cef67fb02f02391a8dd1d4be249b5e7e6e0aef5858d80bbb1bf4",
+  "impact.log": "dd9ece08d6b25cdb997c8a1f6a801f6b149b9940bde2a7ed889a6cee7213532b",
+  "README.md": "0deae99da43d1f06d41b846dc1ab67cabc0b0637fc6fdaf992cdde3debb7a63a",
+  "trace-typecheck.rs": "12c5cf6a92477d2442e8041d2ab53e9e523e3a9355d0cec687fc4693c54a0fd9",
+  "validation-source-manifest.json": "bb29c336144d3c0e351bc6e9b2600bf92843f83d1adab4ff51e3a4e671806e6f"
+}

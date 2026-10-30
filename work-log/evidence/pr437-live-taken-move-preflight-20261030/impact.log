@@ -1,0 +1,734 @@
+{
+  "base": "3d696a29054deb7b8a52dfe15f4047edfc617646",
+  "explicit": false,
+  "changed": [
+    "docs/M7_TIMER_CORNER_SNAPPING_NATIVE_ACCEPTANCE_2026-10-27.md",
+    "package.json",
+    "scripts/test-focus-action-gate.mjs",
+    "scripts/test-focus-automatic-completion-handoff.mjs",
+    "scripts/test-focus-done-preference-readiness.mjs",
+    "scripts/test-focus-mode-transition.mjs",
+    "scripts/test-focus-motion-v4.mjs",
+    "scripts/test-focus-success-actual-handler-owners.mjs",
+    "scripts/test-focus-success-timing.mjs",
+    "scripts/test-preferences-loading-layout.mjs",
+    "scripts/test-protected-timer-resize.mjs",
+    "scripts/test-quick-preference-live-placement.mjs",
+    "scripts/test-recoverable-local-reads.mjs",
+    "scripts/test-report-done-ordering.mjs",
+    "scripts/test-reports-overview-keyed-projection.mjs",
+    "scripts/test-settings-initial-read-retry.mjs",
+    "scripts/test-single-focus-architecture.mjs",
+    "scripts/test-ui-floating-collapsed.mjs",
+    "scripts/test-ui-floating-expanded.mjs",
+    "scripts/test-ui-floating-movability.mjs",
+    "scripts/test-ui-focus-entry.mjs",
+    "scripts/test-ui-focus-surface-transition.mjs",
+    "scripts/test-ui-preferences.mjs",
+    "scripts/test-ui-reports-overview-runtime.mjs",
+    "scripts/validate-search-palette-captures.mjs",
+    "scripts/validate-theme-settings-captures.mjs",
+    "src-tauri/Cargo.toml",
+    "src-tauri/src/domain/preferences.rs",
+    "src-tauri/src/floating_placement.rs",
+    "src-tauri/src/focus_frame_hold.rs",
+    "src-tauri/src/focus_mode_raster.rs",
+    "src-tauri/src/focus_motion_v4_raster.rs",
+    "src-tauri/src/focus_webview.rs",
+    "src-tauri/src/lib.rs",
+    "src-tauri/src/monitor_display.rs",
+    "src-tauri/src/preference_settings.rs",
+    "src-tauri/src/timer_service.rs",
+    "src-tauri/src/validation_log.rs",
+    "src-tauri/src/windows/mod.rs",
+    "src-tauri/src/windows/topology.rs",
+    "src-tauri/tests/preferences_persistence.rs",
+    "src/FloatingTimerFoundation.tsx",
+    "src/FocusLiveActions.tsx",
+    "src/FocusLiveSubtasks.tsx",
+    "src/FocusQuickPreferences.tsx",
+    "src/FocusSurfaceCoordinator.tsx",
+    "src/PreferenceSettingsRuntime.tsx",
+    "src/PreferenceSettingsSections.tsx",
+    "src/ReportsOverview.tsx",
+    "src/ThemeSettingsPanel.tsx",
+    "src/diagnosticApi.ts",
+    "src/floatingTimerFoundation.css",
+    "src/focusMotionV4.ts",
+    "src/focusMotionV4Geometry.ts",
+    "src/focusMotionV4PanelGeometry.ts",
+    "src/focusQuickPreferences.css",
+    "src/focusSurfaceCoordinator.css",
+    "src/focusSurfaceModeApi.ts",
+    "src/preferenceSettingsSections.css",
+    "src/preferencesApi.ts",
+    "src/preferencesDialog.css",
+    "src/presentationFrame.ts",
+    "src/protectedTimerResize.ts",
+    "src/quickPreferenceLivePlacement.ts",
+    "src/searchPalette.css",
+    "src/searchPaletteVisualFixture.tsx",
+    "src/themeSettingsVisualFixture.tsx",
+    "work-log/2026-10-27-chatgpt-m7-timer-native-corner-snapping-source-implementation.md",
+    "src-tauri/src/domain/timer_events.rs",
+    "src-tauri/src/persistence/mod.rs",
+    "src-tauri/src/persistence/timer_controller.rs",
+    "src-tauri/src/report_commands.rs",
+    "src-tauri/src/timer/runtime.rs",
+    "src/FocusLiveMetrics.tsx",
+    "src/timerSessionApi.ts",
+    "scripts/test-live-time-taken-render.mjs",
+    "src-tauri/icons/64x64.png",
+    "src-tauri/icons/android/mipmap-anydpi-v26/ic_launcher.xml",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/values/ic_launcher_background.xml",
+    "src-tauri/icons/ios/AppIcon-20x20@1x.png",
+    "src-tauri/icons/ios/AppIcon-20x20@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-20x20@2x.png",
+    "src-tauri/icons/ios/AppIcon-20x20@3x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@1x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-29x29@2x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@3x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@1x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-40x40@2x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@3x.png",
+    "src-tauri/icons/ios/AppIcon-512@2x.png",
+    "src-tauri/icons/ios/AppIcon-60x60@2x.png",
+    "src-tauri/icons/ios/AppIcon-60x60@3x.png",
+    "src-tauri/icons/ios/AppIcon-76x76@1x.png",
+    "src-tauri/icons/ios/AppIcon-76x76@2x.png",
+    "src-tauri/icons/ios/AppIcon-83.5x83.5@2x.png",
+    "src-tauri/src/persistence/live_time_taken_projection.rs",
+    "src-tauri/src/windows/move_trace.rs",
+    "tsconfig.node.tsbuildinfo",
+    "tsconfig.tsbuildinfo",
+    "vite.config.d.ts",
+    "vite.config.js"
+  ],
+  "tests": [
+    "test:ci-tiering",
+    "test:focus-action-gate",
+    "test:focus-break-live",
+    "test:focus-live-mutation-gates",
+    "test:focus-mode-transition",
+    "test:focus-motion-v4",
+    "test:focus-runtime-visual-harness",
+    "test:focus-success-timing",
+    "test:in-app-shortcuts",
+    "test:live-time-taken-render",
+    "test:m7-validation-logging",
+    "test:merged-prephysical-ci-coverage",
+    "test:monitor-selection-identity",
+    "test:note-url-activation",
+    "test:notification-sound-delivery",
+    "test:preference-save-admission",
+    "test:preferences-loading-layout",
+    "test:preflight-impact",
+    "test:protected-timer-resize",
+    "test:quick-preference-placement",
+    "test:recorded-n28-n36",
+    "test:report-done-ordering",
+    "test:report-recent-tasks",
+    "test:shortcut-accessibility-and-admission",
+    "test:shortcut-retry",
+    "test:single-focus-architecture",
+    "test:single-instance-runtime",
+    "test:sound-preference-save-focus",
+    "test:success-sound-runtime",
+    "test:timed-alert-flash-runtime",
+    "test:timed-alert-runtime",
+    "test:timed-alert-sound-runtime",
+    "test:timezone-selection",
+    "test:ui-action-icons",
+    "test:ui-app-shell",
+    "test:ui-archives",
+    "test:ui-cross-window-board-sync",
+    "test:ui-floating-collapsed",
+    "test:ui-floating-compact-mode",
+    "test:ui-floating-expanded",
+    "test:ui-floating-movability",
+    "test:ui-focus-action-slots",
+    "test:ui-focus-empty-states",
+    "test:ui-focus-entry",
+    "test:ui-focus-icon-tooltips",
+    "test:ui-focus-live-title",
+    "test:ui-focus-panel",
+    "test:ui-focus-row-titles",
+    "test:ui-focus-surface-transition",
+    "test:ui-focus-toggle-shortcut",
+    "test:ui-focus-visual-states",
+    "test:ui-global-shortcut-settings",
+    "test:ui-home-dashboard",
+    "test:ui-icon-control-geometry",
+    "test:ui-list-board",
+    "test:ui-list-editor-modal",
+    "test:ui-list-settings",
+    "test:ui-m6-parity-reconciliation",
+    "test:ui-preferences",
+    "test:ui-preferences-list-check-icon-geometry",
+    "test:ui-reports-api",
+    "test:ui-reports-overview",
+    "test:ui-reports-overview-runtime",
+    "test:ui-reports-sessions",
+    "test:ui-search-palette",
+    "test:ui-task-create-edit",
+    "test:ui-task-hover-actions",
+    "test:ui-task-metrics",
+    "test:ui-task-notes",
+    "test:ui-task-notes-large",
+    "test:ui-task-notes-spellcheck",
+    "test:ui-task-reorder",
+    "test:ui-task-scheduling",
+    "test:ui-task-subtasks",
+    "test:ui-theme-settings",
+    "test:ui-visual-fixtures"
+  ],
+  "unmapped": [
+    "src-tauri/src/focus_motion_v4_raster.rs",
+    "src-tauri/tests/preferences_persistence.rs",
+    "src/focusMotionV4Geometry.ts",
+    "src/focusMotionV4PanelGeometry.ts",
+    "src-tauri/icons/android/mipmap-anydpi-v26/ic_launcher.xml",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-hdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-mdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_foreground.png",
+    "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_round.png",
+    "src-tauri/icons/android/values/ic_launcher_background.xml",
+    "src-tauri/icons/ios/AppIcon-20x20@1x.png",
+    "src-tauri/icons/ios/AppIcon-20x20@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-20x20@2x.png",
+    "src-tauri/icons/ios/AppIcon-20x20@3x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@1x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-29x29@2x.png",
+    "src-tauri/icons/ios/AppIcon-29x29@3x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@1x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@2x-1.png",
+    "src-tauri/icons/ios/AppIcon-40x40@2x.png",
+    "src-tauri/icons/ios/AppIcon-40x40@3x.png",
+    "src-tauri/icons/ios/AppIcon-512@2x.png",
+    "src-tauri/icons/ios/AppIcon-60x60@2x.png",
+    "src-tauri/icons/ios/AppIcon-60x60@3x.png",
+    "src-tauri/icons/ios/AppIcon-76x76@1x.png",
+    "src-tauri/icons/ios/AppIcon-76x76@2x.png",
+    "src-tauri/icons/ios/AppIcon-83.5x83.5@2x.png",
+    "src-tauri/src/persistence/live_time_taken_projection.rs",
+    "src-tauri/src/windows/move_trace.rs"
+  ],
+  "consumers": {
+    "package.json": [
+      "scripts/capture-focus-runtime.mjs",
+      "scripts/preflight-impact.mjs",
+      "scripts/test-ci-tiering.mjs",
+      "scripts/test-focus-runtime-visual-harness.mjs",
+      "scripts/test-merged-prephysical-ci-coverage.mjs",
+      "scripts/test-notification-sound-delivery.mjs",
+      "scripts/test-single-instance-runtime.mjs",
+      "scripts/test-success-sound-runtime.mjs",
+      "scripts/test-timed-alert-flash-runtime.mjs",
+      "scripts/test-timed-alert-runtime.mjs",
+      "scripts/test-timed-alert-sound-runtime.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-archives.mjs",
+      "scripts/test-ui-cross-window-board-sync.mjs",
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-action-slots.mjs",
+      "scripts/test-ui-focus-empty-states.mjs",
+      "scripts/test-ui-focus-icon-tooltips.mjs",
+      "scripts/test-ui-focus-live-title.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-focus-row-titles.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-focus-visual-states.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-list-settings.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-reports-api.mjs",
+      "scripts/test-ui-reports-overview-runtime.mjs",
+      "scripts/test-ui-reports-overview.mjs",
+      "scripts/test-ui-reports-sessions.mjs",
+      "scripts/test-ui-search-palette.mjs",
+      "scripts/test-ui-task-create-edit.mjs",
+      "scripts/test-ui-task-hover-actions.mjs",
+      "scripts/test-ui-task-metrics.mjs",
+      "scripts/test-ui-task-notes-large.mjs",
+      "scripts/test-ui-task-notes-spellcheck.mjs",
+      "scripts/test-ui-task-scheduling.mjs",
+      "scripts/test-ui-task-subtasks.mjs",
+      "scripts/verify-config.mjs"
+    ],
+    "scripts/test-focus-automatic-completion-handoff.mjs": [
+      "scripts/test-ui-focus-panel.mjs"
+    ],
+    "scripts/test-focus-done-preference-readiness.mjs": [
+      "scripts/test-focus-success-timing.mjs"
+    ],
+    "scripts/test-focus-success-actual-handler-owners.mjs": [
+      "scripts/test-focus-success-timing.mjs"
+    ],
+    "scripts/test-recoverable-local-reads.mjs": [
+      "scripts/test-ui-search-palette.mjs"
+    ],
+    "scripts/test-reports-overview-keyed-projection.mjs": [
+      "scripts/test-ui-reports-overview-runtime.mjs"
+    ],
+    "scripts/test-settings-initial-read-retry.mjs": [
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "scripts/validate-search-palette-captures.mjs": [
+      "scripts/test-ui-search-palette.mjs"
+    ],
+    "scripts/validate-theme-settings-captures.mjs": [
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src-tauri/Cargo.toml": [
+      "scripts/test-notification-sound-delivery.mjs",
+      "scripts/test-single-instance-runtime.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src-tauri/src/domain/preferences.rs": [
+      "scripts/test-timed-alert-runtime.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-live-title.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src-tauri/src/floating_placement.rs": [
+      "scripts/test-m7-validation-logging.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src-tauri/src/focus_frame_hold.rs": [
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src-tauri/src/focus_mode_raster.rs": [
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src-tauri/src/focus_webview.rs": [
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src-tauri/src/lib.rs": [
+      "scripts/test-ci-tiering.mjs",
+      "scripts/test-focus-runtime-visual-harness.mjs",
+      "scripts/test-m7-validation-logging.mjs",
+      "scripts/test-protected-timer-resize.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-single-instance-runtime.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-live-title.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-home-dashboard.mjs",
+      "scripts/test-ui-list-board.mjs",
+      "scripts/test-ui-list-editor-modal.mjs",
+      "scripts/test-ui-list-settings.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-reports-api.mjs",
+      "scripts/test-ui-task-create-edit.mjs",
+      "scripts/test-ui-task-hover-actions.mjs",
+      "scripts/test-ui-task-metrics.mjs",
+      "scripts/test-ui-task-notes.mjs",
+      "scripts/test-ui-task-reorder.mjs",
+      "scripts/test-ui-task-scheduling.mjs",
+      "scripts/test-ui-task-subtasks.mjs",
+      "scripts/test-ui-theme-settings.mjs",
+      "scripts/verify-config.mjs"
+    ],
+    "src-tauri/src/monitor_display.rs": [
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src-tauri/src/preference_settings.rs": [
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src-tauri/src/timer_service.rs": [
+      "scripts/test-timed-alert-runtime.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-task-metrics.mjs"
+    ],
+    "src-tauri/src/validation_log.rs": [
+      "scripts/test-m7-validation-logging.mjs"
+    ],
+    "src-tauri/src/windows/mod.rs": [
+      "scripts/test-notification-sound-delivery.mjs",
+      "scripts/test-recorded-n28-n36.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-list-editor-modal.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-task-create-edit.mjs",
+      "scripts/test-ui-task-metrics.mjs",
+      "scripts/test-ui-task-notes.mjs",
+      "scripts/test-ui-task-scheduling.mjs",
+      "scripts/test-ui-task-subtasks.mjs"
+    ],
+    "src-tauri/src/windows/topology.rs": [
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src/FloatingTimerFoundation.tsx": [
+      "scripts/test-in-app-shortcuts.mjs",
+      "scripts/test-protected-timer-resize.mjs",
+      "scripts/test-timed-alert-flash-runtime.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs"
+    ],
+    "src/FocusLiveActions.tsx": [
+      "scripts/test-focus-action-gate.mjs",
+      "scripts/test-focus-automatic-completion-handoff.mjs",
+      "scripts/test-focus-break-live-presentation.mjs",
+      "scripts/test-focus-done-preference-readiness.mjs",
+      "scripts/test-focus-success-timing.mjs",
+      "scripts/test-in-app-shortcuts.mjs",
+      "scripts/test-recorded-n28-n36.mjs",
+      "scripts/test-success-sound-runtime.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-action-slots.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-focus-visual-states.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/FocusLiveSubtasks.tsx": [
+      "scripts/test-focus-live-mutation-gates.mjs",
+      "scripts/test-focus-live-real-mutation-handlers.mjs",
+      "scripts/test-protected-timer-resize.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-focus-icon-tooltips.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs"
+    ],
+    "src/FocusQuickPreferences.tsx": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-focus-icon-tooltips.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/FocusSurfaceCoordinator.tsx": [
+      "scripts/test-focus-mode-transition.mjs",
+      "scripts/test-focus-success-actual-handler-owners.mjs",
+      "scripts/test-focus-success-timing.mjs",
+      "scripts/test-in-app-shortcuts.mjs",
+      "scripts/test-protected-timer-resize.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/PreferenceSettingsRuntime.tsx": [
+      "scripts/test-preference-save-admission.mjs",
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-settings-initial-read-retry.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/PreferenceSettingsSections.tsx": [
+      "scripts/test-preference-save-admission.mjs",
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-sound-preference-save-focus.mjs",
+      "scripts/test-timezone-selection.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src/ReportsOverview.tsx": [
+      "scripts/test-recorded-n28-n36.mjs",
+      "scripts/test-recoverable-local-reads.mjs",
+      "scripts/test-report-done-ordering.mjs",
+      "scripts/test-reports-overview-date-picker-keyboard.mjs",
+      "scripts/test-reports-overview-keyed-projection.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-app-shell.mjs",
+      "scripts/test-ui-icon-control-geometry.mjs",
+      "scripts/test-ui-reports-overview-runtime.mjs",
+      "scripts/test-ui-reports-overview.mjs",
+      "scripts/test-ui-reports-sessions.mjs"
+    ],
+    "src/ThemeSettingsPanel.tsx": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-settings-initial-read-retry.mjs",
+      "scripts/test-ui-app-shell.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src/diagnosticApi.ts": [
+      "scripts/test-archive-read-retry.mjs",
+      "scripts/test-home-read-retry.mjs",
+      "scripts/test-live-time-taken-render.mjs",
+      "scripts/test-monitor-selection-identity.mjs",
+      "scripts/test-preference-save-admission.mjs",
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-shortcut-accessibility-and-admission.mjs",
+      "scripts/test-shortcut-retry.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/floatingTimerFoundation.css": [
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs"
+    ],
+    "src/focusMotionV4.ts": [
+      "scripts/test-focus-motion-v4.mjs",
+      "scripts/test-single-focus-architecture.mjs"
+    ],
+    "src/focusQuickPreferences.css": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/focusSurfaceCoordinator.css": [
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src/focusSurfaceModeApi.ts": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-compact-mode.mjs",
+      "scripts/test-ui-floating-expanded.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-surface-transition.mjs"
+    ],
+    "src/preferenceSettingsSections.css": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src/preferencesApi.ts": [
+      "scripts/test-preference-save-admission.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/preferencesDialog.css": [
+      "scripts/capture-ready-fixture-cdp.mjs",
+      "scripts/test-shortcut-fixture-readiness.mjs",
+      "scripts/test-ui-app-shell.mjs",
+      "scripts/test-ui-preferences-list-check-icon-geometry.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/presentationFrame.ts": [
+      "scripts/test-protected-timer-resize.mjs",
+      "scripts/test-ui-floating-collapsed.mjs"
+    ],
+    "src/protectedTimerResize.ts": [
+      "scripts/test-protected-timer-resize.mjs"
+    ],
+    "src/quickPreferenceLivePlacement.ts": [
+      "scripts/test-preferences-loading-layout.mjs",
+      "scripts/test-quick-preference-live-placement.mjs"
+    ],
+    "src/searchPalette.css": [
+      "scripts/test-in-app-shortcuts.mjs",
+      "scripts/test-report-recent-tasks.mjs",
+      "scripts/test-ui-icon-control-geometry.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-reports-sessions.mjs",
+      "scripts/test-ui-search-palette.mjs"
+    ],
+    "src/searchPaletteVisualFixture.tsx": [
+      "scripts/test-ui-search-palette.mjs"
+    ],
+    "src/themeSettingsVisualFixture.tsx": [
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-preferences-list-check-icon-geometry.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "src-tauri/src/domain/timer_events.rs": [
+      "scripts/test-ui-task-metrics.mjs"
+    ],
+    "src-tauri/src/persistence/mod.rs": [
+      "scripts/test-notification-sound-delivery.mjs",
+      "scripts/test-recorded-n28-n36.mjs",
+      "scripts/test-single-focus-architecture.mjs",
+      "scripts/test-ui-floating-movability.mjs",
+      "scripts/test-ui-focus-entry.mjs",
+      "scripts/test-ui-focus-toggle-shortcut.mjs",
+      "scripts/test-ui-global-shortcut-settings.mjs",
+      "scripts/test-ui-list-editor-modal.mjs",
+      "scripts/test-ui-preferences.mjs",
+      "scripts/test-ui-task-create-edit.mjs",
+      "scripts/test-ui-task-metrics.mjs",
+      "scripts/test-ui-task-notes.mjs",
+      "scripts/test-ui-task-scheduling.mjs",
+      "scripts/test-ui-task-subtasks.mjs"
+    ],
+    "src-tauri/src/persistence/timer_controller.rs": [
+      "scripts/test-ui-task-metrics.mjs"
+    ],
+    "src-tauri/src/report_commands.rs": [
+      "scripts/test-reports-csv-export-single-flight.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-reports-api.mjs",
+      "scripts/test-ui-reports-sessions.mjs"
+    ],
+    "src-tauri/src/timer/runtime.rs": [
+      "scripts/test-ui-task-metrics.mjs"
+    ],
+    "src/FocusLiveMetrics.tsx": [
+      "scripts/test-focus-live-mutation-gates.mjs",
+      "scripts/test-focus-live-real-mutation-handlers.mjs",
+      "scripts/test-live-time-taken-render.mjs",
+      "scripts/test-ui-action-icons.mjs",
+      "scripts/test-ui-focus-icon-tooltips.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-preferences.mjs"
+    ],
+    "src/timerSessionApi.ts": [
+      "scripts/test-live-time-taken-render.mjs",
+      "scripts/test-note-url-activation.mjs",
+      "scripts/test-ui-cross-window-board-sync.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-m6-parity-reconciliation.mjs",
+      "scripts/test-ui-task-metrics.mjs"
+    ],
+    "src-tauri/icons/64x64.png": [
+      "scripts/sync-tray-icon.mjs"
+    ],
+    "vite.config.js": [
+      "scripts/test-ui-archives.mjs",
+      "scripts/test-ui-floating-collapsed.mjs",
+      "scripts/test-ui-focus-panel.mjs",
+      "scripts/test-ui-list-settings.mjs",
+      "scripts/test-ui-reports-overview.mjs",
+      "scripts/test-ui-search-palette.mjs",
+      "scripts/test-ui-task-metrics.mjs",
+      "scripts/test-ui-task-reorder.mjs",
+      "scripts/test-ui-task-scheduling.mjs",
+      "scripts/test-ui-task-subtasks.mjs",
+      "scripts/test-ui-theme-settings.mjs",
+      "scripts/test-ui-visual-fixtures.mjs"
+    ],
+    "scripts/capture-focus-runtime.mjs": [
+      "scripts/test-focus-runtime-visual-harness.mjs"
+    ],
+    "scripts/preflight-impact.mjs": [
+      "scripts/test-preflight-impact.mjs"
+    ],
+    "scripts/test-ci-tiering.mjs": [
+      "scripts/verify-config.mjs"
+    ],
+    "scripts/test-ui-action-icons.mjs": [
+      "scripts/test-preflight-impact.mjs"
+    ],
+    "scripts/test-ui-archives.mjs": [
+      "scripts/test-ci-learning.mjs"
+    ],
+    "scripts/test-ui-focus-panel.mjs": [
+      "scripts/test-preflight-impact.mjs"
+    ],
+    "scripts/test-ui-reports-overview.mjs": [
+      "scripts/test-ui-reports-overview-runtime.mjs"
+    ],
+    "scripts/test-ui-task-notes-large.mjs": [
+      "scripts/test-preflight-impact.mjs"
+    ],
+    "scripts/verify-config.mjs": [
+      "scripts/test-single-focus-architecture.mjs"
+    ],
+    "scripts/test-ui-task-notes.mjs": [
+      "scripts/test-preflight-impact.mjs",
+      "scripts/test-ui-task-notes-large.mjs",
+      "scripts/test-ui-task-notes-spellcheck.mjs"
+    ],
+    "scripts/test-focus-live-real-mutation-handlers.mjs": [
+      "scripts/test-focus-live-mutation-gates.mjs"
+    ],
+    "scripts/test-reports-overview-date-picker-keyboard.mjs": [
+      "scripts/test-ui-reports-overview.mjs"
+    ],
+    "scripts/test-ui-icon-control-geometry.mjs": [
+      "scripts/test-preflight-impact.mjs"
+    ],
+    "scripts/test-archive-read-retry.mjs": [
+      "scripts/test-ci-learning.mjs",
+      "scripts/test-ui-archives.mjs"
+    ],
+    "scripts/test-home-read-retry.mjs": [
+      "scripts/test-ui-home-dashboard.mjs"
+    ],
+    "scripts/test-shortcut-accessibility-and-admission.mjs": [
+      "scripts/test-ci-learning.mjs"
+    ],
+    "scripts/capture-ready-fixture-cdp.mjs": [
+      "scripts/test-merged-prephysical-ci-coverage.mjs",
+      "scripts/test-shortcut-fixture-readiness.mjs"
+    ],
+    "scripts/test-shortcut-fixture-readiness.mjs": [
+      "scripts/test-ui-theme-settings.mjs"
+    ],
+    "scripts/test-reports-csv-export-single-flight.mjs": [
+      "scripts/test-ui-reports-sessions.mjs"
+    ]
+  },
+  "mandatoryAggregate": "npm run preflight:frontend",
+  "hint": "Review unmapped and indirect CSS/runtime consumers manually; local PASS is not CI/physical PASS"
+}

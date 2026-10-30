@@ -1,0 +1,75 @@
+{
+  "base": "bd86a7adef8aa2d197616e86de9d79c4aef86127",
+  "files": [
+    {
+      "path": "package.json",
+      "source_sha256": "f8ab7de87d7ee120a51ab3c506c695397f9e2a97cbfe39181e6a00d0fa7a82c7",
+      "canonical_sha256": "9e12ba8543492da3634f670be4b9420261ec8d814d0554fdab42e59da7573bf9"
+    },
+    {
+      "path": "src-tauri/src/domain/timer_events.rs",
+      "source_sha256": "081455e95f25a382f876e74c3796f4508b3c7ac61385320381a319182f063deb",
+      "canonical_sha256": "081455e95f25a382f876e74c3796f4508b3c7ac61385320381a319182f063deb"
+    },
+    {
+      "path": "src-tauri/src/lib.rs",
+      "source_sha256": "7b52486556852af7787feeb51e63599bb7d83e2ae1bd6feb6a28bf7def3eef43",
+      "canonical_sha256": "7b52486556852af7787feeb51e63599bb7d83e2ae1bd6feb6a28bf7def3eef43"
+    },
+    {
+      "path": "src-tauri/src/persistence/mod.rs",
+      "source_sha256": "14e8e9a8a30f62b0ac43b8abbd9e0bdeb2eb75e894cc1dabb4a525bdcb98d8f7",
+      "canonical_sha256": "14e8e9a8a30f62b0ac43b8abbd9e0bdeb2eb75e894cc1dabb4a525bdcb98d8f7"
+    },
+    {
+      "path": "src-tauri/src/persistence/timer_controller.rs",
+      "source_sha256": "2c5b5dcc49b58166e50ccef254dfb4db462f6c65cbfb7efb252f76d5b05750db",
+      "canonical_sha256": "2c5b5dcc49b58166e50ccef254dfb4db462f6c65cbfb7efb252f76d5b05750db"
+    },
+    {
+      "path": "src-tauri/src/report_commands.rs",
+      "source_sha256": "4771da1404676d73c50222153bb9f688e9b0863c0bc827cdb93810ea3b045c19",
+      "canonical_sha256": "4771da1404676d73c50222153bb9f688e9b0863c0bc827cdb93810ea3b045c19"
+    },
+    {
+      "path": "src-tauri/src/timer/runtime.rs",
+      "source_sha256": "5466ef9fbadb7e0741d788ec3c3ead5bda1eff7ad1397e4f3b373775874ec038",
+      "canonical_sha256": "5466ef9fbadb7e0741d788ec3c3ead5bda1eff7ad1397e4f3b373775874ec038"
+    },
+    {
+      "path": "src-tauri/src/timer_service.rs",
+      "source_sha256": "251891b5dc62ab6927da13d9b0e7287acdca9ebd20c5a20456b488b2df1d4edf",
+      "canonical_sha256": "251891b5dc62ab6927da13d9b0e7287acdca9ebd20c5a20456b488b2df1d4edf"
+    },
+    {
+      "path": "src-tauri/src/windows/topology.rs",
+      "source_sha256": "49098ad7f232b42596ec263a238d8161f2dea9aaf6985657fbdf4fe74c88d786",
+      "canonical_sha256": "49098ad7f232b42596ec263a238d8161f2dea9aaf6985657fbdf4fe74c88d786"
+    },
+    {
+      "path": "src/FocusLiveMetrics.tsx",
+      "source_sha256": "905f11056af01dcdb5e1231aa9f9a09b2598307ed06623a718eab05f9644bb95",
+      "canonical_sha256": "905f11056af01dcdb5e1231aa9f9a09b2598307ed06623a718eab05f9644bb95"
+    },
+    {
+      "path": "src/timerSessionApi.ts",
+      "source_sha256": "d9dbe47dea3ff44762d3327ac132e0bcd39a82088aa203b536a1b01f3ac8ce26",
+      "canonical_sha256": "2a1fb86c6c8806041db1a12ca7b6c3f96a3e349feaeef96643ac10fb986eadcb"
+    },
+    {
+      "path": "scripts/test-live-time-taken-render.mjs",
+      "source_sha256": "a0555c001a525d439d55a59959769ab902d6a0edab87f9956fca91fd6448dd42",
+      "canonical_sha256": "a0555c001a525d439d55a59959769ab902d6a0edab87f9956fca91fd6448dd42"
+    },
+    {
+      "path": "src-tauri/src/persistence/live_time_taken_projection.rs",
+      "source_sha256": "802c47e0082d1d5a583a098fbba55e655e3d24037f5819914c2ed171bd6c9ff9",
+      "canonical_sha256": "802c47e0082d1d5a583a098fbba55e655e3d24037f5819914c2ed171bd6c9ff9"
+    },
+    {
+      "path": "src-tauri/src/windows/move_trace.rs",
+      "source_sha256": "f8122fa2d88ac541c59e6d5ab9319ff691a61fd6387f630b293753fde4cd5180",
+      "canonical_sha256": "f8122fa2d88ac541c59e6d5ab9319ff691a61fd6387f630b293753fde4cd5180"
+    }
+  ]
+}
