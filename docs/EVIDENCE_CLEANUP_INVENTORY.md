@@ -1,6 +1,6 @@
 # Narro evidence cleanup — fixed-cohort progress and consumer audit
 
-**LIVE PROGRESS AFTER PR458 (2026-10-30): 25/700 retired, 675/700 remain; of the remaining, 411 HOLD and 264 REVIEW_REQUIRED.** Confirmed current checkout **19,106 tracked files / 11,190,388,083 bytes (11.190 GB)** at merge `60844c254f37ee821388b417015be319b995e462`. Source/test/reference trees unchanged. **Live ledger, initiated 2026-10-30.** Current authoritative status belongs to `HANDOFF.md`, acceptance to `TODO.md`, archival policy to [evidence retention](EVIDENCE_RETENTION_POLICY.md). This ledger measures only the **fixed 2026-10-30 baseline cohort** and is updated after verified retirement; it is not a mandate to delete every file. Do not rewrite frozen historical evidence logs.
+**LIVE PROGRESS AFTER PR459 (2026-10-30): 28/700 retired, 672/700 remain = 421 HOLD + 251 REVIEW_REQUIRED.** Confirmed current checkout **19,104 tracked blobs /11,183,775,973 logical B (11.184 GB)** at merge `8b8192def280acc0afdffcb190e2aeabb73fa3ba`, before subsequent documentation-only receipts. [Immutable PR459 closure](../work-log/2026-10-30-chatgpt-pr459-second-bulk-evidence-retirement.md). Source/test/reference trees unchanged. **Live ledger, initiated 2026-10-30.** Current authoritative status belongs to `HANDOFF.md`, acceptance to `TODO.md`, archival policy to [evidence retention](EVIDENCE_RETENTION_POLICY.md). This ledger measures only the **fixed 2026-10-30 baseline cohort** and is updated after verified retirement; it is not a mandate to delete every file. Do not rewrite frozen historical evidence logs.
 
 ## Fixed baseline — before batch PR458
 
@@ -176,7 +176,18 @@ The exact source/run and historical physically observed failures/retesting were 
 
 ---
 
-## Current progress and next safe operation
+## PR459 result — verified bulk deletion after the batch-two audit
+
+- [PR459](https://github.com/MariosGiannakaras/Narro/pull/459) exact head `91f8fc095b15caf0da1c6e67bb6cd603269cf087`, expected-head guarded squash merge **`8b8192def280acc0afdffcb190e2aeabb73fa3ba`**. GitHub exact source base→head and base→merge comparison confirmed **3/3 approved ZIP paths removed, no other changes**. Original binary bytes recoverable from pre-deletion `main` `f33482fd4b6cc0e931721ad4262e66ed169ec3f4`; retained CI/source-native receipts provide hash and causal history.
+- Exact resulting full recursive tree `truncated:false`: **19,104 blobs /11,183,775,973 logical B**, `work-log/evidence/` **17,274 /10,911,247,983 B**. All three deleted ZIPs absent. `reference/`/`src/`/`src-tauri/`/`tests/` unchanged by exact Git tree SHA; no source or test diff. Physical Windows and new source CI **NOT RUN**, commit `[skip ci]`.
+- **FIXED COHORT PROGRESS 28/700 deleted /672 remain**: **421 HOLD /7,753,783,922 B** + **251 REVIEW_REQUIRED /507,929,857 B**. Of the original 8,417,465,377 B media ZIP cohort, **155,751,598 B** removed by PR458+459, **8,261,713,779 B** remain. PR445–459 cumulative checkout retirement **19,329 files /5,741,648,614 B**; historical Git object storage unchanged. The 700 baseline never changes. This latest current classification supersedes the earlier snapshot in the large folder table, which remains historically frozen.
+- Original Narro CI failure/diagnostic screenshots, logs, native recordings, Blitzit source assets, PR389/419/437 current native evidence and original PA evidence retained. The three old CI failed runs remain historical FAIL; source-corrected exact successful runs validated archival obsolescence only.
+
+**NEXT:** Audit specific remaining **251 REVIEW_REQUIRED** paths by actual source/acceptance consumers in grouped batches, and retire only a new explicitly proven allowlist. The **421 HOLD** group is not a deletion target without newer consumer closure.
+
+---
+
+## Historical PR458 progress checkpoint
 
 **VERIFIED AFTER MERGE:** [PR458](https://github.com/MariosGiannakaras/Narro/pull/458) exact head `8338485c54e8da99e41f047382bc21ec0067b376`, expected-head-guarded squash merge `60844c254f37ee821388b417015be319b995e462`, **25/700 retired**, **675/700 remain**. GitHub exact compare: 25 removals and zero other changes. Post-merge full recursive Git tree `truncated:false`: **19,106 blobs / 11,190,388,083 B**, `work-log/evidence/` **17,277 / 10,917,872,285 B**. Full 700-item baseline cohort now has **675 files / 8,268,338,081 B**: **411 HOLD / 7,474,378,585 B**, **264 REVIEW / 793,959,496 B**; the removed 25 total 149,127,296 B. Every targeted old ZIP path is absent, all five preserved folder counts match **2/9/2/8/9** (30 provenance files). Unchanged exact Git trees: `reference/` `46dea0c640cbfc17003acf439d96f503a5c39410`, `src/` `715f8a0acc5bab9a170d3c55d683f3dcb64d0e90`, `src-tauri/` `d15e3d16751fee44dc494b406235e482011022c5`, `tests/` `229d81ddd95bfae21db7c05e60452e02ca1a0709`. CI/native NOT RUN (deletion-only `[skip ci]`), no code/feature/physical PASS. Cumulative verified retirements **PR445–458: 19,326 paths / 5,735,024,312 B** outside/including this batch; never add those 19,301 earlier removals to the fixed 700 baseline cohort. No shared Git history storage reclaimed.
 
