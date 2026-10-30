@@ -10,6 +10,28 @@ function invariant(condition, message) {
   if (!condition) throw new Error(`CI tiering contract failed: ${message}`);
 }
 
+// Operator-preparation safety contract: a CI-green artifact may be used only
+// in a disposable Windows profile, and private production AppData must never
+// be copied merely by preparing a checklist.
+const physicalPreparation = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
+for (const required of [
+  '[switch]$BackupProductionData',
+  'if ($BackupProductionData -and $productionDataExists) {',
+  'if ($Launch -and $productionDataExists) {',
+  'if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {',
+  'PA-01–PA-09 ACTIVE',
+  'docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md',
+]) invariant(physicalPreparation.includes(required),
+  "physical session preparer missing user-data/exact-build guard: " + required);
+invariant(
+  /if \(\$BackupProductionData -and \$productionDataExists\) \{\s*Copy-Item -LiteralPath \$productionAppDataDir/.test(physicalPreparation),
+  "production AppData copy must be explicitly opt-in",
+);
+invariant(
+  !/if \(Test-Path \$productionAppDataDir -PathType Container\) \{\s*Copy-Item -LiteralPath \$productionAppDataDir/.test(physicalPreparation),
+  "production AppData must never be copied by default",
+);
+
 // GitHub evaluates ordered positive/negative path patterns. Tracking-only
 // Markdown must not launch expensive Windows CI; the docs actually shipped in
 // validation artifacts must not be silently excluded.
