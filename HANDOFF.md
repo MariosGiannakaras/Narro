@@ -1,4 +1,13 @@
-# HANDOFF - live Time Taken correction and native move diagnosis
+# HANDOFF — PR437 live Time Taken and causal native trace
+
+**NOW 2026-10-30T08:24Z / OWNER Codex source + Windows / PHASE CI_WAIT.** Existing PR437 branch `integration/m7-v4-current-timer-20261027`, source worktree `C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload`, exact committed/pushed head `853180fda1cf85c7d4713e6f1106e8eed6be3088`, [CI41026163160](https://github.com/MariosGiannakaras/Narro/actions/runs/41026163160) IN PROGRESS. Fourteen source/test paths committed, no tracked source WIP; unrelated untracked icons preserved. Complete frontend preflight/build/format PASS; full local native tests NOT RUN (missing linker). [Immutable source/dependency/design/regression/log receipt](work-log/evidence/pr437-live-taken-move-preflight-20261030/README.md).
+
+**Current batch:** native task-bound live Time Taken display = durable effective total + only raw work after the matching durable checkpoint, cached without per-tick SQL; persisted editor/CAS basis remains separate. Successful historical create/edit/delete invalidates through an independent atomic signal, without Reports calling TimerService. Cache/controller/native regression tests await Windows execution. Opt-in bounded native move/subclass/snap/WINDOWPOS trace observes unchanged behavior; no causal move fix or movement PASS yet. Prior bd86 atomic-raster J05 scoped4/4/16 directions retained for its unchanged mechanism; current-candidate native acceptance still NOT RUN. All differing-position, SNAP, actual HDMI and PR389/419 evidence holds retained. No merge, M10 or optional-stage advancement.
+
+**ONE NEXT:** consume exact CI41026163160 on853180fd after dependency-safe preparation; if a causal check fails, fix existing PR and revalidate its replacement. If exact3/3 success, verify the new physical artifact/source/member hashes and launch a fresh protected session combining Time Taken acceptance with the new read-only native move trace before any move patch. Never reuse any restored protection ledger or recapture the same uninstrumented two routes. No app/recorder active; profiles remained restored throughout source work; no personal AppData/OS/input changes made. Keep PR DRAFT/UNMERGED until actual dependent holds are resolved.
+
+---
+# Historical — source correction preparation before853180fd
 
 **NOW 2026-10-30 / owner Codex source (explicit user asks analysis + correction) / phase FIXING.** Existing PR437 branch `integration/m7-v4-current-timer-20261027`, current committed headbd86a7ad/CI40976747495 SUCCESS/EXE12a03041; source worktree `C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload`. No replacement commit/run yet. Retain previous J05 four-group scoped PASS and all frozen movement evidence; no recorder/app active, profiles restored.
 

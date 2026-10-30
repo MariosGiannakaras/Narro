@@ -1,5 +1,9 @@
 # Unverified Blitzit behavior register — implementation decisions and later source checks
 
+## 2026-10-30 bounded Narro decision — live Taken cadence
+
+PR437853180fd implements responsive native-authoritative Time Taken display from the persisted effective total and only uncheckpointed native work. VE-016 paused editing remains confirmed; exact Blitzit live repaint cadence is unobserved. This is a Narro reliability/clarity decision, not a new source-parity assertion or U-item. Native/CI acceptance is pending; U01–U41 inventory and optional M11/M12 activation remain unchanged. [Accounting, evidence and verification boundaries](../work-log/evidence/pr437-live-taken-move-preflight-20261030/README.md).
+
 ## CURRENT 2026-10-15 — evidence limits and cross-version continuity
 
 User clarification: U01-U41 are implemented Narro-local decisions, not a queue of missing features or 41 wholly unevidenced surfaces. The completed ten-batch review consulted existing screenshots/videos through canonical Pass-3 and related evidence records; the closeout explicitly did not replay every original MP4. This checkpoint verifies all 41 unique register IDs and the ten review logs, not a fresh exhaustive re-analysis of the media.

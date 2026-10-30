@@ -1,5 +1,7 @@
 # Narro Engineering Risk Register
 
+**2026-10-30 NER-003/014 scoped guard:** PR437853180fd live Taken uses a task/session/checkpoint/history-owned cached durable basis; same-task native samples update the production component while edit CAS stays persisted. Failed/stale/mismatched reads fail closed without touching ledger authority. The full local preflight caught Reports directly referencing TimerService; corrected using independently managed atomic post-commit invalidation, retaining the original Reports separation contract unchanged. Actual create/edit/delete plus unavailable-table/no-hot-query regressions authored; Windows execution pending. [Full receipt](../work-log/evidence/pr437-live-taken-move-preflight-20261030/README.md). No physical or milestone PASS from these prevention measures.
+
 Status: **BINDING PREVENTION INDEX**
 
 Last updated: 2026-10-10
