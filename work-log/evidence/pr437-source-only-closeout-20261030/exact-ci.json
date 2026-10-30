@@ -1,0 +1,440 @@
+{
+  "conclusion": "success",
+  "headSha": "8bfd7575767668dbaa33593a7552e8226d7dc796",
+  "jobs": [
+    {
+      "completedAt": "2026-10-30T08:37:57Z",
+      "conclusion": "success",
+      "databaseId": 123969773001,
+      "name": "validation-gate",
+      "startedAt": "2026-10-30T08:37:53Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-30T08:37:54Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-30T08:37:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:37:55Z",
+          "conclusion": "success",
+          "name": "Check for already validated identical PR tree",
+          "number": 2,
+          "startedAt": "2026-10-30T08:37:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:37:55Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 3,
+          "startedAt": "2026-10-30T08:37:55Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/MariosGiannakaras/Narro/actions/runs/41027738611/job/123969773001"
+    },
+    {
+      "completedAt": "2026-10-30T08:39:03Z",
+      "conclusion": "success",
+      "databaseId": 123969808177,
+      "name": "fast-gate",
+      "startedAt": "2026-10-30T08:37:59Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-30T08:38:00Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-30T08:37:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:38:02Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-30T08:38:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:38:03Z",
+          "conclusion": "success",
+          "name": "Setup Node.js",
+          "number": 3,
+          "startedAt": "2026-10-30T08:38:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:38:04Z",
+          "conclusion": "success",
+          "name": "Setup Rustfmt",
+          "number": 4,
+          "startedAt": "2026-10-30T08:38:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:38:06Z",
+          "conclusion": "success",
+          "name": "Install Frontend Dependencies",
+          "number": 5,
+          "startedAt": "2026-10-30T08:38:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:38:59Z",
+          "conclusion": "success",
+          "name": "Run Fast Frontend and Contract Gate",
+          "number": 6,
+          "startedAt": "2026-10-30T08:38:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:01Z",
+          "conclusion": "success",
+          "name": "Check Rust Formatting",
+          "number": 7,
+          "startedAt": "2026-10-30T08:39:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:02Z",
+          "conclusion": "success",
+          "name": "Upload Fast Gate Frontend Dist",
+          "number": 8,
+          "startedAt": "2026-10-30T08:39:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:02Z",
+          "conclusion": "success",
+          "name": "Post Setup Node.js",
+          "number": 15,
+          "startedAt": "2026-10-30T08:39:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:02Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 16,
+          "startedAt": "2026-10-30T08:39:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:02Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-10-30T08:39:02Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/MariosGiannakaras/Narro/actions/runs/41027738611/job/123969808177"
+    },
+    {
+      "completedAt": "2026-10-30T09:05:11Z",
+      "conclusion": "success",
+      "databaseId": 123970212558,
+      "name": "windows-candidate",
+      "startedAt": "2026-10-30T08:39:05Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-30T08:39:08Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-30T08:39:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:15Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-30T08:39:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:24Z",
+          "conclusion": "success",
+          "name": "Setup Node.js",
+          "number": 3,
+          "startedAt": "2026-10-30T08:39:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:39:31Z",
+          "conclusion": "success",
+          "name": "Setup Rust",
+          "number": 4,
+          "startedAt": "2026-10-30T08:39:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:01Z",
+          "conclusion": "success",
+          "name": "Restore Rust cache",
+          "number": 5,
+          "startedAt": "2026-10-30T08:39:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:09Z",
+          "conclusion": "success",
+          "name": "Install Frontend Dependencies",
+          "number": 6,
+          "startedAt": "2026-10-30T08:40:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:10Z",
+          "conclusion": "success",
+          "name": "Download Fast Gate Frontend Dist",
+          "number": 7,
+          "startedAt": "2026-10-30T08:40:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:10Z",
+          "conclusion": "success",
+          "name": "Verify Fast Gate Frontend Dist",
+          "number": 8,
+          "startedAt": "2026-10-30T08:40:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:13Z",
+          "conclusion": "success",
+          "name": "Print Versions",
+          "number": 9,
+          "startedAt": "2026-10-30T08:40:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:40:20Z",
+          "conclusion": "success",
+          "name": "Prepare Packaging Icons",
+          "number": 10,
+          "startedAt": "2026-10-30T08:40:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:41:29Z",
+          "conclusion": "success",
+          "name": "Check Rust",
+          "number": 11,
+          "startedAt": "2026-10-30T08:40:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:41:44Z",
+          "conclusion": "success",
+          "name": "Run Clippy",
+          "number": 12,
+          "startedAt": "2026-10-30T08:41:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:44:08Z",
+          "conclusion": "success",
+          "name": "Run Rust Tests",
+          "number": 13,
+          "startedAt": "2026-10-30T08:41:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:44:15Z",
+          "conclusion": "success",
+          "name": "Validate Performance Harness",
+          "number": 14,
+          "startedAt": "2026-10-30T08:44:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:53:20Z",
+          "conclusion": "success",
+          "name": "Capture Visual Regression Fixtures",
+          "number": 15,
+          "startedAt": "2026-10-30T08:44:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:53:22Z",
+          "conclusion": "success",
+          "name": "Upload Visual Regression Artifact",
+          "number": 16,
+          "startedAt": "2026-10-30T08:53:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:53:22Z",
+          "conclusion": "skipped",
+          "name": "Retain Visual Regression Diagnostics After Capture Failure",
+          "number": 17,
+          "startedAt": "2026-10-30T08:53:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:56:45Z",
+          "conclusion": "success",
+          "name": "Build Tauri Release",
+          "number": 18,
+          "startedAt": "2026-10-30T08:53:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:57:01Z",
+          "conclusion": "success",
+          "name": "Capture Packaged Focus Runtime",
+          "number": 19,
+          "startedAt": "2026-10-30T08:56:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:57:03Z",
+          "conclusion": "success",
+          "name": "Upload Packaged Focus Runtime Visual Artifact",
+          "number": 20,
+          "startedAt": "2026-10-30T08:57:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T08:57:03Z",
+          "conclusion": "skipped",
+          "name": "Preserve Partial Focus Runtime Diagnostics After Failure",
+          "number": 21,
+          "startedAt": "2026-10-30T08:57:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:02:55Z",
+          "conclusion": "success",
+          "name": "Build Physical Validation Release",
+          "number": 22,
+          "startedAt": "2026-10-30T08:57:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:04Z",
+          "conclusion": "success",
+          "name": "Verify Physical Validation Build",
+          "number": 23,
+          "startedAt": "2026-10-30T09:02:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:05Z",
+          "conclusion": "success",
+          "name": "Prepare M7 Automatic Validation Executable",
+          "number": 24,
+          "startedAt": "2026-10-30T09:03:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:07Z",
+          "conclusion": "success",
+          "name": "Verify M7 Automatic Validation Logging",
+          "number": 25,
+          "startedAt": "2026-10-30T09:03:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:08Z",
+          "conclusion": "success",
+          "name": "Record Physical and M7 Validation Artifact Identity",
+          "number": 26,
+          "startedAt": "2026-10-30T09:03:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:10Z",
+          "conclusion": "success",
+          "name": "Upload Physical Validation Build Artifact",
+          "number": 27,
+          "startedAt": "2026-10-30T09:03:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:03:12Z",
+          "conclusion": "success",
+          "name": "Upload M7 Automatic Validation Artifact",
+          "number": 28,
+          "startedAt": "2026-10-30T09:03:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:00Z",
+          "conclusion": "success",
+          "name": "Build M1 Diagnostic Validation Release",
+          "number": 29,
+          "startedAt": "2026-10-30T09:03:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:04Z",
+          "conclusion": "success",
+          "name": "Verify M1 Diagnostic Storage Isolation",
+          "number": 30,
+          "startedAt": "2026-10-30T09:05:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:05Z",
+          "conclusion": "success",
+          "name": "Record M1 Diagnostic Artifact Identity",
+          "number": 31,
+          "startedAt": "2026-10-30T09:05:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:07Z",
+          "conclusion": "success",
+          "name": "Upload M1 Diagnostic Validation Artifact",
+          "number": 32,
+          "startedAt": "2026-10-30T09:05:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:07Z",
+          "conclusion": "success",
+          "name": "Post Restore Rust cache",
+          "number": 62,
+          "startedAt": "2026-10-30T09:05:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:07Z",
+          "conclusion": "success",
+          "name": "Post Setup Node.js",
+          "number": 63,
+          "startedAt": "2026-10-30T09:05:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:09Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 64,
+          "startedAt": "2026-10-30T09:05:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-30T09:05:10Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 65,
+          "startedAt": "2026-10-30T09:05:09Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/MariosGiannakaras/Narro/actions/runs/41027738611/job/123970212558"
+    }
+  ],
+  "status": "completed"
+}

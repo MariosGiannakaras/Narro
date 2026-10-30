@@ -1,4 +1,8 @@
-# Active source correction — 2026-10-30
+# Source-only published correction — 2026-10-30
+
+PR437 published44a22f2a (`[skip ci]`), complete live Taken correction including paused history event/reordered response guards; final local frontend preflight/build PASS. Current native/CI acceptance OPEN; two new Rust publication cases unexecuted. Last green8bfd7575 / CI41027738611 **3/3 SUCCESS**, artifact12965422969 / EXE599de681 downloaded, never launched. No new recording/app/profile/CI after final source-only direction. [Exact source/proof/remaining work](../work-log/evidence/pr437-source-only-closeout-20261030/README.md); HANDOFF owns continuation. Prior J05 bounded4/4 retained, all other holds/roadmap4/10 unchanged. No movement behavioral patch absent causal trace.
+
+# Historical source-candidate checkpoints before44a22f2a
 
 PR437 source `8bfd7575767668dbaa33593a7552e8226d7dc796`, [CI41027738611](https://github.com/MariosGiannakaras/Narro/actions/runs/41027738611) IN PROGRESS. Live Time Taken native display projection implemented with checkpoint/history/manual-edit/break/restart/error guards; bounded opt-in native move trace added, movement behavioral cause still UNKNOWN. Complete local frontend preflight/build and formatting PASS; full local Rust/native NOT RUN (missing MSVC linker), new native acceptance NOT RUN. [Scope, dependency review, regressions and full logs](../work-log/evidence/pr437-live-taken-move-preflight-20261030/README.md). Keep prior bd86 J05 bounded4/4 proof for unchanged raster mechanism, all differing-position/SNAP/hardware/A-B holds, PR DRAFT/UNMERGED and roadmap4/10. HANDOFF owns exact continuation; no app/recorder active or personal profile mutation.
 
