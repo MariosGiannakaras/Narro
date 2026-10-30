@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { selectImpactedTests, selectLearningRisks, parseChangedPaths } from "./preflight-impact.mjs";
+import { selectImpactedTests, selectLearningRisks, learningControls, parseChangedPaths } from "./preflight-impact.mjs";
 import { readFileSync } from "node:fs";
 const bodies = new Map([
  ["scripts/test-ui-focus-panel.mjs", 'const css = read("src/focusPanel.css");'],
@@ -51,3 +51,12 @@ for (const id of new Set([
   ...selectLearningRisks(["src-tauri/src/focus_layered_raster.rs"]).riskFamiliesToReview
 ])) assert.ok(register.includes("| **" + id + "** |"), "risk ID missing from register: " + id);
 console.log("Pre-push risk learning: historical family routing and executable Rustfmt admission PASS");
+
+const controls = learningControls(rustRisk.riskFamiliesToReview, register);
+assert.deepEqual(controls.map(row => row.id), rustRisk.riskFamiliesToReview);
+assert.ok(controls.find(row => row.id === "NER-015").preventionGuard.includes("multi-operation"));
+assert.ok(controls.every(row => row.state && row.trigger && row.preventionGuard));
+assert.throws(() => learningControls(["NER-999"], register), /Missing or duplicated/);
+assert.throws(() => learningControls(["NER-003"], register + "\n" +
+  register.split("\n").find(line => line.startsWith("| **NER-003** |"))), /Missing or duplicated/);
+console.log("Pre-push learning: live prevention text and stale/missing risk-ID failure PASS");
