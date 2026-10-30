@@ -14,7 +14,7 @@ impl TimeTakenInvalidation {
     pub fn invalidate(&self) {
         let _ = self
             .0
-            .fetch_update(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_add(1));
+            .try_update(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_add(1));
     }
     pub fn revision(&self) -> u64 {
         self.0.load(Ordering::Acquire)

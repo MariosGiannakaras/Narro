@@ -231,7 +231,7 @@ pub(super) fn record(
     };
     let Ok(sequence) = trace
         .attempts
-        .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
+        .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| {
             if n < MAX_RECORDS {
                 Some(n + 1)
             } else {
@@ -299,7 +299,7 @@ pub(super) fn record(
     if trace.send.try_send(row).is_err() {
         let _ = trace
             .dropped
-            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1));
+            .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1));
     }
 }
 
