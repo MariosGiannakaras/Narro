@@ -1,0 +1,658 @@
+
+> narro@0.1.0 preflight:frontend
+> npm run check:config && npm run test:ci-tiering && npm run test:ci-artifact-manifest && npm run test:preflight-impact && npm run test:date-formatting && npm run test:ui-theme && npm run test:ui-theme-settings && npm run test:preferences-loading-layout && npm run test:quick-preference-placement && npm run test:ui-typography && npm run test:ui-geometry && npm run test:ui-motion && npm run test:ui-reduced-motion && npm run test:ui-overlay-primitives && npm run test:ui-visual-fixtures && npm run test:ui-app-shell && npm run test:diagnostic-placement && npm run test:monitor-selection-identity && npm run test:single-instance-runtime && npm run test:ui-excluded-controls && npm run test:single-focus-architecture && npm run test:focus-runtime-visual-harness && npm run test:m7-validation-logging && npm run test:ui-focus-entry && npm run test:focus-success-timing && npm run test:ui-action-icons && npm run test:ui-focus-panel && npm run test:focus-live-mutation-gates && npm run test:focus-overtime-presentation && npm run test:focus-overdue-age && npm run test:focus-break-live && npm run test:ui-m6-parity-reconciliation && npm run test:ui-focus-live-title && npm run test:ui-focus-row-titles && npm run test:ui-focus-action-slots && npm run test:focus-action-gate && npm run test:ui-focus-icon-tooltips && npm run test:focus-panel-capture-readiness && npm run test:ui-focus-visual-states && npm run test:ui-focus-empty-states && npm run test:ui-floating-compact-mode && npm run test:ui-floating-movability && npm run test:ui-floating-collapsed && npm run test:ui-floating-expanded && npm run test:focus-mode-transition && npm run test:ui-focus-surface-transition && npm run test:focus-motion-v4 && npm run test:protected-timer-resize && npm run test:ui-focus-toggle-shortcut && npm run test:shortcut-retry && npm run test:in-app-shortcuts && npm run test:input-delivery-probe && npm run test:ui-global-shortcut-settings && npm run test:shortcut-accessibility-and-admission && npm run test:ui-icon-control-geometry && npm run test:ui-preferences && npm run test:sound-preference-save-focus && npm run test:preference-save-admission && npm run test:timezone-selection && npm run test:local-sound-catalog && npm run test:timed-alert-runtime && npm run test:timed-alert-listener-recovery && npm run test:notification-sound-delivery && npm run test:timed-alert-flash-runtime && npm run test:timed-alert-sound-runtime && npm run test:success-sound-runtime && npm run test:est-title-parser && npm run test:ui-home-dashboard && npm run test:ui-list-card-states && npm run test:ui-list-editor-modal && npm run test:list-spectrum-color && npm run test:list-builtin-icon-catalog && npm run test:ui-list-settings && npm run test:ui-archives && npm run test:ui-reports-api && npm run test:ui-reports-overview && npm run test:recorded-n28-n36 && npm run test:report-overview-presentation && npm run test:report-done-ordering && npm run test:ui-reports-overview-runtime && npm run test:ui-reports-sessions && npm run test:reports-current-projection && npm run test:report-recent-tasks && npm run test:report-add-session-placement && npm run test:report-sessions-presentation && npm run test:ui-m5-parity-reconciliation && npm run test:ui-search-palette && npm run test:ui-list-board && npm run test:board-list-picker-spoken-selection && npm run test:blitz-empty-today && npm run test:board-task-groups && npm run test:board-done-groups && npm run test:ui-cross-window-board-sync && npm run test:ui-task-card-states && npm run test:ui-task-hover-actions && npm run test:ui-task-create-edit && npm run test:board-create-single-flight && npm run test:board-snapshot-freshness && npm run test:board-reorder-single-flight && npm run test:metric-duration-input && npm run test:ui-task-metrics && npm run test:ui-task-scheduling && npm run test:ui-schedule-icon-geometry && npm run test:ui-preferences-list-check-icon-geometry && npm run test:task-schedule-quick-remove && npm run test:schedule-calendar && npm run test:schedule-time12 && npm run test:recurrence-summary && npm run test:ui-task-notes && npm run test:finding33-navigation-retry && npm run test:ui-task-notes-large && npm run test:ui-task-notes-spellcheck && npm run test:note-url-activation && npm run test:ui-task-subtasks && npm run test:ui-task-reorder && npm run test:merged-prephysical-ci-coverage && npm run build
+
+
+> narro@0.1.0 check:config
+> node scripts/verify-config.mjs
+
+Repository configuration invariants: PASS
+
+> narro@0.1.0 test:ci-tiering
+> node scripts/test-ci-tiering.mjs
+
+CI fast/candidate tiering contracts passed.
+
+> narro@0.1.0 test:ci-artifact-manifest
+> node scripts/test-ci-artifact-manifest.mjs
+
+CI artifact provenance manifest source identity, binary hashes, Windows bundles, fail-closed and deterministic format: PASS
+
+> narro@0.1.0 test:preflight-impact
+> node scripts/test-preflight-impact.mjs
+
+Pre-push impact: CSS, transitive CDP helper, task SVG, unmapped and git diff PASS
+
+> narro@0.1.0 test:date-formatting
+> node scripts/test-date-time-format.mjs
+
+Visible date/time locale contract: PASS
+
+> narro@0.1.0 test:ui-theme
+> node scripts/test-ui-theme-tokens.mjs
+
+UI semantic theme token contract: PASS
+
+> narro@0.1.0 test:ui-theme-settings
+> node scripts/test-ui-theme-settings.mjs
+
+Ready-fixture port/target race, ownership, exit, deadline and unexpected-error boundaries: 6/6 PASS.
+Shortcut capture actual completion: loading, identity, missing geometry and overflow rejection PASS.
+Theme settings/runtime contract: PASS
+
+> narro@0.1.0 test:preferences-loading-layout
+> node scripts/test-preferences-loading-layout.mjs
+
+Preferences and Quick Preferences stable skeleton/error/ready/reduced-motion contracts: PASS
+
+> narro@0.1.0 test:quick-preference-placement
+> node --experimental-strip-types scripts/test-quick-preference-live-placement.mjs
+
+Quick Preferences committed live Panel placement: PASS
+
+> narro@0.1.0 test:ui-typography
+> node scripts/test-ui-typography.mjs
+
+UI typography contract: PASS
+
+> narro@0.1.0 test:ui-geometry
+> node scripts/test-ui-geometry.mjs
+
+UI spacing/radius/elevation contract: PASS
+
+> narro@0.1.0 test:ui-motion
+> node scripts/test-ui-motion.mjs
+
+UI motion foundation contract: PASS
+
+> narro@0.1.0 test:ui-reduced-motion
+> node scripts/test-ui-reduced-motion.mjs
+
+UI reduced-motion contract: PASS
+
+> narro@0.1.0 test:ui-overlay-primitives
+> node scripts/test-ui-overlay-primitives.mjs
+
+Overlay primitive contract checks passed.
+
+> narro@0.1.0 test:ui-visual-fixtures
+> node scripts/test-ui-visual-fixtures.mjs
+
+Visual fixture harness contract checks passed.
+
+> narro@0.1.0 test:ui-app-shell
+> node scripts/test-ui-app-shell.mjs
+
+Real Home Archive/Duplicate callbacks: same-render exclusivity, cross-action gate, committed refresh and retry PASS.
+App shell/navigation contract checks passed.
+
+> narro@0.1.0 test:diagnostic-placement
+> node --experimental-strip-types scripts/test-diagnostic-placement-preferences.mjs
+
+Diagnostic placement preference/DPI recovery/restore regression: PASS
+
+> narro@0.1.0 test:monitor-selection-identity
+> node --experimental-strip-types scripts/test-monitor-selection-identity.mjs
+
+Monitor selection identity regressions passed.
+
+> narro@0.1.0 test:single-instance-runtime
+> node scripts/test-single-instance-runtime.mjs
+
+Single-instance runtime ownership contracts passed.
+
+> narro@0.1.0 test:ui-excluded-controls
+> node scripts/test-ui-excluded-controls.mjs
+
+Excluded service/account control absence checks passed.
+
+> narro@0.1.0 test:single-focus-architecture
+> node scripts/test-single-focus-architecture.mjs
+
+Single-Focus architecture invariants passed.
+
+> narro@0.1.0 test:focus-runtime-visual-harness
+> node scripts/test-focus-runtime-visual-harness.mjs
+
+Focus packaged-runtime visual harness contracts passed.
+
+> narro@0.1.0 test:m7-validation-logging
+> node scripts/test-m7-validation-logging.mjs
+
+M7 automatic validation logging contracts passed.
+
+> narro@0.1.0 test:ui-focus-entry
+> node scripts/test-ui-focus-entry.mjs
+
+Actual Blitz entry handler: same-render exclusion, committed morph, no-eligible and retry passed.
+Blitz entry single-flight native handoff and recovery passed.
+Single-host Focus entry, placement, and display-revalidation contracts passed.
+
+> narro@0.1.0 test:focus-success-timing
+> node --experimental-strip-types scripts/test-focus-success-timing.mjs
+
+Actual Focus post-Done Next/Break/Close handlers: same-render shared owner, failure and retry passed.
+Real Done handler: pending Preferences gate, saved ON/OFF sound/screen and failed-read fallback PASS.
+Focus success timing and local Fun GIF reaction contracts: PASS
+
+> narro@0.1.0 test:ui-action-icons
+> node scripts/test-ui-action-icons.mjs
+
+Narro shared semantic action-icon controls: PASS
+
+> narro@0.1.0 test:ui-focus-panel
+> node scripts/test-ui-focus-panel.mjs
+
+Focus Add/row exclusive synchronous submission, deferred refresh and committed-refresh failure contracts passed.
+Actual FocusPanel Row/MakeLive/Add/Delete/Home handlers: immediate shared owner and Home native rollback PASS.
+Focus shared command exclusion, cross-owner delayed read, native rollback and recovery passed.
+RA02 real Focus Done handler: completion/next/refresh ordering and parent visual guard PASS
+Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.
+
+> narro@0.1.0 test:focus-live-mutation-gates
+> node scripts/test-focus-live-mutation-gates.mjs
+
+Actual Focus Subtasks and paused metric handlers: owners, commit/readback and errors passed.
+Focus live subtask/metric same-render duplicate and committed-refetch ownership regression passed.
+
+> narro@0.1.0 test:focus-overtime-presentation
+> node --experimental-strip-types scripts/test-focus-overtime-presentation.mjs
+
+B67 signed overtime presentation and Windows visual validator contracts passed.
+
+> narro@0.1.0 test:focus-overdue-age
+> node --experimental-strip-types scripts/test-focus-overdue-age.mjs
+
+B31 Focus local-calendar overdue-age contracts passed.
+
+> narro@0.1.0 test:focus-break-live
+> node --experimental-strip-types scripts/test-focus-break-live-presentation.mjs
+
+U21 Focus Break presentation is view-only and the suspended task stays noninteractive.
+U23 Focus Break planned EST read-only projection, scope, transitions, and invalid durations passed.
+
+> narro@0.1.0 test:ui-m6-parity-reconciliation
+> node scripts/test-ui-m6-parity-reconciliation.mjs
+
+M6 Focus parity reconciliation contract checks passed.
+
+> narro@0.1.0 test:ui-focus-live-title
+> node scripts/test-ui-focus-live-title.mjs
+
+Focus live-title persisted preference, overflow scrolling, and reduced-motion contracts passed.
+
+> narro@0.1.0 test:ui-focus-row-titles
+> node scripts/test-ui-focus-row-titles.mjs
+
+Focus ordinary row-title wrapping and accessible full-title contracts passed.
+
+> narro@0.1.0 test:ui-focus-action-slots
+> node scripts/test-ui-focus-action-slots.mjs
+
+B49 decoded PNG scanlines, false identical capture, and focused rail change passed.
+Focus reserved action-slot and stable hit-target contracts passed.
+
+> narro@0.1.0 test:focus-action-gate
+> node --experimental-strip-types scripts/test-focus-action-gate.mjs
+
+Focus live-action synchronous exclusion, release and rejection recovery passed.
+
+> narro@0.1.0 test:ui-focus-icon-tooltips
+> node scripts/test-ui-focus-icon-tooltips.mjs
+
+Focus icon-only tooltip, accessibility, and stable-geometry contracts passed.
+
+> narro@0.1.0 test:focus-panel-capture-readiness
+> node scripts/test-focus-panel-capture-readiness.mjs
+
+Focus Panel rendered-capture readiness/retry vs real-failure gate: PASS
+
+> narro@0.1.0 test:ui-focus-visual-states
+> node scripts/test-ui-focus-visual-states.mjs
+
+Focus visual-state projection, scope, and fixture contracts passed.
+
+> narro@0.1.0 test:ui-focus-empty-states
+> node scripts/test-ui-focus-empty-states.mjs
+
+Focus empty/no-eligible behavior and scope contracts passed.
+
+> narro@0.1.0 test:ui-floating-compact-mode
+> node scripts/test-ui-floating-compact-mode.mjs
+
+Floating Timer single-host compact-mode contracts passed.
+
+> narro@0.1.0 test:ui-floating-movability
+> node scripts/test-ui-floating-movability.mjs
+
+Floating Timer single-host movability/topmost/taskbar contracts passed.
+
+> narro@0.1.0 test:ui-floating-collapsed
+> node scripts/test-ui-floating-collapsed.mjs
+
+Floating Timer collapsed single-host product contracts passed.
+
+> narro@0.1.0 test:ui-floating-expanded
+> node scripts/test-ui-floating-expanded.mjs
+
+Floating Timer single-host expanded behavior contracts passed.
+
+> narro@0.1.0 test:focus-mode-transition
+> node --experimental-strip-types scripts/test-focus-mode-transition.mjs
+
+✔ prepared Panel to Timer waits, commits native state, then transfers renderer ownership (2.0908ms)
+✔ prepared Timer to Panel uses the same ordered commit (0.1785ms)
+✔ requesting the committed presentation is a no-op (0.1455ms)
+✔ Panel/Timer prepaint completes before concurrent native position and renderer geometry (0.2433ms)
+✔ native clipping and motion cannot start before the promoted target has painted (0.2882ms)
+✔ promoted target paint failure leaves native presentation untouched (0.616ms)
+✔ failed motion waits for in-flight native commit before rollback (0.3798ms)
+✔ concurrent motion failure restores the previous native and renderer presentation (0.2633ms)
+✔ animated native failure restores the previous native and renderer presentation (0.2671ms)
+✔ renderer failure after animated native success restores the previous presentation (0.3062ms)
+✔ repeated Panel/Timer transitions keep deterministic commit ordering (6.0545ms)
+✔ ready failure leaves renderer ownership on the previous presentation (0.2313ms)
+✔ before failure leaves renderer ownership on the previous presentation (0.0916ms)
+✔ native failure leaves renderer ownership on the previous presentation (0.0883ms)
+✔ post-native motion failure restores the previous native presentation (0.1545ms)
+✔ renderer commit failure after native success restores the previous native presentation (0.1442ms)
+✔ failed renderer recovery preserves both failures for diagnosis (0.3117ms)
+✔ raster is retained through native commit and released only after renderer paint acknowledgement (0.1413ms)
+✔ raster before failure paints the prior renderer before releasing native protection (0.2194ms)
+✔ raster animated failure paints the prior renderer before releasing native protection (0.117ms)
+✔ raster paint failure paints the prior renderer before releasing native protection (0.1577ms)
+✔ failed rollback paint preserves its error and does not uncover an unpainted native state (0.2189ms)
+✔ a failed raster acquisition cannot initiate a second native placement of the already-committed presentation (1.6735ms)
+✔ a same-tick Timer resize blocks both direct presentation and keyboard task requests (72.3664ms)
+✔ native Find Timer defers and replays the latest sequence across protected Focus transitions (26.0383ms)
+✔ presentation listener rejection still hydrates from native authority and preserves an observable error (11.2758ms)
+✔ live Timer projection publishes synchronous task revisions before batched React state commits (3.8132ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.2631
+
+> narro@0.1.0 test:ui-focus-surface-transition
+> node scripts/test-ui-focus-surface-transition.mjs
+
+Single-host Focus presentation transition contracts passed.
+
+> narro@0.1.0 test:focus-motion-v4
+> node --experimental-strip-types scripts/test-focus-motion-v4.mjs
+
+Motion v4 pure choreography/geometry/regression: PASS
+
+> narro@0.1.0 test:protected-timer-resize
+> node --experimental-strip-types --test scripts/test-protected-timer-resize.mjs
+
+✔ timerCompact protects before geometry and releases only after publication paint (1.9073ms)
+✔ timerExpanded protects before geometry and releases only after publication paint (0.1752ms)
+✔ same presentation does not acquire or mutate (0.1604ms)
+✔ failed outgoing acquisition cannot touch renderer/native state (0.5575ms)
+✔ prepare:timerExpanded failure restores renderer under lease before native rollback/release (0.4231ms)
+✔ paint:1 failure restores renderer under lease before native rollback/release (0.2091ms)
+✔ animate:timerExpanded:41 failure restores renderer under lease before native rollback/release (0.2069ms)
+✔ publish:timerExpanded failure restores renderer under lease before native rollback/release (0.1744ms)
+✔ paint:2 failure restores renderer under lease before native rollback/release (0.2943ms)
+✔ release:41:1 failure restores renderer under lease before native rollback/release (0.3041ms)
+✔ rollback failure retains both causes and does not release unsafe pixels (0.4597ms)
+✔ delayed target paint cannot start animation early (6.5562ms)
+✔ production wiring retains protected Motion v4 and complete legacy Compact fallback without cross-owning leases (3.2672ms)
+✔ delayed native animation cannot publish or release early (1.6039ms)
+✔ expanded Timer waits for authoritative subtask hydration plus a final paint (0.2874ms)
+✔ compact Timer never waits for stale expanded subtask hydration (0.128ms)
+✔ never-settling expanded subtasks fail closed instead of rasterizing loading text (0.1905ms)
+✔ suspended renderer frames fail closed without unbounded requestAnimationFrame wait (0.1303ms)
+✔ timed paint cancels abandoned rAF callbacks when the renderer is suspended (0.2561ms)
+✔ Focus presentation transaction rejects a suspended WebView after a finite frame deadline (0.2227ms)
+✔ all critical Focus and Timer geometry paths use the finite presentation barrier (1.6327ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 158.5591
+
+> narro@0.1.0 test:ui-focus-toggle-shortcut
+> node scripts/test-ui-focus-toggle-shortcut.mjs
+
+Single-host Focus toggle shortcut contracts passed.
+
+> narro@0.1.0 test:shortcut-retry
+> node --experimental-strip-types scripts/test-shortcut-retry.mjs
+
+Shortcut retry reconciliation behavioral tests passed.
+
+> narro@0.1.0 test:in-app-shortcuts
+> node --experimental-strip-types scripts/test-in-app-shortcuts.mjs
+
+Single-host in-app shortcut contracts passed.
+
+> narro@0.1.0 test:input-delivery-probe
+> node scripts/native-input-prephysical-probe.mjs --self-test
+
+
+> narro@0.1.0 test:ui-global-shortcut-settings
+> node scripts/test-ui-global-shortcut-settings.mjs
+
+Global shortcut preference, rollback, startup, and product UI contracts passed.
+
+> narro@0.1.0 test:shortcut-accessibility-and-admission
+> node scripts/test-shortcut-accessibility-and-admission.mjs
+
+Shortcuts: all ten spoken chords, keycap visuals, concurrent native saves, rollback, retry PASS
+
+> narro@0.1.0 test:ui-icon-control-geometry
+> node scripts/test-ui-icon-control-geometry.mjs
+
+Reports calendars (Overview/Sessions), Sessions close/save, Focus action center: PASS
+
+> narro@0.1.0 test:ui-preferences
+> node scripts/test-ui-preferences.mjs
+
+Real SoundPreferenceControl Escape cancels blur-save; normal blur and duplicate exclusion PASS
+Actual initial-load recovery callbacks: Preferences and Shortcuts single-flight, lifecycle, stale-event ordering PASS
+M8 Preferences contracts passed.
+
+> narro@0.1.0 test:sound-preference-save-focus
+> node scripts/test-sound-preference-save-focus.mjs
+
+Production sound volume keyboard, pending save, focus, rollback, disabled owner and Escape: PASS
+
+> narro@0.1.0 test:preference-save-admission
+> node scripts/test-preference-save-admission.mjs
+
+Production Preferences write ownership: reentrant event-turn writes, pending UI, rollback and retry PASS
+
+> narro@0.1.0 test:timezone-selection
+> node --experimental-strip-types scripts/test-timezone-selection.mjs
+
+Timezone offset, DST, validated selection and user-preserved custom IANA contracts passed.
+
+> narro@0.1.0 test:local-sound-catalog
+> node --experimental-strip-types scripts/test-local-sound-catalog.mjs
+
+Local sound catalog contracts: PASS
+
+> narro@0.1.0 test:timed-alert-runtime
+> node scripts/test-timed-alert-runtime.mjs
+
+Timed-alert runtime contracts: PASS
+
+> narro@0.1.0 test:timed-alert-listener-recovery
+> node scripts/test-timed-alert-listener-recovery.mjs
+
+Timed-alert actual listener retry, terminal failure and lifecycle regressions: PASS
+
+> narro@0.1.0 test:notification-sound-delivery
+> node scripts/test-notification-sound-delivery.mjs
+
+Notification audio delivery: selected tone, mute, backlog, claim-once wakes, finite recovery, disposal and one renderer PASS.
+
+> narro@0.1.0 test:timed-alert-flash-runtime
+> node scripts/test-timed-alert-flash-runtime.mjs
+
+Timed-alert flash runtime contracts passed.
+
+> narro@0.1.0 test:timed-alert-sound-runtime
+> node scripts/test-timed-alert-sound-runtime.mjs
+
+Timed-alert sound runtime contracts: PASS
+
+> narro@0.1.0 test:success-sound-runtime
+> node scripts/test-success-sound-runtime.mjs
+
+Success sound runtime contracts: PASS
+
+> narro@0.1.0 test:est-title-parser
+> node --experimental-strip-types scripts/test-est-title-parser.mjs
+
+EST suffix parser and live-preview contracts passed.
+
+> narro@0.1.0 test:ui-home-dashboard
+> node scripts/test-ui-home-dashboard.mjs
+
+Actual Home read: failure, retry, successful empty, refresh supersession, fixture isolation and unmount PASS
+Home dashboard/list-card contract checks passed.
+
+> narro@0.1.0 test:ui-list-card-states
+> node scripts/test-ui-list-card-states.mjs
+
+List-card interaction-state contract checks passed.
+
+> narro@0.1.0 test:ui-list-editor-modal
+> node scripts/test-ui-list-editor-modal.mjs
+
+Create/Edit List modal contract checks passed.
+
+> narro@0.1.0 test:list-spectrum-color
+> node --experimental-strip-types scripts/test-list-spectrum-color.mjs
+
+Spectrum Core color geometry and HEX contracts passed.
+
+> narro@0.1.0 test:list-builtin-icon-catalog
+> node scripts/test-list-builtin-icon-catalog.mjs
+
+218 local whitelisted list icon geometries match Rust IDs.
+
+> narro@0.1.0 test:ui-list-settings
+> node scripts/test-ui-list-settings.mjs
+
+Actual Archive Restore/Delete handlers: same-render ownership, committed modal and retry passed.
+Archived list Restore/Delete same-render and cross-owner command exclusivity passed.
+List settings archive/delete contract checks passed.
+
+> narro@0.1.0 test:ui-archives
+> node scripts/test-ui-archives.mjs
+
+Archive read failure, same-tab retry, true empty state and unmount guards: PASS
+Archive lists/done-task surface contract checks passed.
+
+> narro@0.1.0 test:ui-reports-api
+> node scripts/test-ui-reports-api.mjs
+
+Reports history/session command API contracts passed.
+
+> narro@0.1.0 test:ui-reports-overview
+> node scripts/test-ui-reports-overview.mjs
+
+Real Reports Overview date picker: initial focus, Escape cancel, propagation, opener restoration/detachment PASS
+Reports tooltip scroll/edge/resize/DPI geometry: 2052 cases PASS.
+Reports print endpoint/cadence/density: 3660 lengths PASS.
+Reports Overview presentational/fixture contract checks passed.
+
+> narro@0.1.0 test:recorded-n28-n36
+> node scripts/test-recorded-n28-n36.mjs
+
+N28 actual Reports overlay state/keyboard/focus and N36 authoritative Break Skip feedback: PASS
+
+> narro@0.1.0 test:report-overview-presentation
+> node --experimental-strip-types scripts/test-report-overview-presentation.mjs
+
+Report Overview presentation/date contracts: PASS
+
+> narro@0.1.0 test:report-done-ordering
+> node --experimental-strip-types scripts/test-report-done-ordering.mjs
+
+Newest-first Done order, ties, immutability, timezone, filtered range and shared PDF contract: PASS
+
+> narro@0.1.0 test:ui-reports-overview-runtime
+> node scripts/test-ui-reports-overview-runtime.mjs
+
+Production CSV/PDF handler guards, duplicate events, failure/retry and PDF interaction restoration: PASS
+Production Reports Overview runtime contracts: PASS
+Real Reports keyed summary/chart/Done projection, pending, failure/retry and PDF admission PASS.
+
+> narro@0.1.0 test:ui-reports-sessions
+> node scripts/test-ui-reports-sessions.mjs
+
+Actual Reports picker Enter/Search/Arrow/Home/End/empty/pending handler regressions PASS
+Actual Reports Add/Edit/Delete handlers: cross-action immediate owner, retry and post-commit error recovery PASS.
+Reports Edit/Delete/Add shared mutation exclusion and post-write recovery passed.
+Reports Add Session single-flight, delayed-refetch exclusion and failed-write retry passed.
+Reports CSV exclusive local-file export, same-render, failure recovery, repeat success passed.
+Q18 actual Reports read owners: post-commit/pre-passive, aborted render, same filter and closed detail: PASS
+Actual Reports session/detail read producers reject stale filtered and post-mutation results.
+Reports Sessions production contracts: PASS
+
+> narro@0.1.0 test:reports-current-projection
+> node scripts/test-reports-current-projection.mjs
+
+M9 actual Reports keyed rows/summary and task modal owner projection passed.
+
+> narro@0.1.0 test:report-recent-tasks
+> node --experimental-strip-types scripts/test-report-recent-tasks.mjs
+
+Recent Tasks U35 local updated_at ordering and source-owner contracts: PASS
+
+> narro@0.1.0 test:report-add-session-placement
+> node --experimental-strip-types scripts/test-report-add-session-placement.mjs
+
+Anchored Add Session geometry, viewport clamping, focus and selected task contracts: PASS
+
+> narro@0.1.0 test:report-sessions-presentation
+> node --experimental-strip-types scripts/test-report-sessions-presentation.mjs
+
+Reports Sessions presentation contracts: PASS
+
+> narro@0.1.0 test:ui-m5-parity-reconciliation
+> node scripts/test-ui-m5-parity-reconciliation.mjs
+
+M5 parity reconciliation contract checks passed.
+
+> narro@0.1.0 test:ui-search-palette
+> node scripts/test-ui-search-palette.mjs
+
+Persistent Search quick-create success→close→reopen and both failure cleanup contracts passed.
+Search, Schedule and Reports actual retry callbacks and stale-read guards PASS
+Search palette contract checks passed.
+
+> narro@0.1.0 test:ui-list-board
+> node scripts/test-ui-list-board.mjs
+
+List board contract checks passed.
+
+> narro@0.1.0 test:board-list-picker-spoken-selection
+> node scripts/test-board-list-picker-spoken-selection.mjs
+
+Production Board/Focus selector: dynamic accessible selected list, focus clipping and keyboard names PASS
+
+> narro@0.1.0 test:blitz-empty-today
+> node --experimental-strip-types scripts/test-blitz-empty-today-presentation.mjs
+
+Empty Today/source-uncertainty presentation contracts: PASS
+
+> narro@0.1.0 test:board-task-groups
+> node --experimental-strip-types scripts/test-board-task-groups.mjs
+
+Board recurring/scheduled subgroup order and headings: PASS
+
+> narro@0.1.0 test:board-done-groups
+> node --experimental-strip-types scripts/test-board-done-groups.mjs
+
+Done per-date grouping, timezone, DST and stable-identity contracts: PASS
+
+> narro@0.1.0 test:ui-cross-window-board-sync
+> node scripts/test-ui-cross-window-board-sync.mjs
+
+Cross-window authoritative board synchronization contracts passed.
+
+> narro@0.1.0 test:ui-task-card-states
+> node scripts/test-ui-task-card-states.mjs
+
+Task-card state-model contract checks passed.
+
+> narro@0.1.0 test:ui-task-hover-actions
+> node scripts/test-ui-task-hover-actions.mjs
+
+Task hover/action-menu geometry and persistence contracts passed.
+
+> narro@0.1.0 test:ui-task-create-edit
+> node scripts/test-ui-task-create-edit.mjs
+
+Task creation and inline editing contract checks passed.
+
+> narro@0.1.0 test:board-create-single-flight
+> node scripts/test-board-create-single-flight.mjs
+
+Actual Board Create/Duplicate and Search Quick Task handlers: native same-render ownership, post-commit, failure/reopen PASS.
+Board/Search create/duplicate synchronous exclusion, delayed-refresh guard and retry contracts passed.
+
+> narro@0.1.0 test:board-snapshot-freshness
+> node scripts/test-board-snapshot-freshness.mjs
+
+Board committed-read freshness/target fence actual-handler regressions passed.
+
+> narro@0.1.0 test:board-reorder-single-flight
+> node scripts/test-board-reorder-single-flight.mjs
+
+Board real reorder handler synchronous keyboard/pointer and readback admission passed.
+
+> narro@0.1.0 test:metric-duration-input
+> node --experimental-strip-types scripts/test-metric-duration-input.mjs
+
+Board and paused Focus metric HH:MM/H:MM:SS parsing: PASS
+
+> narro@0.1.0 test:ui-task-metrics
+> node scripts/test-ui-task-metrics.mjs
+
+EST and Time Taken production contract checks passed.
+
+> narro@0.1.0 test:ui-task-scheduling
+> node scripts/test-ui-task-scheduling.mjs
+
+Task scheduling and recurrence production contract checks passed.
+
+> narro@0.1.0 test:ui-schedule-icon-geometry
+> node scripts/test-ui-schedule-icon-geometry.mjs
+
+Schedule icon geometry, 36px month chevrons, icon/label baselines and existing navigation: PASS
+
+> narro@0.1.0 test:ui-preferences-list-check-icon-geometry
+> node scripts/test-ui-preferences-list-check-icon-geometry.mjs
+
+Preferences + Windows Shortcuts 32px close and Board/Focus picker 16px check geometry PASS
+
+> narro@0.1.0 test:task-schedule-quick-remove
+> node --experimental-strip-types scripts/test-task-schedule-quick-remove.mjs
+
+Quick schedule removal pure contracts passed.
+Actual quick-clear handler/API: one writer, fresh version/link, native atomic command, invalidation/error ownership PASS.
+Actual recurring-parent Remove Recurring handler/API: fresh version, single flight, preserved children and fail-closed boundaries PASS.
+
+> narro@0.1.0 test:schedule-calendar
+> node --experimental-strip-types scripts/test-schedule-calendar.mjs
+
+Source Monday-first calendar geometry and real-date validation: PASS
+
+> narro@0.1.0 test:schedule-time12
+> node --experimental-strip-types scripts/test-schedule-time12.mjs
+
+12h inline clock-to-authoritative 24h conversion: PASS
+
+> narro@0.1.0 test:recurrence-summary
+> node --experimental-strip-types scripts/test-recurrence-summary.mjs
+
+Recurrence live-summary and dynamic labels: PASS
+
+> narro@0.1.0 test:ui-task-notes
+> node scripts/test-ui-task-notes.mjs
+
+file:///C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload/scripts/test-ui-task-notes.mjs:7
+  if (!haystack.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
+                                        ^
+
+Error: Missing immediate note transaction boundary: TransactionBehavior::Immediate
+    at requireText (file:///C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload/scripts/test-ui-task-notes.mjs:7:41)
+    at file:///C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload/scripts/test-ui-task-notes.mjs:67:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0

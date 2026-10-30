@@ -1,0 +1,20 @@
+{
+  "base": "1dd54ed8c3144498a2aaedaa9d59e2caa13731c7",
+  "filesCanonicalSha256": {
+    "src-tauri/src/focus_frame_hold.rs": "e6c48dda377d49f554e504111bac9580fc34f80fcac7cf8fca82f29ae9206516",
+    "scripts/test-ui-focus-surface-transition.mjs": "e3f6b9468ddb90bb2f30f027ae1529d8336bd9b3aedd543c8ef368121d7f4af3"
+  },
+  "frontendAggregate": "PASS on independent canonical checkout including production build",
+  "narrow": {
+    "transition": "27/27 PASS",
+    "protectedResize": "21/21 PASS",
+    "motionV4": "PASS",
+    "singleHostAndTransitionContracts": "PASS"
+  },
+  "nativeModuleMetadataClippy": "PASS, production Windows module plus all5 tests with Tauri integration stubs; no linking or execution",
+  "fullCargoNativeLocal": "NOT RUN: missing MSVC link.exe",
+  "format": "PASS",
+  "notesSource": "restored exact HEAD; not included in patch",
+  "validationRace": "Earlier in-place newline/format overlap caught locally before commit; final validation isolated;384 HEAD-identical index entries refreshed, no unrelated source staged",
+  "utc": "2026-10-29T23:59:15.312968+00:00"
+}

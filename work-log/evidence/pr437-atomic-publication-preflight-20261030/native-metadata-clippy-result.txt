@@ -1,0 +1,1 @@
+PASS: production native module and all5 tests typechecked/linted to metadata with Tauri integration stubs; no link, native test execution or visual acceptance.

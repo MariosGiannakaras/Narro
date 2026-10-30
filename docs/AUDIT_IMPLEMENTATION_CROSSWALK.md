@@ -1,4 +1,8 @@
-# Current J05 native comparison FAIL and atomic-publication correction — 2026-10-29
+# Current J05 atomic-publication candidate — 2026-10-30
+
+PR437 correction committed/pushed as `bd86a7adef8aa2d197616e86de9d79c4aef86127`, [CI40976747495](https://github.com/MariosGiannakaras/Narro/actions/runs/40976747495): validation/fast and Windows check/Clippy PASS; Rust tests IN PROGRESS at checkpoint. Final complete local frontend preflight/build, transition27/27, resize21/21, Motion v4/single-host contracts and formatting PASS. Local actual Windows module/tests metadata Clippy PASS with explicit integration stubs; full local native execution NOT RUN. [Source, exact preflight logs and impact](../work-log/evidence/pr437-atomic-publication-preflight-20261030/README.md). New source publishes rounded-alpha pixels/extent together, prepaints before show, and protects parent region growth/shrink; no new native PASS, merge or milestone advance. Next: exact CI/artifact then affected native comparison; HANDOFF owns continuation.
+
+## Latest completed native comparison — historical1dd54ed8, not bd86a7ad acceptance
 
 **Four groups acquired/reviewed4/4; overall0 PASS/4 FAIL** on PR4371dd54ed8/EXEdd95c060, exact CI40862716381 3/3 SUCCESS. All four Timer→Panel returns expose duplicated title/time in both GDI/DDA; reduced125% Panel→Timer briefly clips old header into the new envelope. Normal100% expansion has a GDI-only blank frame, uncertain as a displayed defect. Same host/task/paused clock and observed owned-popup release retained; original profiles/animation restored, no app/recorder remains. [Complete originals, actual PTS and scoped dispositions](../work-log/evidence/pr437-owned-overlay-native-20261029/README.md). Codex next corrects native bitmap/geometry publication as one operation with targeted native tests; no timing-only patch, no merge or milestone advance. M1–M4 4/10; M5–M9 OPEN; M10 gated. HANDOFF owns continuation.
 

@@ -1,0 +1,35 @@
+extern crate self as tauri;
+
+#[derive(Clone)]
+pub struct WebviewWindow;
+pub struct Hwnd(pub *mut std::ffi::c_void);
+impl WebviewWindow {
+    pub fn hwnd(&self) -> Result<Hwnd, std::io::Error> { Ok(Hwnd(std::ptr::null_mut())) }
+    pub fn scale_factor(&self) -> Result<f64, std::io::Error> { Ok(1.0) }
+    pub fn run_on_main_thread(&self, _action: impl FnOnce() + Send + 'static) -> Result<(), std::io::Error> { Ok(()) }
+}
+#[derive(Clone,Copy)]
+pub struct PhysicalPosition<T> { pub x:T, pub y:T }
+impl<T> PhysicalPosition<T> { pub fn new(x:T,y:T)->Self { Self{x,y} } }
+#[derive(Clone,Copy)]
+pub struct PhysicalSize<T> { pub width:T, pub height:T }
+impl<T> PhysicalSize<T> { pub fn new(width:T,height:T)->Self { Self{width,height} } }
+mod error {
+    #[derive(Debug)]
+    pub struct CommandError;
+    pub type CommandResult<T> = Result<T, CommandError>;
+    impl CommandError { pub fn new(_code: impl Into<String>, _message: impl Into<String>)->Self { Self } }
+    impl std::fmt::Display for CommandError { fn fmt(&self,f:&mut std::fmt::Formatter<'_>)->std::fmt::Result { write!(f,"stub") } }
+    impl std::error::Error for CommandError {}
+}
+mod timer_region {
+    pub fn apply_native_rect(_hwnd:usize,_visible:crate::PhysicalSize<u32>,_redraw:bool)->crate::error::CommandResult<bool> { Ok(false) }
+}
+mod focus_frame_capture {
+    pub fn compact_bgra(_png:&[u8],_width:u32,_height:u32)->crate::error::CommandResult<Vec<u8>> { Ok(vec![]) }
+}
+mod focus_webview {
+    pub fn notify_parent_position_changed(_window:&crate::WebviewWindow)->Result<(),String> { Ok(()) }
+}
+#[path="C:/Users/MariosG/.codex/worktrees/pr437-semantic-transition/NarroUpload/src-tauri/src/focus_frame_hold.rs"]
+mod actual_production_module;
