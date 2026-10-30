@@ -1,4 +1,8 @@
-# Source-only published correction — 2026-10-30
+# Pre-physical audit — 2026-10-30, source44a22f2a unchanged
+
+Review complete10/10 source domains:9 scoped PASS /1 confirmed FAIL **PP44-F01 (M5/M9)**. Manual Taken lowering then historical edit/delete can commit a negative effective total; actual SQLite/production SQL2 FAIL +4 PASS controls, reader/Board failure source-traced. **No correction applied; integrated physical readiness NOT READY.** [Full audit/reproducer/results](../work-log/evidence/pr437-prephysical-audit-20261030/README.md). Exact CI41031984280 validation/fast PASS, Windows Rust/check/Clippy PASS but full job still IN PROGRESS at last snapshot; user says do not wait, other chat consumes it. No physical execution, source/approved UX modification, merge or milestone advance. HANDOFF owns continuation.
+
+# Historical source-only publication before this audit
 
 PR437 published44a22f2a (`[skip ci]`), complete live Taken correction including paused history event/reordered response guards; final local frontend preflight/build PASS. Current native/CI acceptance OPEN; two new Rust publication cases unexecuted. Last green8bfd7575 / CI41027738611 **3/3 SUCCESS**, artifact12965422969 / EXE599de681 downloaded, never launched. No new recording/app/profile/CI after final source-only direction. [Exact source/proof/remaining work](../work-log/evidence/pr437-source-only-closeout-20261030/README.md); HANDOFF owns continuation. Prior J05 bounded4/4 retained, all other holds/roadmap4/10 unchanged. No movement behavioral patch absent causal trace.
 

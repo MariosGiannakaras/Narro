@@ -1,0 +1,81 @@
+{
+  "source": "44a22f2aaa2b0d901efcdc1317f1f0d28e163ac6",
+  "schema": "all11 actual migrations",
+  "sqliteVersion": "3.45.1",
+  "method": "actual extracted production SQL; Rust reader/error/board consequences established by source, not Rust execution or physical observation",
+  "sql": {
+    "sum": "SELECT COALESCE(SUM(duration_seconds), 0)\n         FROM sessions\n         WHERE task_id = ?1 AND kind = 'work'",
+    "rebase": "UPDATE tasks\n         SET manual_time_adjustment_seconds = ?1, updated_at = ?2\n         WHERE id = ?3 AND archived_at IS NULL",
+    "create": "INSERT INTO sessions (\n            id, task_id, kind, started_at, ended_at, duration_seconds,\n            source, created_at, updated_at\n         ) VALUES (?1, ?2, 'work', ?3, ?4, ?5, 'manual', ?6, ?6)",
+    "edit": "UPDATE sessions\n         SET started_at = ?1,\n             ended_at = ?2,\n             duration_seconds = ?3,\n             source = 'edit',\n             updated_at = ?4\n         WHERE id = ?5\n           AND ended_at IS NOT NULL\n           AND updated_at = ?6",
+    "delete": "DELETE FROM sessions\n         WHERE id = ?1\n           AND ended_at IS NOT NULL\n           AND updated_at = ?2"
+  },
+  "cases": [
+    {
+      "manualDesired": 5,
+      "mutation": "edit",
+      "beforeEffective": 5,
+      "persistedAfter": 1,
+      "adjustmentAfter": -85,
+      "afterEffective": -84,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": false
+    },
+    {
+      "manualDesired": 5,
+      "mutation": "delete",
+      "beforeEffective": 5,
+      "persistedAfter": 0,
+      "adjustmentAfter": -85,
+      "afterEffective": -85,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": false
+    },
+    {
+      "manualDesired": 90,
+      "mutation": "edit",
+      "beforeEffective": 90,
+      "persistedAfter": 1,
+      "adjustmentAfter": 0,
+      "afterEffective": 1,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": true
+    },
+    {
+      "manualDesired": 90,
+      "mutation": "delete",
+      "beforeEffective": 90,
+      "persistedAfter": 0,
+      "adjustmentAfter": 0,
+      "afterEffective": 0,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": true
+    },
+    {
+      "manualDesired": 100,
+      "mutation": "edit",
+      "beforeEffective": 100,
+      "persistedAfter": 1,
+      "adjustmentAfter": 10,
+      "afterEffective": 11,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": true
+    },
+    {
+      "manualDesired": 100,
+      "mutation": "delete",
+      "beforeEffective": 100,
+      "persistedAfter": 0,
+      "adjustmentAfter": 10,
+      "afterEffective": 10,
+      "committedRows": 1,
+      "nonnegativeInvariantPass": true
+    }
+  ],
+  "findingCases": 2,
+  "controlCases": 4,
+  "sourceHashes": {
+    "src-tauri\\src\\persistence\\task_metadata.rs": "4c2ba6aaa61a3851a5ad9648544d874c3e093be3e17df1e0bbdc21eeaf0da036",
+    "src-tauri\\src\\persistence\\sessions.rs": "680c11779aebe86875165212870d3b44699301ae9715f2ea6ad6bb891da43869"
+  }
+}
