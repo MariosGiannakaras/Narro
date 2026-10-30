@@ -270,6 +270,7 @@ jobs:
         name: narro-m5-visual-regression
         path: artifacts/visual-regression/*
         if-no-files-found: error
+        retention-days: 1
 
     - name: Retain Visual Regression Diagnostics After Capture Failure
       if: failure()
@@ -294,6 +295,7 @@ jobs:
         name: narro-m7-focus-runtime-visual
         path: artifacts/focus-runtime-visual/**
         if-no-files-found: error
+        retention-days: 1
 
     - name: Preserve Partial Focus Runtime Diagnostics After Failure
       # An upstream failure may occur before any Focus capture exists.
