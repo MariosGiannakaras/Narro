@@ -78,6 +78,26 @@ export function signalFromLog(log) {
   return null; // Generic exit code alone is not a reliable match.
 }
 
+/**
+ * Restrict classification to the GitHub-reported failed step. A job log also
+ * contains earlier successful steps, setup diagnostics and downstream cleanup:
+ * matching those can create a convincing but false recurrence fingerprint.
+ * If metadata or timestamped lines are unavailable, preserve UNKNOWN instead
+ * of silently attributing an unrelated error to the failed step.
+ */
+export function failedStepLog(log, step) {
+  const from = Date.parse(step?.started_at), through = Date.parse(step?.completed_at);
+  if (!Number.isFinite(from) || !Number.isFinite(through) || through < from)
+    return null;
+  const scoped = log.split(/\r?\n/).filter(line => {
+    const prefix = /^(\d{4}-\d\d-\d\dT\S+Z)\s/.exec(line);
+    if (!prefix) return false;
+    const at = Date.parse(prefix[1]);
+    return Number.isFinite(at) && at >= from && at <= through;
+  }).join("\n");
+  return scoped || null;
+}
+
 export function makeFingerprint(job, step, signal) {
   if (!signal || !job || !step) return null;
   return createHash("sha256").update(["windows-ci", job, step, signal.kind, signal.value]
@@ -190,7 +210,9 @@ async function scan(api) {
         try {
           const log = await api.logs(job.id);
           logs++;
-          const signal = signalFromLog(log), fingerprint = makeFingerprint(job.name, step.name, signal);
+          const failedLog = failedStepLog(log, step);
+          const signal = failedLog ? signalFromLog(failedLog) : null;
+          const fingerprint = makeFingerprint(job.name, step.name, signal);
           if (!fingerprint) { unknown++; continue; }
           observations.push({ fingerprint, signal, job: job.name, step: step.name,
             runId: run.id, attempt, url: run.html_url });
