@@ -590,6 +590,50 @@ pub fn create_manual_work_session(
     Ok(created)
 }
 
+
+/**
+ * Historical work edits change the session ledger but retain the user's signed
+ * Time Taken adjustment. If the removed work exceeds the remaining effective
+ * time, saturate that adjustment at zero effective seconds in the same write
+ * transaction. Do not rewrite session durations or raw Timer checkpoints.
+ *
+ * This runs only after a successful closed-session CAS mutation. A rollback
+ * covers both the history and the adjustment when any operation fails.
+ */
+fn preserve_nonnegative_time_taken_after_history_mutation(
+    conn: &Connection,
+    session: &SessionRecord,
+) -> Result<(), SessionStoreError> {
+    if session.kind != SessionKind::Work {
+        return Ok(());
+    }
+    let task_id = session.task_id.ok_or(SessionStoreError::InvalidSessionShape)?;
+    let (persisted, adjustment): (i64, i64) = conn.query_row(
+        "SELECT
+            (SELECT COALESCE(SUM(duration_seconds), 0)
+             FROM sessions WHERE task_id = ?1 AND kind = 'work'),
+            manual_time_adjustment_seconds
+         FROM tasks WHERE id = ?1",
+        [task_id.to_string()],
+        |row| Ok((row.get(0)?, row.get(1)?)),
+    )?;
+    if persisted < 0 {
+        return Err(SessionStoreError::CorruptDuration(persisted));
+    }
+    let effective = persisted
+        .checked_add(adjustment)
+        .ok_or(SessionStoreError::DurationOverflow)?;
+    if effective < 0 {
+        // A signed manual adjustment cannot exceed the remaining work debt:
+        // preserve the successful session edit/delete, but floor Taken at zero.
+        conn.execute(
+            "UPDATE tasks SET manual_time_adjustment_seconds = ?1 WHERE id = ?2",
+            params![-persisted, task_id.to_string()],
+        )?;
+    }
+    Ok(())
+}
+
 pub fn edit_closed_session_if_expected(
     conn: &mut Connection,
     id: SessionId,
@@ -635,6 +679,7 @@ pub fn edit_closed_session_if_expected(
         });
     }
 
+    preserve_nonnegative_time_taken_after_history_mutation(&tx, &current)?;
     let updated = load_session(&tx, id)?;
     tx.commit()?;
     Ok(updated)
@@ -666,6 +711,7 @@ pub fn delete_closed_session_if_expected(
         });
     }
 
+    preserve_nonnegative_time_taken_after_history_mutation(&tx, &current)?;
     tx.commit()?;
     Ok(current)
 }
@@ -694,10 +740,10 @@ mod tests {
     use super::*;
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
-    use crate::domain::tasks::NewTaskInput;
+    use crate::domain::tasks::{NewTaskInput, SetTaskTimeTakenInput};
     use crate::persistence::lists::{archive_list, create_list};
     use crate::persistence::run_migrations;
-    use crate::persistence::task_metadata::task_time_taken_seconds;
+    use crate::persistence::task_metadata::{set_task_time_taken, task_time_taken_seconds};
     use crate::persistence::tasks::{complete_task, create_task};
 
     const T0: &str = "2026-09-04T10:00:00Z";
@@ -921,6 +967,149 @@ mod tests {
         delete_closed_session_if_expected(&mut conn, second.id, &second.updated_at)
             .expect("delete second manual session");
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 300);
+    }
+
+
+    #[test]
+    fn lowered_manual_taken_remains_readable_after_closed_history_edit_or_delete() {
+        for mutation in ["edit", "delete"] {
+            let (mut conn, task_id) = fixture();
+            let history = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1)
+                .expect("original closed work history");
+            set_task_time_taken(
+                &mut conn,
+                task_id,
+                SetTaskTimeTakenInput { total_seconds: 5 },
+                T2,
+            )
+            .expect("lower Taken below the original history");
+            assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 5);
+
+            if mutation == "edit" {
+                let revised = edit_closed_session_if_expected(
+                    &mut conn,
+                    history.id,
+                    &history.updated_at,
+                    T0,
+                    T1,
+                    1,
+                    T2,
+                )
+                .expect("valid history edit remains allowed");
+                assert_eq!(revised.duration_seconds, 1);
+            } else {
+                delete_closed_session_if_expected(&mut conn, history.id, &history.updated_at)
+                    .expect("valid history deletion remains allowed");
+                assert!(sessions_for_task(&conn, task_id).unwrap().is_empty());
+            }
+
+            assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 0);
+            let adjustment: i64 = conn
+                .query_row(
+                    "SELECT manual_time_adjustment_seconds FROM tasks WHERE id = ?1",
+                    [task_id.to_string()],
+                    |row| row.get(0),
+                )
+                .unwrap();
+            assert_eq!(adjustment, if mutation == "edit" { -1 } else { 0 });
+        }
+    }
+
+    #[test]
+    fn history_mutations_preserve_nonnegative_manual_adjustments_and_cas_rollback() {
+        for desired in [90_u32, 100_u32] {
+            for mutation in ["edit", "delete"] {
+                let (mut conn, task_id) = fixture();
+                let history = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1)
+                    .unwrap();
+                set_task_time_taken(
+                    &mut conn,
+                    task_id,
+                    SetTaskTimeTakenInput { total_seconds: desired },
+                    T2,
+                )
+                .unwrap();
+                if mutation == "edit" {
+                    edit_closed_session_if_expected(
+                        &mut conn,
+                        history.id,
+                        &history.updated_at,
+                        T0,
+                        T1,
+                        1,
+                        T2,
+                    )
+                    .unwrap();
+                } else {
+                    delete_closed_session_if_expected(&mut conn, history.id, &history.updated_at)
+                        .unwrap();
+                }
+                let expected = u64::from(desired - 90)
+                    + if mutation == "edit" { 1 } else { 0 };
+                assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), expected);
+                let adjustment: i64 = conn
+                    .query_row(
+                        "SELECT manual_time_adjustment_seconds FROM tasks WHERE id = ?1",
+                        [task_id.to_string()],
+                        |row| row.get(0),
+                    )
+                    .unwrap();
+                assert_eq!(adjustment, i64::from(desired) - 90);
+            }
+        }
+
+        let (mut conn, task_id) = fixture();
+        let history = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1).unwrap();
+        set_task_time_taken(
+            &mut conn,
+            task_id,
+            SetTaskTimeTakenInput { total_seconds: 5 },
+            T2,
+        )
+        .unwrap();
+        assert!(matches!(
+            edit_closed_session_if_expected(&mut conn, history.id, "stale", T0, T1, 1, T2),
+            Err(SessionStoreError::StaleVersion { .. })
+        ));
+        assert!(matches!(
+            delete_closed_session_if_expected(&mut conn, history.id, "stale"),
+            Err(SessionStoreError::StaleVersion { .. })
+        ));
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 5);
+        assert_eq!(sessions_for_task(&conn, task_id).unwrap()[0].duration_seconds, 90);
+    }
+
+    #[test]
+    fn only_work_history_reconciles_taken_and_new_work_recovers_from_zero() {
+        let (mut conn, task_id) = fixture();
+        let prior_work = create_manual_work_session(&mut conn, task_id, T0, T1, 90, T1)
+            .unwrap();
+        set_task_time_taken(
+            &mut conn,
+            task_id,
+            SetTaskTimeTakenInput { total_seconds: 5 },
+            T2,
+        )
+        .unwrap();
+        let break_session = open_focus_break_session(&mut conn, Some(task_id), T1).unwrap();
+        let closed_break = close_session(&mut conn, break_session.id, 20, T2).unwrap();
+        edit_closed_session_if_expected(
+            &mut conn,
+            closed_break.id,
+            &closed_break.updated_at,
+            T0,
+            T1,
+            1,
+            T2,
+        )
+        .unwrap();
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 5);
+        delete_closed_session_if_expected(&mut conn, prior_work.id, &prior_work.updated_at)
+            .unwrap();
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 0);
+        let current = open_focus_work_session(&mut conn, task_id, T2).unwrap();
+        checkpoint_open_session(&mut conn, current.id, 10, T2).unwrap();
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 10);
     }
 
     #[test]
