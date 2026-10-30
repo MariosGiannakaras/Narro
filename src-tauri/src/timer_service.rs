@@ -99,6 +99,7 @@ struct FocusHomePauseLease {
 }
 
 pub struct TimerService {
+    time_taken_invalidation: crate::persistence::live_time_taken_projection::TimeTakenInvalidation,
     state: Mutex<TimerServiceState>,
     focus_home_pause_lease: Mutex<Option<FocusHomePauseLease>>,
     focus_home_pause_gate: Mutex<()>,
@@ -194,12 +195,14 @@ impl TimerService {
             }
         }
         trace.stage("construct-locks");
+        let time_taken_invalidation = controller.time_taken_invalidator();
         crate::timer_diagnostics::milestone(
             "timer-recovery-completed",
             "recover_at",
             "construct-locks",
         );
         Ok(Self {
+            time_taken_invalidation,
             state: Mutex::new(TimerServiceState {
                 controller,
                 effects_connection,
@@ -227,6 +230,12 @@ impl TimerService {
             state.controller.snapshot(),
             state.recovered_awaiting_resume,
         )
+    }
+
+    pub(crate) fn time_taken_invalidator(
+        &self,
+    ) -> crate::persistence::live_time_taken_projection::TimeTakenInvalidation {
+        self.time_taken_invalidation.clone()
     }
 
     /// A periodic checkpoint is crash recovery, not the final normal-Quit boundary.
@@ -2187,6 +2196,7 @@ mod tests {
             },
             awaiting_resume: false,
             change: Some(TimerSessionChange::Paused),
+            live_time_taken: None,
         };
 
         assert!(focus_home_pause_lease_matches(lease, &payload));

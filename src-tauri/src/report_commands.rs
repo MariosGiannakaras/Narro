@@ -865,7 +865,7 @@ pub async fn create_manual_report_session(
     let task_id = parse_task_id(&task_id)?;
     run_manual_session_write(move || {
         let mut connection = app_database(&app_handle)?;
-        create_manual_work_session(
+        let session = create_manual_work_session(
             &mut connection,
             task_id,
             &started_at,
@@ -873,8 +873,9 @@ pub async fn create_manual_report_session(
             u64::from(duration_seconds),
             &chrono::Utc::now().to_rfc3339(),
         )
-        .map(Into::into)
-        .map_err(map_session_error)
+        .map_err(map_session_error)?;
+        invalidate_live_time_taken(&app_handle);
+        Ok(session.into())
     })
     .await
 }
@@ -907,7 +908,7 @@ pub fn edit_report_session(
 ) -> CommandResult<ReportSessionMutationPayload> {
     let session_id = parse_session_id(&session_id)?;
     let mut connection = app_database(&app_handle)?;
-    edit_closed_session_if_expected(
+    let session = edit_closed_session_if_expected(
         &mut connection,
         session_id,
         &expected_updated_at,
@@ -916,8 +917,9 @@ pub fn edit_report_session(
         u64::from(duration_seconds),
         &chrono::Utc::now().to_rfc3339(),
     )
-    .map(Into::into)
-    .map_err(map_session_error)
+    .map_err(map_session_error)?;
+    invalidate_live_time_taken(&app_handle);
+    Ok(session.into())
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -928,9 +930,19 @@ pub fn delete_report_session(
 ) -> CommandResult<ReportSessionMutationPayload> {
     let session_id = parse_session_id(&session_id)?;
     let mut connection = app_database(&app_handle)?;
-    delete_closed_session_if_expected(&mut connection, session_id, &expected_updated_at)
-        .map(Into::into)
-        .map_err(map_session_error)
+    let session =
+        delete_closed_session_if_expected(&mut connection, session_id, &expected_updated_at)
+            .map_err(map_session_error)?;
+    invalidate_live_time_taken(&app_handle);
+    Ok(session.into())
+}
+
+fn invalidate_live_time_taken(app: &tauri::AppHandle) {
+    if let Some(signal) =
+        app.try_state::<crate::persistence::live_time_taken_projection::TimeTakenInvalidation>()
+    {
+        signal.invalidate();
+    }
 }
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
 import { ActionIcon } from "./ActionIcon";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { parseMetricDuration } from "./metricDurationInput";
 import {
@@ -79,7 +79,12 @@ function fixtureEditorFor(
   return metric ? editorFor(metric, task) : null;
 }
 
-function displayValue(metric: FocusMetricKind, task: ListBoardTask): string {
+function displayValue(metric: FocusMetricKind, task: ListBoardTask, timer: TimerSessionPayload): string {
+  const live = timer.liveTimeTaken;
+  if (metric === "time_taken" && live?.taskId === task.id && timer.runtime.timer.task_id === task.id) {
+    return live.error === null && live.seconds !== null && WHOLE_SECONDS.test(live.seconds)
+      ? timeTakenDraft(live.seconds) : "—";
+  }
   return metric === "estimate"
     ? (task.estSeconds === null ? "—" : estimateDraft(task.estSeconds))
     : timeTakenDraft(task.timeTakenSeconds);
@@ -131,10 +136,12 @@ export function FocusLiveMetrics({
     if (!pausedEditable && editor) setEditor(null);
   }, [editor, pausedEditable]);
 
-  const values = useMemo(() => ({
-    estimate: displayValue("estimate", projection),
-    time_taken: displayValue("time_taken", projection),
-  }), [projection]);
+  const values = {
+    estimate: displayValue("estimate", projection, timer),
+    time_taken: displayValue("time_taken", projection, timer),
+  };
+  const timeTakenUnavailable = timer.liveTimeTaken?.taskId === task.id
+    && timer.runtime.timer.task_id === task.id && values.time_taken === "—";
 
   const startEdit = (metric: FocusMetricKind) => {
     if (!canEdit) return;
@@ -281,6 +288,7 @@ export function FocusLiveMetrics({
                 className="focus-panel__metric-value timer-numerals motion-interactive"
                 data-focus-metric-control="open"
                 aria-label={`Edit ${metricLabel(metric)}: ${values[metric]}`}
+                title={metric === "time_taken" && timeTakenUnavailable ? "Live Time Taken is temporarily unavailable." : undefined}
                 onClick={() => startEdit(metric)}
               >
                 {values[metric]}
@@ -289,6 +297,7 @@ export function FocusLiveMetrics({
               <span
                 className="focus-panel__metric-value focus-panel__metric-value--readonly timer-numerals"
                 data-focus-metric-control="display"
+                title={metric === "time_taken" && timeTakenUnavailable ? "Live Time Taken is temporarily unavailable." : undefined}
               >
                 {values[metric]}
               </span>

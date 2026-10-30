@@ -5,6 +5,15 @@ use serde::{Deserialize, Serialize};
 
 pub const TIMER_SESSION_EVENT_NAME: &str = "timer-session-changed";
 
+/// Display authority only. Persisted Time Taken remains the CAS edit basis.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct LiveTimeTakenProjection {
+    pub task_id: TaskId,
+    pub seconds: Option<String>,
+    pub error: Option<String>,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TimerSessionPayload {
@@ -12,6 +21,8 @@ pub struct TimerSessionPayload {
     pub runtime: TimerRuntimeSnapshot,
     pub awaiting_resume: bool,
     pub change: Option<TimerSessionChange>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub live_time_taken: Option<LiveTimeTakenProjection>,
 }
 
 impl TimerSessionPayload {
@@ -21,6 +32,7 @@ impl TimerSessionPayload {
             runtime,
             awaiting_resume: false,
             change: None,
+            live_time_taken: None,
         }
     }
 
@@ -34,6 +46,7 @@ impl TimerSessionPayload {
             runtime,
             awaiting_resume: false,
             change: Some(change),
+            live_time_taken: None,
         }
     }
 }

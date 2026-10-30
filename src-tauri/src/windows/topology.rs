@@ -9,6 +9,9 @@ use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
 use std::sync::OnceLock;
 use tauri::Manager;
 
+#[path = "move_trace.rs"]
+mod move_trace;
+
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL];
 const RECOVERABLE_WINDOW_LABELS: [&str; 1] = ["main"];
@@ -335,6 +338,15 @@ unsafe extern "system" fn display_change_subclass_proc(
     subclass_id: usize,
     _reference_data: usize,
 ) -> isize {
+    move_trace::record(
+        hwnd,
+        message,
+        wparam,
+        lparam,
+        move_trace::Stage::Received,
+        None,
+        None,
+    );
     if message == WM_ENTERSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
         if let Some(app) = DISPLAY_APP_HANDLE.get() {
@@ -344,7 +356,27 @@ unsafe extern "system" fn display_change_subclass_proc(
         // Preserve the Tauri/window subclass chain before applying the final
         // proposed rectangle; Win32 requires TRUE when WM_MOVING was handled.
         let result = unsafe { def_subclass_proc(hwnd, message, wparam, lparam) };
-        if INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) && snap_timer_moving_rect(hwnd, lparam) {
+        move_trace::record(
+            hwnd,
+            message,
+            wparam,
+            lparam,
+            move_trace::Stage::AfterSubclass,
+            Some(result),
+            None,
+        );
+        let snapped =
+            INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) && snap_timer_moving_rect(hwnd, lparam);
+        move_trace::record(
+            hwnd,
+            message,
+            wparam,
+            lparam,
+            move_trace::Stage::AfterSnap,
+            Some(result),
+            Some(snapped),
+        );
+        if snapped {
             return 1;
         }
         return result;
@@ -382,7 +414,17 @@ unsafe extern "system" fn display_change_subclass_proc(
         };
     }
 
-    unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
+    let result = unsafe { def_subclass_proc(hwnd, message, wparam, lparam) };
+    move_trace::record(
+        hwnd,
+        message,
+        wparam,
+        lparam,
+        move_trace::Stage::AfterDefault,
+        Some(result),
+        None,
+    );
+    result
 }
 
 pub(crate) fn focus_interactive_move_active() -> bool {

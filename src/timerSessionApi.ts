@@ -83,6 +83,8 @@ export type TimerSessionPayload = {
   runtime: TimerRuntimeSnapshot;
   awaitingResume: boolean;
   change: TimerSessionChange | null;
+  /** Native display projection; persisted board value remains the edit CAS basis. */
+  liveTimeTaken?: { taskId: string; seconds: string | null; error: string | null };
 };
 
 export type SetPausedTimerEstimateRequest = {

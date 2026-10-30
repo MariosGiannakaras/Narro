@@ -3333,6 +3333,7 @@ pub fn run() {
                 })?;
             let timer_service = TimerService::recover(connection)
                 .map_err(|error| startup_error("recover authoritative timer runtime", error))?;
+            app.manage(timer_service.time_taken_invalidator());
             app.manage(timer_service);
             recurrence_service::install_background_orchestration(background_database_path.clone())
                 .map_err(|error| startup_error("start recurrence orchestration runtime", error))?;
