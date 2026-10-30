@@ -1,10 +1,10 @@
-# CURRENT — evidence-retention cleanup PR445–451 merged; remaining archival inventory OPEN
+# CURRENT — evidence retention PR445–452 verified; remaining historical inventory OPEN
 
-- [x] PR445 retention/prevention: original Blitzit media protected regardless of folder; new Narro captures ignored by default; transient successful CI visual artifacts expire sooner; exact-head [CI41075618732](https://github.com/MariosGiannakaras/Narro/actions/runs/41075618732) and resulting-main [CI41082990929](https://github.com/MariosGiannakaras/Narro/actions/runs/41082990929) (merge `fd7b2da4072f4846fb199cfdfa9e88c2bee06c62`) **3/3 PASS**.
-- [x] PR446–451: After merged retention-policy PR445 and evidence-only deletion PR446–451: **18,392 Narro-generated files / 3,023,004,196 logical bytes** retired from current checkout. PR449 merge `84b781f78718bc2be46a11a91bd6683b2e2370fd` (2,820 CI911/CI942 derived PNGs), PR450 merge `b1905f528b3ff0d718f8f422428bde7dddde7fcd` (24 obsolete CI893 long MP4 parts), PR451 merge `56c8cfbfc456a5978bcd7268d11765d435b8d698` (five CI884 full-video segments). Earlier PR446–448 are merged. Evidence receipts: `work-log/2026-10-30-chatgpt-ci911-ci942-derived-frames-cleanup.md`, `work-log/2026-10-30-chatgpt-ci893-retired-full-video.md`, `work-log/2026-10-30-chatgpt-ci884-retired-full-video.md`, plus prior PR446–448 work logs. Historical binaries remain restorable from pinned pre-deletion Git commits; no history rewrite.
-- [x] Verify strict deletion-path allowlists, surviving compact evidence/provenance/source retrieval, and unmodified `reference/`/`src/`/`src-tauri/`/`tests/` trees. No physical Windows tests for deletion-only PRs (`NOT RUN`); historical Git objects still exist.
-- [ ] Remaining `work-log/` **13,636,217,462 bytes / 19,234 files** includes potentially active/original/critical evidence; assess each candidate against current PR/native/test consumers and original Blitzit provenance before deleting. Do not equate all remaining media with waste.
-- [ ] Independent dependency-ordered PR437 native acceptance and PR389/419 specific physical-before-merge holds remain OPEN / NOT RUN here. Roadmap M1–M4 **4/10** accepted, M5–M9 OPEN; M10 gated; M11/M12 inactive.
+- [x] Retention prevention and original Blitzit protection: PR445, exact-head + resulting-main Windows CI 3/3 SUCCESS.
+- [x] Evidence retirement PR446–452: **19,232 Narro-generated files / 3,072,832,652 logical bytes**. PR452 latest merge `fe4cdcef3fe4554e36e8fb7be131802a95d4c792`, 840 historical CI948 generated PNGs / 49,828,456 bytes; see `work-log/2026-10-30-chatgpt-ci948-derived-frame-cleanup.md` and prior immutable receipts.
+- [x] Verified strict PR452 allowlist (840 PNG + 1 receipt), unchanged protected `reference/`, application and tests Git subtrees. No native Windows tests for evidence-only removal (`NOT RUN`).
+- [ ] Remaining `work-log/` **18,395 files / 13,586,390,671 bytes**: classify by source/consumer before any new retirement; historical Git objects not compacted.
+- [ ] Separate PR437 PA and PR389/419 specific native acceptance remain OPEN; M1–M4 **4/10**, M5–M9 OPEN, M10 hold, M11/M12 inactive.
 
 ---
 
