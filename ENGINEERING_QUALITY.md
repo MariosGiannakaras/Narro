@@ -35,6 +35,9 @@ This is deliberately **not** another backlog, milestone ledger, acceptance gate,
 
 Before a non-trivial source/config/test change:
 
+Use `node scripts/preflight-impact.mjs --base main` (or `--files` for a focused proposed diff) to surface matching **historical risk-family IDs** along with affected tests and unmapped files. Inspect the relevant risk-register controls and first-failure evidence rather than assuming that printing the IDs proves review or protects the changed code. For Rust source, `--run` executes the cheap `check:rust:fmt` step first; the remaining listed Rust compiler/Clippy/test checks must still be run when available, or explicitly recorded **NOT RUN**. This is an addition to, not a replacement for, CI and physical validation.
+
+
 - classify the affected surfaces and state/native/persistence/tooling authorities;
 - consult only the matching risk-register tags/families rather than rereading the whole history;
 - carry any applicable prevention invariant and guard into the implementation/test plan;
