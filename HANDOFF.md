@@ -1,4 +1,10 @@
-# HANDOFF - Codex owns J05 atomic native-publication correction
+# HANDOFF - J05 exact candidate native retest prepared
+
+**NOW 2026-10-30T00:23Z / owner Codex / phase PREPARED.** PR437 exact head `bd86a7adef8aa2d197616e86de9d79c4aef86127`, CI40976747495 **completed 3/3 SUCCESS**, including Windows Clippy, all Rust/native tests, fixtures and packaging. Verified physical artifact12944400152 ZIP SHA256 `946b5b69261aa42b4ad2720eacfe45fef664406fdf6c56ae950a1757aeff97fd`, EXE SHA256 `12a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44`; provenance/run/all3 member hashes verified. Acquisition **0/4** new normal/reduced100%/125% groups. No new native PASS or merge.
+
+**NEXT:** run the prepared profile-protection/animation-watchdog/launch helpers in `E:/SystemFiles/Desktop/Narro-Workspace/Narro-Physical-20261030-PR437-Atomic`, then four paired GDI/DDA segments per ACCEPTANCE.md, all4 presentation directions independently graded; differing-position supplement if state permits. Resume by inspecting private protection ledger, owned PID, stop flags and partial media before replay. No active app/recorder or profile mutation at this checkpoint. Restore personal profiles hash-identically and original animation before analysis. Existing protected compositor holds and separate hardware/roadmap gates remain open.
+
+## Historical pre-completion source checkpoint
 
 **Last reported: 2026-10-30; owner Codex source + Windows; phase CI_WAIT.** Current PR437 head `bd86a7adef8aa2d197616e86de9d79c4aef86127`, [CI40976747495](https://github.com/MariosGiannakaras/Narro/actions/runs/40976747495): validation/fast PASS; Windows check/Clippy PASS, Rust tests IN PROGRESS. No whole-run success, new artifact or native acceptance yet. Latest completed native campaign on OLD1dd54ed8/EXEdd95c060: acquisition **4/4**, analysis **4/4**, overall **0 PASS /4 FAIL**; all4 Timer-to-Panel paths duplicate title/time, reduced125% forward clipping also FAIL. GDI-only normal100% expansion blank remains uncertain. [Published originals/PTS/results](work-log/evidence/pr437-owned-overlay-native-20261029/README.md), main evidence e0af736a. No active app/recorder; personal profiles restored hash-identically and original animation false restored.
 
