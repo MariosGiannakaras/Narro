@@ -1,11 +1,10 @@
-# CURRENT — finish existing PR444 normal-profile PA workflow and handoff
+# CURRENT — verify resulting-main CI and close PR444 workflow slice
 
-- [x] Respect latest user decision: normal Windows Narro data are disposable; remove needless isolated account, temporary DB and backup requirements. Keep stop-before-Narro-reset, restart-persistence and unrelated data/OS boundaries.
-- [x] Apply minimal scoped source changes on **existing [PR444](https://github.com/MariosGiannakaras/Narro/pull/444)** head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be`: PowerShell script, PID/path/SHA verification, risk routing, existing JS regression contracts. No product source changes. Align live process/operator docs.
-- [x] Exact-head [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) validation and fast **PASS**, prior fast FAIL at older head retained historically.
-- [ ] **CI retry:** [run41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt1 Windows **FAIL** on `task-scheduling-no-repeat-light` readiness after eight captures; validation/fast PASS. Attempt2 single-job rerun **RUNNING / NOT PASS** on exact `da9ce3a1` head. [Immutable receipt](work-log/2026-10-30-chatgpt-pr444-origin-of-backup-and-ci-visual-retry.md). No merge or physical PASS inferred.
-- [ ] Current Windows candidate **RUNNING / NOT PASS** on exact head; after success perform reviewed expected-head PR444 merge and verify resulting-main, or diagnose failed step with new exact-head retry on same branch.
-- [ ] PA-01–09 actual Windows tests **ACTIVE / NOT RUN**, independent PR437 and PR389/419 native holds unchanged, no M10/M11 activation. These are roadmap acceptance, not an extra PR444 governance/integration blocker.
+- [x] On [PR444](https://github.com/MariosGiannakaras/Narro/pull/444), remove unnecessary isolated Windows profile / temporary DB / automatic backup and use ordinary-profile Narro-only disposable test data. Retain PID/path/executable SHA-256, no unrelated OS/data changes.
+- [x] Exact head `da9ce3a1f7a83d5b3a613badbd03596fcdef14be` [CI41050335736](https://github.com/MariosGiannakaras/Narro/actions/runs/41050335736) attempt2 **3/3 SUCCESS**; first attempt Windows visual fixture FAIL remains a separate historical FAIL.
+- [x] Expected-head guarded PR444 squash merge **`f8ce9343356bd0d20b54cb48aa2cf9fb7aef9ecf`**, changed scripts/tests blob hashes **5/5 identical** on merged main.
+- [ ] Resulting-main [CI41054758746](https://github.com/MariosGiannakaras/Narro/actions/runs/41054758746) validation PASS, fast PASS, Windows **RUNNING**. On PASS, immutable closure/handoff and task complete; if FAIL, inspect first failing step and act on evidenced cause.
+- [ ] Separate roadmap-native PA-01–09 **ACTIVE / NOT RUN** missing cases; PR437 physical, PR389/419 strict native holds remain OPEN. Do not count these as a failure of this independent PR444 workflow slice, do not activate M10/M11/M12.
 
 ---
 
