@@ -93,7 +93,9 @@ export function failedStepLog(log, step) {
     const prefix = /^(\d{4}-\d\d-\d\dT\S+Z)\s/.exec(line);
     if (!prefix) return false;
     const at = Date.parse(prefix[1]);
-    return Number.isFinite(at) && at >= from && at <= through;
+    // GitHub job step boundaries have whole-second precision; include the
+    // final second's fractional timestamp without admitting earlier steps.
+    return Number.isFinite(at) && at >= from && at < through + 1000;
   }).join("\n");
   return scoped || null;
 }
