@@ -6,6 +6,8 @@
 
 **Independent acceptance not closed:** [PR437](https://github.com/MariosGiannakaras/Narro/pull/437) exact head `632345026d9c693613a3a0b3e9a8105740fcc6af` automated 3/3 PASS, actual PP44-F01 Time Taken/Reports and M7 Panel/Timer/movement/SNAP native cases **NOT RUN**. PR389/PR419 retain separate strict compositor `PHYSICAL_BEFORE_MERGE` 8/8 holds. PA-01–09 **ACTIVE**, missing native evidence **NOT RUN**; accepted M1–M4 **4/10**, M5–M9 OPEN, M10 user gate, M11/M12 inactive. No native PASS inferred from source/Windows CI.
 
+**FINAL WORKFLOW AUDIT 2026-10-30:** [Exact GitHub, active handoff, PA policy and CI consistency receipt](work-log/2026-10-30-chatgpt-final-workflow-handoff-consistency-audit.md). The active bootstrap now reads only relevant current sections of HANDOFF/TODO/STATUS; historical snapshots remain untouched. Dependent P09/P11 and PR431 native instructions now honor the user's regular-profile Narro test-data authorization. No application or CI source change and no new automated CI pending from these documentation-only corrections.
+
 **ONE NEXT (separate Windows physical workstream):** Authorized Codex/Windows operator, when desktop access exists, use [exact PR437 candidate/operator packet](docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md) with normal Narro test data. Verify PID/path/executable SHA and run only uncovered PP44-F01 actual edits/deletes/Board/Reports/restart and M7 movement/SNAP cases, recording PASS/FAIL/INCONCLUSIVE/NOT RUN independently. Respect PR389/419 strict independent A/B acceptance and hand off evidenced failures for code correction. **The PR444 workflow workstream is finished; no source task is left open in this chat.**
 
 ---
