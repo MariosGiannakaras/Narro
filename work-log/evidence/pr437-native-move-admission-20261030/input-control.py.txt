@@ -1,0 +1,12 @@
+from pathlib import Path
+import ctypes as c,ctypes.wintypes as w,json,datetime,sys
+r=Path(__file__).parent/'candidate-bd86a7ad';u=c.WinDLL('user32',use_last_error=True)
+u.GetWindowThreadProcessId.argtypes=[w.HWND,c.POINTER(w.DWORD)];u.GetWindowThreadProcessId.restype=w.DWORD
+class Gui(c.Structure):
+ _fields_=[('size',w.DWORD),('flags',w.DWORD),('active',w.HWND),('focus',w.HWND),('capture',w.HWND),('menuOwner',w.HWND),('moveSize',w.HWND),('caret',w.HWND),('caretRect',w.RECT)]
+u.GetGUIThreadInfo.argtypes=[w.DWORD,c.POINTER(Gui)];u.GetGUIThreadInfo.restype=w.BOOL
+u.SetProcessDpiAwarenessContext(c.c_void_p(-4))
+h=int(sys.argv[2]);p=w.DWORD();thread=u.GetWindowThreadProcessId(h,c.byref(p));title=c.create_unicode_buffer(256);u.GetWindowTextW(h,title,256);assert title.value=='Untitled - Notepad'
+g=Gui();g.size=c.sizeof(g);assert u.GetGUIThreadInfo(thread,c.byref(g));point=w.POINT();u.GetCursorPos(c.byref(point));rect=w.RECT();u.GetWindowRect(h,c.byref(rect))
+result={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'focusHwnd':h,'flags':g.flags,'inMoveSize':bool(g.flags&2),'inMenuMode':bool(g.flags&4),'moveSizeHwnd':g.moveSize,'captureHwnd':g.capture,'cursor':[point.x,point.y],'rect':[rect.left,rect.top,rect.right,rect.bottom]}
+(r/(sys.argv[1]+'.json')).write_text(json.dumps(result,indent=2));print(json.dumps(result))

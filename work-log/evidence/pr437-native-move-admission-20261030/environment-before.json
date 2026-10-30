@@ -1,0 +1,41 @@
+{
+  "utc": "2026-10-30T06:33:56.100540+00:00",
+  "monitors": [
+    {
+      "device": "\\\\.\\DISPLAY1",
+      "primary": true,
+      "bounds": [
+        0,
+        0,
+        2560,
+        1080
+      ],
+      "workArea": [
+        0,
+        0,
+        2560,
+        1080
+      ]
+    },
+    {
+      "device": "\\\\.\\DISPLAY2",
+      "primary": false,
+      "bounds": [
+        -1920,
+        0,
+        0,
+        1080
+      ],
+      "workArea": [
+        -1920,
+        0,
+        0,
+        1080
+      ]
+    }
+  ],
+  "primarySize": [
+    2560,
+    1080
+  ]
+}

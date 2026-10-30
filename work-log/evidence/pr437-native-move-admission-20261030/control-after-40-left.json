@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-30T06:46:18.268516+00:00",
+  "focusHwnd": 2753994,
+  "flags": 3,
+  "inMoveSize": true,
+  "inMenuMode": false,
+  "moveSizeHwnd": 2753994,
+  "captureHwnd": 2753994,
+  "cursor": [
+    696,
+    350
+  ],
+  "rect": [
+    -81,
+    336,
+    1473,
+    1087
+  ]
+}

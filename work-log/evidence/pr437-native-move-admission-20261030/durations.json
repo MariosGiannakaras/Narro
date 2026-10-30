@@ -1,0 +1,42 @@
+[
+  {
+    "group": "MENU",
+    "method": "gdi",
+    "duration": 90.3
+  },
+  {
+    "group": "MENU",
+    "method": "dda",
+    "duration": 90.3
+  },
+  {
+    "group": "MENU2",
+    "method": "gdi",
+    "duration": 32.484
+  },
+  {
+    "group": "MENU2",
+    "method": "dda",
+    "duration": 32.534
+  },
+  {
+    "group": "MENU3",
+    "method": "gdi",
+    "duration": 61.867
+  },
+  {
+    "group": "MENU3",
+    "method": "dda",
+    "duration": 61.884
+  },
+  {
+    "group": "CONTROL",
+    "method": "gdi",
+    "duration": 64.95
+  },
+  {
+    "group": "CONTROL",
+    "method": "dda",
+    "duration": 64.984
+  }
+]

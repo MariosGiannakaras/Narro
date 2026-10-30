@@ -1,0 +1,67 @@
+[
+  {
+    "utc": "2026-10-30T06:36:17.485Z",
+    "group": "MENU",
+    "action": "open_native_system_menu"
+  },
+  {
+    "utc": "2026-10-30T06:36:45.602Z",
+    "group": "MENU",
+    "action": "enter_native_move"
+  },
+  {
+    "utc": "2026-10-30T06:37:06.155Z",
+    "group": "MENU",
+    "action": "native_move_left"
+  },
+  {
+    "utc": "2026-10-30T06:37:44.874Z",
+    "group": "MENU",
+    "action": "native_move_left_second"
+  },
+  {
+    "utc": "2026-10-30T06:38:15.836Z",
+    "group": "MENU",
+    "action": "dismiss_unconfirmed_move"
+  },
+  {
+    "utc": "2026-10-30T06:39:00.518Z",
+    "group": "MENU2",
+    "action": "click_native_move"
+  },
+  {
+    "utc": "2026-10-30T06:39:22.873Z",
+    "group": "MENU2",
+    "action": "keyboard_left_left_down_commit"
+  },
+  {
+    "utc": "2026-10-30T06:42:01.429Z",
+    "group": "MENU3",
+    "action": "explicit_move_click"
+  },
+  {
+    "utc": "2026-10-30T06:42:21.829Z",
+    "group": "MENU3",
+    "action": "native_left_40_steps"
+  },
+  {
+    "utc": "2026-10-30T06:42:53.179Z",
+    "group": "MENU3",
+    "action": "commit_native_move"
+  },
+  {
+    "utc": "2026-10-30T06:45:49.149Z",
+    "group": "CONTROL",
+    "action": "select_native_move"
+  },
+  {
+    "utc": "2026-10-30T06:46:11.552Z",
+    "group": "CONTROL",
+    "action": "native_left_40_steps"
+  },
+  {
+    "utc": "2026-10-30T06:46:44.342Z",
+    "group": "CONTROL",
+    "action": "commit_native_move"
+  }
+]

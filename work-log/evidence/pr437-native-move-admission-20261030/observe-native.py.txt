@@ -1,0 +1,33 @@
+from pathlib import Path
+import ctypes as c, ctypes.wintypes as w, datetime, json, sys, time
+
+root=Path(sys.argv[1]).resolve()
+label=sys.argv[2]
+owned=int((root/'owned-app-pid.txt').read_text())
+u=c.WinDLL('user32',use_last_error=True)
+cb=c.WINFUNCTYPE(w.BOOL,w.HWND,w.LPARAM)
+u.GetWindow.argtypes=[w.HWND,w.UINT];u.GetWindow.restype=w.HWND
+u.GetWindowThreadProcessId.argtypes=[w.HWND,c.POINTER(w.DWORD)];u.GetWindowThreadProcessId.restype=w.DWORD
+u.GetWindowRect.argtypes=[w.HWND,c.POINTER(w.RECT)]
+u.GetClassNameW.argtypes=[w.HWND,w.LPWSTR,c.c_int]
+u.GetWindowLongPtrW.argtypes=[w.HWND,c.c_int];u.GetWindowLongPtrW.restype=c.c_ssize_t
+u.SetProcessDpiAwarenessContext.argtypes=[w.HANDLE]
+u.SetProcessDpiAwarenessContext(c.c_void_p(-4))
+deadline=time.monotonic()+90
+with (root/(label+'-native.jsonl')).open('w') as out:
+    while time.monotonic()<deadline:
+        rows=[]
+        @cb
+        def visit(hwnd,_):
+            pid=w.DWORD();u.GetWindowThreadProcessId(hwnd,c.byref(pid))
+            if pid.value != owned:return True
+            name=c.create_unicode_buffer(256);u.GetClassNameW(hwnd,name,256)
+            title=c.create_unicode_buffer(256);u.GetWindowTextW(hwnd,title,256)
+            if title.value != 'Narro - Focus' and not name.value.startswith('NarroFocus'):return True
+            rect=w.RECT();u.GetWindowRect(hwnd,c.byref(rect))
+            rows.append({'hwnd':hwnd,'class':name.value,'title':title.value,'owner':u.GetWindow(hwnd,4),'visible':bool(u.IsWindowVisible(hwnd)),'rect':[rect.left,rect.top,rect.right,rect.bottom],'exStyle':u.GetWindowLongPtrW(hwnd,-20)})
+            return True
+        u.EnumWindows(visit,0)
+        out.write(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'windows':rows})+'\n');out.flush()
+        if (root/label/'stop.flag').exists():break
+        time.sleep(.02)
