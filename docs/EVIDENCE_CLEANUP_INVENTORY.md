@@ -176,6 +176,24 @@ The exact source/run and historical physically observed failures/retesting were 
 
 ---
 
+## Batch 3 original-retained remux review — before PR460 (2026-10-30)
+
+**Analyzed as one source-original / derived-copy group before deletion:** targeted historical Narro PR357 and RA01/RA02 Windows capture packages. In both evidence families, the **original full MKV** remains published and byte-hashed, alongside the original structured evidence, direct screenshots, source/EXE/CI identities, native case results, immutable reports and any extracted critical-frame evidence. Only the optional MP4 playback **container copies** are candidates; these are not native executable builds or original Blitzit media.
+
+| Exact removable playback-copy path under `work-log/evidence/` | Logical bytes | Verified producer/consumer/recovery boundary |
+| --- | ---: | --- |
+| `pr357-native-20261016/video/pa357-dual-screen-full.mp4` | 36,012,438 | `pr357-native-20261016/mp4-derivative-manifest.json`: `ffmpeg -map 0 -c copy -movflags +faststart`, same H264 **18,266** and AAC **14,270** packets vs retained `video/2026-10-16 02-21-53.mkv`, no re-encode or removed packet; MP4 container duration differs 18ms. `README.md` and `work-log/2026-10-16-pr357-native-four-item-acceptance.md` preserve **4/4 scoped accepted native claims**, image matrices, data/native observations, source SHA, exact raw original sha256 and structured ZIP. Keep the original MKV; old MP4 convenience link becomes historic Git-recovery reference. |
+| `ra01-ra02-native-capture-20261019/video/RA01-streamcopy.mp4` | 1,033,676 | Original full `RA01-original.mkv` (998,885 B) remains. Frozen acquisition `README.md` documents H264/AAC **stream-copy with no reencoding**. `video-integrity.json` verifies original SHA256, decode and source duration. Later `docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md` explicitly analyzed the original film and the four native corrective families were accepted in `docs/RA01_RA02_FINAL_BUILD_NATIVE_ACCEPTANCE.md` via PR386/387. Structured original chronology/UIA/DB receipts and subsequent ROI review remain. |
+| `ra01-ra02-native-capture-20261019/video/RA02-streamcopy.mp4` | 10,207,442 | As RA01, only a stream-copy MP4 convenience derivative. Retained full `RA02-original.mkv` (10,064,488 B), original SHA/decode provenance, actual 8,523 combined decoded-frame analysis of RA01+RA02, review extracts/PTS/corrections and final PR386/387 native acceptance. The old raw-acquisition `REVIEW_PENDING` text was superseded by the later authoritative 2/2 analysis and native correction, not blindly treated as still active. |
+
+**Decision:** exactly **3 optional Narro MP4 remux paths / 47,253,556 logical bytes ELIGIBLE**, with corresponding full raw original **2+1 MKVs untouched** and protected, plus all report, frame/PTS/DB/log/source comparison/manifest evidence untouched. RA MP4 packet-count-by-packet verification is **not** newly performed: the existing OBS publication claims lossless stream-copy, and the already formally analyzed full original MKVs are the authoritative evidence. No claim that the SHA of a different container equals the raw MKV, or that these old CI successes close unrelated current PR389/419/437 native acceptance.
+
+**Current pre-PR460 fixed cohort:** **28/700 removed**, **672 remain**; of these three more files admitted for retirement, **421 HOLD + 248 still REVIEW_REQUIRED**. All other items including PR357 original raw MKV, both RA originals, pointer-capture pending N10, PR389/419 compositor and PR437 Timer native originals, CI944/950/953/capture57 and all Blitzit sources are excluded. Recovery: the exact pre-deletion main commit must be recorded in the merge receipt and can restore all three optional MP4s with original paths. Historic `README` markdown links remain immutable evidence snapshots.
+
+**Next step:** one exact-path deletion-only PR (3 MP4 paths) after checking current main and diff. Do not claim **31/700 removed** until the actual guarded merge and resulting-tree validation.
+
+---
+
 ## PR459 result — verified bulk deletion after the batch-two audit
 
 - [PR459](https://github.com/MariosGiannakaras/Narro/pull/459) exact head `91f8fc095b15caf0da1c6e67bb6cd603269cf087`, expected-head guarded squash merge **`8b8192def280acc0afdffcb190e2aeabb73fa3ba`**. GitHub exact source base→head and base→merge comparison confirmed **3/3 approved ZIP paths removed, no other changes**. Original binary bytes recoverable from pre-deletion `main` `f33482fd4b6cc0e931721ad4262e66ed169ec3f4`; retained CI/source-native receipts provide hash and causal history.
