@@ -1,8 +1,8 @@
 # Narro tracker index — current truth vs frozen historical evidence
 
-## Current navigation — verified 2026-10-30
+## Current navigation — verified 2026-10-31
 
-**Evidence archival cleanup (live 2026-10-30):** [Fixed 700-file media/ZIP listing, 25/700 deleted, 675 retained with HOLD/REVIEW disposition](EVIDENCE_CLEANUP_INVENTORY.md) is the sole live **archival inventory/progress list**; [PR458 immutable batch proof](../work-log/2026-10-30-chatgpt-pa351-pa356-ci-zip-batch-retirement-pr458.md). Its fixed base denominator is not the whole repo file count, not a mandate to delete protected media, and not a duplicate TODO backlog. `HANDOFF.md` still owns the exact next action; original Blitzit evidence and native acceptance remain protected.
+**Evidence archival cleanup (verified 2026-10-31):** [Fixed 700-file media/ZIP ledger: 32/700 retired, 668 HOLD /8,214,457,803 B, 0 REVIEW_REQUIRED and 0 currently ELIGIBLE](EVIDENCE_CLEANUP_INVENTORY.md) is the sole live **archival inventory/progress list**. The latest [PR461 resulting-main receipt](../work-log/2026-10-30-chatgpt-pr461-merged-resulting-main.md) confirms the 32/700 tally; the previous [PR458 batch proof](../work-log/2026-10-30-chatgpt-pa351-pa356-ci-zip-batch-retirement-pr458.md) remains historical. Reopen a HOLD only with new source/consumer-retirement evidence; no deletion-only PR is currently justified. Its fixed base denominator is not the whole repo file count, not a mandate to delete protected media, and not a duplicate TODO backlog. `HANDOFF.md` still owns the exact next action; original Blitzit evidence and native acceptance remain protected.
 
 This is an evidence/ownership index, **not a task queue or a source for cached “current” build IDs**. Live [HANDOFF](../HANDOFF.md) owns the exact task, branch/PR and next action; [TODO](../TODO.md) owns dependency-ordered 10-milestone acceptance, [STATUS](../STATUS.md) owns validated facts. [AI_START_HERE](../AI_START_HERE.md) and [AGENT_WORKFLOW](../AGENT_WORKFLOW.md) own the resume protocol. Before acting on a candidate, verify its live PR head, exact CI and artifact provenance; never infer “current” from this dated index.
 
