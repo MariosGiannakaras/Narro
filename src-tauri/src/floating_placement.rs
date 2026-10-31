@@ -3,6 +3,7 @@ use crate::persistence;
 use crate::persistence::floating_placement::SavedFloatingPlacement;
 use crate::windows::{clamp_top_left, PhysicalPoint, PhysicalRect, PhysicalSize};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
+use std::sync::Mutex;
 use std::time::Duration;
 use tauri::Manager;
 
@@ -11,6 +12,147 @@ const MOVE_SETTLE_DELAY: Duration = Duration::from_millis(600);
 static MOVE_REVISION: AtomicU64 = AtomicU64::new(0);
 static MOVE_WORKER_ACTIVE: AtomicBool = AtomicBool::new(false);
 static SAVE_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
+static USER_MOVE_START: Mutex<Option<PhysicalPoint>> = Mutex::new(None);
+static USER_PLACEMENT_DIRTY: AtomicBool = AtomicBool::new(false);
+// Timer position always lives in memory during a process. On a fresh launch,
+// Preferences decide whether to restore an existing legacy/opt-in SQLite row.
+// Neither mode removes legacy positions.
+static SESSION_TIMER_PLACEMENT: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
+// A non-persistent return anchor for an automatically positioned Timer.
+// Programmatic fallback movement must not turn into a personal drag or erase
+// the original target while its display is temporarily unavailable.
+static UNPINNED_TIMER_RETURN: Mutex<Option<SavedFloatingPlacement>> = Mutex::new(None);
+
+fn unpinned_timer_return() -> CommandResult<Option<SavedFloatingPlacement>> {
+    UNPINNED_TIMER_RETURN
+        .lock()
+        .map(|anchor| anchor.clone())
+        .map_err(|error| placement_error("read temporary Timer return anchor", error))
+}
+
+fn set_unpinned_timer_return(anchor: SavedFloatingPlacement) -> CommandResult<()> {
+    let mut current = UNPINNED_TIMER_RETURN
+        .lock()
+        .map_err(|error| placement_error("update temporary Timer return anchor", error))?;
+    *current = Some(anchor);
+    Ok(())
+}
+
+fn session_timer_position() -> CommandResult<Option<SavedFloatingPlacement>> {
+    SESSION_TIMER_PLACEMENT
+        .lock()
+        .map(|placement| placement.clone())
+        .map_err(|error| placement_error("read session-only Timer position", error))
+}
+
+pub(crate) fn remember_position_after_restart(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<bool> {
+    let connection = app_database(app_handle)?;
+    persistence::preferences::get_preferences(&connection)
+        .map(|record| {
+            record.is_some_and(|record| record.payload.general.remember_timer_position_on_restart)
+        })
+        .map_err(|error| placement_error("read Timer restart-position preference", error))
+}
+
+fn effective_saved_placement(
+    current_session: Option<SavedFloatingPlacement>,
+    legacy: Option<SavedFloatingPlacement>,
+    remember_after_restart: bool,
+) -> Option<SavedFloatingPlacement> {
+    current_session.or(if remember_after_restart { legacy } else { None })
+}
+
+fn timer_position_for_current_policy(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<Option<SavedFloatingPlacement>> {
+    let session = session_timer_position()?;
+    if session.is_some() {
+        return Ok(session);
+    }
+    if !remember_position_after_restart(app_handle)? {
+        return Ok(None);
+    }
+    let connection = app_database(app_handle)?;
+    let previous = persistence::floating_placement::load(&connection)
+        .map_err(|error| placement_error("load opted-in Timer position", error))?;
+    Ok(effective_saved_placement(None, previous, true))
+}
+
+fn persist_session_placement_if_opted_in(
+    app_handle: &tauri::AppHandle,
+    saved: &SavedFloatingPlacement,
+) -> CommandResult<()> {
+    if remember_position_after_restart(app_handle)? {
+        let connection = app_database(app_handle)?;
+        persistence::floating_placement::save(&connection, saved, &chrono::Utc::now().to_rfc3339())
+            .map_err(|error| placement_error("persist opted-in Timer position", error))?;
+    }
+    Ok(())
+}
+
+// Sync after the preference commits, including a Timer currently hidden.
+// Without a user drag there is no new position to persist.
+pub(crate) fn sync_session_position_on_preference_change(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<()> {
+    if let Some(saved) = session_timer_position()? {
+        persist_session_placement_if_opted_in(app_handle, &saved)?;
+    }
+    Ok(())
+}
+
+fn set_session_timer_position(placement: SavedFloatingPlacement) -> CommandResult<()> {
+    let mut saved = SESSION_TIMER_PLACEMENT
+        .lock()
+        .map_err(|error| placement_error("update session-only Timer position", error))?;
+    *saved = Some(placement);
+    Ok(())
+}
+
+// OS recovery is temporary. Only a completed, non-cancelled interactive move
+// may replace a remembered position on a monitor that is currently absent.
+pub(crate) fn begin_user_timer_move(app: &tauri::AppHandle) {
+    if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+        return;
+    }
+    let position = app
+        .get_webview_window(FOCUS_SURFACE_LABEL)
+        .and_then(|window| window.outer_position().ok())
+        .map(|point| PhysicalPoint {
+            x: point.x,
+            y: point.y,
+        });
+    match USER_MOVE_START.lock() {
+        Ok(mut start) => *start = position,
+        Err(error) => eprintln!("Could not track interactive Timer move start: {error}"),
+    }
+}
+
+pub(crate) fn finish_user_timer_move(app: &tauri::AppHandle) {
+    let start = match USER_MOVE_START.lock() {
+        Ok(mut value) => value.take(),
+        Err(error) => {
+            eprintln!("Could not finish interactive Timer move: {error}");
+            return;
+        }
+    };
+    if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+        return;
+    }
+    let end = app
+        .get_webview_window(FOCUS_SURFACE_LABEL)
+        .and_then(|window| window.outer_position().ok())
+        .map(|point| PhysicalPoint {
+            x: point.x,
+            y: point.y,
+        });
+    if start.zip(end).is_some_and(|(start, end)| start != end) {
+        USER_PLACEMENT_DIRTY.store(true, Ordering::Release);
+        note_timer_moved(app);
+    }
+}
 
 pub struct PlacementTransitionGuard;
 
@@ -372,6 +514,53 @@ fn target_work_area<'a>(
     best_work_area_for_window(saved.work_area, areas, fallback)
 }
 
+fn preferred_monitor<'a>(
+    saved: &SavedFloatingPlacement,
+    areas: &'a [WorkArea],
+) -> Option<&'a WorkArea> {
+    let mut matches = areas
+        .iter()
+        .filter(|area| match saved.monitor_name.as_deref() {
+            Some(name) => area.name.as_deref() == Some(name),
+            None => area.rect == saved.work_area,
+        });
+    match (matches.next(), matches.next()) {
+        (Some(one), None) => Some(one),
+        _ => None,
+    }
+}
+
+fn preserve_preferred_placement(
+    saved: Option<&SavedFloatingPlacement>,
+    areas: &[WorkArea],
+    user_moved: bool,
+) -> bool {
+    !user_moved && saved.is_some_and(|saved| preferred_monitor(saved, areas).is_none())
+}
+
+// Only return an unpinned Timer to its prior screen when that screen is still
+// the user's selected monitor. An absent selected monitor may not be resolved
+// until it returns; a completed user drag always supersedes this anchor.
+fn eligible_unpinned_return<'a>(
+    anchor: Option<&'a SavedFloatingPlacement>,
+    current_preference: Option<PhysicalRect>,
+    areas: &[WorkArea],
+    user_moved: bool,
+) -> Option<&'a SavedFloatingPlacement> {
+    if user_moved {
+        return None;
+    }
+    let anchor = anchor?;
+    match current_preference {
+        Some(selected)
+            if preferred_monitor(anchor, areas).map(|area| area.rect) != Some(selected) =>
+        {
+            None
+        }
+        _ => Some(anchor),
+    }
+}
+
 fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult<PhysicalSize> {
     if !area.scale_factor.is_finite() || area.scale_factor <= 0.0 {
         return Err(placement_error(
@@ -388,14 +577,27 @@ fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult
     })
 }
 
+// With no current-process user placement, inherit the Panel origin.
+// No Timer position is read from or written to persistent storage.
+fn first_timer_position(
+    work_area: PhysicalRect,
+    visible_size: PhysicalSize,
+    panel_origin: PhysicalPoint,
+) -> CommandResult<PhysicalPoint> {
+    clamp_top_left(work_area, visible_size, panel_origin)
+        .map_err(|error| placement_error("clamp unpinned Timer to Panel origin", error))
+}
+
+pub(crate) fn has_effective_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    timer_position_for_current_policy(app_handle).map(|position| position.is_some())
+}
+
 pub(crate) fn planned_timer_position(
     app_handle: &tauri::AppHandle,
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<PhysicalPoint> {
-    let connection = app_database(app_handle)?;
-    let saved = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("load Timer position for transition", error))?;
+    let saved = timer_position_for_current_policy(app_handle)?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -406,8 +608,7 @@ pub(crate) fn planned_timer_position(
     let target_size = timer_visible_size_for_area(selected, expanded)?;
     match saved.as_ref() {
         Some(saved) => restored_position(saved, selected.rect, target_size),
-        None => clamp_top_left(selected.rect, target_size, current.position)
-            .map_err(|error| placement_error("plan first Timer position", error)),
+        None => first_timer_position(selected.rect, target_size, current.position),
     }
 }
 
@@ -472,8 +673,29 @@ fn restored_position(
         .map_err(|error| placement_error("clamp restored position", error))
 }
 
+// An automatic Panel → Timer transition is not a personal position. Once a
+// genuine drag has occurred, its location is remembered for this process only.
+fn should_remember_session_position(has_saved: bool, completed_user_move: bool) -> bool {
+    has_saved || completed_user_move
+}
+
 pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
-    if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0 {
+    remember_visible_timer_position(app_handle, false)
+}
+
+// A bounded capture harness can explicitly seed a non-user position, but this
+// still only affects the current process. Production never uses that override.
+pub(crate) fn seed_capture_timer_position(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
+    remember_visible_timer_position(app_handle, true)
+}
+
+fn remember_visible_timer_position(
+    app_handle: &tauri::AppHandle,
+    capture_seed: bool,
+) -> CommandResult<bool> {
+    if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0
+        || crate::windows::focus_interactive_move_active()
+    {
         return Ok(false);
     }
     if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
@@ -490,6 +712,16 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     }
     let current_window = current_visible_rect(&window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
+    let previous = timer_position_for_current_policy(app_handle)?;
+    let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
+    if !capture_seed && !should_remember_session_position(previous.is_some(), user_moved) {
+        // Never pin the automatically inherited Panel position without an
+        // actual completed native Timer drag in this application run.
+        return Ok(false);
+    }
+    if preserve_preferred_placement(previous.as_ref(), &areas, user_moved) {
+        return Ok(false);
+    }
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let selected = best_work_area_for_window(current_window, &areas, &fallback);
     let safe = clamp_top_left(selected.rect, current_window.size, current_window.position)
@@ -501,9 +733,9 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
         work_area: selected.rect,
         monitor_name: selected.name.clone(),
     };
-    let connection = app_database(app_handle)?;
-    persistence::floating_placement::save(&connection, &saved, &chrono::Utc::now().to_rfc3339())
-        .map_err(|error| placement_error("save Timer position", error))?;
+    set_session_timer_position(saved.clone())?;
+    persist_session_placement_if_opted_in(app_handle, &saved)?;
+    USER_PLACEMENT_DIRTY.store(false, Ordering::Release);
     crate::validation_log::record_placement_saved(app_handle, &saved);
     Ok(true)
 }
@@ -513,9 +745,7 @@ pub fn restore_for_timer(
     window: &tauri::WebviewWindow,
     expanded: bool,
 ) -> CommandResult<bool> {
-    let connection = app_database(app_handle)?;
-    let saved = persistence::floating_placement::load(&connection)
-        .map_err(|error| placement_error("load Timer position", error))?;
+    let saved = timer_position_for_current_policy(app_handle)?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let current = current_visible_rect(window, expanded)?;
@@ -537,8 +767,7 @@ pub fn restore_for_timer(
         };
         let restored = match saved.as_ref() {
             Some(saved) => restored_position(saved, selected.rect, actual_size)?,
-            None => clamp_top_left(selected.rect, actual_size, current.position)
-                .map_err(|error| placement_error("clamp first Timer position", error))?,
+            None => first_timer_position(selected.rect, actual_size, current.position)?,
         };
         position_window_if_needed(window, restored)?;
         if pass == 0 {
@@ -546,6 +775,27 @@ pub fn restore_for_timer(
         }
     }
     let actual = confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    if saved.is_none() && !USER_PLACEMENT_DIRTY.load(Ordering::Acquire) {
+        // This is a process-only return point, not an opt-in restart position.
+        // Do not overwrite it with the primary fallback while the selected
+        // monitor is missing. A later explicit monitor selection can replace it.
+        match crate::selected_focus_panel_work_area(app_handle) {
+            Ok(Some(selected_preference)) if selected_preference == selected.rect => {
+                let anchor = SavedFloatingPlacement {
+                    version: SavedFloatingPlacement::VERSION,
+                    position: actual.position,
+                    outer_size: actual.size,
+                    work_area: selected.rect,
+                    monitor_name: selected.name.clone(),
+                };
+                if let Err(error) = set_unpinned_timer_return(anchor) {
+                    eprintln!("Could not retain temporary Timer return anchor: {error}");
+                }
+            }
+            Ok(_) => {}
+            Err(error) => eprintln!("Could not inspect Timer return monitor preference: {error}"),
+        }
+    }
     let expected_position = match saved.as_ref() {
         Some(saved) => restored_position(saved, selected.rect, actual.size)?,
         None => actual.position,
@@ -590,7 +840,43 @@ pub fn revalidate_visible_timer_after_display_change(
     let expanded = crate::current_focus_surface_expanded();
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
-    let selected = best_work_area_for_window(previous, &areas, &fallback);
+    let saved = timer_position_for_current_policy(app_handle)?;
+    let user_moved = USER_PLACEMENT_DIRTY.load(Ordering::Acquire);
+    let unpinned_return = if saved.is_none() {
+        unpinned_timer_return()?
+    } else {
+        None
+    };
+    let preference_area = if saved.is_none() {
+        crate::selected_focus_panel_work_area(app_handle)?
+    } else {
+        None
+    };
+    let return_anchor = if saved.is_some() {
+        if user_moved {
+            None
+        } else {
+            saved.as_ref()
+        }
+    } else {
+        eligible_unpinned_return(
+            unpinned_return.as_ref(),
+            preference_area,
+            &areas,
+            user_moved,
+        )
+    };
+    let preferred = return_anchor.and_then(|anchor| preferred_monitor(anchor, &areas));
+    let selected =
+        preferred.unwrap_or_else(|| best_work_area_for_window(previous, &areas, &fallback));
+    let desired = match (preferred, return_anchor) {
+        (Some(_), Some(anchor)) => restored_position(
+            anchor,
+            selected.rect,
+            timer_visible_size_for_area(selected, expanded)?,
+        )?,
+        _ => previous.position,
+    };
     let logical_size = crate::timer_region::host_logical_size();
     let scale_factor = window
         .scale_factor()
@@ -602,7 +888,7 @@ pub fn revalidate_visible_timer_after_display_change(
         selected.rect,
     )?;
     let planned_size = fitted_outer_size(selected.rect, previous_outer.size)?;
-    let planned_position = clamp_top_left(selected.rect, previous.size, previous.position)
+    let planned_position = clamp_top_left(selected.rect, previous.size, desired)
         .map_err(|error| placement_error("plan Timer display recovery", error))?;
     let needs_hide = needs_dpi_resize
         || planned_size != previous_outer.size
@@ -641,7 +927,7 @@ pub fn revalidate_visible_timer_after_display_change(
                 width: actual.width,
                 height: actual.height,
             };
-            let safe = clamp_top_left(selected.rect, actual_size, previous.position)
+            let safe = clamp_top_left(selected.rect, actual_size, desired)
                 .map_err(|error| placement_error("clamp Timer after display change", error))?;
             position_window_if_needed(&window, safe)?;
             if pass == 0 {
@@ -756,6 +1042,182 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn restart_opt_in_distinguishes_prior_disk_state_from_current_run_drag() {
+        let legacy = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: 300, y: 140 },
+            outer_size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+            work_area: PhysicalRect {
+                position: PhysicalPoint { x: 0, y: 0 },
+                size: PhysicalSize {
+                    width: 1920,
+                    height: 1040,
+                },
+            },
+            monitor_name: Some("Primary".into()),
+        };
+        assert!(effective_saved_placement(None, Some(legacy.clone()), false).is_none());
+        assert_eq!(
+            effective_saved_placement(Some(legacy.clone()), None, false)
+                .expect("session drag")
+                .position,
+            legacy.position,
+        );
+        assert_eq!(
+            effective_saved_placement(None, Some(legacy.clone()), true)
+                .expect("opted-in restore")
+                .position,
+            legacy.position,
+        );
+        let recent = SavedFloatingPlacement {
+            position: PhysicalPoint { x: 710, y: 210 },
+            ..legacy.clone()
+        };
+        assert_eq!(
+            effective_saved_placement(Some(recent.clone()), Some(legacy), true)
+                .expect("session overrides disk")
+                .position,
+            recent.position,
+        );
+    }
+
+    #[test]
+    fn unpinned_timer_inherits_panel_origin_on_launch_and_clamps_when_needed() {
+        let left = PhysicalRect {
+            position: PhysicalPoint { x: -1920, y: -120 },
+            size: PhysicalSize {
+                width: 1920,
+                height: 980,
+            },
+        };
+        let compact = PhysicalSize {
+            width: 340,
+            height: 110,
+        };
+        let panel = PhysicalPoint { x: -1904, y: -104 };
+        assert_eq!(
+            first_timer_position(left, compact, panel).expect("follow Panel"),
+            panel,
+        );
+        let constrained = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize {
+                width: 400,
+                height: 200,
+            },
+        };
+        assert_eq!(
+            first_timer_position(constrained, compact, PhysicalPoint { x: 390, y: 194 })
+                .expect("safe clamp"),
+            PhysicalPoint { x: 60, y: 90 },
+        );
+    }
+
+    #[test]
+    fn no_drag_keeps_timer_unpinned_during_current_process() {
+        assert!(!should_remember_session_position(false, false));
+        // A completed interactive drag — not an Escape-cancelled attempt —
+        // is the first event allowed to establish a session-only Timer position.
+        assert!(should_remember_session_position(false, true));
+        assert!(should_remember_session_position(true, false));
+        assert!(should_remember_session_position(true, true));
+    }
+
+    #[test]
+    fn temporary_disconnect_preserves_preference_and_reconnect_restores_it() {
+        let primary = area("primary", 0, 2560);
+        let secondary = area("LG", -1920, 1920);
+        let saved = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: -1185, y: 398 },
+            outer_size: PhysicalSize {
+                width: 425,
+                height: 138,
+            },
+            work_area: secondary.rect,
+            monitor_name: Some("LG".into()),
+        };
+        assert!(preserve_preferred_placement(
+            Some(&saved),
+            std::slice::from_ref(&primary),
+            false
+        ));
+        assert!(preferred_monitor(&saved, std::slice::from_ref(&primary)).is_none());
+        let reconnected = [primary.clone(), secondary];
+        let monitor = preferred_monitor(&saved, &reconnected).expect("LG returns");
+        assert_eq!(
+            restored_position(&saved, monitor.rect, saved.outer_size).expect("restore"),
+            saved.position
+        );
+        // A genuine completed move on fallback explicitly supersedes the old target.
+        assert!(!preserve_preferred_placement(
+            Some(&saved),
+            std::slice::from_ref(&primary),
+            true
+        ));
+        assert!(!preserve_preferred_placement(None, &reconnected, false));
+    }
+
+    #[test]
+    fn unpinned_timer_restores_selected_screen_without_creating_a_user_position() {
+        let primary = area("primary", 0, 2560);
+        let secondary = area("LG", -1920, 1920);
+        let anchor = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: -445, y: 20 },
+            outer_size: PhysicalSize {
+                width: 425,
+                height: 875,
+            },
+            work_area: secondary.rect,
+            monitor_name: Some("LG".into()),
+        };
+        let detached = [primary.clone()];
+        let pending = eligible_unpinned_return(Some(&anchor), None, &detached, false)
+            .expect("retain unpinned anchor while selected monitor is absent");
+        assert!(preferred_monitor(pending, &detached).is_none());
+
+        let restored = [primary.clone(), secondary.clone()];
+        let eligible =
+            eligible_unpinned_return(Some(&anchor), Some(secondary.rect), &restored, false)
+                .expect("original selected monitor returned");
+        let target = preferred_monitor(eligible, &restored).expect("return to LG");
+        assert_eq!(
+            restored_position(eligible, target.rect, anchor.outer_size).expect("restore position"),
+            anchor.position
+        );
+
+        assert!(
+            eligible_unpinned_return(Some(&anchor), Some(primary.rect), &restored, false).is_none(),
+            "a changed selected monitor supersedes the old return target"
+        );
+        assert!(
+            eligible_unpinned_return(Some(&anchor), Some(secondary.rect), &restored, true)
+                .is_none(),
+            "a user drag on the fallback screen wins"
+        );
+    }
+
+    #[test]
+    fn ambiguous_monitor_identity_is_never_an_automatic_return_target() {
+        let first = area("duplicate", 0, 1920);
+        let second = area("duplicate", -1920, 1920);
+        let saved = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: 100, y: 100 },
+            outer_size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+            work_area: first.rect,
+            monitor_name: Some("duplicate".into()),
+        };
+        assert!(preferred_monitor(&saved, &[first, second]).is_none());
+    }
     #[test]
     fn bottom_edge_expansion_and_collapse_retain_the_new_safe_origin() {
         for (width, compact_height, expanded_height, x) in

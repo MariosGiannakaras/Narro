@@ -1,6 +1,8 @@
 import { ActionIcon } from "./ActionIcon";
-import type { ReactNode } from "react";
-import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
+import { type ReactNode, useRef, useState } from "react";
+import { findSelectedMonitor, formatInvokeError, type MonitorDescriptor } from "./diagnosticApi";
+import { applyFocusSurfacePresentation } from "./focusSurfaceModeApi";
+import { saveQuickPreferenceWithLivePlacement } from "./quickPreferenceLivePlacement";
 import {
   PreferenceSettingsRuntimeProvider,
   type PreferencePendingKey,
@@ -79,6 +81,7 @@ function QuickHeader({ onBack, saving = false }: FocusQuickPreferencesProps & { 
         className="focus-quick-preferences__back"
         aria-label="Back to Focus"
         data-focus-quick-preferences-back="true"
+        disabled={saving}
         autoFocus
         onClick={onBack}
       >
@@ -109,6 +112,7 @@ export function FocusQuickPreferencesView({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Escape") {
+      if (busy) return;
       event.preventDefault();
       event.stopPropagation();
       onBack();
@@ -168,9 +172,11 @@ export function FocusQuickPreferencesView({
                   onClick={() => void onSave({ selectedMonitorKey: monitor.key }, "monitor")}
                 >
                   <span className="focus-quick-preferences__screen-preview" aria-hidden="true">
-                    <span />
+                    {monitor.desktopPreviewDataUrl ? (
+                      <img src={monitor.desktopPreviewDataUrl} alt="" draggable={false} data-focus-quick-monitor-desktop-preview="true" />
+                    ) : <span />}
                   </span>
-                  <strong>{monitor.name?.trim() || `Screen ${monitor.index + 1}`}</strong>
+                  <strong>{monitor.friendlyName?.trim() || `Screen ${monitor.index + 1}`}</strong>
                   <span className="type-metadata" data-focus-quick-screen-dimensions="true">
                     {monitor.size.width}×{monitor.size.height}
                   </span>
@@ -258,19 +264,78 @@ export function FocusQuickPreferencesView({
 
 function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
   const preferences = usePreferenceSettingsRuntime();
+  const placementInFlightRef = useRef(false);
+  const [livePlacementKey, setLivePlacementKey] = useState<PreferencePendingKey | null>(null);
+  const [livePlacementError, setLivePlacementError] = useState<string | null>(null);
+
+  const saveAndApplyVisiblePanel = async (patch: PreferenceSettingsPatch, key: PreferencePendingKey): Promise<boolean> => {
+    if (placementInFlightRef.current) return false;
+    placementInFlightRef.current = true;
+    setLivePlacementKey(key);
+    setLivePlacementError(null);
+    try {
+      try {
+        return await saveQuickPreferenceWithLivePlacement(
+          patch,
+          key,
+          preferences.save,
+          () => applyFocusSurfacePresentation("panel"),
+        );
+      } catch (failure: unknown) {
+        setLivePlacementError("Preference saved, but the visible Panel could not be moved: " + formatInvokeError(failure));
+        return false;
+      }
+    } finally {
+      placementInFlightRef.current = false;
+      setLivePlacementKey(null);
+    }
+  };
 
   if (!preferences.snapshot) {
     return (
       <section
         className="focus-quick-preferences"
-        data-focus-quick-preferences={preferences.loading ? "loading" : "error"}
+        data-focus-quick-preferences={preferences.loading ? "preparing" : "error"}
         aria-labelledby="focus-quick-preferences-title"
+        aria-busy={preferences.loading}
       >
         <QuickHeader onBack={onBack} />
         <div className="focus-quick-preferences__body">
-          <div className={`focus-quick-preferences__status type-metadata${preferences.error ? " focus-quick-preferences__error" : ""}`} role={preferences.error ? "alert" : "status"}>
-            {preferences.error ?? "Loading Quick Preferences…"}
-          </div>
+          {preferences.loading ? (
+            <div className="focus-quick-preferences__skeleton" data-focus-quick-skeleton="true"
+              role="status" aria-label="Preparing Quick Preferences">
+              <div aria-hidden="true">
+                <div className="focus-quick-preferences__row">
+                  <span>Hide est/done times</span>
+                  <span className="focus-quick-preferences__skeleton-switch" />
+                </div>
+                <section className="focus-quick-preferences__group">
+                  <h2 className="focus-quick-preferences__group-title">Screen</h2>
+                  <div className="focus-quick-preferences__screens">
+                    {[0, 1, 2].map((index) => (
+                      <div key={index} className="focus-quick-preferences__screen">
+                        <span className="focus-quick-preferences__screen-preview" />
+                        <span className="focus-quick-preferences__skeleton-line" />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <div className="focus-quick-preferences__row">
+                  <span>Blitz Panel Side</span>
+                  <span className="focus-quick-preferences__skeleton-control" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="focus-quick-preferences__error" role="alert">
+              <p>{preferences.error ?? "Quick Preferences could not be opened."}</p>
+              <button type="button" className="motion-interactive"
+                data-focus-quick-preferences-retry="true"
+                onClick={preferences.retryInitialLoad}>
+                Retry
+              </button>
+            </div>
+          )}
         </div>
       </section>
     );
@@ -281,9 +346,9 @@ function FocusQuickPreferencesContent({ onBack }: FocusQuickPreferencesProps) {
       onBack={onBack}
       snapshot={preferences.snapshot}
       monitors={preferences.monitors}
-      pendingKey={preferences.pendingKey}
-      error={preferences.error}
-      onSave={preferences.save}
+      pendingKey={preferences.pendingKey ?? livePlacementKey}
+      error={livePlacementError ?? preferences.error}
+      onSave={saveAndApplyVisiblePanel}
     />
   );
 }

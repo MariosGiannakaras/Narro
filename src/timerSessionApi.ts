@@ -83,6 +83,8 @@ export type TimerSessionPayload = {
   runtime: TimerRuntimeSnapshot;
   awaitingResume: boolean;
   change: TimerSessionChange | null;
+  /** Native display projection; persisted board value remains the edit CAS basis. */
+  liveTimeTaken?: { taskId: string; historyRevision?: string; seconds: string | null; error: string | null };
 };
 
 export type SetPausedTimerEstimateRequest = {
@@ -102,7 +104,26 @@ export function applyTimerSessionProjection(
   current: TimerSessionPayload | null,
   incoming: TimerSessionPayload,
 ): TimerSessionPayload {
-  if (current === null || incoming.revision >= current.revision) {
+  if (current === null || incoming.revision > current.revision) {
+    return incoming;
+  }
+  if (incoming.revision === current.revision) {
+    const previous = current.liveTimeTaken;
+    const next = incoming.liveTimeTaken;
+    if (previous?.taskId === current.runtime.timer.task_id
+      && next?.taskId === incoming.runtime.timer.task_id
+      && previous?.taskId === next?.taskId
+      && previous?.historyRevision !== undefined && /^\d+$/.test(previous.historyRevision)
+      && next?.historyRevision !== undefined && /^\d+$/.test(next.historyRevision)) {
+      const oldHistory = BigInt(previous.historyRevision);
+      const newHistory = BigInt(next.historyRevision);
+      if (newHistory < oldHistory) return current;
+      // An in-flight memory snapshot can observe invalidation before the native
+      // basis refresh. It must not overwrite an already refreshed equal-history
+      // event when asynchronous replies arrive out of order.
+      if (newHistory === oldHistory && next.error === "LIVE_TIME_TAKEN_PENDING"
+        && previous.error !== "LIVE_TIME_TAKEN_PENDING") return current;
+    }
     return incoming;
   }
   return current;

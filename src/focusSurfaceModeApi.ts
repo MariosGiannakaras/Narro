@@ -40,6 +40,22 @@ export async function prepareFocusSurfaceModeRaster(presentation: FocusSurfacePr
   return invoke<number>("focus_surface_prepare_mode_raster", { presentation });
 }
 
+/** Optional plates live only under an already acquired native raster lease. */
+export async function prepareFocusMotionV4Plate(
+  rasterToken: number,
+  layout: import("./focusMotionV4Geometry").MotionV4RasterLayout,
+): Promise<void> {
+  await invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout });
+}
+
+export async function prepareFocusMotionV4PanelPlate(
+  rasterToken: number,
+  stage: "source" | "target",
+  layout?: import("./focusMotionV4PanelGeometry").MotionV4PanelLayout,
+): Promise<void> {
+  await invoke<void>("focus_surface_prepare_v4_panel_plate", { rasterToken, stage, layout });
+}
+
 export async function finishFocusSurfaceModeRaster(rasterToken: number, rollback = false): Promise<void> {
   await invoke<void>("focus_surface_finish_mode_raster", { rasterToken, rollback });
 }

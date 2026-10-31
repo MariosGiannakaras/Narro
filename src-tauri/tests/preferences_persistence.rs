@@ -42,6 +42,7 @@ fn saved_preferences_survive_database_reopen_with_typed_values() {
     let mut expected = PreferencesPayload::default();
     expected.general.selected_monitor_key = Some("monitor-primary".into());
     expected.general.focus_panel_side = FocusPanelSide::Left;
+    expected.general.remember_timer_position_on_restart = true;
     expected.general.open_on_login = true;
     expected.general.hide_task_times = true;
     expected.general.auto_parse_est_from_title = true;

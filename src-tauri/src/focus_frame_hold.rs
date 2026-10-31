@@ -1,8 +1,11 @@
-//! A finite raster child protects the persistent Focus HWND's region boundary.
+//! A finite raster protects the persistent Focus HWND's region boundary.
 //!
 //! CI932 proved that SetWindowRgn can replace otherwise-ready WebView pixels
-//! with native caption frames. This child belongs to the same HWND and contains
+//! with native caption frames. This raster belongs to the Focus HWND and contains
 //! only its prepared client pixels. It is never a WebView or timer authority.
+//! Mode preparation uses an owned, nonactivating popup: WebView2 exposed its
+//! preparing DirectComposition content above the GDI child on J05. Ordinary
+//! short region holds remain children. Neither kind owns a WebView or input.
 //! Its one-shot expiry runs on the window thread; domain commits never wait for
 //! the raster's lifetime, and idle Focus has no capture loop or retained bitmap.
 
@@ -15,6 +18,7 @@ mod native {
 
     type Handle = *mut c_void;
     const CLASS: &str = "NarroFocusRegionFrame";
+    const MODE_CLASS: &str = "NarroFocusTransitionFrame";
     const HOLD_MS: u32 = 500;
     const WM_PAINT: u32 = 0x000f;
     const WM_ERASEBKGND: u32 = 0x0014;
@@ -30,6 +34,24 @@ mod native {
         top: i32,
         right: i32,
         bottom: i32,
+    }
+    #[repr(C)]
+    #[derive(Default)]
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+    #[repr(C)]
+    struct Size {
+        width: i32,
+        height: i32,
+    }
+    #[repr(C)]
+    struct Blend {
+        operation: u8,
+        flags: u8,
+        alpha: u8,
+        format: u8,
     }
     #[repr(C)]
     struct Paint {
@@ -113,6 +135,32 @@ mod native {
             title: *const u16,
         ) -> Handle;
         fn GetWindowThreadProcessId(window: Handle, pid: *mut u32) -> u32;
+        fn GetWindow(window: Handle, command: u32) -> Handle;
+        fn GetWindowRect(window: Handle, rect: *mut Rect) -> i32;
+        fn ClientToScreen(window: Handle, point: *mut Point) -> i32;
+        fn BeginDeferWindowPos(count: i32) -> Handle;
+        fn DeferWindowPos(
+            batch: Handle,
+            window: Handle,
+            after: Handle,
+            x: i32,
+            y: i32,
+            width: i32,
+            height: i32,
+            flags: u32,
+        ) -> Handle;
+        fn EndDeferWindowPos(batch: Handle) -> i32;
+        fn UpdateLayeredWindow(
+            window: Handle,
+            target_dc: Handle,
+            position: *const Point,
+            size: *const Size,
+            source_dc: Handle,
+            source: *const Point,
+            color_key: u32,
+            blend: *const Blend,
+            flags: u32,
+        ) -> i32;
     }
     #[link(name = "gdi32")]
     unsafe extern "system" {
@@ -147,6 +195,11 @@ mod native {
         ) -> Handle;
         fn DeleteObject(object: Handle) -> i32;
         fn DeleteDC(dc: Handle) -> i32;
+        fn GetRegionData(region: Handle, size: u32, data: *mut c_void) -> u32;
+        #[cfg(test)]
+        fn PtInRegion(region: Handle, x: i32, y: i32) -> i32;
+        #[cfg(test)]
+        fn GetObjectW(object: Handle, size: i32, output: *mut c_void) -> i32;
     }
     #[link(name = "kernel32")]
     unsafe extern "system" {
@@ -175,6 +228,7 @@ mod native {
         original: Handle,
         width: i32,
         height: i32,
+        layered: bool,
     }
     impl Drop for Pixels {
         fn drop(&mut self) {
@@ -199,7 +253,7 @@ mod native {
             // This raster is purely visual; the actual React controls retain
             // pointer/keyboard ownership on the same parent/UI thread.
             WM_NCHITTEST => -1,
-            WM_PAINT if !pixels.is_null() => {
+            WM_PAINT if !pixels.is_null() && !(*pixels).layered => {
                 let mut paint: Paint = std::mem::zeroed();
                 let dc = BeginPaint(hwnd, &mut paint);
                 let image = &*pixels;
@@ -260,47 +314,377 @@ mod native {
         })?
     }
 
+    // A watchdog may already have destroyed the HWND. Match its class, owner,
+    // window thread and exact handle rather than trusting an unrelated HWND.
+    fn find_raster(parent: Handle, owned: Option<usize>, overlay: bool) -> Handle {
+        let name = wide(if overlay { MODE_CLASS } else { CLASS });
+        let root = if overlay { ptr::null_mut() } else { parent };
+        let mut after = ptr::null_mut();
+        loop {
+            let found = unsafe { FindWindowExW(root, after, name.as_ptr(), ptr::null()) };
+            if found.is_null() {
+                return found;
+            }
+            if owned.is_none_or(|id| found as usize == id)
+                && (!overlay || unsafe { GetWindow(found, 4) } == parent)
+                && unsafe {
+                    GetWindowThreadProcessId(found, ptr::null_mut()) == GetCurrentThreadId()
+                }
+            {
+                return found;
+            }
+            after = found;
+        }
+    }
+
+    // Preserve exactly the existing Win32 rounded region, but carry its shape
+    // in the bitmap alpha so extent and pixels can be published in one call.
+    // Region bands avoid a per-pixel Win32 call or an invented corner geometry.
+    fn layered_bgra(
+        width: i32,
+        height: i32,
+        diameter: i32,
+        bytes: &[u8],
+    ) -> CommandResult<Vec<u8>> {
+        if width <= 0
+            || height <= 0
+            || width > 4096
+            || height > 4096
+            || diameter <= 0
+            || bytes.len() != width as usize * height as usize * 4
+        {
+            return Err(failure("invalid layered raster pixels"));
+        }
+        let region = unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+        if region.is_null() {
+            return Err(failure("create layered raster shape"));
+        }
+        let result = (|| {
+            let size = unsafe { GetRegionData(region, 0, ptr::null_mut()) };
+            if !(32..=1_048_576).contains(&size) {
+                return Err(failure("invalid layered region data size"));
+            }
+            let mut data = vec![0u8; size as usize];
+            if unsafe { GetRegionData(region, size, data.as_mut_ptr().cast()) } != size {
+                return Err(failure("read layered raster shape"));
+            }
+            let word =
+                |offset: usize| u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap());
+            let count = word(8) as usize;
+            if word(0) != 32 || word(4) != 1 || count > (data.len() - 32) / 16 {
+                return Err(failure("invalid layered region bands"));
+            }
+            let mut output = vec![0u8; bytes.len()];
+            for index in 0..count {
+                let offset = 32 + index * 16;
+                let rect = [
+                    word(offset) as i32,
+                    word(offset + 4) as i32,
+                    word(offset + 8) as i32,
+                    word(offset + 12) as i32,
+                ];
+                if rect[0] < 0
+                    || rect[1] < 0
+                    || rect[2] < rect[0]
+                    || rect[3] < rect[1]
+                    || rect[2] > width + 1
+                    || rect[3] > height + 1
+                {
+                    return Err(failure("out-of-bounds layered region band"));
+                }
+                for y in rect[1].min(height)..rect[3].min(height) {
+                    let start = (y as usize * width as usize + rect[0].min(width) as usize) * 4;
+                    let end = (y as usize * width as usize + rect[2].min(width) as usize) * 4;
+                    for (source, target) in bytes[start..end]
+                        .as_chunks::<4>()
+                        .0
+                        .iter()
+                        .zip(output[start..end].as_chunks_mut::<4>().0.iter_mut())
+                    {
+                        let alpha = u16::from(source[3]);
+                        for channel in 0..3 {
+                            target[channel] =
+                                ((u16::from(source[channel]) * alpha + 127) / 255) as u8;
+                        }
+                        target[3] = source[3];
+                    }
+                }
+            }
+            Ok(output)
+        })();
+        unsafe {
+            DeleteObject(region);
+        }
+        result
+    }
+
+    fn update_layered_bitmap(
+        parent: Handle,
+        raster: Handle,
+        source_dc: Handle,
+        width: i32,
+        height: i32,
+    ) -> CommandResult<()> {
+        let mut origin = Point::default();
+        if unsafe { ClientToScreen(parent, &mut origin) } == 0 {
+            return Err(failure("read atomic raster origin"));
+        }
+        let size = Size { width, height };
+        let source = Point::default();
+        let blend = Blend {
+            operation: 0,
+            flags: 0,
+            alpha: 255,
+            format: 1,
+        };
+        if unsafe {
+            UpdateLayeredWindow(
+                raster,
+                ptr::null_mut(),
+                &origin,
+                &size,
+                source_dc,
+                &source,
+                0,
+                &blend,
+                2,
+            )
+        } == 0
+        {
+            return Err(failure("publish atomic raster pixels and extent"));
+        }
+        Ok(())
+    }
+
+    // Move the real host and its pixel-only popup in one GUI-thread batch.
+    // Child coordinates are client-relative; owned popup coordinates are
+    // physical screen coordinates, including negative monitor origins.
+    fn position_raster(
+        parent: Handle,
+        raster: Handle,
+        overlay: bool,
+        width: i32,
+        height: i32,
+        position: Option<tauri::PhysicalPosition<i32>>,
+    ) -> CommandResult<bool> {
+        // A layered popup publishes its new extent together with its pixels.
+        // Moving the pair must never resize that popup with stale pixels.
+        let raster_flags = if overlay { 0x51 } else { 0x50 };
+        let mut origin = Point::default();
+        if overlay && unsafe { ClientToScreen(parent, &mut origin) } == 0 {
+            return Err(failure("read transition overlay client origin"));
+        }
+        let mut current = Rect::default();
+        if position.is_some() && unsafe { GetWindowRect(parent, &mut current) } == 0 {
+            return Err(failure("read transition host position"));
+        }
+        let moved = position.is_some_and(|point| point.x != current.left || point.y != current.top);
+        if let Some(position) = position.filter(|_| moved) {
+            if overlay {
+                origin.x = i32::try_from(
+                    i64::from(origin.x) + i64::from(position.x) - i64::from(current.left),
+                )
+                .map_err(|_| failure("transition overlay x overflow"))?;
+                origin.y = i32::try_from(
+                    i64::from(origin.y) + i64::from(position.y) - i64::from(current.top),
+                )
+                .map_err(|_| failure("transition overlay y overflow"))?;
+            }
+            let batch = unsafe { BeginDeferWindowPos(2) };
+            if batch.is_null() {
+                return Err(failure("begin paired Focus raster move"));
+            }
+            let batch = unsafe {
+                DeferWindowPos(
+                    batch,
+                    parent,
+                    ptr::null_mut(),
+                    position.x,
+                    position.y,
+                    0,
+                    0,
+                    0x215,
+                )
+            };
+            if batch.is_null() {
+                return Err(failure("stage Focus host move"));
+            }
+            let batch = unsafe {
+                DeferWindowPos(
+                    batch,
+                    raster,
+                    ptr::null_mut(),
+                    origin.x,
+                    origin.y,
+                    width,
+                    height,
+                    raster_flags,
+                )
+            };
+            if batch.is_null() || unsafe { EndDeferWindowPos(batch) } == 0 {
+                return Err(failure("commit paired Focus raster move"));
+            }
+        } else if unsafe {
+            SetWindowPos(
+                raster,
+                ptr::null_mut(),
+                origin.x,
+                origin.y,
+                width,
+                height,
+                raster_flags,
+            )
+        } == 0
+        {
+            return Err(failure("present Focus raster"));
+        }
+        Ok(moved)
+    }
+
     pub fn clear(window: &tauri::WebviewWindow) -> CommandResult<()> {
         on_window_thread(window, |parent| {
-            let name = wide(CLASS);
-            loop {
-                let child = unsafe {
-                    FindWindowExW(
-                        parent as Handle,
-                        ptr::null_mut(),
-                        name.as_ptr(),
-                        ptr::null(),
-                    )
-                };
-                if child.is_null() {
-                    break;
-                }
-                if unsafe { DestroyWindow(child) } == 0 {
-                    return Err(failure("destroy superseded raster"));
+            for overlay in [false, true] {
+                loop {
+                    let child = find_raster(parent as Handle, None, overlay);
+                    if child.is_null() {
+                        break;
+                    }
+                    if unsafe { DestroyWindow(child) } == 0 {
+                        return Err(failure("destroy superseded raster"));
+                    }
                 }
             }
             Ok(())
         })
     }
 
+    fn replace_raster(
+        parent: usize,
+        child_id: usize,
+        overlay: bool,
+        visible: tauri::PhysicalSize<u32>,
+        bytes: Vec<u8>,
+        diameter: i32,
+        position: Option<tauri::PhysicalPosition<i32>>,
+    ) -> CommandResult<bool> {
+        if visible.width == 0
+            || visible.height == 0
+            || visible.width > 4096
+            || visible.height > 4096
+            || bytes.len() != visible.width as usize * visible.height as usize * 4
+        {
+            return Err(failure("invalid replacement raster pixels"));
+        }
+        let width = visible.width as i32;
+        let height = visible.height as i32;
+        let bytes = if overlay {
+            layered_bgra(width, height, diameter, &bytes)?
+        } else {
+            bytes
+        };
+        let child = find_raster(parent as Handle, Some(child_id), overlay);
+        if child.is_null() || child as usize != child_id {
+            return Err(failure("transition raster expired or superseded"));
+        }
+        let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
+        if pixels.is_null() {
+            return Err(failure("transition raster has no pixels"));
+        }
+        let image = unsafe { &mut *pixels };
+        let previous = tauri::PhysicalSize::new(image.width as u32, image.height as u32);
+        let info = BitmapInfo {
+            size: 40,
+            width,
+            height: -height,
+            planes: 1,
+            bits: 32,
+            compression: 0,
+            image_size: bytes.len() as u32,
+            x_pels: 0,
+            y_pels: 0,
+            colors_used: 0,
+            colors_important: 0,
+            color: 0,
+        };
+        let mut bits = ptr::null_mut();
+        let bitmap = unsafe { CreateDIBSection(image.dc, &info, 0, &mut bits, ptr::null_mut(), 0) };
+        if bitmap.is_null() || bits.is_null() {
+            if !bitmap.is_null() {
+                unsafe {
+                    DeleteObject(bitmap);
+                }
+            }
+            return Err(failure("allocate transition bitmap"));
+        }
+        unsafe {
+            ptr::copy_nonoverlapping(bytes.as_ptr(), bits.cast(), bytes.len());
+        }
+        let old = unsafe { SelectObject(image.dc, bitmap) };
+        if old.is_null() || old as isize == -1 {
+            unsafe {
+                DeleteObject(bitmap);
+            }
+            return Err(failure("select transition bitmap"));
+        }
+        unsafe {
+            DeleteObject(image.bitmap);
+        }
+        image.bitmap = bitmap;
+        image.width = width;
+        image.height = height;
+        // Do not retain a mutable Pixels borrow across reentrant window messages.
+        let source_dc = image.dc;
+        if overlay {
+            // Contract the real host first while the old popup still covers it.
+            // The new popup pixels/extent then appear together; only afterward
+            // may the real host expose any larger target area behind that shield.
+            let intersection = tauri::PhysicalSize::new(
+                previous.width.min(visible.width),
+                previous.height.min(visible.height),
+            );
+            crate::timer_region::apply_native_rect(parent, intersection, false)?;
+            let moved = position_raster(parent as Handle, child, true, width, height, position)?;
+            update_layered_bitmap(parent as Handle, child, source_dc, width, height)?;
+            crate::timer_region::apply_native_rect(parent, visible, false)?;
+            unsafe {
+                DwmFlush();
+            }
+            return Ok(moved);
+        }
+        let region = unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+        if region.is_null() {
+            return Err(failure("create transition child envelope"));
+        }
+        if unsafe { SetWindowRgn(child, region, 0) } == 0 {
+            unsafe {
+                DeleteObject(region);
+            }
+            return Err(failure("apply transition child envelope"));
+        }
+        // Install the complete bitmap and child geometry BEFORE exposing
+        // the matching parent region, all on the same window thread.
+        let moved = position_raster(parent as Handle, child, overlay, width, height, position)?;
+        crate::timer_region::apply_native_rect(parent, visible, false)?;
+        unsafe {
+            InvalidateRect(child, ptr::null(), 0);
+            UpdateWindow(child);
+            DwmFlush();
+        }
+        Ok(moved)
+    }
+
     pub struct Hold {
         window: tauri::WebviewWindow,
         child: usize,
+        overlay: bool,
         armed: bool,
     }
     impl Hold {
         pub(crate) fn release(&mut self) -> CommandResult<()> {
             let owned = self.child;
+            let overlay = self.overlay;
             on_window_thread(&self.window, move |parent| {
-                let name = wide(CLASS);
-                let child = unsafe {
-                    FindWindowExW(
-                        parent as Handle,
-                        ptr::null_mut(),
-                        name.as_ptr(),
-                        ptr::null(),
-                    )
-                };
+                let child = find_raster(parent as Handle, Some(owned), overlay);
                 if !child.is_null()
                     && child as usize == owned
                     && unsafe { DestroyWindow(child) } == 0
@@ -317,6 +701,15 @@ mod native {
             visible: tauri::PhysicalSize<u32>,
             bytes: Vec<u8>,
         ) -> CommandResult<()> {
+            self.replace_transition_frame_at(visible, bytes, None)
+        }
+
+        pub(crate) fn replace_transition_frame_at(
+            &self,
+            visible: tauri::PhysicalSize<u32>,
+            bytes: Vec<u8>,
+            position: Option<tauri::PhysicalPosition<i32>>,
+        ) -> CommandResult<()> {
             if visible.width == 0
                 || visible.height == 0
                 || visible.width > 4096
@@ -325,97 +718,23 @@ mod native {
             {
                 return Err(failure("invalid transition frame"));
             }
-            let width = visible.width as i32;
-            let height = visible.height as i32;
             let child_id = self.child;
+            let overlay = self.overlay;
             let scale = self
                 .window
                 .scale_factor()
                 .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
             let diameter = (32.0 * scale).round() as i32;
-            on_window_thread(&self.window, move |parent| {
-                let name = wide(CLASS);
-                let child = unsafe {
-                    FindWindowExW(
-                        parent as Handle,
-                        ptr::null_mut(),
-                        name.as_ptr(),
-                        ptr::null(),
-                    )
-                };
-                if child.is_null() || child as usize != child_id {
-                    return Err(failure("transition raster expired or superseded"));
-                }
-                let pixels = unsafe { GetWindowLongPtrW(child, USER_DATA) as *mut Pixels };
-                if pixels.is_null() {
-                    return Err(failure("transition raster has no pixels"));
-                }
-                let image = unsafe { &mut *pixels };
-                let info = BitmapInfo {
-                    size: 40,
-                    width,
-                    height: -height,
-                    planes: 1,
-                    bits: 32,
-                    compression: 0,
-                    image_size: bytes.len() as u32,
-                    x_pels: 0,
-                    y_pels: 0,
-                    colors_used: 0,
-                    colors_important: 0,
-                    color: 0,
-                };
-                let mut bits = ptr::null_mut();
-                let bitmap =
-                    unsafe { CreateDIBSection(image.dc, &info, 0, &mut bits, ptr::null_mut(), 0) };
-                if bitmap.is_null() || bits.is_null() {
-                    if !bitmap.is_null() {
-                        unsafe {
-                            DeleteObject(bitmap);
-                        }
-                    }
-                    return Err(failure("allocate transition bitmap"));
-                }
-                unsafe {
-                    ptr::copy_nonoverlapping(bytes.as_ptr(), bits.cast(), bytes.len());
-                }
-                let old = unsafe { SelectObject(image.dc, bitmap) };
-                if old.is_null() || old as isize == -1 {
-                    unsafe {
-                        DeleteObject(bitmap);
-                    }
-                    return Err(failure("select transition bitmap"));
-                }
-                unsafe {
-                    DeleteObject(image.bitmap);
-                }
-                image.bitmap = bitmap;
-                image.width = width;
-                image.height = height;
-                let region =
-                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
-                if region.is_null() {
-                    return Err(failure("create transition child envelope"));
-                }
-                if unsafe { SetWindowRgn(child, region, 0) } == 0 {
-                    unsafe {
-                        DeleteObject(region);
-                    }
-                    return Err(failure("apply transition child envelope"));
-                }
-                // Install the complete bitmap and child geometry BEFORE exposing
-                // the matching parent region, all on the same window thread.
-                if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, width, height, 0x50) } == 0 {
-                    return Err(failure("resize transition raster envelope"));
-                }
-                crate::timer_region::apply_native_rect(parent, visible, false)?;
-                unsafe {
-                    InvalidateRect(child, ptr::null(), 0);
-                    UpdateWindow(child);
-                    DwmFlush();
-                }
-                Ok(())
-            })
+            let moved = on_window_thread(&self.window, move |parent| {
+                replace_raster(
+                    parent, child_id, overlay, visible, bytes, diameter, position,
+                )
+            })?;
+            if moved {
+                crate::focus_webview::notify_parent_position_changed(&self.window)
+                    .map_err(|error| CommandError::new("FOCUS_FRAME_HOLD_FAILED", error))?;
+            }
+            Ok(())
         }
         // The one-shot native timer now owns cleanup. No GUI-thread sleep,
         // renderer authority, domain-state delay or continuous polling.
@@ -438,7 +757,7 @@ mod native {
         visible: tauri::PhysicalSize<u32>,
         png: &[u8],
     ) -> CommandResult<Hold> {
-        begin_with_lifetime(window, visible, png, HOLD_MS)
+        begin_with_lifetime(window, visible, png, HOLD_MS, false)
     }
 
     pub(crate) fn begin_mode_transition(
@@ -448,104 +767,114 @@ mod native {
     ) -> CommandResult<Hold> {
         // Explicit renderer acknowledgement normally releases this lease.
         // A bounded watchdog handles renderer loss without an idle capture loop.
-        begin_with_lifetime(window, visible, png, 8_000)
+        begin_with_lifetime(window, visible, png, 8_000, true)
     }
 
-    fn begin_with_lifetime(
-        window: &tauri::WebviewWindow,
-        visible: tauri::PhysicalSize<u32>,
-        png: &[u8],
+    fn install_raster(
+        parent: usize,
+        width: i32,
+        height: i32,
+        bytes: Vec<u8>,
+        diameter: i32,
         lifetime_ms: u32,
-    ) -> CommandResult<Hold> {
-        let bytes = crate::focus_frame_capture::compact_bgra(png, visible.width, visible.height)?;
-        let width = i32::try_from(visible.width).map_err(|_| failure("invalid raster width"))?;
-        let height = i32::try_from(visible.height).map_err(|_| failure("invalid raster height"))?;
-        let scale = window
-            .scale_factor()
-            .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
-        let diameter = (32.0 * scale).round() as i32;
-        let child = on_window_thread(window, move |parent| {
-            let name = wide(CLASS);
-            let instance = unsafe { GetModuleHandleW(ptr::null()) };
-            let class = WindowClass {
-                style: 0,
-                procedure,
-                class_extra: 0,
-                window_extra: 0,
-                instance,
-                icon: ptr::null_mut(),
-                cursor: ptr::null_mut(),
-                background: ptr::null_mut(),
-                menu: ptr::null(),
-                name: name.as_ptr(),
-            };
-            if unsafe { RegisterClassW(&class) } == 0 && unsafe { GetLastError() } != 1410 {
-                return Err(failure("register raster class"));
-            }
-            // The parent GDI DC contains stale native caption pixels. CapturePreview
-            // supplies the actual prepared WebView pixels, independently of occlusion.
-            let mut pixels = Pixels {
-                dc: unsafe { CreateCompatibleDC(ptr::null_mut()) },
-                bitmap: ptr::null_mut(),
-                original: ptr::null_mut(),
+        overlay: bool,
+    ) -> CommandResult<usize> {
+        if width <= 0
+            || height <= 0
+            || width > 4096
+            || height > 4096
+            || bytes.len() != width as usize * height as usize * 4
+            || lifetime_ms == 0
+        {
+            return Err(failure("invalid raster pixels or lifetime"));
+        }
+        let bytes = if overlay {
+            layered_bgra(width, height, diameter, &bytes)?
+        } else {
+            bytes
+        };
+        let name = wide(if overlay { MODE_CLASS } else { CLASS });
+        let instance = unsafe { GetModuleHandleW(ptr::null()) };
+        let class = WindowClass {
+            style: 0,
+            procedure,
+            class_extra: 0,
+            window_extra: 0,
+            instance,
+            icon: ptr::null_mut(),
+            cursor: ptr::null_mut(),
+            background: ptr::null_mut(),
+            menu: ptr::null(),
+            name: name.as_ptr(),
+        };
+        if unsafe { RegisterClassW(&class) } == 0 && unsafe { GetLastError() } != 1410 {
+            return Err(failure("register raster class"));
+        }
+        // The parent GDI DC contains stale native caption pixels. CapturePreview
+        // supplies the actual prepared WebView pixels, independently of occlusion.
+        let mut pixels = Pixels {
+            dc: unsafe { CreateCompatibleDC(ptr::null_mut()) },
+            bitmap: ptr::null_mut(),
+            original: ptr::null_mut(),
+            width,
+            height,
+            layered: overlay,
+        };
+        if pixels.dc.is_null() {
+            return Err(failure("create raster DC"));
+        }
+        let info = BitmapInfo {
+            size: 40,
+            width,
+            height: -height,
+            planes: 1,
+            bits: 32,
+            compression: 0,
+            image_size: bytes.len() as u32,
+            x_pels: 0,
+            y_pels: 0,
+            colors_used: 0,
+            colors_important: 0,
+            color: 0,
+        };
+        let mut bitmap_bytes = ptr::null_mut();
+        pixels.bitmap =
+            unsafe { CreateDIBSection(pixels.dc, &info, 0, &mut bitmap_bytes, ptr::null_mut(), 0) };
+        if pixels.bitmap.is_null() || bitmap_bytes.is_null() {
+            return Err(failure("create raster bitmap"));
+        }
+        unsafe {
+            ptr::copy_nonoverlapping(bytes.as_ptr(), bitmap_bytes.cast(), bytes.len());
+        }
+        pixels.original = unsafe { SelectObject(pixels.dc, pixels.bitmap) };
+        if pixels.original.is_null() || pixels.original as isize == -1 {
+            pixels.original = ptr::null_mut();
+            return Err(failure("select raster bitmap"));
+        }
+        let child = unsafe {
+            CreateWindowExW(
+                if overlay { 0x080800a0 } else { 4 },
+                name.as_ptr(),
+                name.as_ptr(),
+                if overlay { 0x80000000 } else { 0x44000000 },
+                0,
+                0,
                 width,
                 height,
-            };
-            if pixels.dc.is_null() {
-                return Err(failure("create raster DC"));
-            }
-            let info = BitmapInfo {
-                size: 40,
-                width,
-                height: -height,
-                planes: 1,
-                bits: 32,
-                compression: 0,
-                image_size: bytes.len() as u32,
-                x_pels: 0,
-                y_pels: 0,
-                colors_used: 0,
-                colors_important: 0,
-                color: 0,
-            };
-            let mut bitmap_bytes = ptr::null_mut();
-            pixels.bitmap = unsafe {
-                CreateDIBSection(pixels.dc, &info, 0, &mut bitmap_bytes, ptr::null_mut(), 0)
-            };
-            if pixels.bitmap.is_null() || bitmap_bytes.is_null() {
-                return Err(failure("create raster bitmap"));
-            }
-            unsafe {
-                ptr::copy_nonoverlapping(bytes.as_ptr(), bitmap_bytes.cast(), bytes.len());
-            }
-            pixels.original = unsafe { SelectObject(pixels.dc, pixels.bitmap) };
-            if pixels.original.is_null() || pixels.original as isize == -1 {
-                pixels.original = ptr::null_mut();
-                return Err(failure("select raster bitmap"));
-            }
-            let child = unsafe {
-                CreateWindowExW(
-                    4,
-                    name.as_ptr(),
-                    name.as_ptr(),
-                    0x44000000,
-                    0,
-                    0,
-                    width,
-                    height,
-                    parent as Handle,
-                    ptr::null_mut(),
-                    instance,
-                    ptr::null_mut(),
-                )
-            };
-            if child.is_null() {
-                return Err(failure("create raster child"));
-            }
-            unsafe {
-                SetWindowLongPtrW(child, USER_DATA, Box::into_raw(Box::new(pixels)) as isize);
-            }
-            let installed = (|| {
+                parent as Handle,
+                ptr::null_mut(),
+                instance,
+                ptr::null_mut(),
+            )
+        };
+        if child.is_null() {
+            return Err(failure("create Focus raster window"));
+        }
+        unsafe {
+            SetWindowLongPtrW(child, USER_DATA, Box::into_raw(Box::new(pixels)) as isize);
+        }
+        let installed = (|| {
+            if !overlay {
                 let region =
                     unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
                 if region.is_null() {
@@ -557,30 +886,337 @@ mod native {
                     }
                     return Err(failure("clip raster child"));
                 }
-                if unsafe { SetTimer(child, 1, lifetime_ms, ptr::null_mut()) } == 0 {
-                    return Err(failure("arm finite raster expiry"));
-                }
-                if unsafe { SetWindowPos(child, ptr::null_mut(), 0, 0, width, height, 0x50) } == 0 {
-                    return Err(failure("present raster child"));
-                }
-                unsafe {
-                    UpdateWindow(child);
-                    DwmFlush();
-                }
-                Ok(child as usize)
-            })();
-            if installed.is_err() {
-                unsafe {
-                    DestroyWindow(child);
-                }
+            } else {
+                // Layered contents are complete before this HWND's first show.
+                let image = unsafe { &*(GetWindowLongPtrW(child, USER_DATA) as *const Pixels) };
+                update_layered_bitmap(parent as Handle, child, image.dc, width, height)?;
             }
-            installed
+            if unsafe { SetTimer(child, 1, lifetime_ms, ptr::null_mut()) } == 0 {
+                return Err(failure("arm finite raster expiry"));
+            }
+            position_raster(parent as Handle, child, overlay, width, height, None)?;
+            unsafe {
+                if !overlay {
+                    UpdateWindow(child);
+                }
+                DwmFlush();
+            }
+            Ok(child as usize)
+        })();
+        if installed.is_err() {
+            unsafe {
+                DestroyWindow(child);
+            }
+        }
+        installed
+    }
+
+    fn begin_with_lifetime(
+        window: &tauri::WebviewWindow,
+        visible: tauri::PhysicalSize<u32>,
+        png: &[u8],
+        lifetime_ms: u32,
+        overlay: bool,
+    ) -> CommandResult<Hold> {
+        let bytes = crate::focus_frame_capture::compact_bgra(png, visible.width, visible.height)?;
+        let width = i32::try_from(visible.width).map_err(|_| failure("invalid raster width"))?;
+        let height = i32::try_from(visible.height).map_err(|_| failure("invalid raster height"))?;
+        let scale = window
+            .scale_factor()
+            .map_err(|e| CommandError::new("FOCUS_FRAME_HOLD_FAILED", e.to_string()))?;
+        let diameter = (32.0 * scale).round() as i32;
+        let child = on_window_thread(window, move |parent| {
+            install_raster(parent, width, height, bytes, diameter, lifetime_ms, overlay)
         })?;
         Ok(Hold {
             window: window.clone(),
             child,
+            overlay,
             armed: true,
         })
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        struct TestWindow(Handle);
+        impl Drop for TestWindow {
+            fn drop(&mut self) {
+                unsafe {
+                    DestroyWindow(self.0);
+                }
+            }
+        }
+        fn parent() -> TestWindow {
+            let class = wide("STATIC");
+            let window = unsafe {
+                CreateWindowExW(
+                    0x08000080,
+                    class.as_ptr(),
+                    ptr::null(),
+                    0x80000000,
+                    120,
+                    140,
+                    340,
+                    700,
+                    ptr::null_mut(),
+                    ptr::null_mut(),
+                    GetModuleHandleW(ptr::null()),
+                    ptr::null_mut(),
+                )
+            };
+            assert!(!window.is_null());
+            TestWindow(window)
+        }
+        fn raster(parent: &TestWindow, overlay: bool) -> TestWindow {
+            let bytes = [30, 20, 10, 255].repeat(340 * 110);
+            TestWindow(
+                install_raster(parent.0 as usize, 340, 110, bytes, 32, 8_000, overlay)
+                    .expect("install production raster") as Handle,
+            )
+        }
+        fn rect(window: Handle) -> Rect {
+            let mut rect = Rect::default();
+            assert_ne!(unsafe { GetWindowRect(window, &mut rect) }, 0);
+            rect
+        }
+
+        #[test]
+        fn mode_raster_is_owned_nonactivating_popup_and_region_hold_stays_child() {
+            let owner = parent();
+            let child = raster(&owner, false);
+            let overlay = raster(&owner, true);
+            assert_eq!(find_raster(owner.0, Some(child.0 as usize), false), child.0);
+            assert!(find_raster(owner.0, Some(overlay.0 as usize), false).is_null());
+            assert_eq!(
+                find_raster(owner.0, Some(overlay.0 as usize), true),
+                overlay.0
+            );
+            assert_eq!(unsafe { GetWindow(overlay.0, 4) }, owner.0);
+            let style = unsafe { GetWindowLongPtrW(overlay.0, -16) } as u32;
+            let ex = unsafe { GetWindowLongPtrW(overlay.0, -20) } as u32;
+            assert_eq!(
+                style & 0xc0000000,
+                0x80000000,
+                "popup, never another child/WebView"
+            );
+            assert_eq!(
+                ex & 0x080000a0,
+                0x080000a0,
+                "no activation, taskbar or pointer owner"
+            );
+            assert_ne!(ex & 0x80000, 0, "mode pixels/extent are layered together");
+            assert_eq!(
+                unsafe { GetWindowLongPtrW(child.0, -20) } & 0x80000,
+                0,
+                "ordinary short child holds keep their existing paint path"
+            );
+        }
+
+        #[test]
+        fn paired_host_overlay_move_preserves_negative_screen_origin_and_extent() {
+            let owner = parent();
+            let overlay = raster(&owner, true);
+            assert!(replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(425, 875),
+                [30, 20, 10, 255].repeat(425 * 875),
+                40,
+                Some(tauri::PhysicalPosition::new(-445, 20)),
+            )
+            .expect("paired move"));
+            assert!(!replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(425, 875),
+                [30, 20, 10, 255].repeat(425 * 875),
+                40,
+                Some(tauri::PhysicalPosition::new(-445, 20)),
+            )
+            .expect("stationary frame does not move the host again"));
+            let host = rect(owner.0);
+            let actual = rect(overlay.0);
+            let mut client = Point::default();
+            assert_ne!(unsafe { ClientToScreen(owner.0, &mut client) }, 0);
+            assert_eq!((host.left, host.top), (-445, 20));
+            assert_eq!((actual.left, actual.top), (client.x, client.y));
+            assert_eq!(
+                (actual.right - actual.left, actual.bottom - actual.top),
+                (425, 875)
+            );
+            replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(340, 110),
+                [30, 20, 10, 255].repeat(340 * 110),
+                32,
+                Some(tauri::PhysicalPosition::new(2204, 16)),
+            )
+            .expect("return move");
+            let actual = rect(overlay.0);
+            assert_eq!(
+                (
+                    actual.left,
+                    actual.top,
+                    actual.right - actual.left,
+                    actual.bottom - actual.top
+                ),
+                (2204, 16, 340, 110)
+            );
+            let host = rect(owner.0);
+            assert_eq!(
+                (host.right - host.left, host.bottom - host.top),
+                (340, 700),
+                "normal mode changes must not resize the real host"
+            );
+        }
+
+        #[test]
+        fn layered_shape_matches_native_region_and_premultiplies_once() {
+            for (width, height, diameter) in [(340, 110, 32), (425, 375, 40)] {
+                let input = [200, 100, 50, 128].repeat(width as usize * height as usize);
+                let output = layered_bgra(width, height, diameter, &input).unwrap();
+                let region =
+                    unsafe { CreateRoundRectRgn(0, 0, width + 1, height + 1, diameter, diameter) };
+                assert!(!region.is_null());
+                for y in 0..height {
+                    for x in 0..width {
+                        let offset = (y as usize * width as usize + x as usize) * 4;
+                        let expected = if unsafe { PtInRegion(region, x, y) } != 0 {
+                            [100, 50, 25, 128]
+                        } else {
+                            [0; 4]
+                        };
+                        assert_eq!(
+                            &output[offset..offset + 4],
+                            &expected,
+                            "native mask at{x},{y}"
+                        );
+                    }
+                }
+                unsafe {
+                    DeleteObject(region);
+                }
+            }
+            assert!(layered_bgra(340, 110, 32, &[0; 4]).is_err());
+            assert!(layered_bgra(0, 110, 32, &[]).is_err());
+            assert!(layered_bgra(1, 1, 0, &[0; 4]).is_err());
+        }
+
+        #[test]
+        fn production_layered_replacement_owns_new_pixels_and_rejects_stale_or_invalid_input() {
+            #[repr(C)]
+            #[derive(Default)]
+            struct Bitmap {
+                kind: i32,
+                width: i32,
+                height: i32,
+                row_bytes: i32,
+                planes: u16,
+                bits: u16,
+                data: Handle,
+            }
+            let owner = parent();
+            let overlay = raster(&owner, true);
+            for (width, height, color) in [
+                (340, 300, [60, 40, 20, 255]),
+                (340, 110, [200, 100, 50, 128]),
+            ] {
+                replace_raster(
+                    owner.0 as usize,
+                    overlay.0 as usize,
+                    true,
+                    tauri::PhysicalSize::new(width, height),
+                    color.repeat(width as usize * height as usize),
+                    32,
+                    None,
+                )
+                .expect("publish actual installed mode raster");
+                let actual = rect(overlay.0);
+                assert_eq!(
+                    (actual.right - actual.left, actual.bottom - actual.top),
+                    (width as i32, height as i32)
+                );
+                let image = unsafe { &*(GetWindowLongPtrW(overlay.0, USER_DATA) as *const Pixels) };
+                let mut bitmap = Bitmap::default();
+                let size = std::mem::size_of::<Bitmap>() as i32;
+                assert_eq!(
+                    unsafe { GetObjectW(image.bitmap, size, (&mut bitmap as *mut Bitmap).cast()) },
+                    size
+                );
+                assert_eq!(
+                    (bitmap.width, bitmap.height, bitmap.bits),
+                    (width as i32, height as i32, 32)
+                );
+                assert!(!bitmap.data.is_null());
+                let offset = ((height / 2 * width + width / 2) * 4) as usize;
+                let center =
+                    unsafe { std::slice::from_raw_parts(bitmap.data.cast::<u8>().add(offset), 4) };
+                let expected = if color[3] == 255 {
+                    color
+                } else {
+                    [100, 50, 25, 128]
+                };
+                assert_eq!(
+                    center, &expected,
+                    "the production DC owns the new premultiplied image"
+                );
+            }
+            let before = rect(overlay.0);
+            assert!(replace_raster(
+                owner.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(340, 110),
+                vec![0; 4],
+                32,
+                None
+            )
+            .is_err());
+            let after = rect(overlay.0);
+            assert_eq!(
+                (before.left, before.top, before.right, before.bottom),
+                (after.left, after.top, after.right, after.bottom)
+            );
+            let other = parent();
+            assert!(replace_raster(
+                other.0 as usize,
+                overlay.0 as usize,
+                true,
+                tauri::PhysicalSize::new(340, 110),
+                vec![255; 340 * 110 * 4],
+                32,
+                None
+            )
+            .is_err());
+        }
+
+        #[test]
+        fn expired_or_other_owner_raster_is_never_selected_for_cleanup() {
+            let owner = parent();
+            let other = parent();
+            let overlay = raster(&other, true);
+            assert!(find_raster(owner.0, Some(overlay.0 as usize), true).is_null());
+            let stale = {
+                let expired = raster(&owner, true);
+                expired.0 as usize
+            };
+            assert!(find_raster(owner.0, Some(stale), true).is_null());
+            assert_eq!(
+                find_raster(other.0, Some(overlay.0 as usize), true),
+                overlay.0
+            );
+            assert!(
+                install_raster(owner.0 as usize, 340, 110, vec![0; 4], 32, 8_000, true).is_err()
+            );
+            assert!(install_raster(owner.0 as usize, 0, 0, vec![], 32, 8_000, true).is_err());
+            assert!(install_raster(owner.0 as usize, 1, 1, vec![0; 4], 32, 0, true).is_err());
+        }
     }
 }
 
@@ -597,6 +1233,14 @@ mod native {
             &self,
             _: tauri::PhysicalSize<u32>,
             _: Vec<u8>,
+        ) -> CommandResult<()> {
+            Ok(())
+        }
+        pub(crate) fn replace_transition_frame_at(
+            &self,
+            _: tauri::PhysicalSize<u32>,
+            _: Vec<u8>,
+            _: Option<tauri::PhysicalPosition<i32>>,
         ) -> CommandResult<()> {
             Ok(())
         }
