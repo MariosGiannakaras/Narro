@@ -6,6 +6,10 @@
 
 The above PNG sample cleanup does **not** change the fixed 700 path/extension cohort, any original video/ZIP source provenance or the HOLD decisions. Historical sample paths remain reconstructable from the referenced pre-deletion commit.
 
+**Separate CI944 derived-frame retirement (2026-10-31):** [PR464](https://github.com/MariosGiannakaras/Narro/pull/464), exact head `f65ce2911dc5fee01429407e745d0c38078ac984`, guarded squash-merged `ffd903eabce891c294f4968821aebc70431956b3`. 72 Git-SHA-identical derived PNG copies / **1,571,806 logical B** retired, while preserving **168 named frames (55 compact-entry /113 Focus Find), all 27 and 103 unique per-window blob contents**, boundary frames1–30 and115–120, every tenth frame, original native video four parts /157,799,345 B, SHA256/PTS/index, manifest and original case observations. Exact merge source checkout `truncated:false`: 19,000 blobs /11,104,017,829 B; evidence 17,161 blobs /10,831,418,572 B **before follow-on Markdown update**. [Individualized SHA mapping](work-log/2026-10-31-chatgpt-ci944-exact-review-frames-predelete-audit.md) / [immutable merge receipt](work-log/2026-10-31-chatgpt-pr464-ci944-png-merged-resulting-main.md). 72-only removal compare PASS, source/tests/reference untouched, CI/native NOT RUN for evidence-only `[skip ci]`. Original C4/Find/remaining native holds unchanged. This deletion is **outside** the frozen 700 video/archive cohort; **32/700 retired, 668 HOLD unchanged**.
+
+No video/archive original of the frozen 700 cohort was removed by PR463/464; their additional 109 generated PNG retirements must **not** change the 32/700 numerator or protective 668 HOLD.
+
 ## Fixed baseline — before batch PR458
 
 - **Baseline** `main` commit `60b310c19e626150ec864fb8180defd76c83ed07`, full recursive Git tree `truncated:false`.
