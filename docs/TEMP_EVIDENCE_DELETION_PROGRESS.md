@@ -38,3 +38,41 @@ Execute only checked batch 1; record PR/head/merge SHA, actual resulting-main co
 - New app CI/native physical: **NOT RUN** (archival-only `[skip ci]`); source/acceptance previous findings unchanged.
 
 **Next:** inspect remaining 2026-10-03..17 historical Narro capture folders and exclude genuine original Blitzit/canonical and the latest final evidence for open PRs. Complete in further verified grouped PRs. **Tracker remains until all selected cleanup is finished; then delete this exact file in final cleanup commit.**
+
+## Batch 2 — prepared but **BLOCKED / NO DELETION** (2026-10-31)
+
+- Selection: 27 superseded generated Narro evidence folders dated 2026-10-03–17, excluding original-Blitzit/canonical/source-comparison-looking files and explicitly latest named final captures. **4,065 paths /2,340,643,868 B** are **candidates only**, not deleted, and may require additional consumer assessment.
+- Started branch `cleanup/archive-27-old-narro-capture-packets-20261031` from `d0f5cc586548fc8e1bfa6e19261708dd30e6365c`. The bulk deletion command was blocked by tool safety checks; live GitHub branch remains at the **same commit SHA** `d0f5cc586548fc8e1bfa6e19261708dd30e6365c` as main. **No tree mutation, commit, PR, merge or deletion occurred for batch 2.** Do not count these 4,065 paths or 2.34 GB as savings.
+- Candidate counts by folder (read-only Git-tree inventory):
+
+| Folder | Candidate files | Logical bytes | State |
+| --- | ---: | ---: | --- |
+| `pa01-08-20261013` | 350 | 469,052,463 | BLOCKED / NOT REMOVED |
+| `ci1046-physical-20261008` | 310 | 293,597,216 | BLOCKED / NOT REMOVED |
+| `pa351-native-20261014` | 103 | 268,327,516 | BLOCKED / NOT REMOVED |
+| `pa354-native-20261014` | 108 | 177,295,540 | BLOCKED / NOT REMOVED |
+| `pa355-native-20261015` | 131 | 155,022,261 | BLOCKED / NOT REMOVED |
+| `pa353-native-20261014` | 62 | 101,998,124 | BLOCKED / NOT REMOVED |
+| `m7-ci953-theme-20261005` | 412 | 99,027,660 | BLOCKED / NOT REMOVED |
+| `pr362-native-20261016` | 238 | 81,362,634 | BLOCKED / NOT REMOVED |
+| `m5-remaining-native-20261017` | 575 | 76,369,700 | BLOCKED / NOT REMOVED |
+| `pa356-residual-native-20261015` | 123 | 66,678,707 | BLOCKED / NOT REMOVED |
+| `m7-ci953-gaps-20261005` | 89 | 66,476,789 | BLOCKED / NOT REMOVED |
+| `m7-ci953-interfaces-20261005` | 83 | 65,123,460 | BLOCKED / NOT REMOVED |
+| `pa356-native-20261015` | 69 | 61,633,121 | BLOCKED / NOT REMOVED |
+| `pa356-production-notification-20261015` | 27 | 52,389,565 | BLOCKED / NOT REMOVED |
+| `m7-pr235-native-capture-only-20261005` | 41 | 50,759,632 | BLOCKED / NOT REMOVED |
+| `m7-ci893-20261003` | 110 | 40,373,685 | BLOCKED / NOT REMOVED |
+| `m7-ci950-loading-20261005` | 239 | 27,442,705 | BLOCKED / NOT REMOVED |
+| `pr364-native-20261017` | 286 | 26,445,683 | BLOCKED / NOT REMOVED |
+| `m7-ci953-layout-20261005` | 47 | 24,668,551 | BLOCKED / NOT REMOVED |
+| `pa356-keyboard-diagnostic-20261015` | 51 | 23,317,479 | BLOCKED / NOT REMOVED |
+| `m7-ci953-browser-shortcut-20261005` | 36 | 22,176,939 | BLOCKED / NOT REMOVED |
+| `m6-quick-native-20261017` | 210 | 21,723,959 | BLOCKED / NOT REMOVED |
+| `pa353-nsis-native-20261014` | 28 | 16,541,979 | BLOCKED / NOT REMOVED |
+| `pa353-msi-native-20261014` | 30 | 14,915,410 | BLOCKED / NOT REMOVED |
+| `m7-ci884-20261003` | 57 | 14,251,640 | BLOCKED / NOT REMOVED |
+| `2026-10-03-m7-ci873-c5-completed` | 209 | 13,415,190 | BLOCKED / NOT REMOVED |
+| `pa356-notification-review-20261015` | 41 | 10,256,260 | BLOCKED / NOT REMOVED |
+
+**Current VERIFIED progress remains batch 1 only:** 1,471 files /1,826,956,822 B newly removed in PR465; cumulative historical retirements PR445–465 = 20,913 files /7,648,434,847 B; frozen original 700 cohort **117 retired, 583 remain /6,827,044,909 B**. Full cleanup **IN PROGRESS**, temporary tracker **must remain**. Resolve the blocked write by an explicitly permitted workflow rather than reissuing or bypassing the safety block. Neither pending candidate list nor an empty branch implies cleanup.
