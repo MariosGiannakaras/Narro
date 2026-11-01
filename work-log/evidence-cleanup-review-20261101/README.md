@@ -94,6 +94,18 @@ The WAV source is **626,732 B, 156,672 stereo PCM frames at 48,000 Hz, 3.264 sec
 
 All Capture57 files are protected against deletion; partial acquisition state and user-specific approvals retain their original limits. The remaining non-ZIP/nonconventional-media queue is reduced to **13,457 paths /2,107,500,719 B**. The larger evidence cleanup, future consumer/source replacement review and the 27-family destructive safety block remain open.
 
+## Physical acceptance 2026-10-25: evidence sidecars and source media (2026-11-01)
+
+[Per-path retention assessment](physical-acceptance-sidecar-retention.json) covers all **395 frozen family files**: **7 ZIP containers** already held in the 103-ZIP audit; **11 original MKV films and two loopback WAV receipts** now specifically held in the [conventional-media index](media-path-retention-index.json); and **375 other non-ZIP/nonconventional-media paths** explicitly held here (**420,919,403 B**). The latter include **10 original binary parts /412,179,575 B** of the corrected *derived* `analysis-v2.zip` and **365 native/method sidecars**. All 394 non-self files have published per-path SHA-256 entries with matching frozen sizes; the checksum manifest self-exclusion is expected. Ten archive part order/bytes/digest values agree with the published reassembly record. This is **metadata cross-check only**, not newly calculated SHA-256, decompression or reassembly.
+
+The documented 17/17 bounded source reviews are **not 17 native PASS**, and PR389/PR419 strict physical gates remain independent. The two WAVs are acquisition signals, not demonstrated perceptual audio acceptance. The 13 media files now have specified source provenance, reducing the remaining source-unclassified conventional-media queue to **404 /3,398,263,756 B**. No file is deletion-approved.
+
+## CI936 surviving evidence, missing original current-main film (2026-11-01)
+
+[Remaining 601-path family hold](ci936-other-evidence-retention.json) covers **601 files /255,447,160 B** outside the **360 previously audited live-motion frames**. All 600 non-self paths match the historical acquisition SHA-256 manifest by path and size; `evidence-manifest.json` itself is the sole self-excluded path. The **514,153,718 B original film and all 13 split parts remain absent from current main**, although a historical Git recovery commit and SHA-256 proof were documented in the earlier CI936 audit. Historical availability is not current source retention. Both the 601 residual evidence files and 360 prior frame entries remain held; **156 previously suggested identical-frame candidates remain NOT approved for deletion**. No duplicate review was repeated, no media was restored, and no CI/Windows validation ran.
+
+With the completed Capture57 family review, the additional 375 physical-acceptance and 601 CI936 residual paths, **12,481 non-ZIP/nonconventional-media paths /1,431,134,156 B remain REVIEW_REQUIRED** at the frozen baseline. All prior source and batch-2 deletion restrictions remain unchanged.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
