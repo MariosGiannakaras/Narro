@@ -11,8 +11,8 @@
     "media_file_count": 429,
     "media_logical_bytes": 4019525687,
     "verified_prior_original_audit_matches": 11,
-    "pending_media_review_count": 281,
-    "pending_media_review_logical_bytes": 3393916804,
+    "pending_media_review_count": 275,
+    "pending_media_review_logical_bytes": 3096425030,
     "family_count": 73,
     "extensions": [
       {
@@ -36,7 +36,9 @@
     "newly_proven_original_media_from_physical_acceptance": 13,
     "newly_proven_original_media_from_physical_acceptance_bytes": 264978066,
     "ci932_motion_derivative_holds": 123,
-    "ci932_motion_derivative_holds_bytes": 4346952
+    "ci932_motion_derivative_holds_bytes": 4346952,
+    "ci948_stream_copy_excerpt_holds": 6,
+    "ci948_stream_copy_excerpt_hold_bytes": 297491774
   },
   "families": [
     {
@@ -3357,8 +3359,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci948-20261004/clips/inline-delete-archive.mkv",
@@ -3368,8 +3375,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci948-20261004/clips/metrics-and-queue-failures.mkv",
@@ -3379,8 +3391,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci948-20261004/clips/modal-matrices.mkv",
@@ -3390,8 +3407,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci948-20261004/clips/native-planning-drag.mkv",
@@ -3401,8 +3423,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci948-20261004/clips/wrapped-notes-normal-reduced.mkv",
@@ -3412,8 +3439,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_CI948_STREAM_COPY_EXCERPT",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/ci948-retention-and-original-gap-review.json",
+        "published_consumer": "work-log/evidence/m7-ci948-20261004/README.md",
+        "source_warning": "Both complete original film part sets absent from frozen tracked main; excerpt cannot replace original"
+      }
     },
     {
       "path": "work-log/evidence/m7-ci950-loading-20261005/focus-escape.mp4",
@@ -6025,6 +6057,7 @@
     "No file deletion/move, new CI or native Windows testing; past batch-2 deletion safety block is unchanged.",
     "Capture57 original WAV is now specifically held by its source manifest and PCM metadata; its 3.264 seconds are discontinuous/unmapped and do not establish audio acceptance.",
     "Physical-acceptance 2026-10-25 publication identifies 11 original native films and two collected loopback WAV files; their presence supports preservation but not universal physical/compositor/audio PASS.",
-    "CI932 historical 123 MP4s are short derived motion clips referenced by its action/PTS index and historic native compositor FAIL. Original video part availability in current Git tree is not established; none is deletion-approved."
+    "CI932 historical 123 MP4s are short derived motion clips referenced by its action/PTS index and historic native compositor FAIL. Original video part availability in current Git tree is not established; none is deletion-approved.",
+    "Six CI948 original-stream copy excerpts were published for bounded review, but full original 403,630,464 B film parts are absent from current tracked main. Preserve all six excerpts; media presence does not imply full original recovery."
   ]
 }
