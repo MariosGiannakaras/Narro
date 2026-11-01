@@ -38,6 +38,12 @@ These matches are content clues, not a deletion decision: a ZIP's exact bytes, o
 
 Every matching archive still needs exact ZIP/container provenance, member-path semantics, surviving replacements and current consumer review. Nonmatching members may exist in untracked or other encoded forms; neither outcome alone authorizes removal. This is the whole **tracked evidence ZIP** scope, not all files or all repository archives. No deletion performed.
 
+## Matched archive consumer and container assessment
+
+`matched-zip-consumer-review.json` follows all **21** ZIPs with fully matched members. **20/21** have same-family, same-suffix-path matches for every member; one surviving helper archive matches tracked content only outside its own family. **0/21** have a second byte-identical ZIP container at another path in the frozen tracked tree. The structured report records each member and matching paths, per-archive Markdown references, and exact container identity. Six recent physical-session raw-text ZIPs are `HOLD_CURRENT_NATIVE_RAW_ARCHIVE`; the surviving paused-intake helper ZIP (previously retained as the counterpart of PR461's retired duplicate) is `HOLD_SURVIVING_REFERENCED_COPY`. The remaining 14 old log archives are `REVIEW_CONSUMERS_AND_CONTAINER`, not approved for removal. Earlier review specifically held the CI873 attempted-session ZIP because an identical container had not been demonstrated, and held the CI893 followup pending member-byte proof; the new comparison establishes member matches, not exact ZIP equivalence or retirement of their users.
+
+Same content alone does not preserve ZIP bytes, ordering, archive metadata, historical download links or the case for keeping original reports. Some 14 archives also belong to the earlier safety-blocked batch; this audit does not authorize or bypass any rejection. Run `audit_matched_zip_consumers.py` to regenerate. No files removed.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
