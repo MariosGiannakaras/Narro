@@ -6,6 +6,8 @@
 
 **CI936 read-only frame assessment:** [360 frame entries](work-log/evidence-cleanup-review-20261101/ci936-live-frame-review.json) in two live-collapse sequences are individually blob-checked; 204 are proposed retained samples and 156 same-sequence identical-blob candidates need further consumer/timeline and policy review. No deletion approved. Source's 13 original parts are absent from current main after PR453 but were read and SHA-256 verified from historical `6bef54f79c9d1a0015afabc8e050cc93b40c8584`; whole 514,153,718-byte source SHA also matches. Their historical availability is not a current-main replacement; source provenance marks these live samples unreviewed. Preserve frames until further review.
 
+**Additional sequence check:** [1,005 frame paths](work-log/evidence-cleanup-review-20261101/frame-sequence-index.json) in 28 directories/12 families, disjoint from those 360, were actual-byte Git-blob verified and grouped by sequence; 746 active-prefix/sparse paths and 259 retained samples, no further duplicate candidates under this conservative rule. Sparse does not imply missing data. This technical pass is not complete consumer/source/timeline review, and all paths remain in place.
+
 **ONE NEXT:** Continue audit across all in-scope evidence families and other relevant repo material; inspect actual consumers, retention/recovery and newer evidence, disposition each path and publish a consolidated manifest with provenance and uncertainties. Preserve original Blitzit and latest meaningful final/native records. The pre-existing batch-2 safety rejection remains in force and must not be bypassed. Do not perform deletion during this audit. Prior physical acceptance and M10/M11/M12 holds remain unchanged.
 
 ---
