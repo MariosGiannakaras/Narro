@@ -44,6 +44,12 @@ Every matching archive still needs exact ZIP/container provenance, member-path s
 
 Same content alone does not preserve ZIP bytes, ordering, archive metadata, historical download links or the case for keeping original reports. Some 14 archives also belong to the earlier safety-blocked batch; this audit does not authorize or bypass any rejection. Run `audit_matched_zip_consumers.py` to regenerate. No files removed.
 
+## ZIP text newline normalization review
+
+`zip-newline-review.json` examines all **11,103 ZIP members** that lacked an exact tracked Git-blob match in the preceding ZIP audits. It compares UTF-8, non-NUL text after CRLF→LF conversion, preserving original member identity and explicit baseline matching paths. **2,448** members in 51 archives match only after this normalization; these are **not byte-identical**, and their original bytes or archive may still be material. **596** contained CRLF but did not match after normalization; **524** UTF-8 text members had no CRLF; **7,524** were binary, NUL-containing or not UTF-8; **11 members >8 MiB** were not reread in this normalization pass (all were fully read and CRC-checked in the earlier archive pass). UTF-16, other encodings, other transformations and external data were not evaluated.
+
+`verify_zip_newline_review.py` checks one-to-one reconciliation with the exact earlier unmatched `(archive, member index, name)` inventory, including duplicate member names. This is content-comparison evidence, not a deletion or source-parity decision. No extraction or deletion performed.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
