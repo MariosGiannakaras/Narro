@@ -16,7 +16,9 @@
 
 **ZIP newline review:** [11,103 previously unmatched members](work-log/evidence-cleanup-review-20261101/zip-newline-review.json) reconciled one-for-one; 2,448 in 51 archives match tracked content only after CRLF→LF normalization, 596 CRLF texts remain unmatched, 524 UTF-8 texts had no CRLF, 7,524 are binary/NUL/non-UTF8, and 11 >8 MiB were not reread in this pass (prior full CRC pass still applies). Normalized matches are not exact-byte replacements. No extraction or deletion.
 
-**ONE NEXT:** Continue audit across all in-scope evidence families and other relevant repo material; inspect actual consumers, retention/recovery and newer evidence, disposition each path and publish a consolidated manifest with provenance and uncertainties. Preserve original Blitzit and latest meaningful final/native records. The pre-existing batch-2 safety rejection remains in force and must not be bypassed. Do not perform deletion during this audit. Prior physical acceptance and M10/M11/M12 holds remain unchanged.
+**Historical ZIP documentary follow-up:** [14-container direct-reference audit](work-log/evidence-cleanup-review-20261101/historical-zip-direct-reference-audit.json) verifies **12 directly published ZIP links**, **one prior exact-path HOLD** (CI893 follow-up), and **one CI950 loading ZIP not directly linked in the scoped README**. Existing 14/14 full-member matches and zero byte-identical alternative ZIP containers were cross-checked against the prior report. **0 deletion-approved; 13 documentary retention signals and 1 unresolved container review.** No binary rehash, evidence deletion/move, new CI or native execution. The 27-folder batch-2 safety rejection stands.
+
+**ONE NEXT:** Check the CI950 loading ZIP's provenance and additional consumers beyond its scoped README; record its specific container retention decision in the existing cleanup audit. Do not delete or move files; preserve the earlier batch-2 safety rejection and native/roadmap holds.
 
 ---
 
