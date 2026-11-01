@@ -8,6 +8,8 @@
 
 **Additional sequence check:** [1,005 frame paths](work-log/evidence-cleanup-review-20261101/frame-sequence-index.json) in 28 directories/12 families, disjoint from those 360, were actual-byte Git-blob verified and grouped by sequence; 746 active-prefix/sparse paths and 259 retained samples, no further duplicate candidates under this conservative rule. Sparse does not imply missing data. This technical pass is not complete consumer/source/timeline review, and all paths remain in place.
 
+**Legacy ZIP member check:** [32/32 archives, 2,399/2,399 nondirectory members](work-log/evidence-cleanup-review-20261101/legacy-zip-content-review.json) in the 27-family candidate inventory were streamed without extraction; archive Git blobs and member CRC/Git IDs checked. 632 member blobs match tracked baseline paths, 1,767 do not; ten ZIPs have all members matched and 22 still have unmatched members. No missing match proves uniqueness outside tracked Git, and member matches alone do not justify removing a container. Exact archive/consumer/metadata review remains open. No deletion.
+
 **ONE NEXT:** Continue audit across all in-scope evidence families and other relevant repo material; inspect actual consumers, retention/recovery and newer evidence, disposition each path and publish a consolidated manifest with provenance and uncertainties. Preserve original Blitzit and latest meaningful final/native records. The pre-existing batch-2 safety rejection remains in force and must not be bypassed. Do not perform deletion during this audit. Prior physical acceptance and M10/M11/M12 holds remain unchanged.
 
 ---
