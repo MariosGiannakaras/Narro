@@ -68,6 +68,12 @@ In the existing complete member audit, every member of these 14 archives has an 
 
 Taken with the existing **21/21 all-member-matched archive holds** and **22/22 unmatched historical ZIP holds**, the full tracked evidence ZIP scope is **103/103 HOLD; 0 deletion-approved**, with **12,920 total members / 11,103 lacking exact tracked matches**. These precautionary dispositions do **not** mean every container's eventual replacement or consumer has been conclusively reviewed. ZIP newline normalization is not exact byte retention. Existing audit sources were reused, not rehashed; no file deletion/movement, archive extraction, new CI or native testing occurred. The historical 27-folder deletion safety block remains in force.
 
+## Conventional evidence media path inventory (2026-11-01)
+
+[Exact frozen-path media index](media-path-retention-index.json) covers **429 MP4/MKV/WAV files** across 73 evidence families, totaling **4,019,525,687 logical checkout bytes**. Eleven paths match the independent SHA/size metadata of previously reviewed original recordings and retain their earlier `RETAIN_FOR_NOW` status. The remaining **418 paths / 3,663,868,554 bytes** are conservatively **HOLD pending original-versus-derivative determination, actual consumers and byte-accurate recovery/retention**. The previously recorded 33 original recording entries also include 22 other-named parts/files outside conventional media extensions: these remain retained and must not be mistaken for missing evidence.
+
+This is a path/metadata coverage pass against `paths.csv`, not visual/video playback, bitstream analysis, direct file rehashing, consumer closure or authorization to remove a sampled/derived clip. The frozen Git SHA proves which blob the inventory recorded, not availability of a sufficient replacement under current retention policy. **No media file is approved for deletion**, and no evidence moved. New CI/Windows native NOT RUN.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
