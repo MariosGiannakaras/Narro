@@ -122,6 +122,14 @@ The historical manifest has **1,078 entries**, of which **852 paths are absent**
 
 Historical CI948 C5/modal/Notes successes and native catalog/queue/drag uncertainties or failures retain their actual dispositions. The remaining non-ZIP/nonconventional-media review queue is now **11,661 paths /1,088,628,744 B** and conventional media pending individual provenance review **275 files /3,096,425,030 B**. The full evidence packet remains protected: no files deleted or moved, no source changes, new CI or physical Windows execution.
 
+## PR358 original MKV source, native sidecars and historical line endings (2026-11-01)
+
+[All 313 frozen paths classified](pr358-original-and-sidecar-retention.json): **311 non-ZIP/nonconventional-media paths /122,980,571 B** include **two original 60fps MKV parts /113,022,127 B** and **309 other native sidecar/visual/receipt paths /9,958,444 B**. Both original parts exist in the frozen tracked Git and match the lengths and *published SHA-256 strings* in the per-original and source acquisition manifests. The full original was 1,112.900s. The [conventional media index](media-path-retention-index.json) separately retains the **13,986,822 B**, re-encoded 30fps `playback-review.mp4` as a derivative, not a byte-faithful original replacement. The original raw-observation ZIP remains covered by the existing 103-ZIP HOLD audit.
+
+The historical 315-entry file manifest lists **89 current non-self paths at the same byte size**, **223 current text paths with changed recorded sizes**, one self-excluded manifest and three historical review logs absent from the frozen checkout. Eight sampled text-path changes have a size deficit exactly equal to the number of LF newlines, **consistent with historical CRLF→LF normalization but not proof for all 223 entries**. Therefore the old manifest SHA-256 values cannot be treated as verified matches for current text files. No new binary/SHA-256 pass was performed.
+
+Historical PR358 **2/2 scoped native PASS**, the B46 repeat-entry EST reset PASS, and the distinct **B12 repeated subtask keyboard-focus FAIL** remain as recorded; no physical retest or regrading. All 313 files are protected, with no deletion. New remaining unclassified review queues: **11,350 non-ZIP/nonconventional-media paths /965,648,173 B**, and **274 conventional media files /3,082,438,208 B**.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
