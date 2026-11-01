@@ -1,4 +1,12 @@
-# HANDOFF — user-directed historical evidence cleanup: PR465 DONE, batch 2 BLOCKED
+# HANDOFF — evidence cleanup audit only: IN PROGRESS
+
+**2026-11-01 / OWNER Codex / PHASE ANALYZING.** Latest user instruction: audit all cleanup material only; **do not delete or move files**. Main baseline `4fcd2fe084ecdc7b66cad5671da54d63e71aabe3`: [inventory and verification](work-log/evidence-cleanup-review-20261101/README.md) covers 15,690 tracked evidence paths across 163 families plus seven root files. All entries remain `REVIEW_REQUIRED`; no path-by-path deletion disposition or final allowlist has been completed. A scoped literal Markdown discovery found family mentions for 154 families and direct references to 396 paths; 3,563 paths share Git blobs elsewhere. These are leads only, not proof of safe removal. No deletion or move performed.
+
+**ONE NEXT:** Continue audit across all in-scope evidence families and other relevant repo material; inspect actual consumers, retention/recovery and newer evidence, disposition each path and publish a consolidated manifest with provenance and uncertainties. Preserve original Blitzit and latest meaningful final/native records. The pre-existing batch-2 safety rejection remains in force and must not be bypassed. Do not perform deletion during this audit. Prior physical acceptance and M10/M11/M12 holds remain unchanged.
+
+---
+
+# HISTORICAL HANDOFF — user-directed historical evidence cleanup: PR465 DONE, batch 2 BLOCKED
 
 **AS OF 2026-10-31 / OWNER ChatGPT checkout cleanup / PHASE IN PROGRESS.** PR465 exact head `f6eb40d867c28bc70f3fc4e92c30d3aa6bbc2108`, guarded squash-merged `7a78dbb264690d48a4f944071b7f0a84563d1f1a`: **1,471 paths /1,826,956,822 logical B retired** across 8 older Narro-only evidence directories, exact tree diff validated (0 other changes). Verified resulting main at merge 17,531 tracked blobs /9,277,076,889 B; evidence 15,690 /9,004,461,750 B. Fixed 700 video/archive cohort: **117 deleted; 583 retained /6,827,044,909 B**; original Blitzit, current PR and recent latest final/native assets preserved. Historical cumulative PR445–465 retirement **20,913 paths /7,648,434,847 logical B**, not Git remote storage reclamation. [Immutable receipt](work-log/2026-10-31-chatgpt-pr465-bulk-ci-archive-resulting-main.md). No new CI/Windows native performed; physical acceptance remains OPEN/NOT RUN where previously open.
 
