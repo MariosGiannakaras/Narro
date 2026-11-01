@@ -11,8 +11,8 @@
     "media_file_count": 429,
     "media_logical_bytes": 4019525687,
     "verified_prior_original_audit_matches": 11,
-    "pending_media_review_count": 418,
-    "pending_media_review_logical_bytes": 3663868554,
+    "pending_media_review_count": 417,
+    "pending_media_review_logical_bytes": 3663241822,
     "family_count": 73,
     "extensions": [
       {
@@ -30,7 +30,9 @@
         "files": 6,
         "bytes": 7983368
       }
-    ]
+    ],
+    "newly_proven_original_loopback_holds": 1,
+    "newly_proven_original_loopback_bytes": 626732
   },
   "families": [
     {
@@ -818,8 +820,16 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_ORIGINAL_LIMITED_WASAPI_LOOPBACK",
+      "deletion_approved": false,
+      "original_audio_provenance": {
+        "reference": "work-log/evidence-cleanup-review-20261101/capture57-other-packet-retention.json",
+        "source": "work-log/evidence/capture57-20261020/audio-metadata.json",
+        "source_manifest": "work-log/evidence/capture57-20261020/integrity-manifest.json",
+        "known_duration_seconds": 3.264,
+        "continuity": "DISCONTINUOUS_UNMAPPED",
+        "audio_pass": false
+      }
     },
     {
       "path": "work-log/evidence/capture57-final-gaps-20261020/system-loopback-original.wav",
@@ -5315,6 +5325,7 @@
     "Only 11 of the 33 original-audit path names have these conventional media extensions; the remaining audit records include multipart or other filenames and remain separately retained.",
     "The other 418 paths may be originals or derivatives; this report does not distinguish their actual uniqueness or whether identical siblings are usable replacements.",
     "References and duplicate-blob counts are discovery signals from frozen baseline, not consumer retirement proof.",
-    "No file deletion/move, new CI or native Windows testing; past batch-2 deletion safety block is unchanged."
+    "No file deletion/move, new CI or native Windows testing; past batch-2 deletion safety block is unchanged.",
+    "Capture57 original WAV is now specifically held by its source manifest and PCM metadata; its 3.264 seconds are discontinuous/unmapped and do not establish audio acceptance."
   ]
 }
