@@ -1,0 +1,914 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "All 22 unmatched-member ZIP containers in 27-family, 32-ZIP legacy audit; first technical retention classification, not deletion approval",
+  "sources": [
+    "work-log/evidence-cleanup-review-20261101/legacy-zip-content-review.json",
+    "work-log/evidence-cleanup-review-20261101/inventory.json"
+  ],
+  "method": "Group already full-streamed/CRC-checked ZIP member Git blob matches by archive; verify unmatched counts and documented external consumer leads, preserving original source member and container identities.",
+  "totals": {
+    "archives": 22,
+    "total_zip_compressed_bytes": 110420717,
+    "total_members": 2266,
+    "unmatched_exact_members": 1767,
+    "exact_matched_members": 499,
+    "direct_ref_archives": 7,
+    "archives_with_zero_matched_members": 5
+  },
+  "records": [
+    {
+      "path": "work-log/evidence/m5-remaining-native-20261017/raw-structured-evidence.zip",
+      "git_blob": "668a6b0884905b36be309f688fec93d21c85e125",
+      "compressed_logical_bytes": 1565004,
+      "total_members": 509,
+      "unmatched_exact_members": 492,
+      "unmatched_member_uncompressed_bytes": 18087835,
+      "matched_exact_members": 17,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 468
+        },
+        {
+          "extension": "py",
+          "count": 17
+        },
+        {
+          "extension": "jsonl",
+          "count": 5
+        },
+        {
+          "extension": "md",
+          "count": 1
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md",
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "work-log/2026-10-17-m5-eight-group-native-analysis.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m6-quick-native-20261017/raw-structured-evidence.zip",
+      "git_blob": "4936c3bc93083686107033e21327cd44db667273",
+      "compressed_logical_bytes": 413485,
+      "total_members": 179,
+      "unmatched_exact_members": 166,
+      "unmatched_member_uncompressed_bytes": 4451646,
+      "matched_exact_members": 13,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 143
+        },
+        {
+          "extension": "py",
+          "count": 18
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "TODO.md",
+        "docs/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+        "docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md",
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "work-log/2026-10-17-focus-three-group-acquisition-frozen.md",
+        "work-log/2026-10-17-published-m5-m6-evidence-initial-review.md",
+        "work-log/2026-10-17-source-to-narro-static-comparison.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md",
+        "work-log/tracker-archives/2026-10-23-TODO-before-active-documentation-cleanup.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/analysis/raw-sidecars-media.zip",
+      "git_blob": "5b476955fd8cccaf0451a954876e90d94089ee76",
+      "compressed_logical_bytes": 42790809,
+      "total_members": 294,
+      "unmatched_exact_members": 13,
+      "unmatched_member_uncompressed_bytes": 123817,
+      "matched_exact_members": 281,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 7
+        },
+        {
+          "extension": "jsonl",
+          "count": 3
+        },
+        {
+          "extension": "txt",
+          "count": 2
+        },
+        {
+          "extension": "log",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/local-regressions-and-ci-31fc1ef9.zip",
+      "git_blob": "d30b9d7bed5b53ec9513d6a989fa2846a197273d",
+      "compressed_logical_bytes": 1969506,
+      "total_members": 123,
+      "unmatched_exact_members": 118,
+      "unmatched_member_uncompressed_bytes": 3243390,
+      "matched_exact_members": 5,
+      "unmatched_member_types": [
+        {
+          "extension": "html",
+          "count": 53
+        },
+        {
+          "extension": "png",
+          "count": 40
+        },
+        {
+          "extension": "log",
+          "count": 22
+        },
+        {
+          "extension": "jsonl",
+          "count": 1
+        },
+        {
+          "extension": "mjs",
+          "count": 1
+        },
+        {
+          "extension": "py",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/main-accepted-artifacts-35528dea.zip",
+      "git_blob": "aa415807e855e746acd6fc55e0bfa30200b17164",
+      "compressed_logical_bytes": 28655404,
+      "total_members": 7,
+      "unmatched_exact_members": 7,
+      "unmatched_member_uncompressed_bytes": 29364384,
+      "matched_exact_members": 0,
+      "unmatched_member_types": [
+        {
+          "extension": "zip",
+          "count": 4
+        },
+        {
+          "extension": "json",
+          "count": 3
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/main-attempt2-fast-artifact-verifier.zip",
+      "git_blob": "9a13d85e257c3e4769d609f1bb33006fd00f9a7e",
+      "compressed_logical_bytes": 1395,
+      "total_members": 1,
+      "unmatched_exact_members": 1,
+      "unmatched_member_uncompressed_bytes": 2588,
+      "matched_exact_members": 0,
+      "unmatched_member_types": [
+        {
+          "extension": "py",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/main-attempt2-fast-dist.zip",
+      "git_blob": "f9d46fdec032aadc42115bdba26eb1db72ffdf97",
+      "compressed_logical_bytes": 346370,
+      "total_members": 86,
+      "unmatched_exact_members": 86,
+      "unmatched_member_uncompressed_bytes": 1160434,
+      "matched_exact_members": 0,
+      "unmatched_member_types": [
+        {
+          "extension": "js",
+          "count": 47
+        },
+        {
+          "extension": "css",
+          "count": 23
+        },
+        {
+          "extension": "html",
+          "count": 16
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/pr349-final-ci-and-capture-preparation.zip",
+      "git_blob": "26d9ffc8cd1118c47c1ad729bbe9de237a7e1a5f",
+      "compressed_logical_bytes": 5506969,
+      "total_members": 13,
+      "unmatched_exact_members": 8,
+      "unmatched_member_uncompressed_bytes": 5915961,
+      "matched_exact_members": 5,
+      "unmatched_member_types": [
+        {
+          "extension": "py",
+          "count": 4
+        },
+        {
+          "extension": "log",
+          "count": 1
+        },
+        {
+          "extension": "json",
+          "count": 1
+        },
+        {
+          "extension": "zip",
+          "count": 1
+        },
+        {
+          "extension": "md",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/corrections/pr349-main-rerun-and-fresh-physical-tools.zip",
+      "git_blob": "ab6d8bd99570eb4de2e8c697eef92fc2532013cf",
+      "compressed_logical_bytes": 40441,
+      "total_members": 4,
+      "unmatched_exact_members": 4,
+      "unmatched_member_uncompressed_bytes": 209374,
+      "matched_exact_members": 0,
+      "unmatched_member_types": [
+        {
+          "extension": "py",
+          "count": 3
+        },
+        {
+          "extension": "log",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+        "work-log/2026-10-13-pa-corrections-pr349-local-validation.md",
+        "work-log/2026-10-13-pa-main-fast-artifact-integrity.md",
+        "work-log/2026-10-13-pa-resulting-main-accepted-capture-ready.md",
+        "work-log/2026-10-13-pa01-08-acquisition-checkpoint.md",
+        "work-log/2026-10-13-pa349-final-evidence-uploaded.md",
+        "work-log/2026-10-13-pa349-main-rerun-physical-handoff.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md",
+        "work-log/2026-10-15-pa356-tracking-before-workflow-compaction.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa353-msi-native-20261014/raw-observations.zip",
+      "git_blob": "40c04b6ca567f6aabccdd7e40aca2ff57bba3864",
+      "compressed_logical_bytes": 161542,
+      "total_members": 26,
+      "unmatched_exact_members": 16,
+      "unmatched_member_uncompressed_bytes": 32792,
+      "matched_exact_members": 10,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 14
+        },
+        {
+          "extension": "jsonl",
+          "count": 2
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA08_MSI_REPORT_2026-10-14.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa353-native-20261014/raw-observations.zip",
+      "git_blob": "b0fbd7b415c638de4bb7586816387301c66a8a90",
+      "compressed_logical_bytes": 157732,
+      "total_members": 43,
+      "unmatched_exact_members": 30,
+      "unmatched_member_uncompressed_bytes": 359372,
+      "matched_exact_members": 13,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 25
+        },
+        {
+          "extension": "jsonl",
+          "count": 3
+        },
+        {
+          "extension": "md",
+          "count": 1
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [
+        {
+          "document": "docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md",
+          "contains_archive_name": true,
+          "contains_family": true
+        }
+      ],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA353_NATIVE_REPORT_2026-10-14.md",
+        "work-log/2026-10-15-pa356-superseded-handoff-snapshot.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa353-nsis-native-20261014/raw-observations.zip",
+      "git_blob": "a162825ad056224853b9069bbe6cd3d96699061d",
+      "compressed_logical_bytes": 146460,
+      "total_members": 25,
+      "unmatched_exact_members": 18,
+      "unmatched_member_uncompressed_bytes": 36191,
+      "matched_exact_members": 7,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 15
+        },
+        {
+          "extension": "jsonl",
+          "count": 3
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA08_NSIS_REPORT_2026-10-14.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/raw-observations.zip",
+      "git_blob": "936ad6bfd76b7274d95438790785af8f4ed74833",
+      "compressed_logical_bytes": 218370,
+      "total_members": 94,
+      "unmatched_exact_members": 76,
+      "unmatched_member_uncompressed_bytes": 1501518,
+      "matched_exact_members": 18,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 65
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "py",
+          "count": 4
+        },
+        {
+          "extension": "txt",
+          "count": 2
+        },
+        {
+          "extension": "md",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md",
+        "work-log/2026-10-14-pa354-acquisition-complete.md",
+        "work-log/2026-10-14-pa354-review-pr355-ci.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/raw-observations.zip",
+      "git_blob": "c5fe09f83a79af088e7c55ce409e7c8735c34d4a",
+      "compressed_logical_bytes": 240878,
+      "total_members": 116,
+      "unmatched_exact_members": 102,
+      "unmatched_member_uncompressed_bytes": 1646286,
+      "matched_exact_members": 14,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 83
+        },
+        {
+          "extension": "py",
+          "count": 13
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        },
+        {
+          "extension": "md",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md",
+        "work-log/2026-10-15-pa355-acquisition-complete.md",
+        "work-log/2026-10-16-preferences-heading-evidence-reuse.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-keyboard-diagnostic-20261015/raw-observations.zip",
+      "git_blob": "12ff818e31b7f825ca76f25bce4a2b6b59fb18f1",
+      "compressed_logical_bytes": 62814,
+      "total_members": 47,
+      "unmatched_exact_members": 32,
+      "unmatched_member_uncompressed_bytes": 252416,
+      "matched_exact_members": 15,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 20
+        },
+        {
+          "extension": "py",
+          "count": 6
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        },
+        {
+          "extension": "md",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-native-20261015/raw-observations.zip",
+      "git_blob": "a03cb2b243e38d3327bbdbbed6d7b6e73976e6eb",
+      "compressed_logical_bytes": 59825,
+      "total_members": 58,
+      "unmatched_exact_members": 48,
+      "unmatched_member_uncompressed_bytes": 240423,
+      "matched_exact_members": 10,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 33
+        },
+        {
+          "extension": "py",
+          "count": 8
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "md",
+          "count": 2
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA356_NATIVE_REPORT_2026-10-15.md",
+        "work-log/2026-10-15-pa356-acquisition-complete.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-notification-review-20261015/review-original-bytes.zip",
+      "git_blob": "19de033d0be843b3c395f9e962d44beeba7ac544",
+      "compressed_logical_bytes": 4977328,
+      "total_members": 40,
+      "unmatched_exact_members": 4,
+      "unmatched_member_uncompressed_bytes": 10296,
+      "matched_exact_members": 36,
+      "unmatched_member_types": [
+        {
+          "extension": "txt",
+          "count": 2
+        },
+        {
+          "extension": "json",
+          "count": 2
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_FINAL_2026-10-15.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-production-notification-20261015/raw-observations.zip",
+      "git_blob": "0a19dcbe987ac8f9d6e01755898dfec4237f4bce",
+      "compressed_logical_bytes": 16081179,
+      "total_members": 10,
+      "unmatched_exact_members": 10,
+      "unmatched_member_uncompressed_bytes": 16326010,
+      "matched_exact_members": 0,
+      "unmatched_member_types": [
+        {
+          "extension": "png",
+          "count": 6
+        },
+        {
+          "extension": "json",
+          "count": 4
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA01_08_FINAL_2026-10-15.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-residual-native-20261015/ci942-diagnostic.zip",
+      "git_blob": "5e9f8b8718d184d0737faeaf864b694251ebb8a8",
+      "compressed_logical_bytes": 5423490,
+      "total_members": 7,
+      "unmatched_exact_members": 6,
+      "unmatched_member_uncompressed_bytes": 15293478,
+      "matched_exact_members": 1,
+      "unmatched_member_types": [
+        {
+          "extension": "md",
+          "count": 3
+        },
+        {
+          "extension": "ps1",
+          "count": 2
+        },
+        {
+          "extension": "exe",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-residual-native-20261015/raw-observations.zip",
+      "git_blob": "9b3088d52db21987ade0934c94f48dc461e7bf3b",
+      "compressed_logical_bytes": 153834,
+      "total_members": 117,
+      "unmatched_exact_members": 89,
+      "unmatched_member_uncompressed_bytes": 877064,
+      "matched_exact_members": 28,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 60
+        },
+        {
+          "extension": "csv",
+          "count": 14
+        },
+        {
+          "extension": "jsonl",
+          "count": 6
+        },
+        {
+          "extension": "py",
+          "count": 6
+        },
+        {
+          "extension": "txt",
+          "count": 2
+        },
+        {
+          "extension": "md",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "docs/WINDOWS_PA356_RESIDUAL_REPORT_2026-10-15.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr362-native-20261016/raw-structured-evidence.zip",
+      "git_blob": "981bdf9322b5250a615960b9e6395ad7729c6e47",
+      "compressed_logical_bytes": 754883,
+      "total_members": 210,
+      "unmatched_exact_members": 195,
+      "unmatched_member_uncompressed_bytes": 10834876,
+      "matched_exact_members": 15,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 170
+        },
+        {
+          "extension": "py",
+          "count": 19
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "md",
+          "count": 1
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "work-log/2026-10-16-pr362-native-cross-window-acceptance.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr364-native-20261017/raw-structured-evidence.zip",
+      "git_blob": "6b5b4348273d8f00e0dd48db24fc7865d223c603",
+      "compressed_logical_bytes": 692999,
+      "total_members": 257,
+      "unmatched_exact_members": 246,
+      "unmatched_member_uncompressed_bytes": 7544026,
+      "matched_exact_members": 11,
+      "unmatched_member_types": [
+        {
+          "extension": "json",
+          "count": 221
+        },
+        {
+          "extension": "py",
+          "count": 19
+        },
+        {
+          "extension": "jsonl",
+          "count": 4
+        },
+        {
+          "extension": "md",
+          "count": 1
+        },
+        {
+          "extension": "txt",
+          "count": 1
+        }
+      ],
+      "published_direct_ref_leads": [],
+      "family_markdown_leads": [
+        "docs/CODEX_RECORDINGS_RECONCILIATION_2026-10-19.md",
+        "docs/EVIDENCE_CLEANUP_INVENTORY.md",
+        "docs/TEMP_EVIDENCE_DELETION_PROGRESS.md",
+        "work-log/2026-10-17-c3-final-lanes-visual-followup.md",
+        "work-log/2026-10-17-chatgpt-b40-b43-existing-board-shared-state-review.md",
+        "work-log/2026-10-17-existing-artifact-m5-reconciliation-addendum.md",
+        "work-log/2026-10-17-pr364-four-group-capture-frozen.md",
+        "work-log/2026-10-17-pr365-merge-review-validation.md",
+        "work-log/2026-10-17-published-m5-m6-evidence-initial-review.md",
+        "work-log/2026-10-17-source-to-narro-static-comparison.md",
+        "work-log/2026-10-30-chatgpt-cleanup-batch4-consumer-holds.md",
+        "work-log/2026-11-01-codex-cleanup-batch2-consumer-review.md"
+      ],
+      "disposition": "HOLD_UNTIL_UNMATCHED_MEMBER_BYTE_RETENTION_AND_CONSUMERS_PROVEN",
+      "deletion_approved": false
+    }
+  ],
+  "limits": [
+    "No fresh ZIP bytes were streamed or extracted for this follow-up; prior legacy audit includes exact CRC/blob evidence.",
+    "A member absent from frozen tracked Git does not prove it is globally unique, but without demonstrated byte-identical retention archive deletion is unjustified.",
+    "Text newline-normalized content matches are not byte-identical and do not retire unmatched original members.",
+    "Family Markdown mentions are discovery leads and may be stale; absence of direct reference never establishes unused status.",
+    "All 22 remain HOLD pending full consumer, provenance and recovery review; batch-2 destructive safety rejection stands. No deletion/move, no CI/native Windows test."
+  ]
+}
