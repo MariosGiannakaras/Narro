@@ -32,6 +32,12 @@ This is not exhaustive consumer, historical-reference, source-reconstruction or 
 
 These matches are content clues, not a deletion decision: a ZIP's exact bytes, ordering, metadata, names, provenance, multiple same-named entries, linked consumers and relevant retention target must also be reviewed. A nonmatch does not prove that the member exists nowhere else or is needed. The report lists exact matching tracked paths and unverified members; it does not expose member contents. The previous bulk safety block remains in force and the user requests audit only. `audit_legacy_zip_contents.py` and `verify_legacy_zip_contents.py` reproduce the bounded check. No file is approved or removed.
 
+## Remaining evidence ZIPs
+
+`remaining-zip-content-review.json` applies the same streamed Git-blob/CRC comparison to the **71 remaining tracked evidence ZIPs** outside the previous 27 families. All **10,521 nondirectory members** were read successfully: **1,185** match at least one tracked blob at frozen baseline and **9,336** have no such match. **11 archives** have every member matched. Combined with the previous audit, the two indexes are disjoint and cover **103/103 ZIPs** and **12,920 members**: **21 archives** have all members matched, and **82 contain at least one nonmatching member or have no qualifying members**. No archive was unreadable, skipped or extracted to disk. `verify_all_zip_contents.py` verifies ZIP coverage against the frozen inventory.
+
+Every matching archive still needs exact ZIP/container provenance, member-path semantics, surviving replacements and current consumer review. Nonmatching members may exist in untracked or other encoded forms; neither outcome alone authorizes removal. This is the whole **tracked evidence ZIP** scope, not all files or all repository archives. No deletion performed.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
