@@ -11,8 +11,8 @@
     "media_file_count": 429,
     "media_logical_bytes": 4019525687,
     "verified_prior_original_audit_matches": 11,
-    "pending_media_review_count": 417,
-    "pending_media_review_logical_bytes": 3663241822,
+    "pending_media_review_count": 404,
+    "pending_media_review_logical_bytes": 3398263756,
     "family_count": 73,
     "extensions": [
       {
@@ -32,7 +32,9 @@
       }
     ],
     "newly_proven_original_loopback_holds": 1,
-    "newly_proven_original_loopback_bytes": 626732
+    "newly_proven_original_loopback_bytes": 626732,
+    "newly_proven_original_media_from_physical_acceptance": 13,
+    "newly_proven_original_media_from_physical_acceptance_bytes": 264978066
   },
   "families": [
     {
@@ -3695,8 +3697,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced/native-original.mkv",
@@ -3706,8 +3714,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal/native-original.mkv",
@@ -3717,8 +3731,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced/native-original.mkv",
@@ -3728,8 +3748,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-shortcut-layout/native-original.mkv",
@@ -3739,8 +3765,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-standard-alert/native-original.mkv",
@@ -3750,8 +3782,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert-boundary/native-original.mkv",
@@ -3761,8 +3799,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert/native-original.mkv",
@@ -3772,8 +3816,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-boundary/native-original.mkv",
@@ -3783,8 +3833,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-loopback.wav",
@@ -3794,8 +3850,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_LOOPBACK_AUDIO",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Captured callback-delivered loopback, not perceptual/audio acceptance"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-topology-alert/native-original.mkv",
@@ -3805,8 +3867,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/native-original.mkv",
@@ -3816,8 +3884,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_ORIGINAL_FILM",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Original recording; does not establish physical acceptance for every case"
+      }
     },
     {
       "path": "work-log/evidence/physical-acceptance-20261025/topology/standard-alert-loopback.wav",
@@ -3827,8 +3901,14 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PUBLISHED_NATIVE_LOOPBACK_AUDIO",
+      "deletion_approved": false,
+      "new_provenance": {
+        "source": "work-log/evidence/physical-acceptance-20261025/README.md",
+        "source_manifest": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+        "audit": "work-log/evidence-cleanup-review-20261101/physical-acceptance-sidecar-retention.json",
+        "caution": "Captured callback-delivered loopback, not perceptual/audio acceptance"
+      }
     },
     {
       "path": "work-log/evidence/physical-gap-restart-20261024/recordings/common-restart/native-original.mkv",
@@ -5326,6 +5406,7 @@
     "The other 418 paths may be originals or derivatives; this report does not distinguish their actual uniqueness or whether identical siblings are usable replacements.",
     "References and duplicate-blob counts are discovery signals from frozen baseline, not consumer retirement proof.",
     "No file deletion/move, new CI or native Windows testing; past batch-2 deletion safety block is unchanged.",
-    "Capture57 original WAV is now specifically held by its source manifest and PCM metadata; its 3.264 seconds are discontinuous/unmapped and do not establish audio acceptance."
+    "Capture57 original WAV is now specifically held by its source manifest and PCM metadata; its 3.264 seconds are discontinuous/unmapped and do not establish audio acceptance.",
+    "Physical-acceptance 2026-10-25 publication identifies 11 original native films and two collected loopback WAV files; their presence supports preservation but not universal physical/compositor/audio PASS."
   ]
 }
