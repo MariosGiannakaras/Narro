@@ -8,6 +8,10 @@ The automated scan finds literal family-name mentions in tracked Markdown in `do
 
 The previous 27-family / 4,065-path batch is included in this baseline. Its earlier destructive action was blocked by safety checks and must not be retried or bypassed. This inventory itself authorizes no deletion, and the current user requested no deletion. Existing accepted/failed Windows evidence and original Blitzit files remain unaffected.
 
+## Original-recording consumer review checkpoint
+
+`original-recording-retention.json` lists **33 original recording files/parts / 1,236,844,296 bytes** from seven sessions with exact path, Git blob, independently calculated SHA-256 and supporting consumer. These 33 are explicitly **RETAIN_FOR_NOW**, because they are published full native recordings or their required byte parts and a sufficient retirement/replacement has not been established. Seven PA351 parts, five PA01 parts, and nine CI1046 MKVs (21 total) independently match their session-manifest SHA-256; the remaining 12 are newly measured, not claimed as independently manifest-matched. The PA01 derived clips, CI1046 sidecars, PA351/354/355 screenshots and other contents of the seven families were **not** individually dispositioned by this checkpoint. M5's earlier segment1 is a derived excerpt of a local original and is not in the 33; it remains open for separate review. See the cited reports and `audit_original_recordings.py` for exact selection and checks. These observations do not prove replacement evidence is unavailable; they establish why it has not yet been demonstrated for removal.
+
 Reproduce using `python audit_cleanup_inventory.py` in a checkout with Git and `origin/main` at the desired baseline; results change with the ref. Verify `main_sha` in the JSON before comparing runs. The script only reads tracked objects and writes its own local report files.
 
 ## Continuation
