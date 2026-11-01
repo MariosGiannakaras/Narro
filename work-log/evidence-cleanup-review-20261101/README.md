@@ -114,6 +114,14 @@ The historical `evidence-manifest.json` contains **8,895** entries, of which **7
 
 CI932's historical saved-origin and C5 native **PASS**, Collapse continuity **FAIL**, and other untested/limited gates are unchanged. This follow-up performed metadata joins, **not new media SHA-256 calculations, native playback, extraction, CI or physical Windows testing**. No files deleted/moved. The still-unclassified non-ZIP/nonconventional-media scope is **11,882 files /1,215,469,975 B**; the conventional media awaiting specific source disposition is now **281 files /3,393,916,804 B**.
 
+## CI948 physical evidence source-retention assessment (2026-11-01)
+
+[Full 227-path frozen-family audit](ci948-retention-and-original-gap-review.json) conservatively retains **221 non-ZIP/nonconventional-media sidecars /126,841,231 B** (native session logs, observations, direct review sheets, acquisition and reassembly metadata), as well as **six stream-copy MKV review excerpts /297,491,774 B**, now specifically documented in the [conventional media index](media-path-retention-index.json). All **226 present non-self manifest records** agree in published paths and byte sizes. No fresh binary hashes were computed.
+
+The historical manifest has **1,078 entries**, of which **852 paths are absent** from the frozen tracked tree: **840 direct-review frame exports**, **11 original OBS video parts** and a former `Narro-M7-Logs.zip`. The original source manifests describe two complete films (**403,630,464 B**, 96.834s and 2,545.4s), but none of the required eleven part paths appears in the frozen inventory; representative parts and ZIP also return NOT_FOUND in current GitHub lookups. These six preserved excerpts **cannot be treated as complete source-film replacements**. Source recovery requires separate verification; absence of old generated frames is not new authorization to delete or restore.
+
+Historical CI948 C5/modal/Notes successes and native catalog/queue/drag uncertainties or failures retain their actual dispositions. The remaining non-ZIP/nonconventional-media review queue is now **11,661 paths /1,088,628,744 B** and conventional media pending individual provenance review **275 files /3,096,425,030 B**. The full evidence packet remains protected: no files deleted or moved, no source changes, new CI or physical Windows execution.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
