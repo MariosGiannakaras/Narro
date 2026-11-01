@@ -10,6 +10,8 @@
 
 **Legacy ZIP member check:** [32/32 archives, 2,399/2,399 nondirectory members](work-log/evidence-cleanup-review-20261101/legacy-zip-content-review.json) in the 27-family candidate inventory were streamed without extraction; archive Git blobs and member CRC/Git IDs checked. 632 member blobs match tracked baseline paths, 1,767 do not; ten ZIPs have all members matched and 22 still have unmatched members. No missing match proves uniqueness outside tracked Git, and member matches alone do not justify removing a container. Exact archive/consumer/metadata review remains open. No deletion.
 
+**Remaining ZIP check:** [71 additional tracked evidence ZIPs](work-log/evidence-cleanup-review-20261101/remaining-zip-content-review.json), 10,521 nondirectory members, streamed/CRC/Git-blob checked without extraction. 1,185 member blobs match and 9,336 have no match in tracked baseline; 11 ZIPs have every member matched. Combined coverage is **103/103 tracked evidence ZIPs**, 12,920 members and 21 archives with all members matched; none approved for deletion. Container provenance/consumers and all non-ZIP audit remain open.
+
 **ONE NEXT:** Continue audit across all in-scope evidence families and other relevant repo material; inspect actual consumers, retention/recovery and newer evidence, disposition each path and publish a consolidated manifest with provenance and uncertainties. Preserve original Blitzit and latest meaningful final/native records. The pre-existing batch-2 safety rejection remains in force and must not be bypassed. Do not perform deletion during this audit. Prior physical acceptance and M10/M11/M12 holds remain unchanged.
 
 ---
