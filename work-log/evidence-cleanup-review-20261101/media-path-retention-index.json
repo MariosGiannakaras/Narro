@@ -11,8 +11,8 @@
     "media_file_count": 429,
     "media_logical_bytes": 4019525687,
     "verified_prior_original_audit_matches": 11,
-    "pending_media_review_count": 275,
-    "pending_media_review_logical_bytes": 3096425030,
+    "pending_media_review_count": 274,
+    "pending_media_review_logical_bytes": 3082438208,
     "family_count": 73,
     "extensions": [
       {
@@ -38,7 +38,9 @@
     "ci932_motion_derivative_holds": 123,
     "ci932_motion_derivative_holds_bytes": 4346952,
     "ci948_stream_copy_excerpt_holds": 6,
-    "ci948_stream_copy_excerpt_hold_bytes": 297491774
+    "ci948_stream_copy_excerpt_hold_bytes": 297491774,
+    "pr358_derived_full_playback_holds": 1,
+    "pr358_derived_full_playback_bytes": 13986822
   },
   "families": [
     {
@@ -4996,8 +4998,13 @@
       "same_git_blob_other_paths_repo_wide": 0,
       "recorded_direct_markdown_reference_leads": "work-log/2026-10-16-pr358-native-acceptance-and-subtask-focus-failure.md",
       "previous_original_audit": null,
-      "disposition": "HOLD_MEDIA_CONSUMER_AND_ORIGINAL_SOURCE_REVIEW_PENDING",
-      "deletion_approved": false
+      "disposition": "HOLD_PR358_REENCODED_FULL_PLAYBACK_DERIVATIVE",
+      "deletion_approved": false,
+      "specific_provenance": {
+        "audit": "work-log/evidence-cleanup-review-20261101/pr358-original-and-sidecar-retention.json",
+        "source": "work-log/evidence/pr358-native-20261016/video/original-video.json",
+        "note": "Convenience 30fps re-encode; complete source remains in two tracked 60fps MKV chunks."
+      }
     },
     {
       "path": "work-log/evidence/pr360-native-20261016/video/2026-10-16 09-51-08.mkv",
@@ -6058,6 +6065,7 @@
     "Capture57 original WAV is now specifically held by its source manifest and PCM metadata; its 3.264 seconds are discontinuous/unmapped and do not establish audio acceptance.",
     "Physical-acceptance 2026-10-25 publication identifies 11 original native films and two collected loopback WAV files; their presence supports preservation but not universal physical/compositor/audio PASS.",
     "CI932 historical 123 MP4s are short derived motion clips referenced by its action/PTS index and historic native compositor FAIL. Original video part availability in current Git tree is not established; none is deletion-approved.",
-    "Six CI948 original-stream copy excerpts were published for bounded review, but full original 403,630,464 B film parts are absent from current tracked main. Preserve all six excerpts; media presence does not imply full original recovery."
+    "Six CI948 original-stream copy excerpts were published for bounded review, but full original 403,630,464 B film parts are absent from current tracked main. Preserve all six excerpts; media presence does not imply full original recovery.",
+    "PR358 30fps derivative playback exists, but source 60fps full MKV is separately retained as two byte-published original Git parts; no deletion permitted."
   ]
 }
