@@ -86,6 +86,14 @@ This is a path/metadata coverage pass against `paths.csv`, not visual/video play
 
 Combined with the earlier PA postfix 14-part source hold, **38 previously unclassified nonconventional-media paths** are now specifically protected as original film parts. The still-unassessed non-ZIP/nonconventional-media path count declines from 13,771 to **13,733 paths /2,125,961,392 B**; this does not include already audited frame or original recording holds, and does not approve any deletion. No evidence moved/deleted or native/CI tests performed.
 
+## Capture57 remaining observations, screenshots and WAV (2026-11-01)
+
+[Full remaining 276-file Capture57 classification](capture57-other-packet-retention.json) closes the frozen path-count reconciliation for its **301 tracked files**: 24 original MKV parts already explicitly held, **204 acquisition observations, 57 screenshots and 15 other packet/fixture/provenance files** now explicitly HOLD, plus one original limited `system-audio-original.wav` under the conventional-media inventory. All 275 non-self-integrity paths in the remaining 276 have published SHA-256 manifest entries with exactly matching frozen path/size; the integrity manifest correctly does not hash itself. These are **metadata cross-checks, not newly computed binary SHA-256 verification**.
+
+The WAV source is **626,732 B, 156,672 stereo PCM frames at 48,000 Hz, 3.264 seconds** (including 44-byte WAV header), explicitly **discontinuous/unmapped and NOT audio PASS**. Its existing media index entry is now `HOLD_ORIGINAL_LIMITED_WASAPI_LOOPBACK`, reducing conventionally named media still awaiting individual source disposition from **418 to 417 files /3,663,241,822 B**.
+
+All Capture57 files are protected against deletion; partial acquisition state and user-specific approvals retain their original limits. The remaining non-ZIP/nonconventional-media queue is reduced to **13,457 paths /2,107,500,719 B**. The larger evidence cleanup, future consumer/source replacement review and the 27-family destructive safety block remain open.
+
 ## Continuation
 
 Review all families and non-evidence parts of the repository within the requested cleanup scope, distinguishing active or irreplaceable records, superseded duplicates and uncertain material. For each eventual proposed deletion establish exact paths/bytes, retained replacements or recovery plan, consumers and reasons, and produce a reviewable consolidated manifest. Preserve original Blitzit and latest meaningful final/native evidence. Update this report and the active handoff at checkpoints. No deletion until a later user instruction and any applicable safety review permits it.
