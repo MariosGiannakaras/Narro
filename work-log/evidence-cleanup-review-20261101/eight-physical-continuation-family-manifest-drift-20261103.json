@@ -1,0 +1,269 @@
+{
+  "audit_date": "2026-11-03",
+  "scope": "Eight distinct physical/human/native continuation/residual evidence families excluding earlier PR437 and PR389/A-B seven-family receipt inventories. Exact live Git family-tree/manifest path joins, media path existence, and published size field comparisons. All 8 maintain native/physical-source provenance and distinct historical acceptance statuses.",
+  "reference_frozen_baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "families_checked": 8,
+  "tracked_files_checked": 1216,
+  "nonself_manifest_receipt_paths_checked": 1208,
+  "media_path_receipts_present": 56,
+  "media_logical_bytes": 672613304,
+  "missing_or_extra_manifest_path_count": 0,
+  "invalid_sha_receipts": 0,
+  "published_size_field_mismatches": 17,
+  "mismatches_all_from_family": "native-residual-20261024",
+  "mismatched_text_paths": [
+    {
+      "relative_path": "A13-assisted-drag-tray/video-metadata.json",
+      "manifest_bytes": 308,
+      "current_git_bytes": 289,
+      "excess_published_bytes": 19,
+      "git_blob": "ed6acd05942edba889630d9bd0835d03405b7987"
+    },
+    {
+      "relative_path": "A13-same-exe-relaunch/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "9d820246dd9b8ba9c0809c29de5c0a7bcbf09359"
+    },
+    {
+      "relative_path": "A13A14-drag-topmost/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "6e402f98d9160315920ed61927baa7e5bc8f301d"
+    },
+    {
+      "relative_path": "actions.jsonl",
+      "manifest_bytes": 2394,
+      "current_git_bytes": 2376,
+      "excess_published_bytes": 18,
+      "git_blob": "2059e0861eb4af8b67913c0a886cd82f00cbe0e4"
+    },
+    {
+      "relative_path": "B3-keyboard-reorder-cancel/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "5767b57a2de86d5e0211bd5f3cf064ff85c0aa8d"
+    },
+    {
+      "relative_path": "B4B5-skip-switch-expiry/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "d1331cf2205f4cf30b2e020ad2e40dea9c07c171"
+    },
+    {
+      "relative_path": "B5-plain-est-boundary-final/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "ecc97292dddb08f67c58ca8156ba0bffc400d0c7"
+    },
+    {
+      "relative_path": "B5-plain-est-expiry/video-metadata.json",
+      "manifest_bytes": 307,
+      "current_git_bytes": 288,
+      "excess_published_bytes": 19,
+      "git_blob": "bbbe67962188737e27e6fe0ba197d2eef63c538e"
+    },
+    {
+      "relative_path": "B5-real-boundaries/video-metadata.json",
+      "manifest_bytes": 308,
+      "current_git_bytes": 289,
+      "excess_published_bytes": 19,
+      "git_blob": "f7a4cc85f9b064ba76e766e8f5e27474aa36fcf5"
+    },
+    {
+      "relative_path": "CAPTURE_PLAN.md",
+      "manifest_bytes": 330,
+      "current_git_bytes": 329,
+      "excess_published_bytes": 1,
+      "git_blob": "df578b137769cc9a19e6e9a967036136a8b233bf"
+    },
+    {
+      "relative_path": "chronological-manifest.json",
+      "manifest_bytes": 41970,
+      "current_git_bytes": 40420,
+      "excess_published_bytes": 1550,
+      "git_blob": "29303a7a20c2eeffe447e0bc4dccd435ca6e7272"
+    },
+    {
+      "relative_path": "Narro-M7-Logs/LATEST.txt",
+      "manifest_bytes": 36,
+      "current_git_bytes": 35,
+      "excess_published_bytes": 1,
+      "git_blob": "f51ab326641bc4d40640edfc266f8d967dfdc917"
+    },
+    {
+      "relative_path": "Narro-M7-Logs/README.txt",
+      "manifest_bytes": 765,
+      "current_git_bytes": 756,
+      "excess_published_bytes": 9,
+      "git_blob": "d0922e26524750dde4a9d5dd45781d0dbe4623e8"
+    },
+    {
+      "relative_path": "native-window-probes.jsonl",
+      "manifest_bytes": 1733,
+      "current_git_bytes": 1724,
+      "excess_published_bytes": 9,
+      "git_blob": "f002ad15a9ce6aeeab1aecb52a37870b8fc3a897"
+    },
+    {
+      "relative_path": "original-profile-restoration-proof.json",
+      "manifest_bytes": 208,
+      "current_git_bytes": 203,
+      "excess_published_bytes": 5,
+      "git_blob": "6edbd8af3362f78ea401cda8e53d8887e6211ea3"
+    },
+    {
+      "relative_path": "README.md",
+      "manifest_bytes": 6314,
+      "current_git_bytes": 6265,
+      "excess_published_bytes": 49,
+      "git_blob": "24da2f25420cd7e616e459d372817393a9355119"
+    },
+    {
+      "relative_path": "session-meta.json",
+      "manifest_bytes": 718,
+      "current_git_bytes": 706,
+      "excess_published_bytes": 12,
+      "git_blob": "f4f4eb45e8606c67304233680745233599c0bf7b"
+    }
+  ],
+  "illustrative_text_checks": [
+    {
+      "path": "A13-assisted-drag-tray/video-metadata.json",
+      "published_minus_current": 19,
+      "current_LF_count": 19
+    },
+    {
+      "path": "actions.jsonl",
+      "published_minus_current": 18,
+      "current_LF_count": 18
+    },
+    {
+      "path": "chronological-manifest.json",
+      "published_minus_current": 1550,
+      "current_LF_count": 1550
+    },
+    {
+      "path": "README.md",
+      "published_minus_current": 49,
+      "current_LF_count": 49
+    }
+  ],
+  "line_ending_hypothesis": "Four current UTF-8 text samples have no CRLF and exactly as many LF as the historical published-length excess. CRLF→LF conversion is compatible with discrepancy, not verified original-byte restoration for 17/17 or proof of published checksum match.",
+  "original_media_receipt_size_mismatches": 0,
+  "old_recording_sources_and_OPEN_native_consumers_held": true,
+  "newly_deleted": 0,
+  "deletion_approved": 0,
+  "limitations": "No binary SHA-256 re-stream, no media viewing, no recovery of original-local CRLF bytes, no native Windows tests or physical acceptance; all recorded failures/holds remain historically distinct. Do not interpret published checksums as independently verified hashes for size-divergent text. No blocked operation repeated.",
+  "families": [
+    {
+      "family": "capture57-resume-20261020",
+      "tree_sha": "255d142e074c1dadd232ad332fb03e3ed7512276",
+      "manifest_blob": "449fe5b8f8715828c821bec5a00276a9c3397c3e",
+      "manifest_file": "integrity-manifest.json",
+      "tracked_files": 151,
+      "manifest_entries": 150,
+      "original_media_paths": 10,
+      "original_media_logical_bytes": 46325880,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "native-residual-20261024",
+      "tree_sha": "b77edb5200e8b30f521b74eae0996d1977d8952f",
+      "manifest_blob": "357e6176cef7c5ae846206a1b3415dd39fbf6de6",
+      "manifest_file": "SHA256-MANIFEST.json",
+      "tracked_files": 60,
+      "manifest_entries": 59,
+      "original_media_paths": 8,
+      "original_media_logical_bytes": 181570831,
+      "published_text_byte_size_discrepancies": 17,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "native-resume-20261023",
+      "tree_sha": "53b548d20b6a5815b6b405c741ecfc7244fb9668",
+      "manifest_blob": "4d544ebe5bee5f8aa80362365d42dc7b4725d8",
+      "manifest_file": "SHA256-MANIFEST.json",
+      "tracked_files": 71,
+      "manifest_entries": 70,
+      "original_media_paths": 13,
+      "original_media_logical_bytes": 131430207,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "physical-gap-restart-20261024",
+      "tree_sha": "21a44f44fe85e06e5c62f26440c01b9faf8ea8f1",
+      "manifest_blob": "d0f9f5348c511dff0a68e12276ff3f74fc145a85",
+      "manifest_file": "sha256-manifest.json",
+      "tracked_files": 149,
+      "manifest_entries": 148,
+      "original_media_paths": 4,
+      "original_media_logical_bytes": 64214401,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "physical-human-20261026",
+      "tree_sha": "fb4b44ae7f859f591ec4e3b680c537c85f74b653",
+      "manifest_blob": "e72329128aa9ee2e58254a565807af4ffc643448",
+      "manifest_file": "SHA256SUMS.txt",
+      "tracked_files": 146,
+      "manifest_entries": 145,
+      "original_media_paths": 5,
+      "original_media_logical_bytes": 110350310,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "physical-input-causal-20261026",
+      "tree_sha": "de66a0b8fe8b93cf05bdc79984faff64d16e4f8f",
+      "manifest_blob": "3e20033f4c07372ccb773cac94c9576edaef2a20",
+      "manifest_file": "manifest.sha256",
+      "tracked_files": 101,
+      "manifest_entries": 100,
+      "original_media_paths": 8,
+      "original_media_logical_bytes": 41511039,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "physical-recovery-20261025",
+      "tree_sha": "2a53f1425423e96692215299760313757418ce6b",
+      "manifest_blob": "47e44318e68f50182fab9f439d5dee131fcc800e",
+      "manifest_file": "sha256-manifest.json",
+      "tracked_files": 143,
+      "manifest_entries": 142,
+      "original_media_paths": 4,
+      "original_media_logical_bytes": 63043948,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    },
+    {
+      "family": "physical-residual-20261026",
+      "tree_sha": "7050e3442b9ea7aef6d417342025b4b6ff4cb9bf",
+      "manifest_blob": "e092bf112126a9448638caccb8220c84a39626d1",
+      "manifest_file": "SHA256SUMS.json",
+      "tracked_files": 395,
+      "manifest_entries": 394,
+      "original_media_paths": 4,
+      "original_media_logical_bytes": 34166688,
+      "published_text_byte_size_discrepancies": 0,
+      "exact_manifest_path_coverage": true,
+      "disposition": "HOLD_PHYSICAL_AND_ORIGINAL_SOURCE"
+    }
+  ]
+}
