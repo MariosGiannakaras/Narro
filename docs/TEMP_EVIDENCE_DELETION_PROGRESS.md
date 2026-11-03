@@ -76,3 +76,11 @@ Execute only checked batch 1; record PR/head/merge SHA, actual resulting-main co
 | `pa356-notification-review-20261015` | 41 | 10,256,260 | BLOCKED / NOT REMOVED |
 
 **Current VERIFIED progress remains batch 1 only:** 1,471 files /1,826,956,822 B newly removed in PR465; cumulative historical retirements PR445–465 = 20,913 files /7,648,434,847 B; frozen original 700 cohort **117 retired, 583 remain /6,827,044,909 B**. Full cleanup **IN PROGRESS**, temporary tracker **must remain**. Resolve the blocked write by an explicitly permitted workflow rather than reissuing or bypassing the safety block. Neither pending candidate list nor an empty branch implies cleanup.
+
+
+## Combined full-scope eligibility review — 2026-11-03
+
+- User requested all remaining review steps together and only genuinely safe deletion. Full technical inventory **15,690/15,690** still matches frozen evidence Git tree `6f3cbe1417f822d415287c9116cc2ef1260a269e` on current main; **20,913 historical deletions, 0 new deletions**.
+- [Exact 163-family retention/deletion eligibility register](../work-log/evidence-cleanup-review-20261101/whole-checkout-consolidated-retention-deletion-gate-20261103.json): **0 path-specific approved deletions** after joining 103 ZIP, 429 media, source/frame records, active PR consumers, and 2,755 surplus identical-Git-blob path occurrences. Duplicate blobs do not by themselves retire timeline paths, original source, physical acceptance, ZIP containers or consumer references.
+- Prior 27-folder /4,065-path bulk deletion safety block and ten-family /29-media README-composite tool block remain. Neither was retried or bypassed. Source parity and original Blitzit evidence remain protected. Separate frozen 700 cohort **117 retired /583 currently retained**. No CI, Windows/AppData, source/test changes or guarded deletion PR/merge occurred.
+- **STATUS: NOT READY FOR SAFE MASS DELETE; TEMP TRACKER MUST REMAIN.** To unlock any distinct future deletion batch, first obtain exact unblocked-path, source/replacement and current-consumer retirement proof; then perform guarded PR and resulting-main validation. Do not represent unapproved candidates or unexecuted actions as deleted.
