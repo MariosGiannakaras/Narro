@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-11-03",
+  "family": "all-remaining-physical-20261026",
+  "source_tree_sha": "a8a7fb16669d841330ca6502b2fba7caae4e460e",
+  "frozen_root_main_unchanged_per_prior_registry": true,
+  "tracked_files": 923,
+  "manifest": "work-log/evidence/all-remaining-physical-20261026/manifest.sha256",
+  "manifest_entries": 922,
+  "manifest_self_unlisted_expected": 1,
+  "manifest_lines_malformed": 0,
+  "manifest_entries_missing_from_family_tree": 0,
+  "tracked_nonself_files_absent_from_manifest": 0,
+  "conventional_media_recording_source_paths": 12,
+  "conventional_media_logical_bytes": 439555276,
+  "recording_components": {
+    "original_native_mkv": 10,
+    "original_loopback_wav": 2
+  },
+  "frozen_index_media_git_blob_size_disagreements": 0,
+  "all_12_recording_paths_have_published_sha256_receipts": true,
+  "sha256_was_independently_streamed_now": false,
+  "consumer_status": "HOLD: exact published SHA256 receipt coverage and Git file identity establish a usable provenance check, not independent SHA256 or playback; prior accepted/failed/open physical P journeys and audio boundaries still have consumers. This family is a protected unresolved native/physical packet.",
+  "new_deletions": 0,
+  "deletion_approved": 0,
+  "limits": "Git tree verifies paths, object IDs, lengths; manifest contains SHA256 assertions, not newly validated hashes. No native re-execution, original versus derived playback, currently demanded acceptance grading or deletion retirement proof."
+}
