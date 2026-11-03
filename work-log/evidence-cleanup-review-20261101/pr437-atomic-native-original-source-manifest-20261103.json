@@ -1,0 +1,21 @@
+{
+  "review_date": "2026-11-03",
+  "family": "pr437-atomic-native-20261030",
+  "tree_sha": "425f8316236882676cb0de353d51aded4f73f6e1",
+  "tracked_count": 171,
+  "published_sha256_receipt_path": "work-log/evidence/pr437-atomic-native-20261030/SHA256SUMS.txt",
+  "published_receipts": 170,
+  "invalid_receipt_rows": 0,
+  "missing_receipted_blobs": 0,
+  "unlisted_nonself_blobs": 0,
+  "media_source_count": 10,
+  "media_source_receipts_present": 10,
+  "media_source_total_logical_bytes": 18637777,
+  "current_open_pr": 437,
+  "current_open_pr_head_at_audit": "632345026d9c693613a3a0b3e9a8105740fcc6af",
+  "native_hold": "Historical 4/4 tested J05 motion groups, 16 directions scoped PASS; new PR437 move/SNAP/hardware and strict A/B hold not closed. Source originals and generated ancillary evidence remain HOLD. No deletion approvals.",
+  "independent_hash_calculation": false,
+  "not_claimed": "Published SHA256 strings not independently rehashed; paths and blob lengths verified against frozen media index; no current physical/native pass or source parity inferred.",
+  "deletion_approved": 0,
+  "new_deletions": 0
+}
