@@ -1,5 +1,20 @@
 # TEMPORARY — Narro evidence deletion progress (DELETE THIS FILE AT FINAL CLOSURE)
 
+## Durable overall cleanup tracker — 1/5 (2026-11-04)
+
+This **x/5 counter measures full-cleanup gates, not number of batches, paths or percentage of safely removable files**. It is authoritative across chats via GitHub; update it after a validated checkpoint and mirror the same exact counter in `HANDOFF.md`. Mark a stage DONE only when its stated gate is satisfied for the **entire** cleanup, not because one batch passed.
+
+| Gate | Status | Completion condition |
+| --- | --- | --- |
+| **1/5 — Frozen technical inventory & protected scope** | **DONE** | All initial 15,690 evidence paths technically inventoried; original Blitzit, current acceptance/PR consumers, Git recovery rules identified. |
+| **2/5 — Consumer/source and replacement disposition** | **IN PROGRESS** | Every remaining path has a justified RETAIN or specific removable/replaced consumer disposition; outstanding media source, native/physical gates and historical manifest gaps resolved or explicitly excluded with a demonstrated reason. |
+| **3/5 — Final eligible deletion allowlist** | **PENDING** | Exhaustive explicit remaining removal list, individual or tightly justified family eligibility, path/size/blob/recovery and all protected exclusions verified; no safety-blocked operations. |
+| **4/5 — All permitted deletion PRs merged** | **PENDING (one scoped PR476 complete)** | Every item on the final eligible allowlist removed via guarded PR and checked exact-head gates; blocked/held items remain retained and documented, never bypassed. |
+| **5/5 — Resulting-main final verification and closure** | **PENDING** | Validate final tree, counters, consumer references, permanent receipts and tracked holds; only if entire cleanup really closed, remove this temporary tracker in the final verified commit. |
+
+**Current durable summary:** **1/5**, technically checked **15,690/15,690** frozen paths; **15,662** surviving at latest verified deletion checkout; **20,941** historical deletions including **28** newly removed through merged PR476; fixed video/ZIP original cohort **117/700** deleted. Last confirmed main evidence deletion merge `b78cd2a3e4f8d3ccae1af697b710ee6c572fc3d7`. This is not a 100% deletion-safety audit. Prior 27-family /4,065-path bulk delete and ten-family /29-media composite were rejected by tool safety and must **not** be reattempted or circumvented. Original Blitzit is always retained. The single immediate action is **new, independently scoped source/consumer verification of potential retired Narro-generated duplicates outside refused operations**, then a guarded deletion-only PR only if proof exists.
+
+
 **Owner:** ChatGPT cleanup. **Started:** 2026-10-31. **User instruction:** retain original Blitzit material and latest meaningful final/native case records, archive superseded generated Narro captures from active checkout, update this file at every verified batch, then **remove this file when the whole cleanup is completed and final main has been checked**. This tracker is NOT the permanent provenance/hand-off source; small immutable work logs and Git commits record historical recoverability.
 
 ## Verified starting point
