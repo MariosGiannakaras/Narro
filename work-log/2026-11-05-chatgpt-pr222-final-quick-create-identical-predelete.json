@@ -1,0 +1,56 @@
+{
+  "audit_date": "2026-11-05",
+  "source_main_before_report_commit": "d93ada99b860c6fae94e811d91c832cfaf868b32",
+  "source_family": "m7-pr222-final-local-20261003",
+  "original_source_pr": 222,
+  "original_pr_merged": true,
+  "current_family_nonrecursive_file_count": 62,
+  "published_historical_manifest_entries": 69,
+  "prior_distinct_eight_reduced_png_retirements": "PR480 already merged 8 files from this same family, different names; do not redelete these.",
+  "new_scope": "Only four quick-error/quick-success headless Chromium static endpoint PNGs, two dark/two light, with exact retained quick-empty same-theme endpoint byte content. Keep all independent empty/error/success HTML case contracts, two unique retained final-state PNGs, README, original per-file manifest, historical logs and source. No native/window tests or original Blitzit evidence.",
+  "removed_to_retained_pairs": [
+    {
+      "removed": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-error-dark.png",
+      "retained": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-dark.png",
+      "source_same_git_blob": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "removed_retained_bytes": 6832,
+      "published_source_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "removed_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-error-dark.html",
+      "retained_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-dark.html"
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-success-dark.png",
+      "retained": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-dark.png",
+      "source_same_git_blob": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "removed_retained_bytes": 6832,
+      "published_source_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "removed_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-success-dark.html",
+      "retained_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-dark.html"
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-error-light.png",
+      "retained": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-light.png",
+      "source_same_git_blob": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "removed_retained_bytes": 6803,
+      "published_source_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "removed_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-error-light.html",
+      "retained_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-light.html"
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-success-light.png",
+      "retained": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-light.png",
+      "source_same_git_blob": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "removed_retained_bytes": 6803,
+      "published_source_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "removed_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-success-light.html",
+      "retained_case_html_preserved": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-quick-empty-light.html"
+    }
+  ],
+  "exact_same_git_sha_and_size_and_published_source_sha_for_each_pair": true,
+  "removed_logical_bytes": 27270,
+  "open_pr_consumer": "No open PR body directly names this family at 2026-11-05 check; this is a historical merged PR222 browser-only evidence family. Same-family README explains quick-create PNGs show only the final state after Escape, while intermediate assertions remain in independent HTML contracts.",
+  "deletion_candidate_status": "ELIGIBLE_ONLY_THESE_FOUR_EXACT_PATHS; subject to guarded deletion-only PR and resulting-main full tree verification. Does not approve other visual or physical evidence, blocked 27-family operation or blocked 29-media composite.",
+  "recovery_commit": "d93ada99b860c6fae94e811d91c832cfaf868b32",
+  "acceptance_impacts": "No physical-native acceptance rerun; CI/native NOT RUN on evidence-only archival removal.",
+  "five_gate_full_cleanup_progress": "1/5 (stage 2 in progress)"
+}
