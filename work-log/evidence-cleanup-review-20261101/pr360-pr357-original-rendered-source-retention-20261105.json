@@ -1,0 +1,69 @@
+{
+  "audit_date": "2026-11-05",
+  "owner": "ChatGPT cleanup",
+  "scope": "New independent nonblocked family source/consumer proof for candidates after PR481; this is a read-only conservative HOLD checkpoint, not a continuation of prior safety-blocked 27-family or 29-media composite.",
+  "sources": [
+    {
+      "family": "pr360-local-20261016",
+      "current_family_files": 29,
+      "published_manifest_nonself_entries": 37,
+      "manifest_only_paths_missing_current_tree": [
+        "build-final.log",
+        "build-focus-scope.log",
+        "build-isolated-focus.log",
+        "ci-viewport.log",
+        "frontend-preflight-final.log",
+        "rendered-final.log",
+        "runtime-final.log",
+        "runtime-focus-scope.log",
+        "runtime-isolated-focus.log"
+      ],
+      "published_manifest_byte_length_drifts": [
+        {
+          "path": "ci-viewport-receipt.json",
+          "published": 17447,
+          "current": 16702
+        },
+        {
+          "path": "rebase-proof.json",
+          "published": 177,
+          "current": 172
+        },
+        {
+          "path": "rendered-final-receipt.json",
+          "published": 57677,
+          "current": 55152
+        },
+        {
+          "path": "runtime-isolated-focus-receipt.json",
+          "published": 10119,
+          "current": 9834
+        }
+      ],
+      "candidate_same_sha_true_false_pairs": 10,
+      "safely_deletable_pairs": 0,
+      "source_status": "PR360 historically MERGED but manifest has 9 absent named build/log records plus 4 current JSON length mismatches. Original report marks nativeAcceptance OPEN; state-specific true/false rendering and source receipts require consumer/provenance closure. Keep full package.",
+      "disposition": "HOLD"
+    },
+    {
+      "family": "m5-board-pr357-local-20261015",
+      "original_real_clock_png_sources": 12,
+      "exact_duplicate_reduced_normal_png_pairs": 5,
+      "pair_logical_bytes": 320572,
+      "source_context": "Family README explicitly identifies 12 original real-clock production-browser PNGs, published receipt and summary, derived review montages and original ZIP archive. Native/source acceptance had been OPEN; only headless/prod browser capture, not physical EXE.",
+      "safely_deletable_pairs": 0,
+      "disposition": "HOLD original acquisition corpus until independently proven source/consumer retirement; duplicate screenshot byte identity by itself insufficient. Preserve 12 originals, receipt.json, summary.json, raw-originals.zip and review montages."
+    }
+  ],
+  "protected": "Original Blitzit and all current/open physical/source evidence remain retained. No PR, deletion, native/CI/Windows/AppData change in this read-only triage.",
+  "current_verified_global_after_pr481": {
+    "original_technically_inventoried": 15690,
+    "original_inventory_total": 15690,
+    "surviving_tracked_evidence": 15638,
+    "historically_deleted": 20965,
+    "session_newly_deleted": 24,
+    "fixed_700_original_media_zip_deleted": 117,
+    "persistent_cleanup_gate": "1/5"
+  },
+  "next": "Continue specific independent older generated evidence source/consumer review; approve future removal only for exact proven replacements with no unresolved original, recording or scenario consumer needs. Do not retry previously blocked tracker update or bulk operations."
+}
