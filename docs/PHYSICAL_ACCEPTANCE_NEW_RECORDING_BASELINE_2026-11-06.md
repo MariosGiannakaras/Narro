@@ -4,7 +4,7 @@
 
 ## Preservation and historical authority
 
-- **Original Blitzit material must remain untouched.** Source references, original videos/transcripts and canonical stills are in `reference/` and the two `work-log/evidence/pr358-residual-source-compare-20261016/VE005-0070.png`, `VE005-0074.png`. Source PARITY evidence is not a Narro physical PASS.
+- **Original Blitzit material must remain untouched.** Source references, original videos/transcripts and canonical stills are in `reference/` and the two `reference/original-blitzit/extracted-frames/VE005-0070.png`, `VE005-0074.png`. Source PARITY evidence is not a Narro physical PASS.
 - Historical PA01–08 report `docs/WINDOWS_PA01_08_FINAL_2026-10-15.md` remains the **dated accepted-source verdict**, with scoped PASS for its tested builds and explicit limits. Retiring Narro evidence checkout copies does not retroactively convert past PASS to FAIL or establish that a current future executable passes.
 - Old standalone CI, local/browser and physical observations can still be recovered from the original Git commits; they are not a substitute for the **new exact-source/current-build** native capture.
 - The new recording ledger below is separate from the accepted-source historical ledger. All new capture entries begin `NOT RUN`, and only a real test plus exact artifact provenance, OBS/video/system observations, UI actions, source identity, and restoration receipt can change status.
