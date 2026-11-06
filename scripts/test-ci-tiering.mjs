@@ -90,7 +90,7 @@ try {
   const required = ["package.json", "src/card.tsx", "src-tauri/src/lib.rs", "src-tauri/icons/icon.ico",
     "scripts/check.mjs", "tests/visual-fixtures/dark.json", "assets/branding/logo.png",
     "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md", ".github/workflows/ci.yml", "focus-editor-fixture.html"];
-  const excluded = ["work-log/evidence/clip.mp4", "reference/original-blitzit-screenshots/source.png"];
+  const excluded = ["work-log/evidence/clip.mp4", "reference/original-blitzit/screenshots/source.png"];
   for (const file of [...required, ...excluded]) {
     const target = path.join(probe, file);
     fs.mkdirSync(path.dirname(target), { recursive: true });
