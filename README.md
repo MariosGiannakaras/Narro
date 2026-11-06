@@ -128,7 +128,7 @@ Primary implementation references:
 - `docs/RESEARCH_EVIDENCE.md` — supplied screenshot inventory and source conflicts;
 - `docs/SOURCE_AUDIT.md` — exhaustive official/source/feedback research;
 - `docs/REFERENCES.md` — compact direct-link source index;
-- `reference/original-blitzit-screenshots/` — original-product visual references.
+- `reference/original-blitzit/screenshots/` — original-product visual references.
 
 Optional planning/verification aids live in `docs/BEHAVIOR_MATRIX.md`, `docs/DECISION_GATES.md`, `docs/INTERACTION_CAPTURE_GUIDE.md` and `docs/decisions/`. They are aids, not additional product requirements.
 
