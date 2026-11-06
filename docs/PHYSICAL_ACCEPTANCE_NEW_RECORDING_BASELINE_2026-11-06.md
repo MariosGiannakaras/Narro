@@ -9,6 +9,12 @@
 - Old standalone CI, local/browser and physical observations can still be recovered from the original Git commits; they are not a substitute for the **new exact-source/current-build** native capture.
 - The new recording ledger below is separate from the accepted-source historical ledger. All new capture entries begin `NOT RUN`, and only a real test plus exact artifact provenance, OBS/video/system observations, UI actions, source identity, and restoration receipt can change status.
 
+## Current recording-use policy — user reaffirmed
+
+**2026-11-06:** Only authentic Blitzit original recordings/stills/transcripts are authorized as the visual and behavioral comparison source for the upcoming fresh Narro recordings. **Do not consume, cite as current-build physical acceptance, restore into the active evidence checkout, or reuse any old Narro screen recording, video, screenshot, OBS/UIA log or acquisition ZIP for the new acceptance campaign.** Previous historic native verdict documents may be consulted only as dated engineering history, not as comparison media or evidence for any new PASS.
+
+The 27 previously tool-safety-blocked historical Narro evidence folders (4,065 files) are **RETIRED_FROM_USE / STILL_TRACKED_BECAUSE_DELETION_BLOCKED**, not part of the new recording input corpus. They are not original Blitzit. Do not retry or circumvent the earlier tool refusal. The only two retained `work-log/evidence/` source images that can be used as Blitzit comparison references are `VE005-0070.png` and `VE005-0074.png`, in addition to the authentic `reference/` corpus. This classification changes *future consumption*, not file existence: 4,067 files remain until an independently permitted deletion succeeds. All future physical acceptance is NOT RUN.
+
 ## Physical validation groups for the new campaign
 
 | Group | Fresh evidence target (not a claimed test result) | Current new-capture status |
