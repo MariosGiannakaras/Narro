@@ -113,7 +113,7 @@ function DurationSelect({
 }
 
 function monitorLabel(monitor: MonitorDescriptor): string {
-  const name = monitor.name?.trim() || `Display ${monitor.index + 1}`;
+  const name = monitor.friendlyName?.trim() || `Display ${monitor.index + 1}`;
   return `${name} · ${monitor.size.width}×${monitor.size.height} · ${Math.round(monitor.scaleFactor * 100)}%`;
 }
 
@@ -171,13 +171,17 @@ export function BlitzPanelPreferenceSection({
                   onClick={() => onSave({ selectedMonitorKey: monitor.key }, "monitor")}>
                   <span className="preference-settings__monitor-preview" aria-hidden="true">
                     <span className="preference-settings__monitor-preview-screen">
-                      <span data-preference-monitor-dimensions="true">
-                        {monitor.size.width}×{monitor.size.height}
-                      </span>
+                      {monitor.desktopPreviewDataUrl ? (
+                        <img src={monitor.desktopPreviewDataUrl} alt="" draggable={false} data-preference-monitor-desktop-preview="true" />
+                      ) : (
+                        <span data-preference-monitor-dimensions="true">
+                          {monitor.size.width}×{monitor.size.height}
+                        </span>
+                      )}
                     </span>
                   </span>
-                  <strong>Screen {monitor.index + 1}</strong>
-                  <span className="type-metadata">{monitor.name?.trim() || `Display ${monitor.index + 1}`}</span>
+                  <strong>{monitor.friendlyName?.trim() || `Screen ${monitor.index + 1}`}</strong>
+                  <span className="type-metadata">{monitor.size.width}×{monitor.size.height}</span>
                 </button>
               );
             })}
@@ -190,7 +194,7 @@ export function BlitzPanelPreferenceSection({
           ) : null}
         </div>
       </Row>
-      <Row infoGlyph title="Panel side" detail="Anchor the Focus Panel to the selected monitor's work-area edge.">
+      <Row infoGlyph title="Panel side" detail="Place the Focus Panel near the selected monitor's left or right edge, with a small top and side gap.">
         <div className="theme-settings__segments" role="group" aria-label="Blitz Panel Side">
           {(["left", "right"] as FocusPanelSidePreference[]).map((side) => {
             const selectedSide = snapshot.general.focusPanelSide === side;
@@ -209,6 +213,18 @@ export function BlitzPanelPreferenceSection({
             );
           })}
         </div>
+      </Row>
+      <Row
+        title="Keep Timer position after restart"
+        detail="Off: every new Narro launch starts the Timer at the Panel. On: remember the last moved Timer position across launches. During one run the Timer always remembers where you dragged it."
+      >
+        <Switch
+          checked={snapshot.general.rememberTimerPositionOnRestart}
+          disabled={pendingKey !== null}
+          label="Keep Floating Timer position after restarting Narro"
+          onChange={(rememberTimerPositionOnRestart) =>
+            onSave({ rememberTimerPositionOnRestart }, "timerPositionRestart")}
+        />
       </Row>
     </section>
   );

@@ -12,6 +12,7 @@
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   width: min(47rem, 100%);
+  height: calc(100dvh - 2 * var(--space-4));
   max-height: calc(100dvh - 2 * var(--space-4));
   min-height: 0;
   min-width: 0;
@@ -55,6 +56,7 @@
 }
 
 .preferences-dialog__scroll {
+  scrollbar-gutter: stable;
   min-height: 0;
   min-width: 0;
   overflow-y: auto;
@@ -70,5 +72,5 @@
 
 @media (max-width: 48rem) {
   .preferences-dialog__backdrop { padding: var(--space-2); }
-  .preferences-dialog__surface { max-height: calc(100dvh - 2 * var(--space-2)); }
+  .preferences-dialog__surface { height: calc(100dvh - 2 * var(--space-2)); max-height: calc(100dvh - 2 * var(--space-2)); }
 }

@@ -1,5 +1,6 @@
 use super::{
-    recover_window_top_left, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize,
+    recover_window_top_left, timer_corner_snap_position, validate_work_area, PhysicalPoint,
+    PhysicalRect, PhysicalSize,
 };
 use crate::timer_service::TimerService;
 use std::ffi::c_void;
@@ -15,6 +16,7 @@ const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_SETTING_CHANGE: u32 = 0x001a;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
 const WM_POWER_BROADCAST: u32 = 0x0218;
+const WM_MOVING: u32 = 0x0216;
 const WM_ENTERSIZEMOVE: u32 = 0x0231;
 const WM_EXITSIZEMOVE: u32 = 0x0232;
 const WM_DPICHANGED: u32 = 0x02e0;
@@ -25,10 +27,41 @@ const PBT_APM_RESUME_CRITICAL: usize = 0x0006;
 const PBT_APM_RESUME_SUSPEND: usize = 0x0007;
 const PBT_APM_RESUME_AUTOMATIC: usize = 0x0012;
 const USER_DEFAULT_SCREEN_DPI: u32 = 96;
+const MONITOR_DEFAULTTONEAREST: u32 = 2;
 
 type RawHwnd = *mut c_void;
 type SubclassProc =
     Option<unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize>;
+
+#[repr(C)]
+#[derive(Default, Clone, Copy)]
+struct WinRect {
+    left: i32,
+    top: i32,
+    right: i32,
+    bottom: i32,
+}
+
+#[repr(C)]
+#[derive(Default)]
+struct MonitorInfo {
+    size: u32,
+    monitor: WinRect,
+    work: WinRect,
+    flags: u32,
+}
+
+#[link(name = "user32")]
+unsafe extern "system" {
+    #[link_name = "GetWindowRgnBox"]
+    fn get_window_rgn_box(hwnd: RawHwnd, rect: *mut WinRect) -> i32;
+    #[link_name = "MonitorFromRect"]
+    fn monitor_from_rect(rect: *const WinRect, flags: u32) -> RawHwnd;
+    #[link_name = "GetMonitorInfoW"]
+    fn get_monitor_info(monitor: RawHwnd, info: *mut MonitorInfo) -> i32;
+    #[link_name = "GetDpiForWindow"]
+    fn get_dpi_for_window(hwnd: RawHwnd) -> u32;
+}
 
 #[link(name = "comctl32")]
 unsafe extern "system" {
@@ -176,6 +209,124 @@ fn is_power_resume_event(event: usize) -> bool {
     )
 }
 
+/** Modify Win32's proposed WM_MOVING rectangle without moving the HWND
+ * separately or involving the renderer. Region bounds (not the 700-DIP host
+ * envelope) control the bottom-corner anchor. If Win32 cannot report a valid
+ * DPI, monitor or committed clipped region, preserve the native free drag.
+ */
+fn snap_timer_moving_rect(hwnd: RawHwnd, lparam: isize) -> bool {
+    if lparam == 0 || crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+        return false;
+    }
+    let proposed = unsafe { &mut *(lparam as *mut WinRect) };
+    let (Ok(host_width), Ok(host_height)) = (
+        u32::try_from(i64::from(proposed.right) - i64::from(proposed.left)),
+        u32::try_from(i64::from(proposed.bottom) - i64::from(proposed.top)),
+    ) else {
+        return false;
+    };
+    if host_width == 0 || host_height == 0 {
+        return false;
+    }
+    let mut region = WinRect::default();
+    if unsafe { get_window_rgn_box(hwnd, &mut region) } == 0 || region.left != 0 || region.top != 0
+    {
+        return false;
+    }
+    let (Ok(visible_width), Ok(visible_height)) = (
+        u32::try_from(i64::from(region.right) - i64::from(region.left)),
+        u32::try_from(i64::from(region.bottom) - i64::from(region.top)),
+    ) else {
+        return false;
+    };
+    if visible_width == 0
+        || visible_height == 0
+        || visible_width > host_width
+        || visible_height > host_height
+    {
+        return false;
+    }
+
+    let (Ok(width_i32), Ok(height_i32)) =
+        (i32::try_from(visible_width), i32::try_from(visible_height))
+    else {
+        return false;
+    };
+    let Some(visible_right) = proposed.left.checked_add(width_i32) else {
+        return false;
+    };
+    let Some(visible_bottom) = proposed.top.checked_add(height_i32) else {
+        return false;
+    };
+    let visible_rect = WinRect {
+        left: proposed.left,
+        top: proposed.top,
+        right: visible_right,
+        bottom: visible_bottom,
+    };
+    let monitor = unsafe { monitor_from_rect(&visible_rect, MONITOR_DEFAULTTONEAREST) };
+    if monitor.is_null() {
+        return false;
+    }
+    let mut info = MonitorInfo {
+        size: std::mem::size_of::<MonitorInfo>() as u32,
+        ..MonitorInfo::default()
+    };
+    if unsafe { get_monitor_info(monitor, &mut info) } == 0 {
+        return false;
+    }
+    let (Ok(work_width), Ok(work_height)) = (
+        u32::try_from(i64::from(info.work.right) - i64::from(info.work.left)),
+        u32::try_from(i64::from(info.work.bottom) - i64::from(info.work.top)),
+    ) else {
+        return false;
+    };
+    let dpi = unsafe { get_dpi_for_window(hwnd) };
+    if dpi == 0 {
+        return false;
+    }
+    let inset = (crate::FOCUS_PANEL_EDGE_INSET_DIP * f64::from(dpi)
+        / f64::from(USER_DEFAULT_SCREEN_DPI))
+    .round() as u32;
+    // A corner is acquired within two Panel-margin units on both axes.
+    let anchor = timer_corner_snap_position(
+        PhysicalRect {
+            position: PhysicalPoint {
+                x: info.work.left,
+                y: info.work.top,
+            },
+            size: PhysicalSize {
+                width: work_width,
+                height: work_height,
+            },
+        },
+        PhysicalSize {
+            width: visible_width,
+            height: visible_height,
+        },
+        PhysicalPoint {
+            x: proposed.left,
+            y: proposed.top,
+        },
+        inset,
+        inset.saturating_mul(2),
+    );
+    let Ok(Some(anchor)) = anchor else {
+        return false;
+    };
+    let (Ok(right), Ok(bottom)) = (
+        i32::try_from(i64::from(anchor.x) + i64::from(host_width)),
+        i32::try_from(i64::from(anchor.y) + i64::from(host_height)),
+    ) else {
+        return false;
+    };
+    proposed.left = anchor.x;
+    proposed.top = anchor.y;
+    proposed.right = right;
+    proposed.bottom = bottom;
+    true
+}
+
 unsafe extern "system" fn display_change_subclass_proc(
     hwnd: RawHwnd,
     message: u32,
@@ -186,8 +337,22 @@ unsafe extern "system" fn display_change_subclass_proc(
 ) -> isize {
     if message == WM_ENTERSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
+        if let Some(app) = DISPLAY_APP_HANDLE.get() {
+            crate::floating_placement::begin_user_timer_move(app);
+        }
+    } else if message == WM_MOVING {
+        // Preserve the Tauri/window subclass chain before applying the final
+        // proposed rectangle; Win32 requires TRUE when WM_MOVING was handled.
+        let result = unsafe { def_subclass_proc(hwnd, message, wparam, lparam) };
+        if INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire) && snap_timer_moving_rect(hwnd, lparam) {
+            return 1;
+        }
+        return result;
     } else if message == WM_EXITSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
+        if let Some(app) = DISPLAY_APP_HANDLE.get() {
+            crate::floating_placement::finish_user_timer_move(app);
+        }
         if RECOVERY_DIRTY.load(Ordering::Acquire) {
             schedule_display_recovery();
         }
@@ -218,6 +383,10 @@ unsafe extern "system" fn display_change_subclass_proc(
     }
 
     unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
+}
+
+pub(crate) fn focus_interactive_move_active() -> bool {
+    INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)
 }
 
 fn handle_power_broadcast(event: usize) {

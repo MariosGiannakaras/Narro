@@ -53,6 +53,10 @@ export type MonitorDescriptor = {
   key: string;
   index: number;
   name: string | null;
+  /** Real model name when Windows supplies one; not a persistence identity. */
+  friendlyName?: string | null;
+  /** Read-only, ephemeral local desktop thumbnail; never stored. */
+  desktopPreviewDataUrl?: string | null;
   scaleFactor: number;
   position: PhysicalPoint;
   size: PhysicalSize;
@@ -232,7 +236,7 @@ export function isValidMonitorSelection(
 }
 
 export function formatMonitorLabel(monitor: MonitorDescriptor): string {
-  const name = monitor.name?.trim() || `Monitor ${monitor.index + 1}`;
+  const name = monitor.friendlyName?.trim() || `Monitor ${monitor.index + 1}`;
   const scalePercent = Math.round(monitor.scaleFactor * 100);
   return `${monitor.index}: ${name} — ${monitor.size.width}×${monitor.size.height} @ ${scalePercent}%`;
 }
