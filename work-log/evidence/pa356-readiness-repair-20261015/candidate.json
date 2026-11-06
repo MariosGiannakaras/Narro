@@ -1,9 +1,0 @@
-{
-  "state": "REPAIRED_SOURCE_CI_PENDING",
-  "head": "b43549bf24f1edb9080f5651496ef27d6c054228",
-  "run": 38688218496,
-  "pr": 356,
-  "oldFailedHead": "9232a6a6fd8b7b2cb605f0c573ee5fcc6033ec97",
-  "oldFailedRun": 38684913852,
-  "newPhysical": "0/2"
-}

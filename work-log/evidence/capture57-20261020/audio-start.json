@@ -1,9 +1,0 @@
-{
-  "utc": "2026-10-20T12:43:04.204839+00:00",
-  "device": "Speakers (HyperX Virtual Surround Sound) [Loopback]",
-  "loopback": true,
-  "microphone": false,
-  "rate": 48000,
-  "channels": 2,
-  "maxSeconds": 600
-}

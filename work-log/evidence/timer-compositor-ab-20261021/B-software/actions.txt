@@ -1,5 +1,0 @@
-2026-10-21T06:39:47.4694515Z Panel→compact begin
-2026-10-21T06:40:27.5393571Z expand pointer blocked by Return-to-Focus tooltip; keyboard recovery
-2026-10-21T06:40:36.7905110Z Space after observed Expand focus; snapshot validates result
-2026-10-21T06:40:52.0878946Z collapse begin
-2026-10-21T06:40:55.1329711Z return Panel begin

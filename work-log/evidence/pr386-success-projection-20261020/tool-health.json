@@ -1,7 +1,0 @@
-{
-  "utc": "2026-10-20T03:16:53.170807+00:00",
-  "actions": "read-only OBS UIA; activate minimized OBS and fresh window+single screenshot retry per supported recovery; no recording/Narro launch",
-  "captureFailure": "FrameArrived timed out: timed out waiting on channel",
-  "recorderUIA": "Start Recording /00:00:00",
-  "nativePointerAcceptance": "BLOCKED, not productFAIL"
-}
