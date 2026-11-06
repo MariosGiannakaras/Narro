@@ -43,7 +43,7 @@ For every complete MP4:
 
 Raw MP4 access was established on 2026-10-02 without touching Narro implementation.
 
-An isolated, **analysis-only** branch `analysis/blitzit-pass3-media-bridge` contains only a temporary GitHub Actions workflow that uploads the already-versioned `reference/original-blitzit-videos/inbox/*.mp4` files as an Actions artifact. It is not an implementation branch, must not be merged, and must not be used to modify product source.
+An isolated, **analysis-only** branch `analysis/blitzit-pass3-media-bridge` contains only a temporary GitHub Actions workflow that uploads the already-versioned `reference/original-blitzit/videos/inbox/*.mp4` files as an Actions artifact. It is not an implementation branch, must not be merged, and must not be used to modify product source.
 
 Initial bridge evidence:
 - branch source commit: `7ccd1733cdc63991ecd5569c21fda02f28138881`;

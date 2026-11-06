@@ -107,7 +107,7 @@ Do not add accounts, cloud sync/backend, subscriptions, telemetry, collaboration
 
 Do not copy Blitzit branding; Narro's canonical logo is `assets/branding/narro-logo-master.png`.
 
-Original Blitzit screenshots are available under `reference/original-blitzit-screenshots/` as visual evidence, not assets and not infallible behavior truth.
+Original Blitzit screenshots are available under `reference/original-blitzit/screenshots/` as visual evidence, not assets and not infallible behavior truth.
 
 Timer/session correctness, stable task identities, date-only vs datetime semantics and local-only persistence are durable requirements, but Milestone 1 should only establish the minimum boundaries/harnesses needed for the spike rather than fully implementing later engines.
 

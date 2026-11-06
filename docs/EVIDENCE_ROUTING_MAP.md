@@ -1,5 +1,8 @@
 # Narro evidence routing map
 
+**Current unified Blitzit corpus (2026-11-06):** `reference/original-blitzit/` is the single source root for original comparison material. Use `screenshots/` (46 canonical static images), `videos/inbox/` (19 MP4 with 19 paired SRT captions), and `extracted-frames/` (two explicitly derived VE005 video frames). [`SOURCE_MANIFEST.json`](../reference/original-blitzit/SOURCE_MANIFEST.json) tracks every source's original location and exact unchanged Git blob identity. Never compare a new Narro physical capture against retired Narro media; original Blitzit is the reference. Historical immutable work logs may still mention pre-migration paths recoverable from old commits.
+
+
 **User-directed cross-version continuity:** an observed older state/behavior remains the current reconstruction target unless newer evidence actually contradicts it. Newer material being silent is not a source gap for that already demonstrated claim. Keep direct historical provenance separate from assumed present continuity; reserve UNKNOWN for genuinely unobserved/ambiguous details. U01-U41 local coverage is41/41, not41 wholly absent sources. See [current clarification](BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md) and AGENTS.md.
 
 Status: **BINDING DISCOVERY MAP**
@@ -28,8 +31,8 @@ When work touches a user-visible surface, Blitzit parity, source evidence, physi
 
 | Layer | Canonical files | Authoritative for | Not authoritative for |
 | --- | --- | --- | --- |
-| Raw static source | `reference/original-blitzit-screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
-| Raw motion source | `reference/original-blitzit-videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
+| Raw static source | `reference/original-blitzit/screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
+| Raw motion source | `reference/original-blitzit/videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
 | Current exhaustive source forensics | `BLITZIT_FORENSIC_PASS3_TRACKER.md`, `...SCREENSHOTS.md`, `...VIDEOS.md`, `...HANDOFF.md` | current source-inspection state and canonical Pass-3 findings | Narro implementation PASS |
 | Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md`, `BLITZIT_VISUAL_SYSTEM.md` | representative-source calibration and reusable visual-system rules for high-fidelity reconstruction | runtime correctness |
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |

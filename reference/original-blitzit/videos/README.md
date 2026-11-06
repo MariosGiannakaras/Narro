@@ -6,7 +6,7 @@ This directory is the durable repository location for user-supplied original Bli
 
 Upload new raw files to:
 
-`reference/original-blitzit-videos/inbox/`
+`reference/original-blitzit/videos/inbox/`
 
 The user does **not** need to rename, classify, trim, timestamp, or organize files before upload. Videos and transcripts may be mixed together in the inbox. Preserve original filenames when practical.
 
