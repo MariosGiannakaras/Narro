@@ -1,1 +1,0 @@
-Ready-fixture m7-integration actual completion + DOM/PNG: PASS

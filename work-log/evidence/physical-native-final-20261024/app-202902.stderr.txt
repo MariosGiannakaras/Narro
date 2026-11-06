@@ -1,1 +1,0 @@
-Focus Panel selected-monitor revalidation failed after visible-area recovery: [FOCUS_PRESENTATION_BUSY] Another Focus native transaction is pending

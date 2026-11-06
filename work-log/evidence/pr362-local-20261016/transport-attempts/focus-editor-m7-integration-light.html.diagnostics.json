@@ -1,8 +1,0 @@
-{
-  "failure": "Error: Owned blank Edge target readiness deadline: TypeError: fetch failed",
-  "observed": null,
-  "events": [],
-  "stderr": "[62596:35224:1016/134458.683:ERROR:components\\edge_ess\\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577\r\n\r\nDevTools listening on ws://127.0.0.1:65503/devtools/browser/4387ad1a-b846-46f6-b545-89c3c9ae9d27\r\n[62596:67040:1016/134459.071:ERROR:net\\disk_cache\\blockfile\\block_files.cc:445] Failed to open E:\\SystemFiles\\Desktop\\Narro-M5XW-20261016\\profile-focus-editor-m7-integration-light\\ShaderCache\\data_3\r\n[62596:35224:1016/134500.490:ERROR:chrome\\browser\\task_manager\\providers\\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a \"Renderer\" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.\r\n[62596:71104:1016/134501.118:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n",
-  "kind": "m7-integration",
-  "url": "http://127.0.0.1:4174/focus-editor-fixture.html?scenario=m7-integration&theme=light&motion=false"
-}

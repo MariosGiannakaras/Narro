@@ -1,1 +1,0 @@
-C38 only: exact PR388 corrected EXE, source-equivalent main. Settings -> View Shortcuts -> all ten rows/native scroll dimensions/full-window screenshot -> Escape twice. No changes to toggles or accepted picker/upload/icons; no Timer replay. Stop owned capture before analysis.

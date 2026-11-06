@@ -1,2 +1,0 @@
-[libx264 @ 00000243df905940] non-strictly-monotonic PTS
-    Last message repeated 419 times

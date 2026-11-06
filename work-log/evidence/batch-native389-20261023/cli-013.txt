@@ -1,4 +1,0 @@
-{
-  "reduced": false,
-  "presentation": "panel"
-}
