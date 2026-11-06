@@ -28,8 +28,8 @@ When work touches a user-visible surface, Blitzit parity, source evidence, physi
 
 | Layer | Canonical files | Authoritative for | Not authoritative for |
 | --- | --- | --- | --- |
-| Raw static source | `reference/original-blitzit-screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
-| Raw motion source | `reference/original-blitzit-videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
+| Raw static source | `reference/original-blitzit/screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
+| Raw motion source | `reference/original-blitzit/videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
 | Current exhaustive source forensics | `BLITZIT_FORENSIC_PASS3_TRACKER.md`, `...SCREENSHOTS.md`, `...VIDEOS.md`, `...HANDOFF.md` | current source-inspection state and canonical Pass-3 findings | Narro implementation PASS |
 | Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md`, `BLITZIT_VISUAL_SYSTEM.md` | representative-source calibration and reusable visual-system rules for high-fidelity reconstruction | runtime correctness |
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |
