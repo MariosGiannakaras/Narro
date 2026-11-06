@@ -1,6 +1,8 @@
 # Evidence inventory for later cleanup — 2026-11-01
 
-User direction: audit only. Do not delete or move files. This is an inventory and reference-discovery checkpoint, **not a completed per-file deletion audit or a deletion allowlist**.
+**Frozen 2026-11-01 historical snapshot.** All reproduction commands below refer to tooling and evidence at their original Git baseline; recover the helper and inputs there, never regenerate these frozen outputs on current main. Current cleanup state is in `HANDOFF.md` and `docs/EVIDENCE_CLEANUP_INVENTORY.md`.
+
+Historical user direction: audit only. Do not delete or move files. This is an inventory and reference-discovery checkpoint, **not a completed per-file deletion audit or a deletion allowlist**.
 
 The frozen baseline is main `4fcd2fe084ecdc7b66cad5671da54d63e71aabe3`. `inventory.json` enumerates all 163 tracked families and seven root-level files beneath `work-log/evidence/`: 15,690 paths, 9,004,461,750 logical bytes. `paths.csv` inventories each of those Git paths, exact blob ID, and logical size. Every path is conservatively marked `REVIEW_REQUIRED` pending a specific evidence/consumer decision. `duplicate-blob-paths.json` groups all Git paths with identical blob IDs; identity is not a verified replacement or authorization to delete. Results are frozen at this exact main, not proof about later changes.
 
@@ -12,7 +14,7 @@ The previous 27-family / 4,065-path batch is included in this baseline. Its earl
 
 `original-recording-retention.json` lists **33 original recording files/parts / 1,236,844,296 bytes** from seven sessions with exact path, Git blob, independently calculated SHA-256 and supporting consumer. These 33 are explicitly **RETAIN_FOR_NOW**, because they are published full native recordings or their required byte parts and a sufficient retirement/replacement has not been established. Seven PA351 parts, five PA01 parts, and nine CI1046 MKVs (21 total) independently match their session-manifest SHA-256; the remaining 12 are newly measured, not claimed as independently manifest-matched. The PA01 derived clips, CI1046 sidecars, PA351/354/355 screenshots and other contents of the seven families were **not** individually dispositioned by this checkpoint. M5's earlier segment1 is a derived excerpt of a local original and is not in the 33; it remains open for separate review. See the cited reports and `audit_original_recordings.py` for exact selection and checks. These observations do not prove replacement evidence is unavailable; they establish why it has not yet been demonstrated for removal.
 
-Reproduce using `python audit_cleanup_inventory.py` in a checkout with Git and `origin/main` at the desired baseline; results change with the ref. Verify `main_sha` in the JSON before comparing runs. The script only reads tracked objects and writes its own local report files.
+Historical tooling: all 14 one-off root `audit_*.py` / `verify_*.py` helpers were retired from the current checkout after the 2026-11-07 consumer audit found no application, workflow, package or test consumers. They remain recoverable at commit `e953db3225406cc03e432c2bc0f1715ca743c19f`. Reproduce the dated inventory only in a disposable checkout of the intended historical baseline, with the historical helper and matching ref; never regenerate this frozen directory in place on current main. Its JSON/CSV are historical provenance, not the current inventory or a deletion allowlist.
 
 ## CI936 live frame duplicate assessment
 

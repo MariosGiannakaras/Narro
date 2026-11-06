@@ -1,3 +1,11 @@
+# Reading this crosswalk after evidence retirement — 2026-11-07
+
+Current operation and source heads are in [HANDOFF](../HANDOFF.md). Finding dispositions below are preserved; dated pre-physical audits and old CURRENT/NEXT/CI-running claims are historical checkpoints. PP44-F01 source remediation was subsequently implemented on PR437 head `632345026d9c693613a3a0b3e9a8105740fcc6af`; its new native acceptance remains NOT RUN. Source automation does not close the native gates.
+
+Some historical relative links target retired Narro recordings. Absence from today's checkout is not a fresh application failure and does not erase the dated finding. Resolve the original path through the associated immutable retirement receipt's pre-deletion Git commit; do not fabricate a replacement recording, restore old Narro media into new comparison use, or rewrite historical verdicts. Authentic Blitzit sources are now at `reference/original-blitzit/`; new comparison acquisitions remain NOT RUN.
+
+---
+
 # Pre-physical audit — 2026-10-30, source44a22f2a unchanged
 
 Review complete10/10 source domains:9 scoped PASS /1 confirmed FAIL **PP44-F01 (M5/M9)**. Manual Taken lowering then historical edit/delete can commit a negative effective total; actual SQLite/production SQL2 FAIL +4 PASS controls, reader/Board failure source-traced. **No correction applied; integrated physical readiness NOT READY.** [Full audit/reproducer/results](../work-log/evidence/pr437-prephysical-audit-20261030/README.md). Exact CI41031984280 validation/fast PASS, Windows Rust/check/Clippy PASS but full job still IN PROGRESS at last snapshot; user says do not wait, other chat consumes it. No physical execution, source/approved UX modification, merge or milestone advance. HANDOFF owns continuation.
