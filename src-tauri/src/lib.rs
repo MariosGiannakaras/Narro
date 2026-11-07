@@ -2757,7 +2757,7 @@ pub fn run() {
         .manage(AppState::new())
         .manage(ShortcutManager::new())
         .invoke_handler({
-            let handler = tauri::generate_handler![
+            let handler: fn(tauri::ipc::Invoke<tauri::Wry>) -> bool = tauri::generate_handler![
                 get_state,
                 get_home_snapshot,
                 focus_entry::start_blitz,
