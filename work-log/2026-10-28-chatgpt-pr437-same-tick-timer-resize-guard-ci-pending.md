@@ -1,0 +1,15 @@
+# PR437 same-tick Timer resize versus Panel/Quick Task admission — initial source/CI receipt
+
+Date: 2026-10-28. Owner: ChatGPT source engineering. Exact parent: `a019293deab7677f6e337c7b9e63b6ba04081f82` with independently verified 3/3 CI40601731554, but that PASS **does not validate** the new delta. Existing draft [PR437](https://github.com/MariosGiannakaras/Narro/pull/437), branch `integration/m7-v4-current-timer-20261027`, new atomic single source/test commit `c17a089cb763366004d51b710a448091ab285dc4`. Initial [CI40615050008](https://github.com/MariosGiannakaras/Narro/actions/runs/40615050008) **QUEUED**. Local tests/preflight **NOT RUN** in GitHub-only environment; new-source validation/fast/Windows **PENDING**. Physical UI/Windows checks **NOT RUN**.
+
+## Scope, ownership and causal boundary
+
+`FloatingTimerFoundation.tsx` `requestExpanded` sets `resizeRequestInFlightRef.current=true`, then invokes `onResizePendingChange(true)` before a paint; coordinator `setTimerResizeBusy` immediately publishes `timerResizePendingRef.current=true` but React state `timerResizePending` is not guaranteed committed before the next native or keyboard event. `FocusSurfaceCoordinator.tsx` previously used stale state in `requestMode` and the in-app create-task `onKeyDown` handler. Existing external shortcut handlers already gate on the immediate ref; these two omitted that same invariant. Potential race: an alternate request could pass admission before the new state render, overlapping protected resize, stealing the transition gate or presenting an unexpected task-creation surface. Source-disposed as **CONFIRMED GUARD GAP / race exposure** (not claimed physically reproduced).
+
+## Patch and regression
+
+Change `requestMode` and keyboard create-task admission checks to `timerResizePendingRef.current`. Remove now-unused `timerResizePending` callback/effect dependencies for those two handlers; preserve the state for screen indications and deferred effect replay. Extend existing `scripts/test-focus-mode-transition.mjs`: transpile the actual production callback slices with project's existing `typescript`, execute with `vm`, prove that immediate `ref=true` denies both direct transition and keydown quick-create while previous-render state remains false. No changes to raster lease/rollback, native compositor, persistence, snapshots, or protected Spectrum editor.
+
+## Scope closure, evidence limits, next proof
+
+Related existing gates checked: `transitionGateRef`, `resizeRequestInFlightRef`, `onResizePendingChange`, shortcut event ref guards, `requestTimerExpanded` / V4 protected resize, and existing source/test contracts. Unrelated historical Reports passive-effect hypothesis was already addressed in current main by `useLayoutEffect` and live producer tests; no duplicate fix. Static source review supports the guard mismatch, not native pixel or rapid-input observation. **Exact new head CI is mandatory and pending**, then artifact identity verification and separate actual native acceptance only when performed; PR389/419 strict physical holds and PR437 draft no merge remain.

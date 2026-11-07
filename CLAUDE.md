@@ -1,9 +1,5 @@
 # Claude repository instructions
 
-This repository is self-handing-off. Do not require the user to provide prior chat context or a custom task prompt.
+Use [AI_START_HERE.md](AI_START_HERE.md) as the shared entrypoint. In an existing chat resume the exact operation using its fast path; apply full onboarding once only to a genuinely new context. Do not ask the user to reconstruct prior chats.
 
-Start by reading `AI_START_HERE.md`, then follow its zero-context takeover procedure exactly.
-
-Canonical durable rules live in `AGENTS.md` and `AGENT_WORKFLOW.md`. Current work lives in `HANDOFF.md` and the active milestone of `TODO.md`.
-
-Do not duplicate or override those instructions here.
+Durable rules: AGENTS.md and AGENT_WORKFLOW.md. Current operation: HANDOFF.md and the relevant TODO.md requirements. For fresh Windows work, follow the canonical physical protocol linked from HANDOFF; dated packets and old trackers are historical inputs, not current pause/backup/candidate instructions. Do not duplicate or override the canonical rules here.

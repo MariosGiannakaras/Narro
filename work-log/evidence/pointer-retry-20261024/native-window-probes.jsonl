@@ -1,4 +1,0 @@
-{"utc": "2026-10-24T06:59:11.489648+00:00", "label": "timer-before-drag", "hwnd": 1313994, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1313994}
-{"utc": "2026-10-24T06:59:20.294393+00:00", "label": "timer-after-drag", "hwnd": 1313994, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1313994}
-{"utc": "2026-10-24T06:59:36.248125+00:00", "label": "timer-after-grip-drag", "hwnd": 1313994, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1313994}
-{"utc": "2026-10-24T07:00:03.745956+00:00", "label": "timer-after-top-drag", "hwnd": 1313994, "bounds": [2220, 0, 2560, 700], "dpi": 96, "topmostStyle": true, "foregroundHwnd": 1313994}

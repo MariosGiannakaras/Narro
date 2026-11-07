@@ -1,8 +1,0 @@
-{
-  "failure": "Error: Owned blank Edge target readiness deadline: TypeError: fetch failed",
-  "observed": null,
-  "events": [],
-  "stderr": "[9608:12540:1016/134358.433:ERROR:components\\edge_ess\\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577\r\n\r\nDevTools listening on ws://127.0.0.1:63524/devtools/browser/122f2091-ac7c-4f02-84c2-b5a18dbf5b11\r\n[9608:38188:1016/134358.884:ERROR:net\\disk_cache\\blockfile\\block_files.cc:458] Invalid file version or magic E:\\SystemFiles\\Desktop\\Narro-M5XW-20261016\\profile-focus-editor-m7-integration-dark-reduced\\GrShaderCache\\data_2\r\n[9608:1200:1016/134401.223:ERROR:chrome\\elevation_service\\edge_elevation_service_browser_helper.cc:94] LaunchUpdateCmdElevatedAndWait:  hr = 80070002 with exit code: 32\r\n",
-  "kind": "m7-integration",
-  "url": "http://127.0.0.1:4174/focus-editor-fixture.html?scenario=m7-integration&theme=dark&motion=true"
-}

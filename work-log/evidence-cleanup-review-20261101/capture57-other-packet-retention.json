@@ -1,0 +1,2540 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "source_family": "work-log/evidence/capture57-20261020/",
+  "scope": "Remaining 276 non-ZIP/nonconventional media evidence paths after separately retained 24 original video chunks; original loopback WAV documented in separate media-path scope",
+  "sources": [
+    "work-log/evidence-cleanup-review-20261101/paths.csv",
+    "work-log/evidence/capture57-20261020/integrity-manifest.json",
+    "work-log/evidence/capture57-20261020/README.md",
+    "work-log/evidence/capture57-20261020/checkpoint.json",
+    "work-log/evidence/capture57-20261020/requirements.json",
+    "work-log/evidence/capture57-20261020/audio-metadata.json",
+    "work-log/evidence/capture57-20261020/audio-start.json",
+    "work-log/evidence/capture57-20261020/video-parts.json",
+    "docs/CAPTURE_57_ACQUISITION_2026-10-20.md"
+  ],
+  "method": "Join 276 tracked Git path/size/blob inventory rows to 275 published per-file SHA-256 inventory entries; the integrity manifest deliberately cannot include itself. Verify 204 observation paths, 57 screenshot paths and 15 provenance/fixture paths cover every remaining nonconventional family file. Read scoped acquisition publication and WAV loopback metadata; validate numeric PCM size and duration, not actual audio bytes.",
+  "summary": {
+    "all_family_paths": 301,
+    "video_part_paths": 24,
+    "conventional_audio_paths": 1,
+    "nonconventional_remaining_paths": 276,
+    "nonconventional_remaining_bytes": 18460673,
+    "observations": 204,
+    "screenshots": 57,
+    "other_packet_files": 15,
+    "manifest_verified_paths": 275,
+    "manifest_self_exclusion": 1,
+    "manifest_byte_mismatches": 0
+  },
+  "original_loopback_audio": {
+    "path": "work-log/evidence/capture57-20261020/system-audio-original.wav",
+    "git_blob": "622d82a7330f801948e31ccdc4e1960ed6a43f85",
+    "bytes": 626732,
+    "manifest_sha256": "100c4512bcc03c8cef6bac8125568c0e3647bcc6bd839940ff38ece1651ce521",
+    "frames": 156672,
+    "rate_hz": 48000,
+    "channels": 2,
+    "duration_seconds": 3.264,
+    "loopback": true,
+    "microphone": false,
+    "continuity": "DISCONTINUOUS_UNMAPPED_NO_AUDIO_PASS",
+    "recorded_pcm_wav_bytes_check": 626732,
+    "disposition": "HOLD_ORIGINAL_LIMITED_WASAPI_LOOPBACK",
+    "deletion_approved": false
+  },
+  "records": [
+    {
+      "path": "work-log/evidence/capture57-20261020/CAPTURE_ORDER.md",
+      "git_blob": "f77d40f3b77d52eaf63b4a80762a1b26459a951a",
+      "bytes": 678,
+      "manifest_sha256": "0c38e5b54bf7e0b9324a23ce0f025354593b0e03c016af843097b07748c090a1",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/README.md",
+      "git_blob": "0804bc8a8ef2846b0eb0751ba5524b4eb1dfe8c0",
+      "bytes": 5353,
+      "manifest_sha256": "8715d5a0c8ebbf309ad1083c9c7c47e0fda4237c1739bebe162fd5b07a653af0",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/actions.jsonl",
+      "git_blob": "6cc8d6a4293df9f9e13e9353e085c2ddf5a1ecda",
+      "bytes": 36183,
+      "manifest_sha256": "2d8b8500268eb87fbbf81899718b3c45d362070b570020cb0583c7812ee19026",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/audio-metadata.json",
+      "git_blob": "cda5562c5e8d6d1e303651e977de30b83a002c42",
+      "bytes": 204,
+      "manifest_sha256": "7b0f0c89cb2529d77847e3ab4a7fb4440ca3bb1d09f905d3ccda33a7d6e5a5e1",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/audio-start.json",
+      "git_blob": "57e6718e73b9fa2a1ca3484ed1af62768eff074a",
+      "bytes": 212,
+      "manifest_sha256": "48248625134e86ca9014aceea64c6fd2898a72678af1c553d08d235735ad8ed3",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/checkpoint.json",
+      "git_blob": "179f79eecc0a73c6419f15ecc8e4a3d42ffe6c42",
+      "bytes": 952,
+      "manifest_sha256": "f7befb583d0c3cfeee4e3123951b454810e436e8ddf770c96e436e4fcac39356",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/clips.jsonl",
+      "git_blob": "e5ecb1164e77e2a4d29f81bebfd3314d3ef028e4",
+      "bytes": 935,
+      "manifest_sha256": "91470671f67101ceb4aa98679e772270789a2929670c6040280207c4246ed246",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/fixture-image.png",
+      "git_blob": "751a91b5a0f1a946684dd551bb9d94202d9fb40e",
+      "bytes": 765,
+      "manifest_sha256": "6e7ddce2aad67ff01087606a1fddb58980de756c1a3b990fed8d483975155801",
+      "scope": "packet",
+      "disposition": "HOLD_SYNTHETIC_FIXTURE_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/integrity-manifest.json",
+      "git_blob": "bc1e1769a96f5411e62d71916b390a080288c7fb",
+      "bytes": 51796,
+      "manifest_sha256": null,
+      "scope": "packet",
+      "disposition": "HOLD_SELF_HASH_MANIFEST",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/media-metadata.json",
+      "git_blob": "d85b68db99665088b39f288f30f5c756dc06abc3",
+      "bytes": 35943,
+      "manifest_sha256": "75028e81867cfbcdde04183753366653392b042d73cb726bc72b052688058d92",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/001-home-ready.json",
+      "git_blob": "c3ab0047e5470e79a3e99de8a037056bdc759ae3",
+      "bytes": 9866,
+      "manifest_sha256": "fbc8d9b8a7fa3d1cce778dcf722cab5f94371509c9bbb6e2b403bad3a69e2993",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/001-home-uia.json",
+      "git_blob": "a0b6c4d41013052fb4e262a7ceddbca0b7856935",
+      "bytes": 9833,
+      "manifest_sha256": "2f49754d6265e31d96b58e995f9736246a7f49e7c7492d65d555b2f0b4235ff6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/002-click-2.json",
+      "git_blob": "f3db7cc23d62188bfd9d8041150624dee9ce3a1f",
+      "bytes": 10636,
+      "manifest_sha256": "0aac5813b0b20ada304f702968f3b2e4019f5f546437cc4589882796ffaa855f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/003-obs-record-health.json",
+      "git_blob": "4aa23fb776a2cc946eb7f372b15d64acc4803deb",
+      "bytes": 19190,
+      "manifest_sha256": "523220d7933916839e2bfbf8703d56352aeefd667072a0043b0b2ce594eb3258",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/004-obs-before-stop-retry.json",
+      "git_blob": "93da616a6ae850134d8b8cb1338b9204d87e1a8c",
+      "bytes": 19268,
+      "manifest_sha256": "b7d07d5655d0338ef1917cc8c81a92b984c8890f0df6b15682d92009085b8501",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/005-click-5.json",
+      "git_blob": "3aaacbee28e2a93405b6b4ff17d9c21078f86207",
+      "bytes": 19268,
+      "manifest_sha256": "c6eed405b709f86944c4788c74482271130febbd8ad98b9b72b03d9b4b155a75",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/006-obs-after-stop.json",
+      "git_blob": "45684da1e0166eb1eb91a24b384276763198beab",
+      "bytes": 19267,
+      "manifest_sha256": "f0829d401ee4ca0f60197a9f06823456f3dbc2774084d3f859197be1fef41939",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/007-list-editor-ready.json",
+      "git_blob": "022099e8b8ce6889219c9f12a0047b4f3dd831d2",
+      "bytes": 9122,
+      "manifest_sha256": "59e097e6f3207fe4c67fbebd96067a74d87029ebb18f4d59f52af26f779bf772",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/008-obs-settled-status.json",
+      "git_blob": "647eb948ee2a9e03804816b059d42010102d14eb",
+      "bytes": 19267,
+      "manifest_sha256": "5942dda9ffaf8a71d5f4ba35bb5e5f43042f99f254c08b248306a5465958780e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/009-obs-close-state.json",
+      "git_blob": "090afe977248c6897de195ca4bc7cb7f6263015d",
+      "bytes": 20848,
+      "manifest_sha256": "637ddee275aa44124dcb3ce752125c3060755f5998798f335156484bba279c8f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/010-editor-initial.json",
+      "git_blob": "1a9da3688855db59ab1a777979a1deb58a1a1d5e",
+      "bytes": 9124,
+      "manifest_sha256": "9aa00dd8a5bae0ca7600228eb73123ccd372973cd347e75c235f66cdc757ffbf",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/011-click-11.json",
+      "git_blob": "1bf42ccc119475fd724ff1f6c3a5051fb1348aef",
+      "bytes": 218,
+      "manifest_sha256": "bf4dea8c259793bc6cfbcdb58660264a2e3db183936992b65397f9367b1fca80",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/012-custom-color-open.json",
+      "git_blob": "0a4d30ead8c538fbee512960e767c94c749595f1",
+      "bytes": 218,
+      "manifest_sha256": "dd3b8e14e84afc1861202b7db6eb94929793b491ba249425e98d0f9152ac508a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/013-hex-focus.json",
+      "git_blob": "17cc260b033db0e550e923f148869b22a141a22a",
+      "bytes": 9739,
+      "manifest_sha256": "242a75d4e40b64e74e9ea81cf483819e586467e13aae3c96b8c4421421ee3068",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/014-hex-select-all.json",
+      "git_blob": "2d24e0feb403b561f0590090a8aad25c01e5c22b",
+      "bytes": 10033,
+      "manifest_sha256": "89b7a7f8352c855147a64284428505f8c739dd5bb9b83b38ec6ca4b695b6a470",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/015-click-15.json",
+      "git_blob": "8e605dad27ee3d804371980982dc543dd7590271",
+      "bytes": 9739,
+      "manifest_sha256": "2239370c818539b71a547658ed09e6844b863403b4165aff800f97f9079e5a44",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/016-picker-tab-focus.json",
+      "git_blob": "7bc357dff2aea7113d7f66a6fdb465ee0171dbfe",
+      "bytes": 9739,
+      "manifest_sha256": "b97eb9c7d2c7b92a7895b8ad5b6bfccc6f2e1b477f704198a56858364cc2281a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/017-picker-escape.json",
+      "git_blob": "a78ab3a954abe1d437a676e40c57da0f39d152a8",
+      "bytes": 9733,
+      "manifest_sha256": "739bbba6df3cf61828c0acfda05c912a08f8e4b1c86f75825311a3d53a06c873",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/018-click-18.json",
+      "git_blob": "ad1c02f13f224d0a253e413a1648bbf8a09b9ccd",
+      "bytes": 9403,
+      "manifest_sha256": "b7a67cec56f755771aaf56db352ee3a3832d740167f60847b60f8f5b615948ac",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/019-icons-open.json",
+      "git_blob": "491a16f2ebe364aea236327a135617d3c16a1455",
+      "bytes": 28609,
+      "manifest_sha256": "d0aa0daa660881533e684671bb31b3a617ead3dc1000180d0593bd1604e26205",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/020-click-20.json",
+      "git_blob": "13a58ba59baa85d91bed47a617ef181ae431c729",
+      "bytes": 28609,
+      "manifest_sha256": "5d08c58e9d21b21871c0b20bb7868525ec108e0b2280f1dc73ad16daad69a011",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/021-close-icon-picker-user-pass.json",
+      "git_blob": "29d2ff8585f8eca37ed9164e0f61f93a02b3ae5c",
+      "bytes": 28581,
+      "manifest_sha256": "e211397c48bdcba4c395e8573db07fa420dd554a256a7742e4569b53f48b730f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/022-click-22.json",
+      "git_blob": "da334bbefbad672bd9fe7aeabe378f87a621d826",
+      "bytes": 218,
+      "manifest_sha256": "8378da200838a4a16b796164b53d957ef5c64365d50a7d70d3400b12301775a0",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/023-upload-dialog.json",
+      "git_blob": "65e83960244b0460afffda93c85a58cbe52ce8e6",
+      "bytes": 31016,
+      "manifest_sha256": "700b6f5f89e9f308e91f7532e411fb7145c988bfd881005abcbd2bdc29566fae",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/024-upload-filename-filled.json",
+      "git_blob": "c9040d59065f028f4ed9bf179c140eecca480504",
+      "bytes": 31111,
+      "manifest_sha256": "7f03fb6953bce7ef2e7f02d10db49b955088cc7e210452a1b9a96b190543b807",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/025-upload-confirmed.json",
+      "git_blob": "6ef0a80703a74bcb58093e132dd1364d24651543",
+      "bytes": 9403,
+      "manifest_sha256": "04304efca18564a082f6c669711f743bf86eca220d7d3fac367dda3d52ceef4c",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/026-upload-after-input.json",
+      "git_blob": "0e895890d61380e69f809d414b5416d51a85f3e8",
+      "bytes": 9406,
+      "manifest_sha256": "96ace49819f8087637e07491fb2004ad15ce5dc1e7f8bb94194a8dfccc059e8a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/027-upload-title-before.json",
+      "git_blob": "4fc31194884eb1ecbd2bfa3b68ef87a74ac48ea3",
+      "bytes": 9406,
+      "manifest_sha256": "1ffde30c607a543e5887ed5b7d8939817ab96cde2ae896f22f3994b7694cfcc6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/028-upload-title-set.json",
+      "git_blob": "68681806da012e4a4f89609fc6841a37c8ee959a",
+      "bytes": 9478,
+      "manifest_sha256": "4801b12821a9c34541bc8146f7b148eb0c3f9870a4235e287444223c367e9834",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/029-click-29.json",
+      "git_blob": "08dd2cc6e64cbb84031618e5cb1f654629e5e7c4",
+      "bytes": 12540,
+      "manifest_sha256": "0db70dd1d4d2ff0fd70974677561c8629ceaba49a5497ff3efdad8f924453f24",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/030-uploaded-list-board.json",
+      "git_blob": "9def33adf3b94550e9f4932d7a55cfb096656e75",
+      "bytes": 11143,
+      "manifest_sha256": "fc5bfbae414759364f6e12e007d7552d0be70c3558dd939dc87bb90ebba4fe4f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/031-home-scroll-to-image.json",
+      "git_blob": "911d3471bf48d92a28f1f1117a4dc066d99f15ff",
+      "bytes": 11143,
+      "manifest_sha256": "a5e71465e85b86b308cbae63de95a1fd3d0c8b983b31350c93d01bf89167d61a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/032-click-32.json",
+      "git_blob": "61003be235e8663f63238d96b79f859aaf4b2698",
+      "bytes": 3588,
+      "manifest_sha256": "658b0e37e5de9590ca8bc9f31506b8d7091ff7f1c2c002771b5addb2aab39e2a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/033-archive-initial.json",
+      "git_blob": "4974a1b0f726c22c0c0e24d181acd6700c553264",
+      "bytes": 4338,
+      "manifest_sha256": "9ccce851240c8bace292b9bbfb2ff5374fe16e23fe1168788c7f862c8d8d8968",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/034-click-34.json",
+      "git_blob": "947f367cdf7d717e2324fe18d69c36018634fbd9",
+      "bytes": 2359,
+      "manifest_sha256": "37b4bf8c6142d10e4335f4e766f534d44d98c61aabc07f85addee76ad9e3122b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/035-board-alllists.json",
+      "git_blob": "38deda044631b22c600e9cd10664dc0d49925cff",
+      "bytes": 91988,
+      "manifest_sha256": "322066c13009325e5ae0fcfb9eb8861b41bb16628fd5708011a3016b77115755",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/036-done-scroll-middle.json",
+      "git_blob": "2eebd902819e71105aa8eaf0a3e88044f0298114",
+      "bytes": 92050,
+      "manifest_sha256": "cac38c6bb31efd539758a8ac9bfc8491e1f351b8eccfc78fc3ec540578b34ab5",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/037-done-scroll-bottom.json",
+      "git_blob": "bd520a36acf3d50bfff831304472e27e3ed0d094",
+      "bytes": 92243,
+      "manifest_sha256": "129e9579f78fd52de075976aaa0a6592a43a4e5cf108a870b11c6b7abd538c51",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/038-backlog-recurrence-bottom.json",
+      "git_blob": "626d0d4b62dcd2083f15016d4f0e0a0f1d829502",
+      "bytes": 92181,
+      "manifest_sha256": "a524692aba2d81bdd4d5d38516e43616ba85f0f3d88f1a6cb5353c43533827db",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/039-click-39.json",
+      "git_blob": "18f70f5bcb895d431ff018e1b30cd00370d52c8b",
+      "bytes": 91987,
+      "manifest_sha256": "1982015ab4152463789b660b995d1579294e3c0ac0ca70157258d379e165e747",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/040-maximized-refreshed.json",
+      "git_blob": "27ead1b117837d3c9f0a1c8fc28f8730fb5da991",
+      "bytes": 89899,
+      "manifest_sha256": "d4211bb29fa42065a40e1c8743c57cc87055c593eceef46d953b6e5464472e8b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/041-board-keyboard-top.json",
+      "git_blob": "6676207dfa4290241a8654cc0eea8a293df11d13",
+      "bytes": 89899,
+      "manifest_sha256": "34d8b43f27244a7d798268ff1407a52865235a9fef4a1ad2013ac60e4d6f6ad2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/042-narro-system-menu.json",
+      "git_blob": "580fee59b95b4d866b150d08a0ea51093a8d1857",
+      "bytes": 218,
+      "manifest_sha256": "ec82c839fbab3208973c8cba3746c8127071a757d1d866f8e86ff4a0e1d2cbf6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/043-narro-restored.json",
+      "git_blob": "cca6f56cd110457a5a022370f15db7f7c76a0f41",
+      "bytes": 91581,
+      "manifest_sha256": "1651e0977b3d6065ffabc8ecb821877b906c0670ceda9950937cbe696a77feae",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/044-click-44.json",
+      "git_blob": "10b8ffa3e9f2c09e595ece45b7bf1c9fd4332d47",
+      "bytes": 65454,
+      "manifest_sha256": "87ce274ec308fafacab94e4da35bb8b5d16429662247dd3275b0f393e98f1c34",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/045-live-home-probe.json",
+      "git_blob": "fcfac2b07d411d0c7682dfcc7343370c3ff851c7",
+      "bytes": 22497,
+      "manifest_sha256": "d3487afcc119e9904326ca1eca174081fdb15d8682b4eb6fed8adb1041a01bd2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/046-click-46.json",
+      "git_blob": "3ec4c50f345be6810edbf42fc7529b71f931074d",
+      "bytes": 19742,
+      "manifest_sha256": "25348f1573f4a1604b8dee7fd6fe2d87cb1920332c6c1c7931c93bd1fcd2a4e4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/047-click-47.json",
+      "git_blob": "84c376aa4b292c6470d5dbe7c4f17b9c6a713b4e",
+      "bytes": 110675,
+      "manifest_sha256": "25fc2a542d05dc42f8522dec0bba9a6f57ee7da4ae3bd03483b012ecb9746d4e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/048-planning-picker-options.json",
+      "git_blob": "594cd04754c690ee3f432ecd9b467732734e3e40",
+      "bytes": 111207,
+      "manifest_sha256": "13acb203f96743158286ec5f8e2fbc8c403316fa921fa42701c7b385aaa0f537",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/049-click-49.json",
+      "git_blob": "9aaf1886757f209ffe7594282739f320964fef98",
+      "bytes": 110184,
+      "manifest_sha256": "2a481f56e926047981798694b0312e5e28edad75656457f7e5f6a151e4212176",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/050-parent-scroll.json",
+      "git_blob": "1f262b141606f1534c05c6695645a15f5b3ca948",
+      "bytes": 109790,
+      "manifest_sha256": "db3a9d1907dcd85e717d5b8f3e6591ad1b7d59868c7aa068ff9cf63c6e8cee5d",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/051-board-top-for-filter.json",
+      "git_blob": "f5b5634482242c89434e14e269985d35e4a96df1",
+      "bytes": 110609,
+      "manifest_sha256": "d707cc16c79e7e311e999799d3ed382c0be1827133295734949ec891328ef911",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/052-click-52.json",
+      "git_blob": "022f13a509de72c01c510b67483f095a715ec220",
+      "bytes": 110979,
+      "manifest_sha256": "2285018e8277606706e7226959e652e21661b77023f23cbebce9e793c7014670",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/053-planning-picker-keyboard-down.json",
+      "git_blob": "dd2a68e02d17c99f0bad98074d1299bae88c41b8",
+      "bytes": 111207,
+      "manifest_sha256": "a0911325f757b2b7bf098e854c0d71c3926947e4ef7bc5d853aa06e519126d6c",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/054-planning-picker-keyboard-confirm.json",
+      "git_blob": "da90f0ce692e4f7db6d19a4bdc6af51c51d6f8e7",
+      "bytes": 110172,
+      "manifest_sha256": "731f1916294b34244755023de5feabd04c52a269fc5529ecc3299a40b0193241",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/055-recurrence-parent-visible.json",
+      "git_blob": "eeba15e4d4a563d8bfcefa4d658c9a38fd1b1510",
+      "bytes": 68959,
+      "manifest_sha256": "8c7a157e74fd6dfcf673ff9777516e97eadeb07e10838b633ccefafddeaccb9e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/056-click-56.json",
+      "git_blob": "e8beac2939eeaad4f621cbb87faa71ec528f0a0b",
+      "bytes": 70208,
+      "manifest_sha256": "b0b787f719a6aabe8a547c88782b744173c333d946d69881cb4233250dc652f9",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/057-parent-menu-open.json",
+      "git_blob": "73fc3df3796f704676aa38861a40be1c8b8624d6",
+      "bytes": 70755,
+      "manifest_sha256": "d526c5afb457f5c18bccc496fa22e6972b5e2e3e8ef5909fbcad910dd696b56f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/058-click-58.json",
+      "git_blob": "88341a7d3f3731b9644a5689484fed4779853c71",
+      "bytes": 78075,
+      "manifest_sha256": "44131361391a9d038524bd369a5bc2a77b1596626397187126df497c13d0ba16",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/059-click-59.json",
+      "git_blob": "3c9a2df60d7541a359b2c03dc3a744061525dce3",
+      "bytes": 76736,
+      "manifest_sha256": "08bac90981c320846a7be0161dbaa3dfbe8d83e4f25108f8ecb8ef6fa0050540",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/060-parent-hover-actions.json",
+      "git_blob": "10b72de3e4623f711b28b2c72aed7556616049d5",
+      "bytes": 70754,
+      "manifest_sha256": "74eca614a1f2386c824c56bf45466053a93090199c95f50b87d7f572d1af148e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/061-click-61.json",
+      "git_blob": "10e9148226f42dd525dcfc7447c9163287721b6d",
+      "bytes": 58594,
+      "manifest_sha256": "e0ef1e951f97f8e63f77c5c012dae04273be12dc8b36adfad28109d6096ac340",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/062-click-62.json",
+      "git_blob": "a959009ed8cdeb22ecc6b1a764ce32e2ebeb39de",
+      "bytes": 74643,
+      "manifest_sha256": "8c977896f94775ed299c0a5c6211c0508f1a3b3c3b43865c0fd001d007a04e72",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/063-preferences-top.json",
+      "git_blob": "586cc746fd64545c19ec530924996376000e92f9",
+      "bytes": 85168,
+      "manifest_sha256": "17ade287b0dffce5fe0eb9e94e9c25833e0be87a0aba17ed3a8eb1ec012fb926",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/064-preferences-capture-ready.json",
+      "git_blob": "978093f9c51490c753152d229abc91e5042e3a80",
+      "bytes": 85168,
+      "manifest_sha256": "39b509de663a4c81d159beddcaac81aa4f75d14719d49114b0e5b2603b7d3b58",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/065-click-65.json",
+      "git_blob": "f3147c11c54fbe01d263c1e19a66860b348f084e",
+      "bytes": 85168,
+      "manifest_sha256": "901b48fc3959e594a990b9dbfccc0c765a3ad9b4fda4a52a217477b5f3d4e607",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/066-click-66.json",
+      "git_blob": "863ea0bcf40ba2e4ef8666643062df0bb5a7ed72",
+      "bytes": 85168,
+      "manifest_sha256": "d3e7b470462392fa3c9bd98bed908767ce7c37ba21032ec37bace965a8f233d6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/067-click-67.json",
+      "git_blob": "c82495f38640474730506a7290980e1d29437847",
+      "bytes": 85168,
+      "manifest_sha256": "95330aa8a8f9517595923a67c6d116e6349f19cc2234696fe03bbdbea7b83575",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/068-preferences-middle.json",
+      "git_blob": "55fb20f1323c057a6ce4b8bc414c435e415d0565",
+      "bytes": 85249,
+      "manifest_sha256": "90387b21a7c27aa60f8356d1b1ad568e76da6f0cdad151aeb471781c829ba8ef",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/069-click-69.json",
+      "git_blob": "b18f85d7e2a1687e6ceb936d94834c2073bbbbc6",
+      "bytes": 111222,
+      "manifest_sha256": "758a1cb1905d8360e7c59298bdf493e2bcdf0586511b48ca940fb4acb0d30e39",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/070-timezone-keyboard-next.json",
+      "git_blob": "24c4227620b3b47f3a0930ca52ccfa5d54f65306",
+      "bytes": 111472,
+      "manifest_sha256": "9fc3ca577a3736414a5b27ef8dfd31bf7b8412e32922a61be9d3823351cf106f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/071-timezone-keyboard-commit.json",
+      "git_blob": "138170b5cb3997b13db0fc6075123f8c4055593b",
+      "bytes": 107245,
+      "manifest_sha256": "0ad7f253c9e94fac02a6bd38a852b285020685b526faaa0ed518c8dd35d5368f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/072-click-72.json",
+      "git_blob": "6679131c3c2fcca9256f4e020e116398abf39090",
+      "bytes": 85211,
+      "manifest_sha256": "5e1ef3d0d3cf8a1d8e8ea722d916423b0e1fc047af87560d84cf0b997a97fb90",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/073-pomodoro-controls.json",
+      "git_blob": "eea6548c9a7c5c176f31e32c61e0697ae4901d91",
+      "bytes": 85371,
+      "manifest_sha256": "b1d4dc7be4698e3c33a9bd68a65efe753eb9d5f87df856447707a71244c10a09",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/074-click-74.json",
+      "git_blob": "9cb5832ce3f463be98f57162e01479ccc0af6c4a",
+      "bytes": 87282,
+      "manifest_sha256": "d8434f22bf3b64ca6bdaf008b071fb30ad3c750089d1fa8f229deea915e9609b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/075-pomodoro-minimum-option.json",
+      "git_blob": "deca8198bd4175b70a9115cd861e5a7287782d10",
+      "bytes": 87282,
+      "manifest_sha256": "5a9b37a915c37899911c16ce5beb89aac161f678e29f66fb47587380c409dca8",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/076-pomodoro-minimum-commit.json",
+      "git_blob": "6f05b68d07d23f053388066bf4466d55673eebb4",
+      "bytes": 86101,
+      "manifest_sha256": "e7541df26f89d4d3c629853c344d1aec793d5f86db8b45e6e9d2eb550f08b2c5",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/077-click-77.json",
+      "git_blob": "ee38062915eb950a841ce6bddff5efe0c14e6635",
+      "bytes": 85241,
+      "manifest_sha256": "53375df1ca57a09dcd0c81648d4ab12b0a50e2c8910146c93b3a59f8234c3d58",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/078-click-78.json",
+      "git_blob": "87c17ebb19f0654f266060136a8d413d9f7740b1",
+      "bytes": 84391,
+      "manifest_sha256": "eb22873c20959422e90279460d8688cf2e31dbfa12b2f15491eba9b09ad4c974",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/079-timed-alert-children.json",
+      "git_blob": "36e6197356faefaa306ef8e171e7a1c1dcd3afbf",
+      "bytes": 86441,
+      "manifest_sha256": "193c2933a18b99169ba76050cfa58526c6fb753e87bfb9534ed540a191847f9b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/080-click-80.json",
+      "git_blob": "ad9f4372e4477210034351eeaa23b5194061cf24",
+      "bytes": 87259,
+      "manifest_sha256": "ab670fcf62e562e31c04fb28b2af808300c58a8f01a2b74a7116a9dd5483bdbb",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/081-volume-popover-open.json",
+      "git_blob": "e25d3b663b213751380983b6b43e61cf2b5d0f22",
+      "bytes": 87259,
+      "manifest_sha256": "907eaf38927ac1c31abc85e18b3c40da587218a39ae733cb76cb37e3f1395ecc",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/082-volume-keyboard-down.json",
+      "git_blob": "d49ff8e7e4d4ef8e5aabde68caae5fbfd2747672",
+      "bytes": 86746,
+      "manifest_sha256": "5a58427fbfc0b89ff42f5ae9089fc160acffaaa1919cdaa72737611a2b8be2d3",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/083-volume-escape.json",
+      "git_blob": "60984e202eaccb98be52111ffdc36db63392b767",
+      "bytes": 68912,
+      "manifest_sha256": "4dfdf9a57473d34b654a4d849f870fc6082b53bac28a9dba86c85cde4bd8e30b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/084-click-84.json",
+      "git_blob": "f3f64d4484e50af17744613170d639ce5bea686f",
+      "bytes": 76013,
+      "manifest_sha256": "60cb466fc0d21b88b4d760d1c8cdda088b3608a95b1737b707ab3d9a2eeb20b6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/085-preferences-alerts-lower.json",
+      "git_blob": "8e47271a92751298a95b61c13055383910e82210",
+      "bytes": 86292,
+      "manifest_sha256": "ffd9ecf5937a1c73db697407032f74aff99553b381c0b3efc0bbbcf8f3d82d9a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/086-click-86.json",
+      "git_blob": "9e6be40c4b438c53afc8ed2184e8c1ba53a507dd",
+      "bytes": 86292,
+      "manifest_sha256": "4d4df575d90a89696826b53031f1997683637970ae6944fd4d9c789eea1a9754",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/087-click-87.json",
+      "git_blob": "c7701a28d0dfb06974284a456517b6639d500669",
+      "bytes": 86308,
+      "manifest_sha256": "1a57003d795eb1827ee7f4dce007a177573e54a5fa3a70f98dc5e3832ce8c3bd",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/088-notification-disclosures.json",
+      "git_blob": "e096e2b645018447c107c713f1cc377159ddfb17",
+      "bytes": 86851,
+      "manifest_sha256": "4a69fa0500c2008f8d65cb8e6eaed368a099c82650def5103522067f285569ea",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/089-click-89.json",
+      "git_blob": "0889a4901be3852c6fd2e71fe5d604cd919d69ee",
+      "bytes": 86736,
+      "manifest_sha256": "7b13134094baf7f7aa318fe89df50385ad66ce0749135c146c68da46d16e67e7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/090-click-90.json",
+      "git_blob": "801dc5e990adee69b54ab43f0a66fd9901bc6db2",
+      "bytes": 87672,
+      "manifest_sha256": "6ccc4cbd200885ef7dc03c9d65908ef292b1475adf66b1b81ae08de50e9899a4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/091-click-91.json",
+      "git_blob": "5f235348b016549b8ccc9813d50514fe20fdc043",
+      "bytes": 86449,
+      "manifest_sha256": "f8fedae0371c4275ace0a4e0c4590bcf110900c59bbc2ccc68804f9447220ee6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/092-click-92.json",
+      "git_blob": "62549c07c842c2fa26ae4f32952d18430ad86eea",
+      "bytes": 87280,
+      "manifest_sha256": "f41015dfbd348ab4efbd41137b3b4a400d93723d3f1c9306c19a7002806f89c2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/093-click-93.json",
+      "git_blob": "72155792b0cee4358c3b12a04c1ad23e112f3b78",
+      "bytes": 86780,
+      "manifest_sha256": "642777302144232a20ac9f799008df5a4f5a153249eff744e387c8b8a8f4fed1",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/094-click-94.json",
+      "git_blob": "f0f2053400608c638163e44d0001740f7f41f42f",
+      "bytes": 86668,
+      "manifest_sha256": "7260c744ec356396b61d8454bd2e7c5a69e332a1f6e2a13b5980a5e7da334f05",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/095-click-95.json",
+      "git_blob": "309b21e7356c291822697bfe967e364f15a8df45",
+      "bytes": 86191,
+      "manifest_sha256": "67c7117e62967fc3b2c4404fe47e6e87ed96d93c2251ba28d9734a9addb42eb5",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/096-click-96.json",
+      "git_blob": "2cae342b466eba3f10b825ba434fa081f61227d6",
+      "bytes": 86245,
+      "manifest_sha256": "6b81d092cdabfdf4cea94252154767bd87782986b455145632bc028ee7e2ffbe",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/097-click-97.json",
+      "git_blob": "b5c4fe457de17bd5fa097ba6813bef6adf9dd8c0",
+      "bytes": 86302,
+      "manifest_sha256": "a8389c3945fb417ecba830114e689aebaf1df4c4f4ebe895fff8d9885f936ace",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/098-preferences-shortcuts-footer.json",
+      "git_blob": "5d223ba9a05c00c24eaa817954c9786472ffd649",
+      "bytes": 85939,
+      "manifest_sha256": "bcaeaa3c56a48fb400aec64a6f5f0fa7e5de96f29ba6616e8e3b23edee34fc96",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/099-click-99.json",
+      "git_blob": "7cb289f9d642b8dfe85b5194b5a79bb1afb7d30d",
+      "bytes": 81754,
+      "manifest_sha256": "a3f10dd224bd123e15db1b795d4a76f28bd1135b46e02a505df0c09abf2b2117",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/100-click-100.json",
+      "git_blob": "f6b095a82bee05906125b220c11a82676eee5808",
+      "bytes": 78993,
+      "manifest_sha256": "bbf17c1e3642fcfd7170b2770c5ac040c30a7e2a22a5682f841cc031679c96b6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/101-click-101.json",
+      "git_blob": "8aded5b636bc4df2b0ab48e64ba870d886b57253",
+      "bytes": 78921,
+      "manifest_sha256": "f2d37763107ba99c10bc2d31f9ea1f1e0ffe50f3f400102a37191d1759d28075",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/102-shortcuts-keyboard-tab.json",
+      "git_blob": "0ab14318c2e68b375292de377b446285e9247af5",
+      "bytes": 78923,
+      "manifest_sha256": "eb7d64c895ebd08f90e53a6034386566e07d39d5004efcdd896745a2b4faad4b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/103-click-103.json",
+      "git_blob": "79c3d97c3c9c16443bbc5e0d32923e9ca5253d77",
+      "bytes": 86325,
+      "manifest_sha256": "12b9e87e04f8d6ab96b9ed3b2ca43685d366bc302276f20f87225a42b053409a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/104-click-104.json",
+      "git_blob": "62a03ed717bb5ebc57db63c1b29ce23df7ef9ab8",
+      "bytes": 86347,
+      "manifest_sha256": "28a850fb4f35b1e4a021a2b7c266486cbfe6f290878ea96d8f9102eae3dab64b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/105-click-105.json",
+      "git_blob": "2840fbd487a8814c0b93f148fb07cbe040018635",
+      "bytes": 76473,
+      "manifest_sha256": "40fcb7d4dae0b6f2687b78193b0aae52dea8155dba8d2100a0938bb5231d5496",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/106-before-focus-entry.json",
+      "git_blob": "99e337f2bbf1e87ae5cf475582fcc6be04a6e25a",
+      "bytes": 68466,
+      "manifest_sha256": "23696697c681ee1f1974c1f7bcd41e843dd7bb3d87c3798cafddd16d7cb24314",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/107-blitz-entry-scrolled.json",
+      "git_blob": "4200f02c10b2648946572a20360d83b10ac3e5b1",
+      "bytes": 62813,
+      "manifest_sha256": "6cf014ce1348a827df2c2d18e6b05cca03ed6f4464d894b8ce9300509b81eac9",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/108-focus-entry.json",
+      "git_blob": "39bda31f3254c52a4420bf339127c826cc9222b6",
+      "bytes": 36176,
+      "manifest_sha256": "c4cb7225aa235a259ee053985dc27c191a0394ae20cc05aa30c64c8e02aaccb7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/109-click-109.json",
+      "git_blob": "670fd37dbea4d829a0a21b4069a81f68d46eebac",
+      "bytes": 37824,
+      "manifest_sha256": "04caf33b0bf2436869c507971aa32d72a33fe34d4030ec716763c3cb866eb538",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/110-focus-picker-keyboard-next.json",
+      "git_blob": "455f2a0f6fb5d1ab142d5e6c00133ad23137f14d",
+      "bytes": 37824,
+      "manifest_sha256": "83eec66581993464bffe25657d81fde62acd8dde08adef5f804fdb96ca1931e1",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/111-focus-picker-commit.json",
+      "git_blob": "9f56909751bf18e284fbb79bdfbffa1dbc7ce65f",
+      "bytes": 23167,
+      "manifest_sha256": "d3af82bb15b2043fdd7122911961b0809c0ceea6900a55e6a58c037fbc1ea665",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/112-click-112.json",
+      "git_blob": "74d529764e992ad919fd5389ad418ef981629c65",
+      "bytes": 23585,
+      "manifest_sha256": "d949c5c8b23f41cbd818258992eaf7466a061352c7a4559bc357100c44704b83",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/113-click-113.json",
+      "git_blob": "9d2cb6845a09e3f0ccd39a7cc08387c069783dc4",
+      "bytes": 5707,
+      "manifest_sha256": "b733ae2779ce560ff01f6612cefef2cd62a322a0b8b18e329b3e440f904081e7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/114-click-114.json",
+      "git_blob": "2890e9e62408012d23bbfef0a27c9fd318f5dbd1",
+      "bytes": 14693,
+      "manifest_sha256": "ae3d1b0ab76be1bbea53ffae290e2b76a6bcb43ea3fe038c2f24a1d3a0b72c2a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/115-click-115.json",
+      "git_blob": "289671ebbd2f1f13e42d01274e604fc835d8cf72",
+      "bytes": 14685,
+      "manifest_sha256": "ea529daad873adc62a25d2b0eafdcfa73469da2761eccd3813145d12792da68d",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/116-click-116.json",
+      "git_blob": "d96a709cde2cdb3bb10dfd215652a855f33bf372",
+      "bytes": 12146,
+      "manifest_sha256": "f8a56bb76e9717d02f83995dc85d1392cc777dc86605baea5b7504b190eb43c0",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/117-subtask-title-typed.json",
+      "git_blob": "b16f28b3ab996f2eab47d2b94aee61b3030cea7e",
+      "bytes": 12261,
+      "manifest_sha256": "deb9d9ff22d650dd0dbb0b77d17e0d4b2aee1d9c6d27d475ffed6ed411403f0e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/118-click-118.json",
+      "git_blob": "a2e410f291d0b97d584418742dd9e41d7f5d1dde",
+      "bytes": 15550,
+      "manifest_sha256": "78fe74c3029fbd7c552cab1faed6d49ff6179a9afa4b39812f96a541b4b461d1",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/119-click-119.json",
+      "git_blob": "b686a6fcf84a1729af8a3af648586e95a16c6544",
+      "bytes": 15552,
+      "manifest_sha256": "931af5a1c1cb8b8addf9ffb101ce8c8df96a3884d3fab16e46c6f0c46766bf90",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/120-click-120.json",
+      "git_blob": "aaa1e7e50ace4975178d98fa44f7dfabbc21eca1",
+      "bytes": 13496,
+      "manifest_sha256": "39e9267e595a84cf66f0c11e21e19c915a0b06f72719eac06ee2a17640c823d9",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/121-click-121.json",
+      "git_blob": "9d830f820568e1f6ca2f8fce9f922f794864dd6c",
+      "bytes": 12079,
+      "manifest_sha256": "5f787a7b3adc7ee19c30fc3e60413c0859572f2f24d59a7717acc6030b8970d4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/122-subtask-add-text.json",
+      "git_blob": "85f9561b133ad342a853eea5dd0c49d5d9f263a4",
+      "bytes": 11962,
+      "manifest_sha256": "6ea2be88cd05763a485056468503b7ff7c1c5b1098ec568c0630ca3c4cc6f427",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/123-click-123.json",
+      "git_blob": "9cd0015c18b3ea2991bf6ce268903ee95ca6d771",
+      "bytes": 13287,
+      "manifest_sha256": "41a60f9756299183d2dd49ac0c3f9b65c47b174e4b6285a2273584af983c9c4f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/124-click-124.json",
+      "git_blob": "a730235e5441d7e73efa73221915cdda663530c6",
+      "bytes": 13489,
+      "manifest_sha256": "f3d00eba7b1494902706206006a4d81493a1f872b88262bc6e8227e4aa66614b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/125-click-125.json",
+      "git_blob": "e783e280f5c68fb714cdbd98aa441e1acf9f0636",
+      "bytes": 13090,
+      "manifest_sha256": "0af683df19afc11d348b05d81a372ead971d943b171feef72cc812f38e240cd6",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/126-timer-notes-visible.json",
+      "git_blob": "adcd6ac389135431f57c945da7091dcd0990f130",
+      "bytes": 13144,
+      "manifest_sha256": "a3fb3be059fd8fbaa9532c65b08ef249405a6a479d7891f3b152ab20172a5803",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/127-click-127.json",
+      "git_blob": "102769fd012d88ad38cb9ef1a3d2b58fb31fd5fa",
+      "bytes": 13655,
+      "manifest_sha256": "09583cef38543910a2127949473606caf30ef3cb6dffd66e97dc8e4458563fb2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/128-click-128.json",
+      "git_blob": "c9f60490d1fe7c09254f18e9e204b89f1848ff4b",
+      "bytes": 5639,
+      "manifest_sha256": "32d88dab89356f0db9aaae9bc8e427f19636b387e1cf2bbe36ecc277b5404035",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/129-timer-drag-recovery.json",
+      "git_blob": "8bbc9cdafed22f17e350c214f53e5ffcacd81d53",
+      "bytes": 5603,
+      "manifest_sha256": "bc1c7836930f1f8ec705a1f34161f5dcee3717af4cd61656f32560faf9ec177a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/130-timer-drag-90px.json",
+      "git_blob": "76c7f8419de43426b720e60590118739fcb59dfc",
+      "bytes": 7073,
+      "manifest_sha256": "2c2bd2b9e3d1a87ebe6ab6a5b686f390edefd973bd2a9be3f3ddc8bad05382f5",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/131-click-131.json",
+      "git_blob": "2488d23d99609503adf7a7c87db1760563ec43f1",
+      "bytes": 15590,
+      "manifest_sha256": "065d43947a21e901d03b4a77426b1f88b4dffa98d4952a2048dcd0c4847f0f82",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/132-expanded-drag-down.json",
+      "git_blob": "8f610e3cacb79d89c2d72393db5296d39374b3e3",
+      "bytes": 15590,
+      "manifest_sha256": "8a64d7bcf8c45af89782097d9434c3a7c832c3528f62c43eabf10cf2cf33ba96",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/133-expanded-drag-down-second.json",
+      "git_blob": "79c95c33706d43443f53356b2bb0a0cb045a2708",
+      "bytes": 15590,
+      "manifest_sha256": "b9f20d704d688680878a094377985a923f91a09f70eee731c5ef043efa6e5bb5",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/134-expanded-drag-bottom.json",
+      "git_blob": "4a30118fa033d8718701b2ae458bb898914918be",
+      "bytes": 15590,
+      "manifest_sha256": "20a906babcc8cf0a4b5c040a1146e0e7a51bace7085b64515a58079fe5b384db",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/135-click-135.json",
+      "git_blob": "2f9f46e9e71cb03642c24fc26572ed79dce41e97",
+      "bytes": 5639,
+      "manifest_sha256": "eacb53e197ae2a4df2bf5bcf8533577b53523aef976f15628f8a82ed40944087",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/136-compact-background-drag.json",
+      "git_blob": "2078e11e5ed0e8b46b2d5bc7157938ce99a45abb",
+      "bytes": 6962,
+      "manifest_sha256": "30879a160042ca2a698036918e9a47def33a4cbd181720a056bc14486c96bc96",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/137-global-panel-toggle.json",
+      "git_blob": "66a9999ffb5e49dcec01b4fd60f6111fdbb8f37d",
+      "bytes": 8950,
+      "manifest_sha256": "96b8d9e4c34c81ead307f545ad2eb835c5b5e5c0533e1b723925ae7c2ea78b4d",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/138-global-timer-toggle.json",
+      "git_blob": "148002ad902d3454d670eb4ac66d3cf01d331238",
+      "bytes": 5143,
+      "manifest_sha256": "673ff111b2747d75a5246ad1f092fdaade1c6d74f5a6f7861a704bf80649522f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/139-global-timer-locate.json",
+      "git_blob": "0388b6a87e859ef062a64c4e7f6bec4d9e833928",
+      "bytes": 6962,
+      "manifest_sha256": "ad94ad39e4cce8dc3f1128215e78f5338cfdf50d600b59e18757d4829acdfd61",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/140-click-140.json",
+      "git_blob": "2adee2939ad3c188d97a3ec149d683bca90d4f57",
+      "bytes": 8986,
+      "manifest_sha256": "28b2514351f3c44258151f3bfd7340ff3dd88d466744af55cc3e8ab60d30a0f8",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/141-click-141.json",
+      "git_blob": "7fe0391d901d2fe6d03dca0a11e6c7936e7178b5",
+      "bytes": 23583,
+      "manifest_sha256": "c77b0344e64054fea907dcf7fe426561267abe2f6da99d0eb8a3571e39a31d7e",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/142-click-142.json",
+      "git_blob": "201190a9afee9aa8c9d91a5e50485e4f8535fdb8",
+      "bytes": 23687,
+      "manifest_sha256": "64288f3551eabd9b4b4cd92e4884895b5d9cf3465a525439147a521a188a1ea7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/143-break-start-state.json",
+      "git_blob": "84cecf71ceadb836dfc157f3fb427453394064b3",
+      "bytes": 23687,
+      "manifest_sha256": "94f1197803d3d156627d26d18c10b89d934826ba8486306823f724e0b74a009b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/144-click-144.json",
+      "git_blob": "1ba7f52cd447c96a108f14ab165e9ee6eb3dcc34",
+      "bytes": 23774,
+      "manifest_sha256": "4aa736a13f720c29e3cd199de3cc4ef6e7b5400a7ec3a599a93efc480ed93f6b",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/145-click-145.json",
+      "git_blob": "cab00667d10ac749b30c8e82c1e01142d5c165d3",
+      "bytes": 15927,
+      "manifest_sha256": "d441fcbe9dc943aa84dc61245d486adec626f51ab91dac6439b8ae8d29e950b7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/146-click-146.json",
+      "git_blob": "8c10723e2c5cf63f9058feba55324052e6faebba",
+      "bytes": 23548,
+      "manifest_sha256": "55202d455cc4f7e0ce36d9c6b55f439b7375272f880abd19e1e29388779037ff",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/147-click-147.json",
+      "git_blob": "e4f9a03076487274fc538d0a0920198bf6258a26",
+      "bytes": 5050,
+      "manifest_sha256": "a5ce2b87b89f387405a7333ff1466b41700855a35d38ea763e4b13e4c6ebfbd4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/148-click-148.json",
+      "git_blob": "5f9f0ac96e1f7ac50b5f436fee4c6b1030863807",
+      "bytes": 7010,
+      "manifest_sha256": "a009da568d28bf5b08092f1e878c0d06bd301c91d78721e670435b99f53acbd7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/149-click-149.json",
+      "git_blob": "ba889a02cfe2a9790778a9787de51e7fee32f8a4",
+      "bytes": 8624,
+      "manifest_sha256": "3da0114efc5198a49a012ff2e1de083b3a4e3fe38dadf3b6c3a9399aa555fc89",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/150-click-150.json",
+      "git_blob": "9b5fd6e311d92967b27a27b34962c2b88b113b07",
+      "bytes": 8512,
+      "manifest_sha256": "d273560224cc12897d2a55f1e21d5bed2e71686b5e513ea9bacbfcdd898449be",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/151-clean-note-entered.json",
+      "git_blob": "c7824d7a58d119c3a0e6c392bb806592c61033c7",
+      "bytes": 9698,
+      "manifest_sha256": "24643197ece856adcff20c5d7e09805155b9d37af8aa148836601558c400a400",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/152-click-152.json",
+      "git_blob": "1e40db4911a455a50990be1ffbee6a15fc6d609c",
+      "bytes": 9698,
+      "manifest_sha256": "7583969cf492a7ca2ab95026fa93323bfede52dbc54390e0c7b9e967fc1fa75a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/153-larger-note-ready.json",
+      "git_blob": "f46fd0474e32e88a793b2979d41c6b7ae1ff9d34",
+      "bytes": 9698,
+      "manifest_sha256": "f945eeeee55353df1187f9ad7235db17037950d35db626189f5cc7c92dbbaedb",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/154-click-154.json",
+      "git_blob": "e01264a2ac9af0d418baab07352a1d0390710d0a",
+      "bytes": 7211,
+      "manifest_sha256": "0fef42657f83d7af86cd769ac202c8a9c97967e42acdb23e6bd6a7c51c97bf1f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/155-click-155.json",
+      "git_blob": "92397a49693f94e538e3a4ee14df0ab32ea149e0",
+      "bytes": 5760,
+      "manifest_sha256": "1560730e49074d3b0a0f8b2fc26a8c580eee36effec8a0e08d4c80133dec52d2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/156-click-156.json",
+      "git_blob": "676e65f10dff741f6d4cb98301d6ff1143c7b62c",
+      "bytes": 23681,
+      "manifest_sha256": "f7d17babb9c18b9ebb8197f51059099e748bb945cb5bb57f500b9364e1cae46f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/157-click-157.json",
+      "git_blob": "c150796ef9ee74b0f41529dee10dc9e354b5c3bc",
+      "bytes": 8851,
+      "manifest_sha256": "cd14992f9f9194324aa71410f37e38e586eb12fbc1dfcdc4b9e85b1027ced925",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/158-click-158.json",
+      "git_blob": "a7714e55afa2e3a89286032a6d6f82917099b4cf",
+      "bytes": 8851,
+      "manifest_sha256": "a72d67bf6ad59e90a152ccb5c24f17f3a5aae1e25554042106a177684d9aeefc",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/159-click-159.json",
+      "git_blob": "50a1b170a333a8009697ae8e289c909a90b7e123",
+      "bytes": 23681,
+      "manifest_sha256": "7abf58bffdc0273c532ebd435967efd2b883f3d13123775ea60911b86768062a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/160-click-160.json",
+      "git_blob": "97532acb45f35b6cd300dbe45b0563fd4b2eb96f",
+      "bytes": 24065,
+      "manifest_sha256": "3f05f015b6073b9212764958b75b5651e3263b036a1513684f6ed5897b0935ae",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/161-click-161.json",
+      "git_blob": "c741e121097b1103fa3ee4ab1e7a6c28bb83085b",
+      "bytes": 24166,
+      "manifest_sha256": "98bafcf53d1c8d01a31deadad456cc4b4c2dc043996deb14cd8d0dc0936a5258",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/162-click-162.json",
+      "git_blob": "d9e32ea234e4a0dc3a381e4f3604b8c02f693c1b",
+      "bytes": 8851,
+      "manifest_sha256": "e1913f07c8c264fc03de133aee2ce5c8a7db5106dd4d001f18a975600153bb60",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/163-click-163.json",
+      "git_blob": "c76ffd5c72ac94432b978c62b1021db8f4c465d2",
+      "bytes": 8851,
+      "manifest_sha256": "ccf75f55f816fce023b073775ca9754a41cfb0e83b59624a1f8ebed7a8257b52",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/164-click-164.json",
+      "git_blob": "a19171af3c89e29928cbb397a90a55d7e3b3ed6a",
+      "bytes": 23944,
+      "manifest_sha256": "a78f357a4a22d5cdfc19d26f1873b9a4f6fe9f5db314a259a6c432f340450824",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/165-click-165.json",
+      "git_blob": "a66939ea27d2c89e840c6b55065ab38b8f1ff547",
+      "bytes": 24084,
+      "manifest_sha256": "408ddc6a50fbb0f7bc5f98195b8a2b08f238cda4f38626e4f9c9202e95f54d17",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/166-click-166.json",
+      "git_blob": "a8d8640302c9b71a1f498dd274a4fc5d6e3847bb",
+      "bytes": 19110,
+      "manifest_sha256": "89541381ed88fd47b8744789d7875cac3507bf58c2d5018d9f9a0a5e1f9e9282",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/167-click-167.json",
+      "git_blob": "058294fbdcc4bc4e6a32af238155a64a6462518e",
+      "bytes": 21863,
+      "manifest_sha256": "0b18409995112f6471171c75f9478bbebfd3f979cd533cb8adfddb49c177b3f9",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/168-main-return.json",
+      "git_blob": "bcbb1eed3fd17bcfa6073bcfe4f50827d722374e",
+      "bytes": 65891,
+      "manifest_sha256": "f6b63e7e72f2b69c3bfc33485c5c9dfb9eae3cbc2df7014e73b3b447c5ccb8f2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/169-click-169.json",
+      "git_blob": "4838042956338db5f0e3cd28f8005c9863c489a3",
+      "bytes": 71150,
+      "manifest_sha256": "774574422c9b0c5c1a19ff1f85d81031f3f87cbd0693ee5b36f69c52ab5e70d2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/170-timed-alert-interval-prepare.json",
+      "git_blob": "0033c58fc7bbe9b9d456378bc0abbffe41a1a0b1",
+      "bytes": 83987,
+      "manifest_sha256": "f7647f49a37b1101d9b203f375caedc2bf11adff3247ab965d7c9f9e287b6fcf",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/171-click-171.json",
+      "git_blob": "7da8f2169cd2ee0732ccb7075550ea42ca08065e",
+      "bytes": 85565,
+      "manifest_sha256": "4ebea11d2cf6546fbae5f5d40521bced332395b4111821cd1d9065d33594f821",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/172-alert-shortest-option.json",
+      "git_blob": "ceb3751f62cb40a525c5b79900dc397c42923357",
+      "bytes": 85565,
+      "manifest_sha256": "99a8026f05390bf1b7db76ec851dd2adb0829825665cff0cc084d3bd03712be7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/173-alert-shortest-commit.json",
+      "git_blob": "e90061783cd91e2682f69c1d3cdc7056cb842c47",
+      "bytes": 84708,
+      "manifest_sha256": "74dfa40d15498583a6112934d3b1c5d14f7f3a73e15d65f868e0771d72cb3aa3",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/174-click-174.json",
+      "git_blob": "2de06e6d0548d47488ab0b651962cd565abed2e5",
+      "bytes": 84795,
+      "manifest_sha256": "6bb5f528af39fc1c34a0dbeaf3b22a76ba2c0335f1ad660fcd1b36ea8eb0bde2",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/175-volume-up-recorded.json",
+      "git_blob": "a2aa68b81bcb895b5354ba088d551d4f6b9388a9",
+      "bytes": 84333,
+      "manifest_sha256": "6fc6b203b0606944f8d28d3814b5e4aaeea94f4cec7efc32bedaf4e45174f248",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/176-click-176.json",
+      "git_blob": "54303d2534d5c2c2241d8bfdf522906199e29a49",
+      "bytes": 84423,
+      "manifest_sha256": "07d8ff9a9dab315bed854df1b32723493753f3320c35769516703ac8b362a176",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/177-click-177.json",
+      "git_blob": "7694d34fd6b9d120fece9ce344e11b26ffbd7476",
+      "bytes": 84134,
+      "manifest_sha256": "eb7f77584986d4b8b981df9563646b10656d54bcc3763e94d51657d30851b305",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/178-click-178.json",
+      "git_blob": "fff6116b47cfe92f29d5391ad8e90f23963d4112",
+      "bytes": 83142,
+      "manifest_sha256": "2af8a3e0573943c979ac6237050b46c3ae86df58fa787c4f3b2fae0170c4745a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/179-lower-preferences-recorded.json",
+      "git_blob": "7b2ce96e006746c6b5ed7e61d6614870b47b6382",
+      "bytes": 83911,
+      "manifest_sha256": "96227f8fc305934514d28379cc23dd970dba8e3842347c37aff25c4c9247b6d7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/180-click-180.json",
+      "git_blob": "f130b9b9ba68bf56e545aab3b5f9fa70af21f16e",
+      "bytes": 84151,
+      "manifest_sha256": "6dbc95362dbcbfa8feb9495efbc8035050023b0219a651def49328d11b880999",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/181-click-181.json",
+      "git_blob": "3afec25c9ec50ef63311a5f445933a31b97b4603",
+      "bytes": 84727,
+      "manifest_sha256": "848cb2ec7b917f8d296ef4ff9a1ecde19deb4b4ae98c12afa63017d1f824a86a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/182-click-182.json",
+      "git_blob": "a16e837388aff9efdcec4b6de3913da28fd73f56",
+      "bytes": 83864,
+      "manifest_sha256": "36026391196872712a885d131f7e2de3b8f5668a6909d284fccf4962f0cf2df7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/183-click-183.json",
+      "git_blob": "a7f1646a6670c1865ac0e450b783c28866f13b8d",
+      "bytes": 84337,
+      "manifest_sha256": "7864ea5638dca54f5ffc38fd518343570e982718dd3d326c114d9bb26ff02b63",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/184-click-184.json",
+      "git_blob": "ecb2cbcc20cbbd46f833809a054d86401d54d2b3",
+      "bytes": 84266,
+      "manifest_sha256": "dfc90a310f1f05b5d8c6078d2f07b0825478516ded42f2ac62dbf6a7ebb60e98",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/185-click-185.json",
+      "git_blob": "6e7fda03a063666a513678f8fd5db83275c213dd",
+      "bytes": 84157,
+      "manifest_sha256": "2b1b67a0768c92b612a44d5bc69d45dc376f5df182c3bcccd4f8611a6211657d",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/186-click-186.json",
+      "git_blob": "f2726198bba07669f1abdc82404c6ee28017c94c",
+      "bytes": 83365,
+      "manifest_sha256": "fbdf6ee18629e585b148affd28ca6555f9aae6c5fdf5b3b0e44af2d3e7330221",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/187-shortcuts-recording-footer.json",
+      "git_blob": "c1450575ef42460e2e9de1dc73e4fc6ecad24a3b",
+      "bytes": 83387,
+      "manifest_sha256": "a1a05f75fae61edbae9b8e0b7bf3d87b5c9ba8e25015401bebd9897dd61608a4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/188-click-188.json",
+      "git_blob": "2b665c7a52d38afa71499457f88f83a744d9eeda",
+      "bytes": 78874,
+      "manifest_sha256": "9284373bac8d262293a8c1a13a249b6c9ce62c92edd750c06bb83dab285e549d",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/189-shortcuts-tab-current-video.json",
+      "git_blob": "314f95bf96e8a081c56ea2309d7e6d9c7a4997c0",
+      "bytes": 75575,
+      "manifest_sha256": "07777f92975462282bf71a5e86dd176fa4e292bd5e337752129aa6ba37cc60a0",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/190-shortcuts-escape-current-video.json",
+      "git_blob": "47763c008d5677da3e19a02534100025f68c5cc9",
+      "bytes": 72693,
+      "manifest_sha256": "61857352295385bed3db1bcb5cdc2c109dddca7bc1fbb9c528e4cb4434a370d7",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/191-click-191.json",
+      "git_blob": "859ad77c31ffb2015ea50c1597e24a30c8caa6ac",
+      "bytes": 84314,
+      "manifest_sha256": "91f87c72f7f01fb50703fda12f01dc9f0e9f2608091d33918cf583e5f2ccdb0a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/192-timezone-final-acquisition.json",
+      "git_blob": "0996bef3f9ae17ae43cd33662f9ee83d7b40a103",
+      "bytes": 84151,
+      "manifest_sha256": "b394cd52e9d311a2ab6e3c5f417adbb2fd1ad361f7c38ce408ae994f0f1ea2a0",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/193-click-193.json",
+      "git_blob": "4ace382746da0b4cf2569dc5cd2e21861ea2595d",
+      "bytes": 88343,
+      "manifest_sha256": "4882d9f0500bec492f9b10e69740473bd85f0fe1122437db3088e911e435d5ff",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/194-timezone-automatic-keyboard.json",
+      "git_blob": "649b7b12170982e0e3d8c8e98249ef28015923f5",
+      "bytes": 109762,
+      "manifest_sha256": "a751a9afd15729f666a185c7720362fa8687e0a552cb2d505ea873a1b80cab2a",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/195-timezone-automatic-commit.json",
+      "git_blob": "4f153da863af8c0682df0540950f59a033c1e1f7",
+      "bytes": 105590,
+      "manifest_sha256": "8c9a6855ea46ab70eba8556e4adbf9b3e5cbc75c34d20eece056dcb90d3f664f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/196-click-196.json",
+      "git_blob": "33477fe501908249f2ca3ae88905c6f1d5e69e28",
+      "bytes": 74150,
+      "manifest_sha256": "0e153241a7dec630e6652178bda71c70af6904e716f95e2c2c3e45dfa34f6228",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/197-pomo-overdue-start.json",
+      "git_blob": "db45ea687692e1a53acf4be7a0e2a37a2bf7b4fd",
+      "bytes": 23991,
+      "manifest_sha256": "10240ac03bf46e3e2da435b1c7b600e59d611064d6c171844b1fd5a5c83881b4",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/198-click-198.json",
+      "git_blob": "4b240b66328fd9af0315fcc1cfb75259a4adf8b8",
+      "bytes": 5321,
+      "manifest_sha256": "6974a35653536f0728ca4b3239e260c419fd714f08fa984ca230f57402ce0f41",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/199-notepad-open.json",
+      "git_blob": "b981bc4f3092c8dc30660d362ce144e27c10e34b",
+      "bytes": 4457,
+      "manifest_sha256": "5f525cab76b0794cf3cc18f0d08ec39ccd456ee3b2ecbfa3ce86e7f7f8adf705",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/200-click-200.json",
+      "git_blob": "d3e743432c7429bad6affc4d6f90aa2969da06ca",
+      "bytes": 4413,
+      "manifest_sha256": "7d1d8e286c21c25379442679cf02a69f5d9ccb637b1b34baea8991db30f96fa3",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/201-locate-timer-over-notepad.json",
+      "git_blob": "927f3b147418bdb93c7326191088ec5c11648def",
+      "bytes": 4274,
+      "manifest_sha256": "2b68643fd3f0a3060e3e98e03ae1004d8c6615f5adf5f14814944ddc6eccaae9",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/final-owned-state.json",
+      "git_blob": "5eca6cfa71c0ea3d4d68ca774993f00de8af2bae",
+      "bytes": 93172,
+      "manifest_sha256": "50cbab1deb3a1f5534fe78af9c53e401c7d1bbfed40a49ac1f7357fbd3a0078f",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/observations/preferences-and-focus-state-db.json",
+      "git_blob": "f92aa07791de003633778550b64bdf416f98934a",
+      "bytes": 99048,
+      "manifest_sha256": "b11e5cacc8c831716597e76c0b73e12b7527a1ce189bcb9d2c66b0ac445689bc",
+      "scope": "observations",
+      "disposition": "HOLD_ACQUISITION_OBSERVATION",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/original-profile-restoration-proof.json",
+      "git_blob": "2f26d7a30780fad1d2e2a67c76d19c585543dd37",
+      "bytes": 203,
+      "manifest_sha256": "efc238db7abc238eee3a55a5a2f4225662e2aa7dafa7e63bfcb93b5931c49427",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/requirements.json",
+      "git_blob": "e11e21d7f8a23f136f4ec756f72a043e6d9274f2",
+      "bytes": 78563,
+      "manifest_sha256": "3706103c2b14ff9f7bea02446ba3f7f81d61341b03ce3bf592a977c4882cc117",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A01-home-dark.png",
+      "git_blob": "2c69a534dbeeee37ed26db2990da016c9cc5caa9",
+      "bytes": 65634,
+      "manifest_sha256": "b38aa4dd097b77a952cad6717938aa5392ae5683209408f0e7e499f40f499b25",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A02-custom-picker.png",
+      "git_blob": "1d710d21d837d4be28f3b64c669560eb7001b1be",
+      "bytes": 108542,
+      "manifest_sha256": "a72548e4e8c91501aea1b55410184a0f15854c2a611a6637632130422fad77db",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A03-icons-open.png",
+      "git_blob": "8ef39a32bc684884f4a6e5f138193ee0c75a180f",
+      "bytes": 98877,
+      "manifest_sha256": "884499f822958670556098e99fda197bc58c4025a992e8be2407ba0204770c7c",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A04-upload-after-chooser.png",
+      "git_blob": "402ad009d6808dc334502c58be372ed1d899de71",
+      "bytes": 89779,
+      "manifest_sha256": "9e8b67be24a06b4ba5fd8375a4384e346362a1d999a2624a992e0b5024616e84",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A05-uploaded-list-board.png",
+      "git_blob": "036174ca0202e96c2fd49e8331e3b0437618d9f8",
+      "bytes": 78260,
+      "manifest_sha256": "348841e514a3992aa1ff670e4c2ea01d2ad0b9bbeacbcfe35a7d574c293b09fa",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A06-home-uploaded-image-visible.png",
+      "git_blob": "85ce1251b64af25d516b6564a936ab7b5e2fa6c9",
+      "bytes": 76426,
+      "manifest_sha256": "fbb05b2d069f7a844a0190dfe0fca3b469b5f34a8867475da0e331a5de8f9383",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A07-archived-lists.png",
+      "git_blob": "58cd3d6d836147ab0ae3cfde7dbdcd07e05374dc",
+      "bytes": 62057,
+      "manifest_sha256": "d99af82bb757133b881b75273b47994cad76719574672e5d6e2aa402d5cc22c4",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A08-board-alllists.png",
+      "git_blob": "99c22efc9e6cf794f69f09bdaeaaae0dafc96fe1",
+      "bytes": 97220,
+      "manifest_sha256": "d8de855324aba43e32a9cb18ee3c6a1b58220b4da65fdc34ccd0b390afdefe08",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A09-done-middle.png",
+      "git_blob": "521e1c057fe6cd186c55720f81e775cc831e62f2",
+      "bytes": 88638,
+      "manifest_sha256": "6bee4ce7926b8166bc37c597c34a19e615de617138118ef8e92c268dc1a62482",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A10-done-bottom.png",
+      "git_blob": "535f17af9fa9c52965d944a3ee6ba0edb46121f1",
+      "bytes": 56131,
+      "manifest_sha256": "0b84e3c6b32be227e06b449e3fee6d5144eab1dab2e0ebea08505c3ca48d2d64",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A11-backlog-bottom.png",
+      "git_blob": "782838ef499d2f7fa5b4e9c4f15ca3f96ce65c18",
+      "bytes": 54721,
+      "manifest_sha256": "4a299e34594038045fa5faf89bb1141b63ba4f850d5e6b15a0e9c2221f25df12",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A12-board-max-state.png",
+      "git_blob": "62a2f5fd28ba8b3b28b080a2ce971f52a8246d0b",
+      "bytes": 65565,
+      "manifest_sha256": "d140e8c7ee142d3f13cb2b2dd2b11f8f935c3d1f28ccd19b40f383a48fd2d37d",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A13-home-return-state.png",
+      "git_blob": "b8774983329c80e3e88814ba16bba41df0760c95",
+      "bytes": 73159,
+      "manifest_sha256": "5acc1da664ce3f03519f1ed5b5f64af0f644d996efe0e1ffec7588c5b2cef247",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A14-parent-position.png",
+      "git_blob": "897d8e20496fdaff2eb311c05f01c319b223c1b4",
+      "bytes": 92123,
+      "manifest_sha256": "f9d2f5501f3b8f3024feae254700c1cc99b4b5513d44589756021cfad00d3a7b",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A15-recurring-parent-menu.png",
+      "git_blob": "df75352c78cdf86002e9badd0bf53005c49540bb",
+      "bytes": 94860,
+      "manifest_sha256": "3db66191787a3cd5999a6c5012bfab28ae6a47c3e25a4b56cbdcf4be1eeeb730",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/A16-recurring-update-editor.png",
+      "git_blob": "dc244b5703f297ba75c1683b695786fd16f98e90",
+      "bytes": 76552,
+      "manifest_sha256": "e869645dbab5a00f683c73c630e7c6df964a0eb242fa476dd8d4a71dffb524ed",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B01-preferences-top-dark.png",
+      "git_blob": "296b25f1374e8162df993004864fe0fc4d1baf1d",
+      "bytes": 83529,
+      "manifest_sha256": "dd19fe42e9e57632983122e94872724041661edd0643c1f8c9bf7a9cbf1fc621",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B02-pomodoro-children.png",
+      "git_blob": "804d81e928981d61a1b5cba178751ed278c411b0",
+      "bytes": 88906,
+      "manifest_sha256": "426dc4ee869aa8525fa7e04bfe3a530f05b804b7fb23a0b5cc895c9f0b7245f2",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B03-volume-popover.png",
+      "git_blob": "36e0ee88626ada52edd7cb976acb7cf13ee9b58c",
+      "bytes": 91197,
+      "manifest_sha256": "ccff1d60aa2dd4b2917237af6586ee1e26b284fdb576b581dc87b826fea56868",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B04-notification-children.png",
+      "git_blob": "65a711e957f6b349f17c334784033c0643c2ae16",
+      "bytes": 89491,
+      "manifest_sha256": "819496574a1885f83ee3a87d35161f55799b3d710c8509dfe869aab3b043bfbd",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B05-reminder-children.png",
+      "git_blob": "e2eb25f87fe6c26697056015f487043e6a81493a",
+      "bytes": 86715,
+      "manifest_sha256": "6d0c2d0602d49460e13bead6200b2a7bcb636ee6aaa7ed162c2d4a28c40ba88b",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B06-success-off-independent-sound.png",
+      "git_blob": "c10b2d00401ff1a3e5585b744c8b8a6637f95666",
+      "bytes": 88865,
+      "manifest_sha256": "883002b26d000be21cc12656993f74cfe1e4b3066c4a1f4883353c78e625ea7c",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B07-shortcuts-dialog.png",
+      "git_blob": "ec018dc2a6eb581aebf9ec53a22f02a81e2944a5",
+      "bytes": 85744,
+      "manifest_sha256": "6bdd2c0cad89103d0fac5524bae2ef511e629ddfcb5a4cf879f56a9a7be534fd",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B08-preferences-top-after-shortcuts.png",
+      "git_blob": "989bcbf6e6522f6138cb3c9fefdf19f348d0048b",
+      "bytes": 83439,
+      "manifest_sha256": "50405761fdf1f12f9aa03d6b468a269ca4ae0a937412efefebcb35d7d09ac65a",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B09-preferences-light.png",
+      "git_blob": "7991af71c6da6f0d08e795a0a35830d6d55a7ef7",
+      "bytes": 85922,
+      "manifest_sha256": "d2a61fffcbb64e4b8b49e76bdf72a8633454395a952cd37daea6e9411fd64d32",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/B10-shortcuts-light-recorded.png",
+      "git_blob": "f1291f19791eb0ed15f3057d7befb72bddc0966e",
+      "bytes": 90657,
+      "manifest_sha256": "7dc7057688c9652bccefbea430324f180af276f0aa7a5c66d3d3a403eee8cc78",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C01-focus-entry.png",
+      "git_blob": "b40348dbef3a0886a8037f0675334c1ba25d73bc",
+      "bytes": 34991,
+      "manifest_sha256": "bab4a237873e31d38b8df249d156014cfd92d45aff47fc8faf05fcaaa3147e52",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C02-focus-list-open.png",
+      "git_blob": "0438530dcaf979d570d6a027dc0c02c96fd8771c",
+      "bytes": 48842,
+      "manifest_sha256": "c20428f114b7da0afc9184fe79218d79e0536d6a7215ad0af29fc898d6fe6a2d",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C03-times-up-actions.png",
+      "git_blob": "3e21fe7c044b3f975d676ddb77b4acaa272b11dd",
+      "bytes": 37201,
+      "manifest_sha256": "e7b65dec29a943f789fb0ea3e5553497a71e6e62e8af72e59761bcaa60ebe206",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C04-compact-timer.png",
+      "git_blob": "c0bfd47f4dd0d457311161901ccdf8fcc68fec91",
+      "bytes": 28998,
+      "manifest_sha256": "d847ee07fa0806898c5e589bfde2e18ace2a6a87aa421827e2f9428057ed1562",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C05-expanded-timer.png",
+      "git_blob": "24479e3ecf776f369cf0b7e9077fe87e118a2d4c",
+      "bytes": 31693,
+      "manifest_sha256": "56c29bc1fb00eff311cc90dfae1862e7e842490c14b5801e0d624abed68f4e42",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C06-expanded-notes.png",
+      "git_blob": "4406affcd7c79a5856bee8772aaa0acffa517f00",
+      "bytes": 37988,
+      "manifest_sha256": "b9b00ad571c51f80387021d15cc10a6139a1136742e5d89b25e1826eae547b45",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C07-compact-after-subtasks.png",
+      "git_blob": "cbbd05d495512f5e64f4d7c40860cce004b8924b",
+      "bytes": 34004,
+      "manifest_sha256": "1db753f77a82c320f2817911b64f7b9ef924a070f15c23a7be3ecb4f943b96eb",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C08-drag-recovery.png",
+      "git_blob": "f4db642807c308cdbffdf0e4dd75d2de9b445a50",
+      "bytes": 34319,
+      "manifest_sha256": "9ab10ccc370b271640d33b4a7b812436fafb512c47e5c0b188289eabf1fc4438",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C09-expanded-bottom.png",
+      "git_blob": "657af31cd12ce93ca43dd4115289bec1c3189da4",
+      "bytes": 34305,
+      "manifest_sha256": "a3dbc8f11be1d8c876ffbe54f0a0ddd13bb73dbc715b1a21b30c20e90234bff7",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C10-expanded-bottom-bounds.png",
+      "git_blob": "657af31cd12ce93ca43dd4115289bec1c3189da4",
+      "bytes": 34305,
+      "manifest_sha256": "a3dbc8f11be1d8c876ffbe54f0a0ddd13bb73dbc715b1a21b30c20e90234bff7",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C11-compact-drag-bounds.png",
+      "git_blob": "62dc300df8b2d0cc24bb5ce9d59e3d3289ea0aa4",
+      "bytes": 34172,
+      "manifest_sha256": "ba0fe527f541e74648527340b64f534e6a18f797e5978e1bbc88037e8296ce92",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C12-break-state.png",
+      "git_blob": "62f85eb3f320b256bd3184098b8137e90b65b455",
+      "bytes": 36325,
+      "manifest_sha256": "a46f670c2d100064c964b525cac06b2b521a11e9ec892b929fbc025389928710",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C13-after-break-history.png",
+      "git_blob": "ca4b1385affb18c65a85103400a47073ceeb2b0f",
+      "bytes": 37672,
+      "manifest_sha256": "9184afd1853d0760e69bbbaa0484757e29ca03dc09927e37c9aad51d9a7e108f",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C14-success-with-reaction.png",
+      "git_blob": "c8875334554046ae55a7fe445ddb7e80525e1a4b",
+      "bytes": 41098,
+      "manifest_sha256": "f4763eda703c29960ed408f2d22222681abb58880260dcb8504e398cc340b91b",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C15-focus-second-task.png",
+      "git_blob": "638dbd3854c820f3c7bdaa3b67180fc621624ed7",
+      "bytes": 36776,
+      "manifest_sha256": "1340dbd59d623c844af1f8a8c43ee2559b21d7ab23b50f56571e00b4d3e20bd6",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C16-timer-inline-note.png",
+      "git_blob": "e3359687c547c9a0a0ee25a00b98ac4cd91c55e1",
+      "bytes": 38343,
+      "manifest_sha256": "dca9a11995d7c9767fa92b0e6ff82c79d5e5bf31cd03bebb66770ddd247732d7",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C17-timer-larger-note.png",
+      "git_blob": "d1f3c3be2c3e67e9fecfa55cca2f3407b26ac00a",
+      "bytes": 37034,
+      "manifest_sha256": "f3a3b4532f774b85d942ba1ed2a9dfb99e3198f34e68a9d85cb289fbaec822d1",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C18-second-success-numeric.png",
+      "git_blob": "46bbee1b567fed8503c456417fd0c12aaa6689bd",
+      "bytes": 43173,
+      "manifest_sha256": "3e1f04ed63306d526e57a023c61496418e6c313fa6db7c5ae9861a8b96e9f383",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C19-pomodoro-work.png",
+      "git_blob": "419fd0b1d367cd46a1316ba46748ad7bdb3a046c",
+      "bytes": 35628,
+      "manifest_sha256": "cd41e28028fe8b5cd3da427286e704a4d2cf90739f5f9d45b527f108dceff97f",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C20-pomodoro-manual-break.png",
+      "git_blob": "d9cc2d9683211cec359f122665e0ccead4fd5f8f",
+      "bytes": 34454,
+      "manifest_sha256": "5a98b87e118a6226b58858026598686a9d8132812cea53a6c083c042aec37ce7",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C21-success-reaction-audio.png",
+      "git_blob": "a5227f97af9a756ef1daee6df1e1c7ec2989871b",
+      "bytes": 39378,
+      "manifest_sha256": "d588bae3642bdf7bc33b013faa49f67f432f0330e78e627e0797ddc91a9b728e",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C22-untimed-rest.png",
+      "git_blob": "8dec8952a3797b797320d28a45d465f08be25054",
+      "bytes": 36769,
+      "manifest_sha256": "7f7a9e82e8fb322304e40868c8feea8c51ec89a5757dbcfcd0eb5945a94e8f12",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C23-pomo-overdue-work.png",
+      "git_blob": "1e56e55eeb27ccd51f23f51c8f12be2840b4d7fe",
+      "bytes": 28310,
+      "manifest_sha256": "19819597c25ddf0f70425cad235e37343a01a1dc10389c027533e3a124d57be8",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/C24-notepad-maximized-timer-topmost.png",
+      "git_blob": "46e021bf7e57b96d40ee14537fb3a7262909c84d",
+      "bytes": 29246,
+      "manifest_sha256": "b227699981023c5523703c18f997e4b13aced801fe8f31cf1cb1d078360c86d2",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/capture-health.png",
+      "git_blob": "0fecb42ade22922d89022ce933722ab144292d00",
+      "bytes": 1017412,
+      "manifest_sha256": "0b0198ff8865ed66318e75fb9d149ba642aeb4347f24f48cb0d9473ba0407d33",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/current-health.png",
+      "git_blob": "5f23a3218f34ab855479d942811c8c1da5cdafdb",
+      "bytes": 701707,
+      "manifest_sha256": "eb5cd85955dada7092ac2372fc859c772b2e5151c4f8e381f688b068f1b4e993",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/desktop-setup.png",
+      "git_blob": "0c30e1574ab5a0461c87b7dce18c9a3839704249",
+      "bytes": 675523,
+      "manifest_sha256": "ff46dcbb7e58ae6f80925747ae8d71b526ffbbf835cf5dcad0a2352c9722dbfa",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/escape-health.png",
+      "git_blob": "89ec11c6956b52632d5ecc92d31b0c2285718639",
+      "bytes": 677220,
+      "manifest_sha256": "58936a48822f812688a71b63b32ede7cc84f3d7e19123dc224de2355b144b48c",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/obs-current.png",
+      "git_blob": "24052d19b0ccb3d2639d40a24768519698dcee33",
+      "bytes": 656572,
+      "manifest_sha256": "1d1afef2e7a287656fe346b3f532b143f2a8db447a5fe661b4d41c984e7da9fb",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/obs-max.png",
+      "git_blob": "dac05d9748885cbc1d37eda584297aad44d6e4d2",
+      "bytes": 663704,
+      "manifest_sha256": "4e720b1086af4fa5956be1a021da90f3e198ec9fd628be5bc607c9134b0aaf64",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/screenshots/obs-ready.png",
+      "git_blob": "a79cdbce190363a203107a50baa60ee20ae006c0",
+      "bytes": 666504,
+      "manifest_sha256": "67e36d3db75402ef03699002118432a78e193d89371b418c8357bdc880523b3c",
+      "scope": "screenshots",
+      "disposition": "HOLD_CAPTURE_SCREENSHOT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/session-meta.json",
+      "git_blob": "c3b8a91deb844b7a12906e4ab8b0d1cb5d841e17",
+      "bytes": 474,
+      "manifest_sha256": "14e8ed65ff8327ebe80232cb211c2c86edc04fe7444432bf41a9cfb6e0b52845",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/synthetic-fixture.json",
+      "git_blob": "0a7cf1510f7647afeef269915b145da80418db4e",
+      "bytes": 6263,
+      "manifest_sha256": "f48c229e70759ef3b9ed4b6ce070dfe407be4992323975d34992ec3b1b5aef9a",
+      "scope": "packet",
+      "disposition": "HOLD_SYNTHETIC_FIXTURE_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/capture57-20261020/video-parts.json",
+      "git_blob": "0b7792bec375df69b2973de513a8d90cc0e053fa",
+      "bytes": 7032,
+      "manifest_sha256": "ee1392f051233cfd4d7f3be3374e56d0afe4d1a8a6bb95e517969ce90f08c4ce",
+      "scope": "packet",
+      "disposition": "HOLD_PACKET_PROVENANCE",
+      "deletion_approved": false
+    }
+  ],
+  "limits": [
+    "All 276 paths conservatively HOLD to preserve acquisition, traceability and source interpretation; not every source/consumer was independently reviewed. No deletion allowlist is implied.",
+    "275 published SHA256 values compared by path and size with frozen Git inventory; neither SHA256 nor Git blobs rehashed from actual file bytes this turn. Integrity manifest self-exclusion is expected, not missing evidence.",
+    "Screenshots may include GDI captures and recorder health; observations may include read-only UIA, Sky and synthetic owned DB, not universal native or functional PASS evidence.",
+    "Original audio contains 3.264 sec discontinuous loopback and is NOT synchronized to complete original films; no audio acceptance claimed.",
+    "Physical acquisition was frozen partial (57 requirement names, 42 acquired surface/partial at first freeze, additional resume exists). Physical and source parity judgments are independent and not regraded.",
+    "No deletion/movement, no local AppData access or Windows execution, no CI."
+  ]
+}

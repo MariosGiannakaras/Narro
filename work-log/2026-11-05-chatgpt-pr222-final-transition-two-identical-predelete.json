@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-05",
+  "predelete_main": "7f926ce0d7243f1cae02046baa3dd6a73b7da672",
+  "family": "work-log/evidence/m7-pr222-final-local-20261003",
+  "scope": "Two remaining same-family duplicated static Chromium motion-transition endpoint PNGs in historical merged PR222; independently different from PR480 eight reduced-motion and PR482 four quick-create removals. No native Windows/Blitzit source or blocked bulk operation.",
+  "validation": "Both removal and retention sources currently exist in main; each pair shares Git blob SHA and original manifest SHA256/byte length. HTML fixture case files have different direction and/or reduced motion JSON contracts, and both are retained. README states transition fixtures use generated controlled hierarchies and are not native-window physical captures. All unique visual content, original manifest, README, results, case HTML and other family files retained.",
+  "pairs": [
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-timerCompact-panel-dark.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-dark.png",
+      "git_blob_sha": "ee8efd7f7db7f68ebd36b8201d26dc64e45beee4",
+      "bytes": 5422,
+      "manifest_sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001",
+      "retain_html": "focus-editor-motion-panel-timerCompact-dark.html",
+      "remove_html": "focus-editor-motion-timerCompact-panel-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-timerCompact-panel-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-light.png",
+      "git_blob_sha": "5c81eba7952afc1b8c794df24c3bb77fa5d56e96",
+      "bytes": 5497,
+      "manifest_sha256": "e141c06ff8da827c211982a8b00506e87f727e8a2be49e5047b547337083db2c",
+      "retain_html": "focus-editor-motion-panel-timerCompact-light.html",
+      "remove_html": "focus-editor-motion-timerCompact-panel-light-reduced.html"
+    }
+  ],
+  "total_eligible_exact_files": 2,
+  "total_logical_bytes": 10919,
+  "guard": "Only two exact paths eligible; create guarded deletion-only PR, independently confirm exact changed filenames and Git tree/resulting-main, otherwise stop. Do not rewrite manifest or original history.",
+  "restrictions": "Earlier 27-family/4065-file bulk-delete and 10-family/29-media composite tool blocks remain. Current PR389/419/431/436/437 physical native sources HOLD. Overall cleanup stage remains 1/5; no acceptance CI/native claimed."
+}

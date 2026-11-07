@@ -8,21 +8,21 @@ The probe is strictly read-only: it injects temporary capture-phase DOM observer
 
 ### Preconditions
 
-- Run against a **fresh isolated test profile**, not personal Narro AppData or old restored protection ledgers; preserve the verified binary SHA, executable source/CI, port ownership and original video/HWND data.
-- The Windows operator must already have started the exact intended EXE with CDP listening on a known isolated port (the established earlier native runs used `9234`). The tool connects only to exact WebView2 pages `http://tauri.localhost/` and `http://tauri.localhost/focus.html`; it rejects missing targets. A URL match alone does **not** prove the CDP process belongs to the isolated profile: verify the owning process separately.
+- Run against the **ordinary Windows profile with user-authorized disposable Narro test data** (2026-10-30 decision); no separate account, temporary database or preventive backup is required. Preserve the verified binary SHA, executable source/CI, port ownership and original video/HWND data; avoid stale test-state interference.
+- The Windows operator must already have started the exact intended EXE with CDP listening on a dedicated known CDP port (the established earlier native runs used `9234`). The tool connects only to exact WebView2 pages `http://tauri.localhost/` and `http://tauri.localhost/focus.html`; it rejects missing targets. A URL match alone does **not** prove CDP belongs to the verified Narro process: verify the owning PID/executable separately.
 - Node with built-in `fetch` and `WebSocket` is required. Do not enable a shared or externally reachable debug endpoint.
 
 ### Windows OS/HWND corroboration — read-only, operator-owned
 
-PR429's CDP probe observes renderer delivery, **not** the Windows side of the same physical action. Capture an independent bounded, opt-in Win32 receipt at the same time. The companion script samples the modifier/F/T/left-mouse virtual-key states but persists **only the Ctrl+F and Ctrl+Alt+T chord booleans, modifier/left-mouse states**, foreground and focused HWND/PID, cursor point and the rectangles of visible top-level windows of the isolated Narro host process. Standalone typed letter-key states are never written. It neither hooks all keystrokes nor injects input, steals focus, moves windows, accesses Narro storage or records user-entered text.
+PR429's CDP probe observes renderer delivery, **not** the Windows side of the same physical action. Capture an independent bounded, opt-in Win32 receipt at the same time. The companion script samples the modifier/F/T/left-mouse virtual-key states but persists **only the Ctrl+F and Ctrl+Alt+T chord booleans, modifier/left-mouse states**, foreground and focused HWND/PID, cursor point and the rectangles of visible top-level windows of the verified Narro host process. Standalone typed letter-key states are never written. It neither hooks all keystrokes nor injects input, steals focus, moves windows, accesses Narro storage or records user-entered text.
 
-From a separate terminal on the **same isolated Windows machine**, select the verified exact Narro.exe PID (never a personal-profile process), create a new empty isolated evidence directory, and start this read-only sample before the matching CDP probe and operator action:
+From a separate terminal on the **same Windows machine**, select the verified exact Narro.exe PID, create a new empty evidence directory for this receipt, and start this read-only sample before the matching CDP probe and operator action:
 
 ```powershell
-# First identify the PID of the isolated Narro.exe explicitly; do not infer it from the example.
+# First identify the PID of the verified Narro.exe explicitly; do not infer it from the example.
 Get-Process Narro | Select-Object Id, Path
-$isolatedNarroPid = 12345 # REPLACE with the verified PID from Get-Process above
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-native-input-receipt.ps1 -TargetProcessId $isolatedNarroPid -Seconds 45 -IntervalMs 50 -Out E:\IsolatedEvidence\P11-main-win32.json
+$narroPid = 12345 # REPLACE with the verified PID from Get-Process above
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-native-input-receipt.ps1 -TargetProcessId $narroPid -Seconds 45 -IntervalMs 50 -Out E:\IsolatedEvidence\P11-main-win32.json
 ```
 
 Repeat with a **new** file `P09-focus-win32.json` for the P09 held-pointer case. Both scripts write with exclusive CreateNew semantics and will refuse to overwrite an existing receipt; the Win32 collector also refuses to create an unexpected parent directory. The Windows preflight has an isolated, **no-interaction** self-test:
@@ -35,7 +35,7 @@ The self-test is part of the existing Windows `test:performance-harness` candida
 
 ### P11 Main — clean keyboard-owner capture
 
-With the verified Main HWND focused, **close WebView2 Find, all modals and edit fields**; put focus on a known noneditable Main element. Start the probe (replace the evidence location with the actual fresh isolated Windows path):
+With the verified Main HWND focused, **close WebView2 Find, all modals and edit fields**; put focus on a known noneditable Main element. Start the probe (replace the evidence location with the actual fresh evidence path):
 
 ```powershell
 node scripts/native-input-prephysical-probe.mjs --target=main --port=9234 --seconds=45 --out=E:\IsolatedEvidence\P11-main-input.json
@@ -69,4 +69,4 @@ Capture actual `pointerdown` target/hit markers and `pointermove` while a **genu
 
 A new `P09/P11` outcome requires: exact EXE hash/source, focused HWND, original video, time-correlated probe JSON, actual OS input/move-loop evidence where needed, and per-scenario PASS/FAIL/INVALID/NOT RUN. Do not repeat already accepted A/B functional 8/8+8/8 clips. A/PR389 and B/PR419 strict compositor holds remain separately OPEN.
 
-Exactly **three HUMAN PHYSICAL NOT RUN** remain outside this probe: P18 actual tray Quit, P19 real HDMI unplug/replug, P20 true sustained mouse-held drag+Escape. This probe cannot simulate or certify any of them. P03 source requirement/evidence remains OPEN. No M11/M12 work or personal-data mutation is authorized by this procedure.
+Exactly **three HUMAN PHYSICAL NOT RUN** remain outside this probe: P18 actual tray Quit, P19 real HDMI unplug/replug, P20 true sustained mouse-held drag+Escape. This probe cannot simulate or certify any of them. P03 source requirement/evidence remains OPEN. No M11/M12 work or unrelated data/OS modification is authorized by this read-only probe. Ordinary Narro-only PA test data are separately authorized by the user's 2026-10-30 decision.

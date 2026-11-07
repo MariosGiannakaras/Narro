@@ -1,6 +1,0 @@
-{
-  "baseline": "8e446bbc",
-  "preferences": "Escape after successful save/focus loss did not close",
-  "print91": "Print date text overlaps/clips: Wed, Oct 91 [884.953125,939] previous=922.421875",
-  "method": "Temporary restore of exact HEAD product file with new behavioral regression intact; both original failures observed before restoring candidate. Print fixture subsequently replaced synthetic dates with real Jul17-Oct15 labels."
-}

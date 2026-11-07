@@ -1,0 +1,326 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "seven sessions, original full recordings and split parts only",
+  "record_count": 33,
+  "total_bytes": 1236844296,
+  "records": [
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/acceptance-03.mkv",
+      "git_blob": "dcc3cbebd425c33cfb7c479475c444c48fa0ea4c",
+      "bytes": 27754322,
+      "sha256": "a46ea4f3201e4617a586da4fd368ca356818bdd8da9140d74b46d22b7e303940",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/board-focus-01.mkv",
+      "git_blob": "4acbe7b273644a76e6c949be970bd5560bc3fe7a",
+      "bytes": 20185088,
+      "sha256": "85e52f9692cc85a087affa3e149a6eb5bf4965babc7b812c18475f463aa97fa3",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/board-focus-02.mkv",
+      "git_blob": "d5075a3590db07054fca0b1319d389c3db783bc4",
+      "bytes": 13844560,
+      "sha256": "0c3e1574c612e23e3d42418849a6be7d2f0959b96b843469eb59a1e673874409",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/focus-05.mkv",
+      "git_blob": "cd88d48186b1cec5ec5ff1e0baed49991316c4f9",
+      "bytes": 34197636,
+      "sha256": "04604f16c24560025f497b83c5cba90b4ad1ab6cbf9241b687c6079c18683a8f",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/focus-recovery-06.mkv",
+      "git_blob": "a3c30872b22759b46b252c616f7204ccfc46e779",
+      "bytes": 27467440,
+      "sha256": "9d8da7c35e70920f6febbc692ce10f55635f6d3e05da6d8a39f320b46c2f60f6",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/native-acceptance-04.mkv",
+      "git_blob": "ee7da3794de525f6caaf75cc19ec892b2197b3c7",
+      "bytes": 98983828,
+      "sha256": "322b70ed512d5bec8fa137bdb925ca944378784eb7721da624ec07b3e59de042",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/pending-guard-08.mkv",
+      "git_blob": "7b9a96509182d703075a045f6aa1115f7ea6109e",
+      "bytes": 4163835,
+      "sha256": "9bab3bdfe3e4c07df541cb0b147ec7046a77fe8acfb9ca85fd5eafd353726973",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/residual-locks-07.mkv",
+      "git_blob": "a5c9bd86acf6d1ed54c3dd32d35e0539d8f18cbe",
+      "bytes": 10468260,
+      "sha256": "cada3d0eec7763a53f854f7c7e5df0b8d59a0a5e4801cc96bf2ad3829497694d",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/ci1046-physical-20261008/Narro-M7-Logs/time-up-09.mkv",
+      "git_blob": "232b3e812dbc5528f80efeaa32a2ff6be63eea0c",
+      "bytes": 23096938,
+      "sha256": "525c391a1ccbb0db31f5fac18b778f77773f616a6db4dfc403ebee311c924c65",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-08-codex-ci1046-physical-publication.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/m5-remaining-native-20261017/video/segment2-complete.mkv",
+      "git_blob": "b57a07839a97398401c3f7da8c95226d8561db1e",
+      "bytes": 27860916,
+      "sha256": "54b52afbf4dfbcc14c9386ae8e9c049f2e883236693fcd1a7fa2c37e61c83317",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/evidence/m5-remaining-native-20261017/README.md"
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part001",
+      "git_blob": "3457373aee524b4978a50226cd83ce9c5485b7df",
+      "bytes": 62914560,
+      "sha256": "1e6ff5a806b5ccc07069afc720c59b0eabf7b89f647e2a7d2a43516db2a1c62c",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part002",
+      "git_blob": "a3dc007d5d1b9eab8f4c123dd273991fb696c0cd",
+      "bytes": 62914560,
+      "sha256": "0fafd9f139f33630fe652a6763cb444f7ea7068572f2949aa898900286f3a0fa",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part003",
+      "git_blob": "2af556e6fd8f42b74d4e4a5c7c72b4b3dd809291",
+      "bytes": 62914560,
+      "sha256": "b1515b926dc7e2ba8440bd569d26149527c41fda3f59cff547e666ce8b0de830",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part004",
+      "git_blob": "0402d449bc15ccc60f058640a5e87e86ed4176a3",
+      "bytes": 62914560,
+      "sha256": "86672fd7a6264eb896eaad8b09dd9122811316f20a30f45f0e456703c027f8e4",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part005",
+      "git_blob": "7903dc4ccc5f8f5df30777e356efd46c89832b0f",
+      "bytes": 53740117,
+      "sha256": "12a41f9b428a114670d7885c73bd062baa51f0fbf34e9bb96ff960920df0ff08",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part001",
+      "git_blob": "9b0ca58cc2f52c5e161b3d933d7b2819a2409ab7",
+      "bytes": 41943040,
+      "sha256": "f6d75883f429d830ba8ebbc0ca21682748a28c978872565b15a11f682f13a241",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part002",
+      "git_blob": "19dcc3a25ddce39dc1b7670dfe3491d734f18ba3",
+      "bytes": 41943040,
+      "sha256": "ae132d5cfd056ce29526ef4e8da0593069ed6594e516fe1c7a1c4efe6932bad4",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part003",
+      "git_blob": "f3e4abc52f056be4183e613a51a15f6a3f2bae44",
+      "bytes": 41943040,
+      "sha256": "a9b8363045b68fcb06004e8e64eb64deb37bb8f3cd2c497c4f58a20ed0bd0f13",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part004",
+      "git_blob": "b31f658390ff5fac375de45a9ec61c757a25a91f",
+      "bytes": 41943040,
+      "sha256": "f307d093da152a75d354985af76a0f82fb6ee2973ae028aaaf95378776168d4a",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part005",
+      "git_blob": "73bfd5db678675760e5537c96592e6d01f27dd35",
+      "bytes": 24995867,
+      "sha256": "15ab19674a11ac52a0fe6d42599deb726906ec08e554fc3919a7934549cebe57",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part2-1054-to-1100-utc.mkv.part001",
+      "git_blob": "468396f0943c236c982a2abb2fa74fb65003f7a9",
+      "bytes": 41943040,
+      "sha256": "25318e6802743100da6bd03ce3529bdf2efda164afdee855ecfae65a5a61c2ac",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part2-1054-to-1100-utc.mkv.part002",
+      "git_blob": "a5b1e8287f8c2205fd2e0d69292372bea31d602e",
+      "bytes": 13807295,
+      "sha256": "b9d658cf82496cc2c77bed0ea1f4e5e93206b998d4c368e6c145a8e646b74798",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md",
+      "sha256_matches_session_manifest": true
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment2.mkv.part01",
+      "git_blob": "4cb2bd4b66c1f3427676924d334398062ab691c0",
+      "bytes": 41943040,
+      "sha256": "3776e592372b858d9f0037ad2a8ee2a692c28dbe4ba1b3034afd1197470a77e4",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment2.mkv.part02",
+      "git_blob": "ce5badd14f628e00d6bd2b8f61bc2e2be37e9fd0",
+      "bytes": 7339526,
+      "sha256": "7e81be63e586d4e169ce91bc947240c61a8db0c09ae1dce80eac87d0f5267941",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment3.mkv.part01",
+      "git_blob": "c5ccc3e9d6d3f6310dd5fd8272fa6d1e75bc2de0",
+      "bytes": 40685667,
+      "sha256": "ccdf75e76522d40beabd086f13cc6d0d47261b54ee5f865d68ed5584a2c82f37",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part01",
+      "git_blob": "47ab7d5fd26e14eb98612478332e5cff58afb60e",
+      "bytes": 41943040,
+      "sha256": "4ba688d25fc1a6c16182e5c942fc4ddb11e84a33994ded8c677e5c35d687c79c",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part02",
+      "git_blob": "d5b2cb949d35e9f91c6843737d84417ae70a6cc5",
+      "bytes": 41943040,
+      "sha256": "491a26a134b45b5efeac4585e49535950c85565775854fec4abd202b9ae34811",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part03",
+      "git_blob": "25e7949540239ab042b8834d9e6a8a3d1a2bff7c",
+      "bytes": 1255161,
+      "sha256": "4a3e8e9bc666ada2c39bdf40d3a546b716df59c9483e972cccbd72ea111aec9b",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part01",
+      "git_blob": "ad0491fb4e64345a784bd15fc8b1051bf038be17",
+      "bytes": 41943040,
+      "sha256": "05c4304f9040b314a09111085882ec8f7eb372d198132aaa372d62f0b6697ac5",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part02",
+      "git_blob": "fe6eb9405e53a13b36dba037921d52830d1855a8",
+      "bytes": 41943040,
+      "sha256": "5f72a82637a96ae45a6ea7199dd8d121c6fce6f458ba6f0ed3b485aca07d2673",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part03",
+      "git_blob": "dcc6cd60044ef2f7ee4ddb7aef21050696db4a0b",
+      "bytes": 41943040,
+      "sha256": "1e0b1f0cff8e2d2f99010b98bfd57f84a81045572c6de72dfe23d2b008d4c098",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part04",
+      "git_blob": "d1ae4d55eab76f695ce12078bb18d622f7bd9122",
+      "bytes": 26331850,
+      "sha256": "d729f9603f4e49da6218c9b76fa00bffe5c17b7b76431a5d1344a33c5d0dd920",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pr362-native-20261016/video/2026-10-16 14-55-36.mkv",
+      "git_blob": "721fc7f601f6a7a31087efaa2291892ed0d08e92",
+      "bytes": 67634310,
+      "sha256": "13c7a8c8897c04aaccbe7d64b784875c1c5ba531faeed4f4779db8309d9a005f",
+      "decision": "RETAIN_FOR_NOW",
+      "reason": "Published original native recording or required part; observed consumer cites the session; replacement/retirement not established.",
+      "source": "work-log/2026-10-16-pr362-native-cross-window-acceptance.md"
+    }
+  ]
+}

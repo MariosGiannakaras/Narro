@@ -1,0 +1,1933 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "All frozen work-log/evidence tracked paths excluding 103 ZIP containers and 429 conventional video/audio filename-extension paths; metadata coverage and conservative triage, not consumer clearance.",
+  "sources": [
+    "work-log/evidence-cleanup-review-20261101/paths.csv",
+    "work-log/evidence-cleanup-review-20261101/inventory.json",
+    "work-log/evidence-cleanup-review-20261101/original-recording-retention.json",
+    "work-log/evidence-cleanup-review-20261101/frame-sequence-index.json",
+    "work-log/evidence-cleanup-review-20261101/ci936-live-frame-review.json"
+  ],
+  "method": "Join exact Git path/blob/size identities for 22 nonconventional original recording files/parts and 1,365 frame entries with previously audited sources; group every remaining unclassified path by family and filename extension. No binary data opened, no new media viewing or SHA rehash.",
+  "counts": {
+    "nonzip_nonconventional_paths": 15158,
+    "known_nonconventional_original_path_holds": 22,
+    "prior_audited_frame_paths": 1365,
+    "frame_previous_proposed_retain_count": 259,
+    "frame_previous_sparse_or_active_holds": 746,
+    "ci936_previous_retain_samples": 204,
+    "ci936_duplicate_review_candidates_not_deletion_approved": 156,
+    "remaining_review_required": 13771,
+    "remaining_review_bytes": 3471906191,
+    "families": 170
+  },
+  "extension_review_required": [
+    {
+      "extension": "json",
+      "paths": 6094,
+      "logical_bytes": 165246748
+    },
+    {
+      "extension": "png",
+      "paths": 2611,
+      "logical_bytes": 613686464
+    },
+    {
+      "extension": "jpg",
+      "paths": 1917,
+      "logical_bytes": 593693896
+    },
+    {
+      "extension": "txt",
+      "paths": 1653,
+      "logical_bytes": 19529124
+    },
+    {
+      "extension": "jsonl",
+      "paths": 384,
+      "logical_bytes": 33216939
+    },
+    {
+      "extension": "py",
+      "paths": 290,
+      "logical_bytes": 631724
+    },
+    {
+      "extension": "md",
+      "paths": 217,
+      "logical_bytes": 5858341
+    },
+    {
+      "extension": "html",
+      "paths": 180,
+      "logical_bytes": 3282735
+    },
+    {
+      "extension": "log",
+      "paths": 66,
+      "logical_bytes": 1116423
+    },
+    {
+      "extension": "csv",
+      "paths": 62,
+      "logical_bytes": 2383899
+    },
+    {
+      "extension": "yml",
+      "paths": 54,
+      "logical_bytes": 944619
+    },
+    {
+      "extension": "gitattributes",
+      "paths": 44,
+      "logical_bytes": 535
+    },
+    {
+      "extension": "stop",
+      "paths": 30,
+      "logical_bytes": 32
+    },
+    {
+      "extension": "ps1",
+      "paths": 27,
+      "logical_bytes": 105172
+    },
+    {
+      "extension": "bin",
+      "paths": 27,
+      "logical_bytes": 657444139
+    },
+    {
+      "extension": "pdf",
+      "paths": 19,
+      "logical_bytes": 2424976
+    },
+    {
+      "extension": "tsx",
+      "paths": 17,
+      "logical_bytes": 362725
+    },
+    {
+      "extension": "ready",
+      "paths": 16,
+      "logical_bytes": 92
+    },
+    {
+      "extension": "rs",
+      "paths": 6,
+      "logical_bytes": 174168
+    },
+    {
+      "extension": "mjs",
+      "paths": 5,
+      "logical_bytes": 36622
+    },
+    {
+      "extension": "part001",
+      "paths": 5,
+      "logical_bytes": 219492023
+    },
+    {
+      "extension": "part002",
+      "paths": 4,
+      "logical_bytes": 162030125
+    },
+    {
+      "extension": "ts",
+      "paths": 4,
+      "logical_bytes": 16463
+    },
+    {
+      "extension": "db",
+      "paths": 3,
+      "logical_bytes": 724992
+    },
+    {
+      "extension": "ini",
+      "paths": 3,
+      "logical_bytes": 6839
+    },
+    {
+      "extension": "part003",
+      "paths": 3,
+      "logical_bytes": 142606336
+    },
+    {
+      "extension": "part004",
+      "paths": 3,
+      "logical_bytes": 142606336
+    },
+    {
+      "extension": "part005",
+      "paths": 3,
+      "logical_bytes": 142606336
+    },
+    {
+      "extension": "part006",
+      "paths": 3,
+      "logical_bytes": 136991765
+    },
+    {
+      "extension": "css",
+      "paths": 3,
+      "logical_bytes": 13630
+    },
+    {
+      "extension": "sha256",
+      "paths": 2,
+      "logical_bytes": 104797
+    },
+    {
+      "extension": "js",
+      "paths": 2,
+      "logical_bytes": 1746
+    },
+    {
+      "extension": "part007",
+      "paths": 2,
+      "logical_bytes": 92274688
+    },
+    {
+      "extension": "part008",
+      "paths": 2,
+      "logical_bytes": 81905190
+    },
+    {
+      "extension": "part01",
+      "paths": 2,
+      "logical_bytes": 125829120
+    },
+    {
+      "extension": "part02",
+      "paths": 2,
+      "logical_bytes": 47877567
+    },
+    {
+      "extension": "release",
+      "paths": 1,
+      "logical_bytes": 0
+    },
+    {
+      "extension": "tsv",
+      "paths": 1,
+      "logical_bytes": 27479
+    },
+    {
+      "extension": "part000",
+      "paths": 1,
+      "logical_bytes": 41943040
+    },
+    {
+      "extension": "part009",
+      "paths": 1,
+      "logical_bytes": 34692215
+    },
+    {
+      "extension": "svg",
+      "paths": 1,
+      "logical_bytes": 167
+    },
+    {
+      "extension": "patch",
+      "paths": 1,
+      "logical_bytes": 15964
+    }
+  ],
+  "family_triage": [
+    {
+      "family": "pa-postfix-35528dea",
+      "paths": 19,
+      "logical_bytes": 689157766,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 19,
+      "remaining_review_bytes": 689157766
+    },
+    {
+      "family": "capture57-20261020",
+      "paths": 300,
+      "logical_bytes": 675746469,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 300,
+      "remaining_review_bytes": 675746469
+    },
+    {
+      "family": "physical-acceptance-20261025",
+      "paths": 375,
+      "logical_bytes": 420919403,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 375,
+      "remaining_review_bytes": 420919403
+    },
+    {
+      "family": "m7-ci936-20261004",
+      "paths": 961,
+      "logical_bytes": 273217284,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 360,
+      "remaining_review_required": 601,
+      "remaining_review_bytes": 255447160
+    },
+    {
+      "family": "m7-ci932-20261004",
+      "paths": 659,
+      "logical_bytes": 216827239,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 60,
+      "remaining_review_required": 599,
+      "remaining_review_bytes": 215664181
+    },
+    {
+      "family": "m7-ci948-20261004",
+      "paths": 221,
+      "logical_bytes": 126841231,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 221,
+      "remaining_review_bytes": 126841231
+    },
+    {
+      "family": "pr358-native-20261016",
+      "paths": 311,
+      "logical_bytes": 122980571,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 311,
+      "remaining_review_bytes": 122980571
+    },
+    {
+      "family": "m7-ci942-20261004",
+      "paths": 221,
+      "logical_bytes": 121363518,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 221,
+      "remaining_review_bytes": 121363518
+    },
+    {
+      "family": "pa353-native-20261014",
+      "paths": 61,
+      "logical_bytes": 101840392,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 61,
+      "remaining_review_bytes": 101840392
+    },
+    {
+      "family": "pa356-native-20261015",
+      "paths": 68,
+      "logical_bytes": 61573296,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 68,
+      "remaining_review_bytes": 61573296
+    },
+    {
+      "family": "all-remaining-physical-20261026",
+      "paths": 911,
+      "logical_bytes": 44898921,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 911,
+      "remaining_review_bytes": 44898921
+    },
+    {
+      "family": "pa01-08-20261013",
+      "paths": 326,
+      "logical_bytes": 344223907,
+      "previously_recorded_nonconventional_originals": 5,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 321,
+      "remaining_review_bytes": 38825550
+    },
+    {
+      "family": "m7-ci893-20261003",
+      "paths": 100,
+      "logical_bytes": 37570562,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 100,
+      "remaining_review_bytes": 37570562
+    },
+    {
+      "family": "ci1046-physical-20261008",
+      "paths": 301,
+      "logical_bytes": 33435309,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 301,
+      "remaining_review_bytes": 33435309
+    },
+    {
+      "family": "pr389-native-20261021",
+      "paths": 591,
+      "logical_bytes": 31141469,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 60,
+      "remaining_review_required": 531,
+      "remaining_review_bytes": 28413490
+    },
+    {
+      "family": "physical-human-20261026",
+      "paths": 141,
+      "logical_bytes": 26924302,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 141,
+      "remaining_review_bytes": 26924302
+    },
+    {
+      "family": "pr437-owned-overlay-native-20261029",
+      "paths": 146,
+      "logical_bytes": 26065852,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 146,
+      "remaining_review_bytes": 26065852
+    },
+    {
+      "family": "m5-remaining-native-20261017",
+      "paths": 572,
+      "logical_bytes": 23985850,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 572,
+      "remaining_review_bytes": 23985850
+    },
+    {
+      "family": "pr437-atomic-native-20261030",
+      "paths": 161,
+      "logical_bytes": 23477630,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 161,
+      "remaining_review_bytes": 23477630
+    },
+    {
+      "family": "m7-ci953-theme-20261005",
+      "paths": 405,
+      "logical_bytes": 22658352,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 405,
+      "remaining_review_bytes": 22658352
+    },
+    {
+      "family": "pa351-native-20261014",
+      "paths": 103,
+      "logical_bytes": 268327516,
+      "previously_recorded_nonconventional_originals": 7,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 96,
+      "remaining_review_bytes": 19809154
+    },
+    {
+      "family": "physical-input-causal-20261026",
+      "paths": 93,
+      "logical_bytes": 14754128,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 93,
+      "remaining_review_bytes": 14754128
+    },
+    {
+      "family": "pr357-native-20261016",
+      "paths": 193,
+      "logical_bytes": 14739674,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 193,
+      "remaining_review_bytes": 14739674
+    },
+    {
+      "family": "capture57-analysis-20261020",
+      "paths": 102,
+      "logical_bytes": 13999738,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 4,
+      "remaining_review_required": 98,
+      "remaining_review_bytes": 13827474
+    },
+    {
+      "family": "m7-ci884-20261003",
+      "paths": 50,
+      "logical_bytes": 13240909,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 50,
+      "remaining_review_bytes": 13240909
+    },
+    {
+      "family": "pr362-native-20261016",
+      "paths": 236,
+      "logical_bytes": 12973441,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 236,
+      "remaining_review_bytes": 12973441
+    },
+    {
+      "family": "pr386-native-20261020",
+      "paths": 121,
+      "logical_bytes": 11101088,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 121,
+      "remaining_review_bytes": 11101088
+    },
+    {
+      "family": "pr360-native-20261016",
+      "paths": 323,
+      "logical_bytes": 10717589,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 323,
+      "remaining_review_bytes": 10717589
+    },
+    {
+      "family": "physical-gaps-20261024",
+      "paths": 192,
+      "logical_bytes": 10536354,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 192,
+      "remaining_review_bytes": 10536354
+    },
+    {
+      "family": "pr387-native-20261020",
+      "paths": 203,
+      "logical_bytes": 9989795,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 203,
+      "remaining_review_bytes": 9989795
+    },
+    {
+      "family": "pr364-native-20261017",
+      "paths": 283,
+      "logical_bytes": 9787524,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 283,
+      "remaining_review_bytes": 9787524
+    },
+    {
+      "family": "pr362-native-review-20261016",
+      "paths": 58,
+      "logical_bytes": 9578151,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 58,
+      "remaining_review_bytes": 9578151
+    },
+    {
+      "family": "ra01-ra02-native-analysis-20261019",
+      "paths": 57,
+      "logical_bytes": 8901622,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 57,
+      "remaining_review_bytes": 8901622
+    },
+    {
+      "family": "m7-ci953-success125-20261005",
+      "paths": 75,
+      "logical_bytes": 8338472,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 75,
+      "remaining_review_bytes": 8338472
+    },
+    {
+      "family": "pr390-ui-capture-20261021",
+      "paths": 139,
+      "logical_bytes": 8176395,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 139,
+      "remaining_review_bytes": 8176395
+    },
+    {
+      "family": "physical-gap-restart-20261024",
+      "paths": 144,
+      "logical_bytes": 8068513,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 144,
+      "remaining_review_bytes": 8068513
+    },
+    {
+      "family": "physical-ab-20261024",
+      "paths": 217,
+      "logical_bytes": 7765656,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 217,
+      "remaining_review_bytes": 7765656
+    },
+    {
+      "family": "recordings-analysis-20261019",
+      "paths": 98,
+      "logical_bytes": 7440720,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 98,
+      "remaining_review_bytes": 7440720
+    },
+    {
+      "family": "capture57-resume-20261020",
+      "paths": 141,
+      "logical_bytes": 6893955,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 141,
+      "remaining_review_bytes": 6893955
+    },
+    {
+      "family": "m6-quick-native-20261017",
+      "paths": 208,
+      "logical_bytes": 6747808,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 208,
+      "remaining_review_bytes": 6747808
+    },
+    {
+      "family": "physical-recovery-20261025",
+      "paths": 138,
+      "logical_bytes": 6573869,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 138,
+      "remaining_review_bytes": 6573869
+    },
+    {
+      "family": "m7-ci950-loading-20261005",
+      "paths": 231,
+      "logical_bytes": 16121599,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 190,
+      "remaining_review_required": 41,
+      "remaining_review_bytes": 6536587
+    },
+    {
+      "family": "pr431-human-20261027",
+      "paths": 97,
+      "logical_bytes": 6415810,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 97,
+      "remaining_review_bytes": 6415810
+    },
+    {
+      "family": "pr437-native-20261028",
+      "paths": 103,
+      "logical_bytes": 5751168,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 103,
+      "remaining_review_bytes": 5751168
+    },
+    {
+      "family": "pr388-review-20261021",
+      "paths": 75,
+      "logical_bytes": 5711105,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 75,
+      "remaining_review_bytes": 5711105
+    },
+    {
+      "family": "pa356-notification-review-20261015",
+      "paths": 40,
+      "logical_bytes": 5278932,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 40,
+      "remaining_review_bytes": 5278932
+    },
+    {
+      "family": "physical-residual-20261026",
+      "paths": 389,
+      "logical_bytes": 9129428,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 215,
+      "remaining_review_required": 174,
+      "remaining_review_bytes": 4929835
+    },
+    {
+      "family": "pr437-causal-transition-20261029",
+      "paths": 15,
+      "logical_bytes": 4878049,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 15,
+      "remaining_review_bytes": 4878049
+    },
+    {
+      "family": "physical-native-final-20261024",
+      "paths": 437,
+      "logical_bytes": 7821523,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 249,
+      "remaining_review_required": 188,
+      "remaining_review_bytes": 4816622
+    },
+    {
+      "family": "native-resume-20261023",
+      "paths": 54,
+      "logical_bytes": 4706100,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 54,
+      "remaining_review_bytes": 4706100
+    },
+    {
+      "family": "pr437-native-move-admission-20261030",
+      "paths": 67,
+      "logical_bytes": 4339170,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 67,
+      "remaining_review_bytes": 4339170
+    },
+    {
+      "family": "2026-10-03-m7-ci873-c5-completed",
+      "paths": 205,
+      "logical_bytes": 11576625,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 132,
+      "remaining_review_required": 73,
+      "remaining_review_bytes": 4314756
+    },
+    {
+      "family": "m7-ci953-layout-20261005",
+      "paths": 44,
+      "logical_bytes": 4084064,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 44,
+      "remaining_review_bytes": 4084064
+    },
+    {
+      "family": "native-residual-20261024",
+      "paths": 50,
+      "logical_bytes": 3737011,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 50,
+      "remaining_review_bytes": 3737011
+    },
+    {
+      "family": "m7-ci953-gaps-20261005",
+      "paths": 86,
+      "logical_bytes": 3725701,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 86,
+      "remaining_review_bytes": 3725701
+    },
+    {
+      "family": "pointer-analysis-20261024",
+      "paths": 30,
+      "logical_bytes": 3595618,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 30,
+      "remaining_review_bytes": 3595618
+    },
+    {
+      "family": "m7-ci953-interfaces-20261005",
+      "paths": 80,
+      "logical_bytes": 3514677,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 80,
+      "remaining_review_bytes": 3514677
+    },
+    {
+      "family": "pa356-review-20261015",
+      "paths": 39,
+      "logical_bytes": 3471556,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 39,
+      "remaining_review_bytes": 3471556
+    },
+    {
+      "family": "timer-compositor-ab-20261021",
+      "paths": 82,
+      "logical_bytes": 3432830,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 82,
+      "remaining_review_bytes": 3432830
+    },
+    {
+      "family": "pr385-native-retest-20261019",
+      "paths": 113,
+      "logical_bytes": 3369011,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 113,
+      "remaining_review_bytes": 3369011
+    },
+    {
+      "family": "safe-capture-supplement-20261021",
+      "paths": 159,
+      "logical_bytes": 22530325,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 23,
+      "remaining_review_required": 136,
+      "remaining_review_bytes": 3251402
+    },
+    {
+      "family": "capture57-final-gaps-20261020",
+      "paths": 90,
+      "logical_bytes": 3216551,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 90,
+      "remaining_review_bytes": 3216551
+    },
+    {
+      "family": "pr437-corrected-native-20261029",
+      "paths": 70,
+      "logical_bytes": 3156962,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 70,
+      "remaining_review_bytes": 3156962
+    },
+    {
+      "family": "m5-remaining-review-20261017",
+      "paths": 47,
+      "logical_bytes": 2722910,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 47,
+      "remaining_review_bytes": 2722910
+    },
+    {
+      "family": "pa355-native-20261015",
+      "paths": 130,
+      "logical_bytes": 154781383,
+      "previously_recorded_nonconventional_originals": 4,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 126,
+      "remaining_review_bytes": 2620413
+    },
+    {
+      "family": "pa356-notification-final-20261015",
+      "paths": 111,
+      "logical_bytes": 2617166,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 111,
+      "remaining_review_bytes": 2617166
+    },
+    {
+      "family": "pa354-review-20261014",
+      "paths": 17,
+      "logical_bytes": 2292876,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 17,
+      "remaining_review_bytes": 2292876
+    },
+    {
+      "family": "m7-pr235-native-capture-only-20261005",
+      "paths": 38,
+      "logical_bytes": 2282987,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 38,
+      "remaining_review_bytes": 2282987
+    },
+    {
+      "family": "pr431-native-20261027",
+      "paths": 147,
+      "logical_bytes": 2115112,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 147,
+      "remaining_review_bytes": 2115112
+    },
+    {
+      "family": "m7-ci953-browser-shortcut-20261005",
+      "paths": 33,
+      "logical_bytes": 1986890,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 33,
+      "remaining_review_bytes": 1986890
+    },
+    {
+      "family": "pa354-native-20261014",
+      "paths": 107,
+      "logical_bytes": 177077170,
+      "previously_recorded_nonconventional_originals": 6,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 101,
+      "remaining_review_bytes": 1967696
+    },
+    {
+      "family": "pr437-motion-review-20261028",
+      "paths": 16,
+      "logical_bytes": 1920336,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 16,
+      "remaining_review_bytes": 1920336
+    },
+    {
+      "family": "m7-ci893-followup-20261003",
+      "paths": 59,
+      "logical_bytes": 1736249,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 59,
+      "remaining_review_bytes": 1736249
+    },
+    {
+      "family": "ra01-ra02-native-capture-20261019",
+      "paths": 104,
+      "logical_bytes": 1733164,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 104,
+      "remaining_review_bytes": 1733164
+    },
+    {
+      "family": "pr437-cursor-move-admission-20261030",
+      "paths": 30,
+      "logical_bytes": 1614237,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 30,
+      "remaining_review_bytes": 1614237
+    },
+    {
+      "family": "pa356-keyboard-review-20261015",
+      "paths": 11,
+      "logical_bytes": 1574135,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 11,
+      "remaining_review_bytes": 1574135
+    },
+    {
+      "family": "m5-board-pr357-local-20261015",
+      "paths": 26,
+      "logical_bytes": 1504201,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 26,
+      "remaining_review_bytes": 1504201
+    },
+    {
+      "family": "pa355-review-20261015",
+      "paths": 20,
+      "logical_bytes": 1421314,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 20,
+      "remaining_review_bytes": 1421314
+    },
+    {
+      "family": "focus-first-success-20261020",
+      "paths": 45,
+      "logical_bytes": 1244796,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 45,
+      "remaining_review_bytes": 1244796
+    },
+    {
+      "family": "pr389-native-preparation-20261021",
+      "paths": 4,
+      "logical_bytes": 1190698,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 1190698
+    },
+    {
+      "family": "pr360-local-20261016",
+      "paths": 29,
+      "logical_bytes": 1140973,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 29,
+      "remaining_review_bytes": 1140973
+    },
+    {
+      "family": "pa356-production-notification-20261015",
+      "paths": 25,
+      "logical_bytes": 1117684,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 25,
+      "remaining_review_bytes": 1117684
+    },
+    {
+      "family": "pa09-menu-intake-20261015",
+      "paths": 16,
+      "logical_bytes": 1035689,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 16,
+      "remaining_review_bytes": 1035689
+    },
+    {
+      "family": "m7-pr222-final-local-20261003",
+      "paths": 70,
+      "logical_bytes": 1015380,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 70,
+      "remaining_review_bytes": 1015380
+    },
+    {
+      "family": "pa356-residual-review-20261015",
+      "paths": 47,
+      "logical_bytes": 1014989,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 47,
+      "remaining_review_bytes": 1014989
+    },
+    {
+      "family": "pa356-residual-native-20261015",
+      "paths": 119,
+      "logical_bytes": 976371,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 119,
+      "remaining_review_bytes": 976371
+    },
+    {
+      "family": "m7-pr225-preflight-20261003",
+      "paths": 89,
+      "logical_bytes": 973399,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 89,
+      "remaining_review_bytes": 973399
+    },
+    {
+      "family": "pa353-source-comparison-20261014",
+      "paths": 3,
+      "logical_bytes": 961056,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 961056
+    },
+    {
+      "family": "timer-protected-candidate-20261021",
+      "paths": 59,
+      "logical_bytes": 944703,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 59,
+      "remaining_review_bytes": 944703
+    },
+    {
+      "family": "ra01-ra02-correction-20261019",
+      "paths": 38,
+      "logical_bytes": 792376,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 38,
+      "remaining_review_bytes": 792376
+    },
+    {
+      "family": "pointer-retry-20261024",
+      "paths": 38,
+      "logical_bytes": 755660,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 38,
+      "remaining_review_bytes": 755660
+    },
+    {
+      "family": "2026-10-03-m7-ci873-c5-computer-use-attempt",
+      "paths": 44,
+      "logical_bytes": 765074,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 6,
+      "remaining_review_required": 38,
+      "remaining_review_bytes": 723262
+    },
+    {
+      "family": "physical-upload-20261024",
+      "paths": 39,
+      "logical_bytes": 720831,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 39,
+      "remaining_review_bytes": 720831
+    },
+    {
+      "family": "pa351-preflight",
+      "paths": 15,
+      "logical_bytes": 705246,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 15,
+      "remaining_review_bytes": 705246
+    },
+    {
+      "family": "pr437-paired-capture-20261028",
+      "paths": 23,
+      "logical_bytes": 611198,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 23,
+      "remaining_review_bytes": 611198
+    },
+    {
+      "family": "m5-pr358-local-20261016",
+      "paths": 18,
+      "logical_bytes": 605651,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 18,
+      "remaining_review_bytes": 605651
+    },
+    {
+      "family": "pr359-ci-readiness-20261016",
+      "paths": 21,
+      "logical_bytes": 594756,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 21,
+      "remaining_review_bytes": 594756
+    },
+    {
+      "family": "m7-ci893-candidate-20261003",
+      "paths": 98,
+      "logical_bytes": 3136487,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 60,
+      "remaining_review_required": 38,
+      "remaining_review_bytes": 552906
+    },
+    {
+      "family": "batch-native389-20261023",
+      "paths": 133,
+      "logical_bytes": 539725,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 133,
+      "remaining_review_bytes": 539725
+    },
+    {
+      "family": "m7-pr228-local-20261004",
+      "paths": 64,
+      "logical_bytes": 529816,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 64,
+      "remaining_review_bytes": 529816
+    },
+    {
+      "family": "pr437-first-paint-20261028",
+      "paths": 11,
+      "logical_bytes": 523240,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 11,
+      "remaining_review_bytes": 523240
+    },
+    {
+      "family": "pr362-local-20261016",
+      "paths": 32,
+      "logical_bytes": 482826,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 32,
+      "remaining_review_bytes": 482826
+    },
+    {
+      "family": "pr364-local-20261017",
+      "paths": 23,
+      "logical_bytes": 480848,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 23,
+      "remaining_review_bytes": 480848
+    },
+    {
+      "family": "pr437-software-return-20261028",
+      "paths": 13,
+      "logical_bytes": 465319,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 13,
+      "remaining_review_bytes": 465319
+    },
+    {
+      "family": "pr386-success-projection-20261020",
+      "paths": 32,
+      "logical_bytes": 454015,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 32,
+      "remaining_review_bytes": 454015
+    },
+    {
+      "family": "pa356-preflight-20261015",
+      "paths": 23,
+      "logical_bytes": 436949,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 23,
+      "remaining_review_bytes": 436949
+    },
+    {
+      "family": "schedule-reuse-20261016",
+      "paths": 2,
+      "logical_bytes": 423485,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 2,
+      "remaining_review_bytes": 423485
+    },
+    {
+      "family": "user-remediation-20261026",
+      "paths": 20,
+      "logical_bytes": 390425,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 20,
+      "remaining_review_bytes": 390425
+    },
+    {
+      "family": "pa356-keyboard-diagnostic-20261015",
+      "paths": 49,
+      "logical_bytes": 387929,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 49,
+      "remaining_review_bytes": 387929
+    },
+    {
+      "family": "pa353-msi-native-20261014",
+      "paths": 28,
+      "logical_bytes": 384606,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 28,
+      "remaining_review_bytes": 384606
+    },
+    {
+      "family": "m7-pr222-local-20261003",
+      "paths": 42,
+      "logical_bytes": 378817,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 42,
+      "remaining_review_bytes": 378817
+    },
+    {
+      "family": "pr358-residual-source-compare-20261016",
+      "paths": 3,
+      "logical_bytes": 374746,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 374746
+    },
+    {
+      "family": "pr362-final-candidate-20261016",
+      "paths": 15,
+      "logical_bytes": 351673,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 15,
+      "remaining_review_bytes": 351673
+    },
+    {
+      "family": "m7-ci953-browser-shortcut-review-20261005",
+      "paths": 10,
+      "logical_bytes": 478479,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 2,
+      "remaining_review_required": 8,
+      "remaining_review_bytes": 281511
+    },
+    {
+      "family": "pr359-local-20261016",
+      "paths": 6,
+      "logical_bytes": 246605,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 6,
+      "remaining_review_bytes": 246605
+    },
+    {
+      "family": "ci953-capture-index-20261005",
+      "paths": 5,
+      "logical_bytes": 236122,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 5,
+      "remaining_review_bytes": 236122
+    },
+    {
+      "family": "pr389-quiet-baseline-20261021",
+      "paths": 26,
+      "logical_bytes": 222353,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 26,
+      "remaining_review_bytes": 222353
+    },
+    {
+      "family": "pr388-c38-acceptance-20261021",
+      "paths": 23,
+      "logical_bytes": 221296,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 23,
+      "remaining_review_bytes": 221296
+    },
+    {
+      "family": "pa353-nsis-native-20261014",
+      "paths": 26,
+      "logical_bytes": 188289,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 26,
+      "remaining_review_bytes": 188289
+    },
+    {
+      "family": "pr357-checkout-20261015",
+      "paths": 4,
+      "logical_bytes": 178965,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 178965
+    },
+    {
+      "family": "archived-done-reuse-20261017",
+      "paths": 4,
+      "logical_bytes": 136176,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 136176
+    },
+    {
+      "family": "pr437-live-taken-move-preflight-20261030",
+      "paths": 9,
+      "logical_bytes": 112946,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 9,
+      "remaining_review_bytes": 112946
+    },
+    {
+      "family": "2026-09-28-m7-ci191-r4-off-white-frames.png",
+      "paths": 1,
+      "logical_bytes": 98903,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 98903
+    },
+    {
+      "family": "2026-09-28-m7-ci624-resize-white.png",
+      "paths": 1,
+      "logical_bytes": 88867,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 88867
+    },
+    {
+      "family": "pr437-resume-policy-tests-20261030",
+      "paths": 4,
+      "logical_bytes": 87058,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 87058
+    },
+    {
+      "family": "pr437-atomic-publication-preflight-20261030",
+      "paths": 11,
+      "logical_bytes": 83143,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 11,
+      "remaining_review_bytes": 83143
+    },
+    {
+      "family": "pr362-final-review-20261016",
+      "paths": 6,
+      "logical_bytes": 81335,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 6,
+      "remaining_review_bytes": 81335
+    },
+    {
+      "family": "2026-09-28-m7-ci191-r3-off-white-frames.png",
+      "paths": 1,
+      "logical_bytes": 79732,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 79732
+    },
+    {
+      "family": "m7-ci953-supplemental-review-20261005",
+      "paths": 3,
+      "logical_bytes": 73361,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 73361
+    },
+    {
+      "family": "pa356-readiness-repair-20261015",
+      "paths": 5,
+      "logical_bytes": 72009,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 5,
+      "remaining_review_bytes": 72009
+    },
+    {
+      "family": "pa350-native",
+      "paths": 2,
+      "logical_bytes": 70077,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 2,
+      "remaining_review_bytes": 70077
+    },
+    {
+      "family": "pr437-paused-history-publication-20261030",
+      "paths": 6,
+      "logical_bytes": 67726,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 6,
+      "remaining_review_bytes": 67726
+    },
+    {
+      "family": "batch-main-20261023",
+      "paths": 26,
+      "logical_bytes": 52086,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 26,
+      "remaining_review_bytes": 52086
+    },
+    {
+      "family": "2026-09-28-m7-ci191-off-resize-tail.png",
+      "paths": 1,
+      "logical_bytes": 47571,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 47571
+    },
+    {
+      "family": "pr362-final-ci-rendered-20261016",
+      "paths": 4,
+      "logical_bytes": 45508,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 45508
+    },
+    {
+      "family": "2026-09-28-m7-ci624-mixed-dpi.png",
+      "paths": 1,
+      "logical_bytes": 45457,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 45457
+    },
+    {
+      "family": "pr437-owned-overlay-preflight-20261029",
+      "paths": 7,
+      "logical_bytes": 43591,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 7,
+      "remaining_review_bytes": 43591
+    },
+    {
+      "family": "pr359-main-integration-20261016",
+      "paths": 3,
+      "logical_bytes": 43233,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 43233
+    },
+    {
+      "family": "pr364-integration-20261017",
+      "paths": 3,
+      "logical_bytes": 39753,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 39753
+    },
+    {
+      "family": "pa354-final-prephysical-20261014",
+      "paths": 5,
+      "logical_bytes": 39566,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 5,
+      "remaining_review_bytes": 39566
+    },
+    {
+      "family": "pr360-main-integration-20261016",
+      "paths": 6,
+      "logical_bytes": 39207,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 6,
+      "remaining_review_bytes": 39207
+    },
+    {
+      "family": "pa356-ci-20261015",
+      "paths": 9,
+      "logical_bytes": 38846,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 9,
+      "remaining_review_bytes": 38846
+    },
+    {
+      "family": "pa354-ci-first-failure-20261014",
+      "paths": 3,
+      "logical_bytes": 36968,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 36968
+    },
+    {
+      "family": "pa353-ci-20261014",
+      "paths": 9,
+      "logical_bytes": 36031,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 9,
+      "remaining_review_bytes": 36031
+    },
+    {
+      "family": "pr358-main-integration-20261016",
+      "paths": 3,
+      "logical_bytes": 34309,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 34309
+    },
+    {
+      "family": "pa355-ci-20261015",
+      "paths": 8,
+      "logical_bytes": 33730,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 8,
+      "remaining_review_bytes": 33730
+    },
+    {
+      "family": "remaining-capture-intake-20261021",
+      "paths": 14,
+      "logical_bytes": 33678,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 14,
+      "remaining_review_bytes": 33678
+    },
+    {
+      "family": "pa354-ci-20261014",
+      "paths": 2,
+      "logical_bytes": 32912,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 2,
+      "remaining_review_bytes": 32912
+    },
+    {
+      "family": "pa351-exact-ci-20261014",
+      "paths": 2,
+      "logical_bytes": 32887,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 2,
+      "remaining_review_bytes": 32887
+    },
+    {
+      "family": "pr437-prephysical-audit-20261030",
+      "paths": 7,
+      "logical_bytes": 31045,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 7,
+      "remaining_review_bytes": 31045
+    },
+    {
+      "family": "pr437-software-topology-20261028",
+      "paths": 13,
+      "logical_bytes": 30361,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 13,
+      "remaining_review_bytes": 30361
+    },
+    {
+      "family": "2026-09-28-m7-ci624-timer-panel-white.png",
+      "paths": 1,
+      "logical_bytes": 28189,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 28189
+    },
+    {
+      "family": "pa356-ci-failed-38684913852",
+      "paths": 3,
+      "logical_bytes": 22909,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 22909
+    },
+    {
+      "family": "pr437-source-only-closeout-20261030",
+      "paths": 6,
+      "logical_bytes": 21124,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 6,
+      "remaining_review_bytes": 21124
+    },
+    {
+      "family": "pr437-cold-software-topology-20261028",
+      "paths": 11,
+      "logical_bytes": 17934,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 11,
+      "remaining_review_bytes": 17934
+    },
+    {
+      "family": "2026-09-28-m7-ci191-r2-on-collapse-tail.png",
+      "paths": 1,
+      "logical_bytes": 15023,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 15023
+    },
+    {
+      "family": "pa356-performance-intake-20261015",
+      "paths": 8,
+      "logical_bytes": 9511,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 8,
+      "remaining_review_bytes": 9511
+    },
+    {
+      "family": "pr437-atomic-api-ci-20261030",
+      "paths": 4,
+      "logical_bytes": 8909,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 8909
+    },
+    {
+      "family": "timer-post-clippy-20261021",
+      "paths": 4,
+      "logical_bytes": 8418,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 4,
+      "remaining_review_bytes": 8418
+    },
+    {
+      "family": "pa350-exact-head",
+      "paths": 9,
+      "logical_bytes": 8259,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 9,
+      "remaining_review_bytes": 8259
+    },
+    {
+      "family": "ra01-ra02-capture-preflight-20261019",
+      "paths": 5,
+      "logical_bytes": 7057,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 5,
+      "remaining_review_bytes": 7057
+    },
+    {
+      "family": "timer-composition-probe-20261021",
+      "paths": 7,
+      "logical_bytes": 4765,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 7,
+      "remaining_review_bytes": 4765
+    },
+    {
+      "family": "pa350-native-review",
+      "paths": 1,
+      "logical_bytes": 3142,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 3142
+    },
+    {
+      "family": "pa353-msi-intake-20261014",
+      "paths": 3,
+      "logical_bytes": 3071,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 3,
+      "remaining_review_bytes": 3071
+    },
+    {
+      "family": "preferences-reuse-20261016",
+      "paths": 2,
+      "logical_bytes": 2928,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 2,
+      "remaining_review_bytes": 2928
+    },
+    {
+      "family": "b62-reuse-20261017",
+      "paths": 1,
+      "logical_bytes": 1564,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 1564
+    },
+    {
+      "family": "b23-preview-reconciliation-20261017",
+      "paths": 1,
+      "logical_bytes": 1282,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 1282
+    },
+    {
+      "family": "20261015-completed-pr-tracking",
+      "paths": 1,
+      "logical_bytes": 1198,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 1198
+    },
+    {
+      "family": "pr358-ci-first-failure-20261016",
+      "paths": 1,
+      "logical_bytes": 353,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 0,
+      "remaining_review_required": 1,
+      "remaining_review_bytes": 353
+    },
+    {
+      "family": "m7-ci530-transition",
+      "paths": 4,
+      "logical_bytes": 412402,
+      "previously_recorded_nonconventional_originals": 0,
+      "previously_audited_frame_paths": 4,
+      "remaining_review_required": 0,
+      "remaining_review_bytes": 0
+    }
+  ],
+  "recorded_original_paths": [
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part001",
+      "git_blob": "3457373aee524b4978a50226cd83ce9c5485b7df",
+      "bytes": 62914560,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md"
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part002",
+      "git_blob": "a3dc007d5d1b9eab8f4c123dd273991fb696c0cd",
+      "bytes": 62914560,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md"
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part003",
+      "git_blob": "2af556e6fd8f42b74d4e4a5c7c72b4b3dd809291",
+      "bytes": 62914560,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md"
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part004",
+      "git_blob": "0402d449bc15ccc60f058640a5e87e86ed4176a3",
+      "bytes": 62914560,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md"
+    },
+    {
+      "path": "work-log/evidence/pa01-08-20261013/recording/continuous.mkv.part005",
+      "git_blob": "7903dc4ccc5f8f5df30777e356efd46c89832b0f",
+      "bytes": 53740117,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA01_08_REPORT_2026-10-13.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part001",
+      "git_blob": "9b0ca58cc2f52c5e161b3d933d7b2819a2409ab7",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part002",
+      "git_blob": "19dcc3a25ddce39dc1b7670dfe3491d734f18ba3",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part003",
+      "git_blob": "f3e4abc52f056be4183e613a51a15f6a3f2bae44",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part004",
+      "git_blob": "b31f658390ff5fac375de45a9ec61c757a25a91f",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part1-0659-to-0724-utc.mkv.part005",
+      "git_blob": "73bfd5db678675760e5537c96592e6d01f27dd35",
+      "bytes": 24995867,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part2-1054-to-1100-utc.mkv.part001",
+      "git_blob": "468396f0943c236c982a2abb2fa74fb65003f7a9",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa351-native-20261014/obs-active-part2-1054-to-1100-utc.mkv.part002",
+      "git_blob": "a5b1e8287f8c2205fd2e0d69292372bea31d602e",
+      "bytes": 13807295,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA351_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment2.mkv.part01",
+      "git_blob": "4cb2bd4b66c1f3427676924d334398062ab691c0",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment2.mkv.part02",
+      "git_blob": "ce5badd14f628e00d6bd2b8f61bc2e2be37e9fd0",
+      "bytes": 7339526,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports-segment3.mkv.part01",
+      "git_blob": "c5ccc3e9d6d3f6310dd5fd8272fa6d1e75bc2de0",
+      "bytes": 40685667,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part01",
+      "git_blob": "47ab7d5fd26e14eb98612478332e5cff58afb60e",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part02",
+      "git_blob": "d5b2cb949d35e9f91c6843737d84417ae70a6cc5",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa354-native-20261014/pa354-reports.mkv.part03",
+      "git_blob": "25e7949540239ab042b8834d9e6a8a3d1a2bff7c",
+      "bytes": 1255161,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA354_NATIVE_REPORT_2026-10-14.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part01",
+      "git_blob": "ad0491fb4e64345a784bd15fc8b1051bf038be17",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part02",
+      "git_blob": "fe6eb9405e53a13b36dba037921d52830d1855a8",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part03",
+      "git_blob": "dcc6cd60044ef2f7ee4ddb7aef21050696db4a0b",
+      "bytes": 41943040,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    },
+    {
+      "path": "work-log/evidence/pa355-native-20261015/pa355-native.mkv.part04",
+      "git_blob": "d1ae4d55eab76f695ce12078bb18d622f7bd9122",
+      "bytes": 26331850,
+      "previous_decision": "RETAIN_FOR_NOW",
+      "source": "docs/WINDOWS_PA355_NATIVE_REPORT_2026-10-15.md"
+    }
+  ],
+  "remaining_path_registry": "work-log/evidence-cleanup-review-20261101/paths.csv",
+  "disposition_policy": "All 13,771 remaining paths stay REVIEW_REQUIRED and protected from deletion; previous 22 recorded originals are RETAIN_FOR_NOW, previous 1,365 frames retain their specific technical pass labels but none is deletion-approved.",
+  "limits": [
+    "A file extension is not a reliable original/derived classification; inventory counts alone do not establish release or remove permission.",
+    "Earlier 156 CI936 frame duplicate candidates remain under review because original film is absent from current main despite verified historical recovery.",
+    "The 15,158 non-ZIP/nonconventional paths may include other videos in extensionless or part names not among the 22 verified originals; no exhaustive magic-byte sniffing was done.",
+    "Prior frame dispositions are proposed technical groupings, not completed consumer/timepoint reviews or deletion allowlists.",
+    "All decisions preserve original Blitzit/current native evidence and earlier batch-2 safety rejection. No deletion/move, CI/native NOT RUN."
+  ]
+}

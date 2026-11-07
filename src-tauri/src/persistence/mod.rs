@@ -100,6 +100,8 @@ fn migrations() -> Migrations<'static> {
 }
 
 pub fn configure_connection(conn: &Connection) -> Result<(), PersistenceError> {
+    #[cfg(feature = "physical-observability")]
+    crate::physical_trace::install_sqlite(conn);
     conn.pragma_update(None, "foreign_keys", "ON")?;
     Ok(())
 }

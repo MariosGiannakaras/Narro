@@ -1,2 +1,0 @@
-{"utc": "2026-10-15T17:02:52.665937+00:00", "action": "held SendInput physical scancode", "hwnd": 524918, "vk": 27, "scan": 1, "extended": false}
-{"utc": "2026-10-15T17:02:54.290099+00:00", "text": "normal tray Quit", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1033, 2542, 1055]}

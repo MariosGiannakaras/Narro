@@ -12,7 +12,7 @@ This guide is therefore not a request to record everything and not a requirement
 
 User-supplied raw recordings and transcripts should be placed in:
 
-- `reference/original-blitzit-videos/inbox/`
+- `reference/original-blitzit/videos/inbox/`
 
 The user does not need to rename or classify them first. Preserve originals and perform cataloging/timestamp analysis in:
 

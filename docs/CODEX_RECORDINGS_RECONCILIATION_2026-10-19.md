@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # Existing Narro recordings — completed scoped analysis, 2026-10-19
 
 **2026-10-24 supplemental intake closed:** [two pointer retry originals analysis](../work-log/evidence/pointer-analysis-20261024/README.md),2/2done; N09 recorded-build PASS, N10 exact Today/held-Escape PENDING, Timer cause UNCERTAIN/tray NOT RUN. Prior13+8reviews preserved; no additional published latest-original analysis backlog. The historical100-cell ledger below is unchanged and is not the36-criterion native rubric.

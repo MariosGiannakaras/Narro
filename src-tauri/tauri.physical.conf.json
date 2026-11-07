@@ -1,5 +1,7 @@
 {
   "build": {
-    "beforeBuildCommand": null
+    "beforeBuildCommand": "node scripts/build-physical-frontend.mjs",
+    "frontendDist": "../dist-physical",
+    "features": ["physical-observability"]
   }
 }

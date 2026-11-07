@@ -2,7 +2,7 @@
 
 Status: **INITIAL CORPUS INGESTION COMPLETE — 19/19 prior-pass coverage; exhaustive Pass 3 ACTIVE separately**
 
-This is the dedicated durable progress tracker for the user-supplied Blitzit video/transcript corpus under `reference/original-blitzit-videos/inbox/`.
+This is the dedicated durable progress tracker for the user-supplied Blitzit video/transcript corpus under `reference/original-blitzit/videos/inbox/`.
 
 It complements `docs/BLITZIT_VIDEO_EVIDENCE.md` for the **original ingestion pass**:
 - this file tracks prior coverage/progress per source pair;

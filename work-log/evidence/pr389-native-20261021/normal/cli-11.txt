@@ -1,5 +1,0 @@
-{
-  "presentation": "timerCompact",
-  "pending": "false",
-  "resizePending": "false"
-}
