@@ -2,7 +2,7 @@
 
 User decision,2026-11-07: acquire logs automatically from process start through exit during physical checks, collect them with original video and provenance, and require the executing/resuming chat to analyze the packet together. This is **not final-product logging**, cloud telemetry or automatic access to other chats.
 
-**Implementation status: IN PROGRESS.** A validated exact-source feature-build artifact and observed supervisor/capture health are prerequisites. Existing cached437/A389/B419 packages predate this contract and cannot acquire missing instrumentation through environment variables or renaming. No physical acceptance is implied.
+**Implementation status: MERGED AND CI-VALIDATED.** PR495 source24f5ba9250eccfd98ee51706d12aff4480e4649f passed Windows CI42390609215 (3/3), including actual startup/IPC/SQLite/normal-Quit/default-release exclusion. Main merge e70800b31da0a5f5d6a5af56c9163ce97f8b1915 preserves those validation inputs. The held437 application integration still needs its own exact-head CI/artifact; observed supervisor/capture/input health remains session admission. Existing cached437/A389/B419 packages predate this contract and cannot acquire missing instrumentation through environment variables or renaming. No physical acceptance is implied.
 
 ## Architecture and scope
 
@@ -16,7 +16,7 @@ User decision,2026-11-07: acquire logs automatically from process start through 
 
 ## One owned campaign, automatic acquisition
 
-Use the standalone `scripts/physical-session.mjs` shipped in the new physical artifact, Node, and the already prepared FFmpeg/FFprobe tools. The supervisor validates EXE bytes against the artifact's `physical.json` (including the observation feature), refuses duplicate Narro processes, starts loss-resistant MKV desktop video **before** launching Narro, assigns a fresh persistent session root and sets process log directories. It verifies the actual PID/path/hash, embedded source/feature and frontend/backend logging handshake.
+Use the standalone `scripts/physical-session.mjs` shipped in the new physical artifact, Node, and the already prepared FFmpeg/FFprobe tools. The preparation helper is preparation-only; its old direct -Launch path is retired. The supervisor validates EXE bytes against the artifact's `physical.json` (including the observation feature), refuses duplicate Narro processes, starts loss-resistant MKV desktop video **before** launching Narro, assigns a fresh persistent session root and sets process log directories. It verifies the actual PID/path/hash, embedded source/feature and frontend/backend logging handshake.
 
 ```powershell
 node scripts/physical-session.mjs start --exe '<admitted narro.exe>' --manifest '<physical.json>' --ffmpeg '<ffmpeg.exe>' --root 'E:\SystemFiles\Desktop\Narro Project\PhysicalEvidence'
