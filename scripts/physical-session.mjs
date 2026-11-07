@@ -39,6 +39,14 @@ async function filesUnder(root, folder = root) {
   return output.sort();
 }
 
+export function physicalEnvironment(root, launchIndex, inherited = process.env) {
+  return { ...inherited, NARRO_PHYSICAL_SESSION_DIR: join(root, "logs"),
+    NARRO_PHYSICAL_LOGGING_PROBE: "0",
+    NARRO_FOCUS_CAPTURE_DIR: join(root, "focus-compositor-logs", `launch-${launchIndex}`),
+    NARRO_TIMER_DIAGNOSTICS_DIR: join(root, "legacy-timer-logs"),
+    NARRO_NATIVE_MOVE_TRACE_DIR: join(root, "legacy-move-logs") };
+}
+
 export async function admitCandidate(executable, manifestFile) {
   const exe = await realpath(executable);
   if (basename(exe).toLowerCase() !== "narro.exe") throw Error("Preserve the admitted narro.exe filename; validation-name mode requires separate admission.");
@@ -163,9 +171,7 @@ export async function supervise(options) {
     if (await digest(candidate.executable) !== candidate.sha256) throw Error("Candidate bytes changed since admission.");
     const segment = { startedUtc: utc(), pid: null, exitCode: null, identity: null };
     const child = spawn(candidate.executable, [], { cwd: dirname(candidate.executable), windowsHide: false,
-      env: { ...process.env, NARRO_PHYSICAL_SESSION_DIR: join(root, "logs"),
-        NARRO_PHYSICAL_LOGGING_PROBE: "0",
-        NARRO_TIMER_DIAGNOSTICS_DIR: join(root, "legacy-timer-logs"), NARRO_NATIVE_MOVE_TRACE_DIR: join(root, "legacy-move-logs") },
+      env: physicalEnvironment(root, session.processes.length + 1),
       stdio: ["ignore", "pipe", "pipe"] });
     current = child; segment.pid = child.pid; session.processes.push(segment);
     child.stdout.pipe(logStream(join(root, `process-${child.pid}.stdout.log`)));
@@ -343,6 +349,23 @@ export async function collect(root, { ffprobe } = {}) {
   }
   if (!processes.length) gaps.push("No readable application trace packets.");
   for (const owned of session.processes || []) if (!processes.some(x => x.pid === owned.pid)) gaps.push("Missing trace for launched PID " + owned.pid);
+  // UTC joins supplemental A/B native stages to the video/log packet;
+  // neither native QPC nor UTC proves the DWM scanout instant.
+  const compositor = join(root, "focus-compositor-logs");
+  if (await exists(compositor)) for (const file of await filesUnder(compositor)) {
+    if (!file.endsWith("focus-transition-trace.jsonl")) continue;
+    for (const line of (await readFile(file, "utf8")).split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const row = JSON.parse(line);
+        if (!Number.isFinite(Date.parse(row.utc)) || row.sourceSha !== session.candidate.sourceSha
+            || !session.processes.some(p => p.pid === row.processId)) throw Error("unmatched source/PID/time");
+        timeline.push({ utc: row.utc, pid: row.processId, event: "focus-compositor:" + row.stage,
+          qpcTicks: row.qpcTicks, qpcFrequency: row.qpcFrequency, rasterToken: row.rasterToken,
+          sourceFile: inside(root, file), data: row.details });
+      } catch { gaps.push("Malformed or unmatched compositor trace: " + inside(root, file)); }
+    }
+  }
   const actionsFile = join(root, "actions.jsonl");
   if (await exists(actionsFile)) for (const line of (await readFile(actionsFile, "utf8")).trim().split("\n")) {
     if (line) timeline.push({ ...JSON.parse(line), event: "operator:" + JSON.parse(line).event });

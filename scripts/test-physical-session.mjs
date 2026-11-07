@@ -4,7 +4,7 @@ import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { randomUUID } from "node:crypto";
-import { admitCandidate, collect, digest, request } from "./physical-session.mjs";
+import { admitCandidate, collect, digest, request, physicalEnvironment } from "./physical-session.mjs";
 import { physicalTracePlugin } from "./physical-trace-vite.mjs";
 
 const root = await mkdtemp(join(tmpdir(), "narro-physical-session-test-"));
@@ -67,6 +67,11 @@ try {
   assert.equal(plugin.resolveId("@tauri-apps/api/core", "src/physicalInvoke.ts"), null);
   assert.equal(physicalTracePlugin(false).resolveId("@tauri-apps/api/core", "src/App.tsx"), null); assertions += 3;
 
+  const env1 = physicalEnvironment(root, 1, { KEEP: "yes", NARRO_FOCUS_CAPTURE_DIR: "outside", NARRO_PHYSICAL_LOGGING_PROBE: "1" });
+  const env2 = physicalEnvironment(root, 2, {});
+  assert.equal(env1.KEEP, "yes"); assert.equal(env1.NARRO_PHYSICAL_LOGGING_PROBE, "0");
+  assert.equal(env1.NARRO_FOCUS_CAPTURE_DIR, join(root, "focus-compositor-logs", "launch-1"));
+  assert.notEqual(env1.NARRO_FOCUS_CAPTURE_DIR, env2.NARRO_FOCUS_CAPTURE_DIR); assertions += 4;
   const exe = join(root, "narro.exe"); await writeFile(exe, "fixture executable bytes");
   const manifestPath = join(root, "physical.json");
   const manifest = { schema: "narro-ci-artifact-provenance/v1", kind: "physical", sourceSha: "a".repeat(40),
@@ -102,6 +107,21 @@ try {
   assert.equal(index.gaps.length, 1); assert.match(index.gaps[0], /not probed/);
   assert.equal(index.processes[0].records, 4);
   assert.ok(index.files.every(x => /^[a-f0-9]{64}$/.test(x.sha256))); assertions += 4;
+  const focusLog = join(packet, "focus-compositor-logs", "launch-1", "focus-transition-trace.jsonl");
+  await mkdir(join(packet, "focus-compositor-logs", "launch-1"), { recursive: true });
+  const focusRow = { utc: "2026-11-07T10:00:01Z", processId: 12, sourceSha: admitted.sourceSha,
+    stage: "native.after-raster", rasterToken: 7, qpcTicks: 12345, qpcFrequency: 1000, details: { step: 2 } };
+  await writeFile(focusLog, JSON.stringify(focusRow) + "\n");
+  index = await collect(packet);
+  const timeline = (await readFile(join(packet, "TIMELINE.jsonl"), "utf8")).trim().split("\n").map(JSON.parse);
+  const focus = timeline.find(x => x.event === "focus-compositor:native.after-raster");
+  assert.equal(focus.qpcTicks, 12345); assert.equal(focus.pid, 12);
+  assert.ok(index.files.some(x => x.path.endsWith("focus-transition-trace.jsonl")));
+  assert.equal(index.gaps.length, 1); assertions += 4;
+  await writeFile(focusLog, JSON.stringify({ ...focusRow, processId: 99 }) + "\n");
+  index = await collect(packet);
+  assert.ok(index.gaps.some(x => /unmatched compositor/.test(x))); assertions++;
+  await writeFile(focusLog, JSON.stringify(focusRow) + "\n");
   await writeRows(rows.filter(x => x.seq !== 3));
   index = await collect(packet);
   assert.ok(index.gaps.some(x => /Native trace incomplete/.test(x)));
