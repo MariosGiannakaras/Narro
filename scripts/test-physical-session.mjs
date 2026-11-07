@@ -51,6 +51,10 @@ try {
   assert.ok(batches.some(x => x.event === "page-end"));
   assert.ok(calls.some(x => x.command.endsWith("_drained") && x.args.queued === 0 && x.args.inFlight === 0));
   assert.ok(!JSON.stringify(batches).includes("private task")); assertions += 5;
+  await trace.invoke("after-seal-1",{}); await trace.invoke("after-seal-2",{});
+  const tail = calls.filter(x => x.command.startsWith("after-seal"));
+  assert.notEqual(tail[0].options.headers["x-narro-trace-id"],tail[1].options.headers["x-narro-trace-id"],
+    "request IDs must remain unique when a Quit drain has sealed frontend recording"); assertions++;
   trace.resume();
   for (let i = 0; i < 1100; i++) trace.record("stress", { i });
   assert.ok(trace.health().lost > 0, "bounded frontend queue must expose drops"); assertions++;
@@ -104,6 +108,9 @@ try {
   assert.ok(index.gaps.some(x => /Frontend tail/.test(x))); assertions += 2;
   await writeRows(rows); await write(join(logs, "health.json"), { state: "OPEN", lost: 2, written: 4, produced: 6 });
   index = await collect(packet); assert.ok(index.gaps.some(x => /Native trace incomplete/.test(x))); assertions++;
+  await writeRows([...rows,{seq:5,utc:"2026-11-07T10:00:03Z",event:"backend-dispatch",traceId:"missing-origin"}]);
+  await write(join(logs,"health.json"),{state:"CLOSED",lost:0,written:5,produced:5});
+  index=await collect(packet);assert.ok(index.gaps.some(x=>/no originating frontend record/.test(x)));assertions++;
   session.state = "CAPTURING"; await write(join(packet, "session.json"), session);
   await assert.rejects(collect(packet), /active session/);
   await write(join(packet, "supervisor-health.json"), { id: "fixture", utc: new Date(0).toISOString() });

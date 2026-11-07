@@ -8,7 +8,7 @@
   const prefix = "__narro_physical_trace_";
   const page = globalThis.crypto.randomUUID();
   const queue = [];
-  let sequence = 0, lost = 0, sending = false, action = null, stopped = false, inFlight = 0;
+  let sequence = 0, invocation = 0, lost = 0, sending = false, action = null, stopped = false, inFlight = 0;
   const sensitive = /title|note|content|text|password|token|body|path|url/i;
   function safe(value, key = "", depth = 0, seen = new WeakSet(), budget = { remaining: 512 }) {
     if (--budget.remaining < 0) return { omitted: "node-budget" };
@@ -53,7 +53,7 @@
   }
   async function tracedInvoke(command, args, options) {
     if (command.startsWith(prefix)) return invoke(command, args, options);
-    const traceId = page + ":" + (sequence + 1);
+    const traceId = page + ":" + (++invocation);
     const started = performance.now();
     inFlight++;
     record("ipc-start", { traceId, command, args });

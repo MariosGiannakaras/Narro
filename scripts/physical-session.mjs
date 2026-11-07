@@ -133,6 +133,7 @@ export async function supervise(options) {
   const journal = row => appendFile(join(root, "actions.jsonl"), JSON.stringify({ utc: utc(),
     elapsedUs: ((process.hrtime.bigint() - monotonicStart) / 1000n).toString(), ...row }) + "\n");
   let recordingExit = null, recordingError = null, firstFrame = null, current = null, finished = false, handling = false;
+  let framesSeen = 0, lastFrameAt = Date.now();
   const logStream = file => {
     const output = createWriteStream(file);
     output.on("error", error => { recordingError = "Diagnostic stream write failed: " + error.message; });
@@ -149,7 +150,12 @@ export async function supervise(options) {
     recorder.on("close", code => { recordingExit = code; done(); });
   });
   const progress = createInterface({ input: recorder.stdio[3] });
-  progress.on("line", line => { if (!firstFrame && /^frame=\s*[1-9]/.test(line)) firstFrame = utc(); });
+  progress.on("line", line => {
+    const match = /^frame=\s*(\d+)/.exec(line);
+    if (match && Number(match[1]) > framesSeen) {
+      framesSeen = Number(match[1]); lastFrameAt = Date.now(); if (!firstFrame) firstFrame = utc();
+    }
+  });
   let failure;
   async function launch() {
     if (current && current.exitCode === null && !current.killed) throw Error("Owned Narro is still alive; do not duplicate the process.");
@@ -211,6 +217,7 @@ export async function supervise(options) {
     let nextHealthCheck = 0;
     while (!finished) {
       if (recordingExit !== null || recordingError) throw Error("Recorder stopped unexpectedly; capture coverage is incomplete.");
+      if (Date.now() - lastFrameAt > 10000) throw Error("Recorder produced no new frame for10s; freeze the stalled capture for analysis.");
       if (current?.exitCode === null && Date.now() >= nextHealthCheck) {
         nextHealthCheck = Date.now() + 1000;
         const owned = session.processes.at(-1);
@@ -223,7 +230,7 @@ export async function supervise(options) {
             throw Error("Live trace health failed/stalled/dropped records; freeze this session for analysis.");
         }
       }
-      await save(join(root, "supervisor-health.json"), { id, pid: process.pid, utc: utc() });
+      await save(join(root, "supervisor-health.json"), { id, pid: process.pid, utc: utc(), framesSeen, lastFrameAt });
       const commands = [];
       for (const item of (await readdir(join(root, "control"))).filter(x => x.endsWith(".json"))) {
         if (!handled.has(item)) commands.push({ item, value: await json(join(root, "control", item)) });
@@ -260,6 +267,7 @@ export async function supervise(options) {
     }
     await recorderClosed;
     session.recording.exitCode = recordingExit;
+    session.recording.framesSeen = framesSeen;
     session.state = failure ? "INCOMPLETE" : "FROZEN";
     session.endedUtc = utc(); session.error = failure?.message;
     session.activeOwnedNarroPid = current?.exitCode === null ? current.pid : null;
@@ -305,10 +313,13 @@ export async function collect(root, { ffprobe } = {}) {
       for (const receipt of rows.filter(x => x.event === "frontend-drained").map(x => x.data?.receipt)) {
         if (!receipt || receipt.lost || receipt.queued || receipt.inFlight) gaps.push("Frontend shutdown acknowledgement incomplete for PID " + info.pid);
       }
-      const frontend = new Map();
+      const frontend = new Map(), starts = new Set(), outcomes = new Set(), dispatched = new Set();
       for (const row of rows) {
+        if (row.event === "backend-dispatch" && row.traceId) dispatched.add(row.traceId);
         const record = row.event === "frontend" ? row.data?.record : null;
         if (record) {
+          if (record.event === "ipc-start") starts.add(record.data?.traceId);
+          if (["ipc-result", "ipc-error"].includes(record.event)) outcomes.add(record.data?.traceId);
           const page = frontend.get(record.page) || { sequences: new Set(), lost: 0, started: false, ended: false };
           page.sequences.add(record.seq); page.lost = Math.max(page.lost, record.lost || 0);
           page.started ||= record.event === "frontend-start"; page.ended ||= record.event === "page-end";
@@ -317,6 +328,8 @@ export async function collect(root, { ffprobe } = {}) {
             traceId: record.data?.traceId, actionId: record.actionId, data: record.data });
         } else timeline.push({ utc: row.utc, pid: info.pid, seq: row.seq, event: row.event, traceId: row.traceId, data: row.data });
       }
+      for (const id of dispatched) if (!starts.has(id)) gaps.push("Backend request has no originating frontend record: " + id);
+      for (const id of starts) if (!outcomes.has(id)) gaps.push("Frontend request has no observed outcome: " + id);
       for (const [id, page] of frontend) {
         let last = 0;
         for (const sequence of page.sequences) last = Math.max(last, sequence);
