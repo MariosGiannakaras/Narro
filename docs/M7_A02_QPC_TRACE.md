@@ -8,6 +8,10 @@
 - `scripts/capture-focus-runtime.mjs` + `src/focusRuntimeVisualDriver.ts` were already a Focus-specific packaged-runtime harness, with `NARRO_FOCUS_CAPTURE_DIR` and `scripts/capture-focus-window-sequence.ps1`. Before this correction the Timer Expanded leg used the **direct diagnostic native setter**, bypassing the actual protected user-click path. That cannot diagnose A02.
 - This PR adds `src-tauri/src/focus_transition_trace.rs` (buffered native frame stage + limited React IPC phase markers), accurate QPC screen sample brackets, and `scripts/analyze-focus-compositor-trace.mjs` for offline correlation.
 
+## Current physical-chat route (2026-11-08)
+
+Current main HANDOFF and the fresh protocol supersede the older isolated-harness instructions below. Use the selected A/B package's own manifest-verified `scripts/physical-session.mjs start` on normal disposable Narro test data; no new Windows account or forced DB reset is required. It enables native buffered QPC trace automatically into `focus-compositor-logs/launch-N`, including across ordinary Quit/relaunch. Collection indexes the raw trace and adds source/PID-validated native stages with QPC fields to TIMELINE.jsonl beside original video/actual PTS. Malformed/unmatched records mark a gap. This video does not provide per-screenshot QPC brackets or exact DWM scanout; use the historical specialized harness only if actual physical evidence warrants that narrower follow-up. Renderer phase markers remain specific to that diagnostic fixture; ordinary IPC observation is separate. Enabling this trace environment alone does not trigger app/DB/window mutations.
+
 ## Run safely on actual Windows
 
 1. Use an **isolated disposable Windows profile / test DB / candidate**, never a user's personal running Narro, Roaming DB or Local caches. Do not delete/replace any personal data. Use the existing artifact-provenance and source-SHA process from `HANDOFF.md`; do not run during another owned capture. `capture-focus-runtime.mjs` creates a synthetic local task as part of the test, so it must never be run against a personal profile.
