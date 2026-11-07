@@ -10,7 +10,8 @@
   const queue = [];
   let sequence = 0, lost = 0, sending = false, action = null, stopped = false, inFlight = 0;
   const sensitive = /title|note|content|text|password|token|body|path|url/i;
-  function safe(value, key = "", depth = 0) {
+  function safe(value, key = "", depth = 0, seen = new WeakSet(), budget = { remaining: 512 }) {
+    if (--budget.remaining < 0) return { omitted: "node-budget" };
     if (depth > 10) return { omitted: "depth" };
     if (value === undefined) return null;
     if (typeof value === "string") return sensitive.test(key) || value.length > 256
@@ -18,19 +19,29 @@
     if (typeof value === "bigint") return value.toString();
     if (value === null || typeof value === "number" || typeof value === "boolean") return value;
     if (value instanceof Error) return { name: value.name, message: value.message.slice(0, 240),
-      code: value.code, stackFrames: String(value.stack || "").split("\n").slice(0, 12).map(x => x.slice(0, 240)) };
+      code: typeof value.code === "string" ? value.code.slice(0, 100) : null,
+      stackFrames: String(value.stack || "").split("\n").slice(0, 12).map(x => x.slice(0, 240)) };
     if (value instanceof ArrayBuffer || ArrayBuffer.isView(value)) return { binaryBytes: value.byteLength };
-    if (Array.isArray(value)) return { items: value.slice(0, 100).map(x => safe(x, "", depth + 1)), total: value.length };
+    if (typeof value === "object") {
+      if (seen.has(value)) return { omitted: "reference" };
+      seen.add(value);
+    }
+    if (Array.isArray(value)) return { items: value.slice(0, 100).map(x => safe(x, "", depth + 1, seen, budget)), total: value.length };
     if (typeof value === "object") return Object.fromEntries(Object.entries(value).slice(0, 100)
-      .map(([k, v]) => [k, safe(v, k, depth + 1)]));
+      .map(([k, v]) => [k, safe(v, k, depth + 1, seen, budget)]));
     return { omitted: typeof value };
   }
   function record(event, data = {}) {
     if (stopped) return;
-    const row = { page, seq: ++sequence, utc: new Date().toISOString(),
-      performanceMs: performance.now(), event, actionId: action, lost, data: safe(data) };
-    if (queue.length >= 1024) { lost++; return; }
-    queue.push(row);
+    try {
+      const row = { page, seq: ++sequence, utc: new Date().toISOString(),
+        performanceMs: performance.now(), event, actionId: action, lost, data: safe(data) };
+      if (queue.length >= 1024) { lost++; return; }
+      const bytes = JSON.stringify(row).length;
+      if (bytes > 12000) row.data = { traceId: row.data?.traceId, command: row.data?.command,
+        omitted: "record-size", originalChars: bytes };
+      queue.push(row);
+    } catch { lost++; } // Observation must never replace a product result/error with a logger exception.
   }
   async function flush() {
     if (sending || !queue.length) return;
@@ -40,17 +51,19 @@
     catch { lost += records.length; }
     finally { sending = false; }
   }
-  function tracedInvoke(command, args, options) {
+  async function tracedInvoke(command, args, options) {
     if (command.startsWith(prefix)) return invoke(command, args, options);
     const traceId = page + ":" + (sequence + 1);
     const started = performance.now();
     inFlight++;
     record("ipc-start", { traceId, command, args });
     // Preserve the caller's headers/options; never modify command args or return values.
-    const headers = new Headers(options?.headers);
-    headers.set("x-narro-trace-id", traceId);
     let result;
-    try { result = invoke(command, args, { ...options, headers }); }
+    try {
+      const headers = new Headers(options?.headers);
+      headers.set("x-narro-trace-id", traceId);
+      result = invoke(command, args, { ...options, headers: Object.fromEntries(headers.entries()) });
+    }
     catch (error) { inFlight--; record("ipc-error", { traceId, command, error, durationMs: performance.now() - started }); throw error; }
     return Promise.resolve(result).then(value => {
       inFlight--;

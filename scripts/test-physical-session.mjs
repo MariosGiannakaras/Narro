@@ -37,8 +37,14 @@ try {
   assert.equal(await trace.invoke("success", args, { headers: { "x-existing": "yes" } }), args);
   await assert.rejects(trace.invoke("failure", {}), /expected/);
   const success = calls.find(x => x.command === "success");
-  assert.equal(success.args, args); assert.equal(success.options.headers.get("x-existing"), "yes");
-  assert.ok(success.options.headers.get("x-narro-trace-id")); assertions += 5;
+  assert.equal(success.args, args); assert.equal(new Headers(success.options.headers).get("x-existing"), "yes");
+  assert.ok(new Headers(success.options.headers).get("x-narro-trace-id")); assertions += 5;
+  const cycle={}; cycle.self=cycle;
+  assert.equal(await trace.invoke("cycle",cycle),cycle);
+  const throwing = { get value() { throw Error("getter failed"); } };
+  assert.equal(await trace.invoke("getter",throwing),throwing);
+  assert.equal(typeof JSON.parse(JSON.stringify(success.options.headers))["x-narro-trace-id"],"string",
+    "correlation and caller headers must survive Tauri's JSON/postMessage fallback"); assertions += 3;
   await trace.drain();
   assert.ok(batches.some(x => x.event === "ipc-result"));
   assert.ok(batches.some(x => x.event === "ipc-error"));
