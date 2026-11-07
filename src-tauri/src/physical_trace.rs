@@ -249,7 +249,7 @@ pub fn begin_invoke(invoke: &Invoke<Wry>) -> ContextGuard {
 /// Called on the existing Quit worker BEFORE its final authoritative checkpoint, never on the native loop.
 /// A missed acknowledgement is evidence of an incomplete tail, never a product-state veto.
 pub fn prepare_exit(app: &tauri::AppHandle) {
-    let windows = app.webviews();
+    let windows = app.webview_windows();
     let labels: BTreeSet<_> = windows.keys().cloned().collect();
     let drained = DRAINED.get_or_init(|| Mutex::new(BTreeSet::new()));
     if let Ok(mut set) = drained.lock() {
@@ -281,7 +281,7 @@ pub fn resume_after_failed_exit(app: &tauri::AppHandle) {
         "quit-cancelled-observer-resume",
         json!({"frontendGap":true}),
     );
-    for (_, window) in app.webviews() {
+    for (_, window) in app.webview_windows() {
         let _ = window.eval("window.__NARRO_PHYSICAL_TRACE__?.resume()");
     }
 }
