@@ -3023,7 +3023,7 @@ pub fn run() {
                 focus_panel_placement_probe,
                 position_focus_panel,
                 present_focus_panel,
-                present_focus_for_blitz
+                present_focus_for_blitz,
                 focus_transition_trace_mark,
             ];
             move |invoke: tauri::ipc::Invoke<tauri::Wry>| {

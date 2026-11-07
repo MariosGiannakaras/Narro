@@ -62,6 +62,13 @@ try {
   const shutdown = await readFile("src-tauri/src/normal_shutdown.rs", "utf8");
   assert.ok(shutdown.indexOf("prepare_exit(&app)") < shutdown.indexOf("let result = complete_after_checkpoint"),
     "diagnostic draining must precede the final authoritative timer checkpoint"); assertions++;
+  const native = await readFile("src-tauri/src/lib.rs", "utf8");
+  const registration = native.match(/tauri::generate_handler!\[([\s\S]*?)\]/)?.[1];
+  assert.ok(registration, "physical observer must wrap the actual registered native commands");
+  const commands = registration.split(",").map(x => x.trim()).filter(Boolean);
+  assert.ok(commands.every(x => /^[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*$/.test(x)),
+    "every actual IPC registration must be comma-separated, including merged candidate commands");
+  assert.equal(new Set(commands).size, commands.length); assertions += 3;
   const plugin = physicalTracePlugin(true);
   assert.match(plugin.resolveId("@tauri-apps/api/core", "src/App.tsx"), /physicalInvoke\.ts$/);
   assert.equal(plugin.resolveId("@tauri-apps/api/core", "src/physicalInvoke.ts"), null);
