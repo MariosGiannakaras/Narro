@@ -346,7 +346,7 @@ for (const forbidden of [
   }
 }
 
-const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
+const handler = lib.indexOf("tauri::generate_handler![", lib.indexOf(".invoke_handler("));
 const registeredPresentation = lib.indexOf("present_focus_for_blitz", handler);
 if (handler < 0 || registeredPresentation < handler) {
   throw new Error("The coordinator-safe Blitz Focus presentation command must be registered in Tauri IPC.");

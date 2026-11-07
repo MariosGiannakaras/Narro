@@ -14,10 +14,13 @@ pub struct CommandError {
 
 impl CommandError {
     pub fn new(code: &'static str, message: impl Into<String>) -> Self {
-        Self {
+        let error = Self {
             code,
             message: message.into(),
-        }
+        };
+        #[cfg(feature = "physical-observability")]
+        crate::physical_trace::state_changed("backend-error-created", &error);
+        error
     }
 
     pub fn invalid_argument(argument: &str, reason: impl Display) -> Self {

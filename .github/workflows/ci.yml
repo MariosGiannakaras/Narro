@@ -258,6 +258,9 @@ jobs:
     - name: Run Rust Tests
       run: npm run test:rust
 
+    - name: Test Physical Observer Internals
+      run: cargo test --manifest-path src-tauri/Cargo.toml --locked --features physical-observability physical_trace::tests
+
     - name: Validate Performance Harness
       run: npm run test:performance-harness
 
@@ -319,7 +322,21 @@ jobs:
       run: |
         powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-physical-validation-build.ps1 -Executable src-tauri/target-physical/release/narro.exe
 
+    - name: Verify Physical Full-Stack Logging Lifecycle
+      shell: pwsh
+      run: powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-physical-session-logging.ps1 -Executable src-tauri/target-physical/release/narro.exe -NormalExecutable src-tauri/target/release/narro.exe
+
+    - name: Upload Physical Observer Failure Diagnostics
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-physical-observer-failure-diagnostics
+        path: artifacts/physical-logging-probe-*/**
+        if-no-files-found: warn
+        retention-days: 1
+
     - name: Prepare M7 Automatic Validation Executable
+      # Test-only tracing is excluded from the ordinary release.
       shell: pwsh
       run: |
         $output = Join-Path $PWD "artifacts/m7-validation"
@@ -348,6 +365,7 @@ jobs:
         name: narro-m7-physical-windows-x64
         path: |
           src-tauri/target-physical/release/narro.exe
+          scripts/physical-session.mjs
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
           artifacts/ci-provenance/physical.json

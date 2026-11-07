@@ -39,7 +39,9 @@ pub(crate) fn request_normal_exit(app: &tauri::AppHandle) {
         if let Err(error) = &save_result {
             eprintln!("Could not save Floating Timer position before exit: {error}");
         }
-        // Flush last, after potentially blocking placement work, immediately before exit.
+        #[cfg(feature = "physical-observability")]
+        crate::physical_trace::prepare_exit(&app);
+        // Flush last, after potentially blocking placement/diagnostic work, immediately before exit.
         let result = complete_after_checkpoint(
             || {
                 let service = app.try_state::<TimerService>().ok_or_else(|| {
@@ -62,6 +64,8 @@ pub(crate) fn request_normal_exit(app: &tauri::AppHandle) {
             },
         );
         if let Err(error) = result {
+            #[cfg(feature = "physical-observability")]
+            crate::physical_trace::resume_after_failed_exit(&app);
             show_failed_exit(&app, &error);
         }
     }));
