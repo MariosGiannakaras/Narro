@@ -13,7 +13,9 @@ This slice independently removed 14 obsolete root audit/verification helpers, fi
 
 **Independent slice integrated:** [PR492](https://github.com/MariosGiannakaras/Narro/pull/492), head `d6d31d61ca9ec3b81adf87ec24987cfa37bbb16a`, [CI42312821108](https://github.com/MariosGiannakaras/Narro/actions/runs/42312821108) **validation/fast/Windows 3/3 SUCCESS**, expected-head guarded squash merge `f2509bda16bacf00c63854168e11b404bbbd1f41`. The merge tree equals the exact green PR tree `6cf1ca1e7c9b247a648e7c3b59ae4f159a3f8483`. Subsequent documentation-only corrections do not change app source, workflows, protected media, the refused tracker or the 27-folder tree. Separate resulting-main run status is recorded in the final verification receipt, not inferred from PR success.
 
-Temporary clone cleanup: PENDING after publication. Generated dependency/build/icon outputs are owned by that disposable clone and are not committed.
+Temporary clone cleanup: **DONE via Windows Recycle Bin**. The owned `narro-cleanup-review-20261107` directory and five task-only helper scripts were recycled and their original paths verified absent; node_modules, dist and generated icon outputs left with the clone. Permanent disposal was rejected by execution policy (`blocked by policy`, no detailed rationale); reversible recycling succeeded. No unrelated local checkout or authoritative Blitzit asset was removed. The transient cleanup branch was automatically deleted after merge and its absence verified.
+
+**Resulting-main workflow verified:** [CI42315429050](https://github.com/MariosGiannakaras/Narro/actions/runs/42315429050) at merge `f2509bda16bacf00c63854168e11b404bbbd1f41` completed **SUCCESS**: validation-gate passed and fast/Windows jobs were correctly skipped by identical-green-PR-tree reuse. This is not a second fresh 3/3 build. The subsequent `8d45eb9390f48a54d17d93008f9b5ff6aa4253e1` reconciliation was Markdown-only.
 
 ## Validation and remaining deletion blocker
 
@@ -38,7 +40,7 @@ M1–M4 retain their scoped formal acceptance; M5–M9 remain OPEN. M10 requires
 
 ## NEXT AGENT ACTION
 
-The independent PR492 residual/workflow slice is complete. Finish only the recorded temporary-clone cleanup if still pending. The remaining 27-family operation is BLOCKED: retrieve the original tool diagnostic/request identity and obtain the supported review or clearance before any removal. Do not reissue it through another clone/tool or claim full cleanup. There is no pending PR492 source fix or new physical acceptance implied here.
+The independent PR492 residual/workflow slice is complete. The remaining 27-family operation is BLOCKED: retrieve the original tool diagnostic/request identity and obtain the supported review or clearance before any removal. Do not reissue it through another clone/tool or claim full cleanup. There is no pending PR492 source fix or new physical acceptance implied here.
 
 ## USER ACTION REQUIRED
 
