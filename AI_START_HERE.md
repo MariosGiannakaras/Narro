@@ -14,6 +14,11 @@ On an existing chat, `continue`, interruption or status question, resume the las
 4. Recheck the selected live source PR/head, exact CI and actual artifact. Main documentation SHA and an unmerged application candidate SHA are different identities. A newer main build is not automatically a replacement for PR437/389/419.
 5. Perform the one next action in HANDOFF. Expand only into referenced source/evidence needed for that action. A genuine unavailable input, hardware action or product decision may require the user; routine sequencing does not.
 
+
+## Automatic observation for physical checks (user decision2026-11-07)
+
+Use [the test-only session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md). Each physical campaign acquires meaningful full-stack logs from startup through exit automatically, alongside original video/actions/build identity, and the executing/resuming chat consumes the collected index/timeline/video/logs together before diagnosis. Use a validated physical-observability feature artifact and the owned session supervisor; existing older binaries cannot gain missing instrumentation by environment variables. Keep observation out of the final product/default build. Detect gaps/abrupt tails/write failures explicitly; logs are evidence, not proof of pixels, durable commits or unobserved async causality. Preserve actual in-flight files, independent native holds and original Blitzit. Repository-only agents cannot see local packets; ended chats do not monitor/collect them in the background. Implementation/runtime validation remains separate from PA acceptance.
+
 ## Local physical-test working set
 
 Local cleanup on2026-11-07 retired the21 old checkouts after preserving original Blitzit and source work. On the prepared Windows machine, use `E:\SystemFiles\Desktop\Narro Project\PhysicalChecks\START_HERE.md`, existing `PhysicalCandidates`, `Tools` and persistent `PhysicalEvidence`; verify current remote HANDOFF/live application head first. The kit contains exact canonical86 references and a self-contained preparation helper, not a development checkout. Source-only recovery is separate from admitted binaries. Do not recreate an old checkout or rebuild merely to begin unchanged physical tests. After each completed capture/review/retest, run the retention policy's verified replacement/retirement step.
