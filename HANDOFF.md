@@ -1,8 +1,8 @@
-# HANDOFF — local cleanup complete; fresh physical admission next
+# HANDOFF — automatic test-session observer implementation
 
-## NOW — Codex / 2026-11-07 / PREPARED
+## NOW — Codex / 2026-11-07 / FIXING
 
-Latest user task: audit continuous diagnostic logging for intermittent failures. Source audit and instruction correction COMPLETE; runtime logging health NOT RUN. Local cleanup/retirement remains COMPLETE, preserving all Blitzit and unpublished source work. No local Narro executable/installer, recording, AppData reset, OS/security/permission change or source-PR merge. Formal milestone/source/native holds remain.
+Latest user task: implement the best automatic start-to-end full-stack observation for physical checks only, collected with recordings and consumed jointly by future chats. IN PROGRESS on `feature/physical-session-observability-20261107`, temporary checkout `C:\Users\MariosG\.codex\worktrees\narro-autolog-20261107\Narro`. New [session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md) is authoritative. No local Narro/installer/desktop capture has run; source Rust compile remains NOT RUN locally (missing MSVC linker), to be verified by exact-head Windows CI. Local cleanup remains COMPLETE; protected references/software are untouched.
 
 The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
@@ -28,13 +28,15 @@ The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_
 
 Actual combined main+437 local preflight:116 test commands and production build PASS. The unpublished trial is mechanically clean, preserves main rules/helper/CI/cleanup and matches exact437 app/build inputs. A389/B419 each have a package.json conflict and independent8/8 holds. No source PR merged/modified, no new executable admitted and no duplicate Windows CI. Existing first-fault poison and actual movement causality remain unresolved; native/source acceptance stays independent.
 
-## Logging admission — explicit limits
+## Automatic observer — current implementation, not physical acceptance
 
-[Logging audit receipt](work-log/2026-11-07-codex-diagnostic-logging-readiness.md). Normal `narro.exe` does not automatically enable M7 validation logging. Before the PR437 process starts, explicitly set absolute writable `NARRO_TIMER_DIAGNOSTICS_DIR` and `NARRO_NATIVE_MOVE_TRACE_DIR` under its fresh persistent session, then observe actual timer-start JSONL and valid movement rows before the long batch. The helper neither enables these channels nor redirects stdout/stderr. Timer logging stops around4 MiB/PID; native trace caps at2,048 attempts with queue/drop limits. Keep video/action chronology and check channel health/budgets at safe boundaries. Neither channel exists on the admitted A389/B419 heads; environment variables cannot add it. Filename-gated validation mode requires separate admission. Full same-PID coverage beyond these limits remains a source change, not a completed preparation claim. Detailed capability/activation/limits are in the canonical protocol; no runtime health or physical PASS is claimed.
+The user clarified that logs must include successful operations/state changes across UI/IPC/backend/SQLite/native lifecycle, automatically from test startup through exit and collected with video/build/action context. This replaces the earlier limited panic/movement-only admission. The implementation uses a compile-time physical-only feature, separate frontend output, rotating JSONL/health, an owned video/process supervisor, normal-Quit drain and combined packet/index/timeline. Default/final-product logging is excluded. See the contract for coverage, causality/clock/performance limits and cross-chat access.
+
+Existing cached437/A389/B419 packages remain protected but do not meet this new logging requirement. First validate the observer source and its application-source integration/artifact; do not execute long cases on an old package while claiming whole-stack logs. Previous audit receipts remain dated facts.
 
 ## NEXT AGENT ACTION
 
-From the cleaned PhysicalChecks kit, admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session and satisfy logging admission above; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+Resume the owned temporary checkout, preserve its uncommitted observer implementation and current preflight result. Complete semantic/frontend/build separation/Rust-format checks and the source diff review, publish one coherent source PR and verify exact-head Windows feature/lifecycle CI. Then bring the validated observer to the held application source as required and admit its exact feature-build artifact; preserve independent437/A389/B419 holds. Refresh the local kit and remove only this owned temporary checkout after source is safely published and no required local work remains. Fresh physical capture and native acceptance remain NOT RUN.
 
 ## USER ACTION REQUIRED
 
