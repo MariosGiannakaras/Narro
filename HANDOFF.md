@@ -1,8 +1,8 @@
 # HANDOFF — automatic test-session observer implementation
 
-## NOW — Codex / 2026-11-07 / FIXING
+## NOW — Codex / 2026-11-07 / CI_WAIT
 
-Latest user task: implement the best automatic start-to-end full-stack observation for physical checks only, collected with recordings and consumed jointly by future chats. IN PROGRESS on `feature/physical-session-observability-20261107`, temporary checkout `C:\Users\MariosG\.codex\worktrees\narro-autolog-20261107\Narro`. New [session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md) is authoritative. No local Narro/installer/desktop capture has run; source Rust compile remains NOT RUN locally (missing MSVC linker), to be verified by exact-head Windows CI. Local cleanup remains COMPLETE; protected references/software are untouched.
+Latest user task: implement the best automatic start-to-end full-stack observation for physical checks only, collected with recordings and consumed jointly by future chats. [PR495](https://github.com/MariosGiannakaras/Narro/pull/495) published at `5fe80235c22dc7dc9f7056ec84d81551b54770f1` on `feature/physical-session-observability-20261107`; exact-head [Windows CI42385888449](https://github.com/MariosGiannakaras/Narro/actions/runs/42385888449) is IN PROGRESS. Implementation local preflight is COMPLETE, temporary checkout `C:\Users\MariosG\.codex\worktrees\narro-autolog-20261107\Narro`. New [session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md) is authoritative. No local Narro/installer/desktop capture has run; source Rust compile remains NOT RUN locally (missing MSVC linker), to be verified by exact-head Windows CI. Local cleanup remains COMPLETE; protected references/software are untouched.
 
 The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
@@ -36,7 +36,9 @@ Existing cached437/A389/B419 packages remain protected but do not meet this new 
 
 ## NEXT AGENT ACTION
 
-Resume the owned temporary checkout, preserve its uncommitted observer implementation and current preflight result. Complete semantic/frontend/build separation/Rust-format checks and the source diff review, publish one coherent source PR and verify exact-head Windows feature/lifecycle CI. Then bring the validated observer to the held application source as required and admit its exact feature-build artifact; preserve independent437/A389/B419 holds. Refresh the local kit and remove only this owned temporary checkout after source is safely published and no required local work remains. Fresh physical capture and native acceptance remain NOT RUN.
+Resume PR495 exact head `5fe80235c22dc7dc9f7056ec84d81551b54770f1`, [Windows CI42385888449](https://github.com/MariosGiannakaras/Narro/actions/runs/42385888449). Complete local synthetic media/collector and diff checks while CI runs; inspect the actual first failing step if it fails and repair this same PR. After required exact-head green checks, guarded ordinary integration may proceed; preserve newer main documentation. Then bring the observer to the held PR437 application source with its required exact-source feature CI/artifact before admitting the new physical campaign; A/B remain independent. No PR437/A/B hold is retired by tooling CI.
+
+Local aggregate frontend preflight/build,30 observer regressions, physical frontend build/normal-output separation, Rust formatting and PowerShell parser PASS. Local Rust compiler/tests NOT RUN (missing MSVC linker). The temporary checkout's local commit `2a59b662fa86e1904bf22d52ebea28c222ff8e78` has the same26 intended source-file bytes as remote495; publishing via Git data API based on latest main preserved authoritative documentation without fetching unrelated promisor media. Remote495 is the exact CI identity. Retain this owned checkout until corrections are published/verified, then refresh the local kit and remove it; do not remove protected software/references/recovery. Fresh physical capture/native acceptance remains NOT RUN.
 
 ## USER ACTION REQUIRED
 
