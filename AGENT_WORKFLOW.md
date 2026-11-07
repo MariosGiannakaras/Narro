@@ -436,3 +436,7 @@ Never silently change explicit user decisions, local-only scope, data-integrity 
 ## Milestone 1 rule
 
 Milestone 1 validates Windows/Tauri/WebView2 capability and performance; it is not polished product UI. Temporary diagnostic controls are acceptable. Do not start polished UI or Milestone 2 while a blocking M1 validation remains in `HANDOFF.md`.
+
+## Capture replacement and local housekeeping
+
+At each completed new acquisition/review or corrected retest, execute the [retention policy](docs/EVIDENCE_RETENTION_POLICY.md#replacement-and-retirement-at-every-new-acquisition--user-decision-2026-11-07): verify replacement identity/readability/claim coverage, keep only current packets with named consumers, record a compact retirement receipt and remove superseded Narro originals/frames/ZIPs/temporary profiles. Do this as part of the same phase boundary, without waiting for another cleanup request. A newer incomplete or unrelated recording is not replacement proof. Protect original Blitzit, active capture files, required exact-build software and unpublished work. Store current evidence outside disposable checkouts where possible. HANDOFF records the surviving session/consumer and next retirement condition; no competing tracker, automatic raw upload or CI for ignored local retirement.
