@@ -15,8 +15,8 @@ function invariant(condition, message) {
 // ceremony or implicit data deletion. Keep exact binary/PID admission guards.
 const physicalPreparation = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
 for (const required of [
-  'PA-01–PA-09 ACTIVE',
-  'docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md',
+  'PA-01..PA-09 ACTIVE',
+  'docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md',
   'normal Windows profile',
   'no backup, alternate profile or automatic reset',
   'if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {',
@@ -30,6 +30,8 @@ for (const required of [
 for (const forbidden of [
   "BackupProductionData", "Copy-Item -LiteralPath $productionAppDataDir",
   "production-appdata-backup", "isolated test profile",
+  "docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md",
+  "separate existing-evidence Blitzit comparison",
   "Refusing to launch against existing Narro production AppData",
 ]) invariant(!physicalPreparation.includes(forbidden),
   "obsolete forced isolation/backup must not return: " + forbidden);
