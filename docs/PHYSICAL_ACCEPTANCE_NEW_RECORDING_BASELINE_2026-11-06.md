@@ -62,6 +62,12 @@ PR389 and PR419 have **separate strict 8/8 physical-before-merge gates** and are
 - A confirmed failure returns to the application source owner for cause-led correction, regression and only invalidated revalidation. Two separately corrected CI-validated builds physically failing the same criterion require the existing architectural reassessment; two recorders of one failure do not meet that threshold.
 - Raw generated evidence stays outside tracked Git. Publish compact sanitized manifests/findings and a named consumer/retirement condition for any required large attachment. Preserve all original Blitzit media. Capture no unrelated user desktop/content when avoidable; do not publish whole user profiles or logs unrelated to the case.
 
+## Rotation after a new capture or corrected retest
+
+Use the [replacement/retirement procedure](EVIDENCE_RETENTION_POLICY.md#replacement-and-retirement-at-every-new-acquisition--user-decision-2026-11-07) at every safe acquisition/analysis boundary. Verify the new packet's identity, completeness and useful claim coverage before retiring its predecessor; preserve any unique interval still needed by a named independent consumer. Then remove superseded/unneeded Narro videos, frames, ZIPs, traces and temporary outputs in the same work cycle, keeping compact results/provenance. Keep all original Blitzit and current pending software. A past FAIL/PASS is not a permanent raw archive; an incomplete new recording is not a replacement.
+
+Prefer persistent local `Narro Project/PhysicalEvidence/<source>/<session>/` outside Git/disposable checkouts. If using a checkout-local ignored helper root, protect that checkout until the packet is transferred or retired. No routine AppData reset, new blanket consent or CI is needed for this verified local retirement. Record the surviving consumer and retirement condition in current HANDOFF.
+
 ## Checkpoint and stop conditions
 
 HANDOFF is the single current operation: owner, last observed time, phase PREPARED/CAPTURING/FROZEN/ANALYZING/FIXING/CI_WAIT/DONE, exact source/candidate/session path, completed atomic operation, required next step and protected in-flight state. It does not prove a process remains alive. Resume actual process/artifact state after interruption; do not repeat completed acquisition because a chat changed.
