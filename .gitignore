@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-physical
 dist-ssr
 artifacts/
 *.local
@@ -26,3 +27,8 @@ performance/m1-floating/*/
 *.njsproj
 *.sln
 *.sw?
+
+# New Narro diagnostic recordings are untracked by default.
+# Already tracked evidence is unaffected; original Blitzit sources are excluded.
+# Explicit publication of essential Narro evidence requires force-add and provenance.
+work-log/evidence/**

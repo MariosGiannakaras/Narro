@@ -1,0 +1,7 @@
+# Exact PR437 native and tool-repair handoff
+
+UTC 2026-10-28T09:27:19.350995+00:00
+
+**CURRENT PR437 physical/Computer Use checkpoint 2026-10-28:** [Four originals, independent per-subclaim outcomes and repair evidence](work-log/evidence/pr437-native-20261028/README.md). Exact PR437 head2fc7881c/EXE2e6eeed8/CI40648025484; 4/6 scenarios exercised at least partly, J01 actual LG-TV name **FAIL** (WMI model available, UI says Screen2), J02 matching connected-monitor snapshots **PASS scoped**, J05 same-host/task/paused endpoint **PASS scoped**, J06 once-only Done→Next eventual correct task **PASS scoped**; J03/J04 actual absent-monitor/reconnect **NOT RUN** (user unavailable). Full J02/J05/J06 have explicit untested/unanalyzed subclaims. Additional factual observation: running next task displayed Time Taken0 despite >5min Timer and final runtime checkpoint361522ms; investigate UI semantics, no data-loss claim. Both personal profiles restored hash-identically, all owned app/recorders stopped. Shared Computer Use runtime local compatibility repair installed; screenshot, coordinate+indexed clicks, Greek typing,100x80 drag and real Narro Settings click verified. Unsigned local repair/rollback report in evidence; no source code/new CI/merge. Formal M1–M4 accepted4/10; remaining gates and M10/M11/M12 restrictions unchanged.
+
+Detailed original media, chronology, individually graded scope and exact evidence: [immutable PR437 packet](evidence/pr437-native-20261028/README.md). No source edits or independent CI.

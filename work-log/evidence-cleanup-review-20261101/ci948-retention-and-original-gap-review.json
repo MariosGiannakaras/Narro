@@ -1,0 +1,2035 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "CI948 historical family: 221 non-ZIP/nonconventional evidence files + 6 selected MKV derivative excerpts; original source part absence must remain explicit",
+  "sources": [
+    "work-log/evidence-cleanup-review-20261101/paths.csv",
+    "work-log/evidence/m7-ci948-20261004/manifest.json",
+    "work-log/evidence/m7-ci948-20261004/video-provenance.json",
+    "work-log/evidence/m7-ci948-20261004/video-original/recording-01/parts.json",
+    "work-log/evidence/m7-ci948-20261004/video-original/recording-02/parts.json",
+    "work-log/evidence/m7-ci948-20261004/README.md",
+    "work-log/2026-10-04-codex-m7-ci948-physical-results.md"
+  ],
+  "method": "Reconcile exact tracked path/size/Git blobs with all 1,078 historic manifest entries, expected self-manifest exclusion; cross-reference eleven originally published MKV parts with their individual source manifests; distinguish absent 840 review frames from 11 absent source parts and a prior logs ZIP. Six tracked MKV video excerpts are derivative stream copies, not complete original-source substitutes.",
+  "totals": {
+    "family_paths": 227,
+    "new_nonconventional_sidecars": 221,
+    "new_nonconventional_sidecar_bytes": 126841231,
+    "conventional_mkv_excerpts": 6,
+    "conventional_mkv_excerpt_bytes": 297491774,
+    "historic_manifest_entries": 1078,
+    "current_nonself_receipt_matches": 226,
+    "self_manifest_exclusion": 1,
+    "historic_absent_paths": 852,
+    "absent_historical_review_frames": 840,
+    "absent_original_video_parts": 11,
+    "absent_logs_zip": 1,
+    "original_sources": 2,
+    "original_source_total_bytes": 403630464
+  },
+  "groups": {
+    ".gitattributes": {
+      "count": 1,
+      "bytes": 9
+    },
+    "Narro-M7-Logs": {
+      "count": 11,
+      "bytes": 79493
+    },
+    "POST_SESSION_MATRIX.md": {
+      "count": 1,
+      "bytes": 2233
+    },
+    "README.md": {
+      "count": 1,
+      "bytes": 6412
+    },
+    "SESSION_MATRIX.md": {
+      "count": 1,
+      "bytes": 3385
+    },
+    "actions.jsonl": {
+      "count": 1,
+      "bytes": 51839
+    },
+    "gallery": {
+      "count": 13,
+      "bytes": 650353
+    },
+    "inventory": {
+      "count": 31,
+      "bytes": 821074
+    },
+    "manifest.json": {
+      "count": 1,
+      "bytes": 194972
+    },
+    "obs-original.log": {
+      "count": 1,
+      "bytes": 14166
+    },
+    "observations": {
+      "count": 116,
+      "bytes": 101914846
+    },
+    "provenance.json": {
+      "count": 1,
+      "bytes": 3536
+    },
+    "review": {
+      "count": 33,
+      "bytes": 22125833
+    },
+    "setup-actions.jsonl": {
+      "count": 1,
+      "bytes": 892
+    },
+    "source-comparison": {
+      "count": 2,
+      "bytes": 959792
+    },
+    "video-original": {
+      "count": 4,
+      "bytes": 6251
+    },
+    "video-provenance.json": {
+      "count": 1,
+      "bytes": 2834
+    },
+    "visual-review.json": {
+      "count": 1,
+      "bytes": 3311
+    }
+  },
+  "source_originals": [
+    {
+      "recording": 1,
+      "source": "2026-10-04 22-32-45.mkv",
+      "original_bytes": 16275991,
+      "original_sha256_published": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7",
+      "published_part_count": 1,
+      "published_bytes": 16275991,
+      "parts_in_frozen_main": 0
+    },
+    {
+      "recording": 2,
+      "source": "2026-10-04 22-34-42.mkv",
+      "original_bytes": 387354473,
+      "original_sha256_published": "611b89496c0cf66e9f5f250f3669d797b0118433616da7309b93eb3e77247f18",
+      "published_part_count": 10,
+      "published_bytes": 387354473,
+      "parts_in_frozen_main": 0
+    }
+  ],
+  "absent_original_part_paths": [
+    {
+      "path": "video-original/recording-01/original.mkv.part-001",
+      "sha256_published": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7",
+      "bytes": 16275991,
+      "order": 1,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-001",
+      "sha256_published": "07b25561c1952470bd4319738fbf12393caf04dee6eaed3a2b23a47634fb3c4e",
+      "bytes": 41943040,
+      "order": 1,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-002",
+      "sha256_published": "289babb780ca78930e4f4d8fcb19971f4259b9e4d3656641806f151d351bbfad",
+      "bytes": 41943040,
+      "order": 2,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-003",
+      "sha256_published": "0243fb80bb0265e26d4a05a29bba8c010cc4f56ad91db1f11b6990010b917fd9",
+      "bytes": 41943040,
+      "order": 3,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-004",
+      "sha256_published": "4a00e844ab8f8e08b17935ca500bd4a942465ae003a67fa3b77ebf772e9ffbba",
+      "bytes": 41943040,
+      "order": 4,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-005",
+      "sha256_published": "4a1462f779fe90085329493e22e1d1d3e04628d1b5b58dc3e4dfaa8d524ece95",
+      "bytes": 41943040,
+      "order": 5,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-006",
+      "sha256_published": "6b506e1f859d1586f9d3ca079f104e985d93a86c21076eb5269bbda6b85b7102",
+      "bytes": 41943040,
+      "order": 6,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-007",
+      "sha256_published": "0c3b4ad545c6a53ce2d7030c6741c73910bd2afd5055b2bdf175357add61b678",
+      "bytes": 41943040,
+      "order": 7,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-008",
+      "sha256_published": "c4a35e7b6425e93172748806765b9482953f09fea6f6515b2ab1d2b342cd0040",
+      "bytes": 41943040,
+      "order": 8,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-009",
+      "sha256_published": "e07358914b5cb9e7dab35eb059a76c3538e48e41fe000f52cb2e8b2700222292",
+      "bytes": 41943040,
+      "order": 9,
+      "current_tracked": false
+    },
+    {
+      "path": "video-original/recording-02/original.mkv.part-010",
+      "sha256_published": "5133d7db01e394ae1544948a2ea1eea10a9c077bc5f9d9807e33ec4274daae68",
+      "bytes": 9867113,
+      "order": 10,
+      "current_tracked": false
+    }
+  ],
+  "absent_other_hist": [],
+  "earlier_review_png_absence": 840,
+  "former_logs_zip": "Narro-M7-Logs.zip",
+  "records": [
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/.gitattributes",
+      "git_blob": "625449502ba4b4d7c229c6ccee42e3ec41cc780c",
+      "bytes": 9,
+      "sha256_published": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/LATEST.txt",
+      "git_blob": "763d35a9849e02451cfa9ffd6d80747412c6a164",
+      "bytes": 36,
+      "sha256_published": "386050ebdfcf85ffcc6fbb7eb8cb8edea692fa207ea5ea07deeb586e35cfd640",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "sha256_published": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/m7-c5-last-pass.json",
+      "git_blob": "e97e0b6a76c97a8a8601a8cb02f8cc16c18cec1d",
+      "bytes": 1861,
+      "sha256_published": "b5aaee9fdfe29563447f14ca52d56f3a28164d0d55b4ed8f1ccd1a67a720ca5a",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/m7-c5-last-terminal-result.json",
+      "git_blob": "e97e0b6a76c97a8a8601a8cb02f8cc16c18cec1d",
+      "bytes": 1861,
+      "sha256_published": "b5aaee9fdfe29563447f14ca52d56f3a28164d0d55b4ed8f1ccd1a67a720ca5a",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/m7-c5-latest-result.json",
+      "git_blob": "e97e0b6a76c97a8a8601a8cb02f8cc16c18cec1d",
+      "bytes": 1861,
+      "sha256_published": "b5aaee9fdfe29563447f14ca52d56f3a28164d0d55b4ed8f1ccd1a67a720ca5a",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-193256.960Z-34456/events.jsonl",
+      "git_blob": "6e5d5937dd452fc3014f82397805624147381d9f",
+      "bytes": 49429,
+      "sha256_published": "1d31c5444ded7d48d9779fc89fae8d0dce8ba9f0413116853c2bfc0a9a093602",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-193256.960Z-34456/m7-c5-result.json",
+      "git_blob": "c66eebf2d92864a0bc5be72f2c1e1f863cb9fced",
+      "bytes": 519,
+      "sha256_published": "c0d4416cdc27b8e9986e3a73c85f97ca2cadd893fac755bdabffa5fd58b10fd8",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-193256.960Z-34456/session.json",
+      "git_blob": "60bf8e4744d22144917a4cc968367b61f3142be1",
+      "bytes": 489,
+      "sha256_published": "9d86cbc0ee268f9fe69bed0c3168f4e377128df299547577e2c2a804624777c5",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-195924.707Z-55464/events.jsonl",
+      "git_blob": "34838d59b4505f78141122ecd409f71ae965153a",
+      "bytes": 20322,
+      "sha256_published": "cab4d19f67737a6c6054958785516f8519f13f6ac6624322dc0786402454fde6",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-195924.707Z-55464/m7-c5-result.json",
+      "git_blob": "e97e0b6a76c97a8a8601a8cb02f8cc16c18cec1d",
+      "bytes": 1861,
+      "sha256_published": "b5aaee9fdfe29563447f14ca52d56f3a28164d0d55b4ed8f1ccd1a67a720ca5a",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/Narro-M7-Logs/session-20261004-195924.707Z-55464/session.json",
+      "git_blob": "fccebe0112c60f99d60805e5eb71c6ab19f4d5ad",
+      "bytes": 489,
+      "sha256_published": "409dcbdacbca4a8f9653963c10fd26ddf492f7e695c7184afbdb753b399e1afb",
+      "disposition": "HOLD_C5_SESSION_LOG",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/POST_SESSION_MATRIX.md",
+      "git_blob": "5ff8fe11436b6739113f9aeb261e96a2ee7492da",
+      "bytes": 2233,
+      "sha256_published": "15729e91f1f581f9e6ab63cbc51a6acc3d3540edb3efb8d20a06a47cd36fe860",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/README.md",
+      "git_blob": "38c440adf75933615b7d4f6c4b96d588837da64c",
+      "bytes": 6412,
+      "sha256_published": "d218809938e7c70b2ca4838b5485452b51de0db7585a3e68069504544f98f6ea",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/SESSION_MATRIX.md",
+      "git_blob": "cd52b80dadcf333a89d21300658b342f4e43102b",
+      "bytes": 3385,
+      "sha256_published": "04c484514f0c91cb500db36482f3b193e0dc5715c3454794858e888f22bb606d",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/actions.jsonl",
+      "git_blob": "456eafc8b129d124824592cd7f85306c9c60327d",
+      "bytes": 51839,
+      "sha256_published": "72aa92fa8bdbabee52a6dfcfc80b02697954738ea3f3aa37dfc6c71ca5c57232",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/all-queue-clipped-unscrollable.png",
+      "git_blob": "8126ea3012e21ad219b87ab032d616a2be8c0dd1",
+      "bytes": 79350,
+      "sha256_published": "dab471a9e90df2b4961665ba5f9f5b644b2a7950a1540c258a35c65bb80be285",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/archive-restore.png",
+      "git_blob": "784b7229e09f4fd70a77a9c9d1b0f7136d5c0e00",
+      "bytes": 86115,
+      "sha256_published": "d09c7763c89fde29eb0040faf0f56d5f456806099efbd2955637fecfe4d13784",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/focus-modal-no-native-find.png",
+      "git_blob": "294400d8194dbb501726d79e793a3a10540aa298",
+      "bytes": 51337,
+      "sha256_published": "aff976b8c205b9af99f3317744b52feb154973d9fc834786ba513542b968f5cc",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/index.json",
+      "git_blob": "c34defce27e21bbc832ebc66409f00157afd56af",
+      "bytes": 4811,
+      "sha256_published": "231571f8d22cb0108fc5dbd776687490df62db3d9aca661d419e1303f6f272aa",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/inline-delete-confirm.png",
+      "git_blob": "2607ff56e7f2de85831428afb187309afeaaad20",
+      "bytes": 17991,
+      "sha256_published": "3116a2f8b181d2c691bbe408b0a37ed4b20242ad2e627c453f40c10534215ec0",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/main-modal-no-native-find.png",
+      "git_blob": "ed61d0f419a01ea346046e34b778a21cfc8c4bdd",
+      "bytes": 127103,
+      "sha256_published": "def63e7e70169c71b6464ac51772ee745aab7d9a7f94a4b0585428a8767b9d54",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/narrow-est-editor-contained.png",
+      "git_blob": "4c0c2379d2c88fdbef8f96de6da5510b3a7c40bc",
+      "bytes": 24361,
+      "sha256_published": "493d95deb55b28659b0aedb16827ebcb4a6ff7be44cdc7e708b2941cf81b63e5",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/native-planning-drag-did-not-move.png",
+      "git_blob": "b62e41162cc0d14471816d6dffab4a43a3233091",
+      "bytes": 31162,
+      "sha256_published": "07ad28963c5b8ec2bd5e174d3b2bb8edc82e50a1478b786b4077a98bac71a4c1",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/normal-tray-quit.png",
+      "git_blob": "c50675b997474a47939635fb7576e348504831fb",
+      "bytes": 19353,
+      "sha256_published": "0845fb292b74c071624fc1b0aac71cbaf7d48345b678dfedd61ab3c6e3fb5d88",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/normal-wrapped-notes-tooltip.png",
+      "git_blob": "61b0188a5f709e06300d6fff9901a74afe5f1be3",
+      "bytes": 57938,
+      "sha256_published": "41da51e8fa5224ec00934683237a9e35c38a7666db2f4f5a4f7e2ae29e1e8b3a",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/owned-long-title-live.png",
+      "git_blob": "4e6b106e5aab64b92708ff36e0f1a1c6db72ae88",
+      "bytes": 72779,
+      "sha256_published": "cb6089a6578feac4e31b99e71ecb53ddba974ce2b636921fa60c7df0b20e5c23",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/reduced-wrapped-notes-tooltip.png",
+      "git_blob": "d4819f626db1a91daba790122c3e132e8d6aa0a9",
+      "bytes": 56886,
+      "sha256_published": "ef4f88507e42466914d0dde81bc2e2bb7cfde404174c9c12174c7e0fcab8aa5c",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/gallery/same-exe-paused-timer-restored.png",
+      "git_blob": "083295596f06c016b6410386d8ee8ba087cfd8d7",
+      "bytes": 21167,
+      "sha256_published": "6da9b70d1f66279faad15f2eb2c4a50010a4a7d4bf7f3e441be0c1fdbdac4ddf",
+      "disposition": "HOLD_VIDEO_DERIVED_GALLERY",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+      "git_blob": "e7334966b305b88197ffc3912089d89b0cb62493",
+      "bytes": 62499,
+      "sha256_published": "4218b69dd176434ecbb2172ca47162e40c9c1759d65721ce6dd4c4d747dd7e4b",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/HANDOFF.md",
+      "git_blob": "c97dd9cd0ad5338df46001b50eb690c51f0a1626",
+      "bytes": 26842,
+      "sha256_published": "2de9fa596602f06c3db0118e3513f92ac360846cc415ef579680da32166cea83",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/STATUS.md",
+      "git_blob": "d29639058ecca3dd2e2bc29e84ffd527a8d53a16",
+      "bytes": 168585,
+      "sha256_published": "04f8a76c43443be16e11b37280f7f4030a780e654f43faf62013cd39689d8569",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/TODO.md",
+      "git_blob": "29e20a3c5c2222044a1bb67fdc7f9d67e74f4416",
+      "bytes": 112344,
+      "sha256_published": "6b72fad0e8027981ca714b152793885665387054ddde54d7b98fc777e4d40b78",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/displays-after-clone.json",
+      "git_blob": "127b0d3867b5c17bf602b4bf3284892687aeb2b5",
+      "bytes": 15284,
+      "sha256_published": "05e2bc915e9c1060571947051cc501b2d4413c97c2771f36e5cce938587cdae8",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/displays-after-extend.json",
+      "git_blob": "c2a16eb688638ff049cdfbbc27c225f2b1221e96",
+      "bytes": 15319,
+      "sha256_published": "71fbc3bd435dc44066204128c1c139df804cbe1e03a5791d124c259280a03a28",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/displays-before-restore.json",
+      "git_blob": "cc0eb6536922309273448eb096f5259399c7abc7",
+      "bytes": 17241,
+      "sha256_published": "4d6136fd6a897464cfdcb59d2bf65e068298cc718310e5f0461887e9a2db465a",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-actual-queue-reorder.json",
+      "git_blob": "309190bf33c84c55a37bfeb078046efda3742d10",
+      "bytes": 10764,
+      "sha256_published": "c248c922e4b528c34c8fd79c67abc715158dc8641e365a7d4d027fdb51d7214b",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-cross-lane-drop.json",
+      "git_blob": "1be8bd45d0b0b93a78e34c345c01af8c3497f120",
+      "bytes": 11068,
+      "sha256_published": "b624af387b4a3171e6958329f05185f7de85b9be32c8b052f011fec8d239db65",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-duplicate.json",
+      "git_blob": "c06f04b67c58a8b0f0a984070216d290d5290ae6",
+      "bytes": 11461,
+      "sha256_published": "156ffd1c5defbd7dc373428809c54ffa72fb7a48c455b477b3773363b0f1ebdb",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-normal-quit.json",
+      "git_blob": "536857ef2452a48cd79ac94fe647814024b2b70b",
+      "bytes": 10765,
+      "sha256_published": "a1ceec2104c0450d649ce9a1bb7129ef42dee40ce88567b47d45a21f849c44bf",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-queue-reorder.json",
+      "git_blob": "fb3864bf8efcd8c191c91b4f5b47b78cec7a6e66",
+      "bytes": 10764,
+      "sha256_published": "4ab0ac06fd391b30b0b26669e9c86b29a600aa66975a85a17fc21cb22577d11d",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-after-top-edge-drag.json",
+      "git_blob": "1137c93d77180d64842b4e615354c436d2e535a8",
+      "bytes": 11071,
+      "sha256_published": "d3b9641838261d18a38b2f0b9b49321f2734901622dfbab8dfd3d717b3e2763f",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-before-c5-quit.json",
+      "git_blob": "a1c5246e67c1a08c748bd9b7bd1a5f5df1ac4642",
+      "bytes": 10765,
+      "sha256_published": "fd35f8d96c6c1e25c1d0cc5ef85619ee29821af9d673675ae24944792dc21232",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-before-launch.json",
+      "git_blob": "1e64555dc76e60f94bcdb075c0905e7c8a5fad8f",
+      "bytes": 9960,
+      "sha256_published": "be9fe72f35d92a1c20d7c91bcb7f415fe598a7400f178abe71bd7526be806586",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-before-new-exe.json",
+      "git_blob": "24b15f73e4f8735952bc173a58afc2a8dc781f6c",
+      "bytes": 9960,
+      "sha256_published": "31e9d6021a931a7c125fa980dfd436a1ea8d517a0a978e487a3a6dd53d5e15c2",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-c5-restored.json",
+      "git_blob": "8403e1ce4cca22276ac82d28ed0bc37f0cfe1ed6",
+      "bytes": 10764,
+      "sha256_published": "553f45348fb17f4b8e9eeeba1ae86af5b7e1045b6932450502e712250a194ef7",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-delete-cancel.json",
+      "git_blob": "97a436e08c6752f5784333602fb9469755e5a865",
+      "bytes": 11447,
+      "sha256_published": "1a57531e41fd1e68b0f108c8853da5b3edd887034ebcdfec9bd4cf23ab23f36a",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-delete-confirmed.json",
+      "git_blob": "182c7ec4ca40668d45037296e97c598fded5c3a4",
+      "bytes": 11071,
+      "sha256_published": "80b9aa6b4e6f0db6bfdb0b03e57e4596ad8cfb590df6615fa57669e732366e46",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-final-paused.json",
+      "git_blob": "1675194a7bc8c1a9fc06ac52f1f8511025c50f83",
+      "bytes": 11070,
+      "sha256_published": "13a745407db64c2db0dbd53d78f1096305a0b28679d876960061cc709c4e9588",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-first-task.json",
+      "git_blob": "54c1f11459d76e7f39bd2db35e7761550413d042",
+      "bytes": 10368,
+      "sha256_published": "eba334e070b5b3cf84a1e52cb1f2f0cbd599b2d9c78e2de9588f1ddde1759ea0",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-focus-modal-after-first.json",
+      "git_blob": "2982f5857537f3ee57c11a4f0eed84c13a9727a9",
+      "bytes": 10368,
+      "sha256_published": "f2b58d14019cbd2ea77ef0fd2b45b434902412b49e53f131d6bcfc21ee771755",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-focus-modal-after.json",
+      "git_blob": "a723596123a2333b8878cca609ba30f4735a10f4",
+      "bytes": 10368,
+      "sha256_published": "792579729da2f36cf2ac7c54c3d650af64efd5f9229d72ce9d45b5dcbeda4420",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-main-modal-after.json",
+      "git_blob": "c7e2093101758e828bb5fecfa46f5eba88e2f855",
+      "bytes": 10368,
+      "sha256_published": "d861b75667a0630240feb70405af09e2cd4dcdad2c605bf48d92f135b8af8d98",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-own-task-live.json",
+      "git_blob": "6281ed6f9a69972e0f0f1f28288ff43c800b7145",
+      "bytes": 10764,
+      "sha256_published": "84d7bff4ba8e920ef7bc57dc138b2f673f9a79d08e545d6e48a31e5f22b440a2",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/ledger-running-create-metrics.json",
+      "git_blob": "de26a431d4e564f5e117e028d8e220c3e1748cba",
+      "bytes": 10765,
+      "sha256_published": "046362f40254da5dd6f086760bbcca8777c439fb844e8f8b7098ae07f49b3b0d",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/obs-profile-preparation.json",
+      "git_blob": "c732590c9caac0f0a5a8dacbfc973c2bf52ee0ce",
+      "bytes": 517,
+      "sha256_published": "17fca537403071a046cf9a8e703434abf52bcc278464b2b74199a55585bb8ce8",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/obs-user-before-profile-selection.ini",
+      "git_blob": "3f2b7b049f15172a7234ee9227f913661d834a12",
+      "bytes": 2608,
+      "sha256_published": "2243bd7ce2ee673afcb626db6f5f39ea825b4ac61f5f56d971715e80b5cbcf8c",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/paths-after-clone.json",
+      "git_blob": "5a574925ca302bfbbcdc1da67678df35bd3c9ed6",
+      "bytes": 65348,
+      "sha256_published": "1819423c8813276afd63676e91aa143ba6a94985f92fda392ae86ec7ddaaddcc",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/paths-after-extend.json",
+      "git_blob": "278c3a8b9b1a395b79c95965bc202738d6f3bbde",
+      "bytes": 65278,
+      "sha256_published": "6ff0126346b0d73e6f16d1ec20b68f3efbff10249e05ba12af67289b90e3c14e",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/inventory/paths-before-restore.json",
+      "git_blob": "591e97c3447423cca3b430ffbeda2d0a2ca5fbb2",
+      "bytes": 65278,
+      "sha256_published": "ddbf0cfde7590dd422808dc714e9960db3ead0702554073e6622d1903669236a",
+      "disposition": "HOLD_PRESESSION_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/manifest.json",
+      "git_blob": "160b8be304a6b4cdc5a0322df6a47eb63a924508",
+      "bytes": 194972,
+      "sha256_published": null,
+      "disposition": "HOLD_SELF_CHECKSUM_MANIFEST",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/obs-original.log",
+      "git_blob": "993550f190945315e425af649a6f4a1c67bb01ef",
+      "bytes": 14166,
+      "sha256_published": "e159c1581b0d108eaed35334555d3fa1dea28e365fffd4f50e60197197002ba3",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/all-after-observed-wheel.json",
+      "git_blob": "3467978d36e122a4dfbe5bdf9e49f7da43fc95d0",
+      "bytes": 37252,
+      "sha256_published": "bb151d3e0f0f3201e24e13db6cf0b5a3ba4145f4b0c8a1d78b1a75612853667a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/all-after-observed-wheel.png",
+      "git_blob": "c27546da8a7fe960f41b5004276d31606fed6d15",
+      "bytes": 2850523,
+      "sha256_published": "49222526267b7fc8b71aa4eafcb9c3d7061c2f83ca052861e70e8ffb6c076bc6",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/archive-direct-result.json",
+      "git_blob": "305121996058502af497da34535f1ebfb5860a51",
+      "bytes": 28467,
+      "sha256_published": "afab0a160c55e27db9bd53cdd60482b73ab8b84dd5700f1abbb775c7c77bda85",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/archive-restore-before.json",
+      "git_blob": "02742060838666ae1ac8057e229710c46272a114",
+      "bytes": 23812,
+      "sha256_published": "9e594f03f220b2c6d3f7ee7be362dd6fe34ad2138d52990bbda3a24e4c3d02b7",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/archive-restored-home.json",
+      "git_blob": "3ce78398a32bc021d1d13ba2b14b3e5fee4c15ae",
+      "bytes": 30057,
+      "sha256_published": "ed7ba73839cecfa8656a83bc396e95c3fe5c43ac74657da228dde7c31f21cd98",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/c5-restored-timer.json",
+      "git_blob": "1fda90aa817863ee53cea1dfb9d37a032a2a027c",
+      "bytes": 18758,
+      "sha256_published": "a46c77516d18f24f1e4c28cc0739d0382de6d5a44f59bbaa4a1ab5d9111987fa",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/c5-restored-timer.png",
+      "git_blob": "66ba633ca4c28a4a4c287d8c8deeed925723bc25",
+      "bytes": 3451549,
+      "sha256_published": "dad19cdc3e842bc94fde4038b1a7c06922519ced5cf2578d5b48170fed82b39e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-after-cross-drag.json",
+      "git_blob": "03a16b32250f096920665c5780d38f491e3a8682",
+      "bytes": 18737,
+      "sha256_published": "625a28f5d12684a0b231b4460da28edf587247bffb863f317abe1f7126a6a35a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-after-cross-drag.png",
+      "git_blob": "8f0d577742ebdd755a1670e9f745dd03582e3eee",
+      "bytes": 2809826,
+      "sha256_published": "d7160c4bcef1b78fdd0d85aea90cc54d9c149aade69bccc2cbd66db8850a5c54",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-before-drag.json",
+      "git_blob": "e63141beddb9efe523fde65b60e354b0eaf79ffc",
+      "bytes": 18737,
+      "sha256_published": "2c0b8178c5fb2310cb4b083565d3fe6cfa490d2e412a0d08b20422cd09e2911a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-before-drag.png",
+      "git_blob": "b2819b0c1d4bbcdf9d6461f6e9a5479d5aa424e9",
+      "bytes": 2809588,
+      "sha256_published": "bfabbecc552ea5f2d5816abe2f67b0a0209397db034fbe046be1831a99fe94ed",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-drag-actual-result.json",
+      "git_blob": "787d989109331726ebb03c6196d2399928513ff7",
+      "bytes": 20112,
+      "sha256_published": "ad15afd47739dc4eaa85fd7fd190519677af7e7e6353e933818c62e31902d26f",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-hover-drag-zone.json",
+      "git_blob": "9c4b4026c498dc708bf8dfa058f85fa3b01ed0bc",
+      "bytes": 20071,
+      "sha256_published": "0d47e894bee86bc39dda4099f690fa56c43e4153f3e3f9b962606c6f5521e984",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/compact-hover-drag-zone.png",
+      "git_blob": "706239e676ec60746857cf69abfc11def9b1b1c5",
+      "bytes": 2809082,
+      "sha256_published": "d34a0221694e00c8613f71bbca85bfaeedcb38bf9ff0647f1f563ae0d56f8e88",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/expanded-notes125.json",
+      "git_blob": "4affdebfd9af42806983898e0b18bf1deca354d0",
+      "bytes": 24706,
+      "sha256_published": "88c83f0098d470d7bf117c84e08b3bac4115c1072812bea4e8a18013b49eb150",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/expanded-notes125.png",
+      "git_blob": "ed9fa429fbd2a02af33c41f51021a0ae1ca81456",
+      "bytes": 2854257,
+      "sha256_published": "fad422aaa40c51ca93bc6a45d1b734698eecadd8460d4e38e4ef6ef6192f1627",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-after-shortcut-resume.json",
+      "git_blob": "4eabad579c3a711de430aab3401a62112d0963e5",
+      "bytes": 24914,
+      "sha256_published": "02060c2ca5d76073f01e1d83aeb9b09cfbd83601ca1829b6c8ef395b91f406db",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-combo-end.png",
+      "git_blob": "943dc8288eace082084c274339657772c27aa433",
+      "bytes": 3502419,
+      "sha256_published": "38146bfb9aa16e8e494506623fec89ab14f64fc590218ba9c44cd2ec4a7c2dce",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-initial.json",
+      "git_blob": "95cb5b094d429b6da97463e2a1722ae5253075e4",
+      "bytes": 35423,
+      "sha256_published": "cf1f2b31b31acf9baf6f3ebee777f4b1f3d260af6c150dd875538878c21cca39",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-initial.png",
+      "git_blob": "d64ac9701fb5d3c67e472d6d746b15629bc56eae",
+      "bytes": 3528186,
+      "sha256_published": "8d08e538a6b20562bbb401d12d12705e94379ad68f8e2091362e151a06ec99eb",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-invalid-enter.json",
+      "git_blob": "a04e23f7cfb84b3daad117100cd10322a23217d2",
+      "bytes": 27221,
+      "sha256_published": "43a7d1b65bb73aea3e5590cf793bb186420b4c80f8e549fadfe7b2a24adc2925",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-b.json",
+      "git_blob": "3c236a6a170e86fedd00f8d2f07475683c2e8464",
+      "bytes": 27014,
+      "sha256_published": "ae7eb5acfc3dc978c9443b3a19c3df4dcbe76f6c6973bbfb116e6803f945f35a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-f.json",
+      "git_blob": "615b23cf805fca3372fe7aecde1769e0ce3e91b0",
+      "bytes": 27014,
+      "sha256_published": "a33bcd55ef9eeabed4eb37eaf3da87a3b14eaf1a5f0f5c35f412edcbc71f972b",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-n.json",
+      "git_blob": "a3e0cc43fbae14cccd232f48e19174f87bb04df3",
+      "bytes": 27014,
+      "sha256_published": "42457d603072c4d7de4d676bb6a4778bf5b21b99f61ec2c82864d51770db430e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-p.json",
+      "git_blob": "ea4b97abe94ba554ff3139c3e6046efc6fb13780",
+      "bytes": 27014,
+      "sha256_published": "4953962a24a1f7621d19b14ae486d5523387480a819b8a0b84cf9455dc178016",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-s.json",
+      "git_blob": "39e1f517b8ed2e8bb41088aec6e613ab2952af66",
+      "bytes": 27014,
+      "sha256_published": "917f13505376a14e55e339caa565e573171c8a2afc915643b34ae8a6232479e2",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-alt-t.json",
+      "git_blob": "89e2263ef2376b54a6bd919089309c7560d5f4cd",
+      "bytes": 27014,
+      "sha256_published": "f88ce2b0e4bf1b942ea14b8de175388852ab478052a02a3ae61ce22cf459a6b2",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-english-ctrl-f.json",
+      "git_blob": "762fb020da475b1dc30a296866a252721c2d84fa",
+      "bytes": 27014,
+      "sha256_published": "3823f79aaef03978efcfb36b42e66357fd204f8f2af92a6a15534dc4ef037cf5",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-b.json",
+      "git_blob": "1eae8ef5d6997fcecad1b922561ae6c261c92bbb",
+      "bytes": 27014,
+      "sha256_published": "aa32777a6e69ec8172babd6deebd74fbc7c8c60cc278ca3af899dec9ec5c9c9a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-f.json",
+      "git_blob": "7f35c300c71e783a9ad1e74d344f998896740815",
+      "bytes": 27014,
+      "sha256_published": "5fb4ddde4f6d52e580298a419c48de20a50c39c6a17e313ae40e372027196529",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-n.json",
+      "git_blob": "1a9b64048b0404b90cd8f6c54a6e842323150558",
+      "bytes": 27014,
+      "sha256_published": "ecd4792358edf5e42320502b56da12b63d750231021018e653ef8a0822528973",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-p.json",
+      "git_blob": "2a8dfd1016afedc52ef4ec8de4668f677cb68719",
+      "bytes": 27014,
+      "sha256_published": "acf9023ab8c5f02550add79197098cdba833d2ed1c1d82a297d67aaa47836725",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-s.json",
+      "git_blob": "e14f1920c03002426174357d17b44a8a0e354daa",
+      "bytes": 27014,
+      "sha256_published": "b897aff6bd0502e71ac6314dcd13870095d057636d709302e50d6c43785f000a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-alt-t.json",
+      "git_blob": "0082576565443c08cdb2513f4d5196817c566695",
+      "bytes": 27014,
+      "sha256_published": "7da93a65a301fc9c0a6e39662bc5f96595773106b61a31d309ec2a28ae1eadd5",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-greek-ctrl-f.json",
+      "git_blob": "c863d07ca7159e927fa89e1dda45a78edf7ae96b",
+      "bytes": 27014,
+      "sha256_published": "400939666917a1a8e55c6ac260c3787ac7057bb3245dedc884baca55541b7941",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-matrix.png",
+      "git_blob": "149cc611fa101fd14957ddfa46e8239a86cecd16",
+      "bytes": 3517210,
+      "sha256_published": "78f374d8d18d5e3d1b8b80a2b730627612f9f98d005777083856c409205ce34b",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-greek-ctrl-alt-b.json",
+      "git_blob": "cdf2cfcb0011ef2de29dd26ca4f727f05bd2f968",
+      "bytes": 27014,
+      "sha256_published": "2f0648a1a6b0826f5057b043138c9943f5c9beb94d67e3b115b0b425d76ab786",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-greek-ctrl-alt-p.json",
+      "git_blob": "e373256ff4d581fdfcce5323534cca4281018139",
+      "bytes": 27014,
+      "sha256_published": "de5995c00cba88720015dc505f71016ef3948cab976d9a88e37479c9e5a40392",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-greek-ctrl-alt-s.json",
+      "git_blob": "0e95d996ea2a7615b6382018df52023e9c0a5225",
+      "bytes": 27014,
+      "sha256_published": "6e1e019bb7e3f725bd0f0d0e792ce0fb66fe7194875703b0df7a5f774be5a4df",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-greek-ctrl-alt-t.json",
+      "git_blob": "842a3065579e45ded919ce6e8d3b1683926acfcb",
+      "bytes": 27014,
+      "sha256_published": "cbd9711dc5d14513d76bd2c316d0f2e2df027ca52313a4d4dbd69146330fa633",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-greek-ctrl-f.json",
+      "git_blob": "65caee041272ee70ccd9850a4a60af6995edbe7c",
+      "bytes": 27014,
+      "sha256_published": "e7a1d0c757bff527ca6537524858cd56f2e5524c0ecafb6f30d6d58f022ac3e6",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-remaining-greek-ctrl-alt-f.json",
+      "git_blob": "3c5cea01c02e4146fb7cc26f4e3196f14469f6e1",
+      "bytes": 27014,
+      "sha256_published": "b7860f1734c741001384fa2196b92baf98a70e2b01d476c3a610a39ea3d9f794",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/focus-modal-verified-remaining-greek-ctrl-alt-n.json",
+      "git_blob": "1d5ffcf43a651d8c88aba14bfd69fe9de1ea29a8",
+      "bytes": 27014,
+      "sha256_published": "c4fa8b3cc47f7642cf65560f555c07defe2bc0380d4a09f133e6339986939f9c",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/inline-delete-confirm.json",
+      "git_blob": "4ae127993d385ca619ea1142176b332a2244ebb9",
+      "bytes": 35172,
+      "sha256_published": "cbeabcfe2e7da666a8982c17e1c7cd9e5b9a962d3d907a3b15bd1eb0d6df2af7",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/large-notes125-crop.png",
+      "git_blob": "be88dcabf8a774a654fc80a629a9fcba8c8b93ce",
+      "bytes": 27123,
+      "sha256_published": "6bdf128be5bb327d4902fa916428b22d0c09aa19f57355c62faa35dd2a71b0c4",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/large-notes125-narrow.json",
+      "git_blob": "e161802b1e9da0d59d83a37b8b181de4ab96fda1",
+      "bytes": 25263,
+      "sha256_published": "811aefe3f2dfd1a578cd15d7aa7e4201828ea9ad0c2b9551b14a845f0944bd5b",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/large-notes125.png",
+      "git_blob": "b356d621d900f6afc040cf428cdff1bedd5485b7",
+      "bytes": 2857204,
+      "sha256_published": "a031818a16fdf54bedca38ed0f7f788ce5ccc3cedb3afe6c6ffebe88f8f353f7",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-before-lg-drag.json",
+      "git_blob": "a57fc42440d9134e12c0d0bf7e7b935177a838f4",
+      "bytes": 30164,
+      "sha256_published": "2786bde9603664cda95ed2d5bffc6c21e2ba7a0c3cebbd6ea225f51aee747491",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-cold-launch.png",
+      "git_blob": "1bc9f9aff170f04aebd8491b22e9daa8ca08c628",
+      "bytes": 3483190,
+      "sha256_published": "c0bb395df565b636049ffa84e7f87f8dd32701db1efedbebf7762d4cd9346bad",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-cross-lane-drop.json",
+      "git_blob": "ff45b94ad0202a6a6c07da82e616a667506f407d",
+      "bytes": 32261,
+      "sha256_published": "56e3566027151aa8fb3648bcd99bb8f92090e2941d798103d6a4c90b59fb853c",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-est-open.json",
+      "git_blob": "44b27425847967cf6eb64df6ec524522f7aa874d",
+      "bytes": 30615,
+      "sha256_published": "86601051f68ff2fb32b23a667aed2ee6b6a19cceba10ed7aef067d58b0332862",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-est-save-focused-crop.png",
+      "git_blob": "35003ca8c0012a7308d87553e05cc091f9dff986",
+      "bytes": 19952,
+      "sha256_published": "3de74b629a9a40f555e1fd0ed0adee705ab336d3dd018138ffe016ce64c5b789",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-est-save-focused.json",
+      "git_blob": "42a56b73e7683bc2cf697fc1ef4f6f05d7c6d304",
+      "bytes": 30825,
+      "sha256_published": "025476de907520dbecafdd2b5dc53ed708681f9e6d7f545380e805570eca1e75",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-est-save-focused.png",
+      "git_blob": "3f9920961d24a9ae4c78a7f56f22a3dae49335e7",
+      "bytes": 2885489,
+      "sha256_published": "f5346c598cbb203c968886b52c9148db7d5a6e3600bb5df0b3be0aede01f1f29",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-rest.json",
+      "git_blob": "8520756a46253ae3308fdda36fa2d467025c5fb6",
+      "bytes": 30290,
+      "sha256_published": "88489aa99e25255ad2045baacf3fd1331bb2db5c5519064193efa28f0d717708",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-rest.png",
+      "git_blob": "7c538df75a1b2fcc25672f438b537365fe968f27",
+      "bytes": 2882763,
+      "sha256_published": "9501485b10f19b0dcbc7b4571c8ff217b55cdb4d767a35c8d45281f45238c203",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-lg-taken-cancel-focused.json",
+      "git_blob": "6300e35d9870240ceb89bbd9b992f2ce61fb8d92",
+      "bytes": 30843,
+      "sha256_published": "62972a09c321dfe46d1ccce44bbbc221d954885f2591b34d9e28f3544a8bd886",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-after-matrix.png",
+      "git_blob": "08708a82bfbc4725109bc98994713d817c7dc2d6",
+      "bytes": 3498722,
+      "sha256_published": "5c8e6d7f7974652d6216f5e56f5ef46f77172bfad144822a224380703580fda4",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-b.json",
+      "git_blob": "87f585331b831a80e177e9cb2acf1055a8bdc62f",
+      "bytes": 32214,
+      "sha256_published": "3714b12156d143bc006c9bd40c4cfb388cc2d4dd05df37cf6550f60ade9bed4e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-f.json",
+      "git_blob": "99cf06709af7379a9a306ced907d6ee9e0f8f0ec",
+      "bytes": 32214,
+      "sha256_published": "9a0323d19d63a6b6c04aff68ebd4ec55afe965840230c72b965c1cc7944c91bf",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-n.json",
+      "git_blob": "6fff4def47e507ddeac1d90a4173ae97878066f9",
+      "bytes": 32214,
+      "sha256_published": "22d2993f2a4ce57c863e81bb1ce3f50740922529406902d2d11da922cf0e1fb2",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-p.json",
+      "git_blob": "814027ce34038178d0d3a1ffae0299500873161a",
+      "bytes": 32214,
+      "sha256_published": "d46cf2eba37e92e50d7bee77fbcd31c4a545863f927e51c4f6db187c833426ab",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-s.json",
+      "git_blob": "536a2bd253c366f8dc8c59430402e526b09acd42",
+      "bytes": 32214,
+      "sha256_published": "bb98ca472820d08a8afd78b6921a0681cb6d826120b5bc38d8af0cf71c80089e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-alt-t.json",
+      "git_blob": "8283a008feb4ac9f141b5317438babfe32bf3387",
+      "bytes": 32214,
+      "sha256_published": "d7be33394a839e7bace6540c0d96fbdc3938a3882102c4c164472837feb1674b",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-english-ctrl-f.json",
+      "git_blob": "06374dbf6fe197bdde250fe77ed2ea4af91479c3",
+      "bytes": 32214,
+      "sha256_published": "8aa08afa62b1f26c6c806776240c15d7d2bfe890fe35f37aed2981b815f30b84",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-b.json",
+      "git_blob": "3aa84492a143e8d8ed81dbe223c98290dbd5ae98",
+      "bytes": 32214,
+      "sha256_published": "c7d531196acb5d77ce8c1d0b146e67ac4de59df370d338792b4fcdf4e569b901",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-f.json",
+      "git_blob": "0ab749195fa37e631f86d2ec30e899931f87a65c",
+      "bytes": 32214,
+      "sha256_published": "ea393a1438048effb6164f811b5cae5f02cedb3329bc2a1b71070bce5fa38a68",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-n.json",
+      "git_blob": "c0aa1256af36760459b0c170f989da51e0034e49",
+      "bytes": 32214,
+      "sha256_published": "52856ee0dc6eb670b8398710510daa8f5681804ecdf4abe34199917aebeb2334",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-p.json",
+      "git_blob": "753e3b3cc12308070b2659673950e355a1db6f69",
+      "bytes": 32214,
+      "sha256_published": "d05463e1c9739094ef925e483b77e01456c89a594cf94f8808d7bda1137b25a5",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-s.json",
+      "git_blob": "86c1d63e81c1c4b5e0c96d96281a3c9ce0bd4622",
+      "bytes": 32214,
+      "sha256_published": "afeefe7241ea2d05518458f785030378dd9b4c72f46849fc9e180cc9c1044960",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-alt-t.json",
+      "git_blob": "c815d9f857e996a8a3833b7937155c32dfd8722b",
+      "bytes": 32214,
+      "sha256_published": "d9819962fdf15e214c2982f5a3d8ce8d7fafb773708fed153b49cd69e7e791f0",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-modal-greek-ctrl-f.json",
+      "git_blob": "928defd2e61bdb273616c61afb5c813874532889",
+      "bytes": 32214,
+      "sha256_published": "a9ac711af7ecf8768b6d1d772b29fd5b961844fe329b69933feb5493099fa66a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/main-planning-before-drag.json",
+      "git_blob": "9a58fc1dca7c19ca4caafd1acd8188cbdf58c40a",
+      "bytes": 32261,
+      "sha256_published": "72b2d4afb19fa422ed50ed68f397181d4cb8db120f42debb917391e7e7136b86",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/notes-large-before-resize.json",
+      "git_blob": "2237738dd8b0ed5b140d77acfbb694848d52271b",
+      "bytes": 25262,
+      "sha256_published": "7003f1a451b458aa3a415245100c99103f597d318ff8e4fc1889fb07eb64756e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/notes-wrapped-keyboard-tooltip125-crop.png",
+      "git_blob": "d2dba95bc3982e815224af57ba832c2a6f100e21",
+      "bytes": 24212,
+      "sha256_published": "a1df34f3e460a1892ef915383b3f1838929bf75ec21c351f5b6680bd7f6cce25",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/notes-wrapped-keyboard-tooltip125.json",
+      "git_blob": "92ce0f6208859b431503057f28347376f9699017",
+      "bytes": 24912,
+      "sha256_published": "fa8baf713186ed5d0ae6f8d5218edef00d19af81e3c91edcb0ea9999be999cba",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/notes-wrapped-keyboard-tooltip125.png",
+      "git_blob": "2ea3d80c28d342107ff91ddf219d01ce4364fd35",
+      "bytes": 2856800,
+      "sha256_published": "9705350d291c96876d05f107df268cfc49da3e177ca39ebc5e139a0e281c2d61",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/obs-before-recording.png",
+      "git_blob": "4678e1c7b57e2d311bc1ac87b1a1d65b2fee2cff",
+      "bytes": 3849786,
+      "sha256_published": "6c92b4d92cd276641493c96bb9551bd83ab53827f3b86605851a6910609c6c70",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/obs-layout.json",
+      "git_blob": "6a772ff7945af77e70c2280122dcd37e63e3fdde",
+      "bytes": 26638,
+      "sha256_published": "88e2200b8c44a4b8d274f1d91f2309708f737abc542a218b3ee1ad86a9b04194",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/obs-verified-dual-frame.png",
+      "git_blob": "0f177b64a3062efdcc8b8552d3f756d97a12bb89",
+      "bytes": 2952264,
+      "sha256_published": "f7e928a6c6a4085fd462c4eba4148cc65e492824e5e7b25360ca9f51c9437979",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/obs-visible-preview.png",
+      "git_blob": "d7cb70b6dc6cb83ef52b33de5b41d8f871f81dd7",
+      "bytes": 3849584,
+      "sha256_published": "aadaddf7d6f14a9e5b998ccc64ca31aaa66a126b96b684db7a58c104e7977eda",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/own-list-focus-after-restart.json",
+      "git_blob": "f7fd5315a8d21ce91496896569b44ff66db09dcf",
+      "bytes": 21815,
+      "sha256_published": "cbee4ff2b6db4087fc0e05074ad63477121d675bf54be56f42822185b68d998a",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/own-queue-actions-fresh.json",
+      "git_blob": "984991d9c84d1f4cb9e35b67be868b31a20470f5",
+      "bytes": 23166,
+      "sha256_published": "065cf153945cad2e1817deaf3ae8b756e4e43b08a813dda3efa0017b67e127ec",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/own-visible-title-reveal.json",
+      "git_blob": "e0fe061e92fb1d11b8eeddc84547714f8e85e5ea",
+      "bytes": 23166,
+      "sha256_published": "37d0a26e341c9e66d3e3bddb55d7898f1181920d27e235913122037f2d9da061",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/planning-hover-grammar.json",
+      "git_blob": "05984ae645233368a0b71701f5fa929a88acf1ff",
+      "bytes": 33021,
+      "sha256_published": "15fd6797bed332179253cc11cf9c5182db81bc003f2af82949e5d1a04c652b04",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/queue-focused.json",
+      "git_blob": "66912b260033fa87924164e1bd53101addaece74",
+      "bytes": 36770,
+      "sha256_published": "e10892924cfa4aaabecdd487397bf77254f68570341351ce29a29df66f262e30",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/queue-visible-crop.png",
+      "git_blob": "3eb71060e60069fb91eaf8d47c3d43ef17b15318",
+      "bytes": 42766,
+      "sha256_published": "bfa2e71f5f3a21f431eae7b188d16688f2da2f8b3429f8211412b4898e31e9c7",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/queue-visible.json",
+      "git_blob": "a703e916d14bcbea4e4095861553cdf4f975e206",
+      "bytes": 36770,
+      "sha256_published": "e9ac8375beb89bd5409e6b9dfb724967093c58ec3e85eb900d1f3b4a76b0ba31",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/queue-visible.png",
+      "git_blob": "947501f5802e97ffa5e838e66537c8b171182e58",
+      "bytes": 3533983,
+      "sha256_published": "bae2e75d35d3a3641113b86da9680b368cfadfd3db0b1b8185710610e1603674",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-compact-before-quit.json",
+      "git_blob": "7bd0eb543557d9a4c9f9daf6f5efbbcbc31e9e27",
+      "bytes": 20112,
+      "sha256_published": "692e644b2cbcaa1642ad53c8803ca7c5cab9ab6fa13252f2515f846c56539382",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-large-notes.json",
+      "git_blob": "4bfa25c8872e6d0b339c997f6ee18f525bf43c09",
+      "bytes": 25263,
+      "sha256_published": "5454d3953b5077d8f993de907a4deccee47bf1d1771496c226585f684a772df4",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-wrapped-tooltip-hover.json",
+      "git_blob": "a6a58441eec1f432ab498e7d6fa356c52e119163",
+      "bytes": 25468,
+      "sha256_published": "e55ef39c98120bbcb84a726472da94bace3786f9d4bee81eb67fd6b2067d2335",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-wrapped-tooltip-hover.png",
+      "git_blob": "1c4e8e0a222b1fd469590928a1581d72418bf6d5",
+      "bytes": 2901037,
+      "sha256_published": "b1b09e209417a4a3118036310ba149c21690a3e72788c0591f9f8b39d6f1f580",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-wrapped-tooltip-keyboard.json",
+      "git_blob": "44b6cc19efe85ca087c33e4f8c0767e383ea4ffc",
+      "bytes": 25468,
+      "sha256_published": "ab1fff49c7480f2cbe775f93f7966ce834f3ab14cd60a7c3f9b2a0dc42361d38",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/reduced-wrapped-tooltip-keyboard.png",
+      "git_blob": "207d43de7dda5afaca2578b7f234ac226350d286",
+      "bytes": 2900957,
+      "sha256_published": "0f69bec66a4868461afcb4eae10f7686d0924ddce1aaafc180df4695c5174590",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-dual-desktop.png",
+      "git_blob": "5d4f1730e8c12eb904fb467a1cb86d66c905dd1e",
+      "bytes": 3458706,
+      "sha256_published": "b506509132cc6b67a15c01fb90ee2c0cb7dc6aac14305903c7d634a4a4f93e33",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-narro-tray-hover-crop.png",
+      "git_blob": "320d480ec865f2b4f627da69d5411ab9acdb8668",
+      "bytes": 29050,
+      "sha256_published": "b4bf3670e20903feda39afd8f75fcc0a826cf30e33088130837ff10775a8301d",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-narro-tray-hover.png",
+      "git_blob": "2a06a32b4982a744e9d370c9c0b301446f108629",
+      "bytes": 3732355,
+      "sha256_published": "ff8c5f3ba9e41735895304ece3b66dad6730a29bc77d53aaa66278d49e388268",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-quit-menu-crop.png",
+      "git_blob": "cf4b1a5efd049b51b2adee615a6cabdae1bc721c",
+      "bytes": 30910,
+      "sha256_published": "42a68d4f90baee1d2883acaeefd1f6c4608aea1a4ce33916010a6634f1fe8a9c",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-quit-menu.png",
+      "git_blob": "8e1b6e34644b274479326a17c91520e31071cb25",
+      "bytes": 3467660,
+      "sha256_published": "990f70c58c8be38d5f737d345a7b731df5161e9090d5836f9a64d0a6d08d0e3d",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-tray-crop.png",
+      "git_blob": "4ba9b37ef28f36e7d5f52d7f7148f023c55a5302",
+      "bytes": 13608,
+      "sha256_published": "a226b1c3a22cff2b208fa8a8d57cc3704aca07a61a4a590556693975d1f13625",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-tray-open-crop.png",
+      "git_blob": "a5aa923422c0645e79b0875412c972c5d13abe45",
+      "bytes": 22628,
+      "sha256_published": "fb2ae6cafe96734b811add7f128eae2b9f72c761f86c0865b3330374364f38b9",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-tray-open.png",
+      "git_blob": "95819c38bdc184b56ff38b5af6441cff2890acfe",
+      "bytes": 3721703,
+      "sha256_published": "05207149e5b65e4a023ddac7631302fbd2085256726d57e4c80edc10cf82f049",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-tray-uia.json",
+      "git_blob": "a4c56c9a9cd1e33a29706cfe77a8b1f7eb765ae9",
+      "bytes": 2803,
+      "sha256_published": "ca622b01508fe1ea925c046086b51ecbbf8b5343ea11ca14ff36813fc831aaeb",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/setup-tray.png",
+      "git_blob": "0620ad4913719a6451b8aa85833c5f021de1d322",
+      "bytes": 3718941,
+      "sha256_published": "9deff601605310caf56ed4d2645152c205678da20d56a6c32415f83a80ee31aa",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-before-chevron-crop.png",
+      "git_blob": "3266fbcb2ee6136f4290d0c3dce74f17a6368dd2",
+      "bytes": 16042,
+      "sha256_published": "25046945840b362dfb2b04ac790c296e8b111cd9e52d1506f1ccd4545e53cd2f",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-before-chevron.png",
+      "git_blob": "0d82ff91b81245086a85b70cb311f7a1a40bf6ae",
+      "bytes": 3039374,
+      "sha256_published": "28d41bda9090844064861678b263b66a73b227abdd397bfc583f61c890e8eba2",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-menu-quit-crop.png",
+      "git_blob": "b560818e4775acd324c0d55049f5d343e4b3f4b7",
+      "bytes": 25654,
+      "sha256_published": "4dfb42f4cf6ea467395549a8f0065915cea78dc1556067ed54fbde98664c754e",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-menu-quit.png",
+      "git_blob": "67879fc755e8c798cf8f1ac91462ba275617a3bb",
+      "bytes": 2878808,
+      "sha256_published": "347b0ad46b84d0464c6ab30a8486ddec15a4105efd4193d46ec7c07795349bab",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-narro-hover-crop.png",
+      "git_blob": "5d1f71c2b2047acf2f566c5454cee19df293cc41",
+      "bytes": 24028,
+      "sha256_published": "b081e04574a8624dd46cc743ccdc4d49ea57800a619fca27b5df015692d3f934",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-narro-hover.png",
+      "git_blob": "3881603cbd93cd56c40ccfba609651b3954167ac",
+      "bytes": 3066404,
+      "sha256_published": "83de7fccf9f15cf10aeedb60978cc6a84eb21deafb29d7172aa4ada4be39dacc",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-open-crop.png",
+      "git_blob": "9c6dfaf2af85140497ec9a8c1e16e1506e4e54f0",
+      "bytes": 23653,
+      "sha256_published": "d2e9eab16aaee6db778b7f5778b08aea55867710d5e5c206d4097dc7db13ef5d",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/tray-open.png",
+      "git_blob": "6b7048b6e55ce46396b36d6824bcddf715b62088",
+      "bytes": 3045697,
+      "sha256_published": "380fd79fae5baf4900a6dac6a22f2a061dd7d9976e3941e8506dcc8a16e21aa2",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/wrapped-return-tooltip-keyboard125-crop.png",
+      "git_blob": "0095c11fd6190bb5f7ffb814078594e9c27209a0",
+      "bytes": 34191,
+      "sha256_published": "ce39a8d2bdffa3c803e407b1bd344056d1291d5a03fdc3721b848d6454cbc013",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/wrapped-return-tooltip-keyboard125.json",
+      "git_blob": "1442da9378673e1f2a96c4192b50cdb2392f9e6a",
+      "bytes": 25468,
+      "sha256_published": "282b378d527c5ad828cfdc3d0f98a10868c1e9cdc26cbf0eb00b48980cfcafef",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/observations/wrapped-return-tooltip-keyboard125.png",
+      "git_blob": "bb8525faf30f9423879a50a5fb223e77b5dc1cd9",
+      "bytes": 2866609,
+      "sha256_published": "190e409ae471713ece6c47015af03c1a7243a06e08ba835394cd3d1883ed6ddf",
+      "disposition": "HOLD_NATIVE_OBSERVATIONS",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/provenance.json",
+      "git_blob": "ad3b07903d23276b07612d31ede50a8f604c65e7",
+      "bytes": 3536,
+      "sha256_published": "ea5b4de6fe63c48b84222e16f23023d11abceef66f54bc427ad15df1ed76c38c",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/focus-modal-greek-ctrl-f/atlas-0001-0030.jpg",
+      "git_blob": "021bb093f2e7c17b51afa6798bdffd9891aa2d8c",
+      "bytes": 380739,
+      "sha256_published": "97e1288b3cee5a56963d6f7cef948f9e556fef8367af2a0902876cda96279be1",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/focus-modal-greek-ctrl-f/atlas-0031-0060.jpg",
+      "git_blob": "2a56151cdcbe222037fb9e625eed5e53917b8753",
+      "bytes": 380509,
+      "sha256_published": "82d73fabb2554b852c271406685137257f557e752f06d84d264ad60efd1a56be",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/focus-modal-greek-ctrl-f/atlas-0061-0090.jpg",
+      "git_blob": "bfda2fb9b5855401bc9466e0aab850ca65a50b41",
+      "bytes": 380637,
+      "sha256_published": "7c558c269efda4a43691070124b77165ba591f834267ba81b0e68786c7942ebd",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/focus-modal-greek-ctrl-f/atlas-0091-0120.jpg",
+      "git_blob": "0326f606ecf9bee02d2c363827f17456bc2e68e1",
+      "bytes": 380480,
+      "sha256_published": "a0dbe0de1ffd1509ebb03f8d0cb34fad6ba9dfe3a9085458f3c156c1ca18700d",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/focus-modal-greek-ctrl-f/index.json",
+      "git_blob": "4021c4610bfbd8ae98f7a2e5a2bab161a385cbfc",
+      "bytes": 441,
+      "sha256_published": "a8cb0832d54fcf74cbdcf190ed62321ae55e4621e5e2bf7b4d1f298277880ab1",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/main-modal-ctrl-f/atlas-0001-0030.jpg",
+      "git_blob": "96f14aa6e870e83a25922e34cbf16faf31059b37",
+      "bytes": 840765,
+      "sha256_published": "b0c23a85477ab6280a8ff7888ff76970ae6b82d89c696425cddfede451e73099",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/main-modal-ctrl-f/atlas-0031-0060.jpg",
+      "git_blob": "9f33bd99f2cc8dd67647db5f8beb92bbf5b1642c",
+      "bytes": 841433,
+      "sha256_published": "1a73b2cf4e1752b6619d620cfa0e3f9b670006f682166e986a92f5bd11e044d4",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/main-modal-ctrl-f/atlas-0061-0090.jpg",
+      "git_blob": "0ea454ad912c742c433e54d47b53f39850f5ef12",
+      "bytes": 841426,
+      "sha256_published": "d63915ce1e8b42c8c7723b90bd07eb558f84794cb88e5b3b72c563c612d8977c",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/main-modal-ctrl-f/atlas-0091-0120.jpg",
+      "git_blob": "edbd15ef3349d6e167d148df8a40c3dcef7b49ac",
+      "bytes": 840976,
+      "sha256_published": "1b0097fbf26bebdaf40f29cc8d146596a1ab927a35db565dfe2624753455920d",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/main-modal-ctrl-f/index.json",
+      "git_blob": "40561575af8ceac2efd15675a6fb8ff788745041",
+      "bytes": 411,
+      "sha256_published": "b5fdf621734c4e168bb9a71c9d563ce5bcbfe5c414beb213295ba3b91f2ba1d8",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0001-0030.jpg",
+      "git_blob": "5389eb8931b83c6dbd34353d9ac0cbe88eb7e3fc",
+      "bytes": 596924,
+      "sha256_published": "1d161b0ff744c7a423408bcba67911738172baaf46f758ba310568fbb9dc38af",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0031-0060.jpg",
+      "git_blob": "7dc5c3ee2f12e36f3f8708a47e555984a16ed386",
+      "bytes": 596917,
+      "sha256_published": "85e4cab4602dd9ba249128aea0fb0dea5436dcb2d12b876bf1fed2f1f00b3f88",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0061-0090.jpg",
+      "git_blob": "bbb95b505f8073ee6fbc209808cff476f8f7de86",
+      "bytes": 597174,
+      "sha256_published": "f0a8231e6a68ac3f519a37c65c25a303e6fdf44fe82611aec5f57285156804e2",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0091-0120.jpg",
+      "git_blob": "3cce3359f3c797b877fd8f7e805c641680fefd51",
+      "bytes": 597835,
+      "sha256_published": "6ca3a469dc37c0786b82165a7ff672a2c37125a71646a83528107274306dee0e",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0121-0150.jpg",
+      "git_blob": "fec52083127bc1e8bb974a4d58ea8de0706ff6c4",
+      "bytes": 627576,
+      "sha256_published": "e387b5cff5ed5327dac98607796dc3e6923eb06ffaca41e3c32dbe7d1520341f",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/atlas-0151-0180.jpg",
+      "git_blob": "c03379f9c91cbadff7e871b071e6563df5a353c3",
+      "bytes": 627740,
+      "sha256_published": "65411b851b19c285e0aeba2b154a07f79b25fd47c7a18f1d96892205a226ac7c",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/native-planning-drag/index.json",
+      "git_blob": "db0112f14ea5614bba152ae463823c805ead2a50",
+      "bytes": 505,
+      "sha256_published": "77b295e8422c321a44f8be03aca30890097ee89ee549381395fc6732880b541d",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0001-0030.jpg",
+      "git_blob": "b57ac4b42690844009d8940457cd3bcad676ca0c",
+      "bytes": 931059,
+      "sha256_published": "ed6d9547d8b74cef1e693a56b5e9f88787784b2f0ebce71714d47a2f87706ead",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0031-0060.jpg",
+      "git_blob": "11aa82d78af45fde1cc97706ea025494639e0d28",
+      "bytes": 931267,
+      "sha256_published": "ce7a53ed9e5975ecd5bffd18123be7278b79e8750c352d3ef40068ee71397777",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0061-0090.jpg",
+      "git_blob": "0159fa5b25ff48b33d0ad2a7e00467ff03b642dd",
+      "bytes": 949211,
+      "sha256_published": "c8d3d240ee842b9b268c49feb5b6ee14c582c734c22ea2cbb2b3f7cc7bb67471",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0091-0120.jpg",
+      "git_blob": "c01c8b58bd5bfa6a33621716004d6d7ebedaecd8",
+      "bytes": 989798,
+      "sha256_published": "842128601740857a5682c77082f017c0478f24f4c2fab521ad2b0ce6bbe54107",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0121-0150.jpg",
+      "git_blob": "e9e226b8a601a25dba696a7e4e82c220127c9a08",
+      "bytes": 989551,
+      "sha256_published": "0f02af96c14bf7f51a628cbb16fa1c95bba568b2179835c94bbc670bcf7f1fac",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/atlas-0151-0180.jpg",
+      "git_blob": "993c8e79ff0fbdbb0a7e521a2c92cd61283b938a",
+      "bytes": 989639,
+      "sha256_published": "cc68771f083da1d41b0150592609ca8005917ced0acc57be3d3448c34dabf096",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/normal-tooltip/index.json",
+      "git_blob": "6c9e4d4365d457800d256eade771043a68e63886",
+      "bytes": 455,
+      "sha256_published": "0ee1df349a8f77ae8696293fb989afb847a88333f509fc7de3cb5113ea31afa7",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0001-0030.jpg",
+      "git_blob": "1ffb0a882b01df69f9fda70e2bdbc23d96a0f34f",
+      "bytes": 947814,
+      "sha256_published": "a694797f61c86000eeef90c4d85abc600ac7ce02eb6eb151a9a6d9a6b87ff103",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0031-0060.jpg",
+      "git_blob": "2a8e9c5d21c77e4d686a568643822b320ccde955",
+      "bytes": 948159,
+      "sha256_published": "817c262fe5e03ac1a0983455dc27790df931f70fca8188884c0838772fdba0c8",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0061-0090.jpg",
+      "git_blob": "977ef016e131cae74f61f002c11a165ccec804e6",
+      "bytes": 949472,
+      "sha256_published": "8e9a1d1535c0402328e10468fb4ec9f8d71ca8bdd52206939de81be2bbae45d7",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0091-0120.jpg",
+      "git_blob": "8878e1bedf8b6ec3b7dfe3376eede26721e9e65e",
+      "bytes": 989942,
+      "sha256_published": "2299106b1ee3dd29879e12c078251d60d75de86126528ba4b01ddbb8d92533d7",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0121-0150.jpg",
+      "git_blob": "686f28d79e462f97a8b24f102b549f9467fe6357",
+      "bytes": 989540,
+      "sha256_published": "723a28378c1d98f1ee43a49662b709a25c0de2de8bc495b468fff12a1729a40b",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0151-0180.jpg",
+      "git_blob": "64364d04ba6a2c4cd81e2d3f76f7d95a066bdc7c",
+      "bytes": 989480,
+      "sha256_published": "2cda5b58d649f3feaa335b65bc834738ab28ac6303a06b6af18a773b25513e09",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0181-0210.jpg",
+      "git_blob": "fa44473a1f9ccc9464ad3793eb503a5c11f1fbf6",
+      "bytes": 994149,
+      "sha256_published": "ec311f740f359ab1df5f871f267010a47d69d9fdc364ce0321a1b9284fa0fd08",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/atlas-0211-0240.jpg",
+      "git_blob": "0eea748df0701208a9504890e7b8997bdf4bcd1b",
+      "bytes": 1003298,
+      "sha256_published": "86a241a741e400d05171308b55e7261069007e14a4c3e0421334b2844e495d3a",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/review/reduced-tooltip/index.json",
+      "git_blob": "e2afcb524287a8227f0d5bef4d49eed4a292036d",
+      "bytes": 511,
+      "sha256_published": "773f2ad211a2f401e9f96a2eeb54b76771cf69c4be479eab61efed4e6ae17c75",
+      "disposition": "HOLD_NATIVE_FRAME_REVIEW_SIDE_CAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/setup-actions.jsonl",
+      "git_blob": "fa2c4eb6e8a3e75c9b9c87b3881b916001249f48",
+      "bytes": 892,
+      "sha256_published": "05a04e9f776e3d547be1836300ef4545651b5294e5890f47bb8325784f63caa3",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/source-comparison/ve006-direct-archive.png",
+      "git_blob": "b10b628be6380fbfdd78b927abd7aebe366673d8",
+      "bytes": 535068,
+      "sha256_published": "b993bc1ebda31c8debae3f664cd55bab8d41836683c4487ae73ae4ec64756413",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/source-comparison/ve006-inline-confirm.png",
+      "git_blob": "5d82a7c8e23c5e85711a34aa1682bcdb2ebbcdda",
+      "bytes": 424724,
+      "sha256_published": "829aee4152cc497d17d2b60fcbc985e49e01b92cbe4e62510976964014a2e112",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/video-original/recording-01/parts.json",
+      "git_blob": "9412138a93e5a78c6c35e28c51d0d2555c3e9a42",
+      "bytes": 578,
+      "sha256_published": "d26ec31ae527932e9bd052a58a8b77f75e552e65fd90acf0aa4f8f7eb2f40fc9",
+      "disposition": "HOLD_ORIGINAL_VIDEO_PROVENANCE_REASSEMBLY_HELPER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/video-original/recording-01/reassemble.py",
+      "git_blob": "f6cb9256ad09555b5b0c8c9bd2cd711757db3897",
+      "bytes": 1805,
+      "sha256_published": "958531e5ea61f0b3992f1511f9423080f023672f31e5578473c9ec6a06df40b6",
+      "disposition": "HOLD_ORIGINAL_VIDEO_PROVENANCE_REASSEMBLY_HELPER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/video-original/recording-02/parts.json",
+      "git_blob": "e8b7f0e3149a06689fda12a3e91156ceb2f56c9e",
+      "bytes": 2063,
+      "sha256_published": "6cb970ca2cdae232d7e858a078dd55b3bb149c42e3b0175660776cacf8734432",
+      "disposition": "HOLD_ORIGINAL_VIDEO_PROVENANCE_REASSEMBLY_HELPER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/video-original/recording-02/reassemble.py",
+      "git_blob": "f6cb9256ad09555b5b0c8c9bd2cd711757db3897",
+      "bytes": 1805,
+      "sha256_published": "958531e5ea61f0b3992f1511f9423080f023672f31e5578473c9ec6a06df40b6",
+      "disposition": "HOLD_ORIGINAL_VIDEO_PROVENANCE_REASSEMBLY_HELPER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/video-provenance.json",
+      "git_blob": "41484f3a3f446df8625aacc59095e8cf056065a6",
+      "bytes": 2834,
+      "sha256_published": "0b66ebd98bbb46e72f52d35778a5d9e5b6f62bf2b497d3a400c57b3fa79d142e",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/visual-review.json",
+      "git_blob": "95287f2cb2c55e594fbaacfe8909326e1315a8cb",
+      "bytes": 3311,
+      "sha256_published": "63f0873632f2abe5c69726b285358e96c98977f70c81d694ef542ee478cfa0cd",
+      "disposition": "HOLD_ACQUISITION_AND_ANALYSIS_CONTEXT",
+      "deletion_approved": false
+    }
+  ],
+  "derivative_excerpts": [
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/c5-drag-quit-relaunch.mkv",
+      "git_blob": "449352edfd1e53e1f22622dd4a4eadbab9a5937d",
+      "bytes": 90340962,
+      "receipt_sha256": "be14eb778c2bc0c93cc184c4a516afb45a5df44edc646463489f2d01b9e9497b",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/inline-delete-archive.mkv",
+      "git_blob": "a9cc3c73b47fa33d3908574ab391c5432933c2cf",
+      "bytes": 26106630,
+      "receipt_sha256": "73367b3a7070e99b6f6d4ad1c3bf53c6140d5ee7c1854f314f9b51122146116a",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/metrics-and-queue-failures.mkv",
+      "git_blob": "3c8d065261fc708861f738668bfb416f4891ea45",
+      "bytes": 43543307,
+      "receipt_sha256": "1bf3bccd2eadd81303017f13513ba3f408150d66f4bb43f05a890e3252ce02c6",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/modal-matrices.mkv",
+      "git_blob": "281d3c2b636a307dbd7c3c22f4c56fdbbe255d4a",
+      "bytes": 73706022,
+      "receipt_sha256": "944e8e56ca434633d6a38ba2c62c4ec7c68551c5c11e7e275bfa831d0ca75582",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/native-planning-drag.mkv",
+      "git_blob": "895bc1c6301715949de24a2428b08f494aef0844",
+      "bytes": 20258841,
+      "receipt_sha256": "1913bdb9208956a571bc8c7ed5999a85fa49a7f54ea6a2db5739478597e373fd",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci948-20261004/clips/wrapped-notes-normal-reduced.mkv",
+      "git_blob": "c466f8d0e68b71cbeb2873fc1f73c38e9f021c29",
+      "bytes": 43536012,
+      "receipt_sha256": "97f6406fd57c2e252e6621fcf5f8805458e42169fa286f8c8e416f8f143c8bbe",
+      "disposition": "HOLD_CI948_VIDEO_STREAM_COPY_EXCERPT",
+      "deletion_approved": false
+    }
+  ],
+  "disposition": "All 221 new sidecars and six historic original-stream excerpts HOLD. No file deletion approved; complete original source availability unresolved.",
+  "limitations": [
+    "The original CI948 README states complete originals were published as Git parts at acquisition. However no source parts or old logs ZIP appear in frozen tracked Git; sampled original part and ZIP paths also returned NOT_FOUND at live main. Historical source SHA256 and source bytes are not a verified current recovery.",
+    "840 direct-inspection frame PNGs are absent from current tracked tree; no claim about their deletion authorization, current recovery or complete visual equivalent is inferred.",
+    "The six remaining video clips are stream-copy excerpts with keyframe-aligned boundaries, not the original full 96.834s and 2545.4s films.",
+    "Original scoped C5/native modal/Notes successes and catalog/queue/drag failures/uncertainties retain their exact original states. No test outcome regraded by this evidence audit.",
+    "Metadata and ZIP/file SHA256 claims originate in historic manifests only; no new binary hashing, media decoding, Windows runtime or CI.",
+    "No deletes, moves, recoveries, AppData access, source changes; all unrelated Blitzit and PA/roadmap holds preserved."
+  ]
+}

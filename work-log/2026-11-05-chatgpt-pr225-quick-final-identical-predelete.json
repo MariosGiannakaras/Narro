@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-05",
+  "source_main_at_audit": "460fa2a8f62c9611ed57662ea916268665af0d17",
+  "scope": "Four distinct static generated Chromium PR225 preflight quick-error/quick-success closed-state endpoint PNG copies, each identical to same-theme quick-empty PNG retained in this historical family. Not PR479's already deleted 11 reduced-motion files; no media, native or original Blitzit.",
+  "source_pr": 225,
+  "source_pr_merged": true,
+  "original_source_historical_manifest_file_count": 88,
+  "previous_pr479_removed_exact_paths": 11,
+  "predelete_current_rendered_regular_file_count": 65,
+  "proof": "All 4 removed→retained pairs equal Git blob IDs, Git size and published SHA256/bytes, with each HTML scenario contract and retained counterpart present. Source case contract HTML records loading/focus/escape states independently of identical closed-state final PNG.",
+  "new_proposed_removed_pairs": [
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-error-dark.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-dark.png",
+      "same_exact_git_blob": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "logical_bytes": 6832,
+      "original_published_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "distinct_removed_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-error-dark.html",
+      "retained_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-success-dark.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-dark.png",
+      "same_exact_git_blob": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "logical_bytes": 6832,
+      "original_published_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "distinct_removed_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-success-dark.html",
+      "retained_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-error-light.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-light.png",
+      "same_exact_git_blob": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "logical_bytes": 6803,
+      "original_published_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "distinct_removed_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-error-light.html",
+      "retained_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-light.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-success-light.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-light.png",
+      "same_exact_git_blob": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "logical_bytes": 6803,
+      "original_published_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "distinct_removed_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-success-light.html",
+      "retained_case_html_retained": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-quick-empty-light.html"
+    }
+  ],
+  "removed_logical_bytes": 27270,
+  "preserve": "All quick-case HTML, all original manifest entries, negative controls, logs, other source images and all unique visual contents. Historical deleted names remain recoverable from source_main_at_audit / PR225 history.",
+  "consumer_context": "Merged historical PR225; prior PR479 current-open-PR scan found no direct live PR description reference to same family. No exact-image source content replacing tests; photo is static final after Escape while HTML retains distinct case assertions.",
+  "decision": "ONLY THESE FOUR EXACT IMAGE PATHS ELIGIBLE FOR GUARDED DELETION PR; no other path approved, prior safety blocks unaffected. x/5 still 1/5.",
+  "ci_native": "NOT RUN for documentation proof, native/physical status unchanged"
+}

@@ -1,0 +1,131 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "root_baseline_verified_equal_to_main_at_start": true,
+  "kind": "Scoped README and frozen-Git-tree identity family-level protective review; no file-level binary rehash or full consumer retirement",
+  "newly_reviewed": 742,
+  "newly_reviewed_logical_bytes": 38078869,
+  "deleted_in_batch": 0,
+  "notes": "Previously classified original/frames/ZIP/MP4 paths excluded from newly reviewed count. All protective HOLD, not deletion eligible.",
+  "families": [
+    {
+      "family": "m7-ci953-gaps-20261005",
+      "newly_reviewed": 86,
+      "logical_bytes": 3725701,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/m7-ci953-gaps-20261005/README.md",
+      "readme_available": true,
+      "readme_read_chars": 7233,
+      "published_scope_excerpt": "# CI953 acquisition gap closure — whole evidence\n\nThis packet completes capture of the **six existing partial cells** in [the earlier populated-interface packet](../m7-ci953-interfaces-20261005/README.md). It adds no review denominator. Current registered visual review is **44/100 reviewed, 56 OPEN**; the appended30 cells are now30/30 capture-ready and0/30 visually reviewed. M1 1/1 examined FAIL27; M5 12/25; M6 16/31; M7 13/29; M8 2/8; M9 0/6. These are campaign review counts, not whole-product UI or milestone implementation completion.\n\n## Whole media and navigation\n\n- [Whole original OBS MKV — 18m08.7s](video/2026-10-05%2012-45-14.mkv)\n- [Whole playable H264/AAC MP4 — stream-copy remux](vi",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "timer-compositor-ab-20261021",
+      "newly_reviewed": 82,
+      "logical_bytes": 3432830,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/timer-compositor-ab-20261021/README.md",
+      "readme_available": true,
+      "readme_read_chars": 3892,
+      "published_scope_excerpt": "# Timer compositor A/B — frozen native evidence, 2026-10-21\n\nSame verified unchanged PR388 EXE `fc27f73098036e657f9559087435617ca7832d227278e5ac2064c54716687e45`, source9d2e897d/source-equivalent main4786bbea. Actual Windows WebView2 155.0.4283.62, paused Weekly recurring parent, fixed340x700 Focus HWND at2220,0; same owned profile across paired launches. No domain/task edits. A default; B process-local `--disable-gpu-compositing` positively present in actual browser/renderer command lines. No global GPU setting changed. Original personal profiles restored with identical DB hash.\n\n## Results and exact stream times\n\n| Claim | A default | B software compositing | Disposition |\n|---|---|---|---",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "m7-ci953-interfaces-20261005",
+      "newly_reviewed": 80,
+      "logical_bytes": 3514677,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/m7-ci953-interfaces-20261005/README.md",
+      "readme_available": true,
+      "readme_read_chars": 7304,
+      "published_scope_excerpt": "# CI953 grouped populated-interface capture, 2026-10-05\r\n\r\nExact source `38219e200fe3bec7309f8e03e72003184ca86d08`, Windows CI953/run37258629373/artifact11324640580. EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`. No Narro source/test/build/CI changes. User explicitly prioritizes grouped Windows capture and later analysis by another chat. This is acquisition with native/read-only corroboration, not full visual/source acceptance.\r\n\r\n## Whole video and chronology\r\n\r\n[Whole untouched original MKV](video/2026-10-05 12-11-29.mkv):1007.117s,30,186,053bytes,SHA256 `9d8d56f3320c3d28185ccd934fcbffcc5e0396f72607e879a040df89f29c175d`. [Whole playable MP4](video/2026-10-05",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "m7-ci953-success125-20261005",
+      "newly_reviewed": 75,
+      "logical_bytes": 8338472,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/m7-ci953-success125-20261005/README.md",
+      "readme_available": true,
+      "readme_read_chars": 3968,
+      "published_scope_excerpt": "# CI953 real125% success normal/reduced Windows evidence\r\n\r\n## Current — CI953 real125% success capture; visual review44/100\r\n\r\n[Whole 373.400s original MKV/MP4, images, whole logs/ZIP and actions](work-log/evidence/m7-ci953-success125-20261005/README.md). Explicit Narro LGmonitor selection, no Windowsprimarychange. Actual reducedD and normalE success from expandedTimer bothnativeDPI120/425x875(-425,0), sameFocus7471826: scopednativegeometryPASS only, source/motionOPEN. LongunbrokenD and GreekE titles captured. ActualTab/ShiftTab/Escape closesD; focusedClose+localB/P/N onEsuccess leavesownedtask/checkpointexactlyunchanged; actualCloseE. FunGIFenabledE but effectiveanimateddecoration remainsu",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "pr388-review-20261021",
+      "newly_reviewed": 75,
+      "logical_bytes": 5711105,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/pr388-review-20261021/README.md",
+      "readme_available": true,
+      "readme_read_chars": 2350,
+      "published_scope_excerpt": "# PR388 review evidence — 2026-10-21\n\n[Authoritative report and per-scope limits](../../../docs/PR388_REVIEW_2026-10-21.md).\n\n- `pr388-cdp-native-original.mkv`: useful unchanged163.100s desktop recording, actual PR EXE, CDP input; right edge clipped after app relaunch. Full viewport PNGs provide complementary complete views.\n- `pr388-native-original.mkv`: aborted Computer Use startup attempt, no successful click; retained without acceptance credit. It was stopped forcibly after stdin was found closed, so it is not a completed acceptance recording.\n- `Narro-M7-Logs/`: **entire** automatically produced folder, both process sessions. This review did not perform C5; PENDING/INCONCLUSIVE files do",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "2026-10-03-m7-ci873-c5-completed",
+      "newly_reviewed": 73,
+      "logical_bytes": 4314756,
+      "previously_classified": 132,
+      "readme_path": null,
+      "readme_available": false,
+      "readme_read_chars": 0,
+      "published_scope_excerpt": "",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "pr437-corrected-native-20261029",
+      "newly_reviewed": 70,
+      "logical_bytes": 3156962,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/pr437-corrected-native-20261029/README.md",
+      "readme_available": true,
+      "readme_read_chars": 6975,
+      "published_scope_excerpt": "# Corrected PR437 Windows acceptance — 2026-10-29\r\n\r\n**Three corrected feature scenarios exercised: J01 connected model labels PASS scoped; U-R03 software return and actual user-drag override PASS scoped; J05 Panel→compact duplicate title/time FAIL.** No milestone closes. Exact physical EXE `3c14067a28aea1a594546b888e9dbc688ed4374d0f698cef2c6c5986abbdc002`, source `41e8ff8ad8584b74821f3185401ed0c9740fc991`, physical ZIP12812013589 SHA256 `8342835987274ad6e0893306ab7ad14ef6f90b66359669ef4305d58f4651356f`, exact CI40677357491 3/3 green. ZIP SHA/CRC and EXE hash independently checked on this Windows machine before launch. No old-build failure relabeled PASS.\r\n\r\n## Independently graded requireme",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "m7-pr222-final-local-20261003",
+      "newly_reviewed": 70,
+      "logical_bytes": 1015380,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/m7-pr222-final-local-20261003/README.md",
+      "readme_available": true,
+      "readme_read_chars": 3849,
+      "published_scope_excerpt": "# PR #222 final local regression evidence\n\nSource: `549536c4d19b0045a928652d3feff53162f55a6e`. Final candidate CI: [Windows #893](https://github.com/MariosGiannakaras/Narro/actions/runs/37134207962). Source/config/test diff: 16 files, `+392/-11`, against current application base `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af` (documentation-only base advances do not change this count).\n\n**PASS:** full final frontend preflight; Rustfmt; 30 rendered cases. The latter comprise 18 light/dark Notes, quick-create keyboard and transition-ownership cases plus 12 real renderer reduced-motion counterparts for affected Notes/transition cases. The requested motion preference is verified with `matchMedia`, th",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "pr437-native-move-admission-20261030",
+      "newly_reviewed": 67,
+      "logical_bytes": 4339170,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/pr437-native-move-admission-20261030/README.md",
+      "readme_available": true,
+      "readme_read_chars": 3499,
+      "published_scope_excerpt": "# Native Move admission and independent control — 2026-10-30\n\nExact PR437bd86a7ad / CI40976747495 / physical EXE SHA25612a03041403f9137dcfc73d6011e1abe87ababdfe77721066369f95788f03f44. Fresh profile-protected session, real Computer Use input, normal motion renderer media=false /DPR1.25 on actual LG. This adds admission evidence and does not repeat or invalidate prior J05 four-group PASS.\n\n**Outcome:** native keyboard Move did not displace Narro; the identical40-arrow sequence displaced a blank classic Notepad by440px. This is a demonstrated target-specific outcome difference, **not a proven snapping bug or source root cause**. Native window styles/framework/DPI differ between target and cont",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    },
+    {
+      "family": "m7-pr228-local-20261004",
+      "newly_reviewed": 64,
+      "logical_bytes": 529816,
+      "previously_classified": 0,
+      "readme_path": "work-log/evidence/m7-pr228-local-20261004/README.md",
+      "readme_available": true,
+      "readme_read_chars": 1336,
+      "published_scope_excerpt": "# PR228 local rendered validation\r\n\r\nExact source a6af4ef15bd827ad751b023df21ab64e565e2c8e. Full frontend preflight PASS; Rust formatting PASS, compilation/tests require Windows CI. Eight actual headless Edge pointer/keyboard scenarios: light/dark x normal/reduced x100%/125%;56 PNGs and results.json. Neighbor boxes and subtask toolbar remain fixed, selected label stays within shell and contains the original pointer center, resting action controller is inert, Tab accesses Notes and Enter expands/open Notes. Break is disabled in this fixture because Preferences projection is absent; no local enabled-Break test is claimed. These are software fixtures, not native physical or canonical source-par",
+      "retention": "HOLD_NO_DELETION_APPROVAL",
+      "reason": "Native/video/source and acceptance consumers; independent precise retirement proof not established"
+    }
+  ]
+}

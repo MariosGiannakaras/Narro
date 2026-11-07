@@ -10,6 +10,35 @@ function invariant(condition, message) {
   if (!condition) throw new Error(`CI tiering contract failed: ${message}`);
 }
 
+// Physical-session preparation must use the ordinary Windows profile with
+// user-authorized Narro test data. No private-data backups, isolated-account
+// ceremony or implicit data deletion. Keep exact binary/PID admission guards.
+const physicalPreparation = fs.readFileSync("scripts/prepare-m7-physical-session.ps1", "utf8");
+for (const required of [
+  'PA-01..PA-09 ACTIVE',
+  'docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md',
+  'normal Windows profile',
+  'no backup, alternate profile or automatic reset',
+  'if ($Launch) {',
+  'Direct launch is retired',
+  'scripts/physical-session.mjs start',
+]) invariant(physicalPreparation.includes(required),
+  "physical session preparer missing normal-profile or source/PID identity contract: " + required);
+for (const forbidden of [
+  "BackupProductionData", "Copy-Item -LiteralPath $productionAppDataDir",
+  "production-appdata-backup", "isolated test profile",
+  "docs/CODEX_M5_M9_RECORDING_PACKET_2026-10-27.md",
+  "separate existing-evidence Blitzit comparison",
+  "Refusing to launch against existing Narro production AppData",
+]) invariant(!physicalPreparation.includes(forbidden),
+  "obsolete forced isolation/backup must not return: " + forbidden);
+
+const automaticSession = fs.readFileSync("scripts/physical-session.mjs", "utf8");
+for (const guard of ["admitCandidate(options.exe, options.manifest)", "if (windowsProcesses().length)",
+  "await processIdentity(child, candidate)", "await digest(candidate.executable) !== candidate.sha256",
+  "NARRO_PHYSICAL_LOGGING_PROBE: \"0\""])
+  invariant(automaticSession.includes(guard), "automatic session missing executable/ownership guard: " + guard);
+
 // GitHub evaluates ordered positive/negative path patterns. Tracking-only
 // Markdown must not launch expensive Windows CI; the docs actually shipped in
 // validation artifacts must not be silently excluded.
@@ -22,13 +51,7 @@ const requiredBundledDocs = [
   "docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md",
 ];
 for (const event of ["push", "pull_request"]) {
-  // The B comparator must run exact-source CI even when its intentional
-  // conflicts with main block pull_request runs. Restrict this exception to
-  // the one experimental push branch; retain main and all path constraints.
-  const expectedBranches = event === "push"
-    ? '    branches: [ "main", "feature/m7-motion-v4-ab-candidate" ]\n'
-    : '    branches: [ "main" ]\n';
-  const prefix = "  " + event + ":\n" + expectedBranches + "    paths:\n"
+  const prefix = "  " + event + ":\n    branches: [ \"main\" ]\n    paths:\n"
     + '      - "**"\n      - "!**/*.md"\n';
   invariant(triggerBlock.includes(prefix), event + " must include source but exclude tracking Markdown");
   const start = triggerBlock.indexOf(prefix) + prefix.length;
@@ -72,7 +95,7 @@ try {
   const required = ["package.json", "src/card.tsx", "src-tauri/src/lib.rs", "src-tauri/icons/icon.ico",
     "scripts/check.mjs", "tests/visual-fixtures/dark.json", "assets/branding/logo.png",
     "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md", ".github/workflows/ci.yml", "focus-editor-fixture.html"];
-  const excluded = ["work-log/evidence/clip.mp4", "reference/original-blitzit-screenshots/source.png"];
+  const excluded = ["work-log/evidence/clip.mp4", "reference/original-blitzit/screenshots/source.png"];
   for (const file of [...required, ...excluded]) {
     const target = path.join(probe, file);
     fs.mkdirSync(path.dirname(target), { recursive: true });
@@ -153,6 +176,23 @@ invariant(
     && !candidateBlock.includes("npm run preflight:frontend"),
   "windows-candidate must reuse the fast gate instead of repeating the full frontend/static suite",
 );
+
+// Short-lived visual capture outputs must not accumulate after successful CI.
+// Exact-build physical executables are intentionally NOT covered by this limit.
+for (const artifact of ["narro-m5-visual-regression", "narro-m7-focus-runtime-visual"]) {
+  const start = candidateBlock.indexOf("        name: " + artifact);
+  invariant(start >= 0, "missing visual artifact: " + artifact);
+  const remainder = candidateBlock.slice(start);
+  const nextStep = remainder.indexOf("\n    - name:");
+  const block = nextStep >= 0 ? remainder.slice(0, nextStep) : remainder;
+  invariant(block.includes("retention-days: 1"),
+    "successful visual capture must use short retention: " + artifact);
+}
+const evidenceIgnore = fs.readFileSync(".gitignore", "utf8").split(/\r?\n/);
+invariant(evidenceIgnore.includes("work-log/evidence/**"),
+  "new generated Narro evidence must be ignored by default");
+invariant(!evidenceIgnore.some(line => line.startsWith("reference/")),
+  "original Blitzit sources must never enter an evidence ignore rule");
 
 const focusUpload = candidateBlock.slice(
   candidateBlock.indexOf("    - name: Upload Packaged Focus Runtime Visual Artifact"),

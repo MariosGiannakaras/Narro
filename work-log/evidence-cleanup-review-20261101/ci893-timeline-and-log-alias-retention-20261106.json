@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-06",
+  "owner": "ChatGPT evidence cleanup",
+  "main_at_audit": "6b77aed13c4e08c211d7ff9dc7a48f3b31289f4e",
+  "scope": "New independent source/consumer audit of historical CI893 candidate continuous runtime frame sequence and separate CI893 followup log aliases. Read-only; not prior safety-blocked 27-family mass deletion or 29-media composite.",
+  "families": [
+    {
+      "family": "m7-ci893-candidate-20261003",
+      "published_manifest_nonself_entries": 97,
+      "duplicate_sha256_groups": 8,
+      "exact_duplicate_appearances_beyond_first": 57,
+      "duplicate_appearance_logical_bytes": 2010579,
+      "duplicate_png_groups": [
+        {
+          "source": "runtime-visual/panel-to-timer-runtime/frame-002.png..frame-004.png",
+          "paths": 3,
+          "published_each_bytes": 57642
+        },
+        {
+          "source": "runtime-visual/panel-to-timer-runtime/frame-005.png..frame-028.png",
+          "paths": 24,
+          "published_each_bytes": 57606
+        },
+        {
+          "source": "runtime-visual/timer-to-panel-runtime/frame-003.png..frame-006.png",
+          "paths": 4,
+          "published_each_bytes": 58182
+        },
+        {
+          "source": "runtime-visual/timer-to-panel-runtime/frame-008.png..frame-026.png",
+          "paths": 19,
+          "published_each_bytes": 19786
+        },
+        {
+          "source": "runtime-visual/timer-to-panel-runtime/frame-027.png..frame-029.png",
+          "paths": 3,
+          "published_each_bytes": 19805
+        }
+      ],
+      "other_duplicate_groups": "Six per-milestone ack-*.ready markers (6 bytes each), four motion/sequence ready markers (5 bytes each), two transition-settled stop markers (8 bytes each). Same bytes do not duplicate their event roles.",
+      "verified_current_blob_samples": [
+        "panel-to-timer-runtime/frame-005.png and frame-006.png share Git blob 7fba36b3bcbbf7d7c99be7b5f090e4d8e7d81ddf",
+        "timer-to-panel-runtime/frame-009.png and frame-010.png share Git blob 0d46e88dc0aee7681a8cc5de122fda3fad13c6d3"
+      ],
+      "consumer": "Original README documents exact green CI893 packaged runtime candidate, runtime-visual validator, and motion/restart physical acceptance still NOT RUN. Sequential frame indices are temporal evidence: their consecutive repetition communicates duration/settling, even if PNG pixels are identical. Removing time-index samples or readiness markers would make the original continuous sequence unverifiable as a current-checkout timeline. Keep original source/manifest and entire runtime sequence.",
+      "disposition": "HOLD_ALL_97_PUBLISHED_PATHS; ZERO_DELETIONS_APPROVED"
+    },
+    {
+      "family": "m7-ci893-followup-20261003",
+      "published_manifest_nonself_entries": 63,
+      "duplicate_sha256_groups": 1,
+      "exact_duplicate_appearances_beyond_first": 3,
+      "duplicate_appearance_logical_bytes": 5523,
+      "groups": [
+        {
+          "files": [
+            "Narro-M7-Logs/m7-c5-last-pass.json",
+            "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+            "Narro-M7-Logs/m7-c5-latest-result.json",
+            "Narro-M7-Logs/session-20261003-185931.839Z-18520/m7-c5-result.json"
+          ],
+          "published_each_bytes": 1841
+        }
+      ],
+      "verified_current_blob_sample": "m7-c5-last-pass.json and m7-c5-latest-result.json both Git SHA 12786db809507fdf6f1d4ad1de51ca23b2ec25bd",
+      "consumer": "These are separate historical log roles: last-pass, last-terminal, latest alias and session-scoped result. PR225/CI911 physical publication links directly to this original manifest. Filename and role are semantically significant even with identical bytes. Session-side result is not a disposable duplicate without contract and consumer closure.",
+      "disposition": "HOLD_ALL_63_PUBLISHED_PATHS; ZERO_DELETIONS_APPROVED"
+    }
+  ],
+  "source_caveats": "Manifest equality is published receipt-level evidence, not a full independent hash re-stream of every blob. Four media frame samples and two alias JSON samples verified current Git blob equality. This is a disposition review, not native validation, original Blitzit parity or deletion permission.",
+  "safety": "Original Blitzit and open native physical evidence protected; no Windows/AppData, source/tests, original manifest edits, or tool-blocked actions.",
+  "decision": "No deletion PR for these families. Independent scoped review positively establishes historical timeline/role consumer holds; still 1/5 overall, stage2 in progress.",
+  "global_counters_unchanged": {
+    "frozen_technical_checked": 15690,
+    "frozen_total": 15690,
+    "evidence_surviving": 15626,
+    "cumulative_checkout_removed": 20977,
+    "original_media_zip_frozen_removed": 117,
+    "original_media_zip_frozen_total": 700
+  }
+}

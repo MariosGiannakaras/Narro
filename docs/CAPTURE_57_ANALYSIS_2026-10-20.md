@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # Frozen 57-line corpus analysis — 57/57 scoped dispositions
 
 Owner Codex. **57/57 requirement scopes dispositioned**, no remaining unclassified C-ID. This is not57PASS, all26films frame-by-frame, completed milestone acceptance, or a claim that sampled footage clears unseen transients. Three behavior causes and separate source presentation deltas are documented with exact-build evidence, causal plans and physical/inference limits. No source corrections, new recording, tests/builds/CI or milestone checkboxes advanced.

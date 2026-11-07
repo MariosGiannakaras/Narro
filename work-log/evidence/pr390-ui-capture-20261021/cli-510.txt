@@ -1,4 +1,0 @@
-### Ran Playwright code
-```js
-await (async(page)=>{await page.getByRole("button",{name:"Preferences",exact:true}).focus();for(let i=0;i<3;i++){await page.keyboard.press("Tab");await page.waitForTimeout(450);}})(page);
-```

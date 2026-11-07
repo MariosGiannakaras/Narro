@@ -1,7 +1,0 @@
-{
-  "sourceSha256": "ceaec93e41a94edf12f1920091fa658ae437d0da03adfd8afb3500e932e3cf85",
-  "progressStepsPerDirection": 9,
-  "midpointScalarAssertions": 36,
-  "endpointAssertions": 4,
-  "result": "PASS: actual production composition arithmetic only; no Windows/COM/native freshness proof"
-}

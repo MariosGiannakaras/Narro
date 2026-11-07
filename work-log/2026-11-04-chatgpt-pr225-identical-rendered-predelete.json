@@ -1,0 +1,124 @@
+{
+  "date": "2026-11-04",
+  "approval_scope": "INDEPENDENT PR225 HEADLESS STATIC PNG DEDUP ONLY (no involvement of previously blocked 27-family or 29-media operations)",
+  "source_family": "work-log/evidence/m7-pr225-preflight-20261003",
+  "predelete_main": "5ccd341e3b2722ec5745d97ec0e7ab7575df9e1f",
+  "source_final_pr": 225,
+  "source_pr_merged": true,
+  "source_evidence_git_rendered_tree": "2f920bc2e6ab10cc3d0c8664939bef192a66592b",
+  "published_original_manifest": "work-log/evidence/m7-pr225-preflight-20261003/manifest.json",
+  "rendered_tree_files_before": 76,
+  "original_manifest_entries": 88,
+  "proposed_deletions": 11,
+  "logical_bytes_to_remove": 186116,
+  "retained_exact_sha_pair_count": 11,
+  "all_removed_and_retained_case_html_preserved": true,
+  "same_family_exact_sha_blob_size_and_published_sha256": true,
+  "open_pr_count_checked": 6,
+  "live_open_prs_with_full_family_path_reference": [],
+  "kind": "dated generated Narro Edge headless renderer endpoint PNG, not original Blitzit, not native physical source, not video/ZIP/failed native recording",
+  "direct_repo_documentary_consumers": "Original 2026-10-03 PR225 work log links to complete historical manifest, not any individual reduced PNG. Existing README absent. Exact same-family normal-motion screenshot bytes and both per-case HTML retain visual outcome and case assertions. Manifest retains immutable historical path digests; deleted paths available via predelete Git commit.",
+  "hold": "All 5 reduced-motion PNGs without same-image normal counterpart, all negative controls, HTML, logs, manifests and unique screenshots remain untouched. No physical acceptance regraded; native/physical unclosed evidence elsewhere stays HOLD.",
+  "constraints": "No source/config/tests; no Windows/AppData; no rewrite of immutable logs; source Git recovery. Candidate still requires guarded PR merge and resulting-main tree validation before any deletion tally changes.",
+  "pairs": [
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-dark.png",
+      "git_blob": "ee8efd7f7db7f68ebd36b8201d26dc64e45beee4",
+      "bytes": 5422,
+      "published_sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-dark.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-dark-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-light.png",
+      "git_blob": "5c81eba7952afc1b8c794df24c3bb77fa5d56e96",
+      "bytes": 5497,
+      "published_sha256": "e141c06ff8da827c211982a8b00506e87f727e8a2be49e5047b547337083db2c",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-panel-timerCompact-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-dark.png",
+      "git_blob": "ee8efd7f7db7f68ebd36b8201d26dc64e45beee4",
+      "bytes": 5422,
+      "published_sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-dark.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-dark-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-light.png",
+      "git_blob": "5c81eba7952afc1b8c794df24c3bb77fa5d56e96",
+      "bytes": 5497,
+      "published_sha256": "e141c06ff8da827c211982a8b00506e87f727e8a2be49e5047b547337083db2c",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-motion-timerCompact-panel-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-compact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-compact-light.png",
+      "git_blob": "539217eab2ac4719ed07e7915eddf6b7ab37a8fa",
+      "bytes": 34589,
+      "published_sha256": "9f33625e64cccc7259a5798b155058a6e58b4450541dfc8ab4914efab3c9452f",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-compact-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-compact-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-dark.png",
+      "git_blob": "e8ecf2b445302d55e5f9155b37f5e3c6eef3e1bd",
+      "bytes": 28310,
+      "published_sha256": "07bef896977d8369c1cf9b61a6ef9ff089c22df6ae3914f6f0a3b5fb85d73c64",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-dark.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-dark-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-light.png",
+      "git_blob": "62346d7cdfa214af24a2572bb70ce486a4d38f3e",
+      "bytes": 31322,
+      "published_sha256": "c9028b04bf41ca3b668b78332b5b357783dbd668f49c6a5136ab2b223c085c85",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-panel-large-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-compact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-compact-light.png",
+      "git_blob": "cdfd4bfc2454fc9a6f6bee18d95aaf6bec62e7f2",
+      "bytes": 11828,
+      "published_sha256": "70c5039462685050947a4a9d4880393ced5909c6d69826d362007f7e14228252",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-compact-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-compact-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-dark.png",
+      "git_blob": "db0f608368e9acedc954a3211745cec2e099b281",
+      "bytes": 22280,
+      "published_sha256": "b5cf9d91d0141162b1621e070217549ca8d1c360273418e2ed0d66869af47fac",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-dark.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-dark-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-light.png",
+      "git_blob": "733402df2d32bbfc0bcdbe1c3738d0e1cde9717a",
+      "bytes": 27091,
+      "published_sha256": "5c6a7b20eb01c68929494405df7629fb72af90232959986a846d383b5fc20a5b",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-light.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-notes-timerExpanded-large-light-reduced.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-timer-geometry-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-timer-geometry-dark.png",
+      "git_blob": "105aec956f68dd367511d0ec1571f94342f315fb",
+      "bytes": 8858,
+      "published_sha256": "3d907dbb8c33bc165017eb97b94d99ac087b5aadc26950e210b2ae58d56729d4",
+      "retained_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-timer-geometry-dark.html",
+      "removed_case_html": "work-log/evidence/m7-pr225-preflight-20261003/rendered/focus-editor-timer-geometry-dark-reduced.html"
+    }
+  ]
+}

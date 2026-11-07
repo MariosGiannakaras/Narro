@@ -1,0 +1,48 @@
+{
+  "audit_date": "2026-11-02",
+  "frozen_evidence_baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "input_media_index": "work-log/evidence-cleanup-review-20261101/media-path-retention-index.json",
+  "scope": "Additional same-family README path/consumer and source-role triage for 274 conventional media paths still needing individual provenance examination after earlier media classification. Technical inventory 15690/15690 unchanged.",
+  "completed_reports": [
+    "work-log/evidence-cleanup-review-20261101/media-source-consumer-batch-1.json",
+    "work-log/evidence-cleanup-review-20261101/media-source-consumer-batch-2.json",
+    "work-log/evidence-cleanup-review-20261101/media-source-consumer-batch-3.json",
+    "work-log/evidence-cleanup-review-20261101/media-source-consumer-batch-4.json",
+    "work-log/evidence-cleanup-review-20261101/media-source-consumer-batch-5.json"
+  ],
+  "verified_disjoint_completed_media_paths": 245,
+  "verified_completed_families": 56,
+  "verified_completed_logical_bytes": 3070824107,
+  "readmes_found": 51,
+  "readmes_absent": 5,
+  "paths_with_exact_readme_relative_mentions": 76,
+  "paths_with_exact_readme_link_or_code_mentions": 75,
+  "media_role_hints_only": {
+    "filename_original": 174,
+    "readme_original": 17,
+    "readme_derivative": 5,
+    "filename_derivative": 11,
+    "unknown": 38
+  },
+  "not_yet_readme_reviewed_media_paths": 29,
+  "not_yet_readme_reviewed_bytes": 11614101,
+  "not_yet_reviewed_families": [
+    "2026-10-03-m7-ci873-c5-completed",
+    "m7-ci884-20261003",
+    "m7-ci893-20261003",
+    "pr385-native-retest-20261019",
+    "pr388-c38-acceptance-20261021",
+    "pr389-native-preparation-20261021",
+    "pr437-causal-transition-20261029",
+    "pr437-paired-capture-20261028",
+    "ra01-ra02-capture-preflight-20261019",
+    "timer-compositor-ab-20261021"
+  ],
+  "attempted_last_composite_review": "A 10-family, 29-file README-read plus report-create batch was blocked by tool safety; no batch-6 report created. Do not repeat the blocked composite operation or bypass tool controls.",
+  "deletion_approved": 0,
+  "newly_deleted": 0,
+  "previously_deleted_entire_evidence_cleanup": 20913,
+  "separate_original_700_media_zip_deleted": 117,
+  "protection": "All 245 remain HOLD, as do the 29 pending and all other original/failed/open native evidence; README mention is not sufficient proof of redundant original media or inactive consumers.",
+  "limitations": "This was file-path/blob/size plus README path/provenance review, not fresh media decoding, SHA256 binary hashing, source archive recovery, exhaustive active consumer analysis, physical Windows testing or permission to delete."
+}

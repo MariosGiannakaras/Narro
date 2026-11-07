@@ -116,8 +116,8 @@ Raw MP4 access was established through the isolated analysis-only branch `analys
 - `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` — video queue, hot windows and Pass-3 records.
 - `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` — older second pass plus the corrected unmapped planning-clip evidence.
 - `docs/BLITZIT_VIDEO_EVIDENCE.md` — prior timestamped functional evidence.
-- `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` — source/provenance inventory.
-- `reference/original-blitzit-videos/inbox/` — raw MP4/SRT corpus.
+- `reference/original-blitzit/screenshots/CANONICAL_INDEX.md` — source/provenance inventory.
+- `reference/original-blitzit/videos/inbox/` — raw MP4/SRT corpus.
 
 ## Implementation handoff contract
 

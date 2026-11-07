@@ -206,7 +206,14 @@ pub fn observe_timed_alert_run(
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let cursor = load_cursor(&tx, task_id)?;
 
-    if reset_run || cursor.is_none() {
+    // A task can open a new work session without a preceding effect callback
+    // (for example after recovery). Never attribute the previous session's
+    // cursor or pending effects to the newly authoritative work session.
+    if reset_run
+        || cursor
+            .as_ref()
+            .is_none_or(|current| current.run_id != seed_run_id)
+    {
         tx.execute(
             "DELETE FROM timed_alert_effects WHERE task_id = ?1",
             [task_id.to_string()],
@@ -287,6 +294,36 @@ pub fn observe_timed_alert_run(
     )?;
     tx.commit()?;
     Ok(inserted)
+}
+
+/// Reconcile a *committed* authoritative time rebase with the best-effort
+/// notification cursor. Do not rewind `next_boundary_seconds` or unclaim
+/// effects: notifications already delivered at an old elapsed time must not
+/// replay after a persisted checkpoint-based restart.
+///
+/// An unannounced backward observation still fails closed in
+/// `observe_timed_alert_run`. This reconciliation is permitted only when
+/// the timer has recovered its authoritative persisted checkpoint, *not*
+/// when task-level Time Taken metadata was edited (raw work stays monotonic).
+pub fn reconcile_timed_alert_cursor_after_authoritative_rebase(
+    conn: &mut Connection,
+    task_id: TaskId,
+    seed_run_id: SessionId,
+    work_elapsed_seconds: u64,
+    now: &str,
+) -> Result<bool, TimedAlertEffectError> {
+    validate_timestamp(now)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let Some(mut cursor) = load_cursor(&tx, task_id)? else {
+        return Ok(false);
+    };
+    if cursor.run_id != seed_run_id || work_elapsed_seconds >= cursor.last_observed_work_seconds {
+        return Ok(false);
+    }
+    cursor.last_observed_work_seconds = work_elapsed_seconds;
+    write_cursor(&tx, task_id, &cursor, now)?;
+    tx.commit()?;
+    Ok(true)
 }
 
 pub fn retire_timed_alert_run(
@@ -594,6 +631,91 @@ mod tests {
         }
 
         fs::remove_file(path).expect("remove timed-alert recovery database");
+    }
+
+    #[test]
+    fn recovered_new_session_does_not_inherit_old_task_alert_cursor() {
+        let (mut conn, task_id, old_run) = fixture();
+        observe!(&mut conn, task_id, old_run, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, old_run, 60, true, 60, false, T1).unwrap();
+        let new_run = SessionId::generate();
+
+        assert_eq!(
+            observe!(&mut conn, task_id, new_run, 0, true, 60, false, T1).unwrap(),
+            0,
+            "a changed authoritative session must reset stale effects even without a Started event"
+        );
+        assert!(
+            claim_pending_timed_alerts(&mut conn, T1)
+                .unwrap()
+                .is_empty(),
+            "the previous session's pending effects must not fire for a replacement work session"
+        );
+        assert_eq!(
+            observe!(&mut conn, task_id, new_run, 60, true, 60, false, T1).unwrap(),
+            1
+        );
+        let pending = claim_pending_timed_alerts(&mut conn, T1).unwrap();
+        assert_eq!(pending.len(), 1);
+        assert_eq!(pending[0].run_id, new_run);
+        assert_eq!(pending[0].boundary_seconds, 60);
+    }
+
+    #[test]
+    fn recovered_checkpoint_rebase_keeps_notification_high_water_and_prevents_replay() {
+        let (mut conn, task_id, run_id) = fixture();
+        observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, run_id, 95, true, 60, false, T1).unwrap();
+        let first = claim_pending_timed_alerts(&mut conn, T1).unwrap();
+        assert_eq!(first.len(), 1);
+        assert_eq!(first[0].boundary_seconds, 60);
+
+        assert!(
+            matches!(
+                observe!(&mut conn, task_id, run_id, 91, true, 60, false, T1),
+                Err(TimedAlertEffectError::WorkElapsedMovedBackwards {
+                    previous_seconds: 95,
+                    observed_seconds: 91
+                })
+            ),
+            "unexpected backward observations must still fail closed"
+        );
+
+        assert!(reconcile_timed_alert_cursor_after_authoritative_rebase(
+            &mut conn, task_id, run_id, 91, T1
+        )
+        .unwrap());
+        assert!(
+            !reconcile_timed_alert_cursor_after_authoritative_rebase(
+                &mut conn,
+                task_id,
+                SessionId::generate(),
+                89,
+                T1
+            )
+            .unwrap(),
+            "a different session must not rewrite the active cursor"
+        );
+
+        assert_eq!(
+            observe!(&mut conn, task_id, run_id, 91, true, 60, false, T1).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe!(&mut conn, task_id, run_id, 119, true, 60, false, T1).unwrap(),
+            0
+        );
+        assert_eq!(
+            observe!(&mut conn, task_id, run_id, 120, true, 60, false, T1).unwrap(),
+            1,
+            "keep the prior 120s boundary, not a replayed 60s threshold"
+        );
+        let next = claim_pending_timed_alerts(&mut conn, T1).unwrap();
+        assert_eq!(next.len(), 1);
+        assert_eq!(next[0].boundary_seconds, 120);
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
     }
 
     #[test]

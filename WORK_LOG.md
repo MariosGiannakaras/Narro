@@ -21,7 +21,7 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 - finalized application/repository naming as **Narro**;
 - verified and retained the canonical Narro branding master at `assets/branding/narro-logo-master.png`;
 - cleaned temporary logo-upload chunks, temporary GitHub workflow, low-quality preview and transient quality notes;
-- confirmed original Blitzit screenshot references are committed under `reference/original-blitzit-screenshots/`;
+- confirmed original Blitzit screenshot references are committed under `reference/original-blitzit/screenshots/`;
 - updated `STATUS.md` to state research/spec/reference assets are complete and implementation has not started;
 - added `AGENT_WORKFLOW.md` for Codex/Antigravity repository synchronization and checkbox discipline;
 - added `HANDOFF.md` as the live continuation point;

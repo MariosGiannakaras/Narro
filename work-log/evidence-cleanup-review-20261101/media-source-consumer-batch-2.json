@@ -1,0 +1,721 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "review_date": "2026-11-02",
+  "method": "Read actual same-family README; join indexed media Git path/blob/size and exact relative path or space-encoded path mentions. Hints are not byte/playback evidence, exhaustive current-consumer analysis, replacement proof or deletion approval.",
+  "batch": 2,
+  "media_reviewed": 49,
+  "media_bytes": 823652742,
+  "readmes": 12,
+  "mentioned": 9,
+  "new_deletions": 0,
+  "status": "ALL_HOLD",
+  "families": [
+    {
+      "name": "physical-native-final-20261024",
+      "files": 5,
+      "readme_sha": "65f0d263183f538f5968b8ceea4fc755d6d93700",
+      "readme_found": true
+    },
+    {
+      "name": "physical-gaps-20261024",
+      "files": 5,
+      "readme_sha": "b968b5821f44745b814b7ac5816b28745b353418",
+      "readme_found": true
+    },
+    {
+      "name": "m7-ci953-theme-20261005",
+      "files": 6,
+      "readme_sha": "fbfa3a403e568dae368c07e1c4725859e73a5fdd",
+      "readme_found": true
+    },
+    {
+      "name": "m7-ci953-success125-20261005",
+      "files": 2,
+      "readme_sha": "cfa7a1cda520272eef37cce824915b33c303ff9b",
+      "readme_found": true
+    },
+    {
+      "name": "batch-native389-20261023",
+      "files": 8,
+      "readme_sha": "d0a4175bb70571c4779d172fc6b6ea5cbd1745f3",
+      "readme_found": true
+    },
+    {
+      "name": "pr437-native-move-admission-20261030",
+      "files": 8,
+      "readme_sha": "bc938487dba81800742becf54b33788bff7f9424",
+      "readme_found": true
+    },
+    {
+      "name": "physical-gap-restart-20261024",
+      "files": 4,
+      "readme_sha": "191126f6e7d72d47a03105acacf4f8245707cce0",
+      "readme_found": true
+    },
+    {
+      "name": "physical-recovery-20261025",
+      "files": 4,
+      "readme_sha": "e1b00e3f4dd149c74c59906ad9e6938fca127cd7",
+      "readme_found": true
+    },
+    {
+      "name": "m7-ci953-gaps-20261005",
+      "files": 2,
+      "readme_sha": "9c107ba0f3f36fa6306d695483036a98b696a4bc",
+      "readme_found": true
+    },
+    {
+      "name": "m7-ci953-interfaces-20261005",
+      "files": 2,
+      "readme_sha": "ec8399252ce06cc330bb84c1c2bfbf8e7c8ed33d",
+      "readme_found": true
+    },
+    {
+      "name": "pa356-residual-native-20261015",
+      "files": 2,
+      "readme_sha": "1cc5ceeb57f0784a84c84befe72855c726d36c2c",
+      "readme_found": true
+    },
+    {
+      "name": "pr360-native-20261016",
+      "files": 1,
+      "readme_sha": "c42542109383acca2857426760c62672748b7394",
+      "readme_found": true
+    }
+  ],
+  "media": [
+    {
+      "path": "work-log/evidence/physical-native-final-20261024/recordings/A-qpc-control/native-original.mkv",
+      "git_blob": "dd0989f7b47045c872aa9183d5d93b5125cc41d2",
+      "bytes": 6164191,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-native-final-20261024/recordings/break-expiry-dual/native-original.mkv",
+      "git_blob": "e2428c6f44abbb5659c2f836f8329840c4ca3d59",
+      "bytes": 28875559,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-native-final-20261024/recordings/native-dual-reduced/native-original.mkv",
+      "git_blob": "a9471e49da745cf557d3642ff6e9124ddc5da704",
+      "bytes": 7661436,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-native-final-20261024/recordings/recovery-reduced/native-original.mkv",
+      "git_blob": "28150aa306e4a96afbe98d1a1707cbf90566e72c",
+      "bytes": 24200099,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-native-final-20261024/recordings/topmost-break/native-original.mkv",
+      "git_blob": "a3895043769da1683fe38253ee9e3a37298e22cd",
+      "bytes": 22033649,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gaps-20261024/recordings/B-populated-reduced/native-original.mkv",
+      "git_blob": "31a224904da65ad5731cd0e63de3a78655d28c72",
+      "bytes": 17633607,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gaps-20261024/recordings/image-and-persistence/native-original.mkv",
+      "git_blob": "d4cd26fb43428090d9b6edeeec0f63116086e23e",
+      "bytes": 15070496,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gaps-20261024/recordings/images/native-original.mkv",
+      "git_blob": "58dc428acbf5c900342f272d96bf1236908b4c74",
+      "bytes": 15494543,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gaps-20261024/recordings/preference-failures/native-original.mkv",
+      "git_blob": "23688ad2703bee9f3faa56557f8e804b075fc7f9",
+      "bytes": 27909333,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gaps-20261024/recordings/preferences/native-original.mkv",
+      "git_blob": "f1bcf989f27205381e997dc8ce2c1b6459ec15d0",
+      "bytes": 6428674,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/clips/100-save-main-recreation.mp4",
+      "git_blob": "a5e065c92d31e0cc90f56a484e90e8c682b4c70b",
+      "bytes": 9526680,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_DERIVED_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/clips/c5-drag-quit-relaunch.mp4",
+      "git_blob": "59a6753dfb60e4dcbf6eb63cf4d5743d6277a82f",
+      "bytes": 10540429,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_DERIVED_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/clips/dark-focus-normal-reduced.mp4",
+      "git_blob": "7dbf30b0fbd89d036ce18a5ac4e69b11702a7b05",
+      "bytes": 3416781,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_DERIVED_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/clips/system-theme-change.mp4",
+      "git_blob": "1aa9abb1944b6e307191caad9f22414e255c83d8",
+      "bytes": 5785139,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_DERIVED_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-02-01.mkv",
+      "git_blob": "f58a17b60cd779a2bbcfdb6bcd3c57deef559fea",
+      "bytes": 23204632,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "- [2026-10-05 11-02-01.mkv](video/2026-10-05 11-02-01.mkv): 728.800000s, 23204632bytes, SHA256 `8544f62e572d5937ce80b6da9ebda02323a73f577edf31274b9f3f37b5586163`. UTC start 2026-10-05T08:02:01.228Z.\r"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/video/2026-10-05 11-16-21.mkv",
+      "git_blob": "46d87c6c58b5fd23d2c1c3e44b33d774128436db",
+      "bytes": 23876156,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 10,
+          "text": "- [2026-10-05 11-16-21.mkv](video/2026-10-05 11-16-21.mkv): 883.285000s, 23876156bytes, SHA256 `735a54e427d2349c05afe0dcae411c5cb36843d51e8cecdaef17f92fd974a854`. UTC start 2026-10-05T08:16:21.598Z.\r"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-success125-20261005/video/2026-10-05 17-23-36.mkv",
+      "git_blob": "96c65cb8bf9f01afb9f435d724564b5f878e83fa",
+      "bytes": 37421877,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 14,
+          "text": "[Whole original MKV](video/2026-10-05%2017-23-36.mkv), [whole H264/AAC MP4](video/success125-full.mp4), [chronological CSV](chronological-actions.csv), [exact provenance](provenance.json), [nativegeometry/keyboardverification](inventory/success125-verification.json), [owneddata/prefsverification](in"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-success125-20261005/video/success125-full.mp4",
+      "git_blob": "5e741a2dbb9ca4b4aaf8f9cb893638927f081268",
+      "bytes": 37873281,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 14,
+          "text": "[Whole original MKV](video/2026-10-05%2017-23-36.mkv), [whole H264/AAC MP4](video/success125-full.mp4), [chronological CSV](chronological-actions.csv), [exact provenance](provenance.json), [nativegeometry/keyboardverification](inventory/success125-verification.json), [owneddata/prefsverification](in"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A01-04-normal/native-original.mkv",
+      "git_blob": "b27ff154f07d3e00c97d1b074b176df0a44a5ea2",
+      "bytes": 9259611,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": "work-log/2026-10-23-chatgpt-pr389-atomic-hwnd-position-correction.md",
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A05-08-reduced/native-original.mkv",
+      "git_blob": "dae4923103a45c2df933915208a69ae7e8d239fa",
+      "bytes": 8658769,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A09-controls-notes-subtask/native-original.mkv",
+      "git_blob": "7b50a1793afbdcb16f6296dffa9343401b861eb7",
+      "bytes": 12444250,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A10-rapid-input/native-original.mkv",
+      "git_blob": "6a6f343b79ff6f8053ddb654e8cde1814e9b0b48",
+      "bytes": 7192971,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A11-bottom-edge/native-original.mkv",
+      "git_blob": "5e470976be0fcbc8537c1d8152e480dd4826b534",
+      "bytes": 4188721,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A12-home-pause-exit/native-original.mkv",
+      "git_blob": "e52b6893062e014a540d8e14dc074139b1e7e14d",
+      "bytes": 5262255,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A12A13-native-global-keys/native-original.mkv",
+      "git_blob": "132bcd4a1913e2336790285e19dc82e7a2651616",
+      "bytes": 18936923,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/batch-native389-20261023/A14-topmost-backdrops/native-original.mkv",
+      "git_blob": "11351f9ad31a57cc33abbd5c121514bf615d1d6d",
+      "bytes": 4699959,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/CONTROL/dda-original.mkv",
+      "git_blob": "57716b98e5094078ec03ae0c9a871978b880e6a2",
+      "bytes": 7604294,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/CONTROL/gdi-original.mkv",
+      "git_blob": "d86eeb1cc7f48384746732b93f34c6b44a26d233",
+      "bytes": 4599974,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU/dda-original.mkv",
+      "git_blob": "7e64f5969d1f0ca869a2f27de8184e87d194aa69",
+      "bytes": 15453504,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU/gdi-original.mkv",
+      "git_blob": "6404bf5d0963f5ccb9d4beb2a12a0ff5d42db6cc",
+      "bytes": 10443098,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU2/dda-original.mkv",
+      "git_blob": "070977c5c34be07f0db0bbf2a6be85bf5d5e56ba",
+      "bytes": 6149483,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU2/gdi-original.mkv",
+      "git_blob": "f9fe2a00a14c73d1245129e720a3c62a82862bce",
+      "bytes": 4652260,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU3/dda-original.mkv",
+      "git_blob": "e28a89c1ee237c00a34fec035d4c362617a230b4",
+      "bytes": 10282997,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-native-move-admission-20261030/MENU3/gdi-original.mkv",
+      "git_blob": "3a1207d4193ddbd09b91b3804b384b6c1b0e9702",
+      "bytes": 7499107,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gap-restart-20261024/recordings/common-restart/native-original.mkv",
+      "git_blob": "d5f4b9fc8f595272c7066b3cd5d9110c3406650c",
+      "bytes": 32750162,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gap-restart-20261024/recordings/image-replacement/native-original.mkv",
+      "git_blob": "29befc252852d98031c33e7c080c83928e959b13",
+      "bytes": 5844044,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gap-restart-20261024/recordings/replacement-restart/native-original.mkv",
+      "git_blob": "f771c64566461b79919545a4f33c36f36b66264f",
+      "bytes": 13801809,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-gap-restart-20261024/recordings/report-exports/native-original.mkv",
+      "git_blob": "c8b6d5a4e0dd4f83b6800b9fffa0ba690401262e",
+      "bytes": 11818386,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-recovery-20261025/recordings/first-launch-recovery/native-original.mkv",
+      "git_blob": "6b83519b87c45df53fe0b5d38009e748f8a61248",
+      "bytes": 11707944,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-recovery-20261025/recordings/preferences-native-focus-2/native-original.mkv",
+      "git_blob": "730b482b5b61c4b00806d5ecf76cc666ff7e42cf",
+      "bytes": 17348713,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-recovery-20261025/recordings/preferences-native-focus/native-original.mkv",
+      "git_blob": "5c648491f362e93ab0358324bda6d5ca61c064e3",
+      "bytes": 29786951,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-recovery-20261025/recordings/shortcuts-disambiguation/native-original.mkv",
+      "git_blob": "7131d7a139a356fad2ef4776f6322b956ced9816",
+      "bytes": 4200340,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05 12-45-14.mkv",
+      "git_blob": "90bb42782097147e97b1628db12785c563fd5b71",
+      "bytes": 30707718,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 7,
+          "text": "- [Whole original OBS MKV — 18m08.7s](video/2026-10-05%2012-45-14.mkv)"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-gaps-20261005/video/2026-10-05-gaps-full.mp4",
+      "git_blob": "22d18b7a498cc263a40af720ef7ca73f5b14f466",
+      "bytes": 32022573,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 8,
+          "text": "- [Whole playable H264/AAC MP4 — stream-copy remux](video/2026-10-05-gaps-full.mp4)"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_DERIVED_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05 12-11-29.mkv",
+      "git_blob": "146e133f0858f2f4420762709d6f7a7dee7f30c6",
+      "bytes": 30186053,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 7,
+          "text": "[Whole untouched original MKV](video/2026-10-05 12-11-29.mkv):1007.117s,30,186,053bytes,SHA256 `9d8d56f3320c3d28185ccd934fcbffcc5e0396f72607e879a040df89f29c175d`. [Whole playable MP4](video/2026-10-05-interfaces-full.mp4) is a stream-copy remux retaining H264/AAC, SHA256 `187ab3380f2c59af1363b316a7c"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-interfaces-20261005/video/2026-10-05-interfaces-full.mp4",
+      "git_blob": "f4f9c13ed39c7877d3f1577f34b7f23721ec12be",
+      "bytes": 31402093,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 7,
+          "text": "[Whole untouched original MKV](video/2026-10-05 12-11-29.mkv):1007.117s,30,186,053bytes,SHA256 `9d8d56f3320c3d28185ccd934fcbffcc5e0396f72607e879a040df89f29c175d`. [Whole playable MP4](video/2026-10-05-interfaces-full.mp4) is a stream-copy remux retaining H264/AAC, SHA256 `187ab3380f2c59af1363b316a7c"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-residual-native-20261015/pa06-os-segment-01.mkv",
+      "git_blob": "f654cbd49e2c8134d1f7f992f9ae975317841ae4",
+      "bytes": 24004318,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa356-residual-native-20261015/pa06-os-segment-02.mkv",
+      "git_blob": "04ceb5b3ded83a1db1810a63ef2c48d01fdec90a",
+      "bytes": 36120694,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr360-native-20261016/video/2026-10-16 09-51-08.mkv",
+      "git_blob": "a96539808a9dc1a2e1fbefb9446a153c02691e6a",
+      "bytes": 51506206,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 3,
+          "text": "Acquisition **5/5**, aggregate review **5/5**; four scoped groups PASS, Focus/cross-window group FAIL (repeat Enter focus itself PASS). [Detailed verdicts](review/results.json). Original continuous dual-screen video **445.600s,4480x1080,60fps**,51,506,206 bytes. Complete original MKV is in `video/20"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    }
+  ]
+}

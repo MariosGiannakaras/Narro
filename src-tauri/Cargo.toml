@@ -17,6 +17,10 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
+[features]
+# Deliberately absent from default/release builds. Only the physical-test overlay enables it.
+physical-observability = ["rusqlite/hooks"]
+
 [dependencies]
 tauri = { version = "~2.11.5", features = ["tray-icon"] }
 tauri-plugin-opener = "2"

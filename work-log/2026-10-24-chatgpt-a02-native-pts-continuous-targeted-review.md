@@ -1,0 +1,35 @@
+# 2026-10-24 — exact-current A02 A/B native-PTS consecutive-frame review
+
+**Owner:** ChatGPT, read-only *existing recorded desktop original* forensic review. **Outcome: 4/4 targeted A02 cases inspected, no confirmed recurrence of the old double-title ghost in the inspected native ROI.** This is a scoped evidence disposition; **NOT** the full 8/8 A or B physical acceptance, not a per-frame DWM/present guarantee, not Blitzit parity, not a patch justification and **NOT** clearance to merge.
+
+## Exact inputs and known-good source identity
+
+- Control A: [PR389](https://github.com/MariosGiannakaras/Narro/pull/389), source `ec9227a2e09a69c380d4605aaf9623bdd9b9c394`, executable SHA256 `08a7e1d6b306e1469c274938c7e5c907ab962766f1b04b9ae2dce0d04d03985a`, CI [40084188512](https://github.com/MariosGiannakaras/Narro/actions/runs/40084188512) existing **3/3 PASS**.
+- Motion v4 B: [PR419](https://github.com/MariosGiannakaras/Narro/pull/419), source `43adb6a9d798dca56dd89c0f4f91c888e1d4fcd9`, executable SHA256 `8436d89b9d868fbdd7f5e5c76b13412a1360182645810e64b835b9a3ba8f9cd8`, CI [40084666277](https://github.com/MariosGiannakaras/Narro/actions/runs/40084666277) existing **3/3 PASS**.
+- Byte-verified original Windows 2560×1080 nominal-60fps MKV capture [A/B packet](evidence/physical-ab-20261024/README.md). Source 2026-10-24 original clip segments `A-reduced-verified`, `A-normal-verified`, `B-reduced`, `B-normal`, and exact native begin/commit timestamps in `native-trace/A|B/focus-transition-trace.jsonl`. This is not the earlier ccb70a92 A02 failure recording.
+- Earlier bounded 16-route pixel/QPC review [2026-10-24 current-A/B](2026-10-24-chatgpt-current-ab-original-video-qpc-scoped-review.md), and separate source/hover explanation for N36 [2026-10-24 Break](2026-10-24-chatgpt-n36-break-original-pixel-hover-disposition.md) remain intact and are **not repeated**.
+
+## New work actually performed
+
+Using the *existing* non-production isolated analysis branch `analysis/narro-20261024-exact-ab-frame-review`, source `d2ab4f8347a28fff0fe82212755f7e4048832ce7`, ran [GitHub workflow 40113856173](https://github.com/MariosGiannakaras/Narro/actions/runs/40113856173), job `120930957214`, **COMPLETED SUCCESS**. This is analysis tooling only; app CI was not rerun.
+
+For each actual candidate A02 Compact→Expanded native-begin token, sought ~0.15 seconds before its `native.begin` timestamp and decoded original chronological source frames with FFmpeg **without an `fps` resampling filter**. Output **one 7×8 56-cell contact sheet** per case, using actual original Windows pixels `crop=340:725:2220:0` (top 725px of native Focus/desktop), no spatial image rescaling, JPEG contact-sheet compression quality 5. The 0.91-second requested clip includes outgoing, handoff and settled expanded states; **up to 56 consecutive original source-PTS frames per sheet** (blank padding/non-source frames are not counted as video evidence). Four images were decoded from the completed job logs and visually inspected in sequence.
+
+| Case | Frozen original segment | Exact native begin UTC | Recorded transition duration | Bounded visual disposition |
+|---|---|---|---|---|
+| A A02 reduced | A-reduced-verified | 2026-10-24T13:13:59.638Z | 1ms | Compact title/time → a single expanded title/time and subtask area; **no doubled title seen** |
+| A A02 normal | A-normal-verified | 2026-10-24T13:15:03.093Z | 250ms | One heading/time, one real populated subtask eventually visible; native outgoing/expanded area clips during handoff, **no distinct ghost duplicate established** |
+| B A02 reduced | B-reduced | 2026-10-24T13:12:21.239Z | 1ms | Single title/time after reduced switch, expected empty expanded subtask area; **no ghost evidenced** |
+| B A02 normal | B-normal | 2026-10-24T13:13:16.080Z | 500ms | Progressive native/v4 composition, single recognizable title/time ownership, expanded empty subtask area settles; **no separate duplicated title evidenced** |
+
+**Visual discrimination:** some lower-area Greek text or gray cards belong to a separate desktop window exposed *below* the compact/truncated Focus clip during the resize. They are visible in the native recording before/during/after at desktop locations unrelated to the Focus header and are not by themselves extra Narro task-title hierarchies. A CSS/background fade, clipped row, tooltip, or ongoing semantic motion is not automatically a ghost; the older specific failure was a second/faint duplicated title *in the Focus heading itself* on an obsolete build.
+
+## Honest evidence limits / disposition
+
+- The contact sheets are **lossy JPEG**, can hide subtle per-pixel antialiasing/very faint transient double exposure, cover x=2220..2559 and y=0..724 only, and are ordered video frames rather than QPC-bracketed CopyFromScreen samples or DWM scanout telemetry. This is more concentrated source-frame evidence than earlier sparse samples, but not a complete full-desktop compositor acceptance or every binary input/timing class.
+- **New confirmed current-SHA A02 bug: 0 from this targeted evidence.** The old `ccb70a92` A02 ghost remains a genuine historical FAIL, but the physical current-candidate recurrence was **not reproduced** here. Do not turn this into a claim that the issue is mathematically impossible or source motion fully matches Blitzit.
+- Current A/B routes were **acquired 8/8 each**, and prior generic upper-window visual inspection **16/16 bounded reviewed**; strict A `PHYSICAL_BEFORE_MERGE` is **still OPEN** because the acceptance protocol additionally needs per-case original evidence with full relevant geometry, actual side-by-side/reference where required, and any unresolved native QPC capture/present uncertainty. Neither draft PR is merged. **Do not increment physical PASS counts** from this targeted review.
+- No product source/config/tests/fixtures changes. No Windows UI/AppData/profile activity. No new app CI or Windows acceptance execution. The isolated analysis workflow run is green and the stage did not rewrite any original MKV.
+- Codex owns the independently ongoing 34-group additional Windows gap matrix, `HANDOFF.md` and physical recorder/profile ledger. This finding is additive source/evidence analysis only; do not overwrite its live tracking or repeat existing recordings. Explicitly user/device-deferred drag, tray Quit, held-pointer Escape and second-monitor/DPI cases remain OUT OF SCOPE.
+
+**Single next action:** use Codex's newly frozen original G01–G29 evidence when it actually exists to grade only the remaining unsupported physical claims. If a later exact-SHA full-native frame reveals reproducible ghosting, localize first offending PTS/frame and compare raster token/QPC, then fix only the proven cause on the owned PR, add regression and rerun new exact-head validation/fast/Windows CI. Otherwise preserve the A physical-before-merge hold until explicit complete per-case visual acceptance has actually been justified; reconcile B dependency only afterward, with guarded merge/resulting-main gates. Formal milestone acceptance remains M1–M4 4/10, M5–M10 OPEN; M10 entry still LOCKED.

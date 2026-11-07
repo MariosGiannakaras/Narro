@@ -1,0 +1,539 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "review_date": "2026-11-02",
+  "method": "Same-family README read and exact family-relative/encoded path consumer leads, with frozen Git blob/size. Role hints not media decoded or independent SHA256; no exhaustive current-consumer/replacement proof.",
+  "batch": 5,
+  "media_reviewed": 33,
+  "media_bytes": 103067261,
+  "readmes": 11,
+  "mentioned": 11,
+  "new_deletions": 0,
+  "status": "ALL_HOLD",
+  "families": [
+    {
+      "name": "m6-quick-native-20261017",
+      "files": 1,
+      "readme_sha": "d8e3cd6a88eb0c07bbf4fb6642a1241ff699d46d",
+      "readme_found": true
+    },
+    {
+      "name": "pa353-msi-native-20261014",
+      "files": 1,
+      "readme_sha": null,
+      "readme_found": false
+    },
+    {
+      "name": "pr437-owned-overlay-native-20261029",
+      "files": 10,
+      "readme_sha": "170e8d9ec02bd47faaba49effb5bf18ec57ae0ad",
+      "readme_found": true
+    },
+    {
+      "name": "pr389-native-20261021",
+      "files": 2,
+      "readme_sha": "0ed9ded73df0fea96be176c0d4f3520307edd2f2",
+      "readme_found": true
+    },
+    {
+      "name": "m7-ci950-loading-20261005",
+      "files": 7,
+      "readme_sha": "756ff3784f06937ec9805b74d4ef284f887e0681",
+      "readme_found": true
+    },
+    {
+      "name": "ra01-ra02-native-capture-20261019",
+      "files": 2,
+      "readme_sha": "8202f197a7bdb86a420bab1472431a2672b451db",
+      "readme_found": true
+    },
+    {
+      "name": "pr387-native-20261020",
+      "files": 2,
+      "readme_sha": "01ddba53a605ee7eda9fb19c8d8f3b6b897b0403",
+      "readme_found": true
+    },
+    {
+      "name": "pr437-cold-software-topology-20261028",
+      "files": 1,
+      "readme_sha": "ca796bf51961e6c6b8961e2c353b80f8b2e29933",
+      "readme_found": true
+    },
+    {
+      "name": "pr437-software-return-20261028",
+      "files": 1,
+      "readme_sha": "9f01accb30f5b496af18bd361f91f8d51b388259",
+      "readme_found": true
+    },
+    {
+      "name": "pr386-native-20261020",
+      "files": 3,
+      "readme_sha": "5daf689f2a1f74055e9e6d82b4305809f4372bb4",
+      "readme_found": true
+    },
+    {
+      "name": "pr437-software-topology-20261028",
+      "files": 1,
+      "readme_sha": "1770e3354e076bea963dd59a44bee8530be56d02",
+      "readme_found": true
+    },
+    {
+      "name": "pr388-review-20261021",
+      "files": 2,
+      "readme_sha": "a127c6d11d6e0b19ab48267c1cb1cac795a3e497",
+      "readme_found": true
+    }
+  ],
+  "media": [
+    {
+      "path": "work-log/evidence/m6-quick-native-20261017/video/2026-10-17 10-09-41.mkv",
+      "git_blob": "b4e8d40c20fa6abbe9fe1b0db2cb00fd9ffda30c",
+      "bytes": 14562666,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa353-msi-native-20261014/msi-installed-launch.mkv",
+      "git_blob": "dbc27e2b3e076603ca70506e2aecaaed4e867d78",
+      "bytes": 14369262,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N100-tail/dda-original.mkv",
+      "git_blob": "e9631e5b5bb2af09490534f66b542223c7e55715",
+      "bytes": 719272,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N100-tail/gdi-original.mkv",
+      "git_blob": "cc67b6aa3b8b4fdbe16b42c00e4a1174a8998d99",
+      "bytes": 677165,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N100/dda-original.mkv",
+      "git_blob": "d903256b80e9e982c4af0158f8b5100c2a3a0def",
+      "bytes": 1092248,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N100/gdi-original.mkv",
+      "git_blob": "e1e06fc6b8ccea667c1217fcd684d31b99997b42",
+      "bytes": 1092039,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N125/dda-original.mkv",
+      "git_blob": "a6fa29b7bbc57acded708fb810316b9ed7c8b6e1",
+      "bytes": 2095793,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/N125/gdi-original.mkv",
+      "git_blob": "60c70f3dce26f7eb6e939358616bf044fc37a108",
+      "bytes": 2018273,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/R100/dda-original.mkv",
+      "git_blob": "354035fedc084a237f007aa7e2aaf22eb4b5c43e",
+      "bytes": 787802,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/R100/gdi-original.mkv",
+      "git_blob": "689dd35759eadcd77401c1cca30065ac3dd229f5",
+      "bytes": 766249,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/R125/dda-original.mkv",
+      "git_blob": "5ffb4b57af8ecbc977ad18770955a317e68cb4f1",
+      "bytes": 1403353,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-owned-overlay-native-20261029/R125/gdi-original.mkv",
+      "git_blob": "695a2e2d8edba70ff664a59d9a8b523b864fe29f",
+      "bytes": 1386680,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr389-native-20261021/normal/native-original.mkv",
+      "git_blob": "ac18b8727065fd43bcc86c68073a96ea5f0e6c04",
+      "bytes": 5739791,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr389-native-20261021/reduced/native-original.mkv",
+      "git_blob": "c19bd9cebf202c353a7425e66bcaf16e0975224a",
+      "bytes": 5887176,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/focus-escape.mp4",
+      "git_blob": "00f78c20ab7b2cdbd306d4d84e796007d7644838",
+      "bytes": 258779,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "All three entire originals are in `originals`, with bytes/SHA256 in its index. The first381.784s recording contains diagnostic gaps; whole original frame-by-frame review is not claimed. Four relevant3–4s regions were decoded at60fps (840frames);190unique cropped states were directly reviewed in all1"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/focus-ready-title.mp4",
+      "git_blob": "46dc592a4297f008ddace270519ecc66107b0554",
+      "bytes": 187826,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "All three entire originals are in `originals`, with bytes/SHA256 in its index. The first381.784s recording contains diagnostic gaps; whole original frame-by-frame review is not claimed. Four relevant3–4s regions were decoded at60fps (840frames);190unique cropped states were directly reviewed in all1"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/main-escape.mp4",
+      "git_blob": "3ab44bc95ff0d680d40327952294df3d9a43678a",
+      "bytes": 172904,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "All three entire originals are in `originals`, with bytes/SHA256 in its index. The first381.784s recording contains diagnostic gaps; whole original frame-by-frame review is not claimed. Four relevant3–4s regions were decoded at60fps (840frames);190unique cropped states were directly reviewed in all1"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/main-ready-retained-focus.mp4",
+      "git_blob": "63c0441ea4b72d511b3e36f7455dc062ad0ff991",
+      "bytes": 184734,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "All three entire originals are in `originals`, with bytes/SHA256 in its index. The first381.784s recording contains diagnostic gaps; whole original frame-by-frame review is not claimed. Four relevant3–4s regions were decoded at60fps (840frames);190unique cropped states were directly reviewed in all1"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/originals/2026-10-05 06-16-58.mkv",
+      "git_blob": "d2b9bec17203285a0b510ff452722e83ad820e09",
+      "bytes": 9448682,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/originals/2026-10-05 06-28-21.mkv",
+      "git_blob": "d02c2a1ba813be61d88f2149f888f9804c8530ee",
+      "bytes": 410280,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/originals/2026-10-05 06-29-21.mkv",
+      "git_blob": "338654a400f1853f8102cf94bb758787976a83c1",
+      "bytes": 653735,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/ra01-ra02-native-capture-20261019/video/RA01-original.mkv",
+      "git_blob": "e28264a02996d1875f496dde754de1f583baaa42",
+      "bytes": 998885,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 7,
+          "text": "| RA01 Board pointer-release | [Original MKV](video/RA01-original.mkv) / [stream-copy MP4](video/RA01-streamcopy.mp4) | 28.084s / OBS1686 frames | 6 actions captured | REVIEW_PENDING |"
+        }
+      ],
+      "external_reference_lead": "docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md|work-log/2026-10-30-chatgpt-cleanup-batch5-last25-predelete-audit.md",
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/ra01-ra02-native-capture-20261019/video/RA02-original.mkv",
+      "git_blob": "6ea026cf607bdae6866a3651b42b261c49f99ec7",
+      "bytes": 10064488,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 8,
+          "text": "| RA02 completion handoff | [Original MKV](video/RA02-original.mkv) / [stream-copy MP4](video/RA02-streamcopy.mp4) | 113.984s / OBS6839 frames | SuccessOFF eligible/no-next; SuccessON; untimed rest captured | REVIEW_PENDING |"
+        }
+      ],
+      "external_reference_lead": "docs/RA01_RA02_NATIVE_ANALYSIS_2026-10-19.md|work-log/2026-10-30-chatgpt-cleanup-batch5-last25-predelete-audit.md",
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr387-native-20261020/video/ON-acceptance-original.mkv",
+      "git_blob": "6efe0e1f67f90f84eb9afee5d62fe0b97e018254",
+      "bytes": 2753875,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr387-native-20261020/video/ON-last-rest-original.mkv",
+      "git_blob": "35ce686ab3e0916253e1ecd9bb38feeaad6d6b66",
+      "bytes": 2805383,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-cold-software-topology-20261028/cold-primary.mkv",
+      "git_blob": "3ffaa6b411033ce9134be8f33ea7507f7c55ae36",
+      "bytes": 5220048,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 3,
+          "text": "**PASS, scoped to software-inactive display:** with synthetic preference DISPLAY2 selected and remember Timer position OFF, `/internal` made DISPLAY2 inactive before launching the exact PR437 EXE; first Ctrl+Shift+T showed compact Timer J06 / 06:01 on primary, visible/topmost HWND 657204 rect [2204,"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-software-return-20261028/return-desktop.mkv",
+      "git_blob": "b4e93cf41d0763f601938d5312c7d7025bd11faa",
+      "bytes": 4944243,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 5,
+          "text": "[Original dual-desktop video](return-desktop.mkv) 25.334s nominal 15fps; [initial screenshot](initial-desktop.png) shows Timer on left/secondary, [restored screenshot](restored-desktop.png) shows Timer on primary; screenshots scaled 25%. [initial HWND](initial-secondary.json), [fallback HWND](fallba"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "README_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr386-native-20261020/video/RA01-original.mkv",
+      "git_blob": "f2ae017e7814ee3b9e08a64e3cb6dc3a96ca8bf9",
+      "bytes": 2027620,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr386-native-20261020/video/RA02-OFF-sourceTB.mkv",
+      "git_blob": "91a696c34962ede9e1eba61f950e1b24d937146a",
+      "bytes": 449961,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr386-native-20261020/video/RA02-ON-sourceTB.mkv",
+      "git_blob": "55ae9e4f891c9242266b707a44f2717747154dd8",
+      "bytes": 2379464,
+      "readme_exact_mentions": 0,
+      "readme_link_or_code_mentions": 0,
+      "readme_excerpt": [],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr437-software-topology-20261028/topology-primary.mkv",
+      "git_blob": "4e06b9f58b2c5da08af65402c8bd3f8052d1b6f4",
+      "bytes": 4392224,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 9,
+          "text": "[Original primary-screen video](topology-primary.mkv) 37.3s nominal 20fps; [fallback crop](timer-inactive.png) ~14s, [restored crop](timer-restored.png) ~35s, [timed events](topology-events.json), [inactive HWND](timer-inactive.json), [restored HWND](restored-monitor-probe.json), [synthetic preferen"
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "ROLE_UNKNOWN",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr388-review-20261021/pr388-cdp-native-original.mkv",
+      "git_blob": "3276406703269c5a9eddf5bb28027dbdf888c6a3",
+      "bytes": 2854217,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 5,
+          "text": "- `pr388-cdp-native-original.mkv`: useful unchanged163.100s desktop recording, actual PR EXE, CDP input; right edge clipped after app relaunch. Full viewport PNGs provide complementary complete views."
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    },
+    {
+      "path": "work-log/evidence/pr388-review-20261021/pr388-native-original.mkv",
+      "git_blob": "969755e69c7a444cae91d55294ea4028f1f65275",
+      "bytes": 262144,
+      "readme_exact_mentions": 1,
+      "readme_link_or_code_mentions": 1,
+      "readme_excerpt": [
+        {
+          "line": 6,
+          "text": "- `pr388-native-original.mkv`: aborted Computer Use startup attempt, no successful click; retained without acceptance credit. It was stopped forcibly after stdin was found closed, so it is not a completed acceptance recording."
+        }
+      ],
+      "external_reference_lead": null,
+      "role_hint": "FILENAME_ORIGINAL_HINT",
+      "disposition": "HOLD",
+      "delete_approved": false
+    }
+  ]
+}

@@ -12,8 +12,8 @@ Therefore the existing 19/19 status remains useful as prior coverage, but it is 
 
 ## Corpus to re-audit
 
-- **19 MP4 + SRT pairs** in `reference/original-blitzit-videos/inbox/`.
-- **46 canonical screenshot/image references** in `reference/original-blitzit-screenshots/`.
+- **19 MP4 + SRT pairs** in `reference/original-blitzit/videos/inbox/`.
+- **46 canonical screenshot/image references** in `reference/original-blitzit/screenshots/`.
 - Current Narro implementation, deterministic visual fixtures, interaction tests, and the final M10/final-review captures.
 
 No source item may be silently skipped. Historical material must remain labeled historical and may not override stronger current v2.6.69/direct evidence.

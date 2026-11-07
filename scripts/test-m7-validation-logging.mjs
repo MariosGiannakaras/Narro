@@ -33,6 +33,10 @@ for (const required of [
   "record_timer_restore",
   "topology_signature",
   "NARRO_VALIDATION_SOURCE_SHA",
+  "panic-first-fault.jsonl",
+  "install_first_fault_panic_hook(&session_dir)",
+  "previous_hook(info)",
+  "Backtrace::force_capture()",
   "executable_fingerprint",
   "executableFingerprint",
   "validation-executable-bytes-changed-between-quit-and-restart",
@@ -42,6 +46,19 @@ invariant(
   logger.includes("validation_executable()")
     && logger.includes("eq_ignore_ascii_case(VALIDATION_EXE_STEM)"),
   "logging activation must be fail-closed to the explicitly renamed validation executable",
+);
+
+invariant(
+  logger.includes("if (!enabled())") === false
+    && logger.includes("if !enabled() {")
+    && logger.indexOf("install_first_fault_panic_hook(&session_dir)") > logger.indexOf("pub fn initialize(app: &tauri::App)"),
+  "panic diagnostic hook must be installed only after validation-executable activation",
+);
+invariant(
+  logger.includes("fn panic_first_fault_record(")
+    && !logger.includes('"panicPayload":')
+    && !logger.includes('"panicMessage":'),
+  "first-fault diagnostic must never persist panic payloads or user-authored text",
 );
 
 for (const forbidden of [

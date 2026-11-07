@@ -1,0 +1,5268 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "verified_main_at_read": "75ead05601fd768c74a8abcafb1d1256f54323b2",
+  "family": "work-log/evidence/m7-ci942-20261004/",
+  "family_git_tree": "a2bccb18ea19644515cfc51884b35586c54ba959",
+  "family_tree_frozen_baseline_sha_identical": true,
+  "tree_truncated": false,
+  "scope": "Exact tracked path and Git-blob inventory + published relative-path/size join; historical native original video availability and current consumers; not an independent binary SHA256 audit",
+  "published_sources": [
+    "work-log/evidence/m7-ci942-20261004/README.md",
+    "work-log/evidence/m7-ci942-20261004/manifest.json",
+    "work-log/evidence/m7-ci942-20261004/video-provenance.json",
+    "work-log/evidence/m7-ci942-20261004/review-clips/provenance.json",
+    "work-log/2026-10-04-codex-m7-ci942-physical-results.md"
+  ],
+  "counts": {
+    "tracked_paths": 226,
+    "tracked_checkout_bytes": 166731744,
+    "nonzip_nonconventional_media_paths": 221,
+    "nonzip_nonconventional_media_bytes": 121363518,
+    "retained_derived_mp4_paths": 4,
+    "retained_zip_paths": 1,
+    "historical_manifest_paths": 1077,
+    "historical_manifest_present_exact_size": 225,
+    "historical_manifest_present_mismatched_size": 0,
+    "historical_manifest_absent": 852,
+    "absent_motion_frames": 840,
+    "absent_raw_original_parts": 11,
+    "absent_observation_logs": 1,
+    "approved_for_deletion": 0
+  },
+  "original_source": {
+    "original_recording_filename": "2026-10-04 12-45-40.mkv",
+    "published_original_bytes": 422038429,
+    "published_original_sha256": "ddf990eb6fd65f734fa64ab399cc26575e127900b035ebff7e07e529e146b9ee",
+    "original_parts_published": 11,
+    "original_parts_tracked_current_main": 0,
+    "status": "ABSENT_FROM_CURRENT_CHECKOUT; no evidence of a complete alternate currently tracked source was established; historic Git/external recovery NOT VERIFIED",
+    "note": "The published primary OBS recording is the source for the four current derived review-clips. Source claims are historical, not revalidated by new SHA256 stream."
+  },
+  "historic_native_results": {
+    "scoped_C5_placement_topology_performance": "HISTORIC_PASS",
+    "modal_shortcut_isolation": "HISTORIC_FAIL",
+    "retest_on_pr232_or_later": "OPEN_NOT_INFERRED"
+  },
+  "missing_historical_paths": [
+    {
+      "relative_path": "motion/collapse100-normal/frame-001.png",
+      "receipt_bytes": 26612
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-002.png",
+      "receipt_bytes": 25660
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-003.png",
+      "receipt_bytes": 25467
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-004.png",
+      "receipt_bytes": 25188
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-005.png",
+      "receipt_bytes": 24242
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-006.png",
+      "receipt_bytes": 23923
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-007.png",
+      "receipt_bytes": 23749
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-008.png",
+      "receipt_bytes": 23773
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-009.png",
+      "receipt_bytes": 23638
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-010.png",
+      "receipt_bytes": 23002
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-011.png",
+      "receipt_bytes": 23059
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-012.png",
+      "receipt_bytes": 23058
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-013.png",
+      "receipt_bytes": 23674
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-014.png",
+      "receipt_bytes": 23332
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-015.png",
+      "receipt_bytes": 23534
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-016.png",
+      "receipt_bytes": 23925
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-017.png",
+      "receipt_bytes": 24035
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-018.png",
+      "receipt_bytes": 24071
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-019.png",
+      "receipt_bytes": 24125
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-020.png",
+      "receipt_bytes": 24142
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-021.png",
+      "receipt_bytes": 24177
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-022.png",
+      "receipt_bytes": 24178
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-023.png",
+      "receipt_bytes": 24177
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-024.png",
+      "receipt_bytes": 24177
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-025.png",
+      "receipt_bytes": 24174
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-026.png",
+      "receipt_bytes": 24156
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-027.png",
+      "receipt_bytes": 24178
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-028.png",
+      "receipt_bytes": 24123
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-029.png",
+      "receipt_bytes": 26110
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-030.png",
+      "receipt_bytes": 30113
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-031.png",
+      "receipt_bytes": 34511
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-032.png",
+      "receipt_bytes": 37901
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-033.png",
+      "receipt_bytes": 38202
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-034.png",
+      "receipt_bytes": 37893
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-035.png",
+      "receipt_bytes": 36832
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-036.png",
+      "receipt_bytes": 37374
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-037.png",
+      "receipt_bytes": 42118
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-038.png",
+      "receipt_bytes": 42681
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-039.png",
+      "receipt_bytes": 42736
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-040.png",
+      "receipt_bytes": 42748
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-041.png",
+      "receipt_bytes": 42664
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-042.png",
+      "receipt_bytes": 42570
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-043.png",
+      "receipt_bytes": 42499
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-044.png",
+      "receipt_bytes": 42519
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-045.png",
+      "receipt_bytes": 41922
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-046.png",
+      "receipt_bytes": 41563
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-047.png",
+      "receipt_bytes": 41025
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-048.png",
+      "receipt_bytes": 41018
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-049.png",
+      "receipt_bytes": 41015
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-050.png",
+      "receipt_bytes": 41023
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-051.png",
+      "receipt_bytes": 41058
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-052.png",
+      "receipt_bytes": 41157
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-053.png",
+      "receipt_bytes": 42240
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-054.png",
+      "receipt_bytes": 39730
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-055.png",
+      "receipt_bytes": 38722
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-056.png",
+      "receipt_bytes": 37972
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-057.png",
+      "receipt_bytes": 36512
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-058.png",
+      "receipt_bytes": 36400
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-059.png",
+      "receipt_bytes": 36185
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-060.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-061.png",
+      "receipt_bytes": 35996
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-062.png",
+      "receipt_bytes": 36006
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-063.png",
+      "receipt_bytes": 35997
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-064.png",
+      "receipt_bytes": 36000
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-065.png",
+      "receipt_bytes": 35994
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-066.png",
+      "receipt_bytes": 35999
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-067.png",
+      "receipt_bytes": 35995
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-068.png",
+      "receipt_bytes": 36000
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-069.png",
+      "receipt_bytes": 36014
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-070.png",
+      "receipt_bytes": 36014
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-071.png",
+      "receipt_bytes": 36014
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-072.png",
+      "receipt_bytes": 36014
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-073.png",
+      "receipt_bytes": 36014
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-074.png",
+      "receipt_bytes": 36056
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-075.png",
+      "receipt_bytes": 36060
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-076.png",
+      "receipt_bytes": 36054
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-077.png",
+      "receipt_bytes": 36053
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-078.png",
+      "receipt_bytes": 36053
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-079.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-080.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-081.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-082.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-083.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-084.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-085.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-086.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-087.png",
+      "receipt_bytes": 36051
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-088.png",
+      "receipt_bytes": 36038
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-089.png",
+      "receipt_bytes": 36031
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-090.png",
+      "receipt_bytes": 36573
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-091.png",
+      "receipt_bytes": 36573
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-092.png",
+      "receipt_bytes": 36581
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-093.png",
+      "receipt_bytes": 36581
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-094.png",
+      "receipt_bytes": 36578
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-095.png",
+      "receipt_bytes": 36579
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-096.png",
+      "receipt_bytes": 36569
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-097.png",
+      "receipt_bytes": 36557
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-098.png",
+      "receipt_bytes": 36557
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-099.png",
+      "receipt_bytes": 36562
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-100.png",
+      "receipt_bytes": 36468
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-101.png",
+      "receipt_bytes": 37297
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-102.png",
+      "receipt_bytes": 42468
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-103.png",
+      "receipt_bytes": 42065
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-104.png",
+      "receipt_bytes": 22846
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-105.png",
+      "receipt_bytes": 23328
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-106.png",
+      "receipt_bytes": 23284
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-107.png",
+      "receipt_bytes": 23276
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-108.png",
+      "receipt_bytes": 23276
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-109.png",
+      "receipt_bytes": 21852
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-110.png",
+      "receipt_bytes": 21912
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-111.png",
+      "receipt_bytes": 21944
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-112.png",
+      "receipt_bytes": 21925
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-113.png",
+      "receipt_bytes": 21942
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-114.png",
+      "receipt_bytes": 21946
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-115.png",
+      "receipt_bytes": 21953
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-116.png",
+      "receipt_bytes": 21943
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-117.png",
+      "receipt_bytes": 21953
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-118.png",
+      "receipt_bytes": 21953
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-119.png",
+      "receipt_bytes": 21953
+    },
+    {
+      "relative_path": "motion/collapse100-normal/frame-120.png",
+      "receipt_bytes": 21953
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-001.png",
+      "receipt_bytes": 25587
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-002.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-003.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-004.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-005.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-006.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-007.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-008.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-009.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-010.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-011.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-012.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-013.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-014.png",
+      "receipt_bytes": 25594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-015.png",
+      "receipt_bytes": 25595
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-016.png",
+      "receipt_bytes": 25720
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-017.png",
+      "receipt_bytes": 25716
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-018.png",
+      "receipt_bytes": 25716
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-019.png",
+      "receipt_bytes": 25711
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-020.png",
+      "receipt_bytes": 25711
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-021.png",
+      "receipt_bytes": 25711
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-022.png",
+      "receipt_bytes": 25711
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-023.png",
+      "receipt_bytes": 25711
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-024.png",
+      "receipt_bytes": 23407
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-025.png",
+      "receipt_bytes": 23448
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-026.png",
+      "receipt_bytes": 23485
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-027.png",
+      "receipt_bytes": 23545
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-028.png",
+      "receipt_bytes": 40045
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-029.png",
+      "receipt_bytes": 39720
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-030.png",
+      "receipt_bytes": 39318
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-031.png",
+      "receipt_bytes": 39554
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-032.png",
+      "receipt_bytes": 39474
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-033.png",
+      "receipt_bytes": 39583
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-034.png",
+      "receipt_bytes": 39593
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-035.png",
+      "receipt_bytes": 39582
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-036.png",
+      "receipt_bytes": 39599
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-037.png",
+      "receipt_bytes": 39598
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-038.png",
+      "receipt_bytes": 39595
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-039.png",
+      "receipt_bytes": 39594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-040.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-041.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-042.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-043.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-044.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-045.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-046.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-047.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-048.png",
+      "receipt_bytes": 39589
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-049.png",
+      "receipt_bytes": 41915
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-050.png",
+      "receipt_bytes": 42367
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-051.png",
+      "receipt_bytes": 42581
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-052.png",
+      "receipt_bytes": 42541
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-053.png",
+      "receipt_bytes": 42594
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-054.png",
+      "receipt_bytes": 42621
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-055.png",
+      "receipt_bytes": 42585
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-056.png",
+      "receipt_bytes": 42615
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-057.png",
+      "receipt_bytes": 42575
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-058.png",
+      "receipt_bytes": 41615
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-059.png",
+      "receipt_bytes": 41376
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-060.png",
+      "receipt_bytes": 41380
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-061.png",
+      "receipt_bytes": 41317
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-062.png",
+      "receipt_bytes": 41332
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-063.png",
+      "receipt_bytes": 41291
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-064.png",
+      "receipt_bytes": 41332
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-065.png",
+      "receipt_bytes": 41332
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-066.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-067.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-068.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-069.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-070.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-071.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-072.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-073.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-074.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-075.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-076.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-077.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-078.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-079.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-080.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-081.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-082.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-083.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-084.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-085.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-086.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-087.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-088.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-089.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-090.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-091.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-092.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-093.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-094.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-095.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-096.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-097.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-098.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-099.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-100.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-101.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-102.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-103.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-104.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-105.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-106.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-107.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-108.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-109.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-110.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-111.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-112.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-113.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-114.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-115.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-116.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-117.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-118.png",
+      "receipt_bytes": 41268
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-119.png",
+      "receipt_bytes": 41340
+    },
+    {
+      "relative_path": "motion/collapse100-reduced/frame-120.png",
+      "receipt_bytes": 41321
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-001.png",
+      "receipt_bytes": 37481
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-002.png",
+      "receipt_bytes": 37481
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-003.png",
+      "receipt_bytes": 37473
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-004.png",
+      "receipt_bytes": 37493
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-005.png",
+      "receipt_bytes": 37492
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-006.png",
+      "receipt_bytes": 37492
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-007.png",
+      "receipt_bytes": 37492
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-008.png",
+      "receipt_bytes": 37492
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-009.png",
+      "receipt_bytes": 37492
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-010.png",
+      "receipt_bytes": 37498
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-011.png",
+      "receipt_bytes": 37508
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-012.png",
+      "receipt_bytes": 37508
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-013.png",
+      "receipt_bytes": 37520
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-014.png",
+      "receipt_bytes": 37520
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-015.png",
+      "receipt_bytes": 37520
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-016.png",
+      "receipt_bytes": 37520
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-017.png",
+      "receipt_bytes": 32143
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-018.png",
+      "receipt_bytes": 32125
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-019.png",
+      "receipt_bytes": 32142
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-020.png",
+      "receipt_bytes": 32141
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-021.png",
+      "receipt_bytes": 32131
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-022.png",
+      "receipt_bytes": 35950
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-023.png",
+      "receipt_bytes": 36475
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-024.png",
+      "receipt_bytes": 36648
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-025.png",
+      "receipt_bytes": 36128
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-026.png",
+      "receipt_bytes": 36329
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-027.png",
+      "receipt_bytes": 36494
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-028.png",
+      "receipt_bytes": 50049
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-029.png",
+      "receipt_bytes": 79544
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-030.png",
+      "receipt_bytes": 103778
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-031.png",
+      "receipt_bytes": 120583
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-032.png",
+      "receipt_bytes": 124966
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-033.png",
+      "receipt_bytes": 126634
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-034.png",
+      "receipt_bytes": 128095
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-035.png",
+      "receipt_bytes": 129136
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-036.png",
+      "receipt_bytes": 129113
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-037.png",
+      "receipt_bytes": 129490
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-038.png",
+      "receipt_bytes": 130065
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-039.png",
+      "receipt_bytes": 130291
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-040.png",
+      "receipt_bytes": 130330
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-041.png",
+      "receipt_bytes": 130461
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-042.png",
+      "receipt_bytes": 130372
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-043.png",
+      "receipt_bytes": 130258
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-044.png",
+      "receipt_bytes": 130268
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-045.png",
+      "receipt_bytes": 129142
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-046.png",
+      "receipt_bytes": 128347
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-047.png",
+      "receipt_bytes": 128100
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-048.png",
+      "receipt_bytes": 127895
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-049.png",
+      "receipt_bytes": 127517
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-050.png",
+      "receipt_bytes": 127417
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-051.png",
+      "receipt_bytes": 127367
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-052.png",
+      "receipt_bytes": 127327
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-053.png",
+      "receipt_bytes": 127357
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-054.png",
+      "receipt_bytes": 127365
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-055.png",
+      "receipt_bytes": 127352
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-056.png",
+      "receipt_bytes": 127344
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-057.png",
+      "receipt_bytes": 127362
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-058.png",
+      "receipt_bytes": 127553
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-059.png",
+      "receipt_bytes": 129823
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-060.png",
+      "receipt_bytes": 128743
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-061.png",
+      "receipt_bytes": 126600
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-062.png",
+      "receipt_bytes": 126100
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-063.png",
+      "receipt_bytes": 125678
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-064.png",
+      "receipt_bytes": 124787
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-065.png",
+      "receipt_bytes": 123353
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-066.png",
+      "receipt_bytes": 123279
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-067.png",
+      "receipt_bytes": 123257
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-068.png",
+      "receipt_bytes": 123283
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-069.png",
+      "receipt_bytes": 123280
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-070.png",
+      "receipt_bytes": 123280
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-071.png",
+      "receipt_bytes": 123279
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-072.png",
+      "receipt_bytes": 123282
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-073.png",
+      "receipt_bytes": 123280
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-074.png",
+      "receipt_bytes": 123284
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-075.png",
+      "receipt_bytes": 123280
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-076.png",
+      "receipt_bytes": 123272
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-077.png",
+      "receipt_bytes": 123276
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-078.png",
+      "receipt_bytes": 123933
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-079.png",
+      "receipt_bytes": 123936
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-080.png",
+      "receipt_bytes": 123944
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-081.png",
+      "receipt_bytes": 123968
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-082.png",
+      "receipt_bytes": 123963
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-083.png",
+      "receipt_bytes": 123965
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-084.png",
+      "receipt_bytes": 123962
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-085.png",
+      "receipt_bytes": 123978
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-086.png",
+      "receipt_bytes": 123978
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-087.png",
+      "receipt_bytes": 123978
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-088.png",
+      "receipt_bytes": 123978
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-089.png",
+      "receipt_bytes": 123978
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-090.png",
+      "receipt_bytes": 123984
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-091.png",
+      "receipt_bytes": 123990
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-092.png",
+      "receipt_bytes": 124055
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-093.png",
+      "receipt_bytes": 124046
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-094.png",
+      "receipt_bytes": 124166
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-095.png",
+      "receipt_bytes": 123967
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-096.png",
+      "receipt_bytes": 123973
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-097.png",
+      "receipt_bytes": 124014
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-098.png",
+      "receipt_bytes": 123358
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-099.png",
+      "receipt_bytes": 125121
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-100.png",
+      "receipt_bytes": 125750
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-101.png",
+      "receipt_bytes": 124980
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-102.png",
+      "receipt_bytes": 125642
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-103.png",
+      "receipt_bytes": 125761
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-104.png",
+      "receipt_bytes": 128383
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-105.png",
+      "receipt_bytes": 128847
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-106.png",
+      "receipt_bytes": 129410
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-107.png",
+      "receipt_bytes": 129173
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-108.png",
+      "receipt_bytes": 128992
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-109.png",
+      "receipt_bytes": 128613
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-110.png",
+      "receipt_bytes": 128556
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-111.png",
+      "receipt_bytes": 128476
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-112.png",
+      "receipt_bytes": 128534
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-113.png",
+      "receipt_bytes": 128464
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-114.png",
+      "receipt_bytes": 128482
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-115.png",
+      "receipt_bytes": 128466
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-116.png",
+      "receipt_bytes": 128473
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-117.png",
+      "receipt_bytes": 128490
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-118.png",
+      "receipt_bytes": 128464
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-119.png",
+      "receipt_bytes": 128484
+    },
+    {
+      "relative_path": "motion/collapse125-normal/frame-120.png",
+      "receipt_bytes": 128474
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-001.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-002.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-003.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-004.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-005.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-006.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-007.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-008.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-009.png",
+      "receipt_bytes": 164231
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-010.png",
+      "receipt_bytes": 163741
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-011.png",
+      "receipt_bytes": 163751
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-012.png",
+      "receipt_bytes": 163775
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-013.png",
+      "receipt_bytes": 163780
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-014.png",
+      "receipt_bytes": 163793
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-015.png",
+      "receipt_bytes": 163792
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-016.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-017.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-018.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-019.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-020.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-021.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-022.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-023.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-024.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-025.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-026.png",
+      "receipt_bytes": 163791
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-027.png",
+      "receipt_bytes": 163792
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-028.png",
+      "receipt_bytes": 163795
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-029.png",
+      "receipt_bytes": 163794
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-030.png",
+      "receipt_bytes": 163800
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-031.png",
+      "receipt_bytes": 163811
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-032.png",
+      "receipt_bytes": 163811
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-033.png",
+      "receipt_bytes": 163810
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-034.png",
+      "receipt_bytes": 163810
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-035.png",
+      "receipt_bytes": 164781
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-036.png",
+      "receipt_bytes": 166082
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-037.png",
+      "receipt_bytes": 178896
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-038.png",
+      "receipt_bytes": 176470
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-039.png",
+      "receipt_bytes": 158816
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-040.png",
+      "receipt_bytes": 147899
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-041.png",
+      "receipt_bytes": 149814
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-042.png",
+      "receipt_bytes": 147027
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-043.png",
+      "receipt_bytes": 139328
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-044.png",
+      "receipt_bytes": 126111
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-045.png",
+      "receipt_bytes": 124941
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-046.png",
+      "receipt_bytes": 124702
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-047.png",
+      "receipt_bytes": 119021
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-048.png",
+      "receipt_bytes": 111053
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-049.png",
+      "receipt_bytes": 108294
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-050.png",
+      "receipt_bytes": 87810
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-051.png",
+      "receipt_bytes": 87185
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-052.png",
+      "receipt_bytes": 87290
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-053.png",
+      "receipt_bytes": 87254
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-054.png",
+      "receipt_bytes": 87249
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-055.png",
+      "receipt_bytes": 87169
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-056.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-057.png",
+      "receipt_bytes": 87216
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-058.png",
+      "receipt_bytes": 87155
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-059.png",
+      "receipt_bytes": 87204
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-060.png",
+      "receipt_bytes": 87176
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-061.png",
+      "receipt_bytes": 87185
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-062.png",
+      "receipt_bytes": 87179
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-063.png",
+      "receipt_bytes": 87190
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-064.png",
+      "receipt_bytes": 87191
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-065.png",
+      "receipt_bytes": 87195
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-066.png",
+      "receipt_bytes": 87189
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-067.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-068.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-069.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-070.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-071.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-072.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-073.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-074.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-075.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-076.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-077.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-078.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-079.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-080.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-081.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-082.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-083.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-084.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-085.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-086.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-087.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-088.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-089.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-090.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-091.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-092.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-093.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-094.png",
+      "receipt_bytes": 87187
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-095.png",
+      "receipt_bytes": 87184
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-096.png",
+      "receipt_bytes": 87216
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-097.png",
+      "receipt_bytes": 87211
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-098.png",
+      "receipt_bytes": 87211
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-099.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-100.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-101.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-102.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-103.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-104.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-105.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-106.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-107.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-108.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-109.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-110.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-111.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-112.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-113.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-114.png",
+      "receipt_bytes": 87197
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-115.png",
+      "receipt_bytes": 87194
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-116.png",
+      "receipt_bytes": 87195
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-117.png",
+      "receipt_bytes": 87177
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-118.png",
+      "receipt_bytes": 87186
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-119.png",
+      "receipt_bytes": 87198
+    },
+    {
+      "relative_path": "motion/entry-normal-focus/frame-120.png",
+      "receipt_bytes": 87201
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-001.png",
+      "receipt_bytes": 132061
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-002.png",
+      "receipt_bytes": 132776
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-003.png",
+      "receipt_bytes": 132731
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-004.png",
+      "receipt_bytes": 132665
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-005.png",
+      "receipt_bytes": 132706
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-006.png",
+      "receipt_bytes": 132764
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-007.png",
+      "receipt_bytes": 132818
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-008.png",
+      "receipt_bytes": 132776
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-009.png",
+      "receipt_bytes": 132795
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-010.png",
+      "receipt_bytes": 129657
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-011.png",
+      "receipt_bytes": 130518
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-012.png",
+      "receipt_bytes": 130821
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-013.png",
+      "receipt_bytes": 130999
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-014.png",
+      "receipt_bytes": 133795
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-015.png",
+      "receipt_bytes": 134396
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-016.png",
+      "receipt_bytes": 134165
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-017.png",
+      "receipt_bytes": 141245
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-018.png",
+      "receipt_bytes": 140106
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-019.png",
+      "receipt_bytes": 145689
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-020.png",
+      "receipt_bytes": 146739
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-021.png",
+      "receipt_bytes": 146699
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-022.png",
+      "receipt_bytes": 147146
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-023.png",
+      "receipt_bytes": 148642
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-024.png",
+      "receipt_bytes": 149897
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-025.png",
+      "receipt_bytes": 151025
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-026.png",
+      "receipt_bytes": 151835
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-027.png",
+      "receipt_bytes": 146216
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-028.png",
+      "receipt_bytes": 141688
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-029.png",
+      "receipt_bytes": 135653
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-030.png",
+      "receipt_bytes": 120748
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-031.png",
+      "receipt_bytes": 112200
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-032.png",
+      "receipt_bytes": 103458
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-033.png",
+      "receipt_bytes": 63850
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-034.png",
+      "receipt_bytes": 49979
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-035.png",
+      "receipt_bytes": 50065
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-036.png",
+      "receipt_bytes": 50101
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-037.png",
+      "receipt_bytes": 50777
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-038.png",
+      "receipt_bytes": 143016
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-039.png",
+      "receipt_bytes": 143627
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-040.png",
+      "receipt_bytes": 142373
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-041.png",
+      "receipt_bytes": 144359
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-042.png",
+      "receipt_bytes": 144037
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-043.png",
+      "receipt_bytes": 143868
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-044.png",
+      "receipt_bytes": 143885
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-045.png",
+      "receipt_bytes": 144038
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-046.png",
+      "receipt_bytes": 144102
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-047.png",
+      "receipt_bytes": 144087
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-048.png",
+      "receipt_bytes": 144118
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-049.png",
+      "receipt_bytes": 144096
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-050.png",
+      "receipt_bytes": 144116
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-051.png",
+      "receipt_bytes": 144108
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-052.png",
+      "receipt_bytes": 144058
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-053.png",
+      "receipt_bytes": 144103
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-054.png",
+      "receipt_bytes": 144063
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-055.png",
+      "receipt_bytes": 144074
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-056.png",
+      "receipt_bytes": 144085
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-057.png",
+      "receipt_bytes": 144093
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-058.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-059.png",
+      "receipt_bytes": 144062
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-060.png",
+      "receipt_bytes": 144066
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-061.png",
+      "receipt_bytes": 144101
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-062.png",
+      "receipt_bytes": 144069
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-063.png",
+      "receipt_bytes": 144071
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-064.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-065.png",
+      "receipt_bytes": 144123
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-066.png",
+      "receipt_bytes": 144076
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-067.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-068.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-069.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-070.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-071.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-072.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-073.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-074.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-075.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-076.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-077.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-078.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-079.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-080.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-081.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-082.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-083.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-084.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-085.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-086.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-087.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-088.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-089.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-090.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-091.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-092.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-093.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-094.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-095.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-096.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-097.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-098.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-099.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-100.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-101.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-102.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-103.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-104.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-105.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-106.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-107.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-108.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-109.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-110.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-111.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-112.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-113.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-114.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-115.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-116.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-117.png",
+      "receipt_bytes": 144117
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-118.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-119.png",
+      "receipt_bytes": 144067
+    },
+    {
+      "relative_path": "motion/entry-normal-main/frame-120.png",
+      "receipt_bytes": 144082
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-001.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-002.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-003.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-004.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-005.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-006.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-007.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-008.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-009.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-010.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-011.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-012.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-013.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-014.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-015.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-016.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-017.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-018.png",
+      "receipt_bytes": 164314
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-019.png",
+      "receipt_bytes": 62475
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-020.png",
+      "receipt_bytes": 62426
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-021.png",
+      "receipt_bytes": 62222
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-022.png",
+      "receipt_bytes": 62744
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-023.png",
+      "receipt_bytes": 62858
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-024.png",
+      "receipt_bytes": 62809
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-025.png",
+      "receipt_bytes": 62806
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-026.png",
+      "receipt_bytes": 62910
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-027.png",
+      "receipt_bytes": 62886
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-028.png",
+      "receipt_bytes": 62879
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-029.png",
+      "receipt_bytes": 62787
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-030.png",
+      "receipt_bytes": 62767
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-031.png",
+      "receipt_bytes": 62736
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-032.png",
+      "receipt_bytes": 62780
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-033.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-034.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-035.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-036.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-037.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-038.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-039.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-040.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-041.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-042.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-043.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-044.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-045.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-046.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-047.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-048.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-049.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-050.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-051.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-052.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-053.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-054.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-055.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-056.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-057.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-058.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-059.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-060.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-061.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-062.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-063.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-064.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-065.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-066.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-067.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-068.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-069.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-070.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-071.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-072.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-073.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-074.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-075.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-076.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-077.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-078.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-079.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-080.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-081.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-082.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-083.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-084.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-085.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-086.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-087.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-088.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-089.png",
+      "receipt_bytes": 62783
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-090.png",
+      "receipt_bytes": 62769
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-091.png",
+      "receipt_bytes": 62727
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-092.png",
+      "receipt_bytes": 58461
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-093.png",
+      "receipt_bytes": 58511
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-094.png",
+      "receipt_bytes": 58584
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-095.png",
+      "receipt_bytes": 58574
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-096.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-097.png",
+      "receipt_bytes": 58704
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-098.png",
+      "receipt_bytes": 58663
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-099.png",
+      "receipt_bytes": 58697
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-100.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-101.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-102.png",
+      "receipt_bytes": 58678
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-103.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-104.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-105.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-106.png",
+      "receipt_bytes": 58678
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-107.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-108.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-109.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-110.png",
+      "receipt_bytes": 58678
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-111.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-112.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-113.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-114.png",
+      "receipt_bytes": 58678
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-115.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-116.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-117.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-118.png",
+      "receipt_bytes": 58678
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-119.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-focus/frame-120.png",
+      "receipt_bytes": 58700
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-001.png",
+      "receipt_bytes": 121784
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-002.png",
+      "receipt_bytes": 121771
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-003.png",
+      "receipt_bytes": 121864
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-004.png",
+      "receipt_bytes": 121999
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-005.png",
+      "receipt_bytes": 122037
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-006.png",
+      "receipt_bytes": 122025
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-007.png",
+      "receipt_bytes": 122022
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-008.png",
+      "receipt_bytes": 121952
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-009.png",
+      "receipt_bytes": 121997
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-010.png",
+      "receipt_bytes": 121952
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-011.png",
+      "receipt_bytes": 122007
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-012.png",
+      "receipt_bytes": 121934
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-013.png",
+      "receipt_bytes": 123259
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-014.png",
+      "receipt_bytes": 124573
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-015.png",
+      "receipt_bytes": 124963
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-016.png",
+      "receipt_bytes": 124721
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-017.png",
+      "receipt_bytes": 130487
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-018.png",
+      "receipt_bytes": 125799
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-019.png",
+      "receipt_bytes": 128069
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-020.png",
+      "receipt_bytes": 128033
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-021.png",
+      "receipt_bytes": 127921
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-022.png",
+      "receipt_bytes": 126515
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-023.png",
+      "receipt_bytes": 126483
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-024.png",
+      "receipt_bytes": 126406
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-025.png",
+      "receipt_bytes": 126596
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-026.png",
+      "receipt_bytes": 126373
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-027.png",
+      "receipt_bytes": 126407
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-028.png",
+      "receipt_bytes": 126360
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-029.png",
+      "receipt_bytes": 126567
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-030.png",
+      "receipt_bytes": 126569
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-031.png",
+      "receipt_bytes": 126529
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-032.png",
+      "receipt_bytes": 126578
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-033.png",
+      "receipt_bytes": 126575
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-034.png",
+      "receipt_bytes": 126396
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-035.png",
+      "receipt_bytes": 126382
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-036.png",
+      "receipt_bytes": 126401
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-037.png",
+      "receipt_bytes": 126541
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-038.png",
+      "receipt_bytes": 126409
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-039.png",
+      "receipt_bytes": 126365
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-040.png",
+      "receipt_bytes": 126410
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-041.png",
+      "receipt_bytes": 126557
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-042.png",
+      "receipt_bytes": 126417
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-043.png",
+      "receipt_bytes": 126374
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-044.png",
+      "receipt_bytes": 126422
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-045.png",
+      "receipt_bytes": 126570
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-046.png",
+      "receipt_bytes": 126423
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-047.png",
+      "receipt_bytes": 126354
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-048.png",
+      "receipt_bytes": 126419
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-049.png",
+      "receipt_bytes": 126584
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-050.png",
+      "receipt_bytes": 126405
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-051.png",
+      "receipt_bytes": 126378
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-052.png",
+      "receipt_bytes": 126404
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-053.png",
+      "receipt_bytes": 126539
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-054.png",
+      "receipt_bytes": 126402
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-055.png",
+      "receipt_bytes": 126383
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-056.png",
+      "receipt_bytes": 126406
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-057.png",
+      "receipt_bytes": 126569
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-058.png",
+      "receipt_bytes": 126434
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-059.png",
+      "receipt_bytes": 126403
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-060.png",
+      "receipt_bytes": 126429
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-061.png",
+      "receipt_bytes": 126571
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-062.png",
+      "receipt_bytes": 126442
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-063.png",
+      "receipt_bytes": 126393
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-064.png",
+      "receipt_bytes": 126435
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-065.png",
+      "receipt_bytes": 126593
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-066.png",
+      "receipt_bytes": 126441
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-067.png",
+      "receipt_bytes": 126407
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-068.png",
+      "receipt_bytes": 126444
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-069.png",
+      "receipt_bytes": 126566
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-070.png",
+      "receipt_bytes": 126444
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-071.png",
+      "receipt_bytes": 126405
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-072.png",
+      "receipt_bytes": 126441
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-073.png",
+      "receipt_bytes": 126598
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-074.png",
+      "receipt_bytes": 126441
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-075.png",
+      "receipt_bytes": 126396
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-076.png",
+      "receipt_bytes": 126449
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-077.png",
+      "receipt_bytes": 126568
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-078.png",
+      "receipt_bytes": 126448
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-079.png",
+      "receipt_bytes": 126407
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-080.png",
+      "receipt_bytes": 126440
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-081.png",
+      "receipt_bytes": 126595
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-082.png",
+      "receipt_bytes": 126440
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-083.png",
+      "receipt_bytes": 126405
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-084.png",
+      "receipt_bytes": 126447
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-085.png",
+      "receipt_bytes": 126572
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-086.png",
+      "receipt_bytes": 126447
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-087.png",
+      "receipt_bytes": 126396
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-088.png",
+      "receipt_bytes": 126437
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-089.png",
+      "receipt_bytes": 126591
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-090.png",
+      "receipt_bytes": 126449
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-091.png",
+      "receipt_bytes": 126409
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-092.png",
+      "receipt_bytes": 122695
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-093.png",
+      "receipt_bytes": 122747
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-094.png",
+      "receipt_bytes": 122798
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-095.png",
+      "receipt_bytes": 122783
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-096.png",
+      "receipt_bytes": 122936
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-097.png",
+      "receipt_bytes": 122937
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-098.png",
+      "receipt_bytes": 122938
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-099.png",
+      "receipt_bytes": 122938
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-100.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-101.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-102.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-103.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-104.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-105.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-106.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-107.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-108.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-109.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-110.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-111.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-112.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-113.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-114.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-115.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-116.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-117.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-118.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-119.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "motion/entry-reduced-main/frame-120.png",
+      "receipt_bytes": 122939
+    },
+    {
+      "relative_path": "observations/obs-original.log",
+      "receipt_bytes": 20525
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part001",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part002",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part003",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part004",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part005",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part006",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part007",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part008",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part009",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part010",
+      "receipt_bytes": 41943040
+    },
+    {
+      "relative_path": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part011",
+      "receipt_bytes": 2608029
+    }
+  ],
+  "path_records": [
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/.gitattributes",
+      "git_blob": "625449502ba4b4d7c229c6ccee42e3ec41cc780c",
+      "bytes": 9,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs.zip",
+      "git_blob": "6a46dfb7a778b0f79e334c64eb5ae1dc77c9e303",
+      "bytes": 8323,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/LATEST.txt",
+      "git_blob": "dceb2ffe8c3f76e1880c5f37bccee2b2e3eab6f3",
+      "bytes": 37,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/m7-c5-last-pass.json",
+      "git_blob": "a9ccec35288e195c6a91996628a344cf014913dd",
+      "bytes": 1845,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/m7-c5-last-terminal-result.json",
+      "git_blob": "142e67663b33251f6a9c2be54c0440bc47fe23b5",
+      "bytes": 438,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/m7-c5-latest-result.json",
+      "git_blob": "142e67663b33251f6a9c2be54c0440bc47fe23b5",
+      "bytes": 438,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-100820.775Z-17624/events.jsonl",
+      "git_blob": "a82af3f892b02e62dce2f882a3fb65cd828f1cca",
+      "bytes": 53826,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-100820.775Z-17624/m7-c5-result.json",
+      "git_blob": "4d1b8177553e5893dc50debc776fd674610b05f7",
+      "bytes": 519,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-100820.775Z-17624/session.json",
+      "git_blob": "50546d55c0a42b86dcb246baf02ffb68757fa134",
+      "bytes": 489,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-101955.104Z-135708/events.jsonl",
+      "git_blob": "f8e579a638785c76f327d6b64f0a16b25033a2f8",
+      "bytes": 14405,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-101955.104Z-135708/m7-c5-result.json",
+      "git_blob": "142e67663b33251f6a9c2be54c0440bc47fe23b5",
+      "bytes": 438,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs/session-20261004-101955.104Z-135708/session.json",
+      "git_blob": "ea6c97b689e294984446587a19fe0dde43caa604",
+      "bytes": 490,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/README.md",
+      "git_blob": "07ea044d279d8878d12fe795ad996f94da96f65e",
+      "bytes": 5000,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/actions.jsonl",
+      "git_blob": "77438cdc39eb1afb693a006aff580ad6d07c3a82",
+      "bytes": 26251,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/artifact-download-provenance.json",
+      "git_blob": "0374ad25423af253c5645b43f890dd262b14ccc4",
+      "bytes": 1191,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/manifest.json",
+      "git_blob": "660603991e771434554387e5466a73b7cf724e04",
+      "bytes": 194576,
+      "receipt_size_relation": "SELF_MANIFEST",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-normal/provenance.json",
+      "git_blob": "650ae7e6926fc3bf12bb37f6fc09e7f920362a1a",
+      "bytes": 859,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-normal/sheet-1.jpg",
+      "git_blob": "4e640a44c419827739a5fdaf6df43d54f6c44a1c",
+      "bytes": 490731,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-normal/sheet-2.jpg",
+      "git_blob": "8df305993fbcb535f57acfd09647130767036562",
+      "bytes": 731447,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-normal/sheet-3.jpg",
+      "git_blob": "a45e203c03c4d4a9757af7ea1add0a2eaec84793",
+      "bytes": 667418,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-normal/sheet-4.jpg",
+      "git_blob": "83e0412dbc1bd58d3bdacac90271a6c4ccb5ea6c",
+      "bytes": 580767,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-reduced/provenance.json",
+      "git_blob": "80d905400def9da59aa830064ddcf2eb94633ea3",
+      "bytes": 845,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-reduced/sheet-1.jpg",
+      "git_blob": "ada1ef18400aa18f486e5734a067865a8dbde43d",
+      "bytes": 548615,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-reduced/sheet-2.jpg",
+      "git_blob": "a8d2eaff45f2d77a44ea7482b6eefa03205a9c11",
+      "bytes": 780103,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-reduced/sheet-3.jpg",
+      "git_blob": "0b12002b576202c68b3fc796a5f69d20886c125d",
+      "bytes": 765938,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse100-reduced/sheet-4.jpg",
+      "git_blob": "c7b57beec45b104f1b02ed61a17b4eb540fc7a8f",
+      "bytes": 765606,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse125-normal/provenance.json",
+      "git_blob": "f3f0e7b51a9641c84671e21d6f9954d2c5ce1181",
+      "bytes": 853,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse125-normal/sheet-1.jpg",
+      "git_blob": "24963ca3604fb8dd04dfa7f606f38d7a8b4c0371",
+      "bytes": 721310,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse125-normal/sheet-2.jpg",
+      "git_blob": "c0093e15a973b5ce5d2f0a79d8c353ae1d699645",
+      "bytes": 1772095,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse125-normal/sheet-3.jpg",
+      "git_blob": "6342a2baee1968830fdb02ce659954c9abe02083",
+      "bytes": 1660717,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/collapse125-normal/sheet-4.jpg",
+      "git_blob": "a67d170e5e90079ca2a814bc51c6e5b566c81445",
+      "bytes": 1714306,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-focus/provenance.json",
+      "git_blob": "03b0426d1fffb976c36106f6f34015a01dcb73fd",
+      "bytes": 812,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-focus/sheet-1.jpg",
+      "git_blob": "8b59664989b5e7cdaba614c33a1bfd6896fe5526",
+      "bytes": 2043055,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-focus/sheet-2.jpg",
+      "git_blob": "572c747a28afc7179b95e2d0b8e247791f76ce71",
+      "bytes": 1759901,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-focus/sheet-3.jpg",
+      "git_blob": "19ca7aa212f0985b18140cef99eb4ae7d4480e51",
+      "bytes": 1518945,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-focus/sheet-4.jpg",
+      "git_blob": "3df415e7e78bf84caba21c54b9fc0131d4dd665b",
+      "bytes": 1518742,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-main/provenance.json",
+      "git_blob": "c1f57de49d9e46f01d34cdaa1eba8e1607ad434e",
+      "bytes": 815,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-main/sheet-1.jpg",
+      "git_blob": "01d448e18cc0ad2cf634c1d63a3ab41dff8ce3a2",
+      "bytes": 804519,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-main/sheet-2.jpg",
+      "git_blob": "d696897171c532e4462f0cd5bca586b15a7445af",
+      "bytes": 756130,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-main/sheet-3.jpg",
+      "git_blob": "d0428c95663af7e8367a6978ccd0cca943dc7537",
+      "bytes": 847748,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-normal-main/sheet-4.jpg",
+      "git_blob": "4c0dc7f64d9f721750e4f562f011b3bc10409937",
+      "bytes": 847775,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-focus/provenance.json",
+      "git_blob": "f2f939a474ac26c7de3931dbf88871a949e87d8b",
+      "bytes": 804,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-focus/sheet-1.jpg",
+      "git_blob": "5870842f3f8dc907611dfd1d2ff99a605e2ec537",
+      "bytes": 1808053,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-focus/sheet-2.jpg",
+      "git_blob": "6a8d2316659111f9ee6c31d5b2cb553f9b67811b",
+      "bytes": 1457525,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-focus/sheet-3.jpg",
+      "git_blob": "1586761c25cf9b53c73fb7cfb388023665a120c0",
+      "bytes": 1457142,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-focus/sheet-4.jpg",
+      "git_blob": "bb31ea2eee00fc89824d6085acadf2c0420bbe51",
+      "bytes": 1451144,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-main/provenance.json",
+      "git_blob": "44129ea01f3d797ed72ac85b50d6a36bc6287fd9",
+      "bytes": 833,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-main/sheet-1.jpg",
+      "git_blob": "c26ecd4cf257aa585cf097c1c863665f2e1be027",
+      "bytes": 834256,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-main/sheet-2.jpg",
+      "git_blob": "e8af4af724072b37b7512201ce7b58243eb650ec",
+      "bytes": 834799,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-main/sheet-3.jpg",
+      "git_blob": "8a2ea527a69dac24905b25eb412886797399e0ec",
+      "bytes": 834939,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/entry-reduced-main/sheet-4.jpg",
+      "git_blob": "28d83b8986379a3a5ba6eaffc96683b96660ef9a",
+      "bytes": 837683,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/motion/index.json",
+      "git_blob": "aa84675a65a53dd3e3d829db3ff9f0e74125fb61",
+      "bytes": 6225,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-finished-desktop.png",
+      "git_blob": "e6ec0107cd241a00c9b80b70576e85bba31a904f",
+      "bytes": 3761082,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-overflow-crop.png",
+      "git_blob": "ae2ce1dfc6964ad59cd586a84466dc6df5e854c2",
+      "bytes": 74561,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-overflow.png",
+      "git_blob": "3fe46c0ee2c008f28e5fc21f3d8a586240aa5afb",
+      "bytes": 3744987,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-quit-menu-crop.png",
+      "git_blob": "7d5c9c8dbc5d34e99947d7e9bc9d82e7ecacdb86",
+      "bytes": 67580,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-quit-menu.png",
+      "git_blob": "51db5a4191263d451a76d44be3646bde0b9926c3",
+      "bytes": 3732059,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-tray-crop.png",
+      "git_blob": "6d512f348a68f592f0b8eb843698e9196e0858f0",
+      "bytes": 80464,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/baseline-tray.png",
+      "git_blob": "17d0dc04038e270d8aa35e9795f167e1a8f50926",
+      "bytes": 3745733,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/before-artifact-swap.png",
+      "git_blob": "f5a2b07e99594f715e0b3252261c64fbe9059e7f",
+      "bytes": 3491824,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/before-quit-find-timer.json",
+      "git_blob": "601bda3db8ed0c98f7fbdf3daf6f4c5ece084afe",
+      "bytes": 18632,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/c5-qualifying-drag.json",
+      "git_blob": "c756df1a228bac45af2a7ce663e0efa0a8179ceb",
+      "bytes": 19971,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/c5-reappeared.json",
+      "git_blob": "b798c793cb54ed34c154197cad7829df0b1f3366",
+      "bytes": 15683,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/cold936-main.json",
+      "git_blob": "9881d8a54f589988ea0414dce2b9f330673d759d",
+      "bytes": 8133,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/compact-restored-paused.json",
+      "git_blob": "649cedcc4aca9f68b53f2357c9103fb33bb9d264",
+      "bytes": 18636,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/compact-success-navigation-crop.png",
+      "git_blob": "6dfcc24a0526f4f79666495cef33ee416bb4e0af",
+      "bytes": 38221,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/compact-success-navigation.png",
+      "git_blob": "343a0188e12d59da0b4ec6e7d59f479147b5fde8",
+      "bytes": 3233370,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/compact100-after-real-drag.json",
+      "git_blob": "191235fc21f895ec55794ea3f84c486e32682e64",
+      "bytes": 18645,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/compact125-current.json",
+      "git_blob": "7e94b6a12b6d524232afbd5642d6cb64c4805665",
+      "bytes": 18645,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/diagnostic-main-active.json",
+      "git_blob": "24f6a1ac05a41b8ee530db0a5246a941a90cc71f",
+      "bytes": 33137,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/diagnostic-main-open.json",
+      "git_blob": "5011cc48df32ab3eb970b6541c27c105cf0261d7",
+      "bytes": 21000,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/diagnostic-performance-main.json",
+      "git_blob": "ff2bb35b7c62b8a8c4ab15b8c7dae22c2e24faff",
+      "bytes": 21001,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/diagnostic-stale-monitor-preferences.json",
+      "git_blob": "d91d0affbee16b886be817f87b40b550be6b5c20",
+      "bytes": 57524,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/diagnostic-valid-secondary-preference.json",
+      "git_blob": "ec1c0f3f88c611dfe67a38e1b764614af1d31d8f",
+      "bytes": 57475,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/display-device-modes-now.json",
+      "git_blob": "7fc5b4d8a2500725f70b84608546ab3235a9e048",
+      "bytes": 15304,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-b-break.json",
+      "git_blob": "3c6560d2f459aaae0f6b7e47ed9638d4094f2e95",
+      "bytes": 33804,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-companion-compact-before-finish.json",
+      "git_blob": "f7b6e1ec466b2a701010f714fac26ccdcb1ebbd3",
+      "bytes": 18565,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-companion-created.json",
+      "git_blob": "89234bfd098ed42244382139fa37507f8845e0c1",
+      "bytes": 36455,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-f-compact-success.json",
+      "git_blob": "01f082eb0b9608acf798a8778099841a8ffa7058",
+      "bytes": 18641,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-f-search.json",
+      "git_blob": "d12d97d733bcbfd2c7dabda33a7482ee6395c55a",
+      "bytes": 48975,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-n-notes.json",
+      "git_blob": "b3f3f9d702aae70e9cf11be180725ee54da8f82c",
+      "bytes": 38128,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-p-pause.json",
+      "git_blob": "6fc5848750ecf2a7f9d4b20bf9fde889c3cf72db",
+      "bytes": 31355,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-p-resume-created-companion.json",
+      "git_blob": "f3a09c61817338033a0f17969db577a1826c73ff",
+      "bytes": 33843,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-s-after-done.json",
+      "git_blob": "7370e5077534f21e330f3157fdbfb8dd65c592ac",
+      "bytes": 30548,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/english-t-create.json",
+      "git_blob": "be16703589b0f3a0ae2657fb9f5058f50dcbfa32",
+      "bytes": 33613,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/expanded100-reduced.json",
+      "git_blob": "ac89d8903ae38251be3d1fb43dae84e0985cea97",
+      "bytes": 20211,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/expanded125-normal.json",
+      "git_blob": "23833b164828cada98a4c025e1179462d6a4994e",
+      "bytes": 20228,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/focus-own-task-hover.json",
+      "git_blob": "d54e49a8dd27ad29245eae0f068575a0a7717d92",
+      "bytes": 32029,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-b-break.json",
+      "git_blob": "e7192127a4c17e337af872a4312c3dba1d168278",
+      "bytes": 35490,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-f-completed.json",
+      "git_blob": "d338ed8213fefab8424d860ba0939a6ba70dbcb2",
+      "bytes": 18665,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-f-search.json",
+      "git_blob": "eb8e9dec436d189d4813ca839cce032510cbbafe",
+      "bytes": 48975,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-n-persisted-notes.json",
+      "git_blob": "a84f4a118551b2b2e4184112ef5cc38a9d3b2bcb",
+      "bytes": 34447,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-p-break-return.json",
+      "git_blob": "f64b4df945a7e4e51d9a781d9f650868fd66dbcd",
+      "bytes": 35535,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-p-resume.json",
+      "git_blob": "f74906eecad07e600ed040eb10fec5fb02cc92e0",
+      "bytes": 30147,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-s-first.json",
+      "git_blob": "540d7756e31c7cd7cc16ce3d694da52b164aa74c",
+      "bytes": 31523,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-s-second.json",
+      "git_blob": "694a5608d35fcb54b980a4ab5020e92a76aebb4e",
+      "bytes": 31521,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/greek-t-create.json",
+      "git_blob": "934c98e8e25632363dd5b3d5601786aa09f0403e",
+      "bytes": 36705,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/large-notes100-reduced-current.json",
+      "git_blob": "d5e1a9d94115cacef0e15d8953e1982b19b08188",
+      "bytes": 24816,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/launch-windows.json",
+      "git_blob": "553a42e472ce89fda55d0e7adb95aa0485183674",
+      "bytes": 15592,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/ledger-preferences-after-relaunch.json",
+      "git_blob": "0a00338d9ac2563ed4c780de62fbc5b369997993",
+      "bytes": 5167,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/ledger-preferences-before.json",
+      "git_blob": "b2cb07fba17a724403519d56346f1d5e8e7cbc06",
+      "bytes": 5147,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/ledger-preferences-saved.json",
+      "git_blob": "d9d58d1c10489b0e63515edde4607bde9a5ba47d",
+      "bytes": 5145,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/live-after-metadata-save.json",
+      "git_blob": "3e1fce9bc3ea4cbded5e63d485c5ddc2ae013491",
+      "bytes": 31328,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-b-matrix-start.json",
+      "git_blob": "c50f53f46fc44df0880465f790f8720403824c65",
+      "bytes": 33475,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-b-matrix-valid-baseline.json",
+      "git_blob": "4987d4f0ba09f38b2b93235d568b1b5edb33917b",
+      "bytes": 66041,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-b-matrix.json",
+      "git_blob": "1a4559e9fdc2d44cf4eac5c61de471c28b0be8c0",
+      "bytes": 33475,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-b-post-reconnect.json",
+      "git_blob": "a8e9b145597a5c756b1223ca25b1b9c988fc17f6",
+      "bytes": 66037,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-compact-before-destroy.json",
+      "git_blob": "1545bf43e0220c74e745faca217171f69e77861c",
+      "bytes": 17970,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/m1-main-absent-secondary-before-remove.json",
+      "git_blob": "54f975886b13f5fb038095a80d2e88e7bf26f5fe",
+      "bytes": 17620,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/main-absent-topology-before.json",
+      "git_blob": "9c207f05d40c8268d53553c6c9f0855d620dadb8",
+      "bytes": 6102,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/main-absent-topology-one.json",
+      "git_blob": "dc79ac2269316d9e6c96fb4c362e1878a747e699",
+      "bytes": 16906,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/main-absent-topology-two.json",
+      "git_blob": "7fc5b4d8a2500725f70b84608546ab3235a9e048",
+      "bytes": 15304,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-diag-quit-crop.png",
+      "git_blob": "0f5e3596e5f9b9016a1cf4c3884c74610cc40417",
+      "bytes": 62878,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-diag-quit.png",
+      "git_blob": "b471cd62743164f3b98c2d9100e78272cb56fedb",
+      "bytes": 3741963,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-crop.png",
+      "git_blob": "331e61bbbc4dd02bb448b93b27029b0f2036c2c5",
+      "bytes": 72363,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-expanded-crop.png",
+      "git_blob": "b224c8590206035a3d505c126e69e80293c09e45",
+      "bytes": 67310,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-expanded.png",
+      "git_blob": "d85f66b11c57d4861ecb883ee9261ba029fcd867",
+      "bytes": 3748088,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-narro-crop.png",
+      "git_blob": "7808e7f03d7f69d0f7a33c8e1d03711a904170e1",
+      "bytes": 67609,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-narro.png",
+      "git_blob": "4d3f2b25cf75e6c67354f4ce0345c3aee54d987c",
+      "bytes": 3748582,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-tooltip-crop.png",
+      "git_blob": "81b29103112f7e8af0b4436ac3740bca3467a85d",
+      "bytes": 66965,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray-tooltip.png",
+      "git_blob": "d88eeae14e68391810f7262943c43e7eceaa6815",
+      "bytes": 3747113,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/navigation-tray.png",
+      "git_blob": "2772b0211fcc29084c88247a0f4af267fec21ad2",
+      "bytes": 3743305,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/new-owned-task-form.json",
+      "git_blob": "9e95d6057d2236fae81fe37c04aaf8210d57827f",
+      "bytes": 48651,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/new-owned-task-typed.json",
+      "git_blob": "62c028ef06acf8346af595aa9aabc6f262d7f341",
+      "bytes": 48650,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/new-task-dialog.json",
+      "git_blob": "7b57bbe33529b1bf5cb76fe5cda096c6652251ec",
+      "bytes": 42070,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/new-title-navigation-crop.png",
+      "git_blob": "de3351ea487dbcd0d55a29322eb3404d44b431ef",
+      "bytes": 121830,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/new-title-navigation.png",
+      "git_blob": "23aa3875121b474b8c21039a5df96413d187e458",
+      "bytes": 3395487,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/notes-bold.json",
+      "git_blob": "556d01d3f4a96fa2165bb6b6223762f5ad76a5ee",
+      "bytes": 34571,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/notes-focus-before-type.json",
+      "git_blob": "2fee8c4dd391895295b0053dca381dd07996f1b9",
+      "bytes": 33953,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/notes-new-toolbar.json",
+      "git_blob": "c440b731ea129e576723840c6359bc986e3bd016",
+      "bytes": 33953,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/notes-toolbar-saved-running.json",
+      "git_blob": "63df29b486f4240d8218d443c766f720e67f1ddc",
+      "bytes": 35782,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/obs-before-stop.json",
+      "git_blob": "8ef6ee582cc7ccd45412b3e061bca55d594731c5",
+      "bytes": 29405,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/obs-stop-check.json",
+      "git_blob": "6fa26e2611e7dce55713ddc260f32821ce5eb85f",
+      "bytes": 30394,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/own-task-live.json",
+      "git_blob": "0fa41c11010329ddec2479df6047ee859c1beaec",
+      "bytes": 31950,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/panel-after-relaunch.json",
+      "git_blob": "f6075454fd0cb1c8a912798c2e97f26279c41cc8",
+      "bytes": 31780,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/panel-queue-current.json",
+      "git_blob": "097e229feb04585c685a22cc3973dad57279cea0",
+      "bytes": 35108,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/perf-diag-quit-menu-crop.png",
+      "git_blob": "c2e2bc5084f30a55e96e5b35206206b3b9e51fba",
+      "bytes": 63869,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/perf-diag-quit-menu.png",
+      "git_blob": "5898429012a8011735a45dad2e898973f036861a",
+      "bytes": 3742728,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/perf-diag-tray-crop.png",
+      "git_blob": "3a82d94d6375003f31c3339b08e3b71a5b75d5a9",
+      "bytes": 66930,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/perf-diag-tray.png",
+      "git_blob": "ca289accfe1464062b32695e9dbbe098a8c300dd",
+      "bytes": 3748297,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/performance-ready-windows.json",
+      "git_blob": "1df92e552dada798fe315170c5c996436ed606c2",
+      "bytes": 15969,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/planning-before-entry.json",
+      "git_blob": "80b0fba58bd9deb860185bdcc9c110bed14e37f8",
+      "bytes": 42070,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/planning-list-test.json",
+      "git_blob": "d088b5dc392fc7355f2ebc3c6003ef5c89882bdd",
+      "bytes": 42020,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/preferences-saved-dark-success.json",
+      "git_blob": "fc047adea1c5055962e0858061d9fc56a333fe95",
+      "bytes": 44692,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-after-final-quit-ledger.json",
+      "git_blob": "27e7aaf53906371d08be3e0ad90a7d0165a85062",
+      "bytes": 8402,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-compact-running.json",
+      "git_blob": "6f6239653e355032c5e7c1a3402b559a27d8634c",
+      "bytes": 18645,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-final-ledger.json",
+      "git_blob": "e507def011c6aeb6aff99acdf84bbb0df9f216d7",
+      "bytes": 8402,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-focus-entry.json",
+      "git_blob": "3f3f79d95de9dc59c1ab04e3ebb373a42be7488e",
+      "bytes": 30891,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-launch.json",
+      "git_blob": "2e6f55a0e178bb17a160b9e3e7bd4dfdc240dec9",
+      "bytes": 15677,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-main-start.json",
+      "git_blob": "4590d265524d5ceca27bb00e8170356ccab1cb5e",
+      "bytes": 24126,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-preferences-before.json",
+      "git_blob": "72b1951092ff13abd5c06fc0382a151f776bad2d",
+      "bytes": 44656,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-preferences-crop.png",
+      "git_blob": "2520403fe5f64c32efcf149cbb24d5e1910eeb3d",
+      "bytes": 103703,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/production-preferences-navigation.png",
+      "git_blob": "2da0d6c2a2860265e07b5e2962abbcc34e0d3060",
+      "bytes": 3368719,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/queue-navigation-crop.png",
+      "git_blob": "d961dbd5b7b54bd07f2ba5dc97c027a5bae2253d",
+      "bytes": 45282,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/queue-navigation.png",
+      "git_blob": "c2a2a62d6c07a1522a4bbb72b849485b42ada7cf",
+      "bytes": 3261946,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/reduced-board-before-entry.json",
+      "git_blob": "cfdaadf8d34dcf6c979d14135d94764b67557fcf",
+      "bytes": 47636,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/reduced-entry-result.json",
+      "git_blob": "8d9de3b30f746a543aa4d57c36635525b5079144",
+      "bytes": 32470,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/relaunch-windows.json",
+      "git_blob": "749c84452f7a0404a60c429984bd42f57ecc0ec7",
+      "bytes": 14892,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/success-panel-current.json",
+      "git_blob": "8b8370077bc0549f002f29069002675c3d680795",
+      "bytes": 18625,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/title-focus-running.json",
+      "git_blob": "9fcad5fc5709bfe1518f58bfb8609285674aa083",
+      "bytes": 35782,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/topology-main-absent-one.json",
+      "git_blob": "91ac16e88af30188dc5936e65d97fac4d9853901",
+      "bytes": 17579,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/topology-main-absent-reconnected.json",
+      "git_blob": "e603fd89c946527390c16d66ad22b8ab6b2fd69b",
+      "bytes": 17579,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/topology-main-present-one.json",
+      "git_blob": "ce53a03c7b8f1e5c537da27f20b539d7e1c493dd",
+      "bytes": 20349,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/topology-main-present-reconnected.json",
+      "git_blob": "1a7ee385fb342be043713b71b1e5cc8502a65a0d",
+      "bytes": 20345,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-final-narro-tooltip-crop.png",
+      "git_blob": "763995232345a34d9ae4f0151d48e56e43f3c019",
+      "bytes": 76696,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-final-narro-tooltip.png",
+      "git_blob": "7c924b05f3590bbaca650d7fefc23e71f951a820",
+      "bytes": 3248439,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-final-quit-menu-crop.png",
+      "git_blob": "4d74fdb8bc5b4ccb3d966424e0e541288b0e045c",
+      "bytes": 67279,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-final-quit-menu.png",
+      "git_blob": "56daa0249b55b2fd8422809dbe14c25ad558af5b",
+      "bytes": 3231022,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-focus-crop.png",
+      "git_blob": "6c648074c45303e331171fec7856b5b567662115",
+      "bytes": 20260,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-focus.png",
+      "git_blob": "3aa5405d236b0152753d6340d18c630fc1df9ccb",
+      "bytes": 3476677,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-narro-hover-crop.png",
+      "git_blob": "9da3149ddd5ff9880d549878be17936526dc3b49",
+      "bytes": 41702,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-narro-hover.png",
+      "git_blob": "4328667f25dff2624b9da24b9709efb561b60de7",
+      "bytes": 3481188,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-open-crop.png",
+      "git_blob": "5ffbfaeaa83430e2e5db7541395583bd2ebdbae2",
+      "bytes": 28776,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-open.png",
+      "git_blob": "066f22bb9883fd02c80d2e1159bc7e7298b7b7bf",
+      "bytes": 3481380,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-production-before-quit-crop.png",
+      "git_blob": "1fb609aba5971e8b472c527838894db78b77c9e1",
+      "bytes": 76686,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-production-before-quit.png",
+      "git_blob": "33e30950b44d88340fe979dc7a5e523febd0fc7d",
+      "bytes": 3374211,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-production-quit-menu-crop.png",
+      "git_blob": "32f7d6b25e0adf8a0e928d7dd055365d0c610e5f",
+      "bytes": 67271,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-production-quit-menu.png",
+      "git_blob": "5a2cdc30c9db9ec005f4bd6a7828f4ba17c26092",
+      "bytes": 3357794,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-quit-menu-crop.png",
+      "git_blob": "49216c50b581dbffbd67776926ce53285035c605",
+      "bytes": 58672,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/observations/tray-quit-menu.png",
+      "git_blob": "ecf8a661283ff52795ccd8e94e1e956128e6c446",
+      "bytes": 3475620,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance-cold-baseline-ci936/cpu-intervals.csv",
+      "git_blob": "057ececfe7de48925ea34277644347d9a2c4c146",
+      "bytes": 2624,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance-cold-baseline-ci936/samples.csv",
+      "git_blob": "5d913c298583b5e43ec7abb5171ff589ad646297",
+      "bytes": 63442,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance-cold-baseline-ci936/scenario-preflight.json",
+      "git_blob": "4cfd0a4928982b095b749e1538e72d353998a9ab",
+      "bytes": 1351,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance-cold-baseline-ci936/summary.json",
+      "git_blob": "f98f5dc8753083b0606ea27a00347755b1123912",
+      "bytes": 2354,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance-helper-provenance.json",
+      "git_blob": "576a25cf37d96d426a3f60d15a59d2a24b3bdd99",
+      "bytes": 341,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/batch-summary.json",
+      "git_blob": "dfdf27c87230a719f09355d598eedcef8d70d24b",
+      "bytes": 11185,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-01/cpu-intervals.csv",
+      "git_blob": "85becabc43d26dd34b4ce62ad4d6f09d7efa6ae7",
+      "bytes": 2640,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-01/samples.csv",
+      "git_blob": "4031ae35d187dcec73536cd8ce2462abc2ccd798",
+      "bytes": 63470,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-01/scenario-preflight.json",
+      "git_blob": "1f4de0609540a9da7e9b689395e042f21e5445e6",
+      "bytes": 1350,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-01/summary.json",
+      "git_blob": "e7ff143b6c99458a20601535da942be08b1e2e81",
+      "bytes": 2353,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-02/cpu-intervals.csv",
+      "git_blob": "97d1eca87b0aa085989c3987a7eadb15dfc25cee",
+      "bytes": 2632,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-02/samples.csv",
+      "git_blob": "0f3ea1bea2cb13181af709de20e5881211b74818",
+      "bytes": 63396,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-02/scenario-preflight.json",
+      "git_blob": "c6988100f84fd12e5ac6521bb0c7068cd008f4f4",
+      "bytes": 1350,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-02/summary.json",
+      "git_blob": "f464f619f97a6fcf6bde267b5219f70451e9130a",
+      "bytes": 2350,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-03/cpu-intervals.csv",
+      "git_blob": "6a6fd700a0ae1c74c0a31d277114b2bc2b14beb3",
+      "bytes": 2724,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-03/samples.csv",
+      "git_blob": "a834e4d94a22a3948e4f16a8b29855deee0dd9e2",
+      "bytes": 63367,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-03/scenario-preflight.json",
+      "git_blob": "18dca6f40d8ee2aaf7d045315bf2be7552745b3d",
+      "bytes": 1350,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/performance/run-03/summary.json",
+      "git_blob": "71866abb7a5547c85c19e758eb8612a287729672",
+      "bytes": 2353,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/provenance.json",
+      "git_blob": "132f97319bece3ef62f13d16af266f1c14c21c25",
+      "bytes": 391,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reassemble-video.py",
+      "git_blob": "f3a001cc330d1427e3c224597027ec9c9f72f22f",
+      "bytes": 1793,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/extract-ci942-review.py",
+      "git_blob": "49ce3ea0acabf6b72abec3040f63f55793dacec8",
+      "bytes": 1730,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/observe-ci936-windows.ps1",
+      "git_blob": "1902f3c26ee4afe9a3350659290159652736af60",
+      "bytes": 3221,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/observed-drag-ci942.ps1",
+      "git_blob": "20c716937cc0cd16ce4b76648ac0b7c34548fff9",
+      "bytes": 2224,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/observed-focused-layout-ci942.ps1",
+      "git_blob": "070030d534affb4a949b1b66a7fb06a0a613bfb8",
+      "bytes": 1902,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/observed-physical-key-ci942-final.ps1",
+      "git_blob": "a5717345ad5a68bb9209b20e208a2d316addf256",
+      "bytes": 1873,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/package-ci942.py",
+      "git_blob": "29eefcfa21ba1827860fbd2311a2d3d5b0d88025",
+      "bytes": 6700,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/prepare-ci942-media.py",
+      "git_blob": "e4f8ed4780f0ff24302033d97219d37028b26a5c",
+      "bytes": 4176,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/read-ci936-display-devices.ps1",
+      "git_blob": "d5c952be5af3d7e2bb12c1ec7189715b77e425eb",
+      "bytes": 2116,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/snapshot-ci942-ledger.py",
+      "git_blob": "f7b8ed698d2d7b453beb38135d9c3a11c8f6e96a",
+      "bytes": 1751,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/reproduction/verify-m1-floating-performance-scenario-c2821e6.ps1",
+      "git_blob": "eff55d82417511569f7e34e5a39e202ca19e7529",
+      "bytes": 12875,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-clips/c5-dual-display-drag-quit-relaunch.mp4",
+      "git_blob": "bb1c737aef5b1dae660a714a32e21fb04d8cf1b4",
+      "bytes": 34216573,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-clips/compact-finish-full-panel-success.mp4",
+      "git_blob": "1b4e063f666cdc70b44b8b87b7132d825d76afb3",
+      "bytes": 9548516,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-clips/modal-shortcuts-background-action-failure.mp4",
+      "git_blob": "7c0a810b6bf0415b171d56bed7c7420ab8bf6de3",
+      "bytes": 656428,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-clips/notes-toolbar-and-live-edit.mp4",
+      "git_blob": "62b43501dcdb3abf5f4332142ed82fda57a1a598",
+      "bytes": 938386,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-clips/provenance.json",
+      "git_blob": "b97ab8bb3277434c591161641ab8495349d4669c",
+      "bytes": 1646,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/c5-reappeared.png",
+      "git_blob": "9fb68bcaf92360290580c79e89730698512db9d4",
+      "bytes": 15204,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/canonical-ve010-35s.png",
+      "git_blob": "b545cea4a483e1a3945e030f967ffe0a39303441",
+      "bytes": 701260,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/english-f-compact-success.png",
+      "git_blob": "5be8ed11c5685f20d2fcd6e280c074c391a87bc6",
+      "bytes": 48333,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/english-n-notes.png",
+      "git_blob": "e889bd2e3c36983966a846c9d7103b0093ee1042",
+      "bytes": 63106,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/index.json",
+      "git_blob": "4754aac383cae5682426b9bc6ce8a5082564ff48",
+      "bytes": 2170,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/large-notes100-reduced-current.png",
+      "git_blob": "b5150593c89a1e92276ea103612593cfbbc283de",
+      "bytes": 43447,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/notes-new-toolbar.png",
+      "git_blob": "8efe5c35e9e745e7cfdaadd7cef0a0ac86b34030",
+      "bytes": 74964,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/review-stills/notes-toolbar-saved-running.png",
+      "git_blob": "33ac8e246c52df60cef0f9fb656e882893f8cea6",
+      "bytes": 85502,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/video-provenance.json",
+      "git_blob": "120f01d93db45aa2e0d209daa07f90277bbd0839",
+      "bytes": 3324,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/visual-review-results.json",
+      "git_blob": "b8ee431dd244498dc2edf1a48605e2878ee50fb7",
+      "bytes": 10097,
+      "receipt_size_relation": "EXACT",
+      "disposition": "HOLD_SOURCE_RECOVERY_AND_NATIVE_CONSUMER_REVIEW",
+      "deletion_approved": false
+    }
+  ],
+  "policy": "Protect currently available native evidence while original film is not present and modal shortcut retest remains OPEN. No new deletion approval, no ZIP extraction, no physical testing or media rehash. Historical absent exports are not counted as new deletions.",
+  "next": "Continue conservative consumer/source classification for remaining unreviewed families; do not reissue safety-blocked 27-family deletion."
+}
