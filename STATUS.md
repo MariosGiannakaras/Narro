@@ -1,11 +1,13 @@
 # STATUS — cleanup/workflow audit, 2026-11-07
 
-The current slice removes independent cleanup-tool residue and reconciles process documentation. It does **not** complete the refused historical evidence deletion or change application behavior. Branch/PR/checkpoint and exact continuation are owned by [HANDOFF](HANDOFF.md); validation and static-audit limits are in the [immutable receipt](work-log/2026-11-07-codex-cleanup-workflow-audit.md).
+The completed independent slice removed cleanup-tool residue and reconciles process documentation. It does **not** complete the refused historical evidence deletion or change application behavior. Branch/PR/checkpoint and exact continuation are owned by [HANDOFF](HANDOFF.md); validation and static-audit limits are in the [immutable receipt](work-log/2026-11-07-codex-cleanup-workflow-audit.md).
 
 - Current retired Narro evidence: **27 folders / 4,065 tracked files / 2,340,643,868 logical bytes**. Removal is still **BLOCKED**, not complete. No retry, split or alternate-tool bypass of the recorded safety denial.
 - Protected source: `reference/original-blitzit/` — **46 screenshots, 19 MP4, 19 SRT, 2 explicitly derived VE005 frames**. All **86** manifest Git blob IDs and sizes match the verified base tree; zero mismatches. Never delete or prune originals wherever found.
 - Frozen historical 700 video/ZIP cohort: **562 retired / 138 remain**. Historical Narro-evidence checkout retirements: **32,536**. Cleanup milestone **OPEN 1/5**; do not count removal of helper scripts as evidence-file retirements or reclaimed Git-history storage.
 - Historical recordings are retired from new comparison use. New Narro captures compare only with authentic Blitzit sources; all new recording groups remain **NOT RUN**. Historical verdicts remain dated facts.
+
+**Independent slice integrated:** [PR492](https://github.com/MariosGiannakaras/Narro/pull/492), head `d6d31d61ca9ec3b81adf87ec24987cfa37bbb16a`, [CI42312821108](https://github.com/MariosGiannakaras/Narro/actions/runs/42312821108) **validation/fast/Windows 3/3 SUCCESS**, expected-head guarded squash merge `f2509bda16bacf00c63854168e11b404bbbd1f41`. The merge tree equals the exact green PR tree `6cf1ca1e7c9b247a648e7c3b59ae4f159a3f8483`. Subsequent documentation-only corrections do not change app source, workflows, protected media, the refused tracker or the 27-folder tree. Separate resulting-main run status is recorded in the final verification receipt, not inferred from PR success.
 
 ## Product acceptance remains unchanged
 

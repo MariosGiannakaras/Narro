@@ -8,7 +8,7 @@
 - Historical recordings are retired from new comparison use. New Narro captures compare only with authentic Blitzit sources; all new recording groups remain **NOT RUN**. Historical verdicts remain dated facts.
 
 - [ ] Resolve the recorded tool-safety refusal before removing the 27-family cohort; preserve the temporary tracker until real full closure.
-- [ ] Finish the independently scoped residual/workflow change and its actual CI/resulting-main verification; record the immutable audit receipt.
+- [x] Independent residual/workflow PR492 integrated after exact-head 3/3 CI SUCCESS and resulting-main tree identity verification; [final receipt](work-log/2026-11-07-codex-cleanup-integration-verification.md). The separate 27-family operation remains BLOCKED.
 - [ ] Fresh Windows capture groups remain NOT RUN under the [new baseline](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md); do not run them as part of cleanup.
 - [ ] Preserve PR389/419 strict independent physical-before-merge holds and PR431/436/437 dependent acceptance. Recheck current heads rather than resuming old CI-running text.
 
