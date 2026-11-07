@@ -1,24 +1,8 @@
-# HANDOFF — local physical-input cleanup and capture retention
-
-## NOW — Codex / 2026-11-07 / CLEANING
-
-Latest user instruction: verify that superseded/unneeded new Narro recordings are deleted, and clean local Narro files so only physical-test inputs remain. Local cleanup is explicitly authorized. Original Blitzit, exact current physical candidates, necessary capture tools and unpublished source work must be preserved. No Narro/installer/recording/AppData/OS action is started.
-
-Read-only inventory found21 Narro checkouts/worktrees across the workspace, NarroUpload and four Codex worktree folders, approximately67.2 GiB logical files including local Git storage. Most bulk is stale Narro evidence/build output. Current source branches and formal acceptance remain unchanged. Receipts are outside Git under the existing 2026-11-06 visualization task directory, named `narro-local-cleanup-*-20261107.json`.
-
-## NEXT ACTION
-
-Finish the protected-source/unpublished-work allowlist, execute the verified local cleanup, independently rehash retained physical software and Blitzit sources, then publish observed results and return the prepared physical next action. Do not infer a live recorder from historical CAPTURING text. Do not start physical testing during cleanup or delete original Blitzit by filename-only classification.
-
----
-
-## HISTORICAL — prepared physical/source-audit handoff before local cleanup
-
-# HANDOFF — M0–M9 audit complete; fresh physical admission next
+# HANDOFF — local cleanup complete; fresh physical admission next
 
 ## NOW — Codex / 2026-11-07 / PREPARED
 
-Latest user task: another whole-repository check, especially implementation method and what remains through M9. Source/requirements/integration audit COMPLETE; no local Narro executable/installer, recording, AppData reset or OS/hardware change. Formal milestone/source/native holds are preserved.
+Latest user task: verify new-capture retirement and clean local Narro files down to the necessary physical-test inputs, preserving all Blitzit and unpublished source work. COMPLETE. No local Narro executable/installer, recording, AppData reset, OS/security/permission change or source-PR merge. Formal milestone/source/native holds remain.
 
 The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
@@ -28,6 +12,16 @@ The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_
 - PR437 includes current431 and436 heads (57/42 ahead,0 behind). Reuse the integrated candidate for overlapping cases rather than rerun the same claims on three binaries. PR418 remains a design/source-contract branch, not a default runtime candidate.
 - Workflow helper [PR494](https://github.com/MariosGiannakaras/Narro/pull/494) integrated: head `759c3015449a7b7c3733d2d0d30159a52b96737b`, [CI42347227803](https://github.com/MariosGiannakaras/Narro/actions/runs/42347227803) validation/fast/Windows **3/3 SUCCESS**, guarded squash merge `68191719e34c180d5c8c8ae0b707ed43b81f1432`. Resulting-main tree equals the exact green PR tree; its separate [run42348766003](https://github.com/MariosGiannakaras/Narro/actions/runs/42348766003) passed validation and safely skipped duplicate fast/Windows jobs. This is artifact reuse, not another 3/3 run. Tooling CI artifacts must not replace the admitted application branches.
 
+## Cleaned local working set and capture retirement
+
+[Verified local-cleanup receipt](work-log/2026-11-07-codex-local-physical-input-cleanup.md). All21 obsolete checkout roots removed;172,780 files /70,485,541,268 logical bytes (65.645 GiB) retired from active paths using Recycle Bin and nonrecursive empty-container cleanup. Recycle Bin not emptied; no free-space claim. The last Git-directory error was resolved by verified child/file cleanup without changing permissions. No old path/blocker remains.
+
+- Start locally at `E:\SystemFiles\Desktop\Narro Project\PhysicalChecks\START_HERE.md`; it is a runtime-test kit, not a development checkout. Current remote main HANDOFF/live application PR head still wins over offline snapshots. Do not recreate an old checkout or build an unchanged application merely for admission.
+- Exact canonical86 original reference assets are under `PhysicalChecks\reference\original-blitzit\`, with manifest verification. All960 existing source/reference files were separately preserved byte-identically under indexed ProtectedReferences on their original volumes; primary files found inside old evidence folders were rescued before removal. Branding is retained.
+- Existing `PhysicalCandidates\20261107\VERIFIED_CANDIDATES.json` and all3 ZIPs/9 software members reverified, unchanged. Capture tools are `Tools\windows10_capture.py` and `Tools\ffmpeg\ffmpeg-9.0.2-essentials_build\bin\`; helper parser/exact source, Pillow import and tool version commands PASS. Actual capture/input health is NOT RUN until admission.
+- Keep fresh packets under stable `PhysicalEvidence\<source>\<session>\`, outside Git/disposable checkouts. At every completed capture/review/retest boundary, verify replacement identity/readability/claim coverage, record compact provenance and retire superseded/unneeded Narro originals/frames/ZIPs/traces/temp outputs in the same work cycle. Retain unique bytes only for a named active consumer and retirement condition. A newer incomplete/unrelated recording is not replacement proof. Protect Blitzit/live captures/current software/unpublished work; no fresh blanket cleanup consent or CI for ignored local retirement.
+- Source-only recovery, separate from physical binaries: `PreservedLocalWork\20261107\source-only-recovery.zip`,25,089,000 bytes,82 source snapshots/3,203 unique source objects and working changes verified. It intentionally excludes retired Narro raw media and is not a full Git-history backup; do not build/test it as a candidate.
+
 ## Completed implementation/closure audit
 
 [Dated source/closure map](docs/M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md): all59 open M5–M9 rows mapped (6/13/18/11/11); no numbered M0 and no new milestone counter. Most behavior exists; important431/436/437 fixes, including PP44-F01, are still outside main. [Immutable receipt](work-log/2026-11-07-codex-m0-m9-implementation-closure-audit.md).
@@ -36,7 +30,7 @@ Actual combined main+437 local preflight:116 test commands and production build 
 
 ## NEXT AGENT ACTION
 
-Admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+From the cleaned PhysicalChecks kit, admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
 
 ## USER ACTION REQUIRED
 
@@ -62,4 +56,4 @@ Historical cleanup remains DONE5/5 through PR493: zero tracked `work-log/evidenc
 
 [Workflow/readiness audit](work-log/2026-11-07-codex-workflow-physical-handoff-audit.md) records findings; [final integration proof](work-log/2026-11-07-codex-physical-readiness-integration.md) records actual CI, integration, protected identities and limits. This readiness task changes no application feature or milestone checkbox. Strict source/native holds and M10/M11/M12 boundaries are preserved.
 
-Local closure verified 2026-11-07 07:23 UTC: task-owned `narro-m0-m9-closure-audit-20261107` checkout was recycled after publication and preservation checks. Both audit checkouts are now removed; useful preflight/merge receipts remain outside Git. Verified software cache is intentionally retained, unrelated local worktrees and original Blitzit untouched. Workspace README links to this audit and live main HANDOFF. Repository audit/preparation is complete; actual physical admission, acceptance and held source integration remain the next task.
+Final local closure verified 2026-11-07 08:11 UTC: all21 old checkout paths absent; protected sources, exact canonical86, current software, tools and source-only recovery independently checked. Workspace README points to PhysicalChecks and live remote main. Local cleanup/retention work is complete. All fresh physical acquisition/analysis and independent native/source-PR holds remain the next task, not a claimed PASS.
