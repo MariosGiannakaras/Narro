@@ -8,6 +8,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+if ($Launch) {
+    throw "Direct launch is retired. Use scripts/physical-session.mjs start with the exact physical artifact manifest and FFmpeg; it records and collects automatically."
+}
+
 $exe = (Resolve-Path $Executable).Path
 $repoRoot = (Resolve-Path ".").Path
 $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
@@ -21,9 +25,6 @@ if ($existing.Count -gt 0) {
 }
 
 $hash = (Get-FileHash -Algorithm SHA256 -Path $exe).Hash.ToLowerInvariant()
-if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
-    throw "Launching a physical candidate requires -ExpectedSha256 from its exact verified CI artifact."
-}
 if (-not [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
     $expected = $ExpectedSha256.Trim().ToLowerInvariant()
     if ($expected -notmatch '^[0-9a-f]{64}$') {
@@ -87,7 +88,7 @@ This helper records environment and optional launch identity; it is NOT the full
 Copy source SHA, CI run/attempt, artifact ID/ZIP digest and EXE path/hash into this session's admission record.
 Recheck that the selected live PR head matches its verified manifest before launching.
 Use -ExpectedSha256 from the admitted artifact, never filename/version or merely the latest main build.
-App launch is opt-in (-Launch); generating this checklist is not physical PASS.
+This helper prepares only. Launch with scripts/physical-session.mjs start for automatic recording/log collection; no preparation is physical PASS.
 
 The ordinary Windows account and normal Narro data paths are disposable Narro test data.
 Reset only Narro data with Narro stopped if a case needs clean state; retain it for restart/persistence cases.
@@ -129,23 +130,3 @@ $checklist | Set-Content -Encoding UTF8 (Join-Path $sessionDir "checklist.md")
 Write-Host "Prepared M7 final physical evidence session:"
 Write-Host "  $sessionDir"
 Write-Host "Executable SHA-256: $hash"
-
-if ($Launch) {
-    $process = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru
-    Start-Sleep -Seconds 2
-    $running = @(Get-Process -Name "narro" -ErrorAction SilentlyContinue)
-    if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id) {
-        throw "Narro launch identity mismatch: started PID $($process.Id), observed $($running.Count) Narro process(es). Do not score native acceptance."
-    }
-    $actual = (Get-Process -Id $process.Id -ErrorAction Stop).Path
-    if ([string]::IsNullOrWhiteSpace($actual) -or
-        -not [string]::Equals([IO.Path]::GetFullPath($actual), [IO.Path]::GetFullPath($exe), [StringComparison]::OrdinalIgnoreCase)) {
-        throw "Running Narro executable path does not match the verified candidate. Do not score native acceptance."
-    }
-    $runningHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $actual).Hash.ToLowerInvariant()
-    if ($runningHash -ne $hash) {
-        throw "Running Narro executable hash does not match verified candidate. Do not score native acceptance."
-    }
-    Write-Host "Verified running Narro PID $($process.Id) at $actual, SHA-256: $runningHash"
-    Write-Host "Begin recording and follow checklist.md."
-}

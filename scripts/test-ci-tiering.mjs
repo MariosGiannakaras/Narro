@@ -19,12 +19,9 @@ for (const required of [
   'docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md',
   'normal Windows profile',
   'no backup, alternate profile or automatic reset',
-  'if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256)) {',
-  'if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id)',
-  'Get-Process -Id $process.Id -ErrorAction Stop',
-  '[IO.Path]::GetFullPath($actual)',
-  'Get-FileHash -Algorithm SHA256 -LiteralPath $actual',
-  'if ($runningHash -ne $hash)',
+  'if ($Launch) {',
+  'Direct launch is retired',
+  'scripts/physical-session.mjs start',
 ]) invariant(physicalPreparation.includes(required),
   "physical session preparer missing normal-profile or source/PID identity contract: " + required);
 for (const forbidden of [
@@ -35,6 +32,12 @@ for (const forbidden of [
   "Refusing to launch against existing Narro production AppData",
 ]) invariant(!physicalPreparation.includes(forbidden),
   "obsolete forced isolation/backup must not return: " + forbidden);
+
+const automaticSession = fs.readFileSync("scripts/physical-session.mjs", "utf8");
+for (const guard of ["admitCandidate(options.exe, options.manifest)", "if (windowsProcesses().length)",
+  "await processIdentity(child, candidate)", "await digest(candidate.executable) !== candidate.sha256",
+  "NARRO_PHYSICAL_LOGGING_PROBE: \"0\""])
+  invariant(automaticSession.includes(guard), "automatic session missing executable/ownership guard: " + guard);
 
 // GitHub evaluates ordered positive/negative path patterns. Tracking-only
 // Markdown must not launch expensive Windows CI; the docs actually shipped in

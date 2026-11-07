@@ -15,8 +15,8 @@ try {
   let intervalId = 0;
   const original = async (command, args, options) => {
     calls.push({ command, args, options });
-    if (command.endsWith("|batch")) { batches.push(...structuredClone(args.records)); return; }
-    if (command.endsWith("|hello")) return { pid: 12, runId: "r" };
+    if (command.endsWith("_batch")) { batches.push(...structuredClone(args.records)); return; }
+    if (command.endsWith("_hello")) return { pid: 12, runId: "r" };
     if (command === "failure") throw Object.assign(new Error("expected"), { code: "WRITE_FAILED" });
     return args;
   };
@@ -49,7 +49,7 @@ try {
   assert.ok(batches.some(x => x.event === "ipc-result"));
   assert.ok(batches.some(x => x.event === "ipc-error"));
   assert.ok(batches.some(x => x.event === "page-end"));
-  assert.ok(calls.some(x => x.command.endsWith("|drained") && x.args.queued === 0 && x.args.inFlight === 0));
+  assert.ok(calls.some(x => x.command.endsWith("_drained") && x.args.queued === 0 && x.args.inFlight === 0));
   assert.ok(!JSON.stringify(batches).includes("private task")); assertions += 5;
   trace.resume();
   for (let i = 0; i < 1100; i++) trace.record("stress", { i });
@@ -71,6 +71,8 @@ try {
   manifest.files[0].bytes = (await readFile(exe)).length;
   await writeFile(manifestPath, JSON.stringify(manifest));
   const admitted = await admitCandidate(exe, manifestPath);
+  const renamed = join(root, "narro-m7-validation.exe"); await writeFile(renamed, await readFile(exe));
+  await assert.rejects(admitCandidate(renamed, manifestPath), /filename/); assertions++;
   assert.equal(admitted.sourceSha, manifest.sourceSha);
   await writeFile(exe, "changed"); await assert.rejects(admitCandidate(exe, manifestPath), /bytes\/hash/);
   manifest.observationFeatures = []; await writeFile(manifestPath, JSON.stringify(manifest));

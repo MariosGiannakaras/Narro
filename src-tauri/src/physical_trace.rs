@@ -357,61 +357,71 @@ fn accept_batch(window: &str, batch: &[Value]) -> Result<(), String> {
     Ok(())
 }
 
+pub fn handles_call(command: &str) -> bool {
+    command.starts_with("__narro_physical_trace_")
+}
+
+pub fn handle_call(invoke: Invoke<Wry>) -> bool {
+    match invoke
+        .message
+        .command()
+        .strip_prefix("__narro_physical_trace_")
+        .unwrap_or("")
+    {
+        "hello" => {
+            let trace = TRACE.get();
+            invoke
+                .resolver
+                .resolve(json!({"schema":SCHEMA,"runId":trace.map(|t|&t.id),
+                "utc":chrono::Utc::now().to_rfc3339(),"pid":std::process::id(),
+                "windowLabel":invoke.message.webview_ref().label(),"ready":APP_READY.load(Ordering::Acquire),
+                "probeMode":std::env::var("NARRO_PHYSICAL_LOGGING_PROBE").as_deref()==Ok("1")}));
+        }
+        "batch" => {
+            let body = match invoke.message.payload() {
+                tauri::ipc::InvokeBody::Json(body) => body,
+                _ => {
+                    invoke.resolver.reject("trace requires JSON");
+                    return true;
+                }
+            };
+            let result = body
+                .get("records")
+                .and_then(Value::as_array)
+                .ok_or("missing records".into())
+                .and_then(|rows| accept_batch(invoke.message.webview_ref().label(), rows));
+            match result {
+                Ok(()) => invoke.resolver.resolve(()),
+                Err(error) => invoke.resolver.reject(error),
+            }
+        }
+        "drained" => {
+            let label = invoke.message.webview_ref().label().to_owned();
+            if let tauri::ipc::InvokeBody::Json(body) = invoke.message.payload() {
+                record("frontend-drained", json!({"window":label,"receipt":body}));
+            }
+            if let Ok(mut set) = DRAINED.get_or_init(|| Mutex::new(BTreeSet::new())).lock() {
+                set.insert(label);
+            }
+            invoke.resolver.resolve(());
+        }
+        "probe_exit" => {
+            if std::env::var("NARRO_PHYSICAL_LOGGING_PROBE").as_deref() != Ok("1") {
+                invoke.resolver.reject("logging probe is disabled");
+                return true;
+            }
+            let app = invoke.message.webview_ref().app_handle().clone();
+            invoke.resolver.resolve(());
+            crate::normal_shutdown::request_normal_exit(&app);
+        }
+        _ => return false,
+    }
+    true
+}
+
 pub fn plugin() -> TauriPlugin<Wry> {
     tauri::plugin::Builder::new("physical-trace")
         .js_init_script(include_str!("physical_trace.js"))
-        .invoke_handler(|invoke| {
-            match invoke.message.command() {
-                "hello" => {
-                    let trace = TRACE.get();
-                    invoke
-                        .resolver
-                        .resolve(json!({"schema":SCHEMA,"runId":trace.map(|t|&t.id),
-                        "utc":chrono::Utc::now().to_rfc3339(),"pid":std::process::id(),
-                        "windowLabel":invoke.message.webview_ref().label(),"ready":APP_READY.load(Ordering::Acquire),
-                        "probeMode":std::env::var("NARRO_PHYSICAL_LOGGING_PROBE").as_deref()==Ok("1")}));
-                }
-                "batch" => {
-                    let body = match invoke.message.payload() {
-                        tauri::ipc::InvokeBody::Json(body) => body,
-                        _ => {
-                            invoke.resolver.reject("trace requires JSON");
-                            return true;
-                        }
-                    };
-                    let result = body
-                        .get("records")
-                        .and_then(Value::as_array)
-                        .ok_or("missing records".into())
-                        .and_then(|rows| accept_batch(invoke.message.webview_ref().label(), rows));
-                    match result {
-                        Ok(()) => invoke.resolver.resolve(()),
-                        Err(error) => invoke.resolver.reject(error),
-                    }
-                }
-                "drained" => {
-                    let label = invoke.message.webview_ref().label().to_owned();
-                    if let tauri::ipc::InvokeBody::Json(body) = invoke.message.payload() {
-                        record("frontend-drained", json!({"window":label,"receipt":body}));
-                    }
-                    if let Ok(mut set) = DRAINED.get_or_init(|| Mutex::new(BTreeSet::new())).lock()
-                    {
-                        set.insert(label);
-                    }
-                    invoke.resolver.resolve(());
-                }
-                "probe_exit" => {
-                    if std::env::var("NARRO_PHYSICAL_LOGGING_PROBE").as_deref() != Ok("1") {
-                        invoke.resolver.reject("logging probe is disabled"); return true;
-                    }
-                    let app = invoke.message.webview_ref().app_handle().clone();
-                    invoke.resolver.resolve(());
-                    crate::normal_shutdown::request_normal_exit(&app);
-                }
-                _ => return false,
-            }
-            true
-        })
         .on_event(|_, event| match event {
             tauri::RunEvent::Ready => record("native-ready", json!({})),
             tauri::RunEvent::Exit => record("native-exit", json!({})),

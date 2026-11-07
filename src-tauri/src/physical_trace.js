@@ -5,7 +5,7 @@
   const core = window.__TAURI_INTERNALS__;
   if (!core || typeof core.invoke !== "function") return;
   const invoke = core.invoke.bind(core);
-  const prefix = "plugin:physical-trace|";
+  const prefix = "__narro_physical_trace_";
   const page = globalThis.crypto.randomUUID();
   const queue = [];
   let sequence = 0, lost = 0, sending = false, action = null, stopped = false, inFlight = 0;
@@ -143,7 +143,9 @@
     invoke: tracedInvoke, record, drain, resume,
     marker: label => { record("operator-marker", { label }); void flush(); },
     health: () => ({ page, sequence, queued: queue.length, lost }) };
-  record("frontend-start", { timeOrigin: performance.timeOrigin, readyState: document.readyState });
+  record("frontend-start", { timeOrigin: performance.timeOrigin, readyState: document.readyState,
+    devicePixelRatio: window.devicePixelRatio, viewportWidth: window.innerWidth, viewportHeight: window.innerHeight,
+    reducedMotion: window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches });
   function handshake() { return invoke(prefix + "hello").then(async value => {
     record("backend-clock-handshake", value);
     if (value.ready === false) { setTimeout(handshake, 50); return; }

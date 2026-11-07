@@ -41,6 +41,7 @@ async function filesUnder(root, folder = root) {
 
 export async function admitCandidate(executable, manifestFile) {
   const exe = await realpath(executable);
+  if (basename(exe).toLowerCase() !== "narro.exe") throw Error("Preserve the admitted narro.exe filename; validation-name mode requires separate admission.");
   const manifest = await json(manifestFile);
   if (manifest.schema !== "narro-ci-artifact-provenance/v1" || manifest.kind !== "physical"
       || !/^[a-f0-9]{40}$/.test(manifest.sourceSha || "")
@@ -57,12 +58,24 @@ export async function admitCandidate(executable, manifestFile) {
 
 function windowsProcesses() {
   const result = spawnSync("powershell.exe", ["-NoLogo", "-NoProfile", "-Command",
-    "@(Get-CimInstance Win32_Process -Filter \"Name='narro.exe'\" | Select-Object ProcessId,ExecutablePath,CreationDate) | ConvertTo-Json -Compress"],
+    "[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); @(Get-CimInstance Win32_Process -Filter \"Name='narro.exe'\" | Select-Object ProcessId,ExecutablePath,CreationDate) | ConvertTo-Json -Compress"],
   { encoding: "utf8", windowsHide: true, timeout: 15000 });
   if (result.error || result.status !== 0) throw Error("Cannot verify native process identity: " + (result.error?.message || result.stderr));
   const text = result.stdout.trim();
   if (!text) return [];
   const parsed = JSON.parse(text); return Array.isArray(parsed) ? parsed : [parsed];
+}
+function observeEnvironment() {
+  const script = `$ErrorActionPreference='Stop'; [Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $os=Get-CimInstance Win32_OperatingSystem;
+Add-Type -AssemblyName System.Windows.Forms;
+@{ observedUtc=[DateTime]::UtcNow.ToString('o'); windows=@{caption=$os.Caption;version=$os.Version;build=$os.BuildNumber};
+monitors=@([System.Windows.Forms.Screen]::AllScreens | ForEach-Object { @{name=$_.DeviceName;primary=$_.Primary;
+bounds=@{x=$_.Bounds.X;y=$_.Bounds.Y;width=$_.Bounds.Width;height=$_.Bounds.Height};
+workArea=@{x=$_.WorkingArea.X;y=$_.WorkingArea.Y;width=$_.WorkingArea.Width;height=$_.WorkingArea.Height}} }) } | ConvertTo-Json -Depth 8 -Compress`;
+  const result = spawnSync("powershell.exe", ["-NoLogo", "-NoProfile", "-Command", script],
+    { encoding: "utf8", windowsHide: true, timeout: 20000 });
+  if (result.error || result.status !== 0) throw Error("Cannot observe session environment: " + (result.error?.message || result.stderr));
+  return JSON.parse(result.stdout);
 }
 async function processIdentity(child, expected) {
   const running = windowsProcesses();
@@ -102,12 +115,14 @@ export async function supervise(options) {
   if (!options.exe || !options.manifest || !options.ffmpeg || !options.root) throw Error("start requires --exe --manifest --ffmpeg --root");
   const candidate = await admitCandidate(options.exe, options.manifest);
   if (windowsProcesses().length) throw Error("Resolve existing Narro process/session before starting another.");
+  const environment = observeEnvironment();
   const ffmpeg = await realpath(options.ffmpeg);
   const ffprobe = join(dirname(ffmpeg), "ffprobe.exe");
   const id = randomUUID(), root = resolve(options.root, new Date().toISOString().replace(/[:.]/g, "-") + "-" + id.slice(0, 8));
   await mkdir(join(root, "control"), { recursive: true });
   await mkdir(join(root, "logs")); await mkdir(join(root, "media"));
   await save(join(root, "admission.json"), candidate);
+  await save(join(root, "environment.json"), environment);
   const monotonicStart = process.hrtime.bigint();
   const session = { schema, id, state: "STARTING", createdUtc: utc(), supervisorPid: process.pid,
     candidate, ffmpeg: { path: ffmpeg, sha256: await digest(ffmpeg) }, processes: [],
@@ -117,13 +132,18 @@ export async function supervise(options) {
   await save(join(root, "session.json"), session);
   const journal = row => appendFile(join(root, "actions.jsonl"), JSON.stringify({ utc: utc(),
     elapsedUs: ((process.hrtime.bigint() - monotonicStart) / 1000n).toString(), ...row }) + "\n");
-  const diagnostics = createWriteStream(join(root, "recorder.stderr.log"));
+  let recordingExit = null, recordingError = null, firstFrame = null, current = null, finished = false, handling = false;
+  const logStream = file => {
+    const output = createWriteStream(file);
+    output.on("error", error => { recordingError = "Diagnostic stream write failed: " + error.message; });
+    return output;
+  };
+  const diagnostics = logStream(join(root, "recorder.stderr.log"));
   session.recording.recorderStartedUtc = utc();
   const recorder = spawn(ffmpeg, ["-hide_banner", "-y", "-f", "gdigrab", "-framerate", "60", "-draw_mouse", "1",
     "-i", "desktop", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18", "-pix_fmt", "yuv420p",
     "-progress", "pipe:3", join(root, session.recording.file)], { stdio: ["pipe", "ignore", "pipe", "pipe"], windowsHide: true });
   recorder.stderr.pipe(diagnostics);
-  let recordingExit = null, recordingError = null, firstFrame = null, current = null, finished = false, handling = false;
   const recorderClosed = new Promise(done => {
     recorder.on("error", e => { recordingError = e.message; done(); });
     recorder.on("close", code => { recordingExit = code; done(); });
@@ -138,11 +158,12 @@ export async function supervise(options) {
     const segment = { startedUtc: utc(), pid: null, exitCode: null, identity: null };
     const child = spawn(candidate.executable, [], { cwd: dirname(candidate.executable), windowsHide: false,
       env: { ...process.env, NARRO_PHYSICAL_SESSION_DIR: join(root, "logs"),
+        NARRO_PHYSICAL_LOGGING_PROBE: "0",
         NARRO_TIMER_DIAGNOSTICS_DIR: join(root, "legacy-timer-logs"), NARRO_NATIVE_MOVE_TRACE_DIR: join(root, "legacy-move-logs") },
       stdio: ["ignore", "pipe", "pipe"] });
     current = child; segment.pid = child.pid; session.processes.push(segment);
-    child.stdout.pipe(createWriteStream(join(root, `process-${child.pid}.stdout.log`)));
-    child.stderr.pipe(createWriteStream(join(root, `process-${child.pid}.stderr.log`)));
+    child.stdout.pipe(logStream(join(root, `process-${child.pid}.stdout.log`)));
+    child.stderr.pipe(logStream(join(root, `process-${child.pid}.stderr.log`)));
     child.on("error", error => { segment.error = error.message; });
     child.on("close", code => { segment.exitCode = code; segment.exitedUtc = utc(); });
     await journal({ event: "process-created", pid: child.pid, executable: candidate.executable });

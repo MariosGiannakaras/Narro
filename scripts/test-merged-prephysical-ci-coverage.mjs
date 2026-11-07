@@ -22,6 +22,7 @@ const requiredDirect = [
   "test:ui-focus-entry",                  // A08
   "test:focus-live-mutation-gates",       // A09
   "test:ui-list-settings",                // A10
+  "test:physical-session",                // automatic full-stack/video packet admission and integrity
 ];
 for (const name of requiredDirect) {
   assert.equal(typeof scripts[name], "string", `Missing CI test script ${name}`);
@@ -93,12 +94,14 @@ assert(!checklist.includes("covers ONLY the remaining C5")
   && !checklist.includes("until the user expressly authorizes"),
   "Do not regress to obsolete C5-only or PA user-pause scope");
 assert(physicalScript.includes("Get-FileHash -Algorithm SHA256")
-  && physicalScript.includes('if ($Launch -and [string]::IsNullOrWhiteSpace($ExpectedSha256))')
-  && physicalScript.includes('if ($running.Count -ne 1 -or $running[0].Id -ne $process.Id)')
-  && physicalScript.includes('Get-Process -Id $process.Id -ErrorAction Stop')
-  && physicalScript.includes('if ($runningHash -ne $hash)')
+  && physicalScript.includes('Direct launch is retired')
+  && physicalScript.includes('scripts/physical-session.mjs start')
   && physicalScript.includes('if ($Launch)'),
-  "Retain exact-source hash, launched PID/path/hash and explicit launch acceptance guards");
+  "Preparation must retain hash verification and prevent unsupervised/unlogged launches");
+const automaticSession = fs.readFileSync("scripts/physical-session.mjs", "utf8");
+for (const guard of ["admitCandidate(options.exe, options.manifest)", "await processIdentity(child, candidate)",
+  "running.length !== 1", "actual.ExecutablePath", "await digest(actual.ExecutablePath) !== expected.sha256"])
+  assert(automaticSession.includes(guard), "Automatic launch owner must enforce source/PID/path/hash admission: " + guard);
 assert(checklist.includes("normal Windows profile")
   && checklist.includes("no backup, alternate profile or automatic reset")
   && !physicalScript.includes("BackupProductionData")

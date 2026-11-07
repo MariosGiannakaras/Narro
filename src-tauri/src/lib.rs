@@ -2872,7 +2872,11 @@ pub fn run() {
                 present_focus_panel,
                 present_focus_for_blitz
             ];
-            move |invoke| {
+            move |invoke: tauri::ipc::Invoke<tauri::Wry>| {
+                #[cfg(feature = "physical-observability")]
+                if physical_trace::handles_call(invoke.message.command()) {
+                    return physical_trace::handle_call(invoke);
+                }
                 #[cfg(feature = "physical-observability")]
                 let _context = physical_trace::begin_invoke(&invoke);
                 handler(invoke)
